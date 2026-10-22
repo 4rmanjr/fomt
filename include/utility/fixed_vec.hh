@@ -54,6 +54,23 @@ struct FixedVec
     T push_back(T value);
     T push_front(T value);
 
+#if defined(HOST_TEST) && HOST_TEST != 0
+    // Host-test only: real resize (the ROM build inlines a NAKED-ARM version
+    // inside Rucksack::Upgrade and must not see this). Excluded from GBA build.
+    void resize(size_type new_size, T const & value)
+    {
+        if (new_size < m_size)
+        {
+            m_size = new_size;
+            return;
+        }
+        if (new_size > Capacity)
+            new_size = Capacity;
+        std::uninitialized_fill_n(end(), new_size - m_size, value);
+        m_size = new_size;
+    }
+#endif
+
 private:
     u32 m_size;
     u32 m_data[(sizeof(T) * Capacity + sizeof(u32) - 1) / sizeof(u32)];

@@ -55,22 +55,26 @@ Status: `[ ]` belum, `[/]` berjalan, `[x]` selesai. Update tanggal + commit tiap
 
 ### Fase 1 — Model data (C++, tanpa ubah UI dulu)
 
-- [ ] 1.1 `include/rucksack_item.hh`: tambah `u8 amount` (+ `MAX_AMOUNT=99`),
+- [x] 1.1 `include/rucksack_item.hh`: tambah `u8 amount` (+ `MAX_AMOUNT=99`),
       method `GetAmount/AddAmount/SubtractAmount/IsSameStackable`.
-      Perhatikan `PACKED`/padding agar `sizeof` eksplisit (static_assert).
-- [ ] 1.2 `src/rucksack_item.cc`: ctor `Food/Article` default `amount=1`, `amount==0` = empty;
-      `IsEmpty` cek `amount==0 || id==NONE`; `GetFood/GetArticle` return `NONE` jika empty.
-- [ ] 1.3 `include/rucksack.hh` + `src/rucksack.cc`:
-  - `AddAmountOfFood/Article` tiru `Fridge::AddAmountOf`: top-up id-sama dulu, baru slot kosong,
-    `min(amount, 99-GetAmount())`, return sisa.
-  - `GetAmountOfFood/Articles` jadi **sum amount** (bukan count slot).
-  - tambah `GetAvailableSpaceForFood/Article` (tiru `Fridge::GetAvailableSpaceFor`).
-  - tambah `TakeOneAt(idx)->RucksackItem` (amount>1: decrement+return copy amount=1;
-    amount==1: `ExtractItemAt`), `PeekOneAt`, `GetAmountAt`.
-  - `GetFirstSlotWith*` tetap (dipakai UI tukar), `GetEmptyItemSlotCount` tetap.
-- [ ] 1.4 `src/held_item.cc`: pastikan `func_0800F294/func_0800F418` konversi **1 pcs**
-      (abaikan/discard amount sumber, selalu amount=1 di tujuan).
-- [ ] 1.5 Build: `make compare` akan **mismatch** mulai sini (wajar) — catat di progres.
+      Offset check compile-time: `Inner=+1`, `amount=+4`, target size=5 byte.
+- [x] 1.2 `src/rucksack_item.cc`: ctor `Food/Article` default `amount=1`, explicit
+      `amount=0` = empty; `IsEmpty` cek `amount==0 || id==NONE`; `GetFood/GetArticle`
+      return `NONE` jika empty. `Article` initializes unused bonuses to 0.
+- [x] 1.3 `include/rucksack.hh` + `src/rucksack.cc`:
+  - `AddAmountOfFood/Article(id, amount)` top-up default-key dulu, baru slot kosong,
+    capped 99, return sisa; overload `AddAmountOfFood(Food,amount)`,
+    `AddAmountOfArticle(Article,amount)`, `AddAmountOf(RucksackItem,amount)` preserve full D1 key.
+  - `GetAmountOfFood/Articles` sum item counts per id; `GetAvailableSpaceForFood/Article`
+    plus full-key `GetAvailableSpaceFor(RucksackItem)`.
+  - `TakeOneAt`, `PeekOneAt`, `GetAmountAt`; Take/Peek preserve bonus+wrapped metadata.
+  - `GetFirstSlotWith*` and `GetEmptyItemSlotCount` unchanged.
+- [x] 1.4 `src/held_item.cc`: `func_0800F294` explicitly returns amount=1; `HeldItem`
+      has no amount field, so conversion back via `func_0800F418` is one piece by construction.
+- [/] 1.5 Verification: host TDD `19/19` passed; target ARM layout probe passed
+      (`sizeof=5`, `inner=+1`, `amount=+4`). `make compare` BLOCKED: `tools/agbcc/bin/agbcp`
+      missing; official install script failed at `configure: C compiler cannot create executables`.
+      Do not claim ROM build/compare passed; retry when agbcp toolchain is available.
 
 ### Fase 2 — Inflow stacking (panen + tambang + beli/dapat)
 
@@ -175,4 +179,7 @@ Semua give lewat tangan 1 pcs.
 - 2026-10-22: verifikasi source selesai (C++ cocok, koreksi: situs tambang 5 bukan 8,
   func display di `code_809E804.s`, baris audit ±5, string `x%d` belum ketemu).
   Keputusan dikunci: D1 full-key, D2=99, D3 tangan-1-pcs, D4 A=all, D5 migrasi save.
-- ...: (tulis berikutnya di sini, format `YYYY-MM-DD: ...`)
+- 2026-10-22: Fase 1 model data diimplementasikan; host gtest 19/19 lulus dan target
+  ARM probe menegaskan `RucksackItem` 5 byte, `Inner +1`, `amount +4`. `make compare`
+  belum jalan: `agbcp` hilang setelah install script gagal. Belum mengubah UI/ASM/inflow
+  caller/save; lanjut ke Fase 2 dan integrasi UI/save sesuai urutan plan.

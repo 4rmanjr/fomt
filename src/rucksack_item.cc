@@ -1,34 +1,59 @@
 #include "rucksack_item.hh"
 
+#include <algorithm>
+#include <cstddef>
+
 RucksackItem::RucksackItem()
 {
-    kind = KIND_FOOD;
-    wrapped = false;
-
+    flags = KIND_FOOD;
     inner.item_id = FOOD_NONE;
+    inner.stamina_bonus = 0;
+    inner.fatigue_bonus = 0;
+    amount = 0;
 }
 
 RucksackItem::RucksackItem(Food food)
 {
-    kind = KIND_FOOD;
-    wrapped = false;
-
+    flags = KIND_FOOD;
     inner.item_id = food.GetId();
     inner.stamina_bonus = food.GetStaminaBonus();
     inner.fatigue_bonus = food.GetFatigueBonus();
+    amount = 1;
+}
+
+RucksackItem::RucksackItem(Food food, u32 a_amount)
+{
+    flags = KIND_FOOD;
+    inner.item_id = food.GetId();
+    inner.stamina_bonus = food.GetStaminaBonus();
+    inner.fatigue_bonus = food.GetFatigueBonus();
+    amount = std::min<u32>(MAX_AMOUNT, a_amount);
 }
 
 RucksackItem::RucksackItem(Article article)
 {
-    kind = KIND_ARTICLE;
-    wrapped = false;
-
+    flags = KIND_ARTICLE;
     inner.item_id = article.GetId();
+    inner.stamina_bonus = 0;
+    inner.fatigue_bonus = 0;
+    amount = 1;
+}
+
+RucksackItem::RucksackItem(Article article, u32 a_amount)
+{
+    flags = KIND_ARTICLE;
+    inner.item_id = article.GetId();
+    inner.stamina_bonus = 0;
+    inner.fatigue_bonus = 0;
+    amount = std::min<u32>(MAX_AMOUNT, a_amount);
 }
 
 bool RucksackItem::IsEmpty() const
 {
-    switch (kind)
+    if (amount == 0)
+        return true;
+
+    switch (GetKind())
     {
         default:
             return true;
@@ -41,14 +66,78 @@ bool RucksackItem::IsEmpty() const
     }
 }
 
+u32 RucksackItem::GetAmount() const
+{
+    if (amount == 0)
+        return 0;
+
+    switch (GetKind())
+    {
+        default:
+            return 0;
+
+        case KIND_FOOD:
+            return (inner.item_id < FOOD_NONE) ? amount : 0;
+
+        case KIND_ARTICLE:
+            return (inner.item_id < ARTICLE_NONE) ? amount : 0;
+    }
+}
+
+void RucksackItem::AddAmount(u32 a_amount)
+{
+    if (amount != 0)
+    {
+        u32 available = MAX_AMOUNT - amount;
+        amount += std::min<u32>(available, a_amount);
+    }
+}
+
+void RucksackItem::SubtractAmount(u32 a_amount)
+{
+    if (amount != 0)
+    {
+        if (amount <= a_amount)
+            amount = 0;
+        else
+            amount -= a_amount;
+    }
+}
+
+bool RucksackItem::IsSameStackable(RucksackItem const & other) const
+{
+    if (IsEmpty() || other.IsEmpty())
+        return false;
+
+    if (GetKind() != other.GetKind())
+        return false;
+
+    if (IsWrapped() != other.IsWrapped())
+        return false;
+
+    if (inner.item_id != other.inner.item_id)
+        return false;
+
+    if (GetKind() == KIND_FOOD)
+    {
+        if (inner.stamina_bonus != other.inner.stamina_bonus)
+            return false;
+
+        if (inner.fatigue_bonus != other.inner.fatigue_bonus)
+            return false;
+    }
+
+    return true;
+}
+
 RucksackItem::Kind RucksackItem::GetKind() const
 {
-    return kind;
+    return static_cast<Kind>(flags & 1);
 }
 
 Food RucksackItem::GetFood() const
 {
-    if (kind == KIND_FOOD)
+    if (GetKind() == KIND_FOOD && !IsEmpty())
     {
         Food result(inner.item_id);
         result.AddBonuses(inner.stamina_bonus, inner.fatigue_bonus);
@@ -62,7 +151,7 @@ Food RucksackItem::GetFood() const
 
 Article RucksackItem::GetArticle() const
 {
-    if (kind == KIND_ARTICLE)
+    if (GetKind() == KIND_ARTICLE && !IsEmpty())
     {
         return Article(inner.item_id);
     }
@@ -74,14 +163,14 @@ Article RucksackItem::GetArticle() const
 
 bool RucksackItem::IsWrapped() const
 {
-    return wrapped;
+    return (flags & 2) != 0;
 }
 
 bool RucksackItem::TryWrap()
 {
     bool can_be_wrapped = false;
 
-    switch (kind)
+    switch (GetKind())
     {
         case KIND_FOOD:
             can_be_wrapped = true;
@@ -92,6 +181,6 @@ bool RucksackItem::TryWrap()
             break;
     }
 
-    wrapped = can_be_wrapped;
+    flags = can_be_wrapped ? (flags | 2) : (flags & ~2);
     return can_be_wrapped;
 }

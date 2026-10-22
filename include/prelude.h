@@ -19,7 +19,11 @@ EXTERN_C
 
 #include "types.h" // IWYU pragma: export
 
+// nullptr keyword exists in C++11+; the macro below is only for the old
+// GBA compiler. Host tests compile with -DMODERN=1 and use the keyword.
+#if !defined(MODERN) || MODERN == 0
 #define nullptr 0
+#endif
 
 #define asm_unified(x) asm(".syntax unified\n" x "\n.syntax divided")
 
