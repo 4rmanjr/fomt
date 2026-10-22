@@ -37,15 +37,18 @@ Status: `[ ]` belum, `[/]` berjalan, `[x]` selesai. Update tanggal + commit tiap
 
 ## 1. Keputusan desain (kunci sebelum coding)
 
-- [ ] D1: kunci stacking = `(kind, item_id)` **wajib**; putuskan bonus/wrapped:
-      rekomendasi `id + stamina_bonus + fatigue_bonus + wrapped` harus sama baru stack
-      (hindari bug bonus tercampur seperti kulkas). Kalau mau 1:1 kulkas, pakai id saja.
-- [ ] D2: `MAX_STACK` ransel = `99` (ikuti `FoodStack/ArticleStack/ToolStack`) agar konsisten
-      dengan kulkas/rak. Alternatif `9` (hemat display) — tapi tambah divergensi.
-- [ ] D3: tangan (`HeldItem`) **tetap 1 pcs**. Semua jalur give/makan/ship ambil dari tangan.
-- [ ] D4: kontrol UI: `A` = pindah/ambil **1 pcs**, `B`/`tahan A` atau menu = pindah **semua stack**?
-      (detail di Fase 5; default implementasi: A=1, sisanya whole-slot seperti lama di belakang flag).
-- [ ] D5: strategi save: bump save-version + migrasi `amount=1` untuk save lama
+- [x] D1 (2026-10-22): kunci stacking = `kind + item_id + stamina_bonus + fatigue_bonus + wrapped`
+      harus sama baru stack (hindari bug bonus tercampur seperti kulkas yang id-only).
+- [x] D2 (2026-10-22): `MAX_STACK` ransel = `99` (ikuti `FoodStack/ArticleStack/ToolStack`).
+      Analisa akar: `u8 amount` muat 0-255, preseden `ToolStack` 99 sudah hidup di ransel
+      (+ UI `GetAmount__C9ToolStack` ~95 situs), biaya struct 4->5 byte sama untuk 9 maupun 99,
+      tidak ada caller yang menyuntik >99 sekaligus. Opsi 9 ditolak (divergen tanpa alasan teknis).
+- [x] D3 (2026-10-22): tangan (`HeldItem`) **tetap 1 pcs**. Semua jalur give/makan/ship ambil dari tangan.
+- [x] D4 (2026-10-22): kontrol UI = **A=all** (pindah seluruh slot sekaligus, perilaku lama).
+      Stacking berpengaruh saat inflow (panen masuk merge), bukan saat tukar/ambil.
+      Implikasi: Fase 3 (TakeOneAt untuk give-1) tetap jalan — give lewat tangan 1 pcs;
+      Fase 4.2 disederhanakan: tukar tas<->kulkas/rak = whole-slot (merge jika sama-id, swap/tolak jika beda).
+- [x] D5 (2026-10-22): strategi save: bump save-version + migrasi `amount=1` untuk save lama
       (karena `RucksackItem` 4 -> 5 byte). Tanpa ini save lama corrupt.
 
 ## 2. Fase implementasi
@@ -74,9 +77,10 @@ Status: `[ ]` belum, `[/]` berjalan, `[x]` selesai. Update tanggal + commit tiap
 - [ ] 2.1 Panen: `FieldPlot::method_0800A4A4` tetap return 1 pcs; pastikan semua caller
       (`AddAmountOfFood/Article` di `asm/code_0803EE94.s:0x0804199A,0x080419B4,0x08043D06+,0x08088xxx`)
       memakai versi stacking baru (tidak perlu ubah ASM jika signature sama: `(id, amount)`).
-- [ ] 2.2 Tambang/kayu/batu: cari semua `AddAmountOfArticle__8RucksackUiUi` lain
-      (`:39827,96969,114177,127421,128190,131092,131238,137109`) — pastikan `amount` dilewatkan
-      benar (bukan 1-slot-1-pcs). Daftar di tabel bawah saat dikerjakan.
+- [ ] 2.2 Tambang/kayu/batu: situs `AddAmountOfArticle__8RucksackUiUi` terverifikasi (2026-10-22):
+      `3937` (ambil item umum), `8248` (`.L08043D06` ambil item), `39827`, `128190`, `131092`,
+      `131238`, `137109`. KOREKSI: `96969`/`114177` = `GetFirstSlotWithArticle` (cek, bukan Add);
+      `127421` tidak ditemukan sebagai call Add. Pastikan `amount` dilewatkan benar.
 - [ ] 2.3 Fridge/shelf -> tas (refill): `func_08088xxx` — ganti `memcpy` whole-slot jadi
       `AddAmountOf*` agar merge ke stack id-sama yang sudah ada.
 - [ ] 2.4 Test: panen 10 lobak dengan tas 2 slot -> harus jadi 1 slot `x10`, bukan 10 slot.
@@ -92,20 +96,39 @@ Semua give lewat tangan 1 pcs.
   - UI ambil dari tas `ExtractItemAt__8RucksackUi` (`:143949,144042`) -> ganti `TakeOneAt`
     untuk give/makan; `Extract` (whole) hanya untuk pindah slot internal / buang.
 - [ ] 3.2 Audit jalur konsumsi: `GetItemAt__8RucksackUi` + `GetFood/GetArticle` di
-  (`:143467,143800,144538,144751,145049,145113, ...`) — tandai mana yang give (ubah ke TakeOne)
-  vs display/cek (biarkan).
+  (`:143467,143800,144538,144751,145049,145113, ...` — nomor ±5 baris, fungsi benar) —
+  dengan D4=A-all: give/makan/ship lewat tangan 1 pcs (TakeOneAt), tukar tas<->kulkas/rak
+  tetap whole-slot.
 - [ ] 3.3 Hewan ternak/peliharaan, shipping bin (`src/shipping_bin.cc`), masak/oven,
       gift-wrap (`TryWrap`/`IsWrapped`): pastikan konsumsi `SubtractAmount(1)` bukan clear slot.
 - [ ] 3.4 Test: slot `Telur x10`, give ke NPC -> slot jadi `x9`, NPC terima 1.
 
 ### Fase 4 — UI/ASM (tampilan + tukar)
 
-- [ ] 4.1 Display jumlah: menu tas (`func_080CBA60/080CB63C/080CB304/080CC728` di sekitar
-      `func_08088xxx`) gambar ikon + teks `xN` jika `amount>1`. String `x%d` sudah ada untuk
-      fridge (`GetAmount__C9FoodStack` path `:144666+`) — reuse.
-- [ ] 4.2 Tukar tas<->kulkas/rak (`func_08088688`, `func_08088BA0`): implementasi tombol
-      D4 (1 vs all). Minimal: `A` = `TakeOne`/`AddAmount(1)`, pindah antar slot sama-id = merge
+- [ ] 4.1 Display jumlah: menu tas (`func_080CBA60/080CB63C/080CB304/080CC728` di
+      `asm/code_809E804.s:92320/91768/91329/94013`, diref dari `code_0803EE94.s`) gambar ikon +
+      angka `N` jika `amount>1` (verifikasi 2026-10-22, detail di bawah).
+      - Helper gambar (sudah ada, generik, dipakai fridge 6x + shelf 6x):
+        `func_080CCD48(ctx, slot, amount)` (`code_809E804.s:94844`) — siapkan tile slot
+        (`func_080CAD10`), gambar ikon, lalu `cmp amount,#1; bls skip` (amount<=1 = tampil
+        polos identik ROM hari ini) else `func_080CAEEC(ctx, amount, 0x20)` gambar angka
+        desimal 2-digit di tile kedua (`0x0600F082`). Bungkus: `func_080CC728`
+        (`code_809E804.s:94013`, dipakai 8x di area tas<->fridge). `func_080CBAF0`
+        (`:92389`) = gambar ikon saja (untuk slot amount=1).
+      - Format = ikon + angka desimal menempel (tile grafis via `CAEEC`, BUKAN string `x%d`;
+        literal `x%d` tidak ada di `asm/data/*.s` — tidak perlu dicari lagi).
+      - Pola panggil per slot tas (tiru `.L08089A20` fridge ~146143):
+        `GetItemAt` -> `GetIconId` -> `GetAmount__C12RucksackItem` (SIMBOL BARU, 0 situs hari ini;
+        tiru `FoodStack::GetAmount`) -> `CC728`/`CCD48` alih-alih gambar-ikon-polos.
+      - Prasyarat: Fase 1 (field `amount` + simbol GetAmount) selesai dulu; stride loop gambar
+        tas ikut 4->5 byte bersamaan (satu pekerjaan dengan penambahan field).
+      - Tanpa 4.1 = bug pasti: stack xN tampil tanpa angka (ambiguitas nominal; D4=A-all
+        memindah N pcs sekaligus tanpa terlihat) + loop stride lama baca byte-amount sebagai
+        item berikutnya (ikon rusak).
+- [ ] 4.2 Tukar tas<->kulkas/rak (`func_08088688`, `func_08088BA0`): D4=A-all (dikunci).
+      Tukar = whole-slot seperti lama: pindah antar slot sama-id = merge
       (`AddAmount` + `SubtractAmount`), beda-id = swap/tolak jika salah satu stack.
+      Give/makan/ship tetap 1 pcs via tangan (TakeOneAt, Fase 3) — tidak lewat jalur tukar ini.
 - [ ] 4.3 Batas upgrade tas (2/4/8 slot di `Rucksack::GetUpgradeLevel`) **tetap jumlah slot**,
       bukan jumlah pcs — stacking justru membuat upgrade lebih berharga. Tidak ubah.
 - [ ] 4.4 Bunyi/error message saat penuh: reuse path `gUnk_08100034` (tas penuh) yang dipakai
@@ -129,10 +152,10 @@ Semua give lewat tangan 1 pcs.
 | tangan | `include/held_item.hh`, `src/held_item.cc` | [ ] |
 | cycle tangan | `src/farmer.cc:311,346` | [ ] |
 | panen | `src/field.cc:430` + `asm:0x0804199A/0x080419B4/0x08043D06` | [ ] |
-| tambang | `asm:39827,96969,114177,127421,128190,131092,131238,137109` | [ ] |
+| tambang | `asm:3937,8248,39827,128190,131092,131238,137109` (Add; `96969/114177`=cek FirstSlot, `127421` tidak ada) | [ ] |
 | fridge/shelf refill | `asm:func_08088688,func_08088BA0`, `src/fridge.cc`, `src/shelf.cc` | [ ] |
 | give NPC/hewan/ship | hasil audit 3.2 | [ ] |
-| display xN | `func_080CBA60/080CB63C/080CB304/080CC728` | [ ] |
+| display xN | `func_080CCD48` (`code_809E804.s:94844`), `func_080CC728` (`:94013`), `func_080CAEEC`, simbol baru `GetAmount__C12RucksackItem` | [ ] |
 | save | `asm/sram_proxy_1.s`, `fomt.lds` | [ ] |
 
 ## 4. Cara lanjut di lain hari (progres tidak hilang)
@@ -149,4 +172,7 @@ Semua give lewat tangan 1 pcs.
 ## 5. Log progres
 
 - 2026-10-22: analisa kulkas vs tas selesai; plan ini dibuat. Belum ada perubahan kode.
+- 2026-10-22: verifikasi source selesai (C++ cocok, koreksi: situs tambang 5 bukan 8,
+  func display di `code_809E804.s`, baris audit ±5, string `x%d` belum ketemu).
+  Keputusan dikunci: D1 full-key, D2=99, D3 tangan-1-pcs, D4 A=all, D5 migrasi save.
 - ...: (tulis berikutnya di sini, format `YYYY-MM-DD: ...`)
