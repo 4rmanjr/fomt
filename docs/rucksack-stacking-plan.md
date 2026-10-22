@@ -71,10 +71,11 @@ Status: `[ ]` belum, `[/]` berjalan, `[x]` selesai. Update tanggal + commit tiap
   - `GetFirstSlotWith*` and `GetEmptyItemSlotCount` unchanged.
 - [x] 1.4 `src/held_item.cc`: `func_0800F294` explicitly returns amount=1; `HeldItem`
       has no amount field, so conversion back via `func_0800F418` is one piece by construction.
-- [/] 1.5 Verification: host TDD `19/19` passed; target ARM layout probe passed
-      (`sizeof=5`, `inner=+1`, `amount=+4`). `make compare` BLOCKED: `tools/agbcc/bin/agbcp`
-      missing; official install script failed at `configure: C compiler cannot create executables`.
-      Do not claim ROM build/compare passed; retry when agbcp toolchain is available.
+- [x] 1.5 Build/verifikasi: host test `19/19` lulus; ABI probe `agbcp` lulus
+      (`sizeof(RucksackItem)=5`, `inner=+1`, `amount=+4`). `make compare` berhasil
+      membangun ROM; SHA1 berbeda dari baserom seperti yang diharapkan karena perubahan
+      model/layout masuk ke ROM. Warning linker RWX tercatat; banding hash merah bukan
+      kegagalan build.
 
 ### Fase 2 — Inflow stacking (panen + tambang + beli/dapat)
 
@@ -179,7 +180,7 @@ Semua give lewat tangan 1 pcs.
 - 2026-10-22: verifikasi source selesai (C++ cocok, koreksi: situs tambang 5 bukan 8,
   func display di `code_809E804.s`, baris audit ±5, string `x%d` belum ketemu).
   Keputusan dikunci: D1 full-key, D2=99, D3 tangan-1-pcs, D4 A=all, D5 migrasi save.
-- 2026-10-22: Fase 1 model data diimplementasikan; host gtest 19/19 lulus dan target
-  ARM probe menegaskan `RucksackItem` 5 byte, `Inner +1`, `amount +4`. `make compare`
-  belum jalan: `agbcp` hilang setelah install script gagal. Belum mengubah UI/ASM/inflow
-  caller/save; lanjut ke Fase 2 dan integrasi UI/save sesuai urutan plan.
+- 2026-10-22: Fase 1 model data diimplementasikan; host gtest `19/19` lulus, ABI probe
+  `agbcp` mengonfirmasi `RucksackItem` 5 byte (`Inner +1`, `amount +4`), dan `make compare`
+  berhasil build ROM. Hash berbeda dari baserom sesuai perubahan; linker mengeluarkan warning
+  segmen LOAD RWX. UI/ASM caller/inflow dan save migration belum dikerjakan.
