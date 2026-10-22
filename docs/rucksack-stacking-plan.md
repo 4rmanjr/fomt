@@ -57,7 +57,9 @@ Status: `[ ]` belum, `[/]` berjalan, `[x]` selesai. Update tanggal + commit tiap
 
 - [x] 1.1 `include/rucksack_item.hh`: tambah `u8 amount` (+ `MAX_AMOUNT=99`),
       method `GetAmount/AddAmount/SubtractAmount/IsSameStackable`.
-      Offset check compile-time: `Inner=+1`, `amount=+4`, target size=5 byte.
+      Layout final: `struct PACKED`, byte `flags` eksplisit di +0 (bit 0=kind,
+      bit 1=wrapped), `Inner` di +1, `amount` di +4; ukuran target tepat 5 byte.
+      `flags` sengaja byte eksplisit, bukan C++ bitfield enum, agar layout `agbcp` stabil.
 - [x] 1.2 `src/rucksack_item.cc`: ctor `Food/Article` default `amount=1`, explicit
       `amount=0` = empty; `IsEmpty` cek `amount==0 || id==NONE`; `GetFood/GetArticle`
       return `NONE` jika empty. `Article` initializes unused bonuses to 0.
