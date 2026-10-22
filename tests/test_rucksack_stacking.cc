@@ -49,9 +49,8 @@ TEST(RucksackItemAmount, ArticleCtorDefaultsToOne)
 
 TEST(RucksackItemAmount, SizeIsFiveBytes)
 {
-    // Layout invariant: bitfields in byte 0, Inner at +1, amount at +4.
-    // (Total sizeof is 5 on agcc/ROM, 8 on host GCC due to trailing alignment;
-    // offsets are identical on both — assert those.)
+    EXPECT_EQ(sizeof(RucksackItem), 5u);
+    EXPECT_EQ(offsetof(RucksackItem, flags), 0u);
     EXPECT_EQ(offsetof(RucksackItem, inner), 1u);
     EXPECT_EQ(offsetof(RucksackItem, amount), 4u);
 }
