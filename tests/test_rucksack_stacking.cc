@@ -1,4 +1,5 @@
-// Host-side TDD tests for Phase 1: RucksackItem amount + Rucksack stacking.
+// Host-side TDD tests for the R1 stacking model: RucksackItem stays the legacy
+// 4-byte layout (baserom ABI), stack amounts live in Rucksack::amounts[8].
 // Compile (host, system STL only):
 //   g++ -DMODERN=1 -DNONMATCHING=1 -DHOST_TEST=1 -std=c++17 -iquote . -I include \
 //     tests/test_rucksack_stacking.cc src/rucksack_item.cc src/rucksack.cc \
@@ -12,50 +13,38 @@
 #include "held_item.hh"
 #include "item.hh"
 
-// ---- RucksackItem: amount field (Fase 1.1 / 1.2) ----
+// ---- RucksackItem: legacy 4-byte layout (Fase 1 revisi R1) ----
 
-TEST(RucksackItemAmount, DefaultCtorIsEmpty)
+TEST(RucksackItemLayout, DefaultCtorIsEmpty)
 {
     RucksackItem item;
     EXPECT_TRUE(item.IsEmpty());
-    EXPECT_EQ(item.GetAmount(), 0u);
 }
 
-TEST(RucksackItemAmount, ExplicitZeroIsEmpty)
-{
-    Food food(FOOD_TURNIP);
-    RucksackItem item(food, 0);
-    EXPECT_TRUE(item.IsEmpty());
-    EXPECT_EQ(item.GetAmount(), 0u);
-}
-
-TEST(RucksackItemAmount, FoodCtorDefaultsToOne)
+TEST(RucksackItemLayout, FoodCtorIsFood)
 {
     Food _f1(FOOD_TURNIP);
     RucksackItem item{_f1};
     EXPECT_FALSE(item.IsEmpty());
-    EXPECT_EQ(item.GetAmount(), 1u);
     EXPECT_EQ(item.GetKind(), RucksackItem::KIND_FOOD);
 }
 
-TEST(RucksackItemAmount, ArticleCtorDefaultsToOne)
+TEST(RucksackItemLayout, ArticleCtorIsArticle)
 {
     Article _a1(ARTICLE_STONES);
     RucksackItem item{_a1};
     EXPECT_FALSE(item.IsEmpty());
-    EXPECT_EQ(item.GetAmount(), 1u);
     EXPECT_EQ(item.GetKind(), RucksackItem::KIND_ARTICLE);
 }
 
-TEST(RucksackItemAmount, SizeIsFiveBytes)
+TEST(RucksackItemLayout, SizeIsLegacyFourBytes)
 {
-    EXPECT_EQ(sizeof(RucksackItem), 5u);
-    EXPECT_EQ(offsetof(RucksackItem, flags), 0u);
+    // ABI baserom: 4 byte, bitfield kind/wrapped di byte 0, Inner di +1.
+    EXPECT_EQ(sizeof(RucksackItem), 4u);
     EXPECT_EQ(offsetof(RucksackItem, inner), 1u);
-    EXPECT_EQ(offsetof(RucksackItem, amount), 4u);
 }
 
-TEST(RucksackItemAmount, SameStackableFullKey)
+TEST(RucksackItemLayout, SameStackableFullKey)
 {
     Food a(FOOD_TURNIP);
     Food b(FOOD_TURNIP);
@@ -68,7 +57,7 @@ TEST(RucksackItemAmount, SameStackableFullKey)
     EXPECT_TRUE(ia.IsSameStackable(ic));
 }
 
-TEST(RucksackItemAmount, SameStackableWrappedDiffers)
+TEST(RucksackItemLayout, SameStackableWrappedDiffers)
 {
     Food _fa(FOOD_TURNIP);
     RucksackItem a{_fa};
@@ -82,7 +71,7 @@ TEST(RucksackItemAmount, SameStackableWrappedDiffers)
     EXPECT_FALSE(a.IsSameStackable(c));
 }
 
-// ---- Rucksack: stacking add (Fase 1.3) ----
+// ---- Rucksack: stacking add (Fase 1.3 / 2.4) ----
 
 TEST(RucksackStacking, TenTurnipsBecomeOneSlot)
 {
@@ -119,8 +108,9 @@ TEST(RucksackStacking, BonusAndWrappedStacksStaySeparate)
     Food bonus(FOOD_TURNIP);
     bonus.AddBonuses(3, 0);
 
-    RucksackItem bonus_stack(bonus, 5);
+    RucksackItem bonus_stack{bonus};
     rucksack.GetItemAt(0) = bonus_stack;
+    rucksack.SetAmountAt(0, 5);
 
     // ID-only inflow has default bonuses and must use the other slot.
     EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 2), 0u);
@@ -137,7 +127,7 @@ TEST(RucksackStacking, FullKeyOverloadPreservesBonusAndWrapped)
     Rucksack rucksack;
     Food food(FOOD_TURNIP);
     food.AddBonuses(4, -3);
-    RucksackItem special(food, 7);
+    RucksackItem special{food};
     special.TryWrap();
 
     EXPECT_EQ(rucksack.AddAmountOf(special, 5), 0u);
@@ -195,7 +185,7 @@ TEST(RucksackTakeOne, DecrementsAndReturnsSingle)
     Rucksack rucksack;
     EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 10), 0u);
     RucksackItem one = rucksack.TakeOneAt(0);
-    EXPECT_EQ(one.GetAmount(), 1u);
+    EXPECT_FALSE(one.IsEmpty());
     EXPECT_EQ(rucksack.GetAmountAt(0), 9u);
     EXPECT_EQ(rucksack.GetAmountOfFood(FOOD_TURNIP), 9u);
 }
@@ -205,7 +195,7 @@ TEST(RucksackTakeOne, PeekDoesNotDecrement)
     Rucksack rucksack;
     EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 10), 0u);
     RucksackItem peek = rucksack.PeekOneAt(0);
-    EXPECT_EQ(peek.GetAmount(), 1u);
+    EXPECT_FALSE(peek.IsEmpty());
     EXPECT_EQ(rucksack.GetAmountAt(0), 10u);
 }
 
@@ -213,14 +203,15 @@ TEST(RucksackTakeOne, PreservesStackMetadata)
 {
     Food food(FOOD_TURNIP);
     food.AddBonuses(3, -2);
-    RucksackItem item(food, 10);
+    RucksackItem item{food};
     item.TryWrap();
 
     Rucksack rucksack;
     rucksack.GetItemAt(0) = item;
+    rucksack.SetAmountAt(0, 10);
     RucksackItem one = rucksack.TakeOneAt(0);
 
-    EXPECT_EQ(one.GetAmount(), 1u);
+    EXPECT_FALSE(one.IsEmpty());
     EXPECT_EQ(one.GetFood().GetStaminaBonus(), 3);
     EXPECT_EQ(one.GetFood().GetFatigueBonus(), -2);
     EXPECT_TRUE(one.IsWrapped());
@@ -233,8 +224,152 @@ TEST(RucksackTakeOne, LastPieceEmptiesSlot)
     Rucksack rucksack;
     EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 1), 0u);
     RucksackItem one = rucksack.TakeOneAt(0);
-    EXPECT_EQ(one.GetAmount(), 1u);
+    EXPECT_FALSE(one.IsEmpty());
     EXPECT_TRUE(rucksack.GetItemAt(0).IsEmpty());
+    EXPECT_EQ(rucksack.GetAmountAt(0), 0u);
+}
+
+// ---- Slot helpers backing the ASM transfer patches (Fase 2.3) ----
+
+TEST(RucksackSlotHelpers, SetAmountAtZeroClearsSlot)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 5), 0u);
+    rucksack.SetAmountAt(0, 0);
+    EXPECT_TRUE(rucksack.GetItemAt(0).IsEmpty());
+    EXPECT_EQ(rucksack.GetAmountAt(0), 0u);
+}
+
+TEST(RucksackSlotHelpers, SetAmountAtClampsAndRefusesEmptySlot)
+{
+    Rucksack rucksack;
+    rucksack.SetAmountAt(0, 5); // empty slot: refuse
+    EXPECT_EQ(rucksack.GetAmountAt(0), 0u);
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 5), 0u);
+    rucksack.SetAmountAt(0, 150); // clamp to 99
+    EXPECT_EQ(rucksack.GetAmountAt(0), 99u);
+}
+
+TEST(RucksackSlotHelpers, MoveSlotMovesItemAndAmount)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 5), 0u);
+    rucksack.MoveSlot(0, 1);
+    EXPECT_TRUE(rucksack.GetItemAt(0).IsEmpty());
+    EXPECT_EQ(rucksack.GetAmountAt(0), 0u);
+    EXPECT_EQ(rucksack.GetAmountAt(1), 5u);
+    EXPECT_EQ(rucksack.GetAmountOfFood(FOOD_TURNIP), 5u);
+}
+
+TEST(RucksackSlotHelpers, MoveSlotRefusesOccupiedDstOrEmptySrc)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 5), 0u);
+    rucksack.MoveSlot(0, 1);           // ok
+    rucksack.MoveSlot(0, 1);           // src empty -> no-op
+    EXPECT_EQ(rucksack.GetAmountAt(1), 5u);
+    EXPECT_EQ(rucksack.AddAmountOfArticle(ARTICLE_STONES, 3), 0u); // slot0
+    rucksack.MoveSlot(1, 0);           // dst occupied -> no-op
+    EXPECT_EQ(rucksack.GetAmountAt(0), 3u);
+    EXPECT_EQ(rucksack.GetAmountAt(1), 5u);
+}
+
+TEST(RucksackSlotHelpers, SwapSlotsSwapsItemAndAmount)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 5), 0u);
+    EXPECT_EQ(rucksack.AddAmountOfArticle(ARTICLE_STONES, 3), 0u);
+    rucksack.SwapSlots(0, 1);
+    EXPECT_EQ(rucksack.GetAmountAt(0), 3u);
+    EXPECT_EQ(rucksack.GetAmountAt(1), 5u);
+    EXPECT_TRUE(rucksack.GetItemAt(0).GetKind() == RucksackItem::KIND_ARTICLE);
+    EXPECT_TRUE(rucksack.GetItemAt(1).GetKind() == RucksackItem::KIND_FOOD);
+}
+
+// ---- ExtractItemAt clears the amount (Fase 2.3 refill path) ----
+
+TEST(RucksackExtract, ExtractClearsAmount)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 7), 0u);
+    RucksackItem extracted = rucksack.ExtractItemAt(0);
+    EXPECT_FALSE(extracted.IsEmpty());
+    EXPECT_TRUE(rucksack.GetItemAt(0).IsEmpty());
+    EXPECT_EQ(rucksack.GetAmountAt(0), 0u);
+}
+
+// ---- Cycle keeps amounts in parallel with slots ----
+
+TEST(RucksackCycle, CycleBackShiftsAmounts)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 5), 0u);
+    EXPECT_EQ(rucksack.AddAmountOfArticle(ARTICLE_STONES, 3), 0u);
+
+    // incoming = a real 1-piece item, as it would come from the hand (D3)
+    Food hand_food(FOOD_TURNIP);
+    RucksackItem incoming{hand_food};
+    RucksackItem evicted = rucksack.CycleItemBack(incoming);
+
+    // evicted = old slot 0 (turnips); amounts shift left with the slots,
+    // incoming lands in the last slot as 1 piece.
+    EXPECT_FALSE(evicted.IsEmpty());
+    EXPECT_EQ(rucksack.GetAmountAt(0), 3u);
+    EXPECT_EQ(rucksack.GetAmountAt(1), 1u);
+    EXPECT_TRUE(rucksack.GetItemAt(1).IsSameStackable(incoming));
+}
+
+// ---- Stack transfer helpers backing the fridge/shelf refill patches (Fase 2.3, D4) ----
+
+TEST(RucksackStackTransfer, MoveToEmptyFoodStackMovesAll)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 10), 0u);
+    FoodStack stack; // empty
+    EXPECT_EQ(rucksack.MoveToFoodStack(0, stack), 10u);
+    EXPECT_EQ(stack.GetAmount(), 10u);
+    EXPECT_TRUE(rucksack.GetItemAt(0).IsEmpty());
+    EXPECT_EQ(rucksack.GetAmountAt(0), 0u);
+}
+
+TEST(RucksackStackTransfer, MoveToSameIdFoodStackMergesAndCaps)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 10), 0u);
+    FoodStack stack(Food(FOOD_TURNIP), 95);
+    EXPECT_EQ(rucksack.MoveToFoodStack(0, stack), 4u); // capped at 99, leftover stays
+    EXPECT_EQ(stack.GetAmount(), 99u);
+    EXPECT_EQ(rucksack.GetAmountAt(0), 6u);
+    EXPECT_FALSE(rucksack.GetItemAt(0).IsEmpty());
+}
+
+TEST(RucksackStackTransfer, MoveToDiffIdFoodStackRefuses)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 10), 0u);
+    FoodStack stack(Food(FOOD_POTATO), 1);
+    EXPECT_EQ(rucksack.MoveToFoodStack(0, stack), 0u);
+    EXPECT_EQ(rucksack.GetAmountAt(0), 10u);
+    EXPECT_EQ(stack.GetAmount(), 1u);
+}
+
+TEST(RucksackStackTransfer, MoveToArticleStackWorks)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfArticle(ARTICLE_STONES, 10), 0u);
+    ArticleStack stack; // empty
+    EXPECT_EQ(rucksack.MoveToArticleStack(0, stack), 10u);
+    EXPECT_EQ(stack.GetAmount(), 10u);
+    EXPECT_TRUE(rucksack.GetItemAt(0).IsEmpty());
+}
+
+TEST(RucksackStackTransfer, MoveRefusesWrongKind)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfArticle(ARTICLE_STONES, 10), 0u);
+    FoodStack stack; // food stack vs article slot
+    EXPECT_EQ(rucksack.MoveToFoodStack(0, stack), 0u);
+    EXPECT_EQ(rucksack.GetAmountAt(0), 10u);
 }
 
 // ---- Held conversion stays 1 pcs (Fase 1.4, D3) ----
@@ -246,6 +381,5 @@ TEST(HeldConversion, StackToHeldToItemIsOne)
     HeldItem held;
     func_0800F418(&held, rucksack.GetItemAt(0));
     RucksackItem back = func_0800F294(&held);
-    EXPECT_EQ(back.GetAmount(), 1u);
     EXPECT_FALSE(back.IsEmpty());
 }

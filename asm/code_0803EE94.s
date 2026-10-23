@@ -144037,6 +144037,20 @@ func_08088688: @ 0x08088688
 	movs r2, #0
 	bl func_080CE184
 	adds r2, r0, #0
+	@ Fase 2.3 (R1): reject swapping into a slot holding a stack (>1 pc) —
+	@ the hand can only receive one piece, surplus would be lost (D4).
+	adds r0, r4, #0
+	adds r1, r2, #0
+	bl GetAmountAt__C8RucksackUi
+	cmp r0, #1
+	bls .L080887A2_ok
+	b .L08088B8C
+.L080887A2_ok:
+	adds r0, r7, #0
+	mov r1, r8
+	movs r2, #0
+	bl func_080CE184
+	adds r2, r0, #0
 	adds r0, r6, #0
 	adds r1, r4, #0
 	bl ExtractItemAt__8RucksackUi
@@ -144050,6 +144064,15 @@ func_08088688: @ 0x08088688
 	bl GetItemAt__8RucksackUi
 	ldr r1, [sp, #0x10]
 	str r1, [r0]
+	@ Fase 2.3 (R1): the slot now holds the 1-piece hand item.
+	adds r0, r7, #0
+	mov r1, r8
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	adds r0, r4, #0
+	movs r2, #1
+	bl SetAmountAt__8RucksackUiUi
 	mov r1, sb
 	ldr r0, [r1]
 	ldr r1, [sp, #0x14]
@@ -144091,6 +144114,16 @@ func_08088688: @ 0x08088688
 	bl GetItemAt__8RucksackUi
 	ldr r1, [sp, #0x24]
 	str r1, [r0]
+	@ Fase 2.3 (R1): the slot now holds the 1-piece hand item (SetAmountAt
+	@ refuses empty slots, so an empty hand write is a no-op).
+	adds r0, r7, #0
+	mov r1, r8
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	adds r0, r4, #0
+	movs r2, #1
+	bl SetAmountAt__8RucksackUiUi
 	b .L08088B8C
 .L08088876:
 	adds r0, r7, #0
@@ -144779,29 +144812,21 @@ func_08088BA0: @ 0x08088BA0
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L08088EC8
-	ldr r4, [r5]
-	adds r0, r7, #0
-	ldr r1, [sp, #0x2c]
-	movs r2, #0
-	bl func_080CE184
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #0x24]
-	str r1, [r0]
+	@ Fase 2.3 (R1): move whole slot (item + stack amount) sl -> [sp,#0x2c] (D4).
 	ldr r4, [r5]
 	adds r0, r7, #0
 	mov r1, sl
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
+	str r0, [sp, #0x28]
+	adds r0, r7, #0
+	ldr r1, [sp, #0x2c]
+	movs r2, #0
+	bl func_080CE184
+	adds r2, r0, #0
+	ldr r1, [sp, #0x28]
 	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	adds r4, r0, #0
-	add r0, sp, #0x28
-	bl __12RucksackItem
-	ldr r0, [sp, #0x28]
-	str r0, [r4]
+	bl MoveSlot__8RucksackUiUi
 	ldr r4, [r7, #0x78]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x2c]
@@ -144829,29 +144854,21 @@ func_08088BA0: @ 0x08088BA0
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L08088F22
+	@ Fase 2.3 (R1): move whole slot (item + stack amount) [sp,#0x2c] -> sl (D4).
 	ldr r4, [r5]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x2c]
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	adds r4, r0, #0
-	add r0, sp, #0x28
-	bl __12RucksackItem
-	ldr r0, [sp, #0x28]
-	str r0, [r4]
-	ldr r4, [r5]
+	str r0, [sp, #0x28]
 	adds r0, r7, #0
 	mov r1, sl
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
+	adds r2, r0, #0
+	ldr r1, [sp, #0x28]
 	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #0x10]
-	str r1, [r0]
+	bl MoveSlot__8RucksackUiUi
 	ldr r4, [r7, #0x78]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x2c]
@@ -144862,26 +144879,21 @@ func_08088BA0: @ 0x08088BA0
 	bl func_080CBA60
 	b .L08088F6E
 .L08088F22:
+	@ Fase 2.3 (R1): swap whole slots (items + stack amounts) [sp,#0x2c] <-> sl (D4).
 	ldr r4, [r5]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x2c]
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #0x24]
-	str r1, [r0]
-	ldr r4, [r5]
+	str r0, [sp, #0x28]
 	adds r0, r7, #0
 	mov r1, sl
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
+	adds r2, r0, #0
+	ldr r1, [sp, #0x28]
 	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #0x10]
-	str r1, [r0]
+	bl SwapSlots__8RucksackUiUi
 	ldr r4, [r7, #0x78]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x2c]
@@ -144991,6 +145003,16 @@ func_08088BA0: @ 0x08088BA0
 	ldr r0, [sp, #0x10]
 	mov r4, r8
 	str r0, [r4]
+	@ Fase 2.3 (R1): the tas slot now holds 1 pc taken from the fridge stack.
+	adds r0, r7, #0
+	ldr r1, [sp, #0x2c]
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [sp, #0x40]
+	ldr r0, [r0]
+	movs r2, #1
+	bl SetAmountAt__8RucksackUiUi
 	ldr r1, [sp, #0x44]
 	ldr r0, [r1]
 	mov r1, sb
@@ -145044,7 +145066,9 @@ func_08088BA0: @ 0x08088BA0
 	bl IsEmpty__C9FoodStack
 	lsls r0, r0, #0x18
 	cmp r0, #0
-	beq .L080891A0
+	bne .L080890BC_fall
+	b .L080891A0
+.L080890BC_fall:
 	add r0, sp, #4
 	bl GetKind__C12RucksackItem
 	cmp r0, #0
@@ -145096,8 +145120,30 @@ func_08088BA0: @ 0x08088BA0
 	ldrb r1, [r1]
 	lsls r1, r1, #0x10
 	orrs r1, r0
+	@ Fase 2.3 (R1): move the WHOLE tas stack into the empty fridge slot (D4),
+	@ not just one piece — surplus in the tas slot must not be destroyed.
+	adds r0, r7, #0
+	ldr r1, [sp, #0x2c]
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [sp, #0x40]
+	ldr r0, [r0]
+	bl GetAmountAt__C8RucksackUi
+	adds r3, r0, #0
+	ldrb r1, [r4]
+	mov r0, sp
+	adds r0, #0x15
+	ldrb r0, [r0]
+	lsls r0, r0, #8
+	orrs r0, r1
+	mov r1, sp
+	adds r1, #0x16
+	ldrb r1, [r1]
+	lsls r1, r1, #0x10
+	orrs r1, r0
 	adds r0, r5, #0
-	movs r2, #1
+	adds r2, r3, #0
 	bl __9FoodStackG4FoodUi
 	ldr r0, [sp, #0x10]
 	mov r4, r8
@@ -145116,6 +145162,16 @@ func_08088BA0: @ 0x08088BA0
 	bl __12RucksackItem
 	ldr r0, [sp, #0x10]
 	str r0, [r4]
+	@ Fase 2.3 (R1): the whole stack left the tas slot — clear its amount.
+	adds r0, r7, #0
+	ldr r1, [sp, #0x2c]
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [sp, #0x40]
+	ldr r0, [r0]
+	movs r2, #0
+	bl SetAmountAt__8RucksackUiUi
 	ldr r4, [r7, #0x78]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x2c]
@@ -145185,11 +145241,25 @@ func_08088BA0: @ 0x08088BA0
 	beq .L08089200
 	b .L080892FC
 .L08089200:
+	@ Fase 2.3 (R1): reject the swap when the tas slot holds a stack (>1 pc):
+	@ the fridge slot can only receive it as a whole, and the hand-side of the
+	@ swap only carries one piece (D4: tolak jika salah satu stack).
+	adds r0, r7, #0
+	ldr r1, [sp, #0x2c]
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [sp, #0x40]
+	ldr r0, [r0]
+	bl GetAmountAt__C8RucksackUi
+	cmp r0, #1
+	bhi .L08089200_stack
 	add r0, sp, #4
 	bl IsWrapped__C12RucksackItem
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L08089228
+.L08089200_stack:
 	adds r0, r7, #0
 	adds r0, #0x80
 	ldr r1, .L08089224 @ =gUnk_08100034
@@ -145263,6 +145333,16 @@ func_08088BA0: @ 0x08088BA0
 	bl __12RucksackItemG4Food
 	ldr r0, [sp, #0x14]
 	str r0, [r4]
+	@ Fase 2.3 (R1): the tas slot now holds 1 pc taken from the fridge slot.
+	adds r0, r7, #0
+	ldr r1, [sp, #0x2c]
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [sp, #0x40]
+	ldr r0, [r0]
+	movs r2, #1
+	bl SetAmountAt__8RucksackUiUi
 	ldr r5, [r7, #0x78]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x2c]
@@ -145327,30 +145407,24 @@ func_08088BA0: @ 0x08088BA0
 	.align 2, 0
 .L08089334: .4byte gUnk_08100034
 .L08089338:
+	@ Fase 2.3 (R1): merge the WHOLE tas stack into the same-id fridge stack
+	@ (D4: AddAmount + SubtractAmount); leftover stays in the tas slot.
 	movs r0, #0x82
 	lsls r0, r0, #1
 	adds r6, r7, r0
 	ldr r0, [r6]
 	mov r1, sb
 	bl GetFoodStackAt__6FridgeUi
-	movs r1, #1
-	bl AddAmount__9FoodStackUi
-	movs r1, #0x80
-	lsls r1, r1, #1
-	adds r0, r7, r1
-	ldr r4, [r0]
+	adds r4, r0, #0
 	adds r0, r7, #0
 	ldr r1, [sp, #0x2c]
 	movs r2, #0
 	bl func_080CE184
 	adds r1, r0, #0
-	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	adds r4, r0, #0
-	add r0, sp, #0x14
-	bl __12RucksackItem
-	ldr r0, [sp, #0x14]
-	str r0, [r4]
+	ldr r0, [sp, #0x40]
+	ldr r0, [r0]
+	adds r2, r4, #0
+	bl MoveToFoodStack__8RucksackUiR9FoodStack
 	ldr r4, [r7, #0x78]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x2c]
@@ -148761,6 +148835,20 @@ func_0808AC28: @ 0x0808AC28
 	movs r2, #0
 	bl func_080CE184
 	adds r2, r0, #0
+	@ Fase 2.3 (R1): reject swapping into a slot holding a stack (>1 pc) —
+	@ the hand can only receive one piece, surplus would be lost (D4).
+	adds r0, r4, #0
+	adds r1, r2, #0
+	bl GetAmountAt__C8RucksackUi
+	cmp r0, #1
+	bls .L0808AC28_ok
+	b .L0808B158
+.L0808AC28_ok:
+	adds r0, r7, #0
+	mov r1, sb
+	movs r2, #0
+	bl func_080CE184
+	adds r2, r0, #0
 	mov r0, r8
 	adds r1, r4, #0
 	bl ExtractItemAt__8RucksackUi
@@ -148774,6 +148862,15 @@ func_0808AC28: @ 0x0808AC28
 	bl GetItemAt__8RucksackUi
 	ldr r1, [sp, #0x1c]
 	str r1, [r0]
+	@ Fase 2.3 (R1): the slot now holds the 1-piece hand item.
+	adds r0, r7, #0
+	mov r1, sb
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [r5]
+	movs r2, #1
+	bl SetAmountAt__8RucksackUiUi
 	ldr r0, [r6]
 	ldr r1, [sp, #0x20]
 	str r1, [sp, #0x2c]
@@ -148815,6 +148912,16 @@ func_0808AC28: @ 0x0808AC28
 	bl GetItemAt__8RucksackUi
 	ldr r1, [sp, #0x1c]
 	str r1, [r0]
+	@ Fase 2.3 (R1): the slot now holds the 1-piece hand item (SetAmountAt
+	@ refuses empty slots, so an empty hand write is a no-op).
+	adds r0, r7, #0
+	mov r1, sb
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	adds r0, r4, #0
+	movs r2, #1
+	bl SetAmountAt__8RucksackUiUi
 	b .L0808B158
 .L0808B154:
 	movs r3, #0
@@ -149683,29 +149790,21 @@ func_0808B16C: @ 0x0808B16C
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808B96C
-	ldr r4, [r5]
-	adds r0, r7, #0
-	mov r1, sl
-	movs r2, #0
-	bl func_080CE184
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #0x20]
-	str r1, [r0]
+	@ Fase 2.3 (R1): move whole slot (item + stack amount) sb -> sl (D4).
 	ldr r4, [r5]
 	adds r0, r7, #0
 	mov r1, sb
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
+	str r0, [sp, #0x30]
+	adds r0, r7, #0
+	mov r1, sl
+	movs r2, #0
+	bl func_080CE184
+	adds r2, r0, #0
+	ldr r1, [sp, #0x30]
 	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	adds r4, r0, #0
-	add r0, sp, #0x30
-	bl __12RucksackItem
-	ldr r0, [sp, #0x30]
-	str r0, [r4]
+	bl MoveSlot__8RucksackUiUi
 	ldr r4, [r7, #0x7c]
 	adds r0, r7, #0
 	mov r1, sl
@@ -149733,29 +149832,21 @@ func_0808B16C: @ 0x0808B16C
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808B9E2
+	@ Fase 2.3 (R1): move whole slot (item + stack amount) sl -> sb (D4).
 	ldr r4, [r5]
 	adds r0, r7, #0
 	mov r1, sl
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	adds r4, r0, #0
-	add r0, sp, #0x30
-	bl __12RucksackItem
-	ldr r0, [sp, #0x30]
-	str r0, [r4]
-	ldr r4, [r5]
+	str r0, [sp, #0x30]
 	adds r0, r7, #0
 	mov r1, sb
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
+	adds r2, r0, #0
+	ldr r1, [sp, #0x30]
 	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #0x1c]
-	str r1, [r0]
+	bl MoveSlot__8RucksackUiUi
 	ldr r4, [r7, #0x7c]
 	adds r0, r7, #0
 	mov r1, sl
@@ -149778,26 +149869,21 @@ func_0808B16C: @ 0x0808B16C
 	bl func_080CCA40
 	b .L0808BA4A
 .L0808B9E2:
+	@ Fase 2.3 (R1): swap whole slots (items + stack amounts) sl <-> sb (D4).
 	ldr r4, [r5]
 	adds r0, r7, #0
 	mov r1, sl
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #0x20]
-	str r1, [r0]
-	ldr r4, [r5]
+	str r0, [sp, #0x30]
 	adds r0, r7, #0
 	mov r1, sb
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
+	adds r2, r0, #0
+	ldr r1, [sp, #0x30]
 	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #0x1c]
-	str r1, [r0]
+	bl SwapSlots__8RucksackUiUi
 	ldr r4, [r7, #0x7c]
 	adds r0, r7, #0
 	mov r1, sl
@@ -151868,6 +151954,20 @@ func_0808C9D0: @ 0x0808C9D0
 	movs r2, #0
 	bl func_080CE184
 	adds r2, r0, #0
+	@ Fase 2.3 (R1): reject swapping into a slot holding a stack (>1 pc) —
+	@ the hand can only receive one piece, surplus would be lost (D4).
+	adds r0, r4, #0
+	adds r1, r2, #0
+	bl GetAmountAt__C8RucksackUi
+	cmp r0, #1
+	bls .L0808C9D0_ok
+	b .L0808CEB0
+.L0808C9D0_ok:
+	adds r0, r7, #0
+	mov r1, sb
+	movs r2, #0
+	bl func_080CE184
+	adds r2, r0, #0
 	adds r0, r6, #0
 	adds r1, r4, #0
 	bl ExtractItemAt__8RucksackUi
@@ -151881,6 +151981,15 @@ func_0808C9D0: @ 0x0808C9D0
 	bl GetItemAt__8RucksackUi
 	ldr r1, [sp, #0x10]
 	str r1, [r0]
+	@ Fase 2.3 (R1): the slot now holds the 1-piece hand item.
+	adds r0, r7, #0
+	mov r1, sb
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [r5]
+	movs r2, #1
+	bl SetAmountAt__8RucksackUiUi
 	mov r1, r8
 	ldr r0, [r1]
 	ldr r1, [sp, #0x14]
@@ -151922,6 +152031,16 @@ func_0808C9D0: @ 0x0808C9D0
 	bl GetItemAt__8RucksackUi
 	ldr r1, [sp, #0x24]
 	str r1, [r0]
+	@ Fase 2.3 (R1): the slot now holds the 1-piece hand item (SetAmountAt
+	@ refuses empty slots, so an empty hand write is a no-op).
+	adds r0, r7, #0
+	mov r1, sb
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	adds r0, r4, #0
+	movs r2, #1
+	bl SetAmountAt__8RucksackUiUi
 	b .L0808CEB0
 .L0808CBBE:
 	adds r0, r7, #0
@@ -152566,29 +152685,21 @@ func_0808CEC4: @ 0x0808CEC4
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808D1D0
-	ldr r4, [r5]
-	adds r0, r7, #0
-	ldr r1, [sp, #0x3c]
-	movs r2, #0
-	bl func_080CE184
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #8]
-	str r1, [r0]
+	@ Fase 2.3 (R1): move whole slot (item + stack amount) sb -> [sp,#0x3c] (D4).
 	ldr r4, [r5]
 	adds r0, r7, #0
 	mov r1, sb
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
+	str r0, [sp, #0x28]
+	adds r0, r7, #0
+	ldr r1, [sp, #0x3c]
+	movs r2, #0
+	bl func_080CE184
+	adds r2, r0, #0
+	ldr r1, [sp, #0x28]
 	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	adds r4, r0, #0
-	add r0, sp, #0x28
-	bl __12RucksackItem
-	ldr r0, [sp, #0x28]
-	str r0, [r4]
+	bl MoveSlot__8RucksackUiUi
 	ldr r4, [r7, #0x78]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x3c]
@@ -152616,29 +152727,21 @@ func_0808CEC4: @ 0x0808CEC4
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808D22A
+	@ Fase 2.3 (R1): move whole slot (item + stack amount) [sp,#0x3c] -> sb (D4).
 	ldr r4, [r5]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x3c]
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	adds r4, r0, #0
-	add r0, sp, #0x28
-	bl __12RucksackItem
-	ldr r0, [sp, #0x28]
-	str r0, [r4]
-	ldr r4, [r5]
+	str r0, [sp, #0x28]
 	adds r0, r7, #0
 	mov r1, sb
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
+	adds r2, r0, #0
+	ldr r1, [sp, #0x28]
 	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #4]
-	str r1, [r0]
+	bl MoveSlot__8RucksackUiUi
 	ldr r4, [r7, #0x78]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x3c]
@@ -152649,26 +152752,21 @@ func_0808CEC4: @ 0x0808CEC4
 	bl func_080CBA60
 	b .L0808D276
 .L0808D22A:
+	@ Fase 2.3 (R1): swap whole slots (items + stack amounts) [sp,#0x3c] <-> sb (D4).
 	ldr r4, [r5]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x3c]
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #8]
-	str r1, [r0]
-	ldr r4, [r5]
+	str r0, [sp, #0x28]
 	adds r0, r7, #0
 	mov r1, sb
 	movs r2, #0
 	bl func_080CE184
-	adds r1, r0, #0
+	adds r2, r0, #0
+	ldr r1, [sp, #0x28]
 	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	ldr r1, [sp, #4]
-	str r1, [r0]
+	bl SwapSlots__8RucksackUiUi
 	ldr r4, [r7, #0x78]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x3c]
@@ -152763,6 +152861,16 @@ func_0808CEC4: @ 0x0808CEC4
 	bl __12RucksackItemG7Article
 	ldr r0, [sp, #0xc]
 	str r0, [r4]
+	@ Fase 2.3 (R1): the tas slot now holds 1 pc taken from the shelf stack.
+	adds r0, r7, #0
+	ldr r1, [sp, #0x3c]
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [sp, #0x48]
+	ldr r0, [r0]
+	movs r2, #1
+	bl SetAmountAt__8RucksackUiUi
 	mov r1, r8
 	ldr r0, [r1]
 	mov r1, sl
@@ -152855,8 +152963,20 @@ func_0808CEC4: @ 0x0808CEC4
 	adds r4, r0, #0
 	add r5, sp, #0xc
 	ldrb r1, [r6]
+	@ Fase 2.3 (R1): move the WHOLE tas stack into the empty shelf slot (D4),
+	@ not just one piece — surplus in the tas slot must not be destroyed.
+	adds r0, r7, #0
+	ldr r1, [sp, #0x3c]
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [sp, #0x48]
+	ldr r0, [r0]
+	bl GetAmountAt__C8RucksackUi
+	adds r3, r0, #0
+	ldrb r1, [r6]
 	adds r0, r5, #0
-	movs r2, #1
+	adds r2, r3, #0
 	bl __12ArticleStackG7ArticleUi
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -152876,6 +152996,16 @@ func_0808CEC4: @ 0x0808CEC4
 	bl __12RucksackItem
 	ldr r0, [sp, #0xc]
 	str r0, [r4]
+	@ Fase 2.3 (R1): the whole stack left the tas slot — clear its amount.
+	adds r0, r7, #0
+	ldr r1, [sp, #0x3c]
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [sp, #0x48]
+	ldr r0, [r0]
+	movs r2, #0
+	bl SetAmountAt__8RucksackUiUi
 	ldr r4, [r7, #0x78]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x3c]
@@ -152928,17 +153058,35 @@ func_0808CEC4: @ 0x0808CEC4
 	adds r0, #0x31
 	bl GetId__C7Article
 	cmp r4, r0
-	beq .L0808D598
+	bne .L0808D49E_n1
+	b .L0808D598
+.L0808D49E_n1:
 	add r0, sp, #8
 	bl GetAmount__C12ArticleStack
 	mov r8, r0
 	cmp r0, #1
-	bne .L0808D598
+	beq .L0808D49E_n2
+	b .L0808D598
+.L0808D49E_n2:
+	@ Fase 2.3 (R1): reject the swap when the tas slot holds a stack (>1 pc):
+	@ the shelf slot can only receive it as a whole, and the swap only carries
+	@ one piece each way (D4: tolak jika salah satu stack).
+	adds r0, r7, #0
+	ldr r1, [sp, #0x3c]
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [sp, #0x48]
+	ldr r0, [r0]
+	bl GetAmountAt__C8RucksackUi
+	cmp r0, #1
+	bhi .L0808D49E_stack
 	add r0, sp, #4
 	bl IsWrapped__C12RucksackItem
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808D4E8
+.L0808D49E_stack:
 	adds r0, r7, #0
 	adds r0, #0x80
 	ldr r1, .L0808D4E4 @ =gUnk_081000D4
@@ -153009,6 +153157,16 @@ func_0808CEC4: @ 0x0808CEC4
 	adds r1, r4, #0
 	adds r2, r6, #0
 	bl func_080CB304
+	@ Fase 2.3 (R1): the tas slot now holds 1 pc taken from the shelf slot.
+	adds r0, r7, #0
+	ldr r1, [sp, #0x3c]
+	movs r2, #0
+	bl func_080CE184
+	adds r1, r0, #0
+	ldr r0, [sp, #0x48]
+	ldr r0, [r0]
+	movs r2, #1
+	bl SetAmountAt__8RucksackUiUi
 	ldr r5, [r7, #0x7c]
 	adds r0, r7, #0
 	mov r1, sb
@@ -153058,30 +153216,24 @@ func_0808CEC4: @ 0x0808CEC4
 	.align 2, 0
 .L0808D5D0: .4byte gUnk_081000D4
 .L0808D5D4:
+	@ Fase 2.3 (R1): merge the WHOLE tas stack into the same-id shelf stack
+	@ (D4: AddAmount + SubtractAmount); leftover stays in the tas slot.
 	movs r1, #0x82
 	lsls r1, r1, #1
 	adds r6, r7, r1
 	ldr r0, [r6]
 	mov r1, sl
 	bl GetArticleStackAt__5ShelfUi
-	movs r1, #1
-	bl AddAmount__12ArticleStackUi
-	movs r2, #0x80
-	lsls r2, r2, #1
-	adds r0, r7, r2
-	ldr r4, [r0]
+	adds r4, r0, #0
 	adds r0, r7, #0
 	ldr r1, [sp, #0x3c]
 	movs r2, #0
 	bl func_080CE184
 	adds r1, r0, #0
-	adds r0, r4, #0
-	bl GetItemAt__8RucksackUi
-	adds r4, r0, #0
-	add r0, sp, #0xc
-	bl __12RucksackItem
-	ldr r0, [sp, #0xc]
-	str r0, [r4]
+	ldr r0, [sp, #0x48]
+	ldr r0, [r0]
+	adds r2, r4, #0
+	bl MoveToArticleStack__8RucksackUiR12ArticleStack
 	ldr r4, [r7, #0x78]
 	adds r0, r7, #0
 	ldr r1, [sp, #0x3c]

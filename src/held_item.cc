@@ -71,7 +71,7 @@ EC RucksackItem func_0800F294(HeldItem const * self)
 
         food.AddBonuses(self->inner.food.stamina_bonus, self->inner.food.fatigue_bonus);
 
-        RucksackItem rucksack_item(food, 1);
+        RucksackItem rucksack_item(food);
 
         if (self->wrapped)
         {
@@ -85,7 +85,7 @@ EC RucksackItem func_0800F294(HeldItem const * self)
     {
         Article article(self->inner.article.id);
 
-        RucksackItem rucksack_item(article, 1);
+        RucksackItem rucksack_item(article);
 
         if (self->wrapped)
         {

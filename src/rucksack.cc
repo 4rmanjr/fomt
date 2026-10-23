@@ -3,6 +3,8 @@
 Rucksack::Rucksack()
     : items(2, RucksackItem()), tools(2, ToolStack())
 {
+    for (u32 i = 0; i < 8; ++i)
+        amounts[i] = 0;
 }
 
 u32 Rucksack::GetUpgradeLevel() const
@@ -132,14 +134,15 @@ u32 Rucksack::GetEmptyItemSlotCount() const
 u32 Rucksack::GetAmountOfFood(u32 food_id) const
 {
     u32 count = 0;
+    u32 idx = 0;
 
     RucksackItem const * begin = items.begin();
     RucksackItem const * end = items.end();
 
-    for (RucksackItem const * it = begin; it != end; ++it)
+    for (RucksackItem const * it = begin; it != end; ++it, ++idx)
     {
         if (!it->IsEmpty() && it->GetKind() == RucksackItem::KIND_FOOD && it->GetFood().GetId() == food_id)
-            count += it->GetAmount();
+            count += amounts[idx];
     }
 
     return count;
@@ -148,14 +151,15 @@ u32 Rucksack::GetAmountOfFood(u32 food_id) const
 u32 Rucksack::GetAmountOfArticles(u32 article_id) const
 {
     u32 count = 0;
+    u32 idx = 0;
 
     RucksackItem const * begin = items.begin();
     RucksackItem const * end = items.end();
 
-    for (RucksackItem const * it = begin; it != end; ++it)
+    for (RucksackItem const * it = begin; it != end; ++it, ++idx)
     {
         if (!it->IsEmpty() && it->GetKind() == RucksackItem::KIND_ARTICLE && it->GetArticle().GetId() == article_id)
-            count += it->GetAmount();
+            count += amounts[idx];
     }
 
     return count;
@@ -187,15 +191,16 @@ u32 Rucksack::GetAvailableSpaceFor(RucksackItem const & item) const
         return 0;
 
     u32 available = 0;
+    u32 idx = 0;
     RucksackItem const * begin = items.begin();
     RucksackItem const * end = items.end();
 
-    for (RucksackItem const * it = begin; it != end; ++it)
+    for (RucksackItem const * it = begin; it != end; ++it, ++idx)
     {
         if (it->IsEmpty())
             available += RucksackItem::MAX_AMOUNT;
         else if (it->IsSameStackable(item))
-            available += RucksackItem::MAX_AMOUNT - it->GetAmount();
+            available += RucksackItem::MAX_AMOUNT - amounts[idx];
     }
 
     return available;
@@ -203,7 +208,129 @@ u32 Rucksack::GetAvailableSpaceFor(RucksackItem const & item) const
 
 u32 Rucksack::GetAmountAt(u32 idx) const
 {
-    return items[idx].GetAmount();
+    if (items[idx].IsEmpty())
+        return 0;
+
+    return amounts[idx];
+}
+
+void Rucksack::SetAmountAt(u32 idx, u32 amount)
+{
+    if (idx >= 8)
+        return;
+
+    if (amount > RucksackItem::MAX_AMOUNT)
+        amount = RucksackItem::MAX_AMOUNT;
+
+    if (amount == 0)
+    {
+        items[idx] = RucksackItem();
+        amounts[idx] = 0;
+        return;
+    }
+
+    if (items[idx].IsEmpty())
+        return;
+
+    amounts[idx] = amount;
+}
+
+void Rucksack::MoveSlot(u32 src, u32 dst)
+{
+    if (src >= 8 || dst >= 8 || src == dst)
+        return;
+
+    if (items[src].IsEmpty() || !items[dst].IsEmpty())
+        return;
+
+    items[dst] = items[src];
+    amounts[dst] = amounts[src];
+
+    items[src] = RucksackItem();
+    amounts[src] = 0;
+}
+
+void Rucksack::SwapSlots(u32 a, u32 b)
+{
+    if (a >= 8 || b >= 8 || a == b)
+        return;
+
+    RucksackItem item(items[a]);
+    u32 amount = amounts[a];
+
+    items[a] = items[b];
+    amounts[a] = amounts[b];
+
+    items[b] = item;
+    amounts[b] = amount;
+}
+
+u32 Rucksack::MoveToFoodStack(u32 idx, FoodStack & stack)
+{
+    if (idx >= 8 || items[idx].IsEmpty() || items[idx].GetKind() != RucksackItem::KIND_FOOD)
+        return 0;
+
+    u32 moved = amounts[idx];
+
+    if (stack.IsEmpty())
+    {
+        stack = FoodStack(items[idx].GetFood(), moved);
+    }
+    else if (stack.GetFood().GetId() == items[idx].GetFood().GetId())
+    {
+        u32 free_capacity = FoodStack::MAX_AMOUNT - stack.GetAmount();
+
+        if (moved > free_capacity)
+            moved = free_capacity;
+
+        if (moved != 0)
+            stack.AddAmount(moved);
+    }
+    else
+    {
+        return 0;
+    }
+
+    amounts[idx] -= moved;
+
+    if (amounts[idx] == 0)
+        items[idx] = RucksackItem();
+
+    return moved;
+}
+
+u32 Rucksack::MoveToArticleStack(u32 idx, ArticleStack & stack)
+{
+    if (idx >= 8 || items[idx].IsEmpty() || items[idx].GetKind() != RucksackItem::KIND_ARTICLE)
+        return 0;
+
+    u32 moved = amounts[idx];
+
+    if (stack.IsEmpty())
+    {
+        stack = ArticleStack(items[idx].GetArticle(), moved);
+    }
+    else if (stack.GetArticle().GetId() == items[idx].GetArticle().GetId())
+    {
+        u32 free_capacity = ArticleStack::MAX_AMOUNT - stack.GetAmount();
+
+        if (moved > free_capacity)
+            moved = free_capacity;
+
+        if (moved != 0)
+            stack.AddAmount(moved);
+    }
+    else
+    {
+        return 0;
+    }
+
+    amounts[idx] -= moved;
+
+    if (amounts[idx] == 0)
+        items[idx] = RucksackItem();
+
+    return moved;
 }
 
 ToolStack const & Rucksack::GetToolAt(u32 idx) const
@@ -331,6 +458,12 @@ void Rucksack::Upgrade()
 
         items.resize(new_size, RucksackItem());
         tools.resize(new_size, ToolStack());
+
+        for (u32 i = 0; i < new_size; ++i)
+        {
+            if (items[i].IsEmpty())
+                amounts[i] = 0;
+        }
     }
 }
 
@@ -705,6 +838,7 @@ RucksackItem Rucksack::ExtractItemAt(u32 idx)
     {
         RucksackItem result(items[idx]);
         items[idx] = RucksackItem();
+        amounts[idx] = 0;
         return result;
     }
 
@@ -713,12 +847,29 @@ RucksackItem Rucksack::ExtractItemAt(u32 idx)
 
 RucksackItem Rucksack::CycleItemBack(RucksackItem item)
 {
-    return items.push_back(item);
+    RucksackItem result = items.push_back(item);
+
+    // Shift stack amounts in parallel with the item slots. The incoming item
+    // comes from the hand and is one piece (D3). Interim limitation: a surplus
+    // stack in the evicted first slot collapses to the one piece handed out;
+    // Phase 3.1 replaces the whole-slot cycle with TakeOneAt.
+    for (u32 i = 1; i < items.size(); ++i)
+        amounts[i - 1] = amounts[i];
+    amounts[items.size() - 1] = 1;
+
+    return result;
 }
 
 RucksackItem Rucksack::CycleItemFront(RucksackItem item)
 {
-    return items.push_front(item);
+    RucksackItem result = items.push_front(item);
+
+    // Shift stack amounts in parallel with the item slots (mirror of CycleItemBack).
+    for (u32 i = items.size() - 1; i > 0; --i)
+        amounts[i] = amounts[i - 1];
+    amounts[0] = 1;
+
+    return result;
 }
 
 RucksackItem Rucksack::PeekOneAt(u32 idx) const
@@ -726,9 +877,7 @@ RucksackItem Rucksack::PeekOneAt(u32 idx) const
     if (items[idx].IsEmpty())
         return RucksackItem();
 
-    RucksackItem one(items[idx]);
-    one.amount = 1;
-    return one;
+    return RucksackItem(items[idx]);
 }
 
 RucksackItem Rucksack::TakeOneAt(u32 idx)
@@ -736,16 +885,16 @@ RucksackItem Rucksack::TakeOneAt(u32 idx)
     if (items[idx].IsEmpty())
         return RucksackItem();
 
-    if (items[idx].GetAmount() > 1)
+    if (amounts[idx] > 1)
     {
         RucksackItem one(items[idx]);
-        one.amount = 1;
-        items[idx].SubtractAmount(1);
+        amounts[idx] -= 1;
         return one;
     }
 
     RucksackItem result(items[idx]);
     items[idx] = RucksackItem();
+    amounts[idx] = 0;
     return result;
 }
 
@@ -793,25 +942,31 @@ u32 Rucksack::AddAmountOf(RucksackItem const & item, u32 amount)
     typedef FixedVec<RucksackItem, 8>::iterator It;
     It begin = items.begin();
     It end = items.end();
+    u32 idx = 0;
 
-    // Top up matching full-key stacks before using empty slots.
-    for (It it = begin; amount > 0 && it != end; ++it)
+    // Top up matching full-key stacks (D1: kind + id + bonuses + wrapped) before using empty slots.
+    for (It it = begin; amount > 0 && it != end; ++it, ++idx)
     {
         if (!it->IsEmpty() && it->IsSameStackable(item))
         {
-            u32 added = std::min<u32>(amount, RucksackItem::MAX_AMOUNT - it->GetAmount());
-            it->AddAmount(added);
+            u32 added = amount;
+            if (added > RucksackItem::MAX_AMOUNT - amounts[idx])
+                added = RucksackItem::MAX_AMOUNT - amounts[idx];
+            amounts[idx] += added;
             amount -= added;
         }
     }
 
-    for (It it = begin; amount > 0 && it != end; ++it)
+    idx = 0;
+    for (It it = begin; amount > 0 && it != end; ++it, ++idx)
     {
         if (it->IsEmpty())
         {
-            u32 added = std::min<u32>(amount, RucksackItem::MAX_AMOUNT);
+            u32 added = amount;
+            if (added > RucksackItem::MAX_AMOUNT)
+                added = RucksackItem::MAX_AMOUNT;
             *it = item;
-            it->amount = added;
+            amounts[idx] = added;
             amount -= added;
         }
     }

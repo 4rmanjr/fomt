@@ -32,6 +32,11 @@ struct Rucksack
     u32 GetAvailableSpaceForArticle(u32 article_id) const;
     u32 GetAvailableSpaceFor(RucksackItem const & item) const;
     u32 GetAmountAt(u32 idx) const;
+    void SetAmountAt(u32 idx, u32 amount);
+    void MoveSlot(u32 src, u32 dst);
+    void SwapSlots(u32 a, u32 b);
+    u32 MoveToFoodStack(u32 idx, FoodStack & stack);
+    u32 MoveToArticleStack(u32 idx, ArticleStack & stack);
     ToolStack const & GetToolAt(u32 idx) const;
     bool HasNoTools() const;
     u32 GetFirstFreeToolSlot() const;
@@ -58,7 +63,8 @@ struct Rucksack
     u32 AddAmountOfTool(u32 tool_id, u32 amount);
 
     /* +00 */ FixedVec<RucksackItem, 8> items;
-    /* +2C */ FixedVec<ToolStack, 8> tools;
+    /* +24 */ FixedVec<ToolStack, 8> tools;
+    /* +38 */ u8 amounts[8]; /* stack amount per item slot, parallel to items */
 };
 
 #endif // RUCKSACK_HH
