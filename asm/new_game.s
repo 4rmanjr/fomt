@@ -1205,6 +1205,21 @@ func_080040A0: @ 0x080040A0
 .L08004148:
     str r4, [r5]
 .L0800414A:
+    @ Fase 5.2: the legacy payload was validated and restored.  reg 2 keeps
+    @ the validated payload bytes for the checksum binding; reg 4 is the state
+    @ object whose rucksack is now live (existing object, or the new wrapper).
+    ldr r4, [r6, #8]
+    ldr r2, [sp, #4]
+    cmp r2, #0
+    bne .L0800414C
+    ldr r4, [r6, #0xc]
+    ldr r4, [r4, #4]
+    adds r2, r4, #0
+.L0800414C:
+    ldr r0, [sp, #0xc]
+    mov r1, sl
+    adds r3, r4, #0
+    bl LoadRucksackAmountsSidecar
     adds r0, r6, #0
     adds r0, #0x18
     movs r1, #0xc5

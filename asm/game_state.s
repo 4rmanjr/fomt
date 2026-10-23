@@ -2414,6 +2414,14 @@ func_080115B0: @ 0x080115B0
     lsls r0, r0, #0x18
     cmp r0, #0
     beq .L08011634
+    @ Fase 5.2: persist stack amounts in the verified per-file tail.  The
+    @ main payload and checksum are already written, so a sidecar failure does
+    @ not invalidate the save; the next load then falls back to one piece/slot.
+    adds r0, r5, #0
+    mov r1, r8
+    adds r2, r7, #0
+    ldr r3, [sp, #4]
+    bl SaveRucksackAmountsSidecar
     movs r0, #0
     b .L0801163E
     .align 2, 0

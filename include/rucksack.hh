@@ -33,6 +33,7 @@ struct Rucksack
     u32 GetAvailableSpaceFor(RucksackItem const & item) const;
     u32 GetAmountAt(u32 idx) const;
     void SetAmountAt(u32 idx, u32 amount);
+    void ClearAmounts();
     void MoveSlot(u32 src, u32 dst);
     void SwapSlots(u32 a, u32 b);
     u32 MoveToFoodStack(u32 idx, FoodStack & stack);
@@ -64,7 +65,16 @@ struct Rucksack
 
     /* +00 */ FixedVec<RucksackItem, 8> items;
     /* +24 */ FixedVec<ToolStack, 8> tools;
-    /* +38 */ u8 amounts[8]; /* stack amount per item slot, parallel to items */
+    // Stack amounts are runtime-only state kept outside of the object so that
+    // sizeof(Rucksack) stays at the baserom 0x38 and the serialized Farmer
+    // layout (Rucksack at Farmer+0x60, Dog at Farmer+0x98) is untouched.
+    // See src/rucksack.cc (amount store) and src/rucksack_save.cc (sidecar).
 };
+
+#if !defined(HOST_TEST) || HOST_TEST == 0
+typedef char RucksackItemMustRemainFourBytes[sizeof(RucksackItem) == 4 ? 1 : -1];
+typedef char RucksackMustRemainFiftySixBytes[sizeof(Rucksack) == 0x38 ? 1 : -1];
+typedef char RucksackToolsOffsetMustRemain24[offsetof(Rucksack, tools) == 0x24 ? 1 : -1];
+#endif
 
 #endif // RUCKSACK_HH

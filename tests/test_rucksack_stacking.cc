@@ -1,5 +1,6 @@
 // Host-side TDD tests for the R1 stacking model: RucksackItem stays the legacy
-// 4-byte layout (baserom ABI), stack amounts live in Rucksack::amounts[8].
+// 4-byte layout (baserom ABI), stack amounts live outside the Rucksack object
+// (runtime amount store in src/rucksack.cc; see tests/test_rucksack_save.cc).
 // Compile (host, system STL only):
 //   g++ -DMODERN=1 -DNONMATCHING=1 -DHOST_TEST=1 -std=c++17 -iquote . -I include \
 //     tests/test_rucksack_stacking.cc src/rucksack_item.cc src/rucksack.cc \

@@ -35,6 +35,9 @@ SECTIONS
         . = ALIGN(4); src/m4a.o(.gMusicPlayerE);
         . = ALIGN(4); src/m4a.o(.gMPlayMemAccArea);
         . = ALIGN(4); src/m4a.o(.gMusicPlayerD);
+        /* Fase 5.2: runtime-only rucksack amount table (not part of save layout). */
+        . = ALIGN(4); src/rucksack.o(.bss);
+        . = ALIGN(4); src/rucksack_save.o(.bss);
         __ewram_bss_end = .;
     } > EWRAM
 
@@ -171,6 +174,9 @@ SECTIONS
         . = ALIGN(4); asm/data/data_080F9EB8.o(.rodata);
         . = ALIGN(4); src/sound_data.o(.rodata.*);
         . = ALIGN(4); asm/data/data_0813B288.o(.rodata);
+        /* Fase 5.2: new save-sidecar code goes last so no existing ROM symbol shifts. */
+        . = ALIGN(4); src/rucksack_save.o(.text);
+        . = ALIGN(4); src/rucksack_save.o(.rodata);
     } > ROM = 0xFF
 
     .iwram : ALIGN(4)

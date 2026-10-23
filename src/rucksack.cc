@@ -1,8 +1,111 @@
 #include "rucksack.hh"
 
+// Runtime-only stack amounts, keyed by the Rucksack object that owns them.
+//
+// The arrays cannot live inside Rucksack: the serialized Farmer keeps Rucksack
+// at +0x60, so growing it from 0x38 to 0x40 would overlap the Dog object the
+// save loader constructs at Farmer+0x98 (payload +0x1C70).  Keeping the table
+// out of the object preserves the baserom ABI and save payload byte-for-byte.
+//
+// The key is the object address (Rucksack has no copy constructor use in the
+// game; the payload is restored in place).  At most three Rucksacks exist at
+// once (live game state, temporary load buffer, file-select metadata buffer),
+// so eight entries leave ample slack.  Construction resets the entry for that
+// address, which keeps per-instance semantics for host tests.
+namespace
+{
+
+struct AmountStore
+{
+    Rucksack const * owner;
+    u32 last_used;
+    u8 amounts[8];
+};
+
+enum
+{
+    AMOUNT_STORE_CAPACITY = 8,
+};
+
+AmountStore g_amount_stores[AMOUNT_STORE_CAPACITY];
+u32 g_amount_store_clock;
+
+AmountStore * FindAmountStore(Rucksack const * owner)
+{
+    for (u32 i = 0; i < AMOUNT_STORE_CAPACITY; ++i)
+    {
+        if (g_amount_stores[i].owner == owner)
+            return &g_amount_stores[i];
+    }
+
+    return 0;
+}
+
+AmountStore * AllocAmountStore(Rucksack const * owner)
+{
+    u32 slot = AMOUNT_STORE_CAPACITY;
+
+    for (u32 i = 0; i < AMOUNT_STORE_CAPACITY; ++i)
+    {
+        if (g_amount_stores[i].owner == 0)
+        {
+            slot = i;
+            break;
+        }
+    }
+
+    if (slot == AMOUNT_STORE_CAPACITY)
+    {
+        slot = 0;
+
+        for (u32 i = 1; i < AMOUNT_STORE_CAPACITY; ++i)
+        {
+            if (g_amount_stores[i].last_used < g_amount_stores[slot].last_used)
+                slot = i;
+        }
+    }
+
+    AmountStore * store = &g_amount_stores[slot];
+
+    store->owner = owner;
+    store->last_used = ++g_amount_store_clock;
+
+    // A brand-new store (constructor or a moved/newly seen object) defaults to
+    // the legacy one-piece semantics for already occupied slots.
+    for (u32 i = 0; i < 8; ++i)
+        store->amounts[i] = 0;
+
+    u32 size = owner->GetSize();
+
+    for (u32 i = 0; i < 8 && i < size; ++i)
+    {
+        if (!owner->GetItemAt(i).IsEmpty())
+            store->amounts[i] = 1;
+    }
+
+    return store;
+}
+
+// Never returns null: methods are also called on objects that were restored
+// from a save payload (the constructor already registered that address).
+u8 * GetAmounts(Rucksack const * owner)
+{
+    AmountStore * store = FindAmountStore(owner);
+
+    if (store == 0)
+        store = AllocAmountStore(owner);
+
+    store->last_used = ++g_amount_store_clock;
+    return store->amounts;
+}
+
+} // namespace
+
 Rucksack::Rucksack()
     : items(2, RucksackItem()), tools(2, ToolStack())
 {
+    u8 * amounts = GetAmounts(this);
+
     for (u32 i = 0; i < 8; ++i)
         amounts[i] = 0;
 }
@@ -133,6 +236,7 @@ u32 Rucksack::GetEmptyItemSlotCount() const
 
 u32 Rucksack::GetAmountOfFood(u32 food_id) const
 {
+    u8 const * amounts = GetAmounts(this);
     u32 count = 0;
     u32 idx = 0;
 
@@ -150,6 +254,7 @@ u32 Rucksack::GetAmountOfFood(u32 food_id) const
 
 u32 Rucksack::GetAmountOfArticles(u32 article_id) const
 {
+    u8 const * amounts = GetAmounts(this);
     u32 count = 0;
     u32 idx = 0;
 
@@ -190,6 +295,7 @@ u32 Rucksack::GetAvailableSpaceFor(RucksackItem const & item) const
     if (item.IsEmpty())
         return 0;
 
+    u8 const * amounts = GetAmounts(this);
     u32 available = 0;
     u32 idx = 0;
     RucksackItem const * begin = items.begin();
@@ -208,16 +314,18 @@ u32 Rucksack::GetAvailableSpaceFor(RucksackItem const & item) const
 
 u32 Rucksack::GetAmountAt(u32 idx) const
 {
-    if (items[idx].IsEmpty())
+    if (idx >= 8 || items[idx].IsEmpty())
         return 0;
 
-    return amounts[idx];
+    return GetAmounts(this)[idx];
 }
 
 void Rucksack::SetAmountAt(u32 idx, u32 amount)
 {
     if (idx >= 8)
         return;
+
+    u8 * amounts = GetAmounts(this);
 
     if (amount > RucksackItem::MAX_AMOUNT)
         amount = RucksackItem::MAX_AMOUNT;
@@ -235,6 +343,14 @@ void Rucksack::SetAmountAt(u32 idx, u32 amount)
     amounts[idx] = amount;
 }
 
+void Rucksack::ClearAmounts()
+{
+    u8 * amounts = GetAmounts(this);
+
+    for (u32 i = 0; i < 8; ++i)
+        amounts[i] = 0;
+}
+
 void Rucksack::MoveSlot(u32 src, u32 dst)
 {
     if (src >= 8 || dst >= 8 || src == dst)
@@ -242,6 +358,8 @@ void Rucksack::MoveSlot(u32 src, u32 dst)
 
     if (items[src].IsEmpty() || !items[dst].IsEmpty())
         return;
+
+    u8 * amounts = GetAmounts(this);
 
     items[dst] = items[src];
     amounts[dst] = amounts[src];
@@ -255,6 +373,7 @@ void Rucksack::SwapSlots(u32 a, u32 b)
     if (a >= 8 || b >= 8 || a == b)
         return;
 
+    u8 * amounts = GetAmounts(this);
     RucksackItem item(items[a]);
     u32 amount = amounts[a];
 
@@ -270,6 +389,7 @@ u32 Rucksack::MoveToFoodStack(u32 idx, FoodStack & stack)
     if (idx >= 8 || items[idx].IsEmpty() || items[idx].GetKind() != RucksackItem::KIND_FOOD)
         return 0;
 
+    u8 * amounts = GetAmounts(this);
     u32 moved = amounts[idx];
 
     if (stack.IsEmpty())
@@ -304,6 +424,7 @@ u32 Rucksack::MoveToArticleStack(u32 idx, ArticleStack & stack)
     if (idx >= 8 || items[idx].IsEmpty() || items[idx].GetKind() != RucksackItem::KIND_ARTICLE)
         return 0;
 
+    u8 * amounts = GetAmounts(this);
     u32 moved = amounts[idx];
 
     if (stack.IsEmpty())
@@ -458,6 +579,8 @@ void Rucksack::Upgrade()
 
         items.resize(new_size, RucksackItem());
         tools.resize(new_size, ToolStack());
+
+        u8 * amounts = GetAmounts(this);
 
         for (u32 i = 0; i < new_size; ++i)
         {
@@ -834,11 +957,11 @@ RucksackItem & Rucksack::GetItemAt(u32 idx)
 
 RucksackItem Rucksack::ExtractItemAt(u32 idx)
 {
-    if (!items[idx].IsEmpty())
+    if (idx < 8 && !items[idx].IsEmpty())
     {
         RucksackItem result(items[idx]);
         items[idx] = RucksackItem();
-        amounts[idx] = 0;
+        GetAmounts(this)[idx] = 0;
         return result;
     }
 
@@ -853,6 +976,8 @@ RucksackItem Rucksack::CycleItemBack(RucksackItem item)
     // comes from the hand and is one piece (D3). Interim limitation: a surplus
     // stack in the evicted first slot collapses to the one piece handed out;
     // Phase 3.1 replaces the whole-slot cycle with TakeOneAt.
+    u8 * amounts = GetAmounts(this);
+
     for (u32 i = 1; i < items.size(); ++i)
         amounts[i - 1] = amounts[i];
     amounts[items.size() - 1] = 1;
@@ -865,6 +990,8 @@ RucksackItem Rucksack::CycleItemFront(RucksackItem item)
     RucksackItem result = items.push_front(item);
 
     // Shift stack amounts in parallel with the item slots (mirror of CycleItemBack).
+    u8 * amounts = GetAmounts(this);
+
     for (u32 i = items.size() - 1; i > 0; --i)
         amounts[i] = amounts[i - 1];
     amounts[0] = 1;
@@ -882,8 +1009,10 @@ RucksackItem Rucksack::PeekOneAt(u32 idx) const
 
 RucksackItem Rucksack::TakeOneAt(u32 idx)
 {
-    if (items[idx].IsEmpty())
+    if (idx >= 8 || items[idx].IsEmpty())
         return RucksackItem();
+
+    u8 * amounts = GetAmounts(this);
 
     if (amounts[idx] > 1)
     {
@@ -940,6 +1069,7 @@ u32 Rucksack::AddAmountOf(RucksackItem const & item, u32 amount)
         return amount;
 
     typedef FixedVec<RucksackItem, 8>::iterator It;
+    u8 * amounts = GetAmounts(this);
     It begin = items.begin();
     It end = items.end();
     u32 idx = 0;
