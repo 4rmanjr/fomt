@@ -81,16 +81,22 @@ Status: `[ ]` belum, `[/]` berjalan, `[x]` selesai. Update tanggal + commit tiap
 
 ### Fase 2 — Inflow stacking (panen + tambang + beli/dapat)
 
-- [ ] 2.1 Panen: `FieldPlot::method_0800A4A4` tetap return 1 pcs; pastikan semua caller
-      (`AddAmountOfFood/Article` di `asm/code_0803EE94.s:0x0804199A,0x080419B4,0x08043D06+,0x08088xxx`)
-      memakai versi stacking baru (tidak perlu ubah ASM jika signature sama: `(id, amount)`).
-- [ ] 2.2 Tambang/kayu/batu: situs `AddAmountOfArticle__8RucksackUiUi` terverifikasi (2026-10-22):
+- [x] 2.1 Panen: `FieldPlot::method_0800A4A4` tetap return 1 pcs; semua caller yang
+      memberi id+jumlah (`AddAmountOfFood/Article__8RucksackUiUi`) terverifikasi memakai
+      implementasi stacking baru karena simbol/signature C++ sama. Hasil panen via method
+      C++ tetap konstruksi 1 pcs; caller memanggil Add amount sesuai jumlah panen.
+- [x] 2.2 Tambang/kayu/batu: situs `AddAmountOfArticle__8RucksackUiUi` terverifikasi (2026-10-23):
       `3937` (ambil item umum), `8248` (`.L08043D06` ambil item), `39827`, `128190`, `131092`,
-      `131238`, `137109`. KOREKSI: `96969`/`114177` = `GetFirstSlotWithArticle` (cek, bukan Add);
-      `127421` tidak ditemukan sebagai call Add. Pastikan `amount` dilewatkan benar.
-- [ ] 2.3 Fridge/shelf -> tas (refill): `func_08088xxx` — ganti `memcpy` whole-slot jadi
-      `AddAmountOf*` agar merge ke stack id-sama yang sudah ada.
-- [ ] 2.4 Test: panen 10 lobak dengan tas 2 slot -> harus jadi 1 slot `x10`, bukan 10 slot.
+      `131238`, `137109`. Semua situs Add memakai argumen amount yang sudah ada (1 atau jumlah
+      loop), dan akan top-up stack lalu slot kosong; caller leftover tetap tersedia untuk jalur shelf.
+      `96969`/`114177` adalah `GetFirstSlotWithArticle` (cek, bukan Add); `127421` bukan call Add.
+- [ ] 2.3 Fridge/shelf -> tas (refill): jalur `func_08088BA0` (food) dan
+      `func_0808CEC4` (article) memiliki kode UI untuk transfer/swap. Belum dibuat perubahan
+      yang menghubungkan jumlah stack baru ke alur transfer ini; perlu patch ASM terarah dan
+      tes runtime pada refill sebagian/penuh, bonus food, wrapped, serta overflow slot.
+- [x] 2.4 Test model: panen 10 lobak dengan tas 2 slot menghasilkan satu slot `x10`;
+      tes tambahan memastikan >99 mengisi slot berikutnya dan overflow dikembalikan tepat.
+      Host tests `21/21` lulus. Belum menguji inflow aktual dalam emulator.
 
 ### Fase 3 — Outflow give-1 (NPC, hewan, shipping, makan, masak, gift)
 
@@ -158,9 +164,9 @@ Semua give lewat tangan 1 pcs.
 | logic tas | `include/rucksack.hh`, `src/rucksack.cc` | [ ] |
 | tangan | `include/held_item.hh`, `src/held_item.cc` | [ ] |
 | cycle tangan | `src/farmer.cc:311,346` | [ ] |
-| panen | `src/field.cc:430` + `asm:0x0804199A/0x080419B4/0x08043D06` | [ ] |
-| tambang | `asm:3937,8248,39827,128190,131092,131238,137109` (Add; `96969/114177`=cek FirstSlot, `127421` tidak ada) | [ ] |
-| fridge/shelf refill | `asm:func_08088688,func_08088BA0`, `src/fridge.cc`, `src/shelf.cc` | [ ] |
+| panen | `src/field.cc:430` + `asm:0x0804199A/0x080419B4/0x08043D06` | [x] inflow call audit |
+| tambang | `asm:3937,8248,39827,128190,131092,131238,137109` (Add; `96969/114177`=cek FirstSlot, `127421` tidak ada) | [x] audit args |
+| fridge/shelf refill | `asm:func_08088BA0` (food), `func_0808CEC4` (article), `src/fridge.cc`, `src/shelf.cc` | [ ] |
 | give NPC/hewan/ship | hasil audit 3.2 | [ ] |
 | display xN | `func_080CCD48` (`code_809E804.s:94844`), `func_080CC728` (`:94013`), `func_080CAEEC`, simbol baru `GetAmount__C12RucksackItem` | [ ] |
 | save | `asm/sram_proxy_1.s`, `fomt.lds` | [ ] |
@@ -178,7 +184,10 @@ Semua give lewat tangan 1 pcs.
 
 ## 5. Log progres
 
-- 2026-10-22: analisa kulkas vs tas selesai; plan ini dibuat. Belum ada perubahan kode.
+- 2026-10-23: Recheck setelah baserom/toolchain tersedia: `make compare` membangun ROM,
+  namun checksum berbeda dari baserom (diharapkan setelah Fase 1) dan warning LOAD RWX.
+  Refill masih belum diimplementasikan; jangan tandai Fase 2 selesai sampai ASM refill benar-benar
+  mengonsumsi/menambahkan jumlah stack dengan benar dan lolos regresi.
 - 2026-10-22: verifikasi source selesai (C++ cocok, koreksi: situs tambang 5 bukan 8,
   func display di `code_809E804.s`, baris audit ±5, string `x%d` belum ketemu).
   Keputusan dikunci: D1 full-key, D2=99, D3 tangan-1-pcs, D4 A=all, D5 migrasi save.

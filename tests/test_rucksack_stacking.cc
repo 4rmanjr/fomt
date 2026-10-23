@@ -162,6 +162,23 @@ TEST(RucksackStacking, ArticlesStackToo)
     EXPECT_EQ(rucksack.GetAmountAt(0), 12u);
 }
 
+TEST(RucksackStacking, InflowMoreThanOneStackUsesNextSlot)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfArticle(ARTICLE_STONES, 150), 0u);
+    EXPECT_EQ(rucksack.GetAmountOfArticles(ARTICLE_STONES), 150u);
+    EXPECT_EQ(rucksack.GetAmountAt(0), 99u);
+    EXPECT_EQ(rucksack.GetAmountAt(1), 51u);
+}
+
+TEST(RucksackStacking, InflowReturnsExactOverflowWhenSlotsExhausted)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfArticle(ARTICLE_STONES, 198), 0u);
+    EXPECT_EQ(rucksack.AddAmountOfArticle(ARTICLE_STONES, 4), 4u);
+    EXPECT_EQ(rucksack.GetAmountOfArticles(ARTICLE_STONES), 198u);
+}
+
 TEST(RucksackStacking, AvailableSpace)
 {
     Rucksack rucksack; // 2 empty slots
