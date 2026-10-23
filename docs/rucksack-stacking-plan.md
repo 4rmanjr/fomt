@@ -160,10 +160,10 @@ Semua give lewat tangan 1 pcs.
 
 ### Fase 4 — UI/ASM (tampilan + tukar)
 
-- [ ] 4.1 Display jumlah: menu tas (`func_080CBA60/080CB63C/080CB304/080CC728` di
+- [x] 4.1 Display jumlah: menu tas (`func_08088318` dan `func_0808BDA0` di
       `asm/code_809E804.s:92320/91768/91329/94013`, diref dari `code_0803EE94.s`) gambar ikon +
       angka `N` jika `amount>1` (verifikasi 2026-10-22, detail di bawah).
-      - Helper gambar (sudah ada, generik, dipakai fridge 6x + shelf 6x):
+      - Helper gambar angka (sudah ada, generik, dipakai fridge 6x + shelf 6x):
         `func_080CCD48(ctx, slot, amount)` (`code_809E804.s:94844`) — siapkan tile slot
         (`func_080CAD10`), gambar ikon, lalu `cmp amount,#1; bls skip` (amount<=1 = tampil
         polos identik ROM hari ini) else `func_080CAEEC(ctx, amount, 0x20)` gambar angka
@@ -172,22 +172,39 @@ Semua give lewat tangan 1 pcs.
         (`:92389`) = gambar ikon saja (untuk slot amount=1).
       - Format = ikon + angka desimal menempel (tile grafis via `CAEEC`, BUKAN string `x%d`;
         literal `x%d` tidak ada di `asm/data/*.s` — tidak perlu dicari lagi).
-      - Pola panggil per slot tas (tiru `.L08089A20` fridge ~146143):
-        `GetItemAt` -> `GetIconId` -> `GetAmountAt__C8Rucksack` (SIMBOL BARU, sudah ada
-        sejak R1) -> `CC728`/`CCD48` alih-alih gambar-ikon-polos.
+      - Pola terverifikasi pada kedua list item tas: ambil amount dari model `Rucksack`
+        lalu taruh sebagai argumen stack `[sp]` milik `CB304` (main list) / `CC728`
+        (tas transfer), sambil mempertahankan `GetIconId`, wrapped-icon, tabel tile,
+        dan jalur gambar ikon asli. Jangan ganti ke `CCD48`: helper itu menghitung ulang
+        tile/icon dari tabel global `gUnk_08117860`, yang tidak mempertahankan wrapped icon.
       - Prasyarat: Fase 1 selesai. REVISI R1: tidak ada perubahan stride/offset ASM —
         layout item tetap 4 byte baserom; display cukup memanggil `GetAmountAt`.
+      - Verifikasi statis selesai: dua renderer item tas dipetakan ke pemanggil scene,
+        amount diambil dari model dan dikirim ke argumen stack renderer existing tanpa
+        mengubah icon/tile key. Perakitan + link sukses; visual emulator masih regresi
+        Fase 5.3, bukan blocker cakupan implementasi 4.1.
       - Tanpa 4.1 = bug pasti: stack xN tampil tanpa angka (ambiguitas nominal; D4=A-all
-        memindah N pcs sekaligus tanpa terlihat) + loop stride lama baca byte-amount sebagai
-        item berikutnya (ikon rusak).
-- [ ] 4.2 Tukar tas<->kulkas/rak (`func_08088688`, `func_08088BA0`): D4=A-all (dikunci).
+        memindah N pcs sekaligus tanpa terlihat). Item tetap 4 byte; tidak ada stride baru.
+- [x] 4.2 Tukar tas<->kulkas/rak (`func_08088688`, `func_08088BA0`): D4=A-all (dikunci).
       SEBAGIAN BESAR SUDAH DIKERJAKAN di Fase 2.3 (2026-10-23): whole-slot move/swap
       (`MoveSlot`/`SwapSlots`), merge id-sama (`MoveTo*Stack`, cap 99, leftover di tas),
-      swap tangan<->slot ber-stack ditolak. Sisa 4.2: regresi runtime + polish pesan error.
-- [ ] 4.3 Batas upgrade tas (2/4/8 slot di `Rucksack::GetUpgradeLevel`) **tetap jumlah slot**,
+      swap tangan<->slot ber-stack ditolak. Perilaku statis ditrace dari touch/key branch
+      ke helper mutasi dan rerender. Verifikasi visual/input/SFX emulator dicatat pada
+      regresi Fase 5.3; tidak tersisa perubahan implementasi di sub-step ini.
+- [x] 4.3 Batas upgrade tas (2/4/8 slot di `Rucksack::GetUpgradeLevel`) **tetap jumlah slot**,
       bukan jumlah pcs — stacking justru membuat upgrade lebih berharga. Tidak ubah.
-- [ ] 4.4 Bunyi/error message saat penuh: reuse path `gUnk_08100034` (tas penuh) yang dipakai
-      fridge (`:144828+`); picu hanya jika `GetAvailableSpaceFor==0`.
+- [x] 4.4 Bunyi/error message saat penuh: `gUnk_08100034` dan `gUnk_081000D4` BUKAN pesan
+      penuh; data ROM yang ditunjuk masing-masing berbunyi konfirmasi melepas wrapping saat
+      memasukkan item terbungkus ke fridge/shelf; dilarang gunakan ulang untuk kapasitas penuh.
+      Trace ke akar: check `func_0804E17C/1D4` memverifikasi item non-food yang sudah di tangan,
+      lalu bool menentukan apakah caller memasukkan kandidat ke daftar seleksi. Jalur food
+      `func_0807E014` menghitung jumlah slot kosong tas + kapasitas fridge untuk item aktif;
+      bila jumlah nol, entry tidak ditambahkan (cabang `.L0807E300`) dan tidak mengirim pesan
+      penuh. Namun penolakan tersebut konsisten dengan perilaku sumber dan tidak ada pesan
+      tas-penuh yang tepat untuk direuse. Perubahan stacking membuat AddAmount mengembalikan
+      overflow; overflow dialihkan ke Fridge::AddAmountOf (0x40 slot, kapasitas 99) dan leftover
+      yang tak tertampung tidak dibuang ke pesan konfirmasi unwrapping. Verifikasi jalur sumber
+      dan implementasi cukup; tidak menambah feedback yang tidak ada pada perilaku game.
 
 ### Fase 5 — Save/migrasi + regresi
 
@@ -210,7 +227,8 @@ Semua give lewat tangan 1 pcs.
 | tambang | `asm:3937,8248,39827,128190,131092,131238,137109` (Add; `96969/114177`=cek FirstSlot, `127421` tidak ada) | [x] audit args |
 | fridge/shelf refill | `asm:func_08088BA0` (food), `func_0808CEC4` (article), `func_08088688`/`func_0808AC28`/`func_0808B16C`/`func_0808C9D0` (tas) | [x] patched R1 (2026-10-23) |
 | give NPC/hewan/ship | hasil audit 3.2: semua via tangan 1 pcs | [x] 2026-10-23 |
-| display xN | `func_080CCD48` (`code_809E804.s:94844`), `func_080CC728` (`:94013`), `func_080CAEEC`, simbol baru `GetAmountAt__C8RucksackUi` | [ ] |
+| display xN | `func_08088318`, `func_0808BDA0` -> `GetAmountAt__C8RucksackUi` -> `func_080CB304`/`func_080CC728` | [x] source traced, 2026-10-23 |
+| upgrade slots | `Rucksack::GetUpgradeLevel/Upgrade` | [x] tetap berdasarkan `items.size()` (2/4/8), 2026-10-23 |
 | save | `asm/sram_proxy_1.s`, `fomt.lds` | [ ] |
 
 ## 4. Cara lanjut di lain hari (progres tidak hilang)
@@ -219,13 +237,53 @@ Semua give lewat tangan 1 pcs.
 2. Buka file ini, cari checkbox `[ ]` pertama yang belum selesai.
 3. Build baseline: `make compare` (butuh `baserom.gba`; lihat `INSTALL.md`).
 4. Uji manual di emulator (mgba) dengan save state repo `fomt_16.ss*`:
-   panen -> cek stacking, give 1 ke NPC/hewan, tukar tas<->kulkas, save->load.
+   panen -> cek stacking dan angka xN pada kedua daftar item tas, give 1 ke NPC/hewan,
+   tukar tas<->kulkas/rak (whole-slot, merge, leftover, kapasitas penuh, wrapping confirm),
+   cek pesan/SFX, lalu save->load.
 5. Setiap selesai 1 checkbox: update `[x]` + tanggal, commit kecil
    (`git add docs/rucksack-stacking-plan.md src/... && git commit -m "..."`),
    push agar tidak hilang.
 
 ## 5. Log progres
 
+- 2026-10-23: Fase 4.3 diverifikasi dari sumber: `GetUpgradeLevel()` memakai
+  `items.size()` dan `Upgrade()` resize slot `items/tools` 2 -> 4 -> 8; `amounts[]`
+  hanya data isi paralel dan tidak memengaruhi level. Call site upgrade ASM
+  (`0x08044270`) memanggil `Upgrade__8Rucksack`, dan pemeriksaan level untuk kondisi
+  permainan memakai simbol level yang sama. Ditambah regression test yang mengisi
+  dua slot masing-masing x99 (total 198) namun level tetap 0, lalu memastikan upgrade
+  mengubah slot ke 4/8; host tests 37/37 lulus. Fase 4.4 memutuskan tidak menambah
+  pesan baru setelah tracing sumber feedback dan alur kapasitas:
+  `func_0804E17C/1D4` adalah check kelayakan (tas kosong ATAU kapasitas furniture),
+  sedangkan caller memasukkan ikon/item ke daftar selection; belum ada bukti bahwa
+  `gUnk_08100034` adalah feedback umum kapasitas simpan habis.
+- 2026-10-23: Fase 4.1 ditutup setelah trace kedua renderer list item tas dan pemanggil
+  scene/transfer; jumlah diteruskan ke parameter stack renderer existing sementara
+  jalur ikon asli dipertahankan. Build/link memverifikasi ASM. Pengujian visual dicatat
+  pada Fase 5.3.
+- 2026-10-23: Koreksi trace Fase 4.4: inspeksi isi ROM mengonfirmasi `gUnk_08100034`
+  = dialog konfirmasi unwrapping untuk fridge (`If you put it in the Refrigerator,
+  the wrapping will come off. Are you sure?`), dan `gUnk_081000D4` = dialog sepadan
+  untuk shelf. Keduanya dipakai setelah branch `IsWrapped`, bukan kapasitas. Check
+  storage di `func_0804E17C/1D4` menghasilkan bool kelayakan (rucksack slot OR storage
+  capacity), caller memasukkan kandidat ke daftar. Alur kapasitas simpan massal juga
+  ditelusuri di `.L0807E014`: jumlah kapasitas nol melewati penambahan entry/transfer;
+  overflow dari tas diteruskan ke `Fridge::AddAmountOf` yang mengembalikan leftover.
+  Karena tidak ada pesan penuh yang memang dipakai pada jalur ini, keputusan 4.4 adalah
+  mempertahankan perilaku game dan tidak memasang string unwrapping atau pesan lain.
+- 2026-10-23: Fase 4.2 code-path ditelusuri dari input handler `func_08088688` (tas/fridge)
+  dan `func_0808CEC4` (tas/shelf) sampai `MoveSlot`/`SwapSlots`/`MoveTo*Stack`, serta
+  rerender target/source. Branch empty-target memindahkan seluruh amount; branch same-id
+  melakukan merge dengan sisa tetap di tas; incompatible stack ditolak sesuai D4.
+  Validasi emulator input/UI/SFX tetap bagian regresi Fase 5.3.
+- 2026-10-23: Catatan audit awal Fase 4.1 (detail final dan status [x] dicatat di atas):
+  dua renderer list item tas:
+  `func_08088318` dipanggil scene `func_0808A55C`, dan `func_0808BDA0` dipanggil
+  handler transfer (`func_0808C0BC`, `func_0808C9D0` dkk.). Keduanya mempertahankan
+  jalur icon lama (termasuk wrapped) dan memasok `GetAmountAt(idx)` melalui argumen
+  stack amount bagi `func_080CB304`/`func_080CC728`. Koreksi: jangan gunakan `CCD48`
+  karena ia mengambil icon dari tabel global dan mengabaikan wrapped icon. Build ROM
+  perlu diverifikasi; runtime visual tetap bagian regresi Fase 5.3.
 - 2026-10-23: Fase 3 selesai (2026-10-23, model R1). Cycle tangan (func_0800EB3C/EBC4)
   dirombak take-1: deposisi 1 pcs (merge dulu, gagal=no-op tanpa loss), ambil 1 pcs dari
   slot terisi pertama/terakhir — tidak ada rotasi whole-slot, surplus stack tinggal.

@@ -143507,9 +143507,14 @@ func_08088318: @ 0x08088318
 	movs r4, #0xb0
 	lsls r4, r4, #1
 .L0808838C:
+	movs r0, #0x80
+	lsls r0, r0, #1
+	adds r0, r0, r6
+	ldr r0, [r0]
+	adds r1, r5, #0
+	bl GetAmountAt__C8RucksackUi
+	str r0, [sp]
 	ldr r0, [r6, #0x78]
-	movs r1, #1
-	str r1, [sp]
 	adds r1, r5, #0
 	ldr r2, .L080883CC @ =gUnk_086678A0
 	adds r3, r4, #0
@@ -150374,9 +150379,14 @@ func_0808BDA0: @ 0x0808BDA0
 	movs r4, #0xb0
 	lsls r4, r4, #1
 .L0808BE14:
+	movs r0, #0x80
+	lsls r0, r0, #1
+	adds r0, r0, r5
+	ldr r0, [r0]
+	adds r1, r6, #0
+	bl GetAmountAt__C8RucksackUi
+	str r0, [sp]
 	ldr r0, [r5, #0x7c]
-	movs r1, #1
-	str r1, [sp]
 	adds r1, r6, #0
 	ldr r2, .L0808BE54 @ =gUnk_086678A0
 	adds r3, r4, #0

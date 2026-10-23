@@ -178,6 +178,26 @@ TEST(RucksackStacking, AvailableSpace)
     EXPECT_EQ(rucksack.GetAvailableSpaceForFood(FOOD_TURNIP), 98u);
 }
 
+TEST(RucksackUpgrade, LevelsRemainBasedOnSlotCount)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.GetSize(), 2u);
+    EXPECT_EQ(rucksack.GetUpgradeLevel(), Rucksack::LEVEL_0);
+
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 99), 0u);
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 99), 0u);
+    EXPECT_EQ(rucksack.GetAmountOfFood(FOOD_TURNIP), 198u);
+    EXPECT_EQ(rucksack.GetUpgradeLevel(), Rucksack::LEVEL_0);
+
+    rucksack.Upgrade();
+    EXPECT_EQ(rucksack.GetSize(), 4u);
+    EXPECT_EQ(rucksack.GetUpgradeLevel(), Rucksack::LEVEL_1);
+
+    rucksack.Upgrade();
+    EXPECT_EQ(rucksack.GetSize(), 8u);
+    EXPECT_EQ(rucksack.GetUpgradeLevel(), Rucksack::LEVEL_2);
+}
+
 // ---- TakeOneAt (Fase 1.3 / 3.1 helper) ----
 
 TEST(RucksackTakeOne, DecrementsAndReturnsSingle)
