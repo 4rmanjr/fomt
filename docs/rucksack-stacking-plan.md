@@ -130,18 +130,33 @@ Status: `[ ]` belum, `[/]` berjalan, `[x]` selesai. Update tanggal + commit tiap
 Prinsip: **tidak ada jalur yang memindahkan whole `RucksackItem` ke luar kecuali tas internal.**
 Semua give lewat tangan 1 pcs.
 
-- [ ] 3.1 Tambah helper `Rucksack::TakeOneAt` dipakai oleh:
-  - cycle ke tangan `Farmer::func_0800EB3C/0800EBC4` (`src/farmer.cc`): tangan diisi 1 pcs,
-    sisa tinggal di slot (ubah dari `CycleItemBack/Front` whole-swap).
-  - UI ambil dari tas `ExtractItemAt__8RucksackUi` (`:143949,144042`) -> ganti `TakeOneAt`
-    untuk give/makan; `Extract` (whole) hanya untuk pindah slot internal / buang.
-- [ ] 3.2 Audit jalur konsumsi: `GetItemAt__8RucksackUi` + `GetFood/GetArticle` di
-  (`:143467,143800,144538,144751,145049,145113, ...` — nomor ±5 baris, fungsi benar) —
-  dengan D4=A-all: give/makan/ship lewat tangan 1 pcs (TakeOneAt), tukar tas<->kulkas/rak
-  tetap whole-slot.
-- [ ] 3.3 Hewan ternak/peliharaan, shipping bin (`src/shipping_bin.cc`), masak/oven,
-      gift-wrap (`TryWrap`/`IsWrapped`): pastikan konsumsi `SubtractAmount(1)` bukan clear slot.
-- [ ] 3.4 Test: slot `Telur x10`, give ke NPC -> slot jadi `x9`, NPC terima 1.
+- [x] 3.1 Tambah helper `Rucksack::TakeOneAt` dipakai oleh:
+  - [x] cycle ke tangan `Farmer::func_0800EB3C/0800EBC4` (`src/farmer.cc`): DIROMBAK
+        (2026-10-23) — deposisi 1 pcs via `AddAmountOf` (merge stack dulu, baru slot
+        kosong; gagal = tas penuh & tak ada yang cocok → no-op tanpa loss), lalu ambil
+        1 pcs dari slot terisi pertama (EB3C) / terakhir (EBC4, arah terbalik baserom)
+        via `TakeOneAt`. Tidak ada rotasi whole-slot lagi; surplus stack tinggal di slot.
+        Return = 1 saat ada yang bergerak (pemanggil `code_entities.s:7317+` hanya cek
+        `!=0` untuk SFX). `CycleItemBack/Front` tidak lagi dipanggil (simbol dipertahankan).
+  - [x] UI ambil dari tas -> ganti `TakeOneAt` (2026-10-23): 6 situs konduit ke tangan
+        (`func_08088688` ambil+swap, `func_0808AC28` ambil+swap, `func_0808C9D0`
+        ambil+swap) — `bl ExtractItemAt` → `bl TakeOneAt` (konvensi sret sama).
+        3 situs `ExtractItemAt` SENGaja dipertahankan = buang/pakai whole-slot
+        (D4 slot=unit): `func_0808A4C0:147444`, `func_0808BC14:150189` (buang; BALL
+        anjing 0x35 = kasus khusus), `func_0808E65C:155110`.
+- [x] 3.2 Audit jalur konsumsi (2026-10-23): SEMUA konsumsi membaca TANGAN
+      (`HeldItem`, 1 pcs by construction) — shipping (`func_080262C4`: hand→Product→
+      `ShippingBin::Ship`), masak/makan (`func_0800F20C/F258`), beri makan hewan
+      (staging `+0x68` diisi dari tangan, bukan slot tas), gift-wrap tangan
+      (`func_0800F528`). Tidak ada jalur yang menguras whole stack. Situs
+      `GetItemAt`+read lainnya = display/cek word0 (aman R1, IsEmpty id-only).
+- [x] 3.3 Hewan/shipping/masak/gift-wrap: tidak perlu perubahan (lihat 3.2).
+      wrapping slot tas langsung (`func_08092CD0`: `GetItemAt`+`TryWrap` in-place)
+      hanya mengubah bit wrapped di word0 — `amounts[]` utuh; stack terpisah dari
+      versi tak-wrapped (D1 full-key) dan give tetap keluar 1 pcs wrapped.
+- [x] 3.4 Test: `RucksackGiveOne.EggStackLosesExactlyOnePiece` (telur x10 → give → x9),
+      `LastPieceClearsSlotCompletely`, `RucksackCycleFlow.*` (deposisi+ambil take-1).
+      Host tests 36/36 lulus; `make` bersih. Uji runtime emulator tetap tertunda Fase 5.3.
 
 ### Fase 4 — UI/ASM (tampilan + tukar)
 
@@ -194,7 +209,7 @@ Semua give lewat tangan 1 pcs.
 | panen | `src/field.cc:430` + `asm:0x0804199A/0x080419B4/0x08043D06` | [x] inflow call audit |
 | tambang | `asm:3937,8248,39827,128190,131092,131238,137109` (Add; `96969/114177`=cek FirstSlot, `127421` tidak ada) | [x] audit args |
 | fridge/shelf refill | `asm:func_08088BA0` (food), `func_0808CEC4` (article), `func_08088688`/`func_0808AC28`/`func_0808B16C`/`func_0808C9D0` (tas) | [x] patched R1 (2026-10-23) |
-| give NPC/hewan/ship | hasil audit 3.2 | [ ] |
+| give NPC/hewan/ship | hasil audit 3.2: semua via tangan 1 pcs | [x] 2026-10-23 |
 | display xN | `func_080CCD48` (`code_809E804.s:94844`), `func_080CC728` (`:94013`), `func_080CAEEC`, simbol baru `GetAmountAt__C8RucksackUi` | [ ] |
 | save | `asm/sram_proxy_1.s`, `fomt.lds` | [ ] |
 
@@ -211,6 +226,13 @@ Semua give lewat tangan 1 pcs.
 
 ## 5. Log progres
 
+- 2026-10-23: Fase 3 selesai (2026-10-23, model R1). Cycle tangan (func_0800EB3C/EBC4)
+  dirombak take-1: deposisi 1 pcs (merge dulu, gagal=no-op tanpa loss), ambil 1 pcs dari
+  slot terisi pertama/terakhir — tidak ada rotasi whole-slot, surplus stack tinggal.
+  6 situs ASM ExtractItemAt yang berujung ke tangan diganti TakeOneAt (ambil & swap di
+  func_08088688/0808AC28/0808C9D0); 3 situs buang/pakai whole-slot dipertahankan (D4).
+  Audit 3.2/3.3: semua konsumsi (ship/masak/makan/feed/wrap) membaca tangan = 1 pcs;
+  wrap slot tas = TryWrap in-place (word0 saja, amounts utuh). Test 36/36; make bersih.
 - 2026-10-23: PELACAKAN ABI (AGENTS.md: trace ke akar): layout 5-byte Fase 1 memecah
   ABI baserom di ±150 situs ASM. Bukti konkret: (1) 25 situs `GetItemAt`+`ldr r0,[r0]`
   menyalin hanya word0 — dengan `IsEmpty` versi 5-byte yang membaca byte-4, slot bisa

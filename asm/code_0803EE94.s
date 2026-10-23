@@ -143946,7 +143946,8 @@ func_08088688: @ 0x08088688
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl ExtractItemAt__8RucksackUi
+	@ Fase 3.1: hand takes 1 pc, stack surplus stays (D3)
+	bl TakeOneAt__8RucksackUi
 	mov r2, sb
 	ldr r0, [r2]
 	ldr r1, [sp, #0x10]
@@ -144053,7 +144054,8 @@ func_08088688: @ 0x08088688
 	adds r2, r0, #0
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl ExtractItemAt__8RucksackUi
+	@ Fase 3.1: hand takes 1 pc, stack surplus stays (D3)
+	bl TakeOneAt__8RucksackUi
 	ldr r4, [r5]
 	adds r0, r7, #0
 	mov r1, r8
@@ -148740,7 +148742,8 @@ func_0808AC28: @ 0x0808AC28
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl ExtractItemAt__8RucksackUi
+	@ Fase 3.1: hand takes 1 pc, stack surplus stays (D3)
+	bl TakeOneAt__8RucksackUi
 	movs r2, #0x80
 	lsls r2, r2, #1
 	adds r0, r7, r2
@@ -148851,7 +148854,8 @@ func_0808AC28: @ 0x0808AC28
 	adds r2, r0, #0
 	mov r0, r8
 	adds r1, r4, #0
-	bl ExtractItemAt__8RucksackUi
+	@ Fase 3.1: hand takes 1 pc, stack surplus stays (D3)
+	bl TakeOneAt__8RucksackUi
 	ldr r4, [r5]
 	adds r0, r7, #0
 	mov r1, sb
@@ -151863,7 +151867,8 @@ func_0808C9D0: @ 0x0808C9D0
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl ExtractItemAt__8RucksackUi
+	@ Fase 3.1: hand takes 1 pc, stack surplus stays (D3)
+	bl TakeOneAt__8RucksackUi
 	mov r2, r8
 	ldr r0, [r2]
 	ldr r1, [sp, #0x10]
@@ -151970,7 +151975,8 @@ func_0808C9D0: @ 0x0808C9D0
 	adds r2, r0, #0
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl ExtractItemAt__8RucksackUi
+	@ Fase 3.1: hand takes 1 pc, stack surplus stays (D3)
+	bl TakeOneAt__8RucksackUi
 	ldr r4, [r5]
 	adds r0, r7, #0
 	mov r1, sb

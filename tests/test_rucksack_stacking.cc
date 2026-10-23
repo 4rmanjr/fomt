@@ -372,6 +372,70 @@ TEST(RucksackStackTransfer, MoveRefusesWrongKind)
     EXPECT_EQ(rucksack.GetAmountAt(0), 10u);
 }
 
+// ---- Fase 3.4: give-1 outflow (telur x10 -> give -> x9) ----
+
+TEST(RucksackGiveOne, EggStackLosesExactlyOnePiece)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_REGULAR_QUALITY_EGG, 10), 0u);
+    EXPECT_EQ(rucksack.GetAmountAt(0), 10u);
+
+    // hand receives one piece (cycle / UI take -> func_0800F418)
+    RucksackItem one = rucksack.TakeOneAt(0);
+    EXPECT_FALSE(one.IsEmpty());
+    EXPECT_EQ(one.GetKind(), RucksackItem::KIND_FOOD);
+    EXPECT_EQ(rucksack.GetAmountAt(0), 9u);
+    EXPECT_EQ(rucksack.GetAmountOfFood(FOOD_REGULAR_QUALITY_EGG), 9u);
+}
+
+TEST(RucksackGiveOne, LastPieceClearsSlotCompletely)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfArticle(ARTICLE_STONES, 1), 0u);
+    RucksackItem one = rucksack.TakeOneAt(0);
+    EXPECT_FALSE(one.IsEmpty());
+    EXPECT_TRUE(rucksack.GetItemAt(0).IsEmpty());
+    EXPECT_EQ(rucksack.GetAmountAt(0), 0u);
+    EXPECT_EQ(rucksack.GetAmountOfArticles(ARTICLE_STONES), 0u);
+}
+
+TEST(RucksackCycleFlow, DepositOneThenTakeOneKeepsSurplus)
+{
+    // Mirrors Farmer::func_0800EB3C after Fase 3.1 (take-1 cycle, no rotation).
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfFood(FOOD_TURNIP, 5), 0u);
+    EXPECT_EQ(rucksack.AddAmountOfArticle(ARTICLE_STONES, 3), 0u);
+
+    // hand holds a turnip: deposit 1 pc (merges into the turnip stack)...
+    Food hand_food(FOOD_TURNIP);
+    RucksackItem hand_item{hand_food};
+    EXPECT_EQ(rucksack.AddAmountOf(hand_item, 1), 0u);
+    EXPECT_EQ(rucksack.GetAmountAt(0), 6u);
+
+    // ...then the first occupied slot hands out exactly one piece.
+    RucksackItem one = rucksack.TakeOneAt(0);
+    EXPECT_FALSE(one.IsEmpty());
+    EXPECT_EQ(rucksack.GetAmountAt(0), 5u);
+    EXPECT_EQ(rucksack.GetAmountAt(1), 3u);
+}
+
+TEST(RucksackCycleFlow, DepositIntoEmptySlotThenTakeFromFirst)
+{
+    Rucksack rucksack;
+    EXPECT_EQ(rucksack.AddAmountOfArticle(ARTICLE_STONES, 2), 0u);
+
+    Food hand_food(FOOD_TURNIP);
+    RucksackItem hand_item{hand_food};
+    EXPECT_EQ(rucksack.AddAmountOf(hand_item, 1), 0u); // new slot (no turnip stack)
+    EXPECT_EQ(rucksack.GetAmountAt(1), 1u);
+
+    // first occupied = slot0 (stones); reverse variant would take slot1.
+    RucksackItem one = rucksack.TakeOneAt(0);
+    EXPECT_EQ(one.GetKind(), RucksackItem::KIND_ARTICLE);
+    EXPECT_EQ(rucksack.GetAmountAt(1), 1u);
+    EXPECT_EQ(rucksack.GetAmountOfFood(FOOD_TURNIP), 1u);
+}
+
 // ---- Held conversion stays 1 pcs (Fase 1.4, D3) ----
 
 TEST(HeldConversion, StackToHeldToItemIsOne)

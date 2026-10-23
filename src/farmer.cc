@@ -325,27 +325,47 @@ EC unsigned int func_0800EB3C(Farmer & self)
             case HeldItem::KIND_FOOD:
             case HeldItem::KIND_ARTICLE:
                 item = func_0800F294(&self.unk_54);
-                func_0800F390(&self.unk_54);
                 break;
         }
     }
 
-    unsigned int num_cycles = 0;
+    /* Fase 3.1 (R1, D3/D4): the hand carries one piece. Deposit one piece into
+     * the rucksack (merge into a matching stack first, else the first empty
+     * slot), then hand out one piece from the first occupied slot. No
+     * whole-slot rotation: a stack keeps its surplus. If the rucksack is full
+     * and nothing can merge, nothing happens (no data loss). */
 
-    do
+    if (!item.IsEmpty())
     {
-        item = self.rucksack.CycleItemBack(item);
-        num_cycles++;
-    } while (item.IsEmpty());
+        if (self.rucksack.AddAmountOf(item, 1) != 0)
+            return 0;
 
-    func_0800F418(&self.unk_54, item);
+        func_0800F390(&self.unk_54);
+    }
 
-    return num_cycles;
+    RucksackItem one;
+    u32 take_idx = 0;
+    u32 slot_count = self.rucksack.GetSize();
+
+    for (u32 i = 0; i < slot_count; ++i)
+    {
+        if (!self.rucksack.GetItemAt(i).IsEmpty())
+        {
+            take_idx = i;
+            one = self.rucksack.TakeOneAt(take_idx);
+            break;
+        }
+    }
+
+    func_0800F418(&self.unk_54, one);
+
+    return 1;
 }
 
 EC unsigned int func_0800EBC4(Farmer & self)
 {
-    /* same as previous func but in reverse order (CycleItemFront rather than CycleItemBack) */
+    /* Fase 3.1 (R1): mirror of func_0800EB3C — takes the one piece from the
+     * LAST occupied slot instead of the first (baserom's reverse direction). */
 
     if (self.rucksack.HasNoItems())
         return 0;
@@ -362,22 +382,35 @@ EC unsigned int func_0800EBC4(Farmer & self)
             case HeldItem::KIND_FOOD:
             case HeldItem::KIND_ARTICLE:
                 item = func_0800F294(&self.unk_54);
-                func_0800F390(&self.unk_54);
                 break;
         }
     }
 
-    unsigned int num_cycles = 0;
-
-    do
+    if (!item.IsEmpty())
     {
-        item = self.rucksack.CycleItemFront(item);
-        num_cycles++;
-    } while (item.IsEmpty());
+        if (self.rucksack.AddAmountOf(item, 1) != 0)
+            return 0;
 
-    func_0800F418(&self.unk_54, item);
+        func_0800F390(&self.unk_54);
+    }
 
-    return num_cycles;
+    RucksackItem one;
+    u32 take_idx = 0;
+    u32 slot_count = self.rucksack.GetSize();
+
+    for (u32 i = slot_count; i > 0; --i)
+    {
+        if (!self.rucksack.GetItemAt(i - 1).IsEmpty())
+        {
+            take_idx = i - 1;
+            one = self.rucksack.TakeOneAt(take_idx);
+            break;
+        }
+    }
+
+    func_0800F418(&self.unk_54, one);
+
+    return 1;
 }
 
 EC unsigned int func_0800EC4C(Farmer & self)
