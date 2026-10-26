@@ -7,6 +7,11 @@
 	.type	 func_080093A0,function
 	.thumb_func
 func_080093A0:
+	lsl	r1, r1, #0x10
+	lsr	r1, r1, #0x10
+	ldr	r2, [r0]
+	ldrh	r0, [r2, #0x4]
+	str	r1, [r2, #0x4]
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10
 	bx	lr

@@ -10,6 +10,8 @@ func_08009168:
 	push	{r4, lr}
 	add	r4, r0, #0
 	bl	func_08009140
+	ldrh	r0, [r4]
+	str	r0, [r4, #0x4]
 	add	r0, r4, #0
 	pop	{r4}
 	pop	{r1}

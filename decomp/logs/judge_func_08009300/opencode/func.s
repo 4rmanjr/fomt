@@ -7,13 +7,20 @@
 	.type	 func_08009300,function
 	.thumb_func
 func_08009300:
-	push	{r4, lr}
-	add	r4, r0, #0
+	push	{r4, r5, lr}
+	add	r5, r0, #0
+	add	r4, r1, #0
 	mov	r0, #0x10
 	bl	__builtin_new
-	str	r0, [r4]
-	add	r0, r4, #0
-	pop	{r4}
+	str	r4, [r0]
+	mov	r1, #0x0
+	str	r1, [r0, #0x4]
+	str	r1, [r0, #0x8]
+	str	r1, [r0, #0xc]
+	str	r1, [r0, #0x10]
+	str	r0, [r5]
+	add	r0, r5, #0
+	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
 .Lfe1:

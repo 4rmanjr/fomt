@@ -10,10 +10,18 @@ func_080091E8:
 	push	{r4, lr}
 	add	r4, r0, #0
 	bl	func_0800917C
-	add	r0, r4, #0
-	add	r0, r0, #0xe
-	add	r1, r4, #0
-	add	r1, r1, #0x22
+	ldrh	r0, [r4, #0x4]
+	str	r0, [r4, #0x8]
+	mov	r0, #0x1e
+	str	r0, [r4, #0xc]
+	mov	r0, #0x4
+	str	r0, [r4, #0x10]
+	mov	r1, #0x8c
+	lsl	r1, r1, #0x1
+	add	r0, r4, r1
+	mov	r2, #0xaa
+	lsl	r2, r2, #0x2
+	add	r1, r4, r2
 	cmp	r0, r1
 	beq	.L3	@cond_branch
 	mov	r2, #0x0

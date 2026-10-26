@@ -7,6 +7,36 @@
 	.type	 func_0800934C,function
 	.thumb_func
 func_0800934C:
-	bx	lr
+	push	{r4, r5, lr}
+	add	r5, r2, #0
+	add	r4, r3, #0
+	ldr	r3, [r0]
+	lsl	r1, r1, #0x10
+	lsr	r2, r1, #0x10
+	asr	r0, r1, #0x10
+	cmp	r0, #0
+	bge	.L3	@cond_branch
+	neg	r0, r0
+	lsl	r0, r0, #0x10
+	lsr	r2, r0, #0x10
+.L3:
+	lsl	r0, r2, #0x10
+	neg	r0, r0
+	asr	r0, r0, #0x10
+	str	r0, [r3, #0x4]
+	str	r5, [r3, #0x8]
+	neg	r0, r4
+	orr	r0, r0, r4
+	lsr	r0, r0, #0x1f
+	str	r0, [r3, #0xc]
+	ldr	r0, .L4
+	str	r0, [r3, #0x10]
+	pop	{r4, r5}
+	pop	{r0}
+	bx	r0
+.L5:
+	.align	2, 0
+.L4:
+	.word	0xffff
 .Lfe1:
 	.size	 func_0800934C,.Lfe1-func_0800934C

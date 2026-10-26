@@ -8,37 +8,42 @@
 	.thumb_func
 func_080093AC:
 	push	{r4, r5, r6, r7, lr}
-	lsl	r0, r0, #0x10
-	add	r6, r0, #0
-	cmp	r6, #0
+	ldr	r5, [r0]
+	ldrh	r7, [r5, #0x4]
+	mov	r1, #0x4
+	ldrsh	r0, [r5, r1]
+	cmp	r0, #0
 	beq	.L3	@cond_branch
-	cmp	r1, #0
+	ldrh	r3, [r5, #0x10]
+	ldr	r0, [r5, #0x8]
+	cmp	r0, #0
 	beq	.L4	@cond_branch
-	mov	r5, #0x0
-	cmp	r1, #0x1
+	mov	r6, #0x0
+	cmp	r0, #0x1
 	beq	.L5	@cond_branch
-	cmp	r1, #0x2
+	cmp	r0, #0x2
 	bne	.L7	@cond_branch
-	mov	r5, #0xc0
+	mov	r6, #0xc0
 	b	.L7
 .L5:
-	mov	r5, #0x80
+	mov	r6, #0x80
 .L7:
-	ldr	r2, .L32
-	cmp	r4, #0
+	ldr	r2, [r5]
+	ldr	r4, .L32
+	cmp	r2, #0
 	beq	.L8	@cond_branch
-	add	r2, r4, #0
-	add	r2, r2, #0x50
+	add	r4, r2, #0
+	add	r4, r4, #0x50
 .L8:
-	ldrh	r1, [r2]
+	ldrh	r1, [r4]
 	ldr	r0, .L32+0x4
 	and	r0, r0, r1
-	orr	r0, r0, r5
-	strh	r0, [r2]
+	orr	r0, r0, r6
+	strh	r0, [r4]
 	ldr	r1, .L32+0x8
-	cmp	r4, #0
+	cmp	r2, #0
 	beq	.L10	@cond_branch
-	add	r1, r4, #0
+	add	r1, r2, #0
 	add	r1, r1, #0x54
 .L10:
 	ldr	r0, .L32+0xc
@@ -68,6 +73,9 @@ func_080093AC:
 .L13:
 	strh	r0, [r1]
 .L4:
+	ldr	r0, [r5, #0xc]
+	cmp	r0, #0
+	beq	.L16	@cond_branch
 	ldr	r0, .L34
 	cmp	r3, r0
 	bls	.L17	@cond_branch
@@ -91,21 +99,25 @@ func_080093AC:
 .L18:
 	lsl	r1, r0, #0x4
 	orr	r1, r1, r0
+	ldr	r0, [r5]
 	ldr	r2, .L36
-	cmp	r7, #0
+	cmp	r0, #0
 	beq	.L21	@cond_branch
-	add	r2, r7, #0
+	add	r2, r0, #0
 	add	r2, r2, #0x4c
 .L21:
 	lsl	r0, r1, #0x8
 	orr	r1, r1, r0
 	strh	r1, [r2]
-	cmp	r6, #0
+.L16:
+	lsl	r0, r7, #0x10
+	add	r1, r0, #0
+	cmp	r1, #0
 	blt	.L23	@cond_branch
 	ldr	r0, .L36+0x4
 	cmp	r3, r0
 	bne	.L25	@cond_branch
-	b	.L3
+	b	.L26
 .L37:
 	.align	2, 0
 .L36:
@@ -113,14 +125,27 @@ func_080093AC:
 	.word	0xffff
 .L23:
 	cmp	r3, #0
-	beq	.L3	@cond_branch
+	bne	.L25	@cond_branch
+.L26:
+	mov	r0, #0x0
+	str	r0, [r5, #0x4]
+	b	.L31
 .L25:
-	asr	r0, r6, #0x10
-	add	r1, r3, r0
-	cmp	r1, #0
-	blt	.L29	@cond_branch
-	ldr	r0, .L38
+	asr	r0, r1, #0x10
+	add	r0, r3, r0
+	cmp	r0, #0
+	bge	.L28	@cond_branch
+	mov	r0, #0x0
+	b	.L29
+.L28:
+	ldr	r1, .L38
+	cmp	r0, r1
+	ble	.L29	@cond_branch
+	add	r0, r1, #0
 .L29:
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	str	r0, [r5, #0x10]
 	mov	r0, #0x1
 	b	.L31
 .L39:
