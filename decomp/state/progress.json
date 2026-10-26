@@ -9121,12 +9121,13 @@
  },
  "func_0803BEEC": {
   "addr": 134463212,
-  "claimed_at": 1793004103.4745414,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004132.3428607,
   "module": "code_0803A8A4.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 8,
   "size": 115,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803BEF4": {
