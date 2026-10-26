@@ -24450,12 +24450,13 @@
  },
  "func_080E1024": {
   "addr": 135139364,
-  "claimed_at": 1793005126.1721594,
-  "claimed_by": "opencode-dsv4",
+  "judged_mtime": 1793005140.5115912,
   "module": "code_linkonce.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "size": 120,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E1030": {
