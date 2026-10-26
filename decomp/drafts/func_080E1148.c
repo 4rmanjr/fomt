@@ -3,13 +3,19 @@ s32 func_080073E0(void *, s32);                       /* extern */
 s32 func_080079E8(void *, s32);                       /* extern */
 s32 func_08007C28(void *, s32);                       /* extern */
 s32 func_080086BC(void *, s32);                       /* extern */
-extern ? vtable_unk_080E5A28;
+extern s32 vtable_unk_080E5A28;
 
-void func_080E1148(void *arg0, s32 arg1) {
-    void *temp_r4;
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+    u8 _pad8[8];
+    void *unk10;
+} GenObj;
+void func_080E1148(GenObj *arg0, s32 arg1) {
+    GenObj *temp_r4;
     void *temp_r4_2;
 
-    temp_r4 = arg0 + 0xB0;
+    temp_r4 = (GenObj *)((u8 *)arg0 + 0xB0);
     func_080073E0(temp_r4, temp_r4->unk4);
     func_08007184(temp_r4, 2);
     temp_r4_2 = temp_r4 - 8;

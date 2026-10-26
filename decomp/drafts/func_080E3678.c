@@ -1,8 +1,13 @@
-s32 func_08050DC8(void *, ? *, s32, s32);             /* extern */
+s32 func_08050DC8(void *, s32 *, s32, s32);             /* extern */
 s32 func_08050E50(void *, s32);                       /* extern */
-extern ? gUnk_08100558;
+extern s32 gUnk_08100558;
 
-void func_080E3678(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[984];
+    s32 unk3D8;
+    s32 unk3DC;
+} GenObj;
+void func_080E3678(GenObj *arg0) {
     void *temp_r4;
 
     arg0->unk3D8 = 0;

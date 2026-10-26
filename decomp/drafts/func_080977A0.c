@@ -1,15 +1,23 @@
 s32 func_0809A58C(s32 *);                               /* extern */
 extern u16 gUnk_081010E8;
 
-u16 func_080977A0(void *arg2) {
-s32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+    s32 unk8;
+    s32 unkC;
+} GenObj;
+u16 func_080977A0(GenObj *arg2) {
+GenObj sp0;
     s32 var_r3;
     u16 *var_r1;
     u16 *var_r2;
     u16 temp_r0;
 
     func_0809A58C(&sp0);
-    arg2->unk0 = (s32) sp0.unk0;
+    arg2->unk0 = (s32) sp0;
     arg2->unk4 = (s32) sp0.unk4;
     arg2->unk8 = (s32) sp0.unk8;
     arg2->unkC = (s32) sp0.unkC;

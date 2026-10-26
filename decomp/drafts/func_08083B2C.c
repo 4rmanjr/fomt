@@ -1,20 +1,27 @@
-? **__builtin_new(s32);                             /* extern */
-? **func_08082CEC(s32);                             /* extern */
-extern ? vtable_unk_080E7CF4;
+s32 **__builtin_new(s32);                             /* extern */
+s32 **func_08082CEC(s32);                             /* extern */
+extern s32 vtable_unk_080E7CF4;
 
-? ***func_08083B2C(s32 ***arg0, void *arg1) {
-    ? **sp0;
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    u8 _padC[16];
+    s32 unk1C;
+} GenObj;
+s32 ***func_08083B2C(s32 ***arg0, GenObj *arg1) {
+    s32 **sp0;
     s32 sp4;
-    ? ***sp8;
-    ? **spC;
-    ? ***sp10;
-    ? **sp14;
-    ? **temp_r0;
-    ? **temp_r0_2;
-    ? **temp_r0_3;
-    ? **temp_r0_4;
-    ? **temp_r4;
-    ? **temp_r5;
+    s32 ***sp8;
+    s32 **spC;
+    s32 ***sp10;
+    s32 **sp14;
+    s32 **temp_r0;
+    s32 **temp_r0_2;
+    s32 **temp_r0_3;
+    s32 **temp_r0_4;
+    s32 **temp_r4;
+    s32 **temp_r5;
 
     temp_r0 = func_08082CEC(arg1->unk4);
     if (temp_r0 == 0) {

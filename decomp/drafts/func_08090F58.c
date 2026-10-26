@@ -4,14 +4,21 @@ s32 func_080073E0(void *, s32);                       /* extern */
 s32 func_080079E8(void *, s32);                       /* extern */
 s32 func_08007C28(void *, s32);                       /* extern */
 s32 func_080E3504(void *, s32);                       /* extern */
-extern ? vtable_unk_080E5A28;
-extern ? vtable_unk_080E7DBC;
+extern s32 vtable_unk_080E5A28;
+extern s32 vtable_unk_080E7DBC;
 
-void func_08090F58(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+    u8 _pad8[260];
+    s32 unk10C;
+    s32 unk110;
+} GenObj;
+void func_08090F58(GenObj *arg0, s32 arg1) {
     void **temp_r1;
     void *temp_r4;
     void *temp_r4_2;
-    void *temp_r5;
+    GenObj *temp_r5;
 
     arg0->unk4 = &vtable_unk_080E7DBC;
     temp_r1 = arg0->unk110;
@@ -20,7 +27,7 @@ void func_08090F58(void *arg0, s32 arg1) {
     }
     temp_r5 = arg0->unk10C;
     if (temp_r5 != 0) {
-        temp_r4 = temp_r5 + 0x74;
+        temp_r4 = (GenObj *)((u8 *)temp_r5 + 0x74);
         func_080073E0(temp_r4, temp_r4->unk4);
         func_08007184(temp_r4, 2);
         temp_r4_2 = temp_r4 - 8;

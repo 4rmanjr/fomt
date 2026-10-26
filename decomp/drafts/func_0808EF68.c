@@ -2,15 +2,28 @@ s32 GetToolAt__8RucksackUi(s32, s32);                 /* extern */
 s32 GetToolStackAt__9ToolChestUi(s32, s32);         /* extern */
 s8 GetTool__C9ToolStack(s32);                       /* extern */
 s32 IsEmpty__C9ToolStack(s32);                      /* extern */
-s32 func_08050DC8(void *, ? *, s32, s32);             /* extern */
+s32 func_08050DC8(void *, s32 *, s32, s32);             /* extern */
 s32 func_080CE184(void *, s32, s32);                /* extern */
-? *func_080CF05C(void *, void *, ? *, s32);         /* extern */
-extern ? gUnk_08100144;
+s32 *func_080CF05C(void *, void *, s32 *, s32);         /* extern */
+extern s32 gUnk_08100144;
 
-void func_0808EF68(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    u8 _pad6[142];
+    void *unk94;
+    u8 _pad98[36];
+    s32 unkBC;
+    u8 _padC0[60];
+    s32 unkFC;
+    s32 unk100;
+    s32 unk104;
+} GenObj;
+void func_0808EF68(GenObj *arg0, s32 arg1) {
 s32 sp0;
-    ? *var_r2;
-    ? *var_sb;
+    s32 *var_r2;
+    s32 *var_sb;
     s32 temp_r4;
     s32 temp_r4_2;
     s32 temp_r4_3;
@@ -21,7 +34,7 @@ s32 sp0;
     var_sb = 0;
     if (arg1 == 0) {
         if ((IsEmpty__C9ToolStack(arg0->unkFC) << 0x18) == 0) {
-            sp0.unk0 = GetTool__C9ToolStack(arg0->unkFC);
+            sp0 = GetTool__C9ToolStack(arg0->unkFC);
             var_r1 = arg0 + 0x98;
             var_r2 = &sp0;
             var_r3 = 1;

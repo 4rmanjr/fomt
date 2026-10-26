@@ -2,28 +2,41 @@ s32 func_080CAC70(s32 *);                               /* extern */
 s32 func_080CADB4(void *, s32);                       /* extern */
 s32 memcpy(void *, s32, u32);                         /* extern */
 u32 strlen(s32);                                    /* extern */
-extern ? vtable_unk_080E85BC;
+extern s32 vtable_unk_080E85BC;
 
-void *func_080CAFC4(void *arg0, s32 arg1, s32 arg2, u32 arg3, s32 arg4, u8 arg5) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    u8 _padC[516];
+    void *unk210;
+    s32 unk214;
+    u8 _pad218[96];
+    s32 unk278;
+    s32 unk27C;
+    u8 _pad280[24];
+    s32 unk298;
+} GenObj;
+void *func_080CAFC4(GenObj *arg0, s32 arg1, s32 arg2, u32 arg3, s32 arg4, u8 arg5) {
 s32 sp0;
     u32 *spC;
-    ? *sp10;
+    s32 *sp10;
     u32 var_r3;
     u32 var_r4;
     u8 temp_r8;
     void *temp_r6;
-    void *var_r2;
+    GenObj *var_r2;
 
     temp_r8 = arg5;
     func_080CADB4(arg0, arg2);
     arg0->unk210 = &vtable_unk_080E85BC;
     func_080CAC70(&sp0);
-    spC = arg0 + 0x214;
+    spC = (GenObj *)((u8 *)arg0 + 0x214);
     sp10 = &sp0;
     arg0->unk214 = 0;
     if (arg3 <= 8U) {
         var_r3 = arg3;
-        var_r2 = arg0 + 0x218;
+        var_r2 = (GenObj *)((u8 *)arg0 + 0x218);
         if (arg3 != 0) {
             do {
                 if (var_r2 != 0) {
@@ -39,14 +52,14 @@ s32 sp0;
     }
     arg0->unk278 = arg1;
     arg0->unk27C = temp_r8;
-    func_080CAC70(arg0 + 0x280);
-    temp_r6 = arg0 + 0x28C;
+    func_080CAC70((GenObj *)((u8 *)arg0 + 0x280));
+    temp_r6 = (GenObj *)((u8 *)arg0 + 0x28C);
     var_r4 = strlen(arg4);
     if (var_r4 > 8U) {
         var_r4 = 8;
     }
     memcpy(temp_r6, arg4, var_r4);
-    *(temp_r6 + var_r4) = 0;
+    *((u8 *)temp_r6 + var_r4) = 0;
     arg0->unk298 = arg3;
     return arg0;
 }

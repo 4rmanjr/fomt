@@ -1,7 +1,14 @@
 s32 func_080E4304(void **, void *, s32 *);            /* extern */
 
-void *func_080AAE44(void *arg0, void *arg1, s32 arg2) {
-    void *sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    struct GenObj *unk4;
+    u8 _pad8[12];
+    s32 unk14;
+} GenObj;
+void *func_080AAE44(GenObj *arg0, GenObj *arg1, s32 arg2) {
+    GenObj *sp0;
     void *sp4;
     void *sp8;
     s32 sp10;
@@ -13,7 +20,7 @@ void *func_080AAE44(void *arg0, void *arg1, s32 arg2) {
     s32 var_r2_2;
     s32 var_r2_3;
     s32 var_r3;
-    void *temp_r1;
+    GenObj *temp_r1;
     void *temp_r1_2;
     void *temp_r3;
     void *var_r2;
@@ -24,7 +31,7 @@ void *func_080AAE44(void *arg0, void *arg1, s32 arg2) {
         arg0->unk0 = 0x3E6;
         arg0->unk2 = 0xB;
     } else {
-        temp_r1 = arg1 + 8;
+        temp_r1 = (GenObj *)((u8 *)arg1 + 8);
         var_r4 = temp_r1->unk4;
         var_r2 = var_r4->unk4;
         if (var_r2 != 0) {
@@ -62,7 +69,7 @@ block_14:
             var_r2_3 = 1;
         }
         if (var_r2_3 != 0) {
-            sp24.unk0 = (s16) arg1->unk0;
+            sp24 = (s16) arg1->unk0;
             sp24.unk2 = (s8) arg1->unk4;
             sp18 = sp20;
             sp1C = sp24;

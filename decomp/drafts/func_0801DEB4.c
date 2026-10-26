@@ -2,7 +2,16 @@ s32 func_080AA6D0(s32, s32, s32, s32, s32);           /* extern */
 s32 method_0800A3C8__9FieldPlot(s32);                 /* extern */
 s32 method_0800AF5C__C9FieldPlotPC9FieldPlotT1(s32, s32, s32); /* extern */
 
-s32 func_0801DEB4(void *arg0, void *arg1) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk2;
+    s32 unk4;
+    u8 _pad8[12];
+    s32 unk14;
+    u8 _pad18[4128];
+    s32 unk1038;
+} GenObj;
+s32 func_0801DEB4(GenObj *arg0, GenObj *arg1) {
     s32 sp4;
     u32 sp8;
     s32 spC;
@@ -67,7 +76,7 @@ loop_2:
     }
     temp_r4 = var_r8 + (sp8 * 0x2B);
     method_0800A3C8__9FieldPlot(arg0->unk1038 + 0x9DC + (temp_r4 * 4));
-    if (arg0->unk0->unk14(arg0) == 2) {
+    if (((void (*)(void *,...))(arg0->unk0->unk14))(arg0) == 2) {
         spC = (var_r8 * 2) + 0x22;
         sp10 = arg0->unk4;
         var_sb = (sp8 * 2) + 0x14;

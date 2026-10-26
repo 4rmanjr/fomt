@@ -1,6 +1,16 @@
 s32 CpuFastSet(void *, void *, s32);                  /* extern */
 
-s32 func_080E0A08(void *arg0) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[4];
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    s32 unk15;
+    s32 unk16;
+} GenObj;
+s32 func_080E0A08(GenObj *arg0) {
     s32 temp_r1;
     s32 temp_r2;
     s32 temp_r5;
@@ -17,8 +27,8 @@ s32 func_080E0A08(void *arg0) {
     void *temp_r4_4;
     void *temp_r4_5;
     void *temp_r4_6;
-    void *var_r3;
-    void *var_r4;
+    GenObj *var_r3;
+    GenObj *var_r4;
 
     var_r4 = arg0->unkC;
     var_r3 = arg0->unk10;
@@ -29,9 +39,9 @@ s32 func_080E0A08(void *arg0) {
         temp_r2 = 0x0F0F0F0F << (temp_r0 * 4);
         temp_r1 = ~temp_r2;
         do {
-            temp_r4 = var_r4 + 4;
+            temp_r4 = (GenObj *)((u8 *)var_r4 + 4);
             var_r3->unk0 = (s32) (var_r4->unk0 & temp_r2);
-            temp_r3 = var_r3 + 4;
+            temp_r3 = (GenObj *)((u8 *)var_r3 + 4);
             temp_r4_2 = temp_r4 + 4;
             var_r3->unk4 = (s32) (var_r4->unk4 & temp_r1);
             temp_r3_2 = temp_r3 + 4;

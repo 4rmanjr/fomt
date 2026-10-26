@@ -1,13 +1,19 @@
 s8 GetArticle__C12RucksackItem(s32 *);                /* extern */
-s32 GetFood__C12RucksackItem(s32 *, ? *);               /* extern */
+s32 GetFood__C12RucksackItem(s32 *, s32 *);               /* extern */
 s32 GetId__C4Food(s32 *);                             /* extern */
 s32 GetId__C7Article();                             /* extern */
 s32 GetKind__C12RucksackItem(s32 *);                  /* extern */
 s32 IsEmpty__C12RucksackItem(s32 *);                  /* extern */
 s32 __12RucksackItem(s32 *);                            /* extern */
-s32 func_08096EE8(void *, ? *, s32, u16);             /* extern */
+s32 func_08096EE8(void *, s32 *, s32, u16);             /* extern */
 
-s16 func_08096FB4(void *arg0, ? *arg1) {
+typedef struct GenObj {
+    u8 _pad0[9];
+    s32 unk9;
+    u8 _padD[11162];
+    s32 unk2BA7;
+} GenObj;
+s16 func_08096FB4(GenObj *arg0, s32 *arg1) {
 s32 sp0;
 s32 sp4;
     s8 sp8;

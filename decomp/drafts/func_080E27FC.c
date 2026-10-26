@@ -2,15 +2,22 @@ void *func_080D3BC0(s32);                           /* extern */
 s32 func_080E21E0(void *, void *);                    /* extern */
 void *malloc(s32);                                  /* extern */
 
-void **func_080E27FC(void **arg0, void *arg1, s32 arg2, void *arg3, void *arg4, s32 arg5) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    s32 unk10;
+} GenObj;
+void **func_080E27FC(void **arg0, GenObj *arg1, s32 arg2, GenObj *arg3, GenObj *arg4, s32 arg5) {
     s32 var_r2;
-    void *temp_r1;
-    void *temp_r1_2;
-    void *temp_r1_3;
-    void *temp_r1_4;
-    void *var_r2_2;
-    void *var_r2_3;
-    void *var_r4;
+    GenObj *temp_r1;
+    GenObj *temp_r1_2;
+    GenObj *temp_r1_3;
+    GenObj *temp_r1_4;
+    GenObj *var_r2_2;
+    GenObj *var_r2_3;
+    GenObj *var_r4;
 
     if (arg3 != arg1->unk4) {
         if (arg5 == 0) {
@@ -31,7 +38,7 @@ block_14:
         if (var_r2_2 == 0) {
             var_r2_2 = func_080D3BC0(0x18);
         }
-        temp_r1 = var_r2_2 + 0x10;
+        temp_r1 = (GenObj *)((u8 *)var_r2_2 + 0x10);
         if (temp_r1 != 0) {
             var_r2_2->unk10 = (u32) arg4->unk0;
             temp_r1->unk4 = (s32) arg4->unk4;
@@ -48,7 +55,7 @@ block_6:
         if (var_r2_3 == 0) {
             var_r2_3 = func_080D3BC0(0x18);
         }
-        temp_r1_3 = var_r2_3 + 0x10;
+        temp_r1_3 = (GenObj *)((u8 *)var_r2_3 + 0x10);
         if (temp_r1_3 != 0) {
             var_r2_3->unk10 = (u32) arg4->unk0;
             temp_r1_3->unk4 = (s32) arg4->unk4;

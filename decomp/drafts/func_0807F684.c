@@ -3,7 +3,7 @@ s32 GetDesc__C7Article(void *);                     /* extern */
 s32 __4ToolUi(s32 *, s32);                              /* extern */
 s32 __7ArticleUi(void *, s32);                        /* extern */
 s32 func_080CABEC(s32, s32);                          /* extern */
-extern ? gUnk_080FE484;
+extern s32 gUnk_080FE484;
 
 void func_0807F684(s32 arg0, s32 arg1) {
 s32 sp0;

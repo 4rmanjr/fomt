@@ -1,6 +1,12 @@
-u8 func_080AC070(s32, ? *);                         /* extern */
+u8 func_080AC070(s32, s32 *);                         /* extern */
 
-void *func_08024724(void *arg0, s32 arg1, ? *arg2) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+} GenObj;
+void *func_08024724(GenObj *arg0, s32 arg1, GenObj *arg2) {
 s32 sp0;
 s32 sp8;
 s32 sp10;
@@ -44,7 +50,7 @@ s32 sp38;
     sp50 = temp_r0_3;
     temp_r2 = 8 - (7 & arg2->unk0);
     sp54 = temp_r2;
-    sp0.unk0 = (s16) arg2->unk0;
+    sp0 = (s16) arg2->unk0;
     sp0.unk2 = (s16) ((s16) arg2->unk2 + temp_r0);
     sp0.unk4 = temp_r5;
     sp0.unk6 = (s16) (temp_r4 + temp_r0);
@@ -53,7 +59,7 @@ s32 sp38;
         arg0->unk0 = 0;
         arg0->unk2 = (u16) temp_r0;
     } else {
-        sp8.unk0 = (s16) arg2->unk0;
+        sp8 = (s16) arg2->unk0;
         sp8.unk2 = (s16) (sp4C + (s16) arg2->unk2);
         sp8.unk4 = (s16) arg2->unk4;
         sp8.unk6 = (s16) (sp4C + arg2->unk6);
@@ -63,7 +69,7 @@ s32 sp38;
             arg0->unk0 = (s16) temp_r5_2;
             arg0->unk2 = (u16) sp4C;
         } else {
-            sp10.unk0 = (s16) ((s16) arg2->unk0 + temp_r0_3);
+            sp10 = (s16) ((s16) arg2->unk0 + temp_r0_3);
             sp10.unk2 = (s16) arg2->unk2;
             sp10.unk4 = (s16) (arg2->unk4 + temp_r0_3);
             sp10.unk6 = (s16) arg2->unk6;
@@ -73,7 +79,7 @@ s32 sp38;
                 var_r0 = (u8) sp58;
                 goto block_20;
             }
-            sp18.unk0 = (s16) ((s16) arg2->unk0 + temp_r2);
+            sp18 = (s16) ((s16) arg2->unk0 + temp_r2);
             sp18.unk2 = (s16) arg2->unk2;
             sp18.unk4 = (s16) (arg2->unk4 + temp_r2);
             sp18.unk6 = (s16) arg2->unk6;
@@ -81,7 +87,7 @@ s32 sp38;
                 arg0->unk0 = (s16) temp_r2;
                 arg0->unk2 = (u16) temp_r5_3;
             } else {
-                sp20.unk0 = (s16) ((s16) arg2->unk0 + temp_r0_3);
+                sp20 = (s16) ((s16) arg2->unk0 + temp_r0_3);
                 sp20.unk2 = (s16) ((s16) arg2->unk2 + temp_r0);
                 sp20.unk4 = (s16) (arg2->unk4 + temp_r0_3);
                 sp20.unk6 = (s16) (arg2->unk6 + temp_r0);
@@ -90,7 +96,7 @@ s32 sp38;
                     var_r0 = (u8) temp_r0;
                     goto block_20;
                 }
-                sp28.unk0 = (s16) ((s16) arg2->unk0 + temp_r2);
+                sp28 = (s16) ((s16) arg2->unk0 + temp_r2);
                 sp28.unk2 = (s16) (sp44 + (s16) arg2->unk2);
                 sp28.unk4 = (s16) (arg2->unk4 + temp_r2);
                 sp28.unk6 = (s16) (sp44 + arg2->unk6);
@@ -98,7 +104,7 @@ s32 sp38;
                     arg0->unk0 = (s16) temp_r2;
                     arg0->unk2 = (u16) sp44;
                 } else {
-                    sp30.unk0 = (s16) (sp50 + (s16) arg2->unk0);
+                    sp30 = (s16) (sp50 + (s16) arg2->unk0);
                     sp30.unk2 = (s16) (sp4C + (s16) arg2->unk2);
                     sp30.unk4 = (s16) (sp50 + arg2->unk4);
                     sp30.unk6 = (s16) (sp4C + arg2->unk6);
@@ -107,7 +113,7 @@ s32 sp38;
                         var_r5 = &sp4C;
                         goto block_18;
                     }
-                    sp38.unk0 = (s16) (sp54 + (s16) arg2->unk0);
+                    sp38 = (s16) (sp54 + (s16) arg2->unk0);
                     sp38.unk2 = (s16) (sp48 + (s16) arg2->unk2);
                     sp38.unk4 = (s16) (sp54 + arg2->unk4);
                     sp38.unk6 = (s16) (sp48 + arg2->unk6);

@@ -1,9 +1,15 @@
 s32 __builtin_delete(void *);                         /* extern */
 s32 __builtin_vec_delete();                           /* extern */
 s32 func_080098AC(void *, s32);                       /* extern */
-extern ? vtable_unk_080E82E4;
+extern s32 vtable_unk_080E82E4;
 
-void func_080A4B6C(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[44];
+    s32 unk2C;
+    u8 _pad30[96];
+    void *unk90;
+} GenObj;
+void func_080A4B6C(GenObj *arg0, s32 arg1) {
     s32 *var_r4;
     s32 *var_r4_2;
     u32 var_r5;

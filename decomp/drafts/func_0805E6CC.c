@@ -1,6 +1,23 @@
-extern ? vtable_unk_080E79C8;
+extern s32 vtable_unk_080E79C8;
 
-void *func_0805E6CC(void *arg0, u16 *arg1) {
+typedef struct GenObj {
+    void *unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk22;
+    s32 unk24;
+    s32 unk26;
+    s32 unk28;
+    s32 unk2A;
+    s32 unk2C;
+} GenObj;
+void *func_0805E6CC(GenObj *arg0, u16 *arg1) {
     u16 *temp_r1;
     u16 *temp_r1_10;
     u16 *temp_r1_11;

@@ -1,4 +1,11 @@
-s32 func_0809ACC0(void *arg0, u32 arg1) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+    s32 unk8;
+    u8 _padC[240];
+    s32 unkFC;
+} GenObj;
+s32 func_0809ACC0(GenObj *arg0, u32 arg1) {
     s32 sp0;
     s32 sp4;
     s32 sp8;
@@ -13,8 +20,8 @@ s32 func_0809ACC0(void *arg0, u32 arg1) {
     u32 var_r0_3;
     u32 var_r0_4;
     u32 var_r1;
-    void *temp_r1_3;
-    void *temp_r2;
+    GenObj *temp_r1_3;
+    GenObj *temp_r2;
     void *temp_r2_2;
     void *temp_r3;
     void *temp_r3_2;
@@ -28,7 +35,7 @@ s32 func_0809ACC0(void *arg0, u32 arg1) {
         sp0 = 0;
         sp4 = 0;
         if (temp_r1 <= 3U) {
-            temp_r2 = arg0 + 0xFC + ((temp_r1 * 8) + 4);
+            temp_r2 = (GenObj *)((u8 *)arg0 + 0xFC) + ((temp_r1 * 8) + 4);
             if (temp_r2 != 0) {
                 temp_r2->unk0 = sp0;
                 temp_r2->unk4 = sp4;
@@ -38,7 +45,7 @@ s32 func_0809ACC0(void *arg0, u32 arg1) {
     }
     var_r0_2 = 0;
     temp_r1_2 = arg0->unk8;
-    temp_r3 = arg0 + 8;
+    temp_r3 = (GenObj *)((u8 *)arg0 + 8);
     if (temp_r1_2 == 0) {
         var_r0_2 = 1;
     }
@@ -64,7 +71,7 @@ s32 func_0809ACC0(void *arg0, u32 arg1) {
     }
     arg0->unk0 = (u32) (temp_r0 - var_r1);
     temp_r3_2 = temp_r3 + (((arg0->unk8 - 1) * 8) + 4);
-    temp_r1_3 = arg0 + 0xFC + (((arg0->unkFC - 1) * 8) + 4);
+    temp_r1_3 = (GenObj *)((u8 *)arg0 + 0xFC) + (((arg0->unkFC - 1) * 8) + 4);
     temp_r2_3 = temp_r3_2->unk4;
     var_r0_3 = 0x3B9ACA00 - temp_r2_3;
     if (var_r0_3 > arg1) {

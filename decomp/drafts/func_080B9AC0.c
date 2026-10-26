@@ -13,7 +13,7 @@ void func_080B9AC0(s32 arg0) {
     var_r5 = 0;
     do {
         temp_r1 = var_r5 << 6;
-        temp_r0 = *(arg0 + 0x6C + temp_r1);
+        temp_r0 = *((u8 *)arg0 + 0x6C + temp_r1);
         switch (temp_r0) {
         case 1:
             func_080BA1A4(arg0 + (temp_r1 + 0x6C));

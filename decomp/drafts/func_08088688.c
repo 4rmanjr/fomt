@@ -16,25 +16,48 @@ s32 func_0800F388(s32);                             /* extern */
 s32 func_0800F390(s32);                               /* extern */
 s32 func_0800F3B0(s32, s32);                          /* extern */
 s32 func_0800F418(s32);                               /* extern */
-s32 func_08050DC8(void *, ? *, s32, s32);             /* extern */
+s32 func_08050DC8(void *, s32 *, s32, s32);             /* extern */
 void *func_080CB2E8(s32, s32);                      /* extern */
 void *func_080CB2FC(s32, s32);                      /* extern */
 s32 func_080CB63C(s32, s32, s32, s32);                /* extern */
 s32 func_080CBA60(s32, s32);                          /* extern */
-s32 func_080CBAF0(s32, ? *, u16, s32);                /* extern */
+s32 func_080CBAF0(s32, s32 *, u16, s32);                /* extern */
 s32 func_080CBDD4(s32, s32, s32, s32);                /* extern */
 s32 func_080CC0B4(s32);                               /* extern */
-s32 func_080CC728(s32, s32, ? *, u16);                /* extern */
+s32 func_080CC728(s32, s32, s32 *, u16);                /* extern */
 s32 func_080CCD48(s32, s32, u32);                     /* extern */
 s32 func_080CCDEC(s32, s32);                          /* extern */
 s32 func_080CE184(void *, s32, s32);                /* extern */
 s32 memcpy(s32 *, s32 *, s32);                        /* extern */
-extern ? gUnk_08100034;
-extern ? gUnk_086678A0;
+extern s32 gUnk_08100034;
+extern s32 gUnk_086678A0;
 
-u8 func_08088688(void *arg0, s32 arg1, s32 arg2) {
-    s32 sp0;
-    s32 sp4;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unk9;
+    s32 unkA;
+    s32 unkD;
+    s32 unkE;
+    s32 unk11;
+    s32 unk12;
+    u8 _pad16[98];
+    s32 unk78;
+    s32 unk7C;
+    u8 _pad80[20];
+    void *unk94;
+    u8 _pad98[36];
+    s32 unkBC;
+    u8 _padC0[60];
+    s32 unkFC;
+    s32 unk100;
+    s32 unk104;
+    s32 unk108;
+} GenObj;
+u8 func_08088688(GenObj *arg0, s32 arg1, s32 arg2) {
+    GenObj *sp0;
+    GenObj *sp4;
     s32 sp8;
     s32 spC;
     s32 sp10;
@@ -76,9 +99,9 @@ s32 sp18;
     u16 temp_r3;
     u16 temp_r3_2;
     u32 temp_r0_4;
-    void *temp_r0_3;
-    void *temp_r0_5;
-    void *temp_r0_6;
+    GenObj *temp_r0_3;
+    GenObj *temp_r0_5;
+    GenObj *temp_r0_6;
 
     sp28 = arg2;
     sp2C = 1;
@@ -139,7 +162,7 @@ s32 sp18;
                             func_080CC728(temp_r5_4, temp_r4_3, &gUnk_086678A0, temp_r3);
                         }
                     } else {
-                        func_08050DC8(arg0 + 0x80, &gUnk_08100034, 0, 0);
+                        func_08050DC8((GenObj *)((u8 *)arg0 + 0x80), &gUnk_08100034, 0, 0);
                         arg0->unk108 = sp2C;
                         goto block_49;
                     }
@@ -172,7 +195,7 @@ block_49:
                     GetFood__C9FoodStack(&spC, &sp4);
                     temp_r0_2 = GetId__C4Food(&spC) ^ temp_r5_6;
                     if ((s32) ((0 - temp_r0_2) | temp_r0_2) < 0) {
-                        func_08050DC8(arg0 + 0x80, &gUnk_08100034, 0, 0);
+                        func_08050DC8((GenObj *)((u8 *)arg0 + 0x80), &gUnk_08100034, 0, 0);
                         arg0->unk108 = sp2C;
                     }
                     goto block_44;
@@ -210,8 +233,8 @@ block_49:
             sp4.unk0 = temp_r0_5->unk0;
             sp4.unk4 = (s32) temp_r0_5->unk4;
             sp4.unk8 = (s32) temp_r0_5->unk8;
-            temp_r0_6 = func_080CB2FC(arg0->unk78, &sp4 + 0xC);
-            sp18.unk0 = (s32) temp_r0_6->unk0;
+            temp_r0_6 = func_080CB2FC(arg0->unk78, &(GenObj *)((u8 *)sp4 + 0xC));
+            sp18 = (s32) temp_r0_6->unk0;
             sp18.unk4 = (s32) temp_r0_6->unk4;
             sp18.unk8 = (s32) temp_r0_6->unk8;
             var_r1_2 = 0;

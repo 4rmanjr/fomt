@@ -1,8 +1,15 @@
 void *func_080E2354(void *);                        /* extern */
 s32 func_080E27FC(void **, void *, void *, void *, u32 *, s32); /* extern */
 
-void *func_080E28BC(void *arg0, void *arg1, u32 *arg2) {
-    void *sp8;
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    struct GenObj *unk10;
+} GenObj;
+void *func_080E28BC(GenObj *arg0, GenObj *arg1, u32 *arg2) {
+    GenObj *sp8;
     void *spC;
     void *sp10;
     s32 var_r0;
@@ -11,7 +18,7 @@ void *func_080E28BC(void *arg0, void *arg1, u32 *arg2) {
     s8 var_r3;
     void *temp_r0;
     void *var_r0_2;
-    void *var_r4;
+    GenObj *var_r4;
     void *var_r5;
 
     var_r4 = arg1->unk4;

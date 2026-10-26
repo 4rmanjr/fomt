@@ -1,4 +1,4 @@
-extern ? func_080D3778;
+extern s32 func_080D3778;
 
 void func_080D379C(s32 arg0, s32 arg1, s32 arg2) {
     u16 sp0;

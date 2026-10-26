@@ -14,8 +14,21 @@ s32 func_0800F418(s32);                               /* extern */
 s32 func_0800F528(s32);                               /* extern */
 s32 func_0802A588(void *);                            /* extern */
 
-void func_08026150(void *arg0, s32 *arg1, u8 arg2) {
-s32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    u8 _padC[8];
+    struct GenObj *unk14;
+    u8 _pad18[28];
+    s32 unk34;
+    s32 unk38;
+    s32 unk3C;
+} GenObj;
+void func_08026150(GenObj *arg0, s32 *arg1, u8 arg2) {
+GenObj sp0;
     s32 sp4;
     u8 sp8;
     s32 *var_r4_2;
@@ -27,20 +40,20 @@ s32 sp0;
     u8 *var_r4;
     u8 temp_r3;
     void *temp_r0_2;
-    void *var_r0;
+    GenObj *var_r0;
 
     __7Product(&sp8);
     temp_r0 = GetKind__C12RucksackItem(arg1);
     switch (temp_r0) {                              /* switch 1; irregular */
     case 0:                                         /* switch 1 */
-        var_r4 = &sp0 + 9;
+        var_r4 = &(GenObj *)((u8 *)sp0 + 9);
         GetFood__C12RucksackItem(&sp0, arg1);
-        __7ProductG4Food(var_r4, (sp0.unk2 << 0x10) | ((sp0.unk1 << 8) | sp0.unk0));
+        __7ProductG4Food(var_r4, (sp0.unk2 << 0x10) | ((sp0.unk1 << 8) | sp0));
 block_5:
         sp8 = *var_r4;
         break;
     case 1:                                         /* switch 1 */
-        var_r4 = &sp0 + 0xA;
+        var_r4 = &(GenObj *)((u8 *)sp0 + 0xA);
         __7ProductG7Article(var_r4, GetArticle__C12RucksackItem(arg1));
         goto block_5;
     }
@@ -55,29 +68,29 @@ block_5:
     }
     func_0802A588(arg0);
     arg0->unk3C = 0x11;
-    temp_r3 = *((arg0 + 0x3C) - 0x1C);
+    temp_r3 = *(((GenObj *)((u8 *)arg0 + 0x3C)) - 0x1C);
     switch (temp_r3) {                              /* switch 2; irregular */
     case 2:                                         /* switch 2 */
-        var_r0 = arg0 + 0x88;
+        var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
         var_r0->unk4 = 0xFFF60000;
         var_r0->unk8 = 0;
 block_24:
         var_r0->unk14 = 0xC0000;
         break;
     case 3:                                         /* switch 2 */
-        var_r0 = arg0 + 0x88;
+        var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
         var_r0->unk4 = 0xA0000;
         var_r0->unk8 = 0;
         goto block_24;
     case 1:                                         /* switch 2 */
-        var_r0 = arg0 + 0x88;
+        var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
         var_r1 = 0xFFF60000;
         var_r0->unk4 = 0;
 block_23:
         var_r0->unk8 = var_r1;
         goto block_24;
     case 0:                                         /* switch 2 */
-        var_r0 = arg0 + 0x88;
+        var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
         var_r1 = 0xA0000;
         var_r0->unk4 = (s32) temp_r3;
         goto block_23;

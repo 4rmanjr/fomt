@@ -1,9 +1,13 @@
 s32 SetAnim__12AActorEntityUi(void *);                /* extern */
-s32 SetLocation__12AActorEntityRC13ActorLocation(void *, ? *); /* extern */
+s32 SetLocation__12AActorEntityRC13ActorLocation(void *, s32 *); /* extern */
 s32 func_08037A38(void *, s32);                     /* extern */
 s32 func_080A19EC(s32 *);                               /* extern */
 
-void func_08037A04(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[34];
+    s32 unk22;
+} GenObj;
+void func_08037A04(GenObj *arg0) {
 s32 sp0;
 
     func_080A19EC(&sp0);

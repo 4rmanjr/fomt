@@ -3,25 +3,33 @@ s32 GetCow__C4BarnUi(s32, u32);                     /* extern */
 u32 GetGrowthStage__C3Cow();                        /* extern */
 s32 HasBeenMilked__C3Cow(s32);                      /* extern */
 s32 IsPregnant__C10BarnAnimal(s32);                 /* extern */
-s32 func_08062E9C(void *, s32, ?, s32, ? *);            /* extern */
-s32 func_08063EB8(void *, u32, s32, ? *, ? *);        /* extern */
+s32 func_08062E9C(void *, s32, ?, s32, s32 *);            /* extern */
+s32 func_08063EB8(void *, u32, s32, s32 *, s32 *);        /* extern */
 s32 func_08075E24(s32, s16);                          /* extern */
-extern ? gUnk_080FB894;
-extern ? gUnk_08751B4C;
-extern ? gUnk_08751BCC;
-extern ? gUnk_08751BEC;
-extern ? gUnk_08751C6C;
-extern ? gUnk_08751C8C;
-extern ? gUnk_08751D0C;
-extern ? gUnk_08751D2C;
-extern ? gUnk_08751DAC;
-extern ? gUnk_08751DCC;
-extern ? gUnk_08751E4C;
-extern ? vtable_unk_080E7A48;
+extern s32 gUnk_080FB894;
+extern s32 gUnk_08751B4C;
+extern s32 gUnk_08751BCC;
+extern s32 gUnk_08751BEC;
+extern s32 gUnk_08751C6C;
+extern s32 gUnk_08751C8C;
+extern s32 gUnk_08751D0C;
+extern s32 gUnk_08751D2C;
+extern s32 gUnk_08751DAC;
+extern s32 gUnk_08751DCC;
+extern s32 gUnk_08751E4C;
+extern s32 vtable_unk_080E7A48;
 
-void *func_080643DC(void *arg0, ? arg1, ? arg2) {
-    ? *var_r5;
-    ? *var_r6;
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[1412];
+    s32 unk58C;
+    u8 _pad590[36];
+    void *unk5B4;
+} GenObj;
+void *func_080643DC(GenObj *arg0, ? arg1, ? arg2) {
+    s32 *var_r5;
+    s32 *var_r6;
     s32 temp_r0_2;
     u32 temp_r0;
     u32 temp_r0_3;

@@ -10,6 +10,6 @@ void func_0809C3BC(s32 arg0) {
     temp_r2 = *temp_r1;
     if (temp_r2 == 0) {
         *temp_r1 = 1;
-        *(arg0 + 0xC + temp_r0) = temp_r2;
+        *((u8 *)arg0 + 0xC + temp_r0) = temp_r2;
     }
 }

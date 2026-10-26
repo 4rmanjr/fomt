@@ -3,7 +3,11 @@ s32 GetCow__4BarnUi(s32, u32);                      /* extern */
 s32 GetSheep__4BarnUi(s32, u32);                    /* extern */
 s32 IsPregnant__C10BarnAnimal();                    /* extern */
 
-s32 func_080869A0(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+} GenObj;
+s32 func_080869A0(GenObj *arg0) {
     s32 var_r6;
     u32 var_r5;
 

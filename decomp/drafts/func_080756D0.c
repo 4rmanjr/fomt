@@ -7,19 +7,26 @@ s32 func_08007C28(void *, s32);                       /* extern */
 s32 func_080E2B28(void *);                          /* extern */
 s32 func_080E2B5C(void *, s32);                       /* extern */
 s32 func_080E2B88(void *, s32);                       /* extern */
-extern ? vtable_unk_080E7B5C;
+extern s32 vtable_unk_080E7B5C;
 
-void func_080756D0(void *arg0, s32 arg1) {
-    void *sp0;
+typedef struct GenObj {
+    s32 unk0;
+    void *unk4;
+    struct GenObj *unk8;
+    u8 _padC[8];
+    s32 unk14;
+} GenObj;
+void func_080756D0(GenObj *arg0, s32 arg1) {
+    GenObj *sp0;
     void *sp4;
-    s32 sp8;
+    GenObj *sp8;
     void *spC;
     s32 temp_r0_3;
     s32 temp_r1;
     s32 temp_r2;
     s32 temp_r2_2;
     s32 temp_r2_4;
-    void *temp_r0;
+    GenObj *temp_r0;
     void *temp_r0_2;
     void *temp_r0_4;
     void *temp_r0_5;
@@ -47,14 +54,14 @@ loop_3:
             var_r1 = sp4;
             goto loop_3;
         }
-        temp_r0_2 = temp_r0 + 0x18;
+        temp_r0_2 = (GenObj *)((u8 *)temp_r0 + 0x18);
         temp_r1_2 = temp_r0_2->unk4;
         temp_r2 = temp_r1_2->unk8;
         sp8 = temp_r2;
         spC = temp_r1_2;
         temp_r2_2 = temp_r2 ^ (s32) temp_r1_2;
-        temp_r2_3 = temp_r0 + 4;
-        temp_r6 = temp_r0 + 0x14;
+        temp_r2_3 = (GenObj *)((u8 *)temp_r0 + 4);
+        temp_r6 = (GenObj *)((u8 *)temp_r0 + 0x14);
         if ((s32) ((0 - temp_r2_2) | temp_r2_2) < 0) {
             do {
                 func_080073E0(temp_r6, sp8->unk14);

@@ -13,20 +13,40 @@ s32 __12RucksackItemG7Article(s32 *, u8);             /* extern */
 u8 func_0800F258(s32);                              /* extern */
 s32 func_0800F390(s32);                               /* extern */
 s32 func_0800F3E8(s32, u8);                           /* extern */
-s32 func_080CB304(s32, s32, ? *, u16);                /* extern */
+s32 func_080CB304(s32, s32, s32 *, u16);                /* extern */
 s32 func_080CBA60(s32, s32);                          /* extern */
-s32 func_080CBAF0(s32, ? *, u16, s32);                /* extern */
+s32 func_080CBAF0(s32, s32 *, u16, s32);                /* extern */
 s32 func_080CC0B4(s32);                               /* extern */
-s32 func_080CC728(s32, s32, ? *, u16);                /* extern */
+s32 func_080CC728(s32, s32, s32 *, u16);                /* extern */
 s32 func_080CCD48(s32, s32, s32);                     /* extern */
 s32 func_080CE184(void *, s32, s32);                /* extern */
 s32 func_080CECD0(s32);                               /* extern */
 s32 func_080CF054(s32);                             /* extern */
 s32 memcpy(s32 *, s32 *, s32);                        /* extern */
-extern ? gUnk_086678A0;
+extern s32 gUnk_086678A0;
 
-void func_0808DD54(void *arg0, s32 arg1, s32 arg2) {
-    s32 sp0;
+typedef struct GenObj {
+    u8 _pad0[16];
+    s32 unk10;
+    s32 unk12;
+    s32 unk15;
+    s32 unk16;
+    s32 unk17;
+    u8 _pad1B[93];
+    s32 unk78;
+    s32 unk7C;
+    u8 _pad80[16];
+    s32 unk90;
+    void *unk94;
+    u8 _pad98[36];
+    s32 unkBC;
+    u8 _padC0[60];
+    s32 unkFC;
+    s32 unk100;
+    s32 unk104;
+} GenObj;
+void func_0808DD54(GenObj *arg0, s32 arg1, s32 arg2) {
+    GenObj *sp0;
     s32 sp4;
     s32 sp8;
     s32 spC;
@@ -114,17 +134,17 @@ void func_0808DD54(void *arg0, s32 arg1, s32 arg2) {
             }
             temp_r0 = func_080CE184(arg0, sp18, func_080CF054(arg0->unk90));
             memcpy(&sp4, GetArticleStackAt__5ShelfUi(arg0->unk104, temp_r0), 2);
-            sp20 = arg0 + 0x90;
+            sp20 = (GenObj *)((u8 *)arg0 + 0x90);
             if (sp1C != 0) {
                 temp_r4 = arg0->unk100;
                 GetItemAt__8RucksackUi(temp_r4, func_080CE184(arg0, sp1C, 0));
                 sp0.unk17 = GetArticle__C12RucksackItem();
                 if ((IsEmpty__C12ArticleStack(&sp4) << 0x18) == 0) {
                     GetArticleStackAt__5ShelfUi(arg0->unk104, temp_r0);
-                    temp_r6 = &sp0 + 0x16;
+                    temp_r6 = &(GenObj *)((u8 *)sp0 + 0x16);
                     sp0.unk16 = GetArticle__C12ArticleStack();
                     temp_r4_2 = GetId__C7Article(temp_r6);
-                    if (temp_r4_2 == GetId__C7Article(&sp0 + 0x17)) {
+                    if (temp_r4_2 == GetId__C7Article(&(GenObj *)((u8 *)sp0 + 0x17))) {
 
                     } else {
                         temp_r4_3 = arg0->unk100;
@@ -143,7 +163,7 @@ void func_0808DD54(void *arg0, s32 arg1, s32 arg2) {
                         if (temp_r4_5 == func_080CF054(*sp20)) {
                             var_r5 = arg0->unk7C;
                             var_r4 = func_080CE184(arg0, sp18, 0);
-                            var_r3 = GetIconId__C7Article(&sp0 + 0x17);
+                            var_r3 = GetIconId__C7Article(&(GenObj *)((u8 *)sp0 + 0x17));
                             sp0 = 1;
                             goto block_36;
                         }
@@ -162,7 +182,7 @@ void func_0808DD54(void *arg0, s32 arg1, s32 arg2) {
                     if (temp_r4_10 == func_080CF054(*sp20)) {
                         temp_r5_4 = arg0->unk7C;
                         temp_r4_11 = func_080CE184(arg0, sp18, 0);
-                        temp_r3_2 = GetIconId__C7Article(&sp0 + 0x17);
+                        temp_r3_2 = GetIconId__C7Article(&(GenObj *)((u8 *)sp0 + 0x17));
                         sp0 = 1;
                         func_080CC728(temp_r5_4, temp_r4_11, &gUnk_086678A0, temp_r3_2);
                     }
@@ -173,7 +193,7 @@ void func_0808DD54(void *arg0, s32 arg1, s32 arg2) {
                     GetArticleStackAt__5ShelfUi(arg0->unk104, temp_r0);
                     sp14 = GetArticle__C12ArticleStack();
                     temp_r4_12 = GetId__C7Article(&sp14);
-                    if (temp_r4_12 == GetId__C7Article(&sp0 + 0x15)) {
+                    if (temp_r4_12 == GetId__C7Article(&(GenObj *)((u8 *)sp0 + 0x15))) {
 
                     } else {
                         func_0800F390(arg0->unkFC);
@@ -189,7 +209,7 @@ void func_0808DD54(void *arg0, s32 arg1, s32 arg2) {
                         } else {
                             var_r5 = arg0->unk7C;
                             var_r4 = func_080CE184(arg0, sp18, 0);
-                            var_r3 = GetIconId__C7Article(&sp0 + 0x15);
+                            var_r3 = GetIconId__C7Article(&(GenObj *)((u8 *)sp0 + 0x15));
                             sp0 = 1;
 block_36:
                             func_080CC728(var_r5, var_r4, &gUnk_086678A0, var_r3);
@@ -207,7 +227,7 @@ block_36:
                     } else {
                         temp_r5_7 = arg0->unk7C;
                         temp_r4_16 = func_080CE184(arg0, sp18, 0);
-                        temp_r3_3 = GetIconId__C7Article(&sp0 + 0x15);
+                        temp_r3_3 = GetIconId__C7Article(&(GenObj *)((u8 *)sp0 + 0x15));
                         sp0 = 1;
                         func_080CC728(temp_r5_7, temp_r4_16, &gUnk_086678A0, temp_r3_3);
                     }
@@ -233,7 +253,7 @@ block_36:
                 goto block_15;
             }
             sp13 = GetArticle__C12ArticleStack(&sp4);
-            temp_r4_22 = GetId__C7Article(&sp0 + 0x12);
+            temp_r4_22 = GetId__C7Article(&(GenObj *)((u8 *)sp0 + 0x12));
             if (temp_r4_22 == GetId__C7Article(&sp13)) {
                 AddAmount__12ArticleStackUi(GetArticleStackAt__5ShelfUi(arg0->unk104, temp_r0_2), 1);
                 temp_r4_23 = arg0->unk100;
@@ -261,7 +281,7 @@ block_36:
                 func_080CB304(temp_r6_2, temp_r4_27, &gUnk_086678A0, temp_r3_4);
                 temp_r6_3 = arg0->unk7C;
                 temp_r4_28 = func_080CE184(arg0, sp1C, 0);
-                var_r3_2 = GetIconId__C7Article(&sp0 + 0x12);
+                var_r3_2 = GetIconId__C7Article(&(GenObj *)((u8 *)sp0 + 0x12));
                 sp0 = 1;
                 var_r0 = temp_r6_3;
                 var_r1 = temp_r4_28;
@@ -318,7 +338,7 @@ block_16:
             func_080CC728(var_r0, var_r1, &gUnk_086678A0, var_r3_2);
         }
 block_17:
-        sp20 = arg0 + 0x90;
+        sp20 = (GenObj *)((u8 *)arg0 + 0x90);
     }
     func_080CECD0(*sp20);
 }

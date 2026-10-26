@@ -1,6 +1,10 @@
 s32 GetLocation__C3Npc(u16 *, void *);                /* extern */
 
-void func_0809EC48(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[21];
+    s32 unk15;
+} GenObj;
+void func_0809EC48(GenObj *arg0) {
     u16 sp0;
     u32 temp_r0;
     u8 var_r0;

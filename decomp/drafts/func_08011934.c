@@ -2,18 +2,24 @@ u32 GetCapacity__C4Barn(s32);                       /* extern */
 u32 GetCapacity__C4Coop(s32);                       /* extern */
 s32 GetChicken__4CoopUi(s32, u32);                  /* extern */
 s32 GetCow__4BarnUi(s32, u32);                      /* extern */
-? *GetName__C6Animal(s32);                          /* extern */
+s32 *GetName__C6Animal(s32);                          /* extern */
 s32 GetSheep__4BarnUi(s32, u32);                    /* extern */
-s32 memcpy(s32 *, ? *, u32);                            /* extern */
+s32 memcpy(s32 *, s32 *, u32);                            /* extern */
 s32 method_0809B514__C9Livestock();                 /* extern */
 u32 strlen(s32 *);                                    /* extern */
-extern ? gUnk_080F0654;
-extern ? gUnk_080F0658;
+extern s32 gUnk_080F0654;
+extern s32 gUnk_080F0658;
 
-void func_08011934(void *arg0, s32 arg1, ? *arg2) {
+typedef struct GenObj {
+    u8 _pad0[16];
+    s32 unk10;
+    u8 _pad14[120];
+    s32 unk8C;
+} GenObj;
+void func_08011934(void *arg0, s32 arg1, s32 *arg2) {
 s32 sp0;
 s32 sp4;
-    void *sp8;
+    GenObj *sp8;
     s32 spC;
     s32 sp10;
     u32 sp14;
@@ -22,22 +28,22 @@ s32 sp4;
     u32 sp20;
     u32 sp24;
     s32 *sp28;
-    ? *temp_r4;
-    ? *temp_r6;
-    ? *temp_r6_10;
-    ? *temp_r6_2;
-    ? *temp_r6_3;
-    ? *temp_r6_4;
-    ? *temp_r6_5;
-    ? *temp_r6_6;
-    ? *temp_r6_7;
-    ? *temp_r6_8;
-    ? *temp_r6_9;
-    ? *temp_r7;
-    ? *temp_r7_2;
-    ? *temp_r7_3;
-    ? *temp_r8;
-    ? *temp_r8_2;
+    s32 *temp_r4;
+    s32 *temp_r6;
+    s32 *temp_r6_10;
+    s32 *temp_r6_2;
+    s32 *temp_r6_3;
+    s32 *temp_r6_4;
+    s32 *temp_r6_5;
+    s32 *temp_r6_6;
+    s32 *temp_r6_7;
+    s32 *temp_r6_8;
+    s32 *temp_r6_9;
+    s32 *temp_r7;
+    s32 *temp_r7_2;
+    s32 *temp_r7_3;
+    s32 *temp_r8;
+    s32 *temp_r8_2;
     s32 temp_r0_10;
     s32 temp_r0_2;
     s32 temp_r0_6;
@@ -100,7 +106,7 @@ s32 sp4;
                             var_r4 = temp_r5;
                         }
                         memcpy(temp_r6, &gUnk_080F0654, var_r4);
-                        *(temp_r6 + var_r4) = sp0.unk10;
+                        *((u8 *)temp_r6 + var_r4) = sp0.unk10;
                     }
                 }
                 temp_r7 = GetName__C6Animal(temp_r0_2);
@@ -114,7 +120,7 @@ s32 sp4;
                         var_r4_2 = temp_r5_2;
                     }
                     memcpy(temp_r6_2, temp_r7, var_r4_2);
-                    *(temp_r6_2 + var_r4_2) = 0;
+                    *((u8 *)temp_r6_2 + var_r4_2) = 0;
                 }
                 var_sl += 1;
                 if (var_sl > 2U) {
@@ -127,7 +133,7 @@ s32 sp4;
                             var_r4_3 = temp_r5_3;
                         }
                         memcpy(temp_r6_3, &gUnk_080F0658, var_r4_3);
-                        *(temp_r6_3 + var_r4_3) = 0;
+                        *((u8 *)temp_r6_3 + var_r4_3) = 0;
                     }
                     var_sl = 0;
                 }
@@ -138,7 +144,7 @@ s32 sp4;
     }
     sp1C = GetCapacity__C4Barn(sp8->unk8C + 0x5F0);
     sp20 = 0;
-    sp28 = sp8 + 0x8C;
+    sp28 = (GenObj *)((u8 *)sp8 + 0x8C);
     if (sp1C > 0U) {
         do {
             temp_r0_6 = GetCow__4BarnUi(*sp28 + 0x5F0, sp20);
@@ -155,7 +161,7 @@ s32 sp4;
                             var_r4_4 = temp_r5_4;
                         }
                         memcpy(temp_r6_4, &gUnk_080F0654, var_r4_4);
-                        *(temp_r6_4 + var_r4_4) = sp0.unk10;
+                        *((u8 *)temp_r6_4 + var_r4_4) = sp0.unk10;
                     }
                 }
                 temp_r8 = GetName__C6Animal(temp_r0_6);
@@ -169,7 +175,7 @@ s32 sp4;
                         var_r4_5 = temp_r5_5;
                     }
                     memcpy(temp_r7_2, temp_r8, var_r4_5);
-                    *(temp_r7_2 + var_r4_5) = 0;
+                    *((u8 *)temp_r7_2 + var_r4_5) = 0;
                 }
                 var_sl += 1;
                 if (var_sl > 2U) {
@@ -182,7 +188,7 @@ s32 sp4;
                             var_r4_6 = temp_r5_6;
                         }
                         memcpy(temp_r6_6, &gUnk_080F0658, var_r4_6);
-                        *(temp_r6_6 + var_r4_6) = 0;
+                        *((u8 *)temp_r6_6 + var_r4_6) = 0;
                     }
                     var_sl = 0;
                 }
@@ -208,7 +214,7 @@ s32 sp4;
                             var_r4_7 = temp_r5_7;
                         }
                         memcpy(temp_r6_7, &gUnk_080F0654, var_r4_7);
-                        *(temp_r6_7 + var_r4_7) = sp0.unk10;
+                        *((u8 *)temp_r6_7 + var_r4_7) = sp0.unk10;
                     }
                 }
                 temp_r8_2 = GetName__C6Animal(temp_r0_10);
@@ -222,7 +228,7 @@ s32 sp4;
                         var_r4_8 = temp_r5_8;
                     }
                     memcpy(temp_r7_3, temp_r8_2, var_r4_8);
-                    *(temp_r7_3 + var_r4_8) = 0;
+                    *((u8 *)temp_r7_3 + var_r4_8) = 0;
                 }
                 var_sl += 1;
                 if (var_sl > 2U) {
@@ -235,7 +241,7 @@ s32 sp4;
                             var_r4_9 = temp_r5_9;
                         }
                         memcpy(temp_r6_9, &gUnk_080F0658, var_r4_9);
-                        *(temp_r6_9 + var_r4_9) = 0;
+                        *((u8 *)temp_r6_9 + var_r4_9) = 0;
                     }
                     var_sl = 0;
                 }
@@ -254,7 +260,7 @@ s32 sp4;
                 var_r4_10 = temp_r5_10;
             }
             memcpy(temp_r6_10, &gUnk_080F0658, var_r4_10);
-            *(temp_r6_10 + var_r4_10) = 0;
+            *((u8 *)temp_r6_10 + var_r4_10) = 0;
         }
     }
 }

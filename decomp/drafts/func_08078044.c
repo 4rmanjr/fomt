@@ -3,24 +3,42 @@ s32 func_08008920(void *);                          /* extern */
 s32 func_08010E48(void *);                          /* extern */
 s32 func_08010E50(void *);                          /* extern */
 s32 func_08010E58(void *);                          /* extern */
-s32 func_08050DC8(void *, ? *, s32, s32);             /* extern */
+s32 func_08050DC8(void *, s32 *, s32, s32);             /* extern */
 s32 func_0805E8F0(void *);                            /* extern */
-s32 func_08075AE8(void *, s32, ? *, s32, s32);        /* extern */
-s32 func_080782C4(void *, s32, s32, ? *);           /* extern */
-s32 memcpy(s32 *, ? *, s32);                            /* extern */
-extern ? gUnk_080FCE14;
-extern ? gUnk_080FD080;
-extern ? gUnk_080FD094;
-extern ? gUnk_080FD0A8;
-extern ? gUnk_080FD550;
+s32 func_08075AE8(void *, s32, s32 *, s32, s32);        /* extern */
+s32 func_080782C4(void *, s32, s32, s32 *);           /* extern */
+s32 memcpy(s32 *, s32 *, s32);                            /* extern */
+extern s32 gUnk_080FCE14;
+extern s32 gUnk_080FD080;
+extern s32 gUnk_080FD094;
+extern s32 gUnk_080FD0A8;
+extern s32 gUnk_080FD550;
 
-void func_08078044(void *arg0, s32 arg1, s32 arg2) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    void *unk8;
+    struct GenObj *unkC;
+    u8 _pad10[4];
+    s32 unk14;
+    u8 _pad18[96];
+    s32 unk78;
+    s32 unk7C;
+    u8 _pad80[12];
+    s32 unk8C;
+    s32 unk90;
+    s32 unk94;
+    u8 _pad98[256];
+    s32 unk198;
+    u8 _pad19C[8308];
+    s32 unk2210;
+} GenObj;
+void func_08078044(GenObj *arg0, s32 arg1, s32 arg2) {
 s32 sp4;
     s32 sp24;
     s32 *sp28;
-    ? **var_r0_3;
-    ? *var_r1_2;
-    ? *var_r4_2;
+    s32 **var_r0_3;
+    s32 *var_r1_2;
+    s32 *var_r4_2;
     s32 temp_r0;
     s32 temp_r0_2;
     s32 temp_r5;
@@ -34,7 +52,7 @@ s32 sp4;
     s32 var_r5;
     s32 var_r6;
     void **temp_r1;
-    void *temp_r4;
+    GenObj *temp_r4;
 
     sp24 = arg2;
     var_r3 = arg0->unk8C + arg1;
@@ -62,18 +80,18 @@ s32 sp4;
     }
     temp_r0_2 = var_r0_2 >> 8;
     if ((arg1 == 0) && (sp24 == 0)) {
-        temp_r4 = arg0 + 0x78;
+        temp_r4 = (GenObj *)((u8 *)arg0 + 0x78);
         func_0805E8F0(temp_r4);
         temp_r5 = func_08008920(arg0);
         temp_r1 = arg0->unk78;
         (*temp_r1)->unk10(&sp4, temp_r1, *(arg0->unk7C + (temp_r4->unkC * 4)));
         memcpy(&sp4, &sp4, 0x20);
-        func_08075AE8(arg0 + 0x20, temp_r5, &sp4, temp_r0, temp_r0_2);
+        func_08075AE8((GenObj *)((u8 *)arg0 + 0x20), temp_r5, &sp4, temp_r0, temp_r0_2);
     } else {
-        func_08075AE8(arg0 + 0x20, func_08008920(arg0), arg0 + 0x58, temp_r0, temp_r0_2);
+        func_08075AE8((GenObj *)((u8 *)arg0 + 0x20), func_08008920(arg0), (GenObj *)((u8 *)arg0 + 0x58), temp_r0, temp_r0_2);
     }
     var_r6 = arg0->unk94;
-    sp28 = arg0 + 0x94;
+    sp28 = (GenObj *)((u8 *)arg0 + 0x94);
     if ((arg1 != 0) || (sp24 != 0)) {
         var_r6 = 0x28;
         if (((func_08010E48(arg0->unk8) << 0x18) != 0) && ((func_080782C4(arg0, temp_r0, temp_r0_2, &gUnk_080FD080) << 0x18) != 0)) {
@@ -108,9 +126,9 @@ loop_31:
         break;
     case 29:
         if (arg0->unk14 != 0) {
-            var_r4_2 = arg0 + 0x118;
+            var_r4_2 = (GenObj *)((u8 *)arg0 + 0x118);
         } else {
-            var_r4_2 = arg0 + 0x98;
+            var_r4_2 = (GenObj *)((u8 *)arg0 + 0x98);
         }
         break;
     case 10:
@@ -147,7 +165,7 @@ block_54:
         var_r4_2 = &gUnk_080FCE14;
     }
     if (var_r4_2 != arg0->unk198) {
-        func_08050DC8(arg0 + 0x18, var_r4_2, 0, 0);
+        func_08050DC8((GenObj *)((u8 *)arg0 + 0x18), var_r4_2, 0, 0);
         arg0->unk198 = var_r4_2;
     }
 }

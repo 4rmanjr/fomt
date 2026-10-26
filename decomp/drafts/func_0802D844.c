@@ -1,7 +1,17 @@
 s32 SetAnimFacing__12AActorEntityUi(void *, s32);     /* extern */
 s32 func_080323C8(void *);                            /* extern */
 
-void func_0802D844(void *arg0, void *arg1) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[24];
+    s32 unk20;
+    u8 _pad24[24];
+    s32 unk3C;
+    u8 _pad40[131];
+    s32 unkC3;
+} GenObj;
+void func_0802D844(GenObj *arg0, GenObj *arg1) {
     u16 var_r5;
 
     var_r5 = 0;

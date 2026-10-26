@@ -1,3 +1,7 @@
+typedef struct GenObj {
+    u8 _pad0[2];
+    s32 unk2;
+} GenObj;
 void func_080D1518(void *arg0) {
     s32 temp_r1;
     s32 temp_r1_2;
@@ -6,7 +10,7 @@ void func_080D1518(void *arg0) {
     s32 temp_r3;
     s32 var_r5;
     u16 temp_r2;
-    void *var_r0;
+    GenObj *var_r0;
 
     var_r0 = arg0;
     var_r5 = 0;

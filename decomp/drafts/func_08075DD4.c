@@ -1,6 +1,11 @@
 s32 memset(s32, s32, s32);                            /* extern */
 
-void func_08075DD4(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[24];
+    s32 unk18;
+    s32 unk1C;
+} GenObj;
+void func_08075DD4(GenObj *arg0) {
     s32 temp_r1;
 
     temp_r1 = arg0->unk18;

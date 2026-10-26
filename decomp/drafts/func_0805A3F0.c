@@ -1,7 +1,7 @@
 s32 func_08008E64(s32 *, s32, s32);                     /* extern */
 s32 func_08008EB8(s32, s32, s32);                     /* extern */
-s32 func_0804E7A0(s32, ? *, s32);                     /* extern */
-s32 func_0804E958(s32, ? *, s32, s32);                /* extern */
+s32 func_0804E7A0(s32, s32 *, s32);                     /* extern */
+s32 func_0804E958(s32, s32 *, s32, s32);                /* extern */
 extern s32 gUnk_080FAFC8;
 
 void func_0805A3F0(s32 arg200, ? arg201) {

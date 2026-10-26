@@ -21,21 +21,32 @@ s32 func_08009300(s32 *, void *);                       /* extern */
 s32 func_0800934C(s32 *, s32, s32, s32);                /* extern */
 s32 func_08009378(s32 *, s32, s32, s32);                /* extern */
 s32 func_080094B8(s32 *, s32);                        /* extern */
-extern ? vtable_unk_080E5B80;
+extern s32 vtable_unk_080E5B80;
 
-s32 *func_08005B68(s32 *arg0, void *arg1) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    struct GenObj *unk8;
+    u8 _padC[4];
+    s32 unk10;
+    u8 _pad14[60];
+    s32 unk50;
+    u8 _pad54[17890];
+    s32 unk4636;
+} GenObj;
+s32 *func_08005B68(s32 *arg0, GenObj *arg1) {
 s32 sp0;
     s32 sp4;
     s16 sp8;
-    s32 spC;
-    ? *sp14;
+    GenObj *spC;
+    s32 *sp14;
 s32 sp18;
     void **sp1C;
     void ***sp20;
     s32 temp_r4;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r0_3;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_3;
     void *temp_r1;
 
     func_08008724(arg1);
@@ -58,7 +69,7 @@ s32 sp18;
     func_08009300(&sp18, temp_r1);
     func_0800934C(&sp18, 0x889, 1, 1);
     temp_r0_2 = func_08008940(arg1);
-    temp_r0_2->unk8->unk10(temp_r0_2, &spC);
+    ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, &spC);
     if ((s32) ((0 - spC) | spC) < 0) {
         do {
             func_080087C8(arg1);
@@ -78,7 +89,7 @@ loop_4:
     }
     func_08009378(&sp18, 0x889, 1, 1);
     temp_r0_3 = func_08008940(arg1);
-    temp_r0_3->unk8->unk10(temp_r0_3, &spC);
+    ((void (*)(void *,...))(temp_r0_3->unk8->unk10))(temp_r0_3, &spC);
 loop_7:
     if ((s32) ((0 - spC) | spC) < 0) {
         func_080087C8(arg1);

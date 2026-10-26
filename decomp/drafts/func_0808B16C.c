@@ -29,8 +29,25 @@ s32 func_080CE1C4(void *, s8);                      /* extern */
 s32 memcpy(s32 *, s32 *, s32);                        /* extern */
 extern s32 gUnk_08117B10;
 
-u8 func_0808B16C(void *arg0, s32 arg1, s32 arg2) {
-    s32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    u8 _padC[41];
+    s32 unk35;
+    s32 unk36;
+    s32 unk37;
+    u8 _pad3B[61];
+    s32 unk78;
+    s32 unk7C;
+    u8 _pad80[124];
+    s32 unkFC;
+    u8 _pad100[4];
+    s32 unk104;
+    s32 unk108;
+} GenObj;
+u8 func_0808B16C(GenObj *arg0, s32 arg1, s32 arg2) {
+    GenObj *sp0;
     s32 sp4;
     s32 sp8;
     s32 sp10;
@@ -140,13 +157,13 @@ u8 func_0808B16C(void *arg0, s32 arg1, s32 arg2) {
     s32 var_r8;
     u32 temp_r5_2;
     u32 temp_r5_7;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r0_3;
-    void *temp_r0_4;
-    void *temp_r0_6;
-    void *temp_r0_7;
-    void *temp_r0_8;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_3;
+    GenObj *temp_r0_4;
+    GenObj *temp_r0_6;
+    GenObj *temp_r0_7;
+    GenObj *temp_r0_8;
 
     sp38 = 1;
     if ((arg2 == 0) || (arg2 == 9)) {
@@ -166,12 +183,12 @@ block_51:
             } else {
                 temp_r4 = arg0->unk7C;
                 temp_r0 = func_080CC70C(temp_r4, func_080CE184(arg0, arg1, 0));
-                sp4.unk0 = temp_r0->unk0;
+                sp4 = temp_r0->unk0;
                 sp4.unk4 = (s32) temp_r0->unk4;
                 sp4.unk8 = (s32) temp_r0->unk8;
                 temp_r5 = arg0->unk7C;
                 temp_r0_2 = func_080CC70C(temp_r5, func_080CE184(arg0, arg2, 0));
-                sp10.unk0 = temp_r0_2->unk0;
+                sp10 = temp_r0_2->unk0;
                 sp10.unk4 = (s32) temp_r0_2->unk4;
                 sp10.unk8 = (s32) temp_r0_2->unk8;
                 temp_r4_2 = arg0->unk104;
@@ -226,19 +243,19 @@ block_51:
             memcpy(&sp4, GetToolAt__8RucksackUi(temp_r4_18, func_080CE184(arg0, arg1, 0)), 2);
             temp_r4_19 = arg0->unk104;
             memcpy(&sp8, GetToolAt__8RucksackUi(temp_r4_19, func_080CE184(arg0, arg2, 0)), 2);
-            sp3C = &sp0 + 0xC;
+            sp3C = &(GenObj *)((u8 *)sp0 + 0xC);
             temp_r4_20 = arg0->unk78;
             temp_r0_3 = func_080CB2E8(temp_r4_20, func_080CE184(arg0, arg1, 0));
             sp3C->unk0 = temp_r0_3->unk0;
             sp3C->unk4 = (s32) temp_r0_3->unk4;
             sp3C->unk8 = (s32) temp_r0_3->unk8;
-            sp40 = &sp0 + 0x18;
+            sp40 = &(GenObj *)((u8 *)sp0 + 0x18);
             temp_r4_21 = arg0->unk78;
             temp_r0_4 = func_080CB2E8(temp_r4_21, func_080CE184(arg0, arg2, 0));
             sp40->unk0 = temp_r0_4->unk0;
             sp40->unk4 = (s32) temp_r0_4->unk4;
             sp40->unk8 = (s32) temp_r0_4->unk8;
-            if (((IsEmpty__C9ToolStack(&sp4, sp40 + 0xC) << 0x18) != 0) && ((IsEmpty__C9ToolStack(&sp8) << 0x18) != 0)) {
+            if (((IsEmpty__C9ToolStack(&sp4, (GenObj *)((u8 *)sp40 + 0xC)) << 0x18) != 0) && ((IsEmpty__C9ToolStack(&sp8) << 0x18) != 0)) {
 
             } else {
                 if ((IsEmpty__C9ToolStack(&sp4) << 0x18) != 0) {
@@ -319,7 +336,7 @@ block_48:
                         func_080CB948(temp_r6_2, temp_r5_5, GetAmount__C9ToolStack());
                         var_r6_2 = arg0->unk78;
                         var_r5_2 = func_080CE184(arg0, arg2, 0);
-                        var_r0_2 = arg0 + 0x104;
+                        var_r0_2 = (GenObj *)((u8 *)arg0 + 0x104);
                         goto block_45;
                     }
                 }
@@ -327,11 +344,11 @@ block_48:
         }
     } else {
         temp_r0_5 = IsEmpty__C9ToolStack(arg0->unkFC) << 0x18;
-        sp44 = arg0 + 0xFC;
+        sp44 = (GenObj *)((u8 *)arg0 + 0xFC);
         if (temp_r0_5 != 0) {
             temp_r4_40 = arg0->unk78;
             temp_r0_6 = func_080CB2E8(temp_r4_40, func_080CE184(arg0, arg2, 0));
-            sp4.unk0 = temp_r0_6->unk0;
+            sp4 = temp_r0_6->unk0;
             sp4.unk4 = (s32) temp_r0_6->unk4;
             sp4.unk8 = (s32) temp_r0_6->unk8;
             var_r1_3 = 0;
@@ -351,17 +368,17 @@ block_48:
             }
         } else {
             temp_r0_7 = func_080CB2FC(arg0->unk78);
-            sp4.unk0 = temp_r0_7->unk0;
+            sp4 = temp_r0_7->unk0;
             sp4.unk4 = (s32) temp_r0_7->unk4;
             sp4.unk8 = (s32) temp_r0_7->unk8;
             temp_r4_44 = arg0->unk78;
             temp_r0_8 = func_080CB2E8(temp_r4_44, func_080CE184(arg0, arg2, 0));
-            sp14.unk0 = temp_r0_8->unk0;
+            sp14 = temp_r0_8->unk0;
             sp14.unk4 = (s32) temp_r0_8->unk4;
             sp14.unk8 = (s32) temp_r0_8->unk8;
             memcpy(&sp20, *sp44, 2);
             if ((func_080CE1C4(arg0, GetTool__C9ToolStack(&sp20)) << 0x18) != 0) {
-                func_08050DC8(arg0 + 0x80, gUnk_08117B10, 0, 0);
+                func_08050DC8((GenObj *)((u8 *)arg0 + 0x80), gUnk_08117B10, 0, 0);
                 arg0->unk108 = 2;
                 sp38 = 0;
             } else {
@@ -415,7 +432,7 @@ block_48:
                         func_080CB9DC(temp_r4_53, GetAmount__C9ToolStack(*sp44));
                         var_r6_2 = arg0->unk78;
                         var_r5_2 = func_080CE184(arg0, arg2, 0);
-                        var_r0_2 = arg0 + 0x104;
+                        var_r0_2 = (GenObj *)((u8 *)arg0 + 0x104);
 block_45:
                         temp_r4_54 = *var_r0_2;
                         GetToolAt__8RucksackUi(temp_r4_54, func_080CE184(arg0, arg2, 0));

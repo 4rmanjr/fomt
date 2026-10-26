@@ -1,10 +1,10 @@
 s32 Unpack(s32 *, s32);                                 /* extern */
 s16 *func_08008918(s32);                            /* extern */
 s32 func_08008E64(s32 *, s32, s32);                     /* extern */
-s32 func_08008EB8(s32, ? *, s32);                     /* extern */
-extern ? gUnk_0874E648;
-extern ? gUnk_0874EB40;
-extern ? gUnk_0874ECCC;
+s32 func_08008EB8(s32, s32 *, s32);                     /* extern */
+extern s32 gUnk_0874E648;
+extern s32 gUnk_0874EB40;
+extern s32 gUnk_0874ECCC;
 
 void func_08077810(s32 arg0) {
     s16 *temp_r0;

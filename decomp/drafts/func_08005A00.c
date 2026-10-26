@@ -1,6 +1,10 @@
 s32 func_080050F8(void ***, s32);                     /* extern */
 
-void ***func_08005A00(void ***arg0, void *arg1) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+void ***func_08005A00(void ***arg0, GenObj *arg1) {
     void **sp0;
     void ***sp4;
     void **sp8;

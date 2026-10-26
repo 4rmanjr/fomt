@@ -3,13 +3,19 @@ s32 func_0800736C(void *);                          /* extern */
 s32 func_0800745C(void *, s32);                     /* extern */
 s32 func_08007510(void *, s32);                     /* extern */
 
-void *func_08007770(void *arg0, void **arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+    u8 _pad8[8];
+    s32 unk10;
+} GenObj;
+void *func_08007770(GenObj *arg0, void **arg1) {
     s32 temp_r0;
     s32 var_r0;
-    void *temp_r1;
-    void *temp_r5;
+    GenObj *temp_r1;
+    GenObj *temp_r5;
     void *temp_sb;
-    void *var_r4;
+    GenObj *var_r4;
 
     temp_r1 = *arg1;
     if (temp_r1 != 0) {

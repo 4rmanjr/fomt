@@ -2,6 +2,12 @@ s32 func_080D0A74();                                  /* extern */
 extern void *gUnk_0300041C;
 extern void *gUnk_03000420;
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+} GenObj;
 s32 func_080D091C(void) {
     s32 sp0;
     u16 temp_r2;
@@ -21,7 +27,7 @@ block_13:
         if (gUnk_0300041C->unk4 == 1) {
             if ((u32) gUnk_0300041C->unk8 < (u32) gUnk_0300041C->unk18) {
                 temp_r1 = (gUnk_0300041C->unk8 * 2) + gUnk_0300041C->unk10;
-                sp0.unk0 = 0x44;
+                sp0 = 0x44;
                 sp0.unk1 = (s8) gUnk_0300041C->unk8;
                 sp0.unk2 = (u8) temp_r1->unk0;
                 sp0.unk3 = (u8) temp_r1->unk1;
@@ -34,7 +40,7 @@ block_13:
                 }
             } else {
                 temp_r2 = gUnk_0300041C->unk1C;
-                sp0.unk0 = 0x45;
+                sp0 = 0x45;
                 sp0.unk1 = 0;
                 sp0.unk2 = (u8) temp_r2;
                 sp0.unk3 = (u8) (temp_r2 >> 8);

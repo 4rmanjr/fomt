@@ -1,12 +1,17 @@
-? **__builtin_new(s32);                             /* extern */
-extern ? vtable_unk_080E82B8;
+s32 **__builtin_new(s32);                             /* extern */
+extern s32 vtable_unk_080E82B8;
 
-? ***func_080DB658(s32 ***arg0, void *arg1) {
-    ? **sp0;
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+s32 ***func_080DB658(s32 ***arg0, GenObj *arg1) {
+    s32 **sp0;
     s32 sp4;
-    ? ***sp8;
-    ? **spC;
-    ? **temp_r0;
+    s32 ***sp8;
+    s32 **spC;
+    s32 **temp_r0;
     s32 temp_r5;
 
     temp_r0 = __builtin_new(0xC);

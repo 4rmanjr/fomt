@@ -2,9 +2,18 @@ s32 func_0804EC84(s32, s8 *, s32);                    /* extern */
 s32 memcpy(s8 *, s8 *, u32);                          /* extern */
 s32 strcpy(void *, s8 *);                             /* extern */
 u32 strlen(s8 *);                                   /* extern */
-extern ? gUnk_080FA796;
+extern s32 gUnk_080FA796;
 
-s8 *func_080E14B8(s8 *arg0, void *arg1, s32 arg2) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
+} GenObj;
+s8 *func_080E14B8(s8 *arg0, GenObj *arg1, s32 arg2) {
     s8 sp0;
     s8 sp8;
     s32 var_r1;

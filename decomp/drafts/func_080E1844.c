@@ -1,9 +1,13 @@
 s32 memcpy(s8 *, void *, u32);                        /* extern */
 s32 strcpy(void *, s8 *);                             /* extern */
 u32 strlen(void *);                                 /* extern */
-extern ? gUnk_080FB000;
+extern s32 gUnk_080FB000;
 
-s8 *func_080E1844(s8 *arg0, void *arg1, s32 arg2) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s8 *func_080E1844(s8 *arg0, GenObj *arg1, s32 arg2) {
     s8 sp0;
     u32 var_r4;
     void *temp_r5;

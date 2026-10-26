@@ -3,7 +3,7 @@ s32 func_08008920(s32);                             /* extern */
 s32 func_08008940(s32);                             /* extern */
 s32 func_0800894C(s32);                             /* extern */
 s32 func_080091E8(s32 *, s32);                          /* extern */
-s32 func_08050D3C(s32, ? *, s32, s32, s32, s32, s32); /* extern */
+s32 func_08050D3C(s32, s32 *, s32, s32, s32, s32, s32); /* extern */
 
 void func_08077DD8(s32 arg0) {
 s32 spC;

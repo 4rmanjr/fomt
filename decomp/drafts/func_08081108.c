@@ -1,8 +1,8 @@
-? *GetDesc__C7Article(s32 *);                         /* extern */
+s32 *GetDesc__C7Article(s32 *);                         /* extern */
 s32 __7ArticleUi(s32 *, s32);                           /* extern */
-s32 func_080CABEC(s32, ? *);                          /* extern */
-extern ? gUnk_080FE8FC;
-extern ? gUnk_080FE974;
+s32 func_080CABEC(s32, s32 *);                          /* extern */
+extern s32 gUnk_080FE8FC;
+extern s32 gUnk_080FE974;
 
 void func_08081108(s32 arg0, s32 arg1) {
 s32 sp0;

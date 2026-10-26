@@ -2,7 +2,14 @@ void *GetMapData(s32);                              /* extern */
 s32 func_03000C2C(s32, s16 *, s32, s32);              /* extern */
 s32 func_0800E324(s32);                             /* extern */
 
-void func_080AA270(void *arg0, s32 arg1, s32 arg2) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    u8 _padC[136];
+    void *unk94;
+} GenObj;
+void func_080AA270(GenObj *arg0, s32 arg1, s32 arg2) {
     s16 sp0;
     u8 sp20;
     s32 sp24;
@@ -71,7 +78,7 @@ block_8:
             } while (var_r1 != &sp20);
         }
         var_r5 = 0;
-        var_r4_2 = *(arg0 + 0x1C + (arg2 * 4));
+        var_r4_2 = *((u8 *)arg0 + 0x1C + (arg2 * 4));
         do {
             func_03000C2C(var_r4_2, &sp0, var_r4_2, (s32) sp20);
             var_r4_2 += 0x20;
@@ -93,7 +100,7 @@ block_8:
                 } while (var_r1_2 != &sp20);
             }
             var_r5_2 = 0;
-            var_r4_3 = *(arg0 + 0x1C + (arg2 * 4));
+            var_r4_3 = *((u8 *)arg0 + 0x1C + (arg2 * 4));
             do {
                 func_03000C2C(var_r4_3, &sp0, var_r4_3, (s32) sp28);
                 var_r4_3 += 0x20;
@@ -112,7 +119,7 @@ block_8:
                 } while (var_r0 != &sp20);
             }
             var_r5_3 = 0;
-            var_r4_4 = *(arg0 + 0x1C + (arg2 * 4));
+            var_r4_4 = *((u8 *)arg0 + 0x1C + (arg2 * 4));
             do {
                 func_03000C2C(var_r4_4, &sp0, var_r4_4, (s32) sp30);
                 var_r4_4 += 0x20;
@@ -135,7 +142,7 @@ block_8:
                 } while (var_r1_3 != &sp20);
             }
             var_r5_4 = 0;
-            var_r4_5 = *(arg0 + 0x1C + (arg2 * 4));
+            var_r4_5 = *((u8 *)arg0 + 0x1C + (arg2 * 4));
             do {
                 func_03000C2C(var_r4_5, &sp0, var_r4_5, (s32) sp38);
                 var_r4_5 += 0x20;
@@ -154,7 +161,7 @@ block_8:
                 } while (var_r1_4 != &sp20);
             }
             var_r5_5 = 0;
-            var_r4_6 = *(arg0 + 0x1C + (arg2 * 4));
+            var_r4_6 = *((u8 *)arg0 + 0x1C + (arg2 * 4));
             do {
                 func_03000C2C(var_r4_6, &sp0, var_r4_6, (s32) sp40);
                 var_r4_6 += 0x20;

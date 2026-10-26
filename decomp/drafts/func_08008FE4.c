@@ -1,9 +1,15 @@
 s32 func_080D0EBC(s32 *, s32, s32, s32);                /* extern */
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+} GenObj;
 void func_08008FE4(void *arg0, s32 arg1) {
-    ? *sp0;
-    ? *var_r3;
-    void *var_r4;
+    s32 *sp0;
+    s32 *var_r3;
+    GenObj *var_r4;
 
     var_r4 = arg0;
     if (var_r4 != arg1) {

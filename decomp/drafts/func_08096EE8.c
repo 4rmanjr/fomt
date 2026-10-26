@@ -7,8 +7,17 @@ s32 IsEmpty__C9FoodStack(s32 *);                    /* extern */
 s32 __12RucksackItem(s32 *);                          /* extern */
 s32 __12RucksackItemG4Food(s32 *, s32);               /* extern */
 
-u8 func_08096EE8(void *arg0, s32 *arg1, s32 arg2, s32 arg3) {
-    s32 sp0;
+typedef struct GenObj {
+    u8 _pad0[9];
+    s32 unk9;
+    s32 unkA;
+    u8 _padE[126];
+    s32 unk8C;
+    u8 _pad90[11024];
+    s32 unk2BA0;
+} GenObj;
+u8 func_08096EE8(GenObj *arg0, s32 *arg1, s32 arg2, s32 arg3) {
+    GenObj *sp0;
     s32 sp4;
     u8 sp8;
     s32 var_r0;

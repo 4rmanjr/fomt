@@ -9,7 +9,15 @@ s32 func_08008C8C(s32, u8, s32);                      /* extern */
 s32 func_08008CA8(s32, u8, s32);                      /* extern */
 s32 func_08008CC4(s32);                               /* extern */
 
-void func_080123CC(void *arg0, s32 arg1, u16 arg2, void *arg3) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+    s32 unk7;
+    s32 unk8;
+} GenObj;
+void func_080123CC(GenObj *arg0, s32 arg1, u16 arg2, GenObj *arg3) {
     s32 temp_r0;
     s32 temp_r4;
     s32 temp_r4_2;

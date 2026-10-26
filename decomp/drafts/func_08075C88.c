@@ -1,6 +1,17 @@
 s32 func_08075BC8(void *, s32, s32);                  /* extern */
 
-void func_08075C88(void *arg0, u16 arg1) {
+typedef struct GenObj {
+    u8 _pad0[6];
+    s32 unk6;
+    s32 unk8;
+    s32 unkA;
+    s32 unkC;
+    s32 unkE;
+    u8 _pad12[2];
+    s32 unk14;
+    struct GenObj *unk16;
+} GenObj;
+void func_08075C88(GenObj *arg0, u16 arg1) {
     u16 sp0;
     s16 temp_r0;
     s16 temp_r0_2;
@@ -21,7 +32,7 @@ void func_08075C88(void *arg0, u16 arg1) {
     s32 var_r2;
     s32 var_r2_2;
     u16 temp_r1;
-    void *temp_r2_2;
+    GenObj *temp_r2_2;
 
     temp_r2 = (s16) arg1;
     if ((s32) (temp_r2 + 0xA0) > (s32) arg0->unkE) {

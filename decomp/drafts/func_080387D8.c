@@ -1,6 +1,10 @@
 s32 func_08038EA0();                                /* extern */
 
-s32 func_080387D8(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[16];
+    s32 unk10;
+} GenObj;
+s32 func_080387D8(GenObj *arg0) {
     if (arg0->unk10 == 0) {
         return 1;
     }

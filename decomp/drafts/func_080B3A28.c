@@ -1,7 +1,17 @@
 s32 func_08008B6C(void *, s32);                       /* extern */
 s32 func_080B34DC();                                  /* extern */
 
-void func_080B3A28(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[2116];
+    s32 unk844;
+    u8 _pad848[60];
+    s32 unk884;
+    u8 _pad888[133];
+    s32 unk90D;
+    u8 _pad911[24];
+    s32 unk929;
+} GenObj;
+void func_080B3A28(GenObj *arg0) {
     s32 *temp_r1_4;
     s32 *temp_r2;
     s32 temp_r0;
@@ -24,10 +34,10 @@ void func_080B3A28(void *arg0) {
     temp_r2 = temp_r6 + temp_r3;
     temp_r0 = *temp_r2;
     if (temp_r0 == 0) {
-        if (*(arg0 + 0x848 + temp_r3) != 1) {
+        if (*((u8 *)arg0 + 0x848 + temp_r3) != 1) {
             return;
         }
-        *(arg0 + 0x8F0 + (temp_r1 * 2)) = 0;
+        *((u8 *)arg0 + 0x8F0 + (temp_r1 * 2)) = 0;
         *(arg0 + 0x85C + (arg0->unk884 * 4)) = 1;
         arg0->unk90D = (u8) (arg0->unk90D + 1);
         *(arg0 + 0x91F + arg0->unk884) = 1;
@@ -37,13 +47,13 @@ void func_080B3A28(void *arg0) {
     }
     if (temp_r0 == 1) {
         *temp_r2 = 0;
-        *(arg0 + 0x8F0 + (temp_r1 * 2)) = 0;
+        *((u8 *)arg0 + 0x8F0 + (temp_r1 * 2)) = 0;
         *(arg0 + 0x915 + arg0->unk884) = 1;
         temp_r2_2 = arg0->unk884;
         temp_r1_2 = temp_r2_2 * 4;
-        *(arg0 + 0x848 + temp_r1_2) = 1;
-        *(arg0 + 0x85C + temp_r1_2) = 2;
-        *(arg0 + 0x91A + temp_r2_2) = 1;
+        *((u8 *)arg0 + 0x848 + temp_r1_2) = 1;
+        *((u8 *)arg0 + 0x85C + temp_r1_2) = 2;
+        *((u8 *)arg0 + 0x91A + temp_r2_2) = 1;
         *(arg0 + 0x924 + arg0->unk884) = 1;
         *(arg0 + 0x91F + arg0->unk884) = 1;
         func_08008B6C(arg0 + 0x814, 0x6C);
@@ -51,8 +61,8 @@ void func_080B3A28(void *arg0) {
     }
     func_08008B6C(arg0 + 0x814, 0x6C);
     temp_r1_3 = arg0->unk884;
-    *(temp_r6 + (temp_r1_3 * 4)) = 0;
-    *(arg0 + 0x924 + temp_r1_3) = 1;
+    *((u8 *)temp_r6 + (temp_r1_3 * 4)) = 0;
+    *((u8 *)arg0 + 0x924 + temp_r1_3) = 1;
     temp_r2_3 = arg0->unk884;
     temp_r1_4 = arg0 + 0x848 + (temp_r2_3 * 4);
     temp_r0_2 = *temp_r1_4;
@@ -65,6 +75,6 @@ void func_080B3A28(void *arg0) {
         *temp_r1_4 = 6;
         var_r0 = arg0 + 0x91A;
 block_10:
-        *(var_r0 + temp_r2_3) = 1;
+        *((u8 *)var_r0 + temp_r2_3) = 1;
     }
 }

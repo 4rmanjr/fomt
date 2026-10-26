@@ -1,8 +1,16 @@
 void *func_080E2354(void *);                        /* extern */
 s32 func_080E2EA4(void **, void *, void *, void *, void *, s32); /* extern */
 
-void *func_080E2F74(void *arg0, void *arg1, void *arg2) {
-    void *sp8;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    struct GenObj *unk4;
+    s32 unk8;
+    u8 _padC[4];
+    struct GenObj *unk10;
+} GenObj;
+void *func_080E2F74(GenObj *arg0, GenObj *arg1, GenObj *arg2) {
+    GenObj *sp8;
     void *spC;
     void *sp10;
     s32 var_r0;
@@ -16,7 +24,7 @@ void *func_080E2F74(void *arg0, void *arg1, void *arg2) {
     void *temp_r0_2;
     void *var_r0_2;
     void *var_r4;
-    void *var_r5;
+    GenObj *var_r5;
 
     var_r5 = arg1->unk4;
     var_r4 = var_r5->unk4;
@@ -27,7 +35,7 @@ void *func_080E2F74(void *arg0, void *arg1, void *arg2) {
             var_r5 = var_r4;
             var_r3 = 0;
             temp_r0 = var_r5->unk10;
-            if (((u32) temp_r2 < (u32) temp_r0) || (((u32) temp_r0 >= (u32) temp_r2) && ((u32) arg2->unk1 < (u32) (var_r5 + 0x10)->unk1))) {
+            if (((u32) temp_r2 < (u32) temp_r0) || (((u32) temp_r0 >= (u32) temp_r2) && ((u32) arg2->unk1 < (u32) ((GenObj *)((u8 *)var_r5 + 0x10))->unk1))) {
                 var_r3 = 1;
             }
             var_r0 = var_r3;
@@ -58,7 +66,7 @@ block_16:
     var_sb = 0;
     temp_r2_2 = sp8->unk10;
     temp_r1 = arg2->unk0;
-    if (((u32) temp_r2_2 < (u32) temp_r1) || (((u32) temp_r1 >= (u32) temp_r2_2) && ((u32) (sp8 + 0x10)->unk1 < (u32) arg2->unk1))) {
+    if (((u32) temp_r2_2 < (u32) temp_r1) || (((u32) temp_r1 >= (u32) temp_r2_2) && ((u32) ((GenObj *)((u8 *)sp8 + 0x10))->unk1 < (u32) arg2->unk1))) {
         var_sb = 1;
     }
     if (var_sb != 0) {

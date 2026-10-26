@@ -2,7 +2,15 @@ s32 free(void *);                                     /* extern */
 void *func_080D3BC0(s32);                           /* extern */
 void *malloc(s32);                                  /* extern */
 
-void func_08075334(void *arg0, s32 arg1, s16 arg2, s32 arg3, s32 arg4) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    u8 _pad10[1412];
+    s32 unk594;
+} GenObj;
+void func_08075334(GenObj *arg0, s32 arg1, s16 arg2, s32 arg3, s32 arg4) {
 s32 sp0;
     s32 sp4;
     s32 sp8;
@@ -19,23 +27,23 @@ s32 sp0;
     void *temp_r1;
     void *temp_r1_2;
     void *temp_r2;
-    void *temp_r5;
+    GenObj *temp_r5;
     void *var_r0_2;
     void *var_r0_3;
-    void *var_r2;
-    void *var_r2_2;
-    void *var_r3;
+    GenObj *var_r2;
+    GenObj *var_r2_2;
+    GenObj *var_r3;
     void *var_r4;
 
     sp4 = arg1;
-    sp0.unk0 = arg2;
+    sp0 = arg2;
     sp8 = arg3;
     spC = arg4;
-    temp_r5 = arg0 + 0x594;
+    temp_r5 = (GenObj *)((u8 *)arg0 + 0x594);
     temp_r1 = temp_r5->unk4;
     if (temp_r1 != temp_r5->unkC) {
         if (temp_r1 != 0) {
-            temp_r1->unk0 = (s32) sp0.unk0;
+            temp_r1->unk0 = (s32) sp0;
             temp_r1->unk4 = (s32) sp0.unk4;
             temp_r1->unk8 = (s32) sp0.unk8;
             temp_r1->unkC = (s32) sp0.unkC;
@@ -79,19 +87,19 @@ s32 sp0;
     }
     if (sp14 == 1) {
         if (var_r3 != 0) {
-            var_r3->unk0 = (s32) sp0.unk0;
+            var_r3->unk0 = (s32) sp0;
             var_r3->unk4 = (s32) sp0.unk4;
             var_r3->unk8 = (s32) sp0.unk8;
             var_r3->unkC = (s32) sp0.unkC;
         }
-        var_r4 = var_r3 + 0x10;
+        var_r4 = (GenObj *)((u8 *)var_r3 + 0x10);
     } else {
         var_r3_2 = sp14;
         var_r2_2 = var_r3;
         if (var_r3_2 != 0) {
             do {
                 if (var_r2_2 != 0) {
-                    var_r2_2->unk0 = (s32) sp0.unk0;
+                    var_r2_2->unk0 = (s32) sp0;
                     var_r2_2->unk4 = (s32) sp0.unk4;
                     var_r2_2->unk8 = (s32) sp0.unk8;
                     var_r2_2->unkC = (s32) sp0.unkC;

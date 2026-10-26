@@ -14,7 +14,7 @@ s32 sp0;
     }
     var_r6 = 1;
 loop_3:
-    *(var_r4 + sp) = ((s32) var_r5 % 10) + 0x30;
+    *((u8 *)var_r4 + sp) = ((s32) var_r5 % 10) + 0x30;
     var_r4 = var_r6;
     var_r5 = (u32) ((s32) var_r5 / 10);
     if ((s32) var_r5 > 0) {

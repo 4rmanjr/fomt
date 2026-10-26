@@ -1,6 +1,13 @@
 s32 __builtin_delete(void *);                         /* extern */
 
-void func_080D7E64(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[16];
+    s32 unk14;
+    u8 _pad18[320];
+    s32 unk158;
+} GenObj;
+void func_080D7E64(GenObj *arg0, s32 arg1) {
     s32 temp_r1;
     void *temp_r0;
     void *temp_r1_2;

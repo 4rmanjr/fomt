@@ -1,16 +1,22 @@
 s32 CpuFastSet(s32 *, s32, s32);                        /* extern */
 s32 CpuSet(s32 *, s32, s32);                            /* extern */
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+} GenObj;
 void func_08009094(void *arg0, s32 arg1) {
-    ? *sp0;
+    s32 *sp0;
     s32 sp4;
-    ? *var_r4;
+    s32 *var_r4;
     s32 temp_r0;
     s32 temp_r5;
     s32 temp_r5_2;
     s32 temp_r6;
     s32 var_r3;
-    void *var_r7;
+    GenObj *var_r7;
 
     var_r7 = arg0;
     if (var_r7 != arg1) {

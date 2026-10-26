@@ -1,20 +1,27 @@
-? **__builtin_new(s32);                             /* extern */
+s32 **__builtin_new(s32);                             /* extern */
 s32 func_08085EEC(s32);                             /* extern */
 s8 func_08086A08(s32);                              /* extern */
-extern ? vtable_unk_080E5C64;
-extern ? vtable_unk_080E5D94;
+extern s32 vtable_unk_080E5C64;
+extern s32 vtable_unk_080E5D94;
 
-? ***func_080881EC(s32 ***arg0, void *arg1) {
-    ? **sp0;
-    ? **sp4;
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    u8 _padC[4];
+    s32 unk10;
+} GenObj;
+s32 ***func_080881EC(s32 ***arg0, GenObj *arg1) {
+    s32 **sp0;
+    s32 **sp4;
     s32 sp8;
-    ? ***spC;
-    ? **sp10;
-    ? **temp_r0_3;
-    ? **temp_r1;
-    ? **temp_r2;
-    ? **temp_r3;
-    ? **temp_r3_2;
+    s32 ***spC;
+    s32 **sp10;
+    s32 **temp_r0_3;
+    s32 **temp_r1;
+    s32 **temp_r2;
+    s32 **temp_r3;
+    s32 **temp_r3_2;
     s32 temp_r0_2;
     s32 var_r7;
     s32 var_sl;

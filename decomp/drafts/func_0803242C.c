@@ -1,6 +1,17 @@
 s32 vfunc_2C__7AEntityUi(void *, s32);                  /* extern */
 
-void func_0803242C(void *arg0, ? arg1) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    s32 unkC;
+    u8 _pad10[20];
+    s32 unk24;
+    s32 unk26;
+    s32 unk28;
+    s32 unk2C;
+    s32 unk2E;
+} GenObj;
+void func_0803242C(GenObj *arg0, ? arg1) {
     s16 temp_r6;
     s32 temp_r0_2;
     s32 temp_r0_3;

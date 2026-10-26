@@ -1,7 +1,14 @@
 s32 func_080ADF40(void *);                          /* extern */
-s32 strcpy(u8 *, ? *);                                /* extern */
+s32 strcpy(u8 *, s32 *);                                /* extern */
 
-u8 *func_080ADD78(void *arg0, void **arg1, void **arg2) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+} GenObj;
+u8 *func_080ADD78(GenObj *arg0, void **arg1, void **arg2) {
     u8 sp0;
 s32 sp4;
     s32 sp24;

@@ -9,7 +9,6 @@ s32 sub_080D1224();                                   /* extern */
 s32 sub_080D129A();                                   /* extern */
 s32 sub_080D12EC();                                   /* extern */
 s32 sub_080D139C();                                   /* extern */
-extern s32 .L080D11C8;
 
 void Unpack(u32 *arg0, s32 arg1) {
     s32 temp_r4;
@@ -22,7 +21,7 @@ void Unpack(u32 *arg0, s32 arg1) {
     void *temp_r7;
     void *temp_sp;
 
-    temp_sp = sp + .L080D11C8;
+    temp_sp = sp + 0xFFFFFBE0;
     temp_r7 = temp_sp;
     func_080D11A4(arg0 + 4, arg1 - 2, 0, 0);
     unksp0 = 8;

@@ -4,16 +4,24 @@ s32 GetName__C6Animal(void **);                     /* extern */
 s32 GetUnkEnt__C4Coop(s32);                         /* extern */
 s32 SetFestivalWinner__6Animal(void **);              /* extern */
 s32 func_080B3C90(s32 *);                               /* extern */
-s32 func_080BC898(s32 *, ? *);                          /* extern */
+s32 func_080BC898(s32 *, s32 *);                          /* extern */
 s32 func_080BC8C0(s32 *, s32);                          /* extern */
 s8 func_080BC8F0(s32 *);                              /* extern */
-s32 func_080BC8FC(void ***, ? *);                     /* extern */
+s32 func_080BC8FC(void ***, s32 *);                     /* extern */
 s32 memcpy(s32 *, s32, u32);                            /* extern */
 u32 strlen();                                       /* extern */
 
-void ***func_080A37A8(void ***arg0, void *arg1) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    s32 unk10;
+    s32 unk11;
+} GenObj;
+void ***func_080A37A8(void ***arg0, GenObj *arg1) {
     void **sp0;
-s32 sp4;
+GenObj sp4;
 s32 sp18;
     void ***sp20;
     void **sp24;
@@ -94,7 +102,7 @@ block_4:
         sp0 = 0;
         *arg0 = temp_r1_3;
         if (temp_r1_3 != 0) {
-            temp_r1_3->unk0->unk8(temp_r1_3, 3);
+            ((void (*)(void *,...))(temp_r1_3->unk0->unk8))(temp_r1_3, 3);
         }
         func_080BC8C0(&sp18, 2);
     }

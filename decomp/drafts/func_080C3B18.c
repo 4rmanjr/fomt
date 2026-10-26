@@ -1,7 +1,20 @@
-extern ? gUnk_08107FE0;
-extern ? gUnk_08108004;
+extern s32 gUnk_08107FE0;
+extern s32 gUnk_08108004;
 
-void func_080C3B18(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    u8 _pad10[2208];
+    s32 unk8B0;
+    u8 _pad8B4[200];
+    s32 unk97C;
+    s32 unk980;
+    s32 unk984;
+    s32 unk988;
+} GenObj;
+void func_080C3B18(GenObj *arg0) {
 s32 sp0;
     s32 *var_r1;
     s32 var_r0;
@@ -10,7 +23,7 @@ s32 sp0;
     void *temp_r1;
 
     temp_r0 = &gUnk_08108004 + 0xC;
-    sp0.unk0 = (s32) gUnk_08108004.unk0;
+    sp0 = (s32) gUnk_08108004.unk0;
     sp0.unk4 = (s32) gUnk_08108004.unk4;
     sp0.unk8 = (s32) gUnk_08108004.unk8;
     temp_r1 = &sp0 + 0xC;

@@ -3,7 +3,12 @@ s32 SubtractLove__12Bachelorettei(s32, s32);          /* extern */
 s32 func_080A06B0(s32, u32);                        /* extern */
 s32 func_080A0878(s32, u32);                        /* extern */
 
-void func_080A1484(s32 arg0, u16 *arg1, void *arg2) {
+typedef struct GenObj {
+    u8 _pad0[58];
+    s32 unk3A;
+    s32 unk3B;
+} GenObj;
+void func_080A1484(s32 arg0, u16 *arg1, GenObj *arg2) {
     s32 temp_r0_2;
     s32 var_r0_2;
     s32 var_r0_3;

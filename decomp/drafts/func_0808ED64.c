@@ -1,7 +1,19 @@
 s32 func_080CE19C();                                  /* extern */
-extern ? vtable_unk_080E7DA0;
+extern s32 vtable_unk_080E7DA0;
 
-void *func_0808ED64(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    void *unk4;
+    s32 unk8;
+    u8 _padC[140];
+    s32 unk98;
+    u8 _pad9C[96];
+    s32 unkFC;
+    s32 unk100;
+    s32 unk104;
+    s32 unk108;
+} GenObj;
+void *func_0808ED64(GenObj *arg0) {
     s32 temp_r1;
 
     func_080CE19C();

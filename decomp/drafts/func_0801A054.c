@@ -5,7 +5,24 @@ s32 GetUpgradeLevel__C9FarmHouse(s32);              /* extern */
 s32 func_0800E324(s32);                             /* extern */
 s32 func_0803A8A4(u32, s32, s32, s32, s32);         /* extern */
 
-void *func_0801A054(void *arg0, void *arg1, u32 arg2) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+    s32 unk8;
+    s32 unkA;
+    u8 _padE[10];
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk22;
+    u8 _pad26[6];
+    struct GenObj *unk2C;
+    u8 _pad30[4104];
+    s32 unk1038;
+    u8 _pad103C[20];
+    s32 unk1050;
+} GenObj;
+void *func_0801A054(GenObj *arg0, GenObj *arg1, u32 arg2) {
     s32 sp4;
     s32 temp_r5;
     s32 temp_r6;
@@ -15,9 +32,9 @@ void *func_0801A054(void *arg0, void *arg1, u32 arg2) {
     s32 var_r1;
     u16 temp_r5_2;
     u16 temp_r6_2;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r4;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r4;
 
     if (arg2 > 0x233U) {
         arg0->unk0 = 0;

@@ -1,8 +1,18 @@
 void *GetMapData(s32);                              /* extern */
 s32 memcpy(s32, s32, s32);                            /* extern */
 
-void func_080A5BD8(void *arg0, void *arg1, s32 arg2, s32 arg3) {
-    void *sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk4;
+    u8 _pad8[8];
+    s32 unk10;
+    s32 unk14;
+    u8 _pad18[20];
+    s32 unk2C;
+} GenObj;
+void func_080A5BD8(GenObj *arg0, GenObj *arg1, s32 arg2, s32 arg3) {
+    GenObj *sp0;
     s32 sp4;
     s32 sp8;
     s32 spC;
@@ -28,7 +38,7 @@ void func_080A5BD8(void *arg0, void *arg1, s32 arg2, s32 arg3) {
     spC = (s32) GetMapData(arg0->unk4)->unk20;
     temp_r6 = arg1->unk0;
     temp_sb = arg1->unk1;
-    sp10 = arg1 + 4;
+    sp10 = (GenObj *)((u8 *)arg1 + 4);
     var_r3 = 0;
     do {
         temp_r2 = var_r3 * 4;
@@ -36,7 +46,7 @@ void func_080A5BD8(void *arg0, void *arg1, s32 arg2, s32 arg3) {
         if (*temp_r1 != 0) {
             var_r4 = 0;
             if ((u32) temp_sb > 0U) {
-                var_r3_2 = sp0 + 0x10 + temp_r2;
+                var_r3_2 = (GenObj *)((u8 *)sp0 + 0x10) + temp_r2;
                 sp18 = temp_r1;
                 var_r5 = 0;
                 do {

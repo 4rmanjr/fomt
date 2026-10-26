@@ -1,9 +1,22 @@
 u16 Sqrt(s32);                                      /* extern */
 s32 func_080A58EC(s32 *, void *, s32, s32);           /* extern */
 
-void func_080A59BC(void *arg0, s32 arg1, s32 arg2, u32 arg3) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    u8 _pad6[2];
+    s32 unk8;
+    s32 unkA;
+    s32 unkC;
+    s32 unkE;
+    u8 _pad12[114];
+    s32 unk84;
+    s32 unk88;
+    s32 unk8C;
+} GenObj;
+void func_080A59BC(GenObj *arg0, s32 arg1, s32 arg2, u32 arg3) {
     s32 sp0;
-    s32 sp4;
+    GenObj *sp4;
     s32 temp_r3;
     s32 var_r4;
     u32 temp_r2;

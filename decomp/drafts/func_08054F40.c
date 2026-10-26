@@ -1,17 +1,17 @@
-s32 Unpack(s32 *, ? *);                                 /* extern */
+s32 Unpack(s32 *, s32 *);                                 /* extern */
 s16 *func_08008918(s32);                            /* extern */
 s32 func_08008E64(s32 *, s32, s32);                     /* extern */
 s32 func_08008EB8(s32, s32, s32);                     /* extern */
-extern ? gUnk_08738AD8;
-extern ? gUnk_08738CC8;
-extern ? gUnk_08738CF0;
-extern ? gUnk_08738D1C;
-extern ? gUnk_087399C4;
-extern ? gUnk_08739A64;
+extern s32 gUnk_08738AD8;
+extern s32 gUnk_08738CC8;
+extern s32 gUnk_08738CF0;
+extern s32 gUnk_08738D1C;
+extern s32 gUnk_087399C4;
+extern s32 gUnk_08739A64;
 
 void func_08054F40(s32 arg0) {
     s16 sp0;
-    ? *temp_r4;
+    s32 *temp_r4;
     s16 *temp_r0;
     s16 *temp_r0_10;
     s16 *temp_r0_2;

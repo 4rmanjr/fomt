@@ -1,4 +1,41 @@
-void func_080C3C18(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[2204];
+    s32 unk89C;
+    s32 unk8A0;
+    s32 unk8A4;
+    s32 unk8A8;
+    s32 unk8AC;
+    u8 _pad8B0[4];
+    s32 unk8B4;
+    s32 unk8B5;
+    s32 unk8B6;
+    s32 unk8B7;
+    s32 unk8B8;
+    s32 unk8B9;
+    s32 unk8BC;
+    u8 _pad8C0[4];
+    s32 unk8C4;
+    s32 unk8C5;
+    u8 _pad8C9[159];
+    s32 unk968;
+    s32 unk969;
+    s32 unk96A;
+    s32 unk96B;
+    s32 unk96C;
+    s32 unk96D;
+    s32 unk96E;
+    s32 unk96F;
+    s32 unk970;
+    u8 _pad974[4];
+    s32 unk978;
+    s32 unk979;
+    s32 unk97A;
+    s32 unk97B;
+    s32 unk97D;
+    s32 unk97E;
+    s32 unk97F;
+} GenObj;
+void func_080C3C18(GenObj *arg0) {
     arg0->unk8BC = 2;
     arg0->unk8C4 = 1;
     arg0->unk8C5 = 0;

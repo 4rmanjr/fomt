@@ -3,7 +3,18 @@ s32 memcpy(s32, s32, s32);                            /* extern */
 s32 method_0800A07C__C9FieldPlot(s32);              /* extern */
 s32 method_0800AF20__C9FieldPlot(s32);              /* extern */
 
-void func_080CFEA8(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    u8 _pad8[8];
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
+    u8 _pad1C[13];
+    s32 unk29;
+    s32 unk2C;
+} GenObj;
+void func_080CFEA8(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 sp0;
     s32 temp_r0;
     s32 temp_r0_2;

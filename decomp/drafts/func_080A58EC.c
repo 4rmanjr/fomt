@@ -1,6 +1,17 @@
 void *GetMapData(s32);                              /* extern */
 
-void *func_080A58EC(void *arg0, void *arg1, s32 arg2, s32 arg3) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    u8 _pad8[2];
+    s32 unkA;
+    s32 unkE;
+    u8 _pad12[14];
+    s32 unk20;
+    s32 unk22;
+} GenObj;
+void *func_080A58EC(GenObj *arg0, GenObj *arg1, s32 arg2, s32 arg3) {
     s16 temp_r5;
     s16 temp_sl;
     s32 temp_r0_2;
@@ -10,7 +21,7 @@ void *func_080A58EC(void *arg0, void *arg1, s32 arg2, s32 arg3) {
     s32 temp_r8;
     s32 var_r1;
     s32 var_r5;
-    void *temp_r0;
+    GenObj *temp_r0;
 
     temp_r5 = arg1->unkA;
     temp_sl = arg1->unkE;

@@ -6,7 +6,11 @@ s32 func_0800F190(s32);                             /* extern */
 s32 func_0800F204(s32);                             /* extern */
 s32 func_0800F20C(s32 *, s32);                          /* extern */
 
-s32 func_0804E2C0(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[848];
+    s32 unk350;
+} GenObj;
+s32 func_0804E2C0(GenObj *arg0, s32 arg1) {
 s32 sp0;
     s32 temp_r0;
     s32 temp_r0_2;

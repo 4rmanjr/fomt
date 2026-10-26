@@ -1,5 +1,10 @@
 extern s32 gUnk_03000408;
 
+typedef struct GenObj {
+    u8 _pad0[2];
+    s32 unk2;
+    s32 unk4;
+} GenObj;
 s32 func_08007CD8(s32 arg1) {
     s32 sp0;
     s32 temp_r1;

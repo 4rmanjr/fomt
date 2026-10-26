@@ -1,4 +1,12 @@
-s32 func_080CDD7C(void *arg0) {
+typedef struct GenObj {
+    void *unk0;
+    s32 unk4;
+    s32 unk8;
+    u8 _padC[108];
+    s32 unk78;
+    s32 unk7C;
+} GenObj;
+s32 func_080CDD7C(GenObj *arg0) {
     s32 temp_r0;
     s32 temp_r2;
     s32 var_r0;

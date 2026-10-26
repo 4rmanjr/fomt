@@ -1,17 +1,28 @@
-? **__builtin_new(s32, s32, s32);                   /* extern */
-extern ? vtable_unk_080E5D44;
-extern ? vtable_unk_080E5E74;
+s32 **__builtin_new(s32, s32, s32);                   /* extern */
+extern s32 vtable_unk_080E5D44;
+extern s32 vtable_unk_080E5E74;
 
-void func_080138C0(void *arg0) {
-    ? **sp0;
-    ? **spC;
-    ? **sp10;
-    ? **temp_r0;
-    ? **temp_r0_2;
-    ? **temp_r1;
-    ? **temp_r2;
-    ? **temp_r3;
-    void *temp_r6;
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    u8 _padC[128];
+    struct GenObj *unk8C;
+    u8 _pad90[12];
+    struct GenObj *unk9C;
+    u8 _padA0[4];
+    struct GenObj *unkA4;
+} GenObj;
+void func_080138C0(GenObj *arg0) {
+    s32 **sp0;
+    s32 **spC;
+    s32 **sp10;
+    s32 **temp_r0;
+    s32 **temp_r0_2;
+    s32 **temp_r1;
+    s32 **temp_r2;
+    s32 **temp_r3;
+    GenObj *temp_r6;
 
     temp_r6 = arg0->unk4;
     sp0 = (s32 **)0x1F;
@@ -26,7 +37,7 @@ void func_080138C0(void *arg0) {
     temp_r2->unk4 = (s32) sp10.unk4;
     temp_r2->unk8 = (s32) sp10.unk8;
     spC = temp_r0;
-    temp_r0_2 = __builtin_new(0x10, &sp10 + 0xC, temp_r2 + 0xC);
+    temp_r0_2 = __builtin_new(0x10, &sp10 + 0xC, (GenObj *)((u8 *)temp_r2 + 0xC));
     temp_r3 = spC;
     spC = 0;
     sp10 = temp_r3;

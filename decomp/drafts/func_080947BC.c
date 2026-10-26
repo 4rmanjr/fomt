@@ -2,7 +2,12 @@ s32 __builtin_vec_new();                            /* extern */
 s32 func_08094904();                                  /* extern */
 s32 func_0809490C(void *);                            /* extern */
 
-void *func_080947BC(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+void *func_080947BC(GenObj *arg0, s32 arg1) {
     s32 temp_r2;
     s32 var_r2;
     s32 var_r3;
@@ -19,7 +24,7 @@ void *func_080947BC(void *arg0, s32 arg1) {
             var_r2 = var_r3 + 7;
         }
         temp_r2 = var_r2 >> 3;
-        *(arg0 + 0x18 + var_r3) = ((s32) *(arg0->unk0 + 0x21D4 + temp_r2) >> (var_r3 - (temp_r2 * 8))) & 1;
+        *((u8 *)arg0 + 0x18 + var_r3) = ((s32) *(arg0->unk0 + 0x21D4 + temp_r2) >> (var_r3 - (temp_r2 * 8))) & 1;
         var_r3 += 1;
     } while (var_r3 <= 0x30);
     return arg0;

@@ -1,22 +1,33 @@
 s32 GetArticleStackAt__5ShelfUi(s32, s32);            /* extern */
 s8 GetArticle__C12ArticleStack();                   /* extern */
-? *GetDesc__C7Article();                            /* extern */
+s32 *GetDesc__C7Article();                            /* extern */
 s32 *GetItemAt__8RucksackUi(s32, s32);              /* extern */
 s32 IsEmpty__C12ArticleStack();                     /* extern */
 s32 IsEmpty__C12RucksackItem(s32 *);                /* extern */
 s32 func_0800F190(s32);                             /* extern */
-s32 func_08050DC8(void *, ? *, s32, s32);             /* extern */
+s32 func_08050DC8(void *, s32 *, s32, s32);             /* extern */
 s32 func_080CE184(void *, s32, s32);                /* extern */
-? *func_080CF67C(void *, s32, s32);                 /* extern */
-? *func_080CFA38(void *, s32);                      /* extern */
-extern ? gUnk_081000D0;
+s32 *func_080CF67C(void *, s32, s32);                 /* extern */
+s32 *func_080CFA38(void *, s32);                      /* extern */
+extern s32 gUnk_081000D0;
 
-void func_0808C8F4(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[148];
+    void *unk94;
+    s32 unk98;
+    u8 _pad9C[32];
+    s32 unkBC;
+    u8 _padC0[60];
+    s32 unkFC;
+    s32 unk100;
+    s32 unk104;
+} GenObj;
+void func_0808C8F4(GenObj *arg0, s32 arg1) {
     s32 sp0;
     s32 sp4;
     s8 sp8;
-    ? *var_r0;
-    ? *var_r7;
+    s32 *var_r0;
+    s32 *var_r7;
     s32 temp_r4;
     s32 temp_r4_2;
     s32 temp_r6;

@@ -6,7 +6,13 @@ s32 func_0800745C(void *, s32);                     /* extern */
 void *func_080D3BC0(s32);                           /* extern */
 void *malloc(s32);                                  /* extern */
 
-void func_080D6DB8(void *arg0, u32 arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+    u8 _pad8[4];
+    s32 unkC;
+} GenObj;
+void func_080D6DB8(GenObj *arg0, u32 arg1) {
     s32 temp_r4;
     s32 temp_r4_2;
     s32 temp_sl;
@@ -18,9 +24,9 @@ void func_080D6DB8(void *arg0, u32 arg1) {
     void *temp_r6;
     void *var_r0;
     void *var_r0_2;
-    void *var_r4;
-    void *var_r4_2;
-    void *var_r5;
+    GenObj *var_r4;
+    GenObj *var_r4_2;
+    GenObj *var_r5;
     void *var_r6;
 
     temp_r2 = arg0->unk0;

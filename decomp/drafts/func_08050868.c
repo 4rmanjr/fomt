@@ -156,10 +156,10 @@ block_77:
     case 4:                                         /* switch 1 */
         if (arg2 & 0x80) {
             temp_r0_4 = arg1 - 1;
-            switch (temp_r0_4);                     /* switch 7; jump table: .L08050A38 */
+            switch (temp_r0_4);                     /* switch 7; jump table: 0 */
         } else if (arg2 & 0x40) {
             temp_r0_5 = arg1 - 1;
-            switch (temp_r0_5);                     /* switch 8; jump table: .L08050A70 */
+            switch (temp_r0_5);                     /* switch 8; jump table: 0 */
         } else if (arg2 & 0x30) {
             temp_r0_6 = arg1 - 1;
             switch (temp_r0_6) {                    /* switch 9 */

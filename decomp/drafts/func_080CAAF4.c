@@ -2,11 +2,21 @@ s32 func_08008EB8(s32, s32, s32);                     /* extern */
 s32 func_0804EDB4(s32, s32, s32, s32, s32);           /* extern */
 s32 func_08075BC8(void *, s32, s32);                  /* extern */
 
-void func_080CAAF4(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[4];
+    s32 unk8;
+    struct GenObj *unkC;
+    s32 unk10;
+    s32 unk14;
+    void *unk18;
+    s32 unk1C;
+} GenObj;
+void func_080CAAF4(GenObj *arg0) {
     s16 temp_r3;
     s16 var_r1;
     s32 var_r2;
-    void *temp_r0;
+    GenObj *temp_r0;
 
     func_08008EB8(0x03FF03FF, arg0->unk18->unk1C->unk18 + ((arg0->unkC + 1) << 6) + (arg0->unk10 * 2), 0x10);
     func_08008EB8(0x03FF03FF, arg0->unk18->unk1C->unk18 + (arg0->unkC << 6) + 0x18, 0x1C);

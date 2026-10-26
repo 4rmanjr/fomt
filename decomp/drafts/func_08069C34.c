@@ -8,8 +8,16 @@ void *func_0806644C(s32, void *, s32);              /* extern */
 void *func_08068344(s32, void *, s32);              /* extern */
 s32 func_08076B94(void *, void **);                   /* extern */
 
-void func_08069C34(void *arg0, u32 arg1) {
-    void *sp0;
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    u8 _padC[276];
+    s32 unk120;
+    u8 _pad124[1168];
+    struct GenObj *unk5B4;
+} GenObj;
+void func_08069C34(GenObj *arg0, u32 arg1) {
+    GenObj *sp0;
     void *sp4;
     void *temp_r0;
     void *var_r0;
@@ -20,7 +28,7 @@ void func_08069C34(void *arg0, u32 arg1) {
         var_r0 = func_0805FF14(__builtin_new(0x1B6C), arg0, arg0->unk120);
 block_10:
         if ((var_r0 != sp0) && (sp0 != 0)) {
-            sp0->unk5B4->unk8(sp0, 3);
+            ((void (*)(void *,...))(sp0->unk5B4->unk8))(sp0, 3);
         }
         sp0 = var_r0;
         break;
@@ -48,6 +56,6 @@ block_10:
     sp4 = temp_r0;
     func_08076B94(arg0, &sp4);
     if (sp0 != 0) {
-        sp0->unk5B4->unk8(sp0, 3);
+        ((void (*)(void *,...))(sp0->unk5B4->unk8))(sp0, 3);
     }
 }

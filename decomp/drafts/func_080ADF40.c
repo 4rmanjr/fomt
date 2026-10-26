@@ -1,4 +1,9 @@
-s32 func_080ADF40(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk6;
+} GenObj;
+s32 func_080ADF40(GenObj *arg0) {
     u16 temp_r0;
     u16 temp_r1;
     u16 var_r3;

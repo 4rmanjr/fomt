@@ -1,7 +1,13 @@
 s32 func_0804E9F4(s32, s32, s32, s32, s32, s32);      /* extern */
 s32 func_0804EDB4(u32, s32, s32, s32, s32);           /* extern */
 
-void func_08075220(void *arg0, u32 arg1, s32 arg2) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[16];
+    struct GenObj *unk18;
+} GenObj;
+void func_08075220(GenObj *arg0, u32 arg1, s32 arg2) {
     s32 temp_r5;
     s32 temp_r5_2;
     s32 temp_r5_3;
@@ -10,7 +16,7 @@ void func_08075220(void *arg0, u32 arg1, s32 arg2) {
     s32 var_r6;
     u32 temp_r0_2;
     u32 temp_r7;
-    void *temp_r0;
+    GenObj *temp_r0;
 
     var_r6 = 0x1A;
     temp_r0 = arg0->unk4;

@@ -20,7 +20,11 @@ extern u8 gUnk_081179F0;
 extern u8 gUnk_081179F8;
 extern u8 gUnk_081179FC;
 
-u8 *func_080CF05C(void *arg0, u8 *arg1, u8 *arg2, u8 arg3) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+} GenObj;
+u8 *func_080CF05C(GenObj *arg0, u8 *arg1, u8 *arg2, u8 arg3) {
     u8 sp0;
     u8 sp8;
     u8 sp10;

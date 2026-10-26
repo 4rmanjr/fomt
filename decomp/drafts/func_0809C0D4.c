@@ -1,13 +1,22 @@
-s32 SetLocation__5ActorRC13ActorLocation(void *, ? *); /* extern */
-s32 func_0809C098(void *, ? *);                       /* extern */
-s32 memcpy(s32 *, ? *, s32);                            /* extern */
+s32 SetLocation__5ActorRC13ActorLocation(void *, s32 *); /* extern */
+s32 func_0809C098(void *, s32 *);                       /* extern */
+s32 memcpy(s32 *, s32 *, s32);                            /* extern */
 
-void func_0809C0D4(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    s32 unk4;
+    s32 unk6;
+    s32 unk8;
+} GenObj;
+void func_0809C0D4(GenObj *arg0) {
 s32 sp0;
 s32 sp8;
 s32 sp10;
 
-    sp8.unk0 = (u16) ((0xFFFFFC00 & sp8.unk0) | 0x234);
+    sp8 = (u16) ((0xFFFFFC00 & sp8) | 0x234);
     sp8.unk1 = (u8) (3 & sp8.unk1);
     sp8.unk2 = (u16) (0xFFFFFC00 & sp8.unk2);
     sp8.unk3 = (u8) (3 & sp8.unk3);

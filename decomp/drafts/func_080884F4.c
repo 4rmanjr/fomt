@@ -3,11 +3,17 @@ s32 *GetFoodStackAt__6FridgeUi(s32, s32);           /* extern */
 s32 GetFood__C9FoodStack(s32 *, s32 *);                 /* extern */
 u16 GetIconId__C4Food(s32 *);                         /* extern */
 s32 IsEmpty__C9FoodStack(s32 *);                    /* extern */
-s32 func_080CC728(s32, u32, ? *, u16, s32);           /* extern */
+s32 func_080CC728(s32, u32, s32 *, u16, s32);           /* extern */
 s32 func_080CCDEC(s32, u32);                          /* extern */
-extern ? gUnk_086678A0;
+extern s32 gUnk_086678A0;
 
-void func_080884F4(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[124];
+    s32 unk7C;
+    u8 _pad80[132];
+    s32 unk104;
+} GenObj;
+void func_080884F4(GenObj *arg0, s32 arg1) {
     s32 sp4;
 s32 sp8;
     u16 temp_r4;

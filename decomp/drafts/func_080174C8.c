@@ -4,8 +4,16 @@ s32 func_080A1EF4(s32, s32);                        /* extern */
 s32 func_080A1FC4(s32, s32);                          /* extern */
 s32 method_08009B68__4FarmUi(?, s32);                 /* extern */
 
-s32 func_080174C8(s32 arg0, s32 arg1, s32 arg2, ? arg3, s32 arg4, u8 arg5, void *arg6) {
-    s32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkA;
+    s32 unkC;
+    s32 unk10;
+} GenObj;
+s32 func_080174C8(s32 arg0, s32 arg1, s32 arg2, ? arg3, s32 arg4, u8 arg5, GenObj *arg6) {
+    GenObj sp0;
     s32 temp_r0;
     s32 var_r0;
     s32 var_r2;
@@ -33,12 +41,12 @@ s32 func_080174C8(s32 arg0, s32 arg1, s32 arg2, ? arg3, s32 arg4, u8 arg5, void 
         }
 block_9:
         arg6->unk10 = 0;
-        if (((s32) (arg4 - var_r2) > 0) && ((sp0.unk0 == 0x12) || (func_080A1FC4(arg1, arg2), (sp0.unk0 == 0x12)) || (func_080A1EF4(arg1, arg2) == 0))) {
+        if (((s32) (arg4 - var_r2) > 0) && ((sp0 == 0x12) || (func_080A1FC4(arg1, arg2), (sp0 == 0x12)) || (func_080A1EF4(arg1, arg2) == 0))) {
             func_080A1C94(arg1, arg2, arg3);
             arg6->unk0 = 1;
             arg6->unk8 = (s32) sp0.unk8;
             arg6->unkC = (s32) sp0.unkA;
-            temp_r0 = sp0.unk0;
+            temp_r0 = sp0;
             switch (temp_r0) {                      /* switch 2; irregular */
             case 21:                                /* switch 2 */
                 method_08009B68__4FarmUi(arg0, 6);

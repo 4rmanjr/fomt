@@ -1,7 +1,13 @@
 s32 memcpy(void *, void *, s32);                      /* extern */
 s32 strcpy(void *, void *);                           /* extern */
 
-void *func_080D657C(void *arg0, void *arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk3;
+    s32 unk4;
+} GenObj;
+void *func_080D657C(GenObj *arg0, GenObj *arg1) {
     s32 var_r3;
     s32 var_r7;
     u8 *var_r1;

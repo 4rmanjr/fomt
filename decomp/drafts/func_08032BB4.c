@@ -11,11 +11,26 @@ s32 HasBushelForEnt__C4CoopUi(s32, u32);            /* extern */
 s32 HasBushelForPregnancyStall__C4BarnUi(s32, s8);  /* extern */
 s32 HasBushelForStall__C4BarnUi(s32, u32);          /* extern */
 s32 IsPregnant__C10BarnAnimal(s32);                 /* extern */
-s32 func_0809E968(void *, ? *);                     /* extern */
+s32 func_0809E968(void *, s32 *);                     /* extern */
 s32 method_0800C6F0__C4CoopUi(s32 *, s32, u32);       /* extern */
 s32 method_0800D074__C4BarnUi(s32 *, s32, u32);       /* extern */
 s32 method_0800D0C0__C4BarnUi(s32 *, s32, s8);        /* extern */
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk4;
+    u8 _pad8[2];
+    s32 unkA;
+    s32 unkE;
+    u8 _pad12[2];
+    struct GenObj *unk14;
+    u8 _pad18[56];
+    s32 unk50;
+    s32 unk54;
+    s32 unk58;
+} GenObj;
 void *func_08032BB4(void *arg0, s32 arg1, void **arg2, s32 arg3, s32 arg4, s32 arg5, void *arg6) {
 s32 sp0;
 s32 sp8;
@@ -25,7 +40,7 @@ s32 sp8;
     s32 sp1C;
     s32 sp20;
     s32 sp24;
-    void *sp28;
+    GenObj *sp28;
     s32 sp2C;
     s32 sp30;
     u32 sp34;
@@ -83,13 +98,13 @@ s32 sp8;
     void *temp_r0_13;
     void *temp_r0_5;
     void *temp_r0_9;
-    void *var_r2;
-    void *var_r2_2;
+    GenObj *var_r2;
+    GenObj *var_r2_2;
 
     sp28 = arg0;
     sp2C = arg1;
     sp30 = arg3;
-    sp0.unk0 = (u8) (-0x10 & sp0.unk0);
+    sp0 = (u8) (-0x10 & sp0);
     sp34 = 0;
     if (sp30 != 0x25) {
 
@@ -108,11 +123,11 @@ s32 sp8;
                         if (temp_r4 == 0) {
                             sp38 += 1;
                         }
-                    } else if ((temp_r4 != 0) && ((method_0800D0C0__C4BarnUi(&sp10, temp_r7, var_r6), sp14 = sp10, temp_r1 = sp14.unk0 - arg4, temp_r0_2 = sp14.unk2 - arg5, temp_r5 = (temp_r1 * temp_r1) + (temp_r0_2 * temp_r0_2), ((sp0.unk0 << 0x1C) == 0)) || (temp_r5 < sp34))) {
-                        sp8.unk0 = (u8) ((-0x10 & sp8.unk0) | 5);
+                    } else if ((temp_r4 != 0) && ((method_0800D0C0__C4BarnUi(&sp10, temp_r7, var_r6), sp14 = sp10, temp_r1 = sp14 - arg4, temp_r0_2 = sp14.unk2 - arg5, temp_r5 = (temp_r1 * temp_r1) + (temp_r0_2 * temp_r0_2), ((sp0 << 0x1C) == 0)) || (temp_r5 < sp34))) {
+                        sp8 = (u8) ((-0x10 & sp8) | 5);
                         sp8.unk1 = var_r6;
                         if ((func_0809E968(arg6, &sp8) << 0x18) == 0) {
-                            sp0.unk0 = (s32) sp8.unk0;
+                            sp0 = (s32) sp8;
                             sp0.unk4 = (s32) sp8.unk4;
                             sp34 = temp_r5;
                         }
@@ -168,17 +183,17 @@ s32 sp8;
                     if (var_sb > sp38) {
                         var_r4_2 = 0;
                         if (sp3C > 0U) {
-                            sp44 = &sp0 + 0x1C;
+                            sp44 = &(GenObj *)((u8 *)sp0 + 0x1C);
                             do {
                                 var_r0 = 0;
                                 if (var_r4_2 <= 0xFU) {
                                     temp_r1_3 = (1 << (0x1F & var_r4_2)) & var_r8;
                                     var_r0 = (u32) ((0 - temp_r1_3) | temp_r1_3) >> 0x1F;
                                 }
-                                if ((var_r0 != 0) && ((method_0800D074__C4BarnUi(&sp18, temp_r7, var_r4_2), sp1C = sp18, temp_r1_4 = sp44->unk0 - arg4, temp_r0_6 = sp44->unk2 - arg5, temp_r2 = (temp_r1_4 * temp_r1_4) + (temp_r0_6 * temp_r0_6), ((sp0.unk0 << 0x1C) == 0)) || (temp_r2 < sp34))) {
-                                    sp8.unk0 = (u8) ((-0x10 & sp8.unk0) | 4);
+                                if ((var_r0 != 0) && ((method_0800D074__C4BarnUi(&sp18, temp_r7, var_r4_2), sp1C = sp18, temp_r1_4 = sp44->unk0 - arg4, temp_r0_6 = sp44->unk2 - arg5, temp_r2 = (temp_r1_4 * temp_r1_4) + (temp_r0_6 * temp_r0_6), ((sp0 << 0x1C) == 0)) || (temp_r2 < sp34))) {
+                                    sp8 = (u8) ((-0x10 & sp8) | 4);
                                     sp8.unk1 = (s8) var_r4_2;
-                                    sp0.unk0 = (s32) sp8.unk0;
+                                    sp0 = (s32) sp8;
                                     sp0.unk4 = (s32) sp8.unk4;
                                     sp34 = temp_r2;
                                 }
@@ -244,17 +259,17 @@ s32 sp8;
                     if (var_sb_2 > var_r5_3) {
                         var_r4_4 = 0;
                         if (sp40 > 0U) {
-                            sp44 = &sp0 + 0x24;
+                            sp44 = &(GenObj *)((u8 *)sp0 + 0x24);
                             do {
                                 var_r0_2 = 0;
                                 if (var_r4_4 <= 7U) {
                                     temp_r1_6 = (1 << (0x1F & var_r4_4)) & var_r8_2;
                                     var_r0_2 = (u32) ((0 - temp_r1_6) | temp_r1_6) >> 0x1F;
                                 }
-                                if ((var_r0_2 != 0) && ((method_0800C6F0__C4CoopUi(&sp20, temp_r7_2, var_r4_4), sp24 = sp20, temp_r1_7 = sp44->unk0 - arg4, temp_r0_10 = sp44->unk2 - arg5, temp_r2_2 = (temp_r1_7 * temp_r1_7) + (temp_r0_10 * temp_r0_10), ((sp0.unk0 << 0x1C) == 0)) || (temp_r2_2 < sp34))) {
-                                    sp8.unk0 = (u8) ((-0x10 & sp8.unk0) | 3);
+                                if ((var_r0_2 != 0) && ((method_0800C6F0__C4CoopUi(&sp20, temp_r7_2, var_r4_4), sp24 = sp20, temp_r1_7 = sp44->unk0 - arg4, temp_r0_10 = sp44->unk2 - arg5, temp_r2_2 = (temp_r1_7 * temp_r1_7) + (temp_r0_10 * temp_r0_10), ((sp0 << 0x1C) == 0)) || (temp_r2_2 < sp34))) {
+                                    sp8 = (u8) ((-0x10 & sp8) | 3);
                                     sp8.unk1 = (s8) var_r4_4;
-                                    sp0.unk0 = (s32) sp8.unk0;
+                                    sp0 = (s32) sp8;
                                     sp0.unk4 = (s32) sp8.unk4;
                                     sp34 = temp_r2_2;
                                 }
@@ -269,11 +284,11 @@ s32 sp8;
     var_r6_2 = 0x36;
     do {
         temp_r0_11 = (*arg2)->unk44(arg2, var_r6_2);
-        if ((temp_r0_11 != 0) && (temp_r0_11->unk4 == sp30) && (((temp_r0_11->unk14->unk50(temp_r0_11) << 0x18) != 0) || ((temp_r0_11->unk14->unk54(temp_r0_11) << 0x18) != 0) || ((temp_r0_11->unk14->unk58(temp_r0_11) << 0x18) != 0)) && ((temp_r1_8 = temp_r0_11->unkA - arg4, temp_r0_12 = temp_r0_11->unkE - arg5, temp_r1_9 = (temp_r1_8 * temp_r1_8) + (temp_r0_12 * temp_r0_12), ((sp0.unk0 << 0x1C) == 0)) || (temp_r1_9 < sp34))) {
-            sp8.unk0 = (u8) ((-0x10 & sp8.unk0) | 6);
+        if ((temp_r0_11 != 0) && (temp_r0_11->unk4 == sp30) && (((((void (*)(void *,...))(temp_r0_11->unk14->unk50))(temp_r0_11) << 0x18) != 0) || ((((void (*)(void *,...))(temp_r0_11->unk14->unk54))(temp_r0_11) << 0x18) != 0) || ((((void (*)(void *,...))(temp_r0_11->unk14->unk58))(temp_r0_11) << 0x18) != 0)) && ((temp_r1_8 = temp_r0_11->unkA - arg4, temp_r0_12 = temp_r0_11->unkE - arg5, temp_r1_9 = (temp_r1_8 * temp_r1_8) + (temp_r0_12 * temp_r0_12), ((sp0 << 0x1C) == 0)) || (temp_r1_9 < sp34))) {
+            sp8 = (u8) ((-0x10 & sp8) | 6);
             sp8.unk1 = (s8) (var_r6_2 - 0x36);
             if ((func_0809E968(arg6, &sp8) << 0x18) == 0) {
-                sp0.unk0 = (s32) sp8.unk0;
+                sp0 = (s32) sp8;
                 sp0.unk4 = (s32) sp8.unk4;
                 sp34 = temp_r1_9;
             }
@@ -288,18 +303,18 @@ s32 sp8;
     var_r5_4 = 0x4C;
     do {
         temp_r0_13 = (*arg2)->unk44(arg2, var_r5_4);
-        if ((temp_r0_13 != 0) && (temp_r0_13->unk4 == sp30) && ((temp_r1_10 = temp_r0_13->unkA - arg4, temp_r0_14 = temp_r0_13->unkE - arg5, temp_r1_11 = (temp_r1_10 * temp_r1_10) + (temp_r0_14 * temp_r0_14), ((sp0.unk0 << 0x1C) == 0)) || (temp_r1_11 < sp34))) {
-            sp8.unk0 = (u8) ((-0x10 & sp8.unk0) | 8);
+        if ((temp_r0_13 != 0) && (temp_r0_13->unk4 == sp30) && ((temp_r1_10 = temp_r0_13->unkA - arg4, temp_r0_14 = temp_r0_13->unkE - arg5, temp_r1_11 = (temp_r1_10 * temp_r1_10) + (temp_r0_14 * temp_r0_14), ((sp0 << 0x1C) == 0)) || (temp_r1_11 < sp34))) {
+            sp8 = (u8) ((-0x10 & sp8) | 8);
             sp8.unk1 = (s8) (var_r5_4 - 0x4C);
             if ((func_0809E968(arg6, &sp8) << 0x18) == 0) {
-                sp0.unk0 = (s32) sp8.unk0;
+                sp0 = (s32) sp8;
                 sp0.unk4 = (s32) sp8.unk4;
                 sp34 = temp_r1_11;
             }
         }
         var_r5_4 += 1;
     } while (var_r5_4 <= 0x53U);
-    sp28->unk0 = (s32) sp0.unk0;
+    sp28->unk0 = (s32) sp0;
     sp28->unk4 = (s32) sp0.unk4;
     return sp28;
 }

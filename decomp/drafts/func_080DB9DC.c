@@ -1,7 +1,12 @@
 s32 __builtin_new(s32);                             /* extern */
 void **func_0805E624(s32, s32 *, s32);              /* extern */
 
-void ***func_080DB9DC(void ***arg0, void *arg1) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+void ***func_080DB9DC(void ***arg0, GenObj *arg1) {
     void **sp0;
     s32 sp4;
     void ***sp8;

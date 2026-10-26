@@ -1,11 +1,15 @@
 extern void *gUnk_0300040C;
 
-void func_08012B24(void *arg1, s32 arg2) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+} GenObj;
+void func_08012B24(GenObj *arg1, s32 arg2) {
     s32 *var_r2;
     u32 temp_r0;
     u32 temp_r0_2;
-    void *temp_r2;
-    void *var_r3;
+    GenObj *temp_r2;
+    GenObj *var_r3;
 
     switch (arg2) {                                 /* irregular */
     case 0:

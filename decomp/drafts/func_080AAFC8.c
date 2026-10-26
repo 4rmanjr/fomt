@@ -2,9 +2,22 @@ void *__builtin_new(s32);                           /* extern */
 s32 func_08007874(void *);                            /* extern */
 s32 func_080079E8(void *, s32);                       /* extern */
 s32 func_08007C28(void *, s32);                       /* extern */
-s32 func_080E4438(void *, ? *);                       /* extern */
-s32 memcpy(s32 *, ? *, s32);                            /* extern */
+s32 func_080E4438(void *, s32 *);                       /* extern */
+s32 memcpy(s32 *, s32 *, s32);                            /* extern */
 
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk1;
+    struct GenObj *unk4;
+    s32 unk5;
+    s32 unk6;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
+    s32 unk1C;
+} GenObj;
 void **func_080AAFC8(void **arg0, void **arg1, s32 arg2) {
 s32 sp0;
 s32 sp44;
@@ -39,17 +52,17 @@ s32 sp54;
     u32 var_r7;
     u8 var_r1;
     void **temp_r8;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r1;
-    void *temp_r4;
-    void *var_r0;
-    void *var_r0_2;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r1;
+    GenObj *temp_r4;
+    GenObj *var_r0;
+    GenObj *var_r0_2;
     void *var_r0_3;
     void *var_r1_3;
     void *var_r4;
     void *var_r4_2;
-    void *var_r4_3;
+    GenObj *var_r4_3;
     void *var_r5_2;
 
     sp7C = arg0;
@@ -76,19 +89,19 @@ block_6:
     temp_r0->unk4 = var_r1;
     temp_r0->unk5 = 0;
     temp_r0->unk6 = 0;
-    var_r0 = temp_r0 + 8;
+    var_r0 = (GenObj *)((u8 *)temp_r0 + 8);
     var_r1_2 = 9;
-    sp9C = temp_r0 + 0x350;
-    sp88 = temp_r0 + 0x368;
-    sp94 = &sp0 + 0x74;
-    sp90 = &sp0 + 0x54;
-    sp8C = &sp0 + 0x44;
+    sp9C = (GenObj *)((u8 *)temp_r0 + 0x350);
+    sp88 = (GenObj *)((u8 *)temp_r0 + 0x368);
+    sp94 = &(GenObj *)((u8 *)sp0 + 0x74);
+    sp90 = &(GenObj *)((u8 *)sp0 + 0x54);
+    sp8C = &(GenObj *)((u8 *)sp0 + 0x44);
     var_r3 = -1;
     do {
         var_r0->unk0 = 0;
         var_r0->unk1 = 0;
         var_r2 = 1;
-        var_r1_3 = var_r0 + 4;
+        var_r1_3 = (GenObj *)((u8 *)var_r0 + 4);
 loop_9:
         var_r1_3->unk0 = 0;
         var_r1_3->unk4 = 0;
@@ -103,7 +116,7 @@ loop_9:
         if (var_r2 != var_r3) {
             goto loop_9;
         }
-        var_r4 = var_r0 + 0x44;
+        var_r4 = (GenObj *)((u8 *)var_r0 + 0x44);
         var_r6 = 1;
         var_r1_4 = 0;
 loop_11:
@@ -197,11 +210,11 @@ loop_16:
             break;
         }
     }
-    sp0.unk0 = 0;
+    sp0 = 0;
     sp0.unk1 = 0;
     var_r2_3 = 1;
     sp98 = var_r3_2 + 1;
-    var_r0_3 = &sp0 + 4;
+    var_r0_3 = &(GenObj *)((u8 *)sp0 + 4);
     do {
         var_r0_3->unk0 = 0;
         var_r0_3->unk4 = 0;
@@ -214,7 +227,7 @@ loop_16:
         var_r0_3 += 0x20;
         var_r2_3 -= 1;
     } while (var_r2_3 != -1);
-    var_r4_2 = &sp0 + 0x44;
+    var_r4_2 = &(GenObj *)((u8 *)sp0 + 0x44);
     var_r5 = 1;
     var_r1_6 = 0;
     do {
@@ -225,22 +238,22 @@ loop_16:
         var_r5 -= 1;
     } while (var_r5 != -1);
     var_r7 = 0;
-    var_r5_2 = &sp0 + 4;
+    var_r5_2 = &(GenObj *)((u8 *)sp0 + 4);
 loop_46:
     temp_r4 = *temp_r8;
     temp_r4->unkC(sp94, temp_r8, var_r2_2);
-    temp_r4->unk10(&sp54, temp_r8, *(sp74 + (var_r7 * 4)));
+    temp_r4->unk10(&sp54, temp_r8, *((u8 *)sp74 + (var_r7 * 4)));
     memcpy(&sp54, &sp54, 0x20);
-    temp_r0_2 = sp90 + 0xC;
+    temp_r0_2 = (GenObj *)((u8 *)sp90 + 0xC);
     var_r5_2->unk0 = (s32) sp90->unk0;
     var_r5_2->unk4 = (s32) sp90->unk4;
     var_r5_2->unk8 = (s32) sp90->unk8;
-    temp_r1 = var_r5_2 + 0xC;
+    temp_r1 = (GenObj *)((u8 *)var_r5_2 + 0xC);
     var_r5_2->unkC = (s32) sp90->unkC;
     temp_r1->unk4 = (s32) temp_r0_2->unk4;
     temp_r1->unk8 = (s32) temp_r0_2->unk8;
     temp_r1->unkC = (s32) temp_r0_2->unkC;
-    (temp_r1 + 0xC)->unk4 = (s32) (temp_r0_2 + 0xC)->unk4;
+    ((GenObj *)((u8 *)temp_r1 + 0xC))->unk4 = (s32) ((GenObj *)((u8 *)temp_r0_2 + 0xC))->unk4;
     var_r1_7 = 0;
     if (var_r5_2->unk8 != 0) {
         var_r1_7 = (u16) var_r5_2->unkC;

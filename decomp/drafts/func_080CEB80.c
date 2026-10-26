@@ -1,6 +1,10 @@
 s32 func_080CE510(void *, s32, s32, s32, s32, s32);   /* extern */
 
-u32 func_080CEB80(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[188];
+    s32 unkBC;
+} GenObj;
+u32 func_080CEB80(GenObj *arg0) {
     u32 temp_r0;
     u32 var_r0;
 

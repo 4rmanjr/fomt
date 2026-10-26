@@ -15,17 +15,28 @@ s32 func_0800F20C(s32 *, s32);                        /* extern */
 s8 func_0800F258(s32);                              /* extern */
 s32 func_0800F294(s32 *, s32);                        /* extern */
 s32 func_0800F344(s32);                             /* extern */
-s32 func_080CB304(s32, u32, ? *, u16);                /* extern */
-s32 func_080CBAF0(s32, ? *, s32, s32);                /* extern */
-extern ? gUnk_0858BA28;
-extern ? gUnk_086678A0;
+s32 func_080CB304(s32, u32, s32 *, u16);                /* extern */
+s32 func_080CBAF0(s32, s32 *, s32, s32);                /* extern */
+extern s32 gUnk_0858BA28;
+extern s32 gUnk_086678A0;
 
-void func_0808C664(void *arg0, u32 arg1) {
-    s32 sp0;
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    u8 _padC[1];
+    s32 unkD;
+    u8 _pad11[103];
+    s32 unk78;
+    u8 _pad7C[128];
+    s32 unkFC;
+    s32 unk100;
+} GenObj;
+void func_0808C664(GenObj *arg0, u32 arg1) {
+    GenObj *sp0;
     s32 sp4;
     s32 sp8;
     s8 spC;
-    ? *var_r1;
+    s32 *var_r1;
     s32 temp_r0;
     u16 var_r0;
     u16 var_r2;

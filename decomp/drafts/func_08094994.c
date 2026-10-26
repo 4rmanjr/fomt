@@ -41,7 +41,7 @@ block_7:
     }
     if (var_r5 <= 0xCU) {
         do {
-            *(arg1 + var_r5) = 0;
+            *((u8 *)arg1 + var_r5) = 0;
             var_r5 += 1;
         } while (var_r5 <= 0xCU);
     }

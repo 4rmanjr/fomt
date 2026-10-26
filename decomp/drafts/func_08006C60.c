@@ -16,7 +16,7 @@ u32 func_08006C60(s32 arg0) {
     strcpy(temp_r4, arg0 + 0x461C);
     var_r1 = 0;
     do {
-        temp_r0 = *(temp_r4 + var_r1);
+        temp_r0 = *((u8 *)temp_r4 + var_r1);
         if (temp_r0 == 0x5F) {
             var_r5 += 1;
             var_r0 = var_r1 + 1;
@@ -43,6 +43,6 @@ u32 func_08006C60(s32 arg0) {
             } while (var_r2 < var_r6);
         }
     }
-    *(arg0 + 0x4629 + var_r6) = 0;
+    *((u8 *)arg0 + 0x4629 + var_r6) = 0;
     return (u32) ((0 - var_r6) | var_r6) >> 0x1F;
 }

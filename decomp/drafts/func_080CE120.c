@@ -3,7 +3,12 @@ s32 func_080CC144(s32 *);                             /* extern */
 s32 func_080CD534(s32 *, s32, s32);                   /* extern */
 s32 func_080CD558(s32 *);                             /* extern */
 
-s32 *func_080CE120(s32 *arg0, void *arg1, s32 arg2, s32 arg3) {
+typedef struct GenObj {
+    u8 _pad0[120];
+    s32 unk78;
+    s32 unk7C;
+} GenObj;
+s32 *func_080CE120(s32 *arg0, GenObj *arg1, s32 arg2, s32 arg3) {
     s32 sp0;
     s32 sp4;
     s32 sp8;

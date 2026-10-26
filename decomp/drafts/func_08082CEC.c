@@ -1,4 +1,4 @@
-/* Warning: missing "bx $lr" in last block of func_08082CEC (.L08082EDE). */
+/* Warning: missing "bx $lr" in last block of func_08082CEC (0). */
 
 s32 GetUpgradeLevel__C4Barn(s32);                   /* extern */
 s32 GetUpgradeLevel__C4Coop(s32);                   /* extern */
@@ -15,10 +15,19 @@ s32 func_080C85A0(void *);                            /* extern */
 s32 method_0800C5C4__C4Coop(s32);                   /* extern */
 s32 method_0800CF00__C4Barn(s32);                   /* extern */
 s32 method_0800CF08__C4Barn(s32);                   /* extern */
-extern s32 .L08082F84;
-extern s32 .L08082F88;
 
-void func_08082CEC(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    struct GenObj *unk8;
+    u8 _padC[4];
+    s32 unk10;
+    u8 _pad14[60];
+    s32 unk50;
+    u8 _pad54[592];
+    s32 unk2A4;
+} GenObj;
+void func_08082CEC(GenObj *arg0) {
     s16 sp24;
     void *sp28;
     s32 *temp_r2;
@@ -43,17 +52,17 @@ void func_08082CEC(void *arg0) {
     u32 temp_r0_7;
     u32 temp_r0_8;
     u32 temp_r0_9;
-    void *temp_r0_12;
-    void *temp_r0_13;
+    GenObj *temp_r0_12;
+    GenObj *temp_r0_13;
     void *temp_r1;
-    void *temp_r4;
+    GenObj *temp_r4;
     void *temp_r5;
 
     func_08008724();
     func_080C85A0(arg0);
     temp_r0 = arg0->unk2A4;
     if (temp_r0 <= 0x27U) {
-        temp_r2 = arg0 + 0x2A4 + ((temp_r0 * 4) + 4);
+        temp_r2 = (GenObj *)((u8 *)arg0 + 0x2A4) + ((temp_r0 * 4) + 4);
         if (temp_r2 != 0) {
             *temp_r2 = 0;
         }
@@ -62,7 +71,7 @@ void func_08082CEC(void *arg0) {
     if ((func_08082C74(arg0, 0x46) << 0x18) != 0) {
         temp_r0_2 = arg0->unk2A4;
         if (temp_r0_2 <= 0x27U) {
-            temp_r2_2 = arg0 + 0x2A4 + ((temp_r0_2 * 4) + 4);
+            temp_r2_2 = (GenObj *)((u8 *)arg0 + 0x2A4) + ((temp_r0_2 * 4) + 4);
             if (temp_r2_2 != 0) {
                 *temp_r2_2 = 1;
             }
@@ -72,7 +81,7 @@ void func_08082CEC(void *arg0) {
     if ((func_08082C74(arg0, 0x47) << 0x18) != 0) {
         temp_r0_3 = arg0->unk2A4;
         if (temp_r0_3 <= 0x27U) {
-            temp_r2_3 = arg0 + 0x2A4 + ((temp_r0_3 * 4) + 4);
+            temp_r2_3 = (GenObj *)((u8 *)arg0 + 0x2A4) + ((temp_r0_3 * 4) + 4);
             if (temp_r2_3 != 0) {
                 *temp_r2_3 = 2;
             }
@@ -82,7 +91,7 @@ void func_08082CEC(void *arg0) {
     if ((func_08082C74(arg0, 0x48) << 0x18) != 0) {
         temp_r0_4 = arg0->unk2A4;
         if (temp_r0_4 <= 0x27U) {
-            temp_r2_4 = arg0 + 0x2A4 + ((temp_r0_4 * 4) + 4);
+            temp_r2_4 = (GenObj *)((u8 *)arg0 + 0x2A4) + ((temp_r0_4 * 4) + 4);
             if (temp_r2_4 != 0) {
                 *temp_r2_4 = 3;
             }
@@ -92,7 +101,7 @@ void func_08082CEC(void *arg0) {
     if ((GetUpgradeLevel__C4Coop(arg0->unk8 + 0x410) != 0) && ((method_0800C5C4__C4Coop(arg0->unk8 + 0x410) << 0x18) == 0)) {
         temp_r0_5 = arg0->unk2A4;
         if (temp_r0_5 <= 0x27U) {
-            temp_r2_5 = arg0 + 0x2A4 + ((temp_r0_5 * 4) + 4);
+            temp_r2_5 = (GenObj *)((u8 *)arg0 + 0x2A4) + ((temp_r0_5 * 4) + 4);
             if (temp_r2_5 != 0) {
                 *temp_r2_5 = 4;
             }
@@ -103,7 +112,7 @@ void func_08082CEC(void *arg0) {
         if ((method_0800CF00__C4Barn(arg0->unk8 + 0x5F0) << 0x18) == 0) {
             temp_r0_6 = arg0->unk2A4;
             if (temp_r0_6 <= 0x27U) {
-                temp_r2_6 = arg0 + 0x2A4 + ((temp_r0_6 * 4) + 4);
+                temp_r2_6 = (GenObj *)((u8 *)arg0 + 0x2A4) + ((temp_r0_6 * 4) + 4);
                 if (temp_r2_6 != 0) {
                     *temp_r2_6 = 5;
                 }
@@ -113,7 +122,7 @@ void func_08082CEC(void *arg0) {
         if ((method_0800CF08__C4Barn(arg0->unk8 + 0x5F0) << 0x18) == 0) {
             temp_r0_7 = arg0->unk2A4;
             if (temp_r0_7 <= 0x27U) {
-                temp_r2_7 = arg0 + 0x2A4 + ((temp_r0_7 * 4) + 4);
+                temp_r2_7 = (GenObj *)((u8 *)arg0 + 0x2A4) + ((temp_r0_7 * 4) + 4);
                 if (temp_r2_7 != 0) {
                     *temp_r2_7 = 6;
                 }
@@ -123,7 +132,7 @@ void func_08082CEC(void *arg0) {
     }
     temp_r0_8 = arg0->unk2A4;
     if (temp_r0_8 <= 0x27U) {
-        temp_r2_8 = arg0 + 0x2A4 + ((temp_r0_8 * 4) + 4);
+        temp_r2_8 = (GenObj *)((u8 *)arg0 + 0x2A4) + ((temp_r0_8 * 4) + 4);
         if (temp_r2_8 != 0) {
             *temp_r2_8 = 7;
         }
@@ -131,7 +140,7 @@ void func_08082CEC(void *arg0) {
     }
     temp_r0_9 = arg0->unk2A4;
     if (temp_r0_9 <= 0x27U) {
-        temp_r2_9 = arg0 + 0x2A4 + ((temp_r0_9 * 4) + 4);
+        temp_r2_9 = (GenObj *)((u8 *)arg0 + 0x2A4) + ((temp_r0_9 * 4) + 4);
         if (temp_r2_9 != 0) {
             *temp_r2_9 = 8;
         }
@@ -139,7 +148,7 @@ void func_08082CEC(void *arg0) {
     }
     temp_r0_10 = arg0->unk2A4;
     if (temp_r0_10 <= 0x27U) {
-        temp_r2_10 = arg0 + 0x2A4 + ((temp_r0_10 * 4) + 4);
+        temp_r2_10 = (GenObj *)((u8 *)arg0 + 0x2A4) + ((temp_r0_10 * 4) + 4);
         if (temp_r2_10 != 0) {
             *temp_r2_10 = 9;
         }
@@ -147,7 +156,7 @@ void func_08082CEC(void *arg0) {
     }
     temp_r0_11 = arg0->unk2A4;
     if (temp_r0_11 <= 0x27U) {
-        temp_r2_11 = arg0 + 0x2A4 + ((temp_r0_11 * 4) + 4);
+        temp_r2_11 = (GenObj *)((u8 *)arg0 + 0x2A4) + ((temp_r0_11 * 4) + 4);
         if (temp_r2_11 != 0) {
             *temp_r2_11 = 0xA;
         }
@@ -162,11 +171,11 @@ void func_08082CEC(void *arg0) {
     temp_r1 = func_08008918(arg0);
     temp_r4->unk0 = 0;
     temp_r4->unk4 = 0;
-    temp_r4->unk8 = (s32) .L08082F84;
-    temp_r5 = temp_r4 + 0xC;
+    temp_r4->unk8 = (s32) 0;
+    temp_r5 = (GenObj *)((u8 *)temp_r4 + 0xC);
     func_08009300(temp_r5, temp_r1);
     sp28 = temp_r4;
-    func_0800934C(temp_r5, .L08082F88, 1, 1);
+    func_0800934C(temp_r5, 0x00000889, 1, 1);
     temp_r0_13 = func_08008940(arg0);
-    temp_r0_13->unk8->unk10(temp_r0_13, sp28);
+    ((void (*)(void *,...))(temp_r0_13->unk8->unk10))(temp_r0_13, sp28);
 }

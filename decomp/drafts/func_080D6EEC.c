@@ -1,6 +1,10 @@
 s32 func_080D6ECC(s32);                               /* extern */
 
-void func_080D6EEC(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+} GenObj;
+void func_080D6EEC(GenObj *arg0) {
     func_080D6ECC(arg0 + 4);
     func_080D6ECC(arg0 + 0x40);
     arg0->unk0 = 1;

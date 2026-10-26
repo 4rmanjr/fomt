@@ -1,5 +1,17 @@
 s32 func_0804E7A0(s32, s32, s32);                     /* extern */
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    u8 _pad6[6];
+    s32 unkC;
+    u8 _pad10[4];
+    s32 unk14;
+    s32 unk16;
+    s32 unk19;
+    s32 unk1A;
+    s32 unk1B;
+} GenObj;
 void func_0804F0E0(void *arg0) {
     s32 sp0;
     void *sp4;
@@ -7,21 +19,21 @@ void func_0804F0E0(void *arg0) {
     s32 temp_r1;
     s32 var_r1;
     s32 var_r7;
-    void *temp_r5;
-    void *var_r3;
+    GenObj *temp_r5;
+    GenObj *var_r3;
 
     var_r3 = arg0;
     var_r1 = 0;
     do {
         var_r7 = 0;
-        temp_r6 = (var_r1 * 4) + var_r3 + 8;
+        temp_r6 = (var_r1 * 4) + (GenObj *)((u8 *)var_r3 + 8);
 loop_2:
         temp_r5 = *temp_r6 + (var_r7 * 0x10);
-        sp0.unk0 = 4;
+        sp0 = 4;
         sp0.unk2 = 2;
         sp4 = var_r3;
         func_0804E7A0(sp0, temp_r5->unk0 + 4, 0);
-        temp_r1 = (temp_r5 + 4)->unk4;
+        temp_r1 = ((GenObj *)((u8 *)temp_r5 + 4))->unk4;
         temp_r5->unkC = (s8) ((u32) ((0 - temp_r1) | temp_r1) >> 0x1F);
         var_r7 += 1;
         if (var_r7 <= 6) {

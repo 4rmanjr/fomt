@@ -1,9 +1,17 @@
-s32 memcpy(void *, ? *, s32);                         /* extern */
+s32 memcpy(void *, s32 *, s32);                         /* extern */
 
-void *func_080A19EC(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    s32 unk4;
+    s32 unk6;
+} GenObj;
+void *func_080A19EC(GenObj *arg0) {
 s32 sp0;
 
-    sp0.unk0 = (u16) ((0xFFFFFC00 & sp0.unk0) | 0x17);
+    sp0 = (u16) ((0xFFFFFC00 & sp0) | 0x17);
     sp0.unk1 = (u8) ((3 & sp0.unk1) | 0xC0);
     sp0.unk2 = (u16) ((0xFFFFFC00 & sp0.unk2) | 3);
     sp0.unk3 = (u8) (3 & sp0.unk3);

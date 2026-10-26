@@ -1,4 +1,4 @@
-extern ? gMusicPlayerTable;
+extern s32 gMusicPlayerTable;
 
 s32 func_08008B24(u32 arg0) {
     u32 temp_r1;

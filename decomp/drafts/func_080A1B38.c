@@ -5,7 +5,7 @@ s32 __4FoodUi(u8 *, s32);                             /* extern */
 s32 __7ArticleUi(u8 *, s32);                          /* extern */
 s32 func_080A1C94(?, s32, s32);                       /* extern */
 s32 func_080A1D20(?, s32, s32, s32);                /* extern */
-extern ? gUnk_081043BC;
+extern s32 gUnk_081043BC;
 
 s32 *func_080A1B38(s32 *arg0, ? arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 sp0;

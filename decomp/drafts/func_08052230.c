@@ -1,5 +1,5 @@
 s32 rand();                                         /* extern */
-extern ? gUnk_080FA174;
+extern s32 gUnk_080FA174;
 
 void func_08052230(u8 *arg0, s32 arg1) {
     s32 sp0;

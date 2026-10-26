@@ -6,7 +6,19 @@ s16 func_080962F0(void *);                          /* extern */
 s16 func_080972AC(void *);                          /* extern */
 s16 func_08097AE4(void *, u32);                     /* extern */
 
-s32 *func_08094F6C(s32 *arg0, void *arg1) {
+typedef struct GenObj {
+    u8 _pad0[862];
+    s32 unk35E;
+    u8 _pad362[2];
+    s32 unk364;
+    s32 unk365;
+    s32 unk366;
+    s32 unk367;
+    s32 unk368;
+    u8 _pad36C[12388];
+    s32 unk33D0;
+} GenObj;
+s32 *func_08094F6C(s32 *arg0, GenObj *arg1) {
     void **sp0;
     void ***sp4;
     s16 *var_r1;

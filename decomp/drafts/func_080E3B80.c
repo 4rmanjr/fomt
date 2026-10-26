@@ -5,10 +5,16 @@ s32 __7ArticleUi(s32 *, s32);                           /* extern */
 s32 memcpy(s8 *, void *, u32);                        /* extern */
 s32 strcpy(void *, s8 *);                             /* extern */
 u32 strlen(void *);                                 /* extern */
-extern ? gUnk_08100AD2;
-extern ? gUnk_08100BD7;
+extern s32 gUnk_08100AD2;
+extern s32 gUnk_08100BD7;
 
-s8 *func_080E3B80(s8 *arg0, void *arg1, s32 arg2) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk6;
+    s32 unk7;
+} GenObj;
+s8 *func_080E3B80(s8 *arg0, GenObj *arg1, s32 arg2) {
     s8 sp0;
 s32 sp20;
 s32 sp24;

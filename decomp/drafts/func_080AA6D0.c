@@ -4,7 +4,19 @@ s32 method_0800A07C__C9FieldPlot(s32);              /* extern */
 s32 method_0800A0A4__C9FieldPlot(s32);              /* extern */
 s32 method_0800AF20__C9FieldPlot(s32);              /* extern */
 
-void func_080AA6D0(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk2;
+    s32 unk4;
+    u8 _pad8[8];
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
+    u8 _pad1C[13];
+    s32 unk29;
+    s32 unk2C;
+} GenObj;
+void func_080AA6D0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 sp0;
     s32 sp4;
     s32 sp8;
@@ -23,8 +35,8 @@ void func_080AA6D0(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     u16 temp_sl;
     void *temp_r1_2;
     void *temp_r2_2;
-    void *temp_r2_3;
-    void *temp_r3;
+    GenObj *temp_r2_3;
+    GenObj *temp_r3;
     void *temp_r4_4;
     void *temp_r8;
 
@@ -60,9 +72,9 @@ void func_080AA6D0(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     temp_r0_2 = method_0800A0A4__C9FieldPlot(sp4);
     temp_r1_3 = arg0->unk2C;
     temp_r8 = temp_r1 + temp_r1_3;
-    temp_r2_3 = temp_r8 + 4;
+    temp_r2_3 = (GenObj *)((u8 *)temp_r8 + 4);
     temp_r4_4 = temp_r4_3 + temp_r1_3;
-    temp_r3 = temp_r4_4 + 4;
+    temp_r3 = (GenObj *)((u8 *)temp_r4_4 + 4);
     temp_r3->unk2 = (u16) ((1 & temp_r3->unk2) | (temp_r0_2 * 2));
     temp_r0_3 = temp_r0_2 & 0x7FFF;
     temp_r4_4->unk2 = (u16) ((1 & temp_r4_4->unk2) | (temp_r0_3 * 2));

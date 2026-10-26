@@ -1,8 +1,14 @@
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+} GenObj;
 void *func_080E2354(void *arg0) {
     void *temp_r0;
-    void *var_r1;
+    GenObj *var_r1;
     void *var_r2;
-    void *var_r2_2;
+    GenObj *var_r2_2;
 
     var_r2_2 = arg0;
     if ((var_r2_2->unk0 == 0) && (var_r2_2->unk4->unk4 == var_r2_2)) {

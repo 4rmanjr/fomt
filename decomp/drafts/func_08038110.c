@@ -6,9 +6,23 @@ s32 func_080ABBEC(s32 *);                             /* extern */
 s32 func_080ABC14(s32 *);                             /* extern */
 s32 memcpy(s32, s32 *, s32);                          /* extern */
 
-void func_08038110(void *arg0, ? arg3) {
-    s32 sp0;
-    s32 spC;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkA;
+    s32 unkC;
+    u8 _pad10[4];
+    struct GenObj *unk14;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    s32 unk25;
+} GenObj;
+void func_08038110(GenObj *arg0, ? arg3) {
+    GenObj sp0;
+    GenObj *spC;
 s32 sp1C;
     s32 sp28;
     s32 sp2C;
@@ -51,7 +65,7 @@ s32 sp1C;
         if ((sp0 != 0) && ((u32) temp_r0_2 <= (u32) temp_r0_3) && ((u32) temp_r3 <= (u32) sp0.unkA)) {
             var_r0 = (temp_r3 * temp_r0_3) + temp_r0_2;
             if (sp4 != 0) {
-                var_r0 = *(sp4 + var_r0);
+                var_r0 = *((u8 *)sp4 + var_r0);
             }
             var_r0_2 = sp0 + (var_r0 * 4);
         } else {
@@ -72,14 +86,14 @@ s32 sp1C;
         }
         return;
     }
-    arg0->unk14->unkC(&sp34, arg0);
+    ((void (*)(void *,...))(arg0->unk14->unkC))(&sp34, arg0);
     sp3C = sp34;
     sp40 = sp38;
     spC = 0x21;
     spC.unk4 = -0x21;
     spC.unk8 = -0x21;
     spC.unkC = 0x21;
-    sp1C.unk0 = (s32) sp0.unk0;
+    sp1C = (s32) sp0;
     sp1C.unk4 = (s32) sp0.unk4;
     sp1C.unk8 = (s32) sp0.unk8;
     sp28 = sp3C;

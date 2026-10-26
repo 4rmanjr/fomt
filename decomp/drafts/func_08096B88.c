@@ -1,5 +1,5 @@
 s8 GetArticle__C12RucksackItem(s32 *);                /* extern */
-s32 GetFood__C12RucksackItem(s32 *, ? *);               /* extern */
+s32 GetFood__C12RucksackItem(s32 *, s32 *);               /* extern */
 u16 GetIconId__C4Food(s32 *);                         /* extern */
 u16 GetIconId__C7Article();                         /* extern */
 s32 GetKind__C12RucksackItem(s32 *);                  /* extern */
@@ -9,22 +9,43 @@ s32 __12RucksackItem(s32 *);                            /* extern */
 s32 free(void *);                                     /* extern */
 void *func_08008910(void *);                        /* extern */
 s32 func_08008F0C(s32 *, void *, s32, s32);             /* extern */
-u8 func_08096EE8(void *, ? *, u8, s32);             /* extern */
-s32 func_080CC728(s32, s32, ? *, u16, s32);           /* extern */
+u8 func_08096EE8(void *, s32 *, u8, s32);             /* extern */
+s32 func_080CC728(s32, s32, s32 *, u16, s32);           /* extern */
 s32 func_080CCDEC(s32, s32);                          /* extern */
 void *func_080D3BC0(s32);                           /* extern */
 void *malloc(s32);                                  /* extern */
-extern ? gUnk_0811785C;
-extern ? gUnk_086678A0;
+extern s32 gUnk_0811785C;
+extern s32 gUnk_086678A0;
 
-void func_08096B88(void *arg0) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk1;
+    struct GenObj *unk2;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    u8 _pad10[108];
+    s32 unk7C;
+    u8 _pad80[745];
+    s32 unk369;
+    s32 unk36A;
+    s32 unk36B;
+    u8 _pad36F[10273];
+    s32 unk2B90;
+    u8 _pad2B94[12];
+    s32 unk2BA0;
+    s32 unk2BA4;
+    s32 unk2BA5;
+    s32 unk2BA6;
+} GenObj;
+void func_08096B88(GenObj *arg0) {
 s32 sp4;
 s32 sp8;
-s32 spC;
+GenObj spC;
     s8 sp1C;
     s32 sp20;
     s32 sp24;
-    void *sp28;
+    GenObj *sp28;
     void *sp2C;
     s16 *var_r0_3;
     s16 *var_r0_4;
@@ -56,16 +77,16 @@ s32 spC;
     u8 temp_r7;
     void *temp_r0;
     void *temp_r0_2;
-    void *temp_r1_3;
+    GenObj *temp_r1_3;
     void *temp_r1_4;
     void *temp_r2_3;
-    void *var_r0_5;
+    GenObj *var_r0_5;
     void *var_r0_7;
     void *var_r0_8;
     void *var_r1_5;
-    void *var_r2_3;
-    void *var_r2_4;
-    void *var_r3_4;
+    GenObj *var_r2_3;
+    GenObj *var_r2_4;
+    GenObj *var_r3_4;
     void *var_r4_2;
 
     var_r8 = 8;
@@ -158,7 +179,7 @@ loop_30:
         }
     }
     var_r1_4 = 0;
-    var_r0_5 = arg0 + 0x2C32;
+    var_r0_5 = (GenObj *)((u8 *)arg0 + 0x2C32);
     do {
         var_r0_5->unk0 = var_r1;
         var_r0_5->unk2 = var_r1;
@@ -166,11 +187,11 @@ loop_30:
         var_r1_4 += 1;
     } while (var_r1_4 <= 1);
     sp28 = func_08008910(arg0);
-    func_08008F0C(&spC, arg0 + 0x2BD0, 0x0600F800, 0x300);
+    func_08008F0C(&spC, (GenObj *)((u8 *)arg0 + 0x2BD0), 0x0600F800, 0x300);
     temp_r1_3 = sp28->unk4;
     if (temp_r1_3 != sp28->unkC) {
         if (temp_r1_3 != 0) {
-            temp_r1_3->unk0 = (s32) spC.unk0;
+            temp_r1_3->unk0 = (s32) spC;
             temp_r1_3->unk4 = (s32) spC.unk4;
             temp_r1_3->unk8 = (s32) spC.unk8;
             temp_r1_3->unkC = (s32) spC.unkC;
@@ -215,19 +236,19 @@ loop_49:
         }
         if (sp24 == 1) {
             if (var_r3_4 != 0) {
-                var_r3_4->unk0 = (s32) spC.unk0;
+                var_r3_4->unk0 = (s32) spC;
                 var_r3_4->unk4 = (s32) spC.unk4;
                 var_r3_4->unk8 = (s32) spC.unk8;
                 var_r3_4->unkC = (s32) spC.unkC;
             }
-            var_r4_2 = var_r3_4 + 0x10;
+            var_r4_2 = (GenObj *)((u8 *)var_r3_4 + 0x10);
         } else {
             var_ip = sp24;
             var_r2_4 = var_r3_4;
             if (sp24 != 0) {
                 do {
                     if (var_r2_4 != 0) {
-                        var_r2_4->unk0 = (s32) spC.unk0;
+                        var_r2_4->unk0 = (s32) spC;
                         var_r2_4->unk4 = (s32) spC.unk4;
                         var_r2_4->unk8 = (s32) spC.unk8;
                         var_r2_4->unkC = (s32) spC.unkC;

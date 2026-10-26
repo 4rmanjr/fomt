@@ -1,29 +1,40 @@
 void *GetMapData(s32);                              /* extern */
 s32 func_080AAE44(s32 *, void *);                     /* extern */
-extern ? gUnk_086DC54C;
-extern ? gUnk_086DC57C;
-extern ? gUnk_086DCC88;
-extern ? gUnk_086DD690;
-extern ? gUnk_086DD6B0;
-extern ? gUnk_086DD6E0;
-extern ? gUnk_086DDDEC;
-extern ? gUnk_086DE7F4;
-extern ? gUnk_086EACDC;
-extern ? gUnk_086EAD64;
-extern ? gUnk_086EAD84;
-extern ? gUnk_086EAD8C;
+extern s32 gUnk_086DC54C;
+extern s32 gUnk_086DC57C;
+extern s32 gUnk_086DCC88;
+extern s32 gUnk_086DD690;
+extern s32 gUnk_086DD6B0;
+extern s32 gUnk_086DD6E0;
+extern s32 gUnk_086DDDEC;
+extern s32 gUnk_086DE7F4;
+extern s32 gUnk_086EACDC;
+extern s32 gUnk_086EAD64;
+extern s32 gUnk_086EAD84;
+extern s32 gUnk_086EAD8C;
 
-void func_080AA9C8(void *arg0, void *arg1, ? arg3) {
-    s32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk8;
+    s32 unkA;
+    u8 _padE[6];
+    s32 unk14;
+    u8 _pad18[20];
+    s32 unk2C;
+} GenObj;
+void func_080AA9C8(GenObj *arg0, GenObj *arg1, ? arg3) {
+    GenObj *sp0;
     s32 sp4;
 s32 sp8;
     u32 spC;
     s32 sp10;
     s32 sp14;
     s8 *sp18;
-    ? *var_r0_3;
-    ? *var_r0_4;
-    ? *var_r8;
+    s32 *var_r0_3;
+    s32 *var_r0_4;
+    s32 *var_r8;
     s16 var_r0;
     s16 var_r1;
     s32 temp_r0;
@@ -78,7 +89,7 @@ s32 sp8;
     case 15:                                        /* switch 1 */
     case 16:                                        /* switch 1 */
     case 17:                                        /* switch 1 */
-        func_080AAE44(&sp4, arg0 + 0x9C);
+        func_080AAE44(&sp4, (GenObj *)((u8 *)arg0 + 0x9C));
         sp0 = sp4;
     default:                                        /* switch 1 */
 block_45:
@@ -91,10 +102,10 @@ block_45:
         if ((s32) var_r1 < 0) {
             var_r1 += 7;
         }
-        sp8.unk0 = (s16) (var_r0 >> 3);
+        sp8 = (s16) (var_r0 >> 3);
         sp8.unk2 = (s16) (var_r1 >> 3);
         if (var_r5 != 0) {
-            sp18 = arg0 + 0x29;
+            sp18 = (GenObj *)((u8 *)arg0 + 0x29);
             if (var_r8 != 0) {
                 var_r7 = 0;
                 if (spC > 0U) {
@@ -120,7 +131,7 @@ block_45:
             }
         } else {
             var_r5_3 = 0;
-            sp18 = arg0 + 0x29;
+            sp18 = (GenObj *)((u8 *)arg0 + 0x29);
             do {
                 var_r4_2 = 0;
 loop_59:

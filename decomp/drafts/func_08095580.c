@@ -7,11 +7,34 @@ void *func_08008910(void *);                        /* extern */
 s32 func_08008F0C(s32 *, void *, s32, s32);             /* extern */
 s32 func_0804E7A0(s32, void *, s32);                  /* extern */
 s32 func_0804E958(s32, void *, s32, s32);             /* extern */
-s32 func_0809A970(s32, ? *);                          /* extern */
+s32 func_0809A970(s32, s32 *);                          /* extern */
 void *func_080D3BC0(s32);                           /* extern */
 void *malloc(s32);                                  /* extern */
 
-void func_08095580(void *arg0) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk2;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    u8 _pad10[2];
+    s32 unk12;
+    s32 unk13;
+    u8 _pad17[117];
+    s32 unk8C;
+    u8 _pad90[724];
+    s32 unk364;
+    s32 unk365;
+    s32 unk366;
+    s32 unk367;
+    s32 unk368;
+    s32 unk369;
+    s32 unk36A;
+    s32 unk36B;
+    s32 unk36C;
+    s32 unk36D;
+} GenObj;
+void func_08095580(GenObj *arg0) {
     u8 *sp0;
     s32 sp4;
     s32 sp8;
@@ -45,21 +68,21 @@ s32 sp44;
     u8 *var_r2;
     u8 temp_r2_2;
     void *temp_r0_2;
-    void *temp_r1;
+    GenObj *temp_r1;
     void *temp_r2;
-    void *temp_r5;
+    GenObj *temp_r5;
     void *var_r0_4;
     void *var_r1_3;
-    void *var_r2_2;
-    void *var_r2_3;
-    void *var_r3;
+    GenObj *var_r2_2;
+    GenObj *var_r2_3;
+    GenObj *var_r3;
     void *var_r4;
 
-    spC.unk0 = 0U;
+    spC = 0U;
     spC.unk12 = (u16) (0xFFFFF000 & spC.unk12);
     spC.unk13 = (u8) (-0x11 & spC.unk13);
     sp60 = &sp0 + 0x40;
-    sp5C = &spC + 0x14;
+    sp5C = &(GenObj *)((u8 *)spC + 0x14);
     var_r1 = 7;
     var_r0 = &sp1C;
     do {
@@ -73,25 +96,25 @@ s32 sp44;
 loop_3:
     sp40 = 0x14;
     sp60->unk2 = 2;
-    func_0804E7A0(sp40, (var_r6 * 0x504) + arg0 + 0x374, 0);
+    func_0804E7A0(sp40, (var_r6 * 0x504) + (GenObj *)((u8 *)arg0 + 0x374), 0);
     sp64 = var_r6 + 1;
     if ((s32) (sp58 + var_r6) < (s32) arg0->unk368) {
         func_0809A970(arg0->unk8C + 0x2214, &spC);
-        if ((u32) spC.unk0 <= 0xABU) {
-            __4FoodUi(sp5C, spC.unk0 - 1);
+        if ((u32) spC <= 0xABU) {
+            __4FoodUi(sp5C, spC - 1);
             var_r0_2 = GetName__C4Food(sp5C);
         } else {
-            __7ArticleUi(&sp44, spC.unk0 - 0xAC);
+            __7ArticleUi(&sp44, spC - 0xAC);
             var_r0_2 = GetName__C7Article(&sp44);
         }
         var_r2 = var_r0_2;
         if (0x10 & spC.unk13) {
-            sp48.unk0 = 0x14;
+            sp48 = 0x14;
             sp48.unk2 = 2;
             sp0 = var_r2;
             sp4 = 0;
             sp8 = 1;
-            func_0804E958(sp48, (var_r6 * 0x504) + arg0 + 0x374, 0, 0);
+            func_0804E958(sp48, (var_r6 * 0x504) + (GenObj *)((u8 *)arg0 + 0x374), 0, 0);
             sp64 = var_r6 + 1;
         } else {
             var_r1_2 = 0;
@@ -104,17 +127,17 @@ loop_3:
                 } while (*var_r2 != 0);
             }
             (&sp24)[var_r1_2] = 0;
-            sp4C.unk0 = 0x14;
+            sp4C = 0x14;
             sp4C.unk2 = 2;
             sp0 = &sp24;
             sp4 = 0;
             sp8 = 1;
-            func_0804E958(sp4C, (var_r6 * 0x504) + arg0 + 0x374, 0);
+            func_0804E958(sp4C, (var_r6 * 0x504) + (GenObj *)((u8 *)arg0 + 0x374), 0);
         }
         arg0->unk365 = (u8) (arg0->unk365 + 1);
     }
     temp_r5 = func_08008910(arg0);
-    func_08008F0C(&sp20, (var_r6 * 0x504) + arg0 + 0x374, (var_r6 * 0x500) + 0x06002000, 0x500);
+    func_08008F0C(&sp20, (var_r6 * 0x504) + (GenObj *)((u8 *)arg0 + 0x374), (var_r6 * 0x500) + 0x06002000, 0x500);
     temp_r1 = temp_r5->unk4;
     if (temp_r1 != temp_r5->unkC) {
         if (temp_r1 != 0) {
@@ -167,7 +190,7 @@ loop_3:
                 var_r3->unk8 = (s32) sp5C->unk8;
                 var_r3->unkC = (s32) sp5C->unkC;
             }
-            var_r4 = var_r3 + 0x10;
+            var_r4 = (GenObj *)((u8 *)var_r3 + 0x10);
         } else {
             var_r3_2 = sp54;
             var_r2_3 = var_r3;

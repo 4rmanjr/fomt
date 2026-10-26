@@ -5,7 +5,11 @@ s32 GetUpgradeLevel__C9FarmHouse(s32);              /* extern */
 s32 func_0800E324(s32);                             /* extern */
 s32 func_0803A8A4(?, s32, s32, s32, s32);             /* extern */
 
-s32 func_08019FE8(void *arg0, ? arg1) {
+typedef struct GenObj {
+    u8 _pad0[4152];
+    s32 unk1038;
+} GenObj;
+s32 func_08019FE8(GenObj *arg0, ? arg1) {
     s32 temp_r5;
     s32 temp_r6;
     s32 temp_r8;

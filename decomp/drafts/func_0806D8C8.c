@@ -1,8 +1,12 @@
 s32 __builtin_new(s32);                             /* extern */
 s32 func_08069F14(s32, void ***, s32, s32);         /* extern */
-extern ? vtable_unk_080E7AB4;
+extern s32 vtable_unk_080E7AB4;
 
-void *func_0806D8C8(void *arg0, void ***arg1, s32 arg2, s32 arg3) {
+typedef struct GenObj {
+    void *unk0;
+    s32 unk4;
+} GenObj;
+void *func_0806D8C8(GenObj *arg0, void ***arg1, s32 arg2, s32 arg3) {
     void **sp0;
     void **temp_r1;
     void **temp_r4;

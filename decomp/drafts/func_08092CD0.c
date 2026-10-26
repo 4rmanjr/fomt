@@ -3,12 +3,21 @@ s32 TryWrap__12RucksackItem();                        /* extern */
 s32 func_0800F528(s32);                               /* extern */
 s32 func_0809ACC0(s32, s32);                          /* extern */
 s32 func_080A0A54(s32, s32);                          /* extern */
-s32 func_080CC728(s32, s32, ? *, s32, s32);           /* extern */
-s32 func_080CCE58(s32, ? *, s32, s32);                /* extern */
+s32 func_080CC728(s32, s32, s32 *, s32, s32);           /* extern */
+s32 func_080CCE58(s32, s32 *, s32, s32);                /* extern */
 s32 func_080CE184(void *, s32, s32);                /* extern */
-extern ? gUnk_086678A0;
+extern s32 gUnk_086678A0;
 
-void func_08092CD0(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    u8 _padC[112];
+    s32 unk7C;
+    u8 _pad80[128];
+    s32 unk100;
+    s32 unk104;
+} GenObj;
+void func_08092CD0(GenObj *arg0, s32 arg1) {
     s32 temp_r4;
     s32 temp_r4_2;
 

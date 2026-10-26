@@ -1,6 +1,19 @@
 u32 func_0804E4AC(s32, s32, s32, s32, s32);         /* extern */
 
-s32 func_0804EFAC(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    u8 _pad6[2];
+    s32 unk8;
+    s32 unkC;
+    u8 _pad10[4];
+    s32 unk14;
+    s32 unk16;
+    s32 unk18;
+    s32 unk1A;
+    s32 unk1B;
+} GenObj;
+s32 func_0804EFAC(GenObj *arg0, s32 arg1) {
     s32 sp4;
     s32 temp_r1;
     s32 var_r0;
@@ -19,7 +32,7 @@ s32 func_0804EFAC(void *arg0, s32 arg1) {
     temp_r7 = ((var_r0 * 4) + arg0)->unk8 + ((temp_r0 >> 2) * 0x10);
     temp_r2 = temp_r0 & 3;
     if (temp_r2 <= 3U) {
-        sp4.unk0 = 4;
+        sp4 = 4;
         sp4.unk2 = 2;
         temp_r0_2 = func_0804E4AC(sp4, temp_r7->unk0 + 4, (temp_r2 & 3) * 8, 0, arg1);
         if ((u32) (temp_r0_2 - 1) <= 1U) {

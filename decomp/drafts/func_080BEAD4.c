@@ -13,28 +13,50 @@ s32 func_08050D34(s32);                             /* extern */
 u32 func_08050D3C(s32, s32, s32, s16 *);            /* extern */
 s32 func_08050D5C(s32);                               /* extern */
 s32 func_08050D74(s32);                               /* extern */
-s32 func_08050D8C(s32, ? *);                          /* extern */
+s32 func_08050D8C(s32, s32 *);                          /* extern */
 s32 func_08050DD8(s32);                               /* extern */
 s32 func_08050DE4(s32);                               /* extern */
 s32 func_08050DF0(s32);                             /* extern */
-s32 func_08050E30(s32, ? *, ? *, ? *);                /* extern */
+s32 func_08050E30(s32, s32 *, s32 *, s32 *);                /* extern */
 s32 func_08050E50(s32, u16);                          /* extern */
 s32 func_080BDF40(void *);                            /* extern */
 u16 func_080C0B58(void *);                          /* extern */
-extern ? gUnk_08107DD8;
-extern ? gUnk_08107DF4;
-extern ? gUnk_08107DF8;
-extern ? gUnk_08107DFC;
-extern ? gUnk_08107E24;
-extern ? gUnk_08107E58;
-extern ? gUnk_08107EC8;
-extern ? gUnk_08107F18;
-extern ? gUnk_08107F2C;
-extern ? gUnk_08107F3C;
-extern ? gUnk_08107F4C;
+extern s32 gUnk_08107DD8;
+extern s32 gUnk_08107DF4;
+extern s32 gUnk_08107DF8;
+extern s32 gUnk_08107DFC;
+extern s32 gUnk_08107E24;
+extern s32 gUnk_08107E58;
+extern s32 gUnk_08107EC8;
+extern s32 gUnk_08107F18;
+extern s32 gUnk_08107F2C;
+extern s32 gUnk_08107F3C;
+extern s32 gUnk_08107F4C;
 
-void func_080BEAD4(void *arg0) {
-    void *sp0;
+typedef struct GenObj {
+    u8 _pad0[8];
+    struct GenObj *unk8;
+    u8 _padC[4];
+    s32 unk10;
+    s32 unk14;
+    u8 _pad18[1024];
+    s32 unk418;
+    u8 _pad41C[32];
+    s32 unk43C;
+    u8 _pad440[352];
+    s32 unk5A0;
+    u8 _pad5A4[8];
+    s32 unk5AC;
+    u8 _pad5B0[88];
+    s32 unk608;
+    s32 unk609;
+    u8 _pad60D[1];
+    s32 unk60E;
+    s32 unk611;
+    s32 unk612;
+} GenObj;
+void func_080BEAD4(GenObj *arg0) {
+    GenObj *sp0;
     s32 sp4;
     void *sp8;
     s16 spC;
@@ -65,8 +87,8 @@ void func_080BEAD4(void *arg0) {
     s8 *var_r1;
     u16 temp_r0_9;
     u32 temp_r0_4;
-    void *temp_r0_5;
-    void *temp_r0_7;
+    GenObj *temp_r0_5;
+    GenObj *temp_r0_7;
     void *temp_r4;
     void *temp_r4_3;
 
@@ -87,7 +109,7 @@ void func_080BEAD4(void *arg0) {
     temp_r0_2 = func_0800894C(arg0);
     sp0 = temp_r4;
     sp4 = temp_r0_2;
-    sp8 = arg0 + 0x57C;
+    sp8 = (GenObj *)((u8 *)arg0 + 0x57C);
     func_08050D3C(temp_sl, temp_sb, sp20, temp_r5);
     temp_r4_2 = arg0->unk418;
     func_08050E50(temp_r4_2, func_080C0B58(arg0));
@@ -104,7 +126,7 @@ loop_93:
         temp_r0_3 = func_0800894C(arg0);
         sp0 = temp_r4_3;
         sp4 = temp_r0_3;
-        sp8 = arg0 + 0x57C;
+        sp8 = (GenObj *)((u8 *)arg0 + 0x57C);
         temp_r0_4 = func_08050D3C(temp_sb_2, temp_r8, temp_sl_2, temp_r5_2);
         switch (temp_r0_4) {                        /* switch 1; irregular */
         case 1:                                     /* switch 1 */
@@ -125,7 +147,7 @@ loop_93:
                     if ((s32) ((0 - temp_r1) | temp_r1) >= 0) {
                         func_08009378(temp_r2 + 0xC, 0x889, 1, 1);
                         temp_r0_5 = func_08008940(arg0);
-                        temp_r0_5->unk8->unk10(temp_r0_5, arg0->unk43C);
+                        ((void (*)(void *,...))(temp_r0_5->unk8->unk10))(temp_r0_5, arg0->unk43C);
                     }
 loop_12:
                     temp_r0_6 = *arg0->unk43C;
@@ -136,7 +158,7 @@ loop_12:
                     }
                     func_0800934C(arg0->unk43C + 0xC, 0x889, 1, 1);
                     temp_r0_7 = func_08008940(arg0);
-                    temp_r0_7->unk8->unk10(temp_r0_7, arg0->unk43C);
+                    ((void (*)(void *,...))(temp_r0_7->unk8->unk10))(temp_r0_7, arg0->unk43C);
                 }
             }
             break;
@@ -224,26 +246,26 @@ loop_12:
         switch (temp_r4_4) {                        /* switch 5; irregular */
         case 4:                                     /* switch 5 */
             if (arg0->unk612 == 0) {
-                func_08008B88(arg0 + 0x580, 0xBD);
+                func_08008B88((GenObj *)((u8 *)arg0 + 0x580), 0xBD);
             }
             switch (sp14) {                         /* switch 7; irregular */
             case 0x0:                               /* switch 7 */
                 arg0->unk612 = (u8) sp14;
                 arg0->unk5AC = sp14;
-                var_r1 = arg0 + 0x60E;
+                var_r1 = (GenObj *)((u8 *)arg0 + 0x60E);
 block_84:
                 *var_r1 = 1;
                 break;
             case 0x5A:                              /* switch 7 */
-                var_r1_2 = arg0 + 0x5AC;
+                var_r1_2 = (GenObj *)((u8 *)arg0 + 0x5AC);
                 var_r0 = 3;
 block_83:
                 *var_r1_2 = var_r0;
-                var_r1 = arg0 + 0x60E;
+                var_r1 = (GenObj *)((u8 *)arg0 + 0x60E);
                 goto block_84;
             case 0x3C:                              /* switch 7 */
             case 0x78:                              /* switch 7 */
-                var_r1_2 = arg0 + 0x5AC;
+                var_r1_2 = (GenObj *)((u8 *)arg0 + 0x5AC);
                 var_r0 = 2;
                 goto block_83;
             case 0x1E:                              /* switch 7 */
@@ -254,7 +276,7 @@ block_83:
             case 0xB4:                              /* switch 7 */
                 arg0->unk612 = 1U;
                 arg0->unk60E = 1;
-                func_08008B6C(arg0 + 0x580, 0xBC);
+                func_08008B6C((GenObj *)((u8 *)arg0 + 0x580), 0xBC);
                 break;
             case 0xD2:                              /* switch 7 */
                 func_08050DE4(arg0->unk418);
@@ -269,11 +291,11 @@ block_83:
                 arg0->unk60E = 1;
                 sp14 = 1;
             }
-            func_08008B88(arg0 + 0x580, 0xBD);
+            func_08008B88((GenObj *)((u8 *)arg0 + 0x580), 0xBD);
             break;
         case 3:                                     /* switch 5 */
             if (arg0->unk611 == 0) {
-                func_08008B88(arg0 + 0x580, 0xBD);
+                func_08008B88((GenObj *)((u8 *)arg0 + 0x580), 0xBD);
             }
             switch (sp14) {                         /* switch 6; irregular */
             case 0x1E:                              /* switch 6 */
@@ -291,7 +313,7 @@ block_65:
             case 0x78:                              /* switch 6 */
                 arg0->unk611 = 1U;
                 arg0->unk60E = 1;
-                func_08008B6C(arg0 + 0x580, 0xC7);
+                func_08008B6C((GenObj *)((u8 *)arg0 + 0x580), 0xC7);
                 break;
             default:                                /* switch 6 */
                 if ((u32) (sp14 - 0x79) <= 0x1CU) {

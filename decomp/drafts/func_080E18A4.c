@@ -4,35 +4,47 @@ s32 func_080079E8(void *, s32);                       /* extern */
 s32 func_08007C28(void *, s32);                       /* extern */
 s32 func_080086BC(void *, s32);                       /* extern */
 s32 func_08050D0C(s32, s32);                          /* extern */
-extern ? vtable_unk_080E5A28;
-extern ? vtable_unk_080E76F8;
+extern s32 vtable_unk_080E5A28;
+extern s32 vtable_unk_080E76F8;
 
-void func_080E18A4(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+    u8 _pad8[8];
+    s32 unk10;
+    u8 _pad14[12];
+    void *unk20;
+    u8 _pad24[44];
+    void *unk50;
+    u8 _pad54[2712];
+    void *unkAEC;
+} GenObj;
+void func_080E18A4(GenObj *arg0, s32 arg1) {
     s32 temp_r0;
-    void *temp_r4;
-    void *temp_r4_2;
-    void *temp_r4_3;
-    void *temp_r4_4;
-    void *temp_r4_5;
-    void *temp_r4_6;
+    GenObj *temp_r4;
+    GenObj *temp_r4_2;
+    GenObj *temp_r4_3;
+    GenObj *temp_r4_4;
+    GenObj *temp_r4_5;
+    GenObj *temp_r4_6;
 
     arg0->unkAEC = &vtable_unk_080E76F8;
-    temp_r4 = arg0 + 0x144;
+    temp_r4 = (GenObj *)((u8 *)arg0 + 0x144);
     func_080073E0(temp_r4, temp_r4->unk4);
     func_08007184(temp_r4, 2);
-    temp_r4_2 = arg0 + 0x13C;
+    temp_r4_2 = (GenObj *)((u8 *)arg0 + 0x13C);
     func_08007C28(temp_r4_2, temp_r4_2->unk4);
     func_080079E8(temp_r4_2, 2);
-    temp_r4_3 = arg0 + 0x134;
+    temp_r4_3 = (GenObj *)((u8 *)arg0 + 0x134);
     func_080073E0(temp_r4_3, temp_r4_3->unk4);
     func_08007184(temp_r4_3, 2);
-    temp_r4_4 = arg0 + 0x12C;
+    temp_r4_4 = (GenObj *)((u8 *)arg0 + 0x12C);
     func_08007C28(temp_r4_4, temp_r4_4->unk4);
     func_080079E8(temp_r4_4, 2);
-    temp_r4_5 = arg0 + 0x124;
+    temp_r4_5 = (GenObj *)((u8 *)arg0 + 0x124);
     func_080073E0(temp_r4_5, temp_r4_5->unk4);
     func_08007184(temp_r4_5, 2);
-    temp_r4_6 = arg0 + 0x11C;
+    temp_r4_6 = (GenObj *)((u8 *)arg0 + 0x11C);
     func_08007C28(temp_r4_6, temp_r4_6->unk4);
     func_080079E8(temp_r4_6, 2);
     arg0->unk50 = &vtable_unk_080E5A28;

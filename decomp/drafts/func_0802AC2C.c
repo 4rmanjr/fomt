@@ -1,10 +1,25 @@
 s32 func_0802AB98(s32 *, void *, u8);                 /* extern */
 
-void func_0802AC2C(void *arg0, s16 arg1, s16 arg2) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+    s32 unkA;
+    s32 unkC;
+    s32 unkE;
+    u8 _pad12[2];
+    struct GenObj *unk14;
+    u8 _pad18[8];
+    s32 unk20;
+    u8 _pad24[142];
+    s32 unkB2;
+} GenObj;
+void func_0802AC2C(GenObj *arg0, s16 arg1, s16 arg2) {
     s32 sp0;
-    s32 sp8;
+    GenObj *sp8;
     s32 spC;
-s32 sp10;
+GenObj sp10;
     void **sp18;
     s32 sp1C;
     s32 sp20;
@@ -36,12 +51,12 @@ s32 sp10;
         temp_r4 = (*sp18)->unk40(sp18, var_sl);
         sp34 = 0;
         if ((temp_r4 != 0) && (temp_r4->unk4 == sp1C)) {
-            temp_r4->unk14->unkC(&sp10, temp_r4);
-            if ((s32) ((sp8.unk0 - sp10.unk4) & (sp10.unk0 - sp8.unk4) & (sp8.unk2 - sp10.unk6) & (sp10.unk2 - sp8.unk6)) < 0) {
+            ((void (*)(void *,...))(temp_r4->unk14->unkC))(&sp10, temp_r4);
+            if ((s32) ((sp8.unk0 - sp10.unk4) & (sp10 - sp8.unk4) & (sp8.unk2 - sp10.unk6) & (sp10.unk2 - sp8.unk6)) < 0) {
                 temp_r2 = arg1 >> 0x10;
                 if (temp_r2 != 0) {
                     if (temp_r2 > 0) {
-                        var_r1 = *(((temp_r2 * 4) + *(temp_r4 + arg2)) - 4);
+                        var_r1 = *(((temp_r2 * 4) + *((u8 *)temp_r4 + arg2)) - 4);
                     } else {
                         var_r1 = (s32 (*)(void *)) arg2;
                     }

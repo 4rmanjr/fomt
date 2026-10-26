@@ -1,5 +1,5 @@
 s32 GetArticle__C12RucksackItem(s32 *);               /* extern */
-s32 GetFood__C12RucksackItem(s32 *, ? *);               /* extern */
+s32 GetFood__C12RucksackItem(s32 *, s32 *);               /* extern */
 s32 GetKind__C12RucksackItem(s32 *);                  /* extern */
 s32 GetPrice__C7Product(s32 *);                       /* extern */
 s32 GetStoredBushelCount__C4Barn(s32);              /* extern */
@@ -12,12 +12,24 @@ s32 __7ProductG4Food(s32 *, s32);                       /* extern */
 s32 __7ProductG7Article(s32 *, s32);                    /* extern */
 s32 method_0800A4A4__9FieldPlot(s32 *, s32 *);          /* extern */
 
-u32 func_08033584(void *arg0, s32 arg1, void **arg2) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk6;
+    u8 _padA[10];
+    struct GenObj *unk14;
+    u8 _pad18[56];
+    s32 unk50;
+    s32 unk54;
+    s32 unk58;
+} GenObj;
+u32 func_08033584(GenObj *arg0, s32 arg1, void **arg2) {
 s32 sp0;
 s32 sp4;
     s32 sp8;
 s32 spC;
-    ? *temp_r4;
+    s32 *temp_r4;
     s32 temp_r0;
     s32 temp_r0_2;
     s32 temp_r0_3;
@@ -60,7 +72,7 @@ s32 spC;
                     return (u32) ((0 - temp_r0_2) | temp_r0_2) >> 0x1F;
                 }
                 GetFood__C12RucksackItem(&sp4, &sp0);
-                __7ProductG4Food(&spC, (sp0.unk6 << 0x10) | ((sp4.unk1 << 8) | sp4.unk0));
+                __7ProductG4Food(&spC, (sp0.unk6 << 0x10) | ((sp4.unk1 << 8) | sp4));
                 temp_r0 = GetPrice__C7Product(&spC);
                 return (u32) ((0 - temp_r0) | temp_r0) >> 0x1F;
             }
@@ -99,7 +111,7 @@ block_21:
     case 6:
         temp_r0_6 = (*arg2)->unk44(arg2, arg0->unk1 + 0x36);
         var_r5 = 0;
-        if ((temp_r0_6 != 0) && (((temp_r0_6->unk14->unk50(temp_r0_6) << 0x18) != 0) || ((temp_r0_6->unk14->unk54(temp_r0_6) << 0x18) != 0) || ((temp_r0_6->unk14->unk58(temp_r0_6) << 0x18) != 0))) {
+        if ((temp_r0_6 != 0) && (((((void (*)(void *,...))(temp_r0_6->unk14->unk50))(temp_r0_6) << 0x18) != 0) || ((((void (*)(void *,...))(temp_r0_6->unk14->unk54))(temp_r0_6) << 0x18) != 0) || ((((void (*)(void *,...))(temp_r0_6->unk14->unk58))(temp_r0_6) << 0x18) != 0))) {
             var_r5 = 1;
         }
         return var_r5;

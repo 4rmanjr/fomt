@@ -1,11 +1,33 @@
 s32 GetLocation__C7AEntity(s32 *, void *);            /* extern */
 s32 SetAnimFacing__12AActorEntityUi(void *, s32);     /* extern */
 
-void func_0802D59C(void *arg0, void *arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    s32 unk4;
+    s32 unk8;
+    s32 unkA;
+    u8 _padE[10];
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    u8 _pad24[16];
+    void *unk34;
+    u8 _pad38[4];
+    s32 unk3C;
+    s32 unk3E;
+    u8 _pad42[129];
+    s32 unkC3;
+    u8 _padC7[8521];
+    s32 unk2210;
+} GenObj;
+void func_0802D59C(GenObj *arg0, GenObj *arg1) {
     s32 sp0;
-    s32 sp8;
+    GenObj sp8;
     u32 sp14;
-    s32 sp1C;
+    GenObj *sp1C;
     s32 temp_r1_2;
     s32 temp_r3;
     s32 temp_r5;
@@ -24,7 +46,7 @@ void func_0802D59C(void *arg0, void *arg1) {
     void **temp_r0_4;
     void **temp_r1;
     void *temp_r0_5;
-    void *var_r2;
+    GenObj *var_r2;
 
     sp1C = 0;
     var_r8 = 0;
@@ -71,7 +93,7 @@ block_18:
         temp_r1_2 = sp8.unk4;
         var_r0 = (temp_r3 * temp_r0_2) + temp_r5;
         if (temp_r1_2 != 0) {
-            var_r0 = *(temp_r1_2 + var_r0);
+            var_r0 = *((u8 *)temp_r1_2 + var_r0);
         }
         var_r2 = sp8 + (var_r0 * 4);
     } else {

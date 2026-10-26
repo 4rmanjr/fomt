@@ -1,4 +1,13 @@
-void func_0805E860(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unkE;
+    s32 unk12;
+} GenObj;
+void func_0805E860(GenObj *arg0, s32 arg1) {
     void *sp0;
     void **temp_r1;
 

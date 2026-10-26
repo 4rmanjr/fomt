@@ -3,14 +3,21 @@ s32 func_08007D4C(void *, s32);                     /* extern */
 s16 *func_08008918(void *);                         /* extern */
 s32 func_08008E64(s32 *, s32, s32);                     /* extern */
 s32 func_08008EB8(s32, s32, s32);                     /* extern */
-s32 func_0804E5AC(s32, ? *, s32, s32, s32, s32, s32); /* extern */
+s32 func_0804E5AC(s32, s32 *, s32, s32, s32, s32, s32); /* extern */
 s32 func_08051320(s32, s32, s32, s32, s32, s32, s32); /* extern */
-extern ? *gUnk_080F9F70;
+extern s32 *gUnk_080F9F70;
 extern s32 gUnk_080F9F74;
-extern ? *gUnk_080F9F78;
-extern ? gUnk_080FB1A6;
+extern s32 *gUnk_080F9F78;
+extern s32 gUnk_080FB1A6;
 
-void func_0805D9C0(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    struct GenObj *unk4;
+    u8 _pad8[324];
+    s32 unk14C;
+} GenObj;
+void func_0805D9C0(GenObj *arg0) {
     u16 spC;
 s32 sp14;
     s32 sp54;
@@ -33,8 +40,8 @@ s32 sp14;
     s32 temp_r4_2;
     s32 var_r5;
     u16 temp_r1;
-    void *temp_r4;
-    void *temp_r6;
+    GenObj *temp_r4;
+    GenObj *temp_r6;
 
     temp_r0 = func_08008918();
     spC = 0;
@@ -97,16 +104,16 @@ s32 sp14;
     (void *)0x05000040->unk0 = 0x3E0;
     (void *)0x05000040->unk2 = 0;
     ((void *)0x05000040 + 2)->unk2 = 0x4218;
-    temp_r4 = arg0 + 0x124;
+    temp_r4 = (GenObj *)((u8 *)arg0 + 0x124);
     *(0x05000200 + (func_080074C0(temp_r4, temp_r4->unk4) << 5)) = 0x3E0;
     *(0x05000202 + (func_080074C0(temp_r4, temp_r4->unk4) << 5)) = 0;
     *(0x05000204 + (func_080074C0(temp_r4, temp_r4->unk4) << 5)) = 0x4218;
-    temp_r6 = arg0 + 0x11C;
+    temp_r6 = (GenObj *)((u8 *)arg0 + 0x11C);
     do {
         temp_r4_2 = var_r5 * 2;
-        sp54.unk0 = 1;
+        sp54 = 1;
         sp54.unk2 = 2;
-        func_0804E5AC(sp54, &sp14, 0, 0, (s32) *(temp_r4_2 + &gUnk_080FB1A6), 0, 1);
+        func_0804E5AC(sp54, &sp14, 0, 0, (s32) *((u8 *)temp_r4_2 + &gUnk_080FB1A6), 0, 1);
         func_08008E64(&sp14, ((func_08007D4C(temp_r6, temp_r6->unk4) + temp_r4_2) << 5) + 0x06010000, 0x40);
         var_r5 += 1;
     } while (var_r5 <= 0x17);

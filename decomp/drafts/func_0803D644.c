@@ -1,5 +1,5 @@
 u8 *func_080E0E80(s32 *, void *, u32 *, s32, s32);    /* extern */
-extern ? gUnk_080F1A66;
+extern s32 gUnk_080F1A66;
 
 s32 func_0803D644(s32 arg0, s32 arg1) {
     u32 sp4;

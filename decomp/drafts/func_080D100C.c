@@ -1,4 +1,4 @@
-extern ? gUnk_03000450;
+extern s32 gUnk_03000450;
 
 s32 func_080D100C(s32 arg0, s32 arg1) {
     s32 *temp_r2;

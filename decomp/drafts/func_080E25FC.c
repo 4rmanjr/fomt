@@ -1,7 +1,13 @@
 s32 func_080E2170(u8 *, u8 **);                       /* extern */
 s32 func_080E21A8(u8 *, u8 **);                       /* extern */
 
-u8 *func_080E25FC(u8 *arg0, u8 **arg1, u8 **arg2, u8 **arg3) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+} GenObj;
+u8 *func_080E25FC(GenObj *arg0, u8 **arg1, u8 **arg2, u8 **arg3) {
     s8 *temp_r0_3;
     s8 *temp_r0_4;
     u8 *temp_r0;

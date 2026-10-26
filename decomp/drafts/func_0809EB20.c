@@ -11,5 +11,5 @@ void func_0809EB20(s32 arg0, s32 arg1) {
         var_r4 = 0xC;
     }
     memcpy(temp_r6, arg1, var_r4);
-    *(temp_r6 + var_r4) = 0;
+    *((u8 *)temp_r6 + var_r4) = 0;
 }

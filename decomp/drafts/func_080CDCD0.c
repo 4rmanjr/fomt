@@ -1,11 +1,21 @@
-extern ? gUnk_0811788C;
+extern s32 gUnk_0811788C;
 
-s32 func_080CDCD0(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    u8 _pad14[100];
+    struct GenObj *unk78;
+    struct GenObj *unk7C;
+} GenObj;
+s32 func_080CDCD0(GenObj *arg0) {
     s32 temp_r3;
     s32 temp_r4;
     s32 temp_r6;
     s32 var_r2;
-    void *temp_r1;
+    GenObj *temp_r1;
     void *temp_r1_2;
     void *temp_r1_3;
     void *temp_r7;

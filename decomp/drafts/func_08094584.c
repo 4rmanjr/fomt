@@ -1,7 +1,14 @@
-void func_08094584(void *arg0) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[8];
+    s32 unkC;
+    u8 _pad10[40];
+    s32 unk38;
+} GenObj;
+void func_08094584(GenObj *arg0) {
     if (arg0->unkC != 0) {
-        arg0->unk0->unk38(arg0, 0, 1);
+        ((void (*)(void *,...))(arg0->unk0->unk38))(arg0, 0, 1);
         return;
     }
-    arg0->unk0->unk38(arg0, 1, 1);
+    ((void (*)(void *,...))(arg0->unk0->unk38))(arg0, 1, 1);
 }

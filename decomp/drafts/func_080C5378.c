@@ -6,9 +6,37 @@ s32 func_08009378(void *, s32, s32, s32);             /* extern */
 s32 func_080C2D54(void *);                            /* extern */
 s32 func_080C7B7C(u32 *, void *, u8);                 /* extern */
 u16 rand();                                         /* extern */
-extern ? gUnk_08107FE0;
+extern s32 gUnk_08107FE0;
 
-void func_080C5378(void *arg0) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk1;
+    struct GenObj *unk2;
+    u8 _pad6[2];
+    struct GenObj *unk8;
+    u8 _padC[4];
+    s32 unk10;
+    u8 _pad14[1328];
+    s32 unk544;
+    u8 _pad548[852];
+    s32 unk89C;
+    s32 unk8A0;
+    u8 _pad8A4[12];
+    s32 unk8B0;
+    s32 unk8B4;
+    s32 unk8B5;
+    u8 _pad8B9[3];
+    s32 unk8BC;
+    u8 _pad8C0[4];
+    s32 unk8C4;
+    s32 unk8C5;
+    u8 _pad8C9[1];
+    s32 unk8CA;
+    u8 _pad8CE[175];
+    s32 unk97D;
+    s32 unk97E;
+} GenObj;
+void func_080C5378(GenObj *arg0) {
 s32 sp0;
     s8 sp18;
     u32 sp20;
@@ -35,12 +63,12 @@ s32 sp0;
     u8 temp_r2;
     u8 var_r3;
     void *temp_r0;
-    void *temp_r0_4;
+    GenObj *temp_r0_4;
     void *temp_r4;
-    void *var_r0;
-    void *var_r0_2;
-    void *var_r5_5;
-    void *var_r8;
+    GenObj *var_r0;
+    GenObj *var_r0_2;
+    GenObj *var_r5_5;
+    GenObj *var_r8;
 
     arg0->unk8B4 = 0x78;
     arg0->unk8B5 = 0x98;
@@ -53,7 +81,7 @@ s32 sp0;
     temp_r2 = temp_r0->unk1;
     sp30 = (s32) temp_r0->unk2;
     sp34 = &sp0 + 0x1C;
-    var_r0 = arg0 + 0x904;
+    var_r0 = (GenObj *)((u8 *)arg0 + 0x904);
     var_r5 = 0x18;
     do {
         var_r0->unk0 = 0;
@@ -62,7 +90,7 @@ s32 sp0;
         var_r5 -= 1;
     } while (var_r5 >= 0);
     temp_r3 = temp_r2 - 1;
-    var_r0_2 = arg0 + 0x8C8;
+    var_r0_2 = (GenObj *)((u8 *)arg0 + 0x8C8);
     var_r5_2 = 0xE;
     do {
         var_r0_2->unk0 = 0;
@@ -77,7 +105,7 @@ s32 sp0;
     } while ((s32) var_r0_3 >= (s32) sp);
     var_r5_3 = 0;
     if ((s32) temp_r2 > 0) {
-        var_r7 = arg0 + 0x8CA;
+        var_r7 = (GenObj *)((u8 *)arg0 + 0x8CA);
         do {
             *var_r7 = (s8) ((u32) ((u16) (0x19 - var_r5_3) * rand()) >> 0x10);
             var_r7 += 4;
@@ -115,7 +143,7 @@ s32 sp0;
         return;
     }
     var_r8 = arg0;
-    var_r5_5 = arg0 + 0x8C8;
+    var_r5_5 = (GenObj *)((u8 *)arg0 + 0x8C8);
 loop_22:
     func_080087C8(arg0);
     temp_r1 = arg0->unk8A0;
@@ -134,7 +162,7 @@ loop_22:
                 arg0->unk8A0 = 1;
             } else {
                 arg0->unk8C5 = 1;
-                func_08008B6C(arg0 + 0x818, 0xBE);
+                func_08008B6C((GenObj *)((u8 *)arg0 + 0x818), 0xBE);
                 func_080C7B7C(&sp20, arg0, var_r8->unk8CA);
                 arg0->unk97D = (s8) (sp20 + 8);
                 func_080C7B7C(&sp24, arg0, var_r8->unk8CA);
@@ -162,7 +190,7 @@ block_37:
             if ((s32) ((0 - temp_r1_3) | temp_r1_3) >= 0) {
                 func_08009378(temp_r2_3 + 0xC, 0x889, 1, 1);
                 temp_r0_4 = func_08008940(arg0);
-                temp_r0_4->unk8->unk10(temp_r0_4, arg0->unk544);
+                ((void (*)(void *,...))(temp_r0_4->unk8->unk10))(temp_r0_4, arg0->unk544);
             }
         }
         sp28 += 1;

@@ -10,8 +10,19 @@ s32 func_080E2444(void **, void *, void **, u32 *);   /* extern */
 s32 func_080E25FC(void *, void *, void *, void *);  /* extern */
 s32 func_080E2970(void **, void *, void **, u32 *);   /* extern */
 
-void func_080757E8(s32 *arg0, void *arg1, ? arg3) {
-    void *sp0;
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk1;
+    struct GenObj *unk3;
+    struct GenObj *unk4;
+    struct GenObj *unk5;
+    struct GenObj *unk8;
+    u8 _padC[4];
+    s32 unk10;
+    s32 unk14;
+} GenObj;
+void func_080757E8(s32 *arg0, GenObj *arg1, ? arg3) {
+    GenObj *sp0;
     void *sp4;
     void *sp8;
     void *spC;
@@ -48,9 +59,9 @@ void func_080757E8(s32 *arg0, void *arg1, ? arg3) {
     void *temp_r3;
     void *var_r1_4;
     void *var_r2;
-    void *var_r3;
-    void *var_r3_3;
-    void *var_r7;
+    GenObj *var_r3;
+    GenObj *var_r3_3;
+    GenObj *var_r7;
 
     temp_sb = *arg0;
     sp24 = arg1->unk8;
@@ -77,8 +88,8 @@ loop_4:
     var_r3 = temp_r0_2->unk4;
     var_r2 = var_r3->unk4;
     temp_r0_3 = temp_sb + 0x18;
-    sp30 = (u32 *) (&sp0 + 0x20);
-    sp34 = var_r7 + 8;
+    sp30 = (u32 *) (&(GenObj *)((u8 *)sp0 + 0x20));
+    sp34 = (GenObj *)((u8 *)var_r7 + 8);
     if (var_r2 != 0) {
         do {
             var_r1_2 = 0;

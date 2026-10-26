@@ -1,7 +1,11 @@
 u32 GetMinigameExp__C13HarvestSpriteQ213HarvestSprite4Task(s32, s32); /* extern */
 s32 func_080A031C(s32, s32);                        /* extern */
 
-s32 func_08075450(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[1420];
+    s32 unk58C;
+} GenObj;
+s32 func_08075450(GenObj *arg0, s32 arg1) {
     s32 temp_r0;
     s32 var_r4;
     s32 var_r6;

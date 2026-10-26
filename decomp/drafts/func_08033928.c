@@ -1,17 +1,32 @@
 s32 GetCurrentTask__C13HarvestSprite(void *);       /* extern */
 s32 GetTaskExp__C13HarvestSpriteQ213HarvestSprite4Task(void *, s32); /* extern */
-s32 SetLocation__12AActorEntityRC13ActorLocation(void *, ? *); /* extern */
-s32 __12AActorEntityP10GameObjectRC13ActorLocationUiUi(void *, s32, ? *, s32, s32); /* extern */
+s32 SetLocation__12AActorEntityRC13ActorLocation(void *, s32 *); /* extern */
+s32 __12AActorEntityP10GameObjectRC13ActorLocationUiUi(void *, s32, s32 *, s32, s32); /* extern */
 s32 func_08033914();                                /* extern */
 s32 func_08034180(void *, u8, u8, s32);               /* extern */
 s32 func_0809E804(s32 *, s8);                           /* extern */
 s32 func_080A03B8(s32 *, s32, s32);                     /* extern */
 void *func_080A099C(s32, s8);                       /* extern */
-extern ? gUnk_080F149C;
-extern ? gUnk_080F14E2;
-extern ? vtable_unk_080E68C8;
+extern s32 gUnk_080F149C;
+extern s32 gUnk_080F14E2;
+extern s32 vtable_unk_080E68C8;
 
-void *func_08033928(void *arg0, s32 arg1, s8 arg2, s32 arg3, s32 arg4) {
+typedef struct GenObj {
+    u8 _pad0[20];
+    void *unk14;
+    u8 _pad18[4];
+    s32 unk1C;
+    u8 _pad20[2];
+    s32 unk22;
+    u8 _pad26[10];
+    s32 unk30;
+    void *unk34;
+    s32 unk38;
+    s32 unk3C;
+    s32 unk40;
+    s32 unk41;
+} GenObj;
+void *func_08033928(GenObj *arg0, s32 arg1, s8 arg2, s32 arg3, s32 arg4) {
 s32 sp4;
 s32 spC;
     s32 var_r8;

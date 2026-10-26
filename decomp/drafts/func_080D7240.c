@@ -1,7 +1,13 @@
 s32 func_080D6F1C(void *);                            /* extern */
 s32 func_080D71AC(void *, u32, u32);                  /* extern */
 
-void func_080D7240(void *arg0, u32 arg1, u32 arg2) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk1;
+    u8 _pad5[12];
+    s32 unk11;
+} GenObj;
+void func_080D7240(GenObj *arg0, u32 arg1, u32 arg2) {
     u32 sp0;
     u32 sp4;
     u32 *var_r2;
@@ -9,7 +15,7 @@ void func_080D7240(void *arg0, u32 arg1, u32 arg2) {
     u32 temp_r0_2;
     u32 var_r1;
     u32 var_r1_2;
-    void *temp_r6;
+    GenObj *temp_r6;
 
     sp0 = arg2;
     if ((arg1 <= 0x7FU) && (arg2 != 0)) {
@@ -17,7 +23,7 @@ void func_080D7240(void *arg0, u32 arg1, u32 arg2) {
             func_080D6F1C(arg0);
             return;
         }
-        temp_r6 = arg0 + 4;
+        temp_r6 = (GenObj *)((u8 *)arg0 + 4);
         if (arg1 <= 0x3FU) {
             temp_r0 = 0x40 - arg1;
             sp4 = temp_r0;
@@ -33,7 +39,7 @@ void func_080D7240(void *arg0, u32 arg1, u32 arg2) {
             if (arg1 > 0x3FU) {
                 var_r1 = arg1 - 0x40;
             }
-            func_080D71AC(arg0 + 0x10, var_r1, (temp_r0_2 - 0x40) - var_r1);
+            func_080D71AC((GenObj *)((u8 *)arg0 + 0x10), var_r1, (temp_r0_2 - 0x40) - var_r1);
         }
         arg0->unk0 = 0;
         var_r1_2 = 0;

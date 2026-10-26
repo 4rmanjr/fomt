@@ -8,8 +8,17 @@ s32 __12RucksackItem(s32 *);                          /* extern */
 s32 func_08096EE8(void *, s32 *, s32, s32);           /* extern */
 s32 func_080CBA60(s32, s32);                          /* extern */
 
-void func_08097114(void *arg0, s32 *arg1) {
-    s32 sp0;
+typedef struct GenObj {
+    u8 _pad0[13];
+    s32 unkD;
+    s32 unkE;
+    u8 _pad12[102];
+    s32 unk78;
+    u8 _pad7C[11051];
+    s32 unk2BA7;
+} GenObj;
+void func_08097114(GenObj *arg0, s32 *arg1) {
+    GenObj *sp0;
 s32 sp4;
     s32 sp8;
     s8 spC;
@@ -70,7 +79,7 @@ s32 sp4;
                     var_r1 = 1;
                 }
                 if (var_r1 != 0) {
-                    temp_r2 = arg0 + 0x2BA7 + temp_r4;
+                    temp_r2 = (GenObj *)((u8 *)arg0 + 0x2BA7) + temp_r4;
                     *temp_r2 &= ~(1 << temp_r6);
                 }
             }
@@ -78,7 +87,7 @@ s32 sp4;
         } while (var_r5 <= 0x47);
     }
     var_r5_2 = 0;
-    var_r4_2 = arg0 + 0x2BB0;
+    var_r4_2 = (GenObj *)((u8 *)arg0 + 0x2BB0);
     do {
         sp0 = *var_r4_2;
         if (((IsEmpty__C12RucksackItem(&sp0) << 0x18) == 0) && (GetKind__C12RucksackItem(&sp0) == temp_r0)) {

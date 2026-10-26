@@ -8,7 +8,7 @@ s32 func_080BC254(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     if (temp_r4 > 0) {
         var_r2 = (arg2 * 2) + arg3;
         do {
-            *(arg0 + 0xB35 + var_r3) = *var_r2;
+            *((u8 *)arg0 + 0xB35 + var_r3) = *var_r2;
             var_r2 += 1;
             var_r3 += 1;
         } while (var_r3 < temp_r4);

@@ -8,9 +8,17 @@ s32 IsEmpty__C9ToolStack(s32);                      /* extern */
 s32 func_080A01F8(s32, s32);                        /* extern */
 s32 func_080A041C(s32);                             /* extern */
 s32 func_080A0504(s32);                             /* extern */
-extern ? gUnk_08107438;
+extern s32 gUnk_08107438;
 
-s32 func_080AA8F0(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    u8 _pad10[132];
+    s32 unk94;
+} GenObj;
+s32 func_080AA8F0(GenObj *arg0) {
     s32 sp0;
     s8 sp18;
     s32 *var_r5;
@@ -34,7 +42,7 @@ s32 func_080AA8F0(void *arg0) {
             goto block_15;
         }
         temp_r0_2 = &gUnk_08107438 + 0xC;
-        sp0.unk0 = gUnk_08107438.unk0;
+        sp0 = gUnk_08107438.unk0;
         sp0.unk4 = (s32) gUnk_08107438.unk4;
         sp0.unk8 = (s32) gUnk_08107438.unk8;
         temp_r1 = &sp0 + 0xC;

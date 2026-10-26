@@ -1,5 +1,13 @@
-void func_080AC388(void *arg0, void *arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5) {
-    void *sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+    s32 unk8;
+    s32 unkA;
+} GenObj;
+void func_080AC388(GenObj *arg0, GenObj *arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5) {
+    GenObj *sp0;
     s32 *sp4;
     s32 *sp8;
     s32 spC;

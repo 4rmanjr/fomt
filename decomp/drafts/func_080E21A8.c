@@ -1,7 +1,13 @@
-void func_080E21A8(void *arg0, void **arg1) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+} GenObj;
+void func_080E21A8(GenObj *arg0, void **arg1) {
     void *temp_r0;
-    void *temp_r1;
-    void *temp_r3;
+    GenObj *temp_r1;
+    GenObj *temp_r3;
 
     temp_r3 = arg0->unk8;
     arg0->unk8 = (void *) temp_r3->unkC;

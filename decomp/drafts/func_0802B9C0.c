@@ -1,9 +1,17 @@
 s32 func_0802B944();                                  /* extern */
 s32 vfunc_10__7AEntity(void *);                       /* extern */
-extern ? vtable_unk_080E65F4;
+extern s32 vtable_unk_080E65F4;
 
-void *func_0802B9C0(void *arg0) {
-    void *temp_r0;
+typedef struct GenObj {
+    u8 _pad0[1];
+    struct GenObj *unk1;
+    u8 _pad5[15];
+    void *unk14;
+    u8 _pad18[28];
+    s32 unk34;
+} GenObj;
+void *func_0802B9C0(GenObj *arg0) {
+    GenObj *temp_r0;
     void *temp_r0_2;
     void *temp_r0_3;
     void *temp_r0_4;
@@ -11,9 +19,9 @@ void *func_0802B9C0(void *arg0) {
 
     func_0802B944();
     arg0->unk14 = &vtable_unk_080E65F4;
-    temp_r0 = arg0 + 0x34;
+    temp_r0 = (GenObj *)((u8 *)arg0 + 0x34);
     arg0->unk34 = 0;
-    temp_r0_2 = temp_r0 + 1;
+    temp_r0_2 = (GenObj *)((u8 *)temp_r0 + 1);
     temp_r0->unk1 = 0;
     temp_r0_3 = temp_r0_2 + 3;
     temp_r0_2->unk3 = 0;

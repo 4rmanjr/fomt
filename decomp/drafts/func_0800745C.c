@@ -1,5 +1,9 @@
 extern void *gUnk_03000404;
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+} GenObj;
 s32 func_0800745C(s32 arg1) {
     s32 temp_r1_2;
     s32 var_r2;

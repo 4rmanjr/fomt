@@ -1,11 +1,17 @@
 void *func_080D3BC0(s32);                           /* extern */
 void *malloc(s32);                                  /* extern */
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+} GenObj;
 s32 func_080E43FC(s32 arg0) {
-    void *temp_r0;
-    void *temp_r0_2;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
     void *temp_r4;
-    void *var_r0;
+    GenObj *var_r0;
 
     temp_r4 = arg0 + 8;
     temp_r4->unk4 = 0;

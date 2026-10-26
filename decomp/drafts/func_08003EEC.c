@@ -1,15 +1,21 @@
-s32 func_08050DC8(void *, ? *, s32, s32);             /* extern */
-extern ? gUnk_080E86C0;
-extern ? gUnk_080E8770;
-extern ? gUnk_080E877C;
-extern ? gUnk_080E878C;
-extern ? gUnk_080E87A4;
-extern ? gUnk_080E87FC;
-extern ? gUnk_080E8828;
-extern ? gUnk_080E8878;
+s32 func_08050DC8(void *, s32 *, s32, s32);             /* extern */
+extern s32 gUnk_080E86C0;
+extern s32 gUnk_080E8770;
+extern s32 gUnk_080E877C;
+extern s32 gUnk_080E878C;
+extern s32 gUnk_080E87A4;
+extern s32 gUnk_080E87FC;
+extern s32 gUnk_080E8828;
+extern s32 gUnk_080E8878;
 
-void func_08003EEC(void *arg0) {
-    ? *var_r1;
+typedef struct GenObj {
+    u8 _pad0[128];
+    s32 unk80;
+    s32 unk84;
+    s32 unk85;
+} GenObj;
+void func_08003EEC(GenObj *arg0) {
+    s32 *var_r1;
     s32 temp_r1;
     s32 var_r3;
     u32 temp_r0;

@@ -4,26 +4,36 @@ s8 GetTool__C9ToolStack(s32);                       /* extern */
 s32 IsEmpty__C12RucksackItem(s32 *);                /* extern */
 s32 IsEmpty__C9ToolStack(s32);                      /* extern */
 s32 func_0800F190(s32);                             /* extern */
-s32 func_08050DC8(void *, ? *, s32, s32);             /* extern */
+s32 func_08050DC8(void *, s32 *, s32, s32);             /* extern */
 s32 func_080CE184(void *, s32, s32);                /* extern */
-? *func_080CF05C(void *, void *, s8 *, s32);        /* extern */
-? *func_080CF67C(void *, void *, s32);              /* extern */
-? *func_080CFA38(void *, void *);                   /* extern */
-extern ? gUnk_081000B0;
+s32 *func_080CF05C(void *, void *, s8 *, s32);        /* extern */
+s32 *func_080CF67C(void *, void *, s32);              /* extern */
+s32 *func_080CFA38(void *, void *);                   /* extern */
+extern s32 gUnk_081000B0;
 
-void func_0808BF8C(void *arg0, s32 arg1) {
-    s32 sp0;
+typedef struct GenObj {
+    u8 _pad0[9];
+    s32 unk9;
+    u8 _padD[139];
+    s32 unk98;
+    u8 _pad9C[96];
+    s32 unkFC;
+    s32 unk100;
+    s32 unk104;
+} GenObj;
+void func_0808BF8C(GenObj *arg0, s32 arg1) {
+    GenObj *sp0;
     s32 sp4;
     s8 sp8;
-    ? *var_r0;
-    ? *var_r8;
+    s32 *var_r0;
+    s32 *var_r8;
     s32 temp_r4;
     s32 temp_r4_2;
     s32 temp_r4_3;
     void *temp_r5;
 
     var_r8 = 0;
-    temp_r5 = arg0 + 0x98;
+    temp_r5 = (GenObj *)((u8 *)arg0 + 0x98);
     arg0->unk98 = 0;
     if (arg1 != 0) {
         if (arg1 != 9) {
@@ -34,7 +44,7 @@ void func_0808BF8C(void *arg0, s32 arg1) {
                     temp_r4_2 = arg0->unk104;
                     GetToolAt__8RucksackUi(temp_r4_2, func_080CE184(arg0, arg1, 0));
                     sp0.unk9 = GetTool__C9ToolStack();
-                    var_r0 = func_080CF05C(arg0, arg0 + 0x98, &sp0 + 9, 0);
+                    var_r0 = func_080CF05C(arg0, (GenObj *)((u8 *)arg0 + 0x98), &(GenObj *)((u8 *)sp0 + 9), 0);
                     goto block_12;
                 }
             } else {
@@ -57,8 +67,8 @@ block_12:
         var_r8 = var_r0;
     }
     if (var_r8 != 0) {
-        func_08050DC8(arg0 + 0x80, var_r8, 0, 0);
+        func_08050DC8((GenObj *)((u8 *)arg0 + 0x80), var_r8, 0, 0);
         return;
     }
-    func_08050DC8(arg0 + 0x80, &gUnk_081000B0, 0, 0);
+    func_08050DC8((GenObj *)((u8 *)arg0 + 0x80), &gUnk_081000B0, 0, 0);
 }

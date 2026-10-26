@@ -1,6 +1,10 @@
 s32 func_08008B6C(s32, u16);                          /* extern */
 s32 func_08008CD0(s32);                             /* extern */
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+} GenObj;
 void func_0803A350(void ***arg0, u16 arg1) {
     s32 *var_r4;
     s32 temp_r5;

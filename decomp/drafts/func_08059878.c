@@ -6,38 +6,51 @@ s32 func_0800894C(void *);                          /* extern */
 u32 func_08050D3C(s32, s32, s32, s32, s32, s32, void *); /* extern */
 s32 func_08050D5C(s32);                               /* extern */
 s32 func_08050D74(s32);                               /* extern */
-s32 func_08050DA0(s32, ? *, void *);                  /* extern */
+s32 func_08050DA0(s32, s32 *, void *);                  /* extern */
 s32 func_08050DF0(s32);                             /* extern */
-s32 func_08050E30(s32, ? *, ? *, ? *, s32, s32, void *); /* extern */
-extern ? gUnk_080FAA40;
-extern ? gUnk_080FAA5C;
-extern ? gUnk_080FAA60;
-extern ? gUnk_080FAA64;
-extern ? gUnk_080FAA74;
-extern ? gUnk_080FAA88;
-extern ? gUnk_080FAAA4;
-extern ? gUnk_080FAACC;
-extern ? gUnk_080FAAE0;
-extern ? gUnk_080FAAFC;
-extern ? gUnk_080FAB94;
-extern ? gUnk_080FABE0;
-extern ? gUnk_080FAC24;
-extern ? gUnk_080FAC8C;
-extern ? gUnk_080FAD08;
-extern ? gUnk_080FAD20;
-extern ? gUnk_080FAD28;
-extern ? gUnk_080FAD34;
-extern ? gUnk_080FAD50;
-extern ? gUnk_080FAD94;
-extern ? gUnk_080FADDC;
-extern ? gUnk_080FAE00;
+s32 func_08050E30(s32, s32 *, s32 *, s32 *, s32, s32, void *); /* extern */
+extern s32 gUnk_080FAA40;
+extern s32 gUnk_080FAA5C;
+extern s32 gUnk_080FAA60;
+extern s32 gUnk_080FAA64;
+extern s32 gUnk_080FAA74;
+extern s32 gUnk_080FAA88;
+extern s32 gUnk_080FAAA4;
+extern s32 gUnk_080FAACC;
+extern s32 gUnk_080FAAE0;
+extern s32 gUnk_080FAAFC;
+extern s32 gUnk_080FAB94;
+extern s32 gUnk_080FABE0;
+extern s32 gUnk_080FAC24;
+extern s32 gUnk_080FAC8C;
+extern s32 gUnk_080FAD08;
+extern s32 gUnk_080FAD20;
+extern s32 gUnk_080FAD28;
+extern s32 gUnk_080FAD34;
+extern s32 gUnk_080FAD50;
+extern s32 gUnk_080FAD94;
+extern s32 gUnk_080FADDC;
+extern s32 gUnk_080FAE00;
 
-void func_08059878(void *arg0) {
-    ? *var_r1;
-    ? *var_r1_2;
-    ? *var_r1_3;
-    ? *var_r2;
-    ? *var_r3;
+typedef struct GenObj {
+    u8 _pad0[16];
+    s32 unk10;
+    u8 _pad14[5114];
+    s32 unk140E;
+    u8 _pad1412[18];
+    s32 unk1424;
+    u8 _pad1428[1];
+    s32 unk1429;
+    s32 unk142A;
+    u8 _pad142E[112];
+    s32 unk149E;
+} GenObj;
+void func_08059878(GenObj *arg0) {
+    s32 *var_r1;
+    s32 *var_r1_2;
+    s32 *var_r1_3;
+    s32 *var_r2;
+    s32 *var_r3;
     s16 *var_r1_5;
     s16 temp_r0_3;
     s16 temp_r1;

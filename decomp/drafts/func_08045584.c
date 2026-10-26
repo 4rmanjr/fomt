@@ -4,7 +4,11 @@ s32 GetPlayerEventCount__C12Bachelorette(s32);      /* extern */
 s32 GetRivalEventCount__C12Bachelorette(s32);       /* extern */
 s32 func_080A0878(s32);                             /* extern */
 
-s32 func_08045584(void *arg0, u8 arg2) {
+typedef struct GenObj {
+    u8 _pad0[848];
+    s32 unk350;
+} GenObj;
+s32 func_08045584(GenObj *arg0, u8 arg2) {
     s32 temp_r0;
 
     temp_r0 = func_080A0878(arg0->unk350 + 0x1CD4);

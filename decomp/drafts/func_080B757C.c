@@ -1,8 +1,12 @@
 s32 rand();                                         /* extern */
 s32 strcpy(s32, void *);                              /* extern */
-extern ? gUnk_081078BD;
+extern s32 gUnk_081078BD;
 
-void func_080B757C(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[2840];
+    s32 unkB18;
+} GenObj;
+void func_080B757C(GenObj *arg0) {
     s32 temp_r0;
     s32 temp_r2;
     s32 temp_r3;
@@ -14,8 +18,8 @@ void func_080B757C(void *arg0) {
     temp_r3 = arg0 + 0x9E;
     temp_r2 = arg0 + 0xDE;
     do {
-        *(temp_r3 + var_r1) = 0;
-        *(temp_r2 + var_r1) = 0;
+        *((u8 *)temp_r3 + var_r1) = 0;
+        *((u8 *)temp_r2 + var_r1) = 0;
         var_r1 += 1;
     } while (var_r1 <= 0xD);
     strcpy(temp_r3, arg0 + 0xB1C);

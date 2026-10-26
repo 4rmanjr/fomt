@@ -1,4 +1,10 @@
-void func_0809A970(s32 arg0, void *arg1, s32 arg2) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[14];
+    s32 unk12;
+    s32 unk13;
+} GenObj;
+void func_0809A970(s32 arg0, GenObj *arg1, s32 arg2) {
     s32 var_r3;
     u16 *var_r1;
     u16 *var_r2;

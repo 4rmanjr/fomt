@@ -1,3 +1,8 @@
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[21];
+    s32 unk19;
+} GenObj;
 void func_080B3948(s32 arg0) {
     s32 *var_r2;
     s32 temp_r0;

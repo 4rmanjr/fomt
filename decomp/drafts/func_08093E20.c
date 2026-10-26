@@ -1,4 +1,20 @@
-void func_08093E20(void *arg0) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk2;
+    struct GenObj *unk4;
+    s32 unk8;
+    struct GenObj *unkA;
+    struct GenObj *unkC;
+    s32 unk10;
+    struct GenObj *unk12;
+    struct GenObj *unk14;
+    s32 unk18;
+    struct GenObj *unk1A;
+    struct GenObj *unk1C;
+    u8 _pad20[4];
+    s32 unk24;
+} GenObj;
+void func_08093E20(GenObj *arg0) {
     ? (*var_r1)(void *);
     ? (*var_r1_2)(void *);
     ? (*var_r2)(void *, s32);
@@ -8,12 +24,12 @@ void func_08093E20(void *arg0) {
     s16 temp_r2_4;
     s32 (*var_r1_3)(void *);
     s32 temp_r3;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r0_3;
-    void *temp_r1;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_3;
+    GenObj *temp_r1;
 
-    arg0->unk0->unk24(arg0);
+    ((void (*)(void *,...))(arg0->unk0->unk24))(arg0);
     temp_r1 = arg0->unk8;
     if (temp_r1 != 0) {
         arg0->unk4 = temp_r1;

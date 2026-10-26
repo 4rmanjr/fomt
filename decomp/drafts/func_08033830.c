@@ -3,7 +3,12 @@ s32 method_0800C6F0__C4CoopUi(void *, s32, u8);       /* extern */
 s32 method_0800D074__C4BarnUi(void *, s32, u8);       /* extern */
 s32 method_0800D0C0__C4BarnUi(void *, s32, u8);       /* extern */
 
-void *func_08033830(void *arg0, void *arg1, s32 arg2, s32 arg3) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+} GenObj;
+void *func_08033830(GenObj *arg0, GenObj *arg1, s32 arg2, s32 arg3) {
     s32 var_r2;
     u32 temp_r0;
 

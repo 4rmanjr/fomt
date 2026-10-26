@@ -1,7 +1,7 @@
 s32 GetDesc__C4Food(s32 *);                           /* extern */
 s32 __4FoodUi(s32 *, s32);                              /* extern */
 s32 func_080CABEC(s32, s32);                          /* extern */
-extern ? gUnk_080FE050;
+extern s32 gUnk_080FE050;
 
 void func_0807E51C(s32 arg0, s32 arg1) {
 s32 sp0;

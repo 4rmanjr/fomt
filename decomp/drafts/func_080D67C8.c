@@ -1,6 +1,16 @@
 s32 __as__6AnimalRC6Animal();                         /* extern */
 
-void *func_080D67C8(void *arg0, void *arg1) {
+typedef struct GenObj {
+    u8 _pad0[28];
+    s32 unk1C;
+    s32 unk1D;
+    s32 unk20;
+    s32 unk24;
+    s32 unk28;
+    s32 unk2C;
+    s32 unk2D;
+} GenObj;
+void *func_080D67C8(GenObj *arg0, GenObj *arg1) {
     u8 temp_r3;
 
     __as__6AnimalRC6Animal();

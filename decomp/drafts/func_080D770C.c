@@ -1,6 +1,6 @@
-? *func_080D770C(s32 arg0, s32 arg1, ? *arg2) {
-    ? *temp_r0;
-    ? *var_r1;
+s32 *func_080D770C(s32 arg0, s32 arg1, s32 *arg2) {
+    s32 *temp_r0;
+    s32 *var_r1;
 
     var_r1 = arg0 + ((arg1 * 8) - 8);
     *var_r1 = arg2;

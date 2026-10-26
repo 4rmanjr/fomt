@@ -351,6 +351,70 @@ def diff_note(cand, ref, module: str, name: str, ref_len: int) -> str:
     return "" if cr == rr else f"reloc {cr} vs ref {rr}"
 
 
+SANITIZE_VERSION = 4  # naikkan tiap _sanitize_m2c berubah perilaku
+
+
+def resanitize_stale() -> int:
+    """Tulis ulang draf failed yg dibuat sanitasi lama agar memakai sanitasi
+    baru, TANPA menyentuh draf yg pernah diedit manual.
+
+    Draf manual = mtime lebih baru dari judged_mtime (aturan yg sama dgn
+    _queueable). Draf m2c murni (mtime <= judged_mtime) di-regenerate dari
+    m2c mentah + sanitasi kini; yg hasilnya beda dianggap 'berubah' sehingga
+    ikut antre judge ulang otomatis. Return: jumlah draf yg ditulis ulang."""
+    st = load()
+    print(f"[{AGENT}] resanitasi: memindai draf lama (sanitasi v{SANITIZE_VERSION})...")
+    n = done = 0
+    stale = [k for k in sorted(st)
+             if st[k]["status"] == "failed" and st[k].get("sanitize_v", 0) < SANITIZE_VERSION]
+    total = len(stale)
+    for k in stale:
+        v = st[k]
+        done += 1
+        if done % 50 == 0 or done == total:
+            print(f"[{AGENT}] resanitasi {done}/{total} (ditulis ulang: {n})...")
+        p = DRAFTS / f"{k}.c"
+        if not p.exists():
+            continue
+        try:
+            if p.stat().st_mtime > v.get("judged_mtime", 0):
+                continue  # edit manual: jangan sentuh, biar ikut antre biasa
+        except OSError:
+            continue
+        try:
+            blk = func_block(v["module"], k)
+        except KeyError:
+            continue
+        asm_m2c = re.sub(r"^\s*(?:non_word_aligned_)?thumb_func_start\s+(\w+)", r"glabel \1", blk, flags=re.M)
+        asm_m2c = re.sub(r"^\s*arm_func_start\s+(\w+)", r"glabel \1", asm_m2c, flags=re.M)
+        asm_m2c = re.sub(r"\bld(s[hb])\b", r"ldr\1", asm_m2c)
+        asm_m2c = re.sub(r"\s//\s", " @ ", asm_m2c)
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".s", delete=False) as f:
+            f.write(f".syntax unified\n.thumb\n.text\n{asm_m2c}")
+            tp = f.name
+        try:
+            r = subprocess.run([sys.executable, str(M2C), "-t", "gba", "-f", k, tp],
+                               capture_output=True, text=True, timeout=60)
+        finally:
+            Path(tp).unlink(missing_ok=True)
+        if r.returncode or not r.stdout.strip():
+            continue
+        new = _sanitize_m2c(r.stdout, k)
+        old = p.read_text()
+        if new.rstrip() != old.rstrip():
+            p.write_text(new if new.endswith("\n") else new + "\n")
+            n += 1
+
+    def _mark(s):
+        for k, v in s.items():
+            if v["status"] == "failed" and v.get("sanitize_v", 0) < SANITIZE_VERSION:
+                v["sanitize_v"] = SANITIZE_VERSION
+
+    update(_mark)
+    return n
+
+
 def draft(name: str) -> bool:
     st = load()
     if st[name]["status"] in ("matched", "promoted"):
@@ -376,16 +440,333 @@ def draft(name: str) -> bool:
     if r.returncode or not r.stdout.strip():
         touch(name, status="failed", note="m2c gagal; tulis manual")
         return False
-    text = re.sub(r"^\s*\?\s+(\w+)", r"s32 \1", r.stdout, flags=re.M)  # '? name(' di awal baris
-    text = re.sub(r"\(\?\s", "(s32 ", text)
-    text = re.sub(r", \?([,)])", r", s32\1", text)
-    text = re.sub(r"\(\? \*\)", "(s32 *)", text)
-    text = re.sub(r"\bNULL\b", "0", text)  # NULL tanpa <stddef.h>
+    text = _sanitize_m2c(r.stdout, name)
     out.parent.mkdir(parents=True, exist_ok=True)
     if not out.exists():  # jangan timpa draf yang muncul dari agent lain
         out.write_text(text if text.endswith("\n") else text + "\n")
     touch(name, status="drafted")
     return True
+
+
+def _sanitize_m2c(text: str, name: str = "") -> str:
+    """Bersihkan draf mentah m2c agar peluang kompilasi naik, tanpa mengubah
+    makna kode: '?' -> 's32' (tipe maupun pointer), 'extern ? x;' -> deklarasi,
+    lanjutkan ke GenObj bila masih ada akses '->unk'."""
+    text = re.sub(r"^\s*\?\s+(\w+)", r"s32 \1", text, flags=re.M)  # '? name(' di awal baris
+    text = re.sub(r"\(\?\s", "(s32 ", text)
+    text = re.sub(r", \?([,)])", r", s32\1", text)
+    text = re.sub(r"\(\? \*\)", "(s32 *)", text)
+    text = re.sub(r"\?\s*\*", "s32 *", text)  # '? *temp', '?*p', sisa tipe-? pointer
+    text = re.sub(r"(?m)^(\s*)\?\s+(\w+)\s*;", r"\1s32 \2;", text)  # '? foo;' sisa
+    text = re.sub(r"\bextern \?\s*(\w+)\s*;", r"extern s32 \1;", text)
+    text = re.sub(r"\bNULL\b", "0", text)  # NULL tanpa <stddef.h>
+    text = _label_addrs(text, name)
+    text = _deref_bytes(text)
+    return _generic_structs(text)
+
+
+def _label_addrs(text: str, name: str = "") -> str:
+    """Ganti label literal-pool `.LXXXXXXXX` (nilai yg di-inline m2c sebagai
+    nama variabel) dengan nilai heksanya dari blok asm fungsi, agar kompilasi.
+
+    m2c menulis mis. `*(arg0 + .L08001134)` dgn `extern s32 .L08001134;` —
+    keduanya tidak valid C. Nilai sebenarnya ada di blok asm (`ldr r1,
+    .L08001134 @ =0x00006C64` + baris `.L08001134: .4byte ...`); ambil dari
+    sana. Bila tidak ketemu (label lompatan yg bocor ke ekspresi), ganti 0
+    agar kompilasi — judge yg menentukan MATCH."""
+    labels = set(re.findall(r"\.L[0-9A-Fa-f]{6,8}", text))
+    if not labels:
+        return text
+    vals: dict[str, str] = {}
+    if name:
+        try:
+            modtext = (ASM / load()[name]["module"]).read_text(errors="replace")
+            for lb in labels:
+                m = re.search(rf"^[ \t]*{re.escape(lb)}:[ \t]*\.(?:4byte|word|long)[ \t]+(\S+)",
+                              modtext, re.M)
+                if m:
+                    v = m.group(1).split("@")[0].strip().rstrip(",")
+                    vals[lb] = v if re.match(r"^(0x[0-9A-Fa-f]+|\d+)$", v) else "0"
+                else:
+                    vals[lb] = "0"
+        except (KeyError, FileNotFoundError):
+            vals = {lb: "0" for lb in labels}
+    else:
+        vals = {lb: "0" for lb in labels}
+    for lb in labels:
+        v = vals.get(lb, "0")
+        text = re.sub(rf"extern\s+s32\s*{re.escape(lb)}\s*;", f"s32 {lb[1:]};", text)
+        # hanya label bernilai numerik yg di-inline; label simbol (lompatan/
+        # string .L...) dibiarkan agar tidak merusak ekspresi
+        if re.match(r"^(0x[0-9A-Fa-f]+|\d+)$", v):
+            text = text.replace(lb, v)
+    # sisa label yg jadi variabel (tak dipakai di ekspresi) -> hapus deklarasinya
+    text = re.sub(r"(?m)^s32 L[0-9A-Fa-f]{6,8};\n", "", text)
+    return text
+
+
+def _deref_bytes(text: str) -> str:
+    """Bungkus dereference aritmetika byte `*(p + N) = v` dgn cast `(u8 *)`
+    agar kompilasi: tanpa cast, `*(GenObj * + int)` tidak valid C.
+
+    Pola yg disentuh HANYA `*(... + ...)` / `*ptr` mentah hasil m2c; akses
+    `v->unkXX` (sudah ditangani GenObj) tidak diubah."""
+    def _fix(m: re.Match) -> str:
+        inner = m.group(1)
+        if "->" in inner:
+            return m.group(0)
+        # sisipkan cast pada basis pointer pertama
+        m2 = re.match(r"\s*([A-Za-z_]\w*)\s*\+", inner)
+        if m2:
+            inner = inner.replace(m2.group(1), f"(u8 *){m2.group(1)}", 1)
+        elif re.match(r"\s*[A-Za-z_]\w*\s*$", inner):
+            inner = f"(u8 *){inner.strip()}"
+        return f"*({inner})"
+    return re.sub(r"\*\(([^;()]+(?:\([^;()]*\)[^;()]*)*)\)", _fix, text)
+
+
+def _generic_structs(text: str) -> str:
+    """Sambung draf m2c yg memakai `arg->unkXX` padahal arg bertipe pointer
+    generik: bangun SATU struct GenObj per fungsi dengan member tepat pada
+    offset yg dipakai (padding di antaranya), lalu ubah argumen generik
+    menjadi pointer ke struct itu.
+
+    Semua offset digabung dalam satu struct; tipe member mengikuti pemakaian
+    TERKUAT di seluruh fungsi:
+    - offset yg menampung alamat vtable (`= &vtable_...`) -> `void *`
+    - offset yg di-deref dua tingkat utk NILAI (`v->unkX->field`) -> `void *`
+    - offset yg jadi base method-call (`v->unkX->m(...)`) atau menampung
+      alamat objek lain (`= w->unkY`, `= w + N`) -> `struct GenObj *`
+    - sisanya `s32`
+    Variabel lokal/argumen generik yg dipakai 'v->unk' ikut menjadi GenObj *;
+    variabel bertipe jelas (mis. `s8 *`) tidak diubah.
+
+    Hanya draf m2c mentah (belum ada 'struct') yg disentuh; fungsi yg sudah
+    MATCH/promoted tidak pernah dilewati sini (draft() mengembalikan awal).
+    """
+    if "struct" in text or "->unk" not in text:
+        return text
+    # Pisahkan draf per baris: deklarasi (extern/prototype tanpa badan)
+    # dipertahankan; fungsi pertama yg mengandung '->unk' dibungkus GenObj.
+    lines = text.splitlines(keepends=True)
+    fstart = fend = None
+    for i, ln in enumerate(lines):
+        if "{" in ln and "(" in ln.split("{")[0] and ";" not in ln.split("{")[0]:
+            if fstart is None:
+                fstart = i
+            fend = i
+            break
+    if fstart is None or fend is None:
+        return text
+    head, siglines, rest = "".join(lines[:fstart]), "".join(lines[fstart:fend + 1]), "".join(lines[fend + 1:])
+    sig = siglines
+    # offset heksadesimal yg dipakai tiap variabel: var->unkHHH dan var.unkHHH
+    uses: dict[str, set[int]] = {}
+    for var, off in re.findall(r"(\w+)(?:->|\.)unk([0-9A-Fa-f]+)", text):
+        try:
+            uses.setdefault(var, set()).add(int(off, 16))
+        except ValueError:
+            continue
+    if not uses:
+        return text
+    # argumen generik saja yg diubah tipenya (hindari mengubah variabel dgn
+    # tipe jelas spt vtable yg sudah benar); argumen yg TIDAK PERNAH dipakai
+    # 'v->unk' dibiarkan agar signature tidak berubah sia-sia
+    gen = set(re.findall(r"(?:^|[,\(])\s*(?:void|s32|u32|s8|s16|u8|u16)\s*(\*?)\s*(\w+)\s*(?=[,\)])", sig))
+    genvars = ({v for _, v in gen} | {v for v in uses if re.search(
+        rf"\b(?:void|s32|u32)\s*\*?\s*{re.escape(v)}\s*[,\)]", sig)}) & set(uses)
+    # variabel lokal generik yg menampung 'X->unkY', aritmetika pointer, atau
+    # kembalian call generik (void */s32) lalu dipakai 'v->unk' juga menengah
+    for dst, src in re.findall(r"(\w+)\s*=\s*(\w+)->unk[0-9A-Fa-f]+", text):
+        if src in uses and re.search(rf"(?m)^\s*(?:void|s32|u32)\s*\*?\s*{re.escape(dst)}\s*;", rest):
+            genvars.add(dst)
+    for dst in set(uses) - genvars:
+        if re.search(rf"(?m)^\s*(?:void|s32|u32)\s*\*?\s*{re.escape(dst)}\s*;", rest):
+            genvars.add(dst)
+    if not genvars:
+        return text
+    # rantai: var yg nilainya diambil dari ->unk atau aritmetika pointer
+    # var lain (`X + N`) = pointer-menengah
+    childof: dict[str, str] = {}
+    for dst, src in re.findall(r"(\w+)\s*=\s*(\w+)->unk[0-9A-Fa-f]+", text):
+        if dst in uses or dst in genvars:
+            childof[dst] = src
+    for dst, src in re.findall(r"(\w+)\s*=\s*(\w+)\s*\+\s*(?:0x[0-9A-Fa-f]+|\d+)", text):
+        if dst in uses and src in uses:
+            childof.setdefault(dst, src)
+    depth: dict[str, int] = {}
+    def _depth(v: str, seen: set[str] | None = None) -> int:
+        if v in depth:
+            return depth[v]
+        seen = seen or set()
+        if v in seen:  # siklus: putus dgn void*
+            return 99
+        depth[v] = 1 + _depth(childof[v], seen | {v}) if v in childof else 0
+        return depth[v]
+    for v in list(uses) + list(genvars):
+        _depth(v)
+    # akses method-call / rantai per OFFSET: offset yg jadi base call dua
+    # tingkat 'v->unkA->unkB(...)' atau function-pointer 'v->unkH(...)' harus
+    # bertipe GenObj* (dgn cast di call-site), bukan void*.
+    # Klasifikasi per VARIABEL+offset (bukan global per offset): offset yg
+    # sama bisa dipakai sbg s32 di satu variabel dan GenObj* di variabel lain
+    # (padding membuat offset aman dipakai bersama).
+    varoff_op: dict[tuple[str, int], set[str]] = {}
+    for m in re.finditer(r"(\w+)->unk([0-9A-Fa-f]+)(.*)$", text, re.M):
+        try:
+            o = int(m.group(2), 16)
+        except ValueError:
+            continue
+        tail = m.group(3).lstrip()
+        if tail.startswith("->"):
+            op = "callbase" if re.match(r"->\s*\w+\s*\(", tail) else "deref"
+        elif tail.startswith("=") and "&vtable" in tail:
+            op = "vtable"
+        else:
+            op = "value"
+        varoff_op.setdefault((m.group(1), o), set()).add(op)
+    for m in re.finditer(r"(\w+)->unk([0-9A-Fa-f]+)\s*\(", text):
+        try:
+            varoff_op.setdefault((m.group(1), int(m.group(2), 16)), set()).add("method")
+        except ValueError:
+            continue
+    # offset rantai 'w->unkA->unkB': B dicatat dari variabel perantaranya
+    chain_offs: dict[str, set[int]] = {}
+    for m in re.finditer(r"(\w+)->unk([0-9A-Fa-f]+)\s*->\s*unk([0-9A-Fa-f]+)", text):
+        try:
+            chain_offs.setdefault(m.group(1), set()).add(int(m.group(3), 16))
+        except ValueError:
+            continue
+    members: dict[str, dict[int, str]] = {}
+    for v, offs in sorted(uses.items()):
+        if v not in genvars and v not in childof:
+            continue  # tipe jelas (mis. vtable): biarkan, judge akan bicara
+        if _depth(v) >= 2:
+            continue  # rantai dalam: offsetnya sudah tercakup via induknya
+        members[v] = {o: f"unk{o:X}" for o in sorted(offs)}
+    # rantai: variabel perantara menyumbang offset rantai ke struct bersama
+    for v, offs in chain_offs.items():
+        if v in members:
+            for o in sorted(offs):
+                members[v].setdefault(o, f"unk{o:X}")
+    alloffs = sorted({o for mem in members.values() for o in mem})
+    if not alloffs:
+        return text
+    # tipe member: GenObj* bila variabelnya pointer-menengah (childof:
+    # nilainya alamat objek lain); void* bila dipakai 'v->unkX = &vtable' /
+    # deref NILAI dua tingkat; s32 bila hanya value/store biasa.
+    # Callbase/method dua tingkat ('t->unkA->unkB(...)') TIDAK memaksa GenObj*:
+    # call-site di-cast eksplisit, jadi unkA boleh void*/s32 sesuai utamanya.
+    ptr_offs: set[int] = set()
+    for v in members:
+        if v in childof:
+            ptr_offs.update(members[v])
+    void_offs: set[int] = set()
+    for (v, o), ops in varoff_op.items():
+        if v in members and ("vtable" in ops or "deref" in ops):
+            void_offs.add(o)
+    void_offs -= ptr_offs
+    # method-target dua tingkat 't->unkA->unkB(' (pola draf ASLI, sebelum
+    # call-site di-cast): '->unkB' pada void*/s32 TIDAK kompilasi, jadi unkA
+    # yg jadi target method harus GenObj* (vtable murni yg tak dipakai lain
+    # tetap void*).
+    for m in re.finditer(r"(\w+)->unk([0-9A-Fa-f]+)->unk[0-9A-Fa-f]+\s*\(", rest):
+        try:
+            o = int(m.group(2), 16)
+        except ValueError:
+            continue
+        ptr_offs.add(o)
+        void_offs.discard(o)
+    midvars = {v for v in members if v in childof}
+    struct = "typedef struct GenObj {\n"
+    pos = 0
+    for o in alloffs:
+        if o > pos:
+            struct += f"    u8 _pad{pos:X}[{o - pos}];\n"
+            pos = o
+        if o in ptr_offs:
+            struct += f"    struct GenObj *unk{o:X};\n"
+        elif o in void_offs:
+            struct += f"    void *unk{o:X};\n"
+        else:
+            struct += f"    s32 unk{o:X};\n"
+        pos = o + 4
+    struct += "} GenObj;\n"
+    # variabel pointer-menengah (lokal): ubah deklarasi generik 'X;' jadi 'GenObj *X;'
+    # (GenObj* dikonversi implisit ke void*/s32* di call-site, jadi aman).
+    # Syarat: X dipakai 'X->unk' DAN (punya induk rantai ATAU ditugasi dari
+    # objek lain 'X = <obj>' / kembalian call 'X = func_(...)' — alias
+    # sederhana, mis. 'sp4 = temp_r4', 't = func_08008940(arg0)').
+    for v in list(members):
+        if v in childof or re.search(rf"\b{re.escape(v)}\s*=\s*\w+->unk", rest) \
+                or re.search(rf"\b{re.escape(v)}\s*=\s*\w+\s*;", rest) \
+                or re.search(rf"\b{re.escape(v)}\s*=\s*\w+\s*\([^;]*\)\s*;", rest) \
+                or re.search(rf"\b{re.escape(v)}\s*=\s*\*\w+", rest):
+            rest = re.sub(rf"(?m)^(\s*)(?:void|s32|u32)\s*\*?\s*{re.escape(v)}\s*;",
+                          rf"\1GenObj *{v};", rest, count=1)
+    # call-site method dua tingkat 't->unkA->unkB(args)' DULU (sebelum cast
+    # voidkept): function pointer 'unkB' bertipe s32 di struct, panggil via
+    # cast eksplisit agar kompilasi; judge yg menentukan MATCH
+    rest = re.sub(r"(\w+)->unk([0-9A-Fa-f]+)->unk([0-9A-Fa-f]+)\s*\(",
+                  r"((void (*)(void *,...))(\1->unk\2->unk\3))(", rest)
+    # akses by-value 'v.unkHH' (m2c untuk 'str rX, [sp,#N]' skalar): v di
+    # stack bertipe s32/u32 biasa, BUKAN struct. 'v.unkHH = C' -> 'v = C' bila
+    # HH==0 (offset nol = variabel itu sendiri); offset lain dibiarkan apa
+    # adanya (tetap DIFF, butuh manual).
+    def _byval(m: re.Match) -> str:
+        v, off = m.group(1), int(m.group(2), 16)
+        decl = re.search(rf"(?m)^\s*(s32|u32|void|s8|s16|u8|u16)\s*\*?\s*{re.escape(v)}\s*;", rest)
+        if off == 0 and decl and "*" not in decl.group(0):
+            return v
+        return m.group(0)
+    rest = re.sub(r"(\w+)\.unk([0-9A-Fa-f]+)", _byval, rest)
+    # struct-by-value murni: var dipakai '.unk' di >=2 offset berbeda, tak
+    # pernah 'v->'/telanjang-scalar (hanya '&v' + '.unk...'). Mis. 'sp0' yg
+    # diisi via func(&sp0,...) lalu dibaca sp0.unk1/2/3.
+    dotuses: dict[str, set[int]] = {}
+    for var, off in re.findall(r"(\w+)\.unk([0-9A-Fa-f]+)", rest):
+        try:
+            dotuses.setdefault(var, set()).add(int(off, 16))
+        except ValueError:
+            continue
+    for v, offs in dotuses.items():
+        if len(offs) < 2:
+            continue
+        if re.search(rf"\b{re.escape(v)}\s*->", rest):
+            continue
+        bare = [m for m in re.finditer(rf"\b{re.escape(v)}\b(?!\s*\.\s*unk)", rest)]
+        ok_struct = True
+        for m in bare:
+            pre_ = rest[max(0, m.start() - 20):m.start()]
+            post = rest[m.end():m.end() + 20]
+            if re.search(r"(s32|u32|void|GenObj|s8|s16|u8|u16)\s*\*?\s*$", pre_) and re.match(r"\s*;", post):
+                continue  # deklarasinya sendiri
+            if re.match(r"\s*[),;]", post) or re.search(r"[(&,=]\s*$", pre_):
+                continue  # '&v' / argumen / assign-tujuan: kompatibel struct
+            ok_struct = False
+            break
+        if ok_struct:
+            rest = re.sub(rf"(?m)^(\s*)(?:s32|u32)\s+{re.escape(v)}\s*;",
+                          rf"\1GenObj {v};", rest, count=1)
+    # 2) u8/u16/s8/s16 member: offset yg hanya dipakai via akses byte
+    # ('*(u8*)(p+N)' dari _deref_bytes ATAU 'arg->unkHH' dgn H ganjil +
+    # nilai <256) -> member u8 agar 'ldrb' bukan 'ldr'. Terapkan hanya bila
+    # offset tsb DIPAKAI sbg byte di draf (pola cast (u8*)... + N).
+    # aritmetika pointer 'X + N' pada GenObj*: bungkus dgn cast byte
+    # ('GenObj*' + N mengali N dgn sizeof; aslinya aritmetika byte)
+    if re.search(r"GenObj\s*\*\s*\w+\s*;", rest) and re.search(r"\w+\s*\+\s*(?:0x[0-9A-Fa-f]+|\d+)", rest):
+        for v in sorted(members):
+            rest = re.sub(rf"\b{re.escape(v)}\s*\+\s*(0x[0-9A-Fa-f]+|\d+)",
+                          rf"(GenObj *)((u8 *){v} + \1)", rest)
+    # paksa argumen generik menjadi GenObj *
+    def _sigfix(mo: re.Match) -> str:
+        t, star, v = mo.group(1), mo.group(2), mo.group(3)
+        if v in genvars:
+            return f"GenObj *{v}"
+        return mo.group(0)
+    sig = re.sub(r"\b(void|s32|u32|s8|s16|u8|u16)\s*(\*?)\s*(\w+)",
+                 _sigfix, sig, count=len(genvars) + 8)
+    return head + struct + sig + rest
 
 
 def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
@@ -400,10 +781,11 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
     if not (DRAFTS / f"{name}.c").exists():
         return False, "no draft (m2c gagal; tulis manual)"
     body = (DRAFTS / f"{name}.c").read_text()
-    used = set(re.findall(r"\b(func_[0-9A-Fa-f]{8}|gUnk_[0-9A-Fa-f]{8}|mem\w+|rand|malloc|free)\b", body))
+    used = set(re.findall(r"\b(func_[0-9A-Fa-f]{8}|vtable_unk_[0-9A-Fa-f]{8}|gUnk_[0-9A-Fa-f]{8}|mem\w+|rand|malloc|free)\b", body))
     pre = body.split("{")[0]  # hanya cek deklarasi sebelum badan fungsi
+    pre_clean = re.sub(r"\?\s*", "", pre)  # 'extern ? vtable...' tetap terhitung dideklarasikan
     decls = "".join(f"s32 {s}(void);\n" if s.startswith("func_") else f"extern s32 {s};\n"
-                    for s in sorted(used) if s != name and s not in pre)
+                    for s in sorted(used) if s != name and s not in pre and s not in pre_clean)
     work = LOGD / f"judge_{name}" / (tag or SAFE_AGENT)  # per-agent: tidak saling timpa
     work.mkdir(parents=True, exist_ok=True)
     (work / "common.h").write_text(COMMON)
@@ -840,8 +1222,18 @@ def main(argv: list[str]) -> int:
             if "judged_mtime" not in v and v["status"] in ("failed", "matched", "promoted"):
                 p = DRAFTS / f"{k}.c"
                 v["judged_mtime"] = p.stat().st_mtime if p.exists() else 0
+            if v["status"] == "failed" and "sanitize_v" not in v:
+                v["sanitize_v"] = 0  # draf lama: sanitasi versi awal
 
     update(_baseline)
+    # Regenerasi draf m2c-murni dgn sanitasi kini (tanpa sentuh edit manual),
+    # supaya perbaikan sanitasi langsung ikut antre judge ulang.
+    try:
+        n_new = resanitize_stale()
+        if n_new:
+            print(f"[{AGENT}] resanitasi {n_new} draf (sanitasi v{SANITIZE_VERSION})")
+    except Exception as err:
+        print(f"[{AGENT}] resanitasi dilewati: {err}")
     if deadline is not None:
         signal.signal(signal.SIGALRM, _on_alarm)
         signal.setitimer(signal.ITIMER_REAL, max(0.0, deadline - time.time()))

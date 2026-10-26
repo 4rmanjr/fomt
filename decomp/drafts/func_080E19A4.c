@@ -2,7 +2,11 @@ s32 memcpy(s8 *, s32, u32);                           /* extern */
 s32 strcpy(void *, s8 *);                             /* extern */
 u32 strlen(s32);                                    /* extern */
 
-s8 *func_080E19A4(s8 *arg0, void *arg1, s32 arg2) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s8 *func_080E19A4(s8 *arg0, GenObj *arg1, s32 arg2) {
     s8 sp0;
     s32 temp_r6;
     u32 var_r4;

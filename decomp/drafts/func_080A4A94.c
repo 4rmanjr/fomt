@@ -1,8 +1,22 @@
 s32 __builtin_vec_new(s32);                         /* extern */
-extern ? vtable_unk_080E82E4;
-extern ? vtable_unk_080E830C;
+extern s32 vtable_unk_080E82E4;
+extern s32 vtable_unk_080E830C;
 
-void *func_080A4A94(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk1;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    s32 unkC;
+    u8 _pad10[28];
+    s32 unk2C;
+    u8 _pad30[44];
+    s32 unk5C;
+    u8 _pad60[44];
+    s32 unk8C;
+    void *unk90;
+} GenObj;
+void *func_080A4A94(GenObj *arg0) {
     s32 *var_r6;
     s32 *var_r6_2;
     u32 var_r5;
@@ -12,7 +26,7 @@ void *func_080A4A94(void *arg0) {
     void *temp_r1_11;
     void *temp_r1_12;
     void *temp_r1_13;
-    void *temp_r1_2;
+    GenObj *temp_r1_2;
     void *temp_r1_3;
     void *temp_r1_4;
     void *temp_r1_5;
@@ -20,18 +34,18 @@ void *func_080A4A94(void *arg0) {
     void *temp_r1_7;
     void *temp_r1_8;
     void *temp_r1_9;
-    void *temp_r2;
+    GenObj *temp_r2;
 
     arg0->unk90 = &vtable_unk_080E82E4;
     arg0->unk0 = 0x234;
     arg0->unk4 = 0x42;
     arg0->unk8 = 0;
     arg0->unkC = 0;
-    temp_r1 = (arg0 + 0x90) - 0x68;
+    temp_r1 = ((GenObj *)((u8 *)arg0 + 0x90)) - 0x68;
     temp_r1->unk0 = 0;
-    temp_r1_2 = temp_r1 + 1;
+    temp_r1_2 = (GenObj *)((u8 *)temp_r1 + 1);
     temp_r1->unk1 = 0;
-    temp_r1_3 = temp_r1_2 + 1;
+    temp_r1_3 = (GenObj *)((u8 *)temp_r1_2 + 1);
     temp_r1_2->unk1 = 0;
     arg0->unk2C = 0;
     temp_r1_4 = temp_r1_3 + 6;
@@ -75,20 +89,20 @@ void *func_080A4A94(void *arg0) {
     temp_r1_13->unk1 = 0;
     temp_r1_13->unk2 = 0;
     temp_r1_13->unk4 = 0;
-    temp_r2 = arg0 + 0x5C;
+    temp_r2 = (GenObj *)((u8 *)arg0 + 0x5C);
     arg0->unk5C = 0;
     temp_r2->unk4 = 0;
     temp_r2->unk8 = &vtable_unk_080E830C;
     arg0->unk8C = 0;
     var_r5 = 0;
-    var_r6 = arg0 + 0x1C;
+    var_r6 = (GenObj *)((u8 *)arg0 + 0x1C);
     do {
         *var_r6 = __builtin_vec_new(0x1E0);
         var_r6 += 4;
         var_r5 += 1;
     } while (var_r5 <= 2U);
     var_r5_2 = 0;
-    var_r6_2 = arg0 + 0x10;
+    var_r6_2 = (GenObj *)((u8 *)arg0 + 0x10);
     do {
         *var_r6_2 = __builtin_vec_new(0x7900);
         var_r6_2 += 4;

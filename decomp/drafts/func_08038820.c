@@ -3,10 +3,22 @@ void *__builtin_new(s32);                           /* extern */
 s32 func_080A4740(void *, void **, s32, s32);         /* extern */
 s32 func_080A47B4(void *, s32);                       /* extern */
 s32 *func_080DCB7C(void *, void **, s32);           /* extern */
-extern ? vtable_unk_080E602C;
-extern ? vtable_unk_080E736C;
+extern s32 vtable_unk_080E602C;
+extern s32 vtable_unk_080E736C;
 
-void *func_08038820(void *arg0, void ***arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    void *unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    u8 _pad18[12];
+    void *unk24;
+    u8 _pad28[32];
+    s32 unk48;
+} GenObj;
+void *func_08038820(GenObj *arg0, void ***arg1) {
     u16 *sp0;
     s32 *temp_r0_2;
     s32 *temp_r6;
@@ -15,10 +27,10 @@ void *func_08038820(void *arg0, void ***arg1) {
     void **temp_r4;
     void **temp_r5;
     void *temp_r3;
-    void *temp_r4_2;
+    GenObj *temp_r4_2;
     void *temp_r5_2;
     void *var_r4;
-    void *var_r6;
+    GenObj *var_r6;
 
     arg0->unk0 = arg1;
     arg0->unk4 = &vtable_unk_080E736C;
@@ -31,7 +43,7 @@ void *func_08038820(void *arg0, void ***arg1) {
         var_r6->unk24 = &vtable_unk_080E602C;
         temp_r4_2 = *temp_r5;
         temp_r4_2->unkC(&sp0, temp_r5, 0);
-        temp_r4_2->unk10(var_r6 + 0x28, temp_r5, *sp0);
+        temp_r4_2->unk10((GenObj *)((u8 *)var_r6 + 0x28), temp_r5, *sp0);
         var_r6->unk48 = (s8) temp_r0;
     } else {
         var_r6 = 0;

@@ -3,7 +3,30 @@ s32 func_080B96AC(void *, u16, u16, s32, s32, s32, s32, s32); /* extern */
 u8 func_080B9F64(void *, s32, u32);                 /* extern */
 u16 rand();                                         /* extern */
 
-void func_080B9B50(void *arg0, u8 arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[13];
+    s32 unk11;
+    u8 _pad15[87];
+    s32 unk6C;
+    u8 _pad70[26];
+    s32 unk8A;
+    s32 unk8C;
+    s32 unk8E;
+    u8 _pad92[1];
+    s32 unk93;
+    s32 unk94;
+    u8 _pad98[1];
+    s32 unk99;
+    s32 unk9C;
+    u8 _padA0[12];
+    s32 unkAC;
+    u8 _padB0[44];
+    s32 unkDC;
+    u8 _padE0[2683];
+    s32 unkB5B;
+} GenObj;
+void func_080B9B50(GenObj *arg0, u8 arg1) {
     s32 sp10;
     u32 sp14;
     s32 *temp_r3_2;
@@ -167,14 +190,14 @@ block_61:
                     func_08008B6C(arg0 + 0x70C, 0xCC);
                 }
             } else {
-                *(arg0 + 0x6C + temp_r4) = 0;
+                *((u8 *)arg0 + 0x6C + temp_r4) = 0;
             }
         } else {
-            temp_r4_2 = *(arg0 + 0x84 + temp_r4);
+            temp_r4_2 = *((u8 *)arg0 + 0x84 + temp_r4);
             if ((temp_r4_2 == 0) && (((u32) (rand() >> 9) < (u32) temp_r6_2->unk8E) || ((u32) (rand() >> 9) <= 0x6EU))) {
-                *(arg0 + 0x6C + temp_r4) = temp_r4_2;
+                *((u8 *)arg0 + 0x6C + temp_r4) = temp_r4_2;
             } else {
-                *(arg0 + 0x6C + temp_r4) = 1;
+                *((u8 *)arg0 + 0x6C + temp_r4) = 1;
             }
         }
     }

@@ -35,11 +35,26 @@ s32 func_080CE1C4(void *, s8);                      /* extern */
 s32 memcpy(s32 *, s32 *, s32);                        /* extern */
 extern s32 gUnk_08117B10;
 
-u8 func_0808AC28(void *arg0, s32 arg1) {
-    s32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    u8 _padC[37];
+    s32 unk31;
+    u8 _pad35[67];
+    s32 unk78;
+    s32 unk7C;
+    u8 _pad80[124];
+    s32 unkFC;
+    s32 unk100;
+    s32 unk104;
+    s32 unk108;
+} GenObj;
+u8 func_0808AC28(GenObj *arg0, s32 arg1) {
+    GenObj *sp0;
     s32 sp4;
     s32 sp10;
-    s32 sp14;
+    GenObj *sp14;
     s32 sp1C;
     s32 sp20;
     s32 sp24;
@@ -94,12 +109,12 @@ u8 func_0808AC28(void *arg0, s32 arg1) {
     s32 var_r1_6;
     u32 temp_r0_2;
     u32 temp_r5_2;
-    void *temp_r0;
-    void *temp_r0_3;
-    void *temp_r0_4;
-    void *temp_r0_5;
-    void *temp_r0_6;
-    void *temp_r0_7;
+    GenObj *temp_r0;
+    GenObj *temp_r0_3;
+    GenObj *temp_r0_4;
+    GenObj *temp_r0_5;
+    GenObj *temp_r0_6;
+    GenObj *temp_r0_7;
 
     sp34 = 1;
     if (arg1 == 9) {
@@ -110,7 +125,7 @@ u8 func_0808AC28(void *arg0, s32 arg1) {
         if ((func_0800F190(arg0->unk100) << 0x18) != 0) {
             temp_r4 = arg0->unk7C;
             temp_r0 = func_080CC70C(temp_r4, func_080CE184(arg0, arg1, 0));
-            sp4.unk0 = temp_r0->unk0;
+            sp4 = temp_r0->unk0;
             sp4.unk4 = (s32) temp_r0->unk4;
             sp4.unk8 = (s32) temp_r0->unk8;
             var_r1 = 0;
@@ -135,11 +150,11 @@ u8 func_0808AC28(void *arg0, s32 arg1) {
             case 1:
                 temp_r4_4 = arg0->unk7C;
                 temp_r0_3 = func_080CC70C(temp_r4_4, func_080CE184(arg0, arg1, 0));
-                sp4.unk0 = temp_r0_3->unk0;
+                sp4 = temp_r0_3->unk0;
                 sp4.unk4 = (s32) temp_r0_3->unk4;
                 sp4.unk8 = (s32) temp_r0_3->unk8;
-                temp_r0_4 = func_080CC720(arg0->unk7C, &sp4 + 0xC);
-                sp10.unk0 = temp_r0_4->unk0;
+                temp_r0_4 = func_080CC720(arg0->unk7C, &(GenObj *)((u8 *)sp4 + 0xC));
+                sp10 = temp_r0_4->unk0;
                 sp10.unk4 = (s32) temp_r0_4->unk4;
                 sp10.unk8 = (s32) temp_r0_4->unk8;
                 var_r1_2 = 0;
@@ -182,7 +197,7 @@ u8 func_0808AC28(void *arg0, s32 arg1) {
     } else if ((IsEmpty__C9ToolStack(arg0->unkFC) << 0x18) != 0) {
         temp_r4_10 = arg0->unk78;
         temp_r0_5 = func_080CB2E8(temp_r4_10, func_080CE184(arg0, arg1, 0));
-        sp4.unk0 = temp_r0_5->unk0;
+        sp4 = temp_r0_5->unk0;
         sp4.unk4 = (s32) temp_r0_5->unk4;
         sp4.unk8 = (s32) temp_r0_5->unk8;
         var_r1_3 = 0;
@@ -204,7 +219,7 @@ u8 func_0808AC28(void *arg0, s32 arg1) {
         }
     } else {
         temp_r0_6 = func_080CB2FC(arg0->unk78);
-        sp4.unk0 = temp_r0_6->unk0;
+        sp4 = temp_r0_6->unk0;
         sp4.unk4 = (s32) temp_r0_6->unk4;
         sp4.unk8 = (s32) temp_r0_6->unk8;
         temp_r4_14 = arg0->unk78;
@@ -214,7 +229,7 @@ u8 func_0808AC28(void *arg0, s32 arg1) {
         sp14.unk8 = (s32) temp_r0_7->unk8;
         memcpy(&sp20, arg0->unkFC, 2);
         if ((func_080CE1C4(arg0, GetTool__C9ToolStack(&sp20)) << 0x18) != 0) {
-            func_08050DC8(arg0 + 0x80, gUnk_08117B10, 0, 0);
+            func_08050DC8((GenObj *)((u8 *)arg0 + 0x80), gUnk_08117B10, 0, 0);
             arg0->unk108 = 2;
             sp34 = 0;
         } else {
@@ -236,7 +251,7 @@ u8 func_0808AC28(void *arg0, s32 arg1) {
                 var_r1_4 = &sp24;
                 goto block_28;
             }
-            sp38 = arg0 + 0x104;
+            sp38 = (GenObj *)((u8 *)arg0 + 0x104);
             temp_r4_17 = arg0->unk104;
             memcpy(&sp24, GetToolAt__8RucksackUi(temp_r4_17, func_080CE184(arg0, arg1, 0)), 2);
             sp30 = GetTool__C9ToolStack(&sp20);

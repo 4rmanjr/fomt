@@ -5,7 +5,21 @@ s32 func_080B34DC(void *);                            /* extern */
 s32 func_080B3A28(void *);                            /* extern */
 s32 func_080B3BA8(void *);                            /* extern */
 
-void func_080B3518(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[2116];
+    s32 unk844;
+    u8 _pad848[60];
+    s32 unk884;
+    u8 _pad888[88];
+    s32 unk8E0;
+    u8 _pad8E4[22];
+    s32 unk8FA;
+    u8 _pad8FE[22];
+    s32 unk914;
+    u8 _pad918[17];
+    s32 unk929;
+} GenObj;
+void func_080B3518(GenObj *arg0) {
     s32 temp_r1;
     s32 temp_r5;
     s32 temp_r7;

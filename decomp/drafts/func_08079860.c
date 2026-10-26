@@ -1,12 +1,27 @@
 s32 func_080074C0(void *, s32);                     /* extern */
 void *func_08008918(s32);                           /* extern */
 s32 func_08008E64(s32 *, s32, s32);                     /* extern */
-s32 func_08008EB8(s32, ? *, s32);                     /* extern */
+s32 func_08008EB8(s32, s32 *, s32);                     /* extern */
 s32 func_08051320(s32, s32, s32, s32);                /* extern */
-extern ? *gUnk_080F9F70;
+extern s32 *gUnk_080F9F70;
 extern s32 gUnk_080F9F74;
-extern ? *gUnk_080F9F78;
+extern s32 *gUnk_080F9F78;
 
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[2];
+    s32 unkA;
+    s32 unkC;
+    s32 unkE;
+    u8 _pad12[2];
+    s32 unk14;
+    s32 unk16;
+    s32 unk18;
+    s32 unk1A;
+    s32 unk1C;
+    s32 unk1E;
+} GenObj;
 void func_08079860(s32 arg0) {
     s16 *var_r1;
     s16 *var_r2_2;
@@ -15,15 +30,15 @@ void func_08079860(s32 arg0) {
     s32 var_r5;
     u16 temp_r4;
     u16 var_r6;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r0_3;
-    void *temp_r0_4;
-    void *temp_r0_5;
-    void *temp_r0_6;
-    void *temp_r0_7;
-    void *temp_r0_8;
-    void *temp_r0_9;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_3;
+    GenObj *temp_r0_4;
+    GenObj *temp_r0_5;
+    GenObj *temp_r0_6;
+    GenObj *temp_r0_7;
+    GenObj *temp_r0_8;
+    GenObj *temp_r0_9;
     void *temp_r5;
 
     temp_r0 = func_08008918();

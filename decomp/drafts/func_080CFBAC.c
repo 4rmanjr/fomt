@@ -2,8 +2,12 @@ s32 func_080A5CC0();                                  /* extern */
 s32 func_080CFEA8(void *, s32, s32, void *, s32);     /* extern */
 s32 method_0800AF5C__C9FieldPlotPC9FieldPlotT1(void *, void *, void *); /* extern */
 
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
 void func_080CFBAC(void *arg0) {
-    void *sp4;
+    GenObj *sp4;
     s32 sp8;
     s32 temp_r0;
     s32 var_r0;
@@ -19,7 +23,7 @@ void func_080CFBAC(void *arg0) {
     func_080A5CC0();
     if (sp4->unk4 == 0x3E) {
         var_sl = 0;
-        temp_r7 = sp4 + 0x94;
+        temp_r7 = (GenObj *)((u8 *)sp4 + 0x94);
         do {
             var_r4 = 0;
             temp_r0 = var_sl + 1;

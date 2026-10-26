@@ -2,9 +2,15 @@ s32 free();                                           /* extern */
 s32 func_080A4B6C(s32, s32);                          /* extern */
 s32 func_080DC57C(void *, s32);                       /* extern */
 
+typedef struct GenObj {
+    u8 _pad0[4];
+    void *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+} GenObj;
 void func_080E43B8(s32 arg0, s32 arg1) {
-    void *temp_r0;
-    void *temp_r0_2;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
     void *temp_r4;
 
     temp_r4 = arg0 + 0xA4;

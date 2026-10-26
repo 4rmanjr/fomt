@@ -1,6 +1,6 @@
-s32 memcpy(s32, ? *, s32);                            /* extern */
+s32 memcpy(s32, s32 *, s32);                            /* extern */
 s32 memset(s32 *, s32, s32);                            /* extern */
-extern ? gUnk_0875A440;
+extern s32 gUnk_0875A440;
 
 void func_0803D2E8(s32 *arg0, s32 arg1) {
 s32 sp0;

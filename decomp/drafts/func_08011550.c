@@ -1,4 +1,8 @@
-void func_08011550(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+} GenObj;
+void func_08011550(GenObj *arg0) {
     if (arg0->unk4 == arg0->unk0) {
         arg0->unk0 = 0x10;
     }

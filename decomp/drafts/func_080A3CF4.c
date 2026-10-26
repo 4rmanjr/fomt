@@ -3,24 +3,31 @@ s32 GetCow__4BarnUi(s32, u8);                       /* extern */
 s32 GetHorse__4Farm(s32);                           /* extern */
 s32 GetSheep__4BarnUi(s32, u8);                     /* extern */
 s32 SetName__6AnimalPCc(s32, s32);                    /* extern */
-s32 func_08007078(s32 *, ? *, s32);                     /* extern */
+s32 func_08007078(s32 *, s32 *, s32);                     /* extern */
 s32 func_080070A4(s32 *, s32);                          /* extern */
-s32 func_080070D4(void ***, ? *);                     /* extern */
+s32 func_080070D4(void ***, s32 *);                     /* extern */
 s32 func_08007110(s32 *);                             /* extern */
 s32 func_0800E9A8(s32, s32);                          /* extern */
 s32 func_0809EB20(s32, s32);                          /* extern */
 s32 func_080A0A04(s32);                             /* extern */
-extern ? gUnk_08104E0C;
-extern ? gUnk_08104E14;
-extern ? gUnk_08104E1C;
-extern ? gUnk_08104E24;
-extern ? gUnk_08104E30;
-extern ? gUnk_08104E38;
+extern s32 gUnk_08104E0C;
+extern s32 gUnk_08104E14;
+extern s32 gUnk_08104E1C;
+extern s32 gUnk_08104E24;
+extern s32 gUnk_08104E30;
+extern s32 gUnk_08104E38;
 
-s32 *func_080A3CF4(s32 *arg0, void *arg1) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+} GenObj;
+s32 *func_080A3CF4(s32 *arg0, GenObj *arg1) {
 s32 sp0;
     void **sp8;
-    ? *var_r1;
+    s32 *var_r1;
     s32 temp_r0_3;
     s32 temp_r0_4;
     s32 temp_r1;

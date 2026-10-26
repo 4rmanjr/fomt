@@ -1,6 +1,11 @@
-extern ? gUnk_0810098C;
+extern s32 gUnk_0810098C;
 
-void func_08094560(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    s32 unkC;
+} GenObj;
+void func_08094560(GenObj *arg0, s32 arg1) {
     s8 var_r0;
 
     switch (arg1) {                                 /* irregular */

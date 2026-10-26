@@ -1,7 +1,12 @@
 s32 DayUpdate__3NpcUi(void *, s32);                   /* extern */
 s32 rand();                                         /* extern */
 
-void func_0809EBEC(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[20];
+    s32 unk14;
+    s32 unk15;
+} GenObj;
+void func_0809EBEC(GenObj *arg0) {
     u8 temp_r1;
     u8 temp_r2;
 

@@ -1,9 +1,20 @@
 s32 func_080AC070(s32 *, s32 *);                    /* extern */
 
-s32 func_0802AEA4(void *arg0) {
-    s32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+    s32 unk8;
+    s32 unkA;
+    s32 unkC;
+    u8 _pad10[4];
+    struct GenObj *unk14;
+} GenObj;
+s32 func_0802AEA4(GenObj *arg0) {
+    GenObj sp0;
     s32 spC;
-    s32 sp14;
+    GenObj *sp14;
     s32 sp18;
     s16 temp_r1_2;
     s16 temp_r1_4;
@@ -44,7 +55,7 @@ s32 func_0802AEA4(void *arg0) {
     temp_r1 = arg0->unk0;
     temp_r6 = arg0->unk4;
     (*temp_r1)->unk34(&sp0, temp_r1, temp_r6);
-    arg0->unk14->unkC(&spC, arg0);
+    ((void (*)(void *,...))(arg0->unk14->unkC))(&spC, arg0);
     sp14 = spC;
     sp18 = sp10;
     if ((func_080AC070(&sp0, &sp14) << 0x18) != 0) {
@@ -67,7 +78,7 @@ s32 func_0802AEA4(void *arg0) {
     if ((sp0 != 0) && ((u32) temp_r6_2 <= (u32) temp_r3) && ((u32) temp_r0 <= (u32) sp0.unkA)) {
         var_r0_3 = (temp_r3 * temp_r0) + temp_r6_2;
         if (sp4 != 0) {
-            var_r0_3 = *(sp4 + var_r0_3);
+            var_r0_3 = *((u8 *)sp4 + var_r0_3);
         }
         var_r0_4 = sp0 + (var_r0_3 * 4);
     } else {
@@ -87,12 +98,12 @@ s32 func_0802AEA4(void *arg0) {
         var_r0_6 = temp_r1_2 + 6;
     }
     temp_r0_2 = var_r0_6 >> 3;
-    temp_r2 = sp0.unk0;
+    temp_r2 = sp0;
     if ((temp_r2 != 0) && ((u32) temp_r6_3 <= (u32) temp_r3) && ((u32) temp_r0_2 <= (u32) sp0.unkA)) {
         temp_r1_3 = sp0.unk4;
         var_r0_7 = (temp_r3 * temp_r0_2) + temp_r6_3;
         if (temp_r1_3 != 0) {
-            var_r0_7 = *(temp_r1_3 + var_r0_7);
+            var_r0_7 = *((u8 *)temp_r1_3 + var_r0_7);
         }
         var_r0_8 = temp_r2 + (var_r0_7 * 4);
     } else {
@@ -114,7 +125,7 @@ s32 func_0802AEA4(void *arg0) {
             temp_r1_5 = sp0.unk4;
             var_r0_11 = (temp_r3 * temp_r0_3) + temp_r6_4;
             if (temp_r1_5 != 0) {
-                var_r0_11 = *(temp_r1_5 + var_r0_11);
+                var_r0_11 = *((u8 *)temp_r1_5 + var_r0_11);
             }
             var_r0_12 = temp_r2 + (var_r0_11 * 4);
         } else {
@@ -137,7 +148,7 @@ s32 func_0802AEA4(void *arg0) {
                 temp_r1_8 = sp0.unk4;
                 temp_r0_5 = (temp_r3 * temp_r0_4) + temp_r6_5;
                 if (temp_r1_8 != 0) {
-                    var_r0_15 = temp_r2 + (*(temp_r1_8 + temp_r0_5) * 4);
+                    var_r0_15 = temp_r2 + (*((u8 *)temp_r1_8 + temp_r0_5) * 4);
                 } else {
                     var_r0_15 = temp_r2 + (temp_r0_5 * 4);
                 }

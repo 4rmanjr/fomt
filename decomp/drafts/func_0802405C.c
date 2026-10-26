@@ -2,9 +2,13 @@ s32 GetDaysPregnant__C10BarnAnimal(s32);            /* extern */
 s32 GetGrowthStage__C5Sheep(s32);                   /* extern */
 s32 IsPregnant__C10BarnAnimal(s32);                 /* extern */
 s32 IsSheared__C5Sheep(s32);                        /* extern */
-extern ? gUnk_080F0E34;
+extern s32 gUnk_080F0E34;
 
-u16 func_0802405C(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[52];
+    s32 unk34;
+} GenObj;
+u16 func_0802405C(GenObj *arg0, s32 arg1) {
     s32 temp_r0;
     s32 temp_r4;
     s32 var_r0;

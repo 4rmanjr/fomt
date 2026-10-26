@@ -1,9 +1,19 @@
 extern u16 gUnk_0810110C;
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+    s32 unk8;
+    s32 unkC;
+    u8 _pad10[2];
+    s32 unk12;
+} GenObj;
 void *func_0809A58C(void *arg0, void *arg1) {
 s32 sp10;
-    void *sp24;
-    void *sp28;
+    GenObj *sp24;
+    GenObj *sp28;
     u16 *sp2C;
     s16 temp_r0_2;
     s32 temp_r1_2;
@@ -41,12 +51,12 @@ s32 sp10;
     sp24 = arg0;
     sp28 = arg1;
     var_r8 = &gUnk_0810110C;
-    sp10.unk0 = 0U;
+    sp10 = 0U;
     sp10.unk6 = (s16) ((u32) (sp28->unk12 << 0x14) >> 0x14);
     if (gUnk_0810110C == 0) {
 
     } else {
-        sp2C = sp28 + 2;
+        sp2C = (GenObj *)((u8 *)sp28 + 2);
 loop_3:
         sp10.unk2 = 0U;
         sp10.unk4 = 0U;
@@ -263,7 +273,7 @@ loop_74:
             var_ip = 1;
         }
         if (var_ip == 0) {
-            sp10.unk0 = (u16) var_r8->unk0;
+            sp10 = (u16) var_r8->unk0;
         } else {
             var_r8 += 0x14;
             if (*var_r8 != 0) {
@@ -271,10 +281,10 @@ loop_74:
             }
         }
     }
-    sp24->unk0 = (s32) sp10.unk0;
+    sp24->unk0 = (s32) sp10;
     sp24->unk4 = (s32) sp10.unk4;
     sp24->unk8 = (s32) sp10.unk8;
     sp24->unkC = (s32) sp10.unkC;
-    (sp24 + 0xC)->unk4 = (s32) (&sp10 + 0xC)->unk4;
+    ((GenObj *)((u8 *)sp24 + 0xC))->unk4 = (s32) (&(GenObj *)((u8 *)sp10 + 0xC))->unk4;
     return sp24;
 }

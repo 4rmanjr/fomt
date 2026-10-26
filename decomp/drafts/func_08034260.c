@@ -1,10 +1,20 @@
 s32 GetCurrentTask__C13HarvestSprite(s32);          /* extern */
 s32 GetLocation__C7AEntity(s32 *, void *);              /* extern */
-s32 func_080330F4(u8 *, s32, s32, ? *, s32, s32);     /* extern */
+s32 func_080330F4(u8 *, s32, s32, s32 *, s32, s32);     /* extern */
 s32 func_0809E988(s32, u8, u8 *);                     /* extern */
 s32 method_0809E7E4__13HarvestSpritePC15UnkBarnAnimal2C(s32, s32 *); /* extern */
 
-s32 func_08034260(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[44];
+    s32 unk30;
+    s32 unk34;
+    s32 unk38;
+    s32 unk3C;
+    u8 _pad40[1];
+    s32 unk41;
+} GenObj;
+s32 func_08034260(GenObj *arg0) {
     u8 sp8;
 s32 sp10;
     s32 sp18;

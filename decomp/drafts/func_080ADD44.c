@@ -1,4 +1,13 @@
-void func_080ADD44(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk6;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+} GenObj;
+void func_080ADD44(GenObj *arg0) {
     arg0->unk0 = 0;
     arg0->unk4 = 0x100;
     arg0->unk6 = 0;

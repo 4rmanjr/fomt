@@ -2,9 +2,19 @@ s32 free();                                           /* extern */
 s32 func_080086BC(void *, s32);                       /* extern */
 s32 func_080756D0(void *, s32);                       /* extern */
 s32 func_080E20C0(s32, s32);                          /* extern */
-extern ? vtable_unk_080E5A28;
+extern s32 vtable_unk_080E5A28;
 
-void func_080E2018(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+    u8 _pad10[16];
+    void *unk20;
+    u8 _pad24[124];
+    void *unkA0;
+    u8 _padA4[44];
+    s32 unkD0;
+} GenObj;
+void func_080E2018(GenObj *arg0, s32 arg1) {
     s32 temp_r0;
     s32 temp_r2;
     s32 var_r1;

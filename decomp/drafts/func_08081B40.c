@@ -1,9 +1,13 @@
 s32 GetDesc__C4Food(s32 *);                           /* extern */
 s32 __4FoodUi(s32 *, s32);                              /* extern */
 s32 func_080CABEC(void *, s32);                       /* extern */
-extern ? gUnk_080FEB60;
+extern s32 gUnk_080FEB60;
 
-void func_08081B40(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[16];
+    s32 unk10;
+} GenObj;
+void func_08081B40(GenObj *arg0, s32 arg1) {
 s32 sp0;
     s32 temp_r2;
 

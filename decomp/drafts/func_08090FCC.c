@@ -4,13 +4,24 @@ s32 GetToolAt__8RucksackUi(s32, u32);               /* extern */
 s32 GetTool__C9ToolStack(s32 *);                      /* extern */
 s32 IsEmpty__C9ToolStack(s32 *);                      /* extern */
 s8 func_0800E550(s32, s32);                         /* extern */
-s32 func_080CB304(s32, u32, ? *, u16);                /* extern */
-s32 func_080CBAF0(s32, ? *, u16, s32);                /* extern */
+s32 func_080CB304(s32, u32, s32 *, u16);                /* extern */
+s32 func_080CBAF0(s32, s32 *, u16, s32);                /* extern */
 s32 memcpy(s32 *, s32, s32);                            /* extern */
-extern ? gUnk_086678A0;
+extern s32 gUnk_086678A0;
 
-void func_08090FCC(void *arg0, u32 arg1) {
-    s32 sp0;
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    s32 unk9;
+    u8 _padD[107];
+    s32 unk78;
+    u8 _pad7C[128];
+    s32 unkFC;
+    u8 _pad100[4];
+    s32 unk104;
+} GenObj;
+void func_08090FCC(GenObj *arg0, u32 arg1) {
+    GenObj *sp0;
 s32 sp4;
     s8 sp8;
     s32 temp_r4;

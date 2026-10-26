@@ -1,4 +1,4 @@
-extern ? gUnk_08105708;
+extern s32 gUnk_08105708;
 
 u8 func_080A4650(u8 arg0, u8 arg1, s32 arg2, s32 arg3) {
     u16 *var_r3;

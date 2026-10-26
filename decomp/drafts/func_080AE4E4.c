@@ -20,7 +20,19 @@ s32 func_080B1D34(void *);                            /* extern */
 s32 func_080B1D94(void *);                            /* extern */
 s32 func_080B2114(void *);                            /* extern */
 
-s32 *func_080AE4E4(s32 *arg0, void *arg1) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    struct GenObj *unk8;
+    u8 _padC[4];
+    s32 unk10;
+    u8 _pad14[60];
+    s32 unk50;
+    u8 _pad54[1000];
+    s32 unk43C;
+    u8 _pad440[1016];
+    s32 unk838;
+} GenObj;
+s32 *func_080AE4E4(s32 *arg0, GenObj *arg1) {
     void *sp0;
     s32 sp4;
     void *sp8;
@@ -41,9 +53,9 @@ s32 *func_080AE4E4(s32 *arg0, void *arg1) {
     s32 temp_sb;
     u32 temp_r0_3;
     void **temp_r1;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r0_4;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_4;
     void *temp_r4;
     void *temp_r5;
 
@@ -54,12 +66,12 @@ s32 *func_080AE4E4(s32 *arg0, void *arg1) {
     temp_r0->unk50 = 0x3F;
     func_0800934C(arg1->unk43C + 0xC, 0x889, 1, 1);
     temp_r0_2 = func_08008940(arg1);
-    temp_r0_2->unk8->unk10(temp_r0_2, arg1->unk43C);
+    ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, arg1->unk43C);
     func_080B09B0(arg1);
     func_080B0AA0(arg1);
     func_080AE7D0(arg1);
     func_080AE894(arg1);
-    func_08008B6C(arg1 + 0x80C, 0x22);
+    func_08008B6C((GenObj *)((u8 *)arg1 + 0x80C), 0x22);
     temp_r1 = &sp0 + 0x10;
     sp24 = temp_r1;
     sp28 = temp_r1 + 4;
@@ -91,11 +103,11 @@ s32 *func_080AE4E4(s32 *arg0, void *arg1) {
     if ((s32) ((0 - temp_r1_2) | temp_r1_2) >= 0) {
         func_08009378(temp_r2 + 0xC, 0x889, 1, 1);
         temp_r0_4 = func_08008940(arg1);
-        temp_r0_4->unk8->unk10(temp_r0_4, arg1->unk43C);
+        ((void (*)(void *,...))(temp_r0_4->unk8->unk10))(temp_r0_4, arg1->unk43C);
     }
     temp_r0_5 = *arg1->unk43C;
     if ((s32) ((0 - temp_r0_5) | temp_r0_5) < 0) {
-        sp20 = arg1 + 0x418;
+        sp20 = (GenObj *)((u8 *)arg1 + 0x418);
         do {
             func_080087C8(arg1);
             temp_sb = *sp20;
@@ -106,7 +118,7 @@ s32 *func_080AE4E4(s32 *arg0, void *arg1) {
             temp_r0_7 = func_0800894C(arg1);
             sp0 = temp_r4;
             sp4 = temp_r0_7;
-            sp8 = arg1 + 0x810;
+            sp8 = (GenObj *)((u8 *)arg1 + 0x810);
             func_08050D3C(temp_sb, temp_r8, temp_r6, temp_r5);
             func_080AF814(arg1);
             temp_r0_6 = *arg1->unk43C;

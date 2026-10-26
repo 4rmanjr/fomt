@@ -7,22 +7,39 @@ s32 func_08050D34(s32);                             /* extern */
 u32 func_08050D3C(s32, s32, s32, s32, s32, s32, void *); /* extern */
 s32 func_08050D5C(s32);                               /* extern */
 s32 func_08050D74(s32);                               /* extern */
-s32 func_08050D8C(s32, ? *);                          /* extern */
+s32 func_08050D8C(s32, s32 *);                          /* extern */
 s32 func_08050DD8(s32);                               /* extern */
 s32 func_08050DE4(s32);                               /* extern */
 s32 func_08050DF0(s32);                             /* extern */
-s32 func_08050E30(s32, ? *, ? *, ? *, s32, s32, s32); /* extern */
+s32 func_08050E30(s32, s32 *, s32 *, s32 *, s32, s32, s32); /* extern */
 s32 func_080B5318(void *);                            /* extern */
 s32 func_080BA574(void *, u8);                        /* extern */
-extern ? gUnk_08107A68;
-extern ? gUnk_08107A80;
-extern ? gUnk_08107A9C;
-extern ? gUnk_08107AB4;
-extern ? gUnk_08107B00;
-extern ? gUnk_08107B14;
-extern ? gUnk_08107B1C;
+extern s32 gUnk_08107A68;
+extern s32 gUnk_08107A80;
+extern s32 gUnk_08107A9C;
+extern s32 gUnk_08107AB4;
+extern s32 gUnk_08107B00;
+extern s32 gUnk_08107B14;
+extern s32 gUnk_08107B1C;
 
-s32 func_080BA2C4(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[132];
+    s32 unk84;
+    u8 _pad88[1680];
+    s32 unk718;
+    u8 _pad71C[1016];
+    s32 unkB14;
+    s32 unkB18;
+    u8 _padB1C[23];
+    s32 unkB33;
+    s32 unkB34;
+    u8 _padB38[3];
+    s32 unkB3B;
+    s32 unkB3C;
+    u8 _padB40[16];
+    s32 unkB50;
+} GenObj;
+s32 func_080BA2C4(GenObj *arg0, s32 arg1) {
     s32 spC;
     s32 temp_r0_3;
     s32 temp_r0_4;

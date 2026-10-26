@@ -4,7 +4,16 @@ s32 func_080AB68C(s32, s32, s32, s32);                /* extern */
 s32 method_08009B68__4FarmUi(s32, s32);               /* extern */
 s32 method_0800A78C__C9FieldPlot(s32);              /* extern */
 
-s32 func_0801CDBC(void *arg0, s32 arg1, s32 arg2, ? arg3) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[16];
+    s32 unk14;
+    u8 _pad18[4112];
+    s32 unk1028;
+    u8 _pad102C[12];
+    s32 unk1038;
+} GenObj;
+s32 func_0801CDBC(GenObj *arg0, s32 arg1, s32 arg2, ? arg3) {
     s32 temp_r0;
     s32 temp_r4;
     s32 temp_r4_2;
@@ -39,7 +48,7 @@ s32 func_0801CDBC(void *arg0, s32 arg1, s32 arg2, ? arg3) {
     } else {
         var_sb = func_0801CCE4(arg0, var_r7, var_r8, arg3);
     }
-    if (arg0->unk0->unk14(arg0) == 2) {
+    if (((void (*)(void *,...))(arg0->unk0->unk14))(arg0) == 2) {
         switch (var_sb) {                           /* switch 2; irregular */
         case 1:                                     /* switch 2 */
             method_08009B68__4FarmUi(arg0->unk1038 + 0x14, 1);

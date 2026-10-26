@@ -1,7 +1,12 @@
 s32 func_080CADF0(void *, s32);                       /* extern */
-extern ? vtable_unk_080E85BC;
+extern s32 vtable_unk_080E85BC;
 
-void func_080CD950(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[528];
+    void *unk210;
+    s32 unk214;
+} GenObj;
+void func_080CD950(GenObj *arg0, s32 arg1) {
     void *temp_r2;
     void *var_r0;
 

@@ -1,6 +1,6 @@
-s32 func_08050DC8(s32, ? *, s32, s32);                /* extern */
+s32 func_08050DC8(s32, s32 *, s32, s32);                /* extern */
 s32 func_08050E50(s32, s32);                          /* extern */
-extern ? gUnk_08100524;
+extern s32 gUnk_08100524;
 
 void func_080E3628(s32 arg0) {
     s32 temp_r4;

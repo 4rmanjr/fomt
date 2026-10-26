@@ -10,12 +10,28 @@ s32 __7ArticleUi(u8 *, s32);                          /* extern */
 s32 func_0800F3B0(s32, s32);                          /* extern */
 s32 func_0800F3E8(s32, u8);                           /* extern */
 s16 func_08096FB4(void *, void *);                  /* extern */
-u16 func_080977A0(void *, s32, ? *);                /* extern */
-u16 func_08097800(void *, ? *);                     /* extern */
+u16 func_080977A0(void *, s32, s32 *);                /* extern */
+u16 func_08097800(void *, s32 *);                     /* extern */
 s32 memcpy(u8 *, s32 *, s32);                         /* extern */
 
-s16 func_080975F4(void *arg0) {
-s32 sp0;
+typedef struct GenObj {
+    u8 _pad0[2];
+    s32 unk2;
+    s32 unk4;
+    u8 _pad8[17];
+    s32 unk19;
+    s32 unk1A;
+    u8 _pad1E[110];
+    s32 unk8C;
+    u8 _pad90[696];
+    s32 unk348;
+    u8 _pad34C[12422];
+    s32 unk33D2;
+    u8 _pad33D6[6];
+    s32 unk33DC;
+} GenObj;
+s16 func_080975F4(GenObj *arg0) {
+GenObj sp0;
     s32 sp14;
     u8 sp18;
     u8 sp1C;

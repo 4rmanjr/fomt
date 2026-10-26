@@ -1,10 +1,18 @@
 s32 GetUnkEnt__C4Coop(void *);                      /* extern */
 s32 method_0800D058__C4Barn(void *);                /* extern */
 
-s32 func_08016AFC(void *arg0, u32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[132];
+    struct GenObj *unk8C;
+    u8 _pad90[8460];
+    struct GenObj *unk219C;
+} GenObj;
+s32 func_08016AFC(GenObj *arg0, u32 arg1) {
     s32 var_r0;
     s32 var_r1;
-    void *temp_r2;
+    GenObj *temp_r2;
     void *temp_r2_2;
 
     temp_r2 = arg0->unk4;

@@ -1,5 +1,10 @@
 s32 memcpy(void *, s32, s32);                           /* extern */
 
+typedef struct GenObj {
+    u8 _pad0[130];
+    s32 unk82;
+    s32 unk83;
+} GenObj;
 void func_080ADACC(s32 arg0, ? arg1, s32 arg2, u8 arg3) {
     void *temp_r4;
 

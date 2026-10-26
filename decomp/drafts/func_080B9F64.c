@@ -1,3 +1,8 @@
+typedef struct GenObj {
+    u8 _pad0[138];
+    s32 unk8A;
+    s32 unk8C;
+} GenObj;
 u8 func_080B9F64(s32 arg0, u8 arg1, s32 arg2) {
     s32 temp_r1;
     s32 temp_r3;
@@ -32,7 +37,7 @@ block_6:
 block_9:
         if (temp_r3 > 0) {
             if (((temp_r1 > 0) && (temp_r3 > temp_r1)) || ((temp_r1 < 0) && ((s64) (temp_r3 + temp_r1) > 0)) || (temp_r1 == 0)) {
-                var_r1 = *(arg0 + 0x74 + (temp_r4 << 6));
+                var_r1 = *((u8 *)arg0 + 0x74 + (temp_r4 << 6));
                 var_r0 = 5;
                 goto block_47;
             }
@@ -54,24 +59,24 @@ block_18:
 block_21:
         if ((temp_r1 < 0) && (temp_r3 == 0)) {
 block_23:
-            var_r1 = *(arg0 + 0x74 + (temp_r4 << 6));
+            var_r1 = *((u8 *)arg0 + 0x74 + (temp_r4 << 6));
             var_r0 = 6;
             goto block_47;
         }
 block_24:
         if ((temp_r3 < 0) && (((temp_r1 < 0) && (temp_r3 < temp_r1)) || ((temp_r1 > 0) && ((s64) (temp_r3 + temp_r1) < 0)) || (temp_r1 == 0))) {
-            var_r1 = *(arg0 + 0x74 + (temp_r4 << 6));
+            var_r1 = *((u8 *)arg0 + 0x74 + (temp_r4 << 6));
             var_r0 = 7;
             goto block_47;
         }
         if (temp_r3 > 0) {
             if ((temp_r1 > 0) && (temp_r3 == temp_r1)) {
-                var_r1 = *(arg0 + 0x74 + (temp_r4 << 6));
+                var_r1 = *((u8 *)arg0 + 0x74 + (temp_r4 << 6));
                 var_r0 = 0xC;
                 goto block_47;
             }
             if ((temp_r3 > 0) && (temp_r1 < 0) && ((temp_r3 + temp_r1) == 0)) {
-                var_r1 = *(arg0 + 0x74 + (temp_r4 << 6));
+                var_r1 = *((u8 *)arg0 + 0x74 + (temp_r4 << 6));
                 var_r0 = 0xD;
                 goto block_47;
             }
@@ -80,19 +85,19 @@ block_24:
 block_39:
         if (temp_r3 < 0) {
             if ((temp_r1 < 0) && (temp_r3 == temp_r1)) {
-                var_r1 = *(arg0 + 0x74 + (temp_r4 << 6));
+                var_r1 = *((u8 *)arg0 + 0x74 + (temp_r4 << 6));
                 var_r0 = 0xE;
                 goto block_47;
             }
             if ((temp_r3 < 0) && (temp_r1 > 0) && ((temp_r3 + temp_r1) == 0)) {
-                var_r1 = *(arg0 + 0x74 + (temp_r4 << 6));
+                var_r1 = *((u8 *)arg0 + 0x74 + (temp_r4 << 6));
                 var_r0 = 0xF;
                 goto block_47;
             }
         }
     } else {
 block_8:
-        var_r1 = *(arg0 + 0x74 + (temp_r4 << 6));
+        var_r1 = *((u8 *)arg0 + 0x74 + (temp_r4 << 6));
         var_r0 = 4;
 block_47:
         var_r6 = var_r0 - var_r1;

@@ -3,23 +3,31 @@ s32 GetGrowthStage__C5Sheep();                      /* extern */
 s32 GetSheep__C4BarnUi(s32, u32);                   /* extern */
 s32 IsPregnant__C10BarnAnimal(s32);                 /* extern */
 s32 IsSheared__C5Sheep(s32);                        /* extern */
-s32 func_08062E9C(void *, s32, ?, s32, ? *);            /* extern */
-s32 func_08063EB8(void *, u32, s32, ? *, ? *);        /* extern */
+s32 func_08062E9C(void *, s32, ?, s32, s32 *);            /* extern */
+s32 func_08063EB8(void *, u32, s32, s32 *, s32 *);        /* extern */
 s32 func_08075E24(s32, s16);                          /* extern */
-extern ? gUnk_080FB8A4;
-extern ? gUnk_0875320C;
-extern ? gUnk_0875328C;
-extern ? gUnk_087532AC;
-extern ? gUnk_0875332C;
-extern ? gUnk_0875334C;
-extern ? gUnk_087533CC;
-extern ? gUnk_087533EC;
-extern ? gUnk_0875346C;
-extern ? vtable_unk_080E7A38;
+extern s32 gUnk_080FB8A4;
+extern s32 gUnk_0875320C;
+extern s32 gUnk_0875328C;
+extern s32 gUnk_087532AC;
+extern s32 gUnk_0875332C;
+extern s32 gUnk_0875334C;
+extern s32 gUnk_087533CC;
+extern s32 gUnk_087533EC;
+extern s32 gUnk_0875346C;
+extern s32 vtable_unk_080E7A38;
 
-void *func_080644F0(void *arg0, ? arg1, ? arg2) {
-    ? *var_r5;
-    ? *var_r6;
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[1412];
+    s32 unk58C;
+    u8 _pad590[36];
+    void *unk5B4;
+} GenObj;
+void *func_080644F0(GenObj *arg0, ? arg1, ? arg2) {
+    s32 *var_r5;
+    s32 *var_r6;
     s32 temp_r0_2;
     s32 temp_r0_3;
     u32 temp_r0;

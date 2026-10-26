@@ -2,22 +2,32 @@ s32 GetName__C6Animal(s32);                         /* extern */
 s32 func_080074C0(void *, s32);                     /* extern */
 s16 *func_08008918(void *);                         /* extern */
 s32 func_08008E64(s32 *, s32, s32);                     /* extern */
-s32 func_08008EB8(s32, ? *, s32);                     /* extern */
-s32 func_0804E5AC(s32, ? *, s32, s32);                /* extern */
-s32 func_0804E7A0(s32, ? *, s32);                     /* extern */
-s32 func_0804E958(s32, ? *, s32, s32);                /* extern */
+s32 func_08008EB8(s32, s32 *, s32);                     /* extern */
+s32 func_0804E5AC(s32, s32 *, s32, s32);                /* extern */
+s32 func_0804E7A0(s32, s32 *, s32);                     /* extern */
+s32 func_0804E958(s32, s32 *, s32, s32);                /* extern */
 s32 func_08051320(s32, s32, s32, s32);                /* extern */
 s32 func_08051D30(void *, s32, s32, s32);             /* extern */
 s32 func_080522D8(s32, u8 *, s32);                    /* extern */
-extern ? *gUnk_080F9F70;
+extern s32 *gUnk_080F9F70;
 extern s32 gUnk_080F9F74;
-extern ? *gUnk_080F9F78;
-extern ? gUnk_080F9F7C;
+extern s32 *gUnk_080F9F78;
+extern s32 gUnk_080F9F7C;
 extern u16 gUnk_080FA12E;
-extern ? gUnk_080FA158;
+extern s32 gUnk_080FA158;
 
-void func_080516F0(void *arg0, ? arg12, ? argD3, ? arg283, u8 arg284, s16 arg285, ? arg286, ? arg287, s16 arg288, s16 arg289, s32 arg28A, s32 arg28B, void *arg28C, ? *arg28D, void *arg28E, ? *arg28F, void *arg290, ? *arg291, s32 arg292, ? *arg293, void *arg294, u8 *arg295, s16 *arg296, s16 *arg297, s16 *arg298) {
-    ? *temp_r4;
+typedef struct GenObj {
+    u8 _pad0[2];
+    s32 unk2;
+    struct GenObj *unk4;
+    s32 unk8;
+    struct GenObj *unkC;
+    u8 _pad10[48];
+    s32 unk40;
+    s32 unk44;
+} GenObj;
+void func_080516F0(GenObj *arg0, ? arg12, ? argD3, ? arg283, u8 arg284, s16 arg285, ? arg286, ? arg287, s16 arg288, s16 arg289, s32 arg28A, s32 arg28B, GenObj *arg28C, s32 *arg28D, void *arg28E, s32 *arg28F, GenObj *arg290, s32 *arg291, s32 arg292, s32 *arg293, void *arg294, u8 *arg295, s16 *arg296, s16 *arg297, s16 *arg298) {
+    s32 *temp_r4;
     s16 *temp_r0;
     s16 *temp_r0_10;
     s16 *temp_r0_11;

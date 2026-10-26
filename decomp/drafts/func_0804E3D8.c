@@ -5,7 +5,11 @@ s32 GetCow__4BarnUi(s32, s32);                      /* extern */
 s32 GetHorse__4Farm(s32);                           /* extern */
 s32 GetSheep__4BarnUi(s32, s32);                    /* extern */
 
-s32 func_0804E3D8(void *arg0, u32 arg1, s32 arg2) {
+typedef struct GenObj {
+    u8 _pad0[848];
+    s32 unk350;
+} GenObj;
+s32 func_0804E3D8(GenObj *arg0, u32 arg1, s32 arg2) {
     s32 var_r6;
 
     var_r6 = 0;

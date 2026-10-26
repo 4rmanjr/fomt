@@ -1,6 +1,6 @@
 s32 func_080CADA8(s32);                               /* extern */
 s32 func_080CAE60(s32, s32, s32, s32, s32, s32, s32); /* extern */
-extern ? gUnk_08117860;
+extern s32 gUnk_08117860;
 
 void func_080CCDEC(s32 arg0, s32 arg1) {
     s32 spC;

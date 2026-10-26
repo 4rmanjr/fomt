@@ -1,9 +1,13 @@
-extern ? gUnk_08107D3C;
-extern ? gUnk_08107D46;
-extern ? gUnk_08107D66;
+extern s32 gUnk_08107D3C;
+extern s32 gUnk_08107D46;
+extern s32 gUnk_08107D66;
 
-u16 func_080BB890(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    ? *var_r1;
+typedef struct GenObj {
+    u8 _pad0[2840];
+    s32 unkB18;
+} GenObj;
+u16 func_080BB890(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 *var_r1;
     s32 var_r0;
     s32 var_r2;
 
@@ -23,7 +27,7 @@ u16 func_080BB890(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
         var_r1 = &gUnk_08107D66;
         var_r0 = arg3 * 2;
 block_11:
-        return *(var_r0 + var_r1);
+        return *((u8 *)var_r0 + var_r1);
     }
     if (var_r2 != 0) {
         var_r2 += arg0->unkB18;

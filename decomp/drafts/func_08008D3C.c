@@ -1,5 +1,5 @@
 s32 func_08008B54(s32 *, u8);                         /* extern */
-extern ? gSongTable;
+extern s32 gSongTable;
 
 s32 func_08008D3C(s32 arg0) {
     s32 sp0;

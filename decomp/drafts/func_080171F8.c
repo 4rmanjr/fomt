@@ -2,36 +2,45 @@ void *GetMapData(u32);                              /* extern */
 s32 GetUpgradeLevel__C4Barn(s32);                   /* extern */
 s32 GetUpgradeLevel__C4Coop(s32);                   /* extern */
 u32 GetUpgradeLevel__C9FarmHouse(s32);              /* extern */
-s32 func_08017180(s32 *, u16, ? *, s32, u32);         /* extern */
+s32 func_08017180(s32 *, u16, s32 *, s32, u32);         /* extern */
 s32 method_0800A07C__C9FieldPlot(s32);              /* extern */
-extern ? gUnk_0810692C;
-extern ? gUnk_08106944;
-extern ? gUnk_0810695C;
-extern ? gUnk_08106974;
-extern ? gUnk_0810698C;
-extern ? gUnk_081069A4;
-extern ? gUnk_081069BC;
-extern ? gUnk_081069D4;
-extern ? gUnk_081069EC;
-extern ? gUnk_08106A04;
-extern ? gUnk_08106A1C;
-extern ? gUnk_08106A34;
-extern ? gUnk_08106A4C;
-extern ? gUnk_08106A64;
+extern s32 gUnk_0810692C;
+extern s32 gUnk_08106944;
+extern s32 gUnk_0810695C;
+extern s32 gUnk_08106974;
+extern s32 gUnk_0810698C;
+extern s32 gUnk_081069A4;
+extern s32 gUnk_081069BC;
+extern s32 gUnk_081069D4;
+extern s32 gUnk_081069EC;
+extern s32 gUnk_08106A04;
+extern s32 gUnk_08106A1C;
+extern s32 gUnk_08106A34;
+extern s32 gUnk_08106A4C;
+extern s32 gUnk_08106A64;
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    u8 _pad8[16];
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk22;
+} GenObj;
 void func_080171F8(s32 *arg0, s32 arg1, u8 arg2) {
     s32 *sp4;
     s32 sp8;
     s32 spC;
     s32 sp10;
     u32 sp14;
-    ? *var_r2_2;
-    ? *var_r2_3;
-    ? *var_r2_4;
-    ? *var_r2_5;
-    ? *var_r2_6;
-    ? *var_r2_7;
-    ? *var_r2_8;
+    s32 *var_r2_2;
+    s32 *var_r2_3;
+    s32 *var_r2_4;
+    s32 *var_r2_5;
+    s32 *var_r2_6;
+    s32 *var_r2_7;
+    s32 *var_r2_8;
     s32 *temp_r3;
     s32 *temp_r4_3;
     s32 *var_r5;
@@ -48,7 +57,7 @@ void func_080171F8(s32 *arg0, s32 arg1, u8 arg2) {
     u32 var_r2;
     u32 var_r7;
     u8 temp_r2;
-    void *temp_r0;
+    GenObj *temp_r0;
 
     sp4 = arg0;
     sp8 = arg1;

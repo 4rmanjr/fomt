@@ -1,0 +1,596 @@
+#include "common.h"
+s32 Unpack(s32 *, ? *);                                 /* extern */
+s32 func_080074C0(void *, s32);                     /* extern */
+s32 func_08007D4C(void *, s32);                     /* extern */
+s16 *func_08008918(void *);                         /* extern */
+s32 func_08008E64(s32 *, s32, u16);                     /* extern */
+s32 func_08008EB8(s32, s32, s32);                     /* extern */
+s32 func_0805E790(void *, void *, s32);               /* extern */
+s32 func_0805E860(void *, s32);                       /* extern */
+s32 memcpy(void *, void *, s32);                      /* extern */
+extern ? gUnk_080E8684;
+extern ? gUnk_0874A9C0;
+extern ? gUnk_0874E330;
+
+void func_080019D8(void *arg0, ? arg4, ? argC, s32 *arg3FC, s32 *arg3FD, s32 *arg3FE, s32 *arg3FF, s32 *arg400, s32 *arg401, s32 *arg402, s32 *arg403, s32 *arg404, s32 *arg405, s32 *arg406, s32 *arg407, void *arg408, void *arg409) {
+    s16 *temp_r0;
+    s16 *temp_r0_10;
+    s16 *temp_r0_11;
+    s16 *temp_r0_12;
+    s16 *temp_r0_13;
+    s16 *temp_r0_2;
+    s16 *temp_r0_3;
+    s16 *temp_r0_4;
+    s16 *temp_r0_5;
+    s16 *temp_r0_6;
+    s16 *temp_r0_7;
+    s16 *temp_r0_8;
+    s16 *temp_r0_9;
+    s32 *temp_r0_27;
+    s32 temp_r1;
+    s32 temp_r1_11;
+    s32 temp_r1_14;
+    s32 temp_r1_17;
+    s32 temp_r1_22;
+    s32 temp_r1_25;
+    s32 temp_r1_26;
+    s32 temp_r1_29;
+    s32 temp_r1_32;
+    s32 temp_r1_35;
+    s32 temp_r1_36;
+    s32 temp_r1_39;
+    s32 temp_r1_42;
+    s32 temp_r1_43;
+    s32 temp_r1_45;
+    s32 temp_r1_46;
+    s32 temp_r1_8;
+    s32 var_r3;
+    s32 var_r4;
+    s32 var_r5;
+    u16 *var_r3_2;
+    u16 *var_r4_2;
+    u16 var_r1;
+    u16 var_r2_10;
+    u16 var_r2_11;
+    u16 var_r2_12;
+    u16 var_r2_13;
+    u16 var_r2_14;
+    u16 var_r2_15;
+    u16 var_r2_16;
+    u16 var_r2_17;
+    u16 var_r2_18;
+    u16 var_r2_19;
+    u16 var_r2_2;
+    u16 var_r2_3;
+    u16 var_r2_4;
+    u16 var_r2_5;
+    u16 var_r2_6;
+    u16 var_r2_7;
+    u16 var_r2_8;
+    u16 var_r2_9;
+    void **temp_r1_12;
+    void **temp_r1_15;
+    void **temp_r1_18;
+    void **temp_r1_20;
+    void **temp_r1_23;
+    void **temp_r1_27;
+    void **temp_r1_2;
+    void **temp_r1_30;
+    void **temp_r1_33;
+    void **temp_r1_37;
+    void **temp_r1_40;
+    void **temp_r1_4;
+    void **temp_r1_6;
+    void **temp_r1_9;
+    void *temp_r0_14;
+    void *temp_r0_15;
+    void *temp_r0_16;
+    void *temp_r0_17;
+    void *temp_r0_18;
+    void *temp_r0_19;
+    void *temp_r0_20;
+    void *temp_r0_21;
+    void *temp_r0_22;
+    void *temp_r0_23;
+    void *temp_r0_24;
+    void *temp_r0_25;
+    void *temp_r0_26;
+    void *temp_r0_28;
+    void *temp_r0_29;
+    void *temp_r0_30;
+    void *temp_r0_31;
+    void *temp_r0_32;
+    void *temp_r0_33;
+    void *temp_r0_34;
+    void *temp_r0_35;
+    void *temp_r0_36;
+    void *temp_r0_37;
+    void *temp_r0_38;
+    void *temp_r0_39;
+    void *temp_r0_40;
+    void *temp_r0_41;
+    void *temp_r0_42;
+    void *temp_r0_43;
+    void *temp_r0_44;
+    void *temp_r1_10;
+    void *temp_r1_13;
+    void *temp_r1_16;
+    void *temp_r1_19;
+    void *temp_r1_21;
+    void *temp_r1_24;
+    void *temp_r1_28;
+    void *temp_r1_31;
+    void *temp_r1_34;
+    void *temp_r1_38;
+    void *temp_r1_3;
+    void *temp_r1_41;
+    void *temp_r1_44;
+    void *temp_r1_5;
+    void *temp_r1_7;
+    void *temp_r4;
+    void *temp_r4_2;
+    void *temp_r4_3;
+    void *temp_r4_4;
+    void *temp_r4_5;
+    void *temp_r4_6;
+    void *temp_r6;
+    void *var_r2;
+
+    func_08008EB8(0, 0x06007FE0, 0x20);
+    func_08008EB8(-1, 0x0600C000, 0x1000);
+    func_08008EB8(-1, 0x0600D000, 0x1000);
+    func_08008EB8(-1, 0x0600E000, 0x1000);
+    func_08008EB8(-1, 0x0600F000, 0x1000);
+    Unpack(&gUnk_0874A9C0, (s32 *)0x06000000);
+    func_08008E64(&gUnk_0874E330, 0x05000000, 0x200U);
+    var_r4 = 0;
+    arg408 = &unksp0 + 0x18;
+    arg409 = &unksp0 + 0x20;
+    arg403 = arg0 + 0x6BA4;
+    arg404 = arg0 + 0x6BC4;
+    arg3FC = arg0 + 0x6AA4;
+    arg3FD = arg0 + 0x6AC4;
+    arg3FE = arg0 + 0x6AE4;
+    arg3FF = arg0 + 0x6B04;
+    arg400 = arg0 + 0x6B24;
+    arg401 = arg0 + 0x6B44;
+    arg402 = arg0 + 0x6B84;
+    arg405 = arg0 + 0x6BE4;
+    do {
+        Unpack(*((var_r4 * 4) + &gUnk_080E8684), &unksp0);
+        var_r3 = 0;
+        arg406 = arg0 + 0x6C04;
+        arg407 = arg0 + 0x6C24;
+loop_2:
+        temp_r1 = var_r3 << 7;
+        var_r4_2 = temp_r1 + &argC;
+        var_r3_2 = temp_r1 + &unksp0;
+        var_r2 = (var_r3 << 6) + ((var_r4 << 0xC) + 0xC000);
+        var_r5 = 0x1F;
+loop_3:
+        *(0x06000000 + (s32) var_r2) = (u16) *var_r3_2;
+        *(0x06000800 + (s32) var_r2) = (u16) *var_r4_2;
+        var_r4_2 += 2;
+        var_r3_2 += 2;
+        var_r2 += 2;
+        var_r5 -= 1;
+        if (var_r5 >= 0) {
+            goto loop_3;
+        }
+        var_r3 += 1;
+        if (var_r3 <= 0x1F) {
+            goto loop_2;
+        }
+        var_r4 += 1;
+    } while (var_r4 <= 3);
+    temp_r0 = func_08008918(arg0);
+    unksp0.unk0 = 0x1F40;
+    *temp_r0 = 0x1F40;
+    temp_r0_2 = func_08008918(arg0);
+    unksp0.unk0 = 0x5843;
+    temp_r0_2->unk8 = 0x5843;
+    temp_r0_3 = func_08008918(arg0);
+    unksp0.unk0 = 0x5A42;
+    temp_r0_3->unkA = 0x5A42;
+    temp_r0_4 = func_08008918(arg0);
+    unksp0.unk0 = 0x5C41;
+    temp_r0_4->unkC = 0x5C41;
+    temp_r0_5 = func_08008918(arg0);
+    unksp0.unk0 = 0x5E40;
+    temp_r0_5->unkE = 0x5E40;
+    temp_r0_6 = func_08008918(arg0);
+    unksp0.unk0 = 0;
+    temp_r0_6->unk10 = 0;
+    temp_r0_7 = func_08008918(arg0);
+    unksp0.unk0 = 0;
+    temp_r0_7->unk12 = 0;
+    temp_r0_8 = func_08008918(arg0);
+    unksp0.unk0 = 0;
+    temp_r0_8->unk14 = 0;
+    temp_r0_9 = func_08008918(arg0);
+    unksp0.unk0 = 0;
+    temp_r0_9->unk16 = 0;
+    temp_r0_10 = func_08008918(arg0);
+    unksp0.unk0 = 0;
+    temp_r0_10->unk18 = 0;
+    temp_r0_11 = func_08008918(arg0);
+    unksp0.unk0 = 0;
+    temp_r0_11->unk1A = 0;
+    temp_r0_12 = func_08008918(arg0);
+    unksp0.unk0 = 0;
+    temp_r0_12->unk1C = 0;
+    temp_r0_13 = func_08008918(arg0);
+    unksp0.unk0 = 0;
+    temp_r0_13->unk1E = 0;
+    unksp0 = 0;
+    unksp0.unk4 = 0;
+    unksp8 = 0;
+    unksp8.unk4 = 0U;
+    unksp10 = 0;
+    unksp10.unk4 = 0U;
+    unksp18 = 0;
+    arg408->unk4 = 0;
+    temp_r1_2 = arg0->unk6BA0;
+    (*temp_r1_2)->unk10(&arg4, temp_r1_2, *(*arg403 + ((arg0 + 0x6BA0)->unkC * 4)));
+    temp_r6 = arg409;
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_14 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_3 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_3->unk4 = (s32) temp_r0_14->unk4;
+    temp_r1_3->unk8 = (s32) temp_r0_14->unk8;
+    temp_r1_3->unkC = (s32) temp_r0_14->unkC;
+    (temp_r1_3 + 0xC)->unk4 = (s32) (temp_r0_14 + 0xC)->unk4;
+    func_08008E64(unksp10 + 0x120, 0x05000320, 0xE0U);
+    var_r2_2 = 0;
+    if (unksp8 != 0) {
+        var_r2_2 = unksp8.unk4;
+    }
+    func_08008E64(unksp8, 0x06010000, var_r2_2);
+    var_r1 = 0;
+    if (unksp8 != 0) {
+        var_r1 = unksp8.unk4;
+    }
+    arg0->unk6C60 = (s16) (var_r1 >> 5);
+    arg0->unk6BB8 = 0x780000;
+    arg0->unk6BBC = 0xFFA00000;
+    temp_r1_4 = arg0->unk6BC0;
+    (*temp_r1_4)->unk10(temp_r6, temp_r1_4, *(*arg404 + ((arg0 + 0x6BC0)->unkC * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_15 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_5 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_5->unk4 = (s32) temp_r0_15->unk4;
+    temp_r1_5->unk8 = (s32) temp_r0_15->unk8;
+    temp_r1_5->unkC = (s32) temp_r0_15->unkC;
+    (temp_r1_5 + 0xC)->unk4 = (s32) (temp_r0_15 + 0xC)->unk4;
+    var_r2_3 = 0;
+    if (unksp8 != 0) {
+        var_r2_3 = unksp8.unk4;
+    }
+    func_08008E64(unksp8, (arg0->unk6C60 << 5) + 0x06010000, var_r2_3);
+    arg0->unk6BD8 = 0x780000;
+    arg0->unk6BDC = 0x580000;
+    temp_r4 = arg0 + 0x6AA0;
+    func_0805E860(temp_r4, 0x160);
+    temp_r1_6 = arg0->unk6AA0;
+    (*temp_r1_6)->unk10(temp_r6, temp_r1_6, *(*arg3FC + (temp_r4->unkC * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_16 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_7 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_7->unk4 = (s32) temp_r0_16->unk4;
+    temp_r1_7->unk8 = (s32) temp_r0_16->unk8;
+    temp_r1_7->unkC = (s32) temp_r0_16->unkC;
+    (temp_r1_7 + 0xC)->unk4 = (s32) (temp_r0_16 + 0xC)->unk4;
+    temp_r0_17 = arg0 + 0x6C80;
+    temp_r1_8 = (func_080074C0(temp_r0_17, temp_r0_17->unk4) << 5) + 0x05000200;
+    var_r2_4 = 0;
+    if (unksp10 != 0) {
+        var_r2_4 = unksp10.unk4;
+    }
+    func_08008E64(unksp10, temp_r1_8, var_r2_4);
+    arg0->unk6AB8 = 0x01080000;
+    arg0->unk6ABC = 0x940000;
+    temp_r4_2 = arg0 + 0x6AC0;
+    func_0805E860(temp_r4_2, 0x342);
+    temp_r1_9 = arg0->unk6AC0;
+    (*temp_r1_9)->unk10(temp_r6, temp_r1_9, *(*arg3FD + (temp_r4_2->unkC * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_18 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_10 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_10->unk4 = (s32) temp_r0_18->unk4;
+    temp_r1_10->unk8 = (s32) temp_r0_18->unk8;
+    temp_r1_10->unkC = (s32) temp_r0_18->unkC;
+    (temp_r1_10 + 0xC)->unk4 = (s32) (temp_r0_18 + 0xC)->unk4;
+    temp_r0_19 = arg0 + 0x6CB8;
+    temp_r1_11 = (func_080074C0(temp_r0_19, temp_r0_19->unk4) << 5) + 0x05000200;
+    var_r2_5 = 0;
+    if (unksp10 != 0) {
+        var_r2_5 = unksp10.unk4;
+    }
+    func_08008E64(unksp10, temp_r1_11, var_r2_5);
+    arg0->unk6AD8 = 0x01080000;
+    arg0->unk6ADC = 0x940000;
+    temp_r1_12 = arg0->unk6AE0;
+    (*temp_r1_12)->unk10(temp_r6, temp_r1_12, *(*arg3FE + ((arg0 + 0x6AE0)->unkC * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_20 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_13 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_13->unk4 = (s32) temp_r0_20->unk4;
+    temp_r1_13->unk8 = (s32) temp_r0_20->unk8;
+    temp_r1_13->unkC = (s32) temp_r0_20->unkC;
+    (temp_r1_13 + 0xC)->unk4 = (s32) (temp_r0_20 + 0xC)->unk4;
+    temp_r0_21 = arg0 + 0x6C90;
+    temp_r1_14 = (func_080074C0(temp_r0_21, temp_r0_21->unk4) << 5) + 0x05000200;
+    var_r2_6 = 0;
+    if (unksp10 != 0) {
+        var_r2_6 = unksp10.unk4;
+    }
+    func_08008E64(unksp10, temp_r1_14, var_r2_6);
+    arg0->unk6AF8 = 0x280000;
+    arg0->unk6AFC = 0x540000;
+    func_0805E860(arg0 + 0x6B00, 0x2B2);
+    temp_r1_15 = arg0->unk6B00;
+    (*temp_r1_15)->unk10(temp_r6, temp_r1_15, *(*arg3FF + (arg0->unk6B0C * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_22 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_16 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_16->unk4 = (s32) temp_r0_22->unk4;
+    temp_r1_16->unk8 = (s32) temp_r0_22->unk8;
+    temp_r1_16->unkC = (s32) temp_r0_22->unkC;
+    (temp_r1_16 + 0xC)->unk4 = (s32) (temp_r0_22 + 0xC)->unk4;
+    temp_r0_23 = arg0 + 0x6CA0;
+    temp_r1_17 = (func_080074C0(temp_r0_23, temp_r0_23->unk4) << 5) + 0x05000200;
+    var_r2_7 = 0;
+    if (unksp10 != 0) {
+        var_r2_7 = unksp10.unk4;
+    }
+    func_08008E64(unksp10, temp_r1_17, var_r2_7);
+    arg0->unk6B18 = 0x01100000;
+    arg0->unk6B1C = 0x940000;
+    temp_r4_3 = arg0 + 0x6B20;
+    func_0805E860(temp_r4_3, 0x924);
+    temp_r1_18 = arg0->unk6B20;
+    (*temp_r1_18)->unk10(temp_r6, temp_r1_18, *(*arg400 + (temp_r4_3->unkC * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_24 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_19 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_19->unk4 = (s32) temp_r0_24->unk4;
+    temp_r1_19->unk8 = (s32) temp_r0_24->unk8;
+    temp_r1_19->unkC = (s32) temp_r0_24->unkC;
+    (temp_r1_19 + 0xC)->unk4 = (s32) (temp_r0_24 + 0xC)->unk4;
+    arg0->unk6B38 = 0xFFF00000;
+    arg0->unk6B3C = 0x940000;
+    temp_r4_4 = arg0 + 0x6B40;
+    func_0805E860(temp_r4_4, 0x730);
+    func_0805E860(arg0 + 0x6B60, 0x730);
+    temp_r1_20 = arg0->unk6B40;
+    (*temp_r1_20)->unk10(temp_r6, temp_r1_20, *(*arg401 + (temp_r4_4->unkC * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_25 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_21 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_21->unk4 = (s32) temp_r0_25->unk4;
+    temp_r1_21->unk8 = (s32) temp_r0_25->unk8;
+    temp_r1_21->unkC = (s32) temp_r0_25->unkC;
+    (temp_r1_21 + 0xC)->unk4 = (s32) (temp_r0_25 + 0xC)->unk4;
+    temp_r0_26 = arg0 + 0x6CC8;
+    temp_r1_22 = (func_080074C0(temp_r0_26, temp_r0_26->unk4) << 5) + 0x05000200;
+    var_r2_8 = 0;
+    if (unksp10 != 0) {
+        var_r2_8 = unksp10.unk4;
+    }
+    func_08008E64(unksp10, temp_r1_22, var_r2_8);
+    arg0->unk6B58 = 0x280000;
+    arg0->unk6B5C = 0x200000;
+    arg0->unk6B78 = 0xC80000;
+    arg0->unk6B7C = 0x200000;
+    temp_r4_5 = arg0 + 0x6B80;
+    func_0805E860(temp_r4_5, 0x91A);
+    temp_r1_23 = arg0->unk6B80;
+    temp_r0_27 = arg402;
+    (*temp_r1_23)->unk10(temp_r6, temp_r1_23, *(*temp_r0_27 + (temp_r4_5->unkC * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_28 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_24 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_24->unk4 = (s32) temp_r0_28->unk4;
+    temp_r1_24->unk8 = (s32) temp_r0_28->unk8;
+    temp_r1_24->unkC = (s32) temp_r0_28->unkC;
+    (temp_r1_24 + 0xC)->unk4 = (s32) (temp_r0_28 + 0xC)->unk4;
+    temp_r0_29 = arg0 + 0x6CE8;
+    temp_r1_25 = (func_080074C0(temp_r0_29, temp_r0_29->unk4) << 5) + 0x05000200;
+    var_r2_9 = 0;
+    if (unksp10 != 0) {
+        var_r2_9 = unksp10.unk4;
+    }
+    func_08008E64(unksp10, temp_r1_25, var_r2_9);
+    temp_r0_30 = arg0 + 0x6CD0;
+    temp_r1_26 = (func_08007D4C(temp_r0_30, temp_r0_30->unk4) << 5) + 0x06010000;
+    var_r2_10 = 0;
+    if (unksp8 != 0) {
+        var_r2_10 = unksp8.unk4;
+    }
+    func_08008E64(unksp8, temp_r1_26, var_r2_10);
+    func_0805E860(temp_r4_5, 0x91B);
+    temp_r1_27 = arg0->unk6B80;
+    (*temp_r1_27)->unk10(temp_r6, temp_r1_27, *(*temp_r0_27 + (temp_r4_5->unkC * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_31 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_28 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_28->unk4 = (s32) temp_r0_31->unk4;
+    temp_r1_28->unk8 = (s32) temp_r0_31->unk8;
+    temp_r1_28->unkC = (s32) temp_r0_31->unkC;
+    (temp_r1_28 + 0xC)->unk4 = (s32) (temp_r0_31 + 0xC)->unk4;
+    temp_r0_32 = arg0 + 0x6CD8;
+    temp_r1_29 = (func_08007D4C(temp_r0_32, temp_r0_32->unk4) << 5) + 0x06010000;
+    var_r2_11 = 0;
+    if (unksp8 != 0) {
+        var_r2_11 = unksp8.unk4;
+    }
+    func_08008E64(unksp8, temp_r1_29, var_r2_11);
+    func_0805E860(temp_r4_5, 0x91C);
+    temp_r1_30 = arg0->unk6B80;
+    (*temp_r1_30)->unk10(temp_r6, temp_r1_30, *(*arg402 + (temp_r4_5->unkC * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_33 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_31 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_31->unk4 = (s32) temp_r0_33->unk4;
+    temp_r1_31->unk8 = (s32) temp_r0_33->unk8;
+    temp_r1_31->unkC = (s32) temp_r0_33->unkC;
+    (temp_r1_31 + 0xC)->unk4 = (s32) (temp_r0_33 + 0xC)->unk4;
+    temp_r0_34 = arg0 + 0x6CE0;
+    temp_r1_32 = (func_08007D4C(temp_r0_34, temp_r0_34->unk4) << 5) + 0x06010000;
+    var_r2_12 = 0;
+    if (unksp8 != 0) {
+        var_r2_12 = unksp8.unk4;
+    }
+    func_08008E64(unksp8, temp_r1_32, var_r2_12);
+    temp_r4_6 = arg0 + 0x6BE0;
+    func_0805E860(temp_r4_6, 1);
+    temp_r1_33 = arg0->unk6BE0;
+    (*temp_r1_33)->unk10(temp_r6, temp_r1_33, *(*arg405 + (temp_r4_6->unkC * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_35 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_34 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_34->unk4 = (s32) temp_r0_35->unk4;
+    temp_r1_34->unk8 = (s32) temp_r0_35->unk8;
+    temp_r1_34->unkC = (s32) temp_r0_35->unkC;
+    (temp_r1_34 + 0xC)->unk4 = (s32) (temp_r0_35 + 0xC)->unk4;
+    temp_r1_35 = (func_080074C0(arg0 + 0x6D00, arg0->unk6D04) << 5) + 0x05000200;
+    var_r2_13 = 0;
+    if (unksp10 != 0) {
+        var_r2_13 = unksp10.unk4;
+    }
+    func_08008E64(unksp10, temp_r1_35, var_r2_13);
+    temp_r0_36 = arg0 + 0x6CF0;
+    temp_r1_36 = (func_08007D4C(temp_r0_36, temp_r0_36->unk4) << 5) + 0x06010000;
+    var_r2_14 = 0;
+    if (unksp8 != 0) {
+        var_r2_14 = unksp8.unk4;
+    }
+    func_08008E64(unksp8, temp_r1_36, var_r2_14);
+    arg0->unk6BFC = 0x700000;
+    func_0805E860(arg0 + 0x6C00, 4);
+    temp_r1_37 = arg0->unk6C00;
+    (*temp_r1_37)->unk10(temp_r6, temp_r1_37, *(*arg406 + (arg0->unk6C0C * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_37 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_38 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_38->unk4 = (s32) temp_r0_37->unk4;
+    temp_r1_38->unk8 = (s32) temp_r0_37->unk8;
+    temp_r1_38->unkC = (s32) temp_r0_37->unkC;
+    (temp_r1_38 + 0xC)->unk4 = (s32) (temp_r0_37 + 0xC)->unk4;
+    temp_r0_38 = arg0 + 0x6CF8;
+    temp_r1_39 = (func_08007D4C(temp_r0_38, temp_r0_38->unk4) << 5) + 0x06010000;
+    var_r2_15 = 0;
+    if (unksp8 != 0) {
+        var_r2_15 = unksp8.unk4;
+    }
+    func_08008E64(unksp8, temp_r1_39, var_r2_15);
+    arg0->unk6C1C = 0x700000;
+    temp_r1_40 = arg0->unk6C20;
+    (*temp_r1_40)->unk10(temp_r6, temp_r1_40, *(*arg407 + ((arg0 + 0x6C20)->unkC * 4)));
+    memcpy(temp_r6, temp_r6, 0x20);
+    temp_r0_39 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_41 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_41->unk4 = (s32) temp_r0_39->unk4;
+    temp_r1_41->unk8 = (s32) temp_r0_39->unk8;
+    temp_r1_41->unkC = (s32) temp_r0_39->unkC;
+    (temp_r1_41 + 0xC)->unk4 = (s32) (temp_r0_39 + 0xC)->unk4;
+    temp_r0_40 = arg0 + 0x6D10;
+    temp_r1_42 = (func_080074C0(temp_r0_40, temp_r0_40->unk4) << 5) + 0x05000200;
+    var_r2_16 = 0;
+    if (unksp10 != 0) {
+        var_r2_16 = unksp10.unk4;
+    }
+    func_08008E64(unksp10, temp_r1_42, var_r2_16);
+    temp_r0_41 = arg0 + 0x6D08;
+    temp_r1_43 = (func_08007D4C(temp_r0_41, temp_r0_41->unk4) << 5) + 0x06010000;
+    var_r2_17 = 0;
+    if (unksp8 != 0) {
+        var_r2_17 = unksp8.unk4;
+    }
+    func_08008E64(unksp8, temp_r1_43, var_r2_17);
+    arg0->unk6C38 = 0x780000;
+    arg0->unk6C3C = 0x900000;
+    func_0805E790(temp_r6, arg0 + 0x6A40, 0);
+    temp_r0_42 = temp_r6 + 0xC;
+    unksp0.unk0 = (s32) temp_r6->unk0;
+    unksp0.unk4 = (s32) temp_r6->unk4;
+    unksp0.unk8 = (s32) temp_r6->unk8;
+    temp_r1_44 = &unksp0 + 0xC;
+    unksp0.unkC = (s32) temp_r6->unkC;
+    temp_r1_44->unk4 = (s32) temp_r0_42->unk4;
+    temp_r1_44->unk8 = (s32) temp_r0_42->unk8;
+    temp_r1_44->unkC = (s32) temp_r0_42->unkC;
+    (temp_r1_44 + 0xC)->unk4 = (s32) (temp_r0_42 + 0xC)->unk4;
+    temp_r0_43 = arg0 + 0x6D20;
+    temp_r1_45 = (func_080074C0(temp_r0_43, temp_r0_43->unk4) << 5) + 0x05000200;
+    var_r2_18 = 0;
+    if (unksp10 != 0) {
+        var_r2_18 = unksp10.unk4;
+    }
+    func_08008E64(unksp10, temp_r1_45, var_r2_18);
+    temp_r0_44 = arg0 + 0x6D18;
+    temp_r1_46 = (func_08007D4C(temp_r0_44, temp_r0_44->unk4) << 5) + 0x06010000;
+    var_r2_19 = 0;
+    if (unksp8 != 0) {
+        var_r2_19 = unksp8.unk4;
+    }
+    func_08008E64(unksp8, temp_r1_46, var_r2_19);
+    arg0->unk6C5C = 0x780000;
+}
+

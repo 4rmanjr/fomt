@@ -18,10 +18,10 @@ s32 func_080CB63C(s32, s32, s32, s32);                /* extern */
 s32 func_080CB948(s32, s32, u32);                     /* extern */
 s32 func_080CB9DC(s32, u32);                          /* extern */
 s32 func_080CBA60(s32, s32);                          /* extern */
-s32 func_080CBAF0(s32, ? *, u16, u32);                /* extern */
+s32 func_080CBAF0(s32, s32 *, u16, u32);                /* extern */
 s32 func_080CBDD4(s32, s32, s32, u32);                /* extern */
 s32 func_080CC0B4(s32);                               /* extern */
-s32 func_080CC728(s32, s32, ? *, u16);                /* extern */
+s32 func_080CC728(s32, s32, s32 *, u16);                /* extern */
 s32 func_080CCD48(s32, s32, u32);                     /* extern */
 s32 func_080CCDEC(s32, s32);                          /* extern */
 s32 func_080CE184(void *, s32, s32);                /* extern */
@@ -29,10 +29,35 @@ s32 func_080CE1C4(void *, s8);                      /* extern */
 s32 func_080CF054(s32);                             /* extern */
 s32 memcpy(s32 *, s32 *, s32);                        /* extern */
 extern s32 gUnk_08117B10;
-extern ? gUnk_086678A0;
+extern s32 gUnk_086678A0;
 
-u8 func_0808F080(void *arg0, s32 arg1, s32 arg2) {
-    u32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    u8 _padC[33];
+    s32 unk2D;
+    s32 unk2E;
+    s32 unk2F;
+    s32 unk31;
+    s32 unk32;
+    s32 unk33;
+    u8 _pad37[65];
+    s32 unk78;
+    s32 unk7C;
+    u8 _pad80[16];
+    s32 unk90;
+    void *unk94;
+    u8 _pad98[36];
+    s32 unkBC;
+    u8 _padC0[60];
+    s32 unkFC;
+    s32 unk100;
+    s32 unk104;
+    s32 unk108;
+} GenObj;
+u8 func_0808F080(GenObj *arg0, s32 arg1, s32 arg2) {
+    GenObj *sp0;
     s32 sp4;
     s32 sp8;
     s32 sp10;
@@ -108,9 +133,9 @@ u8 func_0808F080(void *arg0, s32 arg1, s32 arg2) {
     u16 temp_r4_3;
     u32 temp_r4_5;
     u32 temp_r5_11;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r0_3;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_3;
 
     sp34 = arg2;
     sp38 = 1;
@@ -139,7 +164,7 @@ u8 func_0808F080(void *arg0, s32 arg1, s32 arg2) {
                 }
             }
         } else if ((func_080CE1C4(arg0, GetTool__C9ToolStack(arg0->unkFC)) << 0x18) != 0) {
-            func_08050DC8(arg0 + 0x80, gUnk_08117B10, 0, 0);
+            func_08050DC8((GenObj *)((u8 *)arg0 + 0x80), gUnk_08117B10, 0, 0);
             arg0->unk108 = sp38;
             sp38 = 0;
         } else if ((IsEmpty__C9ToolStack(&sp4) << 0x18) != 0) {
@@ -224,7 +249,7 @@ block_42:
     } else if ((IsEmpty__C9ToolStack(arg0->unkFC) << 0x18) != 0) {
         temp_r4_17 = arg0->unk78;
         temp_r0 = func_080CB2E8(temp_r4_17, func_080CE184(arg0, arg1, 0));
-        sp4.unk0 = temp_r0->unk0;
+        sp4 = temp_r0->unk0;
         sp4.unk4 = (s32) temp_r0->unk4;
         sp4.unk8 = (s32) temp_r0->unk8;
         var_r1_3 = 0;
@@ -246,17 +271,17 @@ block_42:
         }
     } else {
         temp_r0_2 = func_080CB2FC(arg0->unk78);
-        sp4.unk0 = temp_r0_2->unk0;
+        sp4 = temp_r0_2->unk0;
         sp4.unk4 = (s32) temp_r0_2->unk4;
         sp4.unk8 = (s32) temp_r0_2->unk8;
         temp_r4_21 = arg0->unk78;
         temp_r0_3 = func_080CB2E8(temp_r4_21, func_080CE184(arg0, arg1, 0));
-        sp14.unk0 = temp_r0_3->unk0;
+        sp14 = temp_r0_3->unk0;
         sp14.unk4 = (s32) temp_r0_3->unk4;
         sp14.unk8 = (s32) temp_r0_3->unk8;
         memcpy(&sp20, arg0->unkFC, 2);
         if ((func_080CE1C4(arg0, GetTool__C9ToolStack(&sp20)) << 0x18) != 0) {
-            func_08050DC8(arg0 + 0x80, gUnk_08117B10, 0, 0);
+            func_08050DC8((GenObj *)((u8 *)arg0 + 0x80), gUnk_08117B10, 0, 0);
             arg0->unk108 = sp38;
             sp38 = 0;
         } else {
@@ -278,7 +303,7 @@ block_42:
                 var_r1_2 = &sp24;
                 goto block_49;
             }
-            sp3C = arg0 + 0x100;
+            sp3C = (GenObj *)((u8 *)arg0 + 0x100);
             temp_r4_24 = arg0->unk100;
             memcpy(&sp24, GetToolAt__8RucksackUi(temp_r4_24, func_080CE184(arg0, arg1, 0)), 2);
             sp2C = GetTool__C9ToolStack(&sp20);

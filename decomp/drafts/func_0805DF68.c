@@ -1,4 +1,8 @@
-void func_0805DF68(void *arg0, s16 arg1, s16 arg2, s16 arg3, s32 arg4) {
+typedef struct GenObj {
+    u8 _pad0[718];
+    s32 unk2CE;
+} GenObj;
+void func_0805DF68(GenObj *arg0, s16 arg1, s16 arg2, s16 arg3, s32 arg4) {
     *(arg0 + 0x14E + (arg0->unk2CE * 8)) = arg1;
     *(arg0 + 0x150 + (arg0->unk2CE * 8)) = arg2;
     *(arg0 + 0x152 + (arg0->unk2CE * 8)) = arg3;

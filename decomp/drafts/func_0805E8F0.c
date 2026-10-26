@@ -1,4 +1,13 @@
-s32 func_0805E8F0(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[4];
+    s32 unkC;
+    s32 unkE;
+    s32 unk10;
+    s32 unk12;
+} GenObj;
+s32 func_0805E8F0(GenObj *arg0) {
     s16 temp_ip;
     s16 var_r0;
     s32 temp_r1;
@@ -27,7 +36,7 @@ s32 func_0805E8F0(void *arg0) {
         if (var_r3 <= 0) {
             var_r2 = arg0->unkC;
             temp_r1 = arg0->unk4;
-            temp_sb = *(temp_r1 + (var_r2 * 4));
+            temp_sb = *((u8 *)temp_r1 + (var_r2 * 4));
             var_r7 |= 1;
             var_r0_2 = 0;
             if (temp_r1 != 0) {
@@ -57,7 +66,7 @@ loop_10:
             } else {
                 var_r3 = 0;
             }
-            if (*(temp_r1 + temp_r1_2) != temp_sb) {
+            if (*((u8 *)temp_r1 + temp_r1_2) != temp_sb) {
                 var_r7 |= 2;
             }
             arg0->unkC = var_r2;

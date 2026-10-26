@@ -3,15 +3,21 @@ s32 func_0809D7D8(s32, s32);                        /* extern */
 u32 func_0809D8A4();                                /* extern */
 s32 func_0809D8B8(s32);                             /* extern */
 s32 rand();                                         /* extern */
-extern ? gUnk_08103B10;
-extern ? gUnk_08103B38;
-extern ? gUnk_08103C3C;
-extern ? gUnk_08103C74;
+extern s32 gUnk_08103B10;
+extern s32 gUnk_08103B38;
+extern s32 gUnk_08103C3C;
+extern s32 gUnk_08103C74;
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk4;
+    s32 unk5;
+} GenObj;
 void func_0809D500(s32 arg0, s32 arg1, s32 arg2, void *arg3) {
     s32 sp0;
     s32 sp4;
-    void *sp8;
+    GenObj *sp8;
     u32 spC;
     s32 sp10;
     s32 sp14;

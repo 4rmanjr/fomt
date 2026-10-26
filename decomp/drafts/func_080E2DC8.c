@@ -3,15 +3,21 @@ s32 func_08007874();                                  /* extern */
 void *func_080D3BC0(s32);                           /* extern */
 void *malloc(s32);                                  /* extern */
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+} GenObj;
 s32 func_080E2DC8(s32 arg0) {
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r0_3;
-    void *temp_r0_4;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_3;
+    GenObj *temp_r0_4;
     void *temp_r4;
     void *temp_r4_2;
-    void *var_r0;
-    void *var_r0_2;
+    GenObj *var_r0;
+    GenObj *var_r0_2;
 
     func_08007874();
     temp_r4 = arg0 + 4;

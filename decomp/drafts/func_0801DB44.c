@@ -1,5 +1,9 @@
 s32 func_0801468C(s32);                               /* extern */
 
-void func_0801DB44(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[4180];
+    s32 unk1054;
+} GenObj;
+void func_0801DB44(GenObj *arg0) {
     func_0801468C(arg0->unk1054);
 }

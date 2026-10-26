@@ -4,6 +4,11 @@ s32 func_0809D8A4(u32 *);                           /* extern */
 s32 func_0809D8B8(u32 *);                           /* extern */
 s32 rand();                                         /* extern */
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk4;
+} GenObj;
 s32 *func_0809CF34(s32 *arg0, u32 *arg1, s32 arg2, u32 arg3, s32 *arg4, u32 arg5) {
     s32 sp0;
 s32 sp2C;
@@ -39,7 +44,7 @@ s32 sp2C;
 
     sp34 = arg0;
     sp38 = arg2;
-    sp30.unk0 = 0U;
+    sp30 = 0U;
     sp30.unk1 = 0U;
     var_r0 = &sp0;
     var_r2 = 0xB;
@@ -141,9 +146,9 @@ block_28:
         } else {
             var_r4 += 1;
         }
-        sp30.unk0 = (u8) var_r5;
+        sp30 = (u8) var_r5;
         sp30.unk1 = (u8) var_r4;
-        temp_r1_2 = arg1 + ((sp30.unk0 * 2) + (sp30.unk1 * 0x38));
+        temp_r1_2 = arg1 + ((sp30 * 2) + (sp30.unk1 * 0x38));
         temp_r1_2->unk4 = (u8) ((-0x10 & temp_r1_2->unk4) | 1);
     }
     if (sp38 == 0) {
@@ -152,7 +157,7 @@ block_28:
         func_0809D500(arg1, arg3, var_sl, &sp0);
     }
     if (arg3 != 0) {
-        temp_r1_3 = arg1 + ((sp30.unk0 * 2) + (sp30.unk1 * 0x38));
+        temp_r1_3 = arg1 + ((sp30 * 2) + (sp30.unk1 * 0x38));
         temp_r1_3->unk4 = (u8) (-0x10 & temp_r1_3->unk4);
     }
     *sp34 = sp30;

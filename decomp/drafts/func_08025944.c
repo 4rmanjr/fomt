@@ -3,7 +3,11 @@ s32 GetTool__C9ToolStack(s32);                      /* extern */
 s32 IsEmpty__C9ToolStack(s32);                      /* extern */
 s8 func_0800E550(s32, s32);                         /* extern */
 
-s32 func_08025944(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[56];
+    s32 unk38;
+} GenObj;
+s32 func_08025944(GenObj *arg0) {
     s8 sp0;
     s32 temp_r4;
     s32 temp_r5;

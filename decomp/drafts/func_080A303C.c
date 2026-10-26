@@ -1,7 +1,23 @@
 extern u8 gUnk_08104957;
 
-void func_080A303C(void *arg0) {
-    s32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[4];
+    s32 unk8;
+    u8 _padC[468];
+    s32 unk1E0;
+    s32 unk1E2;
+    s32 unk1E4;
+    s32 unk1E5;
+    s32 unk1E6;
+    s32 unk1E8;
+    s32 unk1EA;
+    struct GenObj *unk1EC;
+    struct GenObj *unk1ED;
+    struct GenObj *unk1EF;
+} GenObj;
+void func_080A303C(GenObj *arg0) {
+    GenObj *sp0;
     s32 sp4;
     s32 sp8;
     u8 *spC;
@@ -28,12 +44,12 @@ void func_080A303C(void *arg0) {
     u8 *var_r6;
     u8 temp_r0;
     void *var_ip;
-    void *var_sl;
+    GenObj *var_sl;
 
     var_r1 = 0;
     do {
         var_r1_2 = 6;
-        var_r0 = (var_r1 * 7) + (arg0 + 0x1B4) + 6;
+        var_r0 = (var_r1 * 7) + ((GenObj *)((u8 *)arg0 + 0x1B4)) + 6;
 loop_2:
         *var_r0 = 0;
         var_r0 -= 1;
@@ -43,7 +59,7 @@ loop_2:
         }
         var_r1 += 1;
     } while (var_r1 <= 5);
-    var_r1_3 = arg0 + 0x1EC;
+    var_r1_3 = (GenObj *)((u8 *)arg0 + 0x1EC);
     var_r2 = 9;
     do {
         *var_r1_3 |= 0xFF;
@@ -54,13 +70,13 @@ loop_2:
     sp0 = 0;
     sp4 = 1;
     sp8 = 1;
-    spC = arg0 + 0x1DE;
-    var_sl = arg0 + 4;
-    var_r6 = arg0 + 0x1F2;
-    sp18 = arg0 + 0x1E2;
+    spC = (GenObj *)((u8 *)arg0 + 0x1DE);
+    var_sl = (GenObj *)((u8 *)arg0 + 4);
+    var_r6 = (GenObj *)((u8 *)arg0 + 0x1F2);
+    sp18 = (GenObj *)((u8 *)arg0 + 0x1E2);
     sp24 = 0;
 loop_7:
-    *(arg0 + 0x1B4 + (sp24 + var_sb)) = sp0.unk8;
+    *((u8 *)(GenObj *)((u8 *)arg0 + 0x1B4) + (sp24 + var_sb)) = sp0.unk8;
     if ((((u32) (*spC << 0x19) >> 0x1B) + 1) == sp8) {
         arg0->unk1E4 = (s8) var_sb;
         arg0->unk1E5 = (u8) sp0.unk0;
@@ -68,12 +84,12 @@ loop_7:
     var_r5 = 0;
     sp20 = var_sb + 1;
     sp1C = sp8 + 1;
-    sp10 = arg0 + 0x1E2;
+    sp10 = (GenObj *)((u8 *)arg0 + 0x1E2);
     sp2C = sp0 & 0xF;
     var_r4 = &gUnk_08104957;
     var_ip = (sp4 * 4) + arg0;
     sp14 = var_sb * 0x10;
-    var_r2_2 = var_ip + 0x1EE;
+    var_r2_2 = (GenObj *)((u8 *)var_ip + 0x1EE);
     do {
         sp28 = var_r5 * 2;
         if ((*var_r4 == *sp10) && ((&gUnk_08104957 + 1)[sp28] == sp8)) {

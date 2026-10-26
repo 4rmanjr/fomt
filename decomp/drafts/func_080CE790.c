@@ -5,22 +5,51 @@ void *func_08008910(void *);                        /* extern */
 s32 func_08008920(void *);                          /* extern */
 s32 func_08008F0C(s32 *, s32, s32, u16);                /* extern */
 s32 func_0805E8F0(void *);                            /* extern */
-s32 func_0805E99C(s32, s32, u16, ? *);                /* extern */
+s32 func_0805E99C(s32, s32, u16, s32 *);                /* extern */
 void *func_080D3BC0(s32);                           /* extern */
 void *malloc(s32);                                  /* extern */
 
-void func_080CE790(void *arg0) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk2;
+    struct GenObj *unk4;
+    s32 unk6;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    s32 unk10;
+    s32 unk11;
+    u8 _pad15[3];
+    s32 unk18;
+    u8 _pad1C[48];
+    s32 unk4C;
+    s32 unk4E;
+    s32 unk50;
+    s32 unk54;
+    u8 _pad58[12];
+    s32 unk64;
+    u8 _pad68[24];
+    s32 unk80;
+    s32 unk84;
+    s32 unk86;
+    s32 unk88;
+    s32 unk8C;
+    u8 _pad90[12];
+    s32 unk9C;
+    u8 _padA0[24];
+    s32 unkB8;
+} GenObj;
+void func_080CE790(GenObj *arg0) {
 s32 sp0;
     s32 spC;
     s32 sp14;
     s32 sp1C;
     s32 sp24;
-s32 sp3C;
+GenObj sp3C;
     s32 sp4C;
     s32 sp50;
     s32 sp54;
     s32 sp58;
-    void *sp5C;
+    GenObj *sp5C;
     void *sp60;
     s16 temp_r2;
     s16 temp_r2_3;
@@ -44,42 +73,42 @@ s32 sp3C;
     u16 var_r3_3;
     void **temp_r1;
     void **temp_r1_4;
-    void *temp_r0;
+    GenObj *temp_r0;
     void *temp_r0_12;
     void *temp_r0_2;
-    void *temp_r0_3;
+    GenObj *temp_r0_3;
     void *temp_r0_6;
-    void *temp_r0_7;
+    GenObj *temp_r0_7;
     void *temp_r0_8;
-    void *temp_r0_9;
+    GenObj *temp_r0_9;
     void *temp_r1_2;
-    void *temp_r1_3;
+    GenObj *temp_r1_3;
     void *temp_r1_5;
-    void *temp_r1_6;
+    GenObj *temp_r1_6;
     void *temp_r2_2;
     void *temp_r2_4;
-    void *temp_r4;
-    void *temp_r4_2;
-    void *temp_r4_5;
-    void *temp_r4_6;
-    void *temp_r5;
-    void *temp_r5_2;
+    GenObj *temp_r4;
+    GenObj *temp_r4_2;
+    GenObj *temp_r4_5;
+    GenObj *temp_r4_6;
+    GenObj *temp_r5;
+    GenObj *temp_r5_2;
     void *var_r0_2;
     void *var_r0_4;
     void *var_r1;
     void *var_r1_2;
-    void *var_r2_2;
-    void *var_r2_3;
-    void *var_r2_5;
-    void *var_r2_6;
-    void *var_r3_2;
-    void *var_r3_4;
+    GenObj *var_r2_2;
+    GenObj *var_r2_3;
+    GenObj *var_r2_5;
+    GenObj *var_r2_6;
+    GenObj *var_r3_2;
+    GenObj *var_r3_4;
     void *var_r4;
     void *var_r4_2;
 
     arg0->unk80 = 1U;
     arg0->unkB8 = 1U;
-    sp0.unk0 = 0U;
+    sp0 = 0U;
     sp0.unk2 = 0U;
     sp0.unk4 = 0;
     sp0.unk6 = 0;
@@ -92,28 +121,28 @@ s32 sp3C;
     if (arg0->unk80 == 0) {
 
     } else {
-        temp_r4 = arg0 + 0x50;
+        temp_r4 = (GenObj *)((u8 *)arg0 + 0x50);
         if (arg0->unk0->unk88 == 3) {
             func_0805E8F0(temp_r4);
         }
         temp_r1 = arg0->unk50;
         (*temp_r1)->unk10(&sp1C, temp_r1, *(arg0->unk54 + (temp_r4->unkC * 4)));
-        temp_r0 = arg0 + 0x64;
-        temp_r0_2 = temp_r0 + 0xC;
-        sp0.unk0 = (s32) arg0->unk64;
+        temp_r0 = (GenObj *)((u8 *)arg0 + 0x64);
+        temp_r0_2 = (GenObj *)((u8 *)temp_r0 + 0xC);
+        sp0 = (s32) arg0->unk64;
         sp0.unk4 = (s32) temp_r0->unk4;
         sp0.unk8 = (s32) temp_r0->unk8;
-        temp_r1_2 = &sp0 + 0xC;
+        temp_r1_2 = &(GenObj *)((u8 *)sp0 + 0xC);
         sp0.unkC = (s32) temp_r0->unkC;
         temp_r1_2->unk4 = (s32) temp_r0_2->unk4;
         temp_r1_2->unk8 = (s32) temp_r0_2->unk8;
         temp_r1_2->unkC = (s32) temp_r0_2->unkC;
-        sp0.unk0 = (u16) arg0->unk4C;
+        sp0 = (u16) arg0->unk4C;
         sp0.unk2 = (u16) arg0->unk4E;
         sp0.unk8 = 1;
-        temp_r0_3 = arg0 + 0x14;
+        temp_r0_3 = (GenObj *)((u8 *)arg0 + 0x14);
         sp0.unk4 = func_080074C0(temp_r0_3, temp_r0_3->unk4);
-        temp_r5 = arg0 + 4;
+        temp_r5 = (GenObj *)((u8 *)arg0 + 4);
         sp0.unk6 = func_08007D4C(temp_r5, temp_r5->unk4);
         sp0.unk18 = 1;
         temp_r0_4 = func_08008920(arg0->unk0);
@@ -133,7 +162,7 @@ s32 sp3C;
         temp_r1_3 = temp_r4_2->unk4;
         if (temp_r1_3 != temp_r4_2->unkC) {
             if (temp_r1_3 != 0) {
-                temp_r1_3->unk0 = (s32) sp3C.unk0;
+                temp_r1_3->unk0 = (s32) sp3C;
                 temp_r1_3->unk4 = (s32) sp3C.unk4;
                 temp_r1_3->unk8 = (s32) sp3C.unk8;
                 temp_r1_3->unkC = (s32) sp3C.unkC;
@@ -176,19 +205,19 @@ s32 sp3C;
             }
             if (sp50 == 1) {
                 if (var_r3_2 != 0) {
-                    var_r3_2->unk0 = (s32) sp3C.unk0;
+                    var_r3_2->unk0 = (s32) sp3C;
                     var_r3_2->unk4 = (s32) sp3C.unk4;
                     var_r3_2->unk8 = (s32) sp3C.unk8;
                     var_r3_2->unkC = (s32) sp3C.unkC;
                 }
-                var_r4 = var_r3_2 + 0x10;
+                var_r4 = (GenObj *)((u8 *)var_r3_2 + 0x10);
             } else {
                 var_ip = sp50;
                 var_r2_3 = var_r3_2;
                 if (sp50 != 0) {
                     do {
                         if (var_r2_3 != 0) {
-                            var_r2_3->unk0 = (s32) sp3C.unk0;
+                            var_r2_3->unk0 = (s32) sp3C;
                             var_r2_3->unk4 = (s32) sp3C.unk4;
                             var_r2_3->unk8 = (s32) sp3C.unk8;
                             var_r2_3->unkC = (s32) sp3C.unkC;
@@ -218,28 +247,28 @@ s32 sp3C;
     if (arg0->unkB8 == 0) {
         return;
     }
-    temp_r4_5 = arg0 + 0x88;
+    temp_r4_5 = (GenObj *)((u8 *)arg0 + 0x88);
     if (arg0->unk0->unk88 == 3) {
         func_0805E8F0(temp_r4_5);
     }
     temp_r1_4 = arg0->unk88;
     (*temp_r1_4)->unk10(&sp1C, temp_r1_4, *(arg0->unk8C + (temp_r4_5->unkC * 4)));
-    temp_r0_7 = arg0 + 0x9C;
-    temp_r0_8 = temp_r0_7 + 0xC;
-    sp0.unk0 = (s32) arg0->unk9C;
+    temp_r0_7 = (GenObj *)((u8 *)arg0 + 0x9C);
+    temp_r0_8 = (GenObj *)((u8 *)temp_r0_7 + 0xC);
+    sp0 = (s32) arg0->unk9C;
     sp0.unk4 = (s32) temp_r0_7->unk4;
     sp0.unk8 = (s32) temp_r0_7->unk8;
-    temp_r1_5 = &sp0 + 0xC;
+    temp_r1_5 = &(GenObj *)((u8 *)sp0 + 0xC);
     sp0.unkC = (s32) temp_r0_7->unkC;
     temp_r1_5->unk4 = (s32) temp_r0_8->unk4;
     temp_r1_5->unk8 = (s32) temp_r0_8->unk8;
     temp_r1_5->unkC = (s32) temp_r0_8->unkC;
-    sp0.unk0 = (u16) arg0->unk84;
+    sp0 = (u16) arg0->unk84;
     sp0.unk2 = (u16) arg0->unk86;
     sp0.unk8 = 1;
-    temp_r0_9 = arg0 + 0x14;
+    temp_r0_9 = (GenObj *)((u8 *)arg0 + 0x14);
     sp0.unk4 = func_080074C0(temp_r0_9, temp_r0_9->unk4);
-    temp_r5_2 = arg0 + 0xC;
+    temp_r5_2 = (GenObj *)((u8 *)arg0 + 0xC);
     sp0.unk6 = func_08007D4C(temp_r5_2, temp_r5_2->unk4);
     sp0.unk18 = 1;
     temp_r0_10 = func_08008920(arg0->unk0);
@@ -258,7 +287,7 @@ s32 sp3C;
     temp_r1_6 = temp_r4_6->unk4;
     if (temp_r1_6 != temp_r4_6->unkC) {
         if (temp_r1_6 != 0) {
-            temp_r1_6->unk0 = (s32) sp3C.unk0;
+            temp_r1_6->unk0 = (s32) sp3C;
             temp_r1_6->unk4 = (s32) sp3C.unk4;
             temp_r1_6->unk8 = (s32) sp3C.unk8;
             temp_r1_6->unkC = (s32) sp3C.unkC;
@@ -302,19 +331,19 @@ s32 sp3C;
     }
     if (sp58 == 1) {
         if (var_r3_4 != 0) {
-            var_r3_4->unk0 = (s32) sp3C.unk0;
+            var_r3_4->unk0 = (s32) sp3C;
             var_r3_4->unk4 = (s32) sp3C.unk4;
             var_r3_4->unk8 = (s32) sp3C.unk8;
             var_r3_4->unkC = (s32) sp3C.unkC;
         }
-        var_r4_2 = var_r3_4 + 0x10;
+        var_r4_2 = (GenObj *)((u8 *)var_r3_4 + 0x10);
     } else {
         var_r3_5 = sp58;
         var_r2_6 = var_r3_4;
         if (var_r3_5 != 0) {
             do {
                 if (var_r2_6 != 0) {
-                    var_r2_6->unk0 = (s32) sp3C.unk0;
+                    var_r2_6->unk0 = (s32) sp3C;
                     var_r2_6->unk4 = (s32) sp3C.unk4;
                     var_r2_6->unk8 = (s32) sp3C.unk8;
                     var_r2_6->unkC = (s32) sp3C.unkC;

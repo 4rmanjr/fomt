@@ -2,8 +2,12 @@ s32 __builtin_delete(void *);                         /* extern */
 s32 func_080079E8(void *, s32);                       /* extern */
 s32 func_08007C28(void *, s32);                       /* extern */
 
-void func_080E4860(void *arg0, s32 arg1) {
-    void *temp_r4;
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+} GenObj;
+void func_080E4860(GenObj *arg0, s32 arg1) {
+    GenObj *temp_r4;
     void *temp_r4_10;
     void *temp_r4_2;
     void *temp_r4_3;
@@ -14,7 +18,7 @@ void func_080E4860(void *arg0, s32 arg1) {
     void *temp_r4_8;
     void *temp_r4_9;
 
-    temp_r4 = arg0 + 0x50;
+    temp_r4 = (GenObj *)((u8 *)arg0 + 0x50);
     func_08007C28(temp_r4, temp_r4->unk4);
     func_080079E8(temp_r4, 2);
     temp_r4_2 = temp_r4 - 8;

@@ -1,10 +1,10 @@
-extern ? gUnk_086DC3C4;
-extern ? gUnk_086DC3D0;
-extern ? gUnk_086DC3DC;
-extern ? gUnk_086DC3E8;
-extern ? gUnk_086DC3F4;
+extern s32 gUnk_086DC3C4;
+extern s32 gUnk_086DC3D0;
+extern s32 gUnk_086DC3DC;
+extern s32 gUnk_086DC3E8;
+extern s32 gUnk_086DC3F4;
 
-? *func_0809E0AC(s32 arg0, s32 arg1, s32 arg2) {
+s32 *func_0809E0AC(s32 arg0, s32 arg1, s32 arg2) {
     u32 temp_r0;
 
     temp_r0 = (u32) (*(arg0 + ((arg2 * 0x38) + 4) + (arg1 * 2)) << 0x1C) >> 0x1C;

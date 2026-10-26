@@ -1,6 +1,16 @@
 s32 func_08008B6C(void *, s32);                       /* extern */
 
-void func_080B9428(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[13];
+    s32 unk11;
+    u8 _pad15[151];
+    s32 unkAC;
+    u8 _padB0[40];
+    s32 unkD8;
+    s32 unkDC;
+} GenObj;
+void func_080B9428(GenObj *arg0) {
     void *temp_r0;
 
     arg0->unkD8 = 1;

@@ -1,17 +1,28 @@
-s32 __12BacheloretteRC13ActorLocation(void *, ? *);   /* extern */
-s32 __13HarvestSpriteRC13ActorLocation(void *, ? *);  /* extern */
-s32 __3NpcRC13ActorLocation(void *, ? *);             /* extern */
+s32 __12BacheloretteRC13ActorLocation(void *, s32 *);   /* extern */
+s32 __13HarvestSpriteRC13ActorLocation(void *, s32 *);  /* extern */
+s32 __3NpcRC13ActorLocation(void *, s32 *);             /* extern */
 s32 func_0809E9B8(void *);                            /* extern */
-s32 func_0809EB4C(void *, ? *);                       /* extern */
-s32 func_0809EC90(void *, ? *);                       /* extern */
-s32 func_0809EE8C(void *, ? *);                       /* extern */
+s32 func_0809EB4C(void *, s32 *);                       /* extern */
+s32 func_0809EC90(void *, s32 *);                       /* extern */
+s32 func_0809EE8C(void *, s32 *);                       /* extern */
 s32 func_080A17A0(void *, s32);                       /* extern */
 s32 func_080A1890(void *, s32);                       /* extern */
 s32 func_080A198C(void *);                            /* extern */
 s32 func_080A19EC(void *);                            /* extern */
-s32 memcpy(s32 *, ? *, s32);                            /* extern */
+s32 memcpy(s32 *, s32 *, s32);                            /* extern */
 
-void *func_0809EEE8(void *arg0, ? arg4, ? arg6, ? arg8, ? argA, ? argC, ? argE, ? arg10, ? arg12, ? arg14, ? arg16, ? arg18, ? arg1A, ? arg1C, ? arg1E, ? arg20, ? arg22, ? arg24, ? arg26, ? arg28, ? arg2A, ? arg2C, ? arg2E, ? arg30, ? arg32, ? arg34, ? arg36, ? arg38, ? arg3A, ? arg3C, ? arg3E, ? arg40, ? arg42, ? arg44, ? arg46, ? arg48, ? arg4A, ? arg4C, ? arg4E, ? arg50, ? arg52, ? arg54, ? arg56, ? arg58, ? arg5A, ? arg5C, ? arg5E, ? arg60, ? arg62, ? arg64, ? arg66, ? arg68, ? arg6A, ? arg6C, ? arg6E, ? arg70, ? arg72, ? arg74, ? arg76, ? arg78, ? arg7A, ? arg7C, ? arg7E, ? arg80, ? arg82, ? arg84, ? arg86, ? arg88, ? arg8A, ? arg8C, ? arg8E, ? arg90, ? arg92, ? arg94, ? arg96, ? arg98, ? arg9A, ? arg9C, ? arg9E) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk3;
+    u8 _pad7[37];
+    s32 unk2C;
+    s32 unk2D;
+    u8 _pad31[1087];
+    s32 unk470;
+    s32 unk474;
+} GenObj;
+void *func_0809EEE8(GenObj *arg0, ? arg4, ? arg6, ? arg8, ? argA, ? argC, ? argE, ? arg10, ? arg12, ? arg14, ? arg16, ? arg18, ? arg1A, ? arg1C, ? arg1E, ? arg20, ? arg22, ? arg24, ? arg26, ? arg28, ? arg2A, ? arg2C, ? arg2E, ? arg30, ? arg32, ? arg34, ? arg36, ? arg38, ? arg3A, ? arg3C, ? arg3E, ? arg40, ? arg42, ? arg44, ? arg46, ? arg48, ? arg4A, ? arg4C, ? arg4E, ? arg50, ? arg52, ? arg54, ? arg56, ? arg58, ? arg5A, ? arg5C, ? arg5E, ? arg60, ? arg62, ? arg64, ? arg66, ? arg68, ? arg6A, ? arg6C, ? arg6E, ? arg70, ? arg72, ? arg74, ? arg76, ? arg78, ? arg7A, ? arg7C, ? arg7E, ? arg80, ? arg82, ? arg84, ? arg86, ? arg88, ? arg8A, ? arg8C, ? arg8E, ? arg90, ? arg92, ? arg94, ? arg96, ? arg98, ? arg9A, ? arg9C, ? arg9E) {
     s32 var_r3;
     u8 *var_r2;
 

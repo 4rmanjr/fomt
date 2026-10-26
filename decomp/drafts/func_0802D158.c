@@ -3,9 +3,29 @@ s32 GetTool__C9ToolStack(s32);                      /* extern */
 s32 SetAnim__12AActorEntityUi(void *);                /* extern */
 s8 func_0800E550(s32, s32);                         /* extern */
 s32 func_0800F190(s32);                             /* extern */
-extern ? gUnk_080F0FCC;
+extern s32 gUnk_080F0FCC;
 
-u16 func_0802D158(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[30];
+    s32 unk22;
+    u8 _pad26[18];
+    s32 unk38;
+    u8 _pad3C[1];
+    s32 unk3D;
+    s32 unk3E;
+    s32 unk3F;
+    s32 unk40;
+    s32 unk44;
+    u8 _pad48[6];
+    s32 unk4E;
+    s32 unk4F;
+    u8 _pad53[41];
+    s32 unk7C;
+    u8 _pad80[51];
+    s32 unkB3;
+} GenObj;
+u16 func_0802D158(GenObj *arg0) {
     s8 sp0;
     s8 sp4;
     s32 temp_r4;

@@ -1,6 +1,6 @@
-/* Warning: missing "bx $lr" in last block of func_080C3D04 (.L080C3D36.1). */
+/* Warning: missing "bx $lr" in last block of func_080C3D04 (0.1). */
 
-? .L080C5144(void *);                               /* extern */
+? 0(void *);                               /* extern */
 s32 func_080088DC(void *);                          /* extern */
 s16 *func_08008918(void *);                         /* extern */
 s32 func_08008920(void *);                          /* extern */
@@ -10,7 +10,13 @@ s32 func_08050D3C(s32, s32, s32, s16 *, s32, s32, void *); /* extern */
 s32 func_08050E50(s32, u16);                          /* extern */
 u16 func_080C7B64(void *);                          /* extern */
 
-void func_080C3D04(void *arg0) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk1;
+    u8 _pad5[1303];
+    s32 unk51C;
+} GenObj;
+void func_080C3D04(GenObj *arg0) {
     s16 spC;
     s32 sp80;
     s32 sp84;
@@ -29,7 +35,7 @@ void func_080C3D04(void *arg0) {
     s32 temp_sb;
     s32 temp_sl;
     s32 var_r1;
-    void *var_r0;
+    GenObj *var_r0;
 
     sp80 = 0;
     sp84 = 0;
@@ -40,7 +46,7 @@ void func_080C3D04(void *arg0) {
     sp98 = 0;
     sp9C = 0;
     spA0 = 0;
-    var_r0 = arg0 + 0x904;
+    var_r0 = (GenObj *)((u8 *)arg0 + 0x904);
     var_r1 = 0x18;
     do {
         var_r0->unk0 = 0;
@@ -56,8 +62,8 @@ void func_080C3D04(void *arg0) {
     spA4 = func_08008920(arg0);
     temp_r5 = func_08008918(arg0);
     temp_r4 = func_08008940(arg0);
-    func_08050D3C(temp_sl, temp_sb, spA4, temp_r5, temp_r4, func_0800894C(arg0), arg0 + 0x814);
+    func_08050D3C(temp_sl, temp_sb, spA4, temp_r5, temp_r4, func_0800894C(arg0), (GenObj *)((u8 *)arg0 + 0x814));
     temp_r4_2 = arg0->unk51C;
     func_08050E50(temp_r4_2, func_080C7B64(arg0));
-    .L080C5144(arg0 + 0x89C);
+    0((GenObj *)((u8 *)arg0 + 0x89C));
 }

@@ -1,10 +1,25 @@
 s32 GetFirstFreeItemSlot__C8Rucksack(s32);          /* extern */
 s32 rand();                                         /* extern */
-extern ? gUnk_080FA246;
-extern ? gUnk_080FA264;
-extern ? gUnk_080FA2E8;
+extern s32 gUnk_080FA246;
+extern s32 gUnk_080FA264;
+extern s32 gUnk_080FA2E8;
 
-s32 func_08054D34(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    u8 _padC[8792];
+    s32 unk2264;
+    s32 unk2266;
+    u8 _pad226A[6];
+    s32 unk2270;
+    u8 _pad2274[100];
+    s32 unk22D8;
+    s32 unk22DC;
+    u8 _pad22E0[68];
+    s32 unk2324;
+    s32 unk2326;
+} GenObj;
+s32 func_08054D34(GenObj *arg0) {
     s16 temp_r0;
     s16 temp_r0_3;
     s16 temp_r2;

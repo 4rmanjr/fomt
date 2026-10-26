@@ -1,7 +1,11 @@
 s32 GetChicken__4CoopUi(s32);                         /* extern */
 u32 GetProductRank__C9Livestock();                  /* extern */
 
-s32 func_0807BE74(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+} GenObj;
+s32 func_0807BE74(GenObj *arg0) {
     s32 var_r4;
     u32 temp_r0;
 

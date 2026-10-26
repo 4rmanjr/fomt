@@ -1,8 +1,20 @@
 s32 func_0803D52C(s32 *, s32);                          /* extern */
 s32 func_0803D644(u8, u8);                          /* extern */
 
-s32 func_0803EDCC(void *arg0) {
-s32 sp0;
+typedef struct GenObj {
+    u8 _pad0[1];
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    u8 _pad7[1];
+    s32 unk8;
+    u8 _padC[8526];
+    s32 unk215A;
+    u8 _pad215E[68];
+    s32 unk21A2;
+} GenObj;
+s32 func_0803EDCC(GenObj *arg0) {
+GenObj sp0;
     u8 temp_r0;
     u8 temp_r4;
     u8 temp_r6;

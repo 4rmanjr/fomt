@@ -1,7 +1,22 @@
 s32 rand();                                         /* extern */
-extern ? gUnk_08107FB0;
+extern s32 gUnk_08107FB0;
 
-u16 func_080C09D8(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[1440];
+    s32 unk5A0;
+    s32 unk5A4;
+    u8 _pad5A8[4];
+    s32 unk5AC;
+    u8 _pad5B0[89];
+    s32 unk609;
+    s32 unk60A;
+    u8 _pad60E[1];
+    s32 unk60F;
+    s32 unk611;
+    s32 unk612;
+    s32 unk614;
+} GenObj;
+u16 func_080C09D8(GenObj *arg0) {
     s32 temp_r0;
     s32 temp_r0_2;
     u16 *var_r1;

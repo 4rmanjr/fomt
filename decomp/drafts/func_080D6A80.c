@@ -1,6 +1,11 @@
 s32 memcpy(void *, void *, s32);                      /* extern */
 
-void *func_080D6A80(void *arg0, void *arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[32];
+    s32 unk24;
+} GenObj;
+void *func_080D6A80(GenObj *arg0, GenObj *arg1) {
     s32 *temp_r0;
     s32 *var_r2;
     s32 *var_r3;

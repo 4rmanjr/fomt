@@ -1,8 +1,8 @@
-? *func_0809EACC(s32);                              /* extern */
-extern ? gUnk_08104108;
-extern ? gUnk_08104258;
+s32 *func_0809EACC(s32);                              /* extern */
+extern s32 gUnk_08104108;
+extern s32 gUnk_08104258;
 
-? *func_0809FE3C(s32 arg0, u32 arg1) {
+s32 *func_0809FE3C(s32 arg0, u32 arg1) {
     s32 var_r2;
 
     var_r2 = 0;

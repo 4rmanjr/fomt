@@ -4,8 +4,14 @@ s32 func_08008F0C(s32 *, s32, s32, u16);                /* extern */
 void *func_080D3BC0(s32);                           /* extern */
 void *malloc(s32);                                  /* extern */
 
-void func_080A480C(s32 arg0, void *arg1, void *arg2, ? arg3) {
-s32 sp0;
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+} GenObj;
+void func_080A480C(s32 arg0, GenObj *arg1, GenObj *arg2, ? arg3) {
+GenObj sp0;
     s32 sp10;
     s32 sp14;
     void *sp18;
@@ -18,14 +24,14 @@ s32 sp0;
     s32 var_r8;
     u16 var_r4;
     void *temp_r0;
-    void *temp_r1;
+    GenObj *temp_r1;
     void *temp_r1_2;
     void *temp_r2;
     void *var_r0_2;
     void *var_r0_3;
-    void *var_r2;
-    void *var_r2_2;
-    void *var_r3;
+    GenObj *var_r2;
+    GenObj *var_r2_2;
+    GenObj *var_r3;
     void *var_r4_2;
 
     temp_r6 = arg2->unk0;
@@ -41,7 +47,7 @@ s32 sp0;
     temp_r1 = arg1->unk4;
     if (temp_r1 != arg1->unkC) {
         if (temp_r1 != 0) {
-            temp_r1->unk0 = (s32) sp0.unk0;
+            temp_r1->unk0 = (s32) sp0;
             temp_r1->unk4 = (s32) sp0.unk4;
             temp_r1->unk8 = (s32) sp0.unk8;
             temp_r1->unkC = (s32) sp0.unkC;
@@ -85,19 +91,19 @@ s32 sp0;
     }
     if (sp14 == 1) {
         if (var_r3 != 0) {
-            var_r3->unk0 = (s32) sp0.unk0;
+            var_r3->unk0 = (s32) sp0;
             var_r3->unk4 = (s32) sp0.unk4;
             var_r3->unk8 = (s32) sp0.unk8;
             var_r3->unkC = (s32) sp0.unkC;
         }
-        var_r4_2 = var_r3 + 0x10;
+        var_r4_2 = (GenObj *)((u8 *)var_r3 + 0x10);
     } else {
         var_r3_2 = sp14;
         var_r2_2 = var_r3;
         if (var_r3_2 != 0) {
             do {
                 if (var_r2_2 != 0) {
-                    var_r2_2->unk0 = (s32) sp0.unk0;
+                    var_r2_2->unk0 = (s32) sp0;
                     var_r2_2->unk4 = (s32) sp0.unk4;
                     var_r2_2->unk8 = (s32) sp0.unk8;
                     var_r2_2->unkC = (s32) sp0.unkC;

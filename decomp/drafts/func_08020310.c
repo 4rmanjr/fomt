@@ -1,12 +1,28 @@
 s32 __5ActorRC5Actor(s32 *, void *);                    /* extern */
-s32 func_08020038(void *, void **, ? *, s32);         /* extern */
+s32 func_08020038(void *, void **, s32 *, s32);         /* extern */
 s32 func_08020410(void *, s32);                       /* extern */
 s32 func_080211E4(void *, s32, u8);                   /* extern */
 s32 func_08021264(void *);                          /* extern */
 s32 func_08038374(void *, s32, s32, u16, s32);        /* extern */
-extern ? vtable_unk_080E64C8;
+extern s32 vtable_unk_080E64C8;
 
-void *func_08020310(void *arg0, void **arg1, void *arg2, s32 arg3) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    u8 _pad10[4];
+    void *unk14;
+    u8 _pad18[8];
+    s32 unk20;
+    s32 unk22;
+    u8 _pad26[14];
+    s32 unk34;
+    s32 unk38;
+    u8 _pad3C[4];
+    s32 unk40;
+} GenObj;
+void *func_08020310(GenObj *arg0, void **arg1, GenObj *arg2, s32 arg3) {
 s32 sp4;
     void *temp_r0;
 

@@ -1,6 +1,23 @@
 s32 func_0805EC24(s32 *, s32 *, u32, u32);            /* extern */
 
-void func_0805E99C(u8 *arg0, void *arg1, s32 arg2, void *arg3) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+    s32 unk8;
+    s32 unkC;
+    s32 unkE;
+    s32 unk10;
+    s32 unk11;
+    s32 unk14;
+    s32 unk16;
+    s32 unk18;
+    u8 _pad1C[2];
+    s32 unk1E;
+    s32 unk20;
+} GenObj;
+void func_0805E99C(u8 *arg0, void *arg1, s32 arg2, GenObj *arg3) {
     s32 *sp0;
     s32 sp4;
     s32 sp8;
@@ -30,7 +47,7 @@ void func_0805E99C(u8 *arg0, void *arg1, s32 arg2, void *arg3) {
     u8 temp_r3;
     void *temp_r1_3;
     void *temp_r3_2;
-    void *var_sl;
+    GenObj *var_sl;
 
     sp24 = arg0;
     var_sl = arg1;

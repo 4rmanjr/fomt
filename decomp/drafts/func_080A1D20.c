@@ -1,8 +1,16 @@
 s32 func_080A1ED4(s32, s32, s32);                   /* extern */
-extern ? gUnk_081043BC;
+extern s32 gUnk_081043BC;
 
-s32 func_080A1D20(s32 arg0, s32 arg1, void *arg2, s32 arg3) {
-s32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+    s32 unk8;
+    s32 unkA;
+} GenObj;
+s32 func_080A1D20(s32 arg0, s32 arg1, GenObj *arg2, s32 arg3) {
+GenObj sp0;
 s32 sp8;
     s32 sp10;
     s32 sp14;
@@ -42,7 +50,7 @@ s32 sp8;
         var_r4 = temp_r0 + 8 + &gUnk_081043BC;
         sp18 = temp_r0;
 loop_10:
-        if ((*(sp18 + (&gUnk_081043BC + 4)) != arg1) || (temp_r0_2 = var_r4->unk0, temp_r1 = var_r4->unk2, sp0.unk0 = temp_r0_2, sp0.unk2 = temp_r1, sp0.unk4 = (s16) (temp_r0_2 + 0x10), sp0.unk6 = (s16) (temp_r1 + 0x10), ((s32) ((sp0.unk0 - arg2->unk4) & (arg2->unk0 - sp0.unk4) & (sp0.unk2 - arg2->unk6) & (arg2->unk2 - sp0.unk6)) >= 0))) {
+        if ((*((u8 *)sp18 + (&gUnk_081043BC + 4)) != arg1) || (temp_r0_2 = var_r4->unk0, temp_r1 = var_r4->unk2, sp0 = temp_r0_2, sp0.unk2 = temp_r1, sp0.unk4 = (s16) (temp_r0_2 + 0x10), sp0.unk6 = (s16) (temp_r1 + 0x10), ((s32) ((sp0 - arg2->unk4) & (arg2->unk0 - sp0.unk4) & (sp0.unk2 - arg2->unk6) & (arg2->unk2 - sp0.unk6)) >= 0))) {
             var_r4 += 0xC;
             sp18 += 0xC;
             var_r6 += 1;
@@ -69,11 +77,11 @@ loop_15:
             }
             temp_r0_4 = var_r7->unk8;
             temp_r1_2 = var_r7->unkA;
-            sp8.unk0 = temp_r0_4;
+            sp8 = temp_r0_4;
             sp8.unk2 = temp_r1_2;
             sp8.unk4 = (s16) (temp_r0_4 + var_r2);
             sp8.unk6 = (s16) (temp_r1_2 + sp14);
-            if ((s32) ((sp8.unk0 - arg2->unk4) & (arg2->unk0 - sp8.unk4) & (sp8.unk2 - arg2->unk6) & (arg2->unk2 - sp8.unk6)) >= 0) {
+            if ((s32) ((sp8 - arg2->unk4) & (arg2->unk0 - sp8.unk4) & (sp8.unk2 - arg2->unk6) & (arg2->unk2 - sp8.unk6)) >= 0) {
                 goto block_21;
             }
         } else {

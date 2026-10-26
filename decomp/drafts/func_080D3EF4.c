@@ -1,19 +1,23 @@
 s32 __12ScriptEnginePv(s32 **);                         /* extern */
-? **__builtin_new(s32);                             /* extern */
+s32 **__builtin_new(s32);                             /* extern */
 s32 func_080D40CC(s32 **);                              /* extern */
 s32 func_080D4130(s32 **);                              /* extern */
 s32 func_080D4480(s32, s32);                          /* extern */
-extern ? **gUnk_0300040C;
-extern ? vtable_unk_080E5BF8;
+extern s32 **gUnk_0300040C;
+extern s32 vtable_unk_080E5BF8;
 
-? ***func_080D3EF4(s32 ***arg0, void *arg1) {
-    ? **sp0;
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s32 ***func_080D3EF4(s32 ***arg0, GenObj *arg1) {
+    s32 **sp0;
     s32 sp4;
-    ? ***sp8;
-    ? ***sp10;
-    ? **temp_r0;
-    ? **var_r4;
-    ? **var_r4_2;
+    s32 ***sp8;
+    s32 ***sp10;
+    s32 **temp_r0;
+    s32 **var_r4;
+    s32 **var_r4_2;
     s32 temp_r1;
     s32 var_r5;
     s32 var_r5_2;

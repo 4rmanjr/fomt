@@ -1,11 +1,15 @@
 extern void *gUnk_03000404;
 
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk2;
+} GenObj;
 s32 func_0800736C(void) {
     s32 temp_r4;
     s32 var_r2;
     u32 var_r0;
-    void *temp_r1;
-    void *temp_r3;
+    GenObj *temp_r1;
+    GenObj *temp_r3;
 
     temp_r3 = gUnk_03000404->unk0;
     if ((temp_r3 != 0) && (gUnk_03000404->unk0 = (void *) temp_r3->unk0, (temp_r3 != 0))) {

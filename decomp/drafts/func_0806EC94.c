@@ -7,43 +7,50 @@ s32 GetWindowStyle__C9FarmHouse(s32);               /* extern */
 s32 Unpack(s32 *, s32);                                 /* extern */
 s32 func_08008E64(s32 *, s32, s32);                     /* extern */
 s32 func_0800E324(s32);                             /* extern */
-s32 func_0806EB70(void *, s32, ? *);                  /* extern */
+s32 func_0806EB70(void *, s32, s32 *);                  /* extern */
 s32 func_0806EC28(void *, s32, u16, u16, s32, s32, s32); /* extern */
 s32 func_080700B8(void *, s32, s32, s32, s32, s32, s32); /* extern */
-extern ? gUnk_080FBDA4;
-extern ? gUnk_080FBDF4;
-extern ? gUnk_080FBE24;
-extern ? gUnk_080FBE44;
-extern ? gUnk_080FBE64;
-extern ? gUnk_080FBE67;
-extern ? gUnk_08527238;
-extern ? gUnk_08527348;
-extern ? gUnk_08527520;
-extern ? gUnk_085275D0;
-extern ? gUnk_08529794;
+extern s32 gUnk_080FBDA4;
+extern s32 gUnk_080FBDF4;
+extern s32 gUnk_080FBE24;
+extern s32 gUnk_080FBE44;
+extern s32 gUnk_080FBE64;
+extern s32 gUnk_080FBE67;
+extern s32 gUnk_08527238;
+extern s32 gUnk_08527348;
+extern s32 gUnk_08527520;
+extern s32 gUnk_085275D0;
+extern s32 gUnk_08529794;
 extern u16 gUnk_08529994;
 extern u16 gUnk_08529BA8;
 extern u16 gUnk_08529DA4;
-extern ? gUnk_0852A6D8;
-extern ? gUnk_0852A7EC;
-extern ? gUnk_0852A9BC;
-extern ? gUnk_0852AA6C;
-extern ? gUnk_0852CA40;
+extern s32 gUnk_0852A6D8;
+extern s32 gUnk_0852A7EC;
+extern s32 gUnk_0852A9BC;
+extern s32 gUnk_0852AA6C;
+extern s32 gUnk_0852CA40;
 extern u16 gUnk_0852CC40;
 extern u16 gUnk_0852CE54;
 extern u16 gUnk_0852D050;
 
-void func_0806EC94(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    s32 unkA;
+    s32 unkC;
+    s32 unkD;
+} GenObj;
+void func_0806EC94(GenObj *arg0) {
     s32 spC;
     s32 sp10;
     u32 sp14;
     s32 sp18;
     s32 sp1C;
-    ? *var_r0;
-    ? *var_r0_2;
-    ? *var_r2;
-    ? *var_r2_2;
-    ? *var_r2_3;
+    s32 *var_r0;
+    s32 *var_r0_2;
+    s32 *var_r2;
+    s32 *var_r2_2;
+    s32 *var_r2_3;
     s32 *var_r4;
     s32 temp_r1;
     s32 temp_r4;
@@ -136,11 +143,11 @@ loop_13:
         goto loop_13;
     }
     temp_r0_3 = (GetUpgradeLevel__C9FarmHouse(arg0->unk8 + 0x1F4) * 0x10) + &gUnk_080FBDF4;
-    func_0806EC28(arg0, 0x18, temp_r0_3->unk8, temp_r0_3->unkA, (s32) temp_r0_3->unkC, (s32) temp_r0_3->unkD, *(temp_r0_3 + sp1C));
+    func_0806EC28(arg0, 0x18, temp_r0_3->unk8, temp_r0_3->unkA, (s32) temp_r0_3->unkC, (s32) temp_r0_3->unkD, *((u8 *)temp_r0_3 + sp1C));
     temp_r0_4 = (GetUpgradeLevel__C4Coop(arg0->unk8 + 0x410) * 0x10) + &gUnk_080FBE24;
-    func_0806EC28(arg0, 0x18, temp_r0_4->unk8, temp_r0_4->unkA, (s32) temp_r0_4->unkC, (s32) temp_r0_4->unkD, *(temp_r0_4 + sp1C));
+    func_0806EC28(arg0, 0x18, temp_r0_4->unk8, temp_r0_4->unkA, (s32) temp_r0_4->unkC, (s32) temp_r0_4->unkD, *((u8 *)temp_r0_4 + sp1C));
     temp_r0_5 = (GetUpgradeLevel__C4Barn(arg0->unk8 + 0x5F0) * 0x10) + &gUnk_080FBE44;
-    func_0806EC28(arg0, 0x18, temp_r0_5->unk8, temp_r0_5->unkA, (s32) temp_r0_5->unkC, (s32) temp_r0_5->unkD, *(temp_r0_5 + sp1C));
+    func_0806EC28(arg0, 0x18, temp_r0_5->unk8, temp_r0_5->unkA, (s32) temp_r0_5->unkC, (s32) temp_r0_5->unkD, *((u8 *)temp_r0_5 + sp1C));
     temp_r4 = GetDoghouseStyle__C9FarmHouse(arg0->unk8 + 0x1F4);
     var_r1_3 = &gUnk_08529994;
     if (spC != 0) {
@@ -148,7 +155,7 @@ loop_13:
     }
     temp_r2_2 = *var_r1_3;
     func_08008E64(var_r1_3 + 4 + ((temp_r4 * temp_r2_2) << 5), 0x060002C0, temp_r2_2 << 5);
-    func_080700B8(arg0, 0x14, 0x18, 3, 2, 2, (s32) *(temp_r4 + &gUnk_080FBE64));
+    func_080700B8(arg0, 0x14, 0x18, 3, 2, 2, (s32) *((u8 *)temp_r4 + &gUnk_080FBE64));
     temp_r4_2 = GetMailboxStyle__C9FarmHouse(arg0->unk8 + 0x1F4);
     var_r1_4 = &gUnk_08529BA8;
     if (spC != 0) {
@@ -156,7 +163,7 @@ loop_13:
     }
     temp_r2_3 = *var_r1_4;
     func_08008E64(var_r1_4 + 4 + ((temp_r4_2 * temp_r2_3) << 5), 0x06000340, temp_r2_3 << 5);
-    func_080700B8(arg0, 0x14, 0x11, 3, 1, 2, (s32) *(temp_r4_2 + (sp18 + spC) + &gUnk_080FBE67));
+    func_080700B8(arg0, 0x14, 0x11, 3, 1, 2, (s32) *((u8 *)temp_r4_2 + (sp18 + spC) + &gUnk_080FBE67));
     var_r4_2 = &gUnk_08529DA4;
     if (spC != 0) {
         var_r4_2 = &gUnk_0852D050;

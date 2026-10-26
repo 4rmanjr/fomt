@@ -5,21 +5,31 @@ s32 func_0800835C(s32 *);                               /* extern */
 s32 func_08008364(s32 *, s32);                          /* extern */
 s32 func_08008444();                                  /* extern */
 s32 func_08008D3C(s32);                             /* extern */
-? *func_0800E2E4(u32);                              /* extern */
-s32 func_0804EC84(s32, ? *, s32);                     /* extern */
-s32 func_08050CC0(s32, s32, s32, s32, s32, ? *, ? *); /* extern */
-s32 memcpy(void *, ? *, u32);                         /* extern */
+s32 *func_0800E2E4(u32);                              /* extern */
+s32 func_0804EC84(s32, s32 *, s32);                     /* extern */
+s32 func_08050CC0(s32, s32, s32, s32, s32, s32 *, s32 *); /* extern */
+s32 memcpy(void *, s32 *, u32);                         /* extern */
 u32 strlen(s32 *);                                    /* extern */
-extern ? vtable_unk_080E5A98;
+extern s32 vtable_unk_080E5A98;
 
-void *func_08004EFC(void *arg0, ? *arg1, s32 arg2, ? *arg3, ? *arg4) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    void *unk4;
+    u8 _pad8[6688];
+    s32 unk1A28;
+    s32 unk1A2C;
+    s32 unk1A30;
+    u8 _pad1A34[66];
+    s32 unk1A76;
+} GenObj;
+void *func_08004EFC(GenObj *arg0, s32 *arg1, s32 arg2, s32 *arg3, s32 *arg4) {
 s32 spC;
 s32 sp10;
 s32 sp14;
-    ? *sp24;
-    ? *temp_r4_2;
-    ? *temp_r6;
-    ? *temp_sb;
+    s32 *sp24;
+    s32 *temp_r4_2;
+    s32 *temp_r6;
+    s32 *temp_sb;
     s32 temp_r4;
     s32 var_r0;
     s32 var_r0_2;
@@ -73,7 +83,7 @@ s32 sp14;
         var_r4 = 0xF;
     }
     memcpy(temp_r5, arg1, var_r4);
-    *(temp_r5 + var_r4) = 0;
+    *((u8 *)temp_r5 + var_r4) = 0;
     func_0804EC84(((u32) (arg2 << 0x19) >> 0x1B) + 1, &sp14, 2);
     temp_sb = func_0800E2E4((u32) (arg2 << 0x1E) >> 0x1E);
     temp_r6 = arg0 + 0x1A44;
@@ -87,7 +97,7 @@ s32 sp14;
             var_r4_2 = temp_r5_2;
         }
         memcpy(temp_r1, temp_sb, var_r4_2);
-        *(temp_r1 + var_r4_2) = 0;
+        *((u8 *)temp_r1 + var_r4_2) = 0;
     }
     temp_r0_2 = strlen(temp_r6);
     temp_r6_2 = temp_r6 + temp_r0_2;
@@ -98,7 +108,7 @@ s32 sp14;
             var_r4_3 = temp_r5_3;
         }
         memcpy(temp_r6_2, &sp14, var_r4_3);
-        *(temp_r6_2 + var_r4_3) = 0;
+        *((u8 *)temp_r6_2 + var_r4_3) = 0;
     }
     temp_r5_4 = arg0 + 0x1A54;
     var_r4_4 = strlen(sp24);
@@ -106,13 +116,13 @@ s32 sp14;
         var_r4_4 = 0xF;
     }
     memcpy(temp_r5_4, sp24, var_r4_4);
-    *(temp_r5_4 + var_r4_4) = 0;
+    *((u8 *)temp_r5_4 + var_r4_4) = 0;
     temp_r5_5 = arg0 + 0x1A64;
     var_r4_5 = strlen(arg4);
     if (var_r4_5 > 0xFU) {
         var_r4_5 = 0xF;
     }
     memcpy(temp_r5_5, arg4, var_r4_5);
-    *(temp_r5_5 + var_r4_5) = 0;
+    *((u8 *)temp_r5_5 + var_r4_5) = 0;
     return arg0;
 }

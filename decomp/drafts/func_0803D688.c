@@ -1,7 +1,18 @@
-s32 SetLocation__3NpcRC13ActorLocation(void *, ? *);  /* extern */
-s32 memcpy(s32 *, ? *, s32);                            /* extern */
+s32 SetLocation__3NpcRC13ActorLocation(void *, s32 *);  /* extern */
+s32 memcpy(s32 *, s32 *, s32);                            /* extern */
 
-void func_0803D688(void *arg0, void *arg1, s32 arg2) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    struct GenObj *unk4;
+    s32 unk6;
+    s32 unk8;
+    s32 unkC;
+    s32 unkD;
+} GenObj;
+void func_0803D688(GenObj *arg0, GenObj *arg1, s32 arg2) {
 s32 sp0;
 s32 sp8;
 s32 sp10;
@@ -10,7 +21,7 @@ s32 sp10;
     s32 temp_r1;
     s32 temp_sl;
     u32 temp_r4;
-    void *temp_r0;
+    GenObj *temp_r0;
     void *temp_r1_2;
     void *var_ip;
 
@@ -29,7 +40,7 @@ s32 sp10;
     if (var_ip != 0) {
         temp_r6 = var_ip->unk6;
         temp_r0_2 = var_ip->unk8;
-        sp8.unk0 = (u16) ((0xFFFFFC00 & sp8.unk0) | ((u32) (var_ip->unkA << 0x16) >> 0x16));
+        sp8 = (u16) ((0xFFFFFC00 & sp8) | ((u32) (var_ip->unkA << 0x16) >> 0x16));
         sp8.unk1 = (u8) ((3 & sp8.unk1) | (((u16) temp_r6 & 0x3F) * 4));
         sp8.unk2 = (u16) ((0xFFFFFC00 & sp8.unk2) | ((u32) (temp_r6 << 0x10) >> 0x16));
         sp8.unk3 = (u8) ((3 & sp8.unk3) | (((u16) temp_r0_2 & 0x3F) * 4));
@@ -38,7 +49,7 @@ s32 sp10;
         memcpy(&sp0, &sp8, 6);
         sp0.unk6 = (s8) temp_r4;
     } else {
-        sp10.unk0 = (u16) ((0xFFFFFC00 & sp10.unk0) | 0x234);
+        sp10 = (u16) ((0xFFFFFC00 & sp10) | 0x234);
         sp10.unk1 = (u8) (3 & sp10.unk1);
         sp10.unk2 = (u16) (0xFFFFFC00 & sp10.unk2);
         sp10.unk3 = (u8) (3 & sp10.unk3);

@@ -1,4 +1,25 @@
-void func_080BA734(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[132];
+    s32 unk84;
+    u8 _pad88[4];
+    s32 unk8C;
+    u8 _pad90[5];
+    s32 unk95;
+    u8 _pad99[43];
+    s32 unkC4;
+    u8 _padC8[4];
+    s32 unkCC;
+    u8 _padD0[5];
+    s32 unkD5;
+    u8 _padD9[2619];
+    s32 unkB14;
+    u8 _padB18[40];
+    s32 unkB40;
+    s32 unkB44;
+    u8 _padB48[8];
+    s32 unkB50;
+} GenObj;
+void func_080BA734(GenObj *arg0) {
     if ((s32) arg0->unk84 < 0) {
         if ((u32) ((u16) arg0->unk8C >> 8) <= 0x47U) {
             arg0->unk95 = 2;

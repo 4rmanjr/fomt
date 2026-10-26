@@ -3,7 +3,14 @@ s32 func_080E27FC(u32 **, void *, u32 *, u32 *, s32); /* extern */
 s32 func_080E28BC(u32 **, void *, u32 *);             /* extern */
 u32 *func_080E2B28(u32 *);                          /* extern */
 
-u32 **func_080E2970(u32 **arg0, void *arg1, u32 **arg2, u32 *arg3) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    struct GenObj *unk8;
+    void *unkC;
+    s32 unk10;
+} GenObj;
+u32 **func_080E2970(u32 **arg0, GenObj *arg1, u32 **arg2, u32 *arg3) {
     u32 *sp8;
     u32 *spC;
     u32 *sp10;
@@ -16,20 +23,20 @@ u32 **func_080E2970(u32 **arg0, void *arg1, u32 **arg2, u32 *arg3) {
     s32 var_r5_2;
     s32 var_r5_3;
     s32 var_r5_4;
-    u32 *temp_r0;
-    u32 *temp_r0_2;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
     u32 *temp_r0_3;
-    u32 *temp_r0_4;
-    u32 *temp_r2;
+    GenObj *temp_r0_4;
+    GenObj *temp_r2;
     u32 *var_r0;
     u32 *var_r2;
-    u32 *var_r3;
-    u32 *var_r5;
+    GenObj *var_r3;
+    GenObj *var_r5;
     u32 temp_r1_2;
     u32 temp_r1_3;
     u32 temp_r2_2;
     u32 temp_r2_3;
-    void *temp_r1;
+    GenObj *temp_r1;
 
     temp_r1 = arg1->unk4;
     temp_r2 = *arg2;

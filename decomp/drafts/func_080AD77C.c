@@ -2,7 +2,25 @@ s32 __builtin_new(s32);                             /* extern */
 void *func_080A4A00(s32, s32, u16, void *, s32, s32); /* extern */
 s32 func_080AC5D0(s32 *, s16, s16);                   /* extern */
 
-s32 func_080AD77C(void *arg0, void *arg1, u16 arg2) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unk9;
+    struct GenObj *unkA;
+    u8 _padE[22];
+    struct GenObj *unk24;
+    u8 _pad28[12];
+    s32 unk34;
+    u8 _pad38[44];
+    s32 unk64;
+    u8 _pad68[4036];
+    s32 unk102C;
+} GenObj;
+s32 func_080AD77C(GenObj *arg0, GenObj *arg1, u16 arg2) {
     u8 sp8;
 s32 spC;
     s32 sp18;
@@ -12,21 +30,21 @@ s32 spC;
     u8 temp_r8;
     void *temp_r0_2;
     void *temp_r0_4;
-    void *temp_r1;
-    void *temp_r1_2;
-    void *temp_r1_3;
-    void *temp_r4;
+    GenObj *temp_r1;
+    GenObj *temp_r1_2;
+    GenObj *temp_r1_3;
+    GenObj *temp_r4;
 
-    arg0->unk0->unk34(&spC, arg0, (u32) (arg1->unk0 << 0x16) >> 0x16);
+    ((void (*)(void *,...))(arg0->unk0->unk34))(&spC, arg0, (u32) (arg1->unk0 << 0x16) >> 0x16);
     temp_r8 = func_080AC5D0(&spC, (s16) (((arg1->unk2 & 0x3FF) << 6) | ((u8) arg1->unk1 >> 2)), (s16) (((arg1->unk4 & 0x3FF) << 6) | ((u8) arg1->unk3 >> 2))) ^ 1;
-    sp18.unk0 = (s16) (((arg1->unk2 & 0x3FF) << 6) | ((u8) arg1->unk1 >> 2));
+    sp18 = (s16) (((arg1->unk2 & 0x3FF) << 6) | ((u8) arg1->unk1 >> 2));
     sp18.unk2 = (s16) (((arg1->unk4 & 0x3FF) << 6) | ((u8) arg1->unk3 >> 2));
-    temp_r4 = arg0 + 0x102C;
-    temp_r7 = arg0->unk0->unk64(arg0);
+    temp_r4 = (GenObj *)((u8 *)arg0 + 0x102C);
+    temp_r7 = ((void (*)(void *,...))(arg0->unk0->unk64))(arg0);
     temp_r4->unk4 = sp18;
     temp_r1 = arg0->unk102C;
     if ((temp_r1 != 0) && (temp_r1 != 0)) {
-        temp_r1->unk24->unk8(temp_r1, 3);
+        ((void (*)(void *,...))(temp_r1->unk24->unk8))(temp_r1, 3);
     }
     arg0->unk102C = 0;
     temp_r4->unk8 = temp_r8;
@@ -36,7 +54,7 @@ s32 spC;
         temp_r0_2 = func_080A4A00(temp_r0, temp_r7, arg2, arg0, 2, 3);
         temp_r1_2 = arg0->unk102C;
         if ((temp_r0_2 != temp_r1_2) && (temp_r1_2 != 0)) {
-            temp_r1_2->unk24->unk8(temp_r1_2, 3);
+            ((void (*)(void *,...))(temp_r1_2->unk24->unk8))(temp_r1_2, 3);
         }
         arg0->unk102C = temp_r0_2;
         temp_r4->unk9 = 0x10;
@@ -48,7 +66,7 @@ s32 spC;
     temp_r0_4 = func_080A4A00(temp_r0_3, temp_r7, 0x1A9U, arg0, 2, 3);
     temp_r1_3 = arg0->unk102C;
     if ((temp_r0_4 != temp_r1_3) && (temp_r1_3 != 0)) {
-        temp_r1_3->unk24->unk8(temp_r1_3, 3);
+        ((void (*)(void *,...))(temp_r1_3->unk24->unk8))(temp_r1_3, 3);
     }
     arg0->unk102C = temp_r0_4;
     return 0;

@@ -1,8 +1,12 @@
 s32 __9FieldPlot(void *);                             /* extern */
 s32 func_080A4A94();                                  /* extern */
-extern ? vtable_unk_080E85E8;
+extern s32 vtable_unk_080E85E8;
 
-void *func_080CFB28(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[144];
+    void *unk90;
+} GenObj;
+void *func_080CFB28(GenObj *arg0) {
     s32 var_r5;
     void *var_r4;
 

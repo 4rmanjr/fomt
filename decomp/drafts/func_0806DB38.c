@@ -16,11 +16,29 @@ s32 func_0806E234(void *);                            /* extern */
 s32 func_0806E43C(void *);                            /* extern */
 s32 func_0806E578(void *);                            /* extern */
 s32 func_0806E7E0(void *);                            /* extern */
-extern ? vtable_unk_080E5B80;
+extern s32 vtable_unk_080E5B80;
 
-s32 *func_0806DB38(s32 *arg0, void *arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    struct GenObj *unk8;
+    s32 unkC;
+    s32 unk10;
+    u8 _pad14[48];
+    s32 unk44;
+    u8 _pad48[8];
+    s32 unk50;
+    u8 _pad54[1012];
+    s32 unk448;
+    s32 unk449;
+    s32 unk44A;
+    s32 unk44C;
+    s32 unk44E;
+    s32 unk450;
+} GenObj;
+s32 *func_0806DB38(s32 *arg0, GenObj *arg1) {
     s16 sp0;
-    void *sp4;
+    GenObj *sp4;
     void **sp8;
     void ***spC;
     s16 *sp14;
@@ -33,11 +51,11 @@ s32 *func_0806DB38(s32 *arg0, void *arg1) {
     s8 temp_r0_5;
     s8 var_r7;
     u32 var_r1;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r0_6;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_6;
     void *temp_r1;
-    void *temp_r4;
+    GenObj *temp_r4;
 
     var_r7 = saved_reg_r10;
     func_08008724(arg1);
@@ -49,14 +67,14 @@ s32 *func_0806DB38(s32 *arg0, void *arg1) {
     temp_r4->unk0 = 0;
     temp_r4->unk4 = 0;
     temp_r4->unk8 = &vtable_unk_080E5B80;
-    func_08009300(temp_r4 + 0xC, temp_r1);
+    func_08009300((GenObj *)((u8 *)temp_r4 + 0xC), temp_r1);
     sp4 = temp_r4;
     func_0806E234(arg1);
     func_0806E43C(arg1);
     func_0806E578(arg1);
-    func_0800934C(sp4 + 0xC, 0x889, 1, 1);
+    func_0800934C((GenObj *)((u8 *)sp4 + 0xC), 0x889, 1, 1);
     temp_r0_2 = func_08008940(arg1);
-    temp_r0_2->unk8->unk10(temp_r0_2, sp4);
+    ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, sp4);
     var_r8 = 0;
     sp14 = &sp0 + 0xC;
 loop_1:
@@ -115,9 +133,9 @@ block_27:
         }
         break;
     case 3:                                         /* switch 1 */
-        func_08009378(sp4 + 0xC, 0x889, 1, 1);
+        func_08009378((GenObj *)((u8 *)sp4 + 0xC), 0x889, 1, 1);
         temp_r0_6 = func_08008940(arg1);
-        temp_r0_6->unk8->unk10(temp_r0_6, sp4);
+        ((void (*)(void *,...))(temp_r0_6->unk8->unk10))(temp_r0_6, sp4);
         goto block_27;
     case 4:                                         /* switch 1 */
         temp_r1_3 = sp4->unk0;
@@ -140,7 +158,7 @@ block_27:
         (*sp8)->unk8(sp8, 3);
     }
     if (sp4 != 0) {
-        sp4->unk8->unkC(sp4, 3);
+        ((void (*)(void *,...))(sp4->unk8->unkC))(sp4, 3);
     }
     return arg0;
 }

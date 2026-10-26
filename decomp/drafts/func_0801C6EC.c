@@ -5,7 +5,18 @@ s32 func_080AA6D0(s32, s32, s32, s32, s32);           /* extern */
 s32 method_0800A238__9FieldPloti(s32, s32);         /* extern */
 s32 method_0800AF5C__C9FieldPlotPC9FieldPlotT1(s32, s32, s32); /* extern */
 
-s32 func_0801C6EC(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk2;
+    struct GenObj *unk4;
+    u8 _pad8[12];
+    s32 unk14;
+    u8 _pad18[4128];
+    s32 unk1038;
+    u8 _pad103C[24];
+    s32 unk1054;
+} GenObj;
+s32 func_0801C6EC(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 sp4;
     s32 sp8;
     s32 spC;
@@ -27,18 +38,18 @@ s32 func_0801C6EC(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     u8 temp_r1;
     void *temp_r0_2;
     void *temp_r4;
-    void *var_r4;
+    GenObj *var_r4;
 
     sp4 = arg3;
     sp8 = 0;
-    if (arg0->unk0->unk14(arg0) != 2) {
+    if (((void (*)(void *,...))(arg0->unk0->unk14))(arg0) != 2) {
 
     } else {
         spC = (arg1 * 2) + 0x22;
         temp_r0 = (arg2 * 2) + 0x16;
         var_r2 = 0;
-        var_r5 = arg0 + 0x1081;
-        var_r4 = arg0 + 0x1084;
+        var_r5 = (GenObj *)((u8 *)arg0 + 0x1081);
+        var_r4 = (GenObj *)((u8 *)arg0 + 0x1084);
 loop_3:
         temp_r1 = *var_r5;
         temp_r6 = (u32) (temp_r1 << 0x1E) >> 0x1E;

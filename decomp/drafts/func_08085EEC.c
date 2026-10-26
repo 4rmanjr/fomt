@@ -1,4 +1,8 @@
-u32 func_08085EEC(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[17368];
+    s32 unk43D8;
+} GenObj;
+u32 func_08085EEC(GenObj *arg0) {
     u32 var_r0;
 
     var_r0 = arg0->unk43D8;

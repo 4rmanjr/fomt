@@ -1,6 +1,10 @@
 s32 free();                                           /* extern */
 
-void func_080CAF6C(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    struct GenObj *unk8;
+} GenObj;
+void func_080CAF6C(GenObj *arg0) {
     void *sp0;
     void **sp4;
     void *sp8;
@@ -23,7 +27,7 @@ loop_5:
         temp_r3 = sp0->unk8;
         temp_r1_2 = temp_r3->unk0;
         if ((s32) ((0 - temp_r1_2) | temp_r1_2) >= 0) {
-            temp_r3->unk8->unkC(temp_r3, 3);
+            ((void (*)(void *,...))(temp_r3->unk8->unkC))(temp_r3, 3);
             spC = sp0;
             temp_r4 = sp0->unk0;
             temp_r1_3 = sp0->unk4;

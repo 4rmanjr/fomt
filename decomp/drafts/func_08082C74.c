@@ -4,7 +4,11 @@ s32 GetId__C4Tool(s8 *);                            /* extern */
 s8 GetTool__C9ToolStack(s32);                       /* extern */
 s32 IsEmpty__C9ToolStack(s32);                      /* extern */
 
-s32 func_08082C74(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+} GenObj;
+s32 func_08082C74(GenObj *arg0, s32 arg1) {
     s8 sp0;
     s32 temp_r0;
     s32 var_r1;

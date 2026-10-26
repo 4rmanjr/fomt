@@ -1,6 +1,13 @@
 void *GetMapData(s32);                              /* extern */
 
-s32 func_080A5EB8(void *arg0, void *arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    s32 unk4;
+} GenObj;
+s32 func_080A5EB8(GenObj *arg0, GenObj *arg1) {
 s32 sp0;
     s16 var_r0;
     s16 var_r0_2;
@@ -18,13 +25,13 @@ s32 sp0;
         if ((s32) var_r0_2 < 0) {
             var_r0_2 += 7;
         }
-        sp0.unk0 = (s16) (var_r0 >> 3);
+        sp0 = (s16) (var_r0 >> 3);
         sp0.unk2 = (s16) (var_r0_2 >> 3);
         var_r4 = 0;
         temp_r5 = GetMapData(8)->unk20 * sp0.unk2 * 2;
         var_r2 = 8;
 loop_8:
-        temp_r1 = 0x3FF & *(*(arg0 + 0x10 + var_r2) + (sp0.unk0 * 2) + temp_r5);
+        temp_r1 = 0x3FF & *(*(arg0 + 0x10 + var_r2) + (sp0 * 2) + temp_r5);
         if (temp_r1 != 0x3FF) {
             if (((u32) (temp_r1 - 0x58) <= 0x3CU) || (temp_r1 <= 0x33U)) {
                 return 1;

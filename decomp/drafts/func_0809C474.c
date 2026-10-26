@@ -8,7 +8,7 @@ u8 func_0809C474(s32 arg0) {
 
     temp_r0 = func_0809C22C();
     var_r6 = 0;
-    if (*(arg0 + temp_r0) != 0) {
+    if (*((u8 *)arg0 + temp_r0) != 0) {
         if ((temp_r0 == 1) || (temp_r0 == 4)) {
             var_r6 = func_0809C3E0(arg0, temp_r0);
         }

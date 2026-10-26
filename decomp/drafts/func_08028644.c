@@ -5,9 +5,39 @@ s32 func_08008B6C(s32, s32);                          /* extern */
 s32 func_08008CD0(s32);                             /* extern */
 s8 func_0800E550(s32, s32);                         /* extern */
 u8 func_0800F190(s32);                              /* extern */
-extern ? gUnk_080F0FCC;
+extern s32 gUnk_080F0FCC;
 
-void func_08028644(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    struct GenObj *unk10;
+    struct GenObj *unk14;
+    struct GenObj *unk18;
+    u8 _pad1C[4];
+    s32 unk20;
+    s32 unk22;
+    u8 _pad26[14];
+    s32 unk34;
+    s32 unk38;
+    u8 _pad3C[1];
+    s32 unk3D;
+    s32 unk3E;
+    s32 unk3F;
+    s32 unk40;
+    s32 unk44;
+    u8 _pad48[6];
+    s32 unk4E;
+    s32 unk4F;
+    u8 _pad53[41];
+    s32 unk7C;
+    u8 _pad80[51];
+    s32 unkB3;
+    u8 _padB7[9];
+    s32 unkC0;
+} GenObj;
+void func_08028644(GenObj *arg0) {
     s8 sp0;
     s8 sp4;
     s32 *var_r4;
@@ -39,7 +69,7 @@ void func_08028644(void *arg0) {
     void **temp_r0_7;
     void **temp_r0_8;
     void *temp_r0_9;
-    void *temp_r2;
+    GenObj *temp_r2;
     void *var_r2;
 
     temp_r4 = func_0800F190(arg0->unk34 + 0x1C2C);
@@ -47,9 +77,9 @@ void func_08028644(void *arg0) {
         return;
     }
     arg0->unkC0 = 1;
-    temp_r1 = (arg0 + 0xC0) - 0x84;
+    temp_r1 = ((GenObj *)((u8 *)arg0 + 0xC0)) - 0x84;
     *temp_r1 = 0xB;
-    temp_r2 = arg0 + 0x88;
+    temp_r2 = (GenObj *)((u8 *)arg0 + 0x88);
     temp_r2->unk4 = (s32) temp_r4;
     temp_r2->unk8 = (s32) temp_r4;
     temp_r2->unk14 = 0x150000;

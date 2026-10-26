@@ -1,19 +1,27 @@
 u32 GetCapacity__C4Coop(s32);                       /* extern */
 s32 GetChicken__C4CoopUi(s32, u32);                 /* extern */
 s32 GetGrowthStage__C7Chicken();                    /* extern */
-s32 func_08062E9C(void *, s32, ?, s32, ? *);            /* extern */
-s32 func_08063EB8(void *, s32, s32, ? *, ? *);        /* extern */
+s32 func_08062E9C(void *, s32, ?, s32, s32 *);            /* extern */
+s32 func_08063EB8(void *, s32, s32, s32 *, s32 *);        /* extern */
 s32 func_08075E24(s32, s16);                          /* extern */
-extern ? gUnk_080FB880;
-extern ? gUnk_0875268C;
-extern ? gUnk_0875270C;
-extern ? gUnk_0875272C;
-extern ? gUnk_087527AC;
-extern ? vtable_unk_080E7A58;
+extern s32 gUnk_080FB880;
+extern s32 gUnk_0875268C;
+extern s32 gUnk_0875270C;
+extern s32 gUnk_0875272C;
+extern s32 gUnk_087527AC;
+extern s32 vtable_unk_080E7A58;
 
-void *func_08064320(void *arg0, ? arg1, ? arg2) {
-    ? *var_r0;
-    ? *var_r3;
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[1412];
+    s32 unk58C;
+    u8 _pad590[36];
+    void *unk5B4;
+} GenObj;
+void *func_08064320(GenObj *arg0, ? arg1, ? arg2) {
+    s32 *var_r0;
+    s32 *var_r3;
     s32 temp_r0_2;
     s32 temp_r0_3;
     s32 var_r6;

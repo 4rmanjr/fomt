@@ -1,29 +1,56 @@
-void func_080B0AA0(void *arg0) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[36];
+    struct GenObj *unk28;
+    u8 _pad2C[2060];
+    s32 unk838;
+    s32 unk83C;
+    s32 unk840;
+    s32 unk844;
+    u8 _pad848[60];
+    s32 unk884;
+    u8 _pad888[88];
+    s32 unk8E0;
+    u8 _pad8E4[22];
+    s32 unk8FA;
+    u8 _pad8FE[13];
+    s32 unk90B;
+    s32 unk90C;
+    s32 unk90D;
+    u8 _pad911[3];
+    s32 unk914;
+    u8 _pad918[17];
+    s32 unk929;
+    s32 unk92A;
+    s32 unk92B;
+    s32 unk92C;
+} GenObj;
+void func_080B0AA0(GenObj *arg0) {
     s16 *var_sb;
     s32 var_r2;
     void *temp_r6;
     void *var_ip;
-    void *var_r4;
+    GenObj *var_r4;
 
     arg0->unk844 = 0;
     var_r2 = 0;
-    var_r4 = arg0 + 0x848;
-    var_sb = arg0 + 0x8F0;
-    var_ip = arg0 + 0x85C;
+    var_r4 = (GenObj *)((u8 *)arg0 + 0x848);
+    var_sb = (GenObj *)((u8 *)arg0 + 0x8F0);
+    var_ip = (GenObj *)((u8 *)arg0 + 0x85C);
     do {
         var_r4->unk0 = 0;
         var_r4->unk28 = 0;
         temp_r6 = var_ip + 4;
         var_ip = temp_r6;
         *(temp_r6 - 4) = 0;
-        *(arg0 + 0x8E1 + var_r2) = 0x70;
+        *((u8 *)(GenObj *)((u8 *)arg0 + 0x8E1) + var_r2) = 0x70;
         *var_sb = 0;
-        *(arg0 + 0x915 + var_r2) = 1;
-        *(arg0 + 0x8FC + (var_r2 * 2)) = 0;
-        *(arg0 + 0x906 + var_r2) = 0;
-        *(arg0 + 0x91A + var_r2) = 1;
-        *(arg0 + 0x91F + var_r2) = 1;
-        *(arg0 + 0x924 + var_r2) = 1;
+        *((u8 *)(GenObj *)((u8 *)arg0 + 0x915) + var_r2) = 1;
+        *((u8 *)(GenObj *)((u8 *)arg0 + 0x8FC) + (var_r2 * 2)) = 0;
+        *((u8 *)(GenObj *)((u8 *)arg0 + 0x906) + var_r2) = 0;
+        *((u8 *)(GenObj *)((u8 *)arg0 + 0x91A) + var_r2) = 1;
+        *((u8 *)(GenObj *)((u8 *)arg0 + 0x91F) + var_r2) = 1;
+        *((u8 *)(GenObj *)((u8 *)arg0 + 0x924) + var_r2) = 1;
         var_r4 += 4;
         var_sb += 2;
         var_r2 += 1;

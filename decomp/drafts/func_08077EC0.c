@@ -4,34 +4,38 @@ s32 func_0800E324(s32);                             /* extern */
 s32 func_08010E48(s32);                             /* extern */
 s32 func_08010E50(s32);                             /* extern */
 s32 func_08010E58(s32);                             /* extern */
-s32 func_08077E34(void *, s32, ? *);                  /* extern */
-s32 func_08077E64(void *, s32, s32, s32, ? *, s32, ? *); /* extern */
-extern ? gUnk_08755230;
-extern ? gUnk_0875553C;
-extern ? gUnk_08755848;
-extern ? gUnk_08757AE0;
-extern ? gUnk_08757BA0;
-extern ? gUnk_08757BAC;
-extern ? gUnk_08757BCC;
-extern ? gUnk_08757BD8;
-extern ? gUnk_08757BF8;
-extern ? gUnk_08757C0C;
-extern ? gUnk_08757C14;
-extern ? gUnk_08757F20;
-extern ? gUnk_0875822C;
-extern ? gUnk_0875A358;
-extern ? gUnk_0875A418;
-extern ? gUnk_0875A424;
-extern ? gUnk_0875A438;
+s32 func_08077E34(void *, s32, s32 *);                  /* extern */
+s32 func_08077E64(void *, s32, s32, s32, s32 *, s32, s32 *); /* extern */
+extern s32 gUnk_08755230;
+extern s32 gUnk_0875553C;
+extern s32 gUnk_08755848;
+extern s32 gUnk_08757AE0;
+extern s32 gUnk_08757BA0;
+extern s32 gUnk_08757BAC;
+extern s32 gUnk_08757BCC;
+extern s32 gUnk_08757BD8;
+extern s32 gUnk_08757BF8;
+extern s32 gUnk_08757C0C;
+extern s32 gUnk_08757C14;
+extern s32 gUnk_08757F20;
+extern s32 gUnk_0875822C;
+extern s32 gUnk_0875A358;
+extern s32 gUnk_0875A418;
+extern s32 gUnk_0875A424;
+extern s32 gUnk_0875A438;
 
-void func_08077EC0(void *arg0) {
-    ? *var_r0_2;
-    ? *var_r0_3;
-    ? *var_r0_4;
-    ? *var_r0_5;
-    ? *var_r0_6;
-    ? *var_r2;
-    ? *var_r2_2;
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+} GenObj;
+void func_08077EC0(GenObj *arg0) {
+    s32 *var_r0_2;
+    s32 *var_r0_3;
+    s32 *var_r0_4;
+    s32 *var_r0_5;
+    s32 *var_r0_6;
+    s32 *var_r2;
+    s32 *var_r2_2;
     s32 temp_r0;
     s32 var_r0;
 
