@@ -157,3 +157,13 @@ void func_080AD938(s32 *arg0) { func_080CFFC0(arg0[1]); }
 // DECOMP-MATCHED func_080AD944 (dari code_809E804.s; cek manusia sebelum ke src/)
 void func_080A63B8(s32);
 void func_080AD944(s32 *arg0) { func_080A63B8(arg0[1]); }
+
+// DECOMP-MATCHED func_080A0504 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080A0490();                                /* extern */
+
+u32 func_080A0504(void) {
+    s32 temp_r0;
+
+    temp_r0 = func_080A0490();
+    return (u32) ((0 - temp_r0) | temp_r0) >> 0x1F;
+}
