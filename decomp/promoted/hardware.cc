@@ -15,3 +15,8 @@ s32 func_08009268(s32);                               /* extern */
 void func_080088B8(s32 *arg0) {
     func_08009268(*arg0);
 }
+
+// DECOMP-MATCHED func_080088C4 (dari hardware.s; cek manusia sebelum ke src/)
+u16 func_080088C4(u16 **arg0) {
+    return **arg0;
+}
