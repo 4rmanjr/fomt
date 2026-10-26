@@ -1,25 +1,26 @@
+
 s32 __builtin_new(s32);                             /* extern */
-void **func_080A3744(s32, s32 *, s32);              /* extern */
+void *func_080A3744(s32, s32 *, s32);               /* extern */
 
 void ***func_080DB6CC(void ***arg0, void *arg1) {
-    void **sp0;
+    void ** volatile sp0;
     s32 sp4;
     void ***sp8;
-    void **spC;
+    void ** volatile spC;
     s32 temp_r0;
     void **temp_r0_2;
 
-    temp_r0 = arg1->unk4;
-    arg1->unk4 = 0;
+    temp_r0 = ((s32 *) arg1)[1];
+    ((s32 *) arg1)[1] = 0;
     sp4 = temp_r0;
-    temp_r0_2 = func_080A3744(__builtin_new(0xC), &sp4, arg1->unk8);
+    temp_r0_2 = func_080A3744(__builtin_new(0xC), &sp4, ((s32 *) arg1)[2]);
     sp0 = temp_r0_2;
     sp8 = &sp0;
     spC = temp_r0_2;
-    sp0 = 0;
+    *(volatile void **) sp8 = 0;
     *arg0 = temp_r0_2;
     if (sp0 != 0) {
-        (*sp0)->unk8(sp0, 3);
+        ((void ***) sp0)[0][2](sp0, 3);
     }
     return arg0;
 }

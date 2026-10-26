@@ -1,0 +1,21 @@
+s32 __builtin_delete(void *);                         /* extern */
+s32 func_080004F4();                                  /* extern */
+s32 func_08000528(s32);                               /* extern */
+s32 func_080D100C(s32, s32);                          /* extern */
+extern s32 gUnk_03000410;
+extern ? vtable_unk_080E5B3C;
+extern ? vtable_unk_080E5B54;
+
+void func_080D7944(void *arg0, s32 arg1) {
+    arg0->unk14 = &vtable_unk_080E5B3C;
+    func_08000528(1);
+    func_080D100C(0, arg0->unk10);
+    arg0->unkC = &vtable_unk_080E5B54;
+    gUnk_03000410 = arg0->unk8;
+    if (arg0->unk4 != 0) {
+        func_080004F4();
+    }
+    if (arg1 & 1) {
+        __builtin_delete(arg0);
+    }
+}

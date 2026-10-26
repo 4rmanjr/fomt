@@ -1,25 +1,47 @@
 s32 __builtin_new(s32);                             /* extern */
-void **func_0808AB38(s32, s32 *, s32);              /* extern */
+void *func_0808AB38(s32, s32 *, s32);                        /* extern */
 
-void ***func_080DB73C(void ***arg0, void *arg1) {
-    void **sp0;
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+} UnkStruct;
+
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;
+
+typedef struct {
+    Vtbl *vtbl;
+} Obj;
+
+typedef struct {
+    Obj * volatile sp0;
     s32 sp4;
-    void ***sp8;
-    void **spC;
+    Obj **sp8;
+    Obj * volatile spC;
+} Frame;
+
+Obj **func_080DB73C(Obj **arg0, UnkStruct *arg1) {
+    Frame f;
+    Obj *p;
     s32 temp_r0;
-    void **temp_r0_2;
+    void *temp_r0_2;
 
     temp_r0 = arg1->unk4;
     arg1->unk4 = 0;
-    sp4 = temp_r0;
-    temp_r0_2 = func_0808AB38(__builtin_new(0xC), &sp4, arg1->unk8);
-    sp0 = temp_r0_2;
-    sp8 = &sp0;
-    spC = temp_r0_2;
-    sp0 = 0;
+    f.sp4 = temp_r0;
+    temp_r0_2 = func_0808AB38(__builtin_new(0xC), &f.sp4, arg1->unk8);
+    f.sp0 = temp_r0_2;
+    f.sp8 = (Obj **) &f.sp0;
+    f.spC = temp_r0_2;
+    *f.sp8 = 0;
     *arg0 = temp_r0_2;
-    if (sp0 != 0) {
-        (*sp0)->unk8(sp0, 3);
+    p = f.sp0;
+    if (p != 0) {
+        p->vtbl->unk8(p, 3);
     }
     return arg0;
 }
