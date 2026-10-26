@@ -201,3 +201,14 @@ void func_08009324(s32 *arg0, s32 arg1) {
         __builtin_delete(arg0);
     }
 }
+
+// DECOMP-MATCHED func_08009344 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08009344(s32 **arg0, s32 arg1) {
+    s32 *temp_r2;
+    s32 temp_r0;
+
+    temp_r2 = *arg0;
+    temp_r0 = *temp_r2;
+    *temp_r2 = arg1;
+    return temp_r0;
+}
