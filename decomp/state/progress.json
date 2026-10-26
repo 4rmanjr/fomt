@@ -24472,32 +24472,33 @@
  },
  "func_080E103C": {
   "addr": 135139388,
-  "claimed_at": 1793005126.1721601,
-  "claimed_by": "opencode-dsv4",
+  "judged_mtime": 1793005151.112718,
   "module": "code_linkonce.s",
+  "note": "F0' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E103C/opencode-dsv4/func.c:6: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E103C/opencode-dsv4/func.c:6: for each function it appears in.)\n",
   "ref_len": 32,
   "size": 319,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080E105C": {
   "addr": 135139420,
-  "claimed_at": 1793005126.1721606,
-  "claimed_by": "opencode-dsv4",
+  "judged_mtime": 1793005151.4473875,
   "module": "code_linkonce.s",
+  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E105C/opencode-dsv4/func.c:27: request for member `unk4' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E105C/opencode-dsv4/func.c:37: `vtable_unk_080E7908' undeclared (first use in this function)\n",
   "ref_len": 128,
   "size": 1082,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080E10E0": {
   "addr": 135139552,
-  "claimed_at": 1793005126.172161,
-  "claimed_by": "opencode-dsv4",
+  "judged_mtime": 1793005151.717388,
   "module": "code_linkonce.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "size": 120,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E10EC": {
