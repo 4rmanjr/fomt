@@ -312,3 +312,14 @@ s32 func_080E0D50(UnkStruct *arg0) {
     func_08008E64(arg0->unkC, arg0->unk10, arg0->unk14);
     return 0;
 }
+
+// DECOMP-MATCHED func_080E103C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 __builtin_delete(s32 **);                         /* extern */
+extern char vtable_unk_080E78F0;
+
+void func_080E103C(s32 **arg0, s32 arg1) {
+    *arg0 = (s32 *) &vtable_unk_080E78F0;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}

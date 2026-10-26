@@ -24414,11 +24414,9 @@
  },
  "func_080E0EFC": {
   "addr": 135139068,
-  "claimed_at": 1793014569.327753,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793005134.3058453,
+  "judged_mtime": 1793005650.3507252,
   "module": "code_linkonce.s",
-  "note": "byte +0x2: 0x4 vs ref 0x5",
+  "note": "byte +0x6: 0xa vs ref 0x10",
   "ref_len": 76,
   "size": 667,
   "status": "failed",
@@ -24479,14 +24477,13 @@
  },
  "func_080E103C": {
   "addr": 135139388,
-  "claimed_at": 1793014569.3277547,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793005151.112718,
+  "judged_mtime": 1793005316.6239252,
   "module": "code_linkonce.s",
-  "note": "F0' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E103C/opencode-dsv4/func.c:6: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E103C/opencode-dsv4/func.c:6: for each function it appears in.)\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 32,
   "size": 319,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E105C": {
