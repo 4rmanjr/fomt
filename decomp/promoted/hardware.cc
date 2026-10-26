@@ -25,3 +25,8 @@ u16 func_080088C4(u16 **arg0) {
 s32 func_08008910(s32 *arg0) {
     return *arg0 + 0x24;
 }
+
+// DECOMP-MATCHED func_08008918 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08008918(s32 *arg0) {
+    return *arg0 + 0x34;
+}
