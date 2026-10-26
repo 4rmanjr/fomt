@@ -265,3 +265,8 @@ s32 func_080CAF6C();                                  /* extern */
 void func_080CC150(void) {
     func_080CAF6C();
 }
+
+// DECOMP-MATCHED func_080CC70C (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080CC70C(s32 arg0, s32 arg1) {
+    return (arg1 * 0xC) + arg0 + 0x218;
+}
