@@ -8,10 +8,13 @@
 	.thumb_func
 func_080126E4:
 	push	{r4, lr}
+	ldr	r0, [r0, #0x4]
+	add	r0, r0, #0xac
+	ldr	r4, [r0]
 	cmp	r4, #0
 	beq	.L3	@cond_branch
-	ldr	r1, .L5
-	add	r0, r0, r1
+	ldr	r2, .L5
+	add	r0, r1, r2
 	bl	func_0809FE3C
 	add	r1, r0, #0
 	add	r0, r4, #0

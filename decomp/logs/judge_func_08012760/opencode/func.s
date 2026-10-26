@@ -8,6 +8,9 @@
 	.thumb_func
 func_08012760:
 	push	{lr}
+	ldr	r0, [r0, #0x4]
+	add	r0, r0, #0xac
+	ldr	r0, [r0]
 	bl	func_08050E50
 	pop	{r0}
 	bx	r0

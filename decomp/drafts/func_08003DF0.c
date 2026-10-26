@@ -7,6 +7,7 @@ typedef struct GenObj {
     s32 unk80;
 } GenObj;
 void func_08003DF0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    u8 *t;
     s32 temp;
     s32 mask;
     s32 var;

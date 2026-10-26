@@ -7,7 +7,13 @@
 	.type	 func_080127A0,function
 	.thumb_func
 func_080127A0:
-	push	{lr}
+	push	{r4, lr}
+	ldr	r4, [r0, #0x4]
+	add	r0, r4, #0
+	add	r0, r0, #0xac
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L3	@cond_branch
 	bl	GetLove__C12Bachelorette
 	add	r2, r0, #0
 	ldr	r0, .L16
@@ -60,8 +66,12 @@ func_080127A0:
 	bls	.L6	@cond_branch
 	mov	r1, #0x1
 .L6:
-	mov	r0, #0x0
+	add	r0, r4, #0
+	add	r0, r0, #0xac
+	ldr	r0, [r0]
 	bl	func_08050E80
+.L3:
+	pop	{r4}
 	pop	{r0}
 	bx	r0
 .L25:
