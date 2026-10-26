@@ -10,6 +10,7 @@ func_080050F8:
 	push	{r4, r5, r6, r7, lr}
 	mov	r7, r8
 	push	{r7}
+	add	sp, sp, #-0x4
 	mov	r8, r0
 	add	r6, r1, #0
 	add	r0, r6, #0
@@ -20,6 +21,9 @@ func_080050F8:
 	bl	func_08005278
 	add	r0, r6, #0
 	bl	func_08008918
+	mov	r2, sp
+	mov	r1, #0x3f
+	strh	r1, [r2]
 	add	r0, r0, #0x50
 	mov	r5, #0x0
 	mov	r1, #0x3f
@@ -139,6 +143,7 @@ func_080050F8:
 	bl	_call_via_r2
 .L20:
 	mov	r0, r8
+	add	sp, sp, #0x4
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
