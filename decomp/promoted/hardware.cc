@@ -51,3 +51,11 @@ void func_08008AFC(void) {
     m4aSoundInit();
     m4aSoundVSyncOff();
 }
+
+// DECOMP-MATCHED func_08008B0C (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aSoundVSync();                                  /* extern */
+
+s32 func_08008B0C(void) {
+    m4aSoundVSync();
+    return 1;
+}
