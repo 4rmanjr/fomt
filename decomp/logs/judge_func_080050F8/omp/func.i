@@ -93,8 +93,8 @@ typedef struct GenObj {
 } GenObj;
 s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     GenObj *spslot[3];
-    s32 sp0;
     GenObj *volatile sp4;
+    s32 sp0;
     GenObj **p7;
     GenObj ***p8;
     s32 temp_r1_2;
