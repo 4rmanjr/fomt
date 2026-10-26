@@ -101,9 +101,10 @@ berikutnya mulai dari attempt terbaik, bukan dari nol.
 Konteks bersama: struct bernama yang terbukti dari fungsi MATCH (mis.
 `Vtbl`, `Obj`, `S_*`) otomatis di-include saat judge
 (`decomp/run.py:_shared_context`, dari `decomp/promoted/*.cc`; nama konflik
-atau `GenObj` per-fungsi dikecualikan). Draf yang memakai nama tipe yang
-sama ikut terbantu; draf yang mendefinisikan sendiri tipe bernama sama
-tetap menang (C menolak redefinisi — judge yang menentukan).
+atau `GenObj` per-fungsi dikecualikan). Nama tipe yang didefinisikan draf
+sendiri DIKECUALIKAN dari konteks (tidak duplikat). `fomt verify` menilai
+BLOK PROMOTED apa adanya (tanpa konteks, tanpa draf kerja) — cermin kondisi
+saat MATCH.
 
 ## Batasan build
 

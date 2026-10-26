@@ -816,9 +816,22 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
     sys.path.insert(0, str(DECOMP_SRC))
     from decompnet.elfobj import extract_function
     e = load()[name]
-    if not (DRAFTS / f"{name}.c").exists():
+    d = DRAFTS / f"{name}.c"
+    promoted_src = None
+    if (tag or "").startswith("verify_"):
+        # audit: nilai BLOK PROMOTED apa adanya (bukan draf kerja yg mungkin
+        # sudah disanitasi ulang) — cermin kondisi saat MATCH, bukan kini.
+        p = ROOT / e.get("promoted_to", "")
+        if p.exists():
+            marker = f"// DECOMP-MATCHED {name} "
+            text = p.read_text(errors="replace")
+            i = text.find(marker)
+            if i >= 0:
+                j = text.find("// DECOMP-MATCHED ", i + len(marker))
+                promoted_src = text[i:j if j >= 0 else len(text)].strip() + "\n"
+    if not d.exists():
         return False, "no draft (m2c gagal; tulis manual)"
-    body = (DRAFTS / f"{name}.c").read_text()
+    body = promoted_src or d.read_text()
     used = set(re.findall(r"\b(func_[0-9A-Fa-f]{8}|vtable_unk_[0-9A-Fa-f]{8}|gUnk_[0-9A-Fa-f]{8}|mem\w+|rand|malloc|free)\b", body))
     pre = body.split("{")[0]  # hanya cek deklarasi sebelum badan fungsi
     pre_clean = re.sub(r"\?\s*", "", pre)  # 'extern ? vtable...' tetap terhitung dideklarasikan
@@ -826,7 +839,20 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
                     for s in sorted(used) if s != name and s not in pre and s not in pre_clean)
     work = LOGD / f"judge_{name}" / (tag or SAFE_AGENT)  # per-agent: tidak saling timpa
     work.mkdir(parents=True, exist_ok=True)
-    (work / "common.h").write_text(COMMON + _shared_context())
+    if promoted_src:
+        ctx = ""  # audit: blok promoted dinilai apa adanya (cermin saat MATCH)
+    else:
+        # tipe yg didefinisikan draf sendiri dikecualikan dari konteks
+        # bersama (C menolak redefinisi). GenObj dikecualikan dari konteks
+        # di _shared_context, jadi di sini cukup tipe bernama lain.
+        own = set(re.findall(r"typedef\s+struct\s+\w*\s*\{.*?\}\s*(\w+)\s*;", body, re.S))
+        ctx = _shared_context()
+        if own:
+            ctx = "".join(
+                blk for blk in re.findall(r"typedef\s+struct\s*\{.*?\}\s*\w+\s*;",
+                                          ctx, re.S)
+                if not any(re.search(rf"\}}\s*{re.escape(t)}\s*;", blk) for t in own))
+    (work / "common.h").write_text(COMMON + ctx)
     (work / "func.c").write_text(f'#include "common.h"\n{decls}{body}\n')
     steps = [
         [str(CPP), "-nostdinc", "-undef", f"-I{AGINC}", f"-I{work}", str(work / "func.c"),
