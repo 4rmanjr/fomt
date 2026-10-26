@@ -23861,8 +23861,6 @@
  },
  "func_080DD794": {
   "addr": 135124884,
-  "claimed_at": 1793003885.702076,
-  "claimed_by": "Prodesk:352291",
   "judged_mtime": 1793003915.4306781,
   "module": "code_linkonce.s",
   "note": "a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DD794/Prodesk_352291/func.c:6: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DD794/Prodesk_352291/func.c:6: request for member `unk56' in something not a structure or union\n",
@@ -23873,32 +23871,33 @@
  },
  "func_080DD7B8": {
   "addr": 135124920,
-  "claimed_at": 1793003885.7020764,
-  "claimed_by": "Prodesk:352291",
+  "judged_mtime": 1793003915.7453291,
   "module": "code_linkonce.s",
+  "note": "a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DD7B8/Prodesk_352291/func.c:5: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DD7B8/Prodesk_352291/func.c:5: request for member `unk56' in something not a structure or union\n",
   "ref_len": 44,
   "size": 387,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080DD7E4": {
   "addr": 135124964,
-  "claimed_at": 1793003885.7020767,
-  "claimed_by": "Prodesk:352291",
+  "judged_mtime": 1793003916.0871248,
   "module": "code_linkonce.s",
+  "note": " structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DD7E4/Prodesk_352291/func.c:34: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DD7E4/Prodesk_352291/func.c:34: request for member `unk4' in something not a structure or union\n",
   "ref_len": 124,
   "size": 1046,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080DD860": {
   "addr": 135125088,
-  "claimed_at": 1793003885.702077,
-  "claimed_by": "Prodesk:352291",
+  "judged_mtime": 1793003916.405105,
   "module": "code_linkonce.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "size": 120,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD86C": {
