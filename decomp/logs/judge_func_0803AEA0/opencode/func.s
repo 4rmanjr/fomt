@@ -12,13 +12,32 @@ func_0803AEA0:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x8
+	add	sp, sp, #-0x1f8
+	add	r4, r0, #0
+	mov	r9, r2
+	ldr	r0, [sp, #0x218]
 	mov	r8, r0
-	add	r7, r2, #0
-	ldr	r6, [sp, #0x28]
+	str	r1, [r4]
 	mov	r2, #0x0
-	mov	r1, r8
-	add	r1, r1, #0xd0
+	str	r2, [r4, #0x8]
+	add	r0, r4, #0
+	add	r0, r0, #0xd4
+	str	r2, [r0]
+	add	r0, r0, #0x14
+	lsl	r3, r3, #0x18
+	lsr	r3, r3, #0x18
+	str	r3, [r0]
+	add	r1, r4, #0
+	add	r1, r1, #0xec
+	mov	r0, #0x1
+	str	r0, [r1]
+	add	r0, r4, #0
+	add	r0, r0, #0xf0
+	str	r2, [r0]
+	sub	r0, r0, #0xa
+	str	r2, [r0, #0x4]
+	mov	r6, #0x0
+	sub	r1, r1, #0x1c
 	ldr	r0, [r1]
 	cmp	r0, #0xf
 	bhi	.L14	@cond_branch
@@ -27,27 +46,35 @@ func_0803AEA0:
 	add	r0, r1, r0
 	cmp	r0, #0
 	beq	.L15	@cond_branch
-	strb	r3, [r0]
+	strb	r5, [r0]
 .L15:
 	ldr	r0, [r1]
 	add	r0, r0, #0x1
 	str	r0, [r1]
 .L14:
 	mov	r5, #0x0
-	mov	r0, #0x0
-	cmp	r2, #0
+	mov	r2, #0x0
+	cmp	r6, #0
 	beq	.L16	@cond_branch
+	add	r1, r7, #0
+	mov	r3, #0xf8
+	lsl	r3, r3, #0x2
 .L17:
-	add	r0, r0, #0x1
-	cmp	r0, r2
+	ldr	r0, [r1, #0x4]
+	add	r5, r5, r0
+	add	r1, r1, r3
+	add	r2, r2, #0x1
+	cmp	r2, r6
 	bcc	.L17	@cond_branch
 .L16:
-	mov	r4, #0x0
-	cmp	r6, #0
+	mov	r7, #0x0
+	mov	r1, r8
+	cmp	r1, #0
 	beq	.L22	@cond_branch
+	add	r6, sp, #0x1f0
 .L23:
-	mov	r0, sp
-	add	r1, r7, #0
+	add	r0, sp, #0x1f0
+	mov	r1, r9
 	mov	r2, #0x0
 	mov	r3, #0x80
 	lsl	r3, r3, #0x1
@@ -63,21 +90,50 @@ func_0803AEA0:
 .L27:
 	cmp	r0, #0
 	beq	.L28	@cond_branch
-	mov	r0, sp
+	add	r0, r6, #0
 	bl	func_0805E8F0
 .L28:
-	add	r0, sp, #0x4
-	mov	r1, sp
-	mov	r2, r9
-	mov	r3, sl
+	mov	r0, sp
+	add	r1, r6, #0
+	mov	r2, sl
+	ldr	r3, [sp, #0x1f4]
 	bl	func_0803B454
-	add	r0, r4, #0x1
-	add	r4, r0, #0
-	cmp	r4, r6
+	add	r2, r4, #0
+	add	r2, r2, #0xf4
+	ldr	r0, [r2]
+	cmp	r0, #0x1f
+	bhi	.L29	@cond_branch
+	lsl	r1, r0, #0x3
+	sub	r1, r1, r0
+	lsl	r0, r1, #0x5
+	sub	r0, r0, r1
+	lsl	r0, r0, #0x5
+	mov	r1, #0x99
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
+	add	r1, r4, r0
+	cmp	r1, #0
+	beq	.L30	@cond_branch
+	mov	r0, #0x0
+	str	r0, [r1]
+	ldr	r0, [sp, #0x8]
+	str	r0, [r1, #0x8]
+	ldr	r0, [sp, #0xc]
+	str	r0, [r1, #0xc]
+	ldr	r0, [sp, #0x10]
+	str	r0, [r1, #0x10]
+.L30:
+	ldr	r0, [r2]
+	add	r0, r0, #0x1
+	str	r0, [r2]
+.L29:
+	add	r0, r7, #0x1
+	add	r7, r0, #0
+	cmp	r7, r8
 	bcc	.L23	@cond_branch
 .L22:
-	mov	r0, r8
-	add	sp, sp, #0x8
+	add	r0, r4, #0
+	add	sp, sp, #0x1f8
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

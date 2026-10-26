@@ -7,14 +7,33 @@
 	.type	 func_0803A144,function
 	.thumb_func
 func_0803A144:
-	push	{lr}
+	push	{r4, lr}
+	add	r4, r0, #0
 	lsl	r1, r1, #0x18
+	lsr	r0, r1, #0x18
 	cmp	r1, #0
 	bge	.L3	@cond_branch
 	mov	r0, #0x3
 	bl	func_080AB788
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
 .L3:
+	lsl	r2, r0, #0x18
+	asr	r2, r2, #0x14
+	ldr	r0, .L4
+	add	r1, r2, r0
+	ldrh	r1, [r1]
+	str	r1, [r4, #0x4]
+	add	r0, r0, #0x8
+	add	r2, r2, r0
+	ldrh	r0, [r2]
+	str	r0, [r4, #0x8]
+	pop	{r4}
 	pop	{r0}
 	bx	r0
+.L5:
+	.align	2, 0
+.L4:
+	.word	gUnk_080F16C2
 .Lfe1:
 	.size	 func_0803A144,.Lfe1-func_0803A144

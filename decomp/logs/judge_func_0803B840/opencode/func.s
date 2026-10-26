@@ -7,35 +7,67 @@
 	.type	 func_0803B840,function
 	.thumb_func
 func_0803B840:
-	push	{lr}
+	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x10
-	lsl	r0, r1, #0x10
-	orr	r1, r1, r0
-	str	r1, [sp, #0xc]
-	ldr	r2, .L3
+	add	r5, r0, #0
+	ldr	r1, [r5, #0x1c]
+	lsl	r2, r1, #0x11
+	lsr	r2, r2, #0x16
+	add	r2, r2, #0x3
+	ldr	r0, .L3
+	and	r2, r2, r0
+	lsl	r0, r1, #0xd
+	lsr	r0, r0, #0x1c
+	lsl	r0, r0, #0xc
+	orr	r2, r2, r0
+	lsl	r0, r2, #0x10
+	orr	r2, r2, r0
+	str	r2, [sp, #0xc]
+	lsl	r1, r1, #0x1b
+	lsr	r1, r1, #0x10
+	mov	r6, #0xc0
+	lsl	r6, r6, #0x13
+	add	r1, r1, r6
+	ldr	r2, .L3+0x4
 	add	r0, sp, #0xc
-	mov	r1, #0x0
 	bl	CpuFastSet
-	mov	r0, #0x0
-	str	r0, [sp]
-	str	r0, [sp, #0x4]
-	str	r0, [sp, #0x8]
-	mov	r1, #0x0
+	ldr	r4, [r5, #0x1c]
+	ldrb	r0, [r5, #0x1c]
+	lsl	r0, r0, #0x1b
+	lsr	r0, r0, #0x10
+	add	r0, r0, r6
+	ldr	r1, [r5, #0xc]
+	ldr	r3, [r5, #0x14]
+	ldr	r2, [r5, #0x18]
+	str	r2, [sp]
+	lsl	r2, r4, #0x11
+	lsr	r2, r2, #0x16
+	str	r2, [sp, #0x4]
+	lsl	r4, r4, #0xd
+	lsr	r4, r4, #0x1c
+	str	r4, [sp, #0x8]
 	mov	r2, #0x0
-	mov	r3, #0x0
 	bl	func_08051320
-	ldr	r0, .L3+0x4
+	ldr	r0, .L3+0x8
 	ldr	r0, [r0]
-	mov	r1, #0x0
+	ldr	r1, [r5, #0x1c]
+	lsl	r1, r1, #0xd
+	lsr	r1, r1, #0x1c
+	lsl	r1, r1, #0x5
+	mov	r2, #0xa0
+	lsl	r2, r2, #0x13
+	add	r1, r1, r2
 	mov	r2, #0x8
 	bl	CpuFastSet
 	mov	r0, #0x0
 	add	sp, sp, #0x10
+	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
 .L4:
 	.align	2, 0
 .L3:
+	.word	0x3ff
 	.word	0x10000a0
 	.word	gUnk_080F9F78
 .Lfe1:

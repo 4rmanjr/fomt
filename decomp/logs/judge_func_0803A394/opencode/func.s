@@ -12,31 +12,84 @@ func_0803A394:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x4
-	mov	r4, #0x4
-	cmp	r5, #0
+	add	sp, sp, #-0x8
+	ldr	r4, .L48
+	cmp	r6, #0
+	bne	.L3	@cond_branch
+	ldr	r4, .L48+0x4
+.L3:
+	mov	r5, #0x4
+	cmp	r6, #0
 	bne	.L4	@cond_branch
-	mov	r4, #0xa
+	mov	r5, #0xa
 .L4:
 	mov	r0, #0x63
 	bl	func_080AB788
+	lsl	r0, r0, #0x10
+	lsr	r3, r0, #0x10
+	mov	r0, #0x0
+	mov	r8, r0
 	mov	r7, #0x0
-	mov	r6, #0x0
-	cmp	r7, #0
-	beq	.L14	@cond_branch
+	mov	ip, r7
+	mov	r2, #0x0
 	cmp	r5, #0
+	ble	.L7	@cond_branch
+	lsl	r0, r3, #0x10
+	asr	r0, r0, #0x10
+	ldrb	r1, [r4]
+	cmp	r0, r1
+	bge	.L10	@cond_branch
+	mov	r8, r7
+	b	.L14
+.L49:
+	.align	2, 0
+.L48:
+	.word	gUnk_080F1904
+	.word	gUnk_080F18D2
+.L10:
+	mov	r1, ip
+	lsl	r0, r1, #0x2
+	lsl	r1, r2, #0x2
+	add	r1, r1, r2
+	lsl	r1, r1, #0x2
+	add	r1, r1, r4
+	add	r0, r0, r1
+	ldr	r0, [r0]
+	sub	r0, r3, r0
+	lsl	r0, r0, #0x10
+	lsr	r3, r0, #0x10
+	add	r2, r2, #0x1
+	cmp	r2, r5
+	bge	.L7	@cond_branch
+	lsl	r0, r2, #0x2
+	add	r0, r0, r2
+	lsl	r0, r0, #0x2
+	add	r0, r4, r0
+	lsl	r1, r3, #0x10
+	asr	r1, r1, #0x10
+	add	r0, r0, ip
+	ldrb	r0, [r0]
+	cmp	r1, r0
+	bge	.L10	@cond_branch
+	mov	r8, r2
+.L7:
+	mov	r0, r8
+	cmp	r0, #0
 	beq	.L14	@cond_branch
-	add	r7, r7, #0x9
+	cmp	r6, #0
+	beq	.L14	@cond_branch
+	mov	r1, #0x9
+	add	r8, r8, r1
 .L14:
-	cmp	r6, #0x1
-	bgt	.LCB46
+	cmp	r7, #0x1
+	bgt	.LCB104
 	b	.L46	@long jump
-.LCB46:
-	sub	r0, r6, #0x1
+.LCB104:
+	sub	r0, r7, #0x1
 	bl	func_080AB788
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	add	r6, r0, #0x1
+	add	r7, r0, #0x1
 	b	.L46
 .L17:
 	mov	r0, #0xc4
@@ -44,21 +97,30 @@ func_0803A394:
 	bl	func_080AB788
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	add	r0, r0, #0xb8
-	cmp	r0, #0xef
+	add	r6, r0, #0
+	add	r6, r6, #0xb8
+	cmp	r6, #0xef
 	bgt	.L18	@cond_branch
 	mov	r0, #0x38
 	bl	func_080AB788
-	b	.L19
+	mov	r1, #0xf8
+	lsl	r1, r1, #0x1
+	b	.L47
 .L18:
 	mov	r0, #0x30
 	bl	func_080AB788
-.L19:
-	sub	r0, r7, #0x1
+	mov	r1, #0x8a
+	lsl	r1, r1, #0x2
+.L47:
+	add	r0, r0, r1
+	lsl	r0, r0, #0x10
+	lsr	r5, r0, #0x10
+	mov	r0, r8
+	sub	r0, r0, #0x1
 	cmp	r0, #0xb
-	bls	.LCB83
+	bls	.LCB153
 	b	.L20	@long jump
-.LCB83:
+.LCB153:
 	lsl	r0, r0, #0x2
 	ldr	r1, .L50
 	add	r0, r0, r1
@@ -91,153 +153,275 @@ func_0803A394:
 	mov	r1, #0x0
 	mov	r3, #0x1
 	bl	func_08039E98
+	ldr	r0, .L52+0x4
+.L22:
+	str	r0, [r4, #0x50]
+	mov	r2, #0x0
+	str	r2, [r4, #0x54]
+	lsl	r1, r6, #0x10
+	asr	r1, r1, #0x10
+	str	r1, [r4, #0x58]
+	lsl	r0, r5, #0x10
+	asr	r0, r0, #0x10
+	str	r0, [r4, #0x5c]
+	str	r2, [r4, #0x68]
+	lsl	r1, r1, #0x10
+	str	r1, [r4, #0x60]
+	lsl	r0, r0, #0x10
+	str	r0, [r4, #0x64]
 .L23:
-	ldr	r0, [sp]
+	ldr	r0, [sp, #0x4]
 	cmp	r0, #0x2
-	bls	.LCB116
+	bls	.LCB201
 	b	.L20	@long jump
-.LCB116:
-	mov	r0, r9
-	b	.L47
+.LCB201:
+	mov	r1, sl
+	cmp	r1, #0
+	bne	.LCB205
+	b	.L20	@long jump
+.LCB205:
+	str	r4, [r1]
+	b	.L20
 .L53:
 	.align	2, 0
 .L52:
 	.word	0x9b6
+	.word	vtable_unk_080E76A4
 .L29:
 	mov	r0, #0x64
 	bl	__builtin_new
 	add	r4, r0, #0
 	mov	r1, #0x0
 	mov	r2, #0x10
-	b	.L48
+	mov	r3, #0x1
+	bl	func_08039E98
+	ldr	r0, .L54
+	b	.L22
+.L55:
+	.align	2, 0
+.L54:
+	.word	vtable_unk_080E768C
 .L30:
 	mov	r0, #0x64
 	bl	__builtin_new
 	add	r4, r0, #0
-	ldr	r2, .L54
-	b	.L49
-.L55:
+	ldr	r2, .L56
+	mov	r1, #0x0
+	mov	r3, #0x1
+	bl	func_08039E98
+	ldr	r0, .L56+0x4
+	b	.L22
+.L57:
 	.align	2, 0
-.L54:
+.L56:
 	.word	0x3db
+	.word	vtable_unk_080E7674
 .L31:
 	mov	r0, #0x64
 	bl	__builtin_new
 	add	r4, r0, #0
-	ldr	r2, .L56
-	b	.L49
-.L57:
+	ldr	r2, .L58
+	mov	r1, #0x0
+	mov	r3, #0x1
+	bl	func_08039E98
+	ldr	r0, .L58+0x4
+	b	.L22
+.L59:
 	.align	2, 0
-.L56:
+.L58:
 	.word	0x806
+	.word	vtable_unk_080E765C
 .L32:
 	mov	r0, #0x6c
 	bl	__builtin_new
 	add	r4, r0, #0
-	ldr	r2, .L58
-	b	.L49
-.L59:
+	ldr	r2, .L60
+	mov	r1, #0x0
+	mov	r3, #0x1
+	bl	func_08039E98
+	ldr	r0, .L60+0x4
+	str	r0, [r4, #0x50]
+	mov	r2, #0x0
+	str	r2, [r4, #0x54]
+	lsl	r1, r6, #0x10
+	asr	r1, r1, #0x10
+	str	r1, [r4, #0x58]
+	lsl	r0, r5, #0x10
+	asr	r0, r0, #0x10
+	str	r0, [r4, #0x5c]
+	str	r2, [r4, #0x68]
+	lsl	r1, r1, #0x10
+	str	r1, [r4, #0x60]
+	lsl	r0, r0, #0x10
+	str	r0, [r4, #0x64]
+	str	r2, [r4, #0x70]
+	b	.L23
+.L61:
 	.align	2, 0
-.L58:
+.L60:
 	.word	0x202
+	.word	vtable_unk_080E7644
 .L33:
 	mov	r0, #0x88
 	bl	__builtin_new
-	add	r4, r0, #0
+	add	r5, r0, #0
 	mov	r2, #0xa9
 	lsl	r2, r2, #0x2
 	mov	r1, #0x0
 	mov	r3, #0x1
 	bl	func_08039E98
+	ldr	r0, .L62
+	str	r0, [r5, #0x50]
+	mov	r4, #0x0
+	str	r4, [r5, #0x54]
+	add	r1, r5, #0
+	add	r1, r1, #0x50
+	mov	r2, #0x1
+	neg	r2, r2
+	add	r0, r5, #0
+	bl	func_0803A144
+	add	r1, r5, #0
+	add	r1, r1, #0x80
+	lsl	r0, r0, #0x18
+	asr	r0, r0, #0x18
+	str	r0, [r1]
+	add	r0, r5, #0
+	add	r0, r0, #0x60
+	str	r4, [r5, #0x68]
+	str	r4, [r0, #0x4]
+	ldr	r0, [r5, #0x5c]
+	lsl	r0, r0, #0x10
+	str	r0, [r5, #0x64]
+	add	r1, r1, #0xc
+	mov	r0, #0xf8
+	str	r0, [r1]
 .L34:
-	mov	r0, sl
+	ldr	r0, [sp]
 	cmp	r0, #0x2
 	bhi	.L20	@cond_branch
-	mov	r0, r8
-.L47:
-	cmp	r0, #0
+	mov	r1, r9
+	cmp	r1, #0
 	beq	.L20	@cond_branch
-	str	r4, [r0]
+	str	r5, [r1]
 	b	.L20
+.L63:
+	.align	2, 0
+.L62:
+	.word	vtable_unk_080E762C
 .L37:
 	mov	r0, #0x64
 	bl	__builtin_new
 	add	r4, r0, #0
-	ldr	r2, .L60
-	b	.L49
-.L61:
+	ldr	r2, .L64
+	mov	r1, #0x0
+	mov	r3, #0x1
+	bl	func_08039E98
+	ldr	r0, .L64+0x4
+	b	.L22
+.L65:
 	.align	2, 0
-.L60:
+.L64:
 	.word	0x87b
+	.word	vtable_unk_080E7614
 .L38:
 	mov	r0, #0x64
 	bl	__builtin_new
 	add	r4, r0, #0
-	ldr	r2, .L62
-	b	.L49
-.L63:
+	ldr	r2, .L66
+	mov	r1, #0x0
+	mov	r3, #0x1
+	bl	func_08039E98
+	ldr	r0, .L66+0x4
+	b	.L22
+.L67:
 	.align	2, 0
-.L62:
+.L66:
 	.word	0x65c
+	.word	vtable_unk_080E75FC
 .L39:
 	mov	r0, #0x64
 	bl	__builtin_new
 	add	r4, r0, #0
-	ldr	r2, .L64
-	b	.L49
-.L65:
+	ldr	r2, .L68
+	mov	r1, #0x0
+	mov	r3, #0x1
+	bl	func_08039E98
+	ldr	r0, .L68+0x4
+	b	.L22
+.L69:
 	.align	2, 0
-.L64:
+.L68:
 	.word	0x8f9
+	.word	vtable_unk_080E75E4
 .L40:
 	mov	r0, #0x64
 	bl	__builtin_new
 	add	r4, r0, #0
-	ldr	r2, .L66
-	b	.L49
-.L67:
+	ldr	r2, .L70
+	mov	r1, #0x0
+	mov	r3, #0x1
+	bl	func_08039E98
+	ldr	r0, .L70+0x4
+	b	.L22
+.L71:
 	.align	2, 0
-.L66:
+.L70:
 	.word	0x9a9
+	.word	vtable_unk_080E75CC
 .L41:
 	mov	r0, #0x64
 	bl	__builtin_new
 	add	r4, r0, #0
-	ldr	r2, .L68
-.L49:
+	ldr	r2, .L72
 	mov	r1, #0x0
-.L48:
 	mov	r3, #0x1
 	bl	func_08039E98
-	b	.L23
-.L69:
+	ldr	r0, .L72+0x4
+	b	.L22
+.L73:
 	.align	2, 0
-.L68:
+.L72:
 	.word	0x8fd
+	.word	vtable_unk_080E75B4
 .L42:
 	mov	r0, #0x64
 	bl	__builtin_new
-	add	r4, r0, #0
+	add	r5, r0, #0
 	mov	r1, #0x0
 	mov	r2, #0x15
 	mov	r3, #0x0
 	bl	func_08039E98
-	add	r1, r4, #0
+	ldr	r0, .L74
+	str	r0, [r5, #0x50]
+	mov	r4, #0x0
+	str	r4, [r5, #0x54]
+	add	r1, r5, #0
 	add	r1, r1, #0x50
 	mov	r2, #0x1
 	neg	r2, r2
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	func_0803A144
+	add	r0, r5, #0
+	add	r0, r0, #0x60
+	str	r4, [r5, #0x68]
+	str	r4, [r0, #0x4]
+	ldr	r0, [r5, #0x5c]
+	lsl	r0, r0, #0x10
+	str	r0, [r5, #0x64]
 	b	.L34
+.L75:
+	.align	2, 0
+.L74:
+	.word	vtable_unk_080E759C
 .L20:
-	sub	r0, r6, #0x1
-	add	r6, r0, #0
+	sub	r0, r7, #0x1
+	add	r7, r0, #0
 .L46:
-	cmp	r6, #0
-	ble	.LCB312
+	cmp	r7, #0
+	ble	.LCB511
 	b	.L17	@long jump
-.LCB312:
-	add	sp, sp, #0x4
+.LCB511:
+	add	sp, sp, #0x8
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

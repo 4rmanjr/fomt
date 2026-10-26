@@ -7,8 +7,20 @@
 	.type	 func_0803B6FC,function
 	.thumb_func
 func_0803B6FC:
-	mov	r0, #0x0
-	str	r0, [r1]
-	bx	lr
+	push	{r4, lr}
+	ldr	r3, .L3
+	str	r3, [r0]
+	ldr	r4, [r1]
+	mov	r3, #0x0
+	str	r3, [r1]
+	str	r4, [r0, #0x4]
+	str	r2, [r0, #0x8]
+	pop	{r4}
+	pop	{r0}
+	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E7748
 .Lfe1:
 	.size	 func_0803B6FC,.Lfe1-func_0803B6FC

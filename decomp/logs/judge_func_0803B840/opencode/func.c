@@ -3,7 +3,15 @@ s32 CpuFastSet(s32 *, s32, s32);                      /* extern */
 s32 func_08051320(s32, s32, s32, s32, s32, u32, u32); /* extern */
 extern s32 *gUnk_080F9F78;
 
-s32 func_0803B840(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+    u8 _pad10[4];
+    s32 unk14;
+    s32 unk18;
+    s32 unk1C;
+} GenObj;
+s32 func_0803B840(GenObj *arg0) {
     s32 spC;
     s32 temp_r2;
 

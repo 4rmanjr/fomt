@@ -7,6 +7,16 @@
 	.type	 func_0803BDEC,function
 	.thumb_func
 func_0803BDEC:
+	ldr	r3, [r0]
+	add	r3, r3, r1
+	lsl	r3, r3, #0x10
+	lsr	r3, r3, #0x10
+	str	r3, [r0]
+	ldr	r1, [r0, #0x4]
+	add	r1, r1, r2
+	lsl	r1, r1, #0x10
+	lsr	r1, r1, #0x10
+	str	r1, [r0, #0x4]
 	bx	lr
 .Lfe1:
 	.size	 func_0803BDEC,.Lfe1-func_0803BDEC

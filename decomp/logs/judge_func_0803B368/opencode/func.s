@@ -13,33 +13,46 @@ func_0803B368:
 	mov	r5, r8
 	push	{r5, r6, r7}
 	add	sp, sp, #-0x1c
+	add	r6, r0, #0
 	mov	r9, r1
-	lsr	r1, r2, #0x1
-	cmp	r3, #0x1
+	add	r0, r0, #0xec
+	ldr	r1, [r0]
+	lsr	r2, r1, #0x1
+	sub	r0, r0, #0x4
+	ldrb	r0, [r0]
+	cmp	r0, #0x1
 	beq	.L3	@cond_branch
 	mov	r3, #0x0
-	add	r5, r1, #0
+	add	r5, r2, #0
+	mov	r1, #0x1
 	b	.L4
 .L3:
-	add	r3, r1, #0
-	add	r5, r2, #0
+	add	r3, r2, #0
+	add	r5, r1, #0
+	mov	r1, #0x0
 .L4:
+	add	r0, r6, #0
+	add	r0, r0, #0xe8
+	str	r1, [r0]
 	add	r4, r3, #0
 	cmp	r4, r5
 	bcs	.L5	@cond_branch
-	add	r0, r0, #0xd0
+	mov	r0, #0xc3
+	lsl	r0, r0, #0x8
+	add	r0, r0, r6
 	mov	r8, r0
 	mov	r7, sl
 	add	r7, r7, #0x20
-	mov	r6, #0x0
 .L6:
 	add	r0, r7, #0
 	mov	r1, #0x0
 	bl	func_08007D4C
-	str	r6, [sp]
+	mov	r1, #0x0
+	str	r1, [sp]
 	mov	r1, sl
 	str	r1, [sp, #0x4]
-	str	r6, [sp, #0x8]
+	ldr	r1, [r6]
+	str	r1, [sp, #0x8]
 	str	r0, [sp, #0xc]
 	mov	r0, r8
 	str	r0, [sp, #0x10]

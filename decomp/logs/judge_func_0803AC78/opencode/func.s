@@ -12,11 +12,14 @@ func_0803AC78:
 	push	{r7}
 	add	r7, r0, #0
 	mov	r8, r1
-	add	r6, r7, #0x4
+	mov	r0, #0x90
+	lsl	r0, r0, #0x2
+	add	r6, r7, r0
 	cmp	r6, #0
 	beq	.L3	@cond_branch
-	add	r5, r7, #0
-	add	r5, r5, #0x88
+	mov	r1, #0x99
+	lsl	r1, r1, #0x7
+	add	r5, r7, r1
 	cmp	r6, r5
 	beq	.L3	@cond_branch
 .L5:

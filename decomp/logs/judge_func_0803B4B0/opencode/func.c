@@ -1,7 +1,11 @@
 #include "common.h"
-extern ? vtable_unk_080E76E8;
+extern s32 vtable_unk_080E76E8;
 
-void *func_0803B4B0(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    void *unk0;
+    s32 unk4;
+} GenObj;
+void *func_0803B4B0(GenObj *arg0, s32 arg1) {
     s32 var_r1;
     s8 *var_r0;
 

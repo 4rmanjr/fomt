@@ -8,20 +8,29 @@
 	.thumb_func
 func_0803B4B0:
 	push	{r4, lr}
-	add	r1, r0, #0
-	add	r1, r1, #0x8
-	mov	r2, #0x3
+	add	r2, r0, #0
+	ldr	r0, .L8
+	str	r0, [r2]
+	str	r1, [r2, #0x4]
+	add	r0, r2, #0
+	add	r0, r0, #0x40
+	mov	r1, #0x3
 	mov	r4, #0x0
 	mov	r3, #0x1
 	neg	r3, r3
 .L3:
-	strb	r4, [r1]
-	add	r1, r1, #0x18
-	sub	r2, r2, #0x1
-	cmp	r2, r3
+	strb	r4, [r0]
+	add	r0, r0, #0x18
+	sub	r1, r1, #0x1
+	cmp	r1, r3
 	bne	.L3	@cond_branch
+	add	r0, r2, #0
 	pop	{r4}
 	pop	{r1}
 	bx	r1
+.L9:
+	.align	2, 0
+.L8:
+	.word	vtable_unk_080E76E8
 .Lfe1:
 	.size	 func_0803B4B0,.Lfe1-func_0803B4B0

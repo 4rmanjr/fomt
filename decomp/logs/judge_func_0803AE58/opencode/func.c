@@ -1,6 +1,10 @@
 #include "common.h"
 s32 func_030004DC(s32, s32, s32, s32, s32, void *, s32, s32, void *); /* extern */
 
+typedef struct GenObj {
+    u8 _pad0[40];
+    s32 unk28;
+} GenObj;
 void func_0803AE58(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     void *temp_r4;
 

@@ -1,7 +1,14 @@
 #include "common.h"
 s32 func_08009940(void *, void *);                    /* extern */
 
-void func_0803BCF8(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[10];
+    s32 unkA;
+    s32 unkB;
+    s32 unkC;
+    s32 unkD;
+} GenObj;
+void func_0803BCF8(GenObj *arg0) {
     s32 temp_r1;
     s8 temp_r5;
     u8 temp_r3;
