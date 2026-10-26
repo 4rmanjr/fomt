@@ -1,0 +1,3 @@
+void func_08014234(void *arg0) {
+    (*arg0->unk4->unkA8)->unkA4();
+}
