@@ -82,3 +82,10 @@ s32 m4aMPlayTempoControl(s32, u16);                   /* extern */
 void func_08008C28(s32 *arg0, u16 arg1) {
     m4aMPlayTempoControl(*arg0, arg1);
 }
+
+// DECOMP-MATCHED func_08008C38 (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aMPlayVolumeControl(s32, u16, u16);             /* extern */
+
+void func_08008C38(s32 *arg0, u16 arg1, u16 arg2) {
+    m4aMPlayVolumeControl(*arg0, arg2, arg1);
+}
