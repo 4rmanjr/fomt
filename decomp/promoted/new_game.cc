@@ -47,3 +47,10 @@ void func_08004BDC(GenObj *arg0, s32 arg1) {
     }
     func_080007EC(arg0, arg1);
 }
+
+// DECOMP-MATCHED func_08004C48 (dari new_game.s; cek manusia sebelum ke src/)
+extern s32 vtable_unk_080E5A88;
+
+void func_08004C48(s32 **arg0) {
+    *arg0 = &vtable_unk_080E5A88;
+}
