@@ -48,3 +48,10 @@ void func_080946BC(void) {
 void func_080946C0(void) {
 
 }
+
+// DECOMP-MATCHED func_080948E0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern s32 gUnk_08100A98;
+
+s32 func_080948E0(void) {
+    return gUnk_08100A98;
+}
