@@ -2353,12 +2353,13 @@
  },
  "func_08010E60": {
   "addr": 134286944,
-  "claimed_at": 1793003398.1683004,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793003629.6017504,
   "module": "game_state.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 8,
   "size": 138,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08010E68": {
@@ -12868,78 +12869,98 @@
  },
  "func_0807E558": {
   "addr": 134735192,
+  "judged_mtime": 1793003626.3238022,
   "module": "code_0803EE94.s",
+  "note": "inter\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807E558/kilo-1531/func.c:531: request for member `unk8' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807E558/kilo-1531/func.c:532: `vtable_unk_080E5A28' undeclared (first use in this function)\n",
   "ref_len": 2236,
   "size": 18116,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0807EE14": {
   "addr": 134737428,
+  "judged_mtime": 1793003626.6752114,
   "module": "code_0803EE94.s",
+  "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EE14/kilo-1531/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EE14/kilo-1531/func.c:13: request for member `unk8' in something not a structure or union\n",
   "ref_len": 48,
   "size": 459,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0807EE44": {
   "addr": 134737476,
+  "judged_mtime": 1793003627.017987,
   "module": "code_0803EE94.s",
+  "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EE44/kilo-1531/func.c:16: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EE44/kilo-1531/func.c:16: request for member `unk4' in something not a structure or union\n",
   "ref_len": 64,
   "size": 584,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0807EE84": {
   "addr": 134737540,
+  "judged_mtime": 1793003627.353986,
   "module": "code_0803EE94.s",
+  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EE84/kilo-1531/func.c:9: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EE84/kilo-1531/func.c:9: request for member `unk8' in something not a structure or union\n",
   "ref_len": 28,
   "size": 261,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0807EEA0": {
   "addr": 134737568,
+  "judged_mtime": 1793003627.6931696,
   "module": "code_0803EE94.s",
+  "note": "ng not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EEA0/kilo-1531/func.c:10: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EEA0/kilo-1531/func.c:10: request for member `unk6AC' in something not a structure or union\n",
   "ref_len": 52,
   "size": 485,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0807EED4": {
   "addr": 134737620,
+  "judged_mtime": 1793003627.9954226,
   "module": "code_0803EE94.s",
+  "note": "each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EED4/kilo-1531/func.c:8: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EED4/kilo-1531/func.c:8: request for member `unk6AC' in something not a structure or union\n",
   "ref_len": 44,
   "size": 426,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0807EF00": {
   "addr": 134737664,
+  "judged_mtime": 1793003628.3112845,
   "module": "code_0803EE94.s",
+  "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EF00/kilo-1531/func.c:6: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EF00/kilo-1531/func.c:6: request for member `unk6AC' in something not a structure or union\n",
   "ref_len": 20,
   "size": 217,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0807EF14": {
   "addr": 134737684,
+  "judged_mtime": 1793003628.6917078,
   "module": "code_0803EE94.s",
+  "note": "0807EF14/kilo-1531/func.c:12: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EF14/kilo-1531/func.c:13: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EF14/kilo-1531/func.c:17: invalid type argument of `unary *'\n",
   "ref_len": 124,
   "size": 1025,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0807EF90": {
   "addr": 134737808,
+  "judged_mtime": 1793003629.5310264,
   "module": "code_0803EE94.s",
+  "note": "inter\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EF90/kilo-1531/func.c:417: request for member `unk8' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EF90/kilo-1531/func.c:418: `vtable_unk_080E5A28' undeclared (first use in this function)\n",
   "ref_len": 1520,
   "size": 12647,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0807F580": {
   "addr": 134739328,
+  "claimed_at": 1793003625.2141547,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 48,
   "size": 459,
@@ -12948,6 +12969,8 @@
  },
  "func_0807F5B0": {
   "addr": 134739376,
+  "claimed_at": 1793003625.2264085,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 64,
   "size": 584,
@@ -12956,6 +12979,8 @@
  },
  "func_0807F5F0": {
   "addr": 134739440,
+  "claimed_at": 1793003625.238579,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 76,
   "size": 585,
@@ -12964,6 +12989,8 @@
  },
  "func_0807F63C": {
   "addr": 134739516,
+  "claimed_at": 1793003625.2515314,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 52,
   "size": 486,
@@ -12972,6 +12999,8 @@
  },
  "func_0807F670": {
   "addr": 134739568,
+  "claimed_at": 1793003625.2651021,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 20,
   "size": 220,
@@ -12980,6 +13009,8 @@
  },
  "func_0807F684": {
   "addr": 134739588,
+  "claimed_at": 1793003625.2783785,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 100,
   "size": 853,
@@ -12988,6 +13019,8 @@
  },
  "func_0807F6E8": {
   "addr": 134739688,
+  "claimed_at": 1793003625.292606,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 480,
   "size": 4048,
@@ -12996,6 +13029,8 @@
  },
  "func_0807F8C8": {
   "addr": 134740168,
+  "claimed_at": 1793003625.3050191,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 2936,
   "size": 23941,
@@ -13004,6 +13039,8 @@
  },
  "func_0808045C": {
   "addr": 134743132,
+  "claimed_at": 1793003625.317565,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 48,
   "size": 459,
@@ -13012,6 +13049,8 @@
  },
  "func_0808048C": {
   "addr": 134743180,
+  "claimed_at": 1793003625.3303678,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 64,
   "size": 584,
@@ -13020,6 +13059,8 @@
  },
  "func_080804CC": {
   "addr": 134743244,
+  "claimed_at": 1793003625.3441207,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 44,
   "size": 381,
@@ -13028,62 +13069,78 @@
  },
  "func_080804F8": {
   "addr": 134743288,
+  "judged_mtime": 1793003626.8402128,
   "module": "code_0803EE94.s",
+  "note": "tructure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080804F8/Prodesk_340848/func.c:10: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080804F8/Prodesk_340848/func.c:10: request for member `unk6AC' in something not a structure or union\n",
   "ref_len": 52,
   "size": 486,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0808052C": {
   "addr": 134743340,
+  "judged_mtime": 1793003627.1803305,
   "module": "code_0803EE94.s",
+  "note": "' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0808052C/Prodesk_340848/func.c:6: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0808052C/Prodesk_340848/func.c:6: for each function it appears in.)\n",
   "ref_len": 20,
   "size": 220,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08080540": {
   "addr": 134743360,
+  "judged_mtime": 1793003628.2091956,
   "module": "code_0803EE94.s",
+  "note": "e/armanjr/gitproject/fomt/decomp/logs/judge_func_08080540/Prodesk_340848/func.c:495: request for member `unk8' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08080540/Prodesk_340848/func.c:496: `vtable_unk_080E5A28' undeclared (first use in this function)\n",
   "ref_len": 2132,
   "size": 17396,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08080D94": {
   "addr": 134745492,
+  "judged_mtime": 1793003628.5679822,
   "module": "code_0803EE94.s",
+  "note": " structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08080D94/Prodesk_340848/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08080D94/Prodesk_340848/func.c:13: request for member `unk8' in something not a structure or union\n",
   "ref_len": 48,
   "size": 459,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08080DC4": {
   "addr": 134745540,
+  "judged_mtime": 1793003628.9499671,
   "module": "code_0803EE94.s",
+  "note": " structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08080DC4/Prodesk_340848/func.c:16: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08080DC4/Prodesk_340848/func.c:16: request for member `unk4' in something not a structure or union\n",
   "ref_len": 64,
   "size": 584,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08080E04": {
   "addr": 134745604,
+  "judged_mtime": 1793003629.2516668,
   "module": "code_0803EE94.s",
+  "note": " a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08080E04/Prodesk_340848/func.c:9: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08080E04/Prodesk_340848/func.c:9: request for member `unk8' in something not a structure or union\n",
   "ref_len": 28,
   "size": 261,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08080E20": {
   "addr": 134745632,
+  "judged_mtime": 1793003629.6162193,
   "module": "code_0803EE94.s",
+  "note": "tructure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08080E20/Prodesk_340848/func.c:10: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08080E20/Prodesk_340848/func.c:10: request for member `unk6AC' in something not a structure or union\n",
   "ref_len": 52,
   "size": 486,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08080E54": {
   "addr": 134745684,
+  "claimed_at": 1793003626.4071589,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 20,
   "size": 220,
@@ -13092,6 +13149,8 @@
  },
  "func_08080E68": {
   "addr": 134745704,
+  "claimed_at": 1793003626.4306858,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 672,
   "size": 5808,
@@ -13100,6 +13159,8 @@
  },
  "func_08081108": {
   "addr": 134746376,
+  "claimed_at": 1793003626.4439778,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 68,
   "size": 594,
@@ -13108,6 +13169,8 @@
  },
  "func_0808114C": {
   "addr": 134746444,
+  "claimed_at": 1793003626.456217,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 2292,
   "size": 18833,
@@ -13116,6 +13179,8 @@
  },
  "func_08081A40": {
   "addr": 134748736,
+  "claimed_at": 1793003626.468293,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 48,
   "size": 459,
@@ -13124,6 +13189,8 @@
  },
  "func_08081A70": {
   "addr": 134748784,
+  "claimed_at": 1793003626.480813,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 64,
   "size": 584,
@@ -13132,6 +13199,8 @@
  },
  "func_08081AB0": {
   "addr": 134748848,
+  "claimed_at": 1793003626.4935944,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 28,
   "size": 261,
@@ -13140,6 +13209,8 @@
  },
  "func_08081ACC": {
   "addr": 134748876,
+  "claimed_at": 1793003626.5065267,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 52,
   "size": 485,
@@ -13148,6 +13219,8 @@
  },
  "func_08081B00": {
   "addr": 134748928,
+  "claimed_at": 1793003626.5187576,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 44,
   "size": 426,
@@ -13156,6 +13229,8 @@
  },
  "func_08081B2C": {
   "addr": 134748972,
+  "claimed_at": 1793003626.532317,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 20,
   "size": 217,
@@ -13164,6 +13239,8 @@
  },
  "func_08081B40": {
   "addr": 134748992,
+  "claimed_at": 1793003626.5456953,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 124,
   "size": 1025,
@@ -13172,6 +13249,8 @@
  },
  "func_08081BBC": {
   "addr": 134749116,
+  "claimed_at": 1793003626.5585287,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 1368,
   "size": 11406,
@@ -13180,6 +13259,8 @@
  },
  "func_08082114": {
   "addr": 134750484,
+  "claimed_at": 1793003626.5712125,
+  "claimed_by": "Prodesk:340848",
   "module": "code_0803EE94.s",
   "ref_len": 48,
   "size": 459,
