@@ -1,0 +1,3 @@
+[console_scripts]
+m2c=m2c.main:main
+

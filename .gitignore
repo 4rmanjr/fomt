@@ -8,3 +8,6 @@
 *.sav
 
 build/
+
+__pycache__/
+*.pyc

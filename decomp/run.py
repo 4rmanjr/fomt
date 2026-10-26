@@ -14,24 +14,27 @@ import contextlib, fcntl, json, os, re, socket, subprocess, sys, time
 from collections import Counter
 from pathlib import Path
 
-VENV = Path.home() / "gitproject/decompilasi/decompdecomp/.venv/bin/python"
-if Path(sys.executable) != VENV and VENV.exists():
-    # judge butuh elftools/capstone: jalankan ulang di venv decompdecomp
-    os.execv(str(VENV), [str(VENV), str(Path(__file__).resolve()), *sys.argv[1:]])
-
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS = ROOT / "tools"
 ASM = ROOT / "asm"
 STATE = ROOT / "decomp" / "state" / "progress.json"
 DRAFTS = ROOT / "decomp" / "drafts"
 PROMOTED = ROOT / "decomp" / "promoted"
 LOGD = ROOT / "decomp" / "logs"
-HOME = Path.home()
-AGBCC = HOME / ".local/share/decompnet/toolchains/agbcc/bin/agbcc"
-AGINC = HOME / ".local/share/decompnet/toolchains/agbcc/include"
-AS = HOME / ".local/share/decompnet/toolchains/arm-gnu/bin/arm-none-eabi-as"
-CPP = HOME / ".local/share/decompnet/toolchains/arm-gnu/bin/arm-none-eabi-cpp"
-M2C = HOME / ".local/share/decompnet/toolchains/m2c/venv/bin/m2c"
-DECOMP_SRC = HOME / "gitproject/decompilasi/decompdecomp/src"
+
+# Semua tool di-vendor di tools/ supaya repo tidak bergantung pada folder lain.
+# Env var di bawah tersedia sebagai override bila ingin memakai toolchain luar.
+PYDEPS = TOOLS / "python"
+DECOMP_SRC = Path(os.environ.get("FOMT_DECOMPNET", TOOLS / "decompnet"))
+for _p in (PYDEPS, DECOMP_SRC):
+    if _p.is_dir() and str(_p) not in sys.path:
+        sys.path.insert(0, str(_p))
+
+AGBCC = Path(os.environ.get("FOMT_AGBCC", TOOLS / "agbcc/bin/agbcc"))
+AGINC = Path(os.environ.get("FOMT_AGBCC_INCLUDE", TOOLS / "agbcc/include"))
+AS = Path(os.environ.get("FOMT_AS", TOOLS / "arm-gnu/bin/arm-none-eabi-as"))
+CPP = Path(os.environ.get("FOMT_CPP", TOOLS / "arm-gnu/bin/arm-none-eabi-cpp"))
+M2C = Path(os.environ.get("FOMT_M2C", TOOLS / "m2c/m2c.py"))
 
 # --- koordinasi antar-agent (multi-agent) -----------------------------------
 # Dua agent (mis. OpenCode dan VSCode) boleh jalan bersamaan: tiap fungsi
@@ -306,7 +309,8 @@ def draft(name: str) -> bool:
     with tempfile.NamedTemporaryFile("w", suffix=".s", delete=False) as f:
         f.write(f".syntax unified\n.thumb\n.text\n{asm_m2c}")
         p = f.name
-    r = subprocess.run([str(M2C), "-t", "gba", "-f", name, p], capture_output=True, text=True, timeout=60)
+    r = subprocess.run([sys.executable, str(M2C), "-t", "gba", "-f", name, p],
+                       capture_output=True, text=True, timeout=60)
     Path(p).unlink(missing_ok=True)
     if r.returncode or not r.stdout.strip():
         touch(name, status="failed", note="m2c gagal; tulis manual")

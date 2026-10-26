@@ -4,24 +4,30 @@
 State: decomp/state/progress.json  {name: {module, addr, thumb, status, ...}}
   status: pending | drafted | matched | failed
 Rerun-safe: scan merges, never deletes results. Ctrl-C = pause, rerun = resume.
-Use decompdecomp's venv python (has elftools/capstone) for judge.
+Tool & dependency Python sudah di-vendor di tools/ (lihat tools/VENDORED.md).
 """
 from __future__ import annotations
-import json, re, subprocess, sys
+import json, os, re, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS = ROOT / "tools"
 ASM = ROOT / "asm"
 STATE = ROOT / "decomp" / "state" / "progress.json"
 DRAFTS = ROOT / "decomp" / "drafts"
 LOGD = ROOT / "decomp" / "logs"
-HOME = Path.home()
-AGBCC = HOME / ".local/share/decompnet/toolchains/agbcc/bin/agbcc"
-AGINC = HOME / ".local/share/decompnet/toolchains/agbcc/include"
-AS = HOME / ".local/share/decompnet/toolchains/arm-gnu/bin/arm-none-eabi-as"
-CPP = HOME / ".local/share/decompnet/toolchains/arm-gnu/bin/arm-none-eabi-cpp"
-M2C = HOME / ".local/share/decompnet/toolchains/m2c/venv/bin/m2c"
-DECOMP_SRC = HOME / "gitproject/decompilasi/decompdecomp/src"
+
+PYDEPS = TOOLS / "python"
+DECOMP_SRC = Path(os.environ.get("FOMT_DECOMPNET", TOOLS / "decompnet"))
+for _p in (PYDEPS, DECOMP_SRC):
+    if _p.is_dir() and str(_p) not in sys.path:
+        sys.path.insert(0, str(_p))
+
+AGBCC = Path(os.environ.get("FOMT_AGBCC", TOOLS / "agbcc/bin/agbcc"))
+AGINC = Path(os.environ.get("FOMT_AGBCC_INCLUDE", TOOLS / "agbcc/include"))
+AS = Path(os.environ.get("FOMT_AS", TOOLS / "arm-gnu/bin/arm-none-eabi-as"))
+CPP = Path(os.environ.get("FOMT_CPP", TOOLS / "arm-gnu/bin/arm-none-eabi-cpp"))
+M2C = Path(os.environ.get("FOMT_M2C", TOOLS / "m2c/m2c.py"))
 
 MARK = re.compile(r'^\s*(thumb_func_start|arm_func_start|non_word_aligned_thumb_func_start)\s+(\S+)', re.M)
 LBL = re.compile(r'^\s*(\S+):\s*@\s*(0x[0-9A-Fa-f]+)')
@@ -112,7 +118,7 @@ def draft(name: str) -> str | None:
     with tempfile.NamedTemporaryFile("w", suffix=".s", delete=False) as f:
         f.write(f".syntax unified\n.thumb\n.text\n{asm_m2c}")
         p = f.name
-    r = subprocess.run([str(M2C), "-t", "gba", "-f", name, p],
+    r = subprocess.run([sys.executable, str(M2C), "-t", "gba", "-f", name, p],
                        capture_output=True, text=True, timeout=60)
     Path(p).unlink(missing_ok=True)
     if r.returncode or not r.stdout.strip():

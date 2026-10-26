@@ -9,8 +9,9 @@ python3 decomp/run.py [N] [modul ...] --agent <nama>
 - Contoh: `python3 decomp/run.py 10 more_items.s`
 - Tanpa argumen modul = antre seluruh `asm/*.s` dari yang terkecil.
 - **Ctrl-C kapan saja**, jalankan lagi perintah yang sama untuk lanjut.
-- Tidak butuh ROM, tidak butuh argumen lain, tidak butuh venv manual
-  (`run.py` otomatis pindah ke venv decompdecomp untuk judge).
+- Tidak butuh ROM, tidak butuh argumen lain, tidak butuh venv manual.
+  Semua tool (agbcc, arm-none-eabi, m2c, decompnet, pyelftools/capstone)
+  sudah di-vendor di `tools/`; cukup `python3` 3.12+ (lihat `tools/VENDORED.md`).
 
 ## Multi-agent (dua agent bersamaan)
 
