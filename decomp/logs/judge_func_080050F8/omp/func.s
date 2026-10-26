@@ -11,7 +11,7 @@ func_080050F8:
 	mov	r7, r9
 	mov	r6, r8
 	push	{r6, r7}
-	add	sp, sp, #-0x10
+	add	sp, sp, #-0x14
 	mov	r9, r0
 	add	r6, r1, #0
 	add	r0, r6, #0
@@ -22,9 +22,9 @@ func_080050F8:
 	bl	func_08005278
 	add	r0, r6, #0
 	bl	func_08008918
-	add	r2, sp, #0x4
-	mov	r1, #0x3f
-	strh	r1, [r2]
+	mov	r2, #0x3f
+	add	r1, sp, #0x10
+	strh	r2, [r1]
 	add	r0, r0, #0x50
 	mov	r5, #0x0
 	mov	r1, #0x3f
@@ -55,11 +55,11 @@ func_080050F8:
 	ldr	r2, [r1, #0x10]
 	ldr	r1, [sp]
 	bl	_call_via_r2
-	add	r0, sp, #0x8
+	add	r5, sp, #0x4
+	add	r0, r5, #0x4
 	mov	r8, r0
-	add	r7, sp, #0xc
 	mov	r4, #0x0
-	mov	r5, #0x0
+	mov	r7, #0x0
 .L3:
 	add	r0, r6, #0
 	bl	func_080087C8
@@ -134,19 +134,19 @@ func_080050F8:
 	orr	r0, r0, r1
 	cmp	r0, #0
 	blt	.L5	@cond_branch
-	mov	r5, #0x1
+	mov	r7, #0x1
 .L5:
-	cmp	r5, #0
+	cmp	r7, #0
 	beq	.L3	@cond_branch
 	mov	r0, #0x0
-	str	r0, [sp, #0x8]
+	str	r0, [sp, #0x4]
 	mov	r1, r8
-	str	r1, [r7]
-	str	r0, [r7, #0x4]
-	str	r0, [r1]
+	str	r5, [r1]
+	str	r0, [r1, #0x4]
+	str	r0, [r5]
 	mov	r1, r9
 	str	r0, [r1]
-	ldr	r1, [sp, #0x8]
+	ldr	r1, [sp, #0x4]
 	cmp	r1, #0
 	beq	.L19	@cond_branch
 	ldr	r0, [r1, #0x4]
@@ -166,7 +166,7 @@ func_080050F8:
 	bl	_call_via_r2
 .L20:
 	mov	r0, r9
-	add	sp, sp, #0x10
+	add	sp, sp, #0x14
 	pop	{r3, r4}
 	mov	r8, r3
 	mov	r9, r4

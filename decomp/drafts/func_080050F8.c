@@ -59,7 +59,7 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     temp_r0_2 = func_08008940(arg1);
     ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, sp4);
     p7 = &spslot[0];
-    p8 = &spslot[1];
+    p8 = (GenObj ***)&spslot[1];
     var_r4 = 0;
     var_r5 = 0;
     do {
