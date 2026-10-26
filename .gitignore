@@ -11,3 +11,6 @@ build/
 
 __pycache__/
 *.pyc
+
+# lock file antar-agent (dibuat saat run)
+decomp/state/*.lock

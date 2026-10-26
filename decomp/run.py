@@ -42,6 +42,7 @@ M2C = Path(os.environ.get("FOMT_M2C", TOOLS / "m2c/m2c.py"))
 # Semua baca-ubah-tulis state dilakukan di bawah flock antar-proses; kerja
 # panjang (m2c/agbcc) dilakukan DI LUAR lock supaya tetap paralel.
 LOCKF = ROOT / "decomp" / "state" / "progress.lock"
+GIT_LOCK = ROOT / "decomp" / "state" / "git.lock"  # serialisasi commit/push antar-agent
 CLAIM_TTL = int(os.environ.get("FOMT_CLAIM_TTL", "1800"))  # detik; klaim basi diambil alih
 AGENT = (os.environ.get("FOMT_AGENT") or os.environ.get("DECOMP_AGENT_NAME")
          or f"{socket.gethostname()}:{os.getpid()}")[:40]
@@ -474,6 +475,44 @@ def short_note(note: str, limit: int = 80) -> str:
     return pick if len(pick) <= limit else pick[:limit - 3] + "..."
 
 
+def autopush(name: str) -> bool:
+    """Commit + push hasil MATCH begitu satu fungsi berhasil.
+
+    Hanya jalan kalau ada perubahan (tidak ada push untuk batch DIFF semua).
+    FOMT_AUTOPUSH=0 mematikan. Gagal push tidak menggagalkan run: commit tetap
+    ada di lokal dan pesan peringatan dicetak.
+    """
+    if os.environ.get("FOMT_AUTOPUSH", "1") == "0":
+        return False
+    GIT_LOCK.parent.mkdir(parents=True, exist_ok=True)
+    with GIT_LOCK.open("a+") as fh:
+        fcntl.flock(fh, fcntl.LOCK_EX)
+        try:
+            def git(*args: str) -> subprocess.CompletedProcess:
+                return subprocess.run(["git", "-C", str(ROOT), *args],
+                                      capture_output=True, text=True)
+
+            if git("rev-parse", "--is-inside-work-tree").returncode != 0:
+                return False
+            git("add", "-A", "decomp")
+            if git("diff", "--cached", "--quiet").returncode == 0:
+                return False
+            msg = f"decomp: promote {name}"
+            c = git("commit", "-q", "-m", msg)
+            if c.returncode != 0:
+                print(f"[{AGENT}] autopush: commit gagal: {c.stderr.strip()[-200:]}")
+                return False
+            p = git("push", "-q")
+            if p.returncode != 0:
+                print(f"[{AGENT}] autopush: commit lokal OK, push gagal: "
+                      f"{p.stderr.strip()[-160:]}")
+                return False
+            print(f"[{AGENT}] autopush: {msg}")
+            return True
+        finally:
+            fcntl.flock(fh, fcntl.LOCK_UN)
+
+
 def main(argv: list[str]) -> int:
     global AGENT, SAFE_AGENT
     retry_all = False
@@ -578,12 +617,14 @@ def main(argv: list[str]) -> int:
         for i, name in enumerate(todo, 1):
             cur = name
             tag = f"[{i}/{len(todo)}]"
+            matched = False
             if load()[name]["status"] == "pending" and not draft(name):
                 done["DIFF"] += 1
                 print(f"[{AGENT}] {tag} {name}: DIFF (m2c gagal)"
                       f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
             elif judge(name):
                 done["MATCH"] += 1
+                matched = True
                 out = promote(name)
                 print(f"[{AGENT}] {tag} {name}: MATCH -> {out}"
                       f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
@@ -592,6 +633,8 @@ def main(argv: list[str]) -> int:
                 print(f"[{AGENT}] {tag} {name}: DIFF ({short_note(load()[name].get('note', ''))})"
                       f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
             release(name)
+            if matched:
+                autopush(name)  # hasil MATCH langsung disimpan di remote
             cur = None
     except KeyboardInterrupt:
         if cur:

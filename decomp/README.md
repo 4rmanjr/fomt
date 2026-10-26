@@ -67,6 +67,24 @@ Selesai [opencode]: batch MATCH 0, DIFF 2 | total 2626 | berhasil 47 (1.8%) | si
 - **sisa** = `total - berhasil`.
 - `batch <M>M/<D>D` = hitungan MATCH/DIFF khusus jalan ini.
 
+## Autopush hasil MATCH
+
+Setiap fungsi MATCH langsung di-commit dan di-push ke remote oleh `run.py`
+(tidak perlu commit manual setelah decomp):
+
+```text
+[opencode] [3/20] func_0800FFD4: MATCH -> .../decomp/promoted/more_items.cc | batch 1M/2D | ...
+[opencode] autopush: decomp: promote func_0800FFD4
+```
+
+- Hanya jalan bila ada perubahan, dan hanya setelah MATCH — run yang DIFF
+  semua tidak menghasilkan push.
+- Yang di-commit: seluruh `decomp/` (state, draf, log, promoted).
+- `FOMT_AUTOPUSH=0` mematikan autopush untuk sementara.
+- Kalau push gagal (offline), commit tetap lokal, run lanjut, dan peringatan
+  dicetak; push manual nanti.
+- Commit/push diserialisasi antar-agent lewat `decomp/state/git.lock`.
+
 ## Yang sudah terbukti
 
 `more_items.s`: `func_0800FFD0`, `func_0800FFD4` → MATCH → `decomp/promoted/more_items.cc`.
