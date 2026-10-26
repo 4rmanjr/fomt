@@ -1,0 +1,17 @@
+#include "common.h"
+s32 func_080CAD10(s32, u32);                          /* extern */
+s32 func_080CAE60(s32, s32, s32, s32, s32, s32, s32); /* extern */
+s32 func_080CAEEC(s32, u32, s32, s32, s32, s32);      /* extern */
+extern ? gUnk_08117860;
+
+void func_080CB948(s32 arg0, s32 arg1, u32 arg2) {
+    s32 spC;
+
+    func_080CAD10((arg1 * 0xC) + arg0 + 0x218, arg2);
+    spC = *((arg1 * 4) + &gUnk_08117860);
+    func_080CAE60(arg0, (spC.unk1 << 6) + ((spC.unk0 * 2) + 0x0600F080), 0x54, 2, 1, 0, 0x20);
+    if (arg2 > 1U) {
+        func_080CAEEC(arg0, arg2, (spC.unk1 << 6) + ((spC.unk0 * 2) + 0x0600F082), 0x20, 0, 0x20);
+    }
+}
+
