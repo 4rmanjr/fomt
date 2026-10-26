@@ -13,9 +13,10 @@ func_0800374C:
 	ldr	r1, [r1, #0x4]
 	mov	r0, sp
 	bl	func_08000D64
+	ldr	r1, [sp]
 	mov	r0, #0x0
 	str	r0, [sp]
-	str	r0, [r4]
+	str	r1, [r4]
 	add	r0, r4, #0
 	add	sp, sp, #0x4
 	pop	{r4}

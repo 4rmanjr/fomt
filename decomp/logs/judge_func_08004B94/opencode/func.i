@@ -66,26 +66,26 @@ typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v
 } Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004B94/opencode/func.c" 2
 s32 __builtin_new(s32);
-s32 func_080041DC(s32, s32, void ***);
+s32 func_080041DC(s32, s32, Obj ***);
 extern s32 vtable_unk_080E5A68;
 
 typedef struct GenObj {
     void *unk0;
     s32 unk4;
 } GenObj;
-void *func_08004B94(GenObj *arg0, s32 arg1, void ***arg2) {
-    void **sp0;
-    void **temp_r1;
-    void **temp_r4;
+void *func_08004B94(GenObj *arg0, s32 arg1, Obj ***arg2) {
+    Obj **sp0;
+    Obj **temp_r1;
+    Obj *temp_r4;
 
     arg0->unk0 = &vtable_unk_080E5A68;
     temp_r1 = *arg2;
     *arg2 = 0;
     sp0 = temp_r1;
     arg0->unk4 = func_080041DC(__builtin_new(0x1A0), arg1, &sp0);
-    temp_r4 = *arg2;
+    temp_r4 = (Obj *)*arg2;
     if (temp_r4 != 0) {
-        (*temp_r4)->unk8(temp_r4, 3);
+        temp_r4->vtbl->unk8(temp_r4, 3);
     }
     return arg0;
 }

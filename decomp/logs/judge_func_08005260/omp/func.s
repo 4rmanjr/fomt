@@ -10,15 +10,15 @@ func_08005260:
 	ldr	r2, .L3
 	add	r1, r0, r2
 	mov	r2, #0x0
-	str	r2, [r1]
+	strb	r2, [r1]
 	ldr	r1, .L3+0x4
 	add	r0, r0, r1
-	str	r2, [r0]
+	strb	r2, [r0]
 	bx	lr
 .L4:
 	.align	2, 0
 .L3:
-	.word	0x1a78
+	.word	0x1a75
 	.word	0x1a74
 .Lfe1:
 	.size	 func_08005260,.Lfe1-func_08005260

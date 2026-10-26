@@ -65,17 +65,15 @@ typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v
     Vtbl *vtbl;
 } Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08003E88/omp/func.c" 2
-void *func_08008920(s32);
+void *func_08008920(void *);
 
 typedef struct GenObj {
-    s32 unk0;
-    s32 unk4;
-    u8 _pad8[44];
+    u8 _pad0[0x34];
     s32 unk34;
-    s32 unk38;
+    u16 unk38;
 } GenObj;
-void func_08003E88(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    GenObj *sp0;
+void func_08003E88(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 sp0;
     s32 sp4;
     s32 temp_r2;
     s32 var_r4;
@@ -87,9 +85,9 @@ void func_08003E88(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     sp0 = arg2;
     sp4 = arg3;
-    temp_r2 = (arg2 & 0xFFFFFF00) | (u8) (sp0.unk0 + 8 + (((var_r4 * 2) + 1) * 8));
+    temp_r2 = (sp0 & 0xFFFFFF00) | (u8) (*(u8 *)&sp0 + 8 + (((var_r4 * 2) + 1) * 8));
     sp0 = (0xFE00FFFF & temp_r2) | (((((u32) (temp_r2 << 7) >> 0x17) + 0x10) & 0x1FF) << 0x10);
     temp_r0 = func_08008920(arg0);
     temp_r0->unk34 = sp0;
-    temp_r0->unk38 = (u16) sp0.unk4;
+    temp_r0->unk38 = (u16) sp4;
 }

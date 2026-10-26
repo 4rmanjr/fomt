@@ -465,9 +465,9 @@
  },
  "func_0800374C": {
   "addr": 134231884,
-  "judged_mtime": 1793020046.4154236,
+  "judged_mtime": 1793021825.7278774,
   "module": "intro_scene.s",
-  "note": "c: In function `func_0800374C':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800374C/opencode/func.c:19: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800374C/opencode/func.c:19: request for member `unk8' in something not a structure or union\n",
+  "note": "len 32 vs ref 59",
   "ref_len": 59,
   "sanitize_v": 4,
   "size": 566,
@@ -531,9 +531,9 @@
  },
  "func_08003DF0": {
   "addr": 134233584,
-  "judged_mtime": 1793020756.552582,
+  "judged_mtime": 1793021917.223053,
   "module": "new_game.s",
-  "note": "eger without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08003DF0/omp/func.c:32: warning: assignment makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08003DF0/omp/func.c:33: request for member `unk4' in something not a structure or union\n",
+  "note": "len 148 vs ref 152",
   "ref_len": 152,
   "sanitize_v": 4,
   "size": 1516,
@@ -542,9 +542,9 @@
  },
  "func_08003E88": {
   "addr": 134233736,
-  "judged_mtime": 1793020756.764603,
+  "judged_mtime": 1793021429.6904354,
   "module": "new_game.s",
-  "note": "eger without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08003E88/omp/func.c:27: warning: assignment makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08003E88/omp/func.c:28: request for member `unk4' in something not a structure or union\n",
+  "note": "byte +0x0: 0x70 vs ref 0x30",
   "ref_len": 100,
   "sanitize_v": 4,
   "size": 1027,
@@ -620,13 +620,14 @@
  },
  "func_08004B94": {
   "addr": 134237076,
-  "judged_mtime": 1793017136.3171318,
+  "judged_mtime": 1793021825.7268775,
   "module": "new_game.s",
-  "note": "c: In function `func_08004B94':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004B94/opencode/func.c:22: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004B94/opencode/func.c:22: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 723,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08004BDC": {
@@ -643,6 +644,8 @@
  },
  "func_08004C0C": {
   "addr": 134237196,
+  "claimed_at": 1793021919.8847485,
+  "claimed_by": "opencode",
   "judged_mtime": 1793017136.6987646,
   "module": "new_game.s",
   "note": "c: In function `func_08004C0C':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004C0C/opencode/func.c:19: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004C0C/opencode/func.c:19: request for member `unk8' in something not a structure or union\n",
@@ -666,6 +669,8 @@
  },
  "func_08004C54": {
   "addr": 134237268,
+  "claimed_at": 1793021919.8847492,
+  "claimed_by": "opencode",
   "judged_mtime": 1793017137.0484176,
   "module": "new_game.s",
   "note": "byte +0x3: 0x49 vs ref 0x4a",
@@ -733,6 +738,8 @@
  },
  "func_08005260": {
   "addr": 134238816,
+  "claimed_at": 1793021919.8847497,
+  "claimed_by": "opencode",
   "judged_mtime": 1793017138.3352215,
   "module": "new_game.s",
   "note": "byte +0x7: 0x60 vs ref 0x70",
@@ -1012,11 +1019,9 @@
  },
  "func_080070D4": {
   "addr": 134246612,
-  "claimed_at": 1793020898.3322349,
-  "claimed_by": "pi",
-  "judged_mtime": 1793003427.3266306,
+  "judged_mtime": 1793017144.9040873,
   "module": "new_game.s",
-  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080070D4/opencode/func.c:15: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080070D4/opencode/func.c:15: request for member `unk8' in something not a structure or union\n",
+  "note": "0D4/pi/func.c: In function `func_080070D4':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080070D4/pi/func.c:19: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080070D4/pi/func.c:19: request for member `unk8' in something not a structure or union\n",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 566,
@@ -1025,11 +1030,9 @@
  },
  "func_08007110": {
   "addr": 134246672,
-  "claimed_at": 1793020898.3322353,
-  "claimed_by": "pi",
-  "judged_mtime": 1793003427.5835803,
+  "judged_mtime": 1793017145.0812438,
   "module": "new_game.s",
-  "note": "c.c: In function `func_08007110':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007110/opencode/func.c:3: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007110/opencode/func.c:3: request for member `unk4' in something not a structure or union\n",
+  "note": "len 10 vs ref 23",
   "ref_len": 23,
   "sanitize_v": 4,
   "size": 300,
@@ -1038,11 +1041,9 @@
  },
  "func_0800736C": {
   "addr": 134247276,
-  "claimed_at": 1793020898.3322358,
-  "claimed_by": "pi",
-  "judged_mtime": 1793003427.8571084,
+  "judged_mtime": 1793017145.2847242,
   "module": "hardware.s",
-  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800736C/opencode/func.c:26: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800736C/opencode/func.c:26: request for member `unk2' in something not a structure or union\n",
+  "note": "r from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800736C/pi/func.c:29: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800736C/pi/func.c:30: warning: cast from pointer to integer of different size\n",
   "ref_len": 116,
   "sanitize_v": 4,
   "size": 1175,
@@ -1051,11 +1052,9 @@
  },
  "func_080073E0": {
   "addr": 134247392,
-  "claimed_at": 1793020898.332236,
-  "claimed_by": "pi",
-  "judged_mtime": 1793003428.1857002,
+  "judged_mtime": 1793017145.5022676,
   "module": "hardware.s",
-  "note": "thing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080073E0/opencode/func.c:37: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080073E0/opencode/func.c:37: request for member `unk48' in something not a structure or union\n",
+  "note": "k48' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080073E0/pi/func.c:41: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080073E0/pi/func.c:41: request for member `unk48' in something not a structure or union\n",
   "ref_len": 124,
   "sanitize_v": 4,
   "size": 1268,
@@ -1064,6 +1063,8 @@
  },
  "func_0800745C": {
   "addr": 134247516,
+  "claimed_at": 1793021919.8847501,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003428.489319,
   "module": "hardware.s",
   "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800745C/opencode/func.c:33: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800745C/opencode/func.c:33: request for member `unk0' in something not a structure or union\n",
@@ -1086,6 +1087,8 @@
  },
  "func_08007510": {
   "addr": 134247696,
+  "claimed_at": 1793021919.8847506,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003429.4222603,
   "module": "hardware.s",
   "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007510/opencode/func.c:25: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007510/opencode/func.c:25: request for member `unk0' in something not a structure or union\n",
@@ -1108,6 +1111,8 @@
  },
  "func_08007714": {
   "addr": 134248212,
+  "claimed_at": 1793021919.884751,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003435.0295591,
   "module": "hardware.s",
   "note": "2: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007714/opencode/func.c:12: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007714/opencode/func.c:15: `var_r4' undeclared (first use in this function)\n",
@@ -1119,6 +1124,8 @@
  },
  "func_08007770": {
   "addr": 134248304,
+  "claimed_at": 1793021919.8847516,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003435.6509883,
   "module": "hardware.s",
   "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007770/opencode/func.c:42: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007770/opencode/func.c:42: request for member `unk4' in something not a structure or union\n",
@@ -1152,6 +1159,8 @@
  },
  "func_08007874": {
   "addr": 134248564,
+  "claimed_at": 1793021919.884752,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003436.813016,
   "module": "hardware.s",
   "note": "red (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007874/opencode/func.c:85: `var_r1_2' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007874/opencode/func.c:117: `var_r0_4' undeclared (first use in this function)\n",
@@ -1174,6 +1183,8 @@
  },
  "func_08007A28": {
   "addr": 134249000,
+  "claimed_at": 1793021919.8847528,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003437.5118732,
   "module": "hardware.s",
   "note": "r union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007A28/opencode/func.c:71: request for member `unk0' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007A28/opencode/func.c:72: request for member `unk4' in something not a structure or union\n",
@@ -1185,6 +1196,8 @@
  },
  "func_08007B54": {
   "addr": 134249300,
+  "claimed_at": 1793021919.8847532,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003437.8583987,
   "module": "hardware.s",
   "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007B54/opencode/func.c:42: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007B54/opencode/func.c:42: request for member `unk4' in something not a structure or union\n",
@@ -1196,6 +1209,8 @@
  },
  "func_08007C28": {
   "addr": 134249512,
+  "claimed_at": 1793021919.8847537,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003438.1880794,
   "module": "hardware.s",
   "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007C28/opencode/func.c:45: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007C28/opencode/func.c:45: request for member `unk920' in something not a structure or union\n",
@@ -1207,6 +1222,8 @@
  },
  "func_08007CD8": {
   "addr": 134249688,
+  "claimed_at": 1793021919.8847547,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003438.5271354,
   "module": "hardware.s",
   "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007CD8/opencode/func.c:35: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007CD8/opencode/func.c:35: request for member `unk2' in something not a structure or union\n",
@@ -1218,6 +1235,8 @@
  },
  "func_08007D4C": {
   "addr": 134249804,
+  "claimed_at": 1793021919.8847551,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003438.878882,
   "module": "hardware.s",
   "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007D4C/opencode/func.c:27: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007D4C/opencode/func.c:27: request for member `unk0' in something not a structure or union\n",
@@ -1229,6 +1248,8 @@
  },
  "func_08007DB8": {
   "addr": 134249912,
+  "claimed_at": 1793021919.8847556,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003439.1790788,
   "module": "hardware.s",
   "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007DB8/opencode/func.c:27: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007DB8/opencode/func.c:27: request for member `unk1' in something not a structure or union\n",
@@ -1240,6 +1261,8 @@
  },
  "func_08007E24": {
   "addr": 134250020,
+  "claimed_at": 1793021919.8847563,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003439.5400503,
   "module": "hardware.s",
   "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007E24/opencode/func.c:27: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007E24/opencode/func.c:27: request for member `unk2' in something not a structure or union\n",
@@ -1251,6 +1274,8 @@
  },
  "func_08007EA8": {
   "addr": 134250152,
+  "claimed_at": 1793021919.8847568,
+  "claimed_by": "opencode",
   "judged_mtime": 1793003439.871377,
   "module": "hardware.s",
   "note": "omething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007EA8/opencode/func.c:8: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007EA8/opencode/func.c:8: request for member `unk1' in something not a structure or union\n",

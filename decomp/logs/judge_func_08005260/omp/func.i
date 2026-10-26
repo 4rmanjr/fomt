@@ -66,9 +66,9 @@ typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v
 } Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08005260/omp/func.c" 2
 typedef struct GenObj {
-    u8 _pad0[6772];
-    s32 unk1A74;
-    s32 unk1A75;
+    u8 _pad0[0x1A74];
+    u8 unk1A74;
+    u8 unk1A75;
 } GenObj;
 void func_08005260(GenObj *arg0) {
     arg0->unk1A75 = 0;
