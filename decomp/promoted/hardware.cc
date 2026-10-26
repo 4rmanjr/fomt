@@ -124,3 +124,10 @@ s32 m4aMPlayImmInit(s32);                             /* extern */
 void func_08008CC4(s32 *arg0) {
     m4aMPlayImmInit(*arg0);
 }
+
+// DECOMP-MATCHED func_08008D84 (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aSoundVSyncOn();                                /* extern */
+
+void func_08008D84(void) {
+    m4aSoundVSyncOn();
+}
