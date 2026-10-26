@@ -38,3 +38,8 @@ void func_08010F30(u8 *arg0) {
 void func_08010F3C(u8 *arg0) {
     *arg0 |= 4;
 }
+
+// DECOMP-MATCHED func_08010F48 (dari game_state.s; cek manusia sebelum ke src/)
+void func_08010F48(u8 *arg0) {
+    *arg0 |= 8;
+}
