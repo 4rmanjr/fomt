@@ -473,3 +473,11 @@ s32 func_080098AC();                                  /* extern */
 void func_080E4238(void) {
     func_080098AC();
 }
+
+// DECOMP-MATCHED func_080E5418 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080CA6F4(s32);                               /* extern */
+extern s32 *gUnk_03000414;
+
+void func_080E5418(void) {
+    func_080CA6F4(*gUnk_03000414);
+}
