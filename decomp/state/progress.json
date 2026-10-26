@@ -620,11 +620,9 @@
  },
  "func_08004B94": {
   "addr": 134237076,
-  "claimed_at": 1793020577.4911644,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793003410.0883517,
+  "judged_mtime": 1793017136.3171318,
   "module": "new_game.s",
-  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004B94/opencode/func.c:18: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004B94/opencode/func.c:18: request for member `unk8' in something not a structure or union\n",
+  "note": "c: In function `func_08004B94':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004B94/opencode/func.c:22: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004B94/opencode/func.c:22: request for member `unk8' in something not a structure or union\n",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 723,
@@ -633,15 +631,14 @@
  },
  "func_08004BDC": {
   "addr": 134237148,
-  "claimed_at": 1793020577.4911656,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793003410.3476841,
+  "judged_mtime": 1793017136.5119703,
   "module": "new_game.s",
-  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004BDC/opencode/func.c:11: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004BDC/opencode/func.c:11: request for member `unk4' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 510,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08004C0C": {

@@ -7,8 +7,31 @@
 	.type	 func_08004B94,function
 	.thumb_func
 func_08004B94:
-	mov	r1, #0x0
-	str	r1, [r2]
-	bx	lr
+	push	{r4, r5, lr}
+	add	sp, sp, #-0x4
+	add	r4, r0, #0
+	add	r5, r1, #0
+	ldr	r0, .L4
+	str	r0, [r4]
+	ldr	r1, [r2]
+	mov	r0, #0x0
+	str	r0, [r2]
+	str	r1, [sp]
+	mov	r0, #0xd0
+	lsl	r0, r0, #0x1
+	bl	__builtin_new
+	add	r1, r5, #0
+	mov	r2, sp
+	bl	func_080041DC
+	str	r0, [r4, #0x4]
+	add	r0, r4, #0
+	add	sp, sp, #0x4
+	pop	{r4, r5}
+	pop	{r1}
+	bx	r1
+.L5:
+	.align	2, 0
+.L4:
+	.word	vtable_unk_080E5A68
 .Lfe1:
 	.size	 func_08004B94,.Lfe1-func_08004B94
