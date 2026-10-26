@@ -22275,12 +22275,13 @@
  },
  "func_080D7B38": {
   "addr": 135101240,
-  "claimed_at": 1793014441.7119112,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793014456.099022,
   "module": "code_linkonce.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "size": 120,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D7B44": {
