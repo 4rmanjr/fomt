@@ -21488,94 +21488,119 @@
  },
  "func_080D1574": {
   "addr": 135075188,
+  "judged_mtime": 1793005018.6116712,
   "module": "code_809E804.s",
+  "note": "ved_reg_r8' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D1574/opencode/func.c:17: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D1574/opencode/func.c:17: for each function it appears in.)\n",
   "ref_len": 31,
   "size": 308,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080D3778": {
   "addr": 135083896,
+  "judged_mtime": 1793005018.886307,
   "module": "code_lib_sram.s",
+  "note": "len 36 vs ref 34",
   "ref_len": 36,
   "size": 329,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080D379C": {
   "addr": 135083932,
+  "judged_mtime": 1793005019.2151573,
   "module": "code_lib_sram.s",
+  "note": "_func_080D379C/opencode/func.c:12: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D379C/opencode/func.c:18: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D379C/opencode/func.c:24: called object is not a function\n",
   "ref_len": 100,
   "size": 933,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080D3800": {
   "addr": 135084032,
+  "judged_mtime": 1793005019.4970112,
   "module": "code_lib_sram.s",
+  "note": "len 58 vs ref 62",
   "ref_len": 64,
   "size": 581,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080D3840": {
   "addr": 135084096,
+  "judged_mtime": 1793005019.8047433,
   "module": "code_lib_sram.s",
+  "note": "byte +0xc: 0x19 vs ref 0x1",
   "ref_len": 48,
   "size": 450,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080D3870": {
   "addr": 135084144,
+  "judged_mtime": 1793005020.1206214,
   "module": "code_lib_sram.s",
+  "note": "_func_080D3870/opencode/func.c:12: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3870/opencode/func.c:18: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3870/opencode/func.c:24: called object is not a function\n",
   "ref_len": 100,
   "size": 933,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080D38D4": {
   "addr": 135084244,
+  "judged_mtime": 1793005020.4030352,
   "module": "code_lib_sram.s",
+  "note": "len 56 vs ref 55",
   "ref_len": 55,
   "size": 526,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080D3BC0": {
   "addr": 135084992,
+  "judged_mtime": 1793005020.719519,
   "module": "code_linkonce.s",
+  "note": "/func.c:7: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3BC0/opencode/func.c:7: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3BC0/opencode/func.c:11: `gUnk_03000CD4' used prior to declaration\n",
   "ref_len": 40,
   "size": 376,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080D3BE8": {
   "addr": 135085032,
+  "judged_mtime": 1793005021.0052364,
   "module": "code_linkonce.s",
+  "note": "c: In function `func_080D3BE8':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3BE8/opencode/func.c:19: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3BE8/opencode/func.c:19: request for member `unk8' in something not a structure or union\n",
   "ref_len": 60,
   "size": 467,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080D3C24": {
   "addr": 135085092,
+  "judged_mtime": 1793005021.294348,
   "module": "code_linkonce.s",
+  "note": "c: In function `func_080D3C24':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3C24/opencode/func.c:19: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3C24/opencode/func.c:19: request for member `unk8' in something not a structure or union\n",
   "ref_len": 60,
   "size": 467,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080D3C60": {
   "addr": 135085152,
+  "judged_mtime": 1793005021.5906513,
   "module": "code_linkonce.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "size": 120,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D3C6C": {
   "addr": 135085164,
+  "claimed_at": 1793005018.3792076,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 12,
   "size": 120,
@@ -21584,6 +21609,8 @@
  },
  "func_080D3C78": {
   "addr": 135085176,
+  "claimed_at": 1793005018.3792078,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 604,
   "size": 4703,
@@ -21592,6 +21619,8 @@
  },
  "func_080D3ED4": {
   "addr": 135085780,
+  "claimed_at": 1793005018.3792086,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 319,
@@ -21600,6 +21629,8 @@
  },
  "func_080D3EF4": {
   "addr": 135085812,
+  "claimed_at": 1793005018.379209,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 272,
   "size": 2235,
@@ -21608,6 +21639,8 @@
  },
  "func_080D4004": {
   "addr": 135086084,
+  "claimed_at": 1793005018.3792093,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 60,
   "size": 467,
@@ -21616,6 +21649,8 @@
  },
  "func_080D4040": {
   "addr": 135086144,
+  "claimed_at": 1793005018.3792098,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 12,
   "size": 120,
@@ -21624,6 +21659,8 @@
  },
  "func_080D404C": {
   "addr": 135086156,
+  "claimed_at": 1793005018.37921,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 286,
@@ -21632,6 +21669,8 @@
  },
  "func_080D406C": {
   "addr": 135086188,
+  "claimed_at": 1793005018.3792105,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 96,
   "size": 772,
@@ -21640,6 +21679,8 @@
  },
  "func_080D40CC": {
   "addr": 135086284,
+  "claimed_at": 1793005018.3792107,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 100,
   "size": 830,
@@ -21648,6 +21689,8 @@
  },
  "func_080D4130": {
   "addr": 135086384,
+  "claimed_at": 1793005018.3792114,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 72,
   "size": 643,
@@ -21656,6 +21699,8 @@
  },
  "func_080D4178": {
   "addr": 135086456,
+  "claimed_at": 1793005018.3792117,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 776,
   "size": 6579,
@@ -21664,6 +21709,8 @@
  },
  "func_080D4480": {
   "addr": 135087232,
+  "claimed_at": 1793005018.3792124,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 84,
   "size": 754,
@@ -21672,6 +21719,8 @@
  },
  "func_080D44D4": {
   "addr": 135087316,
+  "claimed_at": 1793005018.3792126,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 7132,
   "size": 53460,
@@ -21680,6 +21729,8 @@
  },
  "func_080D60B0": {
   "addr": 135094448,
+  "claimed_at": 1793005018.379213,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 1048,
   "size": 9722,
@@ -21688,6 +21739,8 @@
  },
  "func_080D64C8": {
   "addr": 135095496,
+  "claimed_at": 1793005018.3792136,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 180,
   "size": 1477,
@@ -21696,6 +21749,8 @@
  },
  "func_080D657C": {
   "addr": 135095676,
+  "claimed_at": 1793005018.3792138,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 296,
   "size": 2437,
@@ -21704,6 +21759,8 @@
  },
  "func_080D66A4": {
   "addr": 135095972,
+  "claimed_at": 1793005018.3792143,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 292,
   "size": 2417,
@@ -21712,6 +21769,8 @@
  },
  "func_080D67C8": {
   "addr": 135096264,
+  "claimed_at": 1793005018.3792145,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 131,
   "size": 1245,
@@ -21720,6 +21779,8 @@
  },
  "func_080D68C0": {
   "addr": 135096512,
+  "claimed_at": 1793005018.379215,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 448,
   "size": 3540,
@@ -21728,6 +21789,8 @@
  },
  "func_080D6A80": {
   "addr": 135096960,
+  "claimed_at": 1793005018.3792157,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 128,
   "size": 1067,
@@ -21736,6 +21799,8 @@
  },
  "func_080D6B00": {
   "addr": 135097088,
+  "claimed_at": 1793005018.379216,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 64,
   "size": 578,
@@ -21744,6 +21809,8 @@
  },
  "func_080D6B40": {
   "addr": 135097152,
+  "claimed_at": 1793005018.3792164,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 200,
   "size": 1676,
@@ -21752,6 +21819,8 @@
  },
  "func_080D6C08": {
   "addr": 135097352,
+  "claimed_at": 1793005018.379217,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 80,
   "size": 698,
@@ -21760,6 +21829,8 @@
  },
  "func_080D6C58": {
   "addr": 135097432,
+  "claimed_at": 1793005018.3792171,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 304,
   "size": 2533,
@@ -21768,6 +21839,8 @@
  },
  "func_080D6D8C": {
   "addr": 135097740,
+  "claimed_at": 1793005018.3792176,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 12,
   "size": 120,
@@ -21776,6 +21849,8 @@
  },
  "func_080D6D98": {
   "addr": 135097752,
+  "claimed_at": 1793005018.379218,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 308,
@@ -21784,6 +21859,8 @@
  },
  "func_080D6DB8": {
   "addr": 135097784,
+  "claimed_at": 1793005018.3792183,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 224,
   "size": 1724,
@@ -21792,6 +21869,8 @@
  },
  "func_080D6E98": {
   "addr": 135098008,
+  "claimed_at": 1793005018.3792186,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 20,
   "size": 207,
@@ -21800,6 +21879,8 @@
  },
  "func_080D6EAC": {
   "addr": 135098028,
+  "claimed_at": 1793005018.3792193,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 266,
@@ -21808,6 +21889,8 @@
  },
  "func_080D6ECC": {
   "addr": 135098060,
+  "claimed_at": 1793005018.3792195,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 266,
@@ -21816,6 +21899,8 @@
  },
  "func_080D6EEC": {
   "addr": 135098092,
+  "claimed_at": 1793005018.3792202,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 266,
@@ -21824,6 +21909,8 @@
  },
  "func_080D6F0C": {
   "addr": 135098124,
+  "claimed_at": 1793005018.3792205,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 16,
   "size": 177,
@@ -21832,6 +21919,8 @@
  },
  "func_080D6F1C": {
   "addr": 135098140,
+  "claimed_at": 1793005018.379221,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 262,
@@ -21840,6 +21929,8 @@
  },
  "func_080D6F3C": {
   "addr": 135098172,
+  "claimed_at": 1793005018.3792212,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 262,
@@ -21848,6 +21939,8 @@
  },
  "func_080D6F5C": {
   "addr": 135098204,
+  "claimed_at": 1793005018.3792214,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 262,
@@ -21856,6 +21949,8 @@
  },
  "func_080D6F7C": {
   "addr": 135098236,
+  "claimed_at": 1793005018.379222,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 152,
   "size": 1269,
@@ -21864,6 +21959,8 @@
  },
  "func_080D7014": {
   "addr": 135098388,
+  "claimed_at": 1793005018.3792226,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 128,
   "size": 1092,
@@ -21872,6 +21969,8 @@
  },
  "func_080D7094": {
   "addr": 135098516,
+  "claimed_at": 1793005018.3792229,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 132,
   "size": 1118,
@@ -21880,6 +21979,8 @@
  },
  "func_080D7118": {
   "addr": 135098648,
+  "claimed_at": 1793005018.3792233,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 148,
   "size": 1281,
@@ -21888,6 +21989,8 @@
  },
  "func_080D71AC": {
   "addr": 135098796,
+  "claimed_at": 1793005018.3792236,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 148,
   "size": 1243,
@@ -21896,6 +21999,8 @@
  },
  "func_080D7240": {
   "addr": 135098944,
+  "claimed_at": 1793005018.379224,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 132,
   "size": 1130,
@@ -21904,6 +22009,8 @@
  },
  "func_080D72C4": {
   "addr": 135099076,
+  "claimed_at": 1793005018.3792243,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 136,
   "size": 1160,
@@ -21912,6 +22019,8 @@
  },
  "func_080D734C": {
   "addr": 135099212,
+  "claimed_at": 1793005018.3792248,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 152,
   "size": 1310,
@@ -21920,6 +22029,8 @@
  },
  "func_080D73E4": {
   "addr": 135099364,
+  "claimed_at": 1793005018.3792253,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 156,
   "size": 1276,
@@ -21928,6 +22039,8 @@
  },
  "func_080D7480": {
   "addr": 135099520,
+  "claimed_at": 1793005018.3792255,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 112,
   "size": 972,
@@ -21936,6 +22049,8 @@
  },
  "func_080D74F0": {
   "addr": 135099632,
+  "claimed_at": 1793005018.3792262,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 120,
   "size": 1029,
@@ -21944,6 +22059,8 @@
  },
  "func_080D7568": {
   "addr": 135099752,
+  "claimed_at": 1793005018.3792264,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 120,
   "size": 1029,
@@ -21952,6 +22069,8 @@
  },
  "func_080D75E0": {
   "addr": 135099872,
+  "claimed_at": 1793005018.379227,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 84,
   "size": 705,
@@ -21960,6 +22079,8 @@
  },
  "func_080D7634": {
   "addr": 135099956,
+  "claimed_at": 1793005018.3792272,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 68,
   "size": 606,
@@ -21968,6 +22089,8 @@
  },
  "func_080D7678": {
   "addr": 135100024,
+  "claimed_at": 1793005018.3792276,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 72,
   "size": 636,
@@ -21976,6 +22099,8 @@
  },
  "func_080D76C0": {
   "addr": 135100096,
+  "claimed_at": 1793005018.3792279,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 76,
   "size": 666,
@@ -21984,6 +22109,8 @@
  },
  "func_080D770C": {
   "addr": 135100172,
+  "claimed_at": 1793005018.3792284,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 308,
@@ -21992,6 +22119,8 @@
  },
  "func_080D772C": {
   "addr": 135100204,
+  "claimed_at": 1793005018.3792286,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 224,
   "size": 1724,
@@ -22000,6 +22129,8 @@
  },
  "func_080D780C": {
   "addr": 135100428,
+  "claimed_at": 1793005018.379229,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 16,
   "size": 153,
@@ -22008,6 +22139,8 @@
  },
  "func_080D781C": {
   "addr": 135100444,
+  "claimed_at": 1793005018.37923,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 16,
   "size": 153,
@@ -22016,6 +22149,8 @@
  },
  "func_080D782C": {
   "addr": 135100460,
+  "claimed_at": 1793005018.3792303,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 60,
   "size": 536,
@@ -22024,6 +22159,8 @@
  },
  "func_080D7868": {
   "addr": 135100520,
+  "claimed_at": 1793005018.3792307,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 12,
   "size": 120,
@@ -22032,6 +22169,8 @@
  },
  "func_080D7874": {
   "addr": 135100532,
+  "claimed_at": 1793005018.379231,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 12,
   "size": 120,
@@ -22040,6 +22179,8 @@
  },
  "func_080D7880": {
   "addr": 135100544,
+  "claimed_at": 1793005018.3792315,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 96,
   "size": 672,
@@ -22048,6 +22189,8 @@
  },
  "func_080D78E0": {
   "addr": 135100640,
+  "claimed_at": 1793005018.3792317,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 24,
   "size": 253,
@@ -22056,6 +22199,8 @@
  },
  "func_080D78F8": {
   "addr": 135100664,
+  "claimed_at": 1793005018.379232,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 76,
   "size": 736,
@@ -22064,6 +22209,8 @@
  },
  "func_080D7944": {
   "addr": 135100740,
+  "claimed_at": 1793005018.3792324,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 136,
   "size": 1125,
@@ -22072,6 +22219,8 @@
  },
  "func_080D79CC": {
   "addr": 135100876,
+  "claimed_at": 1793005018.379233,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 224,
   "size": 1624,
@@ -22080,6 +22229,8 @@
  },
  "func_080D7AAC": {
   "addr": 135101100,
+  "claimed_at": 1793005018.3792334,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 40,
   "size": 421,
@@ -22088,6 +22239,8 @@
  },
  "func_080D7AD4": {
   "addr": 135101140,
+  "claimed_at": 1793005018.3792336,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 40,
   "size": 477,
@@ -22096,6 +22249,8 @@
  },
  "func_080D7B04": {
   "addr": 135101188,
+  "claimed_at": 1793005018.379234,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 421,
@@ -22104,6 +22259,8 @@
  },
  "func_080D7B2C": {
   "addr": 135101228,
+  "claimed_at": 1793005018.379235,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 12,
   "size": 120,
@@ -22112,6 +22269,8 @@
  },
  "func_080D7B38": {
   "addr": 135101240,
+  "claimed_at": 1793005018.3792355,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 12,
   "size": 120,
@@ -22120,6 +22279,8 @@
  },
  "func_080D7B44": {
   "addr": 135101252,
+  "claimed_at": 1793005018.3792357,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 11,
   "size": 153,
@@ -22128,6 +22289,8 @@
  },
  "func_080D7E64": {
   "addr": 135102052,
+  "claimed_at": 1793005018.3792365,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 104,
   "size": 918,
@@ -22136,6 +22299,8 @@
  },
  "func_080D7ECC": {
   "addr": 135102156,
+  "claimed_at": 1793005018.3792367,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 60,
   "size": 573,
@@ -22144,6 +22309,8 @@
  },
  "func_080D7F08": {
   "addr": 135102216,
+  "claimed_at": 1793005018.3792372,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 52,
   "size": 455,
@@ -22152,6 +22319,8 @@
  },
  "func_080D7F3C": {
   "addr": 135102268,
+  "claimed_at": 1793005018.3792374,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 36,
   "size": 301,
@@ -22160,6 +22329,8 @@
  },
  "func_080D7F60": {
   "addr": 135102304,
+  "claimed_at": 1793005018.379238,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 20,
   "size": 190,
@@ -22168,6 +22339,8 @@
  },
  "func_080D7F74": {
   "addr": 135102324,
+  "claimed_at": 1793005018.3792384,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 20,
   "size": 190,
@@ -22176,6 +22349,8 @@
  },
  "func_080D7F88": {
   "addr": 135102344,
+  "claimed_at": 1793005018.3792386,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 20,
   "size": 190,
@@ -22184,6 +22359,8 @@
  },
  "func_080D7F9C": {
   "addr": 135102364,
+  "claimed_at": 1793005018.379239,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 476,
   "size": 3973,
@@ -22192,6 +22369,8 @@
  },
  "func_080DB0EC": {
   "addr": 135114988,
+  "claimed_at": 1793005018.3792393,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 248,
   "size": 1948,
@@ -22200,6 +22379,8 @@
  },
  "func_080DB1E4": {
   "addr": 135115236,
+  "claimed_at": 1793005018.37924,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 84,
   "size": 699,
@@ -22208,6 +22389,8 @@
  },
  "func_080DB238": {
   "addr": 135115320,
+  "claimed_at": 1793005018.3792405,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 180,
   "size": 1608,
@@ -22216,6 +22399,8 @@
  },
  "func_080DB2EC": {
   "addr": 135115500,
+  "claimed_at": 1793005018.3792408,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 40,
   "size": 347,
@@ -22224,6 +22409,8 @@
  },
  "func_080DB314": {
   "addr": 135115540,
+  "claimed_at": 1793005018.3792412,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 12,
   "size": 120,
@@ -22232,6 +22419,8 @@
  },
  "func_080DB320": {
   "addr": 135115552,
+  "claimed_at": 1793005018.379242,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 76,
   "size": 688,
@@ -22240,6 +22429,8 @@
  },
  "func_080DB36C": {
   "addr": 135115628,
+  "claimed_at": 1793005018.3792422,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 40,
   "size": 347,
@@ -22248,6 +22439,8 @@
  },
  "func_080DB394": {
   "addr": 135115668,
+  "claimed_at": 1793005018.3792427,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 72,
   "size": 590,
@@ -22256,6 +22449,8 @@
  },
  "func_080DB3DC": {
   "addr": 135115740,
+  "claimed_at": 1793005018.379243,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 596,
   "size": 3905,
@@ -22264,6 +22459,8 @@
  },
  "func_080DB630": {
   "addr": 135116336,
+  "claimed_at": 1793005018.3792436,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 40,
   "size": 347,
@@ -22272,6 +22469,8 @@
  },
  "func_080DB658": {
   "addr": 135116376,
+  "claimed_at": 1793005018.3792439,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 76,
   "size": 688,
@@ -22280,6 +22479,8 @@
  },
  "func_080DB6A4": {
   "addr": 135116452,
+  "claimed_at": 1793005018.379244,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 40,
   "size": 347,

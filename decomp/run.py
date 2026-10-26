@@ -10,9 +10,14 @@ promote (stage ke decomp/promoted/). Hasil matched/promoted tidak pernah
 ditimpa oleh jalan berikutnya.
 """
 from __future__ import annotations
-import contextlib, fcntl, json, os, re, socket, subprocess, sys, time
+import contextlib, fcntl, json, os, re, signal, socket, subprocess, sys, time
 from collections import Counter
 from pathlib import Path
+
+try:  # log tetap mengalir walau stdout diarahkan ke file/pipe (bukan TTY)
+    sys.stdout.reconfigure(line_buffering=True)
+except Exception:
+    pass
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
@@ -552,6 +557,38 @@ def progress(st: dict) -> str:
             f" promoted {c['promoted']}, matched {c['matched']}")
 
 
+def bar_text(st: dict, width: int = 28) -> str:
+    """Bar progres sederhana untuk dilihat manusia."""
+    total = len(st)
+    ok = sum(1 for v in st.values() if v["status"] in ("promoted", "matched"))
+    pct = (ok / total * 100.0) if total else 0.0
+    fill = int(width * ok / total) if total else 0
+    return f"[{'#' * fill}{'-' * (width - fill)}] {ok}/{total} ({pct:.1f}%)"
+
+
+def _show_status(msg: str) -> None:
+    """Tampilkan status 'sedang mengerjakan' di satu baris (hanya di TTY)."""
+    if sys.stdout.isatty():
+        sys.stdout.write("\r\033[K" + msg)
+        sys.stdout.flush()
+
+
+def _clear_status() -> None:
+    """Hapus baris status sementara sebelum mencetak hasil permanen."""
+    if sys.stdout.isatty():
+        sys.stdout.write("\r\033[K")
+        sys.stdout.flush()
+
+
+DEADLINE_HIT = False
+
+
+def _on_alarm(signum, frame):
+    global DEADLINE_HIT
+    DEADLINE_HIT = True
+    raise KeyboardInterrupt
+
+
 def short_note(note: str, limit: int = 80) -> str:
     """Satu baris ringkas untuk note judge; error compiler bisa multi-baris.
     Baris terakhir biasanya ringkasan errornya (baris pertama bisa terpotong
@@ -608,6 +645,7 @@ def autopush(name: str) -> bool:
 def main(argv: list[str]) -> int:
     global AGENT, SAFE_AGENT
     retry_all = False
+    until = ""
     args: list[str] = []
     it = iter(argv)
     for a in it:
@@ -617,11 +655,27 @@ def main(argv: list[str]) -> int:
             AGENT = ((a.split("=", 1)[1]).strip() or "agent")[:40]
         elif a == "--retry":
             retry_all = True  # ulangi juga fungsi 'failed' yang drafnya tidak berubah
+        elif a == "--until":
+            until = (next(it, "") or "").strip()
+        elif a.startswith("--until="):
+            until = a.split("=", 1)[1].strip()
         else:
             args.append(a)
     SAFE_AGENT = re.sub(r"[^A-Za-z0-9_.-]", "_", AGENT)[:40] or "agent"
     if args and args[0] == "verify":
         return 1 if verify_all() else 0
+    deadline = None
+    if until:
+        try:
+            hh, mm = (int(x) for x in until.split(":"))
+            t = time.localtime()
+            deadline = time.mktime((t.tm_year, t.tm_mon, t.tm_mday, hh, mm, 0, 0, 0, -1))
+        except (ValueError, TypeError):
+            print("format --until harus HH:MM, mis. --until 15:58", file=sys.stderr)
+            return 2
+        if deadline <= time.time():
+            print(f"--until {until} sudah lewat; pakai jam yang akan datang", file=sys.stderr)
+            return 2
     n = int(args[0]) if args and args[0].isdigit() else 20
     modules = [a for a in args if not a.isdigit()] or None
     st = scan(modules)
@@ -693,41 +747,55 @@ def main(argv: list[str]) -> int:
              and not (_live(v, now) and v["claimed_by"] != AGENT)]
     todo = claim_many(cands, n) if n else []
     if todo:
-        print(f"[{AGENT}] mulai {len(todo)} fungsi | {progress(load())}")
+        print(f"[{AGENT}] mulai {len(todo)} fungsi"
+              + (f" | stop {until}" if until else "")
+              + f" | {progress(load())}")
+        print(f"[{AGENT}] {bar_text(load())}")
+        if deadline is not None:
+            signal.signal(signal.SIGALRM, _on_alarm)
+            signal.setitimer(signal.ITIMER_REAL, max(0.0, deadline - time.time()))
     elif n:
         print(f"[{AGENT}] tidak ada fungsi bebas: semua sudah diklaim agent lain "
               f"(klaim basi diambil alih setelah {CLAIM_TTL}s) atau sudah selesai."
               f" | {progress(load())}")
     else:
         print(f"[{AGENT}] status | {progress(load())}")
+        print(f"[{AGENT}] {bar_text(load())}")
     done = {"MATCH": 0, "DIFF": 0}
-    cur: str | None = None
     try:
         for i, name in enumerate(todo, 1):
-            cur = name
             tag = f"[{i}/{len(todo)}]"
             matched = False
+            _show_status(f"[{AGENT}] {tag} {name}: mengerjakan...")
             if load()[name]["status"] == "pending" and not draft(name):
                 done["DIFF"] += 1
+                _clear_status()
                 print(f"[{AGENT}] {tag} {name}: DIFF (m2c gagal)"
                       f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
             elif judge(name):
                 done["MATCH"] += 1
                 matched = True
                 out = promote(name)
+                _clear_status()
                 print(f"[{AGENT}] {tag} {name}: MATCH -> {out}"
                       f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
             else:
                 done["DIFF"] += 1
+                _clear_status()
                 print(f"[{AGENT}] {tag} {name}: DIFF ({short_note(load()[name].get('note', ''))})"
                       f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
             release(name)
             if matched:
                 autopush(name)  # hasil MATCH langsung disimpan di remote
-            cur = None
     except KeyboardInterrupt:
-        print("\nBerhenti. Jalankan lagi perintah yang sama untuk lanjut.")
+        _clear_status()
+        if DEADLINE_HIT:
+            print(f"\nBerhenti: deadline {until} tercapai.")
+        else:
+            print("\nBerhenti. Jalankan lagi perintah yang sama untuk lanjut.")
     finally:
+        if deadline is not None:
+            signal.setitimer(signal.ITIMER_REAL, 0)
         # Lepas semua klaim batch ini; kalau tidak, fungsi sisa batch tetap
         # "dipegang" agent ini dan memblokir agent lain sampai TTL habis.
         release_all()
@@ -736,6 +804,7 @@ def main(argv: list[str]) -> int:
     held = sum(1 for v in fin.values() if _live(v, now) and v["claimed_by"] != AGENT)
     print(f"Selesai [{AGENT}]: batch MATCH {done['MATCH']}, DIFF {done['DIFF']} | {progress(fin)}"
           + (f" | dipegang agent lain: {held}" if held else ""))
+    print(f"[{AGENT}] {bar_text(fin)}")
     return 0
 
 
