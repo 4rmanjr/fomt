@@ -7,8 +7,12 @@
 	.type	 func_0803745C,function
 	.thumb_func
 func_0803745C:
-	push	{lr}
+	push	{r4, lr}
+	add	r4, r0, #0
 	bl	vfunc_14__7AEntity
+	mov	r0, #0x0
+	str	r0, [r4, #0x40]
+	pop	{r4}
 	pop	{r0}
 	bx	r0
 .Lfe1:

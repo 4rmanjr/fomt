@@ -7,6 +7,34 @@
 	.type	 func_08037470,function
 	.thumb_func
 func_08037470:
-	bx	lr
+	push	{r4, lr}
+	ldrh	r3, [r1, #0x14]
+	mov	r4, #0x10
+	ldrsh	r2, [r1, r4]
+	sub	r1, r2, #0x7
+	lsl	r1, r1, #0x10
+	asr	r1, r1, #0x10
+	str	r1, [r0]
+	lsl	r3, r3, #0x10
+	ldr	r4, .L3
+	add	r1, r3, r4
+	asr	r1, r1, #0x10
+	str	r1, [r0, #0x4]
+	add	r2, r2, #0x7
+	lsl	r2, r2, #0x10
+	asr	r2, r2, #0x10
+	str	r2, [r0, #0x8]
+	mov	r1, #0xa0
+	lsl	r1, r1, #0xb
+	add	r3, r3, r1
+	asr	r3, r3, #0x10
+	str	r3, [r0, #0xc]
+	pop	{r4}
+	pop	{r0}
+	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	-0x90000
 .Lfe1:
 	.size	 func_08037470,.Lfe1-func_08037470

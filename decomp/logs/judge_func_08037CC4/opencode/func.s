@@ -10,9 +10,15 @@ func_08037CC4:
 	push	{r4, lr}
 	add	r4, r0, #0
 	bl	__7AEntityP10GameObjectRC8Location
+	ldr	r0, .L3
+	str	r0, [r4, #0x14]
 	add	r0, r4, #0
 	pop	{r4}
 	pop	{r1}
 	bx	r1
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E7444
 .Lfe1:
 	.size	 func_08037CC4,.Lfe1-func_08037CC4

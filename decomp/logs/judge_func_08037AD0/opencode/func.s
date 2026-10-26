@@ -20,6 +20,11 @@ func_08037AD0:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_08037008
+	ldr	r0, .L3
+	str	r0, [r4, #0x1c]
+	mov	r0, #0xe6
+	lsl	r0, r0, #0x2
+	str	r0, [sp, #0x4]
 	add	r0, r4, #0
 	add	r1, sp, #0x4
 	bl	func_08037244
@@ -28,5 +33,9 @@ func_08037AD0:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E72A0
 .Lfe1:
 	.size	 func_08037AD0,.Lfe1-func_08037AD0

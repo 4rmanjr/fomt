@@ -9,14 +9,27 @@
 func_0803763C:
 	push	{r4, r5, r6, lr}
 	add	r4, r0, #0
-	add	r0, r1, #0
+	ldr	r0, .L6
+	add	r0, r0, #0x70
 	mov	r1, #0x7
 	bl	func_080AB82C
 	add	r5, r0, #0
 	mov	r0, #0x4
 	bl	func_080AB788
+	cmp	r0, #0
+	beq	.L4	@cond_branch
+	cmp	r0, #0x3
+	beq	.L4	@cond_branch
+	ldr	r0, [r4, #0x28]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	bl	func_080AB7A4
+	ldr	r1, [r4, #0x28]
+	cmp	r1, r0
+	beq	.L4	@cond_branch
 	add	r0, r4, #0
 	bl	SetAnimFacing__12AActorEntityUi
+.L4:
 	add	r0, r4, #0
 	add	r1, r5, #0
 	bl	func_080377D4
@@ -24,10 +37,21 @@ func_0803763C:
 	add	r0, r4, #0
 	bl	func_08037098
 	add	r0, r4, #0
+	add	r1, r5, #0
+	bl	func_080377C4
+	ldr	r1, [r4, #0x2c]
+	cmp	r1, r0
+	beq	.L5	@cond_branch
+	add	r0, r4, #0
 	bl	SetAnim__12AActorEntityUi
+.L5:
 	add	r0, r6, #0
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
+.L7:
+	.align	2, 0
+.L6:
+	.word	gUnk_080F156C
 .Lfe1:
 	.size	 func_0803763C,.Lfe1-func_0803763C

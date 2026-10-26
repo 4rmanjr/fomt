@@ -16,7 +16,14 @@ func_08037A04:
 	mov	r1, sp
 	bl	SetLocation__12AActorEntityRC13ActorLocation
 	add	r0, r4, #0
+	mov	r1, #0x0
+	bl	func_08037A38
+	ldr	r1, [r4, #0x24]
+	cmp	r1, r0
+	beq	.L3	@cond_branch
+	add	r0, r4, #0
 	bl	SetAnim__12AActorEntityUi
+.L3:
 	add	sp, sp, #0x4
 	pop	{r4}
 	pop	{r0}

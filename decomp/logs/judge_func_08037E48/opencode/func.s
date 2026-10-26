@@ -10,15 +10,29 @@ func_08037E48:
 	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x4
 	add	r5, r0, #0
-	add	r4, r1, #0
+	add	r6, r1, #0
+	ldr	r0, .L5
+	str	r0, [r5, #0x14]
+	ldr	r4, [r5, #0x18]
 	mov	r0, sp
 	add	r1, r5, #0
 	bl	GetLocation__C7AEntity
-	add	r0, r6, #0
+	add	r0, r4, #0
 	mov	r1, sp
 	bl	func_08010014
+	ldr	r0, .L5+0x4
+	str	r0, [r5, #0x14]
+	ldr	r1, [r5, #0x10]
+	cmp	r1, #0
+	beq	.L3	@cond_branch
+	ldr	r0, [r1, #0x4]
+	ldr	r2, [r0, #0x8]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L3:
 	mov	r0, #0x1
-	and	r0, r0, r4
+	and	r0, r0, r6
 	cmp	r0, #0
 	beq	.L4	@cond_branch
 	add	r0, r5, #0
@@ -28,5 +42,10 @@ func_08037E48:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
+.L6:
+	.align	2, 0
+.L5:
+	.word	vtable_unk_080E73FC
+	.word	__vt_7AEntity
 .Lfe1:
 	.size	 func_08037E48,.Lfe1-func_08037E48

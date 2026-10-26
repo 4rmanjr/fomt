@@ -57,14 +57,32 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08037568/opencode/func.c" 2
 s32 SetAnim__12AActorEntityUi(void *);
-s32 SetLocation__12AActorEntityRC13ActorLocation(void *, ? *);
+s32 SetLocation__12AActorEntityRC13ActorLocation(void *, s32 *);
 s32 SetMap__7AEntityUi(void *, s32);
 s32 func_08037618(void *, s32);
 s32 func_080A17A0(s32 *, u32);
 
-void func_08037568(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[4];
+    s32 unk8;
+    s32 unk9;
+    s32 unkA;
+    u8 _padE[20];
+    s32 unk22;
+    u8 _pad26[30];
+    s32 unk44;
+} GenObj;
+void func_08037568(GenObj *arg0) {
 s32 sp0;
     u32 var_r3;
     u8 temp_r3;

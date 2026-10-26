@@ -7,8 +7,21 @@
 	.type	 func_08037434,function
 	.thumb_func
 func_08037434:
-	push	{lr}
+	push	{r4, lr}
+	add	r4, r0, #0
+	ldr	r0, [r4, #0x44]
+	cmp	r0, #0
+	bne	.L3	@cond_branch
+	ldr	r0, [r4, #0x14]
+	ldr	r1, [r0, #0x3c]
+	add	r0, r4, #0
+	bl	_call_via_r1
+.L3:
+	mov	r0, #0x0
+	str	r0, [r4, #0x40]
+	add	r0, r4, #0
 	bl	vfunc_10__7AEntity
+	pop	{r4}
 	pop	{r0}
 	bx	r0
 .Lfe1:

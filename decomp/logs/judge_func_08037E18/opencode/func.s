@@ -7,21 +7,29 @@
 	.type	 func_08037E18,function
 	.thumb_func
 func_08037E18:
-	push	{r4, r5, lr}
+	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x4
-	add	r5, r0, #0
-	add	r4, r1, #0
-	add	r1, r2, #0
+	add	r4, r0, #0
+	add	r5, r1, #0
+	add	r6, r2, #0
 	mov	r0, sp
+	add	r1, r6, #0
 	bl	func_0800FFE0
-	add	r0, r5, #0
-	add	r1, r4, #0
+	add	r0, r4, #0
+	add	r1, r5, #0
 	mov	r2, sp
 	bl	__7AEntityP10GameObjectRC8Location
-	add	r0, r5, #0
+	ldr	r0, .L3
+	str	r0, [r4, #0x14]
+	str	r6, [r4, #0x18]
+	add	r0, r4, #0
 	add	sp, sp, #0x4
-	pop	{r4, r5}
+	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E73FC
 .Lfe1:
 	.size	 func_08037E18,.Lfe1-func_08037E18

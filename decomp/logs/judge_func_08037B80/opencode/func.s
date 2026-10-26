@@ -21,6 +21,8 @@ func_08037B80:
 	add	r1, r5, #0
 	add	r2, r6, #0
 	bl	func_08037008
+	ldr	r0, .L3+0x4
+	str	r0, [r4, #0x14]
 	add	r0, r4, #0
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6}
@@ -30,5 +32,6 @@ func_08037B80:
 	.align	2, 0
 .L3:
 	.word	0x207
+	.word	vtable_unk_080E7218
 .Lfe1:
 	.size	 func_08037B80,.Lfe1-func_08037B80

@@ -1,11 +1,22 @@
 #include "common.h"
 s32 SetAnim__12AActorEntityUi(void *);                /* extern */
-s32 SetLocation__12AActorEntityRC13ActorLocation(void *, ? *); /* extern */
+s32 SetLocation__12AActorEntityRC13ActorLocation(void *, s32 *); /* extern */
 s32 SetMap__7AEntityUi(void *, s32);                  /* extern */
 s32 func_08037618(void *, s32);                     /* extern */
 s32 func_080A17A0(s32 *, u32);                          /* extern */
 
-void func_08037568(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[4];
+    s32 unk8;
+    s32 unk9;
+    s32 unkA;
+    u8 _padE[20];
+    s32 unk22;
+    u8 _pad26[30];
+    s32 unk44;
+} GenObj;
+void func_08037568(GenObj *arg0) {
 s32 sp0;
     u32 var_r3;
     u8 temp_r3;

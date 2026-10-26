@@ -57,21 +57,38 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08037AD0/opencode/func.c" 2
 void *__builtin_new(s32);
 s32 func_08037008(void *, s32, s32, s32, s32);
-s32 func_08037244(void *, ? *);
-extern ? vtable_unk_080E72A0;
+s32 func_08037244(void *, s32 *);
+extern s32 vtable_unk_080E72A0;
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+    u8 _padA[10];
+    void *unk14;
+    u8 _pad18[44];
+    s32 unk44;
+} GenObj;
 void *func_08037AD0(s32 arg0, ? arg1, s32 arg2) {
 s32 sp4;
-    void *temp_r0;
+    GenObj *temp_r0;
 
     temp_r0 = __builtin_new(0x48);
     func_08037008(temp_r0, arg0, arg1, 0x2AC, 0xB);
     temp_r0->unk14 = &vtable_unk_080E72A0;
     temp_r0->unk44 = (u8) ((-4 & temp_r0->unk44) | (arg2 & 3));
-    sp4.unk0 = 0x398;
+    sp4 = 0x398;
     sp4.unk2 = 0x120;
     sp4.unk4 = 0x4E0;
     sp4.unk6 = 0x128;

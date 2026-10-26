@@ -7,6 +7,14 @@
 	.type	 func_080378EC,function
 	.thumb_func
 func_080378EC:
+	lsl	r0, r0, #0x3
+	ldr	r1, .L3
+	add	r0, r0, r1
+	ldrh	r0, [r0]
 	bx	lr
+.L4:
+	.align	2, 0
+.L3:
+	.word	gUnk_080F161C
 .Lfe1:
 	.size	 func_080378EC,.Lfe1-func_080378EC

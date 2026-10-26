@@ -10,14 +10,23 @@ func_08037568:
 	push	{r4, lr}
 	add	sp, sp, #-0x4
 	add	r4, r0, #0
+	ldr	r1, [r4, #0x4c]
+	lsl	r1, r1, #0x1e
+	lsr	r1, r1, #0x1e
 	mov	r0, sp
-	mov	r1, #0x0
 	bl	func_080A17A0
 	add	r0, r4, #0
 	mov	r1, sp
 	bl	SetLocation__12AActorEntityRC13ActorLocation
 	add	r0, r4, #0
+	mov	r1, #0x0
+	bl	func_08037618
+	ldr	r1, [r4, #0x28]
+	cmp	r1, r0
+	beq	.L9	@cond_branch
+	add	r0, r4, #0
 	bl	SetAnim__12AActorEntityUi
+.L9:
 	add	sp, sp, #0x4
 	pop	{r4}
 	pop	{r0}

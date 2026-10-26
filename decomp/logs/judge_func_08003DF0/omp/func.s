@@ -20,11 +20,11 @@ func_08003DF0:
 	add	r0, r0, #0x1
 	lsl	r0, r0, #0x3
 	add	r1, r1, r0
-	lsl	r0, r1, #0x18
-	lsr	r1, r0, #0x18
 	ldr	r3, .L8
 	and	r3, r3, r2
-	orr	r3, r3, r1
+	lsl	r0, r1, #0x18
+	lsr	r0, r0, #0x18
+	orr	r3, r3, r0
 	str	r3, [sp]
 	lsl	r0, r3, #0x7
 	lsr	r2, r0, #0x17
