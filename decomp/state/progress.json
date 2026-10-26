@@ -21599,12 +21599,13 @@
  },
  "func_080D3C6C": {
   "addr": 135085164,
-  "claimed_at": 1793005018.3792076,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793005026.7732234,
   "module": "code_linkonce.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "size": 120,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D3C78": {
