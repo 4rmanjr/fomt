@@ -5128,15 +5128,14 @@
  },
  "func_0801DD24": {
   "addr": 134339876,
-  "claimed_at": 1793022097.008069,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793003771.743152,
+  "judged_mtime": 1793017215.7381577,
   "module": "game_state.s",
-  "note": "c.c: In function `func_0801DD24':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801DD24/opencode/func.c:5: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801DD24/opencode/func.c:5: request for member `unk4' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 143,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801DD30": {
