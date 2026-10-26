@@ -57,6 +57,13 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080385B0/opencode/func.c" 2
 s32 func_030004DC(s32, s32, s32, s32);
 s32 func_0803836C(void *);
@@ -64,14 +71,32 @@ s32 func_0803AE58(s32, s32, s32, s32);
 s32 func_080A480C(void *, s32, void *);
 s32 func_080A4944(void *, void *, s32);
 
-void func_080385B0(void *arg0, void *arg1) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+    s32 unk8;
+    struct GenObj *unkA;
+    struct GenObj *unkC;
+    struct GenObj *unkE;
+    s32 unk10;
+    u8 _pad14[18];
+    struct GenObj *unk26;
+    u8 _pad2A[6];
+    s32 unk30;
+    s32 unk34;
+    u8 _pad38[4];
+    struct GenObj *unk3C;
+    struct GenObj *unk3D;
+    struct GenObj *unk3E;
+} GenObj;
+void func_080385B0(GenObj *arg0, GenObj *arg1) {
     s32 sp0;
-    ? *sp4;
+    s32 *sp4;
     s32 sp8;
     s32 spC;
     void *sp10;
 s32 sp14;
-    s32 sp34;
+    GenObj *sp34;
     s32 sp3C;
     s32 sp40;
     s32 sp44;
@@ -88,8 +113,8 @@ s32 sp14;
     u16 temp_r0_4;
     u8 temp_r0_2;
     void **temp_r1;
-    void *temp_r0;
-    void *temp_r6_2;
+    GenObj *temp_r0;
+    GenObj *temp_r6_2;
 
     temp_r0 = arg0->unk0;
     temp_r6 = temp_r0->unkA;
@@ -113,7 +138,7 @@ s32 sp14;
             var_r7 = 1;
         }
     }
-    temp_r6_2 = arg0 + 8;
+    temp_r6_2 = (GenObj *)((u8 *)arg0 + 8);
     sp4C = &sp0 + 0x34;
     temp_r1 = arg0->unk30;
     (*temp_r1)->unk10(&sp14, temp_r1, *(arg0->unk34 + (arg0->unk3C * 4)));
@@ -123,7 +148,7 @@ s32 sp14;
         sp4 = &sp14;
         sp8 = arg0->unk8;
         spC = (s32) temp_r6_2->unkC;
-        sp10 = arg0 + 0x18;
+        sp10 = (GenObj *)((u8 *)arg0 + 0x18);
         var_r0 = func_030004DC(sp4C->unk4, sp3C, sp48, (var_r7 * 4) | var_r7 | (var_r7 * 0x10) | (var_r7 << 6));
     } else {
         var_r0 = 0;

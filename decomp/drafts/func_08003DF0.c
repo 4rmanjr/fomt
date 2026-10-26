@@ -18,7 +18,8 @@ void func_08003DF0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     var = *(u8 *)spbuf;
     var += 8;
     var += (((arg1 * 2) + 1) * 8);
-    temp = (spbuf[0] & 0xFFFFFF00) | (u8)var;
+    temp = spbuf[0] & 0xFFFFFF00;
+    temp |= (u8)var;
     spbuf[0] = temp;
     var = ((u32) (temp << 7) >> 0x17) + 0x80;
     t = (u8 *)arg0 + 0x84;

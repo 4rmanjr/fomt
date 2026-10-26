@@ -7,12 +7,20 @@
 	.type	 func_08038740,function
 	.thumb_func
 func_08038740:
-	push	{r4, lr}
+	push	{r4, r5, lr}
 	add	r4, r0, #0
+	add	r5, r1, #0
 	bl	__7AEntityP10GameObjectRC8Location
+	ldr	r0, .L3
+	str	r0, [r4, #0x20]
+	str	r5, [r4, #0x24]
 	add	r0, r4, #0
-	pop	{r4}
+	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E7380
 .Lfe1:
 	.size	 func_08038740,.Lfe1-func_08038740

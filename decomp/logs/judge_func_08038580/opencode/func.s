@@ -9,14 +9,30 @@
 func_08038580:
 	push	{r4, lr}
 	add	r4, r0, #0
-	add	r0, r0, #0x30
+	ldr	r0, .L7
+	add	r1, r4, r0
+	ldr	r0, [r4, #0x48]
+	cmp	r0, #0
+	bne	.L3	@cond_branch
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x4
+	add	r0, r4, r1
 	bl	func_0805E8F0
 	lsl	r0, r0, #0x1e
 	cmp	r0, #0
 	bge	.L6	@cond_branch
-	add	r1, r4, #0
-	add	r1, r1, #0x44
+	ldr	r0, .L7+0x4
+	add	r1, r4, r0
 	mov	r0, #0x1
+	b	.L5
+.L8:
+	.align	2, 0
+.L7:
+	.word	0x1514
+	.word	0x1430
+.L3:
+	mov	r0, #0x0
+.L5:
 	strb	r0, [r1]
 .L6:
 	pop	{r4}
