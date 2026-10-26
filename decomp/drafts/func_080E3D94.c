@@ -1,0 +1,9 @@
+s32 __builtin_delete(s32 **);                           /* extern */
+extern ? vtable_unk_080E76F8;
+
+void func_080E3D94(s32 **arg0, s32 arg1) {
+    *arg0 = &vtable_unk_080E76F8;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
