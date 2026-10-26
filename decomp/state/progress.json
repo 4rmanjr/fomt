@@ -1353,22 +1353,23 @@
  },
  "func_08008920": {
   "addr": 134252832,
-  "claimed_at": 1793003397.0483198,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793003469.131732,
   "module": "hardware.s",
+  "note": "len 6 vs ref 30",
   "ref_len": 32,
   "size": 300,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08008940": {
   "addr": 134252864,
-  "claimed_at": 1793003397.0571656,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793003469.5334609,
   "module": "hardware.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 12,
   "size": 194,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_0800894C": {
