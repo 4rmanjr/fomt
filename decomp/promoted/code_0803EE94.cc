@@ -444,3 +444,19 @@ void *func_080755EC(GenObj *arg0, s32 *arg1, s32 arg2) {
     arg0->unk8 = temp_r1;
     return arg0;
 }
+
+// DECOMP-MATCHED func_080756B0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                               /* extern */
+s32 func_080E2DC8();                                /* extern */
+extern s32 vtable_unk_080E7B5C;
+
+typedef struct GenObj {
+    s32 unk0;
+    void *unk4;
+} GenObj;
+void *func_080756B0(GenObj *arg0) {
+    arg0->unk4 = &vtable_unk_080E7B5C;
+    __builtin_new(0x28);
+    arg0->unk0 = func_080E2DC8();
+    return arg0;
+}
