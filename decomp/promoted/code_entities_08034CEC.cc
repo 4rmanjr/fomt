@@ -92,3 +92,8 @@ s32 func_080391C0(s32 arg0, s32 arg1) {
     }
     return 0;
 }
+
+// DECOMP-MATCHED func_080391FC (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+void func_080391FC(void) {
+
+}

@@ -8503,12 +8503,13 @@
  },
  "func_080391FC": {
   "addr": 134451708,
-  "claimed_at": 1793004062.0608613,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004073.6947997,
   "module": "code_entities_08034CEC.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 4,
   "size": 90,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08039200": {
