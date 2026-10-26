@@ -75,3 +75,8 @@ s32 func_0809490C(void) {
 s32 func_0804E9C8(void) {
     return 0;
 }
+
+// DECOMP-MATCHED func_0804F174 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_0804F174(void) {
+    return 1;
+}
