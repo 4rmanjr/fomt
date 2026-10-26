@@ -8,7 +8,13 @@ s32 func_08034260(void *);                          /* extern */
 u16 func_080AB788(s32);                             /* extern */
 s32 method_0809E7D8__13HarvestSpritePC15UnkBarnAnimal2C(s32, s32 *); /* extern */
 
-void func_080342D8(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[32];
+    s32 unk20;
+    u8 _pad24[16];
+    s32 unk34;
+} GenObj;
+void func_080342D8(GenObj *arg0) {
     s32 sp0;
     s32 temp_r1;
     s32 temp_r4;

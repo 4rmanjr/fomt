@@ -6,11 +6,18 @@ s32 GetTool__C9ToolStack(s32);                      /* extern */
 s32 IsEmpty__C9ToolStack(s32);                      /* extern */
 s8 func_0800E550(s32, s32);                         /* extern */
 s32 func_080246BC(s32);                             /* extern */
-s32 memcpy(s32 *, ? *, s32);                            /* extern */
-extern ? gUnk_080F11B4;
+s32 memcpy(s32 *, s32 *, s32);                            /* extern */
+extern s32 gUnk_080F11B4;
 
-u8 func_0802AA84(void *arg0) {
-s32 sp0;
+typedef struct GenObj {
+    u8 _pad0[9];
+    s32 unk9;
+    s32 unkA;
+    u8 _padE[38];
+    s32 unk34;
+} GenObj;
+u8 func_0802AA84(GenObj *arg0) {
+GenObj sp0;
     s8 sp8;
     s32 temp_r4;
     s32 temp_r4_2;

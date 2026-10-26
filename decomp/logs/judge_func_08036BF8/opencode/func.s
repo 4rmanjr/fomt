@@ -7,8 +7,16 @@
 	.type	 func_08036BF8,function
 	.thumb_func
 func_08036BF8:
-	push	{lr}
+	push	{r4, r5, r6, lr}
+	add	r5, r0, #0
+	add	r4, r1, #0
+	ldrh	r6, [r5, #0xc]
 	bl	func_08034F00
+	cmp	r4, #0x1
+	ble	.L3	@cond_branch
+	ldr	r0, [r5, #0x4]
+.L3:
+	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
 .Lfe1:

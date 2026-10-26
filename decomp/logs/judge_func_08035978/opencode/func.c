@@ -1,16 +1,31 @@
 #include "common.h"
-s32 func_08035978(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    u8 _padC[8];
+    struct GenObj *unk14;
+    u8 _pad18[16];
+    s32 unk28;
+    u8 _pad2C[12];
+    s32 unk38;
+    s32 unk3C;
+    s32 unk3D;
+    s32 unk3E;
+    s32 unk40;
+} GenObj;
+s32 func_08035978(GenObj *arg0) {
     s32 var_r2;
     s32 var_r2_2;
     u16 temp_r1_3;
     u16 temp_r2;
     u8 temp_r1_2;
-    void *temp_r1;
+    GenObj *temp_r1;
     void *temp_r5;
     void *temp_r6;
-    void *temp_r7;
+    GenObj *temp_r7;
 
-    if ((arg0->unk14->unk28(arg0) << 0x18) == 0) {
+    if ((((void (*)(void *,...))(arg0->unk14->unk28))(arg0) << 0x18) == 0) {
         temp_r1 = arg0->unk38;
         if (temp_r1 != 0) {
             temp_r6 = *((arg0->unk3C * 4) + temp_r1->unk8);

@@ -9,13 +9,15 @@
 func_08036E70:
 	push	{r4, r5, r6, r7, lr}
 	add	r4, r0, #0
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x34]
+	ldr	r1, .L10
+	add	r0, r0, r1
 	bl	func_080A0384
 	add	r5, r0, #0
 	cmp	r5, #0
 	beq	.L3	@cond_branch
-	ldr	r6, .L10
-	ldr	r7, .L10+0x4
+	ldr	r6, .L10+0x4
+	ldr	r7, .L10+0x8
 	bl	func_0809EAD8
 	cmp	r0, #0x3b
 	bhi	.L4	@cond_branch
@@ -29,6 +31,7 @@ func_08036E70:
 .L11:
 	.align	2, 0
 .L10:
+	.word	0x1cd4
 	.word	0x267
 	.word	0x26f
 .L4:

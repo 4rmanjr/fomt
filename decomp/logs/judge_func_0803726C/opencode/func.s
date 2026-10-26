@@ -7,6 +7,30 @@
 	.type	 func_0803726C,function
 	.thumb_func
 func_0803726C:
-	bx	lr
+	push	{lr}
+	add	sp, sp, #-0x54
+	add	r1, r0, #0
+	ldrh	r0, [r1, #0x2c]
+	cmp	r0, #0
+	beq	.L29	@cond_branch
+	sub	r0, r0, #0x1
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	b	.L30
+.L29:
+	ldrh	r0, [r1, #0x30]
+.L30:
+	str	r0, [r1, #0x2c]
+	ldr	r2, [r1, #0x18]
+	cmp	r2, #0
+	beq	.L31	@cond_branch
+	ldr	r0, [r2, #0x8]
+	ldr	r1, [r0, #0x14]
+	add	r0, r2, #0
+	bl	_call_via_r1
+.L31:
+	add	sp, sp, #0x54
+	pop	{r0}
+	bx	r0
 .Lfe1:
 	.size	 func_0803726C,.Lfe1-func_0803726C

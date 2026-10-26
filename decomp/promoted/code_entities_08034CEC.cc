@@ -112,3 +112,12 @@ s32 func_0803930C(void) {
 void func_08039A5C(void) {
 
 }
+
+// DECOMP-MATCHED func_08037430 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[60];
+    s32 unk3C;
+} GenObj;
+u16 func_08037430(GenObj *arg0) {
+    return arg0->unk3C;
+}

@@ -12,39 +12,53 @@ func_0803436C:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x2c
-	add	r4, sp, #0x4
-	add	r2, sp, #0x24
-	mov	r1, #0x0
+	add	sp, sp, #-0x30
+	add	r6, r0, #0
+	ldr	r7, [r6]
+	ldr	r0, [r6, #0x54]
+	ldr	r1, [r6, #0x4c]
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x18
+	mov	r2, #0x0
 	bl	func_0809E994
+	add	r4, sp, #0x4
+	ldr	r1, [r6, #0x58]
 	add	r0, r4, #0
-	mov	r1, #0x0
 	add	r2, r7, #0
 	bl	func_08033584
 	add	r1, r0, #0
 	lsl	r1, r1, #0x18
-	mov	r9, r4
 	cmp	r1, #0
 	beq	.L4	@cond_branch
+	ldr	r5, [r6, #0x24]
 	cmp	r5, #0
 	beq	.L5	@cond_branch
 	add	r0, sp, #0x8
-	mov	r1, r9
-	mov	r2, #0x0
+	ldr	r2, [r6, #0x58]
+	add	r1, r4, #0
 	add	r3, r7, #0
 	bl	func_08033830
-	ldr	r0, [sp, #0x18]
+	ldr	r0, [sp, #0x4]
+	lsl	r0, r0, #0x1c
+	lsr	r0, r0, #0x1c
+	ldr	r1, [r6, #0x4c]
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x18
+	ldr	r2, [sp, #0x8]
+	lsl	r2, r2, #0x10
+	asr	r2, r2, #0x10
 	add	r0, r5, #0
-	mov	r1, #0x0
-	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_08034BFC
 .L5:
-	cmp	r6, #0x8
-	bls	.LCB51
+	ldr	r1, [sp, #0x4]
+	lsl	r1, r1, #0x1c
+	lsr	r1, r1, #0x1c
+	cmp	r1, #0x8
+	bls	.LCB78
 	b	.L2	@long jump
-.LCB51:
-	lsl	r0, r6, #0x2
+.LCB78:
+	lsl	r0, r1, #0x2
 	ldr	r1, .L73
 	add	r0, r0, r1
 	ldr	r0, [r0]
@@ -66,12 +80,20 @@ func_0803436C:
 	.word	.L55
 	.word	.L58
 .L16:
+	mov	r0, #0xfc
+	lsl	r0, r0, #0x8
+	add	r1, r0, #0
+	add	r2, sp, #0xc
+	ldrh	r0, [r2]
+	and	r0, r0, r1
+	mov	r1, #0x2
+	orr	r0, r0, r1
+	str	r0, [sp, #0xc]
 	mov	r5, #0x1
-.L72:
-	add	r6, sp, #0xc
+	add	r4, r2, #0
 .L17:
-	add	r0, r6, #0
-	mov	r1, #0x0
+	ldr	r1, .L75
+	add	r0, r4, #0
 	mov	r2, #0x3
 	bl	memcpy
 	cmp	r5, #0x3
@@ -79,31 +101,43 @@ func_0803436C:
 	mov	r0, #0xc8
 	bl	func_080AB788
 	lsl	r1, r5, #0x2
-	add	r1, r1, r6
+	add	r1, r1, r4
 	ldr	r1, [r1]
 	cmp	r0, r1
 	bcs	.L18	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r6, #0x50]
 	add	r1, r5, #0
 	mov	r2, #0x1
 	bl	AddTaskExp__13HarvestSpriteQ213HarvestSprite4Taski
 .L18:
 	mov	r0, #0x1
 	b	.L2
+.L76:
+	.align	2, 0
+.L75:
+	.word	gUnk_080F1496
 .L19:
 	bl	__12RucksackItem
+	mov	r0, #0xfc
+	lsl	r0, r0, #0x8
+	add	r1, r0, #0
+	add	r5, sp, #0x10
+	ldrh	r0, [r5]
+	and	r0, r0, r1
+	mov	r1, #0x2
+	orr	r0, r0, r1
+	str	r0, [sp, #0x10]
 	add	r4, sp, #0xc
 	add	r0, r4, #0
 	bl	IsEmpty__C12RucksackItem
 	lsl	r0, r0, #0x18
-	add	r6, r4, #0
 	cmp	r0, #0
 	beq	.L20	@cond_branch
 .L4:
 	mov	r0, #0x0
 	b	.L2
 .L20:
-	add	r0, r6, #0
+	add	r0, r4, #0
 	bl	GetKind__C12RucksackItem
 	add	r1, r0, #0
 	cmp	r1, #0
@@ -112,8 +146,8 @@ func_0803436C:
 	beq	.L25	@cond_branch
 	b	.L2
 .L23:
-	add	r0, sp, #0x10
-	add	r1, r6, #0
+	add	r0, r5, #0
+	add	r1, r4, #0
 	bl	GetFood__C12RucksackItem
 	add	r0, sp, #0x14
 	mov	r1, #0x0
@@ -122,47 +156,62 @@ func_0803436C:
 	mov	r5, #0x0
 	b	.L17
 .L25:
-	mov	r4, r9
-	add	r4, r4, #0x74
-	add	r0, r6, #0
+	add	r0, r4, #0
 	bl	GetArticle__C12RucksackItem
 	add	r1, r0, #0
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
-	add	r0, r4, #0
+	ldr	r0, [sp, #0x28]
 	bl	__7ProductG7Article
 	b	.L24
 .L28:
-	mov	r0, #0x0
+	ldr	r0, [r6, #0x58]
+	mov	r4, #0xff
+	lsl	r4, r4, #0x2
+	add	r0, r0, r4
 	mov	r1, #0x1
 	bl	SubtractStoredBushels__4CoopUi
-	mov	r0, #0x0
+	ldr	r0, [r6, #0x58]
+	add	r0, r0, r4
 	mov	r1, #0x0
 	bl	SetEntBushel__4CoopUi
 .L29:
 	add	r0, r7, #0
-	ldr	r1, [sp, #0x20]
+	ldr	r1, [sp, #0x1c]
 	bl	var_r2
-	mov	r5, #0x2
 	b	.L72
 .L30:
-	mov	r0, #0x0
+	ldr	r0, [r6, #0x58]
+	ldr	r4, .L77
+	add	r0, r0, r4
 	mov	r1, #0x1
 	bl	SubtractStoredBushels__4BarnUi
-	mov	r0, #0x0
+	ldr	r0, [r6, #0x58]
+	add	r0, r0, r4
 	mov	r1, #0x0
 	bl	SetBushelForStall__4BarnUi
 	b	.L29
+.L78:
+	.align	2, 0
+.L77:
+	.word	0x5dc
 .L31:
-	mov	r0, #0x0
+	ldr	r0, [r6, #0x58]
+	ldr	r4, .L79
+	add	r0, r0, r4
 	mov	r1, #0x1
 	bl	SubtractStoredBushels__4BarnUi
-	mov	r0, #0x0
+	ldr	r0, [r6, #0x58]
+	add	r0, r0, r4
 	mov	r1, #0x0
 	bl	SetBushelForPregnancyStall__4BarnUi
 	b	.L29
+.L80:
+	.align	2, 0
+.L79:
+	.word	0x5dc
 .L32:
-	ldr	r1, [sp, #0x24]
+	ldr	r1, [sp, #0x20]
 	cmp	r1, #0
 	beq	.L4	@cond_branch
 	mov	r1, #0x1c
@@ -170,13 +219,13 @@ func_0803436C:
 	cmp	r0, #0x5
 	bhi	.L36	@cond_branch
 	lsl	r0, r0, #0x2
-	ldr	r1, .L75
+	ldr	r1, .L81
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L76:
+.L82:
 	.align	2, 0
-.L75:
+.L81:
 	.word	.L43
 	.align	2, 0
 	.align	2, 0
@@ -208,22 +257,21 @@ func_0803436C:
 	add	r4, sp, #0xc
 	add	r0, r4, #0
 	bl	__4FoodUi
-	mov	r0, #0x0
+	mov	r0, sl
 	mov	r1, #0x0
 	bl	__7ProductG4Food
 	mov	r1, #0x5
-	add	r6, r4, #0
-	ldr	r0, [sp, #0x1c]
+	mov	r0, r9
 	cmp	r0, #0x5
 	bhi	.L46	@cond_branch
 	lsl	r0, r0, #0x2
-	ldr	r1, .L77
+	ldr	r1, .L83
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L78:
+.L84:
 	.align	2, 0
-.L77:
+.L83:
 	.word	.L53
 	.align	2, 0
 	.align	2, 0
@@ -252,43 +300,48 @@ func_0803436C:
 .L52:
 	mov	r1, #0xa
 .L46:
-	mov	r4, r9
-	add	r4, r4, #0x7c
 	mov	r0, sp
 	bl	__7ArticleUi
 	mov	r0, sp
 	ldrb	r1, [r0]
-	add	r0, r4, #0
+	ldr	r0, [sp, #0x2c]
 	bl	__7ProductG7Article
 	mov	r5, #0x2
 	b	.L17
 .L55:
-	ldr	r1, [sp, #0x28]
+	ldr	r1, [sp, #0x24]
 	cmp	r1, #0
-	bne	.LCB314
+	bne	.LCB394
 	b	.L4	@long jump
-.LCB314:
+.LCB394:
+.L72:
 	mov	r5, #0x2
-	b	.L72
+	add	r4, sp, #0xc
+	b	.L17
 .L58:
-	mov	r0, #0x0
+	ldr	r0, [r6, #0x58]
+	mov	r1, #0xff
+	lsl	r1, r1, #0x2
+	add	r0, r0, r1
 	bl	GetEgg__C4CoopUi
 	cmp	r0, #0
-	bne	.LCB325
+	bne	.LCB412
 	b	.L4	@long jump
-.LCB325:
+.LCB412:
+	ldr	r0, [r0, #0x14]
+	lsl	r0, r0, #0x1d
+	lsr	r0, r0, #0x1d
 	mov	r5, #0xf
-	mov	r0, sl
 	cmp	r0, #0x5
 	bhi	.L60	@cond_branch
 	lsl	r0, r0, #0x2
-	ldr	r1, .L79
+	ldr	r1, .L85
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L80:
+.L86:
 	.align	2, 0
-.L79:
+.L85:
 	.word	.L67
 	.align	2, 0
 	.align	2, 0
@@ -317,21 +370,23 @@ func_0803436C:
 .L66:
 	mov	r5, #0x14
 .L60:
-	mov	r0, #0x0
+	ldr	r0, [r6, #0x58]
+	mov	r1, #0xff
+	lsl	r1, r1, #0x2
+	add	r0, r0, r1
 	mov	r1, #0x0
 	bl	method_0800C9B8__4CoopUi
 	add	r4, sp, #0xc
 	add	r0, r4, #0
 	add	r1, r5, #0
 	bl	__4FoodUi
-	mov	r0, #0x0
+	ldr	r0, [sp, #0x18]
 	mov	r1, #0x0
 	bl	__7ProductG4Food
 	mov	r5, #0x2
-	add	r6, r4, #0
 	b	.L17
 .L2:
-	add	sp, sp, #0x2c
+	add	sp, sp, #0x30
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

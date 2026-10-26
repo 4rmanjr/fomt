@@ -8,42 +8,72 @@
 	.thumb_func
 func_0802A588:
 	push	{r4, r5, r6, r7, lr}
+	mov	r7, r8
+	push	{r7}
 	add	sp, sp, #-0x4
-	add	r6, r0, #0
-	add	r0, r4, #0
+	add	r4, r0, #0
+	ldr	r0, [r4, #0x40]
+	add	r5, r0, #0
+	add	r5, r5, #0x54
+	add	r0, r5, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.LCB14
-	b	.L2	@long jump
-.LCB14:
-	cmp	r5, #0
-	bne	.LCB17
-	b	.L2	@long jump
-.LCB17:
+	lsr	r2, r0, #0x18
+	cmp	r2, #0
+	beq	.L3	@cond_branch
+	add	r1, r4, #0
+	add	r1, r1, #0x90
+	mov	r0, #0x0
+	str	r0, [r1]
+	b	.L2
+.L3:
 	add	r0, r4, #0
+	add	r0, r0, #0x88
+	add	r1, r4, #0
+	add	r1, r1, #0x90
+	mov	r7, #0x1
+	str	r7, [r1]
+	str	r2, [r0, #0x4]
+	str	r2, [r0, #0x8]
+	str	r2, [r0, #0x10]
+	mov	r1, #0xa8
+	lsl	r1, r1, #0xd
+	str	r1, [r0, #0x1c]
+	ldr	r6, [r4, #0x18]
+	cmp	r6, #0
+	bne	.LCB40
+	b	.L2	@long jump
+.LCB40:
+	add	r0, r5, #0
 	bl	func_0800F388
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L5	@cond_branch
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xb4
 	mov	r2, #0xb0
 	lsl	r2, r2, #0x1
-	b	.L25
+	mov	r1, #0x0
+	bl	func_0805E850
+	add	r0, r6, #0
+	add	r0, r0, #0xd0
+	str	r7, [r0]
+	b	.L2
 .L5:
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	func_0800F204
 	cmp	r0, #0x5
-	bhi	.L2	@cond_branch
+	bls	.LCB68
+	b	.L2	@long jump
+.LCB68:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L27
+	ldr	r1, .L28
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L28:
+.L29:
 	.align	2, 0
-.L27:
+.L28:
 	.word	.L23
 	.align	2, 0
 	.align	2, 0
@@ -56,105 +86,117 @@ func_0802A588:
 	.word	.L22
 .L8:
 	mov	r0, sp
-	add	r1, r4, #0
+	add	r1, r5, #0
 	bl	func_0800F20C
 	mov	r0, sp
 	bl	GetIconId__C4Food
 .L26:
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xb4
 .L10:
-	add	r1, r7, #0
-	bl	func_0805E850
-	b	.L2
+	mov	r1, r8
+	b	.L25
 .L11:
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	func_0800F258
 	bl	GetId__C7Article
 	cmp	r0, #0x1b
 	bne	.L12	@cond_branch
-	add	r0, r6, #0
+	add	r0, r4, #0
 	bl	func_08025AFC
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L13	@cond_branch
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xb4
 	mov	r2, #0x4
 	b	.L10
 .L13:
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xb4
 	mov	r1, #0x0
 	mov	r2, #0x3
-	bl	func_0805E850
-	b	.L2
+	b	.L25
 .L12:
 	bl	GetIconId__C7Article
 	b	.L26
 .L15:
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x3c]
+	ldr	r1, .L30
+	add	r0, r0, r1
 	bl	GetGrowthStage__C3Dog
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L16	@cond_branch
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xb4
-	ldr	r2, .L29
-	b	.L25
-.L30:
+	ldr	r2, .L30+0x4
+	b	.L27
+.L31:
 	.align	2, 0
-.L29:
+.L30:
+	.word	0x1c70
 	.word	0x3da
 .L16:
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xb4
 	mov	r2, #0xdd
 	lsl	r2, r2, #0x2
 	b	.L10
 .L18:
-	add	r0, r4, #0
+	ldr	r4, [r4, #0x3c]
+	mov	r0, #0x82
+	lsl	r0, r0, #0x3
+	add	r4, r4, r0
+	add	r0, r5, #0
 	bl	func_0800F344
 	add	r1, r0, #0
-	mov	r0, #0x0
+	add	r0, r4, #0
 	bl	GetChicken__4CoopUi
 	bl	GetGrowthStage__C7Chicken
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L19	@cond_branch
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xb4
-	ldr	r2, .L31
-.L25:
+	ldr	r2, .L32
+.L27:
 	mov	r1, #0x0
+.L25:
 	bl	func_0805E850
+	add	r1, r6, #0
+	add	r1, r1, #0xd0
+	mov	r0, #0x1
+	str	r0, [r1]
 	b	.L2
-.L32:
+.L33:
 	.align	2, 0
-.L31:
+.L32:
 	.word	0x73d
 .L19:
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xb4
-	ldr	r2, .L33
+	ldr	r2, .L34
 	b	.L10
-.L34:
+.L35:
 	.align	2, 0
-.L33:
+.L34:
 	.word	0x734
 .L21:
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xb4
 	mov	r2, #0x35
 	b	.L10
 .L22:
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	func_0800F360
 	b	.L26
 .L2:
 	add	sp, sp, #0x4
+	pop	{r3}
+	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0

@@ -7,11 +7,31 @@
 	.type	 func_08034BFC,function
 	.thumb_func
 func_08034BFC:
-	push	{lr}
+	push	{r4, lr}
+	add	r4, r0, #0
 	add	r0, r0, #0xb4
-	mov	r1, #0x0
+	lsl	r1, r1, #0x3
+	ldr	r2, .L3
+	add	r1, r1, r2
+	ldrh	r1, [r1]
 	bl	func_0805E860
+	add	r2, r4, #0
+	add	r2, r2, #0xc8
+	add	r1, r4, #0
+	add	r1, r1, #0xcc
+	mov	r0, #0x1
+	str	r0, [r1]
+	mov	r0, #0x0
+	str	r0, [r2, #0x4]
+	add	r1, r1, #0x8
+	mov	r0, #0x3c
+	str	r0, [r1]
+	pop	{r4}
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	gUnk_080F14F0
 .Lfe1:
 	.size	 func_08034BFC,.Lfe1-func_08034BFC

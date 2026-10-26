@@ -10,7 +10,7 @@ func_080342D8:
 	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x4
 	add	r6, r0, #0
-	mov	r0, #0x0
+	ldr	r0, [r6, #0x34]
 	bl	GetFriendship__C3Npc
 	bl	func_080338F0
 	lsl	r0, r0, #0x18
@@ -33,6 +33,7 @@ func_080342D8:
 	ldr	r0, .L5+0x4
 	and	r4, r4, r0
 	str	r4, [sp]
+	ldr	r5, [r6, #0x34]
 	add	r0, r5, #0
 	bl	GetCurrentTask__C13HarvestSprite
 	add	r1, r0, #0
@@ -51,12 +52,14 @@ func_080342D8:
 	lsl	r0, r0, #0x18
 	orr	r4, r4, r0
 	str	r4, [sp]
-	mov	r0, #0x0
+	ldr	r0, [r6, #0x34]
 	mov	r1, sp
 	bl	method_0809E7D8__13HarvestSpritePC15UnkBarnAnimal2C
+	ldr	r2, [r6, #0x20]
+	lsl	r2, r2, #0x18
+	lsr	r2, r2, #0x18
 	add	r0, r6, #0
 	mov	r1, #0x0
-	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_08034180
 .L3:

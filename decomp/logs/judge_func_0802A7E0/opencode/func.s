@@ -11,55 +11,63 @@ func_0802A7E0:
 	mov	r7, r8
 	push	{r7}
 	add	sp, sp, #-0x8
+	add	r4, r0, #0
+	ldr	r0, [r4, #0x48]
+	add	r7, r0, #0
+	add	r7, r7, #0x54
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB11
+	beq	.LCB15
 	b	.L4	@long jump
-.LCB11:
+.LCB15:
 	add	r0, r7, #0
 	bl	func_0800F388
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB18
+	beq	.LCB22
 	b	.L6	@long jump
-.LCB18:
-	lsl	r0, r5, #0x10
-	lsr	r1, r0, #0x10
-	lsl	r0, r6, #0x10
-	lsr	r0, r0, #0x10
-	cmp	r4, #0x1
+.LCB22:
+	ldrh	r6, [r4, #0x18]
+	ldrh	r5, [r4, #0x1c]
+	add	r3, r6, #0
+	add	r2, r5, #0
+	ldr	r0, [r4, #0x30]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	add	r1, r0, #0
+	cmp	r0, #0x1
 	beq	.L8	@cond_branch
-	cmp	r4, #0x1
+	cmp	r0, #0x1
 	bgt	.L14	@cond_branch
-	cmp	r4, #0
+	cmp	r0, #0
 	beq	.L9	@cond_branch
 	b	.L7
 .L14:
-	cmp	r4, #0x2
+	cmp	r1, #0x2
 	beq	.L10	@cond_branch
-	cmp	r4, #0x3
+	cmp	r1, #0x3
 	beq	.L11	@cond_branch
 	b	.L7
 .L8:
-	lsl	r0, r0, #0x10
+	lsl	r0, r2, #0x10
 	ldr	r1, .L80
 	add	r0, r0, r1
-	lsr	r6, r0, #0x10
+	lsr	r5, r0, #0x10
 	b	.L7
 .L81:
 	.align	2, 0
 .L80:
 	.word	-0x140000
 .L9:
-	lsl	r0, r0, #0x10
+	lsl	r0, r2, #0x10
 	mov	r2, #0xa0
 	lsl	r2, r2, #0xd
 	add	r0, r0, r2
-	lsr	r6, r0, #0x10
+	lsr	r5, r0, #0x10
 	b	.L7
 .L10:
-	lsl	r0, r1, #0x10
+	lsl	r0, r3, #0x10
 	ldr	r1, .L82
 	add	r0, r0, r1
 	b	.L79
@@ -68,31 +76,35 @@ func_0802A7E0:
 .L82:
 	.word	-0x140000
 .L11:
-	lsl	r0, r1, #0x10
+	lsl	r0, r3, #0x10
 	mov	r2, #0xa0
 	lsl	r2, r2, #0xd
 	add	r0, r0, r2
 .L79:
-	lsr	r5, r0, #0x10
+	lsr	r6, r0, #0x10
 .L7:
 	add	r0, r7, #0
 	bl	func_0800F204
 	add	r1, r0, #0
 	cmp	r1, #0x2
-	bne	.LCB110
+	bne	.LCB131
 	b	.L71	@long jump
-.LCB110:
+.LCB131:
 	cmp	r1, #0x2
 	bhi	.L77	@cond_branch
 	cmp	r1, #0x1
 	beq	.L16	@cond_branch
 	b	.L2
 .L77:
+	cmp	r1, #0x3
+	bne	.LCB140
+	b	.L71	@long jump
+.LCB140:
 	cmp	r1, #0x4
-	bls	.LCB119
-	b	.L2	@long jump
-.LCB119:
-	b	.L71
+	bne	.LCB142
+	b	.L71	@long jump
+.LCB142:
+	b	.L2
 .L16:
 	add	r0, r7, #0
 	bl	func_0800F258
@@ -102,17 +114,17 @@ func_0802A7E0:
 	bl	CanBeDiscarded__C7Article
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB137
+	bne	.LCB160
 	b	.L4	@long jump
-.LCB137:
+.LCB160:
 	mov	r0, sp
 	bl	GetId__C7Article
 	add	r1, r0, #0
 	sub	r1, r1, #0x31
 	cmp	r1, #0x29
-	bls	.LCB145
+	bls	.LCB168
 	b	.L2	@long jump
-.LCB145:
+.LCB168:
 	lsl	r1, r1, #0x2
 	ldr	r2, .L84
 	add	r1, r1, r2
@@ -169,9 +181,9 @@ func_0802A7E0:
 	.word	.L23
 .L19:
 	add	r0, sp, #0x4
-	lsl	r1, r5, #0x10
+	lsl	r1, r6, #0x10
 	asr	r1, r1, #0x10
-	lsl	r2, r6, #0x10
+	lsl	r2, r5, #0x10
 	asr	r2, r2, #0x10
 	bl	func_080AC5D0
 	add	r1, r0, #0

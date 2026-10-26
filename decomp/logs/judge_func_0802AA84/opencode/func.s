@@ -8,72 +8,123 @@
 	.thumb_func
 func_0802AA84:
 	push	{r4, r5, r6, r7, lr}
-	mov	r7, r8
-	push	{r7}
-	add	sp, sp, #-0x4
-	mov	r5, #0x0
-	add	r0, r4, #0
+	mov	r7, r9
+	mov	r6, r8
+	push	{r6, r7}
+	add	sp, sp, #-0x40
+	add	r7, r0, #0
+	mov	r0, #0x0
+	mov	r8, r0
+	ldr	r0, [r7, #0x3c]
+	ldr	r1, .L13
+	add	r5, r0, r1
+	add	r0, r5, #0
 	bl	IsEmpty__C9ToolStack
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L3	@cond_branch
-	add	r0, r4, #0
+	ldr	r4, [r7, #0x3c]
+	ldr	r0, .L13+0x4
+	add	r4, r4, r0
+	add	r0, r5, #0
 	bl	GetTool__C9ToolStack
 	add	r1, r0, #0
-	mov	r0, r8
+	add	r0, r4, #0
 	bl	func_0800E550
 	mov	r0, #0x0
 	bl	func_080246BC
-	add	r5, r0, #0
+	mov	r8, r0
 .L3:
-	mov	r4, #0x0
+	ldr	r0, [r7, #0x3c]
+	ldr	r1, .L13+0x8
+	add	r1, r1, r0
+	mov	r9, r1
+	mov	r6, #0x0
 .L4:
-	add	r0, r6, #0
+	mov	r0, r9
 	bl	GetSize__C8Rucksack
-	cmp	r4, r0
+	cmp	r6, r0
 	bcs	.L5	@cond_branch
-	add	r0, r6, #0
-	add	r1, r4, #0
+	mov	r0, r9
+	add	r1, r6, #0
 	bl	GetToolAt__C8RucksackUi
+	add	r5, r0, #0
 	bl	IsEmpty__C9ToolStack
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L6	@cond_branch
+	ldr	r4, [r7, #0x3c]
+	ldr	r0, .L13+0x4
+	add	r4, r4, r0
 	add	r0, r5, #0
+	bl	GetTool__C9ToolStack
+	add	r1, r0, #0
+	add	r0, r4, #0
+	bl	func_0800E550
+	lsl	r0, r0, #0x18
+	asr	r0, r0, #0x18
+	str	r0, [sp, #0xc]
+	mov	r0, r8
 	bl	func_080246BC
-	add	r5, r0, #0
+	mov	r8, r0
 .L6:
-	add	r4, r4, #0x1
+	add	r6, r6, #0x1
 	b	.L4
+.L14:
+	.align	2, 0
+.L13:
+	.word	0x1c34
+	.word	0x1bd8
+	.word	0x1c38
 .L5:
-	mov	r4, #0x0
+	ldr	r0, [r7, #0x3c]
+	mov	r1, #0xe0
+	lsl	r1, r1, #0x2
+	add	r1, r1, r0
+	mov	r9, r1
+	mov	r6, #0x0
 .L7:
-	add	r0, r7, #0
-	add	r1, r4, #0
+	mov	r0, r9
+	add	r1, r6, #0
 	bl	GetToolStackAt__C9ToolChestUi
+	add	r5, r0, #0
 	bl	IsEmpty__C9ToolStack
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L10	@cond_branch
+	ldr	r4, [r7, #0x3c]
+	ldr	r0, .L15
+	add	r4, r4, r0
 	add	r0, r5, #0
+	bl	GetTool__C9ToolStack
+	add	r1, r0, #0
+	add	r0, r4, #0
+	bl	func_0800E550
+	lsl	r0, r0, #0x18
+	asr	r0, r0, #0x18
+	str	r0, [sp, #0x10]
+	mov	r0, r8
 	bl	func_080246BC
-	add	r5, r0, #0
+	mov	r8, r0
 .L10:
-	add	r4, r4, #0x1
-	cmp	r4, #0x3f
+	add	r6, r6, #0x1
+	cmp	r6, #0x3f
 	bls	.L7	@cond_branch
+	ldr	r1, .L15+0x4
 	mov	r0, sp
-	mov	r1, #0x0
 	mov	r2, #0x7
 	bl	memcpy
-	lsl	r0, r5, #0x2
-	add	r0, r0, sp
-	ldrb	r0, [r0]
-	add	sp, sp, #0x4
-	pop	{r3}
+	add	sp, sp, #0x40
+	pop	{r3, r4}
 	mov	r8, r3
+	mov	r9, r4
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
+.L16:
+	.align	2, 0
+.L15:
+	.word	0x1bd8
+	.word	gUnk_080F11B4
 .Lfe1:
 	.size	 func_0802AA84,.Lfe1-func_0802AA84

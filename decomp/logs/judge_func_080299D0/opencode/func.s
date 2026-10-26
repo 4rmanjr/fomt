@@ -8,6 +8,10 @@
 	.thumb_func
 func_080299D0:
 	push	{lr}
+	add	r2, r0, #0
+	add	r2, r2, #0xa4
+	mov	r1, #0x0
+	str	r1, [r2]
 	mov	r1, #0xc9
 	lsl	r1, r1, #0x1
 	bl	SetAnim__12AActorEntityUi

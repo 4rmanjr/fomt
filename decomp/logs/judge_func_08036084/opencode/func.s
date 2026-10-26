@@ -10,10 +10,22 @@ func_08036084:
 	push	{r4, r5, lr}
 	add	r4, r0, #0
 	ldr	r5, .L7
+	ldr	r0, [r4, #0x34]
 	ldr	r1, .L7+0x4
-	bl	func_08035908
+	add	r0, r0, r1
+	bl	func_080A0490
+	cmp	r0, #0xc
+	bne	.L3	@cond_branch
+	ldr	r0, [r4, #0x4]
+	cmp	r0, #0x1d
+	bne	.L3	@cond_branch
+	add	r5, r5, #0x14
+.L3:
 	add	r0, r4, #0
 	add	r1, r5, #0
+	bl	func_08035908
+	add	r0, r4, #0
+	ldr	r1, .L7+0x8
 	bl	func_08035940
 	pop	{r4, r5}
 	pop	{r0}
@@ -21,7 +33,8 @@ func_08036084:
 .L8:
 	.align	2, 0
 .L7:
+	.word	0x813
+	.word	0x1cd4
 	.word	0x817
-	.word	0x827
 .Lfe1:
 	.size	 func_08036084,.Lfe1-func_08036084

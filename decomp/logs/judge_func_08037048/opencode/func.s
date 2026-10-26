@@ -7,23 +7,44 @@
 	.type	 func_08037048,function
 	.thumb_func
 func_08037048:
-	push	{r4, r5, lr}
+	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x4
 	add	r5, r0, #0
-	add	r4, r1, #0
+	add	r6, r1, #0
+	ldr	r0, .L5
+	str	r0, [r5, #0x14]
+	ldr	r4, [r5, #0x30]
 	mov	r0, sp
 	add	r1, r5, #0
 	bl	GetLocation__C12AActorEntity
+	ldr	r0, [sp]
+	str	r0, [r4]
+	ldr	r0, .L5+0x4
+	str	r0, [r5, #0x14]
+	ldr	r1, [r5, #0x10]
+	cmp	r1, #0
+	beq	.L3	@cond_branch
+	ldr	r0, [r1, #0x4]
+	ldr	r2, [r0, #0x8]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L3:
 	mov	r0, #0x1
-	and	r0, r0, r4
+	and	r0, r0, r6
 	cmp	r0, #0
 	beq	.L4	@cond_branch
 	add	r0, r5, #0
 	bl	__builtin_delete
 .L4:
 	add	sp, sp, #0x4
-	pop	{r4, r5}
+	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
+.L6:
+	.align	2, 0
+.L5:
+	.word	vtable_unk_080E7328
+	.word	__vt_7AEntity
 .Lfe1:
 	.size	 func_08037048,.Lfe1-func_08037048

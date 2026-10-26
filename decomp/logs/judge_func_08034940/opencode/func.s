@@ -7,57 +7,89 @@
 	.type	 func_08034940,function
 	.thumb_func
 func_08034940:
-	push	{r4, r5, lr}
+	push	{r4, lr}
 	add	sp, sp, #-0xc
 	add	r4, r0, #0
-	cmp	r1, #0x11
-	beq	.L6	@cond_branch
-	cmp	r1, #0x25
-	bne	.L4	@cond_branch
+	lsl	r0, r2, #0x1b
+	lsr	r0, r0, #0x1b
+	cmp	r0, #0x5
+	bls	.L4	@cond_branch
+	sub	r0, r0, #0x6
+	lsl	r1, r0, #0x4
+	sub	r1, r1, r0
+	lsl	r1, r1, #0x2
+	lsl	r0, r2, #0x15
+	lsr	r0, r0, #0x1a
+	add	r1, r1, r0
+	ldr	r0, [r4, #0x38]
+	ldr	r2, .L14
+	add	r0, r0, r2
+	cmp	r1, r0
+	bcc	.L3	@cond_branch
+.L4:
+	ldrh	r0, [r4, #0x8]
+	cmp	r0, #0x11
+	beq	.L7	@cond_branch
+	cmp	r0, #0x25
+	bne	.L5	@cond_branch
 	mov	r0, sp
 	bl	smethod_08009ADC__4Farm
+	ldr	r2, [sp]
+	lsl	r2, r2, #0x10
+	asr	r2, r2, #0x10
 	add	r0, r4, #0
 	mov	r1, #0x2
-	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	SetLocation__7AEntityUiii
-	b	.L4
-.L6:
+	b	.L5
+.L15:
+	.align	2, 0
+.L14:
+	.word	0x385
+.L7:
 	add	r0, sp, #0x4
 	bl	smethod_08009AE8__4Farm
+	ldr	r2, [sp, #0x4]
+	lsl	r2, r2, #0x10
+	asr	r2, r2, #0x10
 	add	r0, r4, #0
 	mov	r1, #0x2
-	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	SetLocation__7AEntityUiii
-.L4:
-	mov	r0, #0x0
-	mov	r1, #0x0
+.L5:
+	ldr	r0, [r4, #0x40]
+	ldr	r1, [r4, #0x38]
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x18
 	bl	func_0809E994
+	ldr	r0, [r4, #0x3c]
 	add	r1, sp, #0x8
-	mov	r0, #0x0
 	bl	method_0809E7FC__13HarvestSprite
-	lsl	r0, r5, #0x10
-	asr	r1, r0, #0x10
+	mov	r0, #0x10
+	ldrsh	r1, [r4, r0]
 	mov	r0, #0xb4
 	lsl	r0, r0, #0x1
 	mov	r2, #0x1
 	cmp	r1, r0
-	beq	.L10	@cond_branch
+	beq	.L11	@cond_branch
 	mov	r2, #0x2
 	sub	r0, r0, #0x1
 	cmp	r1, r0
-	bgt	.L10	@cond_branch
+	bgt	.L11	@cond_branch
 	mov	r2, #0x3
-.L10:
+.L11:
 	mov	r3, #0x80
 	lsl	r3, r3, #0x8
 	add	r0, r4, #0
 	mov	r1, #0x1
 	bl	func_08034180
 	mov	r0, #0x1
+	b	.L13
+.L3:
+	mov	r0, #0x0
+.L13:
 	add	sp, sp, #0xc
-	pop	{r4, r5}
+	pop	{r4}
 	pop	{r1}
 	bx	r1
 .Lfe1:

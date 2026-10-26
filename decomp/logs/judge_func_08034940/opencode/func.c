@@ -2,11 +2,22 @@
 s32 SetLocation__7AEntityUiii(void *, s32, s16, s16); /* extern */
 s32 func_08034180(void *, s32, s32, s32);             /* extern */
 s32 func_0809E994(s32, u8);                           /* extern */
-s32 method_0809E7FC__13HarvestSprite(s32, ? *);       /* extern */
+s32 method_0809E7FC__13HarvestSprite(s32, s32 *);       /* extern */
 s32 smethod_08009ADC__4Farm(s32 *);                     /* extern */
 s32 smethod_08009AE8__4Farm(s32 *);                     /* extern */
 
-s32 func_08034940(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    u8 _pad8[2];
+    s32 unkA;
+    u8 _padE[34];
+    s32 unk30;
+    s32 unk34;
+    s32 unk38;
+} GenObj;
+s32 func_08034940(GenObj *arg0) {
 s32 sp0;
 s32 sp4;
 s32 sp8;
@@ -23,11 +34,11 @@ s32 sp8;
         switch (temp_r0_2) {                        /* irregular */
         case 37:
             smethod_08009ADC__4Farm(&sp0);
-            SetLocation__7AEntityUiii(arg0, 2, sp0.unk0, sp0.unk2);
+            SetLocation__7AEntityUiii(arg0, 2, sp0, sp0.unk2);
             break;
         case 17:
             smethod_08009AE8__4Farm(&sp4);
-            SetLocation__7AEntityUiii(arg0, 2, sp4.unk0, sp4.unk2);
+            SetLocation__7AEntityUiii(arg0, 2, sp4, sp4.unk2);
             break;
         }
         func_0809E994(arg0->unk38, arg0->unk30);

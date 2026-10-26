@@ -6,9 +6,41 @@ s32 __4ToolUi(s32 *, s32);                              /* extern */
 s8 func_0800E550(s32, s32);                         /* extern */
 s32 func_0800F190(s32);                             /* extern */
 s32 func_0805E850(void *, s32, u16);                  /* extern */
-extern ? gUnk_080F0FCC;
+extern s32 gUnk_080F0FCC;
 
-void func_08029F30(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk1;
+    s32 unk4;
+    s32 unk8;
+    u8 _padC[4];
+    s32 unk10;
+    s32 unk14;
+    u8 _pad18[10];
+    s32 unk22;
+    u8 _pad26[18];
+    s32 unk38;
+    s32 unk3C;
+    s32 unk3D;
+    s32 unk3E;
+    s32 unk3F;
+    s32 unk40;
+    s32 unk44;
+    u8 _pad48[6];
+    s32 unk4E;
+    s32 unk4F;
+    u8 _pad53[41];
+    s32 unk7C;
+    u8 _pad80[36];
+    s32 unkA4;
+    u8 _padA8[11];
+    s32 unkB3;
+    u8 _padB7[9];
+    s32 unkC0;
+    u8 _padC4[4];
+    struct GenObj *unkC8;
+} GenObj;
+void func_08029F30(GenObj *arg0, s32 arg1) {
 s32 sp0;
     s8 sp4;
     s32 temp_r4_2;
@@ -35,11 +67,11 @@ s32 sp0;
     void **temp_r0_9;
     void *temp_r0;
     void *temp_r0_2;
-    void *temp_r5;
+    GenObj *temp_r5;
     void *var_r2;
 
     arg0->unkA4 = 1;
-    temp_r0 = (arg0 + 0xA4) - 0x1C;
+    temp_r0 = ((GenObj *)((u8 *)arg0 + 0xA4)) - 0x1C;
     temp_r0->unk0 = 1;
     temp_r0->unk1 = 0;
     temp_r0->unk4 = 0xFFF80000;
@@ -49,8 +81,8 @@ s32 sp0;
     if (temp_r5 != 0) {
         __4ToolUi(&sp0, arg1);
         temp_r4 = GetIconId__C4Tool(&sp0);
-        func_0805E850(temp_r5 + 0xB4, (**temp_r5->unk0)->unk64(), temp_r4);
-        temp_r0_2 = temp_r5 + 0xC8;
+        func_0805E850((GenObj *)((u8 *)temp_r5 + 0xB4), (**temp_r5->unk0)->unk64(), temp_r4);
+        temp_r0_2 = (GenObj *)((u8 *)temp_r5 + 0xC8);
         temp_r5->unkC8 = 1;
         temp_r0_2->unk2 = 0;
         (temp_r0_2 + 2)->unk1 = 1;

@@ -10,14 +10,16 @@ func_08036C48:
 	push	{r4, lr}
 	add	sp, sp, #-0x4
 	add	r4, r0, #0
-	ldr	r2, .L3
-	ldr	r3, .L3+0x4
+	ldr	r1, .L3
+	ldr	r2, .L3+0x4
+	ldr	r3, .L3+0x8
 	mov	r0, #0xfe
 	lsl	r0, r0, #0x2
 	str	r0, [sp]
 	add	r0, r4, #0
-	mov	r1, #0x0
 	bl	__10ANpcEntityP10GameObjectP3NpcUiPCvUiUiUi
+	ldr	r0, .L3+0xc
+	str	r0, [r4, #0x14]
 	add	r0, r4, #0
 	add	sp, sp, #0x4
 	pop	{r4}
@@ -26,7 +28,9 @@ func_08036C48:
 .L4:
 	.align	2, 0
 .L3:
+	.word	gUnk_080F597C
 	.word	0x857
 	.word	0x85b
+	.word	vtable_unk_080E6A58
 .Lfe1:
 	.size	 func_08036C48,.Lfe1-func_08036C48

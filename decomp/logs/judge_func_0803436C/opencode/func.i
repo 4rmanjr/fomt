@@ -57,11 +57,18 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0803436C/opencode/func.c" 2
 s32 AddTaskExp__13HarvestSpriteQ213HarvestSprite4Taski(s32, s32, s32);
 u8 GetArticle__C12RucksackItem(s32 *);
 void *GetEgg__C4CoopUi(s32);
-s32 GetFood__C12RucksackItem(s32 *, ? *);
+s32 GetFood__C12RucksackItem(s32 *, s32 *);
 s32 GetKind__C12RucksackItem(s32 *);
 s32 IsEmpty__C12RucksackItem(s32 *);
 s32 SetBushelForPregnancyStall__4BarnUi(s32, u8);
@@ -75,31 +82,61 @@ s32 __7ArticleUi(u8 *, s32);
 s32 __7ProductG4Food(s32 *, s32);
 s32 __7ProductG7Article(void *, u8);
 s32 func_08033584(s32 *, s32, void **);
-s32 func_08033830(s32 *, ? *, s32, void **);
+s32 func_08033830(s32 *, s32 *, s32, void **);
 s32 func_08034BFC(s32, u8, s16, s16);
 s32 func_0809E994(s32, u8, s32);
 u32 func_080AB788(s32);
-s32 memcpy(s32 *, ? *, s32);
+s32 memcpy(s32 *, s32 *, s32);
 s32 method_0800C9B8__4CoopUi(s32, u8);
-extern ? gUnk_080F1496;
+extern s32 gUnk_080F1496;
 
-s32 func_0803436C(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    s32 unk4;
+    s32 unk6;
+    s32 unk9;
+    s32 unkA;
+    s32 unkE;
+    s32 unk10;
+    s32 unk11;
+    s32 unk12;
+    struct GenObj *unk14;
+    u8 _pad18[24];
+    s32 unk30;
+    s32 unk34;
+    s32 unk38;
+    s32 unk3C;
+    u8 _pad40[16];
+    s32 unk50;
+    s32 unk54;
+    s32 unk58;
+    u8 _pad5C[20];
+    s32 unk70;
+    s32 unk74;
+    s32 unk78;
+    u8 _pad7C[12];
+    s32 unk88;
+} GenObj;
+s32 func_0803436C(GenObj *arg0) {
 s32 sp0;
 s32 sp8;
 s32 sp10;
 s32 sp18;
 s32 sp1C;
     u8 sp20;
-    void *sp24;
+    GenObj *sp24;
     void **sp28;
-    ? (**temp_r4_2)(void **, ? *);
+    ? (**temp_r4_2)(void **, s32 *);
     ? (**temp_r4_3)(void **, void *);
-    ? (**temp_r4_4)(void **, ? *);
-    ? (**temp_r4_6)(void **, ? *);
+    ? (**temp_r4_4)(void **, s32 *);
+    ? (**temp_r4_6)(void **, s32 *);
     ? (**temp_r5_4)(void **, void *);
     ? (*var_r2)(void **, u8);
-    ? *temp_r6_3;
-    ? *temp_r6_5;
+    s32 *temp_r6_3;
+    s32 *temp_r6_5;
     s16 temp_r4;
     s16 temp_r5_2;
     s16 temp_r6;
@@ -123,7 +160,7 @@ s32 sp1C;
     void **temp_r0_11;
     void *temp_r0_5;
     void *temp_r0_8;
-    void *temp_r0_9;
+    GenObj *temp_r0_9;
     void *temp_r1;
     void *temp_r5_3;
     void *temp_r6_4;
@@ -132,16 +169,16 @@ s32 sp1C;
     sp28 = arg0->unk0;
     temp_r0 = sp24->unk38;
     temp_r1 = temp_r0 + (sp24->unk30 * 8);
-    sp0.unk0 = (s32) temp_r1->unk0;
+    sp0 = (s32) temp_r1->unk0;
     sp0.unk4 = (s32) temp_r1->unk4;
-    func_0809E994(temp_r0, sp24->unk30, &sp0 + 8);
+    func_0809E994(temp_r0, sp24->unk30, &(GenObj *)((u8 *)sp0 + 8));
     if ((func_08033584(&sp0, arg0->unk3C, sp28) << 0x18) == 0) {
         goto block_71;
     }
     temp_r5 = sp24->unk10;
     if (temp_r5 != 0) {
         func_08033830(&sp18, &sp0, sp24->unk3C, sp28);
-        temp_r0_2 = (u32) ((u8) sp0.unk0 << 0x1C) >> 0x1C;
+        temp_r0_2 = (u32) ((u8) sp0 << 0x1C) >> 0x1C;
         switch (temp_r0_2) {
         case 3:
             var_r0 = sp18.unk2 - 0x18;
@@ -159,14 +196,14 @@ block_14:
             var_r0 = sp18.unk2 - 0x28;
             goto block_14;
         }
-        func_08034BFC(temp_r5, sp24->unk30, sp18.unk0, (s16) sp18.unk2);
+        func_08034BFC(temp_r5, sp24->unk30, sp18, (s16) sp18.unk2);
     }
-    temp_r0_3 = (u32) ((u8) sp0.unk0 << 0x1C) >> 0x1C;
+    temp_r0_3 = (u32) ((u8) sp0 << 0x1C) >> 0x1C;
     switch (temp_r0_3) {
     case 1:
         temp_r6 = sp24->unkA;
         temp_r4 = sp24->unkE;
-        sp8.unk0 = (u16) ((0xFFFFFC00 & sp8.unk0) | 2);
+        sp8 = (u16) ((0xFFFFFC00 & sp8) | 2);
         sp8.unk1 = (u8) ((3 & sp8.unk1) | (((u16) temp_r6 & 0x3F) * 4));
         sp8.unk2 = (u16) ((0xFFFFFC00 & sp8.unk2) | ((u32) (temp_r6 << 0x10) >> 0x16));
         sp8.unk3 = (u8) ((3 & sp8.unk3) | (((u16) temp_r4 & 0x3F) * 4));
@@ -183,7 +220,7 @@ block_72:
         __12RucksackItem();
         temp_r5_2 = sp24->unkA;
         temp_r6_2 = sp24->unkE;
-        sp10.unk0 = (u16) ((0xFFFFFC00 & sp10.unk0) | 2);
+        sp10 = (u16) ((0xFFFFFC00 & sp10) | 2);
         sp10.unk1 = (u8) ((3 & sp10.unk1) | (((u16) temp_r5_2 & 0x3F) * 4));
         sp10.unk2 = (u16) ((0xFFFFFC00 & sp10.unk2) | ((u32) (temp_r5_2 << 0x10) >> 0x16));
         sp10.unk3 = (u8) ((3 & sp10.unk3) | (((u16) temp_r6_2 & 0x3F) * 4));
@@ -199,14 +236,14 @@ block_71:
         case 0:
             temp_r4_2 = *sp28 + 0x15C;
             GetFood__C12RucksackItem(&sp10, &sp8);
-            __7ProductG4Food(&sp1C, (sp0.unk12 << 0x10) | ((sp0.unk11 << 8) | (u8) sp10.unk0));
+            __7ProductG4Food(&sp1C, (sp0.unk12 << 0x10) | ((sp0.unk11 << 8) | (u8) sp10));
             *temp_r4_2(sp28, &sp1C);
 block_27:
             var_r6 = 0;
             goto block_72;
         case 1:
             temp_r4_3 = *sp28 + 0x15C;
-            temp_r5_3 = &sp0 + 0x1D;
+            temp_r5_3 = &(GenObj *)((u8 *)sp0 + 0x1D);
             __7ProductG7Article(temp_r5_3, GetArticle__C12RucksackItem(&sp8));
             *temp_r4_3(sp28, temp_r5_3);
             goto block_27;
@@ -238,11 +275,11 @@ block_31:
         if (temp_r0_5 == 0) {
             goto block_71;
         }
-        if ((temp_r0_5->unk14->unk50(temp_r0_5) << 0x18) != 0) {
-            temp_r0_5->unk14->unk70(temp_r0_5);
+        if ((((void (*)(void *,...))(temp_r0_5->unk14->unk50))(temp_r0_5) << 0x18) != 0) {
+            ((void (*)(void *,...))(temp_r0_5->unk14->unk70))(temp_r0_5);
         }
-        if ((temp_r0_5->unk14->unk54(temp_r0_5) << 0x18) != 0) {
-            temp_r0_6 = temp_r0_5->unk14->unk74(temp_r0_5);
+        if ((((void (*)(void *,...))(temp_r0_5->unk14->unk54))(temp_r0_5) << 0x18) != 0) {
+            temp_r0_6 = ((void (*)(void *,...))(temp_r0_5->unk14->unk74))(temp_r0_5);
             var_r1_3 = 0x1C;
             switch (temp_r0_6) {
             case 0:
@@ -265,13 +302,13 @@ block_31:
                 break;
             }
             temp_r4_4 = *sp28 + 0x15C;
-            temp_r6_3 = &sp0 + 0x1E;
+            temp_r6_3 = &(GenObj *)((u8 *)sp0 + 0x1E);
             __4FoodUi(&sp8, var_r1_3);
-            __7ProductG4Food(temp_r6_3, (sp0.unkA << 0x10) | ((sp0.unk9 << 8) | (u8) sp8.unk0));
+            __7ProductG4Food(temp_r6_3, (sp0.unkA << 0x10) | ((sp0.unk9 << 8) | (u8) sp8));
             *temp_r4_4(sp28, temp_r6_3);
         }
-        if ((temp_r0_5->unk14->unk58(temp_r0_5) << 0x18) != 0) {
-            temp_r0_7 = temp_r0_5->unk14->unk78(temp_r0_5);
+        if ((((void (*)(void *,...))(temp_r0_5->unk14->unk58))(temp_r0_5) << 0x18) != 0) {
+            temp_r0_7 = ((void (*)(void *,...))(temp_r0_5->unk14->unk78))(temp_r0_5);
             var_r1_4 = 5;
             switch (temp_r0_7) {
             case 0:
@@ -294,21 +331,21 @@ block_31:
                 break;
             }
             temp_r5_4 = *sp28 + 0x15C;
-            temp_r6_4 = &sp0 + 0x1F;
+            temp_r6_4 = &(GenObj *)((u8 *)sp0 + 0x1F);
             __7ArticleUi(&sp20, var_r1_4);
             __7ProductG7Article(temp_r6_4, sp20);
             *temp_r5_4(sp28, temp_r6_4);
         }
-        temp_r0_5->unk14->unk88(temp_r0_5, 0x3C);
+        ((void (*)(void *,...))(temp_r0_5->unk14->unk88))(temp_r0_5, 0x3C);
         var_r6 = 2;
         goto block_72;
     case 7:
         temp_r0_8 = (*sp28)->unk40(sp28, sp0.unk1 + 0x2E);
         if (temp_r0_8 != 0) {
-            if ((temp_r0_8->unk14->unk50(temp_r0_8) << 0x18) != 0) {
-                temp_r0_8->unk14->unk70(temp_r0_8);
+            if ((((void (*)(void *,...))(temp_r0_8->unk14->unk50))(temp_r0_8) << 0x18) != 0) {
+                ((void (*)(void *,...))(temp_r0_8->unk14->unk70))(temp_r0_8);
             }
-            temp_r0_8->unk14->unk88(temp_r0_8, 0x3C);
+            ((void (*)(void *,...))(temp_r0_8->unk14->unk88))(temp_r0_8, 0x3C);
             var_r6 = 2;
             goto block_72;
         }
@@ -343,9 +380,9 @@ block_31:
             (*temp_r0_11)->unk3C(temp_r0_11, temp_r4_5);
             method_0800C9B8__4CoopUi(sp24->unk3C + 0x3FC, sp0.unk1);
             temp_r4_6 = *sp28 + 0x15C;
-            temp_r6_5 = &sp0 + 0x21;
+            temp_r6_5 = &(GenObj *)((u8 *)sp0 + 0x21);
             __4FoodUi(&sp8, var_r7);
-            __7ProductG4Food(temp_r6_5, (sp0.unkA << 0x10) | ((sp0.unk9 << 8) | (u8) sp8.unk0));
+            __7ProductG4Food(temp_r6_5, (sp0.unkA << 0x10) | ((sp0.unk9 << 8) | (u8) sp8));
             *temp_r4_6(sp28, temp_r6_5);
             var_r6 = 2;
             goto block_72;

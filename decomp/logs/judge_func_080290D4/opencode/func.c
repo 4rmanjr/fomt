@@ -5,9 +5,34 @@ s32 SetAnim__12AActorEntityUi(void *, u16);           /* extern */
 s8 func_0800E550(s32, s32);                         /* extern */
 s32 func_0800F190(s32);                             /* extern */
 s32 func_08026150(void *, s32, u8);                   /* extern */
-extern ? gUnk_080F0FCC;
+extern s32 gUnk_080F0FCC;
 
-s32 func_080290D4(void *arg0, s32 arg1, u8 arg2) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[30];
+    s32 unk22;
+    u8 _pad26[14];
+    s32 unk34;
+    s32 unk38;
+    s32 unk3C;
+    s32 unk3D;
+    s32 unk3E;
+    s32 unk3F;
+    s32 unk40;
+    s32 unk44;
+    u8 _pad48[6];
+    s32 unk4E;
+    s32 unk4F;
+    u8 _pad53[41];
+    s32 unk7C;
+    u8 _pad80[36];
+    s32 unkA4;
+    u8 _padA8[11];
+    s32 unkB3;
+    u8 _padB7[9];
+    s32 unkC0;
+} GenObj;
+s32 func_080290D4(GenObj *arg0, s32 arg1, u8 arg2) {
     s8 sp0;
     s8 sp4;
     s32 temp_r4;

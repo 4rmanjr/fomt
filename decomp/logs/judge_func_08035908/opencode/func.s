@@ -8,14 +8,21 @@
 	.thumb_func
 func_08035908:
 	push	{lr}
+	add	r3, r0, #0
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
-	cmp	r1, r2
+	ldr	r0, [r3, #0x48]
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	cmp	r1, r0
 	beq	.L3	@cond_branch
-	cmp	r3, r2
+	str	r1, [r3, #0x48]
+	ldrh	r2, [r3, #0x24]
+	cmp	r2, r0
 	bne	.L3	@cond_branch
-	cmp	r3, r1
+	cmp	r2, r1
 	beq	.L3	@cond_branch
+	add	r0, r3, #0
 	bl	SetAnim__12AActorEntityUi
 .L3:
 	pop	{r0}

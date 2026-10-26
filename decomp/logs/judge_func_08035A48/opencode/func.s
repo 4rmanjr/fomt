@@ -7,18 +7,62 @@
 	.type	 func_08035A48,function
 	.thumb_func
 func_08035A48:
-	push	{lr}
+	push	{r4, lr}
+	add	r4, r0, #0
+	add	r2, r1, #0
+	ldr	r0, [r2]
+	lsl	r0, r0, #0x16
+	lsr	r0, r0, #0x16
+	ldr	r1, [r4, #0x10]
+	cmp	r1, r0
+	bne	.L3	@cond_branch
+	ldr	r0, [r2, #0x8]
+	ldr	r3, .L8
+	and	r0, r0, r3
+	lsl	r0, r0, #0x6
+	ldr	r1, [r2, #0x4]
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x1a
+	orr	r1, r1, r0
+	lsl	r1, r1, #0x10
+	asr	r1, r1, #0x10
+	ldr	r0, [r4, #0x18]
+	sub	r1, r1, r0
 	cmp	r1, #0
 	bge	.L4	@cond_branch
 	neg	r1, r1
 .L4:
 	cmp	r1, #0x97
 	bgt	.L3	@cond_branch
+	ldr	r0, [r2, #0x10]
+	and	r0, r0, r3
+	lsl	r0, r0, #0x6
+	ldr	r1, [r2, #0xc]
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x1a
+	orr	r1, r1, r0
+	lsl	r1, r1, #0x10
+	asr	r1, r1, #0x10
+	ldr	r0, [r4, #0x1c]
+	sub	r1, r1, r0
+	add	r0, r4, #0
 	mov	r1, #0x2
 	mov	r2, #0x0
 	bl	func_08032384
+	mov	r0, #0x78
+	str	r0, [r4, #0x50]
+	ldr	r0, [r4, #0x24]
+	ldr	r2, [r0, #0x4c]
+	add	r0, r4, #0
+	mov	r1, #0x1
+	bl	_call_via_r2
 .L3:
+	pop	{r4}
 	pop	{r0}
 	bx	r0
+.L9:
+	.align	2, 0
+.L8:
+	.word	0x3ff
 .Lfe1:
 	.size	 func_08035A48,.Lfe1-func_08035A48

@@ -7,10 +7,26 @@
 	.type	 func_0802A510,function
 	.thumb_func
 func_0802A510:
-	push	{r4, r5, lr}
+	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x4
+	add	r3, r0, #0
+	add	r1, r3, #0
+	add	r1, r1, #0x88
+	add	r0, r0, #0x8c
+	mov	r6, #0x1
+	str	r6, [r0]
+	mov	r2, #0x0
+	str	r2, [r1, #0x4]
+	ldr	r0, .L4
+	str	r0, [r1, #0x8]
+	str	r2, [r1, #0xc]
+	mov	r0, #0x88
+	lsl	r0, r0, #0xd
+	str	r0, [r1, #0x18]
+	ldr	r5, [r3, #0x14]
 	cmp	r5, #0
 	beq	.L3	@cond_branch
+	ldr	r4, [r3, #0x3c]
 	add	r0, r4, #0
 	add	r0, r0, #0x5c
 	bl	GetTool__C9ToolStack
@@ -28,10 +44,17 @@ func_0802A510:
 	add	r0, r0, #0xb4
 	mov	r1, #0x0
 	bl	func_0805E850
+	add	r0, r5, #0
+	add	r0, r0, #0xcc
+	str	r6, [r0]
 .L3:
 	add	sp, sp, #0x4
-	pop	{r4, r5}
+	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
+.L5:
+	.align	2, 0
+.L4:
+	.word	-0x80000
 .Lfe1:
 	.size	 func_0802A510,.Lfe1-func_0802A510

@@ -1,5 +1,11 @@
 #include "common.h"
-s32 func_08035AE0(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[6];
+    s32 unkE;
+} GenObj;
+s32 func_08035AE0(GenObj *arg0) {
     s32 var_r2;
 
     var_r2 = 0;

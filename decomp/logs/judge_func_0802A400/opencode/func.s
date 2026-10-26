@@ -7,24 +7,31 @@
 	.type	 func_0802A400,function
 	.thumb_func
 func_0802A400:
-	push	{r4, r5, r6, lr}
+	push	{r4, r5, r6, r7, lr}
 	add	r5, r0, #0
-	add	r4, r1, #0
-	cmp	r6, #0
+	add	r6, r1, #0
+	add	r0, r0, #0xa8
+	mov	r7, #0x1
+	str	r7, [r0]
+	ldr	r4, [r5, #0x14]
+	cmp	r4, #0
 	beq	.L3	@cond_branch
-	add	r0, r4, #0
+	add	r0, r6, #0
 	bl	GetIconId__C4Food
 	add	r2, r0, #0
 	lsl	r2, r2, #0x10
 	lsr	r2, r2, #0x10
-	add	r0, r6, #0
+	add	r0, r4, #0
 	add	r0, r0, #0xb4
 	mov	r1, #0x0
 	bl	func_0805E850
+	add	r0, r4, #0
+	add	r0, r0, #0xcc
+	str	r7, [r0]
 .L3:
-	add	r0, r4, #0
+	add	r0, r6, #0
 	bl	GetStaminaGain__C4Food
-	add	r0, r4, #0
+	add	r0, r6, #0
 	bl	IsDrink__C4Food
 	cmp	r0, #0
 	bne	.L4	@cond_branch
@@ -38,11 +45,15 @@ func_0802A400:
 	mov	r1, #0x37
 .L5:
 	strb	r1, [r0]
+	add	r0, r5, #0
+	add	r0, r0, #0xc4
+	mov	r1, #0x1
+	str	r1, [r0]
 	mov	r1, #0xa3
 	lsl	r1, r1, #0x1
 	add	r0, r5, #0
 	bl	SetAnim__12AActorEntityUi
-	pop	{r4, r5, r6}
+	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
 .Lfe1:

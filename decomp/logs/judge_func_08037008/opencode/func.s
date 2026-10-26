@@ -7,15 +7,22 @@
 	.type	 func_08037008,function
 	.thumb_func
 func_08037008:
-	push	{lr}
+	push	{r4, r5, lr}
 	add	sp, sp, #-0x4
+	mov	r4, #0x0
+	str	r4, [sp]
 	mov	r0, #0x0
-	str	r0, [sp]
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x2
 	bl	__12AActorEntityP10GameObjectRC13ActorLocationUiUi
+	str	r4, [r5, #0x4]
+	str	r4, [r5, #0x8]
+	str	r4, [r5, #0xc]
+	mov	r1, #0x1
+	str	r1, [r5, #0x14]
 	add	sp, sp, #0x4
+	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
 .Lfe1:

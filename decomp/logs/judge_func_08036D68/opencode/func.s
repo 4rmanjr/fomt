@@ -17,6 +17,8 @@ func_08036D68:
 	mov	r1, #0x0
 	add	r2, r3, #0
 	bl	__10ANpcEntityP10GameObjectP3NpcUiPCvUiUiUi
+	ldr	r0, .L3+0x4
+	str	r0, [r4, #0x14]
 	add	r0, r4, #0
 	add	sp, sp, #0x4
 	pop	{r4}
@@ -26,5 +28,6 @@ func_08036D68:
 	.align	2, 0
 .L3:
 	.word	0x7fe
+	.word	vtable_unk_080E6998
 .Lfe1:
 	.size	 func_08036D68,.Lfe1-func_08036D68

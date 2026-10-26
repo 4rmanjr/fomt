@@ -7,30 +7,67 @@
 	.type	 func_08034A14,function
 	.thumb_func
 func_08034A14:
-	push	{r4, r5, r6, lr}
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, r9
+	mov	r6, r8
+	push	{r6, r7}
 	add	sp, sp, #-0x8
-	add	r4, r0, #0
-	mov	r5, #0x0
-	str	r5, [sp]
+	add	r6, r0, #0
+	add	r5, r1, #0
+	mov	r0, #0x0
+	mov	r9, r0
+	ldr	r0, [r5, #0x30]
+	lsl	r0, r0, #0x4
+	ldr	r1, .L3
+	mov	r8, r1
+	add	r0, r0, r8
+	ldr	r3, [r0]
+	mov	r0, r9
+	str	r0, [sp]
 	mov	r0, #0x4
 	str	r0, [sp, #0x4]
-	add	r0, r4, #0
+	add	r0, r6, #0
+	add	r1, r5, #0
 	mov	r2, #0x3
-	mov	r3, #0x0
 	bl	func_080324BC
-	add	r0, r4, #0
-	add	r0, r0, #0x8c
+	ldr	r0, .L3+0x4
+	str	r0, [r6, #0x4]
+	ldr	r4, [r5, #0x30]
+	lsl	r4, r4, #0x18
+	lsr	r4, r4, #0x18
+	ldr	r1, .L3+0x8
+	add	r0, r6, r1
+	lsl	r1, r4, #0x3
+	ldr	r2, .L3+0xc
+	add	r1, r1, r2
+	ldrh	r2, [r1]
+	ldr	r3, [r5]
 	mov	r1, #0x2
 	str	r1, [sp]
-	str	r5, [sp, #0x4]
-	add	r1, r6, #0
-	mov	r2, #0x0
-	mov	r3, #0x0
+	lsl	r4, r4, #0x4
+	add	r4, r4, r8
+	ldr	r1, [r4]
+	str	r1, [sp, #0x4]
+	add	r1, r7, #0
 	bl	func_080A4A00
-	add	r0, r4, #0
+	add	r0, r6, #0
+	add	r0, r0, #0xd0
+	mov	r1, r9
+	str	r1, [r0]
+	add	r0, r6, #0
 	add	sp, sp, #0x8
-	pop	{r4, r5, r6}
+	pop	{r3, r4}
+	mov	r8, r3
+	mov	r9, r4
+	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
+.L4:
+	.align	2, 0
+.L3:
+	.word	gUnk_080F14B8
+	.word	vtable_unk_080E6904
+	.word	0x73f0
+	.word	gUnk_080F14F0
 .Lfe1:
 	.size	 func_08034A14,.Lfe1-func_08034A14
