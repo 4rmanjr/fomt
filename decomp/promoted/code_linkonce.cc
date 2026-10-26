@@ -323,3 +323,11 @@ void func_080E103C(s32 **arg0, s32 arg1) {
         __builtin_delete(arg0);
     }
 }
+
+// DECOMP-MATCHED func_080E1A48 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08076EA8();                                  /* extern */
+
+s32 func_080E1A48(void) {
+    func_08076EA8();
+    return 1;
+}
