@@ -678,9 +678,11 @@ def main(argv: list[str]) -> int:
                 autopush(name)  # hasil MATCH langsung disimpan di remote
             cur = None
     except KeyboardInterrupt:
-        if cur:
-            release(cur)  # klaim dilepas; fungsi diulang pada jalan berikutnya
         print("\nBerhenti. Jalankan lagi perintah yang sama untuk lanjut.")
+    finally:
+        # Lepas semua klaim batch ini; kalau tidak, fungsi sisa batch tetap
+        # "dipegang" agent ini dan memblokir agent lain sampai TTL habis.
+        release_all()
     fin = load()
     now = time.time()
     held = sum(1 for v in fin.values() if _live(v, now) and v["claimed_by"] != AGENT)
