@@ -143,3 +143,10 @@ void func_08008D90(void) {
 u32 func_08008D9C(void) {
     return (u32) *(u32 *)0x040000C4 >> 0x1F;
 }
+
+// DECOMP-MATCHED func_08008DA8 (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aSongNumStart(u16);                             /* extern */
+
+void func_08008DA8(u16 arg0) {
+    m4aSongNumStart(arg0);
+}
