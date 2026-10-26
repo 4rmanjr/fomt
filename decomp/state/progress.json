@@ -22256,12 +22256,13 @@
  },
  "func_080DE28C": {
   "addr": 135127692,
-  "claimed_at": 1793003936.721645,
-  "claimed_by": "Prodesk:354734",
+  "judged_mtime": 1793003953.8876665,
   "module": "code_linkonce.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "size": 122,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DE298": {
