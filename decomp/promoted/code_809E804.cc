@@ -285,3 +285,14 @@ void func_080CE294(s32 arg0) {
     func_08050E98(temp_r4, 4);
     func_08050E98(temp_r4, 8);
 }
+
+// DECOMP-MATCHED func_080D0340 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080D0AE0();                                  /* extern */
+extern s32 *gUnk_03000420;
+
+void func_080D0340(void) {
+    if (*gUnk_03000420 != 0) {
+        *gUnk_03000420 = 0;
+        func_080D0AE0();
+    }
+}

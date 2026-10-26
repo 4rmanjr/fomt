@@ -1,0 +1,11 @@
+#include "common.h"
+extern void *gUnk_03000418;
+
+void func_080D01E0(void *arg0, s32 arg1) {
+    gUnk_03000418 = arg0;
+    arg0->unk0 = (s32) (arg1 - 0x10);
+    arg0->unk4 = 0;
+    arg0->unk8 = 0;
+    arg0->unkC = 0;
+}
+
