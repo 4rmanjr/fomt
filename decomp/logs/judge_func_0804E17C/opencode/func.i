@@ -57,13 +57,24 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0804E17C/opencode/func.c" 2
 s32 GetAvailableSpaceFor__C6FridgeUi(s32, s32);
 s32 GetEmptyItemSlotCount__C8Rucksack(s32);
 s32 GetFridge__9FarmHouse(s32);
 s32 func_0800F190(s32);
 
-s32 func_0804E17C(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[848];
+    s32 unk350;
+} GenObj;
+s32 func_0804E17C(GenObj *arg0, s32 arg1) {
     s32 temp_r0;
 
     if (((func_0800F190(arg0->unk350 + 0x1C2C) << 0x18) != 0) || (GetEmptyItemSlotCount__C8Rucksack(arg0->unk350 + 0x1C38) != 0) || ((temp_r0 = GetFridge__9FarmHouse(arg0->unk350 + 0x1F4), (temp_r0 != 0)) && (GetAvailableSpaceFor__C6FridgeUi(temp_r0, arg1) != 0))) {

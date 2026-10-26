@@ -7,7 +7,136 @@
 	.type	 func_0803DDE8,function
 	.thumb_func
 func_0803DDE8:
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, r8
+	push	{r7}
+	ldr	r4, .L12
+	add	sp, sp, r4
+	add	r4, r0, #0
+	ldr	r1, .L12+0x4
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	lsl	r0, r0, #0x19
+	cmp	r0, #0
+	blt	.L4	@cond_branch
+	ldr	r0, .L12+0x8
+	add	r1, r4, r0
+	mov	r0, sp
+	bl	func_0803D52C
+	ldr	r0, [sp, #0x4]
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	ldr	r0, [sp, #0x8]
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	ldr	r0, [sp, #0xc]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	mov	r8, r0
+	ldr	r1, .L12+0xc
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	lsl	r0, r0, #0x1a
+	lsr	r0, r0, #0x1e
+	cmp	r0, #0x2
+	beq	.L4	@cond_branch
+	sub	r1, r1, #0xc
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	lsl	r0, r0, #0x1b
+	cmp	r0, #0
+	blt	.L3	@cond_branch
+	cmp	r7, #0x1
+	bhi	.L4	@cond_branch
+	cmp	r7, #0x1
+	bne	.L3	@cond_branch
+	cmp	r6, #0x3
+	bne	.L3	@cond_branch
+	cmp	r5, #0x1c
+	bls	.L3	@cond_branch
+.L4:
 	mov	r0, #0x0
-	bx	lr
+	b	.L11
+.L13:
+	.align	2, 0
+.L12:
+	.word	-0x21e0
+	.word	0x21dc
+	.word	0x21e00
+	.word	0x2190
+.L3:
+	ldr	r1, .L14
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	lsl	r0, r0, #0x1e
+	lsr	r0, r0, #0x1e
+	cmp	r0, #0x1
+	bne	.L5	@cond_branch
+	mov	r0, #0x5
+	b	.L11
+.L15:
+	.align	2, 0
+.L14:
+	.word	0x2190
+.L5:
+	add	r0, r6, #0
+	add	r1, r5, #0
+	bl	func_0803D644
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.L6	@cond_branch
+	mov	r0, #0x4
+	b	.L11
+.L6:
+	cmp	r7, #0x1
+	bne	.L7	@cond_branch
+	cmp	r6, #0x2
+	bne	.L7	@cond_branch
+	cmp	r5, #0xf
+	bne	.L7	@cond_branch
+	ldr	r1, .L16
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	lsl	r0, r0, #0x1b
+	cmp	r0, #0
+	blt	.L8	@cond_branch
+.L7:
+	mov	r1, #0x86
+	lsl	r1, r1, #0x6
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	mov	r1, #0xc2
+	lsl	r1, r1, #0xb
+	and	r0, r0, r1
+	mov	r1, #0x82
+	lsl	r1, r1, #0xb
+	cmp	r0, r1
+	bne	.L9	@cond_branch
+	mov	r0, r8
+	cmp	r0, #0x6
+	bne	.L8	@cond_branch
+	mov	r0, #0x3
+	b	.L11
+.L17:
+	.align	2, 0
+.L16:
+	.word	0x2184
+.L8:
+	mov	r0, #0x2
+	b	.L11
+.L9:
+	mov	r0, #0x1
+.L11:
+	ldr	r3, .L18
+	add	sp, sp, r3
+	pop	{r3}
+	mov	r8, r3
+	pop	{r4, r5, r6, r7}
+	pop	{r1}
+	bx	r1
+.L19:
+	.align	2, 0
+.L18:
+	.word	0x21e0
 .Lfe1:
 	.size	 func_0803DDE8,.Lfe1-func_0803DDE8

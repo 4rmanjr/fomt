@@ -8,13 +8,23 @@
 	.thumb_func
 func_0803E684:
 	push	{r4, r5, r6, lr}
-	add	sp, sp, #-0xc
-	add	r1, r0, #0
-	add	r1, r1, #0x10
+	add	sp, sp, #-0x24
+	add	r4, r0, #0
+	mov	r0, #0xe0
+	lsl	r0, r0, #0x1
+	add	r1, r4, r0
 	mov	r0, sp
 	bl	func_0803D52C
-	add	r0, r5, #0
-	add	r1, r6, #0
+	ldr	r0, [sp, #0x4]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	add	r6, r0, #0
+	ldr	r0, [sp, #0x8]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	add	r5, r0, #0
+	add	r0, r6, #0
+	add	r1, r5, #0
 	bl	func_0803D644
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
@@ -23,34 +33,34 @@ func_0803E684:
 	b	.L6
 .L3:
 	mov	r0, #0xc8
-	str	r0, [sp, #0x4]
-	lsr	r0, r4, #0x3
+	str	r0, [sp, #0x1c]
+	ldr	r0, [r4, #0x18]
 	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	lsl	r1, r0, #0x3
-	sub	r1, r1, r0
-	lsl	r0, r4, #0x1d
+	lsr	r2, r0, #0x1b
+	lsl	r1, r2, #0x3
+	sub	r1, r1, r2
+	lsl	r0, r0, #0x5
 	lsr	r0, r0, #0x1d
 	add	r1, r1, r0
-	str	r1, [sp, #0x8]
-	add	r0, sp, #0x4
+	str	r1, [sp, #0x20]
+	add	r0, sp, #0x1c
 	cmp	r1, #0xc7
 	bhi	.L4	@cond_branch
-	add	r0, sp, #0x8
+	add	r0, sp, #0x20
 .L4:
 	ldr	r0, [r0]
 	cmp	r0, #0x1
 	bhi	.L5	@cond_branch
-	cmp	r5, #0
+	cmp	r6, #0
 	bne	.L5	@cond_branch
-	cmp	r6, #0x2
+	cmp	r5, #0x2
 	bhi	.L5	@cond_branch
 	mov	r0, #0x0
 	b	.L6
 .L5:
 	mov	r0, #0x1
 .L6:
-	add	sp, sp, #0xc
+	add	sp, sp, #0x24
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1

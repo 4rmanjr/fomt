@@ -7,7 +7,70 @@
 	.type	 func_0803DA24,function
 	.thumb_func
 func_0803DA24:
+	push	{r4, r5, lr}
+	ldr	r4, .L8
+	add	sp, sp, r4
+	add	r4, r0, #0
+	ldr	r1, .L8+0x4
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	mov	r1, #0xc
+	and	r0, r0, r1
+	cmp	r0, #0
+	beq	.L3	@cond_branch
 	mov	r0, #0x0
-	bx	lr
+	b	.L7
+.L9:
+	.align	2, 0
+.L8:
+	.word	-0x21dc
+	.word	0x21d8
+.L3:
+	ldr	r0, .L10
+	add	r1, r4, r0
+	mov	r0, sp
+	bl	func_0803D52C
+	ldr	r0, [sp, #0xc]
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	ldr	r0, [sp, #0x4]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	ldr	r1, [sp, #0x8]
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x18
+	bl	func_0803D644
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.L4	@cond_branch
+	mov	r0, #0x4
+	b	.L7
+.L11:
+	.align	2, 0
+.L10:
+	.word	0x21dc0
+.L4:
+	ldr	r0, [r4, #0x14]
+	cmp	r0, #0
+	bne	.L5	@cond_branch
+	cmp	r5, #0x2
+	bne	.L6	@cond_branch
+	mov	r0, #0x3
+	b	.L7
+.L6:
+	mov	r0, #0x1
+	b	.L7
+.L5:
+	mov	r0, #0x2
+.L7:
+	ldr	r3, .L12
+	add	sp, sp, r3
+	pop	{r4, r5}
+	pop	{r1}
+	bx	r1
+.L13:
+	.align	2, 0
+.L12:
+	.word	0x21dc
 .Lfe1:
 	.size	 func_0803DA24,.Lfe1-func_0803DA24

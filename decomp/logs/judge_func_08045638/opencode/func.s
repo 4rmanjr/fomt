@@ -12,26 +12,31 @@ func_08045638:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x14
+	add	sp, sp, #-0x8
+	mov	r9, r0
 	add	r5, r3, #0
-	ldr	r0, [sp, #0x38]
+	ldr	r0, [sp, #0x2c]
 	lsl	r1, r1, #0x10
 	lsl	r0, r0, #0x18
 	mov	sl, r2
 	lsr	r1, r1, #0x10
 	mov	r8, r1
 	lsr	r6, r0, #0x18
-	ldr	r0, .L42
-	add	r7, r4, r0
+	mov	r0, #0xd7
+	lsl	r0, r0, #0x2
+	add	r0, r0, r9
+	ldr	r0, [r0]
+	ldr	r1, .L42
+	add	r7, r0, r1
 	ldr	r1, .L42+0x4
-	add	r0, r4, r1
+	add	r0, r0, r1
 	mov	r1, sl
 	bl	func_080A0878
 	add	r4, r0, #0
 	cmp	r4, #0
-	bne	.LCB31
+	bne	.LCB37
 	b	.L2	@long jump
-.LCB31:
+.LCB37:
 	cmp	r5, #0x1
 	beq	.L7	@cond_branch
 	cmp	r5, #0x1
@@ -54,7 +59,9 @@ func_08045638:
 	bl	func_0809C694
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	bne	.LCB69
+	b	.L2	@long jump
+.LCB69:
 	add	r0, r7, #0
 	mov	r1, r8
 	bl	func_0809C6B0
@@ -69,9 +76,11 @@ func_08045638:
 	add	r0, r4, #0
 	bl	GetRivalEventCount__C12Bachelorette
 .L9:
-	ldr	r2, [sp, #0x34]
-	cmp	r0, r2
-	bcs	.L2	@cond_branch
+	ldr	r1, [sp, #0x28]
+	cmp	r0, r1
+	bcc	.LCB94
+	b	.L2	@long jump
+.LCB94:
 	add	r0, r7, #0
 	mov	r1, r8
 	bl	func_0809C6AC
@@ -86,7 +95,7 @@ func_08045638:
 	add	r0, r4, #0
 	bl	GetRivalEventCount__C12Bachelorette
 .L14:
-	ldr	r1, [sp, #0x34]
+	ldr	r1, [sp, #0x28]
 	cmp	r0, r1
 	bcs	.L15	@cond_branch
 	cmp	r6, #0
@@ -115,22 +124,26 @@ func_08045638:
 	bl	GetPlayerEventCount__C12Bachelorette
 	cmp	r0, #0x5
 	bne	.L2	@cond_branch
-	mov	r1, #0x0
-	mov	r2, r9
-	lsl	r0, r2, #0x19
+	mov	r0, #0xd7
+	lsl	r0, r0, #0x2
+	add	r0, r0, r9
+	ldr	r0, [r0]
+	ldrb	r4, [r0, #0x18]
+	ldrb	r1, [r0, #0x1c]
+	mov	r5, #0x0
+	lsl	r0, r1, #0x19
 	lsr	r0, r0, #0x1b
 	add	r3, r0, #0x7
 	cmp	r3, #0x1d
 	bls	.L21	@cond_branch
-	mov	r1, #0x1
+	mov	r5, #0x1
 	sub	r3, r3, #0x1e
 .L21:
 	mov	r2, #0xfc
-	mov	r4, r9
-	and	r2, r2, r4
-	lsl	r0, r4, #0x1e
+	and	r2, r2, r1
+	lsl	r0, r1, #0x1e
 	lsr	r0, r0, #0x1e
-	add	r0, r0, r1
+	add	r0, r0, r5
 	mov	r1, #0x3
 	and	r0, r0, r1
 	orr	r2, r2, r0
@@ -148,23 +161,50 @@ func_08045638:
 	add	r0, r0, #0x1
 	cmp	r0, #0x7
 	bhi	.L22	@cond_branch
-	ldr	r1, [sp, #0x8]
-	lsl	r0, r1, #0x1d
+	lsl	r1, r4, #0x18
+	lsr	r3, r1, #0x18
+	lsl	r0, r3, #0x1d
 	lsr	r0, r0, #0x1d
-	add	r0, r0, #0x1
-.L22:
-	add	r2, sp, #0x4
-	mov	r0, #0x0
-	mov	r1, sl
-	bl	func_0809FE74
-	ldr	r2, [sp, #0x10]
-	lsl	r4, r2, #0x19
-	ldr	r0, [sp, #0xc]
-	lsl	r3, r0, #0x1d
-.L25:
-	lsr	r0, r4, #0x1b
+	add	r2, r0, #0x1
+	cmp	r2, #0x6
+	bls	.L23	@cond_branch
 	mov	r2, #0x0
+	lsr	r1, r1, #0x1b
+	cmp	r1, #0x1c
+	bhi	.L23	@cond_branch
+	mov	r0, #0x7
+	and	r0, r0, r3
+	add	r1, r1, #0x1
+	lsl	r1, r1, #0x3
+	orr	r0, r0, r1
+	lsl	r0, r0, #0x18
+	lsr	r4, r0, #0x18
+.L23:
+	mov	r1, #0x8
+	neg	r1, r1
+	add	r0, r1, #0
+	and	r4, r4, r0
+	mov	r0, #0x7
+	and	r2, r2, r0
+	orr	r4, r4, r2
+	lsl	r0, r4, #0x18
+	lsr	r4, r0, #0x18
+.L22:
+	mov	r0, #0xd7
+	lsl	r0, r0, #0x2
+	add	r0, r0, r9
+	ldr	r0, [r0]
+	ldr	r1, .L44
+	add	r0, r0, r1
+	mov	r1, sl
+	mov	r2, #0x0
+	bl	func_0809FE74
 	ldr	r0, [sp, #0x4]
+	lsl	r5, r0, #0x19
+.L25:
+	lsr	r0, r5, #0x1b
+	mov	r2, #0x0
+	ldr	r0, [sp]
 	mov	r1, #0x7f
 	and	r0, r0, r1
 	cmp	r0, #0
@@ -173,11 +213,41 @@ func_08045638:
 .L35:
 	cmp	r2, #0
 	beq	.L25	@cond_branch
-	lsr	r0, r3, #0x1d
-	add	r0, r0, #0x1
+	lsl	r1, r4, #0x18
+	lsr	r3, r1, #0x18
+	lsl	r0, r3, #0x1d
+	lsr	r0, r0, #0x1d
+	add	r2, r0, #0x1
+	cmp	r2, #0x6
+	bls	.L37	@cond_branch
+	mov	r2, #0x0
+	lsr	r1, r1, #0x1b
+	cmp	r1, #0x1c
+	bhi	.L37	@cond_branch
+	mov	r0, #0x7
+	and	r0, r0, r3
+	add	r1, r1, #0x1
+	lsl	r1, r1, #0x3
+	orr	r0, r0, r1
+	lsl	r0, r0, #0x18
+	lsr	r4, r0, #0x18
+.L37:
+	mov	r1, #0x8
+	neg	r1, r1
+	add	r0, r1, #0
+	and	r4, r4, r0
+	mov	r0, #0x7
+	and	r2, r2, r0
+	orr	r4, r4, r2
+	lsl	r0, r4, #0x18
+	lsr	r4, r0, #0x18
 	b	.L25
+.L45:
+	.align	2, 0
+.L44:
+	.word	0x1cd4
 .L2:
-	add	sp, sp, #0x14
+	add	sp, sp, #0x8
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

@@ -3,8 +3,18 @@ u32 GetRivalEventCount__C12Bachelorette(void *);    /* extern */
 s32 func_0803D52C(s32 *, void *);                       /* extern */
 s32 func_0803D644(u8, u8);                          /* extern */
 
-s32 func_0803EB9C(void *arg0, ? arg3) {
-s32 sp0;
+typedef struct GenObj {
+    u8 _pad0[1];
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    u8 _pad7[1];
+    s32 unk8;
+    u8 _padC[8638];
+    s32 unk21CA;
+} GenObj;
+s32 func_0803EB9C(GenObj *arg0, ? arg3) {
+GenObj sp0;
     u32 temp_r0;
     u8 temp_r4;
     u8 temp_r6;

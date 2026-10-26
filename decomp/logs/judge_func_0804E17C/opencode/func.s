@@ -7,32 +7,47 @@
 	.type	 func_0804E17C,function
 	.thumb_func
 func_0804E17C:
-	push	{r4, lr}
-	add	r4, r1, #0
-	mov	r0, #0x0
+	push	{r4, r5, lr}
+	add	r5, r1, #0
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r4, r0, r1
+	ldr	r0, [r4]
+	ldr	r1, .L6
+	add	r0, r0, r1
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L4	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	ldr	r1, .L6+0x4
+	add	r0, r0, r1
 	bl	GetEmptyItemSlotCount__C8Rucksack
 	cmp	r0, #0
 	bne	.L4	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
 	bl	GetFridge__9FarmHouse
 	cmp	r0, #0
 	beq	.L3	@cond_branch
-	add	r1, r4, #0
+	add	r1, r5, #0
 	bl	GetAvailableSpaceFor__C6FridgeUi
 	cmp	r0, #0
 	beq	.L3	@cond_branch
 .L4:
 	mov	r0, #0x1
 	b	.L5
+.L7:
+	.align	2, 0
+.L6:
+	.word	0x1c2c
+	.word	0x1c38
 .L3:
 	mov	r0, #0x0
 .L5:
-	pop	{r4}
+	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
 .Lfe1:

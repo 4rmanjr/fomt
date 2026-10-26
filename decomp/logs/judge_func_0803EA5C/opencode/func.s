@@ -10,12 +10,17 @@ func_0803EA5C:
 	push	{lr}
 	add	sp, sp, #-0x4
 	add	r1, r0, #0
-	add	r1, r1, #0x10
+	ldr	r0, .L4
+	add	r1, r1, r0
 	mov	r0, sp
 	bl	func_0803D52C
 	mov	r0, #0x1
 	add	sp, sp, #0x4
 	pop	{r1}
 	bx	r1
+.L5:
+	.align	2, 0
+.L4:
+	.word	0x218c0
 .Lfe1:
 	.size	 func_0803EA5C,.Lfe1-func_0803EA5C

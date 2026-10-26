@@ -8,43 +8,32 @@
 	.thumb_func
 func_08048FFC:
 	push	{r4, r5, r6, r7, lr}
-	mov	r7, sl
-	mov	r6, r9
-	mov	r5, r8
-	push	{r5, r6, r7}
-	ldr	r4, .L943
-	add	sp, sp, r4
-	str	r0, [sp]
+	mov	r7, r9
+	mov	r6, r8
+	push	{r6, r7}
+	add	r6, r0, #0
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
-	str	r1, [sp, #0x4]
+	mov	r8, r1
 	lsl	r2, r2, #0x18
 	lsr	r4, r2, #0x18
-	ldr	r0, .L943+0x4
-	add	r0, r0, sp
-	str	r3, [r0]
 	bl	func_0804590C
-	str	r0, [sp, #0x1c]
-	ldr	r1, [sp, #0x4]
+	mov	r9, r0
+	mov	r1, r8
 	sub	r1, r1, #0x1c
-	ldr	r0, .L943+0x8
-	ldr	r2, .L943+0x4
-	add	r2, r2, sp
-	ldr	r3, [r2]
+	ldr	r0, .L928
 	cmp	r1, r0
-	bls	.LCB29
+	bls	.LCB21
 	bl	.L3	@far jump
-.LCB29:
+.LCB21:
 	lsl	r0, r1, #0x2
-	ldr	r1, .L943+0xc
+	ldr	r1, .L928+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L944:
+.L929:
 	.align	2, 0
-.L943:
-	.word	-0x6d8
-	.word	0x6d4
+.L928:
 	.word	0x231
 	.word	.L579
 	.align	2, 0
@@ -151,7 +140,7 @@ func_08048FFC:
 	.word	.L106
 	.word	.L107
 	.word	.L141
-	.word	.L147
+	.word	.L146
 	.word	.L108
 	.word	.L109
 	.word	.L110
@@ -268,7 +257,7 @@ func_08048FFC:
 	.word	.L245
 	.word	.L246
 	.word	.L247
-	.word	.L147
+	.word	.L248
 	.word	.L249
 	.word	.L250
 	.word	.L251
@@ -412,7 +401,7 @@ func_08048FFC:
 	.word	.L386
 	.word	.L387
 	.word	.L388
-	.word	.L147
+	.word	.L389
 	.word	.L390
 	.word	.L27
 	.word	.L391
@@ -421,7 +410,7 @@ func_08048FFC:
 	.word	.L393
 	.word	.L394
 	.word	.L395
-	.word	.L147
+	.word	.L396
 	.word	.L397
 	.word	.L3
 	.word	.L398
@@ -461,7 +450,7 @@ func_08048FFC:
 	.word	.L425
 	.word	.L426
 	.word	.L427
-	.word	.L147
+	.word	.L428
 	.word	.L429
 	.word	.L430
 	.word	.L431
@@ -477,7 +466,7 @@ func_08048FFC:
 	.word	.L441
 	.word	.L442
 	.word	.L443
-	.word	.L147
+	.word	.L444
 	.word	.L445
 	.word	.L446
 	.word	.L447
@@ -490,7 +479,7 @@ func_08048FFC:
 	.word	.L454
 	.word	.L455
 	.word	.L456
-	.word	.L147
+	.word	.L457
 	.word	.L458
 	.word	.L459
 	.word	.L460
@@ -498,22 +487,22 @@ func_08048FFC:
 	.word	.L462
 	.word	.L463
 	.word	.L464
-	.word	.L147
+	.word	.L465
 	.word	.L466
 	.word	.L467
 	.word	.L468
 	.word	.L469
 	.word	.L470
 	.word	.L471
-	.word	.L473
+	.word	.L472
 	.word	.L474
 	.word	.L475
 	.word	.L476
-	.word	.L473
+	.word	.L477
 	.word	.L478
 	.word	.L479
 	.word	.L480
-	.word	.L473
+	.word	.L481
 	.word	.L482
 	.word	.L483
 	.word	.L484
@@ -521,7 +510,7 @@ func_08048FFC:
 	.word	.L486
 	.word	.L487
 	.word	.L488
-	.word	.L147
+	.word	.L489
 	.word	.L490
 	.word	.L491
 	.word	.L492
@@ -529,14 +518,14 @@ func_08048FFC:
 	.word	.L494
 	.word	.L495
 	.word	.L496
-	.word	.L147
+	.word	.L497
 	.word	.L498
 	.word	.L499
 	.word	.L500
 	.word	.L501
 	.word	.L502
 	.word	.L503
-	.word	.L147
+	.word	.L504
 	.word	.L505
 	.word	.L506
 	.word	.L507
@@ -544,7 +533,7 @@ func_08048FFC:
 	.word	.L509
 	.word	.L510
 	.word	.L511
-	.word	.L147
+	.word	.L512
 	.word	.L513
 	.word	.L514
 	.word	.L515
@@ -553,7 +542,7 @@ func_08048FFC:
 	.word	.L518
 	.word	.L519
 	.word	.L520
-	.word	.L147
+	.word	.L521
 	.word	.L522
 	.word	.L523
 	.word	.L524
@@ -600,218 +589,322 @@ func_08048FFC:
 	.word	.L565
 	.word	.L566
 	.word	.L567
-	.word	.L147
+	.word	.L568
 	.word	.L569
 	.word	.L570
 	.word	.L571
 	.word	.L572
 	.word	.L573
 	.word	.L574
-	.word	.L147
+	.word	.L575
 	.word	.L576
 	.word	.L577
-	.word	.L147
+	.word	.L578
 	.word	.L40
 .L4:
 	cmp	r4, #0
-	beq	.LCB52
+	beq	.LCB42
 	bl	.L3	@far jump
-.LCB52:
-	mov	r0, #0x0
+.LCB42:
+	mov	r0, #0xd4
+	lsl	r0, r0, #0x2
+	add	r4, r6, r0
+	ldr	r0, [r4]
+	add	r0, r0, #0x14
 	bl	GetUnkFlag11__C4Farm
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB58
+	bne	.LCB54
 	bl	.L3	@far jump
-.LCB58:
-	mov	r0, #0x0
+.LCB54:
+	ldr	r0, [r4]
+	add	r0, r0, #0x14
 	bl	method_08009C60__4Farm
 	bl	.L3	@ far jump
 .L6:
-	mov	r0, #0x0
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r5, r6, r1
+	ldr	r0, [r5]
+	add	r0, r0, #0x14
 	bl	GetUnk10__C4Farm
-	sub	r0, r4, r0
-	cmp	r0, #0
+	sub	r1, r4, r0
+	cmp	r1, #0
 	blt	.L7	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r5]
+	add	r0, r0, #0x14
 	bl	method_08009B68__4FarmUi
 	bl	.L3	@ far jump
 .L7:
-	neg	r1, r0
-	mov	r0, #0x0
+	ldr	r0, [r5]
+	add	r0, r0, #0x14
+	neg	r1, r1
 	bl	method_08009BAC__4FarmUi
 	bl	.L3	@ far jump
 .L9:
-	mov	r0, #0x0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r5, r6, r2
+	ldr	r0, [r5]
+	mov	r3, #0xbe
+	lsl	r3, r3, #0x3
+	add	r0, r0, r3
 	bl	GetStoredBushelCount__C4Barn
-	sub	r0, r4, r0
-	cmp	r0, #0
+	sub	r1, r4, r0
+	cmp	r1, #0
 	blt	.L10	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r5]
+	mov	r1, #0xbe
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
 	bl	AddStoredBushels__4BarnUi
 	bl	.L3	@ far jump
 .L10:
-	neg	r1, r0
-	mov	r0, #0x0
+	ldr	r0, [r5]
+	mov	r2, #0xbe
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
+	neg	r1, r1
 	bl	SubtractStoredBushels__4BarnUi
 	bl	.L3	@ far jump
 .L12:
-	mov	r0, #0x0
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r5, r6, r3
+	ldr	r0, [r5]
+	mov	r1, #0x82
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
 	bl	GetStoredBushelCount__C4Coop
-	sub	r0, r4, r0
-	cmp	r0, #0
+	sub	r1, r4, r0
+	cmp	r1, #0
 	blt	.L13	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r5]
+	mov	r2, #0x82
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
 	bl	AddStoredBushels__4CoopUi
 	bl	.L3	@ far jump
 .L13:
-	neg	r1, r0
-	mov	r0, #0x0
+	ldr	r0, [r5]
+	mov	r3, #0x82
+	lsl	r3, r3, #0x3
+	add	r0, r0, r3
+	neg	r1, r1
 	bl	SubtractStoredBushels__4CoopUi
 	bl	.L3	@ far jump
 .L15:
 	neg	r0, r4
 	orr	r0, r0, r4
-	lsr	r0, r0, #0x1f
-	str	r0, [sp, #0x24]
+	lsr	r5, r0, #0x1f
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L930
+.L909:
+	add	r3, r0, r2
 .L16:
-	add	r3, sp, #0x24
-	ldrb	r3, [r3]
-	strb	r3, [r5]
+	strb	r5, [r3]
 	bl	.L3	@ far jump
+.L931:
+	.align	2, 0
+.L930:
+	.word	0x2148
 .L17:
-	mov	r0, #0x0
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r1, .L932
+	add	r0, r0, r1
 	bl	func_080A0A04
 	add	r5, r0, #0
 	cmp	r5, #0
-	bne	.LCB141
+	bne	.LCB202
 	bl	.L3	@far jump
-.LCB141:
+.LCB202:
 	cmp	r4, #0
-	bne	.LCB143
+	bne	.LCB204
 	bl	.L3	@far jump
-.LCB143:
+.LCB204:
 	bl	func_0809EAE0
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB148
+	beq	.LCB209
 	bl	.L3	@far jump
-.LCB148:
+.LCB209:
 	add	r0, r5, #0
 	bl	func_0809EAEC
 	bl	.L3	@ far jump
+.L933:
+	.align	2, 0
+.L932:
+	.word	0x1cd4
 .L19:
-	mov	r0, #0x0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r5, r6, r2
+	ldr	r0, [r5]
+	mov	r7, #0xfa
+	lsl	r7, r7, #0x1
+	add	r0, r0, r7
 	bl	HasVase__C9FarmHouse
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB160
+	beq	.LCB235
 	bl	.L3	@far jump
-.LCB160:
+.LCB235:
 	cmp	r4, #0
-	bne	.LCB162
+	bne	.LCB237
 	bl	.L3	@far jump
-.LCB162:
-	mov	r0, #0x0
+.LCB237:
+	ldr	r0, [r5]
+	add	r0, r0, r7
 	bl	AddVase__9FarmHouse
 	bl	.L3	@ far jump
 .L21:
 	cmp	r4, #0
 	beq	.L22	@cond_branch
+	mov	r3, #0xd5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB255
+	bl	.L3	@far jump
+.LCB255:
 	mov	r1, #0x4
 .L24:
-	mov	r0, #0x0
+	mov	r2, #0xd5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
 	mov	r2, #0x0
 	bl	func_08016834
 	bl	.L3	@ far jump
 .L22:
-	mov	r0, r8
+	mov	r3, #0xd5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.LCB185
+	bne	.LCB278
 	bl	.L3	@far jump
-.LCB185:
+.LCB278:
 	mov	r1, #0x4
 	bl	func_080168D4
 	bl	.L3	@ far jump
 .L27:
 	cmp	r4, #0
 	bne	.L32	@cond_branch
-	ldr	r1, [sp, #0x8]
-	cmp	r1, #0
-	bne	.LCB199
+	mov	r1, #0xd5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB296
 	bl	.L3	@far jump
-.LCB199:
-	add	r0, r1, #0
+.LCB296:
 	mov	r1, #0x0
 	bl	func_080168D4
 	bl	.L3	@ far jump
 .L32:
+	mov	r2, #0xd5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB311
+	bl	.L3	@far jump
+.LCB311:
 	mov	r1, #0x0
 	b	.L24
 .L36:
-	mov	r0, #0x0
-	bl	AddStocking__9FarmHouse
-	ldr	r2, [sp]
-	mov	r3, #0xd5
+	mov	r3, #0xd4
 	lsl	r3, r3, #0x2
-	add	r0, r2, r3
-.L37:
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
+	bl	AddStocking__9FarmHouse
+.L903:
+	mov	r2, #0xd5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.LCB224
+	bne	.LCB337
 	bl	.L3	@far jump
-.LCB224:
+.LCB337:
 	bl	func_08016C10
 	bl	.L3	@ far jump
 .L39:
-	mov	r0, #0x0
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
 	add	r1, r4, #0
 	bl	SetStockingArticleId__9FarmHouseUi
-	ldr	r1, [sp]
-	mov	r2, #0xd5
-	lsl	r2, r2, #0x2
-	add	r0, r1, r2
-	b	.L37
+	b	.L903
 .L40:
-	mov	r0, #0x0
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r1, .L934
+	add	r0, r0, r1
 	add	r1, r4, #0
 	bl	func_080A03A4
 	bl	.L3	@ far jump
+.L935:
+	.align	2, 0
+.L934:
+	.word	0x1cd4
 .L41:
 	cmp	r4, #0
-	bne	.LCB248
+	bne	.LCB380
 	bl	.L3	@far jump
-.LCB248:
-	mov	r3, r9
-	cmp	r3, #0
-	bne	.LCB252
+.LCB380:
+	mov	r2, #0xd5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+.L904:
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB389
 	bl	.L3	@far jump
-.LCB252:
-	mov	r0, r9
-.L903:
+.LCB389:
 	mov	r1, #0x0
 	bl	func_08016AFC
 	add	r2, r0, #0
 	mov	r1, #0x0
 .L44:
-	ldr	r0, [sp]
+	add	r0, r6, #0
 	bl	func_0804E3D8
 	cmp	r0, #0
-	bne	.LCB267
+	bne	.LCB403
 	bl	.L3	@far jump
-.LCB267:
+.LCB403:
 	bl	SetFestivalWinner__6Animal
 	bl	.L3	@ far jump
 .L46:
 	cmp	r4, #0
-	bne	.LCB274
+	bne	.LCB410
 	bl	.L3	@far jump
-.LCB274:
-	mov	r0, sl
+.LCB410:
+	mov	r3, #0xd5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.LCB278
+	bne	.LCB418
 	bl	.L3	@far jump
-.LCB278:
+.LCB418:
 	mov	r1, #0x4
 	bl	func_08016AFC
 	add	r2, r0, #0
@@ -819,15 +912,17 @@ func_08048FFC:
 	b	.L44
 .L49:
 	cmp	r4, #0
-	bne	.LCB289
+	bne	.LCB429
 	bl	.L3	@far jump
-.LCB289:
-	ldr	r1, [sp, #0xc]
-	cmp	r1, #0
-	bne	.LCB293
+.LCB429:
+	mov	r1, #0xd5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB437
 	bl	.L3	@far jump
-.LCB293:
-	add	r0, r1, #0
+.LCB437:
 	mov	r1, #0x3
 	bl	func_08016AFC
 	add	r2, r0, #0
@@ -835,15 +930,17 @@ func_08048FFC:
 	b	.L44
 .L52:
 	cmp	r4, #0
-	bne	.LCB304
+	bne	.LCB448
 	bl	.L3	@far jump
-.LCB304:
-	ldr	r2, [sp, #0x10]
-	cmp	r2, #0
-	bne	.LCB308
+.LCB448:
+	mov	r2, #0xd5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB456
 	bl	.L3	@far jump
-.LCB308:
-	add	r0, r2, #0
+.LCB456:
 	mov	r1, #0x1
 	bl	func_08016AFC
 	add	r2, r0, #0
@@ -851,26 +948,26 @@ func_08048FFC:
 	b	.L44
 .L55:
 	cmp	r4, #0
-	bne	.LCB319
+	bne	.LCB467
 	bl	.L3	@far jump
-.LCB319:
-	ldr	r3, [sp, #0x14]
-	cmp	r3, #0
-	bne	.LCB323
-	bl	.L3	@far jump
-.LCB323:
-	add	r0, r3, #0
-	b	.L903
+.LCB467:
+	mov	r3, #0xd5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	b	.L904
 .L58:
 	cmp	r4, #0
-	bne	.LCB330
+	bne	.LCB479
 	bl	.L3	@far jump
-.LCB330:
-	ldr	r0, [sp, #0x18]
+.LCB479:
+	mov	r1, #0xd5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.LCB334
+	bne	.LCB487
 	bl	.L3	@far jump
-.LCB334:
+.LCB487:
 	mov	r1, #0x2
 	bl	func_08016AFC
 	add	r2, r0, #0
@@ -878,28 +975,28 @@ func_08048FFC:
 	b	.L44
 .L61:
 	mov	r1, #0x46
-.L904:
+.L905:
 	mov	r2, #0x13
 .L62:
-	ldr	r0, [sp]
+	add	r0, r6, #0
 	add	r3, r4, #0
 	bl	func_08045638
 	bl	.L3	@ far jump
 .L63:
 	mov	r1, #0x47
-	b	.L904
+	b	.L905
 .L64:
 	mov	r1, #0x49
-	b	.L904
+	b	.L905
 .L65:
 	mov	r1, #0x4a
-	b	.L904
+	b	.L905
 .L66:
 	mov	r1, #0x4b
-	b	.L904
+	b	.L905
 .L67:
 	mov	r1, #0x4c
-	b	.L904
+	b	.L905
 .L68:
 	mov	r1, #0x4e
 	mov	r2, #0x3
@@ -998,34 +1095,34 @@ func_08048FFC:
 	mov	r2, #0x1f
 	b	.L62
 .L94:
-	ldr	r1, .L945
+	ldr	r1, .L936
 	mov	r2, #0x1f
 	b	.L62
-.L946:
+.L937:
 	.align	2, 0
-.L945:
+.L936:
 	.word	0x173
 .L95:
 	mov	r1, #0x71
-	b	.L904
+	b	.L905
 .L96:
 	mov	r1, #0x72
-	b	.L904
+	b	.L905
 .L97:
 	mov	r1, #0x73
-	b	.L904
+	b	.L905
 .L98:
 	mov	r1, #0x74
-	b	.L904
+	b	.L905
 .L99:
 	mov	r1, #0x75
-	b	.L904
+	b	.L905
 .L100:
 	mov	r1, #0x76
-	b	.L904
+	b	.L905
 .L101:
 	mov	r1, #0x77
-	b	.L904
+	b	.L905
 .L102:
 	mov	r1, #0x7a
 	mov	r2, #0x3
@@ -1117,4498 +1214,7173 @@ func_08048FFC:
 	mov	r1, #0x97
 	b	.L87
 .L126:
-	ldr	r1, .L947
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L947+0x4
-.L920:
-	add	r5, r1, r2
-.L907:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L938
+	add	r3, r1, r0
 	mov	r0, #0x3
 	and	r0, r0, r4
-	lsl	r0, r0, #0x1
+	lsl	r2, r0, #0x1
+	ldr	r0, .L938+0x4
+.L908:
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x7
 	neg	r1, r1
 .L127:
-	ldr	r2, [sp, #0x28]
-	and	r2, r2, r1
-	orr	r2, r2, r0
-	str	r2, [sp, #0x24]
+	add	r5, r1, #0
+	and	r5, r5, r0
+	orr	r5, r5, r2
 	b	.L16
-.L948:
+.L939:
 	.align	2, 0
-.L947:
-	.word	0x5ec
+.L938:
 	.word	0x215a
-.L128:
-	mov	r3, #0xc3
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L949
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L950:
-	.align	2, 0
-.L949:
-	.word	0x215a
-.L129:
-	ldr	r0, .L951
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L951+0x4
-	add	r5, r0, r1
-	bl	.L906	@ far jump
-.L952:
-	.align	2, 0
-.L951:
-	.word	0x644
-	.word	0x215b
-.L130:
-	mov	r1, #0xce
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L953
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L954:
-	.align	2, 0
-.L953:
-	.word	0x215b
-.L131:
-	ldr	r2, [sp, #0x58]
-	ldr	r3, .L955
-	add	r5, r2, r3
-	b	.L907
-.L956:
-	.align	2, 0
-.L955:
 	.word	0x215c
-.L132:
-	ldr	r0, [sp, #0x84]
-	ldr	r1, .L957
-	add	r5, r0, r1
-	b	.L16
-.L958:
+.L128:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L940
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L940+0x4
+	bl	.L906	@ far jump
+.L941:
 	.align	2, 0
-.L957:
+.L940:
+	.word	0x215a
+	.word	0x215c
+.L129:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L942
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L942+0x4
+	bl	.L907	@ far jump
+.L943:
+	.align	2, 0
+.L942:
+	.word	0x215b
+	.word	0x2160
+.L130:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L944
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L944+0x4
+	bl	.L906	@ far jump
+.L945:
+	.align	2, 0
+.L944:
+	.word	0x215b
+	.word	0x2160
+.L131:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L946
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L946+0x4
+	b	.L908
+.L947:
+	.align	2, 0
+.L946:
+	.word	0x215c
+	.word	0x2164
+.L132:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L948
+	b	.L909
+.L949:
+	.align	2, 0
+.L948:
 	.word	0x215a
 .L133:
-	ldr	r2, [sp, #0xb0]
-	ldr	r3, .L959
-	add	r5, r2, r3
-	bl	.L908	@ far jump
-.L960:
-	.align	2, 0
-.L959:
-	.word	0x215a
-.L134:
-	ldr	r0, [sp, #0xdc]
-	ldr	r1, .L961
-	add	r5, r0, r1
-	bl	.L909	@ far jump
-.L962:
-	.align	2, 0
-.L961:
-	.word	0x215a
-.L135:
-	ldr	r2, [sp, #0x108]
-	ldr	r3, .L963
-	add	r5, r2, r3
-	b	.L16
-.L964:
-	.align	2, 0
-.L963:
-	.word	0x215b
-.L136:
-	ldr	r0, [sp, #0x134]
-	ldr	r1, .L965
-	bl	.L910	@ far jump
-.L966:
-	.align	2, 0
-.L965:
-	.word	0x215b
-.L137:
-	ldr	r2, [sp, #0x160]
-	ldr	r3, .L967
-	bl	.L911	@ far jump
-.L968:
-	.align	2, 0
-.L967:
-	.word	0x215b
-.L138:
-	ldr	r0, [sp, #0x18c]
-	ldr	r1, .L969
-	add	r5, r0, r1
-	bl	.L912	@ far jump
-.L970:
-	.align	2, 0
-.L969:
-	.word	0x215b
-.L139:
-	ldr	r2, [sp, #0x1b8]
-	ldr	r3, .L971
-	add	r5, r2, r3
-	b	.L16
-.L972:
-	.align	2, 0
-.L971:
-	.word	0x215c
-.L140:
-	ldr	r0, [sp, #0x1e4]
-	ldr	r1, .L973
-	add	r5, r0, r1
-	bl	.L908	@ far jump
-.L974:
-	.align	2, 0
-.L973:
-	.word	0x215c
-.L141:
-	ldr	r2, [sp, #0x210]
-	ldr	r3, .L975
-	add	r5, r2, r3
-	bl	.L912	@ far jump
-.L976:
-	.align	2, 0
-.L975:
-	.word	0x215c
-.L142:
-	ldr	r0, [sp, #0x23c]
-	ldr	r1, .L977
-	bl	.L913	@ far jump
-.L978:
-	.align	2, 0
-.L977:
-	.word	0x215c
-.L143:
-	ldr	r2, [sp, #0x268]
-	ldr	r3, .L979
-	add	r5, r2, r3
-	bl	.L914	@ far jump
-.L980:
-	.align	2, 0
-.L979:
-	.word	0x215d
-.L144:
-	ldr	r0, [sp, #0x294]
-	ldr	r1, .L981
-	add	r5, r0, r1
-	bl	.L908	@ far jump
-.L982:
-	.align	2, 0
-.L981:
-	.word	0x215d
-.L145:
-	ldr	r2, [sp, #0x2c0]
-	ldr	r3, .L983
-	add	r5, r2, r3
-	bl	.L915	@ far jump
-.L984:
-	.align	2, 0
-.L983:
-	.word	0x215c
-.L147:
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r1, [r0]
+	ldr	r0, .L950
+	add	r3, r1, r0
 	mov	r0, #0x1
 	and	r0, r0, r4
-	lsl	r0, r0, #0x6
-	ldrb	r1, [r5]
-	str	r1, [sp, #0x28]
+	lsl	r2, r0, #0x3
+	ldr	r0, .L950+0x4
+	bl	.L910	@ far jump
+.L951:
+	.align	2, 0
+.L950:
+	.word	0x215a
+	.word	0x215c
+.L134:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L952
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L952+0x4
+	bl	.L911	@ far jump
+.L953:
+	.align	2, 0
+.L952:
+	.word	0x215a
+	.word	0x215c
+.L135:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L954
+	b	.L909
+.L955:
+	.align	2, 0
+.L954:
+	.word	0x215b
+.L136:
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r1, [r0]
+	ldr	r0, .L956
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L956+0x4
+	bl	.L912	@ far jump
+.L957:
+	.align	2, 0
+.L956:
+	.word	0x215b
+	.word	0x2160
+.L137:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L958
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L958+0x4
+	bl	.L913	@ far jump
+.L959:
+	.align	2, 0
+.L958:
+	.word	0x215b
+	.word	0x2160
+.L138:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L960
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L960+0x4
+	bl	.L914	@ far jump
+.L961:
+	.align	2, 0
+.L960:
+	.word	0x215b
+	.word	0x2160
+.L139:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L962
+	b	.L909
+.L963:
+	.align	2, 0
+.L962:
+	.word	0x215c
+.L140:
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r1, [r0]
+	ldr	r0, .L964
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L964+0x4
+	bl	.L910	@ far jump
+.L965:
+	.align	2, 0
+.L964:
+	.word	0x215c
+	.word	0x2164
+.L141:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L966
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L966+0x4
+	bl	.L914	@ far jump
+.L967:
+	.align	2, 0
+.L966:
+	.word	0x215c
+	.word	0x2164
+.L142:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L968
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L968+0x4
+	bl	.L915	@ far jump
+.L969:
+	.align	2, 0
+.L968:
+	.word	0x215c
+	.word	0x2164
+.L143:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L970
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L970+0x4
+	bl	.L912	@ far jump
+.L971:
+	.align	2, 0
+.L970:
+	.word	0x215d
+	.word	0x2168
+.L144:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L972
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L972+0x4
+	bl	.L910	@ far jump
+.L973:
+	.align	2, 0
+.L972:
+	.word	0x215d
+	.word	0x2168
+.L145:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L974
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L974+0x4
+	bl	.L916	@ far jump
+.L975:
+	.align	2, 0
+.L974:
+	.word	0x215c
+	.word	0x2164
+.L146:
+	ldr	r1, .L976
+.L147:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	add	r3, r0, r1
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x6
+	ldrb	r0, [r3]
 	mov	r1, #0x41
 	neg	r1, r1
 	b	.L127
-.L148:
-	ldr	r2, [sp, #0x2ec]
-	ldr	r3, .L985
-	add	r5, r2, r3
-	b	.L16
-.L986:
+.L977:
 	.align	2, 0
-.L985:
+.L976:
+	.word	0x215c
+.L148:
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r1, .L978
+	add	r3, r0, r1
+	b	.L16
+.L979:
+	.align	2, 0
+.L978:
 	.word	0x215d
 .L149:
-	ldr	r0, [sp, #0x318]
-	ldr	r1, .L987
-	add	r5, r0, r1
-	bl	.L916	@ far jump
-.L988:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L980
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L980+0x4
+	bl	.L913	@ far jump
+.L981:
 	.align	2, 0
-.L987:
+.L980:
 	.word	0x215d
+	.word	0x2168
 .L150:
-	ldr	r2, [sp, #0x344]
-	ldr	r3, .L989
-	add	r5, r2, r3
-	bl	.L915	@ far jump
-.L990:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L982
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L982+0x4
+	bl	.L916	@ far jump
+.L983:
 	.align	2, 0
-.L989:
+.L982:
 	.word	0x215d
+	.word	0x2168
 .L151:
-	ldr	r0, [sp, #0x370]
-	ldr	r1, .L991
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L984
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L984+0x4
 	bl	.L917	@ far jump
-.L992:
+.L985:
 	.align	2, 0
-.L991:
+.L984:
 	.word	0x215d
+	.word	0x2168
 .L152:
-	ldr	r2, .L993
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r0, .L993+0x4
-.L926:
-	add	r7, r2, r0
-.L922:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r3, .L986
+	add	r2, r1, r3
 	mov	r0, #0x3
 	and	r0, r0, r4
 	lsl	r0, r0, #0xf
-	ldr	r1, .L993+0x8
+	add	r3, r3, #0x8
+.L919:
+	add	r1, r1, r3
+	ldr	r1, [r1]
+	ldr	r3, .L986+0x4
 .L153:
-	and	r3, r3, r1
-	orr	r3, r3, r0
-	str	r3, [r7]
+	and	r1, r1, r3
+	orr	r1, r1, r0
+	str	r1, [r2]
 	bl	.L3	@ far jump
-.L994:
+.L987:
 	.align	2, 0
-.L993:
-	.word	0x674
+.L986:
 	.word	0x215c
 	.word	-0x18001
 .L154:
-	ldr	r3, [sp, #0x39c]
-	ldr	r0, .L995
-	add	r5, r3, r0
-	b	.L907
-.L996:
-	.align	2, 0
-.L995:
-	.word	0x215e
-.L155:
-	ldr	r1, [sp, #0x3c8]
-	ldr	r2, .L997
-	bl	.L918	@ far jump
-.L998:
-	.align	2, 0
-.L997:
-	.word	0x215e
-.L156:
-	ldr	r3, [sp, #0x3f4]
-	ldr	r0, .L999
-	add	r5, r3, r0
-	bl	.L919	@ far jump
-.L1000:
-	.align	2, 0
-.L999:
-	.word	0x215e
-.L157:
-	mov	r2, #0x84
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1001
-.L924:
-	add	r1, r2, r3
-.L921:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L988
+	add	r3, r1, r2
 	mov	r0, #0x3
 	and	r0, r0, r4
-	lsl	r0, r0, #0x7
-	ldr	r2, .L1001+0x4
-.L158:
-	ldr	r3, [sp, #0x20]
-	and	r3, r3, r2
-	orr	r3, r3, r0
-	strh	r3, [r1]
-	bl	.L3	@ far jump
-.L1002:
+	lsl	r2, r0, #0x1
+	ldr	r0, .L988+0x4
+	b	.L908
+.L989:
 	.align	2, 0
-.L1001:
+.L988:
 	.word	0x215e
+	.word	0x216c
+.L155:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L990
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L990+0x4
+	bl	.L907	@ far jump
+.L991:
+	.align	2, 0
+.L990:
+	.word	0x215e
+	.word	0x216c
+.L156:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L992
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L992+0x4
+	bl	.L917	@ far jump
+.L993:
+	.align	2, 0
+.L992:
+	.word	0x215e
+	.word	0x216c
+.L157:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L994
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L994+0x4
+.L918:
+	add	r1, r1, r0
+	ldrh	r0, [r1]
+	ldr	r1, .L994+0x8
+.L158:
+	and	r0, r0, r1
+	orr	r0, r0, r2
+	strh	r0, [r3]
+	bl	.L3	@ far jump
+.L995:
+	.align	2, 0
+.L994:
+	.word	0x215e
+	.word	0x216c
 	.word	-0x181
 .L159:
-	ldr	r1, .L1003
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1003+0x4
-	b	.L920
-.L1004:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L996
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L996+0x4
+	b	.L908
+.L997:
 	.align	2, 0
-.L1003:
-	.word	0x44c
+.L996:
 	.word	0x215f
+	.word	0x2170
 .L160:
-	mov	r2, #0x8f
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1005
-	add	r5, r2, r3
-	bl	.L906	@ far jump
-.L1006:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L998
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L998+0x4
+	bl	.L907	@ far jump
+.L999:
 	.align	2, 0
-.L1005:
+.L998:
 	.word	0x215f
+	.word	0x2170
 .L161:
-	ldr	r3, .L1007
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1007+0x4
-	add	r5, r3, r0
-	bl	.L919	@ far jump
-.L1008:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1000
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1000+0x4
+	bl	.L917	@ far jump
+.L1001:
 	.align	2, 0
-.L1007:
-	.word	0x4a4
+.L1000:
 	.word	0x215f
+	.word	0x2170
 .L162:
-	ldr	r0, .L1009
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1009+0x4
-.L923:
-	add	r6, r0, r1
-.L925:
-	lsr	r1, r4, #0x1
-.L934:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1002
+	add	r5, r1, r2
+	lsr	r2, r4, #0x1
 	mov	r0, #0x1
-	and	r1, r1, r0
-	mov	r0, #0x2
-	neg	r0, r0
-.L163:
-	ldr	r2, [sp, #0x2c]
 	and	r2, r2, r0
-	orr	r2, r2, r1
-	strb	r2, [r6]
+	ldr	r3, .L1002+0x4
+.L920:
+	add	r1, r1, r3
+	ldrb	r0, [r1]
+	mov	r1, #0x2
+	neg	r1, r1
+.L163:
+	and	r0, r0, r1
+	orr	r0, r0, r2
+	strb	r0, [r5]
 	bl	.L3	@ far jump
-.L1010:
+.L1003:
 	.align	2, 0
-.L1009:
-	.word	0x6b4
+.L1002:
 	.word	0x2160
+	.word	0x2174
 .L164:
-	mov	r0, #0x9a
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1011
-	add	r5, r0, r1
-	b	.L907
-.L1012:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1004
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1004+0x4
+	b	.L908
+.L1005:
 	.align	2, 0
-.L1011:
+.L1004:
 	.word	0x2160
+	.word	0x2174
 .L165:
-	ldr	r1, .L1013
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1013+0x4
-	bl	.L918	@ far jump
-.L1014:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1006
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1006+0x4
+	bl	.L907	@ far jump
+.L1007:
 	.align	2, 0
-.L1013:
-	.word	0x4fc
+.L1006:
 	.word	0x2160
+	.word	0x2174
 .L166:
-	mov	r2, #0xa5
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1015
-	add	r5, r2, r3
-	bl	.L919	@ far jump
-.L1016:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1008
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1008+0x4
+	bl	.L917	@ far jump
+.L1009:
 	.align	2, 0
-.L1015:
+.L1008:
 	.word	0x2160
+	.word	0x2174
 .L167:
-	ldr	r3, .L1017
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1017+0x4
-	add	r1, r3, r0
-	b	.L921
-.L1018:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1010
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1010+0x4
+	b	.L918
+.L1011:
 	.align	2, 0
-.L1017:
-	.word	0x554
+.L1010:
 	.word	0x2160
+	.word	0x2174
 .L168:
-	ldr	r0, .L1019
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1019+0x4
-	add	r5, r0, r1
-	b	.L907
-.L1020:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1012
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1012+0x4
+	b	.L908
+.L1013:
 	.align	2, 0
-.L1019:
-	.word	0x574
+.L1012:
 	.word	0x2161
+	.word	0x2178
 .L169:
-	mov	r1, #0xaf
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1021
-	bl	.L918	@ far jump
-.L1022:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1014
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1014+0x4
+	bl	.L907	@ far jump
+.L1015:
 	.align	2, 0
-.L1021:
+.L1014:
 	.word	0x2161
+	.word	0x2178
 .L170:
-	ldr	r2, .L1023
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1023+0x4
-	add	r5, r2, r3
-	bl	.L919	@ far jump
-.L1024:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1016
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1016+0x4
+	bl	.L917	@ far jump
+.L1017:
 	.align	2, 0
-.L1023:
-	.word	0x57c
+.L1016:
 	.word	0x2161
+	.word	0x2178
 .L171:
-	mov	r0, #0xd7
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1025
-	add	r7, r0, r1
-	b	.L922
-.L1026:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r3, .L1018
+	add	r2, r1, r3
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r0, r0, #0xf
+	add	r3, r3, #0x14
+	b	.L919
+.L1019:
 	.align	2, 0
-.L1025:
+.L1018:
 	.word	0x2160
 .L172:
-	mov	r1, #0xb0
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1027
-	b	.L920
-.L1028:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1020
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1020+0x4
+	b	.L908
+.L1021:
 	.align	2, 0
-.L1027:
+.L1020:
 	.word	0x2162
+	.word	0x217c
 .L173:
-	ldr	r2, .L1029
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1029+0x4
-	add	r5, r2, r3
-	bl	.L906	@ far jump
-.L1030:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1022
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1022+0x4
+	bl	.L907	@ far jump
+.L1023:
 	.align	2, 0
-.L1029:
-	.word	0x584
+.L1022:
 	.word	0x2162
+	.word	0x217c
 .L174:
-	mov	r3, #0xb1
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1031
-	add	r5, r3, r0
-	bl	.L919	@ far jump
-.L1032:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1024
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1024+0x4
+	bl	.L917	@ far jump
+.L1025:
 	.align	2, 0
-.L1031:
+.L1024:
 	.word	0x2162
+	.word	0x217c
 .L175:
-	ldr	r0, .L1033
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r2, .L1033+0x4
-	add	r1, r0, r2
-	b	.L921
-.L1034:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1026
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1026+0x4
+	b	.L918
+.L1027:
 	.align	2, 0
-.L1033:
-	.word	0x58c
+.L1026:
 	.word	0x2162
+	.word	0x217c
 .L176:
-	mov	r1, #0xb2
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1035
-	b	.L920
-.L1036:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1028
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	mov	r0, #0x86
+	lsl	r0, r0, #0x6
+	b	.L908
+.L1029:
 	.align	2, 0
-.L1035:
+.L1028:
 	.word	0x2163
 .L177:
-	ldr	r2, .L1037
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1037+0x4
-	add	r5, r2, r3
-	bl	.L906	@ far jump
-.L1038:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1030
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	mov	r0, #0x86
+	lsl	r0, r0, #0x6
+	bl	.L907	@ far jump
+.L1031:
 	.align	2, 0
-.L1037:
-	.word	0x594
+.L1030:
 	.word	0x2163
 .L178:
-	mov	r3, #0xb3
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1039
-	add	r5, r3, r0
-	bl	.L919	@ far jump
-.L1040:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1032
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	mov	r0, #0x86
+	lsl	r0, r0, #0x6
+	bl	.L917	@ far jump
+.L1033:
 	.align	2, 0
-.L1039:
+.L1032:
 	.word	0x2163
 .L179:
-	ldr	r0, .L1041
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1041+0x4
-	b	.L923
-.L1042:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1034
+	add	r5, r1, r2
+	lsr	r2, r4, #0x1
+	mov	r0, #0x1
+	and	r2, r2, r0
+	ldr	r3, .L1034+0x4
+	b	.L920
+.L1035:
 	.align	2, 0
-.L1041:
-	.word	0x6bc
+.L1034:
 	.word	0x2164
+	.word	0x2184
 .L180:
-	ldr	r1, .L1043
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1043+0x4
-	b	.L920
-.L1044:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1036
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1036+0x4
+	b	.L908
+.L1037:
 	.align	2, 0
-.L1043:
-	.word	0x59c
+.L1036:
 	.word	0x2164
+	.word	0x2184
 .L181:
-	mov	r2, #0xb4
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1045
-	add	r5, r2, r3
-	bl	.L906	@ far jump
-.L1046:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1038
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1038+0x4
+	bl	.L907	@ far jump
+.L1039:
 	.align	2, 0
-.L1045:
+.L1038:
 	.word	0x2164
+	.word	0x2184
 .L182:
-	ldr	r3, .L1047
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1047+0x4
-	add	r5, r3, r0
-	bl	.L919	@ far jump
-.L1048:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1040
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1040+0x4
+	bl	.L917	@ far jump
+.L1041:
 	.align	2, 0
-.L1047:
-	.word	0x5a4
+.L1040:
 	.word	0x2164
+	.word	0x2184
 .L183:
-	mov	r0, #0xb5
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r2, .L1049
-	add	r1, r0, r2
-	b	.L921
-.L1050:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1042
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1042+0x4
+	b	.L918
+.L1043:
 	.align	2, 0
-.L1049:
+.L1042:
 	.word	0x2164
+	.word	0x2184
 .L184:
-	ldr	r1, .L1051
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1051+0x4
-	b	.L920
-.L1052:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1044
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1044+0x4
+	b	.L908
+.L1045:
 	.align	2, 0
-.L1051:
-	.word	0x5ac
+.L1044:
 	.word	0x2165
+	.word	0x2188
 .L185:
-	mov	r2, #0xb6
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1053
-	add	r5, r2, r3
-	bl	.L906	@ far jump
-.L1054:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1046
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1046+0x4
+	bl	.L907	@ far jump
+.L1047:
 	.align	2, 0
-.L1053:
+.L1046:
 	.word	0x2165
+	.word	0x2188
 .L186:
-	ldr	r3, .L1055
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1055+0x4
-	add	r5, r3, r0
-	bl	.L919	@ far jump
-.L1056:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1048
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1048+0x4
+	bl	.L917	@ far jump
+.L1049:
 	.align	2, 0
-.L1055:
-	.word	0x5b4
+.L1048:
 	.word	0x2165
+	.word	0x2188
 .L187:
-	mov	r0, #0xd8
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1057
-	add	r7, r0, r1
-	b	.L922
-.L1058:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r3, .L1050
+	add	r2, r1, r3
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r0, r0, #0xf
+	add	r3, r3, #0x20
+	b	.L919
+.L1051:
 	.align	2, 0
-.L1057:
+.L1050:
 	.word	0x2164
 .L188:
-	mov	r1, #0xb7
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1059
-	b	.L920
-.L1060:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1052
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1052+0x4
+	b	.L908
+.L1053:
 	.align	2, 0
-.L1059:
+.L1052:
 	.word	0x2166
+	.word	0x218c
 .L189:
-	ldr	r2, .L1061
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1061+0x4
-	add	r5, r2, r3
-	bl	.L906	@ far jump
-.L1062:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1054
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1054+0x4
+	bl	.L907	@ far jump
+.L1055:
 	.align	2, 0
-.L1061:
-	.word	0x5bc
+.L1054:
 	.word	0x2166
+	.word	0x218c
 .L190:
-	mov	r3, #0xb8
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1063
-	add	r5, r3, r0
-	bl	.L919	@ far jump
-.L1064:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1056
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1056+0x4
+	bl	.L917	@ far jump
+.L1057:
 	.align	2, 0
-.L1063:
+.L1056:
 	.word	0x2166
+	.word	0x218c
 .L191:
-	ldr	r0, .L1065
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r2, .L1065+0x4
-	add	r1, r0, r2
-	b	.L921
-.L1066:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1058
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1058+0x4
+	b	.L918
+.L1059:
 	.align	2, 0
-.L1065:
-	.word	0x5c4
+.L1058:
 	.word	0x2166
+	.word	0x218c
 .L192:
-	mov	r1, #0xb9
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1067
-	b	.L920
-.L1068:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1060
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1060+0x4
+	bl	.L908	@ far jump
+.L1061:
 	.align	2, 0
-.L1067:
+.L1060:
 	.word	0x2167
+	.word	0x2190
 .L193:
-	ldr	r2, .L1069
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1069+0x4
-	add	r5, r2, r3
-	bl	.L906	@ far jump
-.L1070:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1062
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1062+0x4
+	bl	.L907	@ far jump
+.L1063:
 	.align	2, 0
-.L1069:
-	.word	0x5cc
+.L1062:
 	.word	0x2167
+	.word	0x2190
 .L194:
-	mov	r3, #0xba
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1071
-	add	r5, r3, r0
-	bl	.L919	@ far jump
-.L1072:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1064
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1064+0x4
+	bl	.L917	@ far jump
+.L1065:
 	.align	2, 0
-.L1071:
+.L1064:
 	.word	0x2167
+	.word	0x2190
 .L195:
-	ldr	r0, .L1073
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1073+0x4
-	b	.L923
-.L1074:
-	.align	2, 0
-.L1073:
-	.word	0x6c4
-	.word	0x2168
-.L196:
-	ldr	r1, .L1075
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1075+0x4
-	b	.L920
-.L1076:
-	.align	2, 0
-.L1075:
-	.word	0x5d4
-	.word	0x2168
-.L197:
-	mov	r2, #0xbb
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1077
-	add	r5, r2, r3
-	bl	.L906	@ far jump
-.L1078:
-	.align	2, 0
-.L1077:
-	.word	0x2168
-.L198:
-	ldr	r3, .L1079
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1079+0x4
-	add	r5, r3, r0
-	bl	.L919	@ far jump
-.L1080:
-	.align	2, 0
-.L1079:
-	.word	0x5dc
-	.word	0x2168
-.L199:
-	mov	r0, #0xbc
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r2, .L1081
-	add	r1, r0, r2
-	b	.L921
-.L1082:
-	.align	2, 0
-.L1081:
-	.word	0x2168
-.L200:
-	ldr	r1, .L1083
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1083+0x4
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1066
 	add	r5, r1, r2
-	bl	.L16	@ far jump
-.L1084:
+	lsr	r2, r4, #0x1
+	mov	r0, #0x1
+	and	r2, r2, r0
+	ldr	r3, .L1066+0x4
+	b	.L920
+.L1067:
 	.align	2, 0
-.L1083:
-	.word	0x5e4
+.L1066:
+	.word	0x2168
+	.word	0x2194
+.L196:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1068
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1068+0x4
+	bl	.L908	@ far jump
+.L1069:
+	.align	2, 0
+.L1068:
+	.word	0x2168
+	.word	0x2194
+.L197:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1070
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1070+0x4
+	bl	.L907	@ far jump
+.L1071:
+	.align	2, 0
+.L1070:
+	.word	0x2168
+	.word	0x2194
+.L198:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1072
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1072+0x4
+	bl	.L917	@ far jump
+.L1073:
+	.align	2, 0
+.L1072:
+	.word	0x2168
+	.word	0x2194
+.L199:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1074
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1074+0x4
+	b	.L918
+.L1075:
+	.align	2, 0
+.L1074:
+	.word	0x2168
+	.word	0x2194
+.L200:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1076
+	bl	.L909	@ far jump
+.L1077:
+	.align	2, 0
+.L1076:
 	.word	0x2197
 .L201:
-	mov	r2, #0xbd
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1085
-	add	r5, r2, r3
-	b	.L907
-.L1086:
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r1, [r0]
+	ldr	r0, .L1078
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1078+0x4
+	bl	.L908	@ far jump
+.L1079:
 	.align	2, 0
-.L1085:
+.L1078:
 	.word	0x2169
+	.word	0x2198
 .L202:
-	mov	r3, #0xbe
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1087
-	add	r5, r3, r0
-	bl	.L906	@ far jump
-.L1088:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1080
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1080+0x4
+	bl	.L907	@ far jump
+.L1081:
 	.align	2, 0
-.L1087:
+.L1080:
 	.word	0x2169
+	.word	0x2198
 .L203:
-	ldr	r0, .L1089
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1089+0x4
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1082
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1082+0x4
 	bl	.L917	@ far jump
-.L1090:
+.L1083:
 	.align	2, 0
-.L1089:
-	.word	0x5f4
+.L1082:
 	.word	0x2169
+	.word	0x2198
 .L204:
-	mov	r1, #0xd9
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1091
-	add	r7, r1, r2
-	b	.L922
-.L1092:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r3, .L1084
+	add	r2, r1, r3
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r0, r0, #0xf
+	add	r3, r3, #0x2c
+	b	.L919
+.L1085:
 	.align	2, 0
-.L1091:
+.L1084:
 	.word	0x2168
 .L205:
-	mov	r2, #0xbf
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1093
-	add	r5, r2, r3
-	b	.L907
-.L1094:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1086
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1086+0x4
+	bl	.L908	@ far jump
+.L1087:
 	.align	2, 0
-.L1093:
+.L1086:
 	.word	0x216a
+	.word	0x219c
 .L206:
-	ldr	r3, .L1095
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1095+0x4
-	add	r5, r3, r0
-	bl	.L906	@ far jump
-.L1096:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1088
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1088+0x4
+	bl	.L907	@ far jump
+.L1089:
 	.align	2, 0
-.L1095:
-	.word	0x5fc
+.L1088:
 	.word	0x216a
+	.word	0x219c
 .L207:
-	mov	r0, #0xc0
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1097
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1090
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1090+0x4
 	bl	.L917	@ far jump
-.L1098:
+.L1091:
 	.align	2, 0
-.L1097:
+.L1090:
 	.word	0x216a
+	.word	0x219c
 .L208:
-	ldr	r2, .L1099
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1099+0x4
-	b	.L924
-.L1100:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1092
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1092+0x4
+	b	.L918
+.L1093:
 	.align	2, 0
-.L1099:
-	.word	0x604
+.L1092:
 	.word	0x216a
+	.word	0x219c
 .L209:
-	mov	r3, #0xc1
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1101
-	add	r5, r3, r0
-	b	.L907
-.L1102:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1094
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1094+0x4
+	bl	.L908	@ far jump
+.L1095:
 	.align	2, 0
-.L1101:
+.L1094:
 	.word	0x216b
+	.word	0x21a0
 .L210:
-	ldr	r0, .L1103
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1103+0x4
-	add	r5, r0, r1
-	bl	.L906	@ far jump
-.L1104:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1096
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1096+0x4
+	bl	.L907	@ far jump
+.L1097:
 	.align	2, 0
-.L1103:
-	.word	0x60c
+.L1096:
 	.word	0x216b
+	.word	0x21a0
 .L211:
-	mov	r1, #0xc2
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1105
-	add	r5, r1, r2
-	bl	.L919	@ far jump
-.L1106:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1098
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1098+0x4
+	bl	.L917	@ far jump
+.L1099:
 	.align	2, 0
-.L1105:
+.L1098:
 	.word	0x216b
+	.word	0x21a0
 .L212:
-	ldr	r2, .L1107
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1107+0x4
-	add	r6, r2, r3
-	b	.L925
-.L1108:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1100
+	add	r5, r1, r2
+	lsr	r2, r4, #0x1
+	mov	r0, #0x1
+	and	r2, r2, r0
+	ldr	r3, .L1100+0x4
+	b	.L920
+.L1101:
 	.align	2, 0
-.L1107:
-	.word	0x6cc
+.L1100:
 	.word	0x216c
+	.word	0x21a4
 .L213:
-	ldr	r3, .L1109
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1109+0x4
-	add	r5, r3, r0
-	b	.L907
-.L1110:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1102
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1102+0x4
+	bl	.L908	@ far jump
+.L1103:
 	.align	2, 0
-.L1109:
-	.word	0x614
+.L1102:
 	.word	0x216c
+	.word	0x21a4
 .L214:
-	ldr	r0, .L1111
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1111+0x4
-	add	r5, r0, r1
-	bl	.L906	@ far jump
-.L1112:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1104
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1104+0x4
+	bl	.L907	@ far jump
+.L1105:
 	.align	2, 0
-.L1111:
-	.word	0x61c
+.L1104:
 	.word	0x216c
+	.word	0x21a4
 .L215:
-	mov	r1, #0xc4
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1113
-	add	r5, r1, r2
-	bl	.L919	@ far jump
-.L1114:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1106
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1106+0x4
+	bl	.L917	@ far jump
+.L1107:
 	.align	2, 0
-.L1113:
+.L1106:
 	.word	0x216c
+	.word	0x21a4
 .L216:
-	ldr	r2, .L1115
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1115+0x4
-	b	.L924
-.L1116:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1108
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1108+0x4
+	b	.L918
+.L1109:
 	.align	2, 0
-.L1115:
-	.word	0x624
+.L1108:
 	.word	0x216c
+	.word	0x21a4
 .L217:
-	mov	r3, #0xc5
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1117
-	add	r5, r3, r0
-	b	.L907
-.L1118:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1110
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1110+0x4
+	bl	.L908	@ far jump
+.L1111:
 	.align	2, 0
-.L1117:
+.L1110:
 	.word	0x216d
+	.word	0x21a8
 .L218:
-	ldr	r0, .L1119
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1119+0x4
-	add	r5, r0, r1
-	bl	.L906	@ far jump
-.L1120:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1112
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1112+0x4
+	bl	.L907	@ far jump
+.L1113:
 	.align	2, 0
-.L1119:
-	.word	0x62c
+.L1112:
 	.word	0x216d
+	.word	0x21a8
 .L219:
-	mov	r1, #0xc6
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1121
-	add	r5, r1, r2
-	bl	.L919	@ far jump
-.L1122:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1114
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1114+0x4
+	bl	.L917	@ far jump
+.L1115:
 	.align	2, 0
-.L1121:
+.L1114:
 	.word	0x216d
+	.word	0x21a8
 .L220:
-	mov	r2, #0xda
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r0, .L1123
-	b	.L926
-.L1124:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r3, .L1116
+	add	r2, r1, r3
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r0, r0, #0xf
+	add	r3, r3, #0x38
+	bl	.L919	@ far jump
+.L1117:
 	.align	2, 0
-.L1123:
+.L1116:
 	.word	0x216c
 .L221:
-	ldr	r3, .L1125
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1125+0x4
-	add	r5, r3, r0
-	b	.L907
-.L1126:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1118
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1118+0x4
+	bl	.L908	@ far jump
+.L1119:
 	.align	2, 0
-.L1125:
-	.word	0x634
+.L1118:
 	.word	0x216e
+	.word	0x21ac
 .L222:
-	mov	r0, #0xc7
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1127
-	add	r5, r0, r1
-	bl	.L906	@ far jump
-.L1128:
-	.align	2, 0
-.L1127:
-	.word	0x216e
-.L223:
-	lsr	r0, r4, #0x4
-.L224:
-	mov	r1, #0x7
-	and	r1, r1, r0
-	ldrb	r2, [r6]
-	str	r2, [sp, #0x2c]
-	mov	r0, #0x8
-	neg	r0, r0
-	b	.L163
-.L225:
-	ldr	r3, .L1129
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1129+0x4
-	add	r5, r3, r0
-	bl	.L906	@ far jump
-.L1130:
-	.align	2, 0
-.L1129:
-	.word	0x63c
-	.word	0x2170
-.L226:
-	mov	r0, #0xc8
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1131
-	bl	.L917	@ far jump
-.L1132:
-	.align	2, 0
-.L1131:
-	.word	0x2170
-.L227:
-	mov	r2, #0xc9
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1133
-	b	.L924
-.L1134:
-	.align	2, 0
-.L1133:
-	.word	0x2170
-.L228:
-	ldr	r3, .L1135
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1135+0x4
-	add	r5, r3, r0
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1120
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1120+0x4
 	bl	.L907	@ far jump
-.L1136:
+.L1121:
 	.align	2, 0
-.L1135:
-	.word	0x64c
-	.word	0x2171
-.L229:
-	mov	r0, #0xca
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
+.L1120:
+	.word	0x216e
+	.word	0x21ac
+.L223:
+	lsr	r1, r4, #0x4
+	ldr	r2, .L1122
+.L224:
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
 	ldr	r0, [r0]
-	ldr	r1, .L1137
-	add	r5, r0, r1
-	bl	.L906	@ far jump
-.L1138:
+	add	r5, r0, r2
+	mov	r2, #0x7
+	and	r2, r2, r1
+	ldrb	r0, [r5]
+	mov	r1, #0x8
+	neg	r1, r1
+	bl	.L163	@ far jump
+.L1123:
 	.align	2, 0
-.L1137:
+.L1122:
+	.word	0x2170
+.L225:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1124
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1124+0x4
+	bl	.L907	@ far jump
+.L1125:
+	.align	2, 0
+.L1124:
+	.word	0x2170
+	.word	0x21b4
+.L226:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1126
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1126+0x4
+	bl	.L917	@ far jump
+.L1127:
+	.align	2, 0
+.L1126:
+	.word	0x2170
+	.word	0x21b4
+.L227:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1128
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1128+0x4
+	bl	.L918	@ far jump
+.L1129:
+	.align	2, 0
+.L1128:
+	.word	0x2170
+	.word	0x21b4
+.L228:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1130
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1130+0x4
+	bl	.L908	@ far jump
+.L1131:
+	.align	2, 0
+.L1130:
 	.word	0x2171
+	.word	0x21b8
+.L229:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1132
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1132+0x4
+	bl	.L907	@ far jump
+.L1133:
+	.align	2, 0
+.L1132:
+	.word	0x2171
+	.word	0x21b8
 .L230:
-	ldr	r1, .L1139
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1139+0x4
-	add	r5, r1, r2
-	bl	.L919	@ far jump
-.L1140:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1134
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1134+0x4
+	bl	.L917	@ far jump
+.L1135:
 	.align	2, 0
-.L1139:
-	.word	0x654
+.L1134:
 	.word	0x2171
+	.word	0x21b8
 .L231:
-	mov	r2, #0xcb
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1141
-	add	r5, r2, r3
-	bl	.L927	@ far jump
-.L1142:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1136
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1136+0x4
+	bl	.L915	@ far jump
+.L1137:
 	.align	2, 0
-.L1141:
+.L1136:
 	.word	0x2171
+	.word	0x21b8
 .L232:
-	ldr	r3, .L1143
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1143+0x4
-	add	r5, r3, r0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1138
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1144:
+.L1139:
 	.align	2, 0
-.L1143:
-	.word	0x65c
+.L1138:
 	.word	0x2172
 .L233:
-	mov	r0, #0xcc
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1145
-	bl	.L928	@ far jump
-.L1146:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1140
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1140+0x4
+	bl	.L921	@ far jump
+.L1141:
 	.align	2, 0
-.L1145:
+.L1140:
 	.word	0x2172
+	.word	0x21bc
 .L234:
-	ldr	r1, .L1147
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1147+0x4
-	bl	.L929	@ far jump
-.L1148:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1142
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1142+0x4
+	bl	.L911	@ far jump
+.L1143:
 	.align	2, 0
-.L1147:
-	.word	0x664
+.L1142:
 	.word	0x2172
+	.word	0x21bc
 .L235:
-	mov	r2, #0xcd
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1149
-	bl	.L930	@ far jump
-.L1150:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1144
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1144+0x4
+	bl	.L906	@ far jump
+.L1145:
 	.align	2, 0
-.L1149:
+.L1144:
 	.word	0x2172
+	.word	0x21bc
 .L236:
-	ldr	r3, .L1151
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1151+0x4
-	add	r5, r3, r0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1146
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1152:
+.L1147:
 	.align	2, 0
-.L1151:
-	.word	0x66c
+.L1146:
 	.word	0x2173
 .L237:
-	ldr	r0, [sp, #0x30]
-	ldr	r1, .L1153
-	bl	.L928	@ far jump
-.L1154:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1148
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	mov	r0, #0x87
+	lsl	r0, r0, #0x6
+	bl	.L921	@ far jump
+.L1149:
 	.align	2, 0
-.L1153:
+.L1148:
 	.word	0x2173
 .L238:
-	ldr	r2, [sp, #0x34]
-	ldr	r3, .L1155
-	add	r5, r2, r3
-	bl	.L909	@ far jump
-.L1156:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1150
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	mov	r0, #0x87
+	lsl	r0, r0, #0x6
+	bl	.L911	@ far jump
+.L1151:
 	.align	2, 0
-.L1155:
+.L1150:
 	.word	0x2173
 .L239:
-	ldr	r0, [sp, #0x38]
-	ldr	r1, .L1157
-	add	r5, r0, r1
-	bl	.L905	@ far jump
-.L1158:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1152
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	mov	r1, #0x87
+	lsl	r1, r1, #0x6
+	bl	.L906	@ far jump
+.L1153:
 	.align	2, 0
-.L1157:
+.L1152:
 	.word	0x2173
 .L240:
-	ldr	r2, [sp, #0x3c]
-	ldr	r3, .L1159
-	add	r5, r2, r3
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1154
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1160:
+.L1155:
 	.align	2, 0
-.L1159:
+.L1154:
 	.word	0x2174
 .L241:
-	ldr	r0, [sp, #0x40]
-	ldr	r1, .L1161
-	bl	.L928	@ far jump
-.L1162:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1156
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1156+0x4
+	bl	.L921	@ far jump
+.L1157:
 	.align	2, 0
-.L1161:
+.L1156:
 	.word	0x2174
+	.word	0x21c4
 .L242:
-	ldr	r2, [sp, #0x44]
-	ldr	r3, .L1163
-	add	r5, r2, r3
-	bl	.L909	@ far jump
-.L1164:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1158
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1158+0x4
+	bl	.L911	@ far jump
+.L1159:
 	.align	2, 0
-.L1163:
+.L1158:
 	.word	0x2174
+	.word	0x21c4
 .L243:
-	ldr	r0, [sp, #0x48]
-	ldr	r1, .L1165
-	add	r5, r0, r1
-	bl	.L905	@ far jump
-.L1166:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1160
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1160+0x4
+	bl	.L906	@ far jump
+.L1161:
 	.align	2, 0
-.L1165:
+.L1160:
 	.word	0x2174
+	.word	0x21c4
 .L244:
-	ldr	r2, [sp, #0x4c]
-	ldr	r3, .L1167
-	add	r5, r2, r3
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1162
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1168:
+.L1163:
 	.align	2, 0
-.L1167:
+.L1162:
 	.word	0x2175
 .L245:
-	ldr	r0, [sp, #0x50]
-	ldr	r1, .L1169
-	bl	.L928	@ far jump
-.L1170:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1164
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1164+0x4
+	bl	.L921	@ far jump
+.L1165:
 	.align	2, 0
-.L1169:
+.L1164:
 	.word	0x2175
+	.word	0x21c8
 .L246:
-	ldr	r2, [sp, #0x54]
-	ldr	r3, .L1171
-	add	r5, r2, r3
-	bl	.L915	@ far jump
-.L1172:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1166
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1166+0x4
+	bl	.L916	@ far jump
+.L1167:
 	.align	2, 0
-.L1171:
+.L1166:
 	.word	0x2175
+	.word	0x21c8
 .L247:
-	ldr	r0, [sp, #0x5c]
-	ldr	r1, .L1173
-	add	r5, r0, r1
-	bl	.L912	@ far jump
-.L1174:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1168
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1168+0x4
+	bl	.L914	@ far jump
+.L1169:
 	.align	2, 0
-.L1173:
+.L1168:
+	.word	0x2175
+	.word	0x21c8
+.L248:
+	ldr	r1, .L1170
+	bl	.L147	@ far jump
+.L1171:
+	.align	2, 0
+.L1170:
 	.word	0x2175
 .L249:
-	ldr	r2, [sp, #0x60]
-	ldr	r3, .L1175
-	add	r5, r2, r3
-	bl	.L927	@ far jump
-.L1176:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1172
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1172+0x4
+	bl	.L915	@ far jump
+.L1173:
 	.align	2, 0
-.L1175:
+.L1172:
 	.word	0x2175
+	.word	0x21c8
 .L250:
-	ldr	r0, [sp, #0x64]
-	ldr	r1, .L1177
-	add	r5, r0, r1
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1174
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1178:
+.L1175:
 	.align	2, 0
-.L1177:
+.L1174:
 	.word	0x2176
 .L251:
-	ldr	r2, [sp, #0x68]
-	ldr	r3, .L1179
-	add	r5, r2, r3
-	bl	.L907	@ far jump
-.L1180:
-	.align	2, 0
-.L1179:
-	.word	0x2176
-.L252:
-	ldr	r0, [sp, #0x6c]
-	ldr	r1, .L1181
-	add	r5, r0, r1
-	bl	.L906	@ far jump
-.L1182:
-	.align	2, 0
-.L1181:
-	.word	0x2176
-.L253:
-	ldr	r2, [sp, #0x70]
-	ldr	r3, .L1183
-	add	r5, r2, r3
-	bl	.L919	@ far jump
-.L1184:
-	.align	2, 0
-.L1183:
-	.word	0x2176
-.L254:
-	ldr	r0, [sp, #0x74]
-	ldr	r2, .L1185
-	add	r1, r0, r2
-	bl	.L921	@ far jump
-.L1186:
-	.align	2, 0
-.L1185:
-	.word	0x2176
-.L255:
-	ldr	r3, [sp, #0x78]
-	ldr	r0, .L1187
-	add	r5, r3, r0
-	bl	.L907	@ far jump
-.L1188:
-	.align	2, 0
-.L1187:
-	.word	0x2177
-.L256:
-	ldr	r1, [sp, #0x7c]
-	ldr	r2, .L1189
-	add	r5, r1, r2
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1176
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1176+0x4
 	bl	.L908	@ far jump
-.L1190:
+.L1177:
 	.align	2, 0
-.L1189:
+.L1176:
+	.word	0x2176
+	.word	0x21cc
+.L252:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1178
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1178+0x4
+	bl	.L907	@ far jump
+.L1179:
+	.align	2, 0
+.L1178:
+	.word	0x2176
+	.word	0x21cc
+.L253:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1180
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1180+0x4
+	bl	.L917	@ far jump
+.L1181:
+	.align	2, 0
+.L1180:
+	.word	0x2176
+	.word	0x21cc
+.L254:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1182
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1182+0x4
+	bl	.L918	@ far jump
+.L1183:
+	.align	2, 0
+.L1182:
+	.word	0x2176
+	.word	0x21cc
+.L255:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1184
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1184+0x4
+	bl	.L908	@ far jump
+.L1185:
+	.align	2, 0
+.L1184:
 	.word	0x2177
+	.word	0x21d0
+.L256:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1186
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1186+0x4
+	bl	.L910	@ far jump
+.L1187:
+	.align	2, 0
+.L1186:
+	.word	0x2177
+	.word	0x21d0
 .L257:
-	ldr	r3, [sp, #0x80]
-	ldr	r0, .L1191
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L1192:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1188
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1188+0x4
+	bl	.L911	@ far jump
+.L1189:
 	.align	2, 0
-.L1191:
+.L1188:
 	.word	0x2177
+	.word	0x21d0
 .L258:
-	ldr	r1, [sp, #0x88]
-	ldr	r2, .L1193
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L1194:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1190
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1190+0x4
+	bl	.L906	@ far jump
+.L1191:
 	.align	2, 0
-.L1193:
+.L1190:
 	.word	0x2177
+	.word	0x21d0
 .L259:
-	ldr	r3, [sp, #0x8c]
-	ldr	r0, .L1195
-	add	r5, r3, r0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1192
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1196:
+.L1193:
 	.align	2, 0
-.L1195:
+.L1192:
 	.word	0x2178
 .L260:
-	ldr	r1, [sp, #0x90]
-	ldr	r2, .L1197
-	bl	.L920	@ far jump
-.L1198:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1194
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1194+0x4
+	bl	.L908	@ far jump
+.L1195:
 	.align	2, 0
-.L1197:
+.L1194:
 	.word	0x2178
+	.word	0x21d4
 .L261:
-	ldr	r3, [sp, #0x94]
-	ldr	r0, .L1199
-	add	r5, r3, r0
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1196
+	add	r3, r1, r2
 	mov	r0, #0x7
 	and	r0, r0, r4
-	lsl	r0, r0, #0x3
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1196+0x4
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x39
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1200:
+.L1197:
 	.align	2, 0
-.L1199:
+.L1196:
 	.word	0x2178
+	.word	0x21d4
 .L262:
-	ldr	r1, [sp, #0x98]
-	ldr	r2, .L1201
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L1202:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1198
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1198+0x4
+	bl	.L906	@ far jump
+.L1199:
 	.align	2, 0
-.L1201:
+.L1198:
 	.word	0x2178
+	.word	0x21d4
 .L263:
-	ldr	r3, [sp, #0x9c]
-	ldr	r0, .L1203
-	add	r5, r3, r0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1200
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1204:
+.L1201:
 	.align	2, 0
-.L1203:
+.L1200:
 	.word	0x2179
 .L264:
-	ldr	r1, [sp, #0xa0]
-	ldr	r2, .L1205
-	add	r5, r1, r2
-	bl	.L931	@ far jump
-.L1206:
-	.align	2, 0
-.L1205:
-	.word	0x2179
-.L265:
-	ldr	r3, [sp, #0xa4]
-	ldr	r0, .L1207
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L1208:
-	.align	2, 0
-.L1207:
-	.word	0x2179
-.L266:
-	mov	r1, #0xcf
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1209
-	add	r7, r1, r2
-	b	.L932
-.L1210:
-	.align	2, 0
-.L1209:
-	.word	0x2178
-.L267:
-	ldr	r2, [sp, #0xa8]
-	ldr	r3, .L1211
-	bl	.L911	@ far jump
-.L1212:
-	.align	2, 0
-.L1211:
-	.word	0x217a
-.L268:
-	ldr	r0, [sp, #0xac]
-	ldr	r1, .L1213
-	add	r5, r0, r1
-	bl	.L906	@ far jump
-.L1214:
-	.align	2, 0
-.L1213:
-	.word	0x217a
-.L269:
-	ldr	r2, [sp, #0xb4]
-	ldr	r3, .L1215
-	add	r5, r2, r3
-	bl	.L919	@ far jump
-.L1216:
-	.align	2, 0
-.L1215:
-	.word	0x217a
-.L270:
-	ldr	r0, [sp, #0xb8]
-	ldr	r1, .L1217
-	bl	.L913	@ far jump
-.L1218:
-	.align	2, 0
-.L1217:
-	.word	0x217a
-.L271:
-	ldr	r2, [sp, #0xbc]
-	ldr	r3, .L1219
-	add	r5, r2, r3
-	bl	.L16	@ far jump
-.L1220:
-	.align	2, 0
-.L1219:
-	.word	0x217b
-.L272:
-	ldr	r0, [sp, #0xc0]
-	ldr	r1, .L1221
-	bl	.L917	@ far jump
-.L1222:
-	.align	2, 0
-.L1221:
-	.word	0x217b
-.L273:
-	ldr	r2, .L1223
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1223+0x4
-	add	r6, r2, r3
-	bl	.L925	@ far jump
-.L1224:
-	.align	2, 0
-.L1223:
-	.word	0x67c
-	.word	0x217c
-.L274:
-	ldr	r3, [sp, #0xc4]
-	ldr	r0, .L1225
-	add	r5, r3, r0
-	bl	.L907	@ far jump
-.L1226:
-	.align	2, 0
-.L1225:
-	.word	0x217c
-.L275:
-	ldr	r1, [sp, #0xc8]
-	ldr	r2, .L1227
-	bl	.L918	@ far jump
-.L1228:
-	.align	2, 0
-.L1227:
-	.word	0x217c
-.L276:
-	ldr	r3, [sp, #0xcc]
-	ldr	r0, .L1229
-	add	r5, r3, r0
-	bl	.L919	@ far jump
-.L1230:
-	.align	2, 0
-.L1229:
-	.word	0x217c
-.L277:
-	ldr	r1, [sp, #0xd0]
-	ldr	r2, .L1231
-	add	r5, r1, r2
-	bl	.L927	@ far jump
-.L1232:
-	.align	2, 0
-.L1231:
-	.word	0x217c
-.L278:
-	ldr	r3, [sp, #0xd4]
-	ldr	r0, .L1233
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1234:
-	.align	2, 0
-.L1233:
-	.word	0x217d
-.L279:
-	ldr	r1, [sp, #0xd8]
-	ldr	r2, .L1235
-	add	r5, r1, r2
-	bl	.L931	@ far jump
-.L1236:
-	.align	2, 0
-.L1235:
-	.word	0x217d
-.L280:
-	ldr	r3, [sp, #0xe0]
-	ldr	r0, .L1237
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L1238:
-	.align	2, 0
-.L1237:
-	.word	0x217d
-.L281:
-	ldr	r1, [sp, #0xe4]
-	ldr	r2, .L1239
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L1240:
-	.align	2, 0
-.L1239:
-	.word	0x217d
-.L282:
-	ldr	r3, [sp, #0xe8]
-	ldr	r0, .L1241
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1242:
-	.align	2, 0
-.L1241:
-	.word	0x217e
-.L283:
-	ldr	r1, [sp, #0xec]
-	ldr	r2, .L1243
-	add	r5, r1, r2
-	bl	.L931	@ far jump
-.L1244:
-	.align	2, 0
-.L1243:
-	.word	0x217e
-.L284:
-	ldr	r3, [sp, #0xf0]
-	ldr	r0, .L1245
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L1246:
-	.align	2, 0
-.L1245:
-	.word	0x217e
-.L285:
-	ldr	r1, [sp, #0xf4]
-	ldr	r2, .L1247
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L1248:
-	.align	2, 0
-.L1247:
-	.word	0x217e
-.L286:
-	ldr	r3, [sp, #0xf8]
-	ldr	r0, .L1249
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1250:
-	.align	2, 0
-.L1249:
-	.word	0x217f
-.L287:
-	ldr	r1, [sp, #0xfc]
-	ldr	r2, .L1251
-	add	r5, r1, r2
-	bl	.L931	@ far jump
-.L1252:
-	.align	2, 0
-.L1251:
-	.word	0x217f
-.L288:
-	ldr	r3, [sp, #0x100]
-	ldr	r0, .L1253
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L1254:
-	.align	2, 0
-.L1253:
-	.word	0x217f
-.L289:
-	ldr	r1, [sp, #0x104]
-	ldr	r2, .L1255
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L1256:
-	.align	2, 0
-.L1255:
-	.word	0x217f
-.L290:
-	ldr	r3, [sp, #0x10c]
-	mov	r0, #0x86
-	lsl	r0, r0, #0x6
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L291:
-	ldr	r1, [sp, #0x110]
-	mov	r2, #0x86
-	lsl	r2, r2, #0x6
-	add	r5, r1, r2
-	bl	.L931	@ far jump
-.L292:
-	ldr	r3, [sp, #0x114]
-	mov	r0, #0x86
-	lsl	r0, r0, #0x6
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L293:
-	ldr	r1, [sp, #0x118]
-	mov	r2, #0x86
-	lsl	r2, r2, #0x6
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L294:
-	ldr	r3, [sp, #0x11c]
-	ldr	r0, .L1257
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1258:
-	.align	2, 0
-.L1257:
-	.word	0x2181
-.L295:
-	ldr	r1, [sp, #0x120]
-	ldr	r2, .L1259
-	add	r5, r1, r2
-	bl	.L931	@ far jump
-.L1260:
-	.align	2, 0
-.L1259:
-	.word	0x2181
-.L296:
-	ldr	r3, [sp, #0x124]
-	ldr	r0, .L1261
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L1262:
-	.align	2, 0
-.L1261:
-	.word	0x2181
-.L297:
-	ldr	r1, [sp, #0x128]
-	ldr	r2, .L1263
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L1264:
-	.align	2, 0
-.L1263:
-	.word	0x2181
-.L298:
-	ldr	r3, [sp, #0x12c]
-	ldr	r0, .L1265
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1266:
-	.align	2, 0
-.L1265:
-	.word	0x2182
-.L299:
-	ldr	r1, [sp, #0x130]
-	ldr	r2, .L1267
-	add	r5, r1, r2
-	bl	.L916	@ far jump
-.L1268:
-	.align	2, 0
-.L1267:
-	.word	0x2182
-.L300:
-	ldr	r3, [sp, #0x138]
-	ldr	r0, .L1269
-	add	r5, r3, r0
-	bl	.L906	@ far jump
-.L1270:
-	.align	2, 0
-.L1269:
-	.word	0x2182
-.L301:
-	ldr	r1, [sp, #0x13c]
-	ldr	r2, .L1271
-	add	r5, r1, r2
-	bl	.L919	@ far jump
-.L1272:
-	.align	2, 0
-.L1271:
-	.word	0x2182
-.L302:
-	ldr	r3, [sp, #0x140]
-	ldr	r0, .L1273
-	add	r1, r3, r0
-	bl	.L921	@ far jump
-.L1274:
-	.align	2, 0
-.L1273:
-	.word	0x2182
-.L303:
-	ldr	r1, [sp, #0x144]
-	ldr	r2, .L1275
-	bl	.L920	@ far jump
-.L1276:
-	.align	2, 0
-.L1275:
-	.word	0x2183
-.L304:
-	ldr	r3, [sp, #0x148]
-	ldr	r0, .L1277
-	add	r5, r3, r0
-	bl	.L906	@ far jump
-.L1278:
-	.align	2, 0
-.L1277:
-	.word	0x2183
-.L305:
-	ldr	r1, [sp, #0x14c]
-	ldr	r2, .L1279
-	add	r5, r1, r2
-	bl	.L919	@ far jump
-.L1280:
-	.align	2, 0
-.L1279:
-	.word	0x2183
-.L306:
-	mov	r3, #0xd0
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1281
-	add	r6, r3, r0
-	bl	.L925	@ far jump
-.L1282:
-	.align	2, 0
-.L1281:
-	.word	0x2184
-.L307:
-	ldr	r0, [sp, #0x150]
-	ldr	r1, .L1283
-	bl	.L910	@ far jump
-.L1284:
-	.align	2, 0
-.L1283:
-	.word	0x2184
-.L308:
-	ldr	r2, [sp, #0x154]
-	ldr	r3, .L1285
-	add	r5, r2, r3
-	bl	.L931	@ far jump
-.L1286:
-	.align	2, 0
-.L1285:
-	.word	0x2184
-.L309:
-	ldr	r0, [sp, #0x158]
-	ldr	r1, .L1287
-	add	r5, r0, r1
-	bl	.L909	@ far jump
-.L1288:
-	.align	2, 0
-.L1287:
-	.word	0x2184
-.L310:
-	ldr	r2, [sp, #0x15c]
-	ldr	r3, .L1289
-	bl	.L930	@ far jump
-.L1290:
-	.align	2, 0
-.L1289:
-	.word	0x2184
-.L311:
-	ldr	r0, [sp, #0x164]
-	ldr	r1, .L1291
-	add	r5, r0, r1
-	bl	.L16	@ far jump
-.L1292:
-	.align	2, 0
-.L1291:
-	.word	0x2185
-.L312:
-	ldr	r2, [sp, #0x168]
-	ldr	r3, .L1293
-	add	r5, r2, r3
-	bl	.L931	@ far jump
-.L1294:
-	.align	2, 0
-.L1293:
-	.word	0x2185
-.L313:
-	ldr	r0, [sp, #0x16c]
-	ldr	r1, .L1295
-	add	r5, r0, r1
-	bl	.L909	@ far jump
-.L1296:
-	.align	2, 0
-.L1295:
-	.word	0x2185
-.L314:
-	ldr	r2, [sp, #0x170]
-	ldr	r3, .L1297
-	bl	.L930	@ far jump
-.L1298:
-	.align	2, 0
-.L1297:
-	.word	0x2185
-.L315:
-	ldr	r0, [sp, #0x174]
-	ldr	r1, .L1299
-	add	r5, r0, r1
-	bl	.L16	@ far jump
-.L1300:
-	.align	2, 0
-.L1299:
-	.word	0x2186
-.L316:
-	ldr	r2, [sp, #0x178]
-	ldr	r3, .L1301
-	add	r5, r2, r3
-	mov	r0, #0x7
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1202
+	add	r3, r1, r0
+	mov	r0, #0x3
 	and	r0, r0, r4
-	lsl	r0, r0, #0x2
-	mov	r1, #0x1d
-	neg	r1, r1
-	bl	.L127	@ far jump
-.L1302:
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1202+0x4
+	bl	.L921	@ far jump
+.L1203:
 	.align	2, 0
-.L1301:
-	.word	0x2186
-.L317:
-	ldr	r0, [sp, #0x17c]
-	ldr	r1, .L1303
-	bl	.L917	@ far jump
-.L1304:
+.L1202:
+	.word	0x2179
+	.word	0x21d8
+.L265:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1204
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1204+0x4
+	bl	.L911	@ far jump
+.L1205:
 	.align	2, 0
-.L1303:
-	.word	0x2186
-.L318:
-	ldr	r2, [sp, #0x180]
-	ldr	r3, .L1305
-	bl	.L924	@ far jump
-.L1306:
-	.align	2, 0
-.L1305:
-	.word	0x2186
-.L319:
-	ldr	r0, [sp, #0x184]
-	ldr	r1, .L1307
-	add	r5, r0, r1
-	bl	.L907	@ far jump
-.L1308:
-	.align	2, 0
-.L1307:
-	.word	0x2187
-.L320:
-	ldr	r2, [sp, #0x188]
-	ldr	r3, .L1309
-	add	r5, r2, r3
-	bl	.L906	@ far jump
-.L1310:
-	.align	2, 0
-.L1309:
-	.word	0x2187
-.L321:
-	ldr	r0, [sp, #0x190]
-	ldr	r1, .L1311
-	bl	.L917	@ far jump
-.L1312:
-	.align	2, 0
-.L1311:
-	.word	0x2187
-.L322:
-	ldr	r2, .L1313
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1313+0x4
-	add	r6, r2, r3
-	bl	.L925	@ far jump
-.L1314:
-	.align	2, 0
-.L1313:
-	.word	0x684
-	.word	0x2188
-.L323:
-	ldr	r3, [sp, #0x194]
-	ldr	r0, .L1315
-	add	r5, r3, r0
-	bl	.L907	@ far jump
-.L1316:
-	.align	2, 0
-.L1315:
-	.word	0x2188
-.L324:
-	ldr	r1, [sp, #0x198]
-	ldr	r2, .L1317
-	bl	.L918	@ far jump
-.L1318:
-	.align	2, 0
-.L1317:
-	.word	0x2188
-.L325:
-	ldr	r3, [sp, #0x19c]
-	ldr	r0, .L1319
-	add	r5, r3, r0
-	bl	.L919	@ far jump
-.L1320:
-	.align	2, 0
-.L1319:
-	.word	0x2188
-.L326:
-	ldr	r2, [sp, #0x1a0]
-	ldr	r3, .L1321
-	add	r1, r2, r3
-	b	.L933
-.L1322:
-	.align	2, 0
-.L1321:
-	.word	0x2188
-.L327:
-	ldr	r0, [sp, #0x1a4]
-	ldr	r1, .L1323
-	bl	.L928	@ far jump
-.L1324:
-	.align	2, 0
-.L1323:
-	.word	0x2189
-.L328:
-	ldr	r2, [sp, #0x1a8]
-	ldr	r3, .L1325
-	add	r5, r2, r3
-	bl	.L909	@ far jump
-.L1326:
-	.align	2, 0
-.L1325:
-	.word	0x2189
-.L329:
-	mov	r0, #0xd1
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1327
-	add	r7, r0, r1
-.L932:
+.L1204:
+	.word	0x2179
+	.word	0x21d8
+.L266:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r3, .L1206
+	add	r2, r1, r3
 	mov	r0, #0xf
 	and	r0, r0, r4
 	lsl	r0, r0, #0xe
-	ldr	r1, .L1327+0x4
-	bl	.L153	@ far jump
-.L1328:
+	add	r3, r3, #0x5c
+	bl	.L922	@ far jump
+.L1207:
 	.align	2, 0
+.L1206:
+	.word	0x2178
+.L267:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1208
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1208+0x4
+	bl	.L913	@ far jump
+.L1209:
+	.align	2, 0
+.L1208:
+	.word	0x217a
+	.word	0x21dc
+.L268:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1210
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1210+0x4
+	bl	.L907	@ far jump
+.L1211:
+	.align	2, 0
+.L1210:
+	.word	0x217a
+	.word	0x21dc
+.L269:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1212
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1212+0x4
+	bl	.L917	@ far jump
+.L1213:
+	.align	2, 0
+.L1212:
+	.word	0x217a
+	.word	0x21dc
+.L270:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1214
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1214+0x4
+	bl	.L915	@ far jump
+.L1215:
+	.align	2, 0
+.L1214:
+	.word	0x217a
+	.word	0x21dc
+.L271:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1216
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1217:
+	.align	2, 0
+.L1216:
+	.word	0x217b
+.L272:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1218
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1218+0x4
+	bl	.L917	@ far jump
+.L1219:
+	.align	2, 0
+.L1218:
+	.word	0x217b
+	.word	0x21e0
+.L273:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1220
+	add	r5, r1, r2
+	lsr	r2, r4, #0x1
+	mov	r0, #0x1
+	and	r2, r2, r0
+	ldr	r3, .L1220+0x4
+	bl	.L920	@ far jump
+.L1221:
+	.align	2, 0
+.L1220:
+	.word	0x217c
+	.word	0x21e4
+.L274:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1222
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1222+0x4
+	bl	.L908	@ far jump
+.L1223:
+	.align	2, 0
+.L1222:
+	.word	0x217c
+	.word	0x21e4
+.L275:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1224
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1224+0x4
+	bl	.L907	@ far jump
+.L1225:
+	.align	2, 0
+.L1224:
+	.word	0x217c
+	.word	0x21e4
+.L276:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1226
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1226+0x4
+	bl	.L917	@ far jump
+.L1227:
+	.align	2, 0
+.L1226:
+	.word	0x217c
+	.word	0x21e4
+.L277:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1228
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1228+0x4
+	bl	.L915	@ far jump
+.L1229:
+	.align	2, 0
+.L1228:
+	.word	0x217c
+	.word	0x21e4
+.L278:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1230
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1231:
+	.align	2, 0
+.L1230:
+	.word	0x217d
+.L279:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1232
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1232+0x4
+	bl	.L921	@ far jump
+.L1233:
+	.align	2, 0
+.L1232:
+	.word	0x217d
+	.word	0x21e8
+.L280:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1234
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1234+0x4
+	bl	.L911	@ far jump
+.L1235:
+	.align	2, 0
+.L1234:
+	.word	0x217d
+	.word	0x21e8
+.L281:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1236
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1236+0x4
+	bl	.L906	@ far jump
+.L1237:
+	.align	2, 0
+.L1236:
+	.word	0x217d
+	.word	0x21e8
+.L282:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1238
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1239:
+	.align	2, 0
+.L1238:
+	.word	0x217e
+.L283:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1240
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1240+0x4
+	bl	.L921	@ far jump
+.L1241:
+	.align	2, 0
+.L1240:
+	.word	0x217e
+	.word	0x21ec
+.L284:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1242
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1242+0x4
+	bl	.L911	@ far jump
+.L1243:
+	.align	2, 0
+.L1242:
+	.word	0x217e
+	.word	0x21ec
+.L285:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1244
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1244+0x4
+	bl	.L906	@ far jump
+.L1245:
+	.align	2, 0
+.L1244:
+	.word	0x217e
+	.word	0x21ec
+.L286:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1246
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1247:
+	.align	2, 0
+.L1246:
+	.word	0x217f
+.L287:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1248
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1248+0x4
+	bl	.L921	@ far jump
+.L1249:
+	.align	2, 0
+.L1248:
+	.word	0x217f
+	.word	0x21f0
+.L288:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1250
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1250+0x4
+	bl	.L911	@ far jump
+.L1251:
+	.align	2, 0
+.L1250:
+	.word	0x217f
+	.word	0x21f0
+.L289:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1252
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1252+0x4
+	bl	.L906	@ far jump
+.L1253:
+	.align	2, 0
+.L1252:
+	.word	0x217f
+	.word	0x21f0
+.L290:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	mov	r1, #0x86
+	lsl	r1, r1, #0x6
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L291:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	mov	r0, #0x86
+	lsl	r0, r0, #0x6
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1254
+	bl	.L921	@ far jump
+.L1255:
+	.align	2, 0
+.L1254:
+	.word	0x21f4
+.L292:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	mov	r2, #0x86
+	lsl	r2, r2, #0x6
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1256
+	bl	.L911	@ far jump
+.L1257:
+	.align	2, 0
+.L1256:
+	.word	0x21f4
+.L293:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0x86
+	lsl	r2, r2, #0x6
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1258
+	bl	.L906	@ far jump
+.L1259:
+	.align	2, 0
+.L1258:
+	.word	0x21f4
+.L294:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1260
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1261:
+	.align	2, 0
+.L1260:
+	.word	0x2181
+.L295:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1262
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1262+0x4
+	bl	.L921	@ far jump
+.L1263:
+	.align	2, 0
+.L1262:
+	.word	0x2181
+	.word	0x21f8
+.L296:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1264
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1264+0x4
+	bl	.L911	@ far jump
+.L1265:
+	.align	2, 0
+.L1264:
+	.word	0x2181
+	.word	0x21f8
+.L297:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1266
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1266+0x4
+	bl	.L906	@ far jump
+.L1267:
+	.align	2, 0
+.L1266:
+	.word	0x2181
+	.word	0x21f8
+.L298:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1268
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1269:
+	.align	2, 0
+.L1268:
+	.word	0x2182
+.L299:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1270
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1270+0x4
+	bl	.L913	@ far jump
+.L1271:
+	.align	2, 0
+.L1270:
+	.word	0x2182
+	.word	0x21fc
+.L300:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1272
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1272+0x4
+	bl	.L907	@ far jump
+.L1273:
+	.align	2, 0
+.L1272:
+	.word	0x2182
+	.word	0x21fc
+.L301:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1274
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1274+0x4
+	bl	.L917	@ far jump
+.L1275:
+	.align	2, 0
+.L1274:
+	.word	0x2182
+	.word	0x21fc
+.L302:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1276
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1276+0x4
+	bl	.L918	@ far jump
+.L1277:
+	.align	2, 0
+.L1276:
+	.word	0x2182
+	.word	0x21fc
+.L303:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1278
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	mov	r0, #0x88
+	lsl	r0, r0, #0x6
+	bl	.L908	@ far jump
+.L1279:
+	.align	2, 0
+.L1278:
+	.word	0x2183
+.L304:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1280
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	mov	r0, #0x88
+	lsl	r0, r0, #0x6
+	bl	.L907	@ far jump
+.L1281:
+	.align	2, 0
+.L1280:
+	.word	0x2183
+.L305:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1282
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	mov	r0, #0x88
+	lsl	r0, r0, #0x6
+	bl	.L917	@ far jump
+.L1283:
+	.align	2, 0
+.L1282:
+	.word	0x2183
+.L306:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1284
+	add	r5, r1, r2
+	lsr	r2, r4, #0x1
+	mov	r0, #0x1
+	and	r2, r2, r0
+	ldr	r3, .L1284+0x4
+	bl	.L920	@ far jump
+.L1285:
+	.align	2, 0
+.L1284:
+	.word	0x2184
+	.word	0x2204
+.L307:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1286
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1286+0x4
+	bl	.L912	@ far jump
+.L1287:
+	.align	2, 0
+.L1286:
+	.word	0x2184
+	.word	0x2204
+.L308:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1288
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1288+0x4
+	bl	.L921	@ far jump
+.L1289:
+	.align	2, 0
+.L1288:
+	.word	0x2184
+	.word	0x2204
+.L309:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1290
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1290+0x4
+	bl	.L911	@ far jump
+.L1291:
+	.align	2, 0
+.L1290:
+	.word	0x2184
+	.word	0x2204
+.L310:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1292
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1292+0x4
+	bl	.L906	@ far jump
+.L1293:
+	.align	2, 0
+.L1292:
+	.word	0x2184
+	.word	0x2204
+.L311:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1294
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1295:
+	.align	2, 0
+.L1294:
+	.word	0x2185
+.L312:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1296
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1296+0x4
+	bl	.L921	@ far jump
+.L1297:
+	.align	2, 0
+.L1296:
+	.word	0x2185
+	.word	0x2208
+.L313:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1298
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1298+0x4
+	bl	.L911	@ far jump
+.L1299:
+	.align	2, 0
+.L1298:
+	.word	0x2185
+	.word	0x2208
+.L314:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1300
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1300+0x4
+	bl	.L906	@ far jump
+.L1301:
+	.align	2, 0
+.L1300:
+	.word	0x2185
+	.word	0x2208
+.L315:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1302
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1303:
+	.align	2, 0
+.L1302:
+	.word	0x2186
+.L316:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1304
+	add	r3, r1, r0
+	mov	r0, #0x7
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1304+0x4
+	add	r1, r1, r0
+	ldrb	r0, [r1]
+	mov	r1, #0x1d
+	neg	r1, r1
+	bl	.L127	@ far jump
+.L1305:
+	.align	2, 0
+.L1304:
+	.word	0x2186
+	.word	0x220c
+.L317:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1306
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1306+0x4
+	bl	.L917	@ far jump
+.L1307:
+	.align	2, 0
+.L1306:
+	.word	0x2186
+	.word	0x220c
+.L318:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1308
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1308+0x4
+	bl	.L918	@ far jump
+.L1309:
+	.align	2, 0
+.L1308:
+	.word	0x2186
+	.word	0x220c
+.L319:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1310
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1310+0x4
+	bl	.L908	@ far jump
+.L1311:
+	.align	2, 0
+.L1310:
+	.word	0x2187
+	.word	0x2210
+.L320:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1312
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1312+0x4
+	bl	.L907	@ far jump
+.L1313:
+	.align	2, 0
+.L1312:
+	.word	0x2187
+	.word	0x2210
+.L321:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1314
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1314+0x4
+	bl	.L917	@ far jump
+.L1315:
+	.align	2, 0
+.L1314:
+	.word	0x2187
+	.word	0x2210
+.L322:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1316
+	add	r5, r1, r2
+	lsr	r2, r4, #0x1
+	mov	r0, #0x1
+	and	r2, r2, r0
+	ldr	r3, .L1316+0x4
+	bl	.L920	@ far jump
+.L1317:
+	.align	2, 0
+.L1316:
+	.word	0x2188
+	.word	0x2214
+.L323:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1318
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1318+0x4
+	bl	.L908	@ far jump
+.L1319:
+	.align	2, 0
+.L1318:
+	.word	0x2188
+	.word	0x2214
+.L324:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1320
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1320+0x4
+	bl	.L907	@ far jump
+.L1321:
+	.align	2, 0
+.L1320:
+	.word	0x2188
+	.word	0x2214
+.L325:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1322
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1322+0x4
+	bl	.L917	@ far jump
+.L1323:
+	.align	2, 0
+.L1322:
+	.word	0x2188
+	.word	0x2214
+.L326:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1324
+	add	r3, r1, r2
+	mov	r0, #0x7
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1324+0x4
+	bl	.L923	@ far jump
+.L1325:
+	.align	2, 0
+.L1324:
+	.word	0x2188
+	.word	0x2214
+.L327:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1326
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1326+0x4
+	bl	.L921	@ far jump
 .L1327:
+	.align	2, 0
+.L1326:
+	.word	0x2189
+	.word	0x2218
+.L328:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1328
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1328+0x4
+	bl	.L911	@ far jump
+.L1329:
+	.align	2, 0
+.L1328:
+	.word	0x2189
+	.word	0x2218
+.L329:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r3, .L1330
+	add	r2, r1, r3
+	mov	r0, #0xf
+	and	r0, r0, r4
+	lsl	r0, r0, #0xe
+	add	r3, r3, #0x8c
+.L922:
+	add	r1, r1, r3
+	ldr	r1, [r1]
+	ldr	r3, .L1330+0x4
+	bl	.L153	@ far jump
+.L1331:
+	.align	2, 0
+.L1330:
 	.word	0x2188
 	.word	-0x3c001
 .L330:
-	ldr	r1, [sp, #0x1ac]
-	ldr	r2, .L1329
-	add	r5, r1, r2
-	bl	.L931	@ far jump
-.L1330:
-	.align	2, 0
-.L1329:
-	.word	0x218a
-.L331:
-	ldr	r3, [sp, #0x1b0]
-	ldr	r0, .L1331
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L1332:
-	.align	2, 0
-.L1331:
-	.word	0x218a
-.L332:
-	ldr	r1, [sp, #0x1b4]
-	ldr	r2, .L1333
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L1334:
-	.align	2, 0
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1332
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1332+0x4
+	bl	.L921	@ far jump
 .L1333:
-	.word	0x218a
-.L333:
-	ldr	r3, [sp, #0x1bc]
-	ldr	r0, .L1335
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1336:
 	.align	2, 0
+.L1332:
+	.word	0x218a
+	.word	0x221c
+.L331:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1334
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1334+0x4
+	bl	.L911	@ far jump
 .L1335:
+	.align	2, 0
+.L1334:
+	.word	0x218a
+	.word	0x221c
+.L332:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1336
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1336+0x4
+	bl	.L906	@ far jump
+.L1337:
+	.align	2, 0
+.L1336:
+	.word	0x218a
+	.word	0x221c
+.L333:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1338
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1339:
+	.align	2, 0
+.L1338:
 	.word	0x218b
 .L334:
-	ldr	r1, [sp, #0x1c0]
-	ldr	r2, .L1337
-	bl	.L918	@ far jump
-.L1338:
-	.align	2, 0
-.L1337:
-	.word	0x218b
-.L335:
-	ldr	r3, .L1339
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1339+0x4
-	add	r6, r3, r0
-	lsr	r1, r4, #0x3
-	bl	.L934	@ far jump
-.L1340:
-	.align	2, 0
-.L1339:
-	.word	0x68c
-	.word	0x218c
-.L336:
-	ldr	r0, [sp, #0x1c4]
-	ldr	r1, .L1341
-	add	r5, r0, r1
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1340
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1340+0x4
 	bl	.L907	@ far jump
-.L1342:
-	.align	2, 0
 .L1341:
-	.word	0x218c
-.L337:
-	ldr	r2, [sp, #0x1c8]
-	ldr	r3, .L1343
-	add	r5, r2, r3
-	b	.L906
-.L1344:
 	.align	2, 0
+.L1340:
+	.word	0x218b
+	.word	0x2220
+.L335:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1342
+	add	r5, r1, r2
+	lsr	r2, r4, #0x3
+	mov	r0, #0x1
+	and	r2, r2, r0
+	ldr	r3, .L1342+0x4
+	bl	.L920	@ far jump
 .L1343:
-	.word	0x218c
-.L338:
-	ldr	r0, [sp, #0x1cc]
-	ldr	r1, .L1345
-	b	.L917
-.L1346:
 	.align	2, 0
+.L1342:
+	.word	0x218c
+	.word	0x2224
+.L336:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1344
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1344+0x4
+	bl	.L908	@ far jump
 .L1345:
-	.word	0x218c
-.L339:
-	ldr	r2, [sp, #0x1d0]
-	ldr	r3, .L1347
-	bl	.L924	@ far jump
-.L1348:
 	.align	2, 0
-.L1347:
+.L1344:
 	.word	0x218c
-.L340:
-	ldr	r0, [sp, #0x1d4]
-	ldr	r1, .L1349
-	add	r5, r0, r1
+	.word	0x2224
+.L337:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1346
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1346+0x4
 	bl	.L907	@ far jump
-.L1350:
+.L1347:
 	.align	2, 0
+.L1346:
+	.word	0x218c
+	.word	0x2224
+.L338:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1348
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1348+0x4
+	bl	.L917	@ far jump
 .L1349:
-	.word	0x218d
-.L341:
-	ldr	r2, [sp, #0x1d8]
-	ldr	r3, .L1351
-	add	r5, r2, r3
-	b	.L906
-.L1352:
 	.align	2, 0
+.L1348:
+	.word	0x218c
+	.word	0x2224
+.L339:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1350
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1350+0x4
+	bl	.L918	@ far jump
 .L1351:
+	.align	2, 0
+.L1350:
+	.word	0x218c
+	.word	0x2224
+.L340:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1352
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1352+0x4
+	bl	.L908	@ far jump
+.L1353:
+	.align	2, 0
+.L1352:
 	.word	0x218d
+	.word	0x2228
+.L341:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1354
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1354+0x4
+	bl	.L907	@ far jump
+.L1355:
+	.align	2, 0
+.L1354:
+	.word	0x218d
+	.word	0x2228
 .L342:
-	mov	r0, #0xd2
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1353
-	add	r7, r0, r1
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r3, .L1356
+	add	r2, r1, r3
 	mov	r0, #0xf
 	and	r0, r0, r4
 	lsl	r0, r0, #0xd
-	ldr	r1, .L1353+0x4
+	add	r3, r3, #0x98
+	add	r1, r1, r3
+	ldr	r1, [r1]
+	ldr	r3, .L1356+0x4
 	bl	.L153	@ far jump
-.L1354:
+.L1357:
 	.align	2, 0
-.L1353:
+.L1356:
 	.word	0x218c
 	.word	-0x1e001
 .L343:
-	ldr	r1, [sp, #0x1dc]
-	ldr	r2, .L1355
-	bl	.L920	@ far jump
-.L1356:
-	.align	2, 0
-.L1355:
-	.word	0x218e
-.L344:
-	ldr	r3, [sp, #0x1e0]
-	ldr	r0, .L1357
-	add	r5, r3, r0
-	b	.L906
-.L1358:
-	.align	2, 0
-.L1357:
-	.word	0x218e
-.L345:
-	ldr	r1, [sp, #0x1e8]
-	ldr	r2, .L1359
-	add	r5, r1, r2
-	bl	.L912	@ far jump
-.L1360:
-	.align	2, 0
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1358
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1358+0x4
+	bl	.L908	@ far jump
 .L1359:
-	.word	0x218e
-.L346:
-	ldr	r3, [sp, #0x1ec]
-	ldr	r0, .L1361
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L1362:
 	.align	2, 0
+.L1358:
+	.word	0x218e
+	.word	0x222c
+.L344:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1360
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1360+0x4
+	bl	.L907	@ far jump
 .L1361:
-	.word	0x218e
-.L347:
-	ldr	r1, [sp, #0x1f0]
-	ldr	r2, .L1363
-	add	r5, r1, r2
-	bl	.L16	@ far jump
-.L1364:
 	.align	2, 0
+.L1360:
+	.word	0x218e
+	.word	0x222c
+.L345:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1362
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1362+0x4
+	bl	.L914	@ far jump
 .L1363:
+	.align	2, 0
+.L1362:
+	.word	0x218e
+	.word	0x222c
+.L346:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1364
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1364+0x4
+	bl	.L906	@ far jump
+.L1365:
+	.align	2, 0
+.L1364:
+	.word	0x218e
+	.word	0x222c
+.L347:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1366
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1367:
+	.align	2, 0
+.L1366:
 	.word	0x218f
 .L348:
-	ldr	r3, [sp, #0x1f4]
-	ldr	r0, .L1365
-	add	r5, r3, r0
-	bl	.L931	@ far jump
-.L1366:
-	.align	2, 0
-.L1365:
-	.word	0x218f
-.L349:
-	ldr	r1, [sp, #0x1f8]
-	ldr	r2, .L1367
-	bl	.L929	@ far jump
-.L1368:
-	.align	2, 0
-.L1367:
-	.word	0x218f
-.L350:
-	ldr	r3, [sp, #0x1fc]
-	ldr	r0, .L1369
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L1370:
-	.align	2, 0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1368
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1368+0x4
+	bl	.L921	@ far jump
 .L1369:
-	.word	0x218f
-.L351:
-	ldr	r1, [sp, #0x200]
-	ldr	r2, .L1371
-	add	r5, r1, r2
-	bl	.L16	@ far jump
-.L1372:
 	.align	2, 0
+.L1368:
+	.word	0x218f
+	.word	0x2230
+.L349:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1370
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1370+0x4
+	bl	.L911	@ far jump
 .L1371:
+	.align	2, 0
+.L1370:
+	.word	0x218f
+	.word	0x2230
+.L350:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1372
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1372+0x4
+	bl	.L906	@ far jump
+.L1373:
+	.align	2, 0
+.L1372:
+	.word	0x218f
+	.word	0x2230
+.L351:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1374
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1375:
+	.align	2, 0
+.L1374:
 	.word	0x2190
 .L352:
-	ldr	r3, [sp, #0x204]
-	ldr	r0, .L1373
-	add	r5, r3, r0
-	bl	.L931	@ far jump
-.L1374:
-	.align	2, 0
-.L1373:
-	.word	0x2190
-.L353:
-	ldr	r1, [sp, #0x208]
-	ldr	r2, .L1375
-	bl	.L929	@ far jump
-.L1376:
-	.align	2, 0
-.L1375:
-	.word	0x2190
-.L354:
-	ldr	r3, [sp, #0x20c]
-	ldr	r0, .L1377
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L1378:
-	.align	2, 0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1376
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1376+0x4
+	bl	.L921	@ far jump
 .L1377:
-	.word	0x2190
-.L355:
-	ldr	r1, [sp, #0x214]
-	ldr	r2, .L1379
-	add	r5, r1, r2
-	bl	.L16	@ far jump
-.L1380:
 	.align	2, 0
+.L1376:
+	.word	0x2190
+	.word	0x2234
+.L353:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1378
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1378+0x4
+	bl	.L911	@ far jump
 .L1379:
+	.align	2, 0
+.L1378:
+	.word	0x2190
+	.word	0x2234
+.L354:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1380
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1380+0x4
+	bl	.L906	@ far jump
+.L1381:
+	.align	2, 0
+.L1380:
+	.word	0x2190
+	.word	0x2234
+.L355:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1382
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1383:
+	.align	2, 0
+.L1382:
 	.word	0x2191
 .L356:
-	ldr	r3, [sp, #0x218]
-	ldr	r0, .L1381
-	add	r5, r3, r0
-	bl	.L931	@ far jump
-.L1382:
-	.align	2, 0
-.L1381:
-	.word	0x2191
-.L357:
-	ldr	r1, [sp, #0x21c]
-	ldr	r2, .L1383
-	bl	.L929	@ far jump
-.L1384:
-	.align	2, 0
-.L1383:
-	.word	0x2191
-.L358:
-	ldr	r3, [sp, #0x220]
-	ldr	r0, .L1385
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L1386:
-	.align	2, 0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1384
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1384+0x4
+	bl	.L921	@ far jump
 .L1385:
-	.word	0x2191
-.L359:
-	ldr	r1, [sp, #0x224]
-	ldr	r2, .L1387
-	add	r5, r1, r2
-	bl	.L16	@ far jump
-.L1388:
 	.align	2, 0
+.L1384:
+	.word	0x2191
+	.word	0x2238
+.L357:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1386
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1386+0x4
+	bl	.L911	@ far jump
 .L1387:
+	.align	2, 0
+.L1386:
+	.word	0x2191
+	.word	0x2238
+.L358:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1388
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1388+0x4
+	bl	.L906	@ far jump
+.L1389:
+	.align	2, 0
+.L1388:
+	.word	0x2191
+	.word	0x2238
+.L359:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1390
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1391:
+	.align	2, 0
+.L1390:
 	.word	0x2192
 .L360:
-	ldr	r3, [sp, #0x228]
-	ldr	r0, .L1389
-	add	r5, r3, r0
-	bl	.L931	@ far jump
-.L1390:
-	.align	2, 0
-.L1389:
-	.word	0x2192
-.L361:
-	ldr	r1, [sp, #0x22c]
-	ldr	r2, .L1391
-	bl	.L929	@ far jump
-.L1392:
-	.align	2, 0
-.L1391:
-	.word	0x2192
-.L362:
-	ldr	r3, [sp, #0x230]
-	ldr	r0, .L1393
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L1394:
-	.align	2, 0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1392
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1392+0x4
+	bl	.L921	@ far jump
 .L1393:
-	.word	0x2192
-.L363:
-	ldr	r1, [sp, #0x234]
-	ldr	r2, .L1395
-	add	r5, r1, r2
-	bl	.L16	@ far jump
-.L1396:
 	.align	2, 0
+.L1392:
+	.word	0x2192
+	.word	0x223c
+.L361:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1394
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1394+0x4
+	bl	.L911	@ far jump
 .L1395:
+	.align	2, 0
+.L1394:
+	.word	0x2192
+	.word	0x223c
+.L362:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1396
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1396+0x4
+	bl	.L906	@ far jump
+.L1397:
+	.align	2, 0
+.L1396:
+	.word	0x2192
+	.word	0x223c
+.L363:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1398
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1399:
+	.align	2, 0
+.L1398:
 	.word	0x2193
 .L364:
-	ldr	r3, [sp, #0x238]
-	ldr	r0, .L1397
-	add	r5, r3, r0
-	bl	.L931	@ far jump
-.L1398:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1400
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	mov	r0, #0x89
+	lsl	r0, r0, #0x6
+	bl	.L921	@ far jump
+.L1401:
 	.align	2, 0
-.L1397:
+.L1400:
 	.word	0x2193
 .L365:
-	ldr	r1, [sp, #0x240]
-	ldr	r2, .L1399
-	bl	.L929	@ far jump
-.L1400:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1402
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	mov	r0, #0x89
+	lsl	r0, r0, #0x6
+	bl	.L911	@ far jump
+.L1403:
 	.align	2, 0
-.L1399:
+.L1402:
 	.word	0x2193
 .L366:
-	ldr	r3, [sp, #0x244]
-	ldr	r0, .L1401
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L1402:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1404
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	mov	r1, #0x89
+	lsl	r1, r1, #0x6
+	bl	.L906	@ far jump
+.L1405:
 	.align	2, 0
-.L1401:
+.L1404:
 	.word	0x2193
 .L367:
-	ldr	r1, [sp, #0x248]
-	ldr	r2, .L1403
-	add	r5, r1, r2
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1406
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1404:
+.L1407:
 	.align	2, 0
-.L1403:
+.L1406:
 	.word	0x2194
 .L368:
-	ldr	r3, [sp, #0x24c]
-	ldr	r0, .L1405
-	add	r5, r3, r0
-	bl	.L931	@ far jump
-.L1406:
-	.align	2, 0
-.L1405:
-	.word	0x2194
-.L369:
-	ldr	r1, [sp, #0x250]
-	ldr	r2, .L1407
-	bl	.L929	@ far jump
-.L1408:
-	.align	2, 0
-.L1407:
-	.word	0x2194
-.L370:
-	ldr	r3, [sp, #0x254]
-	ldr	r0, .L1409
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L1410:
-	.align	2, 0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1408
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1408+0x4
+	bl	.L921	@ far jump
 .L1409:
-	.word	0x2194
-.L371:
-	ldr	r1, [sp, #0x258]
-	ldr	r2, .L1411
-	add	r5, r1, r2
-	bl	.L16	@ far jump
-.L1412:
 	.align	2, 0
+.L1408:
+	.word	0x2194
+	.word	0x2244
+.L369:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1410
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1410+0x4
+	bl	.L911	@ far jump
 .L1411:
+	.align	2, 0
+.L1410:
+	.word	0x2194
+	.word	0x2244
+.L370:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1412
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1412+0x4
+	bl	.L906	@ far jump
+.L1413:
+	.align	2, 0
+.L1412:
+	.word	0x2194
+	.word	0x2244
+.L371:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1414
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1415:
+	.align	2, 0
+.L1414:
 	.word	0x2195
 .L372:
-	ldr	r3, [sp, #0x25c]
-	ldr	r0, .L1413
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L1414:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1416
+	add	r3, r0, r1
+	lsl	r2, r4, #0x6
+	add	r1, r1, #0xb3
+	bl	.L906	@ far jump
+.L1417:
 	.align	2, 0
-.L1413:
+.L1416:
 	.word	0x2195
 .L373:
-	ldr	r1, [sp, #0x260]
-	ldr	r2, .L1415
-	add	r5, r1, r2
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1418
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1416:
+.L1419:
 	.align	2, 0
-.L1415:
+.L1418:
 	.word	0x2196
 .L374:
-	ldr	r3, [sp, #0x264]
-	ldr	r0, .L1417
-	add	r5, r3, r0
-	bl	.L931	@ far jump
-.L1418:
-	.align	2, 0
-.L1417:
-	.word	0x2196
-.L375:
-	ldr	r1, [sp, #0x26c]
-	ldr	r2, .L1419
-	bl	.L929	@ far jump
-.L1420:
-	.align	2, 0
-.L1419:
-	.word	0x2196
-.L376:
-	ldr	r3, [sp, #0x270]
-	ldr	r0, .L1421
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L1422:
-	.align	2, 0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1420
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1420+0x4
+	bl	.L921	@ far jump
 .L1421:
+	.align	2, 0
+.L1420:
 	.word	0x2196
-.L377:
-	ldr	r1, [sp, #0x274]
-	ldr	r2, .L1423
-	add	r5, r1, r2
-	bl	.L931	@ far jump
-.L1424:
-	.align	2, 0
+	.word	0x224c
+.L375:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1422
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1422+0x4
+	bl	.L911	@ far jump
 .L1423:
-	.word	0x2197
-.L378:
-	ldr	r3, [sp, #0x278]
-	ldr	r0, .L1425
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L1426:
 	.align	2, 0
+.L1422:
+	.word	0x2196
+	.word	0x224c
+.L376:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1424
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1424+0x4
+	bl	.L906	@ far jump
 .L1425:
-	.word	0x2197
-.L379:
-	ldr	r1, [sp, #0x27c]
-	ldr	r2, .L1427
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L1428:
 	.align	2, 0
+.L1424:
+	.word	0x2196
+	.word	0x224c
+.L377:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1426
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1426+0x4
+	bl	.L921	@ far jump
 .L1427:
-	.word	0x2197
-.L380:
-	ldr	r3, [sp, #0x280]
-	ldr	r0, .L1429
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1430:
 	.align	2, 0
+.L1426:
+	.word	0x2197
+	.word	0x2250
+.L378:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1428
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1428+0x4
+	bl	.L911	@ far jump
 .L1429:
+	.align	2, 0
+.L1428:
+	.word	0x2197
+	.word	0x2250
+.L379:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1430
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1430+0x4
+	bl	.L906	@ far jump
+.L1431:
+	.align	2, 0
+.L1430:
+	.word	0x2197
+	.word	0x2250
+.L380:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1432
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1433:
+	.align	2, 0
+.L1432:
 	.word	0x2198
 .L381:
-	ldr	r1, [sp, #0x284]
-	ldr	r2, .L1431
-	add	r5, r1, r2
-	bl	.L931	@ far jump
-.L1432:
-	.align	2, 0
-.L1431:
-	.word	0x2198
-.L382:
-	ldr	r3, [sp, #0x288]
-	ldr	r0, .L1433
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L1434:
-	.align	2, 0
-.L1433:
-	.word	0x2198
-.L383:
-	ldr	r1, [sp, #0x28c]
-	ldr	r2, .L1435
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L1436:
-	.align	2, 0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1434
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1434+0x4
+	bl	.L921	@ far jump
 .L1435:
-	.word	0x2198
-.L384:
-	ldr	r3, [sp, #0x290]
-	ldr	r0, .L1437
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1438:
 	.align	2, 0
+.L1434:
+	.word	0x2198
+	.word	0x2254
+.L382:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1436
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1436+0x4
+	bl	.L911	@ far jump
 .L1437:
+	.align	2, 0
+.L1436:
+	.word	0x2198
+	.word	0x2254
+.L383:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1438
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1438+0x4
+	bl	.L906	@ far jump
+.L1439:
+	.align	2, 0
+.L1438:
+	.word	0x2198
+	.word	0x2254
+.L384:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1440
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1441:
+	.align	2, 0
+.L1440:
 	.word	0x2199
 .L385:
-	ldr	r1, [sp, #0x298]
-	ldr	r2, .L1439
-	add	r5, r1, r2
-	bl	.L916	@ far jump
-.L1440:
-	.align	2, 0
-.L1439:
-	.word	0x2199
-.L386:
-	ldr	r3, [sp, #0x29c]
-	ldr	r0, .L1441
-	bl	.L935	@ far jump
-.L1442:
-	.align	2, 0
-.L1441:
-	.word	0x2199
-.L387:
-	ldr	r1, [sp, #0x2a0]
-	ldr	r2, .L1443
-	add	r5, r1, r2
-	bl	.L915	@ far jump
-.L1444:
-	.align	2, 0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1442
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1442+0x4
+	bl	.L913	@ far jump
 .L1443:
-	.word	0x2199
-.L388:
-	ldr	r3, [sp, #0x2a4]
-	ldr	r0, .L1445
-	bl	.L936	@ far jump
-.L1446:
 	.align	2, 0
+.L1442:
+	.word	0x2199
+	.word	0x2258
+.L386:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1444
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1444+0x4
+	bl	.L910	@ far jump
 .L1445:
+	.align	2, 0
+.L1444:
+	.word	0x2199
+	.word	0x2258
+.L387:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1446
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1446+0x4
+	bl	.L916	@ far jump
+.L1447:
+	.align	2, 0
+.L1446:
+	.word	0x2199
+	.word	0x2258
+.L388:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1448
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1448+0x4
+	bl	.L914	@ far jump
+.L1449:
+	.align	2, 0
+.L1448:
+	.word	0x2199
+	.word	0x2258
+.L389:
+	ldr	r1, .L1450
+	bl	.L147	@ far jump
+.L1451:
+	.align	2, 0
+.L1450:
 	.word	0x2199
 .L390:
-	ldr	r1, .L1447
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1447+0x4
-	add	r7, r1, r2
-	bl	.L922	@ far jump
-.L1448:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r3, .L1452
+	add	r2, r1, r3
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r0, r0, #0xf
+	add	r3, r3, #0xbc
+	bl	.L919	@ far jump
+.L1453:
 	.align	2, 0
-.L1447:
-	.word	0x694
+.L1452:
 	.word	0x2198
 .L391:
-	ldr	r2, [sp, #0x2a8]
-	ldr	r3, .L1449
-	add	r5, r2, r3
-	bl	.L931	@ far jump
-.L1450:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1454
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1454+0x4
+	bl	.L921	@ far jump
+.L1455:
 	.align	2, 0
-.L1449:
-	.word	0x219a
-.L392:
-	ldr	r0, [sp, #0x2ac]
-	ldr	r1, .L1451
-	b	.L917
-.L1452:
-	.align	2, 0
-.L1451:
-	.word	0x219a
-.L393:
-	ldr	r2, [sp, #0x2b0]
-	ldr	r3, .L1453
-	bl	.L924	@ far jump
 .L1454:
-	.align	2, 0
-.L1453:
 	.word	0x219a
+	.word	0x225c
+.L392:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1456
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1456+0x4
+	b	.L917
+.L1457:
+	.align	2, 0
+.L1456:
+	.word	0x219a
+	.word	0x225c
+.L393:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1458
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1458+0x4
+	bl	.L918	@ far jump
+.L1459:
+	.align	2, 0
+.L1458:
+	.word	0x219a
+	.word	0x225c
 .L394:
-	ldr	r0, [sp, #0x2b4]
-	ldr	r1, .L1455
-	add	r5, r0, r1
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1460
+	add	r3, r1, r2
 	mov	r0, #0x7
 	and	r0, r0, r4
-	lsl	r0, r0, #0x1
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1460+0x4
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0xf
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1456:
+.L1461:
 	.align	2, 0
-.L1455:
+.L1460:
 	.word	0x219b
+	.word	0x2260
 .L395:
-	ldr	r2, [sp, #0x2b8]
-	ldr	r3, .L1457
-	add	r5, r2, r3
-	bl	.L909	@ far jump
-.L1458:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1462
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1462+0x4
+	bl	.L911	@ far jump
+.L1463:
 	.align	2, 0
-.L1457:
+.L1462:
+	.word	0x219b
+	.word	0x2260
+.L396:
+	ldr	r1, .L1464
+	bl	.L147	@ far jump
+.L1465:
+	.align	2, 0
+.L1464:
 	.word	0x219b
 .L397:
-	mov	r0, #0xd3
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1459
-	add	r6, r0, r1
-	lsr	r1, r4, #0x1
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1466
+	add	r5, r1, r2
+	lsr	r2, r4, #0x1
 	mov	r0, #0x3
-	and	r1, r1, r0
-	mov	r0, #0x4
-	neg	r0, r0
+	and	r2, r2, r0
+	ldr	r3, .L1466+0x4
+	add	r1, r1, r3
+	ldrb	r0, [r1]
+	mov	r1, #0x4
+	neg	r1, r1
 	bl	.L163	@ far jump
-.L1460:
+.L1467:
 	.align	2, 0
-.L1459:
-	.word	0x219c
-.L398:
-	ldr	r1, [sp, #0x2bc]
-	ldr	r2, .L1461
-	add	r5, r1, r2
-	bl	.L931	@ far jump
-.L1462:
-	.align	2, 0
-.L1461:
-	.word	0x219c
-.L399:
-	ldr	r3, [sp, #0x2c4]
-	ldr	r0, .L1463
-	add	r5, r3, r0
-	b	.L919
-.L1464:
-	.align	2, 0
-.L1463:
-	.word	0x219c
-.L400:
-	ldr	r1, [sp, #0x2c8]
-	ldr	r2, .L1465
-	add	r5, r1, r2
-	bl	.L16	@ far jump
 .L1466:
+	.word	0x219c
+	.word	0x2264
+.L398:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1468
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1468+0x4
+	bl	.L921	@ far jump
+.L1469:
 	.align	2, 0
-.L1465:
+.L1468:
+	.word	0x219c
+	.word	0x2264
+.L399:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1470
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1470+0x4
+	b	.L917
+.L1471:
+	.align	2, 0
+.L1470:
+	.word	0x219c
+	.word	0x2264
+.L400:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1472
+	bl	.L909	@ far jump
+.L1473:
+	.align	2, 0
+.L1472:
 	.word	0x219d
 .L401:
-	ldr	r3, [sp, #0x2cc]
-	ldr	r0, .L1467
-	add	r5, r3, r0
-	bl	.L916	@ far jump
-.L1468:
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r1, [r0]
+	ldr	r0, .L1474
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1474+0x4
+	bl	.L913	@ far jump
+.L1475:
 	.align	2, 0
-.L1467:
-	.word	0x219d
-.L402:
-	ldr	r1, [sp, #0x2d0]
-	ldr	r2, .L1469
-	b	.L918
-.L1470:
-	.align	2, 0
-.L1469:
-	.word	0x219d
-.L403:
-	ldr	r3, [sp, #0x2d4]
-	ldr	r0, .L1471
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L1472:
-	.align	2, 0
-.L1471:
-	.word	0x219d
-.L404:
-	ldr	r1, [sp, #0x2d8]
-	ldr	r2, .L1473
-	add	r5, r1, r2
-	bl	.L16	@ far jump
 .L1474:
+	.word	0x219d
+	.word	0x2268
+.L402:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1476
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1476+0x4
+	b	.L907
+.L1477:
 	.align	2, 0
-.L1473:
+.L1476:
+	.word	0x219d
+	.word	0x2268
+.L403:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1478
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1478+0x4
+	bl	.L906	@ far jump
+.L1479:
+	.align	2, 0
+.L1478:
+	.word	0x219d
+	.word	0x2268
+.L404:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1480
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1481:
+	.align	2, 0
+.L1480:
 	.word	0x219e
 .L405:
-	ldr	r3, [sp, #0x2dc]
-	ldr	r0, .L1475
-	add	r5, r3, r0
-	bl	.L907	@ far jump
-.L1476:
-	.align	2, 0
-.L1475:
-	.word	0x219e
-.L406:
-	ldr	r1, [sp, #0x2e0]
-	ldr	r2, .L1477
-	bl	.L929	@ far jump
-.L1478:
-	.align	2, 0
-.L1477:
-	.word	0x219e
-.L407:
-	ldr	r3, [sp, #0x2e4]
-	ldr	r0, .L1479
-	add	r1, r3, r0
-	b	.L937
-.L1480:
-	.align	2, 0
-.L1479:
-	.word	0x219e
-.L408:
-	ldr	r1, [sp, #0x2e8]
-	ldr	r2, .L1481
-	bl	.L920	@ far jump
-.L1482:
-	.align	2, 0
-.L1481:
-	.word	0x219f
-.L409:
-	ldr	r3, [sp, #0x2f0]
-	ldr	r0, .L1483
-	bl	.L935	@ far jump
-.L1484:
-	.align	2, 0
-.L1483:
-	.word	0x219f
-.L410:
-	ldr	r1, [sp, #0x2f4]
-	ldr	r2, .L1485
-	bl	.L929	@ far jump
-.L1486:
-	.align	2, 0
-.L1485:
-	.word	0x219f
-.L411:
-	ldr	r3, [sp, #0x2f8]
-	ldr	r0, .L1487
-	add	r5, r3, r0
-	bl	.L905	@ far jump
-.L1488:
-	.align	2, 0
-.L1487:
-	.word	0x219f
-.L412:
-	ldr	r1, [sp, #0x2fc]
-	ldr	r2, .L1489
-	add	r5, r1, r2
-	bl	.L16	@ far jump
-.L1490:
-	.align	2, 0
-.L1489:
-	.word	0x21a0
-.L413:
-	ldr	r3, [sp, #0x300]
-	ldr	r0, .L1491
-	add	r5, r3, r0
-	bl	.L916	@ far jump
-.L1492:
-	.align	2, 0
-.L1491:
-	.word	0x21a0
-.L414:
-	ldr	r1, [sp, #0x304]
-	ldr	r2, .L1493
-	add	r5, r1, r2
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1482
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1482+0x4
 	bl	.L908	@ far jump
-.L1494:
+.L1483:
 	.align	2, 0
-.L1493:
-	.word	0x21a0
-.L415:
-	ldr	r3, [sp, #0x308]
-	ldr	r0, .L1495
-	add	r5, r3, r0
-	bl	.L915	@ far jump
-.L1496:
+.L1482:
+	.word	0x219e
+	.word	0x226c
+.L406:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1484
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1484+0x4
+	bl	.L911	@ far jump
+.L1485:
 	.align	2, 0
-.L1495:
-	.word	0x21a0
-.L416:
-	ldr	r1, [sp, #0x30c]
-	ldr	r2, .L1497
-	add	r5, r1, r2
-	b	.L919
-.L1498:
-	.align	2, 0
-.L1497:
-	.word	0x21a0
-.L417:
-	ldr	r3, [sp, #0x310]
-	ldr	r0, .L1499
-	add	r1, r3, r0
-.L933:
+.L1484:
+	.word	0x219e
+	.word	0x226c
+.L407:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1486
+	add	r3, r1, r2
 	mov	r0, #0x7
 	and	r0, r0, r4
-	lsl	r0, r0, #0x7
-	ldr	r2, .L1499+0x4
-	bl	.L158	@ far jump
-.L1500:
+	lsl	r2, r0, #0x6
+	ldr	r0, .L1486+0x4
+	bl	.L924	@ far jump
+.L1487:
 	.align	2, 0
+.L1486:
+	.word	0x219e
+	.word	0x226c
+.L408:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1488
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1488+0x4
+	bl	.L908	@ far jump
+.L1489:
+	.align	2, 0
+.L1488:
+	.word	0x219f
+	.word	0x2270
+.L409:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1490
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1490+0x4
+	bl	.L910	@ far jump
+.L1491:
+	.align	2, 0
+.L1490:
+	.word	0x219f
+	.word	0x2270
+.L410:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1492
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1492+0x4
+	bl	.L911	@ far jump
+.L1493:
+	.align	2, 0
+.L1492:
+	.word	0x219f
+	.word	0x2270
+.L411:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1494
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1494+0x4
+	bl	.L906	@ far jump
+.L1495:
+	.align	2, 0
+.L1494:
+	.word	0x219f
+	.word	0x2270
+.L412:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1496
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1497:
+	.align	2, 0
+.L1496:
+	.word	0x21a0
+.L413:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1498
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1498+0x4
+	bl	.L913	@ far jump
 .L1499:
+	.align	2, 0
+.L1498:
+	.word	0x21a0
+	.word	0x2274
+.L414:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1500
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1500+0x4
+	bl	.L910	@ far jump
+.L1501:
+	.align	2, 0
+.L1500:
+	.word	0x21a0
+	.word	0x2274
+.L415:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1502
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1502+0x4
+	bl	.L916	@ far jump
+.L1503:
+	.align	2, 0
+.L1502:
+	.word	0x21a0
+	.word	0x2274
+.L416:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1504
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1504+0x4
+	b	.L917
+.L1505:
+	.align	2, 0
+.L1504:
+	.word	0x21a0
+	.word	0x2274
+.L417:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1506
+	add	r3, r1, r2
+	mov	r0, #0x7
+	and	r0, r0, r4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1506+0x4
+.L923:
+	add	r1, r1, r0
+	ldrh	r0, [r1]
+	ldr	r1, .L1506+0x8
+	bl	.L158	@ far jump
+.L1507:
+	.align	2, 0
+.L1506:
 	.word	0x21ca
+	.word	0x2310
 	.word	-0x381
 .L418:
-	ldr	r1, [sp, #0x314]
-	ldr	r2, .L1501
-	add	r5, r1, r2
-	bl	.L16	@ far jump
-.L1502:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1508
+	bl	.L909	@ far jump
+.L1509:
 	.align	2, 0
-.L1501:
+.L1508:
 	.word	0x21a1
 .L419:
-	ldr	r3, [sp, #0x31c]
-	ldr	r0, .L1503
-	add	r5, r3, r0
-	b	.L906
-.L1504:
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r1, [r0]
+	ldr	r0, .L1510
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1510+0x4
+	b	.L907
+.L1511:
 	.align	2, 0
-.L1503:
+.L1510:
 	.word	0x21a1
+	.word	0x2278
 .L420:
-	ldr	r1, [sp, #0x320]
-	ldr	r2, .L1505
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L1506:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1512
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1512+0x4
+	bl	.L906	@ far jump
+.L1513:
 	.align	2, 0
-.L1505:
+.L1512:
 	.word	0x21a1
+	.word	0x2278
 .L421:
-	ldr	r3, [sp, #0x324]
-	ldr	r0, .L1507
-	add	r5, r3, r0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1514
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1508:
+.L1515:
 	.align	2, 0
-.L1507:
+.L1514:
 	.word	0x21a2
 .L422:
-	ldr	r1, [sp, #0x328]
-	ldr	r2, .L1509
-	bl	.L920	@ far jump
-.L1510:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1516
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1516+0x4
+	bl	.L908	@ far jump
+.L1517:
 	.align	2, 0
-.L1509:
-	.word	0x21a2
-.L423:
-	ldr	r3, [sp, #0x32c]
-	ldr	r0, .L1511
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L1512:
-	.align	2, 0
-.L1511:
-	.word	0x21a2
-.L424:
-	ldr	r1, [sp, #0x330]
-	ldr	r2, .L1513
-	add	r5, r1, r2
-	bl	.L905	@ far jump
-.L1514:
-	.align	2, 0
-.L1513:
-	.word	0x21a2
-.L425:
-	ldr	r3, [sp, #0x334]
-	ldr	r0, .L1515
-	add	r5, r3, r0
-	bl	.L16	@ far jump
 .L1516:
+	.word	0x21a2
+	.word	0x227c
+.L423:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1518
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1518+0x4
+	bl	.L911	@ far jump
+.L1519:
 	.align	2, 0
-.L1515:
+.L1518:
+	.word	0x21a2
+	.word	0x227c
+.L424:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1520
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1520+0x4
+	bl	.L906	@ far jump
+.L1521:
+	.align	2, 0
+.L1520:
+	.word	0x21a2
+	.word	0x227c
+.L425:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1522
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1523:
+	.align	2, 0
+.L1522:
 	.word	0x21a3
 .L426:
-	ldr	r1, [sp, #0x338]
-	ldr	r2, .L1517
-	add	r5, r1, r2
-	bl	.L931	@ far jump
-.L1518:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1524
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	mov	r0, #0x8a
+	lsl	r0, r0, #0x6
+	bl	.L921	@ far jump
+.L1525:
 	.align	2, 0
-.L1517:
+.L1524:
 	.word	0x21a3
 .L427:
-	ldr	r3, [sp, #0x33c]
-	ldr	r0, .L1519
-	add	r5, r3, r0
-	bl	.L909	@ far jump
-.L1520:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1526
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	mov	r0, #0x8a
+	lsl	r0, r0, #0x6
+	bl	.L911	@ far jump
+.L1527:
 	.align	2, 0
-.L1519:
+.L1526:
+	.word	0x21a3
+.L428:
+	ldr	r1, .L1528
+	bl	.L147	@ far jump
+.L1529:
+	.align	2, 0
+.L1528:
 	.word	0x21a3
 .L429:
-	ldr	r1, .L1521
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1521+0x4
-	add	r6, r1, r2
-	bl	.L925	@ far jump
-.L1522:
-	.align	2, 0
-.L1521:
-	.word	0x69c
-	.word	0x21a4
-.L430:
-	ldr	r2, [sp, #0x340]
-	ldr	r3, .L1523
-	add	r5, r2, r3
-	b	.L914
-.L1524:
-	.align	2, 0
-.L1523:
-	.word	0x21a4
-.L431:
-	ldr	r0, [sp, #0x348]
-	ldr	r1, .L1525
-	bl	.L928	@ far jump
-.L1526:
-	.align	2, 0
-.L1525:
-	.word	0x21a4
-.L432:
-	ldr	r2, [sp, #0x34c]
-	ldr	r3, .L1527
-	add	r5, r2, r3
-	bl	.L915	@ far jump
-.L1528:
-	.align	2, 0
-.L1527:
-	.word	0x21a4
-.L433:
-	ldr	r0, [sp, #0x350]
-	ldr	r1, .L1529
-	b	.L917
-.L1530:
-	.align	2, 0
-.L1529:
-	.word	0x21a4
-.L434:
-	ldr	r2, [sp, #0x354]
-	ldr	r3, .L1531
-	add	r5, r2, r3
-	bl	.L927	@ far jump
-.L1532:
-	.align	2, 0
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1530
+	add	r5, r1, r2
+	lsr	r2, r4, #0x1
+	mov	r0, #0x1
+	and	r2, r2, r0
+	ldr	r3, .L1530+0x4
+	bl	.L920	@ far jump
 .L1531:
-	.word	0x21a4
-.L435:
-	ldr	r0, [sp, #0x358]
-	ldr	r1, .L1533
-	add	r5, r0, r1
-	bl	.L16	@ far jump
-.L1534:
 	.align	2, 0
+.L1530:
+	.word	0x21a4
+	.word	0x2284
+.L430:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1532
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1532+0x4
+	bl	.L912	@ far jump
 .L1533:
+	.align	2, 0
+.L1532:
+	.word	0x21a4
+	.word	0x2284
+.L431:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1534
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1534+0x4
+	bl	.L921	@ far jump
+.L1535:
+	.align	2, 0
+.L1534:
+	.word	0x21a4
+	.word	0x2284
+.L432:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1536
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1536+0x4
+	bl	.L916	@ far jump
+.L1537:
+	.align	2, 0
+.L1536:
+	.word	0x21a4
+	.word	0x2284
+.L433:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1538
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1538+0x4
+	b	.L917
+.L1539:
+	.align	2, 0
+.L1538:
+	.word	0x21a4
+	.word	0x2284
+.L434:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1540
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1540+0x4
+	bl	.L915	@ far jump
+.L1541:
+	.align	2, 0
+.L1540:
+	.word	0x21a4
+	.word	0x2284
+.L435:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1542
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1543:
+	.align	2, 0
+.L1542:
 	.word	0x21a5
 .L436:
-	ldr	r2, [sp, #0x35c]
-	ldr	r3, .L1535
-	bl	.L911	@ far jump
-.L1536:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1544
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1544+0x4
+	bl	.L913	@ far jump
+.L1545:
 	.align	2, 0
-.L1535:
+.L1544:
 	.word	0x21a5
+	.word	0x2288
 .L437:
-	ldr	r0, [sp, #0x360]
-	ldr	r1, .L1537
-	add	r5, r0, r1
-	b	.L906
-.L1538:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1546
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1546+0x4
+	b	.L907
+.L1547:
 	.align	2, 0
-.L1537:
+.L1546:
 	.word	0x21a5
+	.word	0x2288
 .L438:
-	ldr	r2, [sp, #0x364]
-	ldr	r3, .L1539
-	add	r5, r2, r3
-	b	.L919
-.L1540:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1548
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1548+0x4
+	b	.L917
+.L1549:
 	.align	2, 0
-.L1539:
+.L1548:
 	.word	0x21a5
+	.word	0x2288
 .L439:
-	mov	r0, #0xd4
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1541
-	add	r7, r0, r1
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r3, .L1550
+	add	r2, r1, r3
 	mov	r0, #0x7
 	and	r0, r0, r4
 	lsl	r0, r0, #0xf
-	ldr	r1, .L1541+0x4
+	add	r3, r3, #0xe0
+	add	r1, r1, r3
+	ldr	r1, [r1]
+	ldr	r3, .L1550+0x4
 	bl	.L153	@ far jump
-.L1542:
+.L1551:
 	.align	2, 0
-.L1541:
+.L1550:
 	.word	0x21a4
 	.word	-0x38001
 .L440:
-	ldr	r1, [sp, #0x368]
-	ldr	r2, .L1543
-	add	r5, r1, r2
-	bl	.L916	@ far jump
-.L1544:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1552
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1552+0x4
+	bl	.L913	@ far jump
+.L1553:
 	.align	2, 0
-.L1543:
+.L1552:
 	.word	0x21a6
+	.word	0x228c
 .L441:
-	ldr	r3, [sp, #0x36c]
-	ldr	r0, .L1545
-	bl	.L935	@ far jump
-.L1546:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1554
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1554+0x4
+	bl	.L910	@ far jump
+.L1555:
 	.align	2, 0
-.L1545:
+.L1554:
 	.word	0x21a6
+	.word	0x228c
 .L442:
-	ldr	r1, [sp, #0x374]
-	ldr	r2, .L1547
-	add	r5, r1, r2
-	bl	.L915	@ far jump
-.L1548:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1556
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1556+0x4
+	bl	.L916	@ far jump
+.L1557:
 	.align	2, 0
-.L1547:
+.L1556:
 	.word	0x21a6
+	.word	0x228c
 .L443:
-	ldr	r3, [sp, #0x378]
-	ldr	r0, .L1549
-	bl	.L936	@ far jump
-.L1550:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1558
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1558+0x4
+	bl	.L914	@ far jump
+.L1559:
 	.align	2, 0
-.L1549:
+.L1558:
+	.word	0x21a6
+	.word	0x228c
+.L444:
+	ldr	r1, .L1560
+	bl	.L147	@ far jump
+.L1561:
+	.align	2, 0
+.L1560:
 	.word	0x21a6
 .L445:
-	ldr	r2, [sp, #0x37c]
-	ldr	r3, .L1551
-	bl	.L924	@ far jump
-.L1552:
-	.align	2, 0
-.L1551:
-	.word	0x21a6
-.L446:
-	ldr	r0, [sp, #0x380]
-	ldr	r1, .L1553
-	add	r5, r0, r1
-	bl	.L907	@ far jump
-.L1554:
-	.align	2, 0
-.L1553:
-	.word	0x21a7
-.L447:
-	ldr	r2, [sp, #0x384]
-	ldr	r3, .L1555
-	add	r5, r2, r3
-	b	.L906
-.L1556:
-	.align	2, 0
-.L1555:
-	.word	0x21a7
-.L448:
-	ldr	r0, [sp, #0x388]
-	ldr	r1, .L1557
-.L917:
-	add	r5, r0, r1
-.L919:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1562
+	add	r3, r1, r2
 	mov	r0, #0x3
 	and	r0, r0, r4
-	lsl	r0, r0, #0x5
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1562+0x4
+	bl	.L918	@ far jump
+.L1563:
+	.align	2, 0
+.L1562:
+	.word	0x21a6
+	.word	0x228c
+.L446:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1564
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1564+0x4
+	bl	.L908	@ far jump
+.L1565:
+	.align	2, 0
+.L1564:
+	.word	0x21a7
+	.word	0x2290
+.L447:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1566
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1566+0x4
+	b	.L907
+.L1567:
+	.align	2, 0
+.L1566:
+	.word	0x21a7
+	.word	0x2290
+.L448:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1568
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1568+0x4
+.L917:
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x61
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1558:
+.L1569:
 	.align	2, 0
-.L1557:
+.L1568:
 	.word	0x21a7
+	.word	0x2290
 .L449:
-	ldr	r2, .L1559
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1559+0x4
-	add	r6, r2, r3
-	bl	.L925	@ far jump
-.L1560:
-	.align	2, 0
-.L1559:
-	.word	0x6a4
-	.word	0x21a8
-.L450:
-	ldr	r3, [sp, #0x38c]
-	ldr	r0, .L1561
-	add	r5, r3, r0
-	bl	.L907	@ far jump
-.L1562:
-	.align	2, 0
-.L1561:
-	.word	0x21a8
-.L451:
-	ldr	r1, [sp, #0x390]
-	ldr	r2, .L1563
-.L918:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1570
 	add	r5, r1, r2
-.L906:
+	lsr	r2, r4, #0x1
+	mov	r0, #0x1
+	and	r2, r2, r0
+	ldr	r3, .L1570+0x4
+	bl	.L920	@ far jump
+.L1571:
+	.align	2, 0
+.L1570:
+	.word	0x21a8
+	.word	0x2294
+.L450:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1572
+	add	r3, r1, r2
 	mov	r0, #0x3
 	and	r0, r0, r4
-	lsl	r0, r0, #0x3
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1572+0x4
+	bl	.L908	@ far jump
+.L1573:
+	.align	2, 0
+.L1572:
+	.word	0x21a8
+	.word	0x2294
+.L451:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1574
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1574+0x4
+.L907:
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x19
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1564:
+.L1575:
 	.align	2, 0
-.L1563:
+.L1574:
 	.word	0x21a8
+	.word	0x2294
 .L452:
-	ldr	r3, [sp, #0x394]
-	ldr	r0, .L1565
-	add	r5, r3, r0
-	lsl	r0, r4, #0x5
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1576
+	add	r3, r0, r2
+	lsl	r2, r4, #0x5
+	ldr	r1, .L1576+0x4
+	add	r0, r0, r1
+	ldrb	r0, [r0]
 	mov	r1, #0x1f
 	bl	.L127	@ far jump
-.L1566:
+.L1577:
 	.align	2, 0
-.L1565:
+.L1576:
 	.word	0x21a8
+	.word	0x2294
 .L453:
-	ldr	r1, [sp, #0x398]
-	ldr	r2, .L1567
-	add	r5, r1, r2
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1578
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1568:
+.L1579:
 	.align	2, 0
-.L1567:
+.L1578:
 	.word	0x21a9
 .L454:
-	ldr	r3, [sp, #0x3a0]
-	ldr	r0, .L1569
-	add	r5, r3, r0
-	bl	.L931	@ far jump
-.L1570:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1580
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1580+0x4
+	bl	.L921	@ far jump
+.L1581:
 	.align	2, 0
-.L1569:
+.L1580:
 	.word	0x21a9
+	.word	0x2298
 .L455:
-	ldr	r1, [sp, #0x3a4]
-	ldr	r2, .L1571
-	add	r5, r1, r2
-	bl	.L915	@ far jump
-.L1572:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1582
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1582+0x4
+	bl	.L916	@ far jump
+.L1583:
 	.align	2, 0
-.L1571:
+.L1582:
 	.word	0x21a9
+	.word	0x2298
 .L456:
-	ldr	r3, [sp, #0x3a8]
-	ldr	r0, .L1573
-	bl	.L936	@ far jump
-.L1574:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1584
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1584+0x4
+	bl	.L914	@ far jump
+.L1585:
 	.align	2, 0
-.L1573:
+.L1584:
+	.word	0x21a9
+	.word	0x2298
+.L457:
+	ldr	r1, .L1586
+	bl	.L147	@ far jump
+.L1587:
+	.align	2, 0
+.L1586:
 	.word	0x21a9
 .L458:
-	ldr	r1, [sp, #0x3ac]
-	ldr	r2, .L1575
-	add	r5, r1, r2
-	bl	.L927	@ far jump
-.L1576:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1588
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1588+0x4
+	bl	.L915	@ far jump
+.L1589:
 	.align	2, 0
-.L1575:
+.L1588:
 	.word	0x21a9
+	.word	0x2298
 .L459:
-	ldr	r3, [sp, #0x3b0]
-	ldr	r0, .L1577
-	add	r5, r3, r0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1590
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1578:
+.L1591:
 	.align	2, 0
-.L1577:
+.L1590:
 	.word	0x21aa
 .L460:
-	ldr	r1, [sp, #0x3b4]
-	ldr	r2, .L1579
-	add	r5, r1, r2
-	b	.L914
-.L1580:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1592
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1592+0x4
+	b	.L912
+.L1593:
 	.align	2, 0
-.L1579:
+.L1592:
 	.word	0x21aa
+	.word	0x229c
 .L461:
-	ldr	r3, [sp, #0x3b8]
-	ldr	r0, .L1581
-	add	r5, r3, r0
-	bl	.L916	@ far jump
-.L1582:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1594
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1594+0x4
+	bl	.L913	@ far jump
+.L1595:
 	.align	2, 0
-.L1581:
+.L1594:
 	.word	0x21aa
+	.word	0x229c
 .L462:
-	ldr	r1, [sp, #0x3bc]
-	ldr	r2, .L1583
-	add	r5, r1, r2
-	bl	.L908	@ far jump
-.L1584:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1596
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1596+0x4
+	bl	.L910	@ far jump
+.L1597:
 	.align	2, 0
-.L1583:
+.L1596:
 	.word	0x21aa
+	.word	0x229c
 .L463:
-	ldr	r3, [sp, #0x3c0]
-	ldr	r0, .L1585
-	add	r5, r3, r0
-	bl	.L915	@ far jump
-.L1586:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1598
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1598+0x4
+	bl	.L916	@ far jump
+.L1599:
 	.align	2, 0
-.L1585:
+.L1598:
 	.word	0x21aa
+	.word	0x229c
 .L464:
-	ldr	r1, [sp, #0x3c4]
-	ldr	r2, .L1587
-	add	r5, r1, r2
-	bl	.L912	@ far jump
-.L1588:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1600
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1600+0x4
+	bl	.L914	@ far jump
+.L1601:
 	.align	2, 0
-.L1587:
+.L1600:
+	.word	0x21aa
+	.word	0x229c
+.L465:
+	ldr	r1, .L1602
+	bl	.L147	@ far jump
+.L1603:
+	.align	2, 0
+.L1602:
 	.word	0x21aa
 .L466:
-	ldr	r3, [sp, #0x3cc]
-	ldr	r0, .L1589
-	add	r5, r3, r0
-	bl	.L927	@ far jump
-.L1590:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1604
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1604+0x4
+	bl	.L915	@ far jump
+.L1605:
 	.align	2, 0
-.L1589:
+.L1604:
 	.word	0x21aa
+	.word	0x229c
 .L467:
-	ldr	r1, [sp, #0x3d0]
-	ldr	r2, .L1591
-	add	r5, r1, r2
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1606
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1592:
+.L1607:
 	.align	2, 0
-.L1591:
+.L1606:
 	.word	0x21ab
 .L468:
-	ldr	r3, [sp, #0x3d4]
-	ldr	r0, .L1593
-	add	r5, r3, r0
-	b	.L914
-.L1594:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1608
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1608+0x4
+	b	.L912
+.L1609:
 	.align	2, 0
-.L1593:
+.L1608:
 	.word	0x21ab
+	.word	0x22a0
 .L469:
-	ldr	r1, [sp, #0x3d8]
-	ldr	r2, .L1595
-	add	r5, r1, r2
-	bl	.L916	@ far jump
-.L1596:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1610
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1610+0x4
+	bl	.L913	@ far jump
+.L1611:
 	.align	2, 0
-.L1595:
+.L1610:
 	.word	0x21ab
+	.word	0x22a0
 .L470:
-	ldr	r3, [sp, #0x3dc]
-	ldr	r0, .L1597
-	bl	.L935	@ far jump
-.L1598:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1612
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1612+0x4
+	bl	.L910	@ far jump
+.L1613:
 	.align	2, 0
-.L1597:
+.L1612:
 	.word	0x21ab
+	.word	0x22a0
 .L471:
-	ldr	r2, [sp, #0x3e0]
-	ldr	r3, .L1599
-	add	r1, r2, r3
-	b	.L938
-.L1600:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1614
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1614+0x4
+	b	.L925
+.L1615:
 	.align	2, 0
-.L1599:
+.L1614:
 	.word	0x21b4
+	.word	0x22c4
+.L472:
+	ldr	r1, .L1616
 .L473:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	add	r2, r0, r1
 	lsl	r0, r4, #0xe
-	ldr	r3, [r7]
-	ldr	r1, .L1601
+	ldr	r1, [r2]
+	ldr	r3, .L1616+0x4
 	bl	.L153	@ far jump
-.L1602:
+.L1617:
 	.align	2, 0
-.L1601:
+.L1616:
+	.word	0x21b4
 	.word	-0x3fc001
 .L474:
-	ldr	r0, [sp, #0x3e4]
-	ldr	r2, .L1603
-	b	.L939
-.L1604:
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r1, .L1618
+	add	r3, r0, r1
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1618+0x4
+	b	.L925
+.L1619:
 	.align	2, 0
-.L1603:
+.L1618:
 	.word	0x21b6
+	.word	0x22c8
 .L475:
-	mov	r3, #0xd5
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1605
-	b	.L940
-.L1606:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r3, .L1620
+	add	r5, r0, r3
+	lsr	r2, r4, #0x2
+	ldr	r1, .L1620+0x4
+	b	.L926
+.L1621:
 	.align	2, 0
-.L1605:
+.L1620:
 	.word	0x21b8
+	.word	0x22d0
 .L476:
-	ldr	r0, [sp, #0x3e8]
-	ldr	r2, .L1607
-	b	.L939
-.L1608:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1622
+	add	r3, r0, r1
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1622+0x4
+	b	.L925
+.L1623:
 	.align	2, 0
-.L1607:
+.L1622:
+	.word	0x21b8
+	.word	0x22d0
+.L477:
+	ldr	r1, .L1624
+	b	.L473
+.L1625:
+	.align	2, 0
+.L1624:
 	.word	0x21b8
 .L478:
-	ldr	r3, [sp, #0x3ec]
-	ldr	r0, .L1609
-	add	r1, r3, r0
-	b	.L938
-.L1610:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1626
+	add	r3, r0, r1
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1626+0x4
+	b	.L925
+.L1627:
 	.align	2, 0
-.L1609:
+.L1626:
 	.word	0x21ba
+	.word	0x22d4
 .L479:
-	ldr	r1, .L1611
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1611+0x4
-	add	r6, r1, r2
-	b	.L941
-.L1612:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r3, .L1628
+	add	r5, r0, r3
+	lsr	r2, r4, #0x2
+	ldr	r1, .L1628+0x4
+	b	.L926
+.L1629:
 	.align	2, 0
-.L1611:
-	.word	0x6ac
+.L1628:
 	.word	0x21bc
+	.word	0x22dc
 .L480:
-	ldr	r2, [sp, #0x3f0]
-	ldr	r3, .L1613
-	add	r1, r2, r3
-	b	.L938
-.L1614:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1630
+	add	r3, r0, r1
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1630+0x4
+	b	.L925
+.L1631:
 	.align	2, 0
-.L1613:
+.L1630:
+	.word	0x21bc
+	.word	0x22dc
+.L481:
+	ldr	r1, .L1632
+	b	.L473
+.L1633:
+	.align	2, 0
+.L1632:
 	.word	0x21bc
 .L482:
-	ldr	r0, [sp, #0x3f8]
-	ldr	r2, .L1615
-.L939:
-	add	r1, r0, r2
-.L938:
-	lsl	r0, r4, #0x6
-	ldr	r2, .L1615+0x4
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1634
+	add	r3, r0, r1
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1634+0x4
+.L925:
+	add	r0, r0, r1
+	ldrh	r0, [r0]
+	ldr	r1, .L1634+0x8
 	bl	.L158	@ far jump
-.L1616:
+.L1635:
 	.align	2, 0
-.L1615:
+.L1634:
 	.word	0x21be
+	.word	0x22e0
 	.word	-0x3fc1
 .L483:
-	mov	r3, #0xd6
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	mov	r3, #0x87
+	lsl	r3, r3, #0x6
+	add	r5, r0, r3
+	lsr	r2, r4, #0x2
+	ldr	r1, .L1636
+.L926:
+	add	r0, r0, r1
+	ldrb	r0, [r0]
+	mov	r1, #0x40
+	neg	r1, r1
+	bl	.L163	@ far jump
+.L1637:
+	.align	2, 0
+.L1636:
+	.word	0x22e8
+.L484:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
 	mov	r0, #0x87
 	lsl	r0, r0, #0x6
-.L940:
-	add	r6, r3, r0
-.L941:
-	lsr	r1, r4, #0x2
-	mov	r0, #0x40
-	neg	r0, r0
-	bl	.L163	@ far jump
-.L484:
-	ldr	r0, [sp, #0x3fc]
-	mov	r2, #0x87
-	lsl	r2, r2, #0x6
-	add	r1, r0, r2
-.L937:
+	add	r3, r1, r0
 	mov	r0, #0x7
 	and	r0, r0, r4
-	lsl	r0, r0, #0x6
-	ldr	r2, .L1617
+	lsl	r2, r0, #0x6
+	ldr	r0, .L1638
+.L924:
+	add	r1, r1, r0
+	ldrh	r0, [r1]
+	ldr	r1, .L1638+0x4
 	bl	.L158	@ far jump
-.L1618:
+.L1639:
 	.align	2, 0
-.L1617:
+.L1638:
+	.word	0x22e8
 	.word	-0x1c1
 .L485:
-	mov	r3, #0x80
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1619
-	add	r5, r3, r0
-	bl	.L907	@ far jump
-.L1620:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1640
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1640+0x4
+	bl	.L908	@ far jump
+.L1641:
 	.align	2, 0
-.L1619:
+.L1640:
 	.word	0x21c1
+	.word	0x22ec
 .L486:
-	ldr	r0, .L1621
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1621+0x4
-	add	r5, r0, r1
-	b	.L908
-.L1622:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1642
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1642+0x4
+	bl	.L910	@ far jump
+.L1643:
 	.align	2, 0
-.L1621:
-	.word	0x404
+.L1642:
 	.word	0x21c1
+	.word	0x22ec
 .L487:
-	mov	r1, #0x81
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1623
-	add	r5, r1, r2
-	b	.L915
-.L1624:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1644
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1644+0x4
+	bl	.L916	@ far jump
+.L1645:
 	.align	2, 0
-.L1623:
+.L1644:
 	.word	0x21c1
+	.word	0x22ec
 .L488:
-	ldr	r2, .L1625
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1625+0x4
-	add	r5, r2, r3
-	b	.L912
-.L1626:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1646
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1646+0x4
+	bl	.L914	@ far jump
+.L1647:
 	.align	2, 0
-.L1625:
-	.word	0x40c
+.L1646:
+	.word	0x21c1
+	.word	0x22ec
+.L489:
+	ldr	r1, .L1648
+	bl	.L147	@ far jump
+.L1649:
+	.align	2, 0
+.L1648:
 	.word	0x21c1
 .L490:
-	mov	r3, #0x82
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1627
-	add	r5, r3, r0
-	b	.L927
-.L1628:
-	.align	2, 0
-.L1627:
-	.word	0x21c1
-.L491:
-	ldr	r0, .L1629
-	add	r0, r0, sp
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
 	ldr	r0, [r0]
-	ldr	r1, .L1629+0x4
-	add	r5, r0, r1
-	bl	.L16	@ far jump
-.L1630:
+	ldr	r2, .L1650
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1650+0x4
+	bl	.L915	@ far jump
+.L1651:
 	.align	2, 0
-.L1629:
-	.word	0x414
+.L1650:
+	.word	0x21c1
+	.word	0x22ec
+.L491:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1652
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1653:
+	.align	2, 0
+.L1652:
 	.word	0x21c2
 .L492:
-	mov	r1, #0x83
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1631
-	add	r5, r1, r2
-	b	.L914
-.L1632:
-	.align	2, 0
-.L1631:
-	.word	0x21c2
-.L493:
-	ldr	r2, .L1633
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1633+0x4
-	b	.L911
-.L1634:
-	.align	2, 0
-.L1633:
-	.word	0x41c
-	.word	0x21c2
-.L494:
-	ldr	r3, .L1635
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1635+0x4
-	b	.L935
-.L1636:
-	.align	2, 0
-.L1635:
-	.word	0x424
-	.word	0x21c2
-.L495:
-	mov	r0, #0x85
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1637
-	b	.L942
-.L1638:
-	.align	2, 0
-.L1637:
-	.word	0x21c2
-.L496:
-	ldr	r1, .L1639
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1639+0x4
-	add	r5, r1, r2
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1654
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1654+0x4
 	b	.L912
-.L1640:
+.L1655:
 	.align	2, 0
-.L1639:
-	.word	0x42c
+.L1654:
+	.word	0x21c2
+	.word	0x22f0
+.L493:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1656
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1656+0x4
+	bl	.L913	@ far jump
+.L1657:
+	.align	2, 0
+.L1656:
+	.word	0x21c2
+	.word	0x22f0
+.L494:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1658
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1658+0x4
+	bl	.L910	@ far jump
+.L1659:
+	.align	2, 0
+.L1658:
+	.word	0x21c2
+	.word	0x22f0
+.L495:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1660
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1660+0x4
+	bl	.L916	@ far jump
+.L1661:
+	.align	2, 0
+.L1660:
+	.word	0x21c2
+	.word	0x22f0
+.L496:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1662
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1662+0x4
+	bl	.L914	@ far jump
+.L1663:
+	.align	2, 0
+.L1662:
+	.word	0x21c2
+	.word	0x22f0
+.L497:
+	ldr	r1, .L1664
+	bl	.L147	@ far jump
+.L1665:
+	.align	2, 0
+.L1664:
 	.word	0x21c2
 .L498:
-	mov	r2, #0x86
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1641
-	add	r1, r2, r3
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1666
+	add	r3, r1, r2
 	mov	r0, #0xf
 	and	r0, r0, r4
-	lsl	r0, r0, #0x7
-	ldr	r2, .L1641+0x4
+	lsl	r2, r0, #0x7
+	ldr	r0, .L1666+0x4
+	add	r1, r1, r0
+	ldrh	r0, [r1]
+	ldr	r1, .L1666+0x8
 	bl	.L158	@ far jump
-.L1642:
+.L1667:
 	.align	2, 0
-.L1641:
+.L1666:
 	.word	0x21c2
+	.word	0x22f0
 	.word	-0x781
 .L499:
-	ldr	r3, .L1643
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1643+0x4
-	add	r5, r3, r0
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1668
+	add	r3, r1, r2
 	mov	r0, #0xf
 	and	r0, r0, r4
-	lsl	r0, r0, #0x3
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1668+0x4
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x79
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1644:
+.L1669:
 	.align	2, 0
-.L1643:
-	.word	0x434
+.L1668:
 	.word	0x21c3
+	.word	0x22f4
 .L500:
-	lsr	r0, r4, #0x1
+	lsr	r1, r4, #0x1
+	ldr	r2, .L1670
 	bl	.L224	@ far jump
+.L1671:
+	.align	2, 0
+.L1670:
+	.word	0x21c4
 .L501:
-	mov	r0, #0x87
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1645
-	add	r5, r0, r1
-	b	.L908
-.L1646:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1672
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1672+0x4
+	bl	.L910	@ far jump
+.L1673:
 	.align	2, 0
-.L1645:
+.L1672:
 	.word	0x21c4
+	.word	0x22f8
 .L502:
-	ldr	r1, .L1647
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1647+0x4
-	add	r5, r1, r2
-	b	.L915
-.L1648:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1674
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1674+0x4
+	bl	.L916	@ far jump
+.L1675:
 	.align	2, 0
-.L1647:
-	.word	0x43c
+.L1674:
 	.word	0x21c4
+	.word	0x22f8
 .L503:
-	mov	r2, #0x88
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1649
-	add	r5, r2, r3
-	b	.L912
-.L1650:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1676
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1676+0x4
+	bl	.L914	@ far jump
+.L1677:
 	.align	2, 0
-.L1649:
+.L1676:
+	.word	0x21c4
+	.word	0x22f8
+.L504:
+	ldr	r1, .L1678
+	bl	.L147	@ far jump
+.L1679:
+	.align	2, 0
+.L1678:
 	.word	0x21c4
 .L505:
-	ldr	r3, .L1651
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1651+0x4
-	add	r5, r3, r0
-	b	.L927
-.L1652:
-	.align	2, 0
-.L1651:
-	.word	0x444
-	.word	0x21c4
-.L506:
-	mov	r0, #0x89
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
 	ldr	r0, [r0]
-	ldr	r1, .L1653
-	add	r5, r0, r1
-	bl	.L16	@ far jump
-.L1654:
+	ldr	r2, .L1680
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1680+0x4
+	b	.L915
+.L1681:
 	.align	2, 0
-.L1653:
+.L1680:
+	.word	0x21c4
+	.word	0x22f8
+.L506:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1682
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1683:
+	.align	2, 0
+.L1682:
 	.word	0x21c5
 .L507:
-	mov	r1, #0x8a
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1655
-	add	r5, r1, r2
-	b	.L914
-.L1656:
-	.align	2, 0
-.L1655:
-	.word	0x21c5
-.L508:
-	ldr	r2, .L1657
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1657+0x4
-	b	.L911
-.L1658:
-	.align	2, 0
-.L1657:
-	.word	0x454
-	.word	0x21c5
-.L509:
-	mov	r3, #0x8b
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1659
-	b	.L935
-.L1660:
-	.align	2, 0
-.L1659:
-	.word	0x21c5
-.L510:
-	ldr	r0, .L1661
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1661+0x4
-	b	.L942
-.L1662:
-	.align	2, 0
-.L1661:
-	.word	0x45c
-	.word	0x21c5
-.L511:
-	mov	r1, #0x8c
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1663
-	add	r5, r1, r2
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1684
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1684+0x4
 	b	.L912
-.L1664:
+.L1685:
 	.align	2, 0
-.L1663:
+.L1684:
+	.word	0x21c5
+	.word	0x22fc
+.L508:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1686
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1686+0x4
+	b	.L913
+.L1687:
+	.align	2, 0
+.L1686:
+	.word	0x21c5
+	.word	0x22fc
+.L509:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1688
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1688+0x4
+	b	.L910
+.L1689:
+	.align	2, 0
+.L1688:
+	.word	0x21c5
+	.word	0x22fc
+.L510:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1690
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1690+0x4
+	b	.L916
+.L1691:
+	.align	2, 0
+.L1690:
+	.word	0x21c5
+	.word	0x22fc
+.L511:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1692
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1692+0x4
+	bl	.L914	@ far jump
+.L1693:
+	.align	2, 0
+.L1692:
+	.word	0x21c5
+	.word	0x22fc
+.L512:
+	ldr	r1, .L1694
+	bl	.L147	@ far jump
+.L1695:
+	.align	2, 0
+.L1694:
 	.word	0x21c5
 .L513:
-	ldr	r2, .L1665
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1665+0x4
-	add	r5, r2, r3
-	b	.L927
-.L1666:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1696
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1696+0x4
+	b	.L915
+.L1697:
 	.align	2, 0
-.L1665:
-	.word	0x464
+.L1696:
 	.word	0x21c5
+	.word	0x22fc
 .L514:
-	mov	r3, #0x8d
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1667
-	add	r5, r3, r0
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1698
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1668:
+.L1699:
 	.align	2, 0
-.L1667:
+.L1698:
 	.word	0x21c6
 .L515:
-	ldr	r0, .L1669
-	add	r0, r0, sp
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
 	ldr	r0, [r0]
-	ldr	r2, .L1669+0x4
-	add	r1, r0, r2
-	lsl	r0, r4, #0x1
-	ldr	r2, .L1669+0x8
+	ldr	r1, .L1700
+	add	r3, r0, r1
+	lsl	r2, r4, #0x1
+	mov	r1, #0x8c
+	lsl	r1, r1, #0x6
+	add	r0, r0, r1
+	ldrh	r0, [r0]
+	ldr	r1, .L1700+0x4
 	bl	.L158	@ far jump
-.L1670:
+.L1701:
 	.align	2, 0
-.L1669:
-	.word	0x46c
+.L1700:
 	.word	0x21c6
 	.word	-0x1ff
 .L516:
-	mov	r1, #0x8e
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1671
-	add	r5, r1, r2
-	b	.L914
-.L1672:
-	.align	2, 0
-.L1671:
-	.word	0x21c7
-.L517:
-	ldr	r2, .L1673
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1673+0x4
-	b	.L911
-.L1674:
-	.align	2, 0
-.L1673:
-	.word	0x474
-	.word	0x21c7
-.L518:
-	ldr	r3, .L1675
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1675+0x4
-	b	.L935
-.L1676:
-	.align	2, 0
-.L1675:
-	.word	0x47c
-	.word	0x21c7
-.L519:
-	mov	r0, #0x90
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1677
-	b	.L942
-.L1678:
-	.align	2, 0
-.L1677:
-	.word	0x21c7
-.L520:
-	ldr	r1, .L1679
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1679+0x4
-	add	r5, r1, r2
-	b	.L912
-.L1680:
-	.align	2, 0
-.L1679:
-	.word	0x484
-	.word	0x21c7
-.L522:
-	mov	r2, #0x91
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1681
-	add	r5, r2, r3
-	b	.L927
-.L1682:
-	.align	2, 0
-.L1681:
-	.word	0x21c7
-.L523:
-	ldr	r3, .L1683
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1683+0x4
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1684:
-	.align	2, 0
-.L1683:
-	.word	0x48c
-	.word	0x21c8
-.L524:
-	mov	r0, #0x92
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1685
-.L910:
-	add	r5, r0, r1
-.L914:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1702
+	add	r3, r1, r0
 	mov	r0, #0x1
 	and	r0, r0, r4
-	lsl	r0, r0, #0x1
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1702+0x4
+	b	.L912
+.L1703:
+	.align	2, 0
+.L1702:
+	.word	0x21c7
+	.word	0x2304
+.L517:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1704
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1704+0x4
+	b	.L913
+.L1705:
+	.align	2, 0
+.L1704:
+	.word	0x21c7
+	.word	0x2304
+.L518:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1706
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1706+0x4
+	b	.L910
+.L1707:
+	.align	2, 0
+.L1706:
+	.word	0x21c7
+	.word	0x2304
+.L519:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1708
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1708+0x4
+	b	.L916
+.L1709:
+	.align	2, 0
+.L1708:
+	.word	0x21c7
+	.word	0x2304
+.L520:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1710
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1710+0x4
+	b	.L914
+.L1711:
+	.align	2, 0
+.L1710:
+	.word	0x21c7
+	.word	0x2304
+.L521:
+	ldr	r1, .L1712
+	bl	.L147	@ far jump
+.L1713:
+	.align	2, 0
+.L1712:
+	.word	0x21c7
+.L522:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1714
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1714+0x4
+	b	.L915
+.L1715:
+	.align	2, 0
+.L1714:
+	.word	0x21c7
+	.word	0x2304
+.L523:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1716
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1717:
+	.align	2, 0
+.L1716:
+	.word	0x21c8
+.L524:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1718
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1718+0x4
+.L912:
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x3
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1686:
-	.align	2, 0
-.L1685:
-	.word	0x21c8
-.L525:
-	ldr	r1, .L1687
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1687+0x4
-	b	.L929
-.L1688:
-	.align	2, 0
-.L1687:
-	.word	0x494
-	.word	0x21ab
-.L526:
-	mov	r2, #0x93
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1689
-	b	.L930
-.L1690:
-	.align	2, 0
-.L1689:
-	.word	0x21ab
-.L527:
-	ldr	r3, .L1691
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1691+0x4
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1692:
-	.align	2, 0
-.L1691:
-	.word	0x49c
-	.word	0x21ac
-.L528:
-	mov	r0, #0x94
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1693
-	b	.L928
-.L1694:
-	.align	2, 0
-.L1693:
-	.word	0x21ac
-.L529:
-	mov	r1, #0x95
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1695
-	b	.L929
-.L1696:
-	.align	2, 0
-.L1695:
-	.word	0x21ac
-.L530:
-	ldr	r2, .L1697
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1697+0x4
-	b	.L930
-.L1698:
-	.align	2, 0
-.L1697:
-	.word	0x4ac
-	.word	0x21ac
-.L531:
-	mov	r3, #0x96
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1699
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1700:
-	.align	2, 0
-.L1699:
-	.word	0x21ad
-.L532:
-	ldr	r0, .L1701
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1701+0x4
-	b	.L928
-.L1702:
-	.align	2, 0
-.L1701:
-	.word	0x4b4
-	.word	0x21ad
-.L533:
-	mov	r1, #0x97
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1703
-	b	.L929
-.L1704:
-	.align	2, 0
-.L1703:
-	.word	0x21ad
-.L534:
-	ldr	r2, .L1705
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1705+0x4
-	b	.L930
-.L1706:
-	.align	2, 0
-.L1705:
-	.word	0x4bc
-	.word	0x21ad
-.L535:
-	mov	r3, #0x98
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1707
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1708:
-	.align	2, 0
-.L1707:
-	.word	0x21ae
-.L536:
-	ldr	r0, .L1709
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1709+0x4
-	b	.L928
-.L1710:
-	.align	2, 0
-.L1709:
-	.word	0x4c4
-	.word	0x21ae
-.L537:
-	mov	r1, #0x99
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1711
-	b	.L929
-.L1712:
-	.align	2, 0
-.L1711:
-	.word	0x21ae
-.L538:
-	ldr	r2, .L1713
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1713+0x4
-	b	.L930
-.L1714:
-	.align	2, 0
-.L1713:
-	.word	0x4cc
-	.word	0x21ae
-.L539:
-	ldr	r3, .L1715
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1715+0x4
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1716:
-	.align	2, 0
-.L1715:
-	.word	0x4d4
-	.word	0x21af
-.L540:
-	mov	r0, #0x9b
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1717
-	b	.L928
-.L1718:
-	.align	2, 0
-.L1717:
-	.word	0x21af
-.L541:
-	ldr	r1, .L1719
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1719+0x4
-	b	.L929
-.L1720:
-	.align	2, 0
 .L1719:
-	.word	0x4dc
-	.word	0x21af
-.L542:
-	mov	r2, #0x9c
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1721
-	b	.L930
-.L1722:
 	.align	2, 0
-.L1721:
-	.word	0x21af
-.L543:
-	ldr	r3, .L1723
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1723+0x4
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1724:
-	.align	2, 0
-.L1723:
-	.word	0x4e4
-	.word	0x21b0
-.L544:
-	mov	r0, #0x9d
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1725
-	b	.L928
-.L1726:
-	.align	2, 0
-.L1725:
-	.word	0x21b0
-.L545:
-	ldr	r1, .L1727
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1727+0x4
-	b	.L929
-.L1728:
-	.align	2, 0
-.L1727:
-	.word	0x4ec
-	.word	0x21b0
-.L546:
-	mov	r2, #0x9e
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1729
-	b	.L930
-.L1730:
-	.align	2, 0
-.L1729:
-	.word	0x21b0
-.L547:
-	ldr	r3, .L1731
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1731+0x4
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1732:
-	.align	2, 0
-.L1731:
-	.word	0x4f4
-	.word	0x21b1
-.L548:
-	mov	r0, #0x9f
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1733
-	b	.L928
-.L1734:
-	.align	2, 0
-.L1733:
-	.word	0x21b1
-.L549:
-	mov	r1, #0xa0
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1735
-	b	.L929
-.L1736:
-	.align	2, 0
-.L1735:
-	.word	0x21b1
-.L550:
-	ldr	r2, .L1737
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1737+0x4
-	b	.L930
-.L1738:
-	.align	2, 0
-.L1737:
-	.word	0x504
-	.word	0x21b1
-.L551:
-	mov	r3, #0xa1
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1739
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1740:
-	.align	2, 0
-.L1739:
-	.word	0x21b2
-.L552:
-	ldr	r0, .L1741
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1741+0x4
-	b	.L928
-.L1742:
-	.align	2, 0
-.L1741:
-	.word	0x50c
-	.word	0x21b2
-.L553:
-	mov	r1, #0xa2
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1743
-	b	.L929
-.L1744:
-	.align	2, 0
-.L1743:
-	.word	0x21b2
-.L554:
-	ldr	r2, .L1745
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1745+0x4
-	b	.L930
-.L1746:
-	.align	2, 0
-.L1745:
-	.word	0x514
-	.word	0x21b2
-.L555:
-	mov	r3, #0xa3
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1747
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1748:
-	.align	2, 0
-.L1747:
-	.word	0x21b3
-.L556:
-	ldr	r0, .L1749
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1749+0x4
-	b	.L928
-.L1750:
-	.align	2, 0
-.L1749:
-	.word	0x51c
-	.word	0x21b3
-.L557:
-	mov	r1, #0xa4
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1751
-	b	.L929
-.L1752:
-	.align	2, 0
-.L1751:
-	.word	0x21b3
-.L558:
-	ldr	r2, .L1753
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1753+0x4
-.L930:
-	add	r5, r2, r3
-.L905:
-	lsl	r0, r4, #0x6
-	mov	r1, #0x3f
-	bl	.L127	@ far jump
-.L1754:
-	.align	2, 0
-.L1753:
-	.word	0x524
-	.word	0x21b3
-.L559:
-	ldr	r3, .L1755
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1755+0x4
-	add	r5, r3, r0
-	bl	.L16	@ far jump
-.L1756:
-	.align	2, 0
-.L1755:
-	.word	0x52c
-	.word	0x21b4
-.L560:
-	mov	r0, #0xa6
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1757
-.L928:
-	add	r5, r0, r1
-.L931:
+.L1718:
+	.word	0x21c8
+	.word	0x2308
+.L525:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1720
+	add	r3, r1, r2
 	mov	r0, #0x3
 	and	r0, r0, r4
-	lsl	r0, r0, #0x2
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1720+0x4
+	b	.L911
+.L1721:
+	.align	2, 0
+.L1720:
+	.word	0x21ab
+	.word	0x22a0
+.L526:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1722
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1722+0x4
+	b	.L906
+.L1723:
+	.align	2, 0
+.L1722:
+	.word	0x21ab
+	.word	0x22a0
+.L527:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1724
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1725:
+	.align	2, 0
+.L1724:
+	.word	0x21ac
+.L528:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1726
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1726+0x4
+	b	.L921
+.L1727:
+	.align	2, 0
+.L1726:
+	.word	0x21ac
+	.word	0x22a4
+.L529:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1728
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1728+0x4
+	b	.L911
+.L1729:
+	.align	2, 0
+.L1728:
+	.word	0x21ac
+	.word	0x22a4
+.L530:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1730
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1730+0x4
+	b	.L906
+.L1731:
+	.align	2, 0
+.L1730:
+	.word	0x21ac
+	.word	0x22a4
+.L531:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1732
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1733:
+	.align	2, 0
+.L1732:
+	.word	0x21ad
+.L532:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1734
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1734+0x4
+	b	.L921
+.L1735:
+	.align	2, 0
+.L1734:
+	.word	0x21ad
+	.word	0x22a8
+.L533:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1736
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1736+0x4
+	b	.L911
+.L1737:
+	.align	2, 0
+.L1736:
+	.word	0x21ad
+	.word	0x22a8
+.L534:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1738
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1738+0x4
+	b	.L906
+.L1739:
+	.align	2, 0
+.L1738:
+	.word	0x21ad
+	.word	0x22a8
+.L535:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1740
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1741:
+	.align	2, 0
+.L1740:
+	.word	0x21ae
+.L536:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1742
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1742+0x4
+	b	.L921
+.L1743:
+	.align	2, 0
+.L1742:
+	.word	0x21ae
+	.word	0x22ac
+.L537:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1744
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1744+0x4
+	b	.L911
+.L1745:
+	.align	2, 0
+.L1744:
+	.word	0x21ae
+	.word	0x22ac
+.L538:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1746
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1746+0x4
+	b	.L906
+.L1747:
+	.align	2, 0
+.L1746:
+	.word	0x21ae
+	.word	0x22ac
+.L539:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1748
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1749:
+	.align	2, 0
+.L1748:
+	.word	0x21af
+.L540:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1750
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1750+0x4
+	b	.L921
+.L1751:
+	.align	2, 0
+.L1750:
+	.word	0x21af
+	.word	0x22b0
+.L541:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1752
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1752+0x4
+	b	.L911
+.L1753:
+	.align	2, 0
+.L1752:
+	.word	0x21af
+	.word	0x22b0
+.L542:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1754
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1754+0x4
+	b	.L906
+.L1755:
+	.align	2, 0
+.L1754:
+	.word	0x21af
+	.word	0x22b0
+.L543:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1756
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1757:
+	.align	2, 0
+.L1756:
+	.word	0x21b0
+.L544:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1758
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1758+0x4
+	b	.L921
+.L1759:
+	.align	2, 0
+.L1758:
+	.word	0x21b0
+	.word	0x22b4
+.L545:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1760
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1760+0x4
+	b	.L911
+.L1761:
+	.align	2, 0
+.L1760:
+	.word	0x21b0
+	.word	0x22b4
+.L546:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1762
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1762+0x4
+	b	.L906
+.L1763:
+	.align	2, 0
+.L1762:
+	.word	0x21b0
+	.word	0x22b4
+.L547:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1764
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1765:
+	.align	2, 0
+.L1764:
+	.word	0x21b1
+.L548:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1766
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1766+0x4
+	b	.L921
+.L1767:
+	.align	2, 0
+.L1766:
+	.word	0x21b1
+	.word	0x22b8
+.L549:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1768
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1768+0x4
+	b	.L911
+.L1769:
+	.align	2, 0
+.L1768:
+	.word	0x21b1
+	.word	0x22b8
+.L550:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1770
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1770+0x4
+	b	.L906
+.L1771:
+	.align	2, 0
+.L1770:
+	.word	0x21b1
+	.word	0x22b8
+.L551:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1772
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1773:
+	.align	2, 0
+.L1772:
+	.word	0x21b2
+.L552:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1774
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1774+0x4
+	b	.L921
+.L1775:
+	.align	2, 0
+.L1774:
+	.word	0x21b2
+	.word	0x22bc
+.L553:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1776
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1776+0x4
+	b	.L911
+.L1777:
+	.align	2, 0
+.L1776:
+	.word	0x21b2
+	.word	0x22bc
+.L554:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1778
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	ldr	r1, .L1778+0x4
+	b	.L906
+.L1779:
+	.align	2, 0
+.L1778:
+	.word	0x21b2
+	.word	0x22bc
+.L555:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1780
+	add	r3, r0, r1
+	bl	.L16	@ far jump
+.L1781:
+	.align	2, 0
+.L1780:
+	.word	0x21b3
+.L556:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1782
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	mov	r0, #0x8b
+	lsl	r0, r0, #0x6
+	b	.L921
+.L1783:
+	.align	2, 0
+.L1782:
+	.word	0x21b3
+.L557:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1784
+	add	r3, r1, r2
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x4
+	mov	r0, #0x8b
+	lsl	r0, r0, #0x6
+	b	.L911
+.L1785:
+	.align	2, 0
+.L1784:
+	.word	0x21b3
+.L558:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1786
+	add	r3, r0, r2
+	lsl	r2, r4, #0x6
+	mov	r1, #0x8b
+	lsl	r1, r1, #0x6
+.L906:
+	add	r0, r0, r1
+	ldrb	r0, [r0]
+	mov	r1, #0x3f
+	bl	.L127	@ far jump
+.L1787:
+	.align	2, 0
+.L1786:
+	.word	0x21b3
+.L559:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1788
+	add	r3, r0, r1
+	ldr	r2, .L1788+0x4
+	b	.L927
+.L1789:
+	.align	2, 0
+.L1788:
+	.word	0x21b4
+	.word	0x22c4
+.L560:
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r1, [r0]
+	ldr	r0, .L1790
+	add	r3, r1, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1790+0x4
+.L921:
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0xd
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1758:
+.L1791:
 	.align	2, 0
-.L1757:
+.L1790:
 	.word	0x21b4
+	.word	0x22c4
 .L561:
-	ldr	r1, .L1759
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1759+0x4
-.L929:
-	add	r5, r1, r2
-.L909:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1792
+	add	r3, r1, r2
 	mov	r0, #0x3
 	and	r0, r0, r4
-	lsl	r0, r0, #0x4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1792+0x4
+.L911:
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x31
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1760:
+.L1793:
 	.align	2, 0
-.L1759:
-	.word	0x534
+.L1792:
 	.word	0x21b4
+	.word	0x22c4
 .L562:
-	mov	r2, #0xa7
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1761
-	b	.L911
-.L1762:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1794
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1794+0x4
+	b	.L913
+.L1795:
 	.align	2, 0
-.L1761:
+.L1794:
 	.word	0x21c8
+	.word	0x2308
 .L563:
-	ldr	r3, .L1763
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1763+0x4
-	b	.L935
-.L1764:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1796
+	add	r3, r1, r2
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1796+0x4
+	b	.L910
+.L1797:
 	.align	2, 0
-.L1763:
-	.word	0x53c
+.L1796:
 	.word	0x21c8
+	.word	0x2308
 .L564:
-	mov	r0, #0xa8
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
 	ldr	r0, [r0]
-	ldr	r1, .L1765
-	add	r5, r0, r1
-	lsl	r0, r4, #0x4
+	ldr	r2, .L1798
+	add	r3, r0, r2
+	lsl	r2, r4, #0x4
+	ldr	r1, .L1798+0x4
+	add	r0, r0, r1
+	ldrb	r0, [r0]
 	mov	r1, #0xf
 	bl	.L127	@ far jump
-.L1766:
+.L1799:
 	.align	2, 0
-.L1765:
+.L1798:
 	.word	0x21c8
+	.word	0x2308
 .L565:
-	ldr	r1, .L1767
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1767+0x4
-	add	r5, r1, r2
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1800
+	add	r3, r0, r1
 	bl	.L16	@ far jump
-.L1768:
+.L1801:
 	.align	2, 0
-.L1767:
-	.word	0x544
+.L1800:
 	.word	0x21c9
 .L566:
-	mov	r2, #0xa9
-	lsl	r2, r2, #0x3
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1769
-	add	r5, r2, r3
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1802
+	add	r3, r1, r0
 	mov	r0, #0xf
 	and	r0, r0, r4
-	lsl	r0, r0, #0x1
+	lsl	r2, r0, #0x1
+	ldr	r0, .L1802+0x4
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x1f
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1770:
+.L1803:
 	.align	2, 0
-.L1769:
+.L1802:
 	.word	0x21c9
+	.word	0x230c
 .L567:
-	ldr	r3, .L1771
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1771+0x4
-	b	.L936
-.L1772:
-	.align	2, 0
-.L1771:
-	.word	0x54c
-	.word	0x21c9
-.L569:
-	mov	r0, #0xaa
-	lsl	r0, r0, #0x3
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1773
-.L913:
-	add	r5, r0, r1
-.L927:
-	lsl	r0, r4, #0x7
-	mov	r1, #0x7f
-	bl	.L127	@ far jump
-.L1774:
-	.align	2, 0
-.L1773:
-	.word	0x21c9
-.L570:
-	mov	r1, #0xab
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1775
-	add	r5, r1, r2
-	bl	.L16	@ far jump
-.L1776:
-	.align	2, 0
-.L1775:
-	.word	0x21ca
-.L571:
-	ldr	r2, .L1777
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1777+0x4
-.L911:
-	add	r5, r2, r3
-.L916:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1804
+	add	r3, r1, r2
 	mov	r0, #0x1
 	and	r0, r0, r4
-	lsl	r0, r0, #0x2
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1804+0x4
+	b	.L914
+.L1805:
+	.align	2, 0
+.L1804:
+	.word	0x21c9
+	.word	0x230c
+.L568:
+	ldr	r1, .L1806
+	bl	.L147	@ far jump
+.L1807:
+	.align	2, 0
+.L1806:
+	.word	0x21c9
+.L569:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1808
+	add	r3, r0, r2
+	lsl	r2, r4, #0x7
+	ldr	r1, .L1808+0x4
+.L915:
+	add	r0, r0, r1
+	ldrb	r0, [r0]
+	mov	r1, #0x7f
+	bl	.L127	@ far jump
+.L1809:
+	.align	2, 0
+.L1808:
+	.word	0x21c9
+	.word	0x230c
+.L570:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r1, .L1810
+	add	r3, r0, r1
+	ldr	r2, .L1810+0x4
+.L927:
+	add	r0, r0, r2
+	ldrb	r5, [r0]
+	mov	r0, #0x4
+	neg	r0, r0
+	and	r5, r5, r0
+	mov	r0, #0x3
+	and	r0, r0, r4
+	orr	r5, r5, r0
+	bl	.L16	@ far jump
+.L1811:
+	.align	2, 0
+.L1810:
+	.word	0x21ca
+	.word	0x2310
+.L571:
+	mov	r3, #0xd4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r1, [r0]
+	ldr	r0, .L1812
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x2
+	ldr	r0, .L1812+0x4
+.L913:
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x5
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1778:
+.L1813:
 	.align	2, 0
-.L1777:
-	.word	0x55c
+.L1812:
 	.word	0x21ca
+	.word	0x2310
 .L572:
-	mov	r3, #0xac
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1779
-.L935:
-	add	r5, r3, r0
-.L908:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1814
+	add	r3, r1, r2
 	mov	r0, #0x1
 	and	r0, r0, r4
-	lsl	r0, r0, #0x3
+	lsl	r2, r0, #0x3
+	ldr	r0, .L1814+0x4
+.L910:
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x9
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1780:
+.L1815:
 	.align	2, 0
-.L1779:
+.L1814:
 	.word	0x21ca
+	.word	0x2310
 .L573:
-	ldr	r0, .L1781
-	add	r0, r0, sp
-	ldr	r0, [r0]
-	ldr	r1, .L1781+0x4
-.L942:
-	add	r5, r0, r1
-.L915:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1816
+	add	r3, r1, r2
 	mov	r0, #0x1
 	and	r0, r0, r4
-	lsl	r0, r0, #0x4
+	lsl	r2, r0, #0x4
+	ldr	r0, .L1816+0x4
+.L916:
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x11
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1782:
+.L1817:
 	.align	2, 0
-.L1781:
-	.word	0x564
+.L1816:
 	.word	0x21ca
+	.word	0x2310
 .L574:
-	mov	r1, #0xad
-	lsl	r1, r1, #0x3
-	add	r1, r1, sp
-	ldr	r1, [r1]
-	ldr	r2, .L1783
-	add	r5, r1, r2
-	b	.L912
-.L1784:
-	.align	2, 0
-.L1783:
-	.word	0x21ca
-.L576:
-	ldr	r2, .L1785
-	add	r2, r2, sp
-	ldr	r2, [r2]
-	ldr	r3, .L1785+0x4
-	add	r5, r2, r3
-	lsl	r0, r4, #0x2
-	mov	r1, #0x3
-	bl	.L127	@ far jump
-.L1786:
-	.align	2, 0
-.L1785:
-	.word	0x56c
-	.word	0x21cb
-.L577:
-	mov	r3, #0xae
-	lsl	r3, r3, #0x3
-	add	r3, r3, sp
-	ldr	r3, [r3]
-	ldr	r0, .L1787
-.L936:
-	add	r5, r3, r0
-.L912:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	ldr	r2, .L1818
+	add	r3, r1, r2
 	mov	r0, #0x1
 	and	r0, r0, r4
-	lsl	r0, r0, #0x5
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1818+0x4
+	b	.L914
+.L1819:
+	.align	2, 0
+.L1818:
+	.word	0x21ca
+	.word	0x2310
+.L575:
+	ldr	r1, .L1820
+	bl	.L147	@ far jump
+.L1821:
+	.align	2, 0
+.L1820:
+	.word	0x21ca
+.L576:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1822
+	add	r3, r0, r2
+	lsl	r2, r4, #0x2
+	ldr	r1, .L1822+0x4
+	add	r0, r0, r1
+	ldrb	r0, [r0]
+	mov	r1, #0x3
+	bl	.L127	@ far jump
+.L1823:
+	.align	2, 0
+.L1822:
+	.word	0x21cb
+	.word	0x2314
+.L577:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	ldr	r0, .L1824
+	add	r3, r1, r0
+	mov	r0, #0x1
+	and	r0, r0, r4
+	lsl	r2, r0, #0x5
+	ldr	r0, .L1824+0x4
+.L914:
+	add	r1, r1, r0
+	ldrb	r0, [r1]
 	mov	r1, #0x21
 	neg	r1, r1
 	bl	.L127	@ far jump
-.L1788:
+.L1825:
 	.align	2, 0
-.L1787:
+.L1824:
+	.word	0x216e
+	.word	0x21ac
+.L578:
+	ldr	r1, .L1826
+	bl	.L147	@ far jump
+.L1827:
+	.align	2, 0
+.L1826:
 	.word	0x216e
 .L3:
-	ldr	r0, [sp]
-	ldr	r1, [sp, #0x4]
+	add	r0, r6, #0
+	mov	r1, r8
 	bl	func_0804590C
 	add	r2, r0, #0
-	ldr	r1, [sp, #0x4]
+	mov	r1, r8
 	sub	r1, r1, #0x46
-	ldr	r0, .L1789
+	ldr	r0, .L1828
 	cmp	r1, r0
-	bls	.LCB7463
+	bls	.LCB12232
 	b	.L2	@long jump
-.LCB7463:
+.LCB12232:
 	lsl	r0, r1, #0x2
-	ldr	r1, .L1789+0x4
+	ldr	r1, .L1828+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1790:
+.L1829:
 	.align	2, 0
-.L1789:
+.L1828:
 	.word	0x18b
 	.word	.L901
 	.align	2, 0
@@ -6011,8 +8783,7 @@ func_08048FFC:
 	.word	.L890
 	.word	.L890
 .L890:
-	ldr	r0, [sp, #0x1c]
-	cmp	r2, r0
+	cmp	r2, r9
 	beq	.L2	@cond_branch
 	cmp	r2, #0x1
 	beq	.L893	@cond_branch
@@ -6026,25 +8797,46 @@ func_08048FFC:
 	beq	.L896	@cond_branch
 	b	.L2
 .L893:
+	mov	r1, #0xd5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L894	@cond_branch
 	bl	func_080125EC
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x4]
+.L894:
+	mov	r2, #0xd4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r3, .L1830
+	add	r0, r0, r3
+	mov	r1, r8
 	bl	func_0809C600
 	b	.L2
+.L1831:
+	.align	2, 0
+.L1830:
+	.word	0x214c
 .L896:
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x4]
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1832
+	add	r0, r0, r2
+	mov	r1, r8
 	bl	func_0809C644
 .L2:
-	mov	r3, #0xdb
-	lsl	r3, r3, #0x3
-	add	sp, sp, r3
-	pop	{r3, r4, r5}
+	pop	{r3, r4}
 	mov	r8, r3
 	mov	r9, r4
-	mov	sl, r5
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
+.L1833:
+	.align	2, 0
+.L1832:
+	.word	0x214c
 .Lfe1:
 	.size	 func_08048FFC,.Lfe1-func_08048FFC

@@ -10,7 +10,12 @@ func_08045584:
 	push	{r4, r5, lr}
 	lsl	r1, r1, #0x18
 	lsr	r5, r1, #0x18
-	mov	r0, #0x0
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r0, r1
+	ldr	r0, [r0]
+	ldr	r1, .L9
+	add	r0, r0, r1
 	bl	func_080A0878
 	add	r4, r0, #0
 	cmp	r4, #0
@@ -23,6 +28,10 @@ func_08045584:
 	add	r0, r4, #0
 	bl	GetDaysSincePlayerEvent_bugged__C12Bachelorette
 	b	.L8
+.L10:
+	.align	2, 0
+.L9:
+	.word	0x1cd4
 .L4:
 	add	r0, r4, #0
 	bl	GetRivalEventCount__C12Bachelorette

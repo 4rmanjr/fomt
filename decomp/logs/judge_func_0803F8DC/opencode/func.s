@@ -12,24 +12,22 @@ func_0803F8DC:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	ldr	r4, .L1439
-	add	sp, sp, r4
+	add	sp, sp, #-0x118
 	add	r6, r0, #0
 	mov	r0, #0xa3
 	lsl	r0, r0, #0x1
 	cmp	r1, r0
-	bls	.LCB13
+	bls	.LCB12
 	b	.L8	@long jump
-.LCB13:
+.LCB12:
 	lsl	r0, r1, #0x2
-	ldr	r1, .L1439+0x4
+	ldr	r1, .L1444
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1440:
+.L1445:
 	.align	2, 0
-.L1439:
-	.word	-0x340
+.L1444:
 	.word	.L1415
 	.align	2, 0
 	.align	2, 0
@@ -103,7 +101,7 @@ func_0803F8DC:
 	.word	.L353
 	.word	.L356
 	.word	.L359
-	.word	.L68
+	.word	.L362
 	.word	.L365
 	.word	.L367
 	.word	.L371
@@ -135,12 +133,12 @@ func_0803F8DC:
 	.word	.L1241
 	.word	.L1243
 	.word	.L1316
-	.word	.L8
-	.word	.L8
-	.word	.L8
+	.word	.L1318
+	.word	.L1321
+	.word	.L1324
 	.word	.L1327
 	.word	.L1329
-	.word	.L8
+	.word	.L1331
 	.word	.L1334
 	.word	.L1245
 	.word	.L1247
@@ -261,7 +259,7 @@ func_0803F8DC:
 	.word	.L655
 	.word	.L657
 	.word	.L658
-	.word	.L1279
+	.word	.L1436
 	.word	.L678
 	.word	.L679
 	.word	.L681
@@ -270,7 +268,7 @@ func_0803F8DC:
 	.word	.L684
 	.word	.L685
 	.word	.L680
-	.word	.L1428
+	.word	.L1423
 	.word	.L687
 	.word	.L689
 	.word	.L900
@@ -319,8 +317,8 @@ func_0803F8DC:
 	.word	.L1208
 	.word	.L1276
 	.word	.L1279
-	.word	.L1428
-	.word	.L1426
+	.word	.L1281
+	.word	.L1283
 	.word	.L691
 	.word	.L745
 	.word	.L872
@@ -331,15 +329,15 @@ func_0803F8DC:
 	.word	.L1072
 	.word	.L1074
 	.word	.L1084
-	.word	.L8
+	.word	.L1390
 	.word	.L1381
 	.word	.L8
 	.word	.L1099
 	.word	.L1272
 	.word	.L1393
-	.word	.L8
+	.word	.L1306
 	.word	.L1309
-	.word	.L8
+	.word	.L1311
 	.word	.L1314
 	.word	.L1405
 	.word	.L1080
@@ -370,7 +368,7 @@ func_0803F8DC:
 	cmp	r0, #0
 	beq	.L8	@cond_branch
 	sub	r0, r0, #0x1
-.L1423:
+.L1421:
 	str	r0, [r1]
 .L8:
 	mov	r0, #0x0
@@ -381,820 +379,2024 @@ func_0803F8DC:
 	add	r1, r6, r2
 	b	.L5
 .L10:
-	ldr	r3, [sp, #0x90]
-	cmp	r3, #0
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L11	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L11:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L12	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L12:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L13	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L13:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L14	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L14:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
 	beq	.L8	@cond_branch
-	add	r0, r3, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_08012064
 	b	.L8
 .L16:
+	mov	r5, #0x24
+	add	r5, r5, r6
+	mov	r8, r5
 	mov	r0, #0xda
 	lsl	r0, r0, #0x1
-	add	r5, r6, r0
-	ldr	r1, [sp, #0x12c]
-	cmp	r1, #0
-	bne	.LCB81
-	bl	.L1350	@far jump
-.LCB81:
-	add	r0, r1, #0
+	add	r7, r6, r0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L17	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L17:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L24	@cond_branch
 	mov	r1, #0x0
 	bl	func_080120A4
+.L1417:
+	add	r4, r0, #0
 .L19:
-	ldr	r2, [r5]
-	str	r2, [sp, #0x2c0]
+	ldr	r1, [r7]
+	cmp	r1, #0x63
+	bhi	.L8	@cond_branch
+	lsl	r0, r1, #0x2
+	add	r0, r0, r8
+	strb	r4, [r0]
+.L22:
+	add	r0, r1, #0x1
+	str	r0, [r7]
+	b	.L8
+.L24:
+	ldr	r2, [r7]
 	cmp	r2, #0x63
 	bhi	.L8	@cond_branch
-.L22:
-	ldr	r0, [sp, #0x2c0]
-	bl	.L1417	@ far jump
+	lsl	r0, r2, #0x2
+	add	r0, r0, r8
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r1, r6, r4
+	ldr	r1, [r1]
+	strb	r1, [r0]
+	add	r0, r2, #0x1
+	str	r0, [r7]
+	b	.L8
 .L26:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	ldr	r0, [sp, #0x130]
+	mov	r5, #0x24
+	add	r5, r5, r6
+	mov	r8, r5
+	mov	r0, #0xda
+	lsl	r0, r0, #0x1
+	add	r7, r6, r0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB110
-	bl	.L1350	@far jump
-.LCB110:
+	beq	.L27	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L27:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L24	@cond_branch
 	mov	r1, #0x0
 	bl	func_080120C4
-	b	.L19
+	b	.L1417
 .L29:
-	ldr	r1, [sp, #0x94]
-	cmp	r1, #0
-	beq	.L8	@cond_branch
-	add	r0, r1, #0
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L30	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L30:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L31	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L31:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB222
+	b	.L8	@long jump
+.LCB222:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_080120E4
 	b	.L8
 .L33:
-	ldr	r2, [sp, #0xb4]
-	cmp	r2, #0
-	beq	.L8	@cond_branch
-	add	r0, r2, #0
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L34	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L34:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L35	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L35:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L36	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L36:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB262
+	b	.L8	@long jump
+.LCB262:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_0801223C
 	b	.L8
 .L38:
-	ldr	r3, [sp, #0xd0]
-	cmp	r3, #0
-	beq	.L8	@cond_branch
-	add	r0, r3, #0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L39	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L39:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L40	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L40:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB296
+	b	.L8	@long jump
+.LCB296:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_08012154
 	b	.L8
 .L42:
-	mov	r0, #0xda
+	mov	r4, #0x24
+	add	r4, r4, r6
+	mov	r8, r4
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r7, r6, r5
+	mov	r0, #0xfa
 	lsl	r0, r0, #0x1
-	add	r5, r6, r0
-	ldr	r1, [sp, #0x11c]
-	cmp	r1, #0
-	bne	.LCB168
-	bl	.L1350	@far jump
-.LCB168:
-	add	r0, r1, #0
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L43	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L43:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB329
+	b	.L24	@long jump
+.LCB329:
 	mov	r1, #0x0
 	bl	func_08012114
-	b	.L19
+	b	.L1417
 .L45:
-	ldr	r2, [sp, #0xec]
-	cmp	r2, #0
-	beq	.L8	@cond_branch
-	add	r0, r2, #0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L46	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L46:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L47	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L47:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L48	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L48:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
 	b	.L1418
 .L50:
-	ldr	r3, [sp, #0x100]
-	cmp	r3, #0
-	beq	.L8	@cond_branch
-	add	r0, r3, #0
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L51	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L51:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L52	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L52:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L53	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L53:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
 .L1418:
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB403
+	b	.L8	@long jump
+.LCB403:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_08012174
 	b	.L8
 .L55:
-	ldr	r0, [sp, #0x110]
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
 	cmp	r0, #0
-	beq	.L8	@cond_branch
+	beq	.L56	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L56:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L57	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L57:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L58	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L58:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
 	b	.L1419
 .L60:
-	ldr	r1, [sp, #0x118]
-	cmp	r1, #0
-	beq	.L8	@cond_branch
-	add	r0, r1, #0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L61	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L61:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L62	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L62:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L63	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L63:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
 .L1419:
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB479
+	b	.L8	@long jump
+.LCB479:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_0801219C
 	b	.L8
 .L65:
-	ldr	r2, [sp, #0x30]
-	cmp	r2, #0
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L66	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L66:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
 	beq	.L68	@cond_branch
-	add	r0, r2, #0
 	mov	r1, #0x0
 	bl	func_080121C4
 .L68:
 	mov	r0, #0x1
 	bl	.L1416	@ far jump
 .L69:
-	ldr	r3, [sp, #0x50]
-	cmp	r3, #0
-	bne	.LCB249
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L70	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L70:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L71	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L71:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB541
 	b	.L8	@long jump
-.LCB249:
-	add	r0, r3, #0
+.LCB541:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_080121EC
 	b	.L8
 .L73:
-	ldr	r0, [sp, #0x5c]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB261
+	beq	.L74	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L74:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB567
 	b	.L8	@long jump
-.LCB261:
+.LCB567:
 	mov	r1, #0x0
 	bl	func_08012218
 	b	.L8
 .L76:
-	ldr	r1, [sp, #0x60]
-	cmp	r1, #0
-	bne	.LCB272
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L77	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L77:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB592
 	b	.L8	@long jump
-.LCB272:
-	add	r0, r1, #0
+.LCB592:
 	mov	r1, #0x0
 	bl	func_0801221C
 	b	.L8
 .L79:
-	ldr	r2, [sp, #0x64]
-	cmp	r2, #0
-	bne	.LCB285
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L80	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L80:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L81	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L81:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L82	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L82:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB631
 	b	.L8	@long jump
-.LCB285:
-	add	r0, r2, #0
+.LCB631:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_08012274
 	b	.L8
 .L84:
-	ldr	r3, [sp, #0x68]
-	cmp	r3, #0
-	bne	.LCB298
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L85	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L85:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB658
 	b	.L8	@long jump
-.LCB298:
-	add	r0, r3, #0
+.LCB658:
 	mov	r1, #0x0
 	bl	func_080122A0
 	b	.L8
 .L87:
-	ldr	r0, [sp, #0x6c]
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB310
+	beq	.L88	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L88:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L89	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L89:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB690
 	b	.L8	@long jump
-.LCB310:
+.LCB690:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_080122BC
 	b	.L8
 .L91:
-	ldr	r1, [sp, #0x70]
-	cmp	r1, #0
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L92	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L92:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L93	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L93:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L94	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L94:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
 	beq	.L95	@cond_branch
-	add	r0, r1, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_080122E0
 .L95:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r3, .L1446
+	add	r0, r0, r3
 	bl	func_0809C5EC
 	b	.L8
+.L1447:
+	.align	2, 0
+.L1446:
+	.word	0x34d8
 .L96:
-	ldr	r2, [sp, #0x74]
-	cmp	r2, #0
-	bne	.LCB343
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L97	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L97:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L98	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L98:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L99	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L99:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB789
 	b	.L8	@long jump
-.LCB343:
-	add	r0, r2, #0
+.LCB789:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_0801238C
 	b	.L8
 .L101:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB805
+	b	.L68	@long jump
+.LCB805:
 	bl	func_080123A4
 	b	.L68
 .L103:
-	ldr	r3, [sp, #0x15c]
-	cmp	r3, #0
-	bne	.LCB362
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L104	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L104:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L105	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L105:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB835
 	b	.L8	@long jump
-.LCB362:
+.LCB835:
+	mov	r0, #0x80
+	lsl	r0, r0, #0x1
+	str	r0, [sp, #0x4]
 	add	r3, sp, #0x4
-	ldr	r0, [sp, #0x15c]
+	add	r0, r1, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_080123CC
 	b	.L8
 .L107:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB855
+	b	.L8	@long jump
+.LCB855:
 	bl	func_08012454
 	b	.L8
 .L109:
-	ldr	r0, [sp, #0x78]
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB382
+	beq	.L110	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L110:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L111	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L111:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB885
 	b	.L8	@long jump
-.LCB382:
+.LCB885:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_08012464
 	b	.L8
 .L113:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB900
+	b	.L8	@long jump
+.LCB900:
 	bl	func_080124C4
 	b	.L8
 .L115:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB912
+	b	.L8	@long jump
+.LCB912:
 	bl	func_080125EC
 	b	.L8
 .L117:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB924
+	b	.L68	@long jump
+.LCB924:
 	bl	func_080124D0
 	b	.L68
 .L119:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB936
+	b	.L68	@long jump
+.LCB936:
 	bl	func_08012658
 	b	.L68
 .L121:
-	ldr	r1, [sp, #0x7c]
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L122	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L122:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
 	cmp	r1, #0
-	beq	.L68	@cond_branch
+	bne	.LCB959
+	b	.L68	@long jump
+.LCB959:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0xc0]
 	add	r0, r1, #0
-	ldr	r1, [sp, #0x1d0]
+	ldr	r1, .L1448
 	mov	r2, #0x40
 	bl	func_0801268C
 	b	.L68
+.L1449:
+	.align	2, 0
+.L1448:
+	.word	0x80f9eb8
 .L126:
-	ldr	r2, [sp, #0x80]
-	cmp	r2, #0
-	bne	.LCB428
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L127	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L127:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB996
 	b	.L68	@long jump
-.LCB428:
-	add	r0, r2, #0
-	ldr	r1, [sp, #0x1d4]
+.LCB996:
+	ldr	r0, [r6, #0x24]
+	ldr	r5, [sp, #0xc4]
+	add	r0, r1, #0
+	ldr	r1, .L1450
 	mov	r2, #0x0
 	bl	func_0801268C
 	b	.L68
+.L1451:
+	.align	2, 0
+.L1450:
+	.word	0x80f9eb8
 .L131:
-	ldr	r3, [sp, #0x84]
-	cmp	r3, #0
-	bne	.LCB442
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L132	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L132:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB1033
 	b	.L68	@long jump
-.LCB442:
+.LCB1033:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0xc8]
 	mov	r2, #0x80
 	lsl	r2, r2, #0x1
-	add	r0, r3, #0
-	ldr	r1, [sp, #0x1d8]
+	add	r0, r1, #0
+	ldr	r1, .L1452
 	bl	func_0801268C
 	b	.L68
+.L1453:
+	.align	2, 0
+.L1452:
+	.word	0x80f9eb8
 .L136:
-	ldr	r0, [sp, #0x88]
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB458
+	beq	.L137	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L137:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB1072
 	b	.L8	@long jump
-.LCB458:
+.LCB1072:
 	mov	r1, #0x0
 	bl	func_080126E4
 	b	.L8
 .L139:
-	ldr	r1, [sp, #0x8c]
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L140	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L140:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
 	cmp	r1, #0
-	bne	.LCB469
+	bne	.LCB1097
 	b	.L8	@long jump
-.LCB469:
+.LCB1097:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0x98]
 	add	r0, r1, #0
-	ldr	r1, [sp, #0x1dc]
+	ldr	r1, .L1454
 	bl	func_08012720
 	b	.L8
+.L1455:
+	.align	2, 0
+.L1454:
+	.word	0x80f9eb8
 .L144:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB1122
+	b	.L8	@long jump
+.LCB1122:
 	bl	func_0801274C
 	b	.L8
 .L146:
-	ldr	r2, [sp, #0x238]
-	ldr	r3, [sp, #0x278]
-	ldr	r0, [sp, #0x2b4]
-	ldr	r1, [sp, #0x278]
-	ldr	r2, [sp, #0x1f0]
-	ldr	r3, [sp, #0x278]
-	mov	r0, #0x0
-	str	r0, [sp, #0xc]
-	b	.L1420
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L147	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L147:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L148	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L148:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L149	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L149:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB1159
+	b	.L68	@long jump
+.LCB1159:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0x9c]
+	ldr	r3, [sp, #0xf8]
+	ldr	r4, [sp, #0x78]
+	b	.L183
 .L157:
-	ldr	r0, [sp, #0x23c]
-	ldr	r1, [sp, #0x29c]
-	ldr	r2, [sp, #0x1f8]
-	ldr	r3, [sp, #0x1f4]
-	b	.L185
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L158	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L158:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L159	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L159:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L160	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L160:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L161	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L161:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB1215
+	b	.L68	@long jump
+.LCB1215:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0xa0]
+	ldr	r3, [sp, #0xe0]
+	ldr	r4, [sp, #0x7c]
+	b	.L183
 .L171:
-	ldr	r0, [sp, #0x240]
-	ldr	r1, [sp, #0x2a0]
-	ldr	r2, [sp, #0x200]
-	ldr	r3, [sp, #0x1fc]
-.L185:
-	ldr	r0, .L1441
-	str	r0, [sp, #0xc]
-	mov	r0, #0x0
-.L1420:
-	ldr	r1, .L1441
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L172	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L172:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L173	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L173:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L174	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L174:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L175	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L175:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L176	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L176:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB1280
+	b	.L68	@long jump
+.LCB1280:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0xa4]
+	ldr	r3, [sp, #0xe4]
+	ldr	r4, [sp, #0x80]
+.L183:
+	add	r0, r1, #0
+	ldr	r1, .L1456
 	add	r2, r1, #0
 	add	r3, r1, #0
 	bl	func_08012860
 	b	.L68
-.L1442:
+.L1457:
 	.align	2, 0
-.L1441:
+.L1456:
 	.word	0x80f9eb8
 .L188:
-	ldr	r0, [sp, #0x244]
-	ldr	r1, [sp, #0x27c]
-	ldr	r2, [sp, #0x2a4]
-	ldr	r3, [sp, #0x27c]
-	mov	r0, #0x0
-	str	r0, [sp, #0xc]
-	ldr	r1, .L1443
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L189	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L189:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L190	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L190:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB1338
+	b	.L68	@long jump
+.LCB1338:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0xa8]
+	ldr	r3, [sp, #0xe8]
+	add	r0, r1, #0
+	ldr	r1, .L1458
 	add	r2, r1, #0
 	mov	r3, #0x0
 	bl	func_080128D0
 	b	.L68
-.L1444:
+.L1459:
 	.align	2, 0
-.L1443:
+.L1458:
 	.word	0x80f9eb8
 .L196:
-	ldr	r0, [sp, #0x248]
-	ldr	r1, [sp, #0x280]
-	ldr	r2, [sp, #0x2a8]
-	ldr	r3, [sp, #0x280]
-	ldr	r0, [sp, #0x204]
-	ldr	r1, [sp, #0x280]
-	mov	r0, #0x0
-	str	r0, [sp, #0xc]
-	b	.L1421
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L197	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L197:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L198	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L198:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L199	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L199:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB1394
+	b	.L68	@long jump
+.LCB1394:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0xac]
+	ldr	r3, [sp, #0xec]
+	ldr	r4, [sp, #0x84]
+	b	.L251
 .L207:
-	ldr	r2, [sp, #0x24c]
-	ldr	r3, [sp, #0x290]
-	ldr	r0, [sp, #0x20c]
-	ldr	r1, [sp, #0x208]
-	b	.L253
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L208	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L208:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L209	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L209:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L210	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L210:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L211	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L211:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB1450
+	b	.L68	@long jump
+.LCB1450:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0xb0]
+	ldr	r3, [sp, #0xd0]
+	ldr	r4, [sp, #0x88]
+	b	.L251
 .L221:
-	ldr	r2, [sp, #0x250]
-	ldr	r3, [sp, #0x284]
-	ldr	r0, [sp, #0x294]
-	ldr	r1, [sp, #0x284]
-	ldr	r2, [sp, #0x214]
-	ldr	r3, [sp, #0x284]
-	ldr	r0, [sp, #0x210]
-	ldr	r1, [sp, #0x284]
-	b	.L253
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L222	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L222:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L223	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L223:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L224	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L224:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L225	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L225:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L226	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L226:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB1515
+	b	.L68	@long jump
+.LCB1515:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0xb4]
+	ldr	r3, [sp, #0xd4]
+	ldr	r4, [sp, #0x8c]
+	b	.L251
 .L238:
-	ldr	r2, [sp, #0x254]
-	ldr	r3, [sp, #0x288]
-	ldr	r0, [sp, #0x298]
-	ldr	r1, [sp, #0x288]
-	ldr	r2, [sp, #0x2ac]
-	ldr	r3, [sp, #0x288]
-	ldr	r0, [sp, #0x218]
-	ldr	r1, [sp, #0x288]
-.L253:
-	ldr	r0, .L1445
-	str	r0, [sp, #0xc]
-	mov	r0, #0x0
-.L1421:
-	ldr	r1, .L1445
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L239	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L239:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L240	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L240:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L241	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L241:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L242	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L242:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L243	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L243:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L244	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L244:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB1589
+	b	.L68	@long jump
+.LCB1589:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0xb8]
+	ldr	r3, [sp, #0xd8]
+	ldr	r4, [sp, #0xf0]
+.L251:
+	add	r0, r1, #0
+	ldr	r1, .L1460
 	add	r2, r1, #0
 	add	r3, r1, #0
 	bl	func_080128D0
 	b	.L68
-.L1446:
+.L1461:
 	.align	2, 0
-.L1445:
+.L1460:
 	.word	0x80f9eb8
 .L258:
-	ldr	r2, [sp, #0x98]
-	cmp	r2, #0
-	bne	.LCB736
-	b	.L8	@long jump
-.LCB736:
-	add	r0, r2, #0
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L259	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L259:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB1642
+	bl	.L8	@far jump
+.LCB1642:
 	mov	r1, #0x0
 	bl	func_08012760
-	b	.L8
+	bl	.L8	@ far jump
 .L261:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB1656
+	bl	.L8	@far jump
+.LCB1656:
 	bl	func_0801278C
-	b	.L8
+	bl	.L8	@ far jump
 .L263:
-	ldr	r3, [sp, #0x9c]
-	cmp	r3, #0
-	bne	.LCB752
-	b	.L8	@long jump
-.LCB752:
-	add	r0, r3, #0
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L264	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L264:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB1679
+	bl	.L8	@far jump
+.LCB1679:
 	mov	r1, #0x0
 	bl	func_080127A0
-	b	.L8
+	bl	.L8	@ far jump
 .L266:
-	bl	func_0801284C
-	b	.L8
-.L268:
-	ldr	r0, [sp, #0x134]
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.LCB769
+	bne	.LCB1693
+	bl	.L8	@far jump
+.LCB1693:
+	bl	func_0801284C
+	bl	.L8	@ far jump
+.L268:
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L269	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L269:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L270	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L270:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB1723
 	b	.L68	@long jump
-.LCB769:
+.LCB1723:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x1
 	bl	func_0801297C
 	b	.L68
 .L273:
-	ldr	r1, [sp, #0x138]
-	cmp	r1, #0
-	bne	.LCB783
-	b	.L68	@long jump
-.LCB783:
-	add	r0, r1, #0
-	b	.L1422
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L274	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L274:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L275	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L275:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	b	.L1420
 .L278:
-	ldr	r2, [sp, #0x13c]
-	cmp	r2, #0
-	bne	.LCB793
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L279	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L279:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L280	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L280:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+.L1420:
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB1785
 	b	.L68	@long jump
-.LCB793:
-	add	r0, r2, #0
-.L1422:
+.LCB1785:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_0801297C
 	b	.L68
 .L283:
-	ldr	r3, [sp, #0xa0]
-	cmp	r3, #0
-	bne	.LCB807
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L284	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L284:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB1812
 	b	.L68	@long jump
-.LCB807:
-	add	r0, r3, #0
+.LCB1812:
 	mov	r1, #0x0
 	bl	func_08012BAC
 	b	.L68
 .L287:
-	ldr	r0, [sp, #0xa4]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB818
-	b	.L8	@long jump
-.LCB818:
+	beq	.L288	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L288:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB1837
+	bl	.L8	@far jump
+.LCB1837:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_08012B04
-	b	.L8
+	bl	.L8	@ far jump
 .L290:
-	ldr	r1, [sp, #0xa8]
-	cmp	r1, #0
-	bne	.LCB831
-	b	.L8	@long jump
-.LCB831:
-	add	r0, r1, #0
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L291	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L291:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L292	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L292:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB1870
+	bl	.L8	@far jump
+.LCB1870:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_08012AA4
-	b	.L8
+	bl	.L8	@ far jump
 .L294:
-	ldr	r2, [sp, #0xac]
-	cmp	r2, #0
-	bne	.LCB845
-	b	.L8	@long jump
-.LCB845:
-	add	r0, r2, #0
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L295	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L295:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L296	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L296:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L297	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L297:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB1910
+	bl	.L8	@far jump
+.LCB1910:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_08012ADC
-	b	.L8
+	bl	.L8	@ far jump
 .L299:
-	ldr	r3, [sp, #0xb0]
-	cmp	r3, #0
-	bne	.LCB859
-	b	.L8	@long jump
-.LCB859:
-	add	r0, r3, #0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L300	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L300:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L301	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L301:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r1, [r0]
+	cmp	r1, #0
+	bne	.LCB1944
+	bl	.L8	@far jump
+.LCB1944:
+	ldr	r0, [r6, #0x24]
+	ldr	r4, [sp, #0xdc]
+	add	r0, r1, #0
 	mov	r1, #0x0
-	ldr	r2, [sp, #0x1e0]
+	ldr	r2, .L1462
 	bl	func_08012ACC
-	b	.L8
+	bl	.L8	@ far jump
+.L1463:
+	.align	2, 0
+.L1462:
+	.word	0x80f9eb8
 .L305:
 	bl	rand
-.L1426:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r1, r6, r0
-.L306:
-	ldr	r2, [r1]
-	str	r2, [sp, #0x2c4]
-	cmp	r2, #0x63
-	bls	.LCB880
-	b	.L8	@long jump
-.LCB880:
-.L308:
-	ldr	r0, [sp, #0x2c4]
-	add	r0, r0, #0x1
-	b	.L1423
-.L309:
-	add	r4, r6, #0
-	add	r4, r4, #0x24
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	ldr	r0, [sp, #0x17c]
-	ldr	r1, [sp, #0x1a4]
-	cmp	r0, r1
-	bgt	.L312	@cond_branch
-	bl	rand
-	b	.L19
-.L312:
-	ldr	r2, [sp, #0x22c]
-	cmp	r2, #0x63
-	bls	.LCB915
-	b	.L8	@long jump
-.LCB915:
-	lsl	r0, r2, #0x2
-	add	r0, r4, r0
-	mov	r1, #0x0
-.L314:
-	str	r1, [r0]
-	b	.L8
-.L315:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	add	r0, r6, #0
-	mov	r1, #0x0
-	bl	func_0804590C
-	b	.L19
-.L317:
-	add	r0, r6, #0
-	mov	r1, #0x0
-	mov	r2, #0x0
-	bl	func_08048FFC
-	b	.L8
-.L320:
+.L1425:
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+.L1436:
 	add	r1, r6, #0
 	add	r1, r1, #0x24
 	mov	r0, #0xda
 	lsl	r0, r0, #0x1
-	add	r0, r0, r6
-	mov	r8, r0
-	cmp	r4, #0x1
+	add	r2, r6, r0
+.L306:
+	ldr	r3, [r2]
+	cmp	r3, #0x63
+	bls	.LCB1979
+	bl	.L8	@far jump
+.LCB1979:
+	lsl	r0, r3, #0x2
+	add	r0, r0, r1
+.L1424:
+	strb	r5, [r0]
+.L308:
+	add	r0, r3, #0x1
+	str	r0, [r2]
+	bl	.L8	@ far jump
+.L309:
+	mov	r1, #0x24
+	add	r1, r1, r6
+	mov	r8, r1
+	mov	r2, #0xda
+	lsl	r2, r2, #0x1
+	add	r7, r6, r2
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L310	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L310:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L311	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L311:
+	ldr	r4, [sp, #0x3c]
+	ldr	r5, [sp, #0x4c]
+	cmp	r4, r5
+	bgt	.L312	@cond_branch
+	bl	rand
+	sub	r1, r5, r4
+	add	r1, r1, #0x1
+	bl	__modsi3
+	add	r4, r0, r4
+	bl	.L19	@ far jump
+.L312:
+	ldr	r0, [r1]
+	cmp	r0, #0x63
+	bls	.LCB2035
+	bl	.L8	@far jump
+.LCB2035:
+	lsl	r0, r0, #0x2
+	add	r0, r0, r8
+	mov	r1, #0x0
+	mov	sl, r1
+.L314:
+	mov	r2, sl
+	str	r2, [r0]
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	add	r0, r0, #0x1
+	str	r0, [r7]
+	bl	.L8	@ far jump
+.L315:
+	mov	r4, #0x24
+	add	r4, r4, r6
+	mov	r8, r4
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r7, r6, r5
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L316	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L316:
+	add	r0, r6, #0
+	mov	r1, #0x0
+	bl	func_0804590C
+	bl	.L1417	@ far jump
+.L317:
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L318	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L318:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L319	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L319:
+	add	r0, r6, #0
+	mov	r1, #0x0
+	mov	r2, #0x0
+	bl	func_08048FFC
+	bl	.L8	@ far jump
+.L320:
+	add	r3, r6, #0
+	add	r3, r3, #0x24
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r5, r5, r6
+	mov	r8, r5
+	cmp	r0, #0
+	beq	.L321	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L321:
+	cmp	r2, #0x1
 	beq	.L326	@cond_branch
-	cmp	r4, #0x1
+	cmp	r2, #0x1
 	bgt	.L335	@cond_branch
-	cmp	r4, #0
+	cmp	r2, #0
 	beq	.L323	@cond_branch
 	b	.L332
 .L335:
-	cmp	r4, #0x2
+	cmp	r2, #0x2
 	beq	.L328	@cond_branch
-	cmp	r4, #0x3
+	cmp	r2, #0x3
 	beq	.L330	@cond_branch
 	b	.L332
 .L323:
-	cmp	r3, #0x63
-	bls	.LCB975
-	b	.L8	@long jump
-.LCB975:
-	lsl	r0, r3, #0x2
-	add	r0, r1, r0
-.L1435:
-	mov	r1, #0x1
-.L1425:
-	str	r1, [sp, #0x2b8]
+	ldr	r1, [r1]
+.L1422:
+	cmp	r1, #0x63
+	bls	.LCB2143
+	bl	.L8	@far jump
+.LCB2143:
+	lsl	r0, r1, #0x2
+	add	r0, r3, r0
+.L1439:
+	mov	r3, #0x1
 .L325:
-	ldr	r2, [sp, #0x2b8]
-	str	r2, [r0]
-	add	r0, r3, #0x1
-	b	.L1424
+	str	r3, [r0]
+	add	r0, r1, #0x1
+	mov	r1, r8
+	bl	.L1421	@ far jump
 .L326:
-	cmp	r3, #0x63
-	bls	.LCB991
-	b	.L8	@long jump
-.LCB991:
-	lsl	r0, r3, #0x2
-	add	r0, r1, r0
-	mov	r1, #0x0
-	b	.L1425
+	ldr	r1, [r1]
+	cmp	r1, #0x63
+	bls	.LCB2158
+	bl	.L8	@far jump
+.LCB2158:
+	lsl	r0, r1, #0x2
+	add	r0, r3, r0
+	mov	r3, #0x0
+	b	.L325
 .L328:
-	cmp	r3, #0x63
-	bls	.LCB1000
-	b	.L8	@long jump
-.LCB1000:
-	lsl	r0, r3, #0x2
-	add	r0, r1, r0
-	mov	r2, #0x3
-	str	r2, [sp, #0x2b8]
+	ldr	r1, [r1]
+	cmp	r1, #0x63
+	bls	.LCB2168
+	bl	.L8	@far jump
+.LCB2168:
+	lsl	r0, r1, #0x2
+	add	r0, r3, r0
+	mov	r3, #0x3
 	b	.L325
 .L330:
-	cmp	r3, #0x63
-	bls	.LCB1010
-	b	.L8	@long jump
-.LCB1010:
-	lsl	r0, r3, #0x2
-	add	r0, r1, r0
-	mov	r1, #0x2
-	b	.L1425
-.L332:
-	cmp	r3, #0x63
-	bls	.LCB1019
-	b	.L8	@long jump
-.LCB1019:
-	lsl	r0, r3, #0x2
-	add	r0, r1, r0
-	mov	r2, #0x1
-	str	r2, [sp, #0x2b8]
+	ldr	r1, [r1]
+	cmp	r1, #0x63
+	bls	.LCB2178
+	bl	.L8	@far jump
+.LCB2178:
+	lsl	r0, r1, #0x2
+	add	r0, r3, r0
+	mov	r3, #0x2
 	b	.L325
+.L332:
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r0, r6, r2
+	ldr	r1, [r0]
+	b	.L1422
 .L336:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	ldr	r0, [sp, #0x140]
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB1036
-	bl	.L1350	@far jump
-.LCB1036:
+	beq	.L337	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L337:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB2219
+	bl	.L24	@far jump
+.LCB2219:
 	mov	r1, #0x0
 	bl	func_08012134
-	b	.L19
+	bl	.L1417	@ far jump
 .L339:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r3, .L1464
+	add	r0, r0, r3
 	bl	func_0800F190
-	bl	.L1437	@ far jump
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	bl	.L1423	@ far jump
+.L1465:
+	.align	2, 0
+.L1464:
+	.word	0x1c2c
 .L341:
-	ldr	r0, [sp, #0x2e8]
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1466
+	add	r4, r0, r1
+	add	r0, r4, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L342	@cond_branch
-	ldr	r0, [sp, #0x2e8]
+	add	r0, r4, #0
 	bl	func_0800F204
-	cmp	r0, #0x1
+	add	r5, r0, #0
+	cmp	r5, #0x1
 	bne	.L342	@cond_branch
-	ldr	r0, [sp, #0x2e8]
+	add	r0, r4, #0
 	bl	func_0800F258
 	bl	CanBeDiscarded__C7Article
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB1071
-	bl	.L1046	@far jump
-.LCB1071:
-.L342:
-	ldr	r1, [sp, #0x258]
-	cmp	r1, #0x63
-	bls	.LCB1079
-	b	.L8	@long jump
-.LCB1079:
-	lsl	r0, r1, #0x2
+	beq	.L342	@cond_branch
+	mov	r3, #0xda
+	lsl	r3, r3, #0x1
+	add	r2, r6, r3
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r0, r6, r4
+	ldr	r3, [r0]
+	cmp	r3, #0x63
+	bls	.LCB2290
+	bl	.L8	@far jump
+.LCB2290:
+	lsl	r0, r3, #0x2
+	add	r0, r0, r6
 	add	r0, r0, #0x24
-	add	r0, r6, r0
-	mov	r2, #0x0
+	b	.L1424
+.L1467:
+	.align	2, 0
+.L1466:
+	.word	0x1c2c
+.L342:
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r2, r6, r5
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r6, r1
 .L1427:
-	mov	ip, r2
+	ldr	r1, [r0]
+	cmp	r1, #0x63
+	bls	.LCB2316
+	bl	.L8	@far jump
+.LCB2316:
+	ldr	r0, .L1468
+	mul	r0, r0, r1
+	add	r0, r0, #0x24
+	add	r1, r6, r0
+	mov	r0, #0x0
 .L346:
-	mov	r3, ip
-	str	r3, [r0]
-	b	.L8
+	str	r0, [r1]
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	add	r0, r0, #0x1
+	str	r0, [r2]
+	bl	.L8	@ far jump
+.L1469:
+	.align	2, 0
+.L1468:
+	.word	0xd430
 .L347:
-	ldr	r0, [sp, #0x2ec]
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1470
+	add	r4, r0, r5
+	add	r0, r4, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L348	@cond_branch
-	ldr	r0, [sp, #0x2ec]
+	add	r0, r4, #0
 	bl	func_0800F204
-	b	.L1426
+	b	.L1425
+.L1471:
+	.align	2, 0
+.L1470:
+	.word	0x1c2c
 .L348:
-	ldr	r1, [sp, #0x25c]
-	cmp	r1, #0x63
-	bls	.LCB1110
-	b	.L8	@long jump
-.LCB1110:
-	lsl	r0, r1, #0x2
-	add	r0, r0, #0x24
-	add	r0, r6, r0
-	mov	r2, #0x1
-	neg	r2, r2
-	b	.L1427
+	mov	r1, #0xda
+	lsl	r1, r1, #0x1
+	add	r2, r6, r1
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r0, r6, r3
+	bl	.L1426	@ far jump
 .L350:
-	ldr	r0, [sp, #0x2f0]
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1472
+	add	r4, r0, r5
+	add	r0, r4, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L351	@cond_branch
-	ldr	r0, [sp, #0x2f0]
+	add	r0, r4, #0
 	bl	func_0800F388
-	bl	.L1428	@ far jump
+	b	.L1425
+.L1473:
+	.align	2, 0
+.L1472:
+	.word	0x1c2c
 .L351:
-	ldr	r0, [sp, #0x260]
-	cmp	r0, #0x63
-	bls	.LCB1137
-	b	.L8	@long jump
-.LCB1137:
-	lsl	r0, r0, #0x2
-	add	r0, r0, #0x24
-	add	r0, r6, r0
-	mov	r1, #0x0
-	mov	ip, r1
-	b	.L346
+	mov	r1, #0xda
+	lsl	r1, r1, #0x1
+	add	r2, r6, r1
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r0, r6, r3
+	b	.L1427
 .L353:
-	ldr	r0, [sp, #0x2f4]
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r1, .L1474
+	add	r5, r0, r1
+	add	r0, r5, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L354	@cond_branch
-	ldr	r0, [sp, #0x2f4]
+	beq	.LCB2440
+	bl	.L1429	@far jump
+.LCB2440:
+	add	r0, r5, #0
 	bl	func_0800F204
 	cmp	r0, #0
-	bne	.L354	@cond_branch
+	beq	.LCB2445
+	bl	.L1429	@far jump
+.LCB2445:
 	add	r4, sp, #0x4
 	add	r0, r4, #0
-	ldr	r1, [sp, #0x2f4]
+	add	r1, r5, #0
 	bl	func_0800F20C
 	add	r0, r4, #0
 	bl	GetId__C4Food
-	bl	.L1279	@ far jump
-.L354:
-	ldr	r3, [sp, #0x264]
-	cmp	r3, #0x63
-	bls	.LCB1173
-	b	.L8	@long jump
-.LCB1173:
-	lsl	r0, r3, #0x2
-	bl	.L1429	@ far jump
+	bl	.L1428	@ far jump
+.L1475:
+	.align	2, 0
+.L1474:
+	.word	0x1c2c
 .L356:
-	ldr	r0, [sp, #0x2f8]
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1476
+	add	r4, r0, r2
+	add	r0, r4, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L357	@cond_branch
-	ldr	r0, [sp, #0x2f8]
+	beq	.LCB2482
+	bl	.L1429	@far jump
+.LCB2482:
+	add	r0, r4, #0
 	bl	func_0800F204
 	cmp	r0, #0x1
-	bne	.L357	@cond_branch
+	beq	.LCB2487
+	bl	.L1429	@far jump
+.LCB2487:
 	bl	GetId__C7Article
-	bl	.L1279	@ far jump
-.L357:
-	ldr	r3, [sp, #0x268]
-	cmp	r3, #0x63
-	bls	.LCB1200
-	b	.L8	@long jump
-.LCB1200:
-	lsl	r0, r3, #0x2
-	bl	.L1429	@ far jump
+	bl	.L1428	@ far jump
+.L1477:
+	.align	2, 0
+.L1476:
+	.word	0x1c2c
 .L359:
-	ldr	r0, [sp, #0x2fc]
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1478
+	add	r4, r0, r2
+	add	r0, r4, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L360	@cond_branch
-	ldr	r0, [sp, #0x2fc]
+	beq	.LCB2519
+	bl	.L1429	@far jump
+.LCB2519:
+	add	r0, r4, #0
 	bl	func_0800F204
 	cmp	r0, #0x3
-	bne	.L360	@cond_branch
-	ldr	r0, [sp, #0x2fc]
+	beq	.LCB2524
+	bl	.L1429	@far jump
+.LCB2524:
+	add	r0, r4, #0
 	bl	func_0800F344
-	bl	.L1279	@ far jump
-.L360:
-	ldr	r3, [sp, #0x26c]
-	cmp	r3, #0x63
-	bls	.LCB1228
-	b	.L8	@long jump
-.LCB1228:
-	lsl	r0, r3, #0x2
-	bl	.L1429	@ far jump
+	bl	.L1428	@ far jump
+.L1479:
+	.align	2, 0
+.L1478:
+	.word	0x1c2c
+.L362:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB2548
+	bl	.L68	@far jump
+.LCB2548:
+	bl	func_080141EC
+	bl	.L68	@ far jump
 .L365:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB2560
+	bl	.L8	@far jump
+.LCB2560:
 	bl	func_08014214
-	b	.L8
+	bl	.L8	@ far jump
 .L367:
-	ldr	r2, [sp, #0x184]
-	cmp	r2, #0
-	bne	.LCB1243
-	b	.L68	@long jump
-.LCB1243:
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L368	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L368:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r5, [r0]
+	cmp	r5, #0
+	bne	.LCB2583
+	bl	.L68	@far jump
+.LCB2583:
 	add	r0, sp, #0x8
 	mov	r1, #0x0
 	bl	__4FoodUi
@@ -1202,33 +2404,56 @@ func_0803F8DC:
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	__12RucksackItemG4Food
-	ldr	r0, [sp, #0x184]
 	b	.L1430
 .L371:
-	ldr	r3, [sp, #0x188]
-	cmp	r3, #0
-	bne	.LCB1260
-	b	.L68	@long jump
-.LCB1260:
-	add	r0, sp, #0x74
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L372	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L372:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r5, [r0]
+	cmp	r5, #0
+	bne	.LCB2613
+	bl	.L68	@far jump
+.LCB2613:
+	mov	r0, #0x0
 	mov	r1, #0x0
 	bl	__7ArticleUi
 	add	r4, sp, #0x4
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	__12RucksackItemG7Article
-	ldr	r0, [sp, #0x188]
 .L1430:
+	add	r0, r5, #0
 	add	r1, r4, #0
 	mov	r2, #0x0
 	bl	func_08014164
-	b	.L68
+	bl	.L68	@ far jump
 .L374:
-	ldr	r0, [sp, #0x18c]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB1282
-	b	.L68	@long jump
-.LCB1282:
+	beq	.L375	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L375:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r5, [r0]
+	cmp	r5, #0
+	bne	.LCB2647
+	bl	.L68	@far jump
+.LCB2647:
 	add	r0, sp, #0x8
 	mov	r1, #0x0
 	bl	__4FoodUi
@@ -1236,106 +2461,229 @@ func_0803F8DC:
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	__12RucksackItemG4Food
-	ldr	r0, [sp, #0x18c]
 	b	.L1431
 .L377:
-	ldr	r1, [sp, #0x190]
-	cmp	r1, #0
-	bne	.LCB1299
-	b	.L68	@long jump
-.LCB1299:
-	add	r0, sp, #0x78
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L378	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L378:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r5, [r0]
+	cmp	r5, #0
+	bne	.LCB2677
+	bl	.L68	@far jump
+.LCB2677:
+	mov	r0, #0x0
 	mov	r1, #0x0
 	bl	__7ArticleUi
 	add	r4, sp, #0x4
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	__12RucksackItemG7Article
-	ldr	r0, [sp, #0x190]
 .L1431:
+	add	r0, r5, #0
 	add	r1, r4, #0
 	mov	r2, #0x1
 	bl	func_08014164
-	b	.L68
+	bl	.L68	@ far jump
 .L380:
+	mov	r3, #0x0
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L381	@cond_branch
 	bl	func_0801412C
 	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.LCB1325
-	b	.L68	@long jump
-.LCB1325:
-	b	.L8
+	lsr	r3, r0, #0x18
+.L381:
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r2, [r1]
+	cmp	r2, #0x63
+	bhi	.L382	@cond_branch
+	lsl	r0, r2, #0x2
+	add	r0, r0, r6
+	add	r0, r0, #0x24
+	strb	r3, [r0]
+	add	r0, r2, #0x1
+	str	r0, [r1]
+.L382:
+	cmp	r3, #0
+	beq	.LCB2724
+	bl	.L68	@far jump
+.LCB2724:
+	bl	.L8	@ far jump
 .L384:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB2735
+	bl	.L68	@far jump
+.LCB2735:
 	bl	func_080141C4
-	b	.L68
+	bl	.L68	@ far jump
 .L386:
-	ldr	r0, [sp, #0x300]
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1480
+	add	r4, r0, r5
+	mov	r5, #0x1
+	neg	r5, r5
+	add	r0, r4, #0
 	bl	IsEmpty__C9ToolStack
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB1340
-	bl	.L748	@far jump
-.LCB1340:
-	ldr	r0, [sp, #0x300]
+	bne	.L387	@cond_branch
+	add	r0, r4, #0
 	bl	GetTool__C9ToolStack
 	bl	GetId__C4Tool
-	bl	.L1438	@ far jump
+	add	r5, r0, #0
+.L387:
+	mov	r0, #0xda
+	lsl	r0, r0, #0x1
+	add	r2, r6, r0
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r6, r1
+	ldr	r3, [r0]
+	cmp	r3, #0x63
+	bls	.LCB2773
+	bl	.L8	@far jump
+.LCB2773:
+	lsl	r0, r3, #0x2
+	add	r0, r0, r6
+	add	r0, r0, #0x24
+	b	.L1424
+.L1481:
+	.align	2, 0
+.L1480:
+	.word	0x1c34
 .L389:
-	ldr	r0, [sp, #0x304]
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r3, .L1482
+	add	r4, r0, r3
+	mov	r5, #0x1
+	neg	r5, r5
+	add	r0, r4, #0
 	bl	IsEmpty__C9ToolStack
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L390	@cond_branch
-	ldr	r0, [sp, #0x304]
+	add	r0, r4, #0
 	bl	GetAmount__C9ToolStack
+	add	r5, r0, #0
 .L390:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r1, r6, r0
-	ldr	r2, [sp, #0x2c4]
-	cmp	r2, #0x63
-	bhi	.LCB1367
-	b	.L308	@long jump
-.LCB1367:
-	b	.L8
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r2, r6, r4
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r6, r1
+	ldr	r3, [r0]
+	cmp	r3, #0x63
+	bls	.LCB2818
+	bl	.L8	@far jump
+.LCB2818:
+	lsl	r0, r3, #0x2
+	add	r0, r0, r6
+	add	r0, r0, #0x24
+	b	.L1424
+.L1483:
+	.align	2, 0
+.L1482:
+	.word	0x1c34
 .L392:
-	add	r0, sp, #0x80
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L393	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L393:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L394	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L394:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r4, [r0]
+	ldr	r5, .L1484
+	add	r4, r4, r5
+	mov	r0, #0x0
 	mov	r1, #0x0
 	bl	__4ToolUi
-	add	r4, sp, #0x4
-	add	r0, r4, #0
+	add	r5, sp, #0x4
+	add	r0, r5, #0
 	mov	r1, #0x0
-	ldr	r2, [sp, #0x198]
+	ldr	r2, [sp, #0x40]
 	bl	__9ToolStackG4ToolUi
-	ldr	r0, [sp, #0x318]
-.L395:
-	add	r1, r4, #0
+.L1432:
+	add	r0, r4, #0
+	add	r1, r5, #0
 	mov	r2, #0x2
 	bl	memcpy
-	b	.L8
+	bl	.L8	@ far jump
+.L1485:
+	.align	2, 0
+.L1484:
+	.word	0x1c34
 .L396:
-	mov	r4, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1486
+	add	r7, r0, r2
+	mov	r5, #0x0
 .L397:
-	cmp	r4, #0x9
-	bls	.LCB1398
-	b	.L8	@long jump
-.LCB1398:
-	ldr	r0, [sp, #0x1a8]
+	cmp	r5, #0x9
+	bls	.LCB2895
+	bl	.L8	@far jump
+.LCB2895:
+	add	r0, r7, #0
 	bl	func_0800EC4C
-	ldr	r0, [sp, #0x308]
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r1, .L1486+0x4
+	add	r4, r0, r1
+	add	r0, r4, #0
 	bl	IsEmpty__C9ToolStack
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB1407
-	b	.L8	@long jump
-.LCB1407:
+	beq	.LCB2912
+	bl	.L8	@far jump
+.LCB2912:
 	bl	GetId__C4Tool
 	cmp	r0, #0x5
 	beq	.L402	@cond_branch
 	bl	GetId__C4Tool
 	cmp	r0, #0xd
 	beq	.L402	@cond_branch
-	ldr	r0, [sp, #0x308]
+	add	r0, r4, #0
 	bl	GetTool__C9ToolStack
 	bl	GetId__C4Tool
 	cmp	r0, #0x15
@@ -1348,36 +2696,106 @@ func_0803F8DC:
 	beq	.L402	@cond_branch
 	bl	GetId__C4Tool
 	cmp	r0, #0x2d
-	beq	.LCB1434
-	b	.L8	@long jump
-.LCB1434:
+	beq	.LCB2939
+	bl	.L8	@far jump
+.LCB2939:
 .L402:
-	add	r4, r4, #0x1
+	add	r5, r5, #0x1
 	b	.L397
+.L1487:
+	.align	2, 0
+.L1486:
+	.word	0x1bd8
+	.word	0x1c34
 .L403:
-	add	r4, sp, #0x4
-	add	r0, r4, #0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r4, [r0]
+	ldr	r3, .L1488
+	add	r4, r4, r3
+	add	r5, sp, #0x4
+	add	r0, r5, #0
 	bl	__9ToolStack
-	ldr	r0, [sp, #0x30c]
-	b	.L395
+	b	.L1432
+.L1489:
+	.align	2, 0
+.L1488:
+	.word	0x1c34
 .L404:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	mov	r0, #0x0
+	mov	r4, #0x24
+	add	r4, r4, r6
+	mov	r8, r4
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r7, r6, r5
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L405	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L405:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1490
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	GetFirstSlotWithFood__C8RucksackUi
-	b	.L19
+	bl	.L1417	@ far jump
+.L1491:
+	.align	2, 0
+.L1490:
+	.word	0x1c38
 .L406:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r5, r6, r0
-	mov	r0, #0x0
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L407	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L407:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1492
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	GetFirstSlotWithArticle__C8RucksackUi
-	b	.L19
+	bl	.L1417	@ far jump
+.L1493:
+	.align	2, 0
+.L1492:
+	.word	0x1c38
 .L408:
-	mov	r0, #0x0
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L409	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L409:
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1494
+	add	r0, r0, r5
 	mov	r1, #0x0
 	bl	GetItemAt__8RucksackUi
 	add	r4, r0, #0
@@ -1385,778 +2803,2066 @@ func_0803F8DC:
 	bl	__12RucksackItem
 	ldr	r0, [sp, #0x4]
 	str	r0, [r4]
-	b	.L8
+	bl	.L8	@ far jump
+.L1495:
+	.align	2, 0
+.L1494:
+	.word	0x1c38
 .L410:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1496
+	add	r0, r0, r2
 	bl	GetFirstFreeToolSlot__C8Rucksack
-	bl	.L1279	@ far jump
+.L411:
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	bl	.L1423	@ far jump
+.L1497:
+	.align	2, 0
+.L1496:
+	.word	0x1c38
 .L412:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r4, .L1498
+	add	r0, r0, r4
 	bl	GetFirstFreeItemSlot__C8Rucksack
-	bl	.L1279	@ far jump
+	b	.L1425
+.L1499:
+	.align	2, 0
+.L1498:
+	.word	0x1c38
 .L413:
-	mov	r3, #0xda
+	mov	r1, #0x24
+	add	r1, r1, r6
+	mov	r8, r1
+	mov	r2, #0xda
+	lsl	r2, r2, #0x1
+	add	r7, r6, r2
+	mov	r3, #0xfa
 	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	mov	r0, #0x0
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L414	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L414:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L415	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L415:
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1500
+	add	r0, r0, r5
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	AddAmountOfArticle__8RucksackUiUi
-	b	.L19
+	bl	.L1417	@ far jump
+.L1501:
+	.align	2, 0
+.L1500:
+	.word	0x1c38
 .L416:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r5, r6, r0
-	mov	r0, #0x0
+	mov	r0, #0x24
+	add	r0, r0, r6
+	mov	r8, r0
+	mov	r1, #0xda
+	lsl	r1, r1, #0x1
+	add	r7, r6, r1
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L417	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L417:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L418	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L418:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r4, .L1502
+	add	r0, r0, r4
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	AddAmountOfFood__8RucksackUiUi
-	b	.L19
+	bl	.L1417	@ far jump
+.L1503:
+	.align	2, 0
+.L1502:
+	.word	0x1c38
 .L419:
-	mov	r1, #0xda
-	lsl	r1, r1, #0x1
-	add	r5, r6, r1
-	mov	r0, #0x0
+	mov	r5, #0x24
+	add	r5, r5, r6
+	mov	r8, r5
+	mov	r0, #0xda
+	lsl	r0, r0, #0x1
+	add	r7, r6, r0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L420	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L420:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L421	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L421:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r4, .L1504
+	add	r0, r0, r4
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	AddAmountOfTool__8RucksackUiUi
-	b	.L19
+	bl	.L1417	@ far jump
+.L1505:
+	.align	2, 0
+.L1504:
+	.word	0x1c38
 .L422:
-	mov	r2, #0xda
+	mov	r5, #0x24
+	add	r5, r5, r6
+	mov	r8, r5
+	mov	r0, #0xda
+	lsl	r0, r0, #0x1
+	add	r7, r6, r0
+	mov	r2, #0xfa
 	lsl	r2, r2, #0x1
-	add	r5, r6, r2
-	b	.L19
+	add	r1, r6, r2
+	b	.L1433
 .L425:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	b	.L19
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r7, r6, r5
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+.L1433:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	bne	.LCB3300
+	bl	.L19	@far jump
+.LCB3300:
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+	bl	.L19	@ far jump
 .L428:
-	add	r0, r5, #0
-	cmp	r5, #0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L429	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L429:
+	mov	r1, ip
+	cmp	r1, #0
 	bge	.L430	@cond_branch
-	add	r0, r5, #0x7
+	add	r1, r1, #0x7
 .L430:
+	asr	r1, r1, #0x3
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r4, .L1506
+	add	r3, r1, r4
+	ldr	r2, [r0]
+	add	r2, r2, r3
+	lsl	r1, r1, #0x3
+	mov	r5, ip
+	sub	r1, r5, r1
+	mov	r0, #0x1
+	lsl	r0, r0, r1
+	ldrb	r1, [r2]
+	orr	r0, r0, r1
+	strb	r0, [r2]
+	bl	.L8	@ far jump
+.L1507:
+	.align	2, 0
+.L1506:
+	.word	0x21dc
+.L431:
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L432	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L432:
+	mov	r0, r8
+	cmp	r0, #0
+	bge	.L433	@cond_branch
+	add	r0, r0, #0x7
+.L433:
 	asr	r0, r0, #0x3
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r1, r6, r2
+	ldr	r4, .L1508
+	add	r3, r0, r4
+	ldr	r2, [r1]
+	add	r2, r2, r3
 	lsl	r0, r0, #0x3
+	mov	r5, r8
 	sub	r0, r5, r0
 	mov	r1, #0x1
 	lsl	r1, r1, r0
-	ldr	r2, [sp, #0x2c8]
 	ldrb	r0, [r2]
-	orr	r1, r1, r0
-	strb	r1, [r2]
-	b	.L8
-.L431:
-	add	r0, r2, #0
-	cmp	r2, #0
-	bge	.L433	@cond_branch
-	add	r0, r2, #0x7
-.L433:
-	asr	r0, r0, #0x3
-	lsl	r0, r0, #0x3
-	sub	r0, r2, r0
-	mov	r1, #0x1
-	lsl	r1, r1, r0
-	ldr	r3, [sp, #0x2cc]
-	ldrb	r0, [r3]
 	bic	r0, r0, r1
-	strb	r0, [r3]
+	strb	r0, [r2]
 	bl	.L8	@ far jump
+.L1509:
+	.align	2, 0
+.L1508:
+	.word	0x21dc
 .L434:
 	mov	r0, #0xda
 	lsl	r0, r0, #0x1
 	add	r0, r0, r6
 	mov	r8, r0
-	ldr	r1, [sp, #0x2dc]
-	ldr	r2, .L1447
-	add	r0, r1, r2
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r5, r6, r1
+	ldr	r0, [r5]
+	cmp	r0, #0
+	beq	.L435	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r5]
+.L435:
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r4, [r0]
+	ldr	r3, .L1510
+	add	r0, r4, r3
 	bl	func_0800E4E8
-	ldr	r3, [sp, #0x2dc]
-	ldr	r1, .L1447+0x4
-	add	r0, r3, r1
-	ldr	r1, [sp, #0x1ac]
+	ldr	r0, .L1510+0x4
+	add	r4, r4, r0
+	add	r0, r4, #0
+	ldr	r1, [sp, #0x50]
 	bl	func_0809FE74
-	ldr	r2, [sp, #0x2bc]
-	cmp	r2, #0x63
-	bls	.LCB1626
+	ldr	r0, [r5]
+	cmp	r0, #0x63
+	bls	.LCB3434
 	bl	.L8	@far jump
-.LCB1626:
+.LCB3434:
 .L438:
-	ldr	r0, [sp, #0x2bc]
 	add	r0, r0, #0x1
-.L1424:
-	mov	r3, r8
-	str	r0, [r3]
-	bl	.L8	@ far jump
-.L1448:
+	mov	r1, r8
+	bl	.L1421	@ far jump
+.L1511:
 	.align	2, 0
-.L1447:
+.L1510:
 	.word	0x1bd8
 	.word	0x1cd4
 .L439:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r5, r6, r0
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_080A06B0
-	cmp	r0, #0
-	bne	.LCB1656
-	bl	.L19	@far jump
-.LCB1656:
-	bl	GetFriendship__C3Npc
-	bl	.L19	@ far jump
-.L442:
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_080A06B0
-	cmp	r0, #0
-	bne	.LCB1670
-	bl	.L8	@far jump
-.LCB1670:
-	ldr	r1, [sp, #0x160]
-	bl	AddFriendship__3Npci
-	bl	.L8	@ far jump
-.L446:
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_080A06B0
-	cmp	r0, #0
-	bne	.LCB1685
-	bl	.L8	@far jump
-.LCB1685:
-	ldr	r1, [sp, #0x164]
-	bl	SetFriendship__3Npci
-	bl	.L8	@ far jump
-.L450:
-	mov	r1, #0xda
-	lsl	r1, r1, #0x1
-	add	r5, r6, r1
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_080A06B0
-	cmp	r0, #0
-	bne	.LCB1705
-	bl	.L19	@far jump
-.LCB1705:
-	bl	GetDaysSinceLastSpoken__C3Npc
-	bl	.L19	@ far jump
-.L453:
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_080A06B0
-	cmp	r0, #0
-	bne	.LCB1718
-	bl	.L8	@far jump
-.LCB1718:
-	bl	SetSpokenTo__3Npc
-	bl	.L8	@ far jump
-.L456:
-	mov	r2, #0xda
-	lsl	r2, r2, #0x1
-	add	r5, r6, r2
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_080A06B0
-	cmp	r0, #0
-	bne	.LCB1736
-	bl	.L19	@far jump
-.LCB1736:
-	bl	HasBeenSpokenToToday__C3Npc
-	bl	.L19	@ far jump
-.L459:
+	mov	r2, #0x24
+	add	r2, r2, r6
+	mov	r8, r2
 	mov	r3, #0xda
 	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	mov	r0, #0x0
+	add	r7, r6, r3
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L440	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L440:
+	mov	r4, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1512
+	add	r0, r0, r1
 	mov	r1, #0x0
 	bl	func_080A06B0
 	cmp	r0, #0
-	bne	.LCB1757
+	bne	.LCB3481
 	bl	.L19	@far jump
-.LCB1757:
-	bl	HasBeenSpokenToJustNow__C3Npc
-	bl	.L19	@ far jump
-.L462:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r5, r6, r0
-	mov	r0, #0x0
+.LCB3481:
+	bl	GetFriendship__C3Npc
+	bl	.L1417	@ far jump
+.L1513:
+	.align	2, 0
+.L1512:
+	.word	0x1cd4
+.L442:
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L443	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L443:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L444	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L444:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r4, .L1514
+	add	r0, r0, r4
 	mov	r1, #0x0
 	bl	func_080A06B0
 	cmp	r0, #0
-	bne	.LCB1778
-	bl	.L19	@far jump
-.LCB1778:
-	bl	HasBeenMet__C3Npc
-	bl	.L19	@ far jump
-.L465:
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_080A06B0
-	cmp	r0, #0
-	bne	.LCB1793
+	bne	.LCB3524
 	bl	.L8	@far jump
-.LCB1793:
-	bl	SetGifted__3Npc
+.LCB3524:
+	ldr	r1, [sp, #0x28]
+	bl	AddFriendship__3Npci
 	bl	.L8	@ far jump
-.L468:
+.L1515:
+	.align	2, 0
+.L1514:
+	.word	0x1cd4
+.L446:
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L447	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L447:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L448	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L448:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1516
+	add	r0, r0, r2
+	mov	r1, #0x0
+	bl	func_080A06B0
+	cmp	r0, #0
+	bne	.LCB3569
+	bl	.L8	@far jump
+.LCB3569:
+	ldr	r1, [sp, #0x2c]
+	bl	SetFriendship__3Npci
+	bl	.L8	@ far jump
+.L1517:
+	.align	2, 0
+.L1516:
+	.word	0x1cd4
+.L450:
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L451	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L451:
+	mov	r4, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1518
+	add	r0, r0, r2
+	mov	r1, #0x0
+	bl	func_080A06B0
+	cmp	r0, #0
+	bne	.LCB3615
+	bl	.L19	@far jump
+.LCB3615:
+	bl	GetDaysSinceLastSpoken__C3Npc
+	bl	.L1417	@ far jump
+.L1519:
+	.align	2, 0
+.L1518:
+	.word	0x1cd4
+.L453:
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L454	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L454:
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1520
+	add	r0, r0, r5
+	mov	r1, #0x0
+	bl	func_080A06B0
+	cmp	r0, #0
+	bne	.LCB3651
+	bl	.L8	@far jump
+.LCB3651:
+	bl	SetSpokenTo__3Npc
+	bl	.L8	@ far jump
+.L1521:
+	.align	2, 0
+.L1520:
+	.word	0x1cd4
+.L456:
+	mov	r0, #0x24
+	add	r0, r0, r6
+	mov	r8, r0
 	mov	r1, #0xda
 	lsl	r1, r1, #0x1
-	add	r5, r6, r1
-	mov	r0, #0x0
+	add	r7, r6, r1
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L457	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L457:
+	mov	r4, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r5, .L1522
+	add	r0, r0, r5
 	mov	r1, #0x0
 	bl	func_080A06B0
 	cmp	r0, #0
-	bne	.LCB1811
+	bne	.LCB3695
 	bl	.L19	@far jump
-.LCB1811:
-	bl	HasBeenGiftedToday__C3Npc
-	bl	.L19	@ far jump
-.L471:
-	mov	r2, #0xda
+.LCB3695:
+	bl	HasBeenSpokenToToday__C3Npc
+	bl	.L1434	@ far jump
+.L1523:
+	.align	2, 0
+.L1522:
+	.word	0x1cd4
+.L459:
+	mov	r0, #0x24
+	add	r0, r0, r6
+	mov	r8, r0
+	mov	r1, #0xda
+	lsl	r1, r1, #0x1
+	add	r7, r6, r1
+	mov	r2, #0xfa
 	lsl	r2, r2, #0x1
-	add	r5, r6, r2
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_080A0878
+	add	r1, r6, r2
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB1832
+	beq	.L460	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L460:
+	mov	r4, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r5, .L1524
+	add	r0, r0, r5
+	mov	r1, #0x0
+	bl	func_080A06B0
+	cmp	r0, #0
+	bne	.LCB3740
 	bl	.L19	@far jump
-.LCB1832:
-	bl	GetLove__C12Bachelorette
-	bl	.L19	@ far jump
-.L474:
-	mov	r0, #0x0
+.LCB3740:
+	bl	HasBeenSpokenToJustNow__C3Npc
+	bl	.L1434	@ far jump
+.L1525:
+	.align	2, 0
+.L1524:
+	.word	0x1cd4
+.L462:
+	mov	r0, #0x24
+	add	r0, r0, r6
+	mov	r8, r0
+	mov	r1, #0xda
+	lsl	r1, r1, #0x1
+	add	r7, r6, r1
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L463	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L463:
+	mov	r4, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r5, .L1526
+	add	r0, r0, r5
+	mov	r1, #0x0
+	bl	func_080A06B0
+	cmp	r0, #0
+	bne	.LCB3785
+	bl	.L19	@far jump
+.LCB3785:
+	bl	HasBeenMet__C3Npc
+	bl	.L1434	@ far jump
+.L1527:
+	.align	2, 0
+.L1526:
+	.word	0x1cd4
+.L465:
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L466	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L466:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1528
+	add	r0, r0, r2
+	mov	r1, #0x0
+	bl	func_080A06B0
+	cmp	r0, #0
+	bne	.LCB3822
+	bl	.L8	@far jump
+.LCB3822:
+	bl	SetGifted__3Npc
+	bl	.L8	@ far jump
+.L1529:
+	.align	2, 0
+.L1528:
+	.word	0x1cd4
+.L468:
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L469	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L469:
+	mov	r4, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1530
+	add	r0, r0, r2
+	mov	r1, #0x0
+	bl	func_080A06B0
+	cmp	r0, #0
+	bne	.LCB3866
+	bl	.L19	@far jump
+.LCB3866:
+	bl	HasBeenGiftedToday__C3Npc
+	bl	.L1434	@ far jump
+.L1531:
+	.align	2, 0
+.L1530:
+	.word	0x1cd4
+.L471:
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L472	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L472:
+	mov	r4, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1532
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	func_080A0878
 	cmp	r0, #0
-	bne	.LCB1848
+	bne	.LCB3911
+	bl	.L19	@far jump
+.LCB3911:
+	bl	GetLove__C12Bachelorette
+	lsl	r0, r0, #0x10
+	asr	r4, r0, #0x10
+	bl	.L19	@ far jump
+.L1533:
+	.align	2, 0
+.L1532:
+	.word	0x1cd4
+.L474:
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L475	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L475:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L476	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L476:
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1534
+	add	r0, r0, r5
+	mov	r1, #0x0
+	bl	func_080A0878
+	cmp	r0, #0
+	bne	.LCB3957
 	bl	.L8	@far jump
-.LCB1848:
-	ldr	r1, [sp, #0x168]
+.LCB3957:
+	ldr	r1, [sp, #0x30]
 	bl	AddLove__12Bachelorettei
 	bl	.L8	@ far jump
+.L1535:
+	.align	2, 0
+.L1534:
+	.word	0x1cd4
 .L478:
-	mov	r0, #0x0
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L479	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L479:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L480	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L480:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1536
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	func_080A0878
 	cmp	r0, #0
-	bne	.LCB1863
+	bne	.LCB4002
 	bl	.L8	@far jump
-.LCB1863:
-	ldr	r1, [sp, #0x16c]
+.LCB4002:
+	ldr	r1, [sp, #0x34]
 	bl	SetLove__12Bachelorettei
 	bl	.L8	@ far jump
+.L1537:
+	.align	2, 0
+.L1536:
+	.word	0x1cd4
 .L482:
-	ldr	r3, [sp, #0xb8]
-	cmp	r3, #0
-	bne	.LCB1875
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L483	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L483:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L484	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L484:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4040
 	bl	.L8	@far jump
-.LCB1875:
-	add	r0, r3, #0
+.LCB4040:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_08014264
 	bl	.L8	@ far jump
 .L486:
-	ldr	r0, [sp, #0xbc]
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB1887
+	beq	.L487	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L487:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4066
 	bl	.L8	@far jump
-.LCB1887:
+.LCB4066:
 	mov	r1, #0x0
 	bl	func_08014290
 	bl	.L8	@ far jump
 .L489:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4080
+	bl	.L68	@far jump
+.LCB4080:
 	bl	func_08012BBC
 	bl	.L68	@ far jump
 .L491:
-	ldr	r1, [sp, #0xc0]
-	cmp	r1, #0
-	bne	.LCB1903
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L492	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L492:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4103
 	bl	.L68	@far jump
-.LCB1903:
-	add	r0, r1, #0
+.LCB4103:
 	mov	r1, #0x0
 	bl	func_08012C50
 	bl	.L68	@ far jump
 .L494:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4117
+	bl	.L68	@far jump
+.LCB4117:
 	bl	func_0801323C
 	bl	.L68	@ far jump
 .L496:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4129
+	bl	.L68	@far jump
+.LCB4129:
 	bl	func_080132D0
 	bl	.L68	@ far jump
 .L498:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4141
+	bl	.L68	@far jump
+.LCB4141:
 	bl	func_08012CF4
 	bl	.L68	@ far jump
 .L500:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4153
+	bl	.L68	@far jump
+.LCB4153:
 	bl	func_08012D88
 	bl	.L68	@ far jump
 .L502:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4165
+	bl	.L68	@far jump
+.LCB4165:
 	bl	func_08012E1C
 	bl	.L68	@ far jump
 .L504:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4177
+	bl	.L68	@far jump
+.LCB4177:
 	bl	func_08012EC0
 	bl	.L68	@ far jump
 .L506:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4189
+	bl	.L68	@far jump
+.LCB4189:
 	bl	func_08012F54
 	bl	.L68	@ far jump
 .L508:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4201
+	bl	.L68	@far jump
+.LCB4201:
 	bl	func_08012FE8
 	bl	.L68	@ far jump
 .L510:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4213
+	bl	.L68	@far jump
+.LCB4213:
 	bl	func_08013080
 	bl	.L68	@ far jump
 .L512:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4225
+	bl	.L68	@far jump
+.LCB4225:
 	bl	func_08013114
 	bl	.L68	@ far jump
 .L514:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4237
+	bl	.L68	@far jump
+.LCB4237:
 	bl	func_080131A8
 	bl	.L68	@ far jump
 .L516:
-	ldr	r2, [sp, #0xc4]
-	cmp	r2, #0
-	bne	.LCB1969
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L517	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L517:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4260
 	bl	.L68	@far jump
-.LCB1969:
-	add	r0, r2, #0
+.LCB4260:
 	mov	r1, #0x0
 	bl	func_08013364
 	bl	.L68	@ far jump
 .L519:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4274
+	bl	.L68	@far jump
+.LCB4274:
 	bl	func_08013408
 	bl	.L68	@ far jump
 .L521:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4286
+	bl	.L68	@far jump
+.LCB4286:
 	bl	func_080134A4
 	bl	.L68	@ far jump
 .L523:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4298
+	bl	.L68	@far jump
+.LCB4298:
 	bl	func_08013544
 	bl	.L68	@ far jump
 .L525:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4310
+	bl	.L68	@far jump
+.LCB4310:
 	bl	func_080135D8
 	bl	.L68	@ far jump
 .L527:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4322
+	bl	.L68	@far jump
+.LCB4322:
 	bl	func_0801366C
 	bl	.L68	@ far jump
 .L529:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4334
+	bl	.L68	@far jump
+.LCB4334:
 	bl	func_08013700
 	bl	.L68	@ far jump
 .L531:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4346
+	bl	.L68	@far jump
+.LCB4346:
 	bl	func_08013794
 	bl	.L68	@ far jump
 .L533:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4358
+	bl	.L8	@far jump
+.LCB4358:
 	bl	func_08014034
 	bl	.L8	@ far jump
 .L535:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4370
+	bl	.L8	@far jump
+.LCB4370:
 	bl	func_0801404C
 	bl	.L8	@ far jump
 .L537:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4382
+	bl	.L8	@far jump
+.LCB4382:
 	bl	func_08014064
 	bl	.L8	@ far jump
 .L539:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4394
+	bl	.L8	@far jump
+.LCB4394:
 	bl	func_0801407C
 	bl	.L8	@ far jump
 .L541:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4406
+	bl	.L8	@far jump
+.LCB4406:
 	bl	func_08014094
 	bl	.L8	@ far jump
 .L543:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4418
+	bl	.L8	@far jump
+.LCB4418:
 	bl	func_080140AC
 	bl	.L8	@ far jump
 .L545:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	mov	r0, #0x0
+	mov	r5, #0x24
+	add	r5, r5, r6
+	mov	r8, r5
+	mov	r0, #0xda
+	lsl	r0, r0, #0x1
+	add	r7, r6, r0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L546	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L546:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	mov	r4, #0x82
+	lsl	r4, r4, #0x3
+	add	r0, r0, r4
 	mov	r1, #0x0
 	bl	HasBushelForEnt__C4CoopUi
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L547:
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x170]
-	bl	SetEntBushel__4CoopUi
-	ldr	r0, [sp, #0xc8]
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB2063
+	beq	.L548	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L548:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0x82
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
+	ldr	r1, [sp, #0x38]
+	bl	SetEntBushel__4CoopUi
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4487
 	bl	.L8	@far jump
-.LCB2063:
-	ldr	r1, [sp, #0x170]
+.LCB4487:
+	ldr	r1, [sp, #0x38]
 	bl	func_080140DC
 	bl	.L8	@ far jump
 .L550:
-	mov	r1, #0xda
-	lsl	r1, r1, #0x1
-	add	r5, r6, r1
-	ldr	r2, [sp, #0x144]
-	cmp	r2, #0xf
+	mov	r4, #0x24
+	add	r4, r4, r6
+	mov	r8, r4
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r7, r6, r5
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L551	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L551:
+	ldr	r1, [sp, #0x14]
+	cmp	r1, #0xf
 	ble	.L552	@cond_branch
-	add	r1, r2, #0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	mov	r3, #0xbe
+	lsl	r3, r3, #0x3
+	add	r0, r0, r3
 	sub	r1, r1, #0x10
-	mov	r0, #0x0
 	bl	HasBushelForPregnancyStall__C4BarnUi
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L552:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	mov	r5, #0xbe
+	lsl	r5, r5, #0x3
+	add	r0, r0, r5
 	bl	HasBushelForStall__C4BarnUi
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L554:
-	ldr	r3, [sp, #0x174]
-	cmp	r3, #0xf
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L555	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L555:
+	mov	r1, r9
+	cmp	r1, #0xf
 	ble	.L556	@cond_branch
-	add	r1, r3, #0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	mov	r3, #0xbe
+	lsl	r3, r3, #0x3
+	add	r0, r0, r3
 	sub	r1, r1, #0x10
-	mov	r0, #0x0
 	bl	SetBushelForPregnancyStall__4BarnUi
 	b	.L557
 .L556:
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x174]
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	mov	r5, #0xbe
+	lsl	r5, r5, #0x3
+	add	r0, r0, r5
+	mov	r1, r9
 	bl	SetBushelForStall__4BarnUi
 .L557:
-	ldr	r0, [sp, #0xcc]
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.LCB2122
+	bne	.LCB4603
 	bl	.L8	@far jump
-.LCB2122:
-	ldr	r1, [sp, #0x174]
+.LCB4603:
+	mov	r1, r9
 	bl	func_080140C4
 	bl	.L8	@ far jump
 .L559:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4617
+	bl	.L8	@far jump
+.LCB4617:
 	bl	func_080140F4
 	bl	.L8	@ far jump
 .L561:
-	ldr	r1, [sp, #0xd4]
-	cmp	r1, #0
-	bne	.LCB2138
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L562	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L562:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4640
 	bl	.L8	@far jump
-.LCB2138:
-	add	r0, r1, #0
+.LCB4640:
 	mov	r1, #0x0
 	bl	func_080142B8
 	bl	.L8	@ far jump
 .L564:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4654
+	bl	.L8	@far jump
+.LCB4654:
 	bl	func_080142D4
 	bl	.L8	@ far jump
 .L566:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r0, r0, r2
 	bl	GetRecordPlayer__9FarmHouse
 	bl	HasAlbum__C12RecordPlayer
-	bl	.L1279	@ far jump
+	bl	.L1428	@ far jump
 .L567:
-	add	r4, r6, #0
-	add	r4, r4, #0x24
+	add	r5, r6, #0
+	add	r5, r5, #0x24
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r4, r6, r0
+	ldr	r0, [r4]
+	cmp	r0, #0
+	beq	.L568	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r4]
+.L568:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4700
+	bl	.L1435	@far jump
+.LCB4700:
 	bl	func_0801424C
-	add	r1, r0, #0
-	ldr	r3, [sp, #0x230]
-	cmp	r3, #0x63
-	bls	.LCB2168
-	bl	.L8	@far jump
-.LCB2168:
-	lsl	r0, r3, #0x2
-	add	r0, r4, r0
-	b	.L314
+	mov	sl, r0
+	bl	.L1435	@ far jump
 .L571:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4714
+	bl	.L8	@far jump
+.LCB4714:
 	bl	func_08016BDC
 	bl	.L8	@ far jump
 .L573:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4726
+	bl	.L8	@far jump
+.LCB4726:
 	bl	func_08016BF4
 	bl	.L8	@ far jump
 .L575:
+	mov	r5, #0x0
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4739
+	bl	.L1436	@far jump
+.LCB4739:
 	bl	func_08014234
-	b	.L1426
+	bl	.L1425	@ far jump
 .L577:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4753
+	bl	.L68	@far jump
+.LCB4753:
 	bl	func_08013828
 	bl	.L68	@ far jump
 .L579:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4765
+	bl	.L68	@far jump
+.LCB4765:
 	bl	func_080138C0
 	bl	.L68	@ far jump
 .L581:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4777
+	bl	.L68	@far jump
+.LCB4777:
 	bl	func_0801395C
 	bl	.L68	@ far jump
 .L583:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4789
+	bl	.L68	@far jump
+.LCB4789:
 	bl	func_08013BDC
 	bl	.L68	@ far jump
 .L585:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4801
+	bl	.L68	@far jump
+.LCB4801:
 	bl	func_08013C70
 	bl	.L68	@ far jump
 .L587:
-	ldr	r1, [sp, #0xd8]
-	cmp	r1, #0
-	bne	.LCB2219
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L588	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L588:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4824
 	bl	.L68	@far jump
-.LCB2219:
-	ldr	r2, [sp, #0x14c]
+.LCB4824:
+	ldr	r2, [sp, #0x18]
 	neg	r1, r2
 	orr	r1, r1, r2
 	lsr	r1, r1, #0x1f
-	ldr	r0, [sp, #0xd8]
 	bl	func_08013D04
 	bl	.L68	@ far jump
 .L590:
-	ldr	r3, [sp, #0xdc]
-	cmp	r3, #0
-	bne	.LCB2234
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L591	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L591:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4853
 	bl	.L68	@far jump
-.LCB2234:
-	add	r0, r3, #0
+.LCB4853:
 	mov	r1, #0x0
 	bl	func_08013DC8
 	bl	.L68	@ far jump
 .L593:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4867
+	bl	.L68	@far jump
+.LCB4867:
 	bl	func_08013E6C
 	bl	.L68	@ far jump
 .L595:
-	ldr	r0, [sp, #0xe0]
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB2250
+	beq	.L596	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L596:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB4890
 	bl	.L68	@far jump
-.LCB2250:
+.LCB4890:
 	mov	r1, #0x0
 	bl	func_08013EF8
 	bl	.L68	@ far jump
 .L598:
-	mov	r1, #0xda
-	lsl	r1, r1, #0x1
-	add	r5, r6, r1
-	mov	r0, #0x0
+	mov	r2, #0x24
+	add	r2, r2, r6
+	mov	r8, r2
+	mov	r3, #0xda
+	lsl	r3, r3, #0x1
+	add	r7, r6, r3
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L599	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L599:
+	mov	r4, #0x3
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1538
+	add	r0, r0, r1
 	mov	r1, #0x0
 	bl	func_080A0930
 	cmp	r0, #0
-	bne	.LCB2270
+	bne	.LCB4930
 	bl	.L19	@far jump
-.LCB2270:
+.LCB4930:
 	bl	GetCurrentTask__C13HarvestSprite
-	bl	.L19	@ far jump
+	bl	.L1417	@ far jump
+.L1539:
+	.align	2, 0
+.L1538:
+	.word	0x1cd4
 .L601:
+	mov	r2, #0x24
+	add	r2, r2, r6
+	mov	r8, r2
+	mov	r3, #0xda
+	lsl	r3, r3, #0x1
+	add	r7, r6, r3
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L602	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L602:
+	mov	r4, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1540
+	add	r0, r0, r1
+	mov	r1, #0x0
+	bl	func_080A0930
+	cmp	r0, #0
+	bne	.LCB4974
+	bl	.L19	@far jump
+.LCB4974:
+	bl	GetWorkDaysLeft__C13HarvestSprite
+	bl	.L1417	@ far jump
+.L1541:
+	.align	2, 0
+.L1540:
+	.word	0x1cd4
+.L604:
+	mov	r2, #0x24
+	add	r2, r2, r6
+	mov	r8, r2
+	mov	r3, #0xda
+	lsl	r3, r3, #0x1
+	add	r7, r6, r3
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L605	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L605:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L606	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L606:
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1542
+	add	r0, r0, r1
+	mov	r1, #0x0
+	bl	func_080A0930
+	mov	r4, #0x0
+	cmp	r0, #0
+	bne	.LCB5025
+	bl	.L19	@far jump
+.LCB5025:
+	ldr	r1, [sp, #0x54]
+	bl	GetTaskExp__C13HarvestSpriteQ213HarvestSprite4Task
+	bl	.L1417	@ far jump
+.L1543:
+	.align	2, 0
+.L1542:
+	.word	0x1cd4
+.L608:
+	mov	r2, #0x24
+	add	r2, r2, r6
+	mov	r8, r2
+	mov	r3, #0xda
+	lsl	r3, r3, #0x1
+	add	r7, r6, r3
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L609	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L609:
+	mov	r4, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1544
+	add	r0, r0, r1
+	mov	r1, #0x0
+	bl	func_080A0930
+	cmp	r0, #0
+	bne	.LCB5071
+	bl	.L19	@far jump
+.LCB5071:
+	bl	HasPlayedMinigameToday__C13HarvestSprite
+	bl	.L1434	@ far jump
+.L1545:
+	.align	2, 0
+.L1544:
+	.word	0x1cd4
+.L611:
+	add	r5, r6, #0
+	add	r5, r5, #0x24
 	mov	r2, #0xda
 	lsl	r2, r2, #0x1
-	add	r5, r6, r2
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_080A0930
-	cmp	r0, #0
-	bne	.LCB2289
-	bl	.L19	@far jump
-.LCB2289:
-	bl	GetWorkDaysLeft__C13HarvestSprite
-	bl	.L19	@ far jump
-.L604:
-	mov	r3, #0xda
+	add	r7, r6, r2
+	mov	r3, #0xfa
 	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	mov	r0, #0x0
+	add	r4, r6, r3
+	ldr	r0, [r4]
+	cmp	r0, #0
+	beq	.L612	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r4]
+.L612:
+	ldr	r0, [r4]
+	cmp	r0, #0
+	beq	.L613	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r4]
+.L613:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1546
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	func_080A0930
+	mov	r3, #0x0
+	mov	sl, r3
 	cmp	r0, #0
-	bne	.LCB2309
-	bl	.L19	@far jump
-.LCB2309:
-	ldr	r1, [sp, #0x1b0]
-	bl	GetTaskExp__C13HarvestSpriteQ213HarvestSprite4Task
-	bl	.L19	@ far jump
-.L608:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r5, r6, r0
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_080A0930
-	cmp	r0, #0
-	bne	.LCB2330
-	bl	.L19	@far jump
-.LCB2330:
-	bl	HasPlayedMinigameToday__C13HarvestSprite
-	bl	.L19	@ far jump
-.L611:
-	add	r4, r6, #0
-	add	r4, r4, #0x24
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_080A0930
-	mov	r1, #0x0
-	cmp	r0, #0
-	beq	.L614	@cond_branch
-	ldr	r1, [sp, #0x1b4]
+	bne	.LCB5123
+	bl	.L1435	@far jump
+.LCB5123:
+	ldr	r1, [sp, #0x58]
 	bl	GetMinigameExp__C13HarvestSpriteQ213HarvestSprite4Task
-	neg	r1, r0
-	orr	r1, r1, r0
-	lsr	r1, r1, #0x1f
-.L614:
-	ldr	r2, [sp, #0x234]
-	bl	.L1432	@ far jump
+	bl	.L1443	@ far jump
+.L1547:
+	.align	2, 0
+.L1546:
+	.word	0x1cd4
 .L616:
-	mov	r0, #0x0
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L617	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L617:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L618	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L618:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L619	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L619:
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1548
+	add	r0, r0, r1
 	mov	r1, #0x0
 	bl	func_080A0930
 	cmp	r0, #0
-	bne	.LCB2374
+	bne	.LCB5177
 	bl	.L8	@far jump
-.LCB2374:
-	ldr	r1, [sp, #0x19c]
-	ldr	r2, [sp, #0x1b8]
+.LCB5177:
+	ldr	r1, [sp, #0x44]
+	ldr	r2, [sp, #0x5c]
 	bl	StartTask__13HarvestSpriteQ213HarvestSprite4Taski
 	bl	.L8	@ far jump
+.L1549:
+	.align	2, 0
+.L1548:
+	.word	0x1cd4
 .L621:
-	mov	r0, #0x0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L622	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L622:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r4, .L1550
+	add	r0, r0, r4
 	mov	r1, #0x0
 	bl	func_080A0930
 	cmp	r0, #0
-	bne	.LCB2389
+	bne	.LCB5216
 	bl	.L8	@far jump
-.LCB2389:
+.LCB5216:
 	bl	method_0809E6EC__13HarvestSprite
 	bl	.L8	@ far jump
+.L1551:
+	.align	2, 0
+.L1550:
+	.word	0x1cd4
 .L624:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	ldr	r0, [sp, #0xe4]
+	mov	r5, #0x24
+	add	r5, r5, r6
+	mov	r8, r5
+	mov	r0, #0xda
+	lsl	r0, r0, #0x1
+	add	r7, r6, r0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB2404
+	beq	.L625	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L625:
+	mov	r4, #0x0
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB5253
 	bl	.L19	@far jump
-.LCB2404:
+.LCB5253:
 	mov	r1, #0x0
 	bl	func_08015920
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L627:
-	ldr	r1, [sp, #0xe8]
-	cmp	r1, #0
-	bne	.LCB2418
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L628	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L628:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB5279
 	bl	.L68	@far jump
-.LCB2418:
-	add	r0, r1, #0
+.LCB5279:
 	mov	r1, #0x0
 	bl	func_080139F0
 	bl	.L68	@ far jump
 .L630:
-	ldr	r2, [sp, #0xf0]
-	cmp	r2, #0
-	bne	.LCB2429
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L631	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L631:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB5304
 	bl	.L68	@far jump
-.LCB2429:
-	add	r0, r2, #0
+.LCB5304:
 	mov	r1, #0x0
 	bl	func_08013B38
 	bl	.L68	@ far jump
 .L633:
-	ldr	r3, [sp, #0xf4]
-	cmp	r3, #0
-	bne	.LCB2440
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L634	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L634:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB5329
 	bl	.L68	@far jump
-.LCB2440:
-	add	r0, r3, #0
+.LCB5329:
 	mov	r1, #0x0
 	bl	func_08013A94
 	bl	.L68	@ far jump
 .L636:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB5343
+	bl	.L68	@far jump
+.LCB5343:
 	bl	func_0801437C
 	bl	.L68	@ far jump
 .L638:
-	ldr	r0, [sp, #0xf8]
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB2456
+	beq	.L639	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L639:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB5366
 	bl	.L68	@far jump
-.LCB2456:
+.LCB5366:
 	mov	r1, #0x0
 	bl	func_08014410
 	bl	.L68	@ far jump
 .L641:
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L642	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L642:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r3, [r0]
 	mov	r0, #0xc8
-	str	r0, [sp, #0x10]
-	ldr	r1, [sp, #0x2d0]
-	lsr	r0, r1, #0x3
+	str	r0, [sp, #0xc]
+	ldr	r0, [r3, #0x24]
 	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	lsl	r1, r0, #0x3
-	sub	r1, r1, r0
-	ldr	r2, [sp, #0x2d0]
-	lsl	r0, r2, #0x1d
+	lsr	r2, r0, #0x1b
+	lsl	r1, r2, #0x3
+	sub	r1, r1, r2
+	lsl	r0, r0, #0x5
 	lsr	r0, r0, #0x1d
 	add	r1, r1, r0
-	str	r1, [sp, #0x14]
-	add	r2, sp, #0x10
+	str	r1, [sp, #0x10]
+	add	r2, sp, #0xc
 	cmp	r1, #0xc7
 	bhi	.L643	@cond_branch
-	add	r2, sp, #0x14
+	add	r2, sp, #0x10
 .L643:
-	ldr	r3, [sp, #0x2e0]
-	ldr	r1, .L1449
-	add	r0, r3, r1
-	ldr	r3, [sp, #0x150]
-	neg	r1, r3
-	orr	r1, r1, r3
+	ldr	r4, .L1552
+	add	r0, r3, r4
+	ldr	r5, [sp, #0x1c]
+	neg	r1, r5
+	orr	r1, r1, r5
 	lsr	r1, r1, #0x1f
 	ldr	r2, [r2]
 	bl	func_08057E90
 	bl	.L8	@ far jump
-.L1450:
+.L1553:
 	.align	2, 0
-.L1449:
+.L1552:
 	.word	0x2c1c
 .L644:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB5438
+	bl	.L68	@far jump
+.LCB5438:
 	bl	func_080144BC
 	bl	.L68	@ far jump
 .L646:
-	ldr	r0, [sp, #0xfc]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB2514
+	beq	.L647	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L647:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB5461
 	bl	.L68	@far jump
-.LCB2514:
-	ldr	r2, [sp, #0x154]
-	neg	r1, r2
-	orr	r1, r1, r2
+.LCB5461:
+	ldr	r4, [sp, #0x20]
+	neg	r1, r4
+	orr	r1, r1, r4
 	lsr	r1, r1, #0x1f
 	bl	func_08014550
 	bl	.L68	@ far jump
 .L649:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB5479
+	bl	.L68	@far jump
+.LCB5479:
 	bl	func_080145F8
 	bl	.L68	@ far jump
 .L651:
-	ldr	r3, [sp, #0x2e4]
-	ldr	r1, .L1451
-	add	r0, r3, r1
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1554
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	func_08052230
 	bl	.L8	@ far jump
-.L1452:
+.L1555:
 	.align	2, 0
-.L1451:
+.L1554:
 	.word	0x2c4c
 .L652:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r4, .L1556
+	add	r0, r0, r4
 	bl	func_0801151C
-	bl	.L1279	@ far jump
+	bl	.L1425	@ far jump
+.L1557:
+	.align	2, 0
+.L1556:
+	.word	0x2c74
 .L653:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1558
+	add	r0, r0, r2
 	bl	func_08011520
 	bl	.L1428	@ far jump
+.L1559:
+	.align	2, 0
+.L1558:
+	.word	0x2c74
 .L654:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1560
+	add	r0, r0, r5
 	bl	func_08011524
-	bl	.L1426	@ far jump
+	bl	.L1425	@ far jump
+.L1561:
+	.align	2, 0
+.L1560:
+	.word	0x2c74
 .L655:
-	mov	r0, #0x0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L656	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L656:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r4, .L1562
+	add	r0, r0, r4
 	mov	r1, #0x0
 	bl	func_08011540
 	bl	.L8	@ far jump
+.L1563:
+	.align	2, 0
+.L1562:
+	.word	0x2c74
 .L657:
-	mov	r0, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1564
+	add	r0, r0, r1
 	bl	func_08011544
 	bl	.L8	@ far jump
+.L1565:
+	.align	2, 0
+.L1564:
+	.word	0x2c74
 .L658:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r3, .L1566
+	add	r0, r0, r3
 	bl	func_08011520
 	cmp	r0, #0xe
-	bhi	.L659	@cond_branch
+	bls	.LCB5631
+	b	.L659	@long jump
+.LCB5631:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1453
+	ldr	r1, .L1566+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1454:
+.L1567:
 	.align	2, 0
-.L1453:
+.L1566:
+	.word	0x2c74
 	.word	.L675
 	.align	2, 0
 	.align	2, 0
@@ -2177,142 +4883,329 @@ func_0803F8DC:
 	.word	.L673
 	.word	.L674
 .L660:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r0, r0, r5
 	bl	AddClock__9FarmHouse
 	b	.L659
 .L661:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r0, r0, r2
 	bl	AddMirror__9FarmHouse
 	b	.L659
 .L662:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r0, r0, r4
 	bl	AddFridge__9FarmHouse
 	b	.L659
 .L663:
-	mov	r0, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
 	bl	AddShelf__9FarmHouse
 	b	.L659
 .L664:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r0, r0, r3
 	bl	AddKitchen__9FarmHouse
 	b	.L659
 .L665:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r0, r0, r5
 	bl	AddCarpet__9FarmHouse
 	b	.L659
 .L666:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r0, r0, r2
 	bl	AddLargeBed__9FarmHouse
 	b	.L659
 .L667:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r0, r0, r4
 	bl	AddKitchenKnife__9FarmHouse
 	b	.L659
 .L668:
-	mov	r0, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
 	bl	AddKitchenFryingPan__9FarmHouse
 	b	.L659
 .L669:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r0, r0, r3
 	bl	AddKitchenPot__9FarmHouse
 	b	.L659
 .L670:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r0, r0, r5
 	bl	AddKitchenMixer__9FarmHouse
 	b	.L659
 .L671:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r0, r0, r2
 	bl	AddKitchenWhisk__9FarmHouse
 	b	.L659
 .L672:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r0, r0, r4
 	bl	KitchenRollingPin__9FarmHouse
 	b	.L659
 .L673:
-	mov	r0, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
 	bl	AddKitchenOven__9FarmHouse
 	b	.L659
 .L674:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r0, r0, r3
 	bl	AddKitchenSeasoningSet__9FarmHouse
 .L659:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1568
+	add	r0, r0, r5
 	bl	func_08011550
 	bl	.L8	@ far jump
+.L1569:
+	.align	2, 0
+.L1568:
+	.word	0x2c74
 .L678:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1570
+	add	r0, r0, r2
 	bl	func_080A0518
 	bl	.L1428	@ far jump
+.L1571:
+	.align	2, 0
+.L1570:
+	.word	0x1cd4
 .L679:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	add	r0, r0, #0x54
 	bl	HasShippedOneOfEachCrop__C11ShippingBin
-	bl	.L1426	@ far jump
+	bl	.L1425	@ far jump
 .L680:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	add	r0, r0, #0x54
 	bl	HasShippedOneOfEachProduct__C11ShippingBin
-	bl	.L1279	@ far jump
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	bl	.L1423	@ far jump
 .L681:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
 	bl	func_08010E68
-	bl	.L1279	@ far jump
+	bl	.L1428	@ far jump
 .L682:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	add	r0, r0, #0x54
 	bl	HasShippedOneOfEachMineral__C11ShippingBin
-	bl	.L1279	@ far jump
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	bl	.L1423	@ far jump
 .L683:
-	mov	r0, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	mov	r1, #0xb2
+	lsl	r1, r1, #0x6
+	add	r0, r0, r1
 	bl	func_0809CDCC
 	bl	.L1428	@ far jump
 .L684:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	mov	r5, #0xb2
+	lsl	r5, r5, #0x6
+	add	r0, r0, r5
 	bl	func_0809CDEC
-	bl	.L1426	@ far jump
+	bl	.L1425	@ far jump
 .L685:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
 	bl	func_08010E60
-	bl	.L1279	@ far jump
+	bl	.L1428	@ far jump
 .L687:
-	mov	r0, #0x0
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L688	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L688:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1572
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	func_0809ABD8
 	bl	.L8	@ far jump
+.L1573:
+	.align	2, 0
+.L1572:
+	.word	0x1aa8
 .L689:
-	mov	r0, #0x0
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L690	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L690:
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1574
+	add	r0, r0, r5
 	mov	r1, #0x0
 	bl	func_0809ACC0
 	bl	.L8	@ far jump
+.L1575:
+	.align	2, 0
+.L1574:
+	.word	0x1aa8
 .L691:
 	mov	r0, #0x64
 	mov	r9, r0
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r4, r6, r1
+	ldr	r0, [r4]
+	ldr	r2, .L1576
+	add	r0, r0, r2
 	bl	func_080A0490
 	lsl	r0, r0, #0x10
-	cmp	r0, #0
+	asr	r5, r0, #0x10
+	cmp	r5, #0
 	beq	.L692	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	ldr	r3, .L1576
+	add	r0, r0, r3
 	bl	func_080A0490
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10
 	sub	r0, r0, #0x3
-	mov	r1, #0xda
-	lsl	r1, r1, #0x1
-	add	r1, r1, r6
-	mov	r8, r1
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r4, r4, r6
+	mov	r8, r4
 	add	r2, r6, #0
 	add	r2, r2, #0x24
 	add	r3, r2, #0
 	cmp	r0, #0x16
-	bls	.LCB2770
+	bls	.LCB6100
 	b	.L703	@long jump
-.LCB2770:
+.LCB6100:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1455
+	ldr	r1, .L1576+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1456:
+.L1577:
 	.align	2, 0
-.L1455:
+.L1576:
+	.word	0x1cd4
 	.word	.L701
 	.align	2, 0
 	.align	2, 0
@@ -2341,9 +5234,9 @@ func_0803F8DC:
 	.word	.L703
 	.word	.L700
 .L694:
-	mov	r2, #0x3
-.L1433:
-	mov	r9, r2
+	mov	r5, #0x3
+.L1437:
+	mov	r9, r5
 	mov	r0, #0xda
 	lsl	r0, r0, #0x1
 	add	r0, r0, r6
@@ -2362,57 +5255,94 @@ func_0803F8DC:
 	b	.L695
 .L698:
 	mov	r2, #0x13
-	b	.L1433
-.L699:
-	mov	r1, #0x15
-	mov	r9, r1
-	mov	r2, #0xda
-	lsl	r2, r2, #0x1
-	add	r2, r2, r6
-	mov	r8, r2
+	mov	r9, r2
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r4, r4, r6
+	mov	r8, r4
 	b	.L695
+.L699:
+	mov	r5, #0x15
+	b	.L1437
 .L700:
 	mov	r0, #0x19
 	b	.L697
 .L692:
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	ldr	r1, .L1578
+	add	r0, r0, r1
 	bl	GetRivalEventCount__C12Bachelorette
-	mov	r0, #0x0
+	cmp	r0, #0x4
+	bhi	.L704	@cond_branch
+	ldr	r0, [r4]
+	ldr	r2, .L1578
+	add	r0, r0, r2
+	bl	GetLove__C12Bachelorette
+	lsl	r0, r0, #0x10
+	asr	r0, r0, #0x10
+	str	r0, [sp, #0x4]
+	b	.L705
+.L1579:
+	.align	2, 0
+.L1578:
+	.word	0x1d6c
+.L704:
+	str	r5, [sp, #0x4]
+.L705:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r4, r6, r3
+	ldr	r0, [r4]
+	ldr	r5, .L1580
+	add	r0, r0, r5
 	bl	GetRivalEventCount__C12Bachelorette
 	cmp	r0, #0x4
 	bhi	.L707	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	add	r0, r0, r5
 	bl	GetLove__C12Bachelorette
 .L707:
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	ldr	r1, .L1580+0x4
+	add	r0, r0, r1
 	bl	GetRivalEventCount__C12Bachelorette
 	cmp	r0, #0x4
 	bhi	.L709	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	ldr	r2, .L1580+0x4
+	add	r0, r0, r2
 	bl	GetLove__C12Bachelorette
 .L709:
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	ldr	r3, .L1580+0x8
+	add	r0, r0, r3
 	bl	GetRivalEventCount__C12Bachelorette
 	cmp	r0, #0x4
 	bhi	.L711	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	ldr	r5, .L1580+0x8
+	add	r0, r0, r5
 	bl	GetLove__C12Bachelorette
 .L711:
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	ldr	r1, .L1580+0xc
+	add	r0, r0, r1
 	bl	GetRivalEventCount__C12Bachelorette
 	cmp	r0, #0x4
 	bhi	.L713	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	ldr	r2, .L1580+0xc
+	add	r0, r0, r2
 	bl	GetLove__C12Bachelorette
 .L713:
 	mov	r7, #0x1
 	neg	r7, r7
-	ldr	r3, .L1457
+	ldr	r3, .L1580+0x10
 	mov	r4, #0x0
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r0, r0, r6
-	mov	r8, r0
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r5, r5, r6
+	mov	r8, r5
 	add	r2, r6, #0
 	add	r2, r2, #0x24
 	add	r5, sp, #0x4
@@ -2423,9 +5353,13 @@ func_0803F8DC:
 	add	r7, r4, #0
 	add	r3, r0, #0
 	b	.L718
-.L1458:
+.L1581:
 	.align	2, 0
-.L1457:
+.L1580:
+	.word	0x1e28
+	.word	0x1eb8
+	.word	0x1ee4
+	.word	0x1f38
 	.word	0x7530
 .L717:
 	cmp	r0, r3
@@ -2434,14 +5368,14 @@ func_0803F8DC:
 	neg	r0, r0
 	cmp	r7, r0
 	beq	.L720	@cond_branch
-	str	r2, [sp, #0x338]
-	str	r3, [sp, #0x33c]
+	str	r2, [sp, #0x110]
+	str	r3, [sp, #0x114]
 	bl	rand
 	asr	r0, r0, #0x8
 	mov	r1, #0x1
 	and	r0, r0, r1
-	ldr	r2, [sp, #0x338]
-	ldr	r3, [sp, #0x33c]
+	ldr	r2, [sp, #0x110]
+	ldr	r3, [sp, #0x114]
 	cmp	r0, #0
 	bne	.L718	@cond_branch
 .L720:
@@ -2454,13 +5388,13 @@ func_0803F8DC:
 	cmp	r7, #0x4
 	bhi	.L703	@cond_branch
 	lsl	r0, r7, #0x2
-	ldr	r1, .L1459
+	ldr	r1, .L1582
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1460:
+.L1583:
 	.align	2, 0
-.L1459:
+.L1582:
 	.word	.L729
 	.align	2, 0
 	.align	2, 0
@@ -2471,24 +5405,24 @@ func_0803F8DC:
 	.word	.L727
 	.word	.L728
 .L724:
-	mov	r1, #0x3
-	mov	r9, r1
-	b	.L703
-.L725:
-	mov	r3, #0xc
-	b	.L1434
-.L726:
-	mov	r0, #0x13
+	mov	r0, #0x3
 	mov	r9, r0
 	b	.L703
-.L727:
-	mov	r1, #0x15
+.L725:
+	mov	r1, #0xc
 	mov	r9, r1
 	b	.L703
-.L728:
-	mov	r3, #0x19
-.L1434:
+.L726:
+	mov	r3, #0x13
 	mov	r9, r3
+	b	.L703
+.L727:
+	mov	r4, #0x15
+	mov	r9, r4
+	b	.L703
+.L728:
+	mov	r5, #0x19
+	mov	r9, r5
 .L703:
 	mov	r0, r9
 	cmp	r0, #0x64
@@ -2511,81 +5445,78 @@ func_0803F8DC:
 	cmp	r0, #0x16
 	beq	.L735	@cond_branch
 .L733:
-	mov	r0, r8
-	ldr	r3, [r0]
-	cmp	r3, #0x63
-	bls	.LCB3014
-	bl	.L8	@far jump
-.LCB3014:
-	lsl	r0, r3, #0x2
-	add	r0, r2, r0
-	mov	r1, #0x0
-	bl	.L1425	@ far jump
+	mov	r3, r8
+	ldr	r1, [r3]
+	b	.L1438
 .L735:
-	mov	r0, r8
-	ldr	r3, [r0]
-	cmp	r3, #0x63
-	bls	.LCB3025
+	mov	r4, r8
+	ldr	r1, [r4]
+	cmp	r1, #0x63
+	bls	.LCB6419
 	bl	.L8	@far jump
-.LCB3025:
-	lsl	r0, r3, #0x2
+.LCB6419:
+	lsl	r0, r1, #0x2
 	add	r0, r2, r0
-	bl	.L1435	@ far jump
+	bl	.L1439	@ far jump
 .L737:
-	mov	r0, r8
-	ldr	r3, [r0]
-	cmp	r3, #0x63
-	bls	.LCB3035
+	mov	r5, r8
+	ldr	r1, [r5]
+	cmp	r1, #0x63
+	bls	.LCB6429
 	bl	.L8	@far jump
-.LCB3035:
-	lsl	r0, r3, #0x2
+.LCB6429:
+	lsl	r0, r1, #0x2
 	add	r0, r2, r0
-	mov	r1, #0x2
-	bl	.L1425	@ far jump
+	mov	r3, #0x2
+	bl	.L325	@ far jump
 .L739:
 	mov	r0, r8
-	ldr	r3, [r0]
-	cmp	r3, #0x63
-	bls	.LCB3046
+	ldr	r1, [r0]
+	cmp	r1, #0x63
+	bls	.LCB6440
 	bl	.L8	@far jump
-.LCB3046:
-	lsl	r0, r3, #0x2
+.LCB6440:
+	lsl	r0, r1, #0x2
 	add	r0, r2, r0
-	mov	r1, #0x3
-	bl	.L1425	@ far jump
+	mov	r3, #0x3
+	bl	.L325	@ far jump
 .L741:
-	mov	r0, r8
-	ldr	r3, [r0]
-	cmp	r3, #0x63
-	bls	.LCB3057
+	mov	r3, r8
+	ldr	r1, [r3]
+	cmp	r1, #0x63
+	bls	.LCB6451
 	bl	.L8	@far jump
-.LCB3057:
-	lsl	r0, r3, #0x2
+.LCB6451:
+	lsl	r0, r1, #0x2
 	add	r0, r2, r0
-	mov	r1, #0x4
-	bl	.L1425	@ far jump
+	mov	r3, #0x4
+	bl	.L325	@ far jump
 .L745:
-	ldr	r2, [sp, #0x328]
-	ldr	r3, .L1461
-	add	r4, r2, r3
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1584
+	add	r4, r0, r5
+	mov	r7, #0x5
 	add	r0, r4, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB3076
+	beq	.LCB6475
 	b	.L748	@long jump
-.LCB3076:
+.LCB6475:
 	add	r0, r4, #0
 	bl	func_0800F204
 	cmp	r0, #0
-	beq	.LCB3081
+	beq	.LCB6480
 	b	.L748	@long jump
-.LCB3081:
+.LCB6480:
 	add	r5, sp, #0x4
 	add	r0, r5, #0
 	add	r1, r4, #0
 	bl	func_0800F20C
-	ldr	r0, .L1461+0x4
+	ldr	r0, .L1584+0x4
 	ldr	r4, [r0]
 	mov	r0, #0xda
 	lsl	r0, r0, #0x2
@@ -2593,20 +5524,19 @@ func_0803F8DC:
 	add	r0, r5, #0
 	bl	GetId__C4Food
 	str	r0, [r4]
-	add	r4, r5, #0
-	ldr	r1, [sp, #0x2b0]
+	ldr	r1, [sp, #0xf4]
 	cmp	r1, #0x4
-	bls	.LCB3103
+	bls	.LCB6502
 	b	.L748	@long jump
-.LCB3103:
+.LCB6502:
 	lsl	r0, r1, #0x2
-	ldr	r1, .L1461+0x8
+	ldr	r1, .L1584+0x8
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1462:
+.L1585:
 	.align	2, 0
-.L1461:
+.L1584:
 	.word	0x1c2c
 	.word	gUnk_0300040C
 	.word	.L869
@@ -2619,20 +5549,20 @@ func_0803F8DC:
 	.word	.L851
 	.word	.L855
 .L750:
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	GetId__C4Food
 	cmp	r0, #0x9b
-	bls	.LCB3130
+	bls	.LCB6529
 	b	.L748	@long jump
-.LCB3130:
+.LCB6529:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1463
+	ldr	r1, .L1586
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1464:
+.L1587:
 	.align	2, 0
-.L1463:
+.L1586:
 	.word	.L787
 	.align	2, 0
 	.align	2, 0
@@ -2794,27 +5724,29 @@ func_0803F8DC:
 	.word	.L748
 	.word	.L774
 .L774:
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	GetStaminaGain__C4Food
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	GetFatigueGain__C4Food
+	mov	r7, #0x0
 	b	.L748
 .L789:
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	GetId__C4Food
 .L843:
 	mov	r0, #0x0
 	cmp	r0, #0
 	bne	.L774	@cond_branch
+	mov	r7, #0x5
 	b	.L748
 .L846:
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	GetId__C4Food
 	cmp	r0, #0x9e
 	beq	.L774	@cond_branch
 	b	.L748
 .L851:
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	GetId__C4Food
 	cmp	r0, #0x82
 	ble	.L843	@cond_branch
@@ -2824,7 +5756,7 @@ func_0803F8DC:
 	beq	.L774	@cond_branch
 	b	.L843
 .L855:
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	GetId__C4Food
 	cmp	r0, #0x79
 	bgt	.L856	@cond_branch
@@ -2850,17 +5782,23 @@ func_0803F8DC:
 	cmp	r0, #0x3
 	bhi	.L843	@cond_branch
 	b	.L774
-.L1438:
 .L748:
-	mov	r2, #0xda
-	lsl	r2, r2, #0x1
-	add	r1, r6, r2
-	ldr	r3, [sp, #0x2c4]
+	mov	r3, #0xda
+	lsl	r3, r3, #0x1
+	add	r2, r6, r3
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r0, r6, r4
+	ldr	r3, [r0]
 	cmp	r3, #0x63
-	bhi	.LCB3254
-	bl	.L308	@far jump
-.LCB3254:
-	bl	.L8	@ far jump
+	bls	.LCB6657
+	bl	.L8	@far jump
+.LCB6657:
+	lsl	r0, r3, #0x2
+	add	r0, r0, r6
+	add	r0, r0, #0x24
+	strb	r7, [r0]
+	bl	.L308	@ far jump
 .L872:
 	bl	rand
 	asr	r0, r0, #0x4
@@ -2868,11 +5806,15 @@ func_0803F8DC:
 	lsr	r0, r0, #0x18
 	mov	r1, #0x0
 .L873:
-	ldr	r2, [sp, #0x2d4]
-	cmp	r0, r2
-	bhi	.LCB3268
-	bl	.L1279	@far jump
-.LCB3268:
+	ldr	r5, [sp, #0x100]
+	cmp	r0, r5
+	bhi	.L874	@cond_branch
+	add	r0, r1, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	bl	.L1423	@ far jump
+.L874:
+	ldr	r2, [sp, #0x100]
 	sub	r0, r0, r2
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -2887,12 +5829,12 @@ func_0803F8DC:
 	lsr	r0, r0, #0x18
 	mov	r1, #0x0
 .L878:
-	ldr	r3, [sp, #0x2d8]
+	ldr	r3, [sp, #0x104]
 	cmp	r0, r3
-	bhi	.LCB3290
-	bl	.L1426	@far jump
-.LCB3290:
-	ldr	r2, [sp, #0x2d8]
+	bhi	.LCB6704
+	bl	.L1423	@far jump
+.LCB6704:
+	ldr	r2, [sp, #0x104]
 	sub	r0, r0, r2
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -2901,19 +5843,34 @@ func_0803F8DC:
 	bls	.L878	@cond_branch
 	bl	.L8	@ far jump
 .L882:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r4, .L1588
+	add	r0, r0, r4
 	bl	func_0809EED0
-	bl	.L1428	@ far jump
+	bl	.L1425	@ far jump
+.L1589:
+	.align	2, 0
+.L1588:
+	.word	0x1fe4
 .L883:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1590
+	add	r5, r0, r2
 	mov	r4, #0x0
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r0, r0, r6
-	mov	r8, r0
+	mov	r3, #0xda
+	lsl	r3, r3, #0x1
+	add	r3, r3, r6
+	mov	r8, r3
 .L884:
 	cmp	r4, #0x9
 	bhi	.L885	@cond_branch
-	ldr	r0, [sp, #0x32c]
+	add	r0, r5, #0
 	add	r1, r4, #0
 	bl	func_0809EEA4
 	lsl	r0, r0, #0x18
@@ -2921,58 +5878,139 @@ func_0803F8DC:
 	beq	.L885	@cond_branch
 	add	r4, r4, #0x1
 	b	.L884
+.L1591:
+	.align	2, 0
+.L1590:
+	.word	0x1fe4
 .L885:
-	ldr	r1, [sp, #0x2bc]
-	cmp	r1, #0x63
-	bhi	.LCB3336
-	bl	.L438	@far jump
-.LCB3336:
-	bl	.L8	@ far jump
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	bl	.L1440	@ far jump
 .L889:
-	ldr	r2, [sp, #0x104]
-	cmp	r2, #0
-	bne	.LCB3345
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L890	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L890:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L891	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L891:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB6810
 	bl	.L68	@far jump
-.LCB3345:
-	add	r0, r2, #0
+.LCB6810:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_08013F88
 	bl	.L68	@ far jump
 .L893:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	add	r0, r0, #0x14
 	bl	method_08009B20__C4Farm
-	bl	.L1279	@ far jump
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	bl	.L1423	@ far jump
 .L894:
-	ldr	r0, [sp, #0x310]
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L895	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L895:
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r4, [r0]
+	ldr	r5, .L1592
+	add	r4, r4, r5
+	add	r0, r4, #0
 	bl	func_0800E4E0
 	add	r1, r0, #0
-	ldr	r0, [sp, #0x310]
+	add	r0, r4, #0
 	bl	func_0800E9A8
 	bl	.L8	@ far jump
+.L1593:
+	.align	2, 0
+.L1592:
+	.word	0x1bd8
 .L900:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB6877
+	bl	.L8	@far jump
+.LCB6877:
 	bl	func_080142F0
 	bl	.L8	@ far jump
 .L902:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB6889
+	bl	.L8	@far jump
+.LCB6889:
 	bl	func_08014304
 	bl	.L8	@ far jump
 .L904:
-	ldr	r3, [sp, #0x108]
-	cmp	r3, #0
-	bne	.LCB3386
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L905	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L905:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB6912
 	bl	.L8	@far jump
-.LCB3386:
-	add	r0, r3, #0
+.LCB6912:
 	mov	r1, #0x0
 	bl	func_08014694
 	bl	.L8	@ far jump
 .L907:
-	add	r1, r6, #0
-	add	r1, r1, #0x24
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r0, r0, r6
-	mov	r8, r0
+	add	r2, r6, #0
+	add	r2, r2, #0x24
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r4, r6, r1
+	ldr	r0, [r4]
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r5, r5, r6
+	mov	r8, r5
+	cmp	r0, #0
+	beq	.L908	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r4]
+.L908:
 	cmp	r7, #0x1d
 	beq	.L912	@cond_branch
 	cmp	r7, #0x1d
@@ -2984,104 +6022,200 @@ func_0803F8DC:
 	cmp	r7, #0x27
 	beq	.L915	@cond_branch
 .L910:
-	cmp	r3, #0x63
-	bls	.LCB3418
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r6, r1
+	ldr	r1, [r0]
+.L1438:
+	cmp	r1, #0x63
+	bls	.LCB6959
 	bl	.L8	@far jump
-.LCB3418:
-	lsl	r0, r3, #0x2
-	add	r0, r1, r0
-	mov	r1, #0x0
-	bl	.L1425	@ far jump
+.LCB6959:
+	lsl	r0, r1, #0x2
+	add	r0, r2, r0
+	mov	r3, #0x0
+	bl	.L325	@ far jump
 .L912:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	add	r0, r0, r1
 	bl	IsFireplaceLighted__C9FarmHouse
-	ldr	r2, [sp, #0x2bc]
-	bl	.L1436	@ far jump
+	bl	.L1441	@ far jump
 .L915:
-	cmp	r3, #0x63
-	bls	.LCB3434
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r0, r6, r4
+	ldr	r1, [r0]
+	cmp	r1, #0x63
+	bls	.LCB6985
 	bl	.L8	@far jump
-.LCB3434:
-	lsl	r0, r3, #0x2
-	add	r0, r1, r0
+.LCB6985:
+	lsl	r0, r1, #0x2
+	add	r0, r2, r0
 	bl	.L325	@ far jump
 .L920:
-	ldr	r3, [sp, #0x10c]
-	cmp	r3, #0
-	bne	.LCB3444
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L921	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L921:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB7009
 	bl	.L8	@far jump
-.LCB3444:
-	add	r0, r3, #0
+.LCB7009:
 	mov	r1, #0x0
 	bl	func_080146B0
 	bl	.L8	@ far jump
 .L923:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r4, r6, r2
+	ldr	r0, [r4]
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r0, r0, r3
 	bl	GetVaseArticleId__C9FarmHouse
 	cmp	r0, #0x5f
 	bne	.L924	@cond_branch
-	ldr	r0, [sp, #0x270]
-	cmp	r0, #0x63
-	bls	.LCB3460
-	bl	.L8	@far jump
-.LCB3460:
-	lsl	r0, r0, #0x2
 .L1429:
-	add	r0, r0, #0x24
-	add	r0, r6, r0
-	mov	r1, #0x1
-	neg	r1, r1
-	mov	ip, r1
-	bl	.L346	@ far jump
-.L924:
-	mov	r0, #0x0
-	bl	GetVaseArticleId__C9FarmHouse
-	bl	.L1279	@ far jump
-.L927:
-	ldr	r3, [sp, #0x114]
-	cmp	r3, #0
-	bne	.LCB3482
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r2, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r0, r6, r5
+.L1426:
+	ldr	r1, [r0]
+	cmp	r1, #0x63
+	bls	.LCB7043
 	bl	.L8	@far jump
-.LCB3482:
-	add	r0, r3, #0
+.LCB7043:
+	ldr	r0, .L1594
+	mul	r0, r0, r1
+	add	r0, r0, #0x24
+	add	r1, r6, r0
+	mov	r0, #0x1
+	neg	r0, r0
+	bl	.L346	@ far jump
+.L1595:
+	.align	2, 0
+.L1594:
+	.word	0xd430
+.L924:
+	ldr	r0, [r4]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
+	bl	GetVaseArticleId__C9FarmHouse
+	bl	.L1428	@ far jump
+.L927:
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L928	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L928:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB7089
+	bl	.L8	@far jump
+.LCB7089:
 	mov	r1, #0x0
 	bl	func_080146CC
 	bl	.L8	@ far jump
 .L930:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r5, r6, r0
-	mov	r0, #0x0
+	mov	r0, #0x24
+	add	r0, r0, r6
+	mov	r8, r0
+	mov	r1, #0xda
+	lsl	r1, r1, #0x1
+	add	r7, r6, r1
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L931	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L931:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	mov	r4, #0x82
+	lsl	r4, r4, #0x3
+	add	r0, r0, r4
 	mov	r1, #0x0
 	bl	IsIncubatorOccupied__C4CoopUi
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L932:
-	mov	r0, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1596
+	add	r0, r0, r1
 	bl	func_0809ECD8
-	bl	.L1279	@ far jump
-.L933:
-	mov	r0, #0x0
-	bl	func_0809ECE0
 	bl	.L1428	@ far jump
+.L1597:
+	.align	2, 0
+.L1596:
+	.word	0x1dac
+.L933:
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1598
+	add	r0, r0, r5
+	bl	func_0809ECE0
+	bl	.L1425	@ far jump
+.L1599:
+	.align	2, 0
+.L1598:
+	.word	0x1dac
 .L934:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1600
+	add	r0, r0, r2
 	bl	func_0809ECD8
-	add	r7, r0, #0
+	mov	r9, r0
 	mov	r4, #0x51
-	mov	r5, #0x5f
-	sub	r0, r7, #0x1
+	mov	r7, #0x5f
+	sub	r0, r0, #0x1
 	cmp	r0, #0x21
-	bls	.LCB3525
+	bls	.LCB7189
 	b	.L935	@long jump
-.LCB3525:
+.LCB7189:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1465
+	ldr	r1, .L1600+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1466:
+.L1601:
 	.align	2, 0
-.L1465:
+.L1600:
+	.word	0x1dac
 	.word	.L1030
 	.align	2, 0
 	.align	2, 0
@@ -3127,7 +6261,8 @@ func_0803F8DC:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L941	@cond_branch
-	sub	r0, r7, #0x1
+	mov	r0, r9
+	sub	r0, r0, #0x1
 	cmp	r0, #0x2
 	beq	.L945	@cond_branch
 	cmp	r0, #0x2
@@ -3156,12 +6291,21 @@ func_0803F8DC:
 	mov	r4, #0x7
 	b	.L935
 .L941:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r4, .L1602
+	add	r0, r0, r4
 	mov	r1, #0x1
 	bl	func_0800EB2C
 	bl	func_0800EFD8
 	mov	r4, #0x0
 	b	.L935
+.L1603:
+	.align	2, 0
+.L1602:
+	.word	0x1bd8
 .L955:
 	add	r0, r6, #0
 	mov	r1, #0x8
@@ -3169,7 +6313,8 @@ func_0803F8DC:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L956	@cond_branch
-	sub	r0, r7, #0x6
+	mov	r0, r9
+	sub	r0, r0, #0x6
 	cmp	r0, #0x2
 	beq	.L960	@cond_branch
 	cmp	r0, #0x2
@@ -3198,12 +6343,21 @@ func_0803F8DC:
 	mov	r4, #0xf
 	b	.L935
 .L956:
-	mov	r0, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1604
+	add	r0, r0, r1
 	mov	r1, #0x0
 	bl	func_0800EB2C
 	bl	func_0800EFD8
 	mov	r4, #0x8
 	b	.L935
+.L1605:
+	.align	2, 0
+.L1604:
+	.word	0x1bd8
 .L970:
 	add	r0, r6, #0
 	mov	r1, #0x10
@@ -3211,7 +6365,7 @@ func_0803F8DC:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L971	@cond_branch
-	add	r0, r7, #0
+	mov	r0, r9
 	sub	r0, r0, #0xb
 	cmp	r0, #0x2
 	beq	.L975	@cond_branch
@@ -3241,12 +6395,21 @@ func_0803F8DC:
 	mov	r4, #0x17
 	b	.L935
 .L971:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r3, .L1606
+	add	r0, r0, r3
 	mov	r1, #0x2
 	bl	func_0800EB2C
 	bl	func_0800EFD8
 	mov	r4, #0x10
 	b	.L935
+.L1607:
+	.align	2, 0
+.L1606:
+	.word	0x1bd8
 .L985:
 	add	r0, r6, #0
 	mov	r1, #0x18
@@ -3254,7 +6417,7 @@ func_0803F8DC:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L986	@cond_branch
-	add	r0, r7, #0
+	mov	r0, r9
 	sub	r0, r0, #0x10
 	cmp	r0, #0x2
 	beq	.L990	@cond_branch
@@ -3284,12 +6447,21 @@ func_0803F8DC:
 	mov	r4, #0x1f
 	b	.L935
 .L986:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1608
+	add	r0, r0, r5
 	mov	r1, #0x3
 	bl	func_0800EB2C
 	bl	func_0800EFD8
 	mov	r4, #0x18
 	b	.L935
+.L1609:
+	.align	2, 0
+.L1608:
+	.word	0x1bd8
 .L1000:
 	add	r0, r6, #0
 	mov	r1, #0x20
@@ -3297,7 +6469,7 @@ func_0803F8DC:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L1001	@cond_branch
-	add	r0, r7, #0
+	mov	r0, r9
 	sub	r0, r0, #0x15
 	cmp	r0, #0x2
 	beq	.L1005	@cond_branch
@@ -3327,12 +6499,21 @@ func_0803F8DC:
 	mov	r4, #0x27
 	b	.L935
 .L1001:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1610
+	add	r0, r0, r2
 	mov	r1, #0x4
 	bl	func_0800EB2C
 	bl	func_0800EFD8
 	mov	r4, #0x20
 	b	.L935
+.L1611:
+	.align	2, 0
+.L1610:
+	.word	0x1bd8
 .L1015:
 	add	r0, r6, #0
 	mov	r1, #0x28
@@ -3340,7 +6521,7 @@ func_0803F8DC:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L1016	@cond_branch
-	add	r0, r7, #0
+	mov	r0, r9
 	sub	r0, r0, #0x1a
 	cmp	r0, #0x2
 	beq	.L1020	@cond_branch
@@ -3370,69 +6551,111 @@ func_0803F8DC:
 	mov	r4, #0x2f
 	b	.L935
 .L1016:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r4, .L1612
+	add	r0, r0, r4
 	mov	r1, #0x5
 	bl	func_0800EB2C
 	bl	func_0800EFD8
 	mov	r4, #0x28
 	b	.L935
+.L1613:
+	.align	2, 0
+.L1612:
+	.word	0x1bd8
 .L1026:
-	mov	r5, #0x2c
+	mov	r7, #0x2c
 	b	.L935
 .L1027:
-	mov	r5, #0x2d
+	mov	r7, #0x2d
 	b	.L935
 .L1028:
-	mov	r5, #0x2e
+	mov	r7, #0x2e
 	b	.L935
 .L1029:
-	mov	r5, #0x2f
+	mov	r7, #0x2f
 .L935:
+	mov	r5, #0x3
+	mov	r8, r5
 	mov	r0, #0x0
-	mov	r8, r0
+	mov	sl, r0
 	cmp	r4, #0x51
 	bne	.L1032	@cond_branch
-	cmp	r5, #0x5f
-	bne	.LCB3910
+	cmp	r7, #0x5f
+	bne	.LCB7663
 	b	.L1035	@long jump
-.LCB3910:
-	ldr	r0, [sp, #0x320]
+.LCB7663:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r4, r6, r1
+	ldr	r0, [r4]
+	ldr	r2, .L1614
+	add	r5, r0, r2
+	add	r0, r5, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L1034	@cond_branch
-	add	r0, sp, #0xd4
-	add	r1, r5, #0
+	mov	r0, #0x0
+	add	r1, r7, #0
 	bl	__7ArticleUi
-	ldr	r0, [sp, #0x320]
+	add	r0, r5, #0
 	mov	r1, #0x0
 	bl	func_0800F3E8
+	mov	r3, #0x0
+	mov	r8, r3
 	b	.L1035
+.L1615:
+	.align	2, 0
+.L1614:
+	.word	0x1c2c
 .L1034:
-	mov	r0, #0x0
-	add	r1, r5, #0
+	ldr	r0, [r4]
+	ldr	r5, .L1616
+	add	r0, r0, r5
+	add	r1, r7, #0
 	mov	r2, #0x1
 	bl	AddAmountOfArticle__8RucksackUiUi
 	cmp	r0, #0
-	bne	.LCB3938
-	b	.L1035	@long jump
-.LCB3938:
-	mov	r0, #0x0
+	bne	.L1036	@cond_branch
+	mov	r0, #0x1
+	mov	r8, r0
+	b	.L1035
+.L1617:
+	.align	2, 0
+.L1616:
+	.word	0x1c38
+.L1036:
+	ldr	r0, [r4]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
 	bl	GetShelf__9FarmHouse
 	cmp	r0, #0
-	bne	.LCB3944
+	bne	.LCB7731
 	b	.L1038	@long jump
-.LCB3944:
-	add	r1, r5, #0
+.LCB7731:
+	add	r1, r7, #0
 	mov	r2, #0x1
 	bl	AddAmountOf__5ShelfUiUi
 	cmp	r0, #0
-	beq	.LCB3951
+	beq	.LCB7738
 	b	.L1038	@long jump
-.LCB3951:
+.LCB7738:
+	mov	r2, #0x2
+	mov	r8, r2
 	b	.L1035
 .L1032:
-	ldr	r0, [sp, #0x330]
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r1, .L1618
+	add	r5, r0, r1
+	add	r0, r5, #0
 	bl	IsEmpty__C9ToolStack
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
@@ -3446,67 +6669,91 @@ func_0803F8DC:
 	add	r0, r4, #0
 	mov	r2, #0x1
 	bl	__9ToolStackG4ToolUi
-	ldr	r0, [sp, #0x330]
+	add	r0, r5, #0
 	add	r1, r4, #0
 	mov	r2, #0x2
 	bl	memcpy
-	mov	r1, #0x1
-	mov	r8, r1
+	mov	r2, #0x0
+	mov	r8, r2
+	mov	r3, #0x1
+	mov	sl, r3
 	b	.L1040
+.L1619:
+	.align	2, 0
+.L1618:
+	.word	0x1c34
 .L1039:
-	mov	r5, #0x0
+	mov	r7, #0x0
 	bl	GetId__C4Tool
 	cmp	r0, r4
 	bne	.L1041	@cond_branch
-	ldr	r0, [sp, #0x330]
+	add	r0, r5, #0
 	bl	GetAmount__C9ToolStack
 	cmp	r0, #0x62
 	bhi	.L1041	@cond_branch
-	mov	r5, #0x1
+	mov	r7, #0x1
 .L1041:
-	cmp	r5, #0
+	cmp	r7, #0
 	beq	.L1042	@cond_branch
-	ldr	r0, [sp, #0x330]
+	add	r0, r5, #0
 	mov	r1, #0x1
 	bl	AddAmount__9ToolStackUi
-	mov	r2, #0x1
-	mov	r8, r2
+	mov	r4, #0x0
+	mov	r8, r4
+	mov	r5, #0x1
+	mov	sl, r5
 	b	.L1040
 .L1042:
-	mov	r0, #0x0
+	mov	r0, #0xe4
+	lsl	r0, r0, #0x2
+	add	r5, r6, r0
+	ldr	r0, [r5]
+	ldr	r1, .L1620
+	add	r0, r0, r1
 	add	r1, r4, #0
 	mov	r2, #0x1
 	bl	AddAmountOfTool__8RucksackUiUi
 	cmp	r0, #0
 	bne	.L1043	@cond_branch
-	mov	r3, #0x1
-	mov	r8, r3
+	mov	r2, #0x1
+	mov	r8, r2
+	mov	sl, r2
 	b	.L1040
+.L1621:
+	.align	2, 0
+.L1620:
+	.word	0x1c38
 .L1043:
-	mov	r0, #0x0
+	ldr	r0, [r5]
+	mov	r3, #0xe0
+	lsl	r3, r3, #0x2
+	add	r0, r0, r3
 	add	r1, r4, #0
 	mov	r2, #0x1
 	bl	AddAmountOf__9ToolChestUiUi
 	cmp	r0, #0
 	bne	.L1044	@cond_branch
-	mov	r0, #0x1
-	mov	r8, r0
+	mov	r4, #0x2
+	mov	r8, r4
+	mov	r5, #0x1
+	mov	sl, r5
 .L1044:
-	mov	r1, r8
-	cmp	r1, #0
+	mov	r0, sl
+	cmp	r0, #0
 	beq	.L1046	@cond_branch
 .L1040:
-	sub	r0, r7, #0x5
+	mov	r0, r9
+	sub	r0, r0, #0x5
 	cmp	r0, #0x19
 	bhi	.L1038	@cond_branch
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1467
+	ldr	r1, .L1622
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1468:
+.L1623:
 	.align	2, 0
-.L1467:
+.L1622:
 	.word	.L1054
 	.align	2, 0
 	.align	2, 0
@@ -3538,410 +6785,1083 @@ func_0803F8DC:
 	.word	.L1038
 	.word	.L1053
 .L1053:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
 	bl	func_08010F48
 .L1038:
-	mov	r2, r8
+	mov	r2, sl
 	cmp	r2, #0
 	beq	.L1046	@cond_branch
 .L1035:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	ldr	r4, .L1624
+	add	r0, r0, r4
 	bl	func_0809ED64
 .L1046:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r1, r6, r3
-	ldr	r0, [sp, #0x2c4]
-	cmp	r0, #0x63
-	bhi	.LCB4077
-	bl	.L308	@far jump
-.LCB4077:
-	bl	.L8	@ far jump
-.L1058:
-	ldr	r1, [sp, #0x194]
-	cmp	r1, #0
-	bne	.LCB4086
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r2, r6, r5
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r6, r1
+	ldr	r3, [r0]
+	cmp	r3, #0x63
+	bls	.LCB7924
 	bl	.L8	@far jump
-.LCB4086:
-	add	r0, r1, #0
+.LCB7924:
+	lsl	r0, r3, #0x2
+	add	r0, r0, r6
+	add	r0, r0, #0x24
+	mov	r4, r8
+	strb	r4, [r0]
+	bl	.L308	@ far jump
+.L1625:
+	.align	2, 0
+.L1624:
+	.word	0x1dac
+.L1058:
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1059	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1059:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1060	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1060:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB7964
+	bl	.L8	@far jump
+.LCB7964:
 	bl	func_08014318
 	bl	.L8	@ far jump
 .L1062:
-	mov	r2, #0xda
-	lsl	r2, r2, #0x1
-	add	r5, r6, r2
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	func_0800BD14
-	bl	.L19	@ far jump
-.L1064:
+	mov	r2, #0x24
+	add	r2, r2, r6
+	mov	r8, r2
 	mov	r3, #0xda
 	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	mov	r0, #0x0
+	add	r7, r6, r3
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1063	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1063:
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	mov	r1, #0x80
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
+	mov	r1, #0x0
+	bl	func_0800BD14
+	bl	.L1434	@ far jump
+.L1064:
+	mov	r2, #0x24
+	add	r2, r2, r6
+	mov	r8, r2
+	mov	r3, #0xda
+	lsl	r3, r3, #0x1
+	add	r7, r6, r3
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1065	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1065:
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	mov	r1, #0x80
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
 	mov	r1, #0x0
 	bl	func_0800BD40
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L1066:
-	mov	r0, #0x0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1067	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1067:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	mov	r4, #0x80
+	lsl	r4, r4, #0x3
+	add	r0, r0, r4
 	mov	r1, #0x0
 	bl	func_0800BCB0
 	bl	.L8	@ far jump
 .L1068:
-	mov	r0, #0x0
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1069	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1069:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0x80
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	func_0800BCD0
 	bl	.L8	@ far jump
 .L1070:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	mov	r4, #0x80
+	lsl	r4, r4, #0x3
+	add	r0, r0, r4
 	bl	func_0800BD6C
-	b	.L1279
+	bl	.L411	@ far jump
 .L1071:
-	mov	r0, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	mov	r1, #0x80
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
 	bl	func_0800BDEC
-	bl	.L1426	@ far jump
+	bl	.L1428	@ far jump
 .L1072:
-	mov	r0, #0x0
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r5, r6, r4
+	ldr	r0, [r5]
+	cmp	r0, #0
+	bne	.LCB8128
+	bl	.L8	@far jump
+.LCB8128:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r0, r0, r2
+	bl	GetUpgradeLevel__C9FarmHouse
+	lsl	r0, r0, #0x3
+	ldr	r1, .L1626
+	add	r0, r0, r1
+	ldrh	r4, [r0]
+	ldr	r0, [r5]
 	mov	r1, #0x1d
-	ldr	r2, [sp, #0x1e8]
+	add	r2, r4, #0
 	mov	r3, #0x70
 	bl	func_080122E0
-	mov	r0, #0x2
-	str	r0, [sp, #0xc]
-	mov	r0, #0x0
+	ldr	r0, [r5]
 	mov	r1, #0x0
-	ldr	r2, [sp, #0x1e8]
+	add	r2, r4, #0
 	mov	r3, #0x70
 	bl	func_08012064
 	bl	.L8	@ far jump
+.L1627:
+	.align	2, 0
+.L1626:
+	.word	gUnk_080F9EF4
 .L1074:
-	ldr	r1, [sp, #0x148]
-	cmp	r1, #0
-	bne	.LCB4170
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1075	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1075:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1076	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1076:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1077	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1077:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB8201
 	bl	.L68	@far jump
-.LCB4170:
-	add	r0, r1, #0
+.LCB8201:
 	mov	r1, #0x0
 	bl	func_080146FC
 	bl	.L68	@ far jump
 .L1079:
-	mov	r0, #0x0
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
 	bl	func_08014D7C
-	b	.L1279
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	bl	.L1423	@ far jump
 .L1080:
-	ldr	r2, [sp, #0x18]
-	cmp	r2, #0
-	bne	.LCB4187
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1081	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1081:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1082	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1082:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB8246
 	bl	.L8	@far jump
-.LCB4187:
-	add	r0, r2, #0
+.LCB8246:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_080159B0
 	bl	.L8	@ far jump
 .L1084:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB8261
+	bl	.L8	@far jump
+.LCB8261:
 	bl	func_08014AF8
 	bl	.L8	@ far jump
 .L1086:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1087	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1087:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	bl	func_0804E0F8
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L1088:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r5, r6, r0
+	mov	r0, #0x24
+	add	r0, r0, r6
+	mov	r8, r0
+	mov	r1, #0xda
+	lsl	r1, r1, #0x1
+	add	r7, r6, r1
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1089	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1089:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	bl	func_0804E17C
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L1090:
-	mov	r1, #0xda
-	lsl	r1, r1, #0x1
-	add	r5, r6, r1
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1091	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1091:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	bl	func_0804E1D4
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L1092:
-	mov	r2, #0xda
+	mov	r0, #0x24
+	add	r0, r0, r6
+	mov	r8, r0
+	mov	r1, #0xda
+	lsl	r1, r1, #0x1
+	add	r7, r6, r1
+	mov	r2, #0xfa
 	lsl	r2, r2, #0x1
-	add	r5, r6, r2
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1093	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1093:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	bl	func_0804E354
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L1094:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1095	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1095:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	bl	func_0804E2C0
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L1096:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r5, r6, r0
+	mov	r0, #0x24
+	add	r0, r0, r6
+	mov	r8, r0
+	mov	r1, #0xda
+	lsl	r1, r1, #0x1
+	add	r7, r6, r1
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1097	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1097:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	bl	func_0804E22C
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L1099:
-	mov	r1, #0xda
-	lsl	r1, r1, #0x1
-	add	r5, r6, r1
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x1bc]
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1100	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1100:
+	mov	r0, #0xe4
+	lsl	r0, r0, #0x2
+	add	r5, r6, r0
+	ldr	r0, [r5]
+	add	r0, r0, #0x54
+	ldr	r1, [sp, #0x60]
 	bl	IsDisplayEnabled__C11ShippingBini
 	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	bne	.LCB4304
+	lsr	r4, r0, #0x18
+	cmp	r4, #0
+	bne	.LCB8448
 	bl	.L19	@far jump
-.LCB4304:
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x1bc]
+.LCB8448:
+	ldr	r0, [r5]
+	add	r0, r0, #0x54
+	ldr	r1, [sp, #0x60]
 	bl	GetAmountShipped__C11ShippingBini
-	bl	.L19	@ far jump
+	bl	.L1417	@ far jump
 .L1102:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0xbe
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
 	bl	CountCows__C4Barn
-	b	.L1279
+	bl	.L411	@ far jump
 .L1103:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	mov	r4, #0xbe
+	lsl	r4, r4, #0x3
+	add	r0, r0, r4
 	bl	CountSheeps__C4Barn
-	b	.L1279
+	bl	.L1425	@ far jump
 .L1104:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0x82
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
 	bl	CountChickens__C4Coop
-	b	.L1428
+	bl	.L1428	@ far jump
 .L1105:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1628
+	add	r0, r0, r5
 	bl	func_0800ED14
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB8521
+	bl	.L68	@far jump
+.LCB8521:
 	bl	func_08014198
 	bl	.L68	@ far jump
+.L1629:
+	.align	2, 0
+.L1628:
+	.word	0x1bd8
 .L1107:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r3, .L1630
+	add	r0, r0, r3
 	bl	func_0800E934
-	bl	.L1426	@ far jump
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	bl	.L1423	@ far jump
+.L1631:
+	.align	2, 0
+.L1630:
+	.word	0x1bd8
 .L1108:
-	mov	r0, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1632
+	add	r0, r0, r1
 	bl	Upgrade__8Rucksack
 	bl	.L8	@ far jump
+.L1633:
+	.align	2, 0
+.L1632:
+	.word	0x1c38
 .L1109:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	ldr	r3, .L1634
+	add	r0, r0, r3
 	bl	GetUpgradeLevel__C8Rucksack
-	b	.L1279
+	bl	.L411	@ far jump
+.L1635:
+	.align	2, 0
+.L1634:
+	.word	0x1c38
 .L1110:
-	ldr	r1, [sp, #0x1c]
-	cmp	r1, #0
-	bne	.LCB4359
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1111	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1111:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1112	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1112:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB8619
 	bl	.L8	@far jump
-.LCB4359:
-	add	r0, r1, #0
+.LCB8619:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_08014C0C
 	bl	.L8	@ far jump
 .L1114:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB8634
+	bl	.L8	@far jump
+.LCB8634:
 	bl	func_08014BD8
 	bl	.L8	@ far jump
 .L1116:
-	add	r4, r6, #0
-	add	r4, r4, #0x24
+	add	r5, r6, #0
+	add	r5, r5, #0x24
+	mov	r2, #0xda
+	lsl	r2, r2, #0x1
+	add	r7, r6, r2
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r4, r6, r3
+	ldr	r0, [r4]
+	cmp	r0, #0
+	beq	.L1117	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r4]
+.L1117:
+	ldr	r0, [r4]
+	cmp	r0, #0
+	beq	.L1118	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r4]
+.L1118:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_0804E3D8
+.L1443:
 	neg	r1, r0
 	orr	r1, r1, r0
 	lsr	r1, r1, #0x1f
-	ldr	r2, [sp, #0x21c]
-.L1432:
-	cmp	r2, #0x63
-	bls	.LCB4390
+	mov	sl, r1
+.L1435:
+	ldr	r0, [r4]
+	cmp	r0, #0x63
+	bls	.LCB8677
 	bl	.L8	@far jump
-.LCB4390:
-	lsl	r0, r2, #0x2
-	add	r0, r4, r0
+.LCB8677:
+	lsl	r0, r0, #0x2
+	add	r0, r5, r0
 	bl	.L314	@ far jump
 .L1120:
-	ldr	r3, [sp, #0x20]
-	cmp	r3, #0
-	bne	.LCB4404
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1121	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1121:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1122	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1122:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1123	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1123:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1124	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1124:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1125	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1125:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB8729
 	bl	.L8	@far jump
-.LCB4404:
-	add	r0, r3, #0
+.LCB8729:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_08014C34
 	bl	.L8	@ far jump
 .L1127:
-	ldr	r0, [sp, #0x24]
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB4418
+	beq	.L1128	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1128:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1129	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1129:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB8763
 	bl	.L8	@far jump
-.LCB4418:
+.LCB8763:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_08014D30
 	bl	.L8	@ far jump
 .L1131:
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1132	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1132:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1133	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1133:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1134	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1134:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_0804E3D8
+	add	r1, r0, #0
+	cmp	r1, #0
+	bne	.LCB8803
+	bl	.L8	@far jump
+.LCB8803:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB8810
+	bl	.L8	@far jump
+.LCB8810:
+	add	r0, r1, #0
 	bl	GetName__C6Animal
 	add	r2, r0, #0
 .L1136:
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x1e4]
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r1, [sp, #0x70]
 	bl	func_08012ACC
 	bl	.L8	@ far jump
 .L1137:
+	mov	r5, #0x0
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB8835
+	b	.L1423	@long jump
+.LCB8835:
 	bl	func_08014D5C
-	b	.L1279
+	bl	.L411	@ far jump
 .L1139:
-	mov	r1, #0xda
-	lsl	r1, r1, #0x1
-	add	r5, r6, r1
+	mov	r2, #0x24
+	add	r2, r2, r6
+	mov	r8, r2
+	mov	r3, #0xda
+	lsl	r3, r3, #0x1
+	add	r7, r6, r3
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1140	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1140:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1141	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1141:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_0804E3D8
-	cmp	r0, #0
-	bne	.LCB4466
+	add	r4, r0, #0
+	cmp	r4, #0
+	bne	.LCB8873
 	bl	.L19	@far jump
-.LCB4466:
+.LCB8873:
 	bl	HasBeenTalkedTo__C6Animal
-	bl	.L19	@ far jump
+	bl	.L1434	@ far jump
 .L1143:
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1144	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1144:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1145	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1145:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_0804E3D8
 	cmp	r0, #0
-	bne	.LCB4483
+	bne	.LCB8904
 	bl	.L8	@far jump
-.LCB4483:
+.LCB8904:
 	bl	SetTalkedTo__6Animal
 	bl	.L8	@ far jump
 .L1147:
-	mov	r2, #0xda
+	mov	r0, #0x24
+	add	r0, r0, r6
+	mov	r8, r0
+	mov	r1, #0xda
+	lsl	r1, r1, #0x1
+	add	r7, r6, r1
+	mov	r2, #0xfa
 	lsl	r2, r2, #0x1
-	add	r5, r6, r2
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1148	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1148:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1149	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1149:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_0804E3D8
-	cmp	r0, #0
-	bne	.LCB4502
+	add	r4, r0, #0
+	cmp	r4, #0
+	bne	.LCB8941
 	bl	.L19	@far jump
-.LCB4502:
+.LCB8941:
 	bl	GetAge__C6Animal
-	bl	.L19	@ far jump
+	bl	.L1417	@ far jump
 .L1151:
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1152	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1152:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1153	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1153:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1154	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1154:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_0804E3D8
 	cmp	r0, #0
-	bne	.LCB4518
+	bne	.LCB8978
 	bl	.L8	@far jump
-.LCB4518:
-	ldr	r1, [sp, #0x1c0]
+.LCB8978:
+	ldr	r1, [sp, #0x64]
 	bl	AddAffection__6Animali
 	bl	.L8	@ far jump
 .L1156:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	add	r0, r6, #0
-	mov	r1, #0x0
-	mov	r2, #0x0
-	bl	func_0804E3D8
-	cmp	r0, #0
-	bne	.LCB4539
-	bl	.L19	@far jump
-.LCB4539:
-	bl	IsUnhappy__C9Livestock
-	bl	.L19	@ far jump
-.L1160:
-	mov	r0, #0xda
+	mov	r4, #0x24
+	add	r4, r4, r6
+	mov	r8, r4
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r7, r6, r5
+	mov	r0, #0xfa
 	lsl	r0, r0, #0x1
-	add	r5, r6, r0
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1157	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1157:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1158	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1158:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_0804E3D8
-	cmp	r0, #0
-	bne	.LCB4561
+	add	r4, r0, #0
+	cmp	r4, #0
+	bne	.LCB9017
 	bl	.L19	@far jump
-.LCB4561:
-	bl	IsSick__C9Livestock
-	bl	.L19	@ far jump
-.L1164:
-	mov	r1, #0xda
-	lsl	r1, r1, #0x1
-	add	r5, r6, r1
-	add	r0, r6, #0
-	mov	r1, #0x0
-	mov	r2, #0x0
-	bl	func_0804E3D8
-	cmp	r0, #0
-	bne	.LCB4583
-	bl	.L19	@far jump
-.LCB4583:
-	bl	IsPregnant__C10BarnAnimal
-	bl	.L19	@ far jump
-.L1168:
+.LCB9017:
+	bl	IsUnhappy__C9Livestock
+	bl	.L1434	@ far jump
+.L1160:
+	mov	r1, #0x24
+	add	r1, r1, r6
+	mov	r8, r1
 	mov	r2, #0xda
 	lsl	r2, r2, #0x1
-	add	r5, r6, r2
+	add	r7, r6, r2
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1161	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1161:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1162	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1162:
+	add	r0, r6, #0
+	mov	r1, #0x0
+	mov	r2, #0x0
+	bl	func_0804E3D8
+	add	r4, r0, #0
+	cmp	r4, #0
+	bne	.LCB9055
+	bl	.L19	@far jump
+.LCB9055:
+	bl	IsSick__C9Livestock
+	b	.L1434
+.L1164:
+	mov	r4, #0x24
+	add	r4, r4, r6
+	mov	r8, r4
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r7, r6, r5
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1165	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1165:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1166	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1166:
+	add	r0, r6, #0
+	mov	r1, #0x0
+	mov	r2, #0x0
+	bl	func_0804E3D8
+	add	r4, r0, #0
+	cmp	r4, #0
+	bne	.LCB9093
+	bl	.L19	@far jump
+.LCB9093:
+	bl	IsPregnant__C10BarnAnimal
+	b	.L1434
+.L1168:
+	mov	r1, #0x24
+	add	r1, r1, r6
+	mov	r8, r1
+	mov	r2, #0xda
+	lsl	r2, r2, #0x1
+	add	r7, r6, r2
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1169	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1169:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1170	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1170:
+	add	r0, r6, #0
+	mov	r1, #0x0
+	mov	r2, #0x0
+	bl	func_0804E3D8
+	add	r4, r0, #0
+	cmp	r4, #0
+	bne	.LCB9131
+	bl	.L19	@far jump
+.LCB9131:
+	bl	GetDaysPregnantHealthy__C10BarnAnimal
+	bl	.L1417	@ far jump
+.L1172:
+	mov	r4, #0x24
+	add	r4, r4, r6
+	mov	r8, r4
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r7, r6, r5
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1173	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1173:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1174	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1174:
+	mov	r4, #0x0
 	add	r0, r6, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_0804E3D8
 	cmp	r0, #0
-	bne	.LCB4605
+	bne	.LCB9169
 	bl	.L19	@far jump
-.LCB4605:
-	bl	GetDaysPregnantHealthy__C10BarnAnimal
-	bl	.L19	@ far jump
-.L1172:
+.LCB9169:
+	bl	GetAffection__C6Animal
+	bl	.L1417	@ far jump
+.L1176:
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
 	mov	r3, #0xda
 	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	add	r0, r6, #0
-	mov	r1, #0x0
-	mov	r2, #0x0
-	bl	func_0804E3D8
+	add	r3, r3, r6
+	mov	r8, r3
 	cmp	r0, #0
-	bne	.LCB4626
-	bl	.L19	@far jump
-.LCB4626:
-	bl	GetAffection__C6Animal
-	bl	.L19	@ far jump
-.L1176:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r0, r0, r6
-	mov	r8, r0
-	ldr	r1, [sp, #0x220]
-	cmp	r1, #0x4
+	beq	.L1177	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1177:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1178	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1178:
+	ldr	r4, [sp, #0x90]
+	cmp	r4, #0x4
 	bhi	.L1196	@cond_branch
-	lsl	r0, r1, #0x2
-	ldr	r1, .L1469
+	lsl	r0, r4, #0x2
+	ldr	r1, .L1636
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1470:
+.L1637:
 	.align	2, 0
-.L1469:
+.L1636:
 	.word	.L1194
 	.align	2, 0
 	.align	2, 0
@@ -3952,112 +7872,216 @@ func_0803F8DC:
 	.word	.L1191
 	.word	.L1184
 .L1180:
-	mov	r0, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	add	r0, r0, #0x14
 	bl	GetHorse__4Farm
 	cmp	r0, #0
 	beq	.L1196	@cond_branch
 	bl	GetGrowthStage__C5Horse
 	b	.L1196
 .L1184:
-	mov	r0, #0x0
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1638
+	add	r0, r0, r2
 	bl	GetGrowthStage__C3Dog
 	b	.L1196
+.L1639:
+	.align	2, 0
+.L1638:
+	.word	0x1c70
 .L1185:
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x28c]
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	mov	r4, #0xbe
+	lsl	r4, r4, #0x3
+	add	r0, r0, r4
+	ldr	r1, [sp, #0xcc]
 	bl	GetCow__4BarnUi
 	cmp	r0, #0
 	beq	.L1196	@cond_branch
 	bl	GetGrowthStage__C3Cow
 	b	.L1196
 .L1188:
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x28c]
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	mov	r1, #0xbe
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
+	ldr	r1, [sp, #0xcc]
 	bl	GetSheep__4BarnUi
 	cmp	r0, #0
 	beq	.L1196	@cond_branch
 	bl	GetGrowthStage__C5Sheep
 	b	.L1196
 .L1191:
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x28c]
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	mov	r3, #0x82
+	lsl	r3, r3, #0x3
+	add	r0, r0, r3
+	ldr	r1, [sp, #0xcc]
 	bl	GetChicken__4CoopUi
 	cmp	r0, #0
 	beq	.L1196	@cond_branch
 	bl	GetGrowthStage__C7Chicken
 .L1196:
-	mov	r2, r8
-	ldr	r2, [r2]
-	str	r2, [sp, #0x2bc]
-.L1436:
-	cmp	r2, #0x63
-	bhi	.LCB4715
+	mov	r4, r8
+.L1441:
+	ldr	r0, [r4]
+.L1440:
+	cmp	r0, #0x63
+	bhi	.LCB9320
 	bl	.L438	@far jump
-.LCB4715:
+.LCB9320:
 	bl	.L8	@ far jump
 .L1198:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
+	mov	r5, #0x24
+	add	r5, r5, r6
+	mov	r8, r5
+	mov	r0, #0xda
+	lsl	r0, r0, #0x1
+	add	r7, r6, r0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1199	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1199:
 	add	r0, r6, #0
 	mov	r1, #0x2
 	mov	r2, #0x0
 	bl	func_0804E3D8
-	cmp	r0, #0
-	bne	.LCB4732
+	add	r4, r0, #0
+	cmp	r4, #0
+	bne	.LCB9349
 	bl	.L19	@far jump
-.LCB4732:
+.LCB9349:
 	bl	IsSheared__C5Sheep
-	bl	.L19	@ far jump
+	b	.L1434
 .L1201:
-	ldr	r0, [sp, #0x28]
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB4745
+	beq	.L1202	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1202:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1203	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1203:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9380
 	bl	.L8	@far jump
-.LCB4745:
+.LCB9380:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_08016834
 	bl	.L8	@ far jump
 .L1205:
-	ldr	r1, [sp, #0x2c]
-	cmp	r1, #0
-	bne	.LCB4757
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1206	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1206:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9406
 	bl	.L8	@far jump
-.LCB4757:
-	add	r0, r1, #0
+.LCB9406:
 	mov	r1, #0x0
 	bl	func_080168D4
 	bl	.L8	@ far jump
 .L1208:
-	mov	r2, #0xda
-	lsl	r2, r2, #0x1
-	add	r5, r6, r2
-	ldr	r3, [sp, #0x120]
-	cmp	r3, #0
-	bne	.LCB4773
-	b	.L1350	@long jump
-.LCB4773:
-	add	r0, r3, #0
+	mov	r2, #0x24
+	add	r2, r2, r6
+	mov	r8, r2
+	mov	r3, #0xda
+	lsl	r3, r3, #0x1
+	add	r7, r6, r3
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1209	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1209:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9438
+	bl	.L24	@far jump
+.LCB9438:
 	mov	r1, #0x0
 	bl	func_08016AFC
-	bl	.L19	@ far jump
+	bl	.L1417	@ far jump
 .L1211:
-	mov	r0, #0xda
+	mov	r0, #0xfa
 	lsl	r0, r0, #0x1
-	add	r0, r0, r6
-	mov	r8, r0
-	ldr	r1, [sp, #0x224]
-	cmp	r1, #0x4
-	bhi	.L1196	@cond_branch
-	lsl	r0, r1, #0x2
-	ldr	r1, .L1471
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	mov	r2, #0xda
+	lsl	r2, r2, #0x1
+	add	r2, r2, r6
+	mov	r8, r2
+	cmp	r0, #0
+	beq	.L1212	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1212:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1213	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1213:
+	ldr	r3, [sp, #0x94]
+	cmp	r3, #0x4
+	bls	.LCB9472
+	b	.L1196	@long jump
+.LCB9472:
+	lsl	r0, r3, #0x2
+	ldr	r1, .L1640
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1472:
+.L1641:
 	.align	2, 0
-.L1471:
+.L1640:
 	.word	.L1229
 	.align	2, 0
 	.align	2, 0
@@ -4068,402 +8092,1023 @@ func_0803F8DC:
 	.word	.L1225
 	.word	.L1196
 .L1217:
-	mov	r4, #0x0
+	mov	r5, #0x0
 .L1218:
-	mov	r0, #0x0
+	mov	r0, #0xe4
+	lsl	r0, r0, #0x2
+	add	r4, r6, r0
+	ldr	r0, [r4]
+	mov	r1, #0xbe
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
 	bl	GetCapacity__C4Barn
-	cmp	r4, r0
-	bcs	.L1196	@cond_branch
-	mov	r0, #0x0
-	add	r1, r4, #0
+	cmp	r5, r0
+	bcc	.LCB9506
+	b	.L1196	@long jump
+.LCB9506:
+	ldr	r0, [r4]
+	mov	r2, #0xbe
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
+	add	r1, r5, #0
 	bl	GetCow__4BarnUi
 	cmp	r0, #0
 	beq	.L1220	@cond_branch
 	bl	method_0809B514__C9Livestock
 .L1220:
-	add	r4, r4, #0x1
+	add	r5, r5, #0x1
 	b	.L1218
 .L1221:
-	mov	r4, #0x0
+	mov	r5, #0x0
 .L1222:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r4, r6, r3
+	ldr	r0, [r4]
+	mov	r1, #0xbe
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
 	bl	GetCapacity__C4Barn
-	cmp	r4, r0
-	bcs	.L1196	@cond_branch
-	mov	r0, #0x0
-	add	r1, r4, #0
+	cmp	r5, r0
+	bcc	.LCB9541
+	b	.L1196	@long jump
+.LCB9541:
+	ldr	r0, [r4]
+	mov	r2, #0xbe
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
+	add	r1, r5, #0
 	bl	GetSheep__4BarnUi
 	cmp	r0, #0
 	beq	.L1224	@cond_branch
 	bl	method_0809B514__C9Livestock
 .L1224:
-	add	r4, r4, #0x1
+	add	r5, r5, #0x1
 	b	.L1222
 .L1225:
-	mov	r4, #0x0
+	mov	r5, #0x0
 .L1226:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r4, r6, r3
+	ldr	r0, [r4]
+	mov	r1, #0x82
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
 	bl	GetCapacity__C4Coop
-	cmp	r4, r0
-	bcs	.L1196	@cond_branch
-	mov	r0, #0x0
-	add	r1, r4, #0
+	cmp	r5, r0
+	bcc	.LCB9576
+	b	.L1196	@long jump
+.LCB9576:
+	ldr	r0, [r4]
+	mov	r2, #0x82
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
+	add	r1, r5, #0
 	bl	GetChicken__4CoopUi
 	cmp	r0, #0
 	beq	.L1228	@cond_branch
 	bl	method_0809B514__C9Livestock
 .L1228:
-	add	r4, r4, #0x1
+	add	r5, r5, #0x1
 	b	.L1226
 .L1231:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9602
+	bl	.L68	@far jump
+.LCB9602:
 	bl	func_08014D9C
 	bl	.L68	@ far jump
 .L1233:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9614
+	bl	.L8	@far jump
+.LCB9614:
 	bl	func_08015210
 	bl	.L8	@ far jump
 .L1235:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9626
+	bl	.L68	@far jump
+.LCB9626:
 	bl	func_0801531C
 	bl	.L68	@ far jump
 .L1237:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9638
+	bl	.L8	@far jump
+.LCB9638:
 	bl	func_08015790
 	bl	.L8	@ far jump
 .L1239:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9650
+	bl	.L68	@far jump
+.LCB9650:
 	bl	func_080158CC
 	bl	.L68	@ far jump
 .L1241:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9662
+	bl	.L68	@far jump
+.LCB9662:
 	bl	func_080158F8
 	bl	.L68	@ far jump
 .L1243:
+	mov	r5, #0x0
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9675
+	bl	.L1436	@far jump
+.LCB9675:
 	bl	func_0801410C
-	b	.L1279
+	bl	.L1425	@ far jump
 .L1245:
+	mov	r5, #0x0
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9690
+	b	.L1328	@long jump
+.LCB9690:
 	bl	func_08015950
 	b	.L1428
 .L1247:
+	mov	r5, #0x0
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9705
+	bl	.L1436	@far jump
+.LCB9705:
 	bl	func_08015970
-	bl	.L1426	@ far jump
+	bl	.L1425	@ far jump
 .L1249:
+	mov	r5, #0x0
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9720
+	b	.L1328	@long jump
+.LCB9720:
 	bl	func_08015990
-	b	.L1279
-.L1251:
-	mov	r0, #0x0
-	bl	GetIncubatorCapacity__C4Coop
 	b	.L1428
+.L1251:
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	mov	r5, #0x82
+	lsl	r5, r5, #0x3
+	add	r0, r0, r5
+	bl	GetIncubatorCapacity__C4Coop
+	bl	.L1425	@ far jump
 .L1252:
-	mov	r0, #0xda
-	lsl	r0, r0, #0x1
-	add	r5, r6, r0
-	mov	r0, #0x0
+	mov	r1, #0x24
+	add	r1, r1, r6
+	mov	r8, r1
+	mov	r2, #0xda
+	lsl	r2, r2, #0x1
+	add	r7, r6, r2
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1253	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1253:
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	mov	r5, #0x82
+	lsl	r5, r5, #0x3
+	add	r0, r0, r5
 	mov	r1, #0x0
 	bl	ShouldHatch__4CoopUi
-	bl	.L19	@ far jump
+	b	.L1434
 .L1254:
-	mov	r0, #0x0
+	add	r5, r6, #0
+	add	r5, r5, #0x24
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r4, r6, r0
+	ldr	r0, [r4]
+	cmp	r0, #0
+	beq	.L1255	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r4]
+.L1255:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0x82
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	AttemptHatch__4CoopUi
-	ldr	r1, [sp, #0x34]
-	cmp	r1, #0
-	bne	.LCB4960
-	bl	.L8	@far jump
-.LCB4960:
 	add	r1, r0, #0
+	ldr	r2, [r4]
+	cmp	r2, #0x63
+	bhi	.L1256	@cond_branch
+	lsl	r0, r2, #0x2
+	add	r0, r0, r5
+	strb	r1, [r0]
+	add	r0, r2, #0x1
+	str	r0, [r4]
+.L1256:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9820
+	bl	.L8	@far jump
+.LCB9820:
 	add	r1, r1, #0x2e
-	ldr	r0, [sp, #0x34]
 	bl	func_08016CEC
 	bl	.L8	@ far jump
 .L1258:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	mov	r5, #0xbe
+	lsl	r5, r5, #0x3
+	add	r0, r0, r5
 	bl	GetPregnancyStallCapacity__C4Barn
-	b	.L1279
+	bl	.L1425	@ far jump
 .L1259:
-	mov	r3, #0xda
+	mov	r1, #0x24
+	add	r1, r1, r6
+	mov	r8, r1
+	mov	r2, #0xda
+	lsl	r2, r2, #0x1
+	add	r7, r6, r2
+	mov	r3, #0xfa
 	lsl	r3, r3, #0x1
-	add	r5, r6, r3
-	mov	r0, #0x0
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1260	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1260:
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	mov	r5, #0xbe
+	lsl	r5, r5, #0x3
+	add	r0, r0, r5
 	mov	r1, #0x0
 	bl	IsReadyToGiveBirth__C4BarnUi
-	bl	.L19	@ far jump
+	b	.L1434
 .L1261:
-	mov	r0, #0x0
+	add	r5, r6, #0
+	add	r5, r5, #0x24
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r4, r6, r0
+	ldr	r0, [r4]
+	cmp	r0, #0
+	beq	.L1262	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r4]
+.L1262:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0xbe
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	AttemptBirth__4BarnUi
-	ldr	r1, [sp, #0x38]
-	cmp	r1, #0
-	bne	.LCB4999
-	bl	.L8	@far jump
-.LCB4999:
 	add	r1, r0, #0
+	ldr	r2, [r4]
+	cmp	r2, #0x63
+	bhi	.L1263	@cond_branch
+	lsl	r0, r2, #0x2
+	add	r0, r0, r5
+	strb	r1, [r0]
+	add	r0, r2, #0x1
+	str	r0, [r4]
+.L1263:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB9921
+	bl	.L8	@far jump
+.LCB9921:
 	add	r1, r1, #0x36
-	ldr	r0, [sp, #0x38]
 	bl	func_08016CEC
 	bl	.L8	@ far jump
 .L1265:
-	add	r4, r6, #0
-	add	r4, r4, #0x24
-	mov	r2, #0xda
-	lsl	r2, r2, #0x1
-	add	r5, r6, r2
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x1ec]
+	mov	r4, #0x24
+	add	r4, r4, r6
+	mov	r8, r4
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r7, r6, r5
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r5, r6, r0
+	ldr	r0, [r5]
+	cmp	r0, #0
+	beq	.L1266	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r5]
+.L1266:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r4, r6, r1
+	ldr	r0, [r4]
+	mov	r2, #0xbe
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
+	ldr	r1, [sp, #0x74]
 	bl	GetCow__4BarnUi
+	mov	r9, r0
 	cmp	r0, #0
 	beq	.L1267	@cond_branch
-	ldr	r3, [sp, #0x228]
-	cmp	r3, #0x63
-	bls	.LCB5025
+	ldr	r0, [r5]
+	cmp	r0, #0x63
+	bls	.LCB9966
 	bl	.L8	@far jump
-.LCB5025:
-	lsl	r0, r3, #0x2
-	add	r0, r4, r0
-	mov	r1, #0x1
+.LCB9966:
+	lsl	r0, r0, #0x2
+	add	r0, r0, r8
+	mov	r3, #0x1
+	mov	sl, r3
 	bl	.L314	@ far jump
 .L1267:
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x1ec]
+	ldr	r0, [r4]
+	mov	r4, #0xbe
+	lsl	r4, r4, #0x3
+	add	r0, r0, r4
+	ldr	r1, [sp, #0x74]
 	bl	GetSheep__4BarnUi
-	cmp	r0, #0
-	bne	.LCB5039
+	add	r4, r0, #0
+	cmp	r4, #0
+	bne	.LCB9985
 	bl	.L19	@far jump
-.LCB5039:
-	ldr	r0, [sp, #0x2c0]
-	cmp	r0, #0x63
-	bhi	.LCB5043
-	bl	.L22	@far jump
-.LCB5043:
-	bl	.L8	@ far jump
+.LCB9985:
+	ldr	r1, [r5]
+	cmp	r1, #0x63
+	bls	.LCB9989
+	bl	.L8	@far jump
+.LCB9989:
+	lsl	r0, r1, #0x2
+	add	r0, r0, r8
+	mov	r5, r9
+	strb	r5, [r0]
+	bl	.L22	@ far jump
 .L1272:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10004
+	bl	.L8	@far jump
+.LCB10004:
 	bl	func_080167DC
 	bl	.L8	@ far jump
 .L1274:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10016
+	bl	.L8	@far jump
+.LCB10016:
 	bl	func_08015E30
 	bl	.L8	@ far jump
 .L1276:
-	ldr	r1, [sp, #0x178]
-	cmp	r1, #0
-	bne	.LCB5061
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1277	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1277:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10039
 	bl	.L8	@far jump
-.LCB5061:
-	add	r0, r1, #0
+.LCB10039:
 	bl	func_080167AC
 	ldr	r2, [r0]
-	b	.L1136
-.L1437:
+	bl	.L1136	@ far jump
 .L1279:
-	mov	r2, #0xda
-	lsl	r2, r2, #0x1
-	add	r1, r6, r2
+	mov	r5, #0x0
+	bl	.L1436	@ far jump
+.L1281:
+	mov	r5, #0x0
+	b	.L1328
+.L1283:
+	mov	r5, #0x0
+.L1423:
+	add	r1, r6, #0
+	add	r1, r1, #0x24
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r2, r6, r4
 	bl	.L306	@ far jump
 .L1285:
-	ldr	r1, [sp, #0x3c]
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1286	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1286:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r1, [r0]
 	cmp	r1, #0
-	bne	.LCB5087
+	bne	.LCB10089
 	bl	.L68	@far jump
-.LCB5087:
+.LCB10089:
+	ldr	r0, [r6, #0x24]
+	ldr	r2, [sp, #0xbc]
 	add	r0, r1, #0
-	ldr	r1, [sp, #0x1cc]
+	ldr	r1, .L1642
 	bl	func_080126BC
 	bl	.L68	@ far jump
+.L1643:
+	.align	2, 0
+.L1642:
+	.word	0x80f9eb8
 .L1290:
-	mov	r0, #0x0
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
 	bl	func_08010F24
 	bl	.L8	@ far jump
 .L1291:
-	mov	r0, #0x0
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
 	bl	func_08010F3C
 	bl	.L8	@ far jump
 .L1292:
-	ldr	r2, [sp, #0x40]
-	cmp	r2, #0
-	bne	.LCB5110
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1293	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1293:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10145
 	bl	.L8	@far jump
-.LCB5110:
-	add	r0, r2, #0
+.LCB10145:
 	mov	r1, #0x0
 	bl	func_08016BA4
 	bl	.L8	@ far jump
 .L1296:
-	ldr	r3, [sp, #0x44]
-	cmp	r3, #0
-	bne	.LCB5121
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1297	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1297:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10170
 	bl	.L8	@far jump
-.LCB5121:
-	add	r0, r3, #0
+.LCB10170:
 	mov	r1, #0x0
 	bl	func_08016BC0
 	bl	.L8	@ far jump
 .L1300:
-	mov	r0, #0xda
+	mov	r4, #0x24
+	add	r4, r4, r6
+	mov	r8, r4
+	mov	r5, #0xda
+	lsl	r5, r5, #0x1
+	add	r7, r6, r5
+	mov	r0, #0xfa
 	lsl	r0, r0, #0x1
-	add	r5, r6, r0
-	mov	r0, #0x0
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1301	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1301:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0xd2
+	lsl	r2, r2, #0x6
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	func_0809C304
-	bl	.L19	@ far jump
+	b	.L1434
 .L1302:
-	mov	r1, #0xda
-	lsl	r1, r1, #0x1
-	add	r5, r6, r1
-	mov	r0, #0x0
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1303	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1303:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0xd2
+	lsl	r2, r2, #0x6
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	func_0809C444
-	bl	.L19	@ far jump
+	b	.L1434
 .L1304:
-	mov	r2, #0xda
-	lsl	r2, r2, #0x1
-	add	r5, r6, r2
-	mov	r0, #0x0
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1305	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1305:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	mov	r2, #0xd2
+	lsl	r2, r2, #0x6
+	add	r0, r0, r2
 	mov	r1, #0x0
 	bl	func_0809C474
+.L1434:
+	lsl	r0, r0, #0x18
+	lsr	r4, r0, #0x18
 	bl	.L19	@ far jump
+.L1306:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10289
+	bl	.L8	@far jump
+.LCB10289:
+	bl	func_08016C2C
+	bl	.L8	@ far jump
 .L1309:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10301
+	bl	.L68	@far jump
+.LCB10301:
 	bl	func_08016C48
 	bl	.L68	@ far jump
+.L1311:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10313
+	bl	.L8	@far jump
+.LCB10313:
+	bl	func_08016C6C
+	bl	.L8	@ far jump
 .L1314:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10325
+	bl	.L68	@far jump
+.LCB10325:
 	bl	func_08016C88
 	bl	.L68	@ far jump
 .L1316:
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L1317	@cond_branch
 	bl	func_08016CAC
+.L1317:
 	mov	r0, #0x2
 	b	.L1416
+.L1318:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10352
+	bl	.L8	@far jump
+.LCB10352:
+	bl	func_08016CCC
+	bl	.L8	@ far jump
+.L1321:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10364
+	bl	.L8	@far jump
+.LCB10364:
+	bl	func_08016D48
+	bl	.L8	@ far jump
+.L1324:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10376
+	bl	.L8	@far jump
+.LCB10376:
+	bl	func_08016D80
+	bl	.L8	@ far jump
 .L1327:
+	mov	r5, #0x1d
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L1328	@cond_branch
 	bl	func_08016D9C
 .L1428:
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+.L1328:
+	add	r1, r6, #0
+	add	r1, r1, #0x24
 	mov	r3, #0xda
 	lsl	r3, r3, #0x1
-	add	r1, r6, r3
+	add	r2, r6, r3
 	bl	.L306	@ far jump
 .L1329:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10413
+	bl	.L68	@far jump
+.LCB10413:
 	bl	func_08016DB0
 	bl	.L68	@ far jump
+.L1331:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10425
+	bl	.L8	@far jump
+.LCB10425:
+	bl	func_08016E7C
+	bl	.L8	@ far jump
 .L1334:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10437
+	bl	.L68	@far jump
+.LCB10437:
 	bl	func_08016E9C
 	bl	.L68	@ far jump
 .L1336:
-	ldr	r0, [sp, #0x124]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB5223
+	beq	.L1337	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1337:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1338	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1338:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1339	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1339:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1340	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1340:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1341	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1341:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10488
 	bl	.L8	@far jump
-.LCB5223:
+.LCB10488:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_08016EC4
 	bl	.L8	@ far jump
 .L1344:
-	ldr	r1, [sp, #0x48]
-	cmp	r1, #0
-	bne	.LCB5236
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1345	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1345:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10515
 	bl	.L8	@far jump
-.LCB5236:
-	add	r0, r1, #0
+.LCB10515:
 	mov	r1, #0x0
 	bl	func_08016EF0
 	bl	.L8	@ far jump
 .L1348:
-	mov	r2, #0xda
+	add	r5, r6, #0
+	add	r5, r5, #0x24
+	mov	r0, #0xda
+	lsl	r0, r0, #0x1
+	add	r4, r6, r0
+	mov	r2, #0xfa
 	lsl	r2, r2, #0x1
-	add	r5, r6, r2
-	add	r4, sp, #0xe4
-	add	r0, r4, #0
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1349	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1349:
+	ldr	r0, [sp, #0xfc]
 	mov	r1, #0x0
 	bl	__4ToolUi
-	add	r0, r4, #0
+	ldr	r0, [sp, #0xfc]
 	bl	GetIconId__C4Tool
-.L1350:
-	ldr	r0, [r5]
-	cmp	r0, #0x63
-	bls	.LCB5260
+.L1442:
+	lsl	r0, r0, #0x10
+	lsr	r2, r0, #0x10
+	ldr	r1, [r4]
+	cmp	r1, #0x63
+	bls	.LCB10552
 	bl	.L8	@far jump
-.LCB5260:
-.L1417:
-	add	r0, r0, #0x1
-	str	r0, [r5]
+.LCB10552:
+	lsl	r0, r1, #0x2
+	add	r0, r0, r5
+	strb	r2, [r0]
+	add	r0, r1, #0x1
+	str	r0, [r4]
 	bl	.L8	@ far jump
 .L1353:
-	mov	r3, #0xda
-	lsl	r3, r3, #0x1
-	add	r5, r6, r3
+	mov	r3, #0x24
+	add	r3, r3, r6
+	mov	r8, r3
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r7, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1354	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1354:
 	add	r4, sp, #0x4
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	__4FoodUi
 	add	r0, r4, #0
 	bl	GetIconId__C4Food
+	lsl	r0, r0, #0x10
+	lsr	r4, r0, #0x10
 	bl	.L19	@ far jump
 .L1355:
+	add	r5, r6, #0
+	add	r5, r5, #0x24
 	mov	r0, #0xda
 	lsl	r0, r0, #0x1
-	add	r5, r6, r0
-	add	r4, sp, #0xe8
-	add	r0, r4, #0
+	add	r4, r6, r0
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1356	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1356:
+	ldr	r0, [sp, #0x108]
 	mov	r1, #0x0
 	bl	__7ArticleUi
-	add	r0, r4, #0
+	ldr	r0, [sp, #0x108]
 	bl	GetIconId__C7Article
-	b	.L1350
+	b	.L1442
 .L1357:
-	ldr	r1, [sp, #0x4c]
-	cmp	r1, #0
-	bne	.LCB5304
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r1, r6, r3
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1358	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1358:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10636
 	bl	.L8	@far jump
-.LCB5304:
-	ldr	r2, [sp, #0x158]
-	neg	r1, r2
-	orr	r1, r1, r2
+.LCB10636:
+	ldr	r5, [sp, #0x24]
+	neg	r1, r5
+	orr	r1, r1, r5
 	lsr	r1, r1, #0x1f
-	ldr	r0, [sp, #0x4c]
 	bl	func_08016F0C
 	bl	.L8	@ far jump
 .L1361:
-	ldr	r0, [sp, #0x314]
+	mov	r0, #0xfa
+	lsl	r0, r0, #0x1
+	add	r1, r6, r0
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1362	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1362:
+	mov	r1, #0xe4
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	ldr	r2, .L1644
+	add	r4, r0, r2
+	add	r0, r4, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L1363	@cond_branch
-	ldr	r0, [sp, #0x314]
+	add	r0, r4, #0
 	bl	func_0800F204
 	cmp	r0, #0x1
 	bne	.L1363	@cond_branch
-	ldr	r0, [sp, #0x314]
+	add	r0, r4, #0
 	bl	func_0800F258
 	mov	r1, sp
 	add	r1, r1, #0x1
 	strb	r0, [r1]
-	mov	r4, #0x0
+	mov	r5, #0x0
 	add	r0, r1, #0
 	bl	GetId__C7Article
-	ldr	r3, [sp, #0x1c8]
+	ldr	r3, [sp, #0x6c]
 	cmp	r0, r3
 	bne	.L1364	@cond_branch
-	mov	r4, #0x1
+	mov	r5, #0x1
 .L1364:
-	cmp	r4, #0
+	cmp	r5, #0
 	beq	.L1363	@cond_branch
-	ldr	r0, [sp, #0x314]
+	add	r0, r4, #0
 	bl	func_0800F390
 .L1363:
+	mov	r4, #0xe4
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	ldr	r5, .L1644+0x4
+	add	r5, r5, r0
+	mov	r8, r5
 	mov	r5, #0x0
 .L1366:
-	ldr	r0, [sp, #0x334]
+	mov	r0, r8
 	bl	GetSize__C8Rucksack
 	cmp	r5, r0
 	bcs	.L1367	@cond_branch
-	ldr	r0, [sp, #0x334]
+	mov	r0, r8
 	add	r1, r5, #0
 	bl	GetItemAt__8RucksackUi
-	add	r6, r0, #0
+	add	r7, r0, #0
 	bl	IsEmpty__C12RucksackItem
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L1368	@cond_branch
-	add	r0, r6, #0
+	add	r0, r7, #0
 	bl	GetKind__C12RucksackItem
 	cmp	r0, #0x1
 	bne	.L1368	@cond_branch
 	mov	r4, #0x0
-	add	r0, sp, #0xf0
+	mov	r0, #0x0
 	bl	GetId__C7Article
-	ldr	r1, [sp, #0x1c8]
+	ldr	r1, [sp, #0x6c]
 	cmp	r0, r1
 	bne	.L1369	@cond_branch
 	mov	r4, #0x1
@@ -4473,18 +9118,32 @@ func_0803F8DC:
 	add	r0, sp, #0x4
 	bl	__12RucksackItem
 	ldr	r0, [sp, #0x4]
-	str	r0, [r6]
+	str	r0, [r7]
 .L1368:
 	add	r5, r5, #0x1
 	b	.L1366
+.L1645:
+	.align	2, 0
+.L1644:
+	.word	0x1c2c
+	.word	0x1c38
 .L1367:
-	mov	r0, #0x0
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r4, r6, r2
+	ldr	r0, [r4]
+	mov	r3, #0xfa
+	lsl	r3, r3, #0x1
+	add	r0, r0, r3
 	bl	GetShelf__9FarmHouse
 	cmp	r0, #0
-	bne	.LCB5408
+	bne	.LCB10781
 	bl	.L8	@far jump
-.LCB5408:
-	mov	r0, #0x0
+.LCB10781:
+	ldr	r0, [r4]
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r0, r0, r4
 	bl	GetShelf__9FarmHouse
 	mov	r8, r0
 	mov	r6, #0x0
@@ -4499,10 +9158,10 @@ func_0803F8DC:
 	cmp	r0, #0
 	bne	.L1376	@cond_branch
 	mov	r4, #0x0
-	add	r0, sp, #0xf4
+	mov	r0, #0x0
 	bl	GetId__C7Article
-	ldr	r2, [sp, #0x1c8]
-	cmp	r0, r2
+	ldr	r1, [sp, #0x6c]
+	cmp	r0, r1
 	bne	.L1377	@cond_branch
 	mov	r4, #0x1
 .L1377:
@@ -4520,122 +9179,263 @@ func_0803F8DC:
 	bls	.L1373	@cond_branch
 	bl	.L8	@ far jump
 .L1381:
-	mov	r0, #0x0
-	ldr	r1, [sp, #0x1c4]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1382	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1382:
+	mov	r3, #0xe4
+	lsl	r3, r3, #0x2
+	add	r4, r6, r3
+	ldr	r0, [r4]
+	ldr	r5, .L1646
+	add	r0, r0, r5
+	ldr	r1, [sp, #0x68]
 	bl	AddAffection__6Animali
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	add	r0, r0, #0x14
 	bl	GetHorse__4Farm
 	cmp	r0, #0
 	beq	.L1383	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	add	r0, r0, #0x14
 	bl	GetHorse__4Farm
-	ldr	r1, [sp, #0x1c4]
+	ldr	r1, [sp, #0x68]
 	bl	AddAffection__6Animali
 .L1383:
+	ldr	r0, [r4]
+	mov	r1, #0x82
+	lsl	r1, r1, #0x3
+	add	r5, r0, r1
 	mov	r4, #0x0
 .L1384:
-	ldr	r0, [sp, #0x324]
+	add	r0, r5, #0
 	bl	GetCapacity__C4Coop
 	cmp	r4, r0
 	bcs	.L1385	@cond_branch
-	ldr	r0, [sp, #0x324]
+	add	r0, r5, #0
 	add	r1, r4, #0
 	bl	GetChicken__4CoopUi
 	cmp	r0, #0
 	beq	.L1386	@cond_branch
-	ldr	r1, [sp, #0x1c4]
+	ldr	r1, [sp, #0x68]
 	bl	AddAffection__6Animali
 .L1386:
 	add	r4, r4, #0x1
 	b	.L1384
+.L1647:
+	.align	2, 0
+.L1646:
+	.word	0x1c70
 .L1385:
+	mov	r2, #0xe4
+	lsl	r2, r2, #0x2
+	add	r0, r6, r2
+	ldr	r0, [r0]
+	mov	r3, #0xbe
+	lsl	r3, r3, #0x3
+	add	r5, r0, r3
 	mov	r4, #0x0
 .L1387:
-	ldr	r0, [sp, #0x31c]
+	add	r0, r5, #0
 	bl	GetCapacity__C4Barn
 	cmp	r4, r0
-	bcc	.LCB5508
+	bcc	.LCB10925
 	bl	.L8	@far jump
-.LCB5508:
-	ldr	r0, [sp, #0x31c]
+.LCB10925:
+	add	r0, r5, #0
 	add	r1, r4, #0
 	bl	GetBarnAnimal__4BarnUi
 	cmp	r0, #0
 	beq	.L1389	@cond_branch
-	ldr	r1, [sp, #0x1c4]
+	ldr	r1, [sp, #0x68]
 	bl	AddAffection__6Animali
 .L1389:
 	add	r4, r4, #0x1
 	b	.L1387
-.L1393:
-	ldr	r3, [sp, #0x128]
-	cmp	r3, #0
-	bne	.LCB5533
+.L1390:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10949
 	bl	.L8	@far jump
-.LCB5533:
-	add	r0, r3, #0
+.LCB10949:
+	bl	func_08016F60
+	bl	.L8	@ far jump
+.L1393:
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r1, r6, r5
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1394	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1394:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1395	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1395:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1396	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1396:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1397	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1397:
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x2
+	add	r0, r6, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB10993
+	bl	.L8	@far jump
+.LCB10993:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_08016FA4
 	bl	.L8	@ far jump
 .L1400:
-	ldr	r0, [sp, #0x54]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
 	cmp	r0, #0
-	bne	.LCB5546
+	beq	.L1401	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1401:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB11020
 	bl	.L68	@far jump
-.LCB5546:
+.LCB11020:
 	mov	r1, #0x0
 	bl	func_08016F34
 	bl	.L68	@ far jump
 .L1403:
+	mov	r4, #0xe5
+	lsl	r4, r4, #0x2
+	add	r0, r6, r4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB11034
+	bl	.L8	@far jump
+.LCB11034:
 	bl	func_08016784
 	bl	.L8	@ far jump
 .L1405:
-	mov	r0, #0x0
+	mov	r5, #0xe4
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r0, [r0]
+	ldr	r1, .L1648
+	add	r0, r0, r1
 	bl	func_0809AA28
-	b	.L1279
+	bl	.L411	@ far jump
+.L1649:
+	.align	2, 0
+.L1648:
+	.word	0x2214
 .L1406:
-	ldr	r1, [sp, #0x58]
-	cmp	r1, #0
-	bne	.LCB5568
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1407	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1407:
+	mov	r3, #0xe5
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.LCB11077
 	bl	.L68	@far jump
-.LCB5568:
-	add	r0, r1, #0
+.LCB11077:
 	mov	r1, #0x0
 	bl	func_0801589C
 	bl	.L68	@ far jump
 .L1409:
-	ldr	r2, [sp, #0x274]
-	cmp	r2, #0x63
-	bls	.LCB5578
+	mov	r4, #0xda
+	lsl	r4, r4, #0x1
+	add	r2, r6, r4
+	mov	r5, #0xfa
+	lsl	r5, r5, #0x1
+	add	r0, r6, r5
+	ldr	r1, [r0]
+	cmp	r1, #0x63
+	bls	.LCB11095
 	bl	.L8	@far jump
-.LCB5578:
-	lsl	r0, r2, #0x2
+.LCB11095:
+	ldr	r0, .L1650
+	mul	r0, r0, r1
 	add	r0, r0, #0x24
-	add	r0, r6, r0
+	add	r1, r6, r0
+	mov	r3, #0xe6
+	lsl	r3, r3, #0x2
+	add	r0, r6, r3
+	ldr	r0, [r0]
 	bl	.L346	@ far jump
+.L1651:
+	.align	2, 0
+.L1650:
+	.word	0xd430
 .L1411:
-	ldr	r3, [sp, #0x180]
-	cmp	r3, #0
-	bne	.LCB5590
+	mov	r4, #0xfa
+	lsl	r4, r4, #0x1
+	add	r1, r6, r4
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1412	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1412:
+	ldr	r0, [r1]
+	cmp	r0, #0
+	beq	.L1413	@cond_branch
+	sub	r0, r0, #0x1
+	str	r0, [r1]
+.L1413:
+	mov	r5, #0xe5
+	lsl	r5, r5, #0x2
+	add	r0, r6, r5
+	ldr	r4, [r0]
+	cmp	r4, #0
+	bne	.LCB11139
 	bl	.L8	@far jump
-.LCB5590:
-	add	r4, sp, #0xf8
-	add	r0, r4, #0
+.LCB11139:
+	ldr	r0, [sp, #0x10c]
 	mov	r1, #0x0
 	bl	__7ProductUi
-	add	r0, r4, #0
+	ldr	r0, [sp, #0x10c]
 	bl	GetName__C7Product
 	add	r2, r0, #0
-	ldr	r0, [sp, #0x180]
-	ldr	r1, [sp, #0x1a0]
+	add	r0, r4, #0
+	ldr	r1, [sp, #0x48]
 	bl	func_08012ACC
 	bl	.L8	@ far jump
 .L1416:
-	mov	r3, #0xd0
-	lsl	r3, r3, #0x2
-	add	sp, sp, r3
+	add	sp, sp, #0x118
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

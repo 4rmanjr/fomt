@@ -7,7 +7,18 @@
 	.type	 func_0803EB9C,function
 	.thumb_func
 func_0803EB9C:
+	mov	ip, r4
+	ldr	r4, .L16
+	add	sp, sp, r4
+	mov	r4, ip
 	mov	r0, #0x0
+	ldr	r3, .L16+0x4
+	add	sp, sp, r3
 	bx	lr
+.L17:
+	.align	2, 0
+.L16:
+	.word	-0x21dc
+	.word	0x21dc
 .Lfe1:
 	.size	 func_0803EB9C,.Lfe1-func_0803EB9C

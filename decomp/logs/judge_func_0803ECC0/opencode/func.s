@@ -8,14 +8,22 @@
 	.thumb_func
 func_0803ECC0:
 	push	{r4, r5, r6, r7, lr}
-	add	sp, sp, #-0x4
+	add	sp, sp, #-0x18
 	add	r5, r0, #0
-	add	r1, r5, #0
-	add	r1, r1, #0x10
+	mov	r0, #0xc0
+	lsl	r0, r0, #0x1
+	add	r1, r5, r0
 	mov	r0, sp
 	bl	func_0803D52C
-	mov	r0, #0x0
-	mov	r1, #0x0
+	ldr	r0, [sp, #0xc]
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	ldr	r0, [sp, #0x4]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	ldr	r1, [sp, #0x8]
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x18
 	bl	func_0803D644
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
@@ -23,8 +31,9 @@ func_0803ECC0:
 	mov	r0, #0x5
 	b	.L2
 .L3:
-	ldr	r0, .L32
-	add	r4, r5, r0
+	ldr	r7, [r5, #0x14]
+	ldr	r1, .L32
+	add	r4, r5, r1
 	add	r0, r4, #0
 	bl	func_0809EB68
 	cmp	r0, #0
@@ -56,7 +65,7 @@ func_0803ECC0:
 .L33:
 	.align	2, 0
 .L32:
-	.word	0x1f64
+	.word	0x2f160
 	.word	.L23
 	.align	2, 0
 	.align	2, 0
@@ -75,8 +84,7 @@ func_0803ECC0:
 	.word	.L22
 	.word	.L22
 .L6:
-	mov	r1, #0xfa
-	lsl	r1, r1, #0x1
+	ldr	r1, .L34
 	add	r0, r5, r1
 	bl	GetUpgradeLevel__C9FarmHouse
 	cmp	r0, #0x1
@@ -87,6 +95,10 @@ func_0803ECC0:
 	bne	.L10	@cond_branch
 	mov	r0, #0xd
 	b	.L2
+.L35:
+	.align	2, 0
+.L34:
+	.word	0x2ee0
 .L8:
 	mov	r0, #0x6
 	b	.L2
@@ -132,7 +144,7 @@ func_0803ECC0:
 .L30:
 	mov	r0, #0x3
 .L2:
-	add	sp, sp, #0x4
+	add	sp, sp, #0x18
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
