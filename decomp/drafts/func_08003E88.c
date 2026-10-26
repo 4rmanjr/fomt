@@ -1,11 +1,18 @@
 void *func_08008920(s32);                           /* extern */
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    u8 _pad8[44];
+    s32 unk34;
+    s32 unk38;
+} GenObj;
 void func_08003E88(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 sp0;
+    GenObj *sp0;
     s32 sp4;
     s32 temp_r2;
     s32 var_r4;
-    void *temp_r0;
+    GenObj *temp_r0;
 
     var_r4 = arg1;
     if (var_r4 == 1) {

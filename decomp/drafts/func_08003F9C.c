@@ -6,10 +6,18 @@ s32 func_08000528(s32);                             /* extern */
 s32 func_08003788(void *, void *, s32);               /* extern */
 s32 func_08008B6C(void *, s32);                       /* extern */
 s32 func_080115B0(s32, void *, s32);                /* extern */
-s32 func_08050DC8(void *, ? *, s32, s32);             /* extern */
-extern ? gUnk_080E88C8;
+s32 func_08050DC8(void *, s32 *, s32, s32);             /* extern */
+extern s32 gUnk_080E88C8;
 
-s32 func_08003F9C(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    u8 _padC[121];
+    s32 unk85;
+    u8 _pad89[3];
+    s32 unk8C;
+} GenObj;
+s32 func_08003F9C(GenObj *arg0) {
     u16 sp0;
     s32 sp4;
     u16 *sp8;
