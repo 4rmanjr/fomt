@@ -113,6 +113,52 @@ def claim(name: str, agent: str | None = None) -> bool:
     return update(m)
 
 
+def claim_many(names: list[str], limit: int, agent: str | None = None) -> list[str]:
+    """Klaim sampai `limit` fungsi dalam SATU tulis state.
+
+    Klaim satu-per-satu menulis ulang progress.json (~800 KB) tiap fungsi;
+    untuk batch besar itu puluhan detik tanpa output dan mengunci agent lain.
+    """
+    agent = agent or AGENT
+
+    def m(st):
+        out: list[str] = []
+        for name in names:
+            if len(out) >= limit:
+                break
+            e = st.get(name)
+            if e is None or e["status"] in ("matched", "promoted"):
+                continue
+            now = time.time()
+            if _live(e, now) and e["claimed_by"] != agent:
+                continue
+            e["claimed_by"], e["claimed_at"] = agent, now
+            out.append(name)
+        return out
+
+    return update(m)
+
+
+def release_all(agent: str | None = None) -> int:
+    """Lepas semua klaim milik agent ini (dipakai saat berhenti).
+
+    Tanpa ini, Ctrl-C meninggalkan sisa klaim batch yang memblokir agent lain
+    sampai FOMT_CLAIM_TTL habis.
+    """
+    agent = agent or AGENT
+
+    def m(st):
+        n = 0
+        for e in st.values():
+            if e.get("claimed_by") == agent:
+                e.pop("claimed_by", None)
+                e.pop("claimed_at", None)
+                n += 1
+        return n
+
+    return update(m)
+
+
 def touch(name: str, **kw) -> bool:
     """Ubah field satu fungsi tanpa melepas klaim (status antara)."""
     def m(st):
