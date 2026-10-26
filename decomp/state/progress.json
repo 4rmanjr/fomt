@@ -1000,15 +1000,14 @@
  },
  "func_080070A4": {
   "addr": 134246564,
-  "claimed_at": 1793020898.332234,
-  "claimed_by": "pi",
-  "judged_mtime": 1793003427.0477495,
+  "judged_mtime": 1793017144.7212534,
   "module": "new_game.s",
-  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080070A4/opencode/func.c:11: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080070A4/opencode/func.c:11: request for member `unk4' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 510,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080070D4": {
