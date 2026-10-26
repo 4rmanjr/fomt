@@ -3,14 +3,26 @@ s32 Unpack(s32 *, s32);                                 /* extern */
 s16 *func_08008918(void *);                         /* extern */
 s32 func_08008E64(s32 *, s32, s32);                     /* extern */
 s32 func_08008EB8(s32, s32, s32);                     /* extern */
-extern ? gUnk_0872F11C;
-extern ? gUnk_0872F1BC;
-extern ? gUnk_0872F1EC;
-extern ? gUnk_0872F21C;
-extern ? gUnk_0872FA9C;
-extern ? gUnk_0872FBFC;
+extern s32 gUnk_0872F11C;
+extern s32 gUnk_0872F1BC;
+extern s32 gUnk_0872F1EC;
+extern s32 gUnk_0872F21C;
+extern s32 gUnk_0872FA9C;
+extern s32 gUnk_0872FBFC;
 
-void func_0805AB08(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[5098];
+    s32 unk13EA;
+    s32 unk13EC;
+    s32 unk13EE;
+    s32 unk13F0;
+    s32 unk13F2;
+    s32 unk13F4;
+    s32 unk13F6;
+    s32 unk13F8;
+    s32 unk13FA;
+} GenObj;
+void func_0805AB08(GenObj *arg0) {
     s16 sp0;
     s32 sp4;
     s32 sp8;

@@ -57,22 +57,11 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
-typedef struct { u8 pad[0x24]; u8 v; } S_AD0;
-typedef struct { u8 pad[0x25]; u8 v; } S_AD8;
-typedef struct { u8 pad[0x26]; u8 v; } S_AE0;
-typedef struct { u8 pad[0x14]; u8 v; } S_CD8;
-typedef struct { u8 pad[3]; u8 v; } S_39C;
-typedef struct { u8 pad[0x58]; u8 v; } S_601C;
-typedef struct { u8 pad[0x14]; u8 v; } S_B68;
-typedef struct { u8 pad[0x26]; u8 v; } S_AEC;
-typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;
-typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;
-typedef struct {
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
     s32 unk0;
     s32 unk4;
     void (*unk8)(void *, s32);
-} Vtbl;
-typedef struct {
+} Vtbl;typedef struct {
     Vtbl *vtbl;
 } Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805AB08/opencode/func.c" 2
@@ -80,14 +69,26 @@ s32 Unpack(s32 *, s32);
 s16 *func_08008918(void *);
 s32 func_08008E64(s32 *, s32, s32);
 s32 func_08008EB8(s32, s32, s32);
-extern ? gUnk_0872F11C;
-extern ? gUnk_0872F1BC;
-extern ? gUnk_0872F1EC;
-extern ? gUnk_0872F21C;
-extern ? gUnk_0872FA9C;
-extern ? gUnk_0872FBFC;
+extern s32 gUnk_0872F11C;
+extern s32 gUnk_0872F1BC;
+extern s32 gUnk_0872F1EC;
+extern s32 gUnk_0872F21C;
+extern s32 gUnk_0872FA9C;
+extern s32 gUnk_0872FBFC;
 
-void func_0805AB08(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[5098];
+    s32 unk13EA;
+    s32 unk13EC;
+    s32 unk13EE;
+    s32 unk13F0;
+    s32 unk13F2;
+    s32 unk13F4;
+    s32 unk13F6;
+    s32 unk13F8;
+    s32 unk13FA;
+} GenObj;
+void func_0805AB08(GenObj *arg0) {
     s16 sp0;
     s32 sp4;
     s32 sp8;

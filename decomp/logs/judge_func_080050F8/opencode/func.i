@@ -92,11 +92,9 @@ typedef struct GenObj {
     u8 unk1A74;
 } GenObj;
 s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
-    s16 sp0;
+    GenObj *spslot[3];
+    s32 sp0;
     GenObj *volatile sp4;
-    GenObj *sp8;
-    GenObj **spC;
-    s32 sp10;
     GenObj **p7;
     GenObj ***p8;
     s32 temp_r1_2;
@@ -118,8 +116,7 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     temp_r0->unk50 = 0x3F;
     temp_r4 = __builtin_new(0x10);
     temp_r1 = func_08008918(arg1);
-    temp_r4->unk0 = 0;
-    temp_r4->unk4 = 0;
+    temp_r4->unk0 = temp_r4->unk4 = 0;
     temp_r4->unk8 = &vtable_unk_080E5B80;
     temp_r5 = (GenObj *)((u8 *)temp_r4 + 0xC);
     func_08009300(temp_r5, temp_r1);
@@ -127,8 +124,8 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     func_0800934C(temp_r5, 0x889, 1, 1);
     temp_r0_2 = func_08008940(arg1);
     ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, sp4);
-    p7 = &sp8;
-    p8 = &spC;
+    p7 = &spslot[0];
+    p8 = (GenObj ***)&spslot[1];
     var_r4 = 0;
     var_r5 = 0;
     do {
@@ -162,13 +159,13 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
             break;
         }
     } while (var_r5 == 0);
-    sp8 = 0;
+    spslot[0] = 0;
     *p8 = p7;
     *(s32 *)(p8 + 1) = 0;
     *p7 = 0;
     *arg0 = 0;
-    if (sp8 != 0) {
-        ((void (*)(void *,...))(sp8->unk4->unk8))(sp8, 3);
+    if (spslot[0] != 0) {
+        ((void (*)(void *,...))(spslot[0]->unk4->unk8))(spslot[0], 3);
     }
     if (sp4 != 0) {
         ((void (*)(void *,...))(sp4->unk8->unkC))(sp4, 3);

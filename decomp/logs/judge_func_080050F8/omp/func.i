@@ -92,9 +92,9 @@ typedef struct GenObj {
     u8 unk1A74;
 } GenObj;
 s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
+    GenObj *spslot[3];
     s32 sp0;
     GenObj *volatile sp4;
-    GenObj *spslot[3];
     GenObj **p7;
     GenObj ***p8;
     s32 temp_r1_2;
@@ -116,8 +116,7 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     temp_r0->unk50 = 0x3F;
     temp_r4 = __builtin_new(0x10);
     temp_r1 = func_08008918(arg1);
-    temp_r4->unk0 = 0;
-    temp_r4->unk4 = 0;
+    temp_r4->unk0 = temp_r4->unk4 = 0;
     temp_r4->unk8 = &vtable_unk_080E5B80;
     temp_r5 = (GenObj *)((u8 *)temp_r4 + 0xC);
     func_08009300(temp_r5, temp_r1);

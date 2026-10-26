@@ -35,15 +35,15 @@ func_080050F8:
 	add	r0, r6, #0
 	bl	func_08008918
 	add	r1, r0, #0
-	str	r5, [r4]
 	str	r5, [r4, #0x4]
+	str	r5, [r4]
 	ldr	r0, .L21
 	str	r0, [r4, #0x8]
 	add	r5, r4, #0
 	add	r5, r5, #0xc
 	add	r0, r5, #0
 	bl	func_08009300
-	str	r4, [sp]
+	str	r4, [sp, #0xc]
 	ldr	r1, .L21+0x4
 	add	r0, r5, #0
 	mov	r2, #0x1
@@ -51,15 +51,14 @@ func_080050F8:
 	bl	func_0800934C
 	add	r0, r6, #0
 	bl	func_08008940
-	ldr	r1, [r0, #0x8]
-	ldr	r2, [r1, #0x10]
-	ldr	r1, [sp]
+	ldr	r2, [r0, #0x8]
+	ldr	r1, [sp, #0xc]
+	ldr	r2, [r2, #0x10]
 	bl	_call_via_r2
-	add	r5, sp, #0x4
-	add	r0, r5, #0x4
-	mov	r8, r0
+	mov	r8, sp
+	add	r7, sp, #0x4
 	mov	r4, #0x0
-	mov	r7, #0x0
+	mov	r5, #0x0
 .L3:
 	add	r0, r6, #0
 	bl	func_080087C8
@@ -86,7 +85,7 @@ func_080050F8:
 	beq	.L12	@cond_branch
 	b	.L5
 .L7:
-	ldr	r0, [sp]
+	ldr	r0, [sp, #0xc]
 	ldr	r1, [r0]
 	neg	r0, r1
 	orr	r0, r0, r1
@@ -109,7 +108,7 @@ func_080050F8:
 .L23:
 	.word	0x1a74
 .L11:
-	ldr	r0, [sp]
+	ldr	r0, [sp, #0xc]
 	add	r0, r0, #0xc
 	ldr	r1, .L25
 	mov	r2, #0x1
@@ -117,9 +116,9 @@ func_080050F8:
 	bl	func_08009378
 	add	r0, r6, #0
 	bl	func_08008940
-	ldr	r1, [r0, #0x8]
-	ldr	r2, [r1, #0x10]
-	ldr	r1, [sp]
+	ldr	r2, [r0, #0x8]
+	ldr	r1, [sp, #0xc]
+	ldr	r2, [r2, #0x10]
 	bl	_call_via_r2
 	mov	r4, #0x3
 	b	.L5
@@ -128,25 +127,25 @@ func_080050F8:
 .L25:
 	.word	0x889
 .L12:
-	ldr	r0, [sp]
+	ldr	r0, [sp, #0xc]
 	ldr	r1, [r0]
 	neg	r0, r1
 	orr	r0, r0, r1
 	cmp	r0, #0
 	blt	.L5	@cond_branch
-	mov	r7, #0x1
+	mov	r5, #0x1
 .L5:
-	cmp	r7, #0
+	cmp	r5, #0
 	beq	.L3	@cond_branch
 	mov	r0, #0x0
-	str	r0, [sp, #0x4]
+	str	r0, [sp]
 	mov	r1, r8
-	str	r5, [r1]
-	str	r0, [r1, #0x4]
-	str	r0, [r5]
+	str	r1, [r7]
+	str	r0, [r7, #0x4]
+	str	r0, [r1]
 	mov	r1, r9
 	str	r0, [r1]
-	ldr	r1, [sp, #0x4]
+	ldr	r1, [sp]
 	cmp	r1, #0
 	beq	.L19	@cond_branch
 	ldr	r0, [r1, #0x4]
@@ -155,13 +154,13 @@ func_080050F8:
 	mov	r1, #0x3
 	bl	_call_via_r2
 .L19:
-	ldr	r0, [sp]
+	ldr	r0, [sp, #0xc]
 	cmp	r0, #0
 	beq	.L20	@cond_branch
-	ldr	r0, [sp]
-	ldr	r0, [r0, #0x8]
-	ldr	r2, [r0, #0xc]
-	ldr	r0, [sp]
+	ldr	r0, [sp, #0xc]
+	ldr	r1, [r0, #0x8]
+	ldr	r0, [sp, #0xc]
+	ldr	r2, [r1, #0xc]
 	mov	r1, #0x3
 	bl	_call_via_r2
 .L20:
