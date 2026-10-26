@@ -12,22 +12,34 @@ void *func_08008940(void *);                        /* extern */
 s32 func_08009300(void *, void *);                    /* extern */
 s32 func_0800934C(void *, s32, s32, s32);             /* extern */
 s32 func_08009378(void *, s32, s32, s32);             /* extern */
-extern ? vtable_unk_080E5B80;
+extern s32 vtable_unk_080E5B80;
 
-s32 *func_080050F8(s32 *arg0, void *arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    s32 unkC;
+    s32 unk10;
+    u8 _pad14[64];
+    u16 unk50;
+    u8 _pad52[6690];
+    u8 unk1A74;
+} GenObj;
+s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     s16 sp0;
-    void *sp4;
-    void **sp8;
-    void ***spC;
+    GenObj *sp4;
+    GenObj *sp8;
+    GenObj **spC;
+    s32 sp10;
     s32 temp_r1_2;
     s32 temp_r1_3;
     s32 var_r4;
     s32 var_r5;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r0_3;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_3;
     void *temp_r1;
-    void *temp_r4;
+    GenObj *temp_r4;
     void *temp_r5;
 
     func_08005254(arg1);
@@ -41,12 +53,12 @@ s32 *func_080050F8(s32 *arg0, void *arg1) {
     temp_r4->unk0 = 0;
     temp_r4->unk4 = 0;
     temp_r4->unk8 = &vtable_unk_080E5B80;
-    temp_r5 = temp_r4 + 0xC;
+    temp_r5 = (GenObj *)((u8 *)temp_r4 + 0xC);
     func_08009300(temp_r5, temp_r1);
     sp4 = temp_r4;
     func_0800934C(temp_r5, 0x889, 1, 1);
     temp_r0_2 = func_08008940(arg1);
-    temp_r0_2->unk8->unk10(temp_r0_2, sp4);
+    ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, sp4);
     var_r4 = 0;
     var_r5 = 0;
     do {
@@ -67,9 +79,9 @@ s32 *func_080050F8(s32 *arg0, void *arg1) {
             }
             break;
         case 2:
-            func_08009378(sp4 + 0xC, 0x889, 1, 1);
+            func_08009378((GenObj *)((u8 *)sp4 + 0xC), 0x889, 1, 1);
             temp_r0_3 = func_08008940(arg1);
-            temp_r0_3->unk8->unk10(temp_r0_3, sp4);
+            ((void (*)(void *,...))(temp_r0_3->unk8->unk10))(temp_r0_3, sp4);
             var_r4 = 3;
             break;
         case 3:
@@ -82,14 +94,14 @@ s32 *func_080050F8(s32 *arg0, void *arg1) {
     } while (var_r5 == 0);
     sp8 = 0;
     spC = &sp8;
-    spC.unk4 = 0;
+    sp10 = 0;
     sp8 = 0;
     *arg0 = 0;
     if (sp8 != 0) {
-        (*sp8)->unk8(sp8, 3);
+        ((void (*)(void *,...))(sp8->unk4->unk8))(sp8, 3);
     }
     if (sp4 != 0) {
-        sp4->unk8->unkC(sp4, 3);
+        ((void (*)(void *,...))(sp4->unk8->unkC))(sp4, 3);
     }
     return arg0;
 }

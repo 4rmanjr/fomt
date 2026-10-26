@@ -20,17 +20,18 @@ func_080050F8:
 	bl	func_08005278
 	add	r0, r6, #0
 	bl	func_08008918
+	add	r0, r0, #0x54
+	mov	r5, #0x0
 	mov	r1, #0x3f
-	str	r1, [r0, #0x50]
+	strh	r1, [r0]
 	mov	r0, #0x10
 	bl	__builtin_new
 	add	r4, r0, #0
 	add	r0, r6, #0
 	bl	func_08008918
 	add	r1, r0, #0
-	mov	r0, #0x0
-	str	r0, [r4]
-	str	r0, [r4, #0x4]
+	str	r5, [r4]
+	str	r5, [r4, #0x4]
 	ldr	r0, .L21
 	str	r0, [r4, #0x8]
 	add	r5, r4, #0
@@ -88,7 +89,7 @@ func_080050F8:
 	bl	func_08005800
 	ldr	r1, .L23
 	add	r0, r6, r1
-	ldr	r0, [r0]
+	ldrb	r0, [r0]
 	cmp	r0, #0
 	beq	.L5	@cond_branch
 	mov	r5, #0x2
@@ -96,7 +97,7 @@ func_080050F8:
 .L24:
 	.align	2, 0
 .L23:
-	.word	0x1a74
+	.word	0x1a78
 .L11:
 	add	r0, r4, #0
 	add	r0, r0, #0xc

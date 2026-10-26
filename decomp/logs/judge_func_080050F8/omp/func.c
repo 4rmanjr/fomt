@@ -16,20 +16,21 @@ extern s32 vtable_unk_080E5B80;
 
 typedef struct GenObj {
     s32 unk0;
-    s32 unk4;
+    struct GenObj *unk4;
     struct GenObj *unk8;
     s32 unkC;
     s32 unk10;
-    u8 _pad14[60];
-    s32 unk50;
-    u8 _pad54[6688];
-    s32 unk1A74;
+    u8 _pad14[64];
+    u16 unk50;
+    u8 _pad52[6690];
+    u8 unk1A74;
 } GenObj;
 s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     s16 sp0;
     GenObj *sp4;
-    void **sp8;
-    void ***spC;
+    GenObj *sp8;
+    GenObj **spC;
+    s32 sp10;
     s32 temp_r1_2;
     s32 temp_r1_3;
     s32 var_r4;
@@ -93,11 +94,11 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     } while (var_r5 == 0);
     sp8 = 0;
     spC = &sp8;
-    spC.unk4 = 0;
+    sp10 = 0;
     sp8 = 0;
     *arg0 = 0;
     if (sp8 != 0) {
-        (*sp8)->unk8(sp8, 3);
+        ((void (*)(void *,...))(sp8->unk4->unk8))(sp8, 3);
     }
     if (sp4 != 0) {
         ((void (*)(void *,...))(sp4->unk8->unkC))(sp4, 3);
