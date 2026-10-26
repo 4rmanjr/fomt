@@ -9,3 +9,8 @@ s32 func_08032900(s32 arg0, s32 arg1, s32 arg2) {
     }
     return 0;
 }
+
+// DECOMP-MATCHED func_080324B8 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+s32 func_080324B8(void) {
+    return 0;
+}
