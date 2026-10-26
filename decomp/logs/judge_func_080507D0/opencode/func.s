@@ -8,8 +8,29 @@
 	.thumb_func
 func_080507D0:
 	push	{lr}
-	sub	r1, r1, #0x1
+	add	r2, r0, #0
+	cmp	r2, #0x7
+	bls	.L3	@cond_branch
+	mov	r2, #0x0
+.L3:
+	sub	r0, r1, #0x1
+	cmp	r0, #0x5
+	bls	.L4	@cond_branch
+	mov	r1, #0x1
+.L4:
+	lsl	r0, r2, #0x1
+	add	r0, r0, r2
+	lsl	r0, r0, #0x1
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	ldr	r1, .L5
+	add	r0, r0, r1
+	ldrb	r0, [r0]
 	pop	{r1}
 	bx	r1
+.L6:
+	.align	2, 0
+.L5:
+	.word	gUnk_080F9F3C
 .Lfe1:
 	.size	 func_080507D0,.Lfe1-func_080507D0

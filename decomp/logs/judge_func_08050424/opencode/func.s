@@ -10,26 +10,31 @@ func_08050424:
 	push	{r4, r5, r6, r7, lr}
 	mov	r7, r8
 	push	{r7}
-	add	r4, r0, #0
+	add	r5, r0, #0
 	add	r7, r1, #0
 	add	r6, r3, #0
 	lsl	r2, r2, #0x10
 	lsr	r2, r2, #0x10
 	mov	r8, r2
-	cmp	r5, #0
+	ldr	r0, [r5, #0x8]
+	cmp	r0, #0
 	blt	.L3	@cond_branch
-	cmp	r5, #0x2
+	cmp	r0, #0x2
 	bgt	.L4	@cond_branch
+	add	r0, r5, #0
 	bl	func_080503E4
 	b	.L3
 .L4:
-	cmp	r5, #0x6
+	cmp	r0, #0x6
 	bgt	.L3	@cond_branch
-	add	r0, r4, #0
-	add	r0, r0, #0xd0
+	mov	r1, #0x9c
+	lsl	r1, r1, #0x4
+	add	r0, r5, r1
 	bl	func_0804F0E0
 .L3:
-	add	r4, r4, #0xec
+	mov	r0, #0xb1
+	lsl	r0, r0, #0x4
+	add	r4, r5, r0
 	add	r0, r4, #0
 	add	r1, r7, #0
 	add	r2, r6, #0
@@ -37,6 +42,8 @@ func_08050424:
 	add	r0, r4, #0
 	mov	r1, r8
 	bl	func_080ADD74
+	mov	r0, #0x4
+	str	r0, [r5, #0x8]
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}

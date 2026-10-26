@@ -7,44 +7,88 @@
 	.type	 func_0805143C,function
 	.thumb_func
 func_0805143C:
-	push	{r4, r5, r6, lr}
+	push	{r4, r5, r6, r7, lr}
 	add	sp, sp, #-0x4
-	add	r6, r0, #0
+	add	r7, r0, #0
+	add	r4, r1, #0
+	mov	r0, #0x1e
+	str	r0, [sp]
+	add	r0, r7, #0
 	mov	r1, sp
 	bl	func_080084DC
-	add	r0, r6, #0
+	ldr	r0, .L3
+	str	r0, [r7, #0x8]
+	str	r4, [r7, #0x10]
+	add	r0, r7, #0
 	add	r0, r0, #0xc
 	mov	r1, #0x2
 	bl	func_08008B54
-	add	r4, r6, #0
-	add	r4, r4, #0x10
-	add	r0, r4, #0
-	mov	r1, #0x0
+	add	r5, r7, #0
+	add	r5, r5, #0x10
+	ldr	r1, .L3+0x4
+	add	r0, r5, #0
 	bl	func_0805E6CC
-	add	r0, r6, #0
+	add	r0, r7, #0
 	add	r0, r0, #0x40
-	mov	r5, #0x80
-	lsl	r5, r5, #0x1
-	add	r1, r4, #0
+	mov	r6, #0x80
+	lsl	r6, r6, #0x1
+	add	r1, r5, #0
 	mov	r2, #0x0
-	add	r3, r5, #0
+	add	r3, r6, #0
 	bl	func_0805E824
-	add	r0, r6, #0
-	add	r0, r0, #0x74
-	add	r1, r4, #0
+	add	r0, r7, #0
+	add	r0, r0, #0x54
+	mov	r4, #0x0
+	str	r4, [r7, #0x60]
+	str	r4, [r0, #0x4]
+	str	r4, [r0, #0x8]
+	str	r4, [r0, #0xc]
+	str	r4, [r0, #0x10]
+	str	r4, [r0, #0x14]
+	str	r4, [r0, #0x18]
+	str	r4, [r0, #0x1c]
+	str	r4, [r0, #0x20]
+	str	r4, [r0, #0x24]
+	add	r0, r0, #0x20
+	add	r1, r5, #0
 	mov	r2, #0x1
-	add	r3, r5, #0
+	add	r3, r6, #0
 	bl	func_0805E824
-	add	r0, r6, #0
-	add	r0, r0, #0xa8
+	add	r0, r7, #0
+	add	r0, r0, #0x88
+	add	r1, r7, #0
+	add	r1, r1, #0x94
+	str	r4, [r1]
+	str	r4, [r0, #0x4]
+	str	r4, [r0, #0x8]
+	str	r4, [r0, #0xc]
+	str	r4, [r0, #0x10]
+	str	r4, [r0, #0x14]
+	str	r4, [r0, #0x18]
+	str	r4, [r0, #0x1c]
+	str	r4, [r0, #0x20]
+	str	r4, [r0, #0x24]
+	add	r0, r0, #0x20
 	bl	func_08007874
-	add	r0, r6, #0
-	add	r0, r0, #0xb0
+	add	r5, r5, #0xa0
+	add	r0, r5, #0
 	bl	func_08007128
-	add	r0, r6, #0
+	add	r0, r5, #0
+	bl	func_0800736C
+	str	r0, [r5, #0x8]
+	ldr	r1, .L3+0x8
+	add	r0, r7, r1
+	str	r4, [r0]
+	add	r0, r7, #0
 	add	sp, sp, #0x4
-	pop	{r4, r5, r6}
+	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E7928
+	.word	gUnk_08527094
+	.word	0x8c4
 .Lfe1:
 	.size	 func_0805143C,.Lfe1-func_0805143C

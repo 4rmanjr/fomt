@@ -17,14 +17,49 @@ func_08050AD8:
 	bl	func_08050B3C
 	b	.L2
 .L3:
-	mov	r1, #0xf2
+	mov	r0, #0xee
+	lsl	r0, r0, #0x1
+	add	r2, r4, r0
+	ldrb	r1, [r2]
+	lsl	r0, r1, #0x1f
+	cmp	r0, #0
+	beq	.L4	@cond_branch
+	mov	r1, #0xf0
 	lsl	r1, r1, #0x1
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	cmp	r0, r5
+	bne	.L6	@cond_branch
+	b	.L2
+.L4:
+	mov	r0, #0x1
+	orr	r1, r1, r0
+	str	r1, [r2]
+.L6:
+	ldr	r1, .L8
 	add	r0, r4, r1
 	add	r1, r5, #0
 	bl	func_080ADCA4
+	mov	r1, #0xf0
+	lsl	r1, r1, #0x1
+	add	r0, r4, r1
+	str	r5, [r0]
+	mov	r0, #0xee
+	lsl	r0, r0, #0x1
+	add	r2, r4, r0
+	ldr	r0, [r2]
+	mov	r1, #0x2
+	orr	r0, r0, r1
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	str	r0, [r2]
 .L2:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
+.L9:
+	.align	2, 0
+.L8:
+	.word	0x39310
 .Lfe1:
 	.size	 func_08050AD8,.Lfe1-func_08050AD8

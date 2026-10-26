@@ -4,7 +4,13 @@ s32 func_0804E8F0(s32, void *, s32, s32);             /* extern */
 s32 func_08050C18(void *);                            /* extern */
 s32 strlen(u8 *);                                   /* extern */
 
-void func_08050B50(void *arg0, u8 *arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    u8 _pad6[490];
+    s32 unk1F0;
+} GenObj;
+void func_08050B50(GenObj *arg0, u8 *arg1) {
     u8 *sp0;
     u8 sp4;
 s32 sp8;
@@ -48,7 +54,7 @@ loop_8:
                 }
             }
             *var_r2 = 0;
-            sp10.unk0 = 4;
+            sp10 = 4;
             sp10.unk2 = 2;
             sp0 = &sp4;
             func_0804E8F0(sp10, temp_r4, 0, 0);

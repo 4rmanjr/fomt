@@ -7,6 +7,18 @@
 	.type	 func_08050E98,function
 	.thumb_func
 func_08050E98:
+	ldr	r3, [r0]
+	mov	r0, #0xaa
+	lsl	r0, r0, #0x3
+	add	r3, r3, r0
+	ldrb	r0, [r3]
+	mov	r2, #0xc0
+	and	r2, r2, r0
+	lsl	r0, r0, #0x1a
+	lsr	r0, r0, #0x1a
+	bic	r0, r0, r1
+	orr	r2, r2, r0
+	str	r2, [r3]
 	bx	lr
 .Lfe1:
 	.size	 func_08050E98,.Lfe1-func_08050E98

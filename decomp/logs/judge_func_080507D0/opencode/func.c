@@ -1,5 +1,5 @@
 #include "common.h"
-extern ? gUnk_080F9F3C;
+extern s32 gUnk_080F9F3C;
 
 u8 func_080507D0(u32 arg0, s32 arg1) {
     s32 var_r1;

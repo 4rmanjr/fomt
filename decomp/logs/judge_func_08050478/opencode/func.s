@@ -7,72 +7,176 @@
 	.type	 func_08050478,function
 	.thumb_func
 func_08050478:
-	push	{r4, r5, lr}
-	add	sp, sp, #-0x4
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, sl
+	mov	r6, r9
+	mov	r5, r8
+	push	{r5, r6, r7}
+	add	sp, sp, #-0xc
+	add	r5, r0, #0
+	str	r1, [sp, #0x4]
+	str	r2, [sp, #0x8]
+	mov	sl, r3
+	ldr	r0, [sp, #0x2c]
+	mov	r9, r0
+	ldr	r1, [sp, #0x30]
+	mov	r8, r1
+	ldr	r7, [sp, #0x34]
+	ldr	r0, [r5, #0x8]
 	cmp	r0, #0
 	blt	.L3	@cond_branch
 	cmp	r0, #0x2
 	bgt	.L4	@cond_branch
-	mov	r0, #0x0
+	add	r0, r5, #0
 	bl	func_080503E4
 	b	.L3
 .L4:
 	cmp	r0, #0x6
 	bgt	.L3	@cond_branch
-	mov	r0, #0x0
+	mov	r2, #0x8f
+	lsl	r2, r2, #0x9
+	add	r0, r5, r2
 	bl	func_0804F0E0
 .L3:
-	neg	r0, r5
-	orr	r0, r0, r5
+	mov	r4, #0x4
+	mov	r6, #0xc
+	cmp	r7, #0
+	bne	.L7	@cond_branch
+	mov	r4, #0x3
+	mov	r0, r8
+	cmp	r0, #0
+	bne	.L7	@cond_branch
+	mov	r4, #0x2
+	mov	r1, r9
+	cmp	r1, #0
+	bne	.L7	@cond_branch
+	mov	r6, #0x1a
+	mov	r2, sl
+	neg	r0, r2
+	orr	r0, r0, r2
 	lsr	r4, r0, #0x1f
-	cmp	r4, #0x4
-	bhi	.L11	@cond_branch
+.L7:
+	cmp	r4, #0x2
+	beq	.L18	@cond_branch
+	cmp	r4, #0x2
+	bhi	.L25	@cond_branch
 	cmp	r4, #0x1
-	bcs	.L18	@cond_branch
+	beq	.L21	@cond_branch
+	b	.L11
+.L25:
+	cmp	r4, #0x3
+	beq	.L15	@cond_branch
+	cmp	r4, #0x4
+	beq	.L12	@cond_branch
 .L11:
 	mov	r4, #0x0
+.L12:
+	cmp	r7, #0
+	beq	.L14	@cond_branch
+	add	r0, r7, #0
+	bl	strlen
+	cmp	r0, r6
+	bls	.L15	@cond_branch
+.L14:
+	ldr	r7, .L38
+.L15:
+	mov	r0, r8
+	cmp	r0, #0
+	beq	.L17	@cond_branch
+	bl	strlen
+	cmp	r0, r6
+	bls	.L18	@cond_branch
+.L17:
+	ldr	r1, .L38
+	mov	r8, r1
 .L18:
-	cmp	r5, #0
+	mov	r2, r9
+	cmp	r2, #0
+	beq	.L20	@cond_branch
+	mov	r0, r9
+	bl	strlen
+	cmp	r0, r6
+	bls	.L21	@cond_branch
+.L20:
+	ldr	r0, .L38
+	mov	r9, r0
+.L21:
+	mov	r1, sl
+	cmp	r1, #0
 	beq	.L23	@cond_branch
 	bl	strlen
+	cmp	r0, r6
+	bls	.L10	@cond_branch
 .L23:
-	cmp	r4, #0x2
+	ldr	r2, .L38
+	mov	sl, r2
+.L10:
+	ldr	r0, [sp, #0x8]
+	cmp	r0, #0
 	beq	.L27	@cond_branch
-	cmp	r4, #0x2
-	bhi	.L31	@cond_branch
-	cmp	r4, #0x1
-	beq	.L28	@cond_branch
-	b	.L24
-.L31:
-	cmp	r4, #0x3
-	beq	.L26	@cond_branch
-	cmp	r4, #0x4
-	bne	.L24	@cond_branch
-	mov	r0, #0x0
-	mov	r1, sp
-	mov	r2, #0x0
-	mov	r3, #0x0
-	bl	func_080507F8
+	bl	strlen
+	cmp	r0, r6
+	bls	.L26	@cond_branch
+.L27:
+	ldr	r1, .L38
+	str	r1, [sp, #0x8]
 .L26:
+	ldr	r2, [sp, #0x4]
+	cmp	r2, #0
+	beq	.L29	@cond_branch
+	add	r0, r2, #0
+	bl	strlen
+	cmp	r0, r6
+	bls	.L28	@cond_branch
+.L29:
+	ldr	r0, .L38
+	str	r0, [sp, #0x4]
+.L28:
+	cmp	r4, #0x2
+	beq	.L33	@cond_branch
+	cmp	r4, #0x2
+	bhi	.L37	@cond_branch
+	cmp	r4, #0x1
+	beq	.L34	@cond_branch
+	b	.L35
+.L39:
+	.align	2, 0
+.L38:
+	.word	gUnk_080F9F3C
+.L37:
+	cmp	r4, #0x3
+	beq	.L32	@cond_branch
+	cmp	r4, #0x4
+	bne	.L35	@cond_branch
+	mov	r0, #0x4
+	mov	r1, #0x6
+	bl	func_080507D0
+	mov	r1, sp
+	strb	r0, [r1]
+	add	r0, r5, #0
+	add	r2, r7, #0
+	ldr	r3, [sp, #0x38]
+	bl	func_080507F8
+.L32:
 	mov	r1, sp
 	add	r1, r1, #0x1
-	mov	r0, #0x0
-	mov	r2, #0x0
-	mov	r3, #0x0
+	add	r0, r5, #0
+	mov	r2, r8
+	ldr	r3, [sp, #0x38]
 	bl	func_080507F8
-.L27:
+.L33:
 	mov	r1, sp
 	add	r1, r1, #0x2
-	mov	r0, #0x0
-	mov	r2, #0x0
-	mov	r3, #0x0
+	add	r0, r5, #0
+	mov	r2, r9
+	ldr	r3, [sp, #0x38]
 	bl	func_080507F8
-.L28:
+.L34:
 	mov	r1, sp
 	add	r1, r1, #0x3
-	mov	r0, #0x0
-	add	r2, r5, #0
-	mov	r3, #0x0
+	add	r0, r5, #0
+	mov	r2, sl
+	ldr	r3, [sp, #0x38]
 	bl	func_080507F8
 	add	r0, r4, #0
 	mov	r1, #0x2
@@ -80,23 +184,45 @@ func_08050478:
 	mov	r1, sp
 	add	r1, r1, #0x1
 	strb	r0, [r1]
-	mov	r0, #0x0
-	mov	r2, #0x0
-	mov	r3, #0x0
+	add	r0, r5, #0
+	ldr	r2, [sp, #0x8]
+	ldr	r3, [sp, #0x38]
 	bl	func_080507F8
 	mov	r1, sp
 	add	r1, r1, #0x5
-	mov	r0, #0x0
-	mov	r2, #0x0
-	mov	r3, #0x0
+	add	r0, r5, #0
+	ldr	r2, [sp, #0x4]
+	ldr	r3, [sp, #0x38]
 	bl	func_080507F8
-.L24:
-	mov	r0, #0x0
-	mov	r1, #0x0
+	b	.L30
+.L35:
+	mov	r4, #0x0
+.L30:
+	mov	r1, #0xae
+	lsl	r1, r1, #0x1
+	add	r0, r5, r1
+	str	r4, [r0]
+	mov	r2, #0xac
+	lsl	r2, r2, #0x1
+	add	r1, r5, r2
+	mov	r0, #0x1
+	str	r0, [r1]
+	mov	r0, #0x6
+	str	r0, [r5, #0x8]
+	mov	r1, #0x9a
+	lsl	r1, r1, #0xa
+	add	r0, r5, r1
+	mov	r2, #0xf2
+	lsl	r2, r2, #0x9
+	add	r1, r5, r2
 	mov	r2, #0x0
 	bl	func_0805E850
-	add	sp, sp, #0x4
-	pop	{r4, r5}
+	add	sp, sp, #0xc
+	pop	{r3, r4, r5}
+	mov	r8, r3
+	mov	r9, r4
+	mov	sl, r5
+	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
 .Lfe1:

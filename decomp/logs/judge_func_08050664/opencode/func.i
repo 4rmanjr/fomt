@@ -57,22 +57,36 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08050664/opencode/func.c" 2
 s32 func_0804F0E0(s32);
 s8 func_080507D0(s32, s32);
-s32 func_080507F8(void *, s8 *, ? *, s32);
+s32 func_080507F8(void *, s8 *, s32 *, s32);
 s32 func_0805E850(void *, void *, s32);
 u32 strlen(s32 *);
-extern ? gUnk_080F9F3C;
+extern s32 gUnk_080F9F3C;
 
-void func_08050664(void *arg0, ? *arg1, ? *arg2, ? *arg3, ? *arg4, ? *arg5, s32 arg6) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    u8 _padC[332];
+    s32 unk158;
+    s32 unk15C;
+} GenObj;
+void func_08050664(GenObj *arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5, s32 arg6) {
     s8 sp0;
     s8 sp4;
-    ? *sp8;
-    ? *var_r6;
-    ? *var_r7;
-    ? *var_sb;
-    ? *var_sl;
+    s32 *sp8;
+    s32 *var_r6;
+    s32 *var_r7;
+    s32 *var_sb;
+    s32 *var_sl;
     s32 var_r4;
     u32 var_r8;
 
@@ -117,7 +131,7 @@ void func_08050664(void *arg0, ? *arg1, ? *arg2, ? *arg3, ? *arg4, ? *arg5, s32 
         sp8 = &gUnk_080F9F3C;
     }
     func_0804F0E0(arg0 + 0xD0);
-    sp0.unk0 = 0;
+    sp0 = 0;
     func_080507F8(arg0, &sp0, var_r7, arg6);
     switch (var_r4) {
     case 7:

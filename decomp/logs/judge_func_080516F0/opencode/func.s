@@ -69,13 +69,14 @@ func_080516F0:
 	bl	func_08008918
 	mov	r0, #0x0
 	bl	func_08008918
+	ldr	r0, .L26+0x14
+	ldr	r0, [r0]
 	mov	r1, #0xc0
 	lsl	r1, r1, #0x13
-	ldr	r0, .L26+0x14
-	ldr	r2, [r0]
-	mov	r0, #0x0
+	ldr	r2, .L26+0x18
+	ldr	r2, [r2]
 	bl	func_08008E64
-	ldr	r0, .L26+0x18
+	ldr	r0, .L26+0x1c
 	mov	r1, r8
 	add	r2, r5, #0
 	bl	func_08008EB8
@@ -84,15 +85,16 @@ func_080516F0:
 	mov	r2, #0x0
 	mov	r3, #0x20
 	bl	func_08051320
+	ldr	r0, .L26+0x20
+	ldr	r0, [r0]
 	mov	r1, #0xa0
 	lsl	r1, r1, #0x13
-	mov	r0, #0x0
 	mov	r2, #0x20
 	bl	func_08008E64
-	ldr	r1, .L26+0x1c
+	ldr	r1, .L26+0x24
 	mov	r0, #0x0
 	strh	r0, [r1]
-	ldr	r5, .L26+0x20
+	ldr	r5, .L26+0x28
 	mov	r4, #0xc
 .L3:
 	mov	r0, #0x0
@@ -108,10 +110,10 @@ func_080516F0:
 	sub	r4, r4, #0x1
 	cmp	r4, #0
 	bge	.L3	@cond_branch
-	ldr	r0, .L26+0x24
+	ldr	r0, .L26+0x2c
 	mov	r2, #0x80
 	lsl	r2, r2, #0x4
-	mov	r1, #0x0
+	add	r1, r7, #0
 	bl	func_08008EB8
 	mov	r4, #0x0
 .L8:
@@ -142,8 +144,10 @@ func_080516F0:
 	.word	0x600e800
 	.word	0x600f000
 	.word	0x600f800
+	.word	gUnk_080F9F70
 	.word	gUnk_080F9F74
 	.word	0x30003
+	.word	gUnk_080F9F78
 	.word	0x5000042
 	.word	0x6001800
 	.word	0x3ff03ff
@@ -236,9 +240,9 @@ func_080516F0:
 	bl	func_08051D30
 	ldr	r4, [sp]
 	cmp	r4, #0x9
-	bgt	.LCB266
+	bgt	.LCB272
 	b	.L8	@long jump
-.LCB266:
+.LCB272:
 	ldr	r1, .L28+0x4
 	mov	r4, #0x80
 	lsl	r4, r4, #0x4

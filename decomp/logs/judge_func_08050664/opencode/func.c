@@ -1,19 +1,26 @@
 #include "common.h"
 s32 func_0804F0E0(s32);                               /* extern */
 s8 func_080507D0(s32, s32);                         /* extern */
-s32 func_080507F8(void *, s8 *, ? *, s32);            /* extern */
+s32 func_080507F8(void *, s8 *, s32 *, s32);            /* extern */
 s32 func_0805E850(void *, void *, s32);               /* extern */
 u32 strlen(s32 *);                                    /* extern */
-extern ? gUnk_080F9F3C;
+extern s32 gUnk_080F9F3C;
 
-void func_08050664(void *arg0, ? *arg1, ? *arg2, ? *arg3, ? *arg4, ? *arg5, s32 arg6) {
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    u8 _padC[332];
+    s32 unk158;
+    s32 unk15C;
+} GenObj;
+void func_08050664(GenObj *arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg5, s32 arg6) {
     s8 sp0;
     s8 sp4;
-    ? *sp8;
-    ? *var_r6;
-    ? *var_r7;
-    ? *var_sb;
-    ? *var_sl;
+    s32 *sp8;
+    s32 *var_r6;
+    s32 *var_r7;
+    s32 *var_sb;
+    s32 *var_sl;
     s32 var_r4;
     u32 var_r8;
 
@@ -58,7 +65,7 @@ void func_08050664(void *arg0, ? *arg1, ? *arg2, ? *arg3, ? *arg4, ? *arg5, s32 
         sp8 = &gUnk_080F9F3C;
     }
     func_0804F0E0(arg0 + 0xD0);
-    sp0.unk0 = 0;
+    sp0 = 0;
     func_080507F8(arg0, &sp0, var_r7, arg6);
     switch (var_r4) {                               /* switch 2; irregular */
     case 7:                                         /* switch 2 */

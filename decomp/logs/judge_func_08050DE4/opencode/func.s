@@ -7,6 +7,10 @@
 	.type	 func_08050DE4,function
 	.thumb_func
 func_08050DE4:
+	ldr	r2, [r0]
+	ldrb	r0, [r2, #0x10]
+	mov	r1, #0x1
+	str	r1, [r2, #0x10]
 	bx	lr
 .Lfe1:
 	.size	 func_08050DE4,.Lfe1-func_08050DE4
