@@ -5014,32 +5014,33 @@
  },
  "func_08020170": {
   "addr": 134349168,
-  "claimed_at": 1793003401.4281814,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793003784.216925,
   "module": "code_entities.s",
+  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020170/opencode/func.c:76: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020170/opencode/func.c:76: request for member `unkC' in something not a structure or union\n",
   "ref_len": 304,
   "size": 3034,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080202A0": {
   "addr": 134349472,
-  "claimed_at": 1793003401.4379447,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793003784.571199,
   "module": "code_entities.s",
+  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080202A0/opencode/func.c:11: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080202A0/opencode/func.c:11: request for member `unk6' in something not a structure or union\n",
   "ref_len": 36,
   "size": 388,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080202C4": {
   "addr": 134349508,
-  "claimed_at": 1793003401.4478729,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793003784.8751616,
   "module": "code_entities.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 4,
   "size": 90,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080202C8": {
@@ -16571,22 +16572,22 @@
  },
  "func_080A0030": {
   "addr": 134873136,
-  "claimed_at": 1793003774.540916,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003780.8810549,
   "module": "code_809E804.s",
+  "note": "len 460 vs ref 454",
   "ref_len": 456,
   "size": 4114,
-  "status": "drafted",
+  "status": "failed",
   "thumb": true
  },
  "func_080A01F8": {
   "addr": 134873592,
-  "claimed_at": 1793003774.5553756,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003785.8232303,
   "module": "code_809E804.s",
+  "note": "len 186 vs ref 290",
   "ref_len": 292,
   "size": 2269,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080A031C": {
@@ -16596,7 +16597,7 @@
   "module": "code_809E804.s",
   "ref_len": 104,
   "size": 1015,
-  "status": "pending",
+  "status": "drafted",
   "thumb": true
  },
  "func_080A0384": {
