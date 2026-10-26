@@ -1,0 +1,11 @@
+#include "common.h"
+s32 __builtin_new(s32);                             /* extern */
+s32 func_080BC938(s32, s32);                        /* extern */
+extern ? vtable_unk_080E8544;
+
+void *func_080C0D1C(void *arg0, s32 arg1) {
+    arg0->unk0 = &vtable_unk_080E8544;
+    arg0->unk4 = func_080BC938(__builtin_new(0x620), arg1);
+    return arg0;
+}
+

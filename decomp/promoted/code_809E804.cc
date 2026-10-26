@@ -229,3 +229,10 @@ void func_080C0B70(s32 arg0) {
         func_080C0B94(arg0);
     }
 }
+
+// DECOMP-MATCHED func_080C14BC (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_08008724();                                  /* extern */
+
+void func_080C14BC(void) {
+    func_08008724();
+}
