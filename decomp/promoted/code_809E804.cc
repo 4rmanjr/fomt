@@ -296,3 +296,10 @@ void func_080D0340(void) {
         func_080D0AE0();
     }
 }
+
+// DECOMP-MATCHED func_080D06A8 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080D0A94(s32);                               /* extern */
+
+void func_080D06A8(void) {
+    func_080D0A94(0xB);
+}
