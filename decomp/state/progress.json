@@ -1425,12 +1425,13 @@
  },
  "func_08008AFC": {
   "addr": 134253308,
-  "claimed_at": 1793003397.1312244,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793003480.2151096,
   "module": "hardware.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 16,
   "size": 161,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008B0C": {

@@ -42,3 +42,12 @@ s32 func_08000568(s32);                               /* extern */
 void func_08008AF0(void) {
     func_08000568(1);
 }
+
+// DECOMP-MATCHED func_08008AFC (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aSoundInit();                                   /* extern */
+s32 m4aSoundVSyncOff();                               /* extern */
+
+void func_08008AFC(void) {
+    m4aSoundInit();
+    m4aSoundVSyncOff();
+}
