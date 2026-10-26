@@ -7,6 +7,10 @@
 	.type	 func_080123A4,function
 	.thumb_func
 func_080123A4:
+	ldr	r0, [r0, #0x4]
+	add	r0, r0, #0x9c
+	mov	r1, #0x17
+	str	r1, [r0]
 	bx	lr
 .Lfe1:
 	.size	 func_080123A4,.Lfe1-func_080123A4
