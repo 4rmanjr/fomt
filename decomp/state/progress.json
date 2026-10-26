@@ -5488,22 +5488,23 @@
  },
  "func_080240BC": {
   "addr": 134365372,
-  "claimed_at": 1793003960.679145,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003965.756834,
   "module": "code_entities.s",
+  "note": "len 18 vs ref 1032",
   "ref_len": 1032,
   "size": 6907,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080244C4": {
   "addr": 134366404,
-  "claimed_at": 1793003960.6791456,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003966.3478146,
   "module": "code_entities.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 20,
   "size": 254,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080244D8": {
@@ -5568,22 +5569,29 @@
  },
  "func_08024B9C": {
   "addr": 134368156,
+  "judged_mtime": 1793003966.000978,
   "module": "code_entities.s",
+  "note": "thing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08024B9C/opencode/func.c:14: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08024B9C/opencode/func.c:14: request for member `unk21' in something not a structure or union\n",
   "ref_len": 76,
   "size": 780,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08024BE8": {
   "addr": 134368232,
+  "judged_mtime": 1793003966.357023,
   "module": "code_entities.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 20,
   "size": 205,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08024BFC": {
   "addr": 134368252,
+  "claimed_at": 1793003965.7163577,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 88,
   "size": 888,
@@ -5592,6 +5600,8 @@
  },
  "func_08024C54": {
   "addr": 134368340,
+  "claimed_at": 1793003965.7163584,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 16,
   "size": 176,
@@ -5600,6 +5610,8 @@
  },
  "func_08024C64": {
   "addr": 134368356,
+  "claimed_at": 1793003965.716359,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 16,
   "size": 176,
@@ -5608,6 +5620,8 @@
  },
  "func_08024C74": {
   "addr": 134368372,
+  "claimed_at": 1793003965.7163596,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 20,
   "size": 234,
@@ -5616,6 +5630,8 @@
  },
  "func_08024C88": {
   "addr": 134368392,
+  "claimed_at": 1793003965.7163599,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 16,
   "size": 203,
@@ -5624,6 +5640,8 @@
  },
  "func_08024C98": {
   "addr": 134368408,
+  "claimed_at": 1793003965.7163603,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 8,
   "size": 127,
@@ -5632,6 +5650,8 @@
  },
  "func_08024CA0": {
   "addr": 134368416,
+  "claimed_at": 1793003965.716361,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 48,
   "size": 543,
@@ -5640,6 +5660,8 @@
  },
  "func_08024CD0": {
   "addr": 134368464,
+  "claimed_at": 1793003965.7163615,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 840,
   "size": 8281,
@@ -5648,6 +5670,8 @@
  },
  "func_08025018": {
   "addr": 134369304,
+  "claimed_at": 1793003965.716362,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 80,
   "size": 778,
@@ -5656,6 +5680,8 @@
  },
  "func_08025068": {
   "addr": 134369384,
+  "claimed_at": 1793003965.7163625,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 404,
   "size": 3819,
@@ -5664,6 +5690,8 @@
  },
  "func_080251FC": {
   "addr": 134369788,
+  "claimed_at": 1793003965.7163627,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 76,
   "size": 751,
@@ -5672,6 +5700,8 @@
  },
  "func_08025248": {
   "addr": 134369864,
+  "claimed_at": 1793003965.7163632,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 76,
   "size": 759,
@@ -5680,6 +5710,8 @@
  },
  "func_08025294": {
   "addr": 134369940,
+  "claimed_at": 1793003965.7163637,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 216,
   "size": 2239,
@@ -5688,6 +5720,8 @@
  },
  "func_0802536C": {
   "addr": 134370156,
+  "claimed_at": 1793003965.7163641,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1124,
   "size": 10989,
@@ -5696,6 +5730,8 @@
  },
  "func_080257D0": {
   "addr": 134371280,
+  "claimed_at": 1793003965.7163646,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 104,
   "size": 1003,
@@ -5704,6 +5740,8 @@
  },
  "func_08025838": {
   "addr": 134371384,
+  "claimed_at": 1793003965.7163653,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 104,
   "size": 1003,
@@ -5712,6 +5750,8 @@
  },
  "func_080258A0": {
   "addr": 134371488,
+  "claimed_at": 1793003965.7163656,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 164,
   "size": 1552,
@@ -5720,6 +5760,8 @@
  },
  "func_08025944": {
   "addr": 134371652,
+  "claimed_at": 1793003965.716366,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 252,
   "size": 2182,
@@ -5728,6 +5770,8 @@
  },
  "func_08025A40": {
   "addr": 134371904,
+  "claimed_at": 1793003965.7163663,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 188,
   "size": 1769,
@@ -5736,6 +5780,8 @@
  },
  "func_08025AFC": {
   "addr": 134372092,
+  "claimed_at": 1793003965.716367,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 20,
   "size": 246,
@@ -5744,6 +5790,8 @@
  },
  "func_08025B10": {
   "addr": 134372112,
+  "claimed_at": 1793003965.7163677,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 84,
   "size": 863,
@@ -5752,6 +5800,8 @@
  },
  "func_08025B64": {
   "addr": 134372196,
+  "claimed_at": 1793003965.716368,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 724,
   "size": 6925,
@@ -5760,6 +5810,8 @@
  },
  "func_08025E38": {
   "addr": 134372920,
+  "claimed_at": 1793003965.7163684,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 196,
   "size": 1996,
@@ -5768,6 +5820,8 @@
  },
  "func_08025EFC": {
   "addr": 134373116,
+  "claimed_at": 1793003965.716369,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 200,
   "size": 2042,
@@ -5776,6 +5830,8 @@
  },
  "func_08025FC4": {
   "addr": 134373316,
+  "claimed_at": 1793003965.7163692,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 396,
   "size": 3325,
@@ -5784,6 +5840,8 @@
  },
  "func_08026150": {
   "addr": 134373712,
+  "claimed_at": 1793003965.7163696,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 372,
   "size": 3610,
@@ -5792,6 +5850,8 @@
  },
  "func_080262C4": {
   "addr": 134374084,
+  "claimed_at": 1793003965.7163699,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 136,
   "size": 1223,
@@ -5800,6 +5860,8 @@
  },
  "func_0802634C": {
   "addr": 134374220,
+  "claimed_at": 1793003965.7163703,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1252,
   "size": 12041,
@@ -5808,6 +5870,8 @@
  },
  "func_08026830": {
   "addr": 134375472,
+  "claimed_at": 1793003965.7163706,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1252,
   "size": 12041,
@@ -5816,6 +5880,8 @@
  },
  "func_08026D14": {
   "addr": 134376724,
+  "claimed_at": 1793003965.716371,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1272,
   "size": 12376,
@@ -5824,6 +5890,8 @@
  },
  "func_0802720C": {
   "addr": 134377996,
+  "claimed_at": 1793003965.7163715,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1296,
   "size": 12379,
@@ -5832,6 +5900,8 @@
  },
  "func_0802771C": {
   "addr": 134379292,
+  "claimed_at": 1793003965.7163723,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1248,
   "size": 11976,
@@ -5840,6 +5910,8 @@
  },
  "func_08027BFC": {
   "addr": 134380540,
+  "claimed_at": 1793003965.7163727,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 2632,
   "size": 25060,
@@ -5848,6 +5920,8 @@
  },
  "func_08028644": {
   "addr": 134383172,
+  "claimed_at": 1793003965.716373,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1292,
   "size": 12612,
@@ -5856,6 +5930,8 @@
  },
  "func_08028B50": {
   "addr": 134384464,
+  "claimed_at": 1793003965.7163732,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1324,
   "size": 12851,
@@ -5864,6 +5940,8 @@
  },
  "func_0802907C": {
   "addr": 134385788,
+  "claimed_at": 1793003965.7163737,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 88,
   "size": 800,
@@ -5872,6 +5950,8 @@
  },
  "func_080290D4": {
   "addr": 134385876,
+  "claimed_at": 1793003965.7163742,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1156,
   "size": 11176,
@@ -5880,6 +5960,8 @@
  },
  "func_08029558": {
   "addr": 134387032,
+  "claimed_at": 1793003965.7163746,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1144,
   "size": 11070,
@@ -5888,6 +5970,8 @@
  },
  "func_080299D0": {
   "addr": 134388176,
+  "claimed_at": 1793003965.7163749,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 28,
   "size": 299,
@@ -5896,6 +5980,8 @@
  },
  "func_080299EC": {
   "addr": 134388204,
+  "claimed_at": 1793003965.7163756,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1348,
   "size": 13024,
@@ -5904,6 +5990,8 @@
  },
  "func_08029F30": {
   "addr": 134389552,
+  "claimed_at": 1793003965.7163758,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 1232,
   "size": 11782,
@@ -5912,6 +6000,8 @@
  },
  "func_0802A400": {
   "addr": 134390784,
+  "claimed_at": 1793003965.716376,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 192,
   "size": 1799,
@@ -5920,6 +6010,8 @@
  },
  "func_0802A4C0": {
   "addr": 134390976,
+  "claimed_at": 1793003965.7163765,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 80,
   "size": 791,
@@ -5928,6 +6020,8 @@
  },
  "func_0802A510": {
   "addr": 134391056,
+  "claimed_at": 1793003965.7163768,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 120,
   "size": 1154,
@@ -5936,6 +6030,8 @@
  },
  "func_0802A588": {
   "addr": 134391176,
+  "claimed_at": 1793003965.7163773,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 592,
   "size": 5469,
@@ -5944,6 +6040,8 @@
  },
  "func_0802A7D8": {
   "addr": 134391768,
+  "claimed_at": 1793003965.7163775,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 8,
   "size": 127,
@@ -5952,6 +6050,8 @@
  },
  "func_0802A7E0": {
   "addr": 134391776,
+  "claimed_at": 1793003965.7163782,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 676,
   "size": 6297,
@@ -5960,6 +6060,8 @@
  },
  "func_0802AA84": {
   "addr": 134392452,
+  "claimed_at": 1793003965.7163785,
+  "claimed_by": "opencode",
   "module": "code_entities.s",
   "ref_len": 276,
   "size": 2565,
@@ -22307,6 +22409,7 @@
  },
  "func_080DE298": {
   "addr": 135127704,
+  "judged_mtime": 0,
   "module": "code_linkonce.s",
   "note": "m2c gagal; tulis manual",
   "ref_len": 7148,
