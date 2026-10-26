@@ -23,3 +23,8 @@ u32 func_08010E60(u8 *arg0) {
 u32 func_08010F04(u8 *arg0) {
     return (u32) (*arg0 << 0x1B) >> 0x1F;
 }
+
+// DECOMP-MATCHED func_08010F24 (dari game_state.s; cek manusia sebelum ke src/)
+void func_08010F24(u8 *arg0) {
+    *arg0 |= 1;
+}
