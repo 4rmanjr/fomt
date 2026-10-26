@@ -7,50 +7,92 @@
 	.type	 func_08011DC4,function
 	.thumb_func
 func_08011DC4:
-	push	{r4, r5, r6, lr}
-	add	r4, r0, #0
+	push	{r4, r5, r6, r7, lr}
+	add	r5, r0, #0
+	ldr	r0, .L3
+	str	r0, [r5]
 	mov	r0, #0xf8
 	bl	__builtin_new
-	add	r5, r0, #0
-	add	r0, r0, #0x10
+	add	r6, r0, #0
+	add	r1, r6, #0
+	add	r1, r1, #0xf4
+	ldr	r0, .L3+0x4
+	str	r0, [r1]
+	mov	r4, #0x0
+	str	r4, [r6]
+	str	r4, [r6, #0x4]
+	add	r0, r6, #0
+	add	r0, r0, #0x8
+	str	r4, [r0, #0x4]
+	add	r0, r0, #0x8
 	bl	func_080096B0
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0x68
 	bl	func_08008980
-	add	r0, r5, #0
-	add	r0, r0, #0xbc
+	add	r2, r6, #0
+	add	r2, r2, #0x6c
+	str	r4, [r6, #0x6c]
+	str	r4, [r2, #0x4]
+	ldr	r0, .L3+0x8
+	str	r0, [r2, #0x8]
+	add	r1, r6, #0
+	add	r1, r1, #0x7c
+	str	r1, [r2, #0xc]
+	str	r4, [r6, #0x7c]
+	str	r4, [r1, #0x4]
+	ldr	r0, .L3+0xc
+	str	r0, [r1, #0x8]
+	add	r0, r6, #0
+	add	r0, r0, #0x78
+	str	r0, [r2, #0x10]
+	str	r1, [r2, #0x14]
+	str	r5, [r0, #0x10]
+	add	r0, r0, #0x28
+	str	r4, [r0]
+	str	r4, [r0, #0x4]
+	add	r0, r0, #0x1c
 	mov	r1, #0x0
 	bl	func_08008B54
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xc0
 	mov	r1, #0x1
 	bl	func_08008B54
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xc4
 	mov	r1, #0x2
 	bl	func_08008B54
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xc8
 	mov	r1, #0x3
 	bl	func_08008B54
-	add	r0, r5, #0
+	add	r0, r6, #0
 	add	r0, r0, #0xcc
 	mov	r1, #0x4
 	bl	func_08008B54
-	ldr	r0, .L3
-	strh	r6, [r0]
-	ldr	r0, .L3+0x4
+	add	r0, r6, #0
+	add	r0, r0, #0xd0
+	str	r4, [r0]
+	str	r4, [r0, #0x4]
+	str	r7, [r6, #0x14]
+	ldr	r0, .L3+0x10
+	strh	r7, [r0]
+	str	r6, [r5, #0x4]
+	ldr	r0, .L3+0x14
 	ldr	r0, [r0]
 	add	r0, r0, #0x8
-	add	r1, r4, #0
+	add	r1, r5, #0
 	bl	SetUnk__12ScriptEnginePv
-	add	r0, r4, #0
-	pop	{r4, r5, r6}
+	add	r0, r5, #0
+	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
 .L4:
 	.align	2, 0
 .L3:
+	.word	vtable_unk_080E5E64
+	.word	vtable_unk_080E5C08
+	.word	vtable_unk_080E5BB4
+	.word	vtable_unk_080E5BD8
 	.word	0x4000004
 	.word	gUnk_0300040C
 .Lfe1:

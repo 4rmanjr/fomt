@@ -11,9 +11,22 @@ func_08011FE8:
 	add	r4, r0, #0
 	add	r5, r1, #0
 	ldr	r0, .L4
+	str	r0, [r4]
+	ldr	r0, .L4+0x4
 	ldr	r0, [r0]
 	add	r0, r0, #0x8
 	bl	ClearUnk__12ScriptEngine
+	ldr	r1, [r4, #0x4]
+	cmp	r1, #0
+	beq	.L3	@cond_branch
+	add	r0, r1, #0
+	add	r0, r0, #0xf4
+	ldr	r0, [r0]
+	ldr	r2, [r0, #0x8]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L3:
 	add	r0, r4, #0
 	add	r1, r5, #0
 	bl	func_080007EC
@@ -23,6 +36,7 @@ func_08011FE8:
 .L5:
 	.align	2, 0
 .L4:
+	.word	vtable_unk_080E5E64
 	.word	gUnk_0300040C
 .Lfe1:
 	.size	 func_08011FE8,.Lfe1-func_08011FE8

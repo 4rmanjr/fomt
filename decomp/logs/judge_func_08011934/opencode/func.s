@@ -12,308 +12,430 @@ func_08011934:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0xc
+	add	sp, sp, #-0x20
+	mov	r8, r2
+	str	r0, [sp, #0x8]
+	str	r1, [sp, #0xc]
+	ldr	r1, .L54
 	mov	r0, sp
-	mov	r1, #0x0
 	mov	r2, #0x3
 	bl	memcpy
 	add	r0, sp, #0x4
-	mov	r1, #0x0
+	ldr	r1, .L54+0x4
 	mov	r2, #0x2
 	bl	memcpy
 	mov	r0, #0x1
-	mov	r9, r0
-	mov	r5, #0x0
-	mov	r0, #0x0
-	bl	GetCapacity__C4Coop
-	add	r7, r0, #0
-	mov	r6, #0x0
-	add	r4, r4, #0x8c
-	mov	sl, r4
-	cmp	r7, #0
-	beq	.L3	@cond_branch
-	ldr	r1, .L54
-	mov	r8, r1
-.L4:
-	mov	r0, #0x0
-	add	r1, r6, #0
-	bl	GetChicken__4CoopUi
-	cmp	r0, #0
-	beq	.L7	@cond_branch
-	bl	method_0809B514__C9Livestock
-	ldr	r1, [sp, #0x8]
-	cmp	r0, r1
-	bne	.L7	@cond_branch
-	mov	r0, r9
-	cmp	r0, #0
-	beq	.L8	@cond_branch
+	str	r0, [sp, #0x10]
 	mov	r1, #0x0
 	mov	r9, r1
+	ldr	r0, [sp, #0x8]
+	add	r0, r0, #0x8c
+	ldr	r0, [r0]
+	mov	r2, #0x82
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
+	bl	GetCapacity__C4Coop
+	str	r0, [sp, #0x14]
+	mov	r0, #0x0
+	mov	sl, r0
+	ldr	r1, [sp, #0x14]
+	cmp	r1, #0
+	beq	.L3	@cond_branch
+.L4:
+	ldr	r0, [sp, #0x8]
+	add	r0, r0, #0x8c
+	ldr	r0, [r0]
+	mov	r2, #0x82
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
+	mov	r1, sl
+	bl	GetChicken__4CoopUi
+	add	r7, r0, #0
+	cmp	r7, #0
+	beq	.L7	@cond_branch
+	bl	method_0809B514__C9Livestock
+	ldr	r1, [sp, #0xc]
+	cmp	r0, r1
+	bne	.L7	@cond_branch
+	ldr	r2, [sp, #0x10]
+	cmp	r2, #0
+	beq	.L8	@cond_branch
+	mov	r0, #0x0
+	str	r0, [sp, #0x10]
 	b	.L9
 .L55:
 	.align	2, 0
 .L54:
-	.word	0x383
+	.word	gUnk_080F0654
+	.word	gUnk_080F0658
 .L8:
-	mov	r0, #0x0
+	mov	r0, r8
 	bl	strlen
-	mov	r1, r8
+	lsl	r1, r0, #0x2
+	mov	r2, r8
+	add	r5, r2, r1
+	ldr	r1, .L56
 	sub	r4, r1, r0
 	cmp	r4, #0
 	beq	.L9	@cond_branch
-	mov	r0, #0x0
+	ldr	r6, .L56+0x4
+	add	r0, r6, #0
 	bl	strlen
 	add	r2, r0, #0
 	cmp	r2, r4
 	bls	.L11	@cond_branch
 	add	r2, r4, #0
 .L11:
-	mov	r0, #0x0
-	mov	r1, #0x0
+	add	r0, r5, #0
+	add	r1, r6, #0
 	bl	memcpy
 .L9:
-	mov	r0, #0x0
+	add	r0, r7, #0
+	bl	GetName__C6Animal
+	add	r7, r0, #0
+	mov	r0, r8
 	bl	strlen
-	mov	r1, r8
-	sub	r4, r1, r0
-	cmp	r4, #0
+	lsl	r1, r0, #0x2
+	mov	r2, r8
+	add	r6, r2, r1
+	ldr	r1, .L56
+	sub	r5, r1, r0
+	cmp	r5, #0
 	beq	.L12	@cond_branch
-	mov	r0, #0x0
+	add	r0, r7, #0
 	bl	strlen
-	add	r2, r0, #0
-	cmp	r2, r4
+	add	r4, r0, #0
+	cmp	r4, r5
 	bls	.L13	@cond_branch
-	add	r2, r4, #0
+	add	r4, r5, #0
 .L13:
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	memcpy
-.L12:
-	add	r5, r5, #0x1
-	cmp	r5, #0x2
-	bls	.L7	@cond_branch
-	mov	r0, #0x0
-	bl	strlen
-	mov	r1, r8
-	sub	r4, r1, r0
-	cmp	r4, #0
-	beq	.L15	@cond_branch
-	mov	r0, #0x0
-	bl	strlen
-	add	r2, r0, #0
-	cmp	r2, r4
-	bls	.L16	@cond_branch
+	add	r0, r6, #0
+	add	r1, r7, #0
 	add	r2, r4, #0
-.L16:
-	mov	r0, #0x0
-	mov	r1, #0x0
 	bl	memcpy
+	add	r1, r6, r4
+	mov	r0, #0x0
+	strb	r0, [r1]
+.L12:
+	mov	r2, #0x1
+	add	r9, r9, r2
+	mov	r0, r9
+	cmp	r0, #0x2
+	bls	.L7	@cond_branch
+	mov	r0, r8
+	bl	strlen
+	lsl	r1, r0, #0x2
+	mov	r2, r8
+	add	r6, r2, r1
+	ldr	r1, .L56
+	sub	r5, r1, r0
+	cmp	r5, #0
+	beq	.L15	@cond_branch
+	ldr	r7, .L56+0x8
+	add	r0, r7, #0
+	bl	strlen
+	add	r4, r0, #0
+	cmp	r4, r5
+	bls	.L16	@cond_branch
+	add	r4, r5, #0
+.L16:
+	add	r0, r6, #0
+	add	r1, r7, #0
+	add	r2, r4, #0
+	bl	memcpy
+	add	r1, r6, r4
+	mov	r0, #0x0
+	strb	r0, [r1]
 .L15:
-	mov	r5, #0x0
+	mov	r2, #0x0
+	mov	r9, r2
 .L7:
-	add	r0, r6, #0x1
-	add	r6, r0, #0
-	cmp	r6, r7
+	mov	r0, sl
+	add	r0, r0, #0x1
+	mov	sl, r0
+	ldr	r0, [sp, #0x14]
+	cmp	sl, r0
 	bcc	.L4	@cond_branch
 .L3:
-	mov	r0, #0x0
-	bl	GetCapacity__C4Barn
-	mov	r8, r0
-	mov	r6, #0x0
-	cmp	r0, #0
-	beq	.L19	@cond_branch
-	ldr	r7, .L56
-.L20:
-	mov	r1, sl
-	ldr	r0, [r1]
+	ldr	r4, [sp, #0x8]
+	add	r4, r4, #0x8c
+	ldr	r0, [r4]
 	mov	r1, #0xbe
 	lsl	r1, r1, #0x3
 	add	r0, r0, r1
-	add	r1, r6, #0
-	bl	GetCow__4BarnUi
+	bl	GetCapacity__C4Barn
+	str	r0, [sp, #0x18]
+	mov	r2, #0x0
+	mov	sl, r2
+	str	r4, [sp, #0x1c]
 	cmp	r0, #0
+	beq	.L19	@cond_branch
+.L20:
+	ldr	r1, [sp, #0x1c]
+	ldr	r0, [r1]
+	mov	r2, #0xbe
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
+	mov	r1, sl
+	bl	GetCow__4BarnUi
+	add	r4, r0, #0
+	cmp	r4, #0
 	beq	.L23	@cond_branch
 	bl	method_0809B514__C9Livestock
-	ldr	r1, [sp, #0x8]
+	ldr	r1, [sp, #0xc]
 	cmp	r0, r1
 	bne	.L23	@cond_branch
-	mov	r0, r9
-	cmp	r0, #0
+	ldr	r2, [sp, #0x10]
+	cmp	r2, #0
 	beq	.L24	@cond_branch
-	mov	r1, #0x0
-	mov	r9, r1
+	mov	r0, #0x0
+	str	r0, [sp, #0x10]
 	b	.L25
 .L57:
 	.align	2, 0
 .L56:
 	.word	0x383
+	.word	gUnk_080F0654
+	.word	gUnk_080F0658
 .L24:
-	mov	r0, #0x0
+	mov	r0, r8
 	bl	strlen
-	sub	r4, r7, r0
-	cmp	r4, #0
+	lsl	r1, r0, #0x2
+	mov	r2, r8
+	add	r6, r2, r1
+	ldr	r1, .L58
+	sub	r5, r1, r0
+	cmp	r5, #0
 	beq	.L25	@cond_branch
-	mov	r0, #0x0
+	ldr	r7, .L58+0x4
+	add	r0, r7, #0
 	bl	strlen
 	add	r2, r0, #0
-	cmp	r2, r4
+	cmp	r2, r5
 	bls	.L27	@cond_branch
-	add	r2, r4, #0
+	add	r2, r5, #0
 .L27:
-	mov	r0, #0x0
-	mov	r1, #0x0
+	add	r0, r6, #0
+	add	r1, r7, #0
 	bl	memcpy
 .L25:
-	mov	r0, #0x0
+	add	r0, r4, #0
+	bl	GetName__C6Animal
+	add	r7, r0, #0
+	mov	r0, r8
 	bl	strlen
-	sub	r4, r7, r0
-	cmp	r4, #0
+	lsl	r1, r0, #0x2
+	mov	r2, r8
+	add	r6, r2, r1
+	ldr	r1, .L58
+	sub	r5, r1, r0
+	cmp	r5, #0
 	beq	.L28	@cond_branch
-	mov	r0, #0x0
+	add	r0, r7, #0
 	bl	strlen
-	add	r2, r0, #0
-	cmp	r2, r4
+	add	r4, r0, #0
+	cmp	r4, r5
 	bls	.L29	@cond_branch
-	add	r2, r4, #0
+	add	r4, r5, #0
 .L29:
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	memcpy
-.L28:
-	add	r5, r5, #0x1
-	cmp	r5, #0x2
-	bls	.L23	@cond_branch
-	mov	r0, #0x0
-	bl	strlen
-	sub	r4, r7, r0
-	cmp	r4, #0
-	beq	.L31	@cond_branch
-	mov	r0, #0x0
-	bl	strlen
-	add	r2, r0, #0
-	cmp	r2, r4
-	bls	.L32	@cond_branch
+	add	r0, r6, #0
+	add	r1, r7, #0
 	add	r2, r4, #0
-.L32:
-	mov	r0, #0x0
-	mov	r1, #0x0
 	bl	memcpy
+	add	r1, r6, r4
+	mov	r0, #0x0
+	strb	r0, [r1]
+.L28:
+	mov	r2, #0x1
+	add	r9, r9, r2
+	mov	r0, r9
+	cmp	r0, #0x2
+	bls	.L23	@cond_branch
+	mov	r0, r8
+	bl	strlen
+	lsl	r1, r0, #0x2
+	mov	r2, r8
+	add	r6, r2, r1
+	ldr	r1, .L58
+	sub	r5, r1, r0
+	cmp	r5, #0
+	beq	.L31	@cond_branch
+	ldr	r7, .L58+0x8
+	add	r0, r7, #0
+	bl	strlen
+	add	r4, r0, #0
+	cmp	r4, r5
+	bls	.L32	@cond_branch
+	add	r4, r5, #0
+.L32:
+	add	r0, r6, #0
+	add	r1, r7, #0
+	add	r2, r4, #0
+	bl	memcpy
+	add	r1, r6, r4
+	mov	r0, #0x0
+	strb	r0, [r1]
 .L31:
-	mov	r5, #0x0
+	mov	r2, #0x0
+	mov	r9, r2
 .L23:
-	add	r0, r6, #0x1
-	add	r6, r0, #0
-	cmp	r6, r8
+	mov	r0, sl
+	add	r0, r0, #0x1
+	mov	sl, r0
+	ldr	r0, [sp, #0x18]
+	cmp	sl, r0
 	bcc	.L20	@cond_branch
 .L19:
-	mov	r6, #0x0
-	mov	r0, r8
-	cmp	r0, #0
+	mov	r1, #0x0
+	mov	sl, r1
+	ldr	r2, [sp, #0x18]
+	cmp	r2, #0
 	beq	.L35	@cond_branch
-	ldr	r7, .L58
 .L36:
-	mov	r1, sl
+	ldr	r1, [sp, #0x1c]
 	ldr	r0, [r1]
-	mov	r1, #0xbe
-	lsl	r1, r1, #0x3
-	add	r0, r0, r1
-	add	r1, r6, #0
+	mov	r2, #0xbe
+	lsl	r2, r2, #0x3
+	add	r0, r0, r2
+	mov	r1, sl
 	bl	GetSheep__4BarnUi
-	cmp	r0, #0
+	add	r4, r0, #0
+	cmp	r4, #0
 	beq	.L39	@cond_branch
 	bl	method_0809B514__C9Livestock
-	ldr	r1, [sp, #0x8]
+	ldr	r1, [sp, #0xc]
 	cmp	r0, r1
 	bne	.L39	@cond_branch
-	mov	r0, r9
-	cmp	r0, #0
+	ldr	r2, [sp, #0x10]
+	cmp	r2, #0
 	beq	.L40	@cond_branch
-	mov	r1, #0x0
-	mov	r9, r1
+	mov	r0, #0x0
+	str	r0, [sp, #0x10]
 	b	.L41
 .L59:
 	.align	2, 0
 .L58:
 	.word	0x383
+	.word	gUnk_080F0654
+	.word	gUnk_080F0658
 .L40:
-	mov	r0, #0x0
+	mov	r0, r8
 	bl	strlen
-	sub	r4, r7, r0
-	cmp	r4, #0
+	lsl	r1, r0, #0x2
+	mov	r2, r8
+	add	r6, r2, r1
+	ldr	r1, .L60
+	sub	r5, r1, r0
+	cmp	r5, #0
 	beq	.L41	@cond_branch
-	mov	r0, #0x0
+	ldr	r7, .L60+0x4
+	add	r0, r7, #0
 	bl	strlen
 	add	r2, r0, #0
-	cmp	r2, r4
+	cmp	r2, r5
 	bls	.L43	@cond_branch
-	add	r2, r4, #0
+	add	r2, r5, #0
 .L43:
-	mov	r0, #0x0
-	mov	r1, #0x0
+	add	r0, r6, #0
+	add	r1, r7, #0
 	bl	memcpy
 .L41:
-	mov	r0, #0x0
+	add	r0, r4, #0
+	bl	GetName__C6Animal
+	add	r7, r0, #0
+	mov	r0, r8
 	bl	strlen
-	sub	r4, r7, r0
-	cmp	r4, #0
+	lsl	r1, r0, #0x2
+	mov	r2, r8
+	add	r6, r2, r1
+	ldr	r1, .L60
+	sub	r5, r1, r0
+	cmp	r5, #0
 	beq	.L44	@cond_branch
-	mov	r0, #0x0
+	add	r0, r7, #0
 	bl	strlen
-	add	r2, r0, #0
-	cmp	r2, r4
+	add	r4, r0, #0
+	cmp	r4, r5
 	bls	.L45	@cond_branch
-	add	r2, r4, #0
+	add	r4, r5, #0
 .L45:
-	mov	r0, #0x0
-	mov	r1, #0x0
-	bl	memcpy
-.L44:
-	add	r5, r5, #0x1
-	cmp	r5, #0x2
-	bls	.L39	@cond_branch
-	mov	r0, #0x0
-	bl	strlen
-	sub	r4, r7, r0
-	cmp	r4, #0
-	beq	.L47	@cond_branch
-	mov	r0, #0x0
-	bl	strlen
-	add	r2, r0, #0
-	cmp	r2, r4
-	bls	.L48	@cond_branch
+	add	r0, r6, #0
+	add	r1, r7, #0
 	add	r2, r4, #0
-.L48:
-	mov	r0, #0x0
-	mov	r1, #0x0
 	bl	memcpy
+	add	r1, r6, r4
+	mov	r0, #0x0
+	strb	r0, [r1]
+.L44:
+	mov	r2, #0x1
+	add	r9, r9, r2
+	mov	r0, r9
+	cmp	r0, #0x2
+	bls	.L39	@cond_branch
+	mov	r0, r8
+	bl	strlen
+	lsl	r1, r0, #0x2
+	mov	r2, r8
+	add	r6, r2, r1
+	ldr	r1, .L60
+	sub	r5, r1, r0
+	cmp	r5, #0
+	beq	.L47	@cond_branch
+	ldr	r7, .L60+0x8
+	add	r0, r7, #0
+	bl	strlen
+	add	r4, r0, #0
+	cmp	r4, r5
+	bls	.L48	@cond_branch
+	add	r4, r5, #0
+.L48:
+	add	r0, r6, #0
+	add	r1, r7, #0
+	add	r2, r4, #0
+	bl	memcpy
+	add	r1, r6, r4
+	mov	r0, #0x0
+	strb	r0, [r1]
 .L47:
-	mov	r5, #0x0
+	mov	r2, #0x0
+	mov	r9, r2
 .L39:
-	add	r0, r6, #0x1
-	add	r6, r0, #0
-	cmp	r6, r8
+	mov	r0, sl
+	add	r0, r0, #0x1
+	mov	sl, r0
+	ldr	r0, [sp, #0x18]
+	cmp	sl, r0
 	bcc	.L36	@cond_branch
 .L35:
+	mov	r1, r9
+	cmp	r1, #0
+	beq	.L51	@cond_branch
+	mov	r0, r8
+	bl	strlen
+	lsl	r1, r0, #0x2
+	mov	r2, r8
+	add	r6, r2, r1
+	ldr	r1, .L60
+	sub	r5, r1, r0
 	cmp	r5, #0
 	beq	.L51	@cond_branch
-	mov	r0, #0x0
+	ldr	r7, .L60+0x8
+	add	r0, r7, #0
 	bl	strlen
-	ldr	r1, .L60
-	sub	r4, r1, r0
-	cmp	r4, #0
-	beq	.L51	@cond_branch
-	mov	r0, #0x0
-	bl	strlen
-	add	r2, r0, #0
-	cmp	r2, r4
+	add	r4, r0, #0
+	cmp	r4, r5
 	bls	.L53	@cond_branch
-	add	r2, r4, #0
+	add	r4, r5, #0
 .L53:
-	mov	r0, #0x0
-	mov	r1, #0x0
+	add	r0, r6, #0
+	add	r1, r7, #0
+	add	r2, r4, #0
 	bl	memcpy
+	add	r1, r6, r4
+	mov	r0, #0x0
+	strb	r0, [r1]
 .L51:
-	add	sp, sp, #0xc
+	add	sp, sp, #0x20
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -325,5 +447,7 @@ func_08011934:
 	.align	2, 0
 .L60:
 	.word	0x383
+	.word	gUnk_080F0654
+	.word	gUnk_080F0658
 .Lfe1:
 	.size	 func_08011934,.Lfe1-func_08011934

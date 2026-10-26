@@ -77,7 +77,6 @@ void func_08003DF0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp;
     s32 mask;
     s32 var;
-    s32 lo;
     GenObj *p;
     s32 spbuf[2];
 
@@ -99,11 +98,11 @@ skip_add:
         goto skip_set;
     }
     if (arg0->unk80 == 1) {
+        goto skip_set;
+    }
+    spbuf[0] = (0xFFFFFCFF & temp) | 0x200;
 skip_set:
     p = (GenObj *)((u8 *)func_08008920(arg0) + (((0x7F & arg1) * 8) + 4));
     *(s32 *)p = spbuf[0];
-    *(u16 *)((u8 *)p + 4) = *(u16 *)((u8 *)spbuf + 4);
-}
-    *(s32 *)p = lo;
     *(u16 *)((u8 *)p + 4) = *(u16 *)((u8 *)spbuf + 4);
 }
