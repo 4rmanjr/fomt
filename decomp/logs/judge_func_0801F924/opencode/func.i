@@ -57,6 +57,13 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801F924/opencode/func.c" 2
 u32 GetAmountShipped__C11ShippingBini(s32, s32);
 s32 GetId__C7Product(s32);
@@ -64,15 +71,25 @@ s32 HasShippedOneOfEachProduct__C11ShippingBin(s32);
 s32 IsDisplayEnabled__C11ShippingBini(s32, s32);
 s32 Ship__11ShippingBinRC7Product(s32, s32);
 
-void func_0801F924(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk4;
+    u8 _pad8[312];
+    s32 unk140;
+    u8 _pad144[3828];
+    void *unk1038;
+    u8 _pad103C[4438];
+    s32 unk2192;
+} GenObj;
+void func_0801F924(GenObj *arg0, s32 arg1) {
     s32 sp0;
     s32 sp4;
     s32 sp8;
     s32 sp10;
     s32 sp18;
     s32 sp20;
-    s32 sp28;
-    s32 sp30;
+    GenObj *sp28;
+    GenObj *sp30;
     ? (**var_r2)(void *, s32 *, s32);
     ? (*var_r3)(void *, s32 *, s32);
     s32 *var_r1;
@@ -127,7 +144,7 @@ block_20:
         case 0x3B9ACA00:
             sp28 = 0x341;
             sp28.unk4 = temp_r0;
-            arg0->unk0->unk140(arg0, &sp28, 1);
+            ((void (*)(void *,...))(arg0->unk0->unk140))(arg0, &sp28, 1);
             break;
         }
     }
@@ -135,6 +152,6 @@ block_20:
     if ((temp_r5 == 0) && ((HasShippedOneOfEachProduct__C11ShippingBin(temp_r8) << 0x18) != 0)) {
         sp30 = 0x342;
         sp30.unk4 = temp_r5;
-        arg0->unk0->unk140(arg0, &sp30, 1);
+        ((void (*)(void *,...))(arg0->unk0->unk140))(arg0, &sp30, 1);
     }
 }

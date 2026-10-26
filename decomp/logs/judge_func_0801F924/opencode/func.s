@@ -11,68 +11,86 @@ func_0801F924:
 	mov	r7, r9
 	mov	r6, r8
 	push	{r6, r7}
-	add	sp, sp, #-0x14
+	add	sp, sp, #-0x1c
 	mov	r8, r0
-	add	r6, r1, #0
-	add	r0, r6, #0
+	add	r7, r1, #0
+	ldr	r0, .L20
+	add	r0, r0, r8
+	ldr	r0, [r0]
+	add	r6, r0, #0
+	add	r6, r6, #0x54
+	add	r0, r7, #0
 	bl	GetId__C7Product
 	add	r4, r0, #0
-	add	r0, r7, #0
+	add	r0, r6, #0
 	add	r1, r4, #0
 	bl	IsDisplayEnabled__C11ShippingBini
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L3	@cond_branch
-	add	r0, r7, #0
+	add	r0, r6, #0
 	add	r1, r4, #0
 	bl	GetAmountShipped__C11ShippingBini
 	add	r5, r0, #0
 	b	.L4
+.L21:
+	.align	2, 0
+.L20:
+	.word	0x1038
 .L3:
 	mov	r5, #0x0
 .L4:
-	add	r0, r7, #0
-	add	r1, r6, #0
+	add	r0, r6, #0
+	add	r1, r7, #0
 	bl	Ship__11ShippingBinRC7Product
-	add	r0, r7, #0
+	add	r0, r6, #0
 	add	r1, r4, #0
 	bl	GetAmountShipped__C11ShippingBini
 	add	r1, r0, #0
 	cmp	r5, r1
 	bcs	.L5	@cond_branch
-	ldr	r0, .L20
+	ldr	r0, .L22
 	cmp	r1, r0
 	beq	.L11	@cond_branch
 	cmp	r1, r0
 	bhi	.L17	@cond_branch
-	ldr	r0, .L20+0x4
-	cmp	r1, r0
-	beq	.L7	@cond_branch
-	ldr	r0, .L20+0x8
-	cmp	r1, r0
-	beq	.L9	@cond_branch
-	b	.L5
-.L21:
-	.align	2, 0
-.L20:
-	.word	0xf4240
-	.word	0x2710
-	.word	0x186a0
-.L17:
-	ldr	r0, .L22
-	cmp	r1, r0
-	beq	.L13	@cond_branch
-	cmp	r1, r0
-	bhi	.L5	@cond_branch
 	ldr	r0, .L22+0x4
 	cmp	r1, r0
-	beq	.L12	@cond_branch
+	beq	.L7	@cond_branch
+	ldr	r0, .L22+0x8
+	cmp	r1, r0
+	beq	.L9	@cond_branch
 	b	.L5
 .L23:
 	.align	2, 0
 .L22:
+	.word	0xf4240
+	.word	0x2710
+	.word	0x186a0
+.L17:
+	ldr	r0, .L24
+	cmp	r1, r0
+	beq	.L13	@cond_branch
+	cmp	r1, r0
+	bhi	.L18	@cond_branch
+	ldr	r0, .L24+0x4
+	cmp	r1, r0
+	beq	.L12	@cond_branch
+	b	.L5
+.L25:
+	.align	2, 0
+.L24:
 	.word	0x5f5e100
 	.word	0x989680
+.L18:
+	ldr	r0, .L26
+	cmp	r1, r0
+	beq	.L14	@cond_branch
+	b	.L5
+.L27:
+	.align	2, 0
+.L26:
+	.word	0x3b9aca00
 .L7:
 	mov	r0, #0xcf
 	lsl	r0, r0, #0x2
@@ -85,30 +103,30 @@ func_0801F924:
 	b	.L5
 .L9:
 	add	r1, sp, #0x4
-	ldr	r0, .L24
-	str	r0, [sp, #0x4]
-	b	.L8
-.L25:
-	.align	2, 0
-.L24:
-	.word	0x33d
-.L11:
-	add	r1, sp, #0x8
-	ldr	r0, .L26
-	str	r0, [sp, #0x8]
-	b	.L8
-.L27:
-	.align	2, 0
-.L26:
-	.word	0x33e
-.L12:
-	add	r1, sp, #0xc
 	ldr	r0, .L28
-	str	r0, [sp, #0xc]
+	str	r0, [sp, #0x4]
 	b	.L8
 .L29:
 	.align	2, 0
 .L28:
+	.word	0x33d
+.L11:
+	add	r1, sp, #0x8
+	ldr	r0, .L30
+	str	r0, [sp, #0x8]
+	b	.L8
+.L31:
+	.align	2, 0
+.L30:
+	.word	0x33e
+.L12:
+	add	r1, sp, #0xc
+	ldr	r0, .L32
+	str	r0, [sp, #0xc]
+	b	.L8
+.L33:
+	.align	2, 0
+.L32:
 	.word	0x33f
 .L13:
 	add	r1, sp, #0x10
@@ -116,19 +134,52 @@ func_0801F924:
 	lsl	r0, r0, #0x2
 	str	r0, [sp, #0x10]
 	b	.L8
+.L14:
+	ldr	r0, .L34
+	str	r0, [sp, #0x14]
+	mov	r1, r8
+	ldr	r0, [r1]
+	mov	r1, #0xa0
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
+	add	r1, sp, #0x14
+	ldr	r3, [r0]
+	mov	r0, r8
+	mov	r2, #0x1
+	bl	_call_via_r3
 .L5:
 	mov	r0, r9
 	cmp	r0, #0
 	bne	.L19	@cond_branch
-	add	r0, r7, #0
+	add	r0, r6, #0
 	bl	HasShippedOneOfEachProduct__C11ShippingBin
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.L19	@cond_branch
+	ldr	r0, .L34+0x4
+	str	r0, [sp, #0x18]
+	mov	r1, r8
+	ldr	r0, [r1]
+	mov	r1, #0xa0
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
+	add	r1, sp, #0x18
+	ldr	r3, [r0]
+	mov	r0, r8
+	mov	r2, #0x1
+	bl	_call_via_r3
 .L19:
-	add	sp, sp, #0x14
+	add	sp, sp, #0x1c
 	pop	{r3, r4}
 	mov	r8, r3
 	mov	r9, r4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
+.L35:
+	.align	2, 0
+.L34:
+	.word	0x341
+	.word	0x342
 .Lfe1:
 	.size	 func_0801F924,.Lfe1-func_0801F924

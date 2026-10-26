@@ -7,7 +7,7 @@
 	.type	 func_0801F2DC,function
 	.thumb_func
 func_0801F2DC:
-	push	{r4, lr}
+	push	{r4, r5, lr}
 	add	r4, r0, #0
 	cmp	r1, #0x3
 	bls	.L11	@cond_branch
@@ -58,12 +58,30 @@ func_0801F2DC:
 .L12:
 	add	r3, r4, #0
 	bl	func_080A4A00
-	pop	{r4}
+	add	r5, r0, #0
+	ldr	r1, .L21+0x4
+	add	r0, r4, r1
+	ldr	r1, [r0]
+	cmp	r5, r1
+	beq	.L13	@cond_branch
+	cmp	r1, #0
+	beq	.L13	@cond_branch
+	ldr	r0, [r1, #0x28]
+	ldr	r2, [r0, #0x8]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L13:
+	ldr	r2, .L21+0x4
+	add	r0, r4, r2
+	str	r5, [r0]
+	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
 .L22:
 	.align	2, 0
 .L21:
 	.word	0xff4
+	.word	0x1068
 .Lfe1:
 	.size	 func_0801F2DC,.Lfe1-func_0801F2DC

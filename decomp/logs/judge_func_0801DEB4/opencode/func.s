@@ -12,104 +12,154 @@ func_0801DEB4:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x14
+	add	sp, sp, #-0x1c
+	mov	sl, r0
+	str	r1, [sp, #0x4]
+	mov	r0, #0x0
+	mov	r9, r0
+	mov	r8, r0
 	mov	r1, #0x0
-	mov	r8, r1
-	mov	r6, #0x0
-	mov	r9, r6
-	mov	ip, r6
+	str	r1, [sp, #0x8]
 	mov	r4, #0x0
-	mov	r2, r0
-	mul	r2, r2, r0
-	str	r2, [sp, #0x10]
+	ldr	r0, .L30
+	add	r0, r0, sl
+	ldr	r0, [r0]
+	ldr	r3, .L30+0x4
+	add	r3, r0, r3
+	str	r3, [sp, #0x18]
+	mov	r0, r2
+	mul	r0, r0, r2
+	mov	ip, r0
 .L3:
-	mov	r3, #0x0
+	mov	r5, #0x0
 	mov	r0, #0xac
 	mul	r0, r0, r4
-	ldr	r1, [sp, #0xc]
-	add	r2, r0, r1
-	add	r5, r4, #0x1
+	ldr	r2, [sp, #0x18]
+	add	r3, r0, r2
+	lsl	r0, r4, #0x4
+	add	r6, r0, #0
+	add	r6, r6, #0xb8
+	add	r7, r4, #0x1
 .L6:
-	ldr	r1, [r2]
-	lsl	r0, r1, #0x18
+	ldr	r2, [r3]
+	lsl	r0, r2, #0x18
 	lsr	r0, r0, #0x1a
 	cmp	r0, #0x14
 	bne	.L7	@cond_branch
-	lsl	r0, r1, #0x14
+	lsl	r0, r2, #0x14
 	lsr	r0, r0, #0x1c
 	cmp	r0, #0x5
 	bne	.L7	@cond_branch
-	mov	r0, r7
-	mul	r0, r0, r7
-	ldr	r1, [sp, #0x10]
-	add	r0, r1, r0
-	mov	r1, ip
+	ldr	r2, [sp, #0x4]
+	ldr	r0, [r2, #0x4]
+	sub	r0, r6, r0
+	mov	r2, r0
+	mul	r2, r2, r0
+	add	r0, r2, #0
+	add	r0, r0, ip
 	cmp	r1, #0
 	beq	.L8	@cond_branch
-	cmp	r0, r8
+	cmp	r0, r9
 	bge	.L7	@cond_branch
 .L8:
 	mov	r1, #0x1
-	mov	ip, r1
-	add	r6, r3, #0
-	mov	r9, r4
-	mov	r8, r0
+	mov	r8, r5
+	str	r4, [sp, #0x8]
+	mov	r9, r0
 .L7:
-	add	r2, r2, #0x10
-	add	r3, r3, #0x1
-	cmp	r3, #0x2a
+	add	r3, r3, #0x10
+	add	r5, r5, #0x1
+	cmp	r5, #0x2a
 	bls	.L6	@cond_branch
-	add	r4, r5, #0
+	add	r4, r7, #0
 	cmp	r4, #0x18
 	bls	.L3	@cond_branch
-	mov	r2, ip
-	cmp	r2, #0
+	cmp	r1, #0
 	bne	.L12	@cond_branch
 	mov	r0, #0x0
 	b	.L29
+.L31:
+	.align	2, 0
+.L30:
+	.word	0x103c
+	.word	0x9dc
 .L12:
 	mov	r0, #0x2b
-	mov	r4, r9
+	ldr	r3, [sp, #0x8]
+	mov	r4, r3
 	mul	r4, r4, r0
-	add	r4, r6, r4
-	mov	r0, #0x0
+	add	r4, r4, r8
+	ldr	r0, .L32
+	add	r0, r0, sl
+	lsl	r1, r4, #0x2
+	ldr	r2, .L32+0x4
+	add	r1, r1, r2
+	ldr	r0, [r0]
+	add	r0, r0, r1
 	bl	method_0800A3C8__9FieldPlot
-	lsl	r0, r6, #0x1
-	add	r0, r0, #0x22
-	str	r0, [sp, #0x4]
-	mov	r3, r9
+	mov	r3, r8
 	lsl	r0, r3, #0x1
+	add	r0, r0, #0x22
+	str	r0, [sp, #0xc]
+	mov	r0, sl
+	ldr	r0, [r0, #0x8]
+	str	r0, [sp, #0x10]
+	ldr	r1, [sp, #0x8]
+	lsl	r0, r1, #0x1
 	add	r0, r0, #0x14
-	mov	r8, r0
-	add	r7, r4, #0
-	sub	r7, r7, #0x2b
-	mov	r4, r9
-	sub	r4, r4, #0x1
-	mov	r0, #0x2
 	mov	r9, r0
+	sub	r4, r4, #0x2b
+	add	r2, r1, #0
+	sub	r2, r2, #0x1
+	mov	r3, #0x2
+	str	r3, [sp, #0x14]
+	ldr	r0, .L32
+	add	sl, sl, r0
+	lsl	r7, r4, #0x2
 .L14:
 	mov	r0, #0x0
-	cmp	r6, #0
+	mov	r1, r8
+	cmp	r1, #0
 	blt	.L17	@cond_branch
-	cmp	r4, #0
+	cmp	r2, #0
 	blt	.L17	@cond_branch
-	cmp	r6, #0x2a
+	cmp	r1, #0x2a
 	bgt	.L17	@cond_branch
-	cmp	r4, #0x18
+	cmp	r2, #0x18
 	bgt	.L17	@cond_branch
 	mov	r0, #0x1
 .L17:
-	add	r5, r4, #0x1
-	mov	r1, #0x0
-	cmp	r1, #0
+	cmp	r0, #0
+	beq	.L18	@cond_branch
+	ldr	r3, .L32+0x4
+	add	r1, r7, r3
+	mov	r4, sl
+	ldr	r0, [r4]
+	add	r6, r0, r1
+	b	.L19
+.L33:
+	.align	2, 0
+.L32:
+	.word	0x103c
+	.word	0x9dc
+.L18:
+	mov	r6, #0x0
+.L19:
+	add	r5, r2, #0x1
+	cmp	r6, #0
 	beq	.L20	@cond_branch
+	mov	r1, sl
+	ldr	r0, [r1]
+	ldr	r4, .L34
+	add	r3, r0, r4
 	add	r1, r5, #0
 	mov	r0, #0x0
-	cmp	r6, #0
+	mov	r4, r8
+	cmp	r4, #0
 	blt	.L21	@cond_branch
 	cmp	r5, #0
 	blt	.L21	@cond_branch
-	cmp	r6, #0x2a
+	cmp	r4, #0x2a
 	bgt	.L21	@cond_branch
 	cmp	r5, #0x18
 	bgt	.L21	@cond_branch
@@ -119,21 +169,25 @@ func_0801DEB4:
 	beq	.L22	@cond_branch
 	mov	r0, #0x2b
 	mul	r0, r0, r1
-	add	r0, r0, r6
+	add	r0, r0, r8
 	lsl	r0, r0, #0x2
-	mov	r2, sl
-	add	r1, r2, r0
+	add	r1, r3, r0
 	b	.L23
+.L35:
+	.align	2, 0
+.L34:
+	.word	0x9dc
 .L22:
 	mov	r1, #0x0
 .L23:
-	sub	r4, r4, #0x1
+	sub	r4, r2, #0x1
 	mov	r0, #0x0
-	cmp	r6, #0
+	mov	r2, r8
+	cmp	r2, #0
 	blt	.L24	@cond_branch
 	cmp	r4, #0
 	blt	.L24	@cond_branch
-	cmp	r6, #0x2a
+	cmp	r2, #0x2a
 	bgt	.L24	@cond_branch
 	cmp	r4, #0x18
 	bgt	.L24	@cond_branch
@@ -143,36 +197,34 @@ func_0801DEB4:
 	beq	.L25	@cond_branch
 	mov	r0, #0x2b
 	mul	r0, r0, r4
-	add	r0, r0, r6
+	add	r0, r0, r8
 	lsl	r0, r0, #0x2
-	mov	r3, sl
 	add	r2, r3, r0
 	b	.L26
 .L25:
 	mov	r2, #0x0
 .L26:
-	lsl	r0, r7, #0x2
-	add	r0, r0, sl
+	add	r0, r7, r3
 	bl	method_0800AF5C__C9FieldPlotPC9FieldPlotT1
 	str	r0, [sp]
-	ldr	r0, [sp, #0x8]
-	ldr	r1, [sp, #0x4]
-	mov	r2, r8
-	mov	r3, #0x0
+	ldr	r0, [sp, #0x10]
+	ldr	r1, [sp, #0xc]
+	mov	r2, r9
+	add	r3, r6, #0
 	bl	func_080AA6D0
 .L20:
-	mov	r0, #0x2
-	add	r8, r8, r0
-	add	r7, r7, #0x2b
-	add	r4, r5, #0
-	mov	r0, r9
+	mov	r3, #0x2
+	add	r9, r9, r3
+	add	r7, r7, #0xac
+	add	r2, r5, #0
+	ldr	r0, [sp, #0x14]
 	sub	r0, r0, #0x1
-	mov	r9, r0
+	str	r0, [sp, #0x14]
 	cmp	r0, #0
 	bge	.L14	@cond_branch
 	mov	r0, #0x1
 .L29:
-	add	sp, sp, #0x14
+	add	sp, sp, #0x1c
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

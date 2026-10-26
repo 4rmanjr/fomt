@@ -1,19 +1,38 @@
 #include "common.h"
 void *GetMapData(s32);                              /* extern */
 s32 SetLocation__7AEntityUiii(void *, s32, s16, s16); /* extern */
-s32 func_080AC070(s32 *, ? *);                      /* extern */
+s32 func_080AC070(s32 *, s32 *);                      /* extern */
 s32 method_0800C9B8__4CoopUi(s32, s32);               /* extern */
 u32 rand();                                         /* extern */
-extern ? gUnk_080F0704;
-extern ? gUnk_080F0718;
-extern ? gUnk_080F0730;
+extern s32 gUnk_080F0704;
+extern s32 gUnk_080F0718;
+extern s32 gUnk_080F0730;
 
-void func_0801E67C(void *arg0, ? arg3) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk2;
+    struct GenObj *unk4;
+    u8 _pad8[4];
+    struct GenObj *unkC;
+    u8 _pad10[4];
+    struct GenObj *unk14;
+    u8 _pad18[8];
+    s32 unk20;
+    s32 unk22;
+    u8 _pad26[6];
+    struct GenObj *unk2C;
+    u8 _pad30[12];
+    s32 unk3C;
+    s32 unk40;
+    u8 _pad44[4084];
+    s32 unk1038;
+} GenObj;
+void func_0801E67C(GenObj *arg0, ? arg3) {
     s32 sp0;
     s32 sp4;
 s32 spC;
-    ? *sp14;
-    ? *var_r1_2;
+    s32 *sp14;
+    s32 *var_r1_2;
     s32 temp_r0;
     s32 var_r8;
     s32 var_sb;
@@ -22,10 +41,10 @@ s32 spC;
     u32 temp_r0_4;
     u32 temp_r0_5;
     u32 var_r1;
-    void *temp_r0_2;
-    void *temp_r0_3;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_3;
     void *temp_r0_6;
-    void *temp_r4;
+    GenObj *temp_r4;
 
     temp_r0 = arg0->unk4->unk4;
     switch (temp_r0) {                              /* switch 1; irregular */
@@ -44,7 +63,7 @@ block_10:
         sp0.unkA = temp_r6;
         var_r8 = 0;
 loop_11:
-        temp_r0_3 = arg0->unk0->unk40(arg0, var_r8);
+        temp_r0_3 = ((void (*)(void *,...))(arg0->unk0->unk40))(arg0, var_r8);
         if (temp_r0_3 == 0) {
 
         } else {
@@ -71,7 +90,7 @@ loop_11:
             case 39:                                /* switch 2 */
             case 40:                                /* switch 2 */
                 if (temp_r0_3->unk4 == 0x1D) {
-                    temp_r0_3->unk14->unkC(&spC, temp_r0_3);
+                    ((void (*)(void *,...))(temp_r0_3->unk14->unkC))(&spC, temp_r0_3);
                     if ((func_080AC070(&sp0, &spC) << 0x18) != 0) {
                         var_sb = 1;
                     }
@@ -98,7 +117,7 @@ loop_11:
                 case 39:                            /* switch 3 */
                 case 40:                            /* switch 3 */
                     if (temp_r0_3 != 0) {
-                        arg0->unk0->unk3C(arg0, var_r8);
+                        ((void (*)(void *,...))(arg0->unk0->unk3C))(arg0, var_r8);
                         method_0800C9B8__4CoopUi(arg0->unk1038 + 0x410, var_r8 - 0x4C);
                     }
                     break;

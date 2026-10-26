@@ -7,75 +7,145 @@
 	.type	 func_0801F77C,function
 	.thumb_func
 func_0801F77C:
-	push	{r4, r5, lr}
+	push	{r4, r5, r6, r7, lr}
 	add	sp, sp, #-0x8
 	add	r4, r0, #0
-	cmp	r1, #0x2
-	beq	.L17	@cond_branch
-	cmp	r1, #0x2
-	bgt	.L21	@cond_branch
+	ldr	r0, .L24
+	add	r6, r4, r0
+	ldr	r1, [r6]
 	cmp	r1, #0
-	beq	.L22	@cond_branch
+	beq	.L3	@cond_branch
+	ldr	r0, [r1, #0x28]
+	ldr	r2, [r0, #0xc]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L3:
+	mov	r7, #0x0
+	str	r7, [r6]
+	ldr	r1, .L24+0x4
+	add	r6, r4, r1
+	ldr	r1, [r6]
+	cmp	r1, #0
+	beq	.L4	@cond_branch
+	ldr	r0, [r1, #0x28]
+	ldr	r2, [r0, #0xc]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L4:
+	str	r7, [r6]
+	cmp	r5, #0x2
+	beq	.L17	@cond_branch
+	cmp	r5, #0x2
+	bgt	.L21	@cond_branch
+	cmp	r5, #0
+	beq	.L23	@cond_branch
 	b	.L2
-.L21:
-	cmp	r1, #0x3
-	beq	.L13	@cond_branch
-	cmp	r1, #0x7
-	bne	.L2	@cond_branch
-	mov	r0, #0x40
-	bl	__builtin_new
-	ldr	r1, .L23
-	add	r5, r4, r1
-	mov	r1, #0x2
-	str	r1, [sp]
-	mov	r1, #0x1f
-	str	r1, [sp, #0x4]
-	add	r1, r5, #0
-	mov	r2, #0x2
-	add	r3, r4, #0
-	bl	func_080A4A00
-	mov	r0, #0x0
-	bl	func_0800E324
-	cmp	r0, #0x3
-	bne	.L2	@cond_branch
-	mov	r0, #0x40
-	bl	__builtin_new
-	add	r1, r5, #0
-.L11:
-	mov	r2, #0x2
-	add	r3, r4, #0
-	bl	func_080A4A00
-	b	.L2
-.L24:
+.L25:
 	.align	2, 0
-.L23:
-	.word	0xf04
-.L13:
-	mov	r0, #0x0
+.L24:
+	.word	0x1078
+	.word	0x107c
+.L21:
+	cmp	r5, #0x3
+	beq	.L13	@cond_branch
+	cmp	r5, #0x7
+	bne	.L2	@cond_branch
+	mov	r0, #0x40
+	bl	__builtin_new
+	ldr	r2, .L26
+	add	r1, r4, r2
+	mov	r2, #0x2
+	str	r2, [sp]
+	mov	r2, #0x1f
+	str	r2, [sp, #0x4]
+	mov	r2, #0x2
+	add	r3, r4, #0
+	bl	func_080A4A00
+	add	r5, r0, #0
+	ldr	r1, [r6]
+	cmp	r5, r1
+	beq	.L8	@cond_branch
+	cmp	r1, #0
+	beq	.L8	@cond_branch
+	ldr	r0, [r1, #0x28]
+	ldr	r2, [r0, #0xc]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L8:
+	ldr	r1, .L26+0x4
+	add	r0, r4, r1
+	str	r5, [r0]
+	ldr	r2, .L26+0x8
+	add	r0, r4, r2
+.L22:
+	ldr	r0, [r0]
+	add	r0, r0, #0x10
 	bl	func_0800E324
 	cmp	r0, #0x3
 	bne	.L2	@cond_branch
+.L23:
+	mov	r0, #0x40
+	bl	__builtin_new
+	ldr	r2, .L26
+	add	r1, r4, r2
+	mov	r2, #0x2
+	add	r3, r4, #0
+	bl	func_080A4A00
+	add	r5, r0, #0
+	ldr	r1, .L26+0xc
+	add	r0, r4, r1
+	ldr	r1, [r0]
+	cmp	r5, r1
+	beq	.L12	@cond_branch
+	cmp	r1, #0
+	beq	.L12	@cond_branch
+	ldr	r0, [r1, #0x28]
+	ldr	r2, [r0, #0xc]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L12:
+	ldr	r2, .L26+0xc
+	add	r0, r4, r2
+	str	r5, [r0]
+	b	.L2
+.L27:
+	.align	2, 0
+.L26:
+	.word	0xf04
+	.word	0x107c
+	.word	0x103c
+	.word	0x1078
+.L13:
+	ldr	r1, .L28
+	add	r0, r4, r1
 	b	.L22
+.L29:
+	.align	2, 0
+.L28:
+	.word	0x103c
 .L17:
-	mov	r0, #0x0
+	ldr	r1, .L30
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	mov	r2, #0xfa
+	lsl	r2, r2, #0x1
+	add	r0, r0, r2
 	bl	IsFireplaceLighted__C9FarmHouse
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L2	@cond_branch
-.L22:
-	mov	r0, #0x40
-	bl	__builtin_new
-	ldr	r2, .L25
-	add	r1, r4, r2
-	b	.L11
-.L26:
-	.align	2, 0
-.L25:
-	.word	0xf04
+	bne	.L23	@cond_branch
 .L2:
 	add	sp, sp, #0x8
-	pop	{r4, r5}
+	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
+.L31:
+	.align	2, 0
+.L30:
+	.word	0x103c
 .Lfe1:
 	.size	 func_0801F77C,.Lfe1-func_0801F77C

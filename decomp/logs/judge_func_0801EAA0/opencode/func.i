@@ -57,6 +57,13 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801EAA0/opencode/func.c" 2
 void *GetMapData(s32);
 s32 func_080167CC(s32);
@@ -66,7 +73,27 @@ s32 func_0809C5F4(s32);
 extern s32 gUnk_080F0748;
 extern s32 gUnk_080F0770;
 
-void func_0801EAA0(void *arg0, u16 *arg1, s32 arg61, void *arg62, ? argC6, u16 *argC8, u16 *argC9, s32 argCA, void **argCB, void *argCC, void *argCD, u8 argCE, u8 argCF) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk1;
+    struct GenObj *unk2;
+    struct GenObj *unk4;
+    void *unk8;
+    u8 _padC[4];
+    s32 unk10;
+    struct GenObj *unk14;
+    s32 unk18;
+    u8 _pad1C[264];
+    s32 unk124;
+    s32 unk128;
+    u8 _pad12C[3852];
+    s32 unk1038;
+    s32 unk103C;
+    void *unk1040;
+    u8 _pad1044[16];
+    s32 unk1054;
+} GenObj;
+void func_0801EAA0(GenObj *arg0, u16 *arg1, s32 arg61, void *arg62, ? argC6, u16 *argC8, u16 *argC9, s32 argCA, void **argCB, void *argCC, void *argCD, u8 argCE, u8 argCF) {
     s32 *temp_r0_3;
     s32 *temp_r0_6;
     s32 *var_r2;
@@ -96,30 +123,30 @@ void func_0801EAA0(void *arg0, u16 *arg1, s32 arg61, void *arg62, ? argC6, u16 *
     void **var_r4_3;
     void **var_r4_4;
     void **var_r4_5;
-    void *temp_r0_10;
+    GenObj *temp_r0_10;
     void *temp_r0_2;
     void *temp_r0_4;
-    void *temp_r0_9;
-    void *temp_r1_3;
-    void *temp_r1_5;
-    void *temp_r2;
-    void *temp_r2_3;
-    void *temp_r2_4;
-    void *temp_r3_2;
-    void *temp_r3_3;
-    void *temp_r4;
-    void *temp_r6_2;
+    GenObj *temp_r0_9;
+    GenObj *temp_r1_3;
+    GenObj *temp_r1_5;
+    GenObj *temp_r2;
+    GenObj *temp_r2_3;
+    GenObj *temp_r2_4;
+    GenObj *temp_r3_2;
+    GenObj *temp_r3_3;
+    GenObj *temp_r4;
+    GenObj *temp_r6_2;
 
     argC8 = arg1;
     argC9 = arg0->unk1038 + 0x12;
     temp_r0 = arg0->unk103C;
     argCA = (s32) temp_r0;
     if (temp_r0 != 0) {
-        arg0->unk0->unk128(arg0);
+        ((void (*)(void *,...))(arg0->unk0->unk128))(arg0);
     }
-    temp_r5 = arg0 + 8;
+    temp_r5 = (GenObj *)((u8 *)arg0 + 8);
     argCB = temp_r5;
-    temp_r0_2 = arg0 + 0x198;
+    temp_r0_2 = (GenObj *)((u8 *)arg0 + 0x198);
     argCC = temp_r0_2;
     var_r4 = temp_r5;
     temp_r6 = var_r4;
@@ -127,7 +154,7 @@ void func_0801EAA0(void *arg0, u16 *arg1, s32 arg61, void *arg62, ? argC6, u16 *
         do {
             temp_r2 = *var_r4;
             if (temp_r2 != 0) {
-                temp_r2->unk14->unk14(temp_r2);
+                ((void (*)(void *,...))(temp_r2->unk14->unk14))(temp_r2);
             }
             var_r4 += 4;
         } while (var_r4 != argCC);
@@ -136,7 +163,7 @@ void func_0801EAA0(void *arg0, u16 *arg1, s32 arg61, void *arg62, ? argC6, u16 *
     var_r3 = 0;
     var_r2 = &gUnk_080F0748;
     do {
-        temp_r1 = *(temp_r6 + (*var_r2 * 4));
+        temp_r1 = *((u8 *)temp_r6 + (*var_r2 * 4));
         if ((temp_r1 != 0) && (unksp0 <= 0x63U)) {
             temp_r0_3 = (unksp0 * 4) + 4 + sp;
             if (temp_r0_3 != 0) {
@@ -152,7 +179,7 @@ void func_0801EAA0(void *arg0, u16 *arg1, s32 arg61, void *arg62, ? argC6, u16 *
     var_r5 = 0;
     var_r4_2 = &gUnk_080F0770;
     do {
-        temp_r3 = *(temp_r6 + (*var_r4_2 * 4));
+        temp_r3 = *((u8 *)temp_r6 + (*var_r4_2 * 4));
         if (temp_r3 != 0) {
             temp_r0_5 = unksp0.unk194;
             if (temp_r0_5 <= 0x63U) {
@@ -169,7 +196,7 @@ void func_0801EAA0(void *arg0, u16 *arg1, s32 arg61, void *arg62, ? argC6, u16 *
     argCD = &arg61 + ((arg61 * 4) + 4);
     argC6.unk0 = 0;
     argC6.unk4 = 0;
-    temp_r6_2 = arg0 + 0x1040;
+    temp_r6_2 = (GenObj *)((u8 *)arg0 + 0x1040);
 loop_24:
     temp_r0_7 = temp_r6_2->unk4 + 1;
     if (temp_r0_7 < 0x19U) {
@@ -228,7 +255,7 @@ loop_24:
             do {
                 temp_r0_9 = *var_r4_3;
                 var_r4_3 += 4;
-                temp_r0_9->unk14->unk18(temp_r0_9, &argC6);
+                ((void (*)(void *,...))(temp_r0_9->unk14->unk18))(temp_r0_9, &argC6);
             } while (var_r4_3 != temp_r0_4);
         }
         goto loop_24;
@@ -239,7 +266,7 @@ loop_24:
         do {
             temp_r0_10 = *var_r4_4;
             var_r4_4 += 4;
-            temp_r0_10->unk14->unk18(temp_r0_10, &argC6);
+            ((void (*)(void *,...))(temp_r0_10->unk14->unk18))(temp_r0_10, &argC6);
         } while (var_r4_4 != argCD);
     }
     if ((0x7FF & *argC8) != (0x7FF & *argC9)) {
@@ -251,19 +278,19 @@ loop_24:
         do {
             temp_r2_4 = *var_r4_5;
             if (temp_r2_4 != 0) {
-                temp_r2_4->unk14->unk10(temp_r2_4);
+                ((void (*)(void *,...))(temp_r2_4->unk14->unk10))(temp_r2_4);
             }
             var_r4_5 += 4;
         } while (var_r4_5 != argCC);
     }
     if (argCA != 0) {
-        arg0->unk0->unk124(arg0);
+        ((void (*)(void *,...))(arg0->unk0->unk124))(arg0);
     }
     if (GetMapData(arg0->unk4->unk4)->unk24 == 0) {
         temp_r2_5 = arg0->unk1040->unk0;
         func_0801A13C(arg0, (u32) (temp_r2_5 << 0xB) >> 0x1B, (u32) (temp_r2_5 << 5) >> 0x1A, 0);
     }
-    arg0->unk8->unk14->unkA4();
+    arg0->((void (*)(void *,...))(unk8->unk14->unkA4))();
     if (((func_080167CC(arg0->unk1054) << 0x18) != 0) && ((func_0809C5F4(arg0->unk1038 + 0x214C) << 0x18) == 0)) {
         func_0801DB58(arg0);
     }

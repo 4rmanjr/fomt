@@ -18,14 +18,43 @@ s32 func_080A45A8(void *);                          /* extern */
 void *func_080A4A00(s32, s32, u16, void *);         /* extern */
 s32 func_080AC5D0(s32 *, s16, s16);                   /* extern */
 
-s32 func_0801EE00(void *arg0, void *arg1, s32 arg2) {
-    s32 sp0;
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unk9;
+    struct GenObj *unkA;
+    u8 _padE[6];
+    struct GenObj *unk14;
+    u8 _pad18[1];
+    s32 unk19;
+    s32 unk1A;
+    u8 _pad1E[6];
+    struct GenObj *unk24;
+    u8 _pad28[12];
+    s32 unk34;
+    u8 _pad38[44];
+    s32 unk64;
+    u8 _pad68[216];
+    s32 unk140;
+    u8 _pad144[8];
+    s32 unk14C;
+    u8 _pad150[3804];
+    s32 unk102C;
+    u8 _pad1030[8];
+    s32 unk1038;
+} GenObj;
+s32 func_0801EE00(GenObj *arg0, GenObj *arg1, s32 arg2) {
+    GenObj *sp0;
     s32 sp4;
 s32 spC;
 s32 sp10;
 s32 sp14;
     u8 sp18;
-    s32 sp1C;
+    GenObj *sp1C;
     s8 sp24;
     s32 sp28;
     s32 sp2C;
@@ -45,26 +74,26 @@ s32 sp14;
     s32 var_r6;
     u16 var_r0_2;
     u16 var_r5_2;
-    void *temp_r0;
+    GenObj *temp_r0;
     void *temp_r0_5;
     void *temp_r0_7;
-    void *temp_r1;
-    void *temp_r1_2;
-    void *temp_r1_3;
-    void *temp_r4;
-    void *temp_r6;
+    GenObj *temp_r1;
+    GenObj *temp_r1_2;
+    GenObj *temp_r1_3;
+    GenObj *temp_r4;
+    GenObj *temp_r6;
     void *temp_r8;
 
-    arg0->unk0->unk34(&spC, arg0, (u32) (arg1->unk0 << 0x16) >> 0x16);
+    ((void (*)(void *,...))(arg0->unk0->unk34))(&spC, arg0, (u32) (arg1->unk0 << 0x16) >> 0x16);
     sp2C = (s32) (u8) (func_080AC5D0(&spC, (s16) (((arg1->unk2 & 0x3FF) << 6) | ((u8) arg1->unk1 >> 2)), (s16) (((arg1->unk4 & 0x3FF) << 6) | ((u8) arg1->unk3 >> 2))) ^ 1);
     sp30 = 0;
     var_r6 = 1;
-    sp38 = &sp0 + 0x28;
-    sp34 = (s8 *) (&sp0 + 8);
+    sp38 = &(GenObj *)((u8 *)sp0 + 0x28);
+    sp34 = (s8 *) (&(GenObj *)((u8 *)sp0 + 8));
     if (sp2C != 0) {
 
     } else {
-        temp_r0 = arg0->unk0->unk14C(arg0);
+        temp_r0 = ((void (*)(void *,...))(arg0->unk0->unk14C))(arg0);
         var_r4 = temp_r0->unk0;
         temp_r5 = temp_r0->unk4;
         if (var_r4 != temp_r5) {
@@ -130,7 +159,7 @@ block_27:
     if (sp30 != 0) {
         sp1C = sp30;
         sp1C.unk4 = 0;
-        arg0->unk0->unk140(arg0);
+        ((void (*)(void *,...))(arg0->unk0->unk140))(arg0);
     }
     if (var_r6 != 0) {
         temp_r2 = arg0->unk1038;
@@ -159,12 +188,12 @@ block_38:
     }
     sp28 = (s16) (((arg1->unk2 & 0x3FF) << 6) | ((u8) arg1->unk1 >> 2));
     sp38->unk2 = (s16) (((arg1->unk4 & 0x3FF) << 6) | ((u8) arg1->unk3 >> 2));
-    temp_r4 = arg0 + 0x102C;
-    temp_r6_2 = arg0->unk0->unk64(arg0);
+    temp_r4 = (GenObj *)((u8 *)arg0 + 0x102C);
+    temp_r6_2 = ((void (*)(void *,...))(arg0->unk0->unk64))(arg0);
     temp_r4->unk4 = sp28;
     temp_r1 = arg0->unk102C;
     if ((temp_r1 != 0) && (temp_r1 != 0)) {
-        temp_r1->unk24->unk8(temp_r1, 3);
+        ((void (*)(void *,...))(temp_r1->unk24->unk8))(temp_r1, 3);
     }
     arg0->unk102C = 0;
     temp_r4->unk8 = (u8) sp2C;
@@ -176,7 +205,7 @@ block_38:
         temp_r0_5 = func_080A4A00(temp_r0_4, temp_r6_2, var_r5_2, arg0);
         temp_r1_2 = arg0->unk102C;
         if ((temp_r0_5 != temp_r1_2) && (temp_r1_2 != 0)) {
-            temp_r1_2->unk24->unk8(temp_r1_2, 3);
+            ((void (*)(void *,...))(temp_r1_2->unk24->unk8))(temp_r1_2, 3);
         }
         arg0->unk102C = temp_r0_5;
         temp_r4->unk9 = 0x10;
@@ -190,7 +219,7 @@ block_38:
     temp_r0_7 = func_080A4A00(temp_r0_6, temp_r6_2, 0x1A9U, arg0);
     temp_r1_3 = arg0->unk102C;
     if ((temp_r0_7 != temp_r1_3) && (temp_r1_3 != 0)) {
-        temp_r1_3->unk24->unk8(temp_r1_3, 3);
+        ((void (*)(void *,...))(temp_r1_3->unk24->unk8))(temp_r1_3, 3);
     }
     arg0->unk102C = temp_r0_7;
     return 0;

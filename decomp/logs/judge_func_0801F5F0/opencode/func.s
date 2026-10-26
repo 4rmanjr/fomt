@@ -9,12 +9,21 @@
 func_0801F5F0:
 	push	{r4, lr}
 	add	r4, r0, #0
-	mov	r0, #0x0
+	ldr	r1, .L3
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
 	bl	SetVaseArticleId__9FarmHouseUi
 	add	r0, r4, #0
 	bl	func_0801F3E4
 	pop	{r4}
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	0x1038
 .Lfe1:
 	.size	 func_0801F5F0,.Lfe1-func_0801F5F0

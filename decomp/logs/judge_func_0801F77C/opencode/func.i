@@ -57,58 +57,80 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801F77C/opencode/func.c" 2
 s32 IsFireplaceLighted__C9FarmHouse(void *);
 s32 __builtin_new(s32);
 s32 func_0800E324(void *);
 void *func_080A4A00(s32, void *, s32, void *, s32, s32);
 
-void func_0801F77C(void *arg0) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk3;
+    s32 unk4;
+    struct GenObj *unk8;
+    u8 _padC[8];
+    s32 unk14;
+    u8 _pad18[12];
+    struct GenObj *unk24;
+    u8 _pad28[4112];
+    void *unk1038;
+    u8 _pad103C[56];
+    s32 unk1074;
+    s32 unk1078;
+} GenObj;
+void func_0801F77C(GenObj *arg0) {
     s8 sp8;
     s32 temp_r0;
     s32 temp_r0_2;
     s32 var_r0;
     void *temp_r0_3;
     void *temp_r0_4;
-    void *temp_r1;
-    void *temp_r1_2;
-    void *temp_r1_3;
-    void *temp_r1_4;
+    GenObj *temp_r1;
+    GenObj *temp_r1_2;
+    GenObj *temp_r1_3;
+    GenObj *temp_r1_4;
     void *var_r1;
 
     temp_r1 = arg0->unk1074;
     if ((temp_r1 != 0) && (temp_r1 != 0)) {
-        temp_r1->unk24->unk8(temp_r1, 3);
+        ((void (*)(void *,...))(temp_r1->unk24->unk8))(temp_r1, 3);
     }
     arg0->unk1074 = 0;
     temp_r1_2 = arg0->unk1078;
     if ((temp_r1_2 != 0) && (temp_r1_2 != 0)) {
-        temp_r1_2->unk24->unk8(temp_r1_2, 3);
+        ((void (*)(void *,...))(temp_r1_2->unk24->unk8))(temp_r1_2, 3);
     }
     arg0->unk1078 = 0;
-    temp_r0 = arg0->unk0->unk14(arg0);
+    temp_r0 = ((void (*)(void *,...))(arg0->unk0->unk14))(arg0);
     switch (temp_r0) {
     case 7:
         if ((arg0->unk1038->unk4 << 0x1F) != 0) {
             temp_r0_2 = __builtin_new(0x40);
             sp8 = 0;
-            temp_r0_3 = func_080A4A00(temp_r0_2, arg0 + 0xF04, 2, arg0, 2, 0x1F);
+            temp_r0_3 = func_080A4A00(temp_r0_2, (GenObj *)((u8 *)arg0 + 0xF04), 2, arg0, 2, 0x1F);
             temp_r1_3 = arg0->unk1078;
             if ((temp_r0_3 != temp_r1_3) && (temp_r1_3 != 0)) {
-                temp_r1_3->unk24->unk8(temp_r1_3, 3);
+                ((void (*)(void *,...))(temp_r1_3->unk24->unk8))(temp_r1_3, 3);
             }
             arg0->unk1078 = temp_r0_3;
         }
         if (func_0800E324(arg0->unk1038 + 0x10) == 3) {
             var_r0 = __builtin_new(0x40);
-            var_r1 = arg0 + 0xF04;
+            var_r1 = (GenObj *)((u8 *)arg0 + 0xF04);
 block_26:
             sp8 = 0;
 block_27:
             temp_r0_4 = func_080A4A00(var_r0, var_r1, 2, arg0);
             temp_r1_4 = arg0->unk1074;
             if ((temp_r0_4 != temp_r1_4) && (temp_r1_4 != 0)) {
-                temp_r1_4->unk24->unk8(temp_r1_4, 3);
+                ((void (*)(void *,...))(temp_r1_4->unk24->unk8))(temp_r1_4, 3);
             }
             arg0->unk1074 = temp_r0_4;
         }
@@ -116,14 +138,14 @@ block_27:
     case 3:
         if (func_0800E324(arg0->unk1038 + 0x10) == 3) {
             var_r0 = __builtin_new(0x40);
-            var_r1 = arg0 + 0xF04;
+            var_r1 = (GenObj *)((u8 *)arg0 + 0xF04);
             goto block_26;
         }
         break;
     case 0:
         if (((u8) arg0->unk1038->unk3 >> 7) != 0) {
             var_r0 = __builtin_new(0x40);
-            var_r1 = arg0 + 0xF04;
+            var_r1 = (GenObj *)((u8 *)arg0 + 0xF04);
             sp8 = (s8) temp_r0;
             goto block_27;
         }
@@ -131,7 +153,7 @@ block_27:
     case 2:
         if ((IsFireplaceLighted__C9FarmHouse(arg0->unk1038 + 0x1F4) << 0x18) != 0) {
             var_r0 = __builtin_new(0x40);
-            var_r1 = arg0 + 0xF04;
+            var_r1 = (GenObj *)((u8 *)arg0 + 0xF04);
             goto block_26;
         }
         break;

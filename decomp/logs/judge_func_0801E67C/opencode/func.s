@@ -23,12 +23,16 @@ func_0801E67C:
 .LCB17:
 .L5:
 	bl	GetMapData
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x8]
 	bl	GetMapData
+	ldr	r0, [r4, #0x34]
+	str	r0, [sp, #0x4]
 	mov	r6, #0x0
 .L6:
 	cmp	r5, #0
-	beq	.L8	@cond_branch
+	bne	.LCB31
+	b	.L8	@long jump
+.LCB31:
 	mov	r7, #0x0
 	add	r4, r6, #0
 	sub	r4, r4, #0x2b
@@ -88,8 +92,16 @@ func_0801E67C:
 	.word	.L28
 	.word	.L28
 .L28:
-	add	r1, sp, #0x4
+	ldr	r0, [r5, #0x8]
+	cmp	r0, #0x1d
+	bne	.L9	@cond_branch
+	ldr	r0, [r5, #0x18]
+	ldr	r2, [r0, #0x10]
 	mov	r0, sp
+	add	r1, r5, #0
+	bl	_call_via_r2
+	add	r0, sp, #0x4
+	mov	r1, sp
 	bl	func_080AC070
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
@@ -105,6 +117,7 @@ func_0801E67C:
 .L36:
 	cmp	r5, #0
 	beq	.L8	@cond_branch
+	bl	rand
 	add	r0, r5, #0
 	mov	r1, #0x1d
 	mov	r2, #0x0
@@ -121,9 +134,9 @@ func_0801E67C:
 .L8:
 	add	r6, r6, #0x1
 	cmp	r6, #0x63
-	bgt	.LCB102
+	bgt	.LCB120
 	b	.L6	@long jump
-.LCB102:
+.LCB120:
 .L2:
 	add	sp, sp, #0x8
 	pop	{r4, r5, r6, r7}

@@ -7,19 +7,43 @@
 	.type	 func_0801F14C,function
 	.thumb_func
 func_0801F14C:
-	push	{r4, r5, r6, lr}
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, r9
+	mov	r6, r8
+	push	{r6, r7}
 	add	sp, sp, #-0x8
 	add	r5, r0, #0
-	cmp	r1, #0x1d
-	bhi	.L2	@cond_branch
-	lsl	r0, r1, #0x2
 	ldr	r1, .L16
+	add	r0, r5, r1
+	mov	r7, #0x0
+	str	r7, [r0]
+	mov	r0, #0x83
+	lsl	r0, r0, #0x5
+	add	r4, r5, r0
+	ldr	r1, [r4]
+	cmp	r1, #0
+	beq	.L3	@cond_branch
+	ldr	r0, [r1, #0x28]
+	ldr	r2, [r0, #0xc]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L3:
+	str	r7, [r4]
+	mov	r1, r8
+	cmp	r1, #0x1d
+	bls	.LCB32
+	b	.L2	@long jump
+.LCB32:
+	lsl	r0, r1, #0x2
+	ldr	r1, .L16+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
 .L17:
 	.align	2, 0
 .L16:
+	.word	0x1064
 	.word	.L14
 	.align	2, 0
 	.align	2, 0
@@ -55,17 +79,25 @@ func_0801F14C:
 	.word	.L2
 	.word	.L7
 .L5:
-	mov	r0, #0x0
+	ldr	r0, .L18
+	add	r4, r5, r0
+	ldr	r0, [r4]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
 	bl	GetUpgradeLevel__C9FarmHouse
 	cmp	r0, #0x2
 	bne	.L2	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r4]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
 	bl	IsFireplaceLighted__C9FarmHouse
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	neg	r1, r0
 	orr	r1, r1, r0
-	lsr	r4, r1, #0x1f
+	lsr	r6, r1, #0x1f
 .L7:
 	mov	r0, #0x40
 	bl	__builtin_new
@@ -73,22 +105,55 @@ func_0801F14C:
 	str	r1, [sp]
 	mov	r1, #0x1b
 	str	r1, [sp, #0x4]
-	add	r1, r6, #0
-	add	r2, r4, #0
+	mov	r1, r9
+	add	r2, r6, #0
 	add	r3, r5, #0
 	bl	func_080A4A00
+	add	r4, r0, #0
+	mov	r1, #0x83
+	lsl	r1, r1, #0x5
+	add	r0, r5, r1
+	ldr	r1, [r0]
+	cmp	r4, r1
+	beq	.L8	@cond_branch
+	cmp	r1, #0
+	beq	.L8	@cond_branch
+	ldr	r0, [r1, #0x28]
+	ldr	r2, [r0, #0xc]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L8:
+	mov	r1, #0x83
+	lsl	r1, r1, #0x5
+	add	r0, r5, r1
+	str	r4, [r0]
 	b	.L2
+.L19:
+	.align	2, 0
+.L18:
+	.word	0x103c
 .L12:
-	mov	r4, #0x0
-	mov	r0, #0x0
+	mov	r6, #0x0
+	ldr	r1, .L20
+	add	r0, r5, r1
+	ldr	r0, [r0]
+	add	r0, r0, #0x10
 	bl	func_0800E324
 	cmp	r0, #0x3
 	bne	.L7	@cond_branch
-	mov	r4, #0x1
+	mov	r6, #0x1
 	b	.L7
+.L21:
+	.align	2, 0
+.L20:
+	.word	0x103c
 .L2:
 	add	sp, sp, #0x8
-	pop	{r4, r5, r6}
+	pop	{r3, r4}
+	mov	r8, r3
+	mov	r9, r4
+	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
 .Lfe1:
