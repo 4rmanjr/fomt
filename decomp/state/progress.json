@@ -644,11 +644,9 @@
  },
  "func_08004C0C": {
   "addr": 134237196,
-  "claimed_at": 1793021919.8847485,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793017136.6987646,
+  "judged_mtime": 1793021825.7268775,
   "module": "new_game.s",
-  "note": "c: In function `func_08004C0C':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004C0C/opencode/func.c:19: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004C0C/opencode/func.c:19: request for member `unk8' in something not a structure or union\n",
+  "note": "len 32 vs ref 58",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 566,
@@ -669,15 +667,14 @@
  },
  "func_08004C54": {
   "addr": 134237268,
-  "claimed_at": 1793021919.8847492,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793017137.0484176,
+  "judged_mtime": 1793021174.0053036,
   "module": "new_game.s",
-  "note": "byte +0x3: 0x49 vs ref 0x4a",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 240,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08004C68": {

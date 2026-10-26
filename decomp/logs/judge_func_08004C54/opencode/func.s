@@ -8,8 +8,14 @@
 	.thumb_func
 func_08004C54:
 	push	{lr}
+	ldr	r2, .L3
+	str	r2, [r0]
 	bl	func_080007EC
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E5A88
 .Lfe1:
 	.size	 func_08004C54,.Lfe1-func_08004C54
