@@ -1,0 +1,5 @@
+#include "common.h"
+s32 func_08033914(s32 arg0) {
+    return ((u32) (0x18000 * (arg0 + 1)) >> 8) + 0x8000;
+}
+
