@@ -10470,12 +10470,13 @@
  },
  "func_08050D80": {
   "addr": 134548864,
-  "claimed_at": 1793004226.2314308,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004256.2718692,
   "module": "code_0803EE94.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 12,
   "size": 121,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08050D8C": {
