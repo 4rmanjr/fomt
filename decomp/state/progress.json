@@ -23755,22 +23755,23 @@
  },
  "func_080DD460": {
   "addr": 135124064,
-  "claimed_at": 1793003885.7020712,
-  "claimed_by": "Prodesk:352291",
+  "judged_mtime": 1793003886.6193962,
   "module": "code_linkonce.s",
+  "note": "structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DD460/Prodesk_352291/func.c:35: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DD460/Prodesk_352291/func.c:35: request for member `unk47' in something not a structure or union\n",
   "ref_len": 132,
   "size": 1089,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080DD4E4": {
   "addr": 135124196,
-  "claimed_at": 1793003885.702072,
-  "claimed_by": "Prodesk:352291",
+  "judged_mtime": 1793003886.908659,
   "module": "code_linkonce.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "size": 120,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD4F0": {
