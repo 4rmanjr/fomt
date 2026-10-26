@@ -7,6 +7,37 @@
 	.type	 func_0803D404,function
 	.thumb_func
 func_0803D404:
-	bx	lr
+	push	{r4, r5, lr}
+	lsl	r1, r1, #0x10
+	lsr	r1, r1, #0x10
+	add	r4, r1, #0
+	ldr	r2, [r0]
+	mov	r0, #0xbd
+	lsl	r0, r0, #0x2
+	add	r3, r2, r0
+	ldr	r0, [r3]
+	cmp	r0, #0
+	beq	.L4	@cond_branch
+	mov	r5, #0xbe
+	lsl	r5, r5, #0x2
+	add	r0, r2, r5
+	ldr	r0, [r0]
+	cmp	r1, r0
+	beq	.L3	@cond_branch
+.L4:
+	mov	r0, #0x1
+	str	r0, [r3]
+	mov	r3, #0xbe
+	lsl	r3, r3, #0x2
+	add	r1, r2, r3
+	str	r4, [r1]
+	mov	r5, #0xcf
+	lsl	r5, r5, #0x2
+	add	r1, r2, r5
+	str	r0, [r1]
+.L3:
+	pop	{r4, r5}
+	pop	{r0}
+	bx	r0
 .Lfe1:
 	.size	 func_0803D404,.Lfe1-func_0803D404

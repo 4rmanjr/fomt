@@ -16,8 +16,12 @@ func_0803D2E8:
 	mov	r1, #0x8a
 	lsl	r1, r1, #0x2
 	add	r0, r4, r1
-	mov	r1, #0x0
+	ldr	r1, .L6
 	b	.L5
+.L7:
+	.align	2, 0
+.L6:
+	.word	gUnk_0875A440+0x500
 .L3:
 	mov	r0, sp
 	mov	r1, #0x0

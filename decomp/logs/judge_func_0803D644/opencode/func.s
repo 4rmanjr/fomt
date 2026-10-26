@@ -15,8 +15,11 @@ func_0803D644:
 	sub	r1, r1, #0x1
 	add	r2, r2, r1
 	str	r2, [sp, #0x4]
-	mov	r0, #0x0
-	str	r0, [sp]
+	ldr	r4, .L4
+	add	r0, r4, #0
+	sub	r0, r0, #0x38
+	mov	r1, #0x0
+	str	r1, [sp]
 	add	r1, r4, #0
 	add	r2, sp, #0x4
 	mov	r3, #0x0
@@ -36,5 +39,9 @@ func_0803D644:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
+.L5:
+	.align	2, 0
+.L4:
+	.word	gUnk_080F1A66+0x38
 .Lfe1:
 	.size	 func_0803D644,.Lfe1-func_0803D644

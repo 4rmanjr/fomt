@@ -57,16 +57,31 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0803CD4C/opencode/func.c" 2
 s32 memcpy(void *, s32 *, s32);
 s32 memset(s32 *, s32, s32);
-extern ? gUnk_0875A440;
+extern s32 gUnk_0875A440;
 
-void func_0803CD4C(void **arg0, void *arg1, u8 arg2) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    u8 _pad5[391];
+    s32 unk18C;
+    u8 _pad190[288];
+    s32 unk2B0;
+} GenObj;
+void func_0803CD4C(void **arg0, GenObj *arg1, u8 arg2) {
     s32 sp0;
     s32 sp4;
     s32 sp8;
-    void *sp20;
+    GenObj *sp20;
     s32 sp24;
     s8 *sp2C;
     s32 *var_r1_3;
@@ -85,7 +100,7 @@ void func_0803CD4C(void **arg0, void *arg1, u8 arg2) {
     u32 var_r4;
     u8 temp_r3;
     void *temp_r6_2;
-    void *temp_r7;
+    GenObj *temp_r7;
     void *var_r0_2;
 
     sp20 = arg1;
@@ -110,9 +125,9 @@ void func_0803CD4C(void **arg0, void *arg1, u8 arg2) {
         var_r6 = 0x12;
         break;
     }
-    memcpy(temp_r7 + 0x84, (var_r5 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x84), (var_r5 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk18C = 1;
-    memcpy(temp_r7 + 0xA4, (var_r6 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0xA4), (var_r6 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk18C = 1;
     temp_r3 = sp20->unk1;
     temp_r0_2 = ((u32) (temp_r3 << 0x19) >> 0x1B) + 1;
@@ -123,14 +138,14 @@ void func_0803CD4C(void **arg0, void *arg1, u8 arg2) {
     temp_r6 = 7 & var_r1;
     temp_r0_3 = temp_r0_2 / 10U;
     if ((s32) temp_r0_3 > 0) {
-        memcpy(temp_r7 + 0xC4, (temp_r0_3 << 5) + &gUnk_0875A440, 0x20);
+        memcpy((GenObj *)((u8 *)temp_r7 + 0xC4), (temp_r0_3 << 5) + &gUnk_0875A440, 0x20);
         temp_r7->unk18C = 1;
     } else {
         memset(&sp0, 0, 0x20);
-        memcpy(temp_r7 + 0xC4, &sp0, 0x20);
+        memcpy((GenObj *)((u8 *)temp_r7 + 0xC4), &sp0, 0x20);
         temp_r7->unk18C = 1;
     }
-    memcpy(temp_r7 + 0xE4, ((temp_r0_2 % 10U) << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0xE4), ((temp_r0_2 % 10U) << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk18C = 1;
     switch (temp_r6) {
     default:
@@ -170,19 +185,19 @@ void func_0803CD4C(void **arg0, void *arg1, u8 arg2) {
         break;
     }
     sp8 = var_r0;
-    memcpy(temp_r7 + 0x1A8, (sp0 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x1A8), (sp0 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk2B0 = 1;
-    memcpy(temp_r7 + 0x1C8, (sp4 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x1C8), (sp4 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk2B0 = 1;
-    memcpy(temp_r7 + 0x1E8, (sp8 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x1E8), (sp8 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk2B0 = 1;
     temp_r0_4 = (u32) ((s32) sp20->unk0 << 0xB) >> 0x1B;
     var_r1_2 = 0x1E;
-    sp2C = temp_r7 + 0x2B0;
+    sp2C = (GenObj *)((u8 *)temp_r7 + 0x2B0);
     if (temp_r0_4 <= 0xBU) {
         var_r1_2 = 0x1C;
     }
-    memcpy(temp_r7 + 0x104, (var_r1_2 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x104), (var_r1_2 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk18C = 1;
     var_r4 = 0xC;
     if (temp_r0_4 != 0xC) {
@@ -194,21 +209,21 @@ void func_0803CD4C(void **arg0, void *arg1, u8 arg2) {
     temp_r0_5 = var_r4 / 10U;
     if ((s32) temp_r0_5 > 0) {
         var_r1_3 = (temp_r0_5 << 5) + &gUnk_0875A440;
-        var_r0_2 = temp_r7 + 0x144;
+        var_r0_2 = (GenObj *)((u8 *)temp_r7 + 0x144);
     } else {
         memset(&sp0, 0, 0x20);
-        var_r0_2 = temp_r7 + 0x144;
+        var_r0_2 = (GenObj *)((u8 *)temp_r7 + 0x144);
         var_r1_3 = &sp0;
     }
     memcpy(var_r0_2, var_r1_3, 0x20);
     temp_r7->unk18C = 1;
-    memcpy(temp_r7 + 0x164, ((var_r4 % 10U) << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x164), ((var_r4 % 10U) << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk18C = 1;
     temp_r4 = (u8) ((u32) ((u32) ((s32) sp20->unk0 << 5) >> 0x1A) / 10U) * 0xA;
-    temp_r6_2 = temp_r7 + 0x228;
-    memcpy(temp_r7 + 0x248, ((temp_r4 / 10U) << 5) + &gUnk_0875A440, 0x20);
+    temp_r6_2 = (GenObj *)((u8 *)temp_r7 + 0x228);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x248), ((temp_r4 / 10U) << 5) + &gUnk_0875A440, 0x20);
     *sp2C = 1;
-    memcpy(temp_r7 + 0x268, ((temp_r4 % 10U) << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x268), ((temp_r4 % 10U) << 5) + &gUnk_0875A440, 0x20);
     *sp2C = 1;
     if (sp24 != 0) {
         memcpy(temp_r6_2, &gUnk_0875A440 + 0x140, 0x20);

@@ -7,48 +7,97 @@
 	.type	 func_0803D240,function
 	.thumb_func
 func_0803D240:
-	push	{r4, r5, lr}
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, r8
+	push	{r7}
 	add	sp, sp, #-0x4
-	add	r5, r1, #0
-	ldr	r4, [r0]
-	mov	r1, #0x82
-	lsl	r1, r1, #0x1
-	add	r0, r4, r1
-	mov	r1, #0x0
+	add	r4, r1, #0
+	ldr	r7, [r0]
+	mov	r1, #0x1e
+	cmp	r4, #0xb
+	bhi	.L3	@cond_branch
+	mov	r1, #0x1c
+.L3:
+	mov	r2, #0x82
+	lsl	r2, r2, #0x1
+	add	r0, r7, r2
+	lsl	r1, r1, #0x7
+	ldr	r2, .L8
+	add	r1, r1, r2
 	mov	r2, #0x20
 	bl	memcpy
-	mov	r0, #0xc
-	cmp	r5, #0xc
+	mov	r0, #0xc6
+	lsl	r0, r0, #0x1
+	add	r1, r7, r0
+	mov	r0, #0x1
+	str	r0, [r1]
+	mov	r1, #0xc
+	mov	r8, r1
+	cmp	r4, #0xc
 	beq	.L4	@cond_branch
-	add	r0, r5, #0
-	cmp	r0, #0xb
+	mov	r8, r4
+	cmp	r4, #0xb
 	bls	.L4	@cond_branch
-	sub	r0, r0, #0xc
+	mov	r2, #0xc
+	neg	r2, r2
+	add	r8, r8, r2
 .L4:
+	mov	r0, r8
 	mov	r1, #0xa
 	bl	__udivsi3
 	cmp	r0, #0
-	bgt	.L8	@cond_branch
+	ble	.L6	@cond_branch
+	lsl	r1, r0, #0x7
+	ldr	r0, .L8
+	add	r1, r1, r0
+	mov	r2, #0xa2
+	lsl	r2, r2, #0x1
+	add	r0, r7, r2
+	b	.L7
+.L9:
+	.align	2, 0
+.L8:
+	.word	gUnk_0875A440
+.L6:
 	mov	r0, sp
 	mov	r1, #0x0
 	mov	r2, #0x20
 	bl	memset
-.L8:
 	mov	r1, #0xa2
 	lsl	r1, r1, #0x1
-	add	r0, r4, r1
-	mov	r1, #0x0
+	add	r0, r7, r1
+	mov	r1, sp
+.L7:
 	mov	r2, #0x20
 	bl	memcpy
-	mov	r1, #0xb2
-	lsl	r1, r1, #0x1
-	add	r0, r4, r1
-	mov	r1, #0x0
+	mov	r2, #0xc6
+	lsl	r2, r2, #0x1
+	add	r6, r7, r2
+	mov	r5, #0x1
+	str	r5, [r6]
+	mov	r0, #0xb2
+	lsl	r0, r0, #0x1
+	add	r4, r7, r0
+	mov	r0, r8
+	mov	r1, #0xa
+	bl	__umodsi3
+	add	r1, r0, #0
+	lsl	r1, r1, #0x7
+	ldr	r0, .L10
+	add	r1, r1, r0
+	add	r0, r4, #0
 	mov	r2, #0x20
 	bl	memcpy
+	str	r5, [r6]
 	add	sp, sp, #0x4
-	pop	{r4, r5}
+	pop	{r3}
+	mov	r8, r3
+	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
+.L11:
+	.align	2, 0
+.L10:
+	.word	gUnk_0875A440
 .Lfe1:
 	.size	 func_0803D240,.Lfe1-func_0803D240

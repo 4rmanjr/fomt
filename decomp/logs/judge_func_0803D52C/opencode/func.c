@@ -1,5 +1,11 @@
 #include "common.h"
-void *func_0803D52C(void *arg0, void *arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+} GenObj;
+void *func_0803D52C(GenObj *arg0, GenObj *arg1) {
     u32 sp0;
     u32 sp4;
     u8 sp8;

@@ -7,18 +7,69 @@
 	.type	 func_0803D688,function
 	.thumb_func
 func_0803D688:
-	push	{lr}
-	add	sp, sp, #-0x8
-	mov	r3, sp
-	add	r2, sp, #0x4
-	ldr	r1, [sp, #0x4]
-	str	r1, [sp]
-	ldrh	r1, [r2, #0x4]
-	strh	r1, [r3, #0x4]
+	push	{r4, r5, lr}
+	add	sp, sp, #-0xc
+	add	r4, r0, #0
+	mov	r3, #0x0
+	ldr	r0, [r1, #0x18]
+	cmp	r0, #0
+	beq	.L3	@cond_branch
+	cmp	r2, #0
+	beq	.L3	@cond_branch
+	ldr	r3, [r2, #0x10]
+.L3:
+	cmp	r3, #0
+	beq	.L6	@cond_branch
+	add	r1, sp, #0x4
+	mov	r0, sp
+	mov	r2, #0x6
+	bl	memcpy
+	b	.L7
+.L6:
+	mov	r0, #0xfc
+	lsl	r0, r0, #0x8
+	add	r2, r0, #0
+	add	r1, sp, #0x8
+	ldrh	r0, [r1]
+	and	r0, r0, r2
+	mov	r3, #0x8d
+	lsl	r3, r3, #0x2
+	add	r2, r3, #0
+	orr	r0, r0, r2
+	str	r0, [sp, #0x8]
+	mov	r0, sp
+	mov	r2, #0x6
+	bl	memcpy
+.L7:
+	add	r0, r4, #0
 	mov	r1, sp
 	bl	SetLocation__3NpcRC13ActorLocation
-	add	sp, sp, #0x8
+	ldr	r1, [r4, #0x1c]
+	mov	r0, #0x20
+	neg	r0, r0
+	and	r1, r1, r0
+	mov	r0, #0x1f
+	and	r5, r5, r0
+	orr	r1, r1, r5
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x18
+	ldr	r3, .L8
+	ldr	r0, [r4, #0x20]
+	mov	r2, #0x7d
+	neg	r2, r2
+	and	r0, r0, r2
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	str	r0, [r4, #0x20]
+	and	r1, r1, r3
+	str	r1, [r4, #0x1c]
+	add	sp, sp, #0xc
+	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
+.L9:
+	.align	2, 0
+.L8:
+	.word	0xfc1f
 .Lfe1:
 	.size	 func_0803D688,.Lfe1-func_0803D688

@@ -7,22 +7,52 @@
 	.type	 func_0803D340,function
 	.thumb_func
 func_0803D340:
-	push	{r4, lr}
-	ldr	r4, [r0]
-	mov	r1, #0x92
-	lsl	r1, r1, #0x2
-	add	r0, r4, r1
-	mov	r1, #0x0
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, r9
+	mov	r6, r8
+	push	{r6, r7}
+	mov	r9, r1
+	ldr	r7, [r0]
+	mov	r0, #0x92
+	lsl	r0, r0, #0x2
+	add	r4, r7, r0
+	mov	r0, r9
+	mov	r1, #0xa
+	bl	__udivsi3
+	add	r1, r0, #0
+	lsl	r1, r1, #0x7
+	ldr	r0, .L3
+	mov	r8, r0
+	add	r1, r1, r8
+	add	r0, r4, #0
 	mov	r2, #0x20
 	bl	memcpy
-	mov	r1, #0x9a
-	lsl	r1, r1, #0x2
-	add	r0, r4, r1
-	mov	r1, #0x0
+	mov	r0, #0xac
+	lsl	r0, r0, #0x2
+	add	r6, r7, r0
+	mov	r5, #0x1
+	str	r5, [r6]
+	sub	r0, r0, #0x48
+	add	r4, r7, r0
+	mov	r0, r9
+	mov	r1, #0xa
+	bl	__umodsi3
+	add	r1, r0, #0
+	lsl	r1, r1, #0x7
+	add	r1, r1, r8
+	add	r0, r4, #0
 	mov	r2, #0x20
 	bl	memcpy
-	pop	{r4}
+	str	r5, [r6]
+	pop	{r3, r4}
+	mov	r8, r3
+	mov	r9, r4
+	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	gUnk_0875A440
 .Lfe1:
 	.size	 func_0803D340,.Lfe1-func_0803D340

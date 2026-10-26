@@ -22,13 +22,19 @@ func_0803C54C:
 	mov	r2, #0x88
 	mov	r3, #0x70
 	bl	func_0803BDFC
+	ldr	r0, .L3
+	str	r0, [r4, #0x4]
 	add	r0, r4, #0
-	add	r0, r0, #0x8
+	add	r0, r0, #0x40
 	bl	func_0803C5B0
 	add	r0, r4, #0
 	add	sp, sp, #0x14
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E77E0
 .Lfe1:
 	.size	 func_0803C54C,.Lfe1-func_0803C54C

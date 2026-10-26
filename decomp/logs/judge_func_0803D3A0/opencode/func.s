@@ -7,6 +7,60 @@
 	.type	 func_0803D3A0,function
 	.thumb_func
 func_0803D3A0:
-	bx	lr
+	push	{lr}
+	ldr	r3, [r0]
+	mov	r2, #0xb3
+	lsl	r2, r2, #0x2
+	add	r0, r3, r2
+	ldrb	r2, [r0]
+	cmp	r1, #0x4
+	bhi	.L3	@cond_branch
+	lsl	r0, r1, #0x2
+	ldr	r1, .L12
+	add	r0, r0, r1
+	ldr	r0, [r0]
+	mov	pc, r0
+.L13:
+	.align	2, 0
+.L12:
+	.word	.L9
+	.align	2, 0
+	.align	2, 0
+.L9:
+	.word	.L4
+	.word	.L5
+	.word	.L6
+	.word	.L7
+	.word	.L8
+.L4:
+	mov	r2, #0x0
+	b	.L3
+.L5:
+	mov	r2, #0x1
+	b	.L3
+.L6:
+	mov	r2, #0x2
+	b	.L3
+.L7:
+	mov	r2, #0x3
+	b	.L3
+.L8:
+	mov	r2, #0x4
+.L3:
+	mov	r0, #0xb3
+	lsl	r0, r0, #0x2
+	add	r1, r3, r0
+	ldr	r0, [r1]
+	cmp	r2, r0
+	beq	.L11	@cond_branch
+	str	r2, [r1]
+	mov	r2, #0xbc
+	lsl	r2, r2, #0x2
+	add	r1, r3, r2
+	mov	r0, #0x1
+	str	r0, [r1]
+.L11:
+	pop	{r0}
+	bx	r0
 .Lfe1:
 	.size	 func_0803D3A0,.Lfe1-func_0803D3A0

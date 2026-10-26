@@ -1,8 +1,14 @@
 #include "common.h"
 s32 memcpy(void *, s32 *, s32);                       /* extern */
 s32 memset(s32 *, s32, s32);                          /* extern */
-extern ? gUnk_0875A440;
+extern s32 gUnk_0875A440;
 
+typedef struct GenObj {
+    u8 _pad0[396];
+    s32 unk18C;
+    u8 _pad190[288];
+    s32 unk2B0;
+} GenObj;
 void func_0803D0F0(void **arg0, u32 arg1, u32 arg2) {
     s32 sp0;
     s32 sp4;
@@ -10,20 +16,20 @@ void func_0803D0F0(void **arg0, u32 arg1, u32 arg2) {
     s32 var_r0;
     s8 *var_r1;
     u32 temp_r0;
-    void *temp_r7;
+    GenObj *temp_r7;
 
     temp_r7 = *arg0;
     temp_r0 = arg1 / 10U;
     if ((s32) temp_r0 > 0) {
-        memcpy(temp_r7 + 0xC4, (temp_r0 << 5) + &gUnk_0875A440, 0x20);
-        var_r1 = temp_r7 + 0x18C;
+        memcpy((GenObj *)((u8 *)temp_r7 + 0xC4), (temp_r0 << 5) + &gUnk_0875A440, 0x20);
+        var_r1 = (GenObj *)((u8 *)temp_r7 + 0x18C);
     } else {
         memset(&sp0, 0, 0x20);
-        memcpy(temp_r7 + 0xC4, &sp0, 0x20);
-        var_r1 = temp_r7 + 0x18C;
+        memcpy((GenObj *)((u8 *)temp_r7 + 0xC4), &sp0, 0x20);
+        var_r1 = (GenObj *)((u8 *)temp_r7 + 0x18C);
     }
     *var_r1 = 1;
-    memcpy(temp_r7 + 0xE4, ((arg1 % 10U) << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0xE4), ((arg1 % 10U) << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk18C = 1;
     switch (arg2) {
     default:
@@ -63,11 +69,11 @@ void func_0803D0F0(void **arg0, u32 arg1, u32 arg2) {
         break;
     }
     sp8 = var_r0;
-    memcpy(temp_r7 + 0x1A8, (sp0 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x1A8), (sp0 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk2B0 = 1;
-    memcpy(temp_r7 + 0x1C8, (sp4 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x1C8), (sp4 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk2B0 = 1;
-    memcpy(temp_r7 + 0x1E8, (sp8 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x1E8), (sp8 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk2B0 = 1;
 }
 

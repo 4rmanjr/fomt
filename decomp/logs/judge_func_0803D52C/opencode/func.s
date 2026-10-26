@@ -7,15 +7,114 @@
 	.type	 func_0803D52C,function
 	.thumb_func
 func_0803D52C:
-	push	{r4, lr}
-	add	r1, r0, #0
-	add	r0, r4, #0
-	lsl	r0, r0, #0x19
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, r8
+	push	{r7}
+	add	sp, sp, #-0x8
+	mov	r8, r0
+	ldrb	r3, [r1, #0x4]
+	lsl	r0, r3, #0x19
+	lsr	r5, r0, #0x1b
+	lsl	r0, r3, #0x1e
+	lsr	r6, r0, #0x1e
+	lsl	r2, r6, #0x4
+	sub	r2, r2, r6
+	lsl	r2, r2, #0x1
+	ldr	r4, [r1]
+	lsl	r1, r4, #0x1d
+	lsr	r1, r1, #0x1d
+	add	r1, r1, #0x6
+	lsl	r0, r1, #0x4
+	sub	r0, r0, r1
+	lsl	r0, r0, #0x3
+	add	r2, r2, r0
+	add	r2, r5, r2
+	mov	r0, #0xc8
+	str	r0, [sp]
+	lsl	r0, r4, #0x18
+	lsr	r2, r0, #0x1b
+	lsl	r1, r2, #0x3
+	sub	r1, r1, r2
+	lsl	r0, r0, #0x5
+	lsr	r0, r0, #0x1d
+	add	r1, r1, r0
+	str	r1, [sp, #0x4]
+	mov	r0, sp
+	cmp	r1, #0xc7
+	bhi	.L4	@cond_branch
+	add	r0, sp, #0x4
+.L4:
+	ldr	r7, [r0]
+	lsl	r0, r4, #0xb
 	lsr	r0, r0, #0x1b
+	cmp	r0, #0x5
+	bhi	.L5	@cond_branch
+	cmp	r5, #0
+	bne	.L6	@cond_branch
+	mov	r0, #0xfc
+	and	r3, r3, r0
+	sub	r0, r6, #0x1
+	mov	r1, #0x3
+	and	r0, r0, r1
+	orr	r3, r3, r0
+	mov	r2, #0x1d
+	b	.L7
+.L6:
+	sub	r2, r5, #0x1
+.L7:
+	mov	r0, #0x83
+	and	r3, r3, r0
+	mov	r0, #0x1f
+	and	r2, r2, r0
+	lsl	r0, r2, #0x2
+	orr	r3, r3, r0
+	lsl	r0, r3, #0x1e
+	lsr	r0, r0, #0x1e
+	cmp	r0, #0x3
+	bne	.L8	@cond_branch
+	lsl	r0, r3, #0x19
+	lsr	r0, r0, #0x1b
+	cmp	r0, #0x1d
+	bne	.L8	@cond_branch
+	sub	r7, r7, #0x1
+.L8:
+	mov	r1, ip
+	lsl	r0, r1, #0x1d
+	lsr	r0, r0, #0x1d
+	mov	r1, #0x6
+	cmp	r0, #0x1
+	ble	.L9	@cond_branch
+	sub	r1, r0, #0x1
+.L9:
+	mov	r0, #0x8
+	neg	r0, r0
+	mov	r2, ip
+	and	r2, r2, r0
+	mov	r0, #0x7
+	and	r1, r1, r0
+	orr	r2, r2, r1
+	mov	ip, r2
+.L5:
+	lsl	r0, r7, #0x18
+	asr	r0, r0, #0x18
+	mov	r1, r8
+	str	r0, [r1]
+	lsl	r0, r3, #0x1e
+	lsr	r0, r0, #0x1e
+	str	r0, [r1, #0x4]
+	lsl	r0, r3, #0x19
+	lsr	r0, r0, #0x1b
+	add	r0, r0, #0x1
+	str	r0, [r1, #0x8]
+	mov	r2, ip
 	lsl	r0, r2, #0x1d
 	lsr	r0, r0, #0x1d
-	add	r0, r1, #0
-	pop	{r4}
+	str	r0, [r1, #0xc]
+	mov	r0, r8
+	add	sp, sp, #0x8
+	pop	{r3}
+	mov	r8, r3
+	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
 .Lfe1:

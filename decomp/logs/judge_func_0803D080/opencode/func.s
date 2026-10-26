@@ -7,20 +7,64 @@
 	.type	 func_0803D080,function
 	.thumb_func
 func_0803D080:
-	push	{r4, lr}
-	ldr	r4, [r0]
-	add	r0, r4, #0
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, r8
+	push	{r7}
+	ldr	r0, [r0]
+	mov	r8, r0
+	cmp	r1, #0x2
+	beq	.L6	@cond_branch
+	cmp	r1, #0x2
+	bgt	.L9	@cond_branch
+	cmp	r1, #0x1
+	beq	.L5	@cond_branch
+	b	.L4
+.L9:
+	cmp	r1, #0x3
+	beq	.L7	@cond_branch
+.L4:
+	mov	r1, #0xb
+	mov	r7, #0xc
+	b	.L3
+.L5:
+	mov	r1, #0xd
+	mov	r7, #0xe
+	b	.L3
+.L6:
+	mov	r1, #0xf
+	mov	r7, #0x10
+	b	.L3
+.L7:
+	mov	r1, #0x11
+	mov	r7, #0x12
+.L3:
+	mov	r0, r8
 	add	r0, r0, #0x84
-	mov	r1, #0x0
+	lsl	r1, r1, #0x7
+	ldr	r6, .L10
+	add	r1, r1, r6
 	mov	r2, #0x20
 	bl	memcpy
-	add	r4, r4, #0xa4
-	add	r0, r4, #0
-	mov	r1, #0x0
+	mov	r5, #0xc6
+	lsl	r5, r5, #0x1
+	add	r5, r5, r8
+	mov	r4, #0x1
+	str	r4, [r5]
+	mov	r0, r8
+	add	r0, r0, #0xa4
+	lsl	r1, r7, #0x7
+	add	r1, r1, r6
 	mov	r2, #0x20
 	bl	memcpy
-	pop	{r4}
+	str	r4, [r5]
+	pop	{r3}
+	mov	r8, r3
+	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
+.L11:
+	.align	2, 0
+.L10:
+	.word	gUnk_0875A440
 .Lfe1:
 	.size	 func_0803D080,.Lfe1-func_0803D080

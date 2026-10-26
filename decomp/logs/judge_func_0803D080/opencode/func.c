@@ -1,12 +1,16 @@
 #include "common.h"
 s32 memcpy(void *, void *, s32);                      /* extern */
-extern ? gUnk_0875A440;
+extern s32 gUnk_0875A440;
 
+typedef struct GenObj {
+    u8 _pad0[396];
+    s32 unk18C;
+} GenObj;
 void func_0803D080(void **arg0, s32 arg1) {
     s32 sp0;
     s32 sp4;
     s32 var_r2;
-    void *temp_r7;
+    GenObj *temp_r7;
 
     temp_r7 = *arg0;
     switch (arg1) {                                 /* irregular */
@@ -28,9 +32,9 @@ void func_0803D080(void **arg0, s32 arg1) {
         break;
     }
     sp4 = var_r2;
-    memcpy(temp_r7 + 0x84, (sp0 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x84), (sp0 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk18C = 1;
-    memcpy(temp_r7 + 0xA4, (var_r2 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0xA4), (var_r2 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk18C = 1;
 }
 

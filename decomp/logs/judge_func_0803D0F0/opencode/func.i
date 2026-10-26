@@ -57,11 +57,24 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0803D0F0/opencode/func.c" 2
 s32 memcpy(void *, s32 *, s32);
 s32 memset(s32 *, s32, s32);
-extern ? gUnk_0875A440;
+extern s32 gUnk_0875A440;
 
+typedef struct GenObj {
+    u8 _pad0[396];
+    s32 unk18C;
+    u8 _pad190[288];
+    s32 unk2B0;
+} GenObj;
 void func_0803D0F0(void **arg0, u32 arg1, u32 arg2) {
     s32 sp0;
     s32 sp4;
@@ -69,20 +82,20 @@ void func_0803D0F0(void **arg0, u32 arg1, u32 arg2) {
     s32 var_r0;
     s8 *var_r1;
     u32 temp_r0;
-    void *temp_r7;
+    GenObj *temp_r7;
 
     temp_r7 = *arg0;
     temp_r0 = arg1 / 10U;
     if ((s32) temp_r0 > 0) {
-        memcpy(temp_r7 + 0xC4, (temp_r0 << 5) + &gUnk_0875A440, 0x20);
-        var_r1 = temp_r7 + 0x18C;
+        memcpy((GenObj *)((u8 *)temp_r7 + 0xC4), (temp_r0 << 5) + &gUnk_0875A440, 0x20);
+        var_r1 = (GenObj *)((u8 *)temp_r7 + 0x18C);
     } else {
         memset(&sp0, 0, 0x20);
-        memcpy(temp_r7 + 0xC4, &sp0, 0x20);
-        var_r1 = temp_r7 + 0x18C;
+        memcpy((GenObj *)((u8 *)temp_r7 + 0xC4), &sp0, 0x20);
+        var_r1 = (GenObj *)((u8 *)temp_r7 + 0x18C);
     }
     *var_r1 = 1;
-    memcpy(temp_r7 + 0xE4, ((arg1 % 10U) << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0xE4), ((arg1 % 10U) << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk18C = 1;
     switch (arg2) {
     default:
@@ -122,10 +135,10 @@ void func_0803D0F0(void **arg0, u32 arg1, u32 arg2) {
         break;
     }
     sp8 = var_r0;
-    memcpy(temp_r7 + 0x1A8, (sp0 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x1A8), (sp0 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk2B0 = 1;
-    memcpy(temp_r7 + 0x1C8, (sp4 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x1C8), (sp4 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk2B0 = 1;
-    memcpy(temp_r7 + 0x1E8, (sp8 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x1E8), (sp8 << 5) + &gUnk_0875A440, 0x20);
     temp_r7->unk2B0 = 1;
 }

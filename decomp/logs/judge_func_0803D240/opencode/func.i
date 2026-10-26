@@ -57,18 +57,29 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0803D240/opencode/func.c" 2
-s32 memcpy(void *, ? *, s32);
+s32 memcpy(void *, s32 *, s32);
 s32 memset(s32 *, s32, s32);
-extern ? gUnk_0875A440;
+extern s32 gUnk_0875A440;
 
+typedef struct GenObj {
+    u8 _pad0[396];
+    s32 unk18C;
+} GenObj;
 void func_0803D240(void **arg0, u32 arg1) {
 s32 sp0;
-    ? *var_r1_2;
+    s32 *var_r1_2;
     s32 var_r1;
     u32 temp_r0;
     u32 var_r4;
-    void *temp_r6;
+    GenObj *temp_r6;
     void *var_r0;
 
     temp_r6 = *arg0;
@@ -76,7 +87,7 @@ s32 sp0;
     if (arg1 <= 0xBU) {
         var_r1 = 0x1C;
     }
-    memcpy(temp_r6 + 0x104, (var_r1 << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r6 + 0x104), (var_r1 << 5) + &gUnk_0875A440, 0x20);
     temp_r6->unk18C = 1;
     var_r4 = 0xC;
     if (arg1 != 0xC) {
@@ -88,14 +99,14 @@ s32 sp0;
     temp_r0 = var_r4 / 10U;
     if ((s32) temp_r0 > 0) {
         var_r1_2 = (temp_r0 << 5) + &gUnk_0875A440;
-        var_r0 = temp_r6 + 0x144;
+        var_r0 = (GenObj *)((u8 *)temp_r6 + 0x144);
     } else {
         memset(&sp0, 0, 0x20);
-        var_r0 = temp_r6 + 0x144;
+        var_r0 = (GenObj *)((u8 *)temp_r6 + 0x144);
         var_r1_2 = &sp0;
     }
     memcpy(var_r0, var_r1_2, 0x20);
     temp_r6->unk18C = 1;
-    memcpy(temp_r6 + 0x164, ((var_r4 % 10U) << 5) + &gUnk_0875A440, 0x20);
+    memcpy((GenObj *)((u8 *)temp_r6 + 0x164), ((var_r4 % 10U) << 5) + &gUnk_0875A440, 0x20);
     temp_r6->unk18C = 1;
 }
