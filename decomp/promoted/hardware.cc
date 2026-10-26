@@ -138,3 +138,8 @@ s32 m4aSoundVSyncOff();                               /* extern */
 void func_08008D90(void) {
     m4aSoundVSyncOff();
 }
+
+// DECOMP-MATCHED func_08008D9C (dari hardware.s; cek manusia sebelum ke src/)
+u32 func_08008D9C(void) {
+    return (u32) *(u32 *)0x040000C4 >> 0x1F;
+}
