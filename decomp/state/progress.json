@@ -8525,22 +8525,23 @@
  },
  "func_08039204": {
   "addr": 134451716,
-  "claimed_at": 1793004062.060862,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004083.1858087,
   "module": "code_entities_08034CEC.s",
+  "note": "thing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08039204/opencode/func.c:71: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08039204/opencode/func.c:71: request for member `unk20' in something not a structure or union\n",
   "ref_len": 264,
   "size": 2577,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0803930C": {
   "addr": 134451980,
-  "claimed_at": 1793004062.0608625,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004083.4853435,
   "module": "code_entities_08034CEC.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 4,
   "size": 90,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08039310": {
