@@ -9099,12 +9099,13 @@
  },
  "func_0803BED4": {
   "addr": 134463188,
-  "claimed_at": 1793004103.4745402,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004122.699173,
   "module": "code_0803A8A4.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 12,
   "size": 121,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803BEE0": {
