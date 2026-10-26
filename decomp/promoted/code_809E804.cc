@@ -253,3 +253,8 @@ void func_080CABA0(s32 arg0, s32 arg1) {
     func_08050EBC(temp_r4, 0x20);
     func_08050D8C(temp_r4, arg1);
 }
+
+// DECOMP-MATCHED func_080CB2E8 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080CB2E8(s32 arg0, s32 arg1) {
+    return (arg1 * 0xC) + arg0 + 0x218;
+}
