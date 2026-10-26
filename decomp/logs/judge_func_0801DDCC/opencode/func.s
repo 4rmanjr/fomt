@@ -7,15 +7,26 @@
 	.type	 func_0801DDCC,function
 	.thumb_func
 func_0801DDCC:
-	push	{r4, lr}
-	add	r4, r1, #0
-	mov	r0, #0x0
+	push	{r4, r5, lr}
+	add	r4, r0, #0
+	add	r5, r1, #0
+	ldr	r1, .L3
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	ldr	r1, .L3+0x4
+	add	r0, r0, r1
+	add	r1, r5, #0
 	bl	func_0809C5B4
-	mov	r0, #0x0
-	add	r1, r4, #0
+	ldr	r0, [r4, #0x4]
+	add	r1, r5, #0
 	bl	func_080AA850
-	pop	{r4}
+	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	0x1038
+	.word	0x34d8
 .Lfe1:
 	.size	 func_0801DDCC,.Lfe1-func_0801DDCC
