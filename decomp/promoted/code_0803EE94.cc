@@ -38,3 +38,8 @@ s32 func_08075328(void) {
     func_08070CA4();
     return 1;
 }
+
+// DECOMP-MATCHED func_080946BC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+void func_080946BC(void) {
+
+}
