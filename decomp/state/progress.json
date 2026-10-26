@@ -1595,12 +1595,13 @@
  },
  "func_08008CC4": {
   "addr": 134253764,
-  "claimed_at": 1793003397.318828,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793003529.1390526,
   "module": "hardware.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 12,
   "size": 141,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008CD0": {
@@ -11039,24 +11040,28 @@
  },
  "func_0805B38C": {
   "addr": 134591372,
-  "claimed_at": 1793003514.6322885,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003525.1239803,
   "module": "code_0803EE94.s",
+  "note": "ter\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805B38C/kilo-1531/func.c:630: request for member `unk4' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805B38C/kilo-1531/func.c:633: request for member `unkC' in something not a structure or union\n",
   "ref_len": 2216,
   "size": 18038,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0805BC34": {
   "addr": 134593588,
+  "judged_mtime": 1793003529.0519207,
   "module": "code_0803EE94.s",
+  "note": "n\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805BC34/kilo-1531/func.c:651: request for member `unk18' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805BC34/kilo-1531/func.c:655: request for member `unk24' in something not a structure or union\n",
   "ref_len": 2568,
   "size": 21598,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0805C63C": {
   "addr": 134596156,
+  "claimed_at": 1793003527.7363634,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 464,
   "size": 3906,
@@ -11065,6 +11070,8 @@
  },
  "func_0805C80C": {
   "addr": 134596620,
+  "claimed_at": 1793003527.7481868,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 352,
   "size": 2986,
@@ -11073,6 +11080,8 @@
  },
  "func_0805C96C": {
   "addr": 134596972,
+  "claimed_at": 1793003527.7598686,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 1356,
   "size": 11925,
@@ -11081,6 +11090,8 @@
  },
  "func_0805CEB8": {
   "addr": 134598328,
+  "claimed_at": 1793003527.7712464,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 68,
   "size": 611,
@@ -11089,6 +11100,8 @@
  },
  "func_0805CEFC": {
   "addr": 134598396,
+  "claimed_at": 1793003527.782977,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 64,
   "size": 584,
@@ -11097,6 +11110,8 @@
  },
  "func_0805CF3C": {
   "addr": 134598460,
+  "claimed_at": 1793003527.7950454,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 52,
   "size": 430,
@@ -11105,6 +11120,8 @@
  },
  "func_0805CF70": {
   "addr": 134598512,
+  "claimed_at": 1793003527.807156,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 512,
   "size": 4066,
@@ -11113,6 +11130,8 @@
  },
  "func_0805D170": {
   "addr": 134599024,
+  "claimed_at": 1793003527.8189805,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 1520,
   "size": 13068,
@@ -11121,6 +11140,8 @@
  },
  "func_0805D760": {
   "addr": 134600544,
+  "claimed_at": 1793003527.8306253,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 608,
   "size": 5418,
@@ -11129,6 +11150,8 @@
  },
  "func_0805D9C0": {
   "addr": 134601152,
+  "claimed_at": 1793003527.842467,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 612,
   "size": 4885,
@@ -11137,6 +11160,8 @@
  },
  "func_0805DC24": {
   "addr": 134601764,
+  "claimed_at": 1793003527.8553572,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 512,
   "size": 4169,
@@ -11145,6 +11170,8 @@
  },
  "func_0805DE24": {
   "addr": 134602276,
+  "claimed_at": 1793003527.8678257,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 156,
   "size": 1310,
@@ -11153,6 +11180,8 @@
  },
  "func_0805DEC0": {
   "addr": 134602432,
+  "claimed_at": 1793003527.8799596,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 168,
   "size": 1370,
@@ -11161,6 +11190,8 @@
  },
  "func_0805DF68": {
   "addr": 134602600,
+  "claimed_at": 1793003527.8926702,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 92,
   "size": 792,
@@ -11169,6 +11200,8 @@
  },
  "func_0805DFC4": {
   "addr": 134602692,
+  "claimed_at": 1793003527.9045956,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 1632,
   "size": 13804,
@@ -11177,6 +11210,8 @@
  },
  "func_0805E624": {
   "addr": 134604324,
+  "claimed_at": 1793003527.9165726,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 52,
   "size": 490,
@@ -11185,6 +11220,8 @@
  },
  "func_0805E658": {
   "addr": 134604376,
+  "claimed_at": 1793003527.928773,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 64,
   "size": 584,
@@ -11193,6 +11230,8 @@
  },
  "func_0805E698": {
   "addr": 134604440,
+  "claimed_at": 1793003527.940226,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 52,
   "size": 430,
@@ -11201,6 +11240,8 @@
  },
  "func_0805E6CC": {
   "addr": 134604492,
+  "claimed_at": 1793003527.9523842,
+  "claimed_by": "kilo-1531",
   "module": "code_0803EE94.s",
   "ref_len": 148,
   "size": 1435,
