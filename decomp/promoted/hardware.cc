@@ -59,3 +59,11 @@ s32 func_08008B0C(void) {
     m4aSoundVSync();
     return 1;
 }
+
+// DECOMP-MATCHED func_08008B18 (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aSoundMain();                                   /* extern */
+
+s32 func_08008B18(void) {
+    m4aSoundMain();
+    return 1;
+}
