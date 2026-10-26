@@ -9,6 +9,10 @@
 func_08012464:
 	push	{r4, r5, r6, r7, lr}
 	add	r5, r1, #0
+	ldr	r0, [r0, #0x4]
+	add	r0, r0, #0xd0
+	ldr	r4, [r0]
+	ldr	r7, [r0, #0x4]
 .L16:
 	cmp	r4, r7
 	beq	.L8	@cond_branch
