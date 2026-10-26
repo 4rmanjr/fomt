@@ -43,3 +43,8 @@ s32 func_08075328(void) {
 void func_080946BC(void) {
 
 }
+
+// DECOMP-MATCHED func_080946C0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+void func_080946C0(void) {
+
+}
