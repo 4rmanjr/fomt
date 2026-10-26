@@ -10,9 +10,11 @@ func_0803BFC8:
 	push	{r4, r5, lr}
 	add	r4, r0, #0
 	add	r5, r1, #0
-	cmp	r2, #0
+	ldr	r0, .L4
+	str	r0, [r4, #0x4]
+	ldr	r0, [r4, #0x8]
+	cmp	r0, #0
 	beq	.L3	@cond_branch
-	add	r0, r2, #0
 	mov	r1, #0x3
 	bl	func_080E0C38
 .L3:
@@ -22,5 +24,9 @@ func_0803BFC8:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
+.L5:
+	.align	2, 0
+.L4:
+	.word	vtable_unk_080E77A4
 .Lfe1:
 	.size	 func_0803BFC8,.Lfe1-func_0803BFC8

@@ -7,31 +7,45 @@
 	.type	 func_0803BF78,function
 	.thumb_func
 func_0803BF78:
-	push	{r4, r5, lr}
+	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x14
-	add	r5, r0, #0
-	ldr	r4, [sp, #0x20]
+	add	r4, r0, #0
+	ldr	r6, [sp, #0x24]
+	ldr	r5, [sp, #0x28]
 	mov	r0, #0x18
 	str	r0, [sp]
 	str	r1, [sp, #0x4]
 	str	r2, [sp, #0x8]
 	str	r3, [sp, #0xc]
-	str	r4, [sp, #0x10]
-	add	r0, r5, #0
+	str	r6, [sp, #0x10]
+	add	r0, r4, #0
 	mov	r1, #0x0
 	mov	r2, #0x88
 	mov	r3, #0xf0
 	bl	func_0803BDFC
 	ldr	r0, .L3
+	str	r0, [r4, #0x4]
+	ldr	r0, .L3+0x4
 	bl	__builtin_new
-	add	r0, r5, #0
+	bl	func_080E0A94
+	str	r0, [r4, #0x8]
+	lsl	r5, r5, #0x18
+	asr	r5, r5, #0x18
+	str	r5, [r4, #0xc]
+	mov	r0, #0x0
+	str	r0, [r4, #0x10]
+	mov	r0, #0x1
+	str	r0, [r4, #0x14]
+	str	r0, [r4, #0x18]
+	add	r0, r4, #0
 	add	sp, sp, #0x14
-	pop	{r4, r5}
+	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
 .L4:
 	.align	2, 0
 .L3:
+	.word	vtable_unk_080E77A4
 	.word	0x41c
 .Lfe1:
 	.size	 func_0803BF78,.Lfe1-func_0803BF78

@@ -7,8 +7,13 @@
 	.type	 func_0803C518,function
 	.thumb_func
 func_0803C518:
-	push	{lr}
+	push	{r4, lr}
+	add	r4, r0, #0
 	bl	func_0803BEBC
+	mov	r0, #0x1
+	str	r0, [r4, #0x10]
+	str	r0, [r4, #0x14]
+	pop	{r4}
 	pop	{r0}
 	bx	r0
 .Lfe1:

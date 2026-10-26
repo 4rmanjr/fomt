@@ -7,6 +7,7 @@
 	.type	 func_0803C540,function
 	.thumb_func
 func_0803C540:
+	ldrb	r0, [r0, #0xc]
 	bx	lr
 .Lfe1:
 	.size	 func_0803C540,.Lfe1-func_0803C540

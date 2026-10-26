@@ -80,3 +80,12 @@ void func_0803BE50(GenObj *arg0, s32 arg1) {
         __builtin_delete(arg0);
     }
 }
+
+// DECOMP-MATCHED func_0803C540 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+} GenObj;
+u8 func_0803C540(GenObj *arg0) {
+    return arg0->unkC;
+}
