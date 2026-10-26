@@ -96,3 +96,10 @@ void func_08050D0C(s32 *arg0, s32 arg1) {
         __builtin_delete(arg0);
     }
 }
+
+// DECOMP-MATCHED func_08050D5C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_0805039C(s32);                               /* extern */
+
+void func_08050D5C(s32 *arg0) {
+    func_0805039C(*arg0);
+}
