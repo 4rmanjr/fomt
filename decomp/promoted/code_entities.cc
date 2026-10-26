@@ -100,3 +100,8 @@ s32 func_080245E0(s32 arg0) {
         return 0x15;
     }
 }
+
+// DECOMP-MATCHED func_0802C2DC (dari code_entities.s; cek manusia sebelum ke src/)
+void func_0802C2DC(void) {
+
+}
