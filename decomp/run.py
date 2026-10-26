@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Satu perintah asm->C untuk fomt (tanpa ROM, idempoten).
+"""Satu perintah asm->C untuk fomt (tanpa ROM, idempoten, foreground).
 
-Pakai:  python3 decomp/run.py [N] [modul ...]
-  N = jumlah fungsi per jalan (default 20). Ctrl-C kapan saja, jalankan lagi
+Pakai:  python3 decomp/run.py [N] [modul ...] [--loop] [--wait S] [--retry] [--until HH:MM]
+  N = jumlah fungsi per batch (default 20). Ctrl-C kapan saja, jalankan lagi
   untuk lanjut. Semua progres tersimpan di decomp/state/progress.json.
+  --loop mengulangi batch sampai antrean pending/drafted habis; tetap
+  foreground (tiap fungsi + ringkasan batch dicetak langsung), berhenti
+  dengan Ctrl-C / deadline / antrean kosong.
 
 Alur per fungsi: scan -> draft (m2c) -> judge (agbcc -O2 vs byte asm) ->
 promote (stage ke decomp/promoted/). Hasil matched/promoted tidak pernah
@@ -642,9 +645,117 @@ def autopush(name: str) -> bool:
             fcntl.flock(fh, fcntl.LOCK_UN)
 
 
+def _queueable(k, v, retry_all: bool) -> bool:
+    """pending/drafted selalu masuk antre; failed HANYA bila drafnya berubah
+    sejak judge terakhir (perbaikan manual) — kalau tidak, antre macet di
+    fungsi yang gagal terus dan fungsi pending tidak pernah disentuh.
+    `--retry` memaksa semua failed ikut diulang."""
+    if v["status"] in ("pending", "drafted"):
+        return True
+    if v["status"] != "failed":
+        return False
+    if retry_all:
+        return True
+    p = DRAFTS / f"{k}.c"
+    try:
+        return p.exists() and p.stat().st_mtime > v.get("judged_mtime", 0)
+    except OSError:
+        return False
+
+
+def run_batch(n: int, modules: list[str] | None, retry_all: bool,
+              until: str, batch_no: int | None = None) -> tuple[int, int, bool, bool]:
+    """Kerjakan satu batch hingga `n` fungsi. Tetap foreground: tiap fungsi
+    dan baris progres dicetak ke stdout saat dikerjakan.
+
+    Return (match, diff, had_work, stopped): had_work False bila antrean
+    kosong (tidak ada yang dikerjakan); stopped True bila Ctrl-C/deadline
+    memotong batch di tengah jalan.
+    """
+    prefix = f"[{AGENT}]" if batch_no is None else f"[{AGENT}] batch#{batch_no}"
+    # Klaim fungsi dulu (di bawah lock). Agent lain yang sudah memegang sebuah
+    # fungsi tidak diganggu; klaim basi (lewat FOMT_CLAIM_TTL) boleh diambil alih.
+    st = load()
+    now = time.time()
+    cands = [k for k, v in sorted(st.items())
+             if _queueable(k, v, retry_all)
+             and k not in SKIP_FUNCS
+             and (not modules or v["module"] in modules)
+             and not (_live(v, now) and v["claimed_by"] != AGENT)]
+    todo = claim_many(cands, n) if n else []
+    if todo:
+        print(f"{prefix} mulai {len(todo)} fungsi"
+              + (f" | stop {until}" if until else "")
+              + f" | {progress(load())}")
+        print(f"{prefix} {bar_text(load())}")
+    elif n:
+        fin = load()
+        held = sum(1 for k, v in fin.items()
+                   if _queueable(k, v, retry_all)
+                   and _live(v, time.time()) and v["claimed_by"] != AGENT)
+        if held:
+            print(f"{prefix} tidak ada fungsi bebas: {held} fungsi sedang dipegang "
+                  f"agent lain (klaim basi diambil alih setelah {CLAIM_TTL}s)."
+                  f" | {progress(fin)}")
+        else:
+            print(f"{prefix} antrean habis: tidak ada pending/drafted"
+                  f" (sisa failed butuh perbaikan manual di decomp/drafts/)."
+                  f" | {progress(fin)}")
+    else:
+        print(f"{prefix} status | {progress(load())}")
+        print(f"{prefix} {bar_text(load())}")
+    done = {"MATCH": 0, "DIFF": 0}
+    stopped = False
+    try:
+        for i, name in enumerate(todo, 1):
+            tag = f"[{i}/{len(todo)}]"
+            matched = False
+            _show_status(f"{prefix} {tag} {name}: mengerjakan...")
+            if load()[name]["status"] == "pending" and not draft(name):
+                done["DIFF"] += 1
+                _clear_status()
+                print(f"{prefix} {tag} {name}: DIFF (m2c gagal)"
+                      f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
+            elif judge(name):
+                done["MATCH"] += 1
+                matched = True
+                out = promote(name)
+                _clear_status()
+                print(f"{prefix} {tag} {name}: MATCH -> {out}"
+                      f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
+            else:
+                done["DIFF"] += 1
+                _clear_status()
+                print(f"{prefix} {tag} {name}: DIFF ({short_note(load()[name].get('note', ''))})"
+                      f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
+            release(name)
+            if matched:
+                autopush(name)  # hasil MATCH langsung disimpan di remote
+    except KeyboardInterrupt:
+        _clear_status()
+        stopped = True
+        if DEADLINE_HIT:
+            print(f"\nBerhenti: deadline {until} tercapai.")
+        else:
+            print("\nBerhenti. Jalankan lagi perintah yang sama untuk lanjut.")
+    finally:
+        # Lepas semua klaim batch ini; kalau tidak, fungsi sisa batch tetap
+        # "dipegang" agent ini dan memblokir agent lain sampai TTL habis.
+        release_all()
+    fin = load()
+    now = time.time()
+    held = sum(1 for v in fin.values() if _live(v, now) and v["claimed_by"] != AGENT)
+    print(f"Selesai {prefix}: batch MATCH {done['MATCH']}, DIFF {done['DIFF']} | {progress(fin)}"
+          + (f" | dipegang agent lain: {held}" if held else ""))
+    print(f"{prefix} {bar_text(fin)}")
+    return done["MATCH"], done["DIFF"], bool(todo), stopped
+
+
 def main(argv: list[str]) -> int:
     global AGENT, SAFE_AGENT
     retry_all = False
+    loop = False
+    wait_s = 5.0
     until = ""
     args: list[str] = []
     it = iter(argv)
@@ -655,6 +766,19 @@ def main(argv: list[str]) -> int:
             AGENT = ((a.split("=", 1)[1]).strip() or "agent")[:40]
         elif a == "--retry":
             retry_all = True  # ulangi juga fungsi 'failed' yang drafnya tidak berubah
+        elif a == "--loop":
+            loop = True  # ulangi batch sampai antrean habis (tetap foreground)
+        elif a.startswith("--wait"):
+            try:
+                if a == "--wait":
+                    wait_s = max(0.0, float((next(it, "") or "5").strip() or "5"))
+                elif a.startswith("--wait="):
+                    wait_s = max(0.0, float(a.split("=", 1)[1].strip() or "5"))
+                else:
+                    raise ValueError(a)
+            except (ValueError, StopIteration):
+                print("format --wait harus detik, mis. --wait=5", file=sys.stderr)
+                return 2
         elif a == "--until":
             until = (next(it, "") or "").strip()
         elif a.startswith("--until="):
@@ -718,93 +842,51 @@ def main(argv: list[str]) -> int:
                 v["judged_mtime"] = p.stat().st_mtime if p.exists() else 0
 
     update(_baseline)
-    # Klaim fungsi dulu (di bawah lock). Agent lain yang sudah memegang sebuah
-    # fungsi tidak diganggu; klaim basi (lewat FOMT_CLAIM_TTL) boleh diambil alih.
-    st = load()
-    now = time.time()
-
-    def _queueable(k, v):
-        """pending/drafted selalu masuk antre; failed HANYA bila drafnya berubah
-        sejak judge terakhir (perbaikan manual) — kalau tidak, antre macet di
-        fungsi yang gagal terus dan fungsi pending tidak pernah disentuh.
-        `--retry` memaksa semua failed ikut diulang."""
-        if v["status"] in ("pending", "drafted"):
-            return True
-        if v["status"] != "failed":
-            return False
-        if retry_all:
-            return True
-        p = DRAFTS / f"{k}.c"
-        try:
-            return p.exists() and p.stat().st_mtime > v.get("judged_mtime", 0)
-        except OSError:
-            return False
-
-    cands = [k for k, v in sorted(st.items())
-             if _queueable(k, v)
-             and k not in SKIP_FUNCS
-             and (not modules or v["module"] in modules)
-             and not (_live(v, now) and v["claimed_by"] != AGENT)]
-    todo = claim_many(cands, n) if n else []
-    if todo:
-        print(f"[{AGENT}] mulai {len(todo)} fungsi"
-              + (f" | stop {until}" if until else "")
-              + f" | {progress(load())}")
-        print(f"[{AGENT}] {bar_text(load())}")
-        if deadline is not None:
-            signal.signal(signal.SIGALRM, _on_alarm)
-            signal.setitimer(signal.ITIMER_REAL, max(0.0, deadline - time.time()))
-    elif n:
-        print(f"[{AGENT}] tidak ada fungsi bebas: semua sudah diklaim agent lain "
-              f"(klaim basi diambil alih setelah {CLAIM_TTL}s) atau sudah selesai."
-              f" | {progress(load())}")
-    else:
-        print(f"[{AGENT}] status | {progress(load())}")
-        print(f"[{AGENT}] {bar_text(load())}")
-    done = {"MATCH": 0, "DIFF": 0}
+    if deadline is not None:
+        signal.signal(signal.SIGALRM, _on_alarm)
+        signal.setitimer(signal.ITIMER_REAL, max(0.0, deadline - time.time()))
     try:
-        for i, name in enumerate(todo, 1):
-            tag = f"[{i}/{len(todo)}]"
-            matched = False
-            _show_status(f"[{AGENT}] {tag} {name}: mengerjakan...")
-            if load()[name]["status"] == "pending" and not draft(name):
-                done["DIFF"] += 1
-                _clear_status()
-                print(f"[{AGENT}] {tag} {name}: DIFF (m2c gagal)"
-                      f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
-            elif judge(name):
-                done["MATCH"] += 1
-                matched = True
-                out = promote(name)
-                _clear_status()
-                print(f"[{AGENT}] {tag} {name}: MATCH -> {out}"
-                      f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
-            else:
-                done["DIFF"] += 1
-                _clear_status()
-                print(f"[{AGENT}] {tag} {name}: DIFF ({short_note(load()[name].get('note', ''))})"
-                      f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
-            release(name)
-            if matched:
-                autopush(name)  # hasil MATCH langsung disimpan di remote
-    except KeyboardInterrupt:
-        _clear_status()
-        if DEADLINE_HIT:
-            print(f"\nBerhenti: deadline {until} tercapai.")
-        else:
-            print("\nBerhenti. Jalankan lagi perintah yang sama untuk lanjut.")
+        if not loop:
+            run_batch(n, modules, retry_all, until)
+            return 0
+        # Mode loop: ulangi batch sampai antrean habis / Ctrl-C / deadline.
+        # Tetap foreground: tiap fungsi + ringkasan batch dicetak langsung.
+        # Pengaman: --retry + --loop tanpa filter modul akan mengulang failed
+        # yang sama selamanya — tolak kombinasi itu.
+        if retry_all and not modules:
+            print("--retry + --loop tanpa filter modul akan mengulang fungsi "
+                  "failed yang sama selamanya; batasi modul (mis. --loop "
+                  "20 code_x.s --retry) atau perbaiki draf manual dulu.",
+                  file=sys.stderr)
+            return 2
+        total_m = total_d = batches = 0
+        while True:
+            batches += 1
+            m, d, had_work, stopped = run_batch(n, modules, retry_all, until, batches)
+            total_m += m
+            total_d += d
+            if stopped:
+                print(f"[{AGENT}] loop berhenti di batch#{batches}"
+                      f" | total loop {total_m}M/{total_d}D | {progress(load())}")
+                return 0
+            if not had_work:
+                print(f"[{AGENT}] loop selesai setelah {batches} batch"
+                      f" | total loop {total_m}M/{total_d}D | {progress(load())}")
+                print(f"[{AGENT}] {bar_text(load())}")
+                return 0
+            scan(modules)  # modul bisa berubah di tengah loop; pending baru ikut antre
+            update(_baseline)
+            print(f"[{AGENT}] loop lanjut batch#{batches + 1} dalam {wait_s:g}s"
+                  f" (Ctrl-C untuk berhenti) | {progress(load())}")
+            try:
+                time.sleep(wait_s)
+            except KeyboardInterrupt:
+                print(f"\n[{AGENT}] loop dihentikan sebelum batch#{batches + 1}"
+                      f" | total loop {total_m}M/{total_d}D | {progress(load())}")
+                return 0
     finally:
         if deadline is not None:
             signal.setitimer(signal.ITIMER_REAL, 0)
-        # Lepas semua klaim batch ini; kalau tidak, fungsi sisa batch tetap
-        # "dipegang" agent ini dan memblokir agent lain sampai TTL habis.
-        release_all()
-    fin = load()
-    now = time.time()
-    held = sum(1 for v in fin.values() if _live(v, now) and v["claimed_by"] != AGENT)
-    print(f"Selesai [{AGENT}]: batch MATCH {done['MATCH']}, DIFF {done['DIFF']} | {progress(fin)}"
-          + (f" | dipegang agent lain: {held}" if held else ""))
-    print(f"[{AGENT}] {bar_text(fin)}")
     return 0
 
 

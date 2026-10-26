@@ -331,3 +331,103 @@ s32 func_080E1A48(void) {
     func_08076EA8();
     return 1;
 }
+
+// DECOMP-MATCHED func_080E1D8C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08076E0C();                                  /* extern */
+
+void func_080E1D8C(void) {
+    func_08076E0C();
+}
+
+// DECOMP-MATCHED func_080E1D98 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08076E0C();                                  /* extern */
+
+void func_080E1D98(void) {
+    func_08076E0C();
+}
+
+// DECOMP-MATCHED func_080E1DA4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08076E0C();                                  /* extern */
+
+void func_080E1DA4(void) {
+    func_08076E0C();
+}
+
+// DECOMP-MATCHED func_080E1DB0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08076E0C();                                  /* extern */
+
+void func_080E1DB0(void) {
+    func_08076E0C();
+}
+
+// DECOMP-MATCHED func_080E1DBC (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08076EA8();                                  /* extern */
+
+s32 func_080E1DBC(void) {
+    func_08076EA8();
+    return 1;
+}
+
+// DECOMP-MATCHED func_080E1DC8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08076E0C();                                  /* extern */
+
+void func_080E1DC8(void) {
+    func_08076E0C();
+}
+
+// DECOMP-MATCHED func_080E20F8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08070C88();                                  /* extern */
+
+void func_080E20F8(void) {
+    func_08070C88();
+}
+
+// DECOMP-MATCHED func_080E2104 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08070C88();                                  /* extern */
+
+void func_080E2104(void) {
+    func_08070C88();
+}
+
+// DECOMP-MATCHED func_080E2110 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08070C88();                                  /* extern */
+
+void func_080E2110(void) {
+    func_08070C88();
+}
+
+// DECOMP-MATCHED func_080E35DC (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08093308(s32);                               /* extern */
+
+void func_080E35DC(s32 arg0) {
+    func_08093308(arg0 - 8);
+}
+
+// DECOMP-MATCHED func_080E3610 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080088CC(s32);                             /* extern */
+
+u32 func_080E3610(s32 arg0) {
+    return (u32) (0 - (u8) (func_080088CC(arg0 - 8) & 2)) >> 0x1F;
+}
+
+// DECOMP-MATCHED func_080E3730 (dari code_linkonce.s; cek manusia sebelum ke src/)
+void func_080E3730(void) {
+
+}
+
+// DECOMP-MATCHED func_080E375C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080088CC(s32);                             /* extern */
+
+u32 func_080E375C(s32 arg0) {
+    return (u32) (0 - (u8) (func_080088CC(arg0 - 8) & 2)) >> 0x1F;
+}
+
+// DECOMP-MATCHED func_080E3858 (dari code_linkonce.s; cek manusia sebelum ke src/)
+void func_080E3858(void) {
+
+}
+
+// DECOMP-MATCHED func_080E3910 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080E3910(void) {
+    return 1;
+}

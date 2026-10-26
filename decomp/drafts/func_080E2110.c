@@ -1,0 +1,5 @@
+s32 func_08070C88();                                  /* extern */
+
+void func_080E2110(void) {
+    func_08070C88();
+}
