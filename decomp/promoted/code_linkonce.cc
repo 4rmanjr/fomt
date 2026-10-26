@@ -431,3 +431,10 @@ void func_080E3858(void) {
 s32 func_080E3910(void) {
     return 1;
 }
+
+// DECOMP-MATCHED func_080E3914 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080D0340();                                  /* extern */
+
+void func_080E3914(void) {
+    func_080D0340();
+}
