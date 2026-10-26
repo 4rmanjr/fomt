@@ -171,3 +171,12 @@ void func_08012B04(GenObj *arg0) {
     LoadById__12ScriptEngineii(gUnk_0300040C + 8);
     func_080D7F3C(temp_r4);
 }
+
+// DECOMP-MATCHED func_0801468C (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s32 func_0801468C(GenObj *arg0) {
+    return arg0->unk4 + 0xD0;
+}

@@ -7,6 +7,8 @@
 	.type	 func_0801468C,function
 	.thumb_func
 func_0801468C:
+	ldr	r0, [r0, #0x4]
+	add	r0, r0, #0xd0
 	bx	lr
 .Lfe1:
 	.size	 func_0801468C,.Lfe1-func_0801468C

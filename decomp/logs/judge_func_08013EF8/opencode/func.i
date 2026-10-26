@@ -57,20 +57,38 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08013EF8/opencode/func.c" 2
 void *__builtin_new(s32, s32, s32);
 void **func_0803B6FC(void *, void **, s32);
-extern ? vtable_unk_080E5E74;
+extern s32 vtable_unk_080E5E74;
 
-void func_08013EF8(void *arg0, ? arg1) {
+typedef struct GenObj {
+    void *unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    u8 _padC[128];
+    struct GenObj *unk8C;
+    u8 _pad90[12];
+    struct GenObj *unk9C;
+    u8 _padA0[4];
+    struct GenObj *unkA4;
+} GenObj;
+void func_08013EF8(GenObj *arg0, ? arg1) {
     void *sp0;
     void **spC;
-    void *sp10;
+    GenObj *sp10;
     void **temp_r0_2;
     void **temp_r1;
-    void *temp_r0;
-    void *temp_r2;
-    void *temp_r6;
+    GenObj *temp_r0;
+    GenObj *temp_r2;
+    GenObj *temp_r6;
 
     temp_r6 = arg0->unk4;
     sp0 = (void *)0x2F;
@@ -80,13 +98,13 @@ void func_08013EF8(void *arg0, ? arg1) {
     sp10.unk8 = (s32) sp0.unk8;
     temp_r0->unk0 = &vtable_unk_080E5E74;
     temp_r0->unk4 = (s32) temp_r6->unk8C;
-    temp_r2 = temp_r0 + 8;
+    temp_r2 = (GenObj *)((u8 *)temp_r0 + 8);
     temp_r0->unk8 = (void *) sp10.unk0;
     temp_r2->unk4 = (s32) sp10.unk4;
     temp_r2->unk8 = (s32) sp10.unk8;
     spC = 0;
     sp10 = temp_r0;
-    temp_r0_2 = func_0803B6FC(__builtin_new(0xC, 0, temp_r2 + 0xC), &sp10, arg1);
+    temp_r0_2 = func_0803B6FC(__builtin_new(0xC, 0, (GenObj *)((u8 *)temp_r2 + 0xC)), &sp10, arg1);
     temp_r1 = temp_r6->unkA4;
     if ((temp_r0_2 != temp_r1) && (temp_r1 != 0)) {
         (*temp_r1)->unk8(temp_r1, 3);

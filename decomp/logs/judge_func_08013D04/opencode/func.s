@@ -7,6 +7,21 @@
 	.type	 func_08013D04,function
 	.thumb_func
 func_08013D04:
-	bx	lr
+	push	{r4, r5, lr}
+	ldr	r4, [r0, #0x10]
+	mov	r0, #0x10
+	bl	__builtin_new
+	add	r5, r0, #0
+	mov	r0, #0x14
+	bl	__builtin_new
+	add	r0, r4, #0
+	add	r0, r0, #0xb0
+	str	r5, [r0]
+	add	r4, r4, #0xa8
+	mov	r0, #0x18
+	str	r0, [r4]
+	pop	{r4, r5}
+	pop	{r0}
+	bx	r0
 .Lfe1:
 	.size	 func_08013D04,.Lfe1-func_08013D04

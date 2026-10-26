@@ -7,6 +7,10 @@
 	.type	 func_08014198,function
 	.thumb_func
 func_08014198:
+	ldr	r0, [r0, #0x4]
+	add	r0, r0, #0x9c
+	mov	r1, #0x19
+	str	r1, [r0]
 	mov	r0, #0x1
 	bx	lr
 .Lfe1:

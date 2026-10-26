@@ -21,8 +21,8 @@ void func_08003DF0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     spbuf[0] = mask | (u8)var;
     temp = spbuf[0];
     var = ((u32) (temp << 7) >> 0x17) + 0x80;
-    arg0 = (GenObj *)((u8 *)arg0 + 0x84);
-    if (*((u8 *)arg0 + arg1) == 0) {
+    t = (u8 *)arg0 + 0x84;
+    if (*(t + arg1) == 0) {
         goto skip_add;
     }
     var += 0x40;

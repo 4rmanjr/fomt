@@ -1,18 +1,31 @@
 #include "common.h"
-? **__builtin_new(s32);                             /* extern */
-extern ? vtable_unk_080E5C14;
-extern ? vtable_unk_080E5C24;
-extern ? vtable_unk_080E5E44;
+s32 **__builtin_new(s32);                             /* extern */
+extern s32 vtable_unk_080E5C14;
+extern s32 vtable_unk_080E5C24;
+extern s32 vtable_unk_080E5E44;
 
-void func_08013D04(void *arg0, u8 arg1) {
-    ? **temp_r0;
-    ? **temp_r0_3;
-    ? **temp_r1;
+typedef struct GenObj {
+    u8 _pad0[1];
+    struct GenObj *unk1;
+    struct GenObj *unk2;
+    struct GenObj *unk3;
+    struct GenObj *unk4;
+    u8 _pad8[132];
+    struct GenObj *unk8C;
+    u8 _pad90[12];
+    struct GenObj *unk9C;
+    u8 _padA0[4];
+    struct GenObj *unkA4;
+} GenObj;
+void func_08013D04(GenObj *arg0, u8 arg1) {
+    s32 **temp_r0;
+    s32 **temp_r0_3;
+    s32 **temp_r1;
     s32 temp_r0_2;
     s32 temp_r6;
     u8 temp_r4;
-    void *temp_r4_2;
-    void *temp_r7;
+    GenObj *temp_r4_2;
+    GenObj *temp_r7;
 
     temp_r4 = arg1;
     temp_r7 = arg0->unk4;
