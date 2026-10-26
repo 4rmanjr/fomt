@@ -735,15 +735,14 @@
  },
  "func_08005260": {
   "addr": 134238816,
-  "claimed_at": 1793021919.8847497,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793017138.3352215,
+  "judged_mtime": 1793021173.9943032,
   "module": "new_game.s",
-  "note": "byte +0x7: 0x60 vs ref 0x70",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 316,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08005278": {

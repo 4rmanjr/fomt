@@ -191,3 +191,14 @@ void func_08004C54(GenObj *arg0, s32 arg1) {
     arg0->unk0 = &vtable_unk_080E5A88;
     func_080007EC(arg0, arg1);
 }
+
+// DECOMP-MATCHED func_08005260 (dari new_game.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x1A74];
+    u8 unk1A74;
+    u8 unk1A75;
+} GenObj;
+void func_08005260(GenObj *arg0) {
+    arg0->unk1A75 = 0;
+    arg0->unk1A74 = 0;
+}
