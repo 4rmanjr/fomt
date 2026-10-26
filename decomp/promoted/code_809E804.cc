@@ -236,3 +236,20 @@ s32 func_08008724();                                  /* extern */
 void func_080C14BC(void) {
     func_08008724();
 }
+
+// DECOMP-MATCHED func_080CABA0 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_08050D8C(s32, s32);                          /* extern */
+s32 func_08050EBC(s32, s32);                          /* extern */
+
+void func_080CABA0(s32 arg0, s32 arg1) {
+    s32 temp_r4;
+
+    temp_r4 = arg0 + 0x348;
+    func_08050EBC(temp_r4, 4);
+    func_08050EBC(temp_r4, 8);
+    func_08050EBC(temp_r4, 1);
+    func_08050EBC(temp_r4, 2);
+    func_08050EBC(temp_r4, 0x10);
+    func_08050EBC(temp_r4, 0x20);
+    func_08050D8C(temp_r4, arg1);
+}

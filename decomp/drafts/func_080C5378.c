@@ -1,0 +1,175 @@
+s32 func_080087C8(void *);                            /* extern */
+s16 *func_08008918(void *);                         /* extern */
+void *func_08008940(void *);                        /* extern */
+s32 func_08008B6C(void *, s32);                       /* extern */
+s32 func_08009378(void *, s32, s32, s32);             /* extern */
+s32 func_080C2D54(void *);                            /* extern */
+s32 func_080C7B7C(u32 *, void *, u8);                 /* extern */
+u16 rand();                                         /* extern */
+extern ? gUnk_08107FE0;
+
+void func_080C5378(void *arg0) {
+s32 sp0;
+    s8 sp18;
+    u32 sp20;
+    u32 sp24;
+    s32 sp28;
+    s32 sp2C;
+    s32 sp30;
+    s16 *sp34;
+    s16 *temp_r0_2;
+    s32 *temp_r2_3;
+    s32 temp_r1;
+    s32 temp_r1_2;
+    s32 temp_r1_3;
+    s32 temp_r2_2;
+    s32 temp_r3;
+    s32 var_r5;
+    s32 var_r5_2;
+    s32 var_r5_3;
+    s32 var_r5_4;
+    s32 var_sl;
+    s8 *var_r0_3;
+    s8 *var_r7;
+    u32 temp_r0_3;
+    u8 temp_r2;
+    u8 var_r3;
+    void *temp_r0;
+    void *temp_r0_4;
+    void *temp_r4;
+    void *var_r0;
+    void *var_r0_2;
+    void *var_r5_5;
+    void *var_r8;
+
+    arg0->unk8B4 = 0x78;
+    arg0->unk8B5 = 0x98;
+    arg0->unk8BC = 2;
+    arg0->unk8C4 = 1;
+    var_sl = 0;
+    sp28 = 0;
+    temp_r0 = (arg0->unk8B0 * 4) + &gUnk_08107FE0;
+    sp2C = (s32) temp_r0->unk0;
+    temp_r2 = temp_r0->unk1;
+    sp30 = (s32) temp_r0->unk2;
+    sp34 = &sp0 + 0x1C;
+    var_r0 = arg0 + 0x904;
+    var_r5 = 0x18;
+    do {
+        var_r0->unk0 = 0;
+        var_r0->unk1 = 0;
+        var_r0 += 4;
+        var_r5 -= 1;
+    } while (var_r5 >= 0);
+    temp_r3 = temp_r2 - 1;
+    var_r0_2 = arg0 + 0x8C8;
+    var_r5_2 = 0xE;
+    do {
+        var_r0_2->unk0 = 0;
+        var_r0_2->unk1 = 0;
+        var_r0_2 += 4;
+        var_r5_2 -= 1;
+    } while (var_r5_2 >= 0);
+    var_r0_3 = &sp18;
+    do {
+        *var_r0_3 = 0;
+        var_r0_3 -= 1;
+    } while ((s32) var_r0_3 >= (s32) sp);
+    var_r5_3 = 0;
+    if ((s32) temp_r2 > 0) {
+        var_r7 = arg0 + 0x8CA;
+        do {
+            *var_r7 = (s8) ((u32) ((u16) (0x19 - var_r5_3) * rand()) >> 0x10);
+            var_r7 += 4;
+            var_r5_3 += 1;
+        } while (var_r5_3 < (s32) temp_r2);
+    }
+    *(&sp0 + arg0->unk8CA) = 1;
+    var_r5_4 = 0;
+    if (temp_r3 > 0) {
+        do {
+            temp_r2_2 = var_r5_4 + 1;
+            temp_r4 = arg0 + (temp_r2_2 * 4);
+            var_r3 = temp_r4->unk8CA;
+            temp_r4->unk8CA = 0xFFU;
+            if ((s32) var_r3 >= 0) {
+                do {
+                    temp_r4->unk8CA = (u8) (temp_r4->unk8CA + 1);
+                    if (*(temp_r4->unk8CA + sp) == 0) {
+                        var_r3 -= 1;
+                    }
+                } while ((s32) var_r3 >= 0);
+            }
+            *(&sp0 + (arg0 + (temp_r2_2 * 4))->unk8CA) = 1;
+            var_r5_4 = temp_r2_2;
+        } while (var_r5_4 < temp_r3);
+    }
+    if ((s32) temp_r2 <= 0xE) {
+        (arg0 + (temp_r2 * 4))->unk8C8 = 1;
+    }
+    temp_r0_2 = func_08008918(arg0);
+    *sp34 = 0x1640;
+    *temp_r0_2 = 0x1640;
+    func_080C2D54(arg0);
+    if (arg0->unk89C != 2) {
+        return;
+    }
+    var_r8 = arg0;
+    var_r5_5 = arg0 + 0x8C8;
+loop_22:
+    func_080087C8(arg0);
+    temp_r1 = arg0->unk8A0;
+    switch (temp_r1) {                              /* irregular */
+    case 2:
+        temp_r1_2 = *arg0->unk544;
+        temp_r0_3 = (u32) ((0 - temp_r1_2) | temp_r1_2) >> 0x1F;
+        if (temp_r0_3 == 0) {
+            arg0->unk8A0 = (s32) temp_r0_3;
+            arg0->unk89C = 3;
+        }
+        break;
+    case 0:
+        if (var_sl == 0) {
+            if (var_r5_5->unk0 != 0) {
+                arg0->unk8A0 = 1;
+            } else {
+                arg0->unk8C5 = 1;
+                func_08008B6C(arg0 + 0x818, 0xBE);
+                func_080C7B7C(&sp20, arg0, var_r8->unk8CA);
+                arg0->unk97D = (s8) (sp20 + 8);
+                func_080C7B7C(&sp24, arg0, var_r8->unk8CA);
+                arg0->unk97E = (s8) ((sp24 >> 8) + 0x18);
+                goto block_37;
+            }
+        } else {
+            if (var_sl == 0x14) {
+                (arg0 + (var_r5_5->unk2 * 4))->unk904 = 1;
+            } else if (var_sl == sp2C) {
+                var_sl = -1;
+                arg0->unk8C5 = (s8) temp_r1;
+                var_r8 += 4;
+                var_r5_5 += 4;
+            }
+block_37:
+            var_sl += 1;
+        }
+        break;
+    case 1:
+        if (sp28 == sp30) {
+            arg0->unk8A0 = 2;
+            temp_r2_3 = arg0->unk544;
+            temp_r1_3 = *temp_r2_3;
+            if ((s32) ((0 - temp_r1_3) | temp_r1_3) >= 0) {
+                func_08009378(temp_r2_3 + 0xC, 0x889, 1, 1);
+                temp_r0_4 = func_08008940(arg0);
+                temp_r0_4->unk8->unk10(temp_r0_4, arg0->unk544);
+            }
+        }
+        sp28 += 1;
+        break;
+    }
+    func_080C2D54(arg0);
+    if (arg0->unk89C == 2) {
+        goto loop_22;
+    }
+}
