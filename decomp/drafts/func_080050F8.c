@@ -26,10 +26,11 @@ typedef struct GenObj {
 } GenObj;
 s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     s16 sp0;
-    GenObj *sp4;
+    GenObj *volatile sp4;
     GenObj *sp8;
     GenObj **spC;
-    s32 sp10;
+    GenObj **p7;
+    GenObj ***p8;
     s32 temp_r1_2;
     s32 temp_r1_3;
     s32 var_r4;
@@ -58,6 +59,8 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     func_0800934C(temp_r5, 0x889, 1, 1);
     temp_r0_2 = func_08008940(arg1);
     ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, sp4);
+    p7 = &sp8;
+    p8 = &spC;
     var_r4 = 0;
     var_r5 = 0;
     do {
@@ -92,9 +95,9 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
         }
     } while (var_r5 == 0);
     sp8 = 0;
-    spC = &sp8;
-    sp10 = 0;
-    sp8 = 0;
+    *p8 = p7;
+    *(s32 *)(p8 + 1) = 0;
+    *p7 = 0;
     *arg0 = 0;
     if (sp8 != 0) {
         ((void (*)(void *,...))(sp8->unk4->unk8))(sp8, 3);
