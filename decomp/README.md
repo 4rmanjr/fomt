@@ -70,17 +70,18 @@ Selesai [opencode]: batch MATCH 0, DIFF 2 | total 2626 | berhasil 47 (1.8%) | si
 
 ## Autopush hasil MATCH
 
-Setiap fungsi MATCH langsung di-commit dan di-push ke remote oleh `run.py`
-(tidak perlu commit manual setelah decomp):
+Setiap batch dengan MATCH di-commit dan di-push SEKALI di akhir batch oleh
+`run.py` (tidak perlu commit manual setelah decomp):
 
 ```text
 [opencode] [3/20] func_0800FFD4: MATCH -> .../decomp/promoted/more_items.cc | batch 1M/2D | ...
-[opencode] autopush: decomp: promote func_0800FFD4
+[opencode] autopush: decomp: promote 3 funcs (func_0800FFD0..func_0800FFD4)
 ```
 
-- Hanya jalan bila ada perubahan, dan hanya setelah MATCH — run yang DIFF
-  semua tidak menghasilkan push.
-- Yang di-commit: seluruh `decomp/` (state, draf, log, promoted).
+- Hanya jalan bila ada MATCH — run yang DIFF semua tidak menghasilkan push.
+- Yang di-commit: draf MATCH + blok promoted + `progress.json` + log teks
+  (`func.c`/`func.s` sbg audit). Artefak biner judge (`ref.o`/`func.o`/
+  `func.i`/`common.h`) di-ignore, tidak ikut commit.
 - `FOMT_AUTOPUSH=0` mematikan autopush untuk sementara.
 - Kalau push gagal (offline), commit tetap lokal, run lanjut, dan peringatan
   dicetak; push manual nanti.

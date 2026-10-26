@@ -9,12 +9,14 @@ Mineral Town, decomp GBA).
    langsung dan jangan pakai `decomp/workflow.py` (legacy).
 2. **Jangan menimpa hasil MATCH.** `matched`/`promoted` tidak pernah diulang
    otomatis; jangan mengubah draf/berkas promoted-nya tanpa alasan.
-3. **Autopush sudah otomatis.** Setiap fungsi MATCH langsung di-commit dan
-   di-push oleh `run.py` (`decomp/run.py:autopush`). Tidak perlu commit/push
-   manual setelah decomp; jangan lakukan `git add -A` sembarangan untuk hal
-   lain.
-   - Hanya jalan bila ada perubahan dan hanya setelah MATCH (batch DIFF semua
-     tidak di-push).
+3. **Autopush sudah otomatis.** Setiap batch dengan MATCH di-commit dan
+   di-push SEKALI di akhir batch oleh `run.py` (`decomp/run.py:autopush`).
+   Tidak perlu commit/push manual setelah decomp; jangan lakukan `git add -A`
+   sembarangan untuk hal lain.
+   - Hanya jalan bila ada MATCH (batch DIFF semua tidak di-push).
+   - Yang di-commit: draf MATCH + blok promoted + `progress.json` + log teks
+     (`func.c`/`func.s` sbg audit). Artefak biner judge (`ref.o`/`func.o`/
+     `func.i`/`common.h`) di-ignore, tidak ikut commit.
    - Matikan sementara dengan `FOMT_AUTOPUSH=0`.
    - Kalau push gagal (offline), commit tetap lokal dan run lanjut; push
      manual nanti.
