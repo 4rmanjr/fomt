@@ -22,3 +22,11 @@ s32 func_080713AC(void) {
     func_08070CA4();
     return 1;
 }
+
+// DECOMP-MATCHED func_080722D0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_08070CA4();                                  /* extern */
+
+s32 func_080722D0(void) {
+    func_08070CA4();
+    return 1;
+}
