@@ -2,7 +2,11 @@ s32 GetValueShipped__C11ShippingBin(s32);           /* extern */
 s32 ResetValueShipped__11ShippingBin(s32);            /* extern */
 s32 func_0809ABD8(s32, s32);                          /* extern */
 
-u32 func_0801140C(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[13509];
+    s32 unk34C5;
+} GenObj;
+u32 func_0801140C(GenObj *arg0) {
     s32 temp_r0;
     s32 temp_r6;
     s32 temp_r7;

@@ -3,7 +3,13 @@ s32 func_080211E4(void *, s32, u8);                   /* extern */
 s32 func_080212C0(void *);                            /* extern */
 s32 method_0809BB48__3DogPC15UnkBarnAnimal2C(void *, s32 *); /* extern */
 
-void func_08020410(void *arg0, u16 arg1) {
+typedef struct GenObj {
+    u8 _pad0[32];
+    s32 unk20;
+    u8 _pad24[16];
+    void *unk34;
+} GenObj;
+void func_08020410(GenObj *arg0, u16 arg1) {
     s32 sp0;
 
     if (arg0->unk34->unk20 == 5) {

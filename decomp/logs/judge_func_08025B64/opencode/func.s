@@ -8,27 +8,29 @@
 	.thumb_func
 func_08025B64:
 	push	{r4, r5, r6, r7, lr}
-	add	sp, sp, #-0xc
-	add	r5, r0, #0
+	mov	r7, sl
+	mov	r6, r9
+	mov	r5, r8
+	push	{r5, r6, r7}
+	add	sp, sp, #-0xa0
+	add	r6, r0, #0
 	sub	r0, r1, #0x2
 	cmp	r0, #0x20
-	bls	.LCB11
-	b	.L2	@long jump
-.LCB11:
+	bhi	.L4	@cond_branch
 	lsl	r0, r0, #0x2
-	ldr	r1, .L51
+	ldr	r1, .L50
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L52:
-	.align	2, 0
 .L51:
+	.align	2, 0
+.L50:
 	.word	.L48
 	.align	2, 0
 	.align	2, 0
 .L48:
 	.word	.L20
-	.word	.L2
+	.word	.L5
 	.word	.L6
 	.word	.L8
 	.word	.L9
@@ -60,13 +62,25 @@ func_08025B64:
 	.word	.L45
 	.word	.L46
 	.word	.L47
+.L4:
+	mov	r0, #0x0
+	str	r0, [r6, #0x48]
+	b	.L2
+.L5:
+	ldr	r0, [r6, #0x1c]
+	add	r0, r0, #0x8c
+	ldr	r1, [r0]
+	add	r0, r6, #0
+	bl	_call_via_r1
+	b	.L2
 .L6:
+	add	r7, sp, #0x98
 	mov	r1, #0x5
 .L7:
-	mov	r0, #0x0
+	add	r0, r7, #0
 	bl	__4ToolUi
-	add	r0, r5, #0
-	mov	r1, #0x0
+	add	r0, r6, #0
+	add	r1, r7, #0
 	bl	func_0802720C
 	b	.L2
 .L8:
@@ -79,20 +93,21 @@ func_08025B64:
 	mov	r1, #0x1d
 	b	.L7
 .L11:
+	add	r7, sp, #0x9c
 	mov	r1, #0x25
 	b	.L7
 .L12:
 	mov	r1, #0x2d
 	b	.L7
 .L13:
-	mov	r0, #0x0
+	mov	r0, r8
 	mov	r1, #0x4d
 	bl	__4ToolUi
-	add	r0, r5, #0
-	mov	r1, #0x0
+	add	r0, r6, #0
+	mov	r1, r8
 	bl	func_0802720C
 .L49:
-	cmp	r4, r6
+	cmp	r4, r9
 	beq	.L19	@cond_branch
 	ldr	r0, [r4]
 	bl	func_08008CD0
@@ -102,9 +117,10 @@ func_08025B64:
 	add	r4, r4, #0x10
 	b	.L49
 .L16:
-	ldr	r7, [r4]
+	ldr	r4, [r4]
+	mov	sl, r4
 .L19:
-	add	r0, r7, #0
+	mov	r0, sl
 	mov	r1, #0xb6
 	bl	func_08008B6C
 	b	.L2
@@ -119,127 +135,122 @@ func_08025B64:
 	lsl	r1, r1, #0x4
 	sub	r1, r0, r1
 	add	r1, r1, #0x5
-	add	r0, r5, #0
+	add	r0, r6, #0
 	bl	func_0802771C
 	b	.L2
 .L22:
-	mov	r0, sp
+	add	r4, sp, #0x90
+	add	r0, r4, #0
 	mov	r1, #0x36
 	bl	__4FoodUi
-	add	r0, sp, #0x8
-	mov	r1, #0x0
+	ldr	r1, [sp, #0xc]
+	lsl	r1, r1, #0x10
+	ldr	r0, [sp, #0x8]
+	lsl	r0, r0, #0x8
+	ldrb	r2, [r4]
+	orr	r0, r0, r2
+	orr	r1, r1, r0
+	mov	r0, sp
 	bl	__12RucksackItemG4Food
 	b	.L2
 .L24:
-	add	r5, sp, #0x44
 	mov	r1, #0x11
-.L50:
-	add	r4, sp, #0x8
+.L25:
 	add	r0, r5, #0
 	bl	__7ArticleUi
 	ldrb	r1, [r5]
-	add	r0, r4, #0
+	mov	r0, sp
 	bl	__12RucksackItemG7Article
 	b	.L2
 .L26:
 	mov	r5, sp
-	add	r5, r5, #0x1
+	add	r5, r5, #0x91
 	mov	r1, #0x12
-	b	.L50
+	b	.L25
 .L27:
-	add	r5, sp, #0x4c
 	mov	r1, #0x13
-	b	.L50
+	b	.L25
 .L28:
-	add	r5, sp, #0x50
 	mov	r1, #0x14
-	b	.L50
+	b	.L25
 .L29:
-	add	r5, sp, #0x54
 	mov	r1, #0x15
-	b	.L50
+	b	.L25
 .L30:
 	mov	r5, sp
-	add	r5, r5, #0x2
+	add	r5, r5, #0x92
 	mov	r1, #0x16
-	b	.L50
+	b	.L25
 .L31:
-	add	r5, sp, #0x5c
 	mov	r1, #0x17
-	b	.L50
+	b	.L25
 .L32:
-	add	r5, sp, #0x60
 	mov	r1, #0x18
-	b	.L50
+	b	.L25
 .L33:
-	add	r5, sp, #0x64
 	mov	r1, #0x19
-	b	.L50
+	b	.L25
 .L34:
 	mov	r5, sp
-	add	r5, r5, #0x3
+	add	r5, r5, #0x93
 	mov	r1, #0x1a
-	b	.L50
+	b	.L25
 .L35:
-	add	r5, sp, #0x6c
 	mov	r1, #0x1b
-	b	.L50
+	b	.L25
 .L36:
-	add	r5, sp, #0x70
 	mov	r1, #0x1c
-	b	.L50
+	b	.L25
 .L37:
-	add	r5, sp, #0x74
 	mov	r1, #0x1d
-	b	.L50
+	b	.L25
 .L38:
-	add	r5, sp, #0x4
+	add	r5, sp, #0x94
 	mov	r1, #0x1e
-	b	.L50
+	b	.L25
 .L39:
-	add	r5, sp, #0x7c
 	mov	r1, #0x1f
-	b	.L50
+	b	.L25
 .L40:
-	add	r5, sp, #0x80
 	mov	r1, #0x20
-	b	.L50
+	b	.L25
 .L41:
-	add	r5, sp, #0x84
 	mov	r1, #0x21
-	b	.L50
+	b	.L25
 .L42:
 	mov	r5, sp
-	add	r5, r5, #0x5
+	add	r5, r5, #0x95
 	mov	r1, #0x22
-	b	.L50
+	b	.L25
 .L43:
-	add	r5, sp, #0x8c
 	mov	r1, #0x23
-	b	.L50
+	b	.L25
 .L44:
-	add	r5, sp, #0x90
 	mov	r1, #0x24
-	b	.L50
+	b	.L25
 .L45:
-	add	r5, sp, #0x94
 	mov	r1, #0x25
-	b	.L50
+	b	.L25
 .L46:
 	mov	r5, sp
-	add	r5, r5, #0x6
+	add	r5, r5, #0x96
 	mov	r1, #0x26
-	b	.L50
+	b	.L25
 .L47:
-	add	r4, sp, #0x8
-	add	r0, sp, #0x9c
+	mov	r0, #0x0
 	mov	r1, #0x33
 	bl	__7ArticleUi
-	add	r0, r4, #0
-	mov	r1, #0x0
+	ldr	r1, [sp, #0x30]
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x18
+	mov	r0, sp
 	bl	__12RucksackItemG7Article
 .L2:
-	add	sp, sp, #0xc
+	add	sp, sp, #0xa0
+	pop	{r3, r4, r5}
+	mov	r8, r3
+	mov	r9, r4
+	mov	sl, r5
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0

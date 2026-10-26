@@ -57,20 +57,39 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08025FC4/opencode/func.c" 2
 s32 func_08008B6C(s32, s32);
 s32 func_08008CD0(s32);
 s32 func_0800F4D8(s32);
 s32 func_0802A588(void *);
 
-void func_08025FC4(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    u8 _padC[8];
+    struct GenObj *unk14;
+    u8 _pad18[8];
+    s32 unk20;
+    u8 _pad24[20];
+    s32 unk38;
+    s32 unk3C;
+} GenObj;
+void func_08025FC4(GenObj *arg0) {
     s32 *var_r4;
     s32 temp_r5;
     s32 var_r0_2;
     s32 var_r1;
     u8 temp_r3;
     void *temp_r0;
-    void *var_r0;
+    GenObj *var_r0;
 
     func_0800F4D8(arg0->unk38 + 0x54);
     func_0802A588(arg0);
@@ -78,26 +97,26 @@ void func_08025FC4(void *arg0) {
     temp_r3 = arg0->unk20;
     switch (temp_r3) {
     case 2:
-        var_r0 = arg0 + 0x88;
+        var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
         var_r0->unk4 = 0xFFF60000;
         var_r0->unk8 = 0;
 block_13:
         var_r0->unk14 = 0xC0000;
         break;
     case 3:
-        var_r0 = arg0 + 0x88;
+        var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
         var_r0->unk4 = 0xA0000;
         var_r0->unk8 = 0;
         goto block_13;
     case 1:
-        var_r0 = arg0 + 0x88;
+        var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
         var_r1 = 0xFFF60000;
         var_r0->unk4 = 0;
 block_12:
         var_r0->unk8 = var_r1;
         goto block_13;
     case 0:
-        var_r0 = arg0 + 0x88;
+        var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
         var_r1 = 0xA0000;
         var_r0->unk4 = (s32) temp_r3;
         goto block_12;

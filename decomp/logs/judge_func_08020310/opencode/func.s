@@ -7,39 +7,61 @@
 	.type	 func_08020310,function
 	.thumb_func
 func_08020310:
-	push	{r4, r5, r6, lr}
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, r8
+	push	{r7}
 	add	sp, sp, #-0x8
-	add	r5, r0, #0
-	add	r4, r1, #0
-	add	r1, r2, #0
+	add	r7, r0, #0
+	add	r5, r1, #0
+	add	r4, r2, #0
+	add	r6, r3, #0
 	add	r0, sp, #0x4
+	add	r1, r4, #0
 	bl	__5ActorRC5Actor
 	mov	r3, #0xd0
 	lsl	r3, r3, #0x2
-	add	r0, r5, #0
-	add	r1, r4, #0
+	add	r0, r7, #0
+	add	r1, r5, #0
 	add	r2, sp, #0x4
 	bl	func_08020038
-	cmp	r6, #0
-	beq	.L3	@cond_branch
+	ldr	r0, .L7
+	str	r0, [r7, #0x14]
+	str	r4, [r7, #0x38]
+	str	r6, [r7, #0x3c]
 	mov	r0, #0x0
+	str	r0, [r7, #0x44]
+	ldr	r0, [r4, #0x20]
+	cmp	r0, #0x5
+	bne	.L3	@cond_branch
+	mov	r0, r8
+	cmp	r0, #0
+	beq	.L3	@cond_branch
+	ldr	r1, [r7, #0x8]
+	ldr	r2, [r7, #0xc]
+	ldrh	r3, [r7, #0x24]
+	ldr	r0, [r7, #0x20]
 	str	r0, [sp]
-	add	r0, r6, #0
-	mov	r1, #0x0
-	mov	r2, #0x0
-	mov	r3, #0x0
+	mov	r0, r8
 	bl	func_08038374
 .L3:
-	add	r0, r5, #0
+	add	r0, r7, #0
 	bl	func_08021264
 	add	r1, r0, #0
-	add	r0, r5, #0
-	mov	r2, #0x0
+	ldr	r2, [r7, #0x20]
+	lsl	r2, r2, #0x18
+	lsr	r2, r2, #0x18
+	add	r0, r7, #0
 	bl	func_080211E4
-	add	r0, r5, #0
+	add	r0, r7, #0
 	add	sp, sp, #0x8
-	pop	{r4, r5, r6}
+	pop	{r3}
+	mov	r8, r3
+	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
+.L8:
+	.align	2, 0
+.L7:
+	.word	vtable_unk_080E64C8
 .Lfe1:
 	.size	 func_08020310,.Lfe1-func_08020310

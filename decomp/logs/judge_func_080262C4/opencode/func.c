@@ -8,8 +8,15 @@ s32 func_0800F20C(s32 *, s32);                          /* extern */
 s32 func_0800F258(s32);                             /* extern */
 s32 func_0800F388(s32);                             /* extern */
 
-u8 func_080262C4(void *arg0) {
-s32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    u8 _pad6[46];
+    s32 unk34;
+} GenObj;
+u8 func_080262C4(GenObj *arg0) {
+GenObj sp0;
     u8 sp4;
     s32 temp_r0;
     s32 temp_r5;
@@ -22,7 +29,7 @@ s32 sp0;
         case 0:
             var_r4 = &sp4;
             func_0800F20C(&sp0, temp_r5);
-            __7ProductG4Food(var_r4, (sp0.unk2 << 0x10) | ((sp0.unk1 << 8) | sp0.unk0));
+            __7ProductG4Food(var_r4, (sp0.unk2 << 0x10) | ((sp0.unk1 << 8) | sp0));
             break;
         case 1:
             var_r4 = &sp0 + 5;

@@ -20,12 +20,14 @@ func_08020410:
 	ldr	r1, .L4+0x4
 	and	r0, r0, r1
 	str	r0, [sp]
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x34]
 	mov	r1, sp
 	bl	method_0809BB48__3DogPC15UnkBarnAnimal2C
+	ldr	r2, [r5, #0x20]
+	lsl	r2, r2, #0x18
+	lsr	r2, r2, #0x18
 	add	r0, r5, #0
 	mov	r1, #0x0
-	mov	r2, #0x0
 	bl	func_080211E4
 	add	sp, sp, #0x4
 	pop	{r4, r5}

@@ -7,7 +7,9 @@
 	.type	 func_08021FAC,function
 	.thumb_func
 func_08021FAC:
-	push	{r4, lr}
+	push	{r4, r5, r6, lr}
+	add	sp, sp, #-0x4
+	add	r4, r0, #0
 	cmp	r1, #0x6
 	bhi	.L8	@cond_branch
 	lsl	r0, r1, #0x2
@@ -41,25 +43,33 @@ func_08021FAC:
 	lsl	r0, r0, #0x9
 	b	.L19
 .L11:
-	mov	r0, #0x10
-	cmp	r2, #0x1
+	ldr	r0, [r4, #0x1c]
+	ldr	r2, [r0, #0x14]
+	mov	r0, sp
+	add	r1, r4, #0
+	bl	_call_via_r2
+	mov	r1, #0x10
+	ldr	r0, [r4, #0x28]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x1
 	bls	.L16	@cond_branch
-	cmp	r2, #0x3
+	cmp	r0, #0x3
 	bhi	.L12	@cond_branch
 .L16:
-	lsl	r1, r3, #0x10
+	lsl	r1, r5, #0x10
 	asr	r1, r1, #0x10
-	lsl	r0, r4, #0x10
+	lsl	r0, r6, #0x10
 	asr	r0, r0, #0x10
 	sub	r1, r1, r0
-	add	r0, r1, #0
-	add	r0, r0, #0x10
+	add	r1, r1, #0x10
 .L12:
-	lsl	r0, r0, #0x10
+	lsl	r0, r1, #0x10
 	mov	r1, #0xc
 	bl	__divsi3
 .L19:
-	pop	{r4}
+	add	sp, sp, #0x4
+	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
 .Lfe1:

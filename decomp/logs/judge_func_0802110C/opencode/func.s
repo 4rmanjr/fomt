@@ -8,7 +8,7 @@
 	.thumb_func
 func_0802110C:
 	push	{lr}
-	mov	r0, #0x0
+	ldr	r0, [r0, #0x34]
 	bl	GetGrowthStage__C3Dog
 	pop	{r1}
 	bx	r1

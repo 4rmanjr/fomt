@@ -8,27 +8,41 @@
 	.thumb_func
 func_080228B4:
 	push	{r4, r5, r6, lr}
-	add	r5, r0, #0
-	add	r4, r1, #0
+	add	r4, r0, #0
 	add	r6, r2, #0
-	lsl	r4, r4, #0x18
-	lsr	r4, r4, #0x18
+	lsl	r1, r1, #0x18
+	lsr	r5, r1, #0x18
+	bl	func_08022980
+	ldr	r1, [r4, #0x24]
+	cmp	r1, r0
+	beq	.L3	@cond_branch
+	add	r0, r4, #0
 	bl	SetAnim__12AActorEntityUi
-	add	r0, r5, #0
+.L3:
+	ldr	r0, [r4, #0x20]
+	cmp	r0, r6
+	beq	.L4	@cond_branch
+	add	r0, r4, #0
 	add	r1, r6, #0
 	bl	SetAnimFacing__12AActorEntityUi
-	add	r0, r5, #0
-	add	r1, r4, #0
+.L4:
+	add	r0, r4, #0
+	add	r1, r5, #0
 	bl	func_080229A4
 	add	r1, r0, #0
-	add	r0, r5, #0
+	add	r0, r4, #0
 	bl	func_08020080
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x3c]
+	cmp	r5, r0
+	beq	.L5	@cond_branch
+	ldr	r0, [r4, #0x38]
 	bl	GetGrowthStage__C7Chicken
-	add	r0, r5, #0
+	add	r0, r4, #0
 	mov	r1, #0x8
 	mov	r2, #0x1
 	bl	func_08032384
+.L5:
+	str	r5, [r4, #0x3c]
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0

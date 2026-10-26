@@ -19,7 +19,7 @@ func_08025B10:
 	bhi	.L5	@cond_branch
 	add	r4, r4, #0x2
 .L5:
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x3c]
 	bl	func_0800E4F0
 	cmp	r0, #0
 	bne	.L6	@cond_branch

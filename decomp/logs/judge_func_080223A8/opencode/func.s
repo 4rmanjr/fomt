@@ -7,12 +7,13 @@
 	.type	 func_080223A8,function
 	.thumb_func
 func_080223A8:
-	push	{r4, r5, lr}
+	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x4
 	add	r4, r0, #0
 	add	r5, r1, #0
-	add	r1, r2, #0
+	add	r6, r2, #0
 	mov	r0, sp
+	add	r1, r6, #0
 	bl	__5ActorRC5Actor
 	mov	r3, #0xe4
 	lsl	r3, r3, #0x3
@@ -20,16 +21,25 @@ func_080223A8:
 	add	r1, r5, #0
 	mov	r2, sp
 	bl	func_08020038
+	ldr	r0, .L3
+	str	r0, [r4, #0x14]
+	str	r6, [r4, #0x34]
 	add	r0, r4, #0
 	bl	func_08022950
 	add	r1, r0, #0
+	ldr	r2, [r4, #0x20]
+	lsl	r2, r2, #0x18
+	lsr	r2, r2, #0x18
 	add	r0, r4, #0
-	mov	r2, #0x0
 	bl	func_080228B4
 	add	r0, r4, #0
 	add	sp, sp, #0x4
-	pop	{r4, r5}
+	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E639C
 .Lfe1:
 	.size	 func_080223A8,.Lfe1-func_080223A8

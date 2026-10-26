@@ -8,6 +8,8 @@
 	.thumb_func
 func_08024C54:
 	push	{lr}
+	mov	r1, #0x1
+	str	r1, [r0, #0x8]
 	bl	func_080323C8
 	pop	{r0}
 	bx	r0

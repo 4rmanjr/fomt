@@ -57,22 +57,11 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
-typedef struct { u8 pad[0x24]; u8 v; } S_AD0;
-typedef struct { u8 pad[0x25]; u8 v; } S_AD8;
-typedef struct { u8 pad[0x26]; u8 v; } S_AE0;
-typedef struct { u8 pad[0x14]; u8 v; } S_CD8;
-typedef struct { u8 pad[3]; u8 v; } S_39C;
-typedef struct { u8 pad[0x58]; u8 v; } S_601C;
-typedef struct { u8 pad[0x14]; u8 v; } S_B68;
-typedef struct { u8 pad[0x26]; u8 v; } S_AEC;
-typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;
-typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;
-typedef struct {
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
     s32 unk0;
     s32 unk4;
     void (*unk8)(void *, s32);
-} Vtbl;
-typedef struct {
+} Vtbl;typedef struct {
     Vtbl *vtbl;
 } Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801CCE4/opencode/func.c" 2
@@ -80,7 +69,15 @@ s32 func_080AA6D0(s32, s32, s32, s32, s32);
 s32 method_0800A33C__9FieldPloti(s32, s32);
 s32 method_0800AF5C__C9FieldPlotPC9FieldPlotT1(s32, s32, s32);
 
-s32 func_0801CCE4(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    s32 unk4;
+    u8 _pad8[12];
+    s32 unk14;
+    u8 _pad18[4128];
+    s32 unk1038;
+} GenObj;
+s32 func_0801CCE4(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 sp4;
     s32 temp_r1;
     s32 temp_r2;
@@ -96,7 +93,7 @@ s32 func_0801CCE4(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     temp_r6 = (arg1 + (0x2B * arg2)) * 4;
     temp_r2 = arg0->unk1038 + 0x9DC + temp_r6;
     sp4 = method_0800A33C__9FieldPloti(temp_r2, arg3);
-    if (arg0->unk0->unk14(arg0) == 2) {
+    if (((void (*)(void *,...))(arg0->unk0->unk14))(arg0) == 2) {
         temp_sl = arg0->unk4;
         temp_r2_2 = arg0->unk1038 + 0x9DC;
         temp_r1 = arg2 + 1;

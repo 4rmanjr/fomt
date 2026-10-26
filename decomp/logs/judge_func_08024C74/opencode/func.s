@@ -7,6 +7,8 @@
 	.type	 func_08024C74,function
 	.thumb_func
 func_08024C74:
+	mov	r1, #0x0
+	str	r1, [r0, #0x40]
 	bx	lr
 .Lfe1:
 	.size	 func_08024C74,.Lfe1-func_08024C74

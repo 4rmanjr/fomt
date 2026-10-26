@@ -9,7 +9,23 @@ s32 func_08021264(void *);                          /* extern */
 s32 func_080212C0(void *);                            /* extern */
 s32 method_0809BB70__3DogPC18UnkBarnAnimal2C_x2(void *, s32 *); /* extern */
 
-void func_0802151C(void *arg0, void *arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    s32 unk4;
+    u8 _pad8[2];
+    s32 unkA;
+    s32 unkE;
+    u8 _pad12[14];
+    s32 unk20;
+    u8 _pad24[16];
+    void *unk34;
+    u8 _pad38[8];
+    s32 unk40;
+} GenObj;
+void func_0802151C(GenObj *arg0, GenObj *arg1) {
     s32 sp0;
     s32 temp_r0;
     s32 temp_r1;

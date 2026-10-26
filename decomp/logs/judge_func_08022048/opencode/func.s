@@ -7,22 +7,64 @@
 	.type	 func_08022048,function
 	.thumb_func
 func_08022048:
-	push	{r4, r5, lr}
+	push	{r4, r5, r6, lr}
 	add	r4, r0, #0
-	add	r5, r2, #0
-	bl	SetAnim__12AActorEntityUi
+	add	r6, r2, #0
+	lsl	r1, r1, #0x18
+	lsr	r5, r1, #0x18
+	cmp	r5, #0x6
+	beq	.L3	@cond_branch
+	ldr	r0, [r4, #0x44]
+	cmp	r0, #0
+	beq	.L3	@cond_branch
+	mov	r5, #0x6
+.L3:
 	add	r0, r4, #0
 	add	r1, r5, #0
-	bl	SetAnimFacing__12AActorEntityUi
+	bl	func_08021F88
+	ldr	r1, [r4, #0x24]
+	cmp	r1, r0
+	beq	.L4	@cond_branch
 	add	r0, r4, #0
-	mov	r1, #0x6
+	bl	SetAnim__12AActorEntityUi
+.L4:
+	ldr	r0, [r4, #0x20]
+	cmp	r0, r6
+	beq	.L5	@cond_branch
+	add	r0, r4, #0
+	add	r1, r6, #0
+	bl	SetAnimFacing__12AActorEntityUi
+.L5:
+	add	r0, r4, #0
+	add	r1, r5, #0
 	bl	func_08021FAC
 	add	r1, r0, #0
 	add	r0, r4, #0
 	bl	func_08020080
+	ldr	r0, [r4, #0x40]
+	cmp	r5, r0
+	beq	.L6	@cond_branch
+	ldr	r0, [r4, #0x48]
+	cmp	r0, #0
+	bne	.L6	@cond_branch
+	mov	r1, #0x1
+	neg	r1, r1
+	cmp	r5, #0x4
+	bne	.L7	@cond_branch
+	mov	r1, #0x8
+.L7:
+	cmp	r1, #0
+	blt	.L8	@cond_branch
+	add	r0, r4, #0
+	mov	r2, #0x1
+	bl	func_08032384
+	b	.L6
+.L8:
 	add	r0, r4, #0
 	bl	func_080323C8
-	pop	{r4, r5}
+.L6:
+	str	r5, [r4, #0x40]
+	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
 .Lfe1:

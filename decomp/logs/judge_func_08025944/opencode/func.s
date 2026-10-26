@@ -9,15 +9,20 @@
 func_08025944:
 	push	{r4, r5, lr}
 	add	sp, sp, #-0x4
-	add	r0, r4, #0
+	add	r4, r0, #0
+	ldr	r0, [r4, #0x38]
+	add	r5, r0, #0
+	add	r5, r5, #0x5c
+	add	r0, r5, #0
 	bl	IsEmpty__C9ToolStack
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L3	@cond_branch
-	add	r0, r4, #0
+	ldr	r4, [r4, #0x38]
+	add	r0, r5, #0
 	bl	GetTool__C9ToolStack
 	add	r1, r0, #0
-	add	r0, r5, #0
+	add	r0, r4, #0
 	bl	func_0800E550
 	mov	r1, sp
 	strb	r0, [r1]

@@ -8,12 +8,37 @@ s32 func_0802CDCC(void *);                            /* extern */
 u16 func_0802D158(void *);                          /* extern */
 s32 func_0802F0EC(void *, s32, u8);                   /* extern */
 
-void func_08024CD0(void *arg0, void *arg1) {
-    u32 sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    struct GenObj *unk4;
+    s32 unk6;
+    s32 unk8;
+    s32 unkA;
+    struct GenObj *unkC;
+    s32 unk10;
+    struct GenObj *unk14;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk22;
+    s32 unk24;
+    s32 unk26;
+    u8 _pad2A[10];
+    s32 unk34;
+    u8 _pad38[4];
+    s32 unk3C;
+    u8 _pad40[25];
+    s32 unk59;
+    u8 _pad5D[7];
+    s32 unk64;
+} GenObj;
+void func_08024CD0(GenObj *arg0, GenObj *arg1) {
+    GenObj *sp0;
 s32 sp4;
-    s32 sp14;
+    GenObj sp14;
     s32 sp20;
-    s32 sp28;
+    GenObj *sp28;
     s32 sp2C;
     s32 sp30;
     s32 sp34;
@@ -26,9 +51,9 @@ s32 sp4;
     u32 sp50;
     s8 sp58;
     u32 sp5C;
-    ? *temp_r1_3;
-    ? *var_r0_5;
-    ? *var_r4;
+    s32 *temp_r1_3;
+    s32 *var_r0_5;
+    s32 *var_r4;
     s32 *var_r0_4;
     s32 *var_r1;
     s32 temp_r0_4;
@@ -43,7 +68,7 @@ s32 sp4;
     u8 temp_r0_2;
     u8 var_r0_3;
     void **temp_r0_3;
-    void *temp_r2;
+    GenObj *temp_r2;
 
     func_0802F0EC(arg0, arg1->unk0, arg1->unk4);
     func_0802CDCC(arg0);
@@ -59,21 +84,21 @@ s32 sp4;
     arg0->unk24 = var_r0;
     temp_r2 = arg0->unk10;
     if (temp_r2 != 0) {
-        temp_r2->unk4->unkC(temp_r2);
+        ((void (*)(void *,...))(temp_r2->unk4->unkC))(temp_r2);
     }
     if ((arg0->unk18 == 0) && (arg0->unk1C == 0)) {
 
     } else if (arg0->unk3C == 0x35) {
 
     } else {
-        arg0->unk14->unkC(&sp20, arg0);
+        ((void (*)(void *,...))(arg0->unk14->unkC))(&sp20, arg0);
         sp28 = sp20;
         sp2C = sp24;
         sp0 = 0;
         temp_r0_2 = arg0->unk20;
         switch (temp_r0_2) {                        /* irregular */
         case 3:
-            sp48.unk0 = (s16) (sp28.unk4 - 1);
+            sp48 = (s16) (sp28.unk4 - 1);
             sp48.unk2 = (s16) sp28.unk2;
             if (sp0 <= 3U) {
                 if (&(&sp0)[sp0].unk4 != 0) {
@@ -81,7 +106,7 @@ s32 sp4;
                 }
                 sp0 += 1;
             }
-            sp4C.unk0 = (s16) (sp28.unk4 - 1);
+            sp4C = (s16) (sp28.unk4 - 1);
             sp4C.unk2 = (s16) (sp28.unk6 - 1);
             if (sp0 <= 3U) {
                 var_r1 = &(&sp0)[sp0].unk4;
@@ -95,7 +120,7 @@ block_52:
             }
             break;
         case 0:
-            sp30.unk0 = (s16) sp28.unk0;
+            sp30 = (s16) sp28.unk0;
             sp30.unk2 = (s16) (sp28.unk6 - 1);
             if (sp0 <= 3U) {
                 if (&(&sp0)[sp0].unk4 != 0) {
@@ -103,7 +128,7 @@ block_52:
                 }
                 sp0 += 1;
             }
-            sp34.unk0 = (s16) (sp28.unk4 - 1);
+            sp34 = (s16) (sp28.unk4 - 1);
             sp34.unk2 = (s16) (sp28.unk6 - 1);
             if (sp0 > 3U) {
 
@@ -119,7 +144,7 @@ block_52:
             }
             break;
         case 1:
-            sp38.unk0 = (s16) sp28.unk0;
+            sp38 = (s16) sp28.unk0;
             sp38.unk2 = (s16) sp28.unk2;
             if (sp0 <= 3U) {
                 if (&(&sp0)[sp0].unk4 != 0) {
@@ -127,7 +152,7 @@ block_52:
                 }
                 sp0 += 1;
             }
-            sp3C.unk0 = (s16) (sp28.unk4 - 1);
+            sp3C = (s16) (sp28.unk4 - 1);
             sp3C.unk2 = (s16) sp28.unk2;
             if (sp0 <= 3U) {
                 var_r1 = &(&sp0)[sp0].unk4;
@@ -139,7 +164,7 @@ block_52:
             }
             break;
         case 2:
-            sp40.unk0 = (s16) sp28.unk0;
+            sp40 = (s16) sp28.unk0;
             sp40.unk2 = (s16) sp28.unk2;
             if (sp0 <= 3U) {
                 if (&(&sp0)[sp0].unk4 != 0) {
@@ -147,7 +172,7 @@ block_52:
                 }
                 sp0 += 1;
             }
-            sp44.unk0 = (s16) sp28.unk0;
+            sp44 = (s16) sp28.unk0;
             sp44.unk2 = (s16) (sp28.unk6 - 1);
             if (sp0 <= 3U) {
                 var_r1 = &(&sp0)[sp0].unk4;
@@ -172,7 +197,7 @@ loop_55:
                 temp_r1 = sp14.unk4;
                 var_r0_3 = (sp5C * temp_r0_4) + temp_r2_2;
                 if (temp_r1 != 0) {
-                    var_r0_3 = *(temp_r1 + var_r0_3);
+                    var_r0_3 = *((u8 *)temp_r1 + var_r0_3);
                 }
                 var_r0_4 = sp14 + (var_r0_3 * 4);
             } else {
@@ -203,13 +228,13 @@ loop_55:
         if ((IsEmpty__C9ToolStack(temp_r4) << 0x18) == 0) {
             sp58 = GetTool__C9ToolStack(temp_r4);
             if (GetId__C4Tool() == 0x4E) {
-                arg0->unk14->unk64(arg0, 1, 0);
+                ((void (*)(void *,...))(arg0->unk14->unk64))(arg0, 1, 0);
             }
         }
         if ((IsEmpty__C9ToolStack(temp_r4) << 0x18) == 0) {
             sp0.unk59 = GetTool__C9ToolStack(temp_r4);
             if ((GetId__C4Tool() == 0x4F) && ((func_0800EE2C(arg0->unk34 + 0x1BD8) << 0x18) != 0)) {
-                arg0->unk14->unk64(arg0, 0, -1);
+                ((void (*)(void *,...))(arg0->unk14->unk64))(arg0, 0, -1);
             }
         }
     }

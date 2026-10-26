@@ -8,9 +8,20 @@
 	.thumb_func
 func_080200C4:
 	push	{r4, r5, r6, r7, lr}
+	mov	r7, r8
+	push	{r7}
+	add	r5, r0, #0
 	lsl	r1, r1, #0x10
-	lsr	r6, r1, #0x10
-	cmp	r4, r5
+	lsr	r7, r1, #0x10
+	ldr	r0, [r5, #0x30]
+	cmp	r0, #0
+	bne	.L3	@cond_branch
+	add	r0, r5, #0
+	bl	func_08020060
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.L3	@cond_branch
+	cmp	r4, r6
 	beq	.L10	@cond_branch
 .L5:
 	ldr	r0, [r4]
@@ -18,16 +29,22 @@ func_080200C4:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L6	@cond_branch
-	ldr	r7, [r4]
+	ldr	r4, [r4]
+	mov	r8, r4
 	b	.L10
 .L6:
 	add	r4, r4, #0x10
-	cmp	r4, r5
+	cmp	r4, r6
 	bne	.L5	@cond_branch
 .L10:
-	add	r0, r7, #0
-	add	r1, r6, #0
+	mov	r0, r8
+	add	r1, r7, #0
 	bl	func_08008B6C
+	mov	r0, #0x1
+	str	r0, [r5, #0x30]
+.L3:
+	pop	{r3}
+	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0

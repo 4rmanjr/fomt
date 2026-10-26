@@ -10,26 +10,32 @@ func_080258A0:
 	push	{r4, r5, r6, r7, lr}
 	add	sp, sp, #-0x4
 	add	r4, r0, #0
+	ldr	r1, [r4, #0x38]
+	add	r1, r1, #0x54
 	mov	r0, sp
-	mov	r1, #0x0
 	bl	func_0800F294
 	mov	r0, sp
 	bl	IsEmpty__C12RucksackItem
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L3	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x38]
+	add	r0, r0, #0x60
 	bl	GetFirstFreeItemSlot__C8Rucksack
 	mov	r1, #0x1
 	neg	r1, r1
 	cmp	r0, r1
 	beq	.L4	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x38]
+	add	r0, r0, #0x60
 	bl	GetItemAt__8RucksackUi
 	ldr	r1, [sp]
 	str	r1, [r0]
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x38]
+	add	r0, r0, #0x54
 	bl	func_0800F390
+	mov	r0, #0x12
+	str	r0, [r4, #0x3c]
 	add	r0, r4, #0
 	bl	func_0802A7D8
 .L12:
@@ -50,13 +56,15 @@ func_080258A0:
 	bl	func_08008B6C
 	b	.L2
 .L4:
-	add	r0, r4, #0
-	add	r0, r0, #0x3c
+	mov	r1, #0xf0
+	lsl	r1, r1, #0x4
+	add	r0, r4, r1
 	mov	r1, #0x4
 	b	.L11
 .L3:
-	add	r0, r4, #0
-	add	r0, r0, #0x3c
+	mov	r1, #0xf0
+	lsl	r1, r1, #0x4
+	add	r0, r4, r1
 	mov	r1, #0x0
 .L11:
 	strb	r1, [r0]

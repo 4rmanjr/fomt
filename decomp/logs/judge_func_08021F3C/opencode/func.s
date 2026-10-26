@@ -10,6 +10,8 @@ func_08021F3C:
 	push	{r4, lr}
 	add	sp, sp, #-0x4
 	add	r4, r0, #0
+	mov	r0, #0x0
+	str	r0, [r4, #0x40]
 	ldr	r1, .L3
 	ldr	r0, [sp]
 	and	r0, r0, r1
@@ -18,14 +20,16 @@ func_08021F3C:
 	ldr	r1, .L3+0x4
 	and	r0, r0, r1
 	str	r0, [sp]
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x34]
 	mov	r1, sp
 	bl	method_0809BC24__5HorsePC15UnkBarnAnimal2C
 	add	r0, r4, #0
 	bl	func_080220D4
 	add	r1, r0, #0
+	ldr	r2, [r4, #0x20]
+	lsl	r2, r2, #0x18
+	lsr	r2, r2, #0x18
 	add	r0, r4, #0
-	mov	r2, #0x0
 	bl	func_08022048
 	add	sp, sp, #0x4
 	pop	{r4}

@@ -10,6 +10,9 @@ func_0802907C:
 	push	{r4, r5, lr}
 	add	sp, sp, #-0x4
 	add	r5, r0, #0
+	ldr	r0, [r5, #0x34]
+	ldr	r1, .L6
+	add	r4, r0, r1
 	add	r0, r4, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
@@ -27,10 +30,11 @@ func_0802907C:
 	bl	GetId__C7Article
 	cmp	r0, #0x35
 	bne	.L4	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x38]
 	bl	func_0800ED2C
 .L4:
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x38]
+	add	r0, r0, #0x54
 	bl	func_0800F390
 	add	r0, r5, #0
 	bl	func_0802A7D8
@@ -39,5 +43,9 @@ func_0802907C:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
+.L7:
+	.align	2, 0
+.L6:
+	.word	0x1c2c
 .Lfe1:
 	.size	 func_0802907C,.Lfe1-func_0802907C

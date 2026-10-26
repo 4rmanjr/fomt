@@ -12,8 +12,11 @@ func_08027BFC:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x68
-	str	r0, [sp, #0x8]
+	add	sp, sp, #-0x1c
+	add	r5, r0, #0
+	ldr	r0, [r5, #0x40]
+	ldr	r1, .L246
+	add	r4, r0, r1
 	add	r0, r4, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
@@ -22,518 +25,54 @@ func_08027BFC:
 	add	r0, r4, #0
 	bl	func_0800F204
 	cmp	r0, #0x4
-	bne	.LCB19
-	b	.L5	@long jump
-.LCB19:
+	beq	.L5	@cond_branch
 .L4:
-	add	r4, sp, #0x4
-	add	r0, sp, #0x20
+	mov	r0, r8
 	bl	GetPrice__C7Product
 	cmp	r0, #0
-	bne	.LCB29
-	b	.L7	@long jump
-.LCB29:
-	mov	r5, #0xc9
-	lsl	r5, r5, #0x1
-	ldr	r7, [sp, #0x8]
-	add	r7, r7, #0x7c
-	mov	r1, #0x1
-	neg	r1, r1
-	add	r0, r1, #0
-	strh	r0, [r7]
-	mov	r0, r8
-	cmp	r0, #0x37
-	bls	.LCB42
-	b	.L8	@long jump
-.LCB42:
-	lsl	r0, r0, #0x2
-	ldr	r1, .L243
-	add	r0, r0, r1
-	ldr	r0, [r0]
-	mov	pc, r0
-.L244:
-	.align	2, 0
-.L243:
-	.word	.L111
-	.align	2, 0
-	.align	2, 0
-.L111:
-	.word	.L9
-	.word	.L46
-	.word	.L36
-	.word	.L46
-	.word	.L41
-	.word	.L46
-	.word	.L70
-	.word	.L72
-	.word	.L109
-	.word	.L57
-	.word	.L106
-	.word	.L52
-	.word	.L52
-	.word	.L49
-	.word	.L52
-	.word	.L53
-	.word	.L54
-	.word	.L100
-	.word	.L102
-	.word	.L55
-	.word	.L56
-	.word	.L106
-	.word	.L68
-	.word	.L69
-	.word	.L71
-	.word	.L8
-	.word	.L8
-	.word	.L59
-	.word	.L28
-	.word	.L28
-	.word	.L65
-	.word	.L66
-	.word	.L67
-	.word	.L100
-	.word	.L82
-	.word	.L83
-	.word	.L84
-	.word	.L85
-	.word	.L86
-	.word	.L87
-	.word	.L88
-	.word	.L89
-	.word	.L91
-	.word	.L91
-	.word	.L92
-	.word	.L94
-	.word	.L95
-	.word	.L106
-	.word	.L8
-	.word	.L100
-	.word	.L8
-	.word	.L102
-	.word	.L106
-	.word	.L107
-	.word	.L100
-	.word	.L100
-.L9:
-	mov	r0, #0x0
-	bl	func_0800F190
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.LCB66
-	b	.L10	@long jump
-.LCB66:
-	ldr	r1, [sp, #0x50]
-	cmp	r1, #0x39
-	bls	.LCB70
-	b	.L8	@long jump
-.LCB70:
-	lsl	r0, r1, #0x2
-	ldr	r1, .L245
-	add	r0, r0, r1
-	ldr	r0, [r0]
-	mov	pc, r0
-.L246:
-	.align	2, 0
-.L245:
-	.word	.L21
-	.align	2, 0
-	.align	2, 0
-.L21:
-	.word	.L240
-	.word	.L13
-	.word	.L20
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L240
-	.word	.L8
-	.word	.L240
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L240
-	.word	.L240
-.L13:
-	mov	r5, #0xab
-	lsl	r5, r5, #0x1
-	b	.L8
-.L20:
-	mov	r5, #0xa7
-	lsl	r5, r5, #0x1
-	b	.L8
-.L10:
-	ldr	r0, [sp, #0x54]
-	cmp	r0, #0x1a
-	bls	.LCB103
-	b	.L8	@long jump
-.LCB103:
-	lsl	r0, r0, #0x2
-	ldr	r1, .L247
-	add	r0, r0, r1
-	ldr	r0, [r0]
-	mov	pc, r0
-.L248:
-	.align	2, 0
-.L247:
-	.word	.L34
-	.align	2, 0
-	.align	2, 0
-.L34:
-	.word	.L28
-	.word	.L29
-	.word	.L32
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L8
-	.word	.L28
-	.word	.L28
-.L28:
-	mov	r5, #0xc9
-	lsl	r5, r5, #0x1
-	b	.L8
-.L29:
-	mov	r1, #0xe3
-	lsl	r1, r1, #0x1
-.L31:
-	add	r5, r1, #0
-	b	.L8
-.L32:
-	mov	r1, #0xaf
-	lsl	r1, r1, #0x1
-	b	.L31
-.L36:
-	mov	r0, #0x0
-	bl	func_0800F190
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L240	@cond_branch
-	ldr	r1, [sp, #0x58]
-	cmp	r1, #0x5
-	bhi	.L28	@cond_branch
-	ldr	r0, [sp, #0x28]
-	add	r0, r0, #0x5c
-	bl	GetTool__C9ToolStack
-	add	r1, r0, #0
-	ldr	r0, [sp, #0x28]
-	bl	func_0800E550
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	mov	r4, sp
-	b	.L60
-.L41:
-	mov	r5, #0xc9
-	lsl	r5, r5, #0x1
-	mov	r0, #0x0
-	bl	func_0800F190
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L240	@cond_branch
-	b	.L8
-.L46:
-	mov	r5, #0xc9
-	lsl	r5, r5, #0x1
-	mov	r0, #0x0
-	bl	func_0800F190
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.LCB191
-	b	.L8	@long jump
-.LCB191:
-.L240:
-	mov	r5, #0xa9
-	lsl	r5, r5, #0x1
-	b	.L8
-.L49:
-	mov	r5, #0x9b
-	lsl	r5, r5, #0x1
-	b	.L8
-.L52:
-	mov	r5, #0xcf
-	lsl	r5, r5, #0x1
-	b	.L8
-.L53:
-	mov	r5, #0x4e
-	b	.L8
-.L54:
-	mov	r5, #0x46
-	b	.L8
-.L55:
-	mov	r5, #0x9f
-	lsl	r5, r5, #0x1
-	b	.L8
-.L56:
-	mov	r5, #0xa1
-	lsl	r5, r5, #0x1
-	b	.L8
-.L57:
-	mov	r0, r9
-	add	r0, r0, #0x5c
-	bl	GetTool__C9ToolStack
-	add	r1, r0, #0
-	mov	r0, r9
-	bl	func_0800E550
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	add	r4, r4, #0x24
-	b	.L60
-.L59:
-	mov	r5, #0xf5
-	lsl	r5, r5, #0x1
-	mov	r0, sl
-	add	r0, r0, #0x5c
-	bl	GetTool__C9ToolStack
-	add	r1, r0, #0
-	mov	r0, sl
-	bl	func_0800E550
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	add	r4, r4, #0x28
-.L60:
-	strb	r0, [r4]
-	bl	GetIconId__C4Tool
-	strh	r0, [r7]
-	b	.L8
-.L65:
-	mov	r5, #0x76
-	ldr	r0, [sp, #0x2c]
-	add	r0, r0, #0x5c
-	bl	GetTool__C9ToolStack
-	add	r1, r0, #0
-	ldr	r0, [sp, #0x2c]
-	bl	func_0800E550
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	mov	r4, sp
-	add	r4, r4, #0x1
-	b	.L60
-.L66:
-	mov	r5, #0x6e
-	ldr	r0, [sp, #0x30]
-	add	r0, r0, #0x5c
-	bl	GetTool__C9ToolStack
-	add	r1, r0, #0
-	ldr	r0, [sp, #0x30]
-	bl	func_0800E550
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	add	r4, r4, #0x34
-	b	.L60
-.L67:
-	mov	r5, #0x72
-	ldr	r0, [sp, #0x34]
-	add	r0, r0, #0x5c
-	bl	GetTool__C9ToolStack
-	add	r1, r0, #0
-	ldr	r0, [sp, #0x34]
-	bl	func_0800E550
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	add	r4, r4, #0x38
-	b	.L60
-.L68:
-	mov	r5, #0xfd
-	lsl	r5, r5, #0x1
-	b	.L8
-.L69:
-	mov	r5, #0xcb
-	lsl	r5, r5, #0x1
-	b	.L8
-.L70:
-	mov	r5, #0x89
-	lsl	r5, r5, #0x1
-	b	.L8
-.L71:
-	mov	r5, #0x8b
-	lsl	r5, r5, #0x1
-	b	.L8
-.L72:
-	cmp	r6, #0x1
-	beq	.L77	@cond_branch
-	cmp	r6, #0x1
-	bgt	.L81	@cond_branch
-	cmp	r6, #0
-	beq	.L74	@cond_branch
-	b	.L8
-.L81:
-	cmp	r6, #0x2
-	beq	.L78	@cond_branch
-	b	.L8
-.L74:
-	mov	r5, #0xea
-.L75:
-	ldr	r0, [sp, #0x60]
-	bl	SetAnim__12AActorEntityUi
-	b	.L8
-.L77:
-	mov	r5, #0xee
-	b	.L75
-.L78:
-	mov	r5, #0xe6
-	b	.L75
-.L82:
-	mov	r5, #0xad
-	lsl	r5, r5, #0x1
-	b	.L75
-.L83:
-	mov	r5, #0x9a
-	b	.L75
-.L84:
-	mov	r5, #0x83
-	lsl	r5, r5, #0x1
-	b	.L8
-.L85:
-	mov	r5, #0x81
-	lsl	r5, r5, #0x1
-	b	.L8
-.L86:
-	mov	r5, #0xfe
-	b	.L8
-.L87:
-	mov	r5, #0xfa
-	b	.L8
-.L88:
-	mov	r5, #0x91
-	lsl	r5, r5, #0x1
-	b	.L8
-.L89:
-	mov	r5, #0x8f
-	lsl	r5, r5, #0x1
-	b	.L8
-.L91:
-	mov	r5, #0x8d
-	lsl	r5, r5, #0x1
-	b	.L8
-.L92:
-	mov	r5, #0xa5
-	lsl	r5, r5, #0x1
-	mov	r0, #0x0
-	bl	func_0800F190
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L8	@cond_branch
-	sub	r5, r5, #0x40
-	b	.L8
-.L94:
-	mov	r5, #0xe2
-	b	.L75
-.L95:
-	mov	r5, #0x3e
-	b	.L8
-.L100:
-	mov	r5, #0xa3
-	lsl	r5, r5, #0x1
-	b	.L8
-.L102:
-	mov	r5, #0x9d
-	lsl	r5, r5, #0x1
-	b	.L8
-.L106:
-	mov	r5, #0x42
-	b	.L8
-.L107:
-	mov	r5, #0xe3
-	lsl	r5, r5, #0x1
-	mov	r0, #0x0
-	bl	func_0800F190
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	bne	.LCB461
-	b	.L13	@long jump
-.LCB461:
-	b	.L8
-.L109:
-	mov	r5, #0xf2
-.L8:
-	ldr	r0, [sp, #0x8]
+	beq	.L7	@cond_branch
 	add	r1, r5, #0
+	add	r1, r1, #0xe4
+	mov	r0, #0x1
+	str	r0, [r1]
+	mov	r0, #0xe
+	str	r0, [r5, #0x48]
+	ldr	r2, .L246+0x4
+	add	r1, r5, r2
+	mov	r2, #0x1
+	neg	r2, r2
+	add	r0, r2, #0
+	strh	r0, [r1]
+	add	r0, r5, #0
+	mov	r1, #0xcf
+	lsl	r1, r1, #0x1
 	bl	SetAnim__12AActorEntityUi
-	ldr	r0, [sp, #0xc]
-.L241:
-	ldr	r1, [sp, #0x38]
-	cmp	r0, r1
+.L240:
+	cmp	r6, r7
 	beq	.L118	@cond_branch
-	ldr	r1, [sp, #0xc]
-	ldr	r0, [r1]
+	ldr	r0, [r6]
 	bl	func_08008CD0
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L115	@cond_branch
-	ldr	r0, [sp, #0xc]
-	add	r0, r0, #0x10
-	str	r0, [sp, #0xc]
-	b	.L241
+	add	r6, r6, #0x10
+	b	.L240
+.L247:
+	.align	2, 0
+.L246:
+	.word	0x1c2c
+	.word	-0x3f00
 .L115:
-	ldr	r0, [sp, #0xc]
-	ldr	r0, [r0]
-	str	r0, [sp, #0x40]
+	ldr	r6, [r6]
+	str	r6, [sp, #0xc]
 .L118:
 	mov	r1, #0x6c
 	b	.L119
 .L5:
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x40]
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x5
+	add	r0, r0, r1
 	bl	func_0800FFD0
 	cmp	r0, #0
 	bne	.L120	@cond_branch
@@ -541,13 +80,24 @@ func_08027BFC:
 	mov	r0, #0x0
 	b	.L239
 .L120:
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x40]
+	mov	r2, #0xe5
+	lsl	r2, r2, #0x5
+	add	r0, r0, r2
 	bl	func_0800FFD4
 	add	r4, r0, #0
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x40]
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x5
+	add	r0, r0, r1
 	bl	func_0800FFD8
-	ldr	r6, [sp, #0x8]
-	add	r6, r6, #0xc0
+	add	r6, r5, #0
+	add	r6, r6, #0x88
+	add	r7, r5, #0
+	add	r7, r7, #0xc0
+	mov	r2, #0x9c
+	add	r2, r2, r5
+	mov	r8, r2
 	cmp	r4, r0
 	beq	.L121	@cond_branch
 .L122:
@@ -555,33 +105,54 @@ func_08027BFC:
 	cmp	r4, r0
 	bne	.L122	@cond_branch
 .L121:
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x40]
+	mov	r1, #0xe5
+	lsl	r1, r1, #0x5
+	add	r0, r0, r1
 	bl	func_08010024
-	cmp	r7, #0
+	mov	r0, #0x0
+	str	r0, [r6, #0x4]
+	str	r0, [r6, #0x10]
+	str	r0, [r6, #0x1c]
+	ldr	r4, [r5, #0x18]
+	cmp	r4, #0
 	beq	.L127	@cond_branch
-	add	r0, r7, #0
+	ldr	r2, [r5, #0x28]
+	add	r2, r2, #0x36
+	add	r0, r4, #0
 	add	r0, r0, #0xb4
 	mov	r1, #0x0
-	ldr	r2, [sp, #0x14]
 	bl	func_0805E850
-.L127:
+	add	r1, r4, #0
+	add	r1, r1, #0xec
 	mov	r0, #0x1
-	strb	r0, [r6]
-	mov	r4, #0xc9
-	lsl	r4, r4, #0x1
-	ldr	r1, [sp, #0x44]
-	cmp	r1, #0x37
-	bls	.LCB557
+	str	r0, [r1]
+.L127:
+	mov	r0, #0x2e
+	str	r0, [r5, #0x48]
+	mov	r0, #0x1
+	strb	r0, [r7]
+	mov	r6, #0xc9
+	lsl	r6, r6, #0x1
+	ldr	r0, .L248
+	mov	r2, r8
+	str	r0, [r2]
+	ldr	r0, [r5, #0x48]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x37
+	bls	.LCB210
 	b	.L128	@long jump
-.LCB557:
-	lsl	r0, r1, #0x2
-	ldr	r1, .L249
+.LCB210:
+	lsl	r0, r0, #0x2
+	ldr	r1, .L248+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L250:
-	.align	2, 0
 .L249:
+	.align	2, 0
+.L248:
+	.word	0xffff
 	.word	.L231
 	.align	2, 0
 	.align	2, 0
@@ -614,8 +185,8 @@ func_08027BFC:
 	.word	.L128
 	.word	.L128
 	.word	.L179
-	.word	.L148
-	.word	.L148
+	.word	.L182
+	.word	.L182
 	.word	.L185
 	.word	.L186
 	.word	.L187
@@ -643,31 +214,34 @@ func_08027BFC:
 	.word	.L220
 	.word	.L220
 .L129:
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x44]
+	add	r0, r0, #0x54
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB581
+	beq	.LCB237
 	b	.L130	@long jump
-.LCB581:
-	ldr	r0, [sp, #0x48]
+.LCB237:
+	ldr	r0, [r5, #0x50]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
 	cmp	r0, #0x39
-	bls	.LCB585
+	bls	.LCB245
 	b	.L128	@long jump
-.LCB585:
+.LCB245:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L251
+	ldr	r1, .L250
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L252:
-	.align	2, 0
 .L251:
+	.align	2, 0
+.L250:
 	.word	.L141
 	.align	2, 0
 	.align	2, 0
 .L141:
-	.word	.L242
+	.word	.L241
 	.word	.L133
 	.word	.L140
 	.word	.L128
@@ -715,38 +289,40 @@ func_08027BFC:
 	.word	.L128
 	.word	.L128
 	.word	.L128
-	.word	.L242
+	.word	.L241
 	.word	.L128
-	.word	.L242
-	.word	.L128
-	.word	.L128
+	.word	.L241
 	.word	.L128
 	.word	.L128
 	.word	.L128
-	.word	.L242
-	.word	.L242
+	.word	.L128
+	.word	.L128
+	.word	.L241
+	.word	.L241
 .L133:
-	mov	r4, #0xab
-	lsl	r4, r4, #0x1
+	mov	r6, #0xab
+	lsl	r6, r6, #0x1
 	b	.L128
 .L140:
-	mov	r4, #0xa7
-	lsl	r4, r4, #0x1
+	mov	r6, #0xa7
+	lsl	r6, r6, #0x1
 	b	.L128
 .L130:
-	ldr	r1, [sp, #0x4c]
-	cmp	r1, #0x1a
-	bls	.LCB618
+	ldr	r0, [r5, #0x50]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x1a
+	bls	.LCB282
 	b	.L128	@long jump
-.LCB618:
-	lsl	r0, r1, #0x2
-	ldr	r1, .L253
+.LCB282:
+	lsl	r0, r0, #0x2
+	ldr	r1, .L252
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L254:
-	.align	2, 0
 .L253:
+	.align	2, 0
+.L252:
 	.word	.L154
 	.align	2, 0
 	.align	2, 0
@@ -779,275 +355,344 @@ func_08027BFC:
 	.word	.L148
 	.word	.L148
 .L148:
-	mov	r4, #0xc9
-	lsl	r4, r4, #0x1
+	mov	r6, #0xc9
+	lsl	r6, r6, #0x1
 	b	.L128
 .L149:
-	mov	r1, #0xe3
+	mov	r1, #0x99
 	lsl	r1, r1, #0x1
+	add	r0, r5, #0
+	add	r0, r0, #0xd4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.L151	@cond_branch
+	add	r1, r1, #0x94
 .L151:
-	add	r4, r1, #0
+	add	r6, r1, #0
 	b	.L128
 .L152:
-	mov	r1, #0xaf
+	mov	r1, #0x99
 	lsl	r1, r1, #0x1
+	add	r0, r5, #0
+	add	r0, r0, #0xd4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.L151	@cond_branch
+	add	r1, r1, #0x2c
 	b	.L151
 .L156:
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x44]
+	add	r0, r0, #0x54
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L242	@cond_branch
-	ldr	r0, [sp, #0x5c]
-	cmp	r0, #0x5
+	beq	.L241	@cond_branch
+	ldr	r0, [r5, #0x54]
+	lsl	r0, r0, #0x18
+	lsr	r1, r0, #0x18
+	cmp	r1, #0x5
 	bhi	.L148	@cond_branch
-	b	.L128
+	lsl	r0, r1, #0x3
+	sub	r0, r0, r1
+	ldr	r1, [r5, #0x58]
+	add	r0, r0, r1
+	lsl	r0, r0, #0x3
+	ldr	r1, .L254
+	add	r0, r0, r1
+	ldrh	r6, [r0]
+	ldr	r4, [r5, #0x44]
+	add	r0, r4, #0
+	add	r0, r0, #0x5c
+	bl	GetTool__C9ToolStack
+	add	r1, r0, #0
+	add	r0, r4, #0
+	bl	func_0800E550
+	lsl	r0, r0, #0x18
+	asr	r0, r0, #0x18
+	str	r0, [sp, #0x4]
+	add	r0, sp, #0x4
+	mov	sl, r0
+.L159:
+	mov	r0, sl
+	bl	GetIconId__C4Tool
+	b	.L242
+.L255:
+	.align	2, 0
+.L254:
+	.word	gUnk_080F0FCC
 .L161:
-	mov	r4, #0xc9
-	lsl	r4, r4, #0x1
-	mov	r0, #0x0
+	mov	r6, #0xc9
+	lsl	r6, r6, #0x1
+	ldr	r0, [r5, #0x44]
+	add	r0, r0, #0x54
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L242	@cond_branch
+	beq	.L241	@cond_branch
 	b	.L128
 .L166:
-	mov	r4, #0xc9
-	lsl	r4, r4, #0x1
-	mov	r0, #0x0
+	mov	r6, #0xc9
+	lsl	r6, r6, #0x1
+	ldr	r0, [r5, #0x44]
+	add	r0, r0, #0x54
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB693
+	beq	.LCB412
 	b	.L128	@long jump
-.LCB693:
-.L242:
-	mov	r4, #0xa9
-	lsl	r4, r4, #0x1
+.LCB412:
+.L241:
+	mov	r6, #0xa9
+	lsl	r6, r6, #0x1
 	b	.L128
 .L169:
-	mov	r4, #0x9b
-	lsl	r4, r4, #0x1
+	mov	r6, #0x9b
+	lsl	r6, r6, #0x1
 	b	.L128
 .L172:
-	mov	r4, #0xcf
-	lsl	r4, r4, #0x1
+	mov	r6, #0xcf
+	lsl	r6, r6, #0x1
 	b	.L128
 .L173:
-	mov	r4, #0x4e
+	mov	r6, #0x4e
 	b	.L128
 .L174:
-	mov	r4, #0x46
+	mov	r6, #0x46
 	b	.L128
 .L175:
-	mov	r4, #0x9f
-	lsl	r4, r4, #0x1
+	mov	r6, #0x9f
+	lsl	r6, r6, #0x1
 	b	.L128
 .L176:
-	mov	r4, #0xa1
-	lsl	r4, r4, #0x1
+	mov	r6, #0xa1
+	lsl	r6, r6, #0x1
 	b	.L128
 .L177:
-	ldr	r0, [sp, #0x18]
+	ldr	r0, [r5, #0x5c]
+	lsl	r0, r0, #0x10
+	lsr	r6, r0, #0x10
+.L244:
+	ldr	r4, [r5, #0x44]
+	add	r0, r4, #0
 	add	r0, r0, #0x5c
 	bl	GetTool__C9ToolStack
 	add	r1, r0, #0
-	ldr	r0, [sp, #0x18]
+	add	r0, r4, #0
 	bl	func_0800E550
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	add	r1, sp, #0x8
-	b	.L180
+	ldr	r2, [sp, #0x10]
+	b	.L243
 .L179:
-	mov	r4, #0xf5
-	lsl	r4, r4, #0x1
-	ldr	r0, [sp, #0x1c]
+	mov	r6, #0xf5
+	lsl	r6, r6, #0x1
+	ldr	r4, [r5, #0x44]
+	add	r0, r4, #0
 	add	r0, r0, #0x5c
 	bl	GetTool__C9ToolStack
 	add	r1, r0, #0
-	ldr	r0, [sp, #0x1c]
+	add	r0, r4, #0
 	bl	func_0800E550
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	add	r1, sp, #0xc
 .L180:
-	strb	r0, [r1]
+	ldr	r2, [sp, #0x14]
+.L243:
+	strb	r0, [r2]
+	bl	GetIconId__C4Tool
+.L242:
+	lsl	r0, r0, #0x10
+	asr	r0, r0, #0x10
+	mov	r1, r8
+	str	r0, [r1]
 	b	.L128
+.L182:
+	ldr	r1, [r5, #0x68]
+	ldr	r0, [r5, #0x6c]
+	cmp	r1, r0
+	bne	.LCB504
+	b	.L148	@long jump
+.LCB504:
+	mov	r6, #0xc1
+	lsl	r6, r6, #0x1
+	sub	r0, r0, r1
+	cmp	r0, #0x1
+	bne	.L244	@cond_branch
+	add	r6, r6, #0x4
+	b	.L244
 .L185:
-	mov	r4, #0x76
-	ldr	r0, [sp, #0x20]
+	mov	r6, #0x76
+	ldr	r4, [r5, #0x44]
+	add	r0, r4, #0
 	add	r0, r0, #0x5c
 	bl	GetTool__C9ToolStack
 	add	r1, r0, #0
-	ldr	r0, [sp, #0x20]
+	add	r0, r4, #0
 	bl	func_0800E550
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	mov	r1, sp
-	add	r1, r1, #0x2
+	mov	r2, sp
+	add	r2, r2, #0x2
+	str	r2, [sp, #0x14]
 	b	.L180
 .L186:
-	mov	r4, #0x6e
-	b	.L128
+	mov	r6, #0x6e
+	b	.L159
 .L187:
-	mov	r4, #0x72
-	ldr	r0, [sp, #0x24]
-	add	r0, r0, #0x5c
-	bl	GetTool__C9ToolStack
-	add	r1, r0, #0
-	ldr	r0, [sp, #0x24]
-	bl	func_0800E550
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	add	r1, sp, #0x1c
-	b	.L180
+	mov	r6, #0x72
+	b	.L244
 .L188:
-	mov	r4, #0xfd
-	lsl	r4, r4, #0x1
+	mov	r6, #0xfd
+	lsl	r6, r6, #0x1
 	b	.L128
 .L189:
-	mov	r4, #0xcb
-	lsl	r4, r4, #0x1
+	mov	r6, #0xcb
+	lsl	r6, r6, #0x1
 	b	.L128
 .L190:
-	mov	r4, #0x89
-	lsl	r4, r4, #0x1
+	mov	r6, #0x89
+	lsl	r6, r6, #0x1
 	b	.L128
 .L191:
-	mov	r4, #0x8b
-	lsl	r4, r4, #0x1
+	mov	r6, #0x8b
+	lsl	r6, r6, #0x1
 	b	.L128
 .L192:
-	cmp	r5, #0x1
+	ldr	r0, [r5, #0x50]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	add	r1, r0, #0
+	cmp	r0, #0x1
 	beq	.L197	@cond_branch
-	cmp	r5, #0x1
+	cmp	r0, #0x1
 	bgt	.L201	@cond_branch
-	cmp	r5, #0
+	cmp	r0, #0
 	beq	.L194	@cond_branch
 	b	.L128
 .L201:
-	cmp	r5, #0x2
+	cmp	r1, #0x2
 	beq	.L198	@cond_branch
 	b	.L128
 .L194:
-	mov	r4, #0xea
+	mov	r6, #0xea
 .L195:
-	ldr	r0, [sp, #0x64]
+	ldr	r0, [sp, #0x18]
 	bl	SetAnim__12AActorEntityUi
 	b	.L128
 .L197:
-	mov	r4, #0xee
+	mov	r6, #0xee
 	b	.L195
 .L198:
-	mov	r4, #0xe6
+	mov	r6, #0xe6
 	b	.L195
 .L202:
-	mov	r4, #0xad
-	lsl	r4, r4, #0x1
+	mov	r6, #0xad
+	lsl	r6, r6, #0x1
 	b	.L195
 .L203:
-	mov	r4, #0x9a
+	mov	r6, #0x9a
 	b	.L195
 .L204:
-	mov	r4, #0x83
-	lsl	r4, r4, #0x1
+	mov	r6, #0x83
+	lsl	r6, r6, #0x1
 	b	.L128
 .L205:
-	mov	r4, #0x81
-	lsl	r4, r4, #0x1
+	mov	r6, #0x81
+	lsl	r6, r6, #0x1
 	b	.L128
 .L206:
-	mov	r4, #0xfe
+	mov	r6, #0xfe
 	b	.L128
 .L207:
-	mov	r4, #0xfa
+	mov	r6, #0xfa
 	b	.L128
 .L208:
-	mov	r4, #0x91
-	lsl	r4, r4, #0x1
+	mov	r6, #0x91
+	lsl	r6, r6, #0x1
 	b	.L128
 .L209:
-	mov	r4, #0x8f
-	lsl	r4, r4, #0x1
+	mov	r6, #0x8f
+	lsl	r6, r6, #0x1
 	b	.L128
 .L211:
-	mov	r4, #0x8d
-	lsl	r4, r4, #0x1
+	mov	r6, #0x8d
+	lsl	r6, r6, #0x1
 	b	.L128
 .L212:
-	mov	r4, #0xa5
-	lsl	r4, r4, #0x1
-	mov	r0, #0x0
+	mov	r6, #0xa5
+	lsl	r6, r6, #0x1
+	ldr	r0, [r5, #0x44]
+	add	r0, r0, #0x54
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L128	@cond_branch
-	sub	r4, r4, #0x40
+	sub	r6, r6, #0x40
 	b	.L128
 .L214:
-	mov	r4, #0xe2
+	mov	r6, #0xe2
 	b	.L195
 .L215:
-	mov	r4, #0x3e
+	mov	r6, #0x3e
 	b	.L128
 .L220:
-	mov	r4, #0xa3
-	lsl	r4, r4, #0x1
+	mov	r6, #0xa3
+	lsl	r6, r6, #0x1
 	b	.L128
 .L222:
-	mov	r4, #0x9d
-	lsl	r4, r4, #0x1
+	mov	r6, #0x9d
+	lsl	r6, r6, #0x1
 	b	.L128
 .L226:
-	mov	r4, #0x42
+	mov	r6, #0x42
 	b	.L128
 .L227:
-	mov	r4, #0xe3
-	lsl	r4, r4, #0x1
-	mov	r0, #0x0
+	mov	r6, #0xe3
+	lsl	r6, r6, #0x1
+	ldr	r0, [r5, #0x44]
+	add	r0, r0, #0x54
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB945
+	bne	.LCB697
 	b	.L133	@long jump
-.LCB945:
+.LCB697:
 	b	.L128
 .L229:
-	mov	r4, #0xf2
+	mov	r6, #0xf6
+	ldr	r0, [r5, #0x4c]
+	cmp	r0, #0
+	beq	.L128	@cond_branch
+	mov	r6, #0xf2
 .L128:
-	ldr	r0, [sp, #0x8]
-	add	r1, r4, #0
+	add	r0, r5, #0
+	add	r1, r6, #0
 	bl	SetAnim__12AActorEntityUi
-	ldr	r1, [sp, #0x10]
-	ldr	r0, [sp, #0x3c]
-	cmp	r1, r0
+.L245:
+	ldr	r0, [sp, #0x8]
+	cmp	r9, r0
 	beq	.L238	@cond_branch
-.L234:
-	ldr	r1, [sp, #0x10]
+	mov	r1, r9
 	ldr	r0, [r1]
 	bl	func_08008CD0
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L235	@cond_branch
-	ldr	r0, [sp, #0x10]
-	add	r0, r0, #0x10
-	str	r0, [sp, #0x10]
-	ldr	r1, [sp, #0x3c]
-	cmp	r0, r1
-	beq	.L238	@cond_branch
-	b	.L234
+	mov	r2, #0x10
+	add	r9, r9, r2
+	b	.L245
 .L235:
-	ldr	r0, [sp, #0x10]
-	ldr	r0, [r0]
-	str	r0, [sp, #0x40]
+	mov	r1, r9
+	ldr	r1, [r1]
+	str	r1, [sp, #0xc]
 .L238:
 	mov	r1, #0x6e
 .L119:
-	ldr	r0, [sp, #0x40]
+	ldr	r0, [sp, #0xc]
 	bl	func_08008B6C
 	mov	r0, #0x1
 .L239:
-	add	sp, sp, #0x68
+	add	sp, sp, #0x1c
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

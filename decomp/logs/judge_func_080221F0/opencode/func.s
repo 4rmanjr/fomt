@@ -9,47 +9,89 @@
 func_080221F0:
 	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x4
-	add	r6, r0, #0
-	mov	r0, #0x0
+	add	r5, r0, #0
+	add	r6, r1, #0
+	ldr	r0, [r6]
+	lsl	r0, r0, #0x16
+	lsr	r0, r0, #0x16
+	ldr	r1, [r5, #0x10]
+	cmp	r0, r1
+	bne	.L3	@cond_branch
+	ldr	r0, [r5, #0x44]
 	bl	GetAffection__C6Animal
 	bl	func_08020018
-	mov	r1, r4
-	mul	r1, r1, r4
-	mov	r2, r5
-	mul	r2, r2, r5
-	add	r1, r1, r2
-	mov	r2, r0
-	mul	r2, r2, r0
-	add	r0, r2, #0
-	cmp	r1, r0
+	ldr	r1, [r6, #0x8]
+	ldr	r4, .L6
+	and	r1, r1, r4
+	lsl	r1, r1, #0x6
+	ldr	r2, [r6, #0x4]
+	lsl	r2, r2, #0x18
+	lsr	r2, r2, #0x1a
+	orr	r2, r2, r1
+	lsl	r2, r2, #0x10
+	asr	r2, r2, #0x10
+	ldr	r1, [r5, #0x18]
+	sub	r2, r2, r1
+	ldr	r3, [r6, #0x10]
+	and	r3, r3, r4
+	lsl	r3, r3, #0x6
+	ldr	r1, [r6, #0xc]
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x1a
+	orr	r1, r1, r3
+	lsl	r1, r1, #0x10
+	asr	r1, r1, #0x10
+	ldr	r3, [r5, #0x1c]
+	sub	r1, r1, r3
+	mov	r3, r2
+	mul	r3, r3, r2
+	add	r2, r3, #0
+	mov	r3, r1
+	mul	r3, r3, r1
+	add	r1, r3, #0
+	add	r2, r2, r1
+	mov	r1, r0
+	mul	r1, r1, r0
+	add	r0, r1, #0
+	cmp	r2, r0
 	bgt	.L3	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x44]
 	bl	GetAffection__C6Animal
 	lsl	r1, r0, #0x4
 	sub	r1, r1, r0
 	lsl	r1, r1, #0x6
 	lsr	r1, r1, #0x8
-	mov	r0, #0xf0
-	lsl	r0, r0, #0x1
-	add	r1, r1, r0
+	mov	r3, #0xf0
+	lsl	r3, r3, #0x1
+	add	r1, r1, r3
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	str	r1, [sp]
-	mov	r0, #0x0
+	ldr	r0, [r5, #0x44]
 	mov	r1, sp
 	bl	method_0809BC30__5HorsePC18UnkBarnAnimal2C_x2
-	add	r0, r6, #0
+	ldr	r0, [r5, #0x50]
+	cmp	r0, #0
+	bne	.L5	@cond_branch
+	add	r0, r5, #0
 	bl	func_080220D4
 	add	r1, r0, #0
-	add	r0, r6, #0
-	mov	r2, #0x0
+	ldr	r2, [r5, #0x30]
+	lsl	r2, r2, #0x18
+	lsr	r2, r2, #0x18
+	add	r0, r5, #0
 	bl	func_08022048
-	mov	r0, #0x0
+.L5:
+	ldr	r0, [r5, #0x44]
 	bl	SetHasTalkedToday__3Pet
 .L3:
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
+.L7:
+	.align	2, 0
+.L6:
+	.word	0x3ff
 .Lfe1:
 	.size	 func_080221F0,.Lfe1-func_080221F0

@@ -7,14 +7,14 @@
 	.type	 func_08021EE0,function
 	.thumb_func
 func_08021EE0:
-	push	{r4, lr}
+	push	{r4, r5, lr}
 	add	sp, sp, #-0x4
 	add	r4, r0, #0
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x34]
 	bl	GetGrowthStage__C5Horse
 	lsl	r0, r0, #0x18
-	asr	r0, r0, #0x18
-	cmp	r0, #0x1
+	asr	r5, r0, #0x18
+	cmp	r5, #0x1
 	bne	.L3	@cond_branch
 	ldr	r1, .L4
 	ldr	r0, [sp]
@@ -24,20 +24,23 @@ func_08021EE0:
 	ldr	r1, .L4+0x4
 	and	r0, r0, r1
 	str	r0, [sp]
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x34]
 	mov	r1, sp
 	bl	method_0809BC24__5HorsePC15UnkBarnAnimal2C
 	add	r0, r4, #0
 	bl	func_080220D4
 	add	r1, r0, #0
+	ldr	r2, [r4, #0x20]
+	lsl	r2, r2, #0x18
+	lsr	r2, r2, #0x18
 	add	r0, r4, #0
-	mov	r2, #0x0
 	bl	func_08022048
-	mov	r0, #0x0
+	str	r5, [r4, #0x40]
+	ldr	r0, [r4, #0x34]
 	bl	SetHasPlayedToday__3Pet
 .L3:
 	add	sp, sp, #0x4
-	pop	{r4}
+	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
 .L5:

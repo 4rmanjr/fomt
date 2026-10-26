@@ -11,11 +11,72 @@ func_08025EFC:
 	add	r4, r0, #0
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x38]
+	add	r0, r0, #0x54
 	bl	func_0800F4F0
 	add	r0, r4, #0
 	bl	func_0802A588
+	mov	r0, #0x11
+	str	r0, [r4, #0x3c]
+	ldr	r0, [r4, #0x20]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x1
+	beq	.L7	@cond_branch
+	cmp	r0, #0x1
+	bgt	.L12	@cond_branch
+	cmp	r0, #0
+	beq	.L9	@cond_branch
+	b	.L3
+.L12:
+	cmp	r0, #0x2
+	beq	.L4	@cond_branch
+	cmp	r0, #0x3
+	beq	.L6	@cond_branch
+	b	.L3
+.L4:
+	add	r1, r4, #0
+	add	r1, r1, #0x88
+	ldr	r0, .L21
 .L19:
+	str	r0, [r1, #0x4]
+	mov	r0, #0x0
+	str	r0, [r1, #0x8]
+.L5:
+	mov	r0, #0xc0
+	lsl	r0, r0, #0xc
+	str	r0, [r1, #0x14]
+	b	.L3
+.L22:
+	.align	2, 0
+.L21:
+	.word	-0xa0000
+.L6:
+	add	r1, r4, #0
+	add	r1, r1, #0x88
+	mov	r0, #0xa0
+	lsl	r0, r0, #0xc
+	b	.L19
+.L7:
+	add	r1, r4, #0
+	add	r1, r1, #0x88
+	ldr	r2, .L23
+	mov	r0, #0x0
+.L20:
+	str	r0, [r1, #0x4]
+	str	r2, [r1, #0x8]
+	b	.L5
+.L24:
+	.align	2, 0
+.L23:
+	.word	-0xa0000
+.L9:
+	add	r1, r4, #0
+	add	r1, r1, #0x88
+	mov	r2, #0xa0
+	lsl	r2, r2, #0xc
+	b	.L20
+.L3:
 	cmp	r5, r6
 	beq	.L18	@cond_branch
 	ldr	r0, [r5]
@@ -24,7 +85,7 @@ func_08025EFC:
 	cmp	r0, #0
 	beq	.L15	@cond_branch
 	add	r5, r5, #0x10
-	b	.L19
+	b	.L3
 .L15:
 	ldr	r7, [r5]
 .L18:

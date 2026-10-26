@@ -8,14 +8,21 @@
 	.thumb_func
 func_08022950:
 	push	{lr}
-	cmp	r0, #0x1
-	bgt	.L7	@cond_branch
+	ldr	r1, [r0, #0x38]
+	ldr	r0, [r1, #0x24]
 	cmp	r0, #0
-	blt	.L7	@cond_branch
-	mov	r0, #0x4
-	b	.L9
-.L7:
+	beq	.L4	@cond_branch
+	cmp	r0, #0x1
+	beq	.L5	@cond_branch
 	mov	r0, #0x0
+	b	.L9
+.L4:
+	ldr	r0, [r1, #0x2c]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	b	.L9
+.L5:
+	mov	r0, #0x4
 .L9:
 	pop	{r1}
 	bx	r1

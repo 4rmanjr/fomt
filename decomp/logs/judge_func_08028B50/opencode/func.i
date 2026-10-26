@@ -57,6 +57,13 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08028B50/opencode/func.c" 2
 s16 GetIconId__C4Tool(s8 *);
 s32 GetTool__C9ToolStack(s32);
@@ -66,9 +73,37 @@ s32 func_08008CD0(s32);
 s8 func_0800E550(s32, s32);
 u8 func_0800F190(s32);
 s32 func_0800F204(s32);
-extern ? gUnk_080F0FCC;
+extern s32 gUnk_080F0FCC;
 
-void func_08028B50(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    u8 _padC[8];
+    struct GenObj *unk14;
+    u8 _pad18[8];
+    s32 unk20;
+    s32 unk22;
+    u8 _pad26[14];
+    s32 unk34;
+    s32 unk38;
+    s32 unk3C;
+    s32 unk3D;
+    s32 unk3E;
+    s32 unk3F;
+    s32 unk40;
+    s32 unk44;
+    u8 _pad48[6];
+    s32 unk4E;
+    s32 unk4F;
+    u8 _pad53[41];
+    s32 unk7C;
+    u8 _pad80[51];
+    s32 unkB3;
+    u8 _padB7[9];
+    s32 unkC0;
+} GenObj;
+void func_08028B50(GenObj *arg0) {
     s8 sp0;
     s8 sp4;
     s32 *var_r4;
@@ -101,7 +136,7 @@ void func_08028B50(void *arg0) {
     void **temp_r0_7;
     void **temp_r0_8;
     void *temp_r0_9;
-    void *var_r0;
+    GenObj *var_r0;
     void *var_r2;
 
     arg0->unk3C = 0xEU;
@@ -115,26 +150,26 @@ void func_08028B50(void *arg0) {
             temp_r3 = arg0->unk20;
             switch (temp_r3) {
             case 2:
-                var_r0 = arg0 + 0x88;
+                var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
                 var_r0->unk4 = 0xFFF60000;
                 var_r0->unk8 = (s32) temp_r5;
 block_15:
                 var_r0->unk14 = 0xC0000;
                 break;
             case 3:
-                var_r0 = arg0 + 0x88;
+                var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
                 var_r0->unk4 = 0xA0000;
                 var_r0->unk8 = (s32) temp_r5;
                 goto block_15;
             case 1:
-                var_r0 = arg0 + 0x88;
+                var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
                 var_r1 = 0xFFF60000;
                 var_r0->unk4 = (s32) temp_r5;
 block_14:
                 var_r0->unk8 = var_r1;
                 goto block_15;
             case 0:
-                var_r0 = arg0 + 0x88;
+                var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
                 var_r1 = 0xA0000;
                 var_r0->unk4 = (s32) temp_r3;
                 goto block_14;

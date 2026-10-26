@@ -8,8 +8,11 @@
 	.thumb_func
 func_08024CA0:
 	push	{lr}
-	sub	r0, r0, #0x24
+	ldr	r0, [r0, #0x3c]
 	lsl	r0, r0, #0x18
+	mov	r1, #0xdc
+	lsl	r1, r1, #0x18
+	add	r0, r0, r1
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x6
 	bls	.L3	@cond_branch

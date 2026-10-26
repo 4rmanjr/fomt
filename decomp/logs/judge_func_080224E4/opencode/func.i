@@ -57,6 +57,13 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080224E4/opencode/func.c" 2
 s32 AddAffection__6Animali(void *, s32);
 s32 AddOutdoorMinutes__9LivestockUi(void *, s32);
@@ -78,14 +85,34 @@ s32 func_080AB85C(s32 *);
 s32 func_080AB8D0(s32 *);
 s32 func_080AB948(s32 *);
 s32 func_080AB9C4(s32 *);
-s32 func_080ABA90(s32 *, ? *, s32);
+s32 func_080ABA90(s32 *, s32 *, s32);
 u8 func_080ABE58(s16, s16, s16, s16, s32 *, s32);
 s32 method_0809BD20__7ChickenPC15UnkBarnAnimal2C(void *, s32 *);
-extern ? gUnk_080F09C8;
+extern s32 gUnk_080F09C8;
 
-void func_080224E4(void *arg0, void *arg1) {
-s32 sp8;
-    s32 sp14;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk4;
+    s32 unk8;
+    s32 unkA;
+    s32 unkC;
+    s32 unkE;
+    u8 _pad12[2];
+    struct GenObj *unk14;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    struct GenObj *unk24;
+    struct GenObj *unk28;
+    s32 unk2C;
+    s32 unk30;
+    s32 unk34;
+} GenObj;
+void func_080224E4(GenObj *arg0, GenObj *arg1) {
+GenObj sp8;
+    GenObj *sp14;
 s32 sp28;
     s32 sp34;
     s32 sp38;
@@ -121,8 +148,8 @@ s32 sp58;
     void *temp_r4_3;
     void *temp_r5_2;
     void *temp_r6;
-    void *temp_r7;
-    void *var_r1;
+    GenObj *temp_r7;
+    GenObj *var_r1;
 
     temp_r7 = arg0->unk34;
     temp_r8 = arg0->unk0;
@@ -146,14 +173,14 @@ s32 sp58;
         }
     }
     (*temp_r8)->unk34(&sp8, temp_r8, sp64);
-    arg0->unk14->unkC(&sp48, arg0);
+    ((void (*)(void *,...))(arg0->unk14->unkC))(&sp48, arg0);
     sp6C = sp48;
     sp70 = sp4C;
     sp14 = 0x11;
     sp14.unk4 = -0x11;
     sp14.unk8 = -0x11;
     sp14.unkC = 0x11;
-    sp28.unk0 = (s32) sp8.unk0;
+    sp28 = (s32) sp8;
     sp28.unk4 = (s32) sp8.unk4;
     sp28.unk8 = (s32) sp8.unk8;
     sp34 = sp48;
@@ -164,17 +191,17 @@ s32 sp58;
     temp_r6 = (*temp_r8)->unk40(temp_r8, 0);
     temp_r5_2 = (*temp_r8)->unk40(temp_r8, 0x4A);
     if ((temp_r6 != 0) && (temp_r6->unk4 == sp64)) {
-        temp_r6->unk14->unkC(&sp50, temp_r6);
+        ((void (*)(void *,...))(temp_r6->unk14->unkC))(&sp50, temp_r6);
         func_080ABA90(&sp14, &sp50, 0);
     }
     if ((temp_r5_2 != 0) && (temp_r5_2->unk4 == sp64)) {
-        temp_r5_2->unk14->unkC(&sp58, temp_r5_2);
+        ((void (*)(void *,...))(temp_r5_2->unk14->unkC))(&sp58, temp_r5_2);
         func_080ABA90(&sp14, &sp58, 0);
     }
     temp_r0 = temp_r7->unk24;
     switch (temp_r0) {
     case 1:
-        sp68 = temp_r7 + 0x28;
+        sp68 = (GenObj *)((u8 *)temp_r7 + 0x28);
         temp_r1 = temp_r7->unk28;
         var_sl = temp_r1;
         if (temp_r1 != 0) {
@@ -283,7 +310,7 @@ block_46:
                 var_r5_2 = func_080AB7A4(var_r5_2);
             }
             func_080228B4(arg0, temp_r0_2, var_r5_2);
-            (temp_r7 + 0x28)->unk2 = temp_r0_2;
+            ((GenObj *)((u8 *)temp_r7 + 0x28))->unk2 = temp_r0_2;
         }
         temp_r7->unk28 = var_r4_2;
         break;

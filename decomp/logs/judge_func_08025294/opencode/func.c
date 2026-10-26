@@ -1,13 +1,19 @@
 #include "common.h"
 s32 func_080AC070(?);                               /* extern */
 
-s32 func_08025294(s32 arg1, s32 arg2, void *arg3) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+} GenObj;
+s32 func_08025294(s32 arg1, s32 arg2, GenObj *arg3) {
 s32 sp0;
 s32 sp8;
 s32 sp10;
 s32 sp18;
 s32 sp20;
-    ? *var_r1;
+    s32 *var_r1;
     s16 temp_r3;
     s16 temp_r4;
     s16 temp_r5;
@@ -16,7 +22,7 @@ s32 sp20;
     s32 temp_r2;
     s32 var_r0;
 
-    sp0.unk0 = 0x10F;
+    sp0 = 0x10F;
     sp0.unk2 = 0xAF;
     sp0.unk4 = 0x3C1;
     sp0.unk6 = 0x241;
@@ -24,11 +30,11 @@ s32 sp20;
     temp_r4 = arg3->unk0;
     temp_r6 = arg3->unk6;
     temp_r3 = arg3->unk2;
-    if ((s32) ((sp0.unk0 - temp_r5) & (temp_r4 + 0xFFFFFC3F) & (0xAF - temp_r6) & (temp_r3 + 0xFFFFFDBF)) < 0) {
+    if ((s32) ((sp0 - temp_r5) & (temp_r4 + 0xFFFFFC3F) & (0xAF - temp_r6) & (temp_r3 + 0xFFFFFDBF)) < 0) {
         switch (arg2) {                             /* irregular */
         case 0:
             temp_r2 = (temp_r6 - temp_r3) + 0x10;
-            sp8.unk0 = temp_r4;
+            sp8 = temp_r4;
             sp8.unk2 = (s16) (temp_r2 + temp_r3);
             sp8.unk4 = temp_r5;
             sp8.unk6 = (s16) (temp_r2 + temp_r6);
@@ -39,7 +45,7 @@ block_13:
             goto block_15;
         case 1:
             temp_r0 = 0 - ((temp_r6 - temp_r3) + 0x10);
-            sp10.unk0 = temp_r4;
+            sp10 = temp_r4;
             sp10.unk2 = (s16) (temp_r0 + temp_r3);
             sp10.unk4 = temp_r5;
             sp10.unk6 = (s16) (temp_r0 + temp_r6);

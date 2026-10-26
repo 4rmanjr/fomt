@@ -7,6 +7,13 @@
 	.type	 func_08024BFC,function
 	.thumb_func
 func_08024BFC:
+	mov	r3, #0x10
+	ldrsh	r1, [r1, r3]
+	sub	r1, r1, #0x7
+	lsl	r1, r1, #0x10
+	asr	r1, r1, #0x10
+	str	r1, [r0]
+	str	r2, [r0, #0x8]
 	bx	lr
 .Lfe1:
 	.size	 func_08024BFC,.Lfe1-func_08024BFC

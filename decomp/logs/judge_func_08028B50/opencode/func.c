@@ -7,9 +7,37 @@ s32 func_08008CD0(s32);                             /* extern */
 s8 func_0800E550(s32, s32);                         /* extern */
 u8 func_0800F190(s32);                              /* extern */
 s32 func_0800F204(s32);                             /* extern */
-extern ? gUnk_080F0FCC;
+extern s32 gUnk_080F0FCC;
 
-void func_08028B50(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    u8 _padC[8];
+    struct GenObj *unk14;
+    u8 _pad18[8];
+    s32 unk20;
+    s32 unk22;
+    u8 _pad26[14];
+    s32 unk34;
+    s32 unk38;
+    s32 unk3C;
+    s32 unk3D;
+    s32 unk3E;
+    s32 unk3F;
+    s32 unk40;
+    s32 unk44;
+    u8 _pad48[6];
+    s32 unk4E;
+    s32 unk4F;
+    u8 _pad53[41];
+    s32 unk7C;
+    u8 _pad80[51];
+    s32 unkB3;
+    u8 _padB7[9];
+    s32 unkC0;
+} GenObj;
+void func_08028B50(GenObj *arg0) {
     s8 sp0;
     s8 sp4;
     s32 *var_r4;
@@ -42,7 +70,7 @@ void func_08028B50(void *arg0) {
     void **temp_r0_7;
     void **temp_r0_8;
     void *temp_r0_9;
-    void *var_r0;
+    GenObj *var_r0;
     void *var_r2;
 
     arg0->unk3C = 0xEU;
@@ -56,26 +84,26 @@ void func_08028B50(void *arg0) {
             temp_r3 = arg0->unk20;
             switch (temp_r3) {                      /* switch 1; irregular */
             case 2:                                 /* switch 1 */
-                var_r0 = arg0 + 0x88;
+                var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
                 var_r0->unk4 = 0xFFF60000;
                 var_r0->unk8 = (s32) temp_r5;
 block_15:
                 var_r0->unk14 = 0xC0000;
                 break;
             case 3:                                 /* switch 1 */
-                var_r0 = arg0 + 0x88;
+                var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
                 var_r0->unk4 = 0xA0000;
                 var_r0->unk8 = (s32) temp_r5;
                 goto block_15;
             case 1:                                 /* switch 1 */
-                var_r0 = arg0 + 0x88;
+                var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
                 var_r1 = 0xFFF60000;
                 var_r0->unk4 = (s32) temp_r5;
 block_14:
                 var_r0->unk8 = var_r1;
                 goto block_15;
             case 0:                                 /* switch 1 */
-                var_r0 = arg0 + 0x88;
+                var_r0 = (GenObj *)((u8 *)arg0 + 0x88);
                 var_r1 = 0xA0000;
                 var_r0->unk4 = (s32) temp_r3;
                 goto block_14;

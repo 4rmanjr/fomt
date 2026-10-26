@@ -12,24 +12,38 @@ func_0801CCE4:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x4
-	add	r4, r1, #0
-	add	r5, r2, #0
+	add	sp, sp, #-0x8
+	add	r6, r0, #0
+	add	r7, r1, #0
+	mov	r8, r2
 	add	r1, r3, #0
 	mov	r0, #0x2b
-	mul	r0, r0, r5
-	add	r0, r4, r0
-	lsl	r7, r0, #0x2
-	mov	r0, r9
+	mov	r2, r8
+	mul	r2, r2, r0
+	add	r0, r2, #0
+	add	r0, r7, r0
+	lsl	r0, r0, #0x2
+	mov	r9, r0
+	ldr	r3, .L10
+	add	r4, r6, r3
+	ldr	r5, .L10+0x4
+	add	r2, r0, r5
+	ldr	r0, [r4]
+	add	r0, r0, r2
+	mov	sl, r0
 	bl	method_0800A33C__9FieldPloti
-	mov	r8, r0
-	add	r1, r5, #0x1
+	str	r0, [sp, #0x4]
+	ldr	r6, [r6, #0x4]
+	ldr	r0, [r4]
+	add	r3, r0, r5
+	mov	r1, r8
+	add	r1, r1, #0x1
 	mov	r0, #0x0
-	cmp	r4, #0
+	cmp	r7, #0
 	blt	.L4	@cond_branch
 	cmp	r1, #0
 	blt	.L4	@cond_branch
-	cmp	r4, #0x2a
+	cmp	r7, #0x2a
 	bgt	.L4	@cond_branch
 	cmp	r1, #0x18
 	bgt	.L4	@cond_branch
@@ -39,20 +53,26 @@ func_0801CCE4:
 	beq	.L5	@cond_branch
 	mov	r0, #0x2b
 	mul	r0, r0, r1
-	add	r0, r4, r0
+	add	r0, r7, r0
 	lsl	r0, r0, #0x2
-	add	r1, r6, r0
+	add	r1, r3, r0
 	b	.L6
+.L11:
+	.align	2, 0
+.L10:
+	.word	0x1038
+	.word	0x9dc
 .L5:
 	mov	r1, #0x0
 .L6:
-	sub	r2, r5, #0x1
+	mov	r2, r8
+	sub	r2, r2, #0x1
 	mov	r0, #0x0
-	cmp	r4, #0
+	cmp	r7, #0
 	blt	.L7	@cond_branch
 	cmp	r2, #0
 	blt	.L7	@cond_branch
-	cmp	r4, #0x2a
+	cmp	r7, #0x2a
 	bgt	.L7	@cond_branch
 	cmp	r2, #0x18
 	bgt	.L7	@cond_branch
@@ -62,25 +82,27 @@ func_0801CCE4:
 	beq	.L8	@cond_branch
 	mov	r0, #0x2b
 	mul	r0, r0, r2
-	add	r0, r4, r0
+	add	r0, r7, r0
 	lsl	r0, r0, #0x2
-	add	r2, r6, r0
+	add	r2, r3, r0
 	b	.L9
 .L8:
 	mov	r2, #0x0
 .L9:
-	add	r0, r6, r7
+	mov	r4, r9
+	add	r0, r3, r4
 	bl	method_0800AF5C__C9FieldPlotPC9FieldPlotT1
-	lsl	r1, r4, #0x1
+	lsl	r1, r7, #0x1
 	add	r1, r1, #0x22
-	lsl	r2, r5, #0x1
+	mov	r3, r8
+	lsl	r2, r3, #0x1
 	add	r2, r2, #0x16
 	str	r0, [sp]
-	mov	r0, sl
-	mov	r3, r9
+	add	r0, r6, #0
+	mov	r3, sl
 	bl	func_080AA6D0
-	mov	r0, r8
-	add	sp, sp, #0x4
+	ldr	r0, [sp, #0x4]
+	add	sp, sp, #0x8
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

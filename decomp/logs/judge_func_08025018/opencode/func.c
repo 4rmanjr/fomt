@@ -4,7 +4,15 @@ u16 func_0802D158(void *);                          /* extern */
 s32 func_0802F0EC(void *, s32, s32);                  /* extern */
 s32 func_0803242C(void *, s32);                       /* extern */
 
-void func_08025018(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[34];
+    s32 unk22;
+    u8 _pad26[154];
+    s32 unkC0;
+    s32 unkC1;
+    s32 unkC2;
+} GenObj;
+void func_08025018(GenObj *arg0, s32 arg1) {
     arg0->unkC1 = 0;
     if (arg0->unkC2 == 0) {
         if (arg0->unkC0 != 0) {

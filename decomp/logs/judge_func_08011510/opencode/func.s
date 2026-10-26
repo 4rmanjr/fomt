@@ -7,6 +7,11 @@
 	.type	 func_08011510,function
 	.thumb_func
 func_08011510:
+	mov	r1, #0x10
+	str	r1, [r0]
+	str	r1, [r0, #0x4]
+	mov	r1, #0x0
+	str	r1, [r0, #0x8]
 	bx	lr
 .Lfe1:
 	.size	 func_08011510,.Lfe1-func_08011510

@@ -9,6 +9,8 @@
 func_08024B9C:
 	push	{r4, lr}
 	add	r4, r0, #0
+	mov	r0, #0x1
+	str	r0, [r4, #0x24]
 	mov	r0, #0xa1
 	lsl	r0, r0, #0x2
 	bl	__builtin_new

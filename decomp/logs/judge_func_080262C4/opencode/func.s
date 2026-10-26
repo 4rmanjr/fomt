@@ -8,7 +8,10 @@
 	.thumb_func
 func_080262C4:
 	push	{r4, r5, lr}
-	add	sp, sp, #-0x8
+	add	sp, sp, #-0x44
+	ldr	r0, [r0, #0x3c]
+	ldr	r1, .L10
+	add	r4, r0, r1
 	add	r0, r4, #0
 	bl	func_0800F190
 	lsl	r0, r0, #0x18
@@ -26,17 +29,21 @@ func_080262C4:
 	cmp	r0, #0x1
 	beq	.L6	@cond_branch
 	b	.L9
+.L11:
+	.align	2, 0
+.L10:
+	.word	0x1c2c
 .L5:
-	mov	r5, sp
-	add	r0, sp, #0x4
+	add	r5, sp, #0x40
+	mov	r0, sp
 	add	r1, r4, #0
 	bl	func_0800F20C
-	mov	r0, sp
+	add	r0, r5, #0
 	mov	r1, #0x0
 	bl	__7ProductG4Food
 	b	.L9
 .L6:
-	add	r5, sp, #0x18
+	add	r5, sp, #0x140
 	add	r0, r4, #0
 	bl	func_0800F258
 	add	r1, r0, #0
@@ -44,12 +51,12 @@ func_080262C4:
 	bl	__7ProductG7Article
 	b	.L9
 .L3:
-	add	r5, sp, #0x1c
+	add	r5, sp, #0x180
 	add	r0, r5, #0
 	bl	__7Product
 .L9:
 	ldrb	r0, [r5]
-	add	sp, sp, #0x8
+	add	sp, sp, #0x44
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1

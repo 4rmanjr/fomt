@@ -57,10 +57,21 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08021F88/opencode/func.c" 2
 s32 GetGrowthStage__C5Horse(s32);
-extern ? gUnk_080F09AC;
+extern s32 gUnk_080F09AC;
 
-u16 func_08021F88(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[52];
+    s32 unk34;
+} GenObj;
+u16 func_08021F88(GenObj *arg0, s32 arg1) {
     return *((((GetGrowthStage__C5Horse(arg0->unk34) * 7) + arg1) * 2) + &gUnk_080F09AC);
 }

@@ -37,19 +37,23 @@ func_08025A40:
 	mov	r0, r9
 	mov	r1, #0xc7
 	bl	func_08008B6C
+	mov	r0, #0x0
+	str	r0, [r7, #0x3c]
 	b	.L2
 .L3:
 	cmp	r6, #0
 	bne	.L10	@cond_branch
-	mov	r0, #0x0
+	ldr	r0, [r7, #0x38]
 	bl	func_0800EC4C
 	b	.L11
 .L10:
-	mov	r0, #0x0
+	ldr	r0, [r7, #0x38]
 	bl	func_0800ECB0
 .L11:
 	cmp	r0, #0
 	beq	.L2	@cond_branch
+	mov	r0, #0x15
+	str	r0, [r7, #0x3c]
 	add	r0, r7, #0
 	bl	func_0802A510
 .L20:

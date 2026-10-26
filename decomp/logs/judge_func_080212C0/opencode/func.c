@@ -1,8 +1,20 @@
 #include "common.h"
 s32 func_080384FC(void *);                            /* extern */
-s32 func_080AC070(s32 *, ? *);                        /* extern */
+s32 func_080AC070(s32 *, s32 *);                        /* extern */
 
-void func_080212C0(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    u8 _pad10[4];
+    struct GenObj *unk14;
+    u8 _pad18[8];
+    s32 unk20;
+    u8 _pad24[2];
+    s32 unk26;
+} GenObj;
+void func_080212C0(GenObj *arg0) {
 s32 sp0;
 s32 spC;
     s32 temp_r1;
@@ -55,7 +67,7 @@ block_18:
         }
         var_sl -= 1;
         if (var_sl >= 0) {
-            temp_r0_2->unk14->unkC(&spC, temp_r0_2);
+            ((void (*)(void *,...))(temp_r0_2->unk14->unkC))(&spC, temp_r0_2);
             if ((func_080AC070(&sp0, &spC) << 0x18) != 0) {
                 goto loop_7;
             }

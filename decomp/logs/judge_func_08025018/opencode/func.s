@@ -10,14 +10,38 @@ func_08025018:
 	push	{r4, r5, lr}
 	add	r4, r0, #0
 	add	r5, r1, #0
+	add	r1, r4, #0
+	add	r1, r1, #0xc8
+	mov	r0, #0x0
+	str	r0, [r1]
+	add	r0, r4, #0
+	add	r0, r0, #0xcc
+	ldr	r0, [r0]
+	cmp	r0, #0
+	bne	.L3	@cond_branch
+	add	r0, r4, #0
+	add	r0, r0, #0xc4
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L4	@cond_branch
+	add	r0, r4, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_0802F0EC
 	add	r0, r4, #0
+	bl	func_0802D158
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	ldr	r1, [r4, #0x24]
+	cmp	r1, r0
+	beq	.L4	@cond_branch
+	add	r0, r4, #0
 	bl	SetAnim__12AActorEntityUi
+.L4:
 	add	r0, r4, #0
 	add	r1, r5, #0
 	bl	func_0803242C
+.L3:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

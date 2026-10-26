@@ -11,6 +11,8 @@ func_080251FC:
 	add	sp, sp, #-0x4
 	add	r6, r0, #0
 	add	r5, r3, #0
+	ldr	r0, [r1]
+	str	r0, [sp]
 	mov	r4, #0x1
 	cmp	r5, #0
 	beq	.L3	@cond_branch

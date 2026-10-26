@@ -7,32 +7,42 @@
 	.type	 func_0801140C,function
 	.thumb_func
 func_0801140C:
-	push	{r4, r5, r6, lr}
+	push	{r4, r5, r6, r7, lr}
 	add	r4, r0, #0
-	add	r6, r4, #0
-	add	r6, r6, #0x54
-	add	r0, r6, #0
+	ldr	r0, .L4
+	add	r7, r4, r0
+	add	r0, r7, #0
 	bl	GetValueShipped__C11ShippingBin
 	add	r5, r0, #0
-	ldr	r0, .L4
-	add	r4, r4, r0
-	add	r0, r4, #0
-	add	r1, r5, #0
-	bl	func_0809ABD8
-	add	r0, r4, #0
-	add	r1, r5, #0
-	bl	func_0809ABD8
+	ldr	r0, .L4+0x4
+	add	r6, r4, r0
 	add	r0, r6, #0
+	add	r1, r5, #0
+	bl	func_0809ABD8
+	ldr	r0, .L4+0x8
+	add	r4, r4, r0
+	ldr	r0, [r4]
+	cmp	r0, #0
+	beq	.L3	@cond_branch
+	add	r0, r6, #0
+	add	r1, r5, #0
+	bl	func_0809ABD8
+	mov	r0, #0x0
+	str	r0, [r4]
+.L3:
+	add	r0, r7, #0
 	bl	ResetValueShipped__11ShippingBin
 	neg	r0, r5
 	orr	r0, r0, r5
 	lsr	r0, r0, #0x1f
-	pop	{r4, r5, r6}
+	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
 .L5:
 	.align	2, 0
 .L4:
-	.word	0x1aa8
+	.word	0x1152f0
+	.word	0x57f5de0
+	.word	0x34c8
 .Lfe1:
 	.size	 func_0801140C,.Lfe1-func_0801140C

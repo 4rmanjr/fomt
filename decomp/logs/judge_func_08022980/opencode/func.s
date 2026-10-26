@@ -7,6 +7,23 @@
 	.type	 func_08022980,function
 	.thumb_func
 func_08022980:
-	bx	lr
+	push	{r4, lr}
+	add	r4, r1, #0
+	ldr	r0, [r0, #0x34]
+	bl	GetGrowthStage__C7Chicken
+	lsl	r1, r0, #0x2
+	add	r1, r1, r0
+	add	r1, r1, r4
+	lsl	r1, r1, #0x3
+	ldr	r0, .L3
+	add	r1, r1, r0
+	ldrh	r0, [r1]
+	pop	{r4}
+	pop	{r1}
+	bx	r1
+.L4:
+	.align	2, 0
+.L3:
+	.word	gUnk_080F0A68
 .Lfe1:
 	.size	 func_08022980,.Lfe1-func_08022980
