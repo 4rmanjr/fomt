@@ -9,6 +9,7 @@ typedef struct GenObj {
 } GenObj;
 void func_08003DF0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 temp;
+    u8 *t;
     u32 var;
     GenObj *p;
     s32 spbuf[2];
@@ -24,7 +25,8 @@ void func_08003DF0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     temp |= var;
     spbuf[0] = temp;
     var = ((u32) (temp << 7) >> 0x17) + 0x80;
-    if (*((u8 *)((u8 *)arg0 + 0x84) + arg1) == 0) {
+    t = (u8 *)arg0 + 0x84;
+    if (*(t + arg1) == 0) {
         goto skip_add;
     }
     var += 0x40;

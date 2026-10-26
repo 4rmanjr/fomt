@@ -31,8 +31,9 @@ func_08003DF0:
 	lsr	r3, r0, #0x17
 	add	r2, r3, #0
 	add	r2, r2, #0x80
-	add	r0, r4, r5
+	add	r0, r5, #0
 	add	r0, r0, #0x84
+	add	r0, r0, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0
 	beq	.L4	@cond_branch
