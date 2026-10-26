@@ -197,3 +197,16 @@ void func_080387EC(GenObj *arg0) {
         func_08038EB8();
     }
 }
+
+// DECOMP-MATCHED func_080387FC (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 func_08038EE0();                                  /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[16];
+    s32 unk10;
+} GenObj;
+void func_080387FC(GenObj *arg0) {
+    if (arg0->unk10 != 0) {
+        func_08038EE0();
+    }
+}
