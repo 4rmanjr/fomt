@@ -58,3 +58,8 @@ s32 func_0801151C(s32 *arg0) {
 void func_08011540(s32 *arg0, s32 arg1) {
     *arg0 = arg1;
 }
+
+// DECOMP-MATCHED func_08012218 (dari game_state.s; cek manusia sebelum ke src/)
+void func_08012218(void) {
+
+}
