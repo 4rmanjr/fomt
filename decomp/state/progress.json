@@ -1670,12 +1670,12 @@
  },
  "func_08008DB8": {
   "addr": 134254008,
-  "claimed_at": 1793003397.4295151,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793003556.6204295,
   "module": "hardware.s",
+  "note": "len 14 vs ref 46",
   "ref_len": 48,
   "size": 425,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08008DE8": {
@@ -11385,42 +11385,42 @@
  },
  "func_0805FCD0": {
   "addr": 134610128,
-  "claimed_at": 1793003540.211113,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003552.2871106,
   "module": "code_0803EE94.s",
+  "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805FCD0/kilo-1531/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805FCD0/kilo-1531/func.c:13: request for member `unk8' in something not a structure or union\n",
   "ref_len": 52,
   "size": 490,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0805FD04": {
   "addr": 134610180,
-  "claimed_at": 1793003540.2224915,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003552.6177244,
   "module": "code_0803EE94.s",
+  "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805FD04/kilo-1531/func.c:16: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805FD04/kilo-1531/func.c:16: request for member `unk4' in something not a structure or union\n",
   "ref_len": 64,
   "size": 584,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0805FD44": {
   "addr": 134610244,
-  "claimed_at": 1793003540.2336917,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003552.9693434,
   "module": "code_0803EE94.s",
+  "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805FD44/kilo-1531/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805FD44/kilo-1531/func.c:13: request for member `unk8' in something not a structure or union\n",
   "ref_len": 52,
   "size": 430,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0805FD78": {
   "addr": 134610296,
-  "claimed_at": 1793003540.2454252,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003553.4416094,
   "module": "code_0803EE94.s",
+  "note": " not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805FD78/kilo-1531/func.c:111: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0805FD78/kilo-1531/func.c:111: request for member `unk128' in something not a structure or union\n",
   "ref_len": 412,
   "size": 3329,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_0805FF14": {
@@ -11455,14 +11455,19 @@
  },
  "func_08063E58": {
   "addr": 134626904,
+  "judged_mtime": 1793003555.8772056,
   "module": "code_0803EE94.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 12,
   "size": 120,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08063E64": {
   "addr": 134626916,
+  "claimed_at": 1793003555.3599424,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 40,
   "size": 330,
@@ -11471,6 +11476,8 @@
  },
  "func_08063E8C": {
   "addr": 134626956,
+  "claimed_at": 1793003555.3717628,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 44,
   "size": 409,
@@ -11479,6 +11486,8 @@
  },
  "func_08063EB8": {
   "addr": 134627000,
+  "claimed_at": 1793003555.3857539,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 1128,
   "size": 9534,
@@ -11487,6 +11496,8 @@
  },
  "func_08064320": {
   "addr": 134628128,
+  "claimed_at": 1793003555.4010994,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 188,
   "size": 1705,
@@ -11495,6 +11506,8 @@
  },
  "func_080643DC": {
   "addr": 134628316,
+  "claimed_at": 1793003555.413573,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 276,
   "size": 2521,
@@ -11503,6 +11516,8 @@
  },
  "func_080644F0": {
   "addr": 134628592,
+  "claimed_at": 1793003555.4258265,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 256,
   "size": 2316,
@@ -11511,6 +11526,8 @@
  },
  "func_080645F0": {
   "addr": 134628848,
+  "claimed_at": 1793003555.4379635,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 5412,
   "size": 46656,
@@ -11519,6 +11536,8 @@
  },
  "func_0806644C": {
   "addr": 134636620,
+  "claimed_at": 1793003555.4494357,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 7928,
   "size": 68069,
@@ -11527,6 +11546,8 @@
  },
  "func_08068344": {
   "addr": 134644548,
+  "claimed_at": 1793003555.4613197,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 6384,
   "size": 54807,
@@ -11535,6 +11556,8 @@
  },
  "func_08069C34": {
   "addr": 134650932,
+  "claimed_at": 1793003555.4730446,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 336,
   "size": 2728,
@@ -11543,6 +11566,8 @@
  },
  "func_08069D84": {
   "addr": 134651268,
+  "claimed_at": 1793003555.4853814,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 144,
   "size": 1138,
@@ -11551,6 +11576,8 @@
  },
  "func_08069E14": {
   "addr": 134651412,
+  "claimed_at": 1793003555.4971576,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 68,
   "size": 580,
@@ -11559,6 +11586,8 @@
  },
  "func_08069E58": {
   "addr": 134651480,
+  "claimed_at": 1793003555.5103462,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 64,
   "size": 584,
@@ -11567,6 +11596,8 @@
  },
  "func_08069E98": {
   "addr": 134651544,
+  "claimed_at": 1793003555.5228786,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 124,
   "size": 891,
@@ -11575,6 +11606,8 @@
  },
  "func_08069F14": {
   "addr": 134651668,
+  "claimed_at": 1793003555.5351684,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 736,
   "size": 5971,
@@ -11583,6 +11616,8 @@
  },
  "func_0806A1F4": {
   "addr": 134652404,
+  "claimed_at": 1793003555.5498908,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 8862,
   "size": 75583,
@@ -11591,6 +11626,8 @@
  },
  "func_0806D8C8": {
   "addr": 134666440,
+  "claimed_at": 1793003555.5656304,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 80,
   "size": 697,
@@ -11599,6 +11636,8 @@
  },
  "func_0806D918": {
   "addr": 134666520,
+  "claimed_at": 1793003555.5802119,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 48,
   "size": 447,
@@ -11607,6 +11646,8 @@
  },
  "func_0806D948": {
   "addr": 134666568,
+  "claimed_at": 1793003555.594795,
+  "claimed_by": "Prodesk:338316",
   "module": "code_0803EE94.s",
   "ref_len": 72,
   "size": 569,
