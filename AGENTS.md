@@ -31,10 +31,24 @@ fomt 5 sram_proxy_1.s     # 5 fungsi dari modul itu
 fomt status               # progres saja (total/berhasil/sisa)
 fomt verify               # audit ulang semua promoted/matched (tanpa ubah state)
 fomt 10 --agent opencode  # identitas agent untuk klaim
+fomt --loop               # ulangi batch 20 sampai antrean habis (foreground)
+fomt --loop 10            # sama, batch 10 per putaran
+fomt --loop 20 --wait 2 code_linkonce.s --retry  # loop modul itu + ulangi failed
 ```
 
 Statistik (`total`, `berhasil`, `sisa`, sebaran status, `batch M/D`) dicetak
-setiap fungsi selesai dan di akhir run.
+setiap fungsi selesai dan di akhir tiap batch. Mode `--loop` mengulangi batch
+sampai pending/drafted habis — tetap foreground (bukan background), tiap fungsi
+dan ringkasan `batch#N` dicetak langsung; berhenti dengan Ctrl-C atau saat
+antrean kosong. Catatan loop:
+
+- failed yang drafnya tidak disentuh TIDAK ikut antre lagi (tidak macet di
+  fungsi gagal yang sama); hanya draf yang diperbaiki manual yang di-judge
+  ulang otomatis.
+- `--retry` memaksa semua failed diulang — gabungkan dengan `--loop` hanya
+  bersama filter modul, kalau tidak ditolak (akan berputar selamanya).
+- Klaim per-batch dilepas di akhir tiap batch (`release_all`), jadi agent lain
+  bisa mengambil alih di jeda `--wait S` (default 5 detik).
 
 ## Alur per fungsi
 
