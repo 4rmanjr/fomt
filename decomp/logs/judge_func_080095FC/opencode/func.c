@@ -1,0 +1,15 @@
+#include "common.h"
+s32 func_080004F4();                                  /* extern */
+s32 func_08000528(s32);                             /* extern */
+s32 func_08009968(s32, s32);                            /* extern */
+
+void func_080095FC(s32 arg0, ? arg1) {
+    u16 sp0;
+
+    sp0 = 1 & func_08000528(1);
+    func_08009968(arg0, arg1);
+    if (sp0 != 0) {
+        func_080004F4();
+    }
+}
+
