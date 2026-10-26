@@ -23575,12 +23575,13 @@
  },
  "func_080DCB64": {
   "addr": 135121764,
-  "claimed_at": 1793003880.0942004,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003891.2133782,
   "module": "code_linkonce.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "size": 120,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DCB70": {
