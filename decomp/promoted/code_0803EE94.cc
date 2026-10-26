@@ -138,3 +138,10 @@ s32 func_08050B3C(s32);                               /* extern */
 void func_08050E5C(s32 *arg0) {
     func_08050B3C(*arg0);
 }
+
+// DECOMP-MATCHED func_08050E68 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_08050B50(s32);                               /* extern */
+
+void func_08050E68(s32 *arg0) {
+    func_08050B50(*arg0);
+}
