@@ -8,3 +8,14 @@ void func_080202C4(void) {
 s32 func_0802161C(void) {
     return 0;
 }
+
+// DECOMP-MATCHED func_08022320 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_08022320(s32 arg0) {
+    switch (arg0) {                                 /* irregular */
+    case 0:
+    default:
+        return 1;
+    case 1:
+        return 2;
+    }
+}
