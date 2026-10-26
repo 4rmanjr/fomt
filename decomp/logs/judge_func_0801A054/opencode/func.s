@@ -8,60 +8,121 @@
 	.thumb_func
 func_0801A054:
 	push	{r4, r5, r6, r7, lr}
-	mov	r7, r9
-	mov	r6, r8
-	push	{r6, r7}
-	add	sp, sp, #-0x4
-	mov	r9, r0
-	add	r7, r2, #0
+	mov	r7, sl
+	mov	r6, r9
+	mov	r5, r8
+	push	{r5, r6, r7}
+	add	sp, sp, #-0x8
+	add	r7, r0, #0
+	mov	sl, r1
+	mov	r9, r2
 	ldr	r0, .L11
-	cmp	r7, r0
-	bhi	.L4	@cond_branch
-	cmp	r7, #0x2
-	bne	.L5	@cond_branch
-	mov	r0, r8
-	cmp	r0, #0x2
-	bne	.L4	@cond_branch
-.L5:
-	cmp	r8, r7
-	beq	.L8	@cond_branch
+	cmp	r9, r0
+	bls	.L3	@cond_branch
 	mov	r0, #0x0
-	bl	func_0800E324
-	add	r6, r0, #0
-	mov	r0, #0x0
-	bl	GetUpgradeLevel__C9FarmHouse
-	add	r5, r0, #0
-	mov	r0, #0x0
-	bl	GetUpgradeLevel__C4Coop
-	add	r4, r0, #0
-	mov	r0, #0x0
-	bl	GetUpgradeLevel__C4Barn
-	str	r0, [sp]
-	add	r0, r7, #0
-	add	r1, r6, #0
-	add	r2, r5, #0
-	add	r3, r4, #0
-	bl	func_0803A8A4
-	add	r1, r0, #0
-.L8:
-	add	r0, r1, #0
-	bl	GetMapData
-	cmp	r8, r7
-	bne	.L4	@cond_branch
-	mov	r0, #0x0
-	bl	GetMapData
-.L4:
-	mov	r0, r9
-	add	sp, sp, #0x4
-	pop	{r3, r4}
-	mov	r8, r3
-	mov	r9, r4
-	pop	{r4, r5, r6, r7}
-	pop	{r1}
-	bx	r1
+	str	r0, [r7]
+	str	r0, [r7, #0x4]
+	str	r0, [r7, #0x8]
+	str	r0, [r7, #0xc]
+	b	.L4
 .L12:
 	.align	2, 0
 .L11:
 	.word	0x233
+.L3:
+	mov	r1, sl
+	ldr	r0, [r1, #0x4]
+	ldr	r1, [r0]
+	str	r1, [sp, #0x4]
+	mov	r1, r9
+	cmp	r1, #0x2
+	bne	.L5	@cond_branch
+	ldr	r1, [sp, #0x4]
+	cmp	r1, #0x2
+	beq	.L5	@cond_branch
+	ldr	r0, .L13
+	add	r0, r0, sl
+	ldr	r0, [r0]
+	str	r0, [r7]
+	mov	r0, #0x0
+	str	r0, [r7, #0x4]
+	mov	r0, #0x80
+	str	r0, [r7, #0x8]
+	mov	r0, #0x58
+	str	r0, [r7, #0xc]
+	b	.L4
+.L14:
+	.align	2, 0
+.L13:
+	.word	0x1058
+.L5:
+	ldr	r1, [sp, #0x4]
+	cmp	r1, r9
+	bne	.L7	@cond_branch
+	ldr	r0, [r0, #0x4]
+	b	.L8
+.L7:
+	mov	r4, #0x82
+	lsl	r4, r4, #0x5
+	add	r4, r4, sl
+	ldr	r0, [r4]
+	add	r0, r0, #0x10
+	bl	func_0800E324
+	mov	r8, r0
+	ldr	r0, [r4]
+	mov	r1, #0xfa
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
+	bl	GetUpgradeLevel__C9FarmHouse
+	add	r6, r0, #0
+	ldr	r0, [r4]
+	mov	r1, #0x82
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
+	bl	GetUpgradeLevel__C4Coop
+	add	r5, r0, #0
+	ldr	r0, [r4]
+	mov	r1, #0xbe
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
+	bl	GetUpgradeLevel__C4Barn
+	str	r0, [sp]
+	mov	r0, r9
+	mov	r1, r8
+	add	r2, r6, #0
+	add	r3, r5, #0
+	bl	func_0803A8A4
+.L8:
+	bl	GetMapData
+	ldrh	r6, [r0, #0x24]
+	ldrh	r5, [r0, #0x28]
+	ldr	r1, [sp, #0x4]
+	cmp	r1, r9
+	bne	.L9	@cond_branch
+	mov	r0, sl
+	ldr	r4, [r0, #0x4]
+	ldr	r0, [r4, #0x4]
+	bl	GetMapData
+	mov	r1, #0x0
+	ldr	r0, [r4, #0x34]
+	b	.L10
+.L9:
+	ldr	r1, [r0, #0x20]
+	ldr	r0, [r0, #0x1c]
+.L10:
+	str	r0, [r7]
+	str	r1, [r7, #0x4]
+	str	r6, [r7, #0x8]
+	str	r5, [r7, #0xc]
+.L4:
+	add	r0, r7, #0
+	add	sp, sp, #0x8
+	pop	{r3, r4, r5}
+	mov	r8, r3
+	mov	r9, r4
+	mov	sl, r5
+	pop	{r4, r5, r6, r7}
+	pop	{r1}
+	bx	r1
 .Lfe1:
 	.size	 func_0801A054,.Lfe1-func_0801A054

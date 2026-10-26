@@ -1,21 +1,37 @@
 #include "common.h"
-s32 SetLocation__12AActorEntityRC13ActorLocation(void *, ? *); /* extern */
+s32 SetLocation__12AActorEntityRC13ActorLocation(void *, s32 *); /* extern */
 s32 SetLocation__7AEntityUiii(void *, u32, s16, s16); /* extern */
 s32 func_0800EECC(s32);                               /* extern */
 s32 func_080A0A90(s32);                               /* extern */
-s32 memcpy(s32 *, ? *, s32);                            /* extern */
+s32 memcpy(s32 *, s32 *, s32);                            /* extern */
 
-void func_08016FA4(void *arg0, s32 arg1, s32 arg2, u16 arg3, s32 arg4, s32 arg5) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    s32 unk4;
+    s32 unk6;
+    u8 _padA[10];
+    struct GenObj *unk14;
+    u8 _pad18[8];
+    s32 unk20;
+    u8 _pad24[104];
+    s32 unk8C;
+    u8 _pad90[24];
+    struct GenObj *unkA8;
+} GenObj;
+void func_08016FA4(GenObj *arg0, s32 arg1, s32 arg2, u16 arg3, s32 arg4, s32 arg5) {
 s32 sp0;
 s32 sp8;
     s32 sp10;
-    void *sp14;
+    GenObj *sp14;
     s32 var_r1;
     u8 temp_r4;
     u8 temp_r6;
     void **temp_r0_2;
     void **temp_r0_4;
-    void *temp_r0;
+    GenObj *temp_r0;
     void *temp_r0_3;
     void *temp_r0_5;
 
@@ -28,7 +44,7 @@ s32 sp8;
         if (temp_r0_3 == 0) {
 
         } else {
-            sp8.unk0 = (u16) ((0xFFFFFC00 & sp8.unk0) | (arg2 & 0x3FF));
+            sp8 = (u16) ((0xFFFFFC00 & sp8) | (arg2 & 0x3FF));
             sp8.unk1 = (u8) ((3 & sp8.unk1) | ((arg3 & 0x3F) * 4));
             sp8.unk2 = (u16) ((0xFFFFFC00 & sp8.unk2) | (((u32) (arg3 << 0x10) >> 0x16) & 0x3FF));
             sp8.unk3 = (u8) ((3 & sp8.unk3) | (((u16) arg4 & 0x3F) * 4));
@@ -36,21 +52,21 @@ s32 sp8;
             memcpy(&sp0, &sp8, 6);
             sp0.unk6 = (s8) arg5;
             SetLocation__12AActorEntityRC13ActorLocation(temp_r0_3, &sp0);
-            temp_r0_3->unk14->unk20(temp_r0_3);
+            ((void (*)(void *,...))(temp_r0_3->unk14->unk20))(temp_r0_3);
         }
     } else {
         temp_r0_4 = sp14->unkA8;
         temp_r0_5 = (*temp_r0_4)->unk40(temp_r0_4, sp10);
         if (temp_r0_5 != 0) {
-            sp0.unk0 = (u16) ((0xFFFFFC00 & sp0.unk0) | (arg2 & 0x3FF));
+            sp0 = (u16) ((0xFFFFFC00 & sp0) | (arg2 & 0x3FF));
             temp_r6 = (3 & sp0.unk1) | ((arg3 & 0x3F) * 4);
             sp0.unk1 = temp_r6;
             sp0.unk2 = (u16) ((0xFFFFFC00 & sp0.unk2) | (((u32) (arg3 << 0x10) >> 0x16) & 0x3FF));
             temp_r4 = (3 & sp0.unk3) | (((u16) arg4 & 0x3F) * 4);
             sp0.unk3 = temp_r4;
             sp0.unk4 = (u16) ((0xFFFFFC00 & sp0.unk4) | (((u32) (arg4 << 0x10) >> 0x16) & 0x3FF));
-            SetLocation__7AEntityUiii(temp_r0_5, (u32) (sp0.unk0 << 0x16) >> 0x16, (s16) (((sp0.unk2 & 0x3FF) << 6) | (temp_r6 >> 2)), (s16) (((sp0.unk4 & 0x3FF) << 6) | (temp_r4 >> 2)));
-            temp_r0_5->unk14->unk20(temp_r0_5);
+            SetLocation__7AEntityUiii(temp_r0_5, (u32) (sp0 << 0x16) >> 0x16, (s16) (((sp0.unk2 & 0x3FF) << 6) | (temp_r6 >> 2)), (s16) (((sp0.unk4 & 0x3FF) << 6) | (temp_r4 >> 2)));
+            ((void (*)(void *,...))(temp_r0_5->unk14->unk20))(temp_r0_5);
         }
     }
     if (sp10 == 0) {

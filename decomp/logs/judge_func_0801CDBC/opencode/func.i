@@ -57,6 +57,13 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801CDBC/opencode/func.c" 2
 s32 func_0801740C(s32);
 s32 func_0801CCE4(void *, s32, s32, s32);
@@ -64,7 +71,16 @@ s32 func_080AB68C(s32, s32, s32, s32);
 s32 method_08009B68__4FarmUi(s32, s32);
 s32 method_0800A78C__C9FieldPlot(s32);
 
-s32 func_0801CDBC(void *arg0, s32 arg1, s32 arg2, ? arg3) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[16];
+    s32 unk14;
+    u8 _pad18[4112];
+    s32 unk1028;
+    u8 _pad102C[12];
+    s32 unk1038;
+} GenObj;
+s32 func_0801CDBC(GenObj *arg0, s32 arg1, s32 arg2, ? arg3) {
     s32 temp_r0;
     s32 temp_r4;
     s32 temp_r4_2;
@@ -99,7 +115,7 @@ s32 func_0801CDBC(void *arg0, s32 arg1, s32 arg2, ? arg3) {
     } else {
         var_sb = func_0801CCE4(arg0, var_r7, var_r8, arg3);
     }
-    if (arg0->unk0->unk14(arg0) == 2) {
+    if (((void (*)(void *,...))(arg0->unk0->unk14))(arg0) == 2) {
         switch (var_sb) {
         case 1:
             method_08009B68__4FarmUi(arg0->unk1038 + 0x14, 1);

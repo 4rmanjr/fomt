@@ -8,9 +8,15 @@
 	.thumb_func
 func_0801D9A8:
 	push	{lr}
-	mov	r0, #0x0
+	ldr	r1, .L3
+	add	r0, r0, r1
+	ldr	r0, [r0]
 	bl	func_08012B24
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	0x1054
 .Lfe1:
 	.size	 func_0801D9A8,.Lfe1-func_0801D9A8

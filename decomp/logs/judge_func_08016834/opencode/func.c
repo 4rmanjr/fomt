@@ -2,12 +2,20 @@
 s32 method_0800CB7C__4CoopUi(s32, s32);               /* extern */
 s32 method_0800D80C__4BarnUi(s32, s32);               /* extern */
 
-void func_08016834(void *arg0, u32 arg1, s32 arg2) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[132];
+    struct GenObj *unk8C;
+    u8 _pad90[24];
+    struct GenObj *unkA8;
+} GenObj;
+void func_08016834(GenObj *arg0, u32 arg1, s32 arg2) {
     void **temp_r0;
     void **temp_r0_2;
     void **temp_r0_3;
     void **temp_r0_4;
-    void *temp_r4;
+    GenObj *temp_r4;
 
     temp_r4 = arg0->unk4;
     switch (arg1) {

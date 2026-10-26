@@ -7,20 +7,37 @@
 	.type	 func_0801D8CC,function
 	.thumb_func
 func_0801D8CC:
-	push	{lr}
-	add	r1, r0, #0
-	add	r1, r1, #0x8
-	mov	r2, #0xcc
-	lsl	r2, r2, #0x1
-	add	r0, r0, r2
-	cmp	r1, r0
+	push	{r4, r5, lr}
+	ldr	r1, .L19
+	add	r2, r0, r1
+	mov	r1, #0x1
+	str	r1, [r2]
+	add	r4, r0, #0
+	add	r4, r4, #0x8
+	mov	r1, #0xcc
+	lsl	r1, r1, #0x1
+	add	r5, r0, r1
+	cmp	r4, r5
 	beq	.L11	@cond_branch
 .L5:
-	add	r1, r1, #0x10
-	cmp	r1, r0
+	ldr	r2, [r4]
+	cmp	r2, #0
+	beq	.L8	@cond_branch
+	ldr	r0, [r2, #0x14]
+	ldr	r1, [r0, #0x20]
+	add	r0, r2, #0
+	bl	_call_via_r1
+.L8:
+	add	r4, r4, #0x10
+	cmp	r4, r5
 	bne	.L5	@cond_branch
 .L11:
+	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
+.L20:
+	.align	2, 0
+.L19:
+	.word	0x103c
 .Lfe1:
 	.size	 func_0801D8CC,.Lfe1-func_0801D8CC

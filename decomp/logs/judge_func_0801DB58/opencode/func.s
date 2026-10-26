@@ -9,9 +9,13 @@
 func_0801DB58:
 	push	{r4, lr}
 	add	sp, sp, #-0x4
+	add	r4, r0, #0
+	mov	r0, #0x80
+	lsl	r0, r0, #0x1
+	str	r0, [sp]
 	add	r3, r2, #0
 	sub	r3, r3, #0x34
-	ldr	r0, .L11
+	add	r0, r0, #0xff
 	cmp	r3, r0
 	bls	.L4	@cond_branch
 	cmp	r2, #0x2b
@@ -19,16 +23,15 @@ func_0801DB58:
 .L4:
 	cmp	r2, #0x2b
 	beq	.L5	@cond_branch
-	ldr	r0, .L11+0x4
+	ldr	r0, .L11
 	cmp	r2, r0
 	ble	.L6	@cond_branch
-	ldr	r0, .L11+0x8
+	ldr	r0, .L11+0x4
 	add	r2, r2, r0
 	b	.L8
 .L12:
 	.align	2, 0
 .L11:
-	.word	0x1ff
 	.word	0x133
 	.word	-0x134
 .L6:
@@ -44,9 +47,16 @@ func_0801DB58:
 	sub	r0, r0, r1
 	mul	r0, r0, r2
 .L3:
-	mov	r0, #0x0
+	ldr	r1, .L13+0x4
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	ldr	r1, .L13+0x8
+	add	r0, r0, r1
 	bl	func_0800E4FC
-	add	r0, r4, #0
+	mov	r1, #0x83
+	lsl	r1, r1, #0x5
+	add	r0, r4, r1
+	ldr	r0, [r0]
 	mov	r1, #0x1
 	mov	r2, #0x0
 	mov	r3, sp
@@ -59,5 +69,7 @@ func_0801DB58:
 	.align	2, 0
 .L13:
 	.word	-0xa00
+	.word	0x1044
+	.word	0x1bd8
 .Lfe1:
 	.size	 func_0801DB58,.Lfe1-func_0801DB58

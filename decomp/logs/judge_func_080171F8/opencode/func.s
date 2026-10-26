@@ -12,33 +12,40 @@ func_080171F8:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x4
+	add	sp, sp, #-0x8
 	lsl	r2, r2, #0x18
-	lsr	r2, r2, #0x18
-	add	r7, r0, #0
-	mov	sl, r1
-	neg	r0, r2
-	orr	r0, r0, r2
+	mov	sl, r0
+	str	r1, [sp, #0x4]
+	lsr	r7, r2, #0x18
+	neg	r0, r7
+	orr	r0, r0, r7
 	lsr	r0, r0, #0x1f
 	bl	GetMapData
-	mov	r0, #0x0
-	cmp	r4, #0
+	ldrh	r1, [r0, #0x20]
+	mov	r8, r1
+	mov	r1, #0x0
+	ldr	r0, [r0, #0x24]
+	mov	r2, r8
+	mul	r2, r2, r0
+	add	r0, r2, #0
+	cmp	r0, #0
 	beq	.L3	@cond_branch
 .L4:
-	add	r0, r0, #0x1
-	cmp	r0, r4
+	add	r1, r1, #0x1
+	cmp	r1, r0
 	bcc	.L4	@cond_branch
 .L3:
 	mov	r1, #0x0
-	ldr	r0, .L38
-	add	r0, r0, sl
-	mov	r8, r0
+	ldr	r0, [sp, #0x4]
+	ldr	r2, .L38
+	add	r0, r0, r2
+	mov	r9, r0
 .L9:
 	mov	r5, #0x0
 	add	r6, r1, #0x1
 	mov	r0, #0xac
 	mul	r0, r0, r1
-	mov	r1, r8
+	mov	r1, r9
 	add	r4, r0, r1
 .L12:
 	add	r0, r4, #0
@@ -50,19 +57,24 @@ func_080171F8:
 	add	r1, r6, #0
 	cmp	r1, #0x18
 	bls	.L9	@cond_branch
-	mov	r0, #0xf0
-	lsl	r0, r0, #0x1
-	add	r0, r0, sl
+	ldr	r2, [sp, #0x4]
+	mov	r1, #0xf0
+	lsl	r1, r1, #0x1
+	add	r0, r2, r1
 	bl	GetUpgradeLevel__C9FarmHouse
 	cmp	r0, #0x1
 	beq	.L19	@cond_branch
 	cmp	r0, #0x2
 	beq	.L21	@cond_branch
+	ldr	r2, .L38+0x4
+	cmp	r7, #0
+	beq	.L18	@cond_branch
+	ldr	r2, .L38+0x8
+.L18:
 	mov	r0, #0x3
 	str	r0, [sp]
-	add	r0, r7, #0
-	mov	r1, r9
-	mov	r2, #0x0
+	mov	r0, sl
+	mov	r1, r8
 	mov	r3, #0x1a
 	bl	func_08017180
 	b	.L16
@@ -70,81 +82,131 @@ func_080171F8:
 	.align	2, 0
 .L38:
 	.word	0x9c8
+	.word	gUnk_0810692C
+	.word	gUnk_08106944
 .L19:
+	ldr	r2, .L40
+	cmp	r7, #0
+	beq	.L20	@cond_branch
+	ldr	r2, .L40+0x4
+.L20:
 	mov	r0, #0x3
 	str	r0, [sp]
-	add	r0, r7, #0
-	mov	r1, r9
-	mov	r2, #0x0
+	mov	r0, sl
+	mov	r1, r8
 	mov	r3, #0x12
 	bl	func_08017180
 	b	.L16
+.L41:
+	.align	2, 0
+.L40:
+	.word	gUnk_0810695C
+	.word	gUnk_08106974
 .L21:
+	ldr	r2, .L42
+	cmp	r7, #0
+	beq	.L22	@cond_branch
+	ldr	r2, .L42+0x4
+.L22:
 	str	r0, [sp]
-	add	r0, r7, #0
-	mov	r1, r9
-	mov	r2, #0x0
+	mov	r0, sl
+	mov	r1, r8
 	mov	r3, #0xa
 	bl	func_08017180
 .L16:
-	ldr	r0, .L40
-	add	r0, r0, sl
+	ldr	r2, [sp, #0x4]
+	ldr	r1, .L42+0x8
+	add	r0, r2, r1
 	bl	GetUpgradeLevel__C4Barn
 	cmp	r0, #0
 	beq	.L25	@cond_branch
 	cmp	r0, #0x1
 	beq	.L27	@cond_branch
 	b	.L24
-.L41:
+.L43:
 	.align	2, 0
-.L40:
+.L42:
+	.word	gUnk_0810698C
+	.word	gUnk_081069A4
 	.word	0x5dc
 .L25:
+	ldr	r2, .L44
+	cmp	r7, #0
+	beq	.L26	@cond_branch
+	ldr	r2, .L44+0x4
+.L26:
 	mov	r0, #0x2
 	str	r0, [sp]
-	add	r0, r7, #0
-	mov	r1, r9
-	mov	r2, #0x0
+	mov	r0, sl
+	mov	r1, r8
 	mov	r3, #0x3a
 	bl	func_08017180
 	b	.L24
+.L45:
+	.align	2, 0
+.L44:
+	.word	gUnk_081069BC
+	.word	gUnk_081069D4
 .L27:
+	ldr	r2, .L46
+	cmp	r7, #0
+	beq	.L28	@cond_branch
+	ldr	r2, .L46+0x4
+.L28:
 	mov	r0, #0x2
 	str	r0, [sp]
-	add	r0, r7, #0
-	mov	r1, r9
-	mov	r2, #0x0
+	mov	r0, sl
+	mov	r1, r8
 	mov	r3, #0x3a
 	bl	func_08017180
 .L24:
-	mov	r0, #0xff
-	lsl	r0, r0, #0x2
-	add	r0, r0, sl
+	ldr	r2, [sp, #0x4]
+	mov	r1, #0xff
+	lsl	r1, r1, #0x2
+	add	r0, r2, r1
 	bl	GetUpgradeLevel__C4Coop
 	cmp	r0, #0
 	beq	.L32	@cond_branch
 	cmp	r0, #0x1
 	beq	.L34	@cond_branch
 	b	.L2
+.L47:
+	.align	2, 0
+.L46:
+	.word	gUnk_081069EC
+	.word	gUnk_08106A04
 .L32:
+	ldr	r2, .L48
+	cmp	r7, #0
+	beq	.L33	@cond_branch
+	ldr	r2, .L48+0x4
+.L33:
 	mov	r0, #0x34
 	str	r0, [sp]
-	add	r0, r7, #0
-	mov	r1, r9
-	mov	r2, #0x0
+	mov	r0, sl
+	mov	r1, r8
 	mov	r3, #0xe
 	bl	func_08017180
 	b	.L2
+.L49:
+	.align	2, 0
+.L48:
+	.word	gUnk_08106A1C
+	.word	gUnk_08106A34
 .L34:
+	ldr	r2, .L50
+	cmp	r7, #0
+	beq	.L35	@cond_branch
+	ldr	r2, .L50+0x4
+.L35:
 	mov	r0, #0x34
 	str	r0, [sp]
-	add	r0, r7, #0
-	mov	r1, r9
-	mov	r2, #0x0
+	mov	r0, sl
+	mov	r1, r8
 	mov	r3, #0xe
 	bl	func_08017180
 .L2:
-	add	sp, sp, #0x4
+	add	sp, sp, #0x8
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -152,5 +214,10 @@ func_080171F8:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
+.L51:
+	.align	2, 0
+.L50:
+	.word	gUnk_08106A4C
+	.word	gUnk_08106A64
 .Lfe1:
 	.size	 func_080171F8,.Lfe1-func_080171F8

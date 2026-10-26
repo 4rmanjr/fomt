@@ -8,6 +8,7 @@
 	.thumb_func
 func_08016834:
 	push	{lr}
+	ldr	r3, [r0, #0x4]
 	cmp	r1, #0x4
 	bhi	.L2	@cond_branch
 	lsl	r0, r1, #0x2
@@ -28,16 +29,32 @@ func_08016834:
 	.word	.L8
 	.word	.L2
 .L7:
-	mov	r0, #0x0
+	add	r0, r3, #0
+	add	r0, r0, #0x8c
+	ldr	r0, [r0]
+	ldr	r1, .L13
+	add	r0, r0, r1
 	add	r1, r2, #0
 	bl	method_0800D80C__4BarnUi
 	b	.L2
+.L14:
+	.align	2, 0
+.L13:
+	.word	0x3fd40
 .L8:
-	mov	r0, #0x0
+	add	r0, r3, #0
+	add	r0, r0, #0x8c
+	ldr	r0, [r0]
+	ldr	r1, .L15
+	add	r0, r0, r1
 	add	r1, r2, #0
 	bl	method_0800CB7C__4CoopUi
 .L2:
 	pop	{r0}
 	bx	r0
+.L16:
+	.align	2, 0
+.L15:
+	.word	0x2bac0
 .Lfe1:
 	.size	 func_08016834,.Lfe1-func_08016834

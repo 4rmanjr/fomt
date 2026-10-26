@@ -7,14 +7,36 @@
 	.type	 func_08019B90,function
 	.thumb_func
 func_08019B90:
-	push	{lr}
-	lsl	r1, r2, #0xb
+	push	{r4, r5, r6, lr}
+	add	r4, r0, #0
+	ldr	r0, [r4, #0x4]
+	ldr	r2, .L4
+	add	r1, r4, r2
+	ldrb	r2, [r1]
+	add	r1, r0, #0
+	add	r1, r1, #0x90
+	ldr	r5, [r1]
+	ldr	r3, .L4+0x4
+	add	r1, r4, r3
+	ldr	r1, [r1]
+	mov	r3, #0x1e
+	sub	r3, r3, r2
+	ldr	r5, [r5, #0x14]
+	bl	_call_via_r5
+	lsl	r1, r6, #0xb
 	lsr	r1, r1, #0x1b
-	lsl	r2, r2, #0x5
+	lsl	r2, r6, #0x5
 	lsr	r2, r2, #0x1a
+	add	r0, r4, #0
 	mov	r3, #0x1
 	bl	func_0801A13C
+	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
+.L5:
+	.align	2, 0
+.L4:
+	.word	0x104c
+	.word	0x1048
 .Lfe1:
 	.size	 func_08019B90,.Lfe1-func_08019B90

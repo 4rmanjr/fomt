@@ -7,6 +7,21 @@
 	.type	 func_08016D48,function
 	.thumb_func
 func_08016D48:
+	ldr	r2, [r0, #0x4]
+	ldr	r0, .L3
+	ldr	r1, [r0]
+	mov	r0, #0xdb
+	lsl	r0, r0, #0x2
+	add	r1, r1, r0
+	str	r3, [r1, #0x4]
+	add	r2, r2, #0x90
+	ldr	r0, [r2]
+	ldrh	r0, [r0, #0x14]
+	str	r0, [r1, #0x8]
 	bx	lr
+.L4:
+	.align	2, 0
+.L3:
+	.word	gUnk_0300040C
 .Lfe1:
 	.size	 func_08016D48,.Lfe1-func_08016D48

@@ -57,41 +57,57 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080171F8/opencode/func.c" 2
 void *GetMapData(u32);
 s32 GetUpgradeLevel__C4Barn(s32);
 s32 GetUpgradeLevel__C4Coop(s32);
 u32 GetUpgradeLevel__C9FarmHouse(s32);
-s32 func_08017180(s32 *, u16, ? *, s32, u32);
+s32 func_08017180(s32 *, u16, s32 *, s32, u32);
 s32 method_0800A07C__C9FieldPlot(s32);
-extern ? gUnk_0810692C;
-extern ? gUnk_08106944;
-extern ? gUnk_0810695C;
-extern ? gUnk_08106974;
-extern ? gUnk_0810698C;
-extern ? gUnk_081069A4;
-extern ? gUnk_081069BC;
-extern ? gUnk_081069D4;
-extern ? gUnk_081069EC;
-extern ? gUnk_08106A04;
-extern ? gUnk_08106A1C;
-extern ? gUnk_08106A34;
-extern ? gUnk_08106A4C;
-extern ? gUnk_08106A64;
+extern s32 gUnk_0810692C;
+extern s32 gUnk_08106944;
+extern s32 gUnk_0810695C;
+extern s32 gUnk_08106974;
+extern s32 gUnk_0810698C;
+extern s32 gUnk_081069A4;
+extern s32 gUnk_081069BC;
+extern s32 gUnk_081069D4;
+extern s32 gUnk_081069EC;
+extern s32 gUnk_08106A04;
+extern s32 gUnk_08106A1C;
+extern s32 gUnk_08106A34;
+extern s32 gUnk_08106A4C;
+extern s32 gUnk_08106A64;
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    u8 _pad8[16];
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk22;
+} GenObj;
 void func_080171F8(s32 *arg0, s32 arg1, u8 arg2) {
     s32 *sp4;
     s32 sp8;
     s32 spC;
     s32 sp10;
     u32 sp14;
-    ? *var_r2_2;
-    ? *var_r2_3;
-    ? *var_r2_4;
-    ? *var_r2_5;
-    ? *var_r2_6;
-    ? *var_r2_7;
-    ? *var_r2_8;
+    s32 *var_r2_2;
+    s32 *var_r2_3;
+    s32 *var_r2_4;
+    s32 *var_r2_5;
+    s32 *var_r2_6;
+    s32 *var_r2_7;
+    s32 *var_r2_8;
     s32 *temp_r3;
     s32 *temp_r4_3;
     s32 *var_r5;
@@ -108,7 +124,7 @@ void func_080171F8(s32 *arg0, s32 arg1, u8 arg2) {
     u32 var_r2;
     u32 var_r7;
     u8 temp_r2;
-    void *temp_r0;
+    GenObj *temp_r0;
 
     sp4 = arg0;
     sp8 = arg1;

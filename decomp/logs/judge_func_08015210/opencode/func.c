@@ -11,7 +11,15 @@ u32 func_0800F344(s32);                             /* extern */
 s32 func_0800F390(s32);                               /* extern */
 s32 method_0809B514__C9Livestock();                 /* extern */
 
-void func_08015210(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[132];
+    struct GenObj *unk8C;
+    u8 _pad90[24];
+    struct GenObj *unkA8;
+} GenObj;
+void func_08015210(GenObj *arg0) {
     s32 temp_r4;
     s32 temp_r5;
     u32 temp_r0_2;
@@ -20,7 +28,7 @@ void func_08015210(void *arg0) {
     u32 var_r4_2;
     void **temp_r0_3;
     void **temp_r0_5;
-    void *temp_r0;
+    GenObj *temp_r0;
 
     temp_r0 = arg0->unk4;
     temp_r0_2 = GetCapacity__C4Coop(temp_r0->unk8C + 0x410);

@@ -57,11 +57,25 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801DCD4/opencode/func.c" 2
 s32 GetValueShipped__C11ShippingBin(s32);
 s32 func_0801140C(s32);
 
-void func_0801DCD4(void *arg0) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[316];
+    s32 unk140;
+    u8 _pad144[3828];
+    s32 unk1038;
+} GenObj;
+void func_0801DCD4(GenObj *arg0) {
     s32 sp0;
     s32 sp4;
     s32 temp_r6;
@@ -70,5 +84,5 @@ void func_0801DCD4(void *arg0) {
     func_0801140C(arg0->unk1038);
     sp0 = 0x3DB;
     sp4 = temp_r6;
-    arg0->unk0->unk140(arg0, &sp0, 1);
+    ((void (*)(void *,...))(arg0->unk0->unk140))(arg0, &sp0, 1);
 }

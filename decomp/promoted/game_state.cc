@@ -180,3 +180,14 @@ typedef struct GenObj {
 s32 func_0801468C(GenObj *arg0) {
     return arg0->unk4 + 0xD0;
 }
+
+// DECOMP-MATCHED func_0801DD18 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_080A6138(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+void func_0801DD18(GenObj *arg0) {
+    func_080A6138(arg0->unk4);
+}

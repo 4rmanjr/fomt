@@ -7,6 +7,26 @@
 	.type	 func_0801DCA8,function
 	.thumb_func
 func_0801DCA8:
-	bx	lr
+	push	{r4, lr}
+	ldr	r1, .L4
+	add	r4, r0, r1
+	ldr	r1, [r4]
+	cmp	r1, #0
+	beq	.L3	@cond_branch
+	ldr	r0, [r1, #0x24]
+	ldr	r2, [r0, #0x8]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L3:
+	mov	r0, #0x0
+	str	r0, [r4]
+	pop	{r4}
+	pop	{r0}
+	bx	r0
+.L5:
+	.align	2, 0
+.L4:
+	.word	0x1058
 .Lfe1:
 	.size	 func_0801DCA8,.Lfe1-func_0801DCA8

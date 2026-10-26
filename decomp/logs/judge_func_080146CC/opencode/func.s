@@ -8,9 +8,17 @@
 	.thumb_func
 func_080146CC:
 	push	{lr}
-	mov	r0, #0x0
+	ldr	r0, [r0, #0x4]
+	add	r0, r0, #0x8c
+	ldr	r0, [r0]
+	ldr	r2, .L3
+	add	r0, r0, r2
 	bl	BeginIncubation__4CoopUi
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	0x2bac0
 .Lfe1:
 	.size	 func_080146CC,.Lfe1-func_080146CC

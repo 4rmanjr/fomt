@@ -7,37 +7,67 @@
 	.type	 func_08016FA4,function
 	.thumb_func
 func_08016FA4:
-	push	{r4, r5, lr}
+	push	{r4, r5, r6, r7, lr}
 	add	sp, sp, #-0x8
 	add	r4, r2, #0
-	add	r5, r1, #0
-	cmp	r5, #0x49
+	add	r6, r1, #0
+	ldr	r7, [r0, #0x10]
+	cmp	r6, #0x49
 	bgt	.L3	@cond_branch
-	cmp	r3, #0
+	cmp	r5, #0
 	beq	.L6	@cond_branch
-	mov	r2, sp
+	mov	r1, #0xfc
+	lsl	r1, r1, #0x8
+	add	r0, r1, #0
 	add	r1, sp, #0x4
-	ldr	r0, [sp, #0x4]
-	str	r0, [sp]
-	ldrh	r0, [r1, #0x4]
-	strh	r0, [r2, #0x4]
-	add	r0, r3, #0
+	ldrh	r2, [r1]
+	and	r2, r2, r0
+	ldr	r0, .L14
+	add	r3, r0, #0
+	add	r0, r4, #0
+	and	r0, r0, r3
+	orr	r2, r2, r0
+	str	r2, [sp, #0x4]
+	mov	r0, sp
+	mov	r2, #0x6
+	bl	memcpy
+	add	r0, r5, #0
 	mov	r1, sp
 	bl	SetLocation__12AActorEntityRC13ActorLocation
 	b	.L6
+.L15:
+	.align	2, 0
+.L14:
+	.word	0x3ff
 .L3:
-	cmp	r0, #0
+	cmp	r3, #0
 	beq	.L6	@cond_branch
-	mov	r1, #0x0
+	ldr	r1, [sp]
+	mov	r0, #0xfc
+	lsl	r0, r0, #0x8
+	and	r1, r1, r0
+	ldr	r0, .L16
+	add	r2, r0, #0
+	add	r0, r4, #0
+	and	r0, r0, r2
+	orr	r1, r1, r0
+	str	r1, [sp]
+	lsl	r1, r1, #0x16
+	lsr	r1, r1, #0x16
+	add	r0, r3, #0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	SetLocation__7AEntityUiii
 .L6:
-	cmp	r5, #0
+	cmp	r6, #0
 	bne	.L8	@cond_branch
 	cmp	r4, #0x19
 	bne	.L9	@cond_branch
-	mov	r0, #0x0
+	add	r0, r7, #0
+	add	r0, r0, #0x9c
+	ldr	r0, [r0]
+	ldr	r1, .L16+0x4
+	add	r0, r0, r1
 	bl	func_080A0A90
 .L9:
 	mov	r1, #0x0
@@ -48,27 +78,37 @@ func_08016FA4:
 	add	r1, r4, #0
 	sub	r1, r1, #0x34
 	b	.L11
+.L17:
+	.align	2, 0
+.L16:
+	.word	0x3ff
+	.word	0x1cd4
 .L10:
-	ldr	r2, .L14
+	ldr	r2, .L18
 	add	r0, r4, r2
 	cmp	r0, #0xfe
 	bhi	.L11	@cond_branch
-	ldr	r0, .L14+0x4
+	ldr	r0, .L18+0x4
 	add	r1, r4, r0
 .L11:
 	cmp	r1, #0
 	ble	.L8	@cond_branch
-	mov	r0, #0x0
+	add	r0, r7, #0
+	add	r0, r0, #0x9c
+	ldr	r0, [r0]
+	ldr	r1, .L18+0x8
+	add	r0, r0, r1
 	bl	func_0800EECC
 .L8:
 	add	sp, sp, #0x8
-	pop	{r4, r5}
+	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L15:
+.L19:
 	.align	2, 0
-.L14:
+.L18:
 	.word	-0x135
 	.word	-0x134
+	.word	0x1bd8
 .Lfe1:
 	.size	 func_08016FA4,.Lfe1-func_08016FA4

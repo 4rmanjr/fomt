@@ -7,12 +7,35 @@
 	.type	 func_0801DCD4,function
 	.thumb_func
 func_0801DCD4:
-	push	{lr}
-	mov	r0, #0x0
+	push	{r4, r5, lr}
+	add	sp, sp, #-0x4
+	add	r5, r0, #0
+	ldr	r0, .L3
+	add	r4, r5, r0
+	ldr	r0, [r4]
+	add	r0, r0, #0x54
 	bl	GetValueShipped__C11ShippingBin
-	mov	r0, #0x0
+	ldr	r0, [r4]
 	bl	func_0801140C
+	ldr	r0, .L3+0x4
+	str	r0, [sp]
+	ldr	r0, [r5]
+	mov	r1, #0xa0
+	lsl	r1, r1, #0x1
+	add	r0, r0, r1
+	ldr	r3, [r0]
+	add	r0, r5, #0
+	mov	r1, sp
+	mov	r2, #0x1
+	bl	_call_via_r3
+	add	sp, sp, #0x4
+	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	0x1038
+	.word	0x3db
 .Lfe1:
 	.size	 func_0801DCD4,.Lfe1-func_0801DCD4

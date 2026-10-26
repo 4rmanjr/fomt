@@ -7,18 +7,29 @@
 	.type	 func_08014AF8,function
 	.thumb_func
 func_08014AF8:
-	push	{lr}
+	push	{r4, r5, r6, r7, lr}
 	add	sp, sp, #-0x4
-	mov	r0, #0x0
+	ldr	r7, [r0, #0x4]
+	add	r6, r7, #0
+	add	r6, r6, #0xa8
+	mov	r5, #0x0
+	str	r5, [r6]
+	add	r4, r7, #0
+	add	r4, r4, #0x8c
+	ldr	r0, [r4]
 	bl	func_08010F54
+	ldr	r1, [r4]
+	add	r0, r7, #0
+	add	r0, r0, #0x88
+	ldr	r2, [r0]
 	mov	r0, sp
-	mov	r1, #0x0
-	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	func_0801FB7C
-	mov	r0, #0x0
-	str	r0, [sp]
+	ldr	r0, [sp]
+	str	r5, [sp]
+	str	r0, [r6]
 	add	sp, sp, #0x4
+	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
 .Lfe1:

@@ -7,32 +7,50 @@
 	.type	 func_08014C34,function
 	.thumb_func
 func_08014C34:
-	push	{r4, r5, lr}
+	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0xc
-	add	r3, r2, #0
+	add	r6, r2, #0
+	ldr	r0, [r0, #0x10]
 	lsl	r1, r1, #0x18
 	cmp	r1, #0
 	bne	.L3	@cond_branch
-	mov	r2, sp
+	add	r0, r0, #0x9c
+	ldr	r4, [r0]
+	mov	r0, #0xeb
+	lsl	r0, r0, #0x4
+	add	r4, r4, r0
+	mov	r5, #0xfc
+	lsl	r5, r5, #0x8
+	add	r2, r5, #0
 	add	r1, sp, #0x4
-	ldr	r0, [sp, #0x4]
-	str	r0, [sp]
-	ldrh	r0, [r1, #0x4]
-	strh	r0, [r2, #0x4]
-	add	r4, sp, #0x8
-	lsl	r2, r3, #0x4
-	sub	r2, r2, r3
+	ldrh	r0, [r1]
+	and	r0, r0, r2
+	ldr	r5, .L5
+	add	r2, r5, #0
+	and	r3, r3, r2
+	orr	r0, r0, r3
+	str	r0, [sp, #0x4]
+	mov	r0, sp
+	mov	r2, #0x6
+	bl	memcpy
+	add	r5, sp, #0x8
+	lsl	r2, r6, #0x4
+	sub	r2, r2, r6
 	lsl	r2, r2, #0x3
-	add	r0, r4, #0
+	add	r0, r5, #0
 	mov	r1, sp
 	bl	__5HorseRC13ActorLocationUi
-	add	r0, r5, #0
-	add	r1, r4, #0
+	add	r0, r4, #0
+	add	r1, r5, #0
 	bl	SetHorse__4FarmRC5Horse
 .L3:
 	add	sp, sp, #0xc
-	pop	{r4, r5}
+	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
+.L6:
+	.align	2, 0
+.L5:
+	.word	0x3ff
 .Lfe1:
 	.size	 func_08014C34,.Lfe1-func_08014C34

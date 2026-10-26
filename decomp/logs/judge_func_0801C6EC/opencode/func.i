@@ -57,6 +57,13 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801C6EC/opencode/func.c" 2
 s32 func_0800EEF8(s32);
 s32 func_08012464(s32, s32, s32);
@@ -65,7 +72,18 @@ s32 func_080AA6D0(s32, s32, s32, s32, s32);
 s32 method_0800A238__9FieldPloti(s32, s32);
 s32 method_0800AF5C__C9FieldPlotPC9FieldPlotT1(s32, s32, s32);
 
-s32 func_0801C6EC(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk2;
+    struct GenObj *unk4;
+    u8 _pad8[12];
+    s32 unk14;
+    u8 _pad18[4128];
+    s32 unk1038;
+    u8 _pad103C[24];
+    s32 unk1054;
+} GenObj;
+s32 func_0801C6EC(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 sp4;
     s32 sp8;
     s32 spC;
@@ -87,18 +105,18 @@ s32 func_0801C6EC(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     u8 temp_r1;
     void *temp_r0_2;
     void *temp_r4;
-    void *var_r4;
+    GenObj *var_r4;
 
     sp4 = arg3;
     sp8 = 0;
-    if (arg0->unk0->unk14(arg0) != 2) {
+    if (((void (*)(void *,...))(arg0->unk0->unk14))(arg0) != 2) {
 
     } else {
         spC = (arg1 * 2) + 0x22;
         temp_r0 = (arg2 * 2) + 0x16;
         var_r2 = 0;
-        var_r5 = arg0 + 0x1081;
-        var_r4 = arg0 + 0x1084;
+        var_r5 = (GenObj *)((u8 *)arg0 + 0x1081);
+        var_r4 = (GenObj *)((u8 *)arg0 + 0x1084);
 loop_3:
         temp_r1 = *var_r5;
         temp_r6 = (u32) (temp_r1 << 0x1E) >> 0x1E;

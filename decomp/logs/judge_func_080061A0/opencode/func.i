@@ -103,17 +103,17 @@ void func_080061A0(GenObj *arg0, s32 arg1) {
     var_r3 = 0;
     do {
         temp_r1 = (arg1 << 5) + (var_r3 * 4);
-        *(s32 *)(0x06010000 + temp_r1) = 0x88888888;
-        *(s32 *)(0x06010020 + temp_r1) = 0x88888888;
-        *(s32 *)(0x06010040 + temp_r1) = 0x88888888;
-        *(s32 *)(0x06010060 + temp_r1) = 0x88888888;
-        *(s32 *)(0x06010080 + temp_r1) = 0x88888888;
-        *(s32 *)(0x060100A0 + temp_r1) = 0x88888888;
-        *(s32 *)(0x060100C0 + temp_r1) = 0x88888888;
-        *(s32 *)(0x060100E0 + temp_r1) = 0x88888888;
+        *(volatile s32 *)(0x06010000 + temp_r1) = 0x88888888;
+        *(volatile s32 *)(0x06010020 + temp_r1) = 0x88888888;
+        *(volatile s32 *)(0x06010040 + temp_r1) = 0x88888888;
+        *(volatile s32 *)(0x06010060 + temp_r1) = 0x88888888;
+        *(volatile s32 *)(0x06010080 + temp_r1) = 0x88888888;
+        *(volatile s32 *)(0x060100A0 + temp_r1) = 0x88888888;
+        *(volatile s32 *)(0x060100C0 + temp_r1) = 0x88888888;
+        *(volatile s32 *)(0x060100E0 + temp_r1) = 0x88888888;
         var_r3 += 1;
     } while ((u32) var_r3 <= 7U);
-    *(s16 *)0x05000290 = 0x27F;
+    *(volatile s16 *)0x05000290 = 0x27F;
     arg0->unk4616 = (u16) ((0xFFFFFE00 & arg0->unk4616) | 0x90);
     arg0->unk4614 = 8;
     arg0->unk460A = (u16) (0xFFFFFE00 & arg0->unk460A);

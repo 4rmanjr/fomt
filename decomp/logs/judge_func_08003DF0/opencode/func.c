@@ -8,22 +8,19 @@ typedef struct GenObj {
     s32 unk80;
 } GenObj;
 void func_08003DF0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    u8 *t;
     s32 temp;
-    s32 mask;
     s32 var;
     GenObj *p;
     s32 spbuf[2];
 
     spbuf[0] = arg2;
     spbuf[1] = arg3;
-    mask = 0xFFFFFF00 & spbuf[0];
     var = *(u8 *)spbuf + 8 + (((arg1 * 2) + 1) * 8);
-    spbuf[0] = mask | (u8)var;
+    spbuf[0] = (0xFFFFFF00 & spbuf[0]) | (u8)var;
     temp = spbuf[0];
     var = ((u32) (temp << 7) >> 0x17) + 0x80;
-    t = (u8 *)arg0 + 0x84;
-    if (*(t + arg1) == 0) {
+    arg0 = (GenObj *)((u8 *)arg0 + 0x84);
+    if (*((u8 *)arg0 + arg1) == 0) {
         goto skip_add;
     }
     var += 0x40;

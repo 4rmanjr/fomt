@@ -7,6 +7,14 @@
 	.type	 func_0801D948,function
 	.thumb_func
 func_0801D948:
+	ldr	r1, .L11
+	add	r0, r0, r1
+	mov	r1, #0x0
+	str	r1, [r0]
 	bx	lr
+.L12:
+	.align	2, 0
+.L11:
+	.word	0x103c
 .Lfe1:
 	.size	 func_0801D948,.Lfe1-func_0801D948

@@ -2,13 +2,25 @@
 s32 func_0800E324(s32);                             /* extern */
 s32 func_080174C8(s32, s32, s32, s32, s32);           /* extern */
 s32 func_080A1CBC(s32 *, s32, s32);                     /* extern */
-s32 func_080A1D20(s32, u32, ? *, s32);              /* extern */
-s32 func_080A5F78(s32 *, s32, ? *, s32, s32);         /* extern */
+s32 func_080A1D20(s32, u32, s32 *, s32);              /* extern */
+s32 func_080A5F78(s32 *, s32, s32 *, s32, s32);         /* extern */
 
-s32 func_0801D104(void *arg0, void *arg1, s32 arg2, u8 arg3, void *arg4) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    s32 unk4;
+    s32 unk6;
+    s32 unk8;
+    s32 unkA;
+    u8 _padE[4138];
+    s32 unk1038;
+} GenObj;
+s32 func_0801D104(GenObj *arg0, GenObj *arg1, s32 arg2, u8 arg3, GenObj *arg4) {
     u8 sp4;
     void *sp8;
-s32 spC;
+GenObj spC;
 s32 sp1C;
 s32 sp24;
     s32 sp28;
@@ -34,7 +46,7 @@ s32 sp24;
     temp_r8 = func_0800E324(temp_r0 + 0x10);
     temp_r1 = ((arg1->unk2 & 0x3FF) << 6) | ((u8) arg1->unk1 >> 2);
     temp_r0_2 = ((arg1->unk4 & 0x3FF) << 6) | ((u8) arg1->unk3 >> 2);
-    sp1C.unk0 = temp_r1;
+    sp1C = temp_r1;
     sp1C.unk2 = temp_r0_2;
     sp1C.unk4 = (s16) (temp_r1 + 1);
     sp1C.unk6 = (s16) (temp_r0_2 + 1);
@@ -60,7 +72,7 @@ block_15:
                 if ((s32) var_r0_2 < 0) {
                     var_r0_2 += 7;
                 }
-                sp24.unk0 = (s16) (var_r0 >> 3);
+                sp24 = (s16) (var_r0 >> 3);
                 sp24.unk2 = (s16) (var_r0_2 >> 3);
                 func_080A5F78(temp_r1_3, 1, &sp24, var_r3, var_r4);
                 goto block_20;

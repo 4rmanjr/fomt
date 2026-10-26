@@ -8,6 +8,7 @@
 	.thumb_func
 func_08016AFC:
 	push	{lr}
+	ldr	r2, [r0, #0x4]
 	cmp	r1, #0x4
 	bhi	.L6	@cond_branch
 	lsl	r0, r1, #0x2
@@ -35,14 +36,30 @@ func_08016AFC:
 	mov	r0, #0x0
 	b	.L3
 .L12:
-	mov	r0, #0x0
+	add	r0, r2, #0
+	add	r0, r0, #0x8c
+	ldr	r0, [r0]
+	ldr	r1, .L18
+	add	r0, r0, r1
 	bl	method_0800D058__C4Barn
 	b	.L3
+.L19:
+	.align	2, 0
+.L18:
+	.word	0xc7a600
 .L14:
-	mov	r0, #0x0
+	add	r0, r2, #0
+	add	r0, r0, #0x8c
+	ldr	r0, [r0]
+	ldr	r1, .L20
+	add	r0, r0, r1
 	bl	GetUnkEnt__C4Coop
 .L3:
 	pop	{r1}
 	bx	r1
+.L21:
+	.align	2, 0
+.L20:
+	.word	0x889a00
 .Lfe1:
 	.size	 func_08016AFC,.Lfe1-func_08016AFC

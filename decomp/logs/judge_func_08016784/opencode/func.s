@@ -8,6 +8,9 @@
 	.thumb_func
 func_08016784:
 	push	{r4, lr}
+	ldr	r0, [r0, #0x4]
+	add	r4, r0, #0
+	add	r4, r4, #0xbc
 	add	r0, r4, #0
 	bl	func_08008CD0
 	lsl	r0, r0, #0x18

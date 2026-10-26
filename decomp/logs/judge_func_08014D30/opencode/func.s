@@ -8,9 +8,14 @@
 	.thumb_func
 func_08014D30:
 	push	{lr}
+	ldr	r0, [r0, #0x4]
 	cmp	r1, #0
 	bne	.L3	@cond_branch
-	mov	r0, #0x0
+	add	r0, r0, #0x8c
+	ldr	r0, [r0]
+	mov	r1, #0xd7
+	lsl	r1, r1, #0x4
+	add	r0, r0, r1
 	bl	RemoveHorse__4Farm
 .L3:
 	pop	{r0}

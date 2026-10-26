@@ -57,32 +57,54 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080159B0/opencode/func.c" 2
 s32 func_0809CF34(s32 *, s32, s32, s32);
 
-void func_080159B0(void *arg0, s32 arg1, s32 arg2) {
-    ? *sp0;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk4;
+    s32 unk6;
+    u8 _padA[2];
+    s32 unkC;
+    u8 _pad10[4];
+    struct GenObj *unk14;
+    u8 _pad18[116];
+    struct GenObj *unk8C;
+    u8 _pad90[24];
+    struct GenObj *unkA8;
+} GenObj;
+void func_080159B0(GenObj *arg0, s32 arg1, s32 arg2) {
+    s32 *sp0;
     u32 sp4;
     u32 sp8;
 s32 spC;
-s32 sp3C;
+GenObj sp3C;
     s32 sp44;
     s32 sp48;
     s32 sp4C;
     s32 sp50;
-s32 sp54;
+GenObj sp54;
     s32 sp5C;
     s32 sp60;
     s32 sp64;
     s32 sp68;
-s32 sp6C;
+GenObj sp6C;
     s32 sp74;
     s32 sp78;
     s32 sp7C;
     s32 sp80;
 s32 sp84;
-    ? *var_r0_13;
-    ? *var_r3;
+    s32 *var_r0_13;
+    s32 *var_r3;
     s16 var_r0;
     s16 var_r0_10;
     s16 var_r0_11;
@@ -120,7 +142,7 @@ s32 sp84;
     void *temp_r0_4;
     void *temp_r0_6;
     void *temp_r1_4;
-    void *temp_r7;
+    GenObj *temp_r7;
 
     temp_r7 = arg0->unk4;
     sp8 = 0;
@@ -141,8 +163,8 @@ block_11:
             var_r1 = 0;
         }
         if (var_r1 != 0) {
-            temp_r0_2->unk14->unkC(&sp3C, temp_r0_2);
-            var_r0 = sp3C.unk0;
+            ((void (*)(void *,...))(temp_r0_2->unk14->unkC))(&sp3C, temp_r0_2);
+            var_r0 = sp3C;
             if ((s32) var_r0 < 0) {
                 var_r0 += 7;
             }
@@ -150,7 +172,7 @@ block_11:
             if ((s32) var_r1_2 < 0) {
                 var_r1_2 += 7;
             }
-            sp44.unk0 = (s8) (var_r0 >> 3);
+            sp44 = (s8) (var_r0 >> 3);
             sp44.unk1 = (s8) (var_r1_2 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
@@ -166,7 +188,7 @@ block_11:
             if ((s32) var_r1_3 < 0) {
                 var_r1_3 += 7;
             }
-            sp48.unk0 = (s8) (var_r0_2 >> 3);
+            sp48 = (s8) (var_r0_2 >> 3);
             sp48.unk1 = (s8) (var_r1_3 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
@@ -174,7 +196,7 @@ block_11:
                 }
                 sp8 += 1;
             }
-            var_r0_3 = sp3C.unk0;
+            var_r0_3 = sp3C;
             if ((s32) var_r0_3 < 0) {
                 var_r0_3 += 7;
             }
@@ -182,7 +204,7 @@ block_11:
             if ((s32) var_r1_4 < 0) {
                 var_r1_4 += 7;
             }
-            sp4C.unk0 = (s8) (var_r0_3 >> 3);
+            sp4C = (s8) (var_r0_3 >> 3);
             sp4C.unk1 = (s8) (var_r1_4 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
@@ -198,7 +220,7 @@ block_11:
             if ((s32) var_r1_5 < 0) {
                 var_r1_5 += 7;
             }
-            sp50.unk0 = (s8) (var_r0_4 >> 3);
+            sp50 = (s8) (var_r0_4 >> 3);
             sp50.unk1 = (s8) (var_r1_5 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
@@ -225,8 +247,8 @@ block_56:
             var_r1_6 = 0;
         }
         if (var_r1_6 != 0) {
-            temp_r0_4->unk14->unkC(&sp54, temp_r0_4);
-            var_r0_5 = sp54.unk0;
+            ((void (*)(void *,...))(temp_r0_4->unk14->unkC))(&sp54, temp_r0_4);
+            var_r0_5 = sp54;
             if ((s32) var_r0_5 < 0) {
                 var_r0_5 += 7;
             }
@@ -234,7 +256,7 @@ block_56:
             if ((s32) var_r1_7 < 0) {
                 var_r1_7 += 7;
             }
-            sp5C.unk0 = (s8) (var_r0_5 >> 3);
+            sp5C = (s8) (var_r0_5 >> 3);
             sp5C.unk1 = (s8) (var_r1_7 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
@@ -250,7 +272,7 @@ block_56:
             if ((s32) var_r1_8 < 0) {
                 var_r1_8 += 7;
             }
-            sp60.unk0 = (s8) (var_r0_6 >> 3);
+            sp60 = (s8) (var_r0_6 >> 3);
             sp60.unk1 = (s8) (var_r1_8 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
@@ -258,7 +280,7 @@ block_56:
                 }
                 sp8 += 1;
             }
-            var_r0_7 = sp54.unk0;
+            var_r0_7 = sp54;
             if ((s32) var_r0_7 < 0) {
                 var_r0_7 += 7;
             }
@@ -266,7 +288,7 @@ block_56:
             if ((s32) var_r1_9 < 0) {
                 var_r1_9 += 7;
             }
-            sp64.unk0 = (s8) (var_r0_7 >> 3);
+            sp64 = (s8) (var_r0_7 >> 3);
             sp64.unk1 = (s8) (var_r1_9 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
@@ -282,7 +304,7 @@ block_56:
             if ((s32) var_r1_10 < 0) {
                 var_r1_10 += 7;
             }
-            sp68.unk0 = (s8) (var_r0_8 >> 3);
+            sp68 = (s8) (var_r0_8 >> 3);
             sp68.unk1 = (s8) (var_r1_10 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
@@ -309,8 +331,8 @@ block_101:
             var_r1_11 = 0;
         }
         if (var_r1_11 != 0) {
-            temp_r0_6->unk14->unkC(&sp6C, temp_r0_6);
-            var_r0_9 = sp6C.unk0;
+            ((void (*)(void *,...))(temp_r0_6->unk14->unkC))(&sp6C, temp_r0_6);
+            var_r0_9 = sp6C;
             if ((s32) var_r0_9 < 0) {
                 var_r0_9 += 7;
             }
@@ -318,7 +340,7 @@ block_101:
             if ((s32) var_r1_12 < 0) {
                 var_r1_12 += 7;
             }
-            sp74.unk0 = (s8) (var_r0_9 >> 3);
+            sp74 = (s8) (var_r0_9 >> 3);
             sp74.unk1 = (s8) (var_r1_12 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
@@ -334,7 +356,7 @@ block_101:
             if ((s32) var_r1_13 < 0) {
                 var_r1_13 += 7;
             }
-            sp78.unk0 = (s8) (var_r0_10 >> 3);
+            sp78 = (s8) (var_r0_10 >> 3);
             sp78.unk1 = (s8) (var_r1_13 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
@@ -342,7 +364,7 @@ block_101:
                 }
                 sp8 += 1;
             }
-            var_r0_11 = sp6C.unk0;
+            var_r0_11 = sp6C;
             if ((s32) var_r0_11 < 0) {
                 var_r0_11 += 7;
             }
@@ -350,7 +372,7 @@ block_101:
             if ((s32) var_r1_14 < 0) {
                 var_r1_14 += 7;
             }
-            sp7C.unk0 = (s8) (var_r0_11 >> 3);
+            sp7C = (s8) (var_r0_11 >> 3);
             sp7C.unk1 = (s8) (var_r1_14 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
@@ -366,7 +388,7 @@ block_101:
             if ((s32) var_r1_15 < 0) {
                 var_r1_15 += 7;
             }
-            sp80.unk0 = (s8) (var_r0_12 >> 3);
+            sp80 = (s8) (var_r0_12 >> 3);
             sp80.unk1 = (s8) (var_r1_15 >> 3);
             if (sp8 <= 0xBU) {
                 if ((&(&sp0)[sp8].unk4 + 8) != 0) {
