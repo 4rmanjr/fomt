@@ -57,6 +57,13 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08003788/opencode/func.c" 2
 s8 *func_0800E2E4(u32);
 s8 *func_0800E304(s32);
@@ -72,12 +79,18 @@ extern s8 gUnk_080E8760;
 extern s8 gUnk_080E8764;
 extern s8 gUnk_080E8768;
 
-void func_08003788(s8 *arg1, void *arg2) {
+typedef struct GenObj {
+    u8 _pad0[1];
+    struct GenObj *unk1;
+    u8 _pad5[11];
+    s32 unk10;
+} GenObj;
+void func_08003788(s8 *arg1, GenObj *arg2) {
     s8 sp0;
     u32 sp18;
     u32 sp1C;
     s8 sp20;
-    void *sp24;
+    GenObj *sp24;
     s8 *temp_r4;
     s8 *temp_r4_2;
     s8 *temp_r4_3;
@@ -143,11 +156,11 @@ void func_08003788(s8 *arg1, void *arg2) {
     u32 var_r4_9;
     u8 temp_r0;
     u8 temp_r3;
-    void *temp_r2;
+    GenObj *temp_r2;
 
     sp24 = arg2;
     *arg1 = 0;
-    temp_r2 = arg2 + 0x10;
+    temp_r2 = (GenObj *)((u8 *)arg2 + 0x10);
     sp18 = 0xC8;
     temp_r0 = sp24->unk10;
     temp_r1 = ((temp_r0 >> 3) * 7) + ((u32) (temp_r0 << 0x1D) >> 0x1D);
@@ -278,7 +291,7 @@ void func_08003788(s8 *arg1, void *arg2) {
         arg1[temp_r0_12].unk0 = 0xA;
         arg1[temp_r0_12].unk1 = 0;
     }
-    temp_r8_3 = method_08009AF4__C4Farm(sp24 + 0x14);
+    temp_r8_3 = method_08009AF4__C4Farm((GenObj *)((u8 *)sp24 + 0x14));
     temp_r4_3 = temp_r8_3;
     temp_r0_13 = strlen(arg1);
     temp_r7_10 = &arg1[temp_r0_13];
@@ -314,7 +327,7 @@ void func_08003788(s8 *arg1, void *arg2) {
         arg1[temp_r0_16].unk0 = 0xA;
         arg1[temp_r0_16].unk1 = 0;
     }
-    temp_r7_12 = func_0800E4E0(sp24 + 0x1BD8);
+    temp_r7_12 = func_0800E4E0((GenObj *)((u8 *)sp24 + 0x1BD8));
     temp_r4_4 = temp_r7_12;
     temp_r0_17 = strlen(arg1);
     temp_r6 = &arg1[temp_r0_17];

@@ -10,8 +10,8 @@ func_0800374C:
 	push	{r4, lr}
 	add	sp, sp, #-0x4
 	add	r4, r0, #0
+	ldr	r1, [r1, #0x4]
 	mov	r0, sp
-	mov	r1, #0x0
 	bl	func_08000D64
 	mov	r0, #0x0
 	str	r0, [sp]

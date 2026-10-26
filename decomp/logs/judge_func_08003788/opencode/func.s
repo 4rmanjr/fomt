@@ -12,20 +12,25 @@ func_08003788:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x10
+	add	sp, sp, #-0x14
 	add	r6, r0, #0
-	str	r1, [sp, #0xc]
-	mov	r0, #0x0
-	mov	sl, r0
-	strb	r0, [r6]
+	mov	r9, r1
+	mov	r0, r9
+	str	r0, [sp, #0xc]
+	mov	r1, #0x0
+	mov	sl, r1
+	strb	r1, [r6]
+	add	r0, r0, #0x10
+	str	r0, [sp, #0x10]
 	mov	r0, #0xc8
 	str	r0, [sp, #0x4]
-	lsr	r0, r2, #0x3
+	mov	r1, r9
+	ldr	r0, [r1, #0x14]
 	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	lsl	r1, r0, #0x3
-	sub	r1, r1, r0
-	lsl	r0, r2, #0x1d
+	lsr	r2, r0, #0x1b
+	lsl	r1, r2, #0x3
+	sub	r1, r1, r2
+	lsl	r0, r0, #0x5
 	lsr	r0, r0, #0x1d
 	add	r1, r1, r0
 	str	r1, [sp, #0x8]
@@ -45,9 +50,8 @@ func_08003788:
 	sub	r5, r1, r0
 	cmp	r5, #0
 	beq	.L4	@cond_branch
-	ldr	r1, .L33
-	mov	r8, r1
-	mov	r0, r8
+	ldr	r0, .L33
+	mov	r8, r0
 	bl	strlen
 	add	r4, r0, #0
 	cmp	r4, r5
@@ -59,8 +63,8 @@ func_08003788:
 	add	r2, r4, #0
 	bl	memcpy
 	add	r0, r7, r4
-	mov	r2, sl
-	strb	r2, [r0]
+	mov	r1, sl
+	strb	r1, [r0]
 .L4:
 	add	r0, r6, #0
 	bl	strlen
@@ -189,9 +193,8 @@ func_08003788:
 	sub	r5, r1, r0
 	cmp	r5, #0
 	beq	.L16	@cond_branch
-	ldr	r2, .L33+0xc
-	mov	r8, r2
-	mov	r0, r8
+	ldr	r0, .L33+0xc
+	mov	r8, r0
 	bl	strlen
 	add	r4, r0, #0
 	cmp	r4, r5
@@ -206,16 +209,34 @@ func_08003788:
 	mov	r0, #0x0
 	strb	r0, [r1]
 .L16:
-	mov	r0, r9
-	cmp	r0, #0x6
+	ldr	r1, [sp, #0x10]
+	ldrb	r0, [r1, #0x4]
+	lsl	r3, r0, #0x19
+	lsr	r3, r3, #0x1b
+	lsl	r0, r0, #0x1e
+	lsr	r0, r0, #0x1e
+	lsl	r2, r0, #0x4
+	sub	r2, r2, r0
+	lsl	r2, r2, #0x1
+	ldr	r1, [sp, #0xc]
+	ldr	r0, [r1, #0x14]
+	lsl	r0, r0, #0x1d
+	lsr	r0, r0, #0x1d
+	add	r0, r0, #0x6
+	lsl	r1, r0, #0x4
+	sub	r1, r1, r0
+	lsl	r1, r1, #0x3
+	add	r2, r2, r1
+	add	r3, r3, r2
+	cmp	r3, #0x6
 	bls	.L18	@cond_branch
+	add	r0, r3, #0
 	mov	r1, #0x7
 	bl	__umodsi3
-	mov	r9, r0
+	add	r3, r0, #0
 .L18:
 	mov	r0, #0x7
-	mov	r1, r9
-	and	r0, r0, r1
+	and	r0, r0, r3
 	bl	func_0800E304
 	mov	r8, r0
 	add	r0, r6, #0
@@ -247,9 +268,8 @@ func_08003788:
 	sub	r5, r1, r0
 	cmp	r5, #0
 	beq	.L21	@cond_branch
-	ldr	r2, .L33+0x10
-	mov	r8, r2
-	mov	r0, r8
+	ldr	r0, .L33+0x10
+	mov	r8, r0
 	bl	strlen
 	add	r4, r0, #0
 	cmp	r4, r5
@@ -268,7 +288,7 @@ func_08003788:
 	bl	strlen
 	add	r0, r6, #0
 	bl	strlen
-	ldr	r0, [sp, #0xc]
+	mov	r0, r9
 	add	r0, r0, #0x14
 	bl	method_08009AF4__C4Farm
 	mov	r8, r0
@@ -301,8 +321,9 @@ func_08003788:
 	sub	r5, r1, r0
 	cmp	r5, #0
 	beq	.L27	@cond_branch
-	ldr	r0, .L33+0x14
-	mov	r8, r0
+	ldr	r1, .L33+0x14
+	mov	r8, r1
+	mov	r0, r8
 	bl	strlen
 	add	r4, r0, #0
 	cmp	r4, r5
@@ -321,9 +342,8 @@ func_08003788:
 	bl	strlen
 	add	r0, r6, #0
 	bl	strlen
-	ldr	r1, [sp, #0xc]
-	ldr	r2, .L33+0x18
-	add	r0, r1, r2
+	ldr	r0, .L33+0x18
+	add	r0, r0, r9
 	bl	func_0800E4E0
 	add	r7, r0, #0
 	add	r0, r6, #0
@@ -348,7 +368,7 @@ func_08003788:
 	mov	r0, #0x0
 	strb	r0, [r1]
 .L31:
-	add	sp, sp, #0x10
+	add	sp, sp, #0x14
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

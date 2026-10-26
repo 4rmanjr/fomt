@@ -5,15 +5,24 @@ void *func_08008940(s32);                           /* extern */
 s32 func_08009300(s32 *, void *);                       /* extern */
 s32 func_0800934C(s32 *, s32, s32, s32);                /* extern */
 s32 func_080094B8(s32 *, s32);                        /* extern */
-extern ? vtable_unk_080E5B80;
+extern s32 vtable_unk_080E5B80;
 
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    struct GenObj *unk8;
+    u8 _padC[4];
+    s32 unk10;
+    u8 _pad14[60];
+    s32 unk50;
+} GenObj;
 void func_08003B40(s32 arg0) {
     s16 sp0;
-    s32 sp4;
-    ? *spC;
+    GenObj *sp4;
+    s32 *spC;
 s32 sp10;
-    void *temp_r0;
-    void *temp_r0_2;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
     void *temp_r1;
 
     temp_r0 = func_08008918();
@@ -26,7 +35,7 @@ s32 sp10;
     func_08009300(&sp10, temp_r1);
     func_0800934C(&sp10, 0x889, 1, 1);
     temp_r0_2 = func_08008940(arg0);
-    temp_r0_2->unk8->unk10(temp_r0_2, &sp4);
+    ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, &sp4);
 loop_2:
     if ((s32) ((0 - sp4) | sp4) < 0) {
         func_080087C8(arg0);
