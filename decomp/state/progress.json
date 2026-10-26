@@ -5509,22 +5509,23 @@
  },
  "func_080244D8": {
   "addr": 134366424,
-  "claimed_at": 1793003960.679146,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003975.8086202,
   "module": "code_entities.s",
+  "note": "len 20 vs ref 264",
   "ref_len": 264,
   "size": 1878,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080245E0": {
   "addr": 134366688,
-  "claimed_at": 1793003960.6791463,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793003976.2937522,
   "module": "code_entities.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 220,
   "size": 2163,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080246BC": {
