@@ -7,48 +7,54 @@
 	.type	 func_080086BC,function
 	.thumb_func
 func_080086BC:
-	push	{r4, r5, r6, r7, lr}
-	mov	r7, r8
-	push	{r7}
-	mov	r8, r0
-	add	r7, r1, #0
-	cmp	r5, #0
+	push	{r4, r5, r6, lr}
+	add	r5, r0, #0
+	add	r6, r1, #0
+	ldr	r0, .L12
+	str	r0, [r5, #0x4]
+	ldr	r4, [r5]
+	cmp	r4, #0
 	beq	.L3	@cond_branch
-	ldr	r1, .L12
-	add	r0, r5, r1
+	ldr	r1, .L12+0x4
+	add	r0, r4, r1
 	mov	r1, #0x2
 	bl	func_080098DC
 	mov	r1, #0x92
 	lsl	r1, r1, #0x3
-	add	r0, r5, r1
+	add	r0, r4, r1
 	mov	r1, #0x2
 	bl	func_08008A68
-	cmp	r4, r6
+	ldr	r1, [r4, #0x28]
+	ldr	r0, [r4, #0x24]
+	cmp	r0, r1
 	beq	.L4	@cond_branch
 .L5:
-	add	r4, r4, #0x10
-	cmp	r4, r6
+	add	r0, r0, #0x10
+	cmp	r0, r1
 	bne	.L5	@cond_branch
 .L4:
+	ldr	r0, [r4, #0x24]
+	cmp	r0, #0
+	beq	.L10	@cond_branch
 	bl	free
-	add	r0, r5, #0
+.L10:
+	add	r0, r4, #0
 	bl	__builtin_delete
 .L3:
 	mov	r0, #0x1
-	and	r0, r0, r7
+	and	r0, r0, r6
 	cmp	r0, #0
 	beq	.L11	@cond_branch
-	mov	r0, r8
+	add	r0, r5, #0
 	bl	__builtin_delete
 .L11:
-	pop	{r3}
-	mov	r8, r3
-	pop	{r4, r5, r6, r7}
+	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
 .L13:
 	.align	2, 0
 .L12:
+	.word	vtable_unk_080E5B00
 	.word	0x494
 .Lfe1:
 	.size	 func_080086BC,.Lfe1-func_080086BC

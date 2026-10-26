@@ -57,43 +57,67 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08008444/opencode/func.c" 2
 void *__builtin_new(s32);
 s32 func_08008980(void *);
 s32 func_080091A4(void *, s32, s32);
 s32 func_080096B0(void *);
 s32 func_08009744(void *, s32, s32);
-extern ? vtable_unk_080E5B00;
-extern ? vtable_unk_080E5BB4;
-extern ? vtable_unk_080E5BD8;
+extern s32 vtable_unk_080E5B00;
+extern s32 vtable_unk_080E5BB4;
+extern s32 vtable_unk_080E5BD8;
 
-void *func_08008444(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    struct GenObj *unk10;
+    struct GenObj *unk14;
+    u8 _pad18[12];
+    s32 unk24;
+    s32 unk28;
+    u8 _pad2C[12];
+    s32 unk38;
+    u8 _pad3C[1112];
+    s32 unk494;
+    u8 _pad498[12];
+    s32 unk4A4;
+} GenObj;
+void *func_08008444(GenObj *arg0) {
     u16 temp_r0_3;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r1;
-    void *temp_r2;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r1;
+    GenObj *temp_r2;
 
     arg0->unk4 = &vtable_unk_080E5B00;
     temp_r0 = __builtin_new(0x4B0);
     func_080091A4(temp_r0, 0x1E, 4);
     temp_r0->unk24 = 0;
     temp_r0->unk28 = 0;
-    temp_r0_2 = temp_r0 + 0x2C;
+    temp_r0_2 = (GenObj *)((u8 *)temp_r0 + 0x2C);
     temp_r0_2->unk4 = 0;
-    func_080096B0(temp_r0_2 + 8);
-    func_08009744(temp_r0 + 0x8C, 0, 0x20);
-    func_08008980(temp_r0 + 0x490);
-    temp_r2 = temp_r0 + 0x494;
+    func_080096B0((GenObj *)((u8 *)temp_r0_2 + 8));
+    func_08009744((GenObj *)((u8 *)temp_r0 + 0x8C), 0, 0x20);
+    func_08008980((GenObj *)((u8 *)temp_r0 + 0x490));
+    temp_r2 = (GenObj *)((u8 *)temp_r0 + 0x494);
     temp_r0->unk494 = 0;
     temp_r2->unk4 = 0;
     temp_r2->unk8 = &vtable_unk_080E5BB4;
-    temp_r1 = temp_r0 + 0x4A4;
+    temp_r1 = (GenObj *)((u8 *)temp_r0 + 0x4A4);
     temp_r2->unkC = temp_r1;
     temp_r0->unk4A4 = 0;
     temp_r1->unk4 = 0;
     temp_r1->unk8 = &vtable_unk_080E5BD8;
-    temp_r2->unk10 = (void *) (temp_r0 + 0x4A0);
+    temp_r2->unk10 = (void *) ((GenObj *)((u8 *)temp_r0 + 0x4A0));
     temp_r2->unk14 = temp_r1;
     temp_r0_3 = temp_r0->unk38 | 8;
     temp_r0->unk38 = temp_r0_3;

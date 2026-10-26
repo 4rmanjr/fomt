@@ -57,11 +57,29 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08007B54/opencode/func.c" 2
 u32 func_08008020(void *);
 s32 func_080080A0(void *, u32, s32);
 extern void *gUnk_03000408;
 
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk1;
+    struct GenObj *unk2;
+    struct GenObj *unk4;
+    u8 _pad8[24];
+    s32 unk20;
+    u8 _pad24[2300];
+    s32 unk920;
+    s32 unk922;
+} GenObj;
 s32 func_08007B54(s32 arg1) {
     s32 *temp_r2;
     s32 temp_r6_2;
@@ -69,12 +87,12 @@ s32 func_08007B54(s32 arg1) {
     s32 var_r1;
     u32 temp_r0;
     u32 var_r0_2;
-    void *temp_r3;
-    void *temp_r4;
+    GenObj *temp_r3;
+    GenObj *temp_r4;
     void *temp_r6;
 
     temp_r4 = gUnk_03000408;
-    temp_r6 = temp_r4 + 0x824;
+    temp_r6 = (GenObj *)((u8 *)temp_r4 + 0x824);
     temp_r0 = func_08008020(temp_r6);
     var_r0 = 0;
     if (temp_r0 <= 0x3FFU) {
@@ -83,7 +101,7 @@ s32 func_08007B54(s32 arg1) {
     if (var_r0 != 0) {
         temp_r3 = temp_r4->unk20;
         if ((temp_r3 != 0) && (temp_r4->unk20 = (void *) temp_r3->unk0, (temp_r3 != 0))) {
-            temp_r6_2 = (s32) ((temp_r3 - 4) - (temp_r4 + 0x20)) >> 3;
+            temp_r6_2 = (s32) ((temp_r3 - 4) - ((GenObj *)((u8 *)temp_r4 + 0x20))) >> 3;
             if ((u32) temp_r6_2 <= 0xFFU) {
                 temp_r2 = temp_r4 + (((u32) temp_r6_2 >> 5) * 4);
                 *temp_r2 |= 1 << (0x1F & temp_r6_2);

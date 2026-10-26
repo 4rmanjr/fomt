@@ -7,43 +7,89 @@
 	.type	 func_08007C28,function
 	.thumb_func
 func_08007C28:
-	push	{r4, r5, r6, lr}
-	add	r2, r0, #0
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, r8
+	push	{r7}
+	add	r1, r0, #0
 	ldr	r0, .L10
-	ldr	r5, [r0]
-	cmp	r2, #0
+	ldr	r6, [r0]
+	cmp	r1, #0
 	beq	.L3	@cond_branch
-	lsl	r4, r2, #0x18
-	lsr	r6, r4, #0x18
-	neg	r0, r1
-	orr	r0, r0, r1
+	lsl	r0, r1, #0x18
+	mov	r8, r0
+	lsr	r2, r0, #0x18
+	add	r7, r2, #0
+	neg	r0, r3
+	orr	r0, r0, r3
 	cmp	r0, #0
 	bge	.L3	@cond_branch
-	cmp	r3, #0
+	ldr	r0, .L10+0x4
+	mul	r0, r0, r2
+	ldr	r2, .L10+0x8
+	add	r0, r0, r2
+	add	r5, r6, r0
+	mov	r2, #0x0
+	lsl	r0, r1, #0x8
+	lsr	r0, r0, #0x10
+	ldr	r1, [r5, #0xc]
+	cmp	r0, r1
+	bne	.L6	@cond_branch
+	mov	r2, #0x1
+.L6:
+	cmp	r2, #0
+	beq	.L3	@cond_branch
+	ldr	r0, [r5, #0x8]
+	ldr	r1, .L10+0xc
+	add	r0, r0, r1
+	lsl	r0, r0, #0x10
+	lsr	r4, r0, #0x10
+	str	r4, [r5, #0x8]
+	cmp	r4, #0
 	bne	.L3	@cond_branch
-	ldr	r1, .L10+0x4
-	add	r0, r5, r1
+	ldr	r2, .L10+0x10
+	add	r0, r6, r2
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_080080A0
-	lsr	r2, r4, #0x1d
-	lsl	r2, r2, #0x2
-	add	r2, r5, r2
+	str	r4, [r5, #0xc]
+	ldr	r0, [r6, #0x28]
+	str	r0, [r5]
+	str	r5, [r6, #0x28]
+	mov	r0, r8
+	lsr	r1, r0, #0x1d
+	ldr	r0, .L10+0x14
+	mov	r2, r1
+	mul	r2, r2, r0
+	add	r2, r6, r2
 	mov	r0, #0x1f
-	and	r0, r0, r6
+	and	r7, r7, r0
 	mov	r1, #0x1
-	lsl	r1, r1, r0
+	lsl	r1, r1, r7
 	ldr	r0, [r2]
 	bic	r0, r0, r1
 	str	r0, [r2]
+	ldr	r2, .L10+0x18
+	add	r1, r6, r2
+	ldr	r0, [r1]
+	sub	r0, r0, #0x1
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	str	r0, [r1]
 .L3:
-	pop	{r4, r5, r6}
+	pop	{r3}
+	mov	r8, r3
+	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
 .L11:
 	.align	2, 0
 .L10:
 	.word	gUnk_03000408
+	.word	0x4960
+	.word	0x24d0
+	.word	-0x92c
 	.word	0x824
+	.word	0x24b0
+	.word	0x928
 .Lfe1:
 	.size	 func_08007C28,.Lfe1-func_08007C28

@@ -4,9 +4,13 @@ s32 free();                                           /* extern */
 s32 func_08007184(s32 *, s32);                          /* extern */
 s32 func_080073E0(s32 *, s32);                          /* extern */
 
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+} GenObj;
 void func_08007714(s32 *arg0, s32 arg1) {
-    ? *temp_r0;
-    ? *var_r4;
+    GenObj *temp_r0;
+    GenObj *var_r4;
     s32 temp_r5;
 
     temp_r0 = *arg0;

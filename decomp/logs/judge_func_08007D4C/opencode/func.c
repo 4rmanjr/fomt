@@ -1,6 +1,10 @@
 #include "common.h"
 extern s32 gUnk_03000408;
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+} GenObj;
 u32 func_08007D4C(s32 arg1) {
     s32 sp0;
     s32 temp_r1_2;

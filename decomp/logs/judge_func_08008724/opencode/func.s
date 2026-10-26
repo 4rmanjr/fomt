@@ -10,6 +10,12 @@ func_08008724:
 	push	{r4, lr}
 	add	sp, sp, #-0x4
 	ldr	r4, [r0]
+	ldr	r0, [r4, #0x34]
+	mov	r1, #0x80
+	orr	r0, r0, r1
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	str	r0, [r4, #0x34]
 	mov	r0, #0x0
 	str	r0, [sp]
 	mov	r0, #0x92
@@ -17,6 +23,10 @@ func_08008724:
 	add	r4, r4, r0
 	add	r0, r4, #0
 	bl	func_08008AE0
+	ldr	r1, [r0, #0x8]
+	ldr	r2, [r1, #0x10]
+	mov	r1, sp
+	bl	_call_via_r2
 	add	r0, r4, #0
 	bl	func_08008AF0
 	mov	r0, sp

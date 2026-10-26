@@ -10,42 +10,85 @@ func_08007B54:
 	push	{r4, r5, r6, r7, lr}
 	mov	r7, r8
 	push	{r7}
-	add	r7, r0, #0
+	mov	r8, r0
 	ldr	r0, .L11
 	ldr	r4, [r0]
 	ldr	r0, .L11+0x4
-	add	r5, r4, r0
-	add	r0, r5, #0
+	add	r7, r4, r0
+	add	r0, r7, #0
 	bl	func_08008020
-	add	r1, r0, #0
-	mov	r2, #0x0
-	ldr	r0, .L11+0x8
-	cmp	r1, r0
+	add	r6, r0, #0
+	mov	r0, #0x0
+	ldr	r1, .L11+0x8
+	mov	ip, r1
+	cmp	r6, ip
 	bhi	.L3	@cond_branch
-	mov	r2, #0x1
+	mov	r0, #0x1
 .L3:
-	cmp	r2, #0
-	beq	.L10	@cond_branch
-	cmp	r6, #0
+	cmp	r0, #0
+	beq	.L9	@cond_branch
+	ldr	r5, [r4, #0x28]
+	cmp	r5, #0
 	beq	.L5	@cond_branch
-	add	r0, r4, #0
-	add	r0, r0, #0x24
-	sub	r0, r6, r0
-	asr	r3, r0, #0x3
-	cmp	r3, #0xff
+	ldr	r3, [r5]
+	str	r3, [r4, #0x28]
+	ldr	r1, .L11+0xc
+	add	r0, r4, r1
+	sub	r0, r5, r0
+	ldr	r1, .L11+0x10
+	mul	r0, r0, r1
+	asr	r7, r0, #0x7
+	cmp	r7, #0xff
 	bhi	.L6	@cond_branch
-	lsr	r2, r3, #0x5
-	lsl	r2, r2, #0x2
+	lsr	r1, r7, #0x5
+	mov	r0, #0x93
+	lsl	r0, r0, #0x6
+	mov	r2, r1
+	mul	r2, r2, r0
 	add	r2, r4, r2
 	mov	r0, #0x1f
-	and	r3, r3, r0
+	and	r0, r0, r7
 	mov	r1, #0x1
-	lsl	r1, r1, r3
+	lsl	r1, r1, r0
 	ldr	r0, [r2]
 	orr	r0, r0, r1
 	str	r0, [r2]
 .L6:
-	ldr	r0, .L11+0xc
+	ldr	r0, .L11+0x14
+	add	r1, r4, r0
+	ldr	r0, [r1]
+	add	r0, r0, #0x1
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	str	r0, [r1]
+	mov	r0, #0xfc
+	lsl	r0, r0, #0x8
+	and	r3, r3, r0
+	mov	r1, ip
+	and	r6, r6, r1
+	orr	r3, r3, r6
+	lsl	r0, r3, #0x10
+	asr	r0, r0, #0x10
+	str	r0, [r5]
+	mov	r0, #0x1
+	str	r0, [r5, #0x8]
+	ldr	r0, .L11+0x18
+	add	r1, r4, r0
+	ldr	r0, [r1]
+	add	r3, r0, #0x1
+	ldr	r0, .L11+0x1c
+	cmp	r3, r0
+	bls	.L7	@cond_branch
+	mov	r3, #0x1
+.L7:
+	lsl	r0, r3, #0x10
+	lsr	r0, r0, #0x10
+	str	r0, [r5, #0xc]
+	str	r0, [r1]
+	lsl	r1, r7, #0x18
+	lsr	r1, r1, #0x18
+	lsl	r0, r0, #0x8
+	orr	r1, r1, r0
 	b	.L10
 .L12:
 	.align	2, 0
@@ -53,13 +96,20 @@ func_08007B54:
 	.word	gUnk_03000408
 	.word	0x824
 	.word	0x3ff
+	.word	0x24e0
+	.word	0x8b51d9b
+	.word	0x928
+	.word	0x92c
 	.word	0xffff
 .L5:
-	add	r0, r5, #0
-	add	r2, r7, #0
+	add	r0, r7, #0
+	add	r1, r6, #0
+	mov	r2, r8
 	bl	func_080080A0
+.L9:
+	mov	r1, #0x0
 .L10:
-	mov	r0, #0x0
+	add	r0, r1, #0
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}

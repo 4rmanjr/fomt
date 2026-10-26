@@ -52,7 +52,7 @@ func_08007F84:
 	mov	r2, #0x80
 	lsl	r2, r2, #0x2
 	cmp	r3, r2
-	bls	.L2	@cond_branch
+	bls	.L7	@cond_branch
 	mov	r1, #0x0
 	ldr	r0, .L12
 	cmp	r4, r0
@@ -65,6 +65,10 @@ func_08007F84:
 	add	r2, r1, r2
 	sub	r2, r3, r2
 	bl	func_080D734C
+.L7:
+	mov	r0, #0x0
+	str	r0, [r5]
+	str	r0, [r5, #0x4]
 .L2:
 	add	sp, sp, #0x8
 	pop	{r4, r5}

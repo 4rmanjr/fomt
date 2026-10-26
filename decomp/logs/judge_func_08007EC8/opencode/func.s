@@ -9,11 +9,17 @@
 func_08007EC8:
 	push	{r4, lr}
 	add	r4, r0, #0
-	add	r0, r0, #0x80
+	mov	r1, #0x80
+	lsl	r1, r1, #0x3
+	add	r0, r4, r1
 	bl	func_080D6F5C
-	add	r4, r4, #0x4
 	add	r0, r4, #0
+	add	r0, r0, #0x20
 	bl	func_080D6F5C
+	mov	r0, #0x0
+	str	r0, [r4]
+	mov	r0, #0x1
+	str	r0, [r4, #0x4]
 	pop	{r4}
 	pop	{r0}
 	bx	r0

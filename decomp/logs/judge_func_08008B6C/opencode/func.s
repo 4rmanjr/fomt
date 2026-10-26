@@ -9,9 +9,17 @@
 func_08008B6C:
 	push	{lr}
 	ldr	r0, [r0]
-	mov	r1, #0x0
+	lsl	r1, r1, #0x10
+	lsr	r1, r1, #0xb
+	ldr	r2, .L3
+	add	r1, r1, r2
+	ldr	r1, [r1]
 	bl	m4aMPlayStart
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	gSongTable
 .Lfe1:
 	.size	 func_08008B6C,.Lfe1-func_08008B6C

@@ -8,36 +8,71 @@
 	.thumb_func
 func_08008444:
 	push	{r4, r5, r6, lr}
-	add	r5, r0, #0
+	add	r6, r0, #0
+	ldr	r0, .L3
+	str	r0, [r6, #0x4]
 	mov	r0, #0x96
 	lsl	r0, r0, #0x3
 	bl	__builtin_new
-	add	r4, r0, #0
+	add	r5, r0, #0
 	mov	r1, #0x1e
 	mov	r2, #0x4
 	bl	func_080091A4
-	add	r0, r4, #0
-	add	r0, r0, #0x34
+	mov	r4, #0x0
+	str	r4, [r5, #0x24]
+	str	r4, [r5, #0x28]
+	add	r0, r5, #0
+	add	r0, r0, #0x2c
+	str	r4, [r0, #0x4]
+	add	r0, r0, #0x8
 	bl	func_080096B0
-	add	r0, r4, #0
+	add	r0, r5, #0
 	add	r0, r0, #0x8c
 	mov	r1, #0x0
 	mov	r2, #0x20
 	bl	func_08009744
-	mov	r0, #0x92
-	lsl	r0, r0, #0x3
-	add	r4, r4, r0
-	add	r0, r4, #0
+	mov	r1, #0x92
+	lsl	r1, r1, #0x3
+	add	r0, r5, r1
 	bl	func_08008980
-	ldr	r0, .L3
-	strh	r6, [r0]
-	add	r0, r5, #0
+	ldr	r3, .L3+0x4
+	add	r2, r5, r3
+	str	r4, [r2]
+	str	r4, [r2, #0x4]
+	ldr	r0, .L3+0x8
+	str	r0, [r2, #0x8]
+	ldr	r0, .L3+0xc
+	add	r1, r5, r0
+	str	r1, [r2, #0xc]
+	str	r4, [r1]
+	str	r4, [r1, #0x4]
+	ldr	r0, .L3+0x10
+	str	r0, [r1, #0x8]
+	add	r3, r3, #0xc
+	add	r0, r5, r3
+	str	r0, [r2, #0x10]
+	str	r1, [r2, #0x14]
+	ldr	r0, [r5, #0x38]
+	mov	r1, #0x8
+	orr	r0, r0, r1
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	str	r0, [r5, #0x38]
+	ldr	r1, .L3+0x14
+	strh	r0, [r1]
+	str	r5, [r6]
+	add	r0, r6, #0
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
 .L4:
 	.align	2, 0
 .L3:
+	.word	vtable_unk_080E5B00
+	.word	0x494
+	.word	vtable_unk_080E5BB4
+	.word	0x4a4
+	.word	vtable_unk_080E5BD8
 	.word	0x4000004
 .Lfe1:
 	.size	 func_08008444,.Lfe1-func_08008444

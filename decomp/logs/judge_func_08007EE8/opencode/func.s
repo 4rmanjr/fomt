@@ -41,7 +41,9 @@ func_08007EE8:
 	bls	.L6	@cond_branch
 	add	r2, sp, #0x4
 .L6:
-	add	r0, r5, #0x4
+	mov	r1, #0x88
+	lsl	r1, r1, #0x2
+	add	r0, r5, r1
 	ldr	r2, [r2]
 	add	r1, r4, #0
 	bl	func_080D7118
@@ -51,7 +53,7 @@ func_08007EE8:
 	mov	r2, #0x80
 	lsl	r2, r2, #0x2
 	cmp	r3, r2
-	bls	.L2	@cond_branch
+	bls	.L7	@cond_branch
 	mov	r1, #0x0
 	ldr	r0, .L12
 	cmp	r4, r0
@@ -59,11 +61,26 @@ func_08007EE8:
 	ldr	r0, .L12+0x4
 	add	r1, r4, r0
 .L8:
-	add	r0, r5, #0
-	add	r0, r0, #0x80
+	mov	r4, #0x88
+	lsl	r4, r4, #0x7
+	add	r0, r5, r4
 	add	r2, r1, r2
 	sub	r2, r3, r2
 	bl	func_080D7118
+.L7:
+	mov	r1, #0x0
+	ldr	r0, [r5, #0x8]
+	cmp	r0, #0
+	beq	.L9	@cond_branch
+	add	r0, r5, #0
+	add	r0, r0, #0x84
+	ldr	r0, [r0]
+	neg	r0, r0
+	lsr	r1, r0, #0x1f
+.L9:
+	str	r1, [r5]
+	mov	r0, #0x0
+	str	r0, [r5, #0x4]
 .L2:
 	add	sp, sp, #0x8
 	pop	{r4, r5}

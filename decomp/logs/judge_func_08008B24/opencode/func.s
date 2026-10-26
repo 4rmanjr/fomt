@@ -13,8 +13,19 @@ func_08008B24:
 	bcc	.L3	@cond_branch
 	mov	r1, #0x5
 	bl	__umodsi3
+	add	r1, r0, #0
 .L3:
+	lsl	r0, r1, #0x1
+	add	r0, r0, r1
+	lsl	r0, r0, #0x4
+	ldr	r1, .L4
+	add	r0, r0, r1
+	ldr	r0, [r0]
 	pop	{r1}
 	bx	r1
+.L5:
+	.align	2, 0
+.L4:
+	.word	gMusicPlayerTable
 .Lfe1:
 	.size	 func_08008B24,.Lfe1-func_08008B24

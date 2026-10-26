@@ -7,20 +7,54 @@
 	.type	 func_08008364,function
 	.thumb_func
 func_08008364:
-	push	{r4, r5, lr}
-	b	.L14
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, r9
+	mov	r6, r8
+	push	{r6, r7}
+	mov	r8, r0
+	mov	r9, r1
+	ldr	r5, [r0]
+	cmp	r5, #0
+	beq	.L3	@cond_branch
+	mov	r0, #0xa0
+	lsl	r0, r0, #0x2
+	add	r6, r5, r0
+.L4:
+	cmp	r5, r6
+	beq	.L5	@cond_branch
+	sub	r6, r6, #0x14
+	cmp	r4, r7
+	beq	.L6	@cond_branch
 .L7:
+	ldr	r1, [r4, #0x4]
 	add	r0, r4, #0
-	mov	r1, #0x0
 	bl	func_08007C28
 	add	r0, r4, #0
 	mov	r1, #0x2
 	bl	func_080079E8
-	add	r4, r4, #0x8
-.L14:
-	cmp	r4, r5
+	add	r4, r4, #0x40
+	cmp	r4, r7
 	bne	.L7	@cond_branch
+.L6:
 	bl	free
-	b	.L14
+	b	.L4
+.L5:
+	add	r0, r5, #0
+	bl	__builtin_delete
+.L3:
+	mov	r0, #0x1
+	mov	r1, r9
+	and	r0, r0, r1
+	cmp	r0, #0
+	beq	.L13	@cond_branch
+	mov	r0, r8
+	bl	__builtin_delete
+.L13:
+	pop	{r3, r4}
+	mov	r8, r3
+	mov	r9, r4
+	pop	{r4, r5, r6, r7}
+	pop	{r0}
+	bx	r0
 .Lfe1:
 	.size	 func_08008364,.Lfe1-func_08008364
