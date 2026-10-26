@@ -6,6 +6,14 @@ Folder ini membuat `decomp/` bisa jalan tanpa bergantung pada folder lain
 Semua binary di sini untuk **Linux x86-64**. Di mesin lain tetap butuh
 `python3` (3.12+; sudah diuji di 3.14).
 
+Di **Termux (Android ARM64)** binary x86-64 tetap bisa dipakai lewat
+`qemu-user-x86-64` + sysroot glibc minimal, dengan satu pengecualian:
+`arm-none-eabi-cpp` memanggil `cc1` lewat `execve` (gagal tanpa binfmt)
+sehingga langkah preprocess diganti `clang -E` native — output `agbcc`
+terbukti byte-identik dengan pipeline x86 asli. Lihat `INSTALL.md`
+(bagian Termux) untuk setup lengkap. Override resmi yang dipakai:
+`FOMT_AGBCC`, `FOMT_AS`, `FOMT_CPP`, `LIBCAPSTONE_PATH`.
+
 | Folder | Isi | Sumber | Lisensi |
 |---|---|---|---|
 | `agbcc/` | `agbcc`, `old_agbcc`, `agbcc_arm`, header, lib | https://github.com/pret/agbcc (`release`) | GPL-2.0 (`COPYING`) |
