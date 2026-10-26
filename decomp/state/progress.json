@@ -22518,11 +22518,9 @@
  },
  "func_080DB73C": {
   "addr": 135116604,
-  "claimed_at": 1793014495.3487294,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793005126.9871867,
+  "judged_mtime": 1793005475.707,
   "module": "code_linkonce.s",
-  "note": " a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB73C/opencode-dsv4/func.c:23: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB73C/opencode-dsv4/func.c:23: request for member `unk8' in something not a structure or union\n",
+  "note": "byte +0x26: 0x0 vs ref 0xd",
   "ref_len": 72,
   "size": 590,
   "status": "failed",
@@ -24364,12 +24362,13 @@
  },
  "func_080E0D50": {
   "addr": 135138640,
-  "judged_mtime": 1793005127.625678,
+  "judged_mtime": 1793005316.6239252,
   "module": "code_linkonce.s",
-  "note": "t a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E0D50/opencode-dsv4/func.c:5: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E0D50/opencode-dsv4/func.c:5: request for member `unk14' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 20,
   "size": 199,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E0D64": {
@@ -24415,6 +24414,8 @@
  },
  "func_080E0EFC": {
   "addr": 135139068,
+  "claimed_at": 1793014569.327753,
+  "claimed_by": "opencode",
   "judged_mtime": 1793005134.3058453,
   "module": "code_linkonce.s",
   "note": "byte +0x2: 0x4 vs ref 0x5",
@@ -24478,6 +24479,8 @@
  },
  "func_080E103C": {
   "addr": 135139388,
+  "claimed_at": 1793014569.3277547,
+  "claimed_by": "opencode",
   "judged_mtime": 1793005151.112718,
   "module": "code_linkonce.s",
   "note": "F0' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E103C/opencode-dsv4/func.c:6: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E103C/opencode-dsv4/func.c:6: for each function it appears in.)\n",
@@ -24519,6 +24522,8 @@
  },
  "func_080E10F8": {
   "addr": 135139576,
+  "claimed_at": 1793014569.3277555,
+  "claimed_by": "opencode",
   "judged_mtime": 1793005157.3650053,
   "module": "code_linkonce.s",
   "note": "F0' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E10F8/opencode-dsv4/func.c:6: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E10F8/opencode-dsv4/func.c:6: for each function it appears in.)\n",
@@ -24529,6 +24534,8 @@
  },
  "func_080E1128": {
   "addr": 135139624,
+  "claimed_at": 1793014569.327756,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 319,
@@ -24537,6 +24544,8 @@
  },
  "func_080E1148": {
   "addr": 135139656,
+  "claimed_at": 1793014569.327757,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 68,
   "size": 569,
@@ -24545,6 +24554,8 @@
  },
  "func_080E118C": {
   "addr": 135139724,
+  "claimed_at": 1793014569.3277574,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 96,
   "size": 733,
@@ -24553,6 +24564,8 @@
  },
  "func_080E11EC": {
   "addr": 135139820,
+  "claimed_at": 1793014569.3277578,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 676,
   "size": 5007,
@@ -24561,6 +24574,8 @@
  },
  "func_080E1498": {
   "addr": 135140504,
+  "claimed_at": 1793014569.327758,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 319,
@@ -24569,6 +24584,8 @@
  },
  "func_080E14B8": {
   "addr": 135140536,
+  "claimed_at": 1793014569.3277586,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 264,
   "size": 2096,
@@ -24577,6 +24594,8 @@
  },
  "func_080E15C0": {
   "addr": 135140800,
+  "claimed_at": 1793014569.327759,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 604,
   "size": 4498,
@@ -24585,6 +24604,8 @@
  },
  "func_080E1824": {
   "addr": 135141412,
+  "claimed_at": 1793014569.32776,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 319,
@@ -24593,6 +24614,8 @@
  },
  "func_080E1844": {
   "addr": 135141444,
+  "claimed_at": 1793014569.3277605,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 96,
   "size": 790,
@@ -24601,6 +24624,8 @@
  },
  "func_080E18A4": {
   "addr": 135141540,
+  "claimed_at": 1793014569.3277607,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 184,
   "size": 1517,
@@ -24609,6 +24634,8 @@
  },
  "func_080E1964": {
   "addr": 135141732,
+  "claimed_at": 1793014569.3277612,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 28,
   "size": 319,
@@ -24617,6 +24644,8 @@
  },
  "func_080E1984": {
   "addr": 135141764,
+  "claimed_at": 1793014569.3277614,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 32,
   "size": 319,
@@ -24625,6 +24654,8 @@
  },
  "func_080E19A4": {
   "addr": 135141796,
+  "claimed_at": 1793014569.3277617,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 84,
   "size": 652,
@@ -24633,6 +24664,8 @@
  },
  "func_080E19F8": {
   "addr": 135141880,
+  "claimed_at": 1793014569.3277621,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 44,
   "size": 479,
@@ -24641,6 +24674,8 @@
  },
  "func_080E1A28": {
   "addr": 135141928,
+  "claimed_at": 1793014569.3277626,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 28,
   "size": 319,
@@ -24649,6 +24684,8 @@
  },
  "func_080E1A48": {
   "addr": 135141960,
+  "claimed_at": 1793014569.3277633,
+  "claimed_by": "opencode",
   "module": "code_linkonce.s",
   "ref_len": 12,
   "size": 120,
