@@ -9143,11 +9143,9 @@
  },
  "func_080387D8": {
   "addr": 134449112,
-  "claimed_at": 1793022288.6440718,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793004064.207528,
+  "judged_mtime": 1793017319.7849863,
   "module": "code_entities_08034CEC.s",
-  "note": ".c: In function `func_080387D8':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080387D8/opencode/func.c:5: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080387D8/opencode/func.c:5: request for member `unk10' in something not a structure or union\n",
+  "note": "byte +0x6: 0x2 vs ref 0x1",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 237,
@@ -9156,15 +9154,14 @@
  },
  "func_080387EC": {
   "addr": 134449132,
-  "claimed_at": 1793022288.6440723,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793004064.467776,
+  "judged_mtime": 1793017319.9685068,
   "module": "code_entities_08034CEC.s",
-  "note": ".c: In function `func_080387EC':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080387EC/opencode/func.c:5: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080387EC/opencode/func.c:5: request for member `unk10' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 192,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080387FC": {
