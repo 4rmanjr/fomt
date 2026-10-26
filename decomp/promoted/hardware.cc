@@ -8,3 +8,10 @@ void func_0800770C(s32 *arg0) {
 void func_0800835C(s32 *arg0) {
     *arg0 = 0;
 }
+
+// DECOMP-MATCHED func_080088B8 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08009268(s32);                               /* extern */
+
+void func_080088B8(s32 *arg0) {
+    func_08009268(*arg0);
+}
