@@ -35,3 +35,10 @@ s32 func_08008918(s32 *arg0) {
 s32 func_08008940(s32 *arg0) {
     return *arg0 + 0x494;
 }
+
+// DECOMP-MATCHED func_08008AF0 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08000568(s32);                               /* extern */
+
+void func_08008AF0(void) {
+    func_08000568(1);
+}
