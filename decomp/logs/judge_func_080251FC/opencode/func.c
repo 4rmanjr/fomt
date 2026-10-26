@@ -1,0 +1,25 @@
+#include "common.h"
+s32 func_080AC070(?, s32 *);                        /* extern */
+
+u32 func_080251FC(s32 arg1, void *arg2, s32 arg3, u32 arg4) {
+    s32 sp0;
+    s32 sp4;
+    u32 var_r5;
+
+    sp0 = arg2->unk0;
+    sp4 = arg2->unk4;
+    var_r5 = 1;
+    if (arg4 >= 1U) {
+loop_2:
+        sp0.unk0 = (u16) (sp0.unk0 + arg3);
+        sp0.unk4 = (u16) (sp0.unk4 + arg3);
+        if ((func_080AC070(arg1, &sp0) << 0x18) != 0) {
+            var_r5 += 1;
+            if (var_r5 <= arg4) {
+                goto loop_2;
+            }
+        }
+    }
+    return var_r5;
+}
+
