@@ -20,7 +20,7 @@ func_080050F8:
 	bl	func_08005278
 	add	r0, r6, #0
 	bl	func_08008918
-	add	r0, r0, #0x54
+	add	r0, r0, #0x50
 	mov	r5, #0x0
 	mov	r1, #0x3f
 	strh	r1, [r0]
@@ -97,7 +97,7 @@ func_080050F8:
 .L24:
 	.align	2, 0
 .L23:
-	.word	0x1a78
+	.word	0x1a72
 .L11:
 	add	r0, r4, #0
 	add	r0, r0, #0xc

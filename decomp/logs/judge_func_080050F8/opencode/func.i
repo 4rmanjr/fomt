@@ -86,9 +86,9 @@ typedef struct GenObj {
     struct GenObj *unk8;
     s32 unkC;
     s32 unk10;
-    u8 _pad14[64];
+    u8 _pad14[60];
     u16 unk50;
-    u8 _pad52[6690];
+    u8 _pad52[6688];
     u8 unk1A74;
 } GenObj;
 s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
