@@ -3,6 +3,7 @@
 ```bash
 python3 decomp/run.py [N] [modul ...]
 python3 decomp/run.py [N] [modul ...] --agent <nama>
+fomt verify [--agent <nama>]
 ```
 
 - `N` = jumlah fungsi per jalan (default 20).
@@ -84,6 +85,35 @@ Setiap fungsi MATCH langsung di-commit dan di-push ke remote oleh `run.py`
 - Kalau push gagal (offline), commit tetap lokal, run lanjut, dan peringatan
   dicetak; push manual nanti.
 - Commit/push diserialisasi antar-agent lewat `decomp/state/git.lock`.
+
+## Audit hasil (`fomt verify`)
+
+`fomt verify` menjalankan ulang pipeline judge untuk **semua** fungsi
+`promoted`/`matched`, dari nol, tanpa mengubah state:
+
+```bash
+fomt verify
+fomt verify --agent opencode
+```
+
+Yang dicek per fungsi:
+
+- draf C dikompilasi ulang dengan agbcc `-O2` lalu dirakit, dan
+- byte + daftar relokasi harus sama dengan `asm/<modul>.s` asli, dan
+- isi draf harus benar-benar ada di `decomp/promoted/<modul>.cc`.
+
+Log audit ditulis terpisah di `decomp/logs/judge_<nama>/verify_<agent>/`,
+jadi log judge asli tidak tertimpa. Exit code `0` = semua lolos, `1` = ada
+yang tidak MATCH atau isi promoted tidak cocok dengan draf.
+
+Contoh:
+
+```text
+[opencode] verify 191 fungsi | log decomp/logs/judge_<nama>/verify_opencode/
+[opencode] [1/191] func_08022B58: MATCH ()
+...
+[opencode] verify selesai: 191/191 MATCH, 0 DIFF | promoted != draft: 0
+```
 
 ## Yang sudah terbukti
 

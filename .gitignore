@@ -14,3 +14,6 @@ __pycache__/
 
 # lock file antar-agent (dibuat saat run)
 decomp/state/*.lock
+
+# log audit `fomt verify` (bisa dibuat ulang, jangan bloat repo)
+decomp/logs/judge_*/verify_*/

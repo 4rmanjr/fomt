@@ -29,6 +29,7 @@ fomt                      # 20 fungsi berikutnya
 fomt 10                   # 10 fungsi berikutnya
 fomt 5 sram_proxy_1.s     # 5 fungsi dari modul itu
 fomt status               # progres saja (total/berhasil/sisa)
+fomt verify               # audit ulang semua promoted/matched (tanpa ubah state)
 fomt 10 --agent opencode  # identitas agent untuk klaim
 ```
 
@@ -58,4 +59,6 @@ setiap fungsi selesai dan di akhir run.
 
 - `python3 -m py_compile decomp/run.py` untuk perubahan skrip.
 - `fomt status` untuk memastikan state konsisten.
+- `fomt verify` untuk audit ulang semua fungsi promoted/matched dari nol
+  (tidak mengubah state; exit 0 = semua masih MATCH).
 - Jangan pernah bilang "selesai" tanpa output perintah yang mendukung.

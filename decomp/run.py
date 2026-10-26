@@ -380,22 +380,23 @@ def draft(name: str) -> bool:
     return True
 
 
-def judge(name: str) -> bool:
+def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
+    """Pipeline judge TANPA mengubah state. -> (ok, note).
+
+    tag = subfolder log (default: nama agent). Audit `verify` memakai tag
+    sendiri supaya log judge asli tidak tertimpa.
+    """
     sys.path.insert(0, str(DECOMP_SRC))
     from decompnet.elfobj import extract_function
-    st = load()
-    if st[name]["status"] == "promoted":
-        return True
-    e = st[name]
+    e = load()[name]
     if not (DRAFTS / f"{name}.c").exists():
-        touch(name, status="failed", note="no draft (m2c gagal; tulis manual)", judged_mtime=0)
-        return False
+        return False, "no draft (m2c gagal; tulis manual)"
     body = (DRAFTS / f"{name}.c").read_text()
     used = set(re.findall(r"\b(func_[0-9A-Fa-f]{8}|gUnk_[0-9A-Fa-f]{8}|mem\w+|rand|malloc|free)\b", body))
     pre = body.split("{")[0]  # hanya cek deklarasi sebelum badan fungsi
     decls = "".join(f"s32 {s}(void);\n" if s.startswith("func_") else f"extern s32 {s};\n"
                     for s in sorted(used) if s != name and s not in pre)
-    work = LOGD / f"judge_{name}" / SAFE_AGENT  # per-agent: dua agent tidak saling timpa file
+    work = LOGD / f"judge_{name}" / (tag or SAFE_AGENT)  # per-agent: tidak saling timpa
     work.mkdir(parents=True, exist_ok=True)
     (work / "common.h").write_text(COMMON)
     (work / "func.c").write_text(f'#include "common.h"\n{decls}{body}\n')
@@ -466,10 +467,55 @@ def judge(name: str) -> bool:
         ok = not (note := diff_note(cand, ref, e["module"], name, ref_len))
     except AssertionError as err:
         ok, note = False, str(err)[-300:]
+    return ok, note
+
+
+def judge(name: str) -> bool:
+    st = load()
+    if st[name]["status"] == "promoted":
+        return True
+    ok, note = _judge(name)
     p = DRAFTS / f"{name}.c"
     touch(name, status="matched" if ok else "failed", note=note,
           judged_mtime=p.stat().st_mtime if p.exists() else 0)
     return ok
+
+
+def verify_all(tag: str | None = None) -> int:
+    """Audit ulang semua fungsi promoted/matched dari nol, TANPA ubah state.
+
+    Return: jumlah fungsi yang tidak lagi MATCH (0 = semua lolos audit).
+    """
+    st = load()
+    names = sorted(k for k, v in st.items() if v["status"] in ("promoted", "matched"))
+    tag = tag or f"verify_{SAFE_AGENT}"
+    if not names:
+        print(f"[{AGENT}] verify: belum ada fungsi promoted/matched")
+        return 0
+    print(f"[{AGENT}] verify {len(names)} fungsi | log decomp/logs/judge_<nama>/{tag}/")
+    bad: list[tuple[str, str]] = []
+    for i, name in enumerate(names, 1):
+        ok, note = _judge(name, tag=tag)
+        print(f"[{AGENT}] [{i}/{len(names)}] {name}: {'MATCH' if ok else 'DIFF'}"
+              f" ({short_note(note)}) | gagal {len(bad)}")
+        if not ok:
+            bad.append((name, note))
+    # Cek juga isi promoted benar-benar sama dengan draf yang diverifikasi.
+    stale = []
+    for name in names:
+        d = DRAFTS / f"{name}.c"
+        p = ROOT / st[name].get("promoted_to", "")
+        body = d.read_text() if d.exists() else ""
+        if not body or not p.exists() or body.rstrip() not in p.read_text(errors="replace"):
+            stale.append(name)
+    good = len(names) - len(bad)
+    print(f"[{AGENT}] verify selesai: {good}/{len(names)} MATCH, {len(bad)} DIFF"
+          f" | promoted != draft: {len(stale)}")
+    for name, note in bad:
+        print(f"  - {name}: {short_note(note)}")
+    for name in stale:
+        print(f"  - {name}: isi promoted tidak sama dengan draft")
+    return len(bad) + len(stale)
 
 
 
@@ -574,6 +620,8 @@ def main(argv: list[str]) -> int:
         else:
             args.append(a)
     SAFE_AGENT = re.sub(r"[^A-Za-z0-9_.-]", "_", AGENT)[:40] or "agent"
+    if args and args[0] == "verify":
+        return 1 if verify_all() else 0
     n = int(args[0]) if args and args[0].isdigit() else 20
     modules = [a for a in args if not a.isdigit()] or None
     st = scan(modules)
