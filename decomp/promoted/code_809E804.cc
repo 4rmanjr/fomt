@@ -193,3 +193,10 @@ void func_080ADC84(s32 *arg0, s32 arg1) {
         __builtin_delete(arg0);
     }
 }
+
+// DECOMP-MATCHED func_080AE6C0 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_08008724();                                  /* extern */
+
+void func_080AE6C0(void) {
+    func_08008724();
+}

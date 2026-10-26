@@ -18508,52 +18508,52 @@
  },
  "func_080ADCA4": {
   "addr": 134929572,
-  "claimed_at": 1793004313.6640303,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004352.2837296,
   "module": "code_809E804.s",
+  "note": "id *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADCA4/opencode/func.c:32: request for member `unk4' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADCA4/opencode/func.c:33: warning: return makes integer from pointer without a cast\n",
   "ref_len": 100,
   "size": 864,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080ADD08": {
   "addr": 134929672,
-  "claimed_at": 1793004313.6640308,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004352.6046388,
   "module": "code_809E804.s",
+  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADD08/opencode/func.c:17: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADD08/opencode/func.c:17: request for member `unk4' in something not a structure or union\n",
   "ref_len": 24,
   "size": 272,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080ADD20": {
   "addr": 134929696,
-  "claimed_at": 1793004313.664031,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004352.9060323,
   "module": "code_809E804.s",
+  "note": "on it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADD20/opencode/func.c:9: `gUnk_0852D984' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADD20/opencode/func.c:10: `vtable_unk_080E5A28' undeclared (first use in this function)\n",
   "ref_len": 28,
   "size": 362,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080ADD44": {
   "addr": 134929732,
-  "claimed_at": 1793004313.6640315,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004353.1967661,
   "module": "code_809E804.s",
+  "note": "mething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADD44/opencode/func.c:9: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADD44/opencode/func.c:9: request for member `unk14' in something not a structure or union\n",
   "ref_len": 24,
   "size": 260,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080ADD5C": {
   "addr": 134929756,
-  "claimed_at": 1793004313.6640317,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004353.4791834,
   "module": "code_809E804.s",
+  "note": "omething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADD5C/opencode/func.c:8: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADD5C/opencode/func.c:8: request for member `unk6' in something not a structure or union\n",
   "ref_len": 24,
   "size": 258,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080ADD74": {
@@ -18569,32 +18569,32 @@
  },
  "func_080ADD78": {
   "addr": 134929784,
-  "claimed_at": 1793004313.6640322,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004353.8739998,
   "module": "code_809E804.s",
+  "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADD78/opencode/func.c:123: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADD78/opencode/func.c:123: request for member `unk0' in something not a structure or union\n",
   "ref_len": 456,
   "size": 3668,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080ADF40": {
   "addr": 134930240,
-  "claimed_at": 1793004313.6640327,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004354.177288,
   "module": "code_809E804.s",
+  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADF40/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADF40/opencode/func.c:13: request for member `unk6' in something not a structure or union\n",
   "ref_len": 44,
   "size": 420,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080ADF6C": {
   "addr": 134930284,
-  "claimed_at": 1793004313.664033,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004354.8390775,
   "module": "code_809E804.s",
+  "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADF6C/opencode/func.c:316: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080ADF6C/opencode/func.c:316: request for member `unk4' in something not a structure or union\n",
   "ref_len": 1388,
   "size": 11519,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080AE4D8": {
@@ -18610,24 +18610,29 @@
  },
  "func_080AE4E4": {
   "addr": 134931684,
-  "claimed_at": 1793004313.6640332,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004355.2309837,
   "module": "code_809E804.s",
+  "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080AE4E4/opencode/func.c:122: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080AE4E4/opencode/func.c:122: request for member `unk8' in something not a structure or union\n",
   "ref_len": 476,
   "size": 3774,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080AE6C0": {
   "addr": 134932160,
+  "judged_mtime": 1793004358.9069266,
   "module": "code_809E804.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 12,
   "size": 120,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080AE6CC": {
   "addr": 134932172,
+  "claimed_at": 1793004358.687871,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 260,
   "size": 1986,
@@ -18636,6 +18641,8 @@
  },
  "func_080AE7D0": {
   "addr": 134932432,
+  "claimed_at": 1793004358.6878731,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 196,
   "size": 1597,
@@ -18644,6 +18651,8 @@
  },
  "func_080AE894": {
   "addr": 134932628,
+  "claimed_at": 1793004358.6878738,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 3968,
   "size": 32909,
@@ -18652,6 +18661,8 @@
  },
  "func_080AF814": {
   "addr": 134936596,
+  "claimed_at": 1793004358.6878746,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 3828,
   "size": 32342,
@@ -18660,6 +18671,8 @@
  },
  "func_080B0708": {
   "addr": 134940424,
+  "claimed_at": 1793004358.6878753,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 556,
   "size": 4655,
@@ -18668,6 +18681,8 @@
  },
  "func_080B0934": {
   "addr": 134940980,
+  "claimed_at": 1793004358.6878757,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 60,
   "size": 581,
@@ -18676,6 +18691,8 @@
  },
  "func_080B0970": {
   "addr": 134941040,
+  "claimed_at": 1793004358.6878765,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 64,
   "size": 605,
@@ -18684,6 +18701,8 @@
  },
  "func_080B09B0": {
   "addr": 134941104,
+  "claimed_at": 1793004358.687877,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 240,
   "size": 2342,
@@ -18692,6 +18711,8 @@
  },
  "func_080B0AA0": {
   "addr": 134941344,
+  "claimed_at": 1793004358.6878774,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 280,
   "size": 2384,
@@ -18700,6 +18721,8 @@
  },
  "func_080B0BB8": {
   "addr": 134941624,
+  "claimed_at": 1793004358.6878777,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 264,
   "size": 2223,
@@ -18708,6 +18731,8 @@
  },
  "func_080B1B40": {
   "addr": 134945600,
+  "claimed_at": 1793004358.687878,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 500,
   "size": 3779,
@@ -18716,6 +18741,8 @@
  },
  "func_080B1D34": {
   "addr": 134946100,
+  "claimed_at": 1793004358.6878784,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 96,
   "size": 813,
@@ -18724,6 +18751,8 @@
  },
  "func_080B1D94": {
   "addr": 134946196,
+  "claimed_at": 1793004358.6878788,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 896,
   "size": 7473,
@@ -18732,6 +18761,8 @@
  },
  "func_080B2114": {
   "addr": 134947092,
+  "claimed_at": 1793004358.6878793,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 5064,
   "size": 41818,
@@ -18740,6 +18771,8 @@
  },
  "func_080B34DC": {
   "addr": 134952156,
+  "claimed_at": 1793004358.6878796,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 60,
   "size": 616,
@@ -18748,6 +18781,8 @@
  },
  "func_080B3518": {
   "addr": 134952216,
+  "claimed_at": 1793004358.6878803,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 412,
   "size": 3522,
@@ -18756,6 +18791,8 @@
  },
  "func_080B36B4": {
   "addr": 134952628,
+  "claimed_at": 1793004358.6878808,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 660,
   "size": 5857,
@@ -18764,6 +18801,8 @@
  },
  "func_080B3948": {
   "addr": 134953288,
+  "claimed_at": 1793004358.6878812,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 72,
   "size": 651,
@@ -18772,6 +18811,8 @@
  },
  "func_080B3990": {
   "addr": 134953360,
+  "claimed_at": 1793004358.6878815,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 44,
   "size": 449,
@@ -18780,6 +18821,8 @@
  },
  "func_080B39BC": {
   "addr": 134953404,
+  "claimed_at": 1793004358.6878817,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 28,
   "size": 298,
@@ -18788,6 +18831,8 @@
  },
  "func_080B39D8": {
   "addr": 134953432,
+  "claimed_at": 1793004358.6878822,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 28,
   "size": 329,
@@ -18796,6 +18841,8 @@
  },
  "func_080B39F4": {
   "addr": 134953460,
+  "claimed_at": 1793004358.6878824,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 28,
   "size": 329,
@@ -18804,6 +18851,8 @@
  },
  "func_080B3A10": {
   "addr": 134953488,
+  "claimed_at": 1793004358.6878827,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 24,
   "size": 295,
@@ -18812,6 +18861,8 @@
  },
  "func_080B3A28": {
   "addr": 134953512,
+  "claimed_at": 1793004358.6878834,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 384,
   "size": 3332,
@@ -18820,6 +18871,8 @@
  },
  "func_080B3BA8": {
   "addr": 134953896,
+  "claimed_at": 1793004358.6878839,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 60,
   "size": 533,
@@ -18828,6 +18881,8 @@
  },
  "func_080B3BE4": {
   "addr": 134953956,
+  "claimed_at": 1793004358.6878843,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 40,
   "size": 406,
@@ -18836,6 +18891,8 @@
  },
  "func_080B3C0C": {
   "addr": 134953996,
+  "claimed_at": 1793004358.6878846,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 48,
   "size": 447,
@@ -18844,6 +18901,8 @@
  },
  "func_080B3C3C": {
   "addr": 134954044,
+  "claimed_at": 1793004358.687885,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 60,
   "size": 479,
@@ -18852,6 +18911,8 @@
  },
  "func_080B3C78": {
   "addr": 134954104,
+  "claimed_at": 1793004358.6878853,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 12,
   "size": 125,
@@ -18871,6 +18932,8 @@
  },
  "func_080B3C90": {
   "addr": 134954128,
+  "claimed_at": 1793004358.6878858,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 56,
   "size": 502,
@@ -18879,6 +18942,8 @@
  },
  "func_080B3CC8": {
   "addr": 134954184,
+  "claimed_at": 1793004358.687886,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 2072,
   "size": 17726,
@@ -18898,6 +18963,8 @@
  },
  "func_080B44EC": {
   "addr": 134956268,
+  "claimed_at": 1793004358.687887,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 248,
   "size": 1994,
@@ -18906,6 +18973,8 @@
  },
  "func_080B45E4": {
   "addr": 134956516,
+  "claimed_at": 1793004358.6878874,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 12,
   "size": 120,
@@ -18914,6 +18983,8 @@
  },
  "func_080B45F0": {
   "addr": 134956528,
+  "claimed_at": 1793004358.687888,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 172,
   "size": 1366,
@@ -18922,6 +18993,8 @@
  },
  "func_080B469C": {
   "addr": 134956700,
+  "claimed_at": 1793004358.6878881,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 3196,
   "size": 26479,
@@ -18930,6 +19003,8 @@
  },
  "func_080B5318": {
   "addr": 134959896,
+  "claimed_at": 1793004358.6878886,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 696,
   "size": 5933,
@@ -18938,6 +19013,8 @@
  },
  "func_080B55D0": {
   "addr": 134960592,
+  "claimed_at": 1793004358.687889,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 440,
   "size": 3543,
@@ -18946,6 +19023,8 @@
  },
  "func_080B5788": {
   "addr": 134961032,
+  "claimed_at": 1793004358.6878893,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 156,
   "size": 1272,
@@ -18954,6 +19033,8 @@
  },
  "func_080B5824": {
   "addr": 134961188,
+  "claimed_at": 1793004358.6878898,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 6464,
   "size": 54706,
@@ -18962,6 +19043,8 @@
  },
  "func_080B7164": {
   "addr": 134967652,
+  "claimed_at": 1793004358.6878903,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 1048,
   "size": 8767,
@@ -18970,6 +19053,8 @@
  },
  "func_080B757C": {
   "addr": 134968700,
+  "claimed_at": 1793004358.687891,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 204,
   "size": 1732,
@@ -18978,6 +19063,8 @@
  },
  "func_080B7648": {
   "addr": 134968904,
+  "claimed_at": 1793004358.6878912,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 3888,
   "size": 32242,
@@ -18986,6 +19073,8 @@
  },
  "func_080B8578": {
   "addr": 134972792,
+  "claimed_at": 1793004358.6878915,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 588,
   "size": 4899,
@@ -18994,6 +19083,8 @@
  },
  "func_080B87C4": {
   "addr": 134973380,
+  "claimed_at": 1793004358.687892,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 200,
   "size": 1568,
@@ -19002,6 +19093,8 @@
  },
  "func_080B888C": {
   "addr": 134973580,
+  "claimed_at": 1793004358.6878922,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 1312,
   "size": 10150,
@@ -19010,6 +19103,8 @@
  },
  "func_080B8DAC": {
   "addr": 134974892,
+  "claimed_at": 1793004358.6878927,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 72,
   "size": 707,
@@ -19018,6 +19113,8 @@
  },
  "func_080B8DF4": {
   "addr": 134974964,
+  "claimed_at": 1793004358.687893,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 200,
   "size": 1641,
@@ -19026,6 +19123,8 @@
  },
  "func_080B8EBC": {
   "addr": 134975164,
+  "claimed_at": 1793004358.6878934,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 1016,
   "size": 8629,
@@ -19034,6 +19133,8 @@
  },
  "func_080B92B4": {
   "addr": 134976180,
+  "claimed_at": 1793004358.687894,
+  "claimed_by": "opencode",
   "module": "code_809E804.s",
   "ref_len": 372,
   "size": 3175,
