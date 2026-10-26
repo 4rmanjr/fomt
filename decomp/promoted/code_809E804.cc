@@ -149,3 +149,11 @@ u8 func_080B44E0(S_44E0 *arg0) { return arg0->v; }
 // DECOMP-MATCHED func_080AE4D8 (dari code_809E804.s; cek manusia sebelum ke src/)
 typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;
 u8 func_080AE4D8(S_4D8 *arg0) { return arg0->v; }
+
+// DECOMP-MATCHED func_080AD938 (dari code_809E804.s; cek manusia sebelum ke src/)
+void func_080CFFC0(s32);
+void func_080AD938(s32 *arg0) { func_080CFFC0(arg0[1]); }
+
+// DECOMP-MATCHED func_080AD944 (dari code_809E804.s; cek manusia sebelum ke src/)
+void func_080A63B8(s32);
+void func_080AD944(s32 *arg0) { func_080A63B8(arg0[1]); }

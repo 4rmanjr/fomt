@@ -8,3 +8,18 @@ s32 func_0800FFD0(s32 *arg0) {
 s32 func_0800FFD4(s32 arg0) {
     return arg0 + 4;
 }
+
+// DECOMP-MATCHED func_0800FFE0 (dari more_items.s; cek manusia sebelum ke src/)
+s32 memcpy(s32, s32, s32);
+
+s32 func_0800FFE0(s32 arg0, s32 arg1) {
+    memcpy(arg0, arg1 + 0x24, 6);
+    return arg0;
+}
+
+// DECOMP-MATCHED func_08010014 (dari more_items.s; cek manusia sebelum ke src/)
+s32 memcpy(s32, s32, s32);
+
+void func_08010014(s32 arg0, s32 arg1) {
+    memcpy(arg0 + 0x24, arg1, 6);
+}

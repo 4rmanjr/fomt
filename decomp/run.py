@@ -239,6 +239,20 @@ def pool_len(module: str, name: str, ref_len: int) -> int:
     return n * 4
 
 
+def _mask_for_compare(f, code: bytes) -> bytes:
+    """Mask reloc fields dengan aturan yang SAMA untuk kandidat dan ref.
+    R_ARM_THM_CALL (type 10) dimask byte-wise; tipe lain pakai mask decompnet."""
+    from decompnet.elfobj import mask_relocs
+    buf = bytearray(mask_relocs(code, [r for r in f.relocs if r.type != 10],
+                                f.arch, f.big_endian))
+    for r in f.relocs:
+        if r.type == 10:
+            for j, m in enumerate((0xFF, 0x07, 0x07, 0xFF)):
+                if r.offset + j < len(buf):
+                    buf[r.offset + j] &= 0xFF ^ m
+    return bytes(buf)
+
+
 def diff_note(cand, ref, module: str, name: str, ref_len: int) -> str:
     """Selisih pertama u/ log: beda panjang, offset byte, atau daftar reloc.
     ref_len = panjang aktual fungsi ref (batas simbol berikut); literal pool
@@ -250,7 +264,7 @@ def diff_note(cand, ref, module: str, name: str, ref_len: int) -> str:
     from elftools.elf.elffile import ELFFile as _EE
     from io import BytesIO as _BB
     _raw = getattr(ref, "_raw_data", None)
-    a = depad(cand.normalized())
+    a = depad(_mask_for_compare(cand, cand.code))
     rb = depad(ref.code[:ref_len])
     if _raw is not None and len(a) > len(rb):
         try:
@@ -271,15 +285,7 @@ def diff_note(cand, ref, module: str, name: str, ref_len: int) -> str:
         rb = rb[:-pl]
     elif pl and len(rb) > pl and len(a) < len(rb) - pl:
         rb = rb[:len(a)]  # kandidat lebih pendek: bandingkan awalan saja
-    b = bytearray(rb)
-    for r in ref.relocs:  # mask spt normalized(), tapi di batas yg sudah dipotong
-        if r.offset < len(b):
-            if r.type == 10:
-                for j, m in enumerate((0xFF, 0x07, 0x07, 0xFF)):
-                    b[r.offset + j] &= 0xFF ^ m
-            elif r.type == 2:
-                b[r.offset:r.offset + 4] = b"\0\0\0\0"
-    b = bytes(b)
+    b = _mask_for_compare(ref, rb)
     if len(a) != len(b):
         return f"len {len(a)} vs ref {len(b)}"
     for i, (x, y) in enumerate(zip(a, b)):
@@ -380,7 +386,9 @@ def judge(name: str) -> bool:
                 _sc = _E(_B(data)).get_section(_sx).data()
                 _so &= ~1
                 _true = _sc[_so:_so + _ss]
-                _shifted = _true[1:] == f.code[:-1] if len(_true) == len(f.code) else False
+                # f.code mulai satu byte setelah _true (st_value ganjil). Cek
+                # terhadap section utuh: fungsi terakhir bisa terpotong 1 byte.
+                _shifted = bool(f.code) and f.code == _sc[_so + 1:_so + 1 + len(f.code)]
                 f = _FO(name=f.name, arch=f.arch, big_endian=f.big_endian,
                         code=_true,
                         relocs=[_RL(r.offset + (1 if _shifted else 0), r.type, r.symbol, r.addend)
@@ -438,6 +446,32 @@ def promote(name: str) -> Path | None:
         e["promoted_to"] = str(out.relative_to(ROOT))
         save(st)
         return out
+
+
+def progress(st: dict) -> str:
+    """Ringkasan progres: total, berhasil, sisa, dan sebaran status."""
+    total = len(st)
+    c = Counter(v["status"] for v in st.values())
+    ok = c["matched"] + c["promoted"]
+    pct = (ok / total * 100.0) if total else 0.0
+    return (f"total {total} | berhasil {ok} ({pct:.1f}%) | sisa {total - ok}"
+            f" | pending {c['pending']}, drafted {c['drafted']}, failed {c['failed']},"
+            f" promoted {c['promoted']}, matched {c['matched']}")
+
+
+def short_note(note: str, limit: int = 80) -> str:
+    """Satu baris ringkas untuk note judge; error compiler bisa multi-baris.
+    Baris terakhir biasanya ringkasan errornya (baris pertama bisa terpotong
+    karena note disimpan sebagai ekor stderr)."""
+    lines = [ln.strip() for ln in (note or "").splitlines() if ln.strip()]
+    if not lines:
+        return ""
+    pick = next((ln for ln in reversed(lines) if "error" in ln.lower()), lines[-1])
+    pick = re.sub(r"\s+", " ", pick)
+    m = re.search(r"func\.(?:c|cc):\d+:\s*", pick)
+    if m:
+        pick = pick[m.start():]
+    return pick if len(pick) <= limit else pick[:limit - 3] + "..."
 
 
 def main(argv: list[str]) -> int:
@@ -530,9 +564,14 @@ def main(argv: list[str]) -> int:
             break
         if claim(k):
             todo.append(k)
-    if n and not todo:
+    if todo:
+        print(f"[{AGENT}] mulai {len(todo)} fungsi | {progress(load())}")
+    elif n:
         print(f"[{AGENT}] tidak ada fungsi bebas: semua sudah diklaim agent lain "
-              f"(klaim basi diambil alih setelah {CLAIM_TTL}s) atau sudah selesai.")
+              f"(klaim basi diambil alih setelah {CLAIM_TTL}s) atau sudah selesai."
+              f" | {progress(load())}")
+    else:
+        print(f"[{AGENT}] status | {progress(load())}")
     done = {"MATCH": 0, "DIFF": 0}
     cur: str | None = None
     try:
@@ -541,13 +580,17 @@ def main(argv: list[str]) -> int:
             tag = f"[{i}/{len(todo)}]"
             if load()[name]["status"] == "pending" and not draft(name):
                 done["DIFF"] += 1
-                print(f"[{AGENT}] {tag} {name}: DIFF (m2c gagal)")
+                print(f"[{AGENT}] {tag} {name}: DIFF (m2c gagal)"
+                      f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
             elif judge(name):
                 done["MATCH"] += 1
-                print(f"[{AGENT}] {tag} {name}: MATCH -> {promote(name)}")
+                out = promote(name)
+                print(f"[{AGENT}] {tag} {name}: MATCH -> {out}"
+                      f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
             else:
                 done["DIFF"] += 1
-                print(f"[{AGENT}] {tag} {name}: DIFF ({load()[name].get('note', '')[:100]})")
+                print(f"[{AGENT}] {tag} {name}: DIFF ({short_note(load()[name].get('note', ''))})"
+                      f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
             release(name)
             cur = None
     except KeyboardInterrupt:
@@ -555,10 +598,9 @@ def main(argv: list[str]) -> int:
             release(cur)  # klaim dilepas; fungsi diulang pada jalan berikutnya
         print("\nBerhenti. Jalankan lagi perintah yang sama untuk lanjut.")
     fin = load()
-    c = Counter(v["status"] for v in fin.values())
     now = time.time()
     held = sum(1 for v in fin.values() if _live(v, now) and v["claimed_by"] != AGENT)
-    print(f"Selesai [{AGENT}]: MATCH {done['MATCH']}, DIFF {done['DIFF']} | total {dict(c)}"
+    print(f"Selesai [{AGENT}]: batch MATCH {done['MATCH']}, DIFF {done['DIFF']} | {progress(fin)}"
           + (f" | dipegang agent lain: {held}" if held else ""))
     return 0
 

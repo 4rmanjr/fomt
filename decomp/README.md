@@ -51,6 +51,22 @@ draf yang sudah ada).
 
 Lihat ringkasan kapan saja: `python3 decomp/run.py 0` (tidak kerjakan apa-apa).
 
+## Statistik progres
+
+Setiap fungsi yang selesai (MATCH maupun DIFF) langsung diikuti statistik
+global, jadi progres kelihatan tanpa menunggu batch habis:
+
+```text
+[opencode] mulai 2 fungsi | total 2626 | berhasil 47 (1.8%) | sisa 2579 | pending 2522, drafted 0, failed 57, promoted 47, matched 0
+[opencode] [1/2] func_080040A0: DIFF (func.c:83: request for member `unk8C' in something not a structure or union) | batch 0M/1D | total 2626 | berhasil 47 (1.8%) | sisa 2579 | pending 2521, ...
+[opencode] [2/2] func_080041DC: DIFF (func.c:224: request for member `unk8' in something not a structure or union) | batch 0M/2D | total 2626 | berhasil 47 (1.8%) | sisa 2579 | pending 2520, ...
+Selesai [opencode]: batch MATCH 0, DIFF 2 | total 2626 | berhasil 47 (1.8%) | sisa 2579 | pending 2520, drafted 0, failed 59, promoted 47, matched 0
+```
+
+- **berhasil** = `promoted + matched` (byte-identik dan sudah ditampung).
+- **sisa** = `total - berhasil`.
+- `batch <M>M/<D>D` = hitungan MATCH/DIFF khusus jalan ini.
+
 ## Yang sudah terbukti
 
 `more_items.s`: `func_0800FFD0`, `func_0800FFD4` → MATCH → `decomp/promoted/more_items.cc`.
