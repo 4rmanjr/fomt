@@ -67,3 +67,11 @@ s32 func_08008B18(void) {
     m4aSoundMain();
     return 1;
 }
+
+// DECOMP-MATCHED func_08008B54 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08008B24(u8);                              /* extern */
+
+s32 *func_08008B54(s32 *arg0, u8 arg1) {
+    *arg0 = func_08008B24(arg1);
+    return arg0;
+}

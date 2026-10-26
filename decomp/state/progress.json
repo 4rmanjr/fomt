@@ -1458,22 +1458,23 @@
  },
  "func_08008B24": {
   "addr": 134253348,
-  "claimed_at": 1793003397.1586428,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793003493.4416497,
   "module": "hardware.s",
+  "note": "layerTable' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08008B24/opencode/func.c:13: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08008B24/opencode/func.c:13: for each function it appears in.)\n",
   "ref_len": 48,
   "size": 531,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08008B54": {
   "addr": 134253396,
-  "claimed_at": 1793003397.1869302,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793003493.7180007,
   "module": "hardware.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 24,
   "size": 258,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008B6C": {
