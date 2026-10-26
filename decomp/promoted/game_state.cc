@@ -63,3 +63,10 @@ void func_08011540(s32 *arg0, s32 arg1) {
 void func_08012218(void) {
 
 }
+
+// DECOMP-MATCHED func_080124C4 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_08008DE8();                                  /* extern */
+
+void func_080124C4(void) {
+    func_08008DE8();
+}
