@@ -75,3 +75,12 @@ void func_080367AC(s32 arg0, s32 arg1) {
         func_08036768(arg0);
     }
 }
+
+// DECOMP-MATCHED func_08038320 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 func_08038110(s32);                               /* extern */
+s32 vfunc_2C__7AEntityUi();                           /* extern */
+
+void func_08038320(s32 arg0) {
+    vfunc_2C__7AEntityUi();
+    func_08038110(arg0);
+}
