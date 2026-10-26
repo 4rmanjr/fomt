@@ -89,3 +89,10 @@ s32 m4aMPlayVolumeControl(s32, u16, u16);             /* extern */
 void func_08008C38(s32 *arg0, u16 arg1, u16 arg2) {
     m4aMPlayVolumeControl(*arg0, arg2, arg1);
 }
+
+// DECOMP-MATCHED func_08008C54 (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aMPlayPitchControl(s32, u16, s16);              /* extern */
+
+void func_08008C54(s32 *arg0, s16 arg1, u16 arg2) {
+    m4aMPlayPitchControl(*arg0, arg2, arg1);
+}
