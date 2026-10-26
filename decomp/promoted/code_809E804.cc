@@ -270,3 +270,18 @@ void func_080CC150(void) {
 s32 func_080CC70C(s32 arg0, s32 arg1) {
     return (arg1 * 0xC) + arg0 + 0x218;
 }
+
+// DECOMP-MATCHED func_080CE294 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_08050E98(s32, s32);                          /* extern */
+s32 func_080CD620();                                  /* extern */
+
+void func_080CE294(s32 arg0) {
+    s32 temp_r4;
+
+    func_080CD620();
+    temp_r4 = arg0 + 0x80;
+    func_08050E98(temp_r4, 1);
+    func_08050E98(temp_r4, 2);
+    func_08050E98(temp_r4, 4);
+    func_08050E98(temp_r4, 8);
+}
