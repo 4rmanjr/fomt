@@ -75,3 +75,10 @@ s32 *func_08008B54(s32 *arg0, u8 arg1) {
     *arg0 = func_08008B24(arg1);
     return arg0;
 }
+
+// DECOMP-MATCHED func_08008C28 (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aMPlayTempoControl(s32, u16);                   /* extern */
+
+void func_08008C28(s32 *arg0, u16 arg1) {
+    m4aMPlayTempoControl(*arg0, arg1);
+}
