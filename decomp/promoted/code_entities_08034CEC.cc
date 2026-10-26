@@ -64,3 +64,14 @@ void func_08036B00(s32 arg0, s32 arg1) {
         func_08036AB4(arg0);
     }
 }
+
+// DECOMP-MATCHED func_080367AC (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 func_08034F00();                                  /* extern */
+s32 func_08036768(s32);                               /* extern */
+
+void func_080367AC(s32 arg0, s32 arg1) {
+    func_08034F00();
+    if (arg1 > 1) {
+        func_08036768(arg0);
+    }
+}

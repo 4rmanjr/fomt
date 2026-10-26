@@ -7096,82 +7096,82 @@
  },
  "func_08036154": {
   "addr": 134439252,
-  "claimed_at": 1793004005.1647053,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004035.784988,
   "module": "code_entities_08034CEC.s",
+  "note": "len 44 vs ref 48",
   "ref_len": 48,
   "size": 441,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08036184": {
   "addr": 134439300,
-  "claimed_at": 1793004005.1647058,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004036.1780543,
   "module": "code_entities_08034CEC.s",
+  "note": "*' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08036184/opencode/func.c:8: request for member `unk14' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08036184/opencode/func.c:8: `vtable_unk_080E6E98' undeclared (first use in this function)\n",
   "ref_len": 60,
   "size": 695,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080361C0": {
   "addr": 134439360,
-  "claimed_at": 1793004005.1647062,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004036.4450486,
   "module": "code_entities_08034CEC.s",
+  "note": "len 40 vs ref 44",
   "ref_len": 44,
   "size": 420,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080361EC": {
   "addr": 134439404,
-  "claimed_at": 1793004005.1647065,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004036.824784,
   "module": "code_entities_08034CEC.s",
+  "note": "*' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080361EC/opencode/func.c:8: request for member `unk14' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080361EC/opencode/func.c:8: `vtable_unk_080E6E58' undeclared (first use in this function)\n",
   "ref_len": 60,
   "size": 695,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08036228": {
   "addr": 134439464,
-  "claimed_at": 1793004005.1647072,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004037.157444,
   "module": "code_entities_08034CEC.s",
+  "note": "len 42 vs ref 46",
   "ref_len": 48,
   "size": 452,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08036258": {
   "addr": 134439512,
-  "claimed_at": 1793004005.1647077,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004037.537249,
   "module": "code_entities_08034CEC.s",
+  "note": "*' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08036258/opencode/func.c:8: request for member `unk14' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08036258/opencode/func.c:8: `vtable_unk_080E6E18' undeclared (first use in this function)\n",
   "ref_len": 56,
   "size": 679,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08036290": {
   "addr": 134439568,
-  "claimed_at": 1793004005.164708,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004037.8140452,
   "module": "code_entities_08034CEC.s",
+  "note": "len 42 vs ref 46",
   "ref_len": 48,
   "size": 452,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080362C0": {
   "addr": 134439616,
-  "claimed_at": 1793004005.1647084,
-  "claimed_by": "opencode",
+  "judged_mtime": 1793004038.202619,
   "module": "code_entities_08034CEC.s",
+  "note": "*' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080362C0/opencode/func.c:8: request for member `unk14' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080362C0/opencode/func.c:8: `vtable_unk_080E6DD8' undeclared (first use in this function)\n",
   "ref_len": 60,
   "size": 695,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080362FC": {
@@ -7318,62 +7318,63 @@
  },
  "func_0803669C": {
   "addr": 134440604,
-  "claimed_at": 1793004019.3406506,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793004039.9781017,
   "module": "code_entities_08034CEC.s",
+  "note": "len 44 vs ref 48",
   "ref_len": 48,
   "size": 441,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080366CC": {
   "addr": 134440652,
-  "claimed_at": 1793004019.340651,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793004040.3819396,
   "module": "code_entities_08034CEC.s",
+  "note": " pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080366CC/kilo-1531/func.c:8: request for member `unk14' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080366CC/kilo-1531/func.c:8: `vtable_unk_080E6C58' undeclared (first use in this function)\n",
   "ref_len": 56,
   "size": 667,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08036704": {
   "addr": 134440708,
-  "claimed_at": 1793004019.3406513,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793004040.6793058,
   "module": "code_entities_08034CEC.s",
+  "note": "len 40 vs ref 44",
   "ref_len": 44,
   "size": 420,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08036730": {
   "addr": 134440752,
-  "claimed_at": 1793004019.3406518,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793004041.0728688,
   "module": "code_entities_08034CEC.s",
+  "note": " pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08036730/kilo-1531/func.c:8: request for member `unk14' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08036730/kilo-1531/func.c:8: `vtable_unk_080E6C18' undeclared (first use in this function)\n",
   "ref_len": 56,
   "size": 667,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08036768": {
   "addr": 134440808,
-  "claimed_at": 1793004019.3406522,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793004041.4174078,
   "module": "code_entities_08034CEC.s",
+  "note": "ing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08036768/kilo-1531/func.c:17: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08036768/kilo-1531/func.c:17: request for member `unk21' in something not a structure or union\n",
   "ref_len": 68,
   "size": 707,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_080367AC": {
   "addr": 134440876,
-  "claimed_at": 1793004019.3406525,
-  "claimed_by": "kilo-1531",
+  "judged_mtime": 1793004041.7009482,
   "module": "code_entities_08034CEC.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 28,
   "size": 290,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_080367C8": {
@@ -7580,6 +7581,8 @@
  },
  "func_08036C80": {
   "addr": 134442112,
+  "claimed_at": 1793004041.7908955,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 44,
   "size": 420,
@@ -7588,6 +7591,8 @@
  },
  "func_08036CAC": {
   "addr": 134442156,
+  "claimed_at": 1793004041.7909005,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 48,
   "size": 579,
@@ -7596,6 +7601,8 @@
  },
  "func_08036CDC": {
   "addr": 134442204,
+  "claimed_at": 1793004041.7909017,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 48,
   "size": 452,
@@ -7604,6 +7611,8 @@
  },
  "func_08036D0C": {
   "addr": 134442252,
+  "claimed_at": 1793004041.7909026,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 48,
   "size": 579,
@@ -7612,6 +7621,8 @@
  },
  "func_08036D3C": {
   "addr": 134442300,
+  "claimed_at": 1793004041.790903,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 44,
   "size": 420,
@@ -7620,6 +7631,8 @@
  },
  "func_08036D68": {
   "addr": 134442344,
+  "claimed_at": 1793004041.7909036,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 48,
   "size": 563,
@@ -7628,6 +7641,8 @@
  },
  "func_08036D98": {
   "addr": 134442392,
+  "claimed_at": 1793004041.790904,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 44,
   "size": 420,
@@ -7636,6 +7651,8 @@
  },
  "func_08036DC4": {
   "addr": 134442436,
+  "claimed_at": 1793004041.7909045,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 104,
   "size": 998,
@@ -7644,6 +7661,8 @@
  },
  "func_08036E2C": {
   "addr": 134442540,
+  "claimed_at": 1793004041.7909048,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 68,
   "size": 768,
@@ -7652,6 +7671,8 @@
  },
  "func_08036E70": {
   "addr": 134442608,
+  "claimed_at": 1793004041.7909052,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 408,
   "size": 9865,
@@ -7660,6 +7681,8 @@
  },
  "func_08037008": {
   "addr": 134443016,
+  "claimed_at": 1793004041.790906,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 64,
   "size": 736,
@@ -7668,6 +7691,8 @@
  },
  "func_08037048": {
   "addr": 134443080,
+  "claimed_at": 1793004041.7909062,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 80,
   "size": 870,
@@ -7676,6 +7701,8 @@
  },
  "func_08037098": {
   "addr": 134443160,
+  "claimed_at": 1793004041.7909067,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 128,
   "size": 1147,
@@ -7684,6 +7711,8 @@
  },
  "func_08037118": {
   "addr": 134443288,
+  "claimed_at": 1793004041.790907,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 300,
   "size": 3001,
@@ -7692,6 +7721,8 @@
  },
  "func_08037244": {
   "addr": 134443588,
+  "claimed_at": 1793004041.7909071,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 40,
   "size": 374,
@@ -7700,6 +7731,8 @@
  },
  "func_0803726C": {
   "addr": 134443628,
+  "claimed_at": 1793004041.7909076,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 452,
   "size": 4438,
@@ -7708,6 +7741,8 @@
  },
  "func_08037430": {
   "addr": 134444080,
+  "claimed_at": 1793004041.790908,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 4,
   "size": 99,
@@ -7716,6 +7751,8 @@
  },
  "func_08037434": {
   "addr": 134444084,
+  "claimed_at": 1793004041.7909086,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 40,
   "size": 412,
@@ -7724,6 +7761,8 @@
  },
  "func_0803745C": {
   "addr": 134444124,
+  "claimed_at": 1793004041.7909088,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 20,
   "size": 217,
@@ -7732,6 +7771,8 @@
  },
  "func_08037470": {
   "addr": 134444144,
+  "claimed_at": 1793004041.7909095,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 36,
   "size": 388,
@@ -7740,6 +7781,8 @@
  },
  "func_08037494": {
   "addr": 134444180,
+  "claimed_at": 1793004041.7909098,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 168,
   "size": 1581,
@@ -7748,6 +7791,8 @@
  },
  "func_0803753C": {
   "addr": 134444348,
+  "claimed_at": 1793004041.79091,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 44,
   "size": 417,
@@ -7756,6 +7801,8 @@
  },
  "func_08037568": {
   "addr": 134444392,
+  "claimed_at": 1793004041.7909105,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 176,
   "size": 1674,
@@ -7764,6 +7811,8 @@
  },
  "func_08037618": {
   "addr": 134444568,
+  "claimed_at": 1793004041.790911,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 12,
   "size": 221,
@@ -7772,6 +7821,8 @@
  },
  "func_08037628": {
   "addr": 134444584,
+  "claimed_at": 1793004041.7909112,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 20,
   "size": 247,
@@ -7780,6 +7831,8 @@
  },
  "func_0803763C": {
   "addr": 134444604,
+  "claimed_at": 1793004041.790912,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 168,
   "size": 1581,
@@ -7788,6 +7841,8 @@
  },
  "func_080376E4": {
   "addr": 134444772,
+  "claimed_at": 1793004041.7909126,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 48,
   "size": 453,
@@ -7796,6 +7851,8 @@
  },
  "func_08037714": {
   "addr": 134444820,
+  "claimed_at": 1793004041.790913,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 176,
   "size": 1674,
@@ -7804,6 +7861,8 @@
  },
  "func_080377C4": {
   "addr": 134444996,
+  "claimed_at": 1793004041.7909133,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 12,
   "size": 221,
@@ -7812,6 +7871,8 @@
  },
  "func_080377D4": {
   "addr": 134445012,
+  "claimed_at": 1793004041.7909138,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 20,
   "size": 247,
@@ -7820,6 +7881,8 @@
  },
  "func_080377E8": {
   "addr": 134445032,
+  "claimed_at": 1793004041.790914,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 164,
   "size": 1562,
@@ -7828,6 +7891,8 @@
  },
  "func_0803788C": {
   "addr": 134445196,
+  "claimed_at": 1793004041.7909145,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 44,
   "size": 420,
@@ -7836,6 +7901,8 @@
  },
  "func_080378B8": {
   "addr": 134445240,
+  "claimed_at": 1793004041.7909148,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 52,
   "size": 508,
@@ -7844,6 +7911,8 @@
  },
  "func_080378EC": {
   "addr": 134445292,
+  "claimed_at": 1793004041.7909153,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 12,
   "size": 221,
@@ -7852,6 +7921,8 @@
  },
  "func_080378FC": {
   "addr": 134445308,
+  "claimed_at": 1793004041.7909157,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 92,
   "size": 915,
@@ -7860,6 +7931,8 @@
  },
  "func_08037958": {
   "addr": 134445400,
+  "claimed_at": 1793004041.7909162,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 128,
   "size": 1205,
@@ -7868,6 +7941,8 @@
  },
  "func_080379D8": {
   "addr": 134445528,
+  "claimed_at": 1793004041.7909164,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 44,
   "size": 420,
@@ -7876,6 +7951,8 @@
  },
  "func_08037A04": {
   "addr": 134445572,
+  "claimed_at": 1793004041.790917,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 52,
   "size": 508,
@@ -7884,6 +7961,8 @@
  },
  "func_08037A38": {
   "addr": 134445624,
+  "claimed_at": 1793004041.7909172,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 12,
   "size": 221,
@@ -7892,6 +7971,8 @@
  },
  "func_08037A48": {
   "addr": 134445640,
+  "claimed_at": 1793004041.7909176,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 20,
   "size": 247,
@@ -7900,6 +7981,8 @@
  },
  "func_08037A5C": {
   "addr": 134445660,
+  "claimed_at": 1793004041.790918,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 116,
   "size": 1116,
@@ -7908,6 +7991,8 @@
  },
  "func_08037AD0": {
   "addr": 134445776,
+  "claimed_at": 1793004041.7909186,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 120,
   "size": 1147,
@@ -7916,6 +8001,8 @@
  },
  "func_08037B48": {
   "addr": 134445896,
+  "claimed_at": 1793004041.7909188,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 56,
   "size": 592,
@@ -7924,6 +8011,8 @@
  },
  "func_08037B80": {
   "addr": 134445952,
+  "claimed_at": 1793004041.7909195,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 324,
   "size": 2374,
@@ -7932,6 +8021,8 @@
  },
  "func_08037CC4": {
   "addr": 134446276,
+  "claimed_at": 1793004041.7909198,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 44,
   "size": 475,
@@ -7940,6 +8031,8 @@
  },
  "func_08037CF0": {
   "addr": 134446320,
+  "claimed_at": 1793004041.7909203,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 24,
   "size": 235,
@@ -7948,6 +8041,8 @@
  },
  "func_08037D08": {
   "addr": 134446344,
+  "claimed_at": 1793004041.7909205,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 108,
   "size": 1096,
@@ -7956,6 +8051,8 @@
  },
  "func_08037D74": {
   "addr": 134446452,
+  "claimed_at": 1793004041.790921,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 164,
   "size": 1613,
@@ -7964,6 +8061,8 @@
  },
  "func_08037E18": {
   "addr": 134446616,
+  "claimed_at": 1793004041.7909212,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 48,
   "size": 546,
@@ -7972,6 +8071,8 @@
  },
  "func_08037E48": {
   "addr": 134446664,
+  "claimed_at": 1793004041.7909217,
+  "claimed_by": "opencode",
   "module": "code_entities_08034CEC.s",
   "ref_len": 84,
   "size": 861,
