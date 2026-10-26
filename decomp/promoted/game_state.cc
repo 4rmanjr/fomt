@@ -232,3 +232,14 @@ void func_0801DDF8(GenObj *arg0, s32 arg1) {
     func_0809C5D0(arg0->unk1038 + 0x34D8, arg1);
     func_080AA850(arg0->unk4, arg1);
 }
+
+// DECOMP-MATCHED func_0801DE3C (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_080AA8BC(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+void func_0801DE3C(GenObj *arg0) {
+    func_080AA8BC(arg0->unk4);
+}
