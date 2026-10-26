@@ -7,6 +7,46 @@
 	.type	 func_0804EA94,function
 	.thumb_func
 func_0804EA94:
-	bx	lr
+	push	{r4, r5, lr}
+	ldr	r5, [sp, #0x14]
+	mov	r4, #0x80
+	lsl	r4, r4, #0x5
+	lsl	r2, r2, #0x18
+	lsr	r2, r2, #0x18
+	orr	r2, r2, r4
+	ldr	r4, .L3
+	and	r4, r4, r1
+	lsl	r4, r4, #0x10
+	orr	r2, r2, r4
+	lsl	r3, r3, #0x16
+	lsr	r3, r3, #0x16
+	ldr	r1, [sp, #0xc]
+	mov	r4, #0xf
+	and	r1, r1, r4
+	lsl	r1, r1, #0xc
+	orr	r3, r3, r1
+	ldr	r1, [sp, #0x10]
+	mov	r4, #0x3
+	and	r1, r1, r4
+	lsl	r1, r1, #0xa
+	orr	r3, r3, r1
+	ldr	r1, [sp, #0x18]
+	mov	r4, #0x3
+	and	r1, r1, r4
+	lsl	r1, r1, #0xe
+	orr	r2, r2, r1
+	lsr	r1, r2, #0x1e
+	add	r1, r1, r5
+	lsl	r1, r1, #0x1e
+	orr	r2, r2, r1
+	str	r2, [r0]
+	str	r3, [r0, #0x4]
+	pop	{r4, r5}
+	pop	{r0}
+	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	0x1ff
 .Lfe1:
 	.size	 func_0804EA94,.Lfe1-func_0804EA94

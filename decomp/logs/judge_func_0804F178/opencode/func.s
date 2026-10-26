@@ -8,15 +8,20 @@
 	.thumb_func
 func_0804F178:
 	push	{lr}
-	mov	r1, #0x0
+	add	r1, r0, #0
+	mov	r2, #0x0
+	ldr	r0, [r1, #0x8]
+	cmp	r0, #0
+	beq	.L3	@cond_branch
+	ldrb	r0, [r1, #0x4]
 	cmp	r0, #0
 	beq	.L3	@cond_branch
 	mov	r0, #0x1
 	cmp	r0, #0
 	beq	.L3	@cond_branch
-	mov	r1, #0x1
+	mov	r2, #0x1
 .L3:
-	add	r0, r1, #0
+	add	r0, r2, #0
 	pop	{r1}
 	bx	r1
 .Lfe1:

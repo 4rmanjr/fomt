@@ -7,13 +7,13 @@
 	.type	 func_0804F060,function
 	.thumb_func
 func_0804F060:
-	push	{r4, r5, lr}
+	push	{r4, lr}
 	cmp	r1, #0x1
 	bls	.L2	@cond_branch
 	add	r0, r0, #0x2
 	mov	r4, #0x6
 .L6:
-	add	r0, r5, #0
+	mov	r0, #0x4
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	func_0804E7A0
@@ -21,7 +21,7 @@ func_0804F060:
 	cmp	r4, #0
 	bge	.L6	@cond_branch
 .L2:
-	pop	{r4, r5}
+	pop	{r4}
 	pop	{r0}
 	bx	r0
 .Lfe1:

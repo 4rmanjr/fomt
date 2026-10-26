@@ -1,5 +1,9 @@
 #include "common.h"
-void func_0804EA94(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+} GenObj;
+void func_0804EA94(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
     s32 sp0;
     s32 sp4;
     s32 temp_r1;

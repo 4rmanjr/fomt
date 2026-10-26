@@ -1,6 +1,6 @@
 #include "common.h"
 s32 CpuFastSet(s32 *, s32, s32);                        /* extern */
-s32 func_0804E9C8(u16, s32, u32, u32, ? *);           /* extern */
+s32 func_0804E9C8(u16, s32, u32, u32, s32 *);           /* extern */
 u32 func_080D0D28(s32 *, s32);                        /* extern */
 
 u32 func_0804E4AC(u16 arg0, s32 arg1, u32 arg2, u32 arg3, s32 arg4) {

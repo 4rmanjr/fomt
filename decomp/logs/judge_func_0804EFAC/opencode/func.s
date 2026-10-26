@@ -7,16 +7,23 @@
 	.type	 func_0804EFAC,function
 	.thumb_func
 func_0804EFAC:
-	push	{r4, lr}
+	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x4
-	mov	r3, #0x3
-	add	r2, r4, #0
-	and	r2, r2, r3
+	add	r4, r0, #0
+	add	r5, r1, #0
+	ldrh	r6, [r4, #0x18]
+	ldr	r0, [r4, #0x1c]
+	ldr	r1, [r4, #0x20]
+	add	r0, r0, r1
+	mov	r0, #0x3
+	add	r2, r6, #0
+	and	r2, r2, r0
 	cmp	r2, #0x3
 	bhi	.L4	@cond_branch
-	and	r2, r2, r3
+	and	r2, r2, r0
 	lsl	r2, r2, #0x3
-	str	r1, [sp]
+	str	r5, [sp]
+	mov	r0, #0x4
 	mov	r1, #0x0
 	mov	r3, #0x0
 	bl	func_0804E4AC
@@ -31,12 +38,33 @@ func_0804EFAC:
 	mov	r0, #0x0
 	b	.L10
 .L7:
-	add	r0, r1, r4
+	add	r0, r1, r6
+	cmp	r0, #0x1b
+	bls	.L8	@cond_branch
+	mov	r1, #0x1c
+	bl	__umodsi3
+.L8:
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	str	r0, [r4, #0x18]
+	cmp	r5, #0x20
+	beq	.L9	@cond_branch
+	ldr	r0, .L11
+	cmp	r5, r0
+	beq	.L9	@cond_branch
 	mov	r0, #0x1
+	str	r0, [r4, #0x28]
+.L9:
+	mov	r0, #0x1
+	str	r0, [r4, #0x24]
 .L10:
 	add	sp, sp, #0x4
-	pop	{r4}
+	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
+.L12:
+	.align	2, 0
+.L11:
+	.word	0x8140
 .Lfe1:
 	.size	 func_0804EFAC,.Lfe1-func_0804EFAC

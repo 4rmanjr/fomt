@@ -7,26 +7,41 @@
 	.type	 func_0805039C,function
 	.thumb_func
 func_0805039C:
-	push	{r4, r5, lr}
-	add	r5, r0, #0
-	cmp	r1, #0
+	push	{r4, r5, r6, lr}
+	add	r4, r0, #0
+	ldr	r6, [r4, #0x8]
+	cmp	r6, #0
 	bne	.L3	@cond_branch
-	add	r0, r0, #0xd0
+	mov	r1, #0xd0
+	lsl	r1, r1, #0x4
+	add	r0, r4, r1
 	bl	func_0804F0E0
-	add	r4, r5, #0
-	add	r4, r4, #0x20
+	mov	r0, #0x80
+	lsl	r0, r0, #0x2
+	add	r5, r4, r0
+	ldr	r0, [r4, #0x4]
+	cmp	r0, #0x1
+	beq	.L4	@cond_branch
 	mov	r0, #0x98
-	lsl	r0, r0, #0x1
-	add	r1, r5, r0
-	add	r0, r4, #0
+	lsl	r0, r0, #0x5
+	add	r1, r4, r0
+	add	r0, r5, #0
 	bl	func_08009940
+.L4:
 	mov	r0, #0xa4
-	lsl	r0, r0, #0x1
-	add	r1, r5, r0
-	add	r0, r4, #0
+	lsl	r0, r0, #0x5
+	add	r1, r4, r0
+	add	r0, r5, #0
 	bl	func_08009940
+	str	r6, [r4, #0xc]
 .L3:
-	pop	{r4, r5}
+	ldr	r0, [r4, #0x8]
+	cmp	r0, #0x2
+	bhi	.L5	@cond_branch
+	mov	r0, #0x1
+	str	r0, [r4, #0x8]
+.L5:
+	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
 .Lfe1:

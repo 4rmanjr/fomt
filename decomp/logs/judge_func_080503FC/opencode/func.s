@@ -7,6 +7,15 @@
 	.type	 func_080503FC,function
 	.thumb_func
 func_080503FC:
-	bx	lr
+	push	{lr}
+	add	r1, r0, #0
+	ldr	r0, [r1, #0x8]
+	cmp	r0, #0
+	beq	.L3	@cond_branch
+	mov	r0, #0x2
+	str	r0, [r1, #0x8]
+.L3:
+	pop	{r0}
+	bx	r0
 .Lfe1:
 	.size	 func_080503FC,.Lfe1-func_080503FC

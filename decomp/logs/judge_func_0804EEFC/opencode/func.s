@@ -7,17 +7,21 @@
 	.type	 func_0804EEFC,function
 	.thumb_func
 func_0804EEFC:
-	push	{lr}
+	push	{r4, r5, lr}
 	add	sp, sp, #-0x8
-	mov	r0, #0x0
-	str	r0, [sp]
+	ldr	r5, [r0, #0xc]
+	ldrh	r1, [r0, #0x14]
+	ldr	r2, [r0, #0x18]
+	ldr	r3, [r0, #0x1c]
+	ldr	r4, [r0, #0x10]
+	str	r4, [sp]
+	ldr	r0, [r0, #0x20]
 	str	r0, [sp, #0x4]
-	mov	r1, #0x0
-	mov	r2, #0x0
-	mov	r3, #0x0
+	add	r0, r5, #0
 	bl	func_0804E9F4
 	mov	r0, #0x0
 	add	sp, sp, #0x8
+	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
 .Lfe1:

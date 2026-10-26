@@ -7,24 +7,47 @@
 	.type	 func_0804EF20,function
 	.thumb_func
 func_0804EF20:
-	push	{r4, lr}
+	push	{r4, r5, lr}
+	add	r4, r0, #0
+	ldr	r1, [r4, #0xc]
+	ldr	r3, [r4, #0x10]
+	ldrb	r2, [r4, #0x18]
 	mov	r0, #0x80
-	and	r2, r2, r0
-	cmp	r2, #0
+	and	r0, r0, r2
+	cmp	r0, #0
 	beq	.L3	@cond_branch
+	ldr	r1, [r4, #0x14]
+	lsl	r1, r1, #0x12
+	lsr	r1, r1, #0xd
+	lsl	r0, r1, #0x3
+	sub	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r5, r3, r0
+	lsl	r0, r2, #0x19
+	lsr	r0, r0, #0x1f
+	mov	r1, #0x1
+	eor	r0, r0, r1
+	mov	r1, #0xbf
+	and	r2, r2, r1
+	lsl	r0, r0, #0x6
+	orr	r2, r2, r0
+	str	r2, [r4, #0x18]
 .L4:
-	add	r1, r1, #0x20
-	cmp	r1, r3
+	add	r3, r3, #0x20
+	cmp	r3, r5
 	bne	.L4	@cond_branch
 	mov	r0, #0x1
 	b	.L9
 .L3:
-	add	r0, r4, #0
-	mov	r2, #0x0
+	ldr	r2, [r4, #0x14]
+	lsl	r2, r2, #0x12
+	lsr	r2, r2, #0xf
+	add	r0, r1, #0
+	add	r1, r3, #0
 	bl	CpuFastSet
 	mov	r0, #0x0
 .L9:
-	pop	{r4}
+	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
 .Lfe1:

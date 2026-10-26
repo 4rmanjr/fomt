@@ -1,7 +1,19 @@
 #include "common.h"
 s32 func_0804E7A0(s32, s32, s32);                     /* extern */
 
-void func_0804F060(void *arg0, ? arg3) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    u8 _pad6[2];
+    s32 unk8;
+    s32 unkC;
+    u8 _pad10[6];
+    s32 unk16;
+    s32 unk18;
+    s32 unk19;
+    s32 unk1A;
+} GenObj;
+void func_0804F060(GenObj *arg0, ? arg3) {
     s32 sp0;
     s32 temp_r1_2;
     s32 var_r0;
@@ -29,7 +41,7 @@ void func_0804F060(void *arg0, ? arg3) {
     var_r4 = ((var_r0 * 4) + arg0)->unk8;
     var_r7 = 6;
     do {
-        sp0.unk0 = 4;
+        sp0 = 4;
         sp0.unk2 = 2;
         func_0804E7A0(sp0, var_r4->unk0 + 4, 0);
         temp_r1_2 = var_r4->unk8;

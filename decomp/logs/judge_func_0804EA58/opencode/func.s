@@ -7,6 +7,31 @@
 	.type	 func_0804EA58,function
 	.thumb_func
 func_0804EA58:
-	bx	lr
+	push	{r4, r5, r6, r7, lr}
+	ldr	r6, [sp, #0x14]
+	ldr	r5, [sp, #0x18]
+	ldr	r7, [sp, #0x1c]
+	mov	r4, #0x0
+	str	r4, [r0]
+	str	r4, [r0, #0x4]
+	ldr	r4, .L3
+	str	r4, [r0, #0x8]
+	str	r1, [r0, #0xc]
+	lsl	r2, r2, #0x10
+	asr	r2, r2, #0x10
+	str	r2, [r0, #0x14]
+	str	r3, [r0, #0x18]
+	str	r6, [r0, #0x1c]
+	lsl	r5, r5, #0x10
+	asr	r5, r5, #0x10
+	str	r5, [r0, #0x10]
+	str	r7, [r0, #0x20]
+	pop	{r4, r5, r6, r7}
+	pop	{r0}
+	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E7868
 .Lfe1:
 	.size	 func_0804EA58,.Lfe1-func_0804EA58

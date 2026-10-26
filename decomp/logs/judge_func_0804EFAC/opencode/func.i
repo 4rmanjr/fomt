@@ -57,10 +57,30 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0804EFAC/opencode/func.c" 2
 u32 func_0804E4AC(s32, s32, s32, s32, s32);
 
-s32 func_0804EFAC(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    u8 _pad6[2];
+    s32 unk8;
+    s32 unkC;
+    u8 _pad10[4];
+    s32 unk14;
+    s32 unk16;
+    s32 unk18;
+    s32 unk1A;
+    s32 unk1B;
+} GenObj;
+s32 func_0804EFAC(GenObj *arg0, s32 arg1) {
     s32 sp4;
     s32 temp_r1;
     s32 var_r0;
@@ -79,7 +99,7 @@ s32 func_0804EFAC(void *arg0, s32 arg1) {
     temp_r7 = ((var_r0 * 4) + arg0)->unk8 + ((temp_r0 >> 2) * 0x10);
     temp_r2 = temp_r0 & 3;
     if (temp_r2 <= 3U) {
-        sp4.unk0 = 4;
+        sp4 = 4;
         sp4.unk2 = 2;
         temp_r0_2 = func_0804E4AC(sp4, temp_r7->unk0 + 4, (temp_r2 & 3) * 8, 0, arg1);
         if ((u32) (temp_r0_2 - 1) <= 1U) {
