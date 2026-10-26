@@ -5,7 +5,13 @@ s32 func_08008980(s32 *);                               /* extern */
 s32 func_08008A68(s32 *, s32);                          /* extern */
 void **func_08011DC4(s32, s32, void ***);           /* extern */
 
-s32 *func_0801004C(s32 *arg0, void *arg1) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[860];
+    s32 unk364;
+} GenObj;
+s32 *func_0801004C(s32 *arg0, GenObj *arg1) {
 s32 sp0;
     void **sp4;
     void **sp8;

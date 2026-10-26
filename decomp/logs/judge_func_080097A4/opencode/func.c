@@ -1,4 +1,9 @@
 #include "common.h"
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk6;
+} GenObj;
 void func_080097A4(u8 *arg0) {
     u16 temp_r2;
     u32 var_r5;

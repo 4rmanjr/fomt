@@ -7,18 +7,29 @@
 	.type	 func_080096B0,function
 	.thumb_func
 func_080096B0:
-	push	{r4, lr}
+	push	{r4, r5, lr}
 	add	sp, sp, #-0x4
 	add	r4, r0, #0
-	mov	r1, #0x0
+	mov	r5, #0x0
 	mov	r0, sp
-	strh	r1, [r0]
+	strh	r5, [r0]
 	ldr	r2, .L3
 	add	r1, r4, #0
 	bl	CpuSet
+	mov	r0, #0x80
+	str	r0, [r4]
+	add	r0, r0, #0x80
+	str	r0, [r4, #0x20]
+	str	r5, [r4, #0x24]
+	str	r5, [r4, #0x28]
+	str	r0, [r4, #0x2c]
+	str	r0, [r4, #0x38]
+	str	r5, [r4, #0x3c]
+	str	r5, [r4, #0x40]
+	str	r0, [r4, #0x44]
 	add	r0, r4, #0
 	add	sp, sp, #0x4
-	pop	{r4}
+	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
 .L4:

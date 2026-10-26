@@ -1,13 +1,29 @@
 #include "common.h"
 s32 func_08008EB8(s32, s32, s32);                     /* extern */
 
-void func_080061A0(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[17928];
+    s32 unk4608;
+    s32 unk4609;
+    s32 unk460A;
+    s32 unk460B;
+    s32 unk460C;
+    s32 unk460D;
+    u8 _pad4611[3];
+    s32 unk4614;
+    s32 unk4615;
+    s32 unk4616;
+    s32 unk4617;
+    s32 unk4618;
+    s32 unk4619;
+} GenObj;
+void func_080061A0(GenObj *arg0, s32 arg1) {
     s32 temp_r2;
     u8 var_r3;
-    void *temp_r1;
+    s32 temp_r1;
 
-    func_08008EB8(0, arg0 + 0x4608, 8);
-    func_08008EB8(0, arg0 + 0x4614, 8);
+    func_08008EB8(0, (u8 *)arg0 + 0x4608, 8);
+    func_08008EB8(0, (u8 *)arg0 + 0x4614, 8);
     arg0->unk460B = (u8) (0x3F & arg0->unk460B);
     arg0->unk4617 = (u8) (0x3F & arg0->unk4617);
     arg0->unk4615 = (u8) ((0x3F & arg0->unk4615) | 0x80);
@@ -21,14 +37,14 @@ void func_080061A0(void *arg0, s32 arg1) {
     var_r3 = 0;
     do {
         temp_r1 = (arg1 << 5) + (var_r3 * 4);
-        *(0x06010000 + (s32) temp_r1) = 0x88888888;
-        *(0x06010020 + (s32) temp_r1) = 0x88888888;
-        *(0x06010040 + (s32) temp_r1) = 0x88888888;
-        *(0x06010060 + (s32) temp_r1) = 0x88888888;
-        *(0x06010080 + (s32) temp_r1) = 0x88888888;
-        *(0x060100A0 + (s32) temp_r1) = 0x88888888;
-        *(0x060100C0 + (s32) temp_r1) = 0x88888888;
-        *(0x060100E0 + (s32) temp_r1) = 0x88888888;
+        *(s32 *)(0x06010000 + temp_r1) = 0x88888888;
+        *(s32 *)(0x06010020 + temp_r1) = 0x88888888;
+        *(s32 *)(0x06010040 + temp_r1) = 0x88888888;
+        *(s32 *)(0x06010060 + temp_r1) = 0x88888888;
+        *(s32 *)(0x06010080 + temp_r1) = 0x88888888;
+        *(s32 *)(0x060100A0 + temp_r1) = 0x88888888;
+        *(s32 *)(0x060100C0 + temp_r1) = 0x88888888;
+        *(s32 *)(0x060100E0 + temp_r1) = 0x88888888;
         var_r3 += 1;
     } while ((u32) var_r3 <= 7U);
     *(s16 *)0x05000290 = 0x27F;

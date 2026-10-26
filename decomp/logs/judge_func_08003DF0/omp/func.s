@@ -58,7 +58,7 @@ func_08003DF0:
 	orr	r2, r2, r0
 	str	r2, [sp]
 .L6:
-	mov	r4, sp
+	ldr	r4, [sp]
 	add	r0, r6, #0
 	bl	func_08008920
 	mov	r1, #0x7f
@@ -66,9 +66,9 @@ func_08003DF0:
 	lsl	r1, r1, #0x3
 	add	r1, r1, #0x4
 	add	r0, r0, r1
-	ldr	r1, [sp]
-	str	r1, [r0]
-	ldrh	r1, [r4, #0x4]
+	str	r4, [r0]
+	mov	r1, sp
+	ldrh	r1, [r1, #0x4]
 	strh	r1, [r0, #0x4]
 	add	sp, sp, #0x8
 	pop	{r4, r5, r6}

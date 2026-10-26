@@ -7,6 +7,9 @@
 	.type	 func_080092FC,function
 	.thumb_func
 func_080092FC:
+	lsl	r1, r1, #0x10
+	asr	r1, r1, #0x10
+	str	r1, [r0, #0xc]
 	bx	lr
 .Lfe1:
 	.size	 func_080092FC,.Lfe1-func_080092FC

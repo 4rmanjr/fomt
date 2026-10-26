@@ -10,17 +10,30 @@ func_0801004C:
 	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x8
 	add	r6, r0, #0
+	add	r4, r1, #0
 	mov	r0, sp
 	bl	func_08008980
-	mov	r0, #0x0
 	mov	r5, #0x0
+	mov	r1, #0xd9
+	lsl	r1, r1, #0x2
+	add	r0, r4, r1
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L3	@cond_branch
+	str	r5, [sp, #0x4]
+	b	.L4
+.L3:
+	mov	r0, #0x1
 	str	r0, [sp, #0x4]
+.L4:
 	mov	r0, #0x8
 	bl	__builtin_new
+	ldr	r1, [r4, #0x4]
 	add	r4, sp, #0x4
-	mov	r1, #0x0
 	add	r2, r4, #0
 	bl	func_08011DC4
+	add	r5, r0, #0
+	mov	r5, #0x0
 	str	r0, [sp, #0x4]
 	add	r0, r4, #0
 	bl	func_0800082C

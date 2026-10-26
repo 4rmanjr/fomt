@@ -7,6 +7,10 @@
 	.type	 func_08009940,function
 	.thumb_func
 func_08009940:
+	ldr	r2, [r0, #0x10]
+	str	r1, [r2]
+	add	r1, r1, #0x10
+	str	r1, [r0, #0x10]
 	bx	lr
 .Lfe1:
 	.size	 func_08009940,.Lfe1-func_08009940

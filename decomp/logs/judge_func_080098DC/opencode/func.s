@@ -10,9 +10,12 @@ func_080098DC:
 	push	{r4, r5, lr}
 	add	r4, r0, #0
 	add	r5, r1, #0
+	ldr	r0, .L3
+	str	r0, [r4, #0x8]
+	add	r0, r4, #0
 	bl	func_08009984
 	add	r0, r4, #0
-	add	r0, r0, #0x10
+	add	r0, r0, #0xc0
 	mov	r1, #0x2
 	bl	func_080098AC
 	add	r0, r4, #0
@@ -21,5 +24,9 @@ func_080098DC:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E5BB4
 .Lfe1:
 	.size	 func_080098DC,.Lfe1-func_080098DC

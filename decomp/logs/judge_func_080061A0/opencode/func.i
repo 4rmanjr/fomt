@@ -57,16 +57,39 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080061A0/opencode/func.c" 2
 s32 func_08008EB8(s32, s32, s32);
 
-void func_080061A0(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[17928];
+    s32 unk4608;
+    s32 unk4609;
+    s32 unk460A;
+    s32 unk460B;
+    s32 unk460C;
+    s32 unk460D;
+    u8 _pad4611[3];
+    s32 unk4614;
+    s32 unk4615;
+    s32 unk4616;
+    s32 unk4617;
+    s32 unk4618;
+    s32 unk4619;
+} GenObj;
+void func_080061A0(GenObj *arg0, s32 arg1) {
     s32 temp_r2;
     u8 var_r3;
-    void *temp_r1;
+    s32 temp_r1;
 
-    func_08008EB8(0, arg0 + 0x4608, 8);
-    func_08008EB8(0, arg0 + 0x4614, 8);
+    func_08008EB8(0, (u8 *)arg0 + 0x4608, 8);
+    func_08008EB8(0, (u8 *)arg0 + 0x4614, 8);
     arg0->unk460B = (u8) (0x3F & arg0->unk460B);
     arg0->unk4617 = (u8) (0x3F & arg0->unk4617);
     arg0->unk4615 = (u8) ((0x3F & arg0->unk4615) | 0x80);
@@ -80,14 +103,14 @@ void func_080061A0(void *arg0, s32 arg1) {
     var_r3 = 0;
     do {
         temp_r1 = (arg1 << 5) + (var_r3 * 4);
-        *(0x06010000 + (s32) temp_r1) = 0x88888888;
-        *(0x06010020 + (s32) temp_r1) = 0x88888888;
-        *(0x06010040 + (s32) temp_r1) = 0x88888888;
-        *(0x06010060 + (s32) temp_r1) = 0x88888888;
-        *(0x06010080 + (s32) temp_r1) = 0x88888888;
-        *(0x060100A0 + (s32) temp_r1) = 0x88888888;
-        *(0x060100C0 + (s32) temp_r1) = 0x88888888;
-        *(0x060100E0 + (s32) temp_r1) = 0x88888888;
+        *(s32 *)(0x06010000 + temp_r1) = 0x88888888;
+        *(s32 *)(0x06010020 + temp_r1) = 0x88888888;
+        *(s32 *)(0x06010040 + temp_r1) = 0x88888888;
+        *(s32 *)(0x06010060 + temp_r1) = 0x88888888;
+        *(s32 *)(0x06010080 + temp_r1) = 0x88888888;
+        *(s32 *)(0x060100A0 + temp_r1) = 0x88888888;
+        *(s32 *)(0x060100C0 + temp_r1) = 0x88888888;
+        *(s32 *)(0x060100E0 + temp_r1) = 0x88888888;
         var_r3 += 1;
     } while ((u32) var_r3 <= 7U);
     *(s16 *)0x05000290 = 0x27F;

@@ -12,10 +12,19 @@ func_08010F54:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x2c
+	add	sp, sp, #-0x20
 	add	r6, r0, #0
-	add	r2, r1, #0
-	lsl	r0, r3, #0x19
+	ldr	r0, [r6]
+	mov	r1, #0x11
+	neg	r1, r1
+	and	r0, r0, r1
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	str	r0, [r6]
+	ldr	r0, [r6, #0x10]
+	str	r0, [r6, #0xc]
+	ldrb	r0, [r6, #0x18]
+	lsl	r0, r0, #0x19
 	lsr	r0, r0, #0x1b
 	add	r0, r0, #0x1
 	add	r5, r0, #0x1
@@ -33,21 +42,20 @@ func_08010F54:
 	mov	r5, #0x1
 .L3:
 	mov	r7, #0x0
-	add	r0, r6, #0
-	add	r0, r0, #0x14
-	str	r0, [sp, #0x24]
-	add	r1, r6, #0
-	add	r1, r1, #0x11
+	mov	r0, #0x8c
+	lsl	r0, r0, #0x2
+	add	r0, r6, r0
+	str	r0, [sp, #0x1c]
+	mov	r1, #0xee
+	lsl	r1, r1, #0x1
+	add	r1, r6, r1
 	str	r1, [sp, #0x18]
 	add	r3, r6, #0
-	add	r3, r3, #0x8
+	add	r3, r3, #0xe0
 	str	r3, [sp, #0x14]
 	lsl	r2, r2, #0x1e
 	mov	r8, r2
 	lsl	r0, r4, #0x1e
-	ldr	r1, [sp, #0x1c]
-	lsl	r1, r1, #0x19
-	str	r1, [sp, #0x28]
 	lsr	r3, r2, #0x1e
 	lsr	r2, r0, #0x1e
 	lsl	r0, r4, #0x19
@@ -63,8 +71,8 @@ func_08010F54:
 	sub	r1, r1, #0x1
 	cmp	r1, #0
 	bge	.L4	@cond_branch
-	ldr	r2, .L79
-	add	r4, r6, r2
+	ldr	r0, .L81
+	add	r4, r6, r0
 	add	r0, r4, #0
 	bl	func_080A041C
 	cmp	r0, #0
@@ -73,14 +81,12 @@ func_08010F54:
 	bl	func_080A1480
 	mov	r3, #0xc8
 	str	r3, [sp, #0x4]
-	mov	r1, r9
-	lsr	r0, r1, #0x3
+	ldr	r0, [r6, #0x14]
 	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	lsl	r1, r0, #0x3
-	sub	r1, r1, r0
-	mov	r2, r9
-	lsl	r0, r2, #0x1d
+	lsr	r2, r0, #0x1b
+	lsl	r1, r2, #0x3
+	sub	r1, r1, r2
+	lsl	r0, r0, #0x5
 	lsr	r0, r0, #0x1d
 	add	r1, r1, r0
 	str	r1, [sp, #0x8]
@@ -90,12 +96,13 @@ func_08010F54:
 	add	r2, sp, #0x8
 .L11:
 	str	r3, [sp, #0xc]
-	mov	r3, sl
-	lsr	r0, r3, #0x3
+	mov	r1, r9
+	lsr	r0, r1, #0x3
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	lsl	r1, r0, #0x3
 	sub	r1, r1, r0
+	mov	r3, r9
 	lsl	r0, r3, #0x1d
 	lsr	r0, r0, #0x1d
 	add	r1, r1, r0
@@ -109,7 +116,7 @@ func_08010F54:
 	ldr	r0, [r0]
 	cmp	r1, r0
 	bne	.L10	@cond_branch
-	ldr	r1, [sp, #0x20]
+	mov	r1, sl
 	lsl	r0, r1, #0x1e
 	cmp	r8, r0
 	bne	.L10	@cond_branch
@@ -120,8 +127,8 @@ func_08010F54:
 	bne	.L10	@cond_branch
 	mov	r7, #0x1
 .L10:
-	ldr	r2, .L79+0x4
-	add	r4, r6, r2
+	ldr	r3, .L81+0x4
+	add	r4, r6, r3
 	add	r0, r4, #0
 	bl	GetRivalEventCount__C12Bachelorette
 	cmp	r0, #0x4
@@ -132,8 +139,8 @@ func_08010F54:
 	bne	.L15	@cond_branch
 	mov	r7, #0x1
 .L15:
-	ldr	r3, .L79+0x8
-	add	r4, r6, r3
+	ldr	r0, .L81+0x8
+	add	r4, r6, r0
 	add	r0, r4, #0
 	bl	GetRivalEventCount__C12Bachelorette
 	cmp	r0, #0x4
@@ -144,8 +151,8 @@ func_08010F54:
 	bne	.L16	@cond_branch
 	mov	r7, #0x1
 .L16:
-	ldr	r0, .L79+0xc
-	add	r4, r6, r0
+	ldr	r1, .L81+0xc
+	add	r4, r6, r1
 	add	r0, r4, #0
 	bl	GetRivalEventCount__C12Bachelorette
 	cmp	r0, #0x4
@@ -156,8 +163,8 @@ func_08010F54:
 	bne	.L17	@cond_branch
 	mov	r7, #0x1
 .L17:
-	ldr	r1, .L79+0x10
-	add	r4, r6, r1
+	ldr	r3, .L81+0x10
+	add	r4, r6, r3
 	add	r0, r4, #0
 	bl	GetRivalEventCount__C12Bachelorette
 	cmp	r0, #0x4
@@ -168,8 +175,8 @@ func_08010F54:
 	bne	.L18	@cond_branch
 	mov	r7, #0x1
 .L18:
-	ldr	r2, .L79+0x14
-	add	r4, r6, r2
+	ldr	r0, .L81+0x14
+	add	r4, r6, r0
 	add	r0, r4, #0
 	bl	GetRivalEventCount__C12Bachelorette
 	cmp	r0, #0x4
@@ -181,60 +188,82 @@ func_08010F54:
 	mov	r7, #0x1
 .L19:
 	cmp	r7, #0x1
-	beq	.L22	@cond_branch
+	beq	.L80	@cond_branch
 	bl	rand
 	asr	r0, r0, #0x2
 	lsl	r0, r0, #0x18
-	lsr	r1, r0, #0x18
+	lsr	r2, r0, #0x18
 	mov	r3, r8
-	lsr	r0, r3, #0x1e
-	cmp	r0, #0x1
+	lsr	r1, r3, #0x1e
+	cmp	r1, #0x1
 	beq	.L25	@cond_branch
-	cmp	r0, #0x1
-	bcc	.L22	@cond_branch
-	cmp	r0, #0x2
-	beq	.L22	@cond_branch
-	cmp	r0, #0x3
+	cmp	r1, #0x1
+	bcc	.L23	@cond_branch
+	cmp	r1, #0x2
+	beq	.L29	@cond_branch
+	cmp	r1, #0x3
 	beq	.L32	@cond_branch
 	b	.L22
-.L80:
+.L82:
 	.align	2, 0
-.L79:
-	.word	0x1cd4
-	.word	0x1d6c
-	.word	0x1e28
-	.word	0x1eb8
-	.word	0x1ee4
-	.word	0x1f38
-.L25:
-	cmp	r1, #0xe5
-	bls	.L22	@cond_branch
-	add	r0, r1, #0
-	sub	r0, r0, #0xe6
+.L81:
+	.word	0x32730
+	.word	0x337d0
+	.word	0x34c60
+	.word	0x35c20
+	.word	0x360f0
+	.word	0x36a20
+.L23:
+	cmp	r2, #0xb3
+	bls	.L21	@cond_branch
+	mov	r1, #0x1
+.L21:
+	str	r1, [r6, #0x10]
 	b	.L22
-.L32:
-	lsl	r0, r1, #0x18
-	cmp	r0, #0
-	bge	.L22	@cond_branch
-	add	r0, r1, #0
-	sub	r0, r0, #0x80
-.L22:
-	ldr	r0, [sp, #0x24]
+.L25:
+	cmp	r2, #0xe5
+	bls	.L80	@cond_branch
+	add	r0, r2, #0
+	sub	r0, r0, #0xe6
+	cmp	r0, #0xc
+	bls	.L21	@cond_branch
+	mov	r1, #0x3
+	b	.L21
+.L29:
+	mov	r1, #0x1
+	cmp	r2, #0xcd
+	bhi	.L21	@cond_branch
+.L80:
 	mov	r1, #0x0
+	b	.L21
+.L32:
+	lsl	r0, r2, #0x18
+	cmp	r0, #0
+	bge	.L80	@cond_branch
+	add	r0, r2, #0
+	sub	r0, r0, #0x80
+	mov	r1, #0x4
+	cmp	r0, #0x65
+	bhi	.L21	@cond_branch
+	mov	r1, #0x2
+	b	.L21
+.L22:
+	ldr	r1, [r6, #0xc]
+	ldr	r0, [sp, #0x1c]
 	ldr	r2, [sp, #0x18]
 	bl	DayUpdate__4FarmiRC8GameDate
-	ldr	r1, [sp, #0x28]
-	lsr	r0, r1, #0x1b
+	ldrb	r1, [r6, #0x18]
+	lsl	r0, r1, #0x19
+	lsr	r0, r0, #0x1b
 	cmp	r0, #0
 	bne	.L39	@cond_branch
-	ldr	r2, .L81
-	add	r4, r6, r2
-	ldr	r3, .L81+0x4
+	ldr	r0, .L83
+	add	r4, r6, r0
+	ldr	r3, .L83+0x4
 	add	r5, r6, r3
 	cmp	r4, r5
 	bcs	.L39	@cond_branch
-	ldr	r0, [sp, #0x1c]
-	lsl	r7, r0, #0x1e
+	lsl	r7, r1, #0x1e
 .L41:
 	add	r0, r4, #0
 	lsr	r1, r7, #0x1e
@@ -243,21 +272,21 @@ func_08010F54:
 	cmp	r4, r5
 	bcc	.L41	@cond_branch
 .L39:
-	ldr	r1, .L81+0x8
-	add	r5, r6, r1
+	ldr	r0, .L83+0x8
+	add	r5, r6, r0
 	add	r0, r5, #0
 	bl	func_0800EE60
-	ldr	r2, .L81+0xc
-	add	r0, r6, r2
+	ldr	r1, .L83+0xc
+	add	r0, r6, r1
 	bl	DayUpdate__3Dog
-	ldr	r3, .L81+0x10
+	ldr	r3, .L83+0x10
 	add	r0, r6, r3
 	bl	func_08011568
-	ldr	r0, .L81+0x14
+	ldr	r0, .L83+0x14
 	add	r4, r6, r0
-	ldr	r1, .L81+0x18
+	ldr	r1, .L83+0x18
 	add	r2, r6, r1
-	ldr	r3, [sp, #0x24]
+	ldr	r3, [sp, #0x1c]
 	str	r3, [sp]
 	add	r0, r4, #0
 	ldr	r1, [sp, #0x14]
@@ -266,7 +295,7 @@ func_08010F54:
 	add	r0, r4, #0
 	add	r1, r6, #0
 	bl	func_0803D7E4
-	ldr	r0, .L81+0x1c
+	ldr	r0, .L83+0x1c
 	add	r4, r6, r0
 	add	r0, r4, #0
 	bl	func_0809EB70
@@ -276,33 +305,33 @@ func_08010F54:
 	add	r0, r4, #0
 	bl	func_0809EC48
 	b	.L47
-.L82:
+.L84:
 	.align	2, 0
-.L81:
-	.word	0x9dc
-	.word	0x1aa8
-	.word	0x1bd8
-	.word	0x1c70
-	.word	0x2c74
-	.word	0x1cd4
-	.word	0x214c
-	.word	0x1f64
+.L83:
+	.word	0x11410
+	.word	0x2ea60
+	.word	0x30ba0
+	.word	0x31c40
+	.word	0x4dcb0
+	.word	0x32730
+	.word	0x3a450
+	.word	0x36ef0
 .L46:
 	add	r0, r4, #0
 	bl	func_0809EB68
 	sub	r0, r0, #0x1
 	cmp	r0, #0xc
-	bls	.LCB379
+	bls	.LCB415
 	b	.L48	@long jump
-.LCB379:
+.LCB415:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L83
+	ldr	r1, .L85
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L84:
+.L86:
 	.align	2, 0
-.L83:
+.L85:
 	.word	.L64
 	.align	2, 0
 	.align	2, 0
@@ -321,8 +350,7 @@ func_08010F54:
 	.word	.L62
 	.word	.L63
 .L49:
-	mov	r1, #0xfa
-	lsl	r1, r1, #0x1
+	ldr	r1, .L87
 	add	r4, r6, r1
 	add	r0, r4, #0
 	bl	GetUpgradeLevel__C9FarmHouse
@@ -331,95 +359,128 @@ func_08010F54:
 	add	r0, r4, #0
 	bl	UpgradeHouseLevel__9FarmHouse
 	b	.L48
+.L88:
+	.align	2, 0
+.L87:
+	.word	0x36b0
 .L50:
 	add	r0, r4, #0
 	bl	AddBathroom__9FarmHouse
 	b	.L48
 .L52:
-	mov	r2, #0x82
-	lsl	r2, r2, #0x3
-	add	r0, r6, r2
+	ldr	r3, .L89
+	add	r0, r6, r3
 	bl	Upgrade__4Coop
 	b	.L48
+.L90:
+	.align	2, 0
+.L89:
+	.word	0x71c0
 .L53:
-	mov	r3, #0xbe
-	lsl	r3, r3, #0x3
-	add	r0, r6, r3
+	ldr	r1, .L91
+	add	r0, r6, r1
 	bl	Upgrade__4Barn
 	b	.L48
+.L92:
+	.align	2, 0
+.L91:
+	.word	0xa640
 .L54:
 	add	r0, r6, #0
 	bl	func_08010F30
 	b	.L48
 .L55:
-	mov	r1, #0xfa
-	lsl	r1, r1, #0x1
-	add	r0, r6, r1
+	ldr	r3, .L93
+	add	r0, r6, r3
 	mov	r1, #0x0
 	bl	SetWindowStyle__9FarmHouseUi
 	b	.L48
+.L94:
+	.align	2, 0
+.L93:
+	.word	0x36b0
 .L56:
-	mov	r2, #0xfa
-	lsl	r2, r2, #0x1
-	add	r0, r6, r2
+	ldr	r1, .L95
+	add	r0, r6, r1
 	mov	r1, #0x1
 	bl	SetWindowStyle__9FarmHouseUi
 	b	.L48
+.L96:
+	.align	2, 0
+.L95:
+	.word	0x36b0
 .L57:
-	mov	r3, #0xfa
-	lsl	r3, r3, #0x1
+	ldr	r3, .L97
 	add	r0, r6, r3
 	mov	r1, #0x2
 	bl	SetWindowStyle__9FarmHouseUi
 	b	.L48
+.L98:
+	.align	2, 0
+.L97:
+	.word	0x36b0
 .L58:
-	mov	r1, #0xfa
-	lsl	r1, r1, #0x1
+	ldr	r1, .L99
 	add	r0, r6, r1
 	mov	r1, #0x0
 	bl	SetMailboxStyle__9FarmHouseUi
 	b	.L48
+.L100:
+	.align	2, 0
+.L99:
+	.word	0x36b0
 .L59:
-	mov	r2, #0xfa
-	lsl	r2, r2, #0x1
-	add	r0, r6, r2
+	ldr	r3, .L101
+	add	r0, r6, r3
 	mov	r1, #0x1
 	bl	SetMailboxStyle__9FarmHouseUi
 	b	.L48
+.L102:
+	.align	2, 0
+.L101:
+	.word	0x36b0
 .L60:
-	mov	r3, #0xfa
-	lsl	r3, r3, #0x1
-	add	r0, r6, r3
+	ldr	r1, .L103
+	add	r0, r6, r1
 	mov	r1, #0x2
 	bl	SetMailboxStyle__9FarmHouseUi
 	b	.L48
+.L104:
+	.align	2, 0
+.L103:
+	.word	0x36b0
 .L61:
-	mov	r1, #0xfa
-	lsl	r1, r1, #0x1
-	add	r0, r6, r1
+	ldr	r3, .L105
+	add	r0, r6, r3
 	mov	r1, #0x0
 	bl	SetDoghouseStyle__9FarmHouseUi
 	b	.L48
+.L106:
+	.align	2, 0
+.L105:
+	.word	0x36b0
 .L62:
-	mov	r2, #0xfa
-	lsl	r2, r2, #0x1
-	add	r0, r6, r2
+	ldr	r1, .L107
+	add	r0, r6, r1
 	mov	r1, #0x1
 	bl	SetDoghouseStyle__9FarmHouseUi
 	b	.L48
+.L108:
+	.align	2, 0
+.L107:
+	.word	0x36b0
 .L63:
-	mov	r3, #0xfa
-	lsl	r3, r3, #0x1
+	ldr	r3, .L109
 	add	r0, r6, r3
 	mov	r1, #0x2
 	bl	SetDoghouseStyle__9FarmHouseUi
 .L48:
-	ldr	r1, .L85
+	ldr	r1, .L109+0x4
 	add	r0, r6, r1
 	bl	func_0809EBD4
 .L47:
-	ldr	r2, .L85+0x4
-	add	r4, r6, r2
+	ldr	r3, .L109+0x8
+	add	r4, r6, r3
 	add	r0, r4, #0
 	bl	func_0809ECE0
 	lsl	r0, r0, #0x18
@@ -434,19 +495,19 @@ func_08010F54:
 	cmp	r0, #0x23
 	beq	.L68	@cond_branch
 	b	.L66
-.L86:
+.L110:
 	.align	2, 0
-.L85:
-	.word	0x1f64
-	.word	0x1dac
+.L109:
+	.word	0x36b0
+	.word	0x36ef0
+	.word	0x33ed0
 .L76:
 	cmp	r0, #0x25
 	beq	.L72	@cond_branch
 	b	.L66
 .L68:
-	mov	r3, #0x82
-	lsl	r3, r3, #0x3
-	add	r4, r6, r3
+	ldr	r0, .L111
+	add	r4, r6, r0
 	add	r0, r4, #0
 	bl	method_0800C5C4__C4Coop
 	lsl	r0, r0, #0x18
@@ -455,10 +516,13 @@ func_08010F54:
 	add	r0, r4, #0
 	bl	method_0800C888__4Coop
 	b	.L66
+.L112:
+	.align	2, 0
+.L111:
+	.word	0x71c0
 .L70:
-	mov	r0, #0xbe
-	lsl	r0, r0, #0x3
-	add	r4, r6, r0
+	ldr	r1, .L113
+	add	r4, r6, r1
 	add	r0, r4, #0
 	bl	method_0800CF00__C4Barn
 	lsl	r0, r0, #0x18
@@ -467,10 +531,13 @@ func_08010F54:
 	add	r0, r4, #0
 	bl	method_0800D3A0__4Barn
 	b	.L66
+.L114:
+	.align	2, 0
+.L113:
+	.word	0xa640
 .L72:
-	mov	r1, #0xbe
-	lsl	r1, r1, #0x3
-	add	r4, r6, r1
+	ldr	r3, .L115
+	add	r4, r6, r3
 	add	r0, r4, #0
 	bl	method_0800CF08__C4Barn
 	lsl	r0, r0, #0x18
@@ -479,16 +546,42 @@ func_08010F54:
 	add	r0, r4, #0
 	bl	method_0800D3B8__4Barn
 .L66:
-	ldr	r2, .L87
-	add	r0, r6, r2
-	bl	func_0809AE6C
-	ldr	r3, .L87+0x4
-	add	r0, r6, r3
-	bl	func_080A1A4C
-	ldr	r1, .L87+0x8
+	ldr	r0, [r6, #0x18]
+	lsl	r0, r0, #0x19
+	lsr	r0, r0, #0x1b
+	cmp	r0, #0
+	bne	.L77	@cond_branch
+	ldr	r1, .L115+0x4
 	add	r0, r6, r1
+	bl	func_0809AE6C
+	b	.L78
+.L116:
+	.align	2, 0
+.L115:
+	.word	0xa640
+	.word	0x2ea60
+.L77:
+	ldr	r3, .L117
+	add	r0, r6, r3
+	bl	func_0809ADA8
+.L78:
+	ldr	r1, .L117+0x4
+	add	r0, r6, r1
+	bl	func_080A1A4C
+	ldr	r3, .L117+0x8
+	add	r0, r6, r3
 	bl	func_0809C0D4
-	add	sp, sp, #0x2c
+	ldr	r0, [r6, #0x4]
+	mov	r1, #0x7f
+	and	r0, r0, r1
+	str	r0, [r6, #0x4]
+	ldr	r0, [r6, #0x8]
+	sub	r1, r1, #0x81
+	and	r0, r0, r1
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	str	r0, [r6, #0x8]
+	add	sp, sp, #0x20
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -496,11 +589,11 @@ func_08010F54:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L88:
+.L118:
 	.align	2, 0
-.L87:
-	.word	0x1aa8
-	.word	0x34c8
-	.word	0x34dc
+.L117:
+	.word	0x2ea60
+	.word	0x5c5e0
+	.word	0x5c810
 .Lfe1:
 	.size	 func_08010F54,.Lfe1-func_08010F54

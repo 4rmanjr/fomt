@@ -1,7 +1,11 @@
 #include "common.h"
-void func_08009940(void *arg0, ? **arg1) {
-    ? **temp_r0;
-    ? **temp_r2;
+typedef struct GenObj {
+    u8 _pad0[16];
+    s32 unk10;
+} GenObj;
+void func_08009940(GenObj *arg0, s32 **arg1) {
+    s32 **temp_r0;
+    s32 **temp_r2;
 
     temp_r2 = arg1->unk0;
     if (temp_r2 != 0) {

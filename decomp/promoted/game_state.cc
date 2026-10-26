@@ -70,3 +70,12 @@ s32 func_08008DE8();                                  /* extern */
 void func_080124C4(void) {
     func_08008DE8();
 }
+
+// DECOMP-MATCHED func_08011520 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s32 func_08011520(GenObj *arg0) {
+    return arg0->unk4;
+}

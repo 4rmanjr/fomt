@@ -8,14 +8,23 @@
 	.thumb_func
 func_080114C8:
 	push	{lr}
+	add	r3, r0, #0
 	cmp	r1, #0x63
 	bls	.L3	@cond_branch
 	mov	r1, #0x63
 .L3:
-	lsl	r0, r0, #0x19
+	ldrb	r2, [r3, #0x4]
+	lsl	r0, r2, #0x19
 	lsr	r0, r0, #0x1a
 	cmp	r0, r1
 	bcs	.L4	@cond_branch
+	mov	r0, #0x81
+	and	r2, r2, r0
+	mov	r0, #0x3f
+	and	r0, r0, r1
+	lsl	r0, r0, #0x1
+	orr	r2, r2, r0
+	str	r2, [r3, #0x4]
 	mov	r0, #0x1
 	b	.L5
 .L4:

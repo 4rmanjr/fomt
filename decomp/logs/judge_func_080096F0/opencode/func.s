@@ -7,12 +7,21 @@
 	.type	 func_080096F0,function
 	.thumb_func
 func_080096F0:
-	push	{lr}
+	push	{r4, lr}
+	add	r4, r0, #0
 	mov	r1, #0x80
 	lsl	r1, r1, #0x13
 	mov	r2, #0x54
 	bl	func_08008E64
+	ldr	r1, .L3
+	ldr	r0, [r4, #0x54]
+	strh	r0, [r1]
+	pop	{r4}
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	0x4000054
 .Lfe1:
 	.size	 func_080096F0,.Lfe1-func_080096F0

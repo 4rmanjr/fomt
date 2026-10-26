@@ -39,10 +39,18 @@ func_080087C8:
 	add	r4, r4, r0
 	add	r0, r4, #0
 	bl	func_08008AE0
+	ldr	r1, [r0, #0x8]
+	ldr	r2, [r1, #0x10]
+	mov	r1, sp
+	bl	_call_via_r2
 	add	r0, r4, #0
 	bl	func_08008AF0
 	add	r0, r4, #0
 	bl	func_08008AE0
+	ldr	r1, [r0, #0x8]
+	ldr	r2, [r1, #0x14]
+	mov	r1, sp
+	bl	_call_via_r2
 	mov	r0, sp
 	mov	r1, #0x2
 	bl	func_080098DC

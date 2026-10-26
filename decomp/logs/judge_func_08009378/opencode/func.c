@@ -1,7 +1,14 @@
 #include "common.h"
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unkE;
+} GenObj;
 void func_08009378(void **arg0, s16 arg1, s32 arg2, s32 arg3) {
     s16 var_r2;
-    void *temp_r3;
+    GenObj *temp_r3;
 
     temp_r3 = *arg0;
     var_r2 = arg1;

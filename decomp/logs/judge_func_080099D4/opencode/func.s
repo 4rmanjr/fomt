@@ -7,10 +7,16 @@
 	.type	 func_080099D4,function
 	.thumb_func
 func_080099D4:
-	ldr	r1, [r2]
-	ldr	r0, [r3]
+	ldr	r3, [r0, #0xc]
+	ldr	r2, [r1, #0xc]
+	str	r2, [r0, #0xc]
+	str	r3, [r1, #0xc]
+	ldr	r2, [r0, #0x10]
+	ldr	r1, [r1, #0x10]
+	ldr	r3, [r2]
+	ldr	r0, [r1]
 	str	r0, [r2]
-	str	r1, [r3]
+	str	r3, [r1]
 	bx	lr
 .Lfe1:
 	.size	 func_080099D4,.Lfe1-func_080099D4
