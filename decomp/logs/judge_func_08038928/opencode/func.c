@@ -2,7 +2,22 @@
 s32 __builtin_delete(s32 *);                          /* extern */
 s32 func_0805E8F0(void *);                          /* extern */
 
-void func_08038928(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk3;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    s32 unk17;
+    u8 _pad1B[9];
+    struct GenObj *unk24;
+    u8 _pad28[36];
+    struct GenObj *unk4C;
+    struct GenObj *unk50;
+} GenObj;
+void func_08038928(GenObj *arg0) {
     s32 sp0;
     s32 *temp_r0_3;
     s32 *temp_r6;
@@ -18,7 +33,7 @@ void func_08038928(void *arg0) {
     u8 *var_r5_2;
     u8 *var_r6;
     u8 temp_r1_3;
-    void *temp_r1_2;
+    GenObj *temp_r1_2;
     void *temp_r5;
     void *var_r4;
     void *var_r4_2;
@@ -102,7 +117,7 @@ void func_08038928(void *arg0) {
                 var_r4_3 = temp_r6 + 4;
                 if (var_r4_3 != temp_r5) {
                     do {
-                        var_r4_3->unk24->unk8(var_r4_3, 2);
+                        ((void (*)(void *,...))(var_r4_3->unk24->unk8))(var_r4_3, 2);
                         var_r4_3 += 0x40;
                     } while (var_r4_3 != temp_r5);
                 }

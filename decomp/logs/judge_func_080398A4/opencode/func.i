@@ -57,29 +57,54 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080398A4/opencode/func.c" 2
 s32 SetAnim__12AActorEntityUi(void *);
 s32 __5ActorRC5Actor(s32 *, void *);
 s32 __builtin_delete();
-? **__builtin_new(s32);
-s32 func_08020038(void *, s32, ? *, s32);
+s32 **__builtin_new(s32);
+s32 func_08020038(void *, s32, s32 *, s32);
 s32 func_08020080(void *, s32);
 s32 func_08039D4C(void *, s32);
 s32 func_08039D5C(void *, s32);
-extern ? vtable_unk_080E748C;
-extern ? vtable_unk_080E749C;
-extern ? vtable_unk_080E74AC;
-extern ? vtable_unk_080E74BC;
-extern ? vtable_unk_080E74CC;
-extern ? vtable_unk_080E74DC;
+extern s32 vtable_unk_080E748C;
+extern s32 vtable_unk_080E749C;
+extern s32 vtable_unk_080E74AC;
+extern s32 vtable_unk_080E74BC;
+extern s32 vtable_unk_080E74CC;
+extern s32 vtable_unk_080E74DC;
 
-void *func_080398A4(void *arg0, s32 arg1, void *arg2) {
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+    u8 _pad10[4];
+    void *unk14;
+    u8 _pad18[8];
+    s32 unk20;
+    s32 unk22;
+    u8 _pad26[14];
+    void *unk34;
+    s32 unk38;
+    s32 unk3C;
+    s32 unk40;
+    s32 unk44;
+    s32 unk48;
+    s32 unk4C;
+    s32 unk50;
+} GenObj;
+void *func_080398A4(GenObj *arg0, s32 arg1, void *arg2) {
 s32 sp0;
-    ? **temp_r0;
-    ? **temp_r0_2;
-    ? **temp_r0_3;
-    ? **temp_r0_4;
-    ? **temp_r0_5;
+    s32 **temp_r0;
+    s32 **temp_r0_2;
+    s32 **temp_r0_3;
+    s32 **temp_r0_4;
+    s32 **temp_r0_5;
     s32 *var_r1;
     s32 temp_r0_7;
     s32 var_r0;

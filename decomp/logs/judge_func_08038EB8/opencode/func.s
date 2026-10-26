@@ -7,7 +7,9 @@
 	.type	 func_08038EB8,function
 	.thumb_func
 func_08038EB8:
-	push	{r4, lr}
+	push	{r4, r5, lr}
+	add	r5, r0, #0
+	ldr	r4, [r5, #0xc]
 	cmp	r4, #0
 	beq	.L3	@cond_branch
 	add	r0, r4, #0
@@ -16,7 +18,9 @@ func_08038EB8:
 	add	r0, r4, #0
 	bl	__builtin_delete
 .L3:
-	pop	{r4}
+	mov	r0, #0x0
+	str	r0, [r5, #0xc]
+	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
 .Lfe1:

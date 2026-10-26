@@ -8,9 +8,10 @@
 	.thumb_func
 func_08038928:
 	push	{r4, r5, r6, r7, lr}
-	mov	r7, r9
-	mov	r6, r8
-	push	{r6, r7}
+	mov	r7, r8
+	push	{r7}
+	mov	r8, r0
+	ldr	r5, [r0, #0x18]
 	cmp	r5, #0
 	beq	.L3	@cond_branch
 	mov	r6, #0x0
@@ -28,15 +29,35 @@ func_08038928:
 	cmp	r6, r0
 	bcc	.L5	@cond_branch
 .L3:
-	mov	r0, r9
+	mov	r0, r8
+	ldr	r1, [r0, #0x10]
+	cmp	r1, #0
+	beq	.L14	@cond_branch
+	ldr	r0, [r1, #0x58]
+	cmp	r0, #0
+	beq	.L14	@cond_branch
+	ldr	r0, [r1, #0x54]
+	ldr	r2, .L37
+	add	r0, r0, r2
+	str	r0, [r1, #0x54]
+	mov	r2, #0xa8
+	lsl	r2, r2, #0x10
+	cmp	r0, r2
+	bgt	.L14	@cond_branch
+	str	r2, [r1, #0x54]
+	mov	r0, #0x0
+	str	r0, [r1, #0x58]
+.L14:
+	mov	r1, r8
+	ldr	r0, [r1, #0x14]
 	cmp	r0, #0
 	beq	.L16	@cond_branch
 	mov	r7, #0x0
 	mov	r6, #0x0
-	mov	r4, #0xa2
-	lsl	r4, r4, #0x3
-	add	r4, r4, r9
-	mov	r5, r9
+	mov	r2, #0xa2
+	lsl	r2, r2, #0x3
+	add	r4, r0, r2
+	add	r5, r0, #0
 	add	r5, r5, #0xb0
 .L17:
 	ldrb	r0, [r4]
@@ -50,6 +71,10 @@ func_08038928:
 	mov	r0, #0x1
 	strb	r0, [r4]
 	b	.L25
+.L38:
+	.align	2, 0
+.L37:
+	.word	-0x2e0000
 .L20:
 	add	r7, r7, #0x1
 .L25:
@@ -65,14 +90,15 @@ func_08038928:
 .L28:
 	cmp	r0, #0
 	beq	.L16	@cond_branch
-	mov	r1, r8
-	cmp	r1, #0
-	beq	.L16	@cond_branch
-	ldr	r0, [r1]
+	mov	r0, r8
+	ldr	r2, [r0, #0x14]
+	cmp	r2, #0
+	beq	.L30	@cond_branch
+	ldr	r0, [r2]
 	lsl	r0, r0, #0x8
 	add	r0, r0, #0x10
-	add	r1, r1, r0
-	mov	r0, r8
+	add	r1, r2, r0
+	add	r0, r2, #0
 	add	r0, r0, #0x10
 	cmp	r0, r1
 	beq	.L31	@cond_branch
@@ -81,12 +107,15 @@ func_08038928:
 	cmp	r0, r1
 	bne	.L32	@cond_branch
 .L31:
-	mov	r0, r8
+	add	r0, r2, #0
 	bl	__builtin_delete
+.L30:
+	mov	r0, #0x0
+	mov	r1, r8
+	str	r0, [r1, #0x14]
 .L16:
-	pop	{r3, r4}
+	pop	{r3}
 	mov	r8, r3
-	mov	r9, r4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0

@@ -5,7 +5,13 @@ s32 func_0809C068(void *, s32);                       /* extern */
 s32 func_0809C0C8(void *, s32 *);                     /* extern */
 s32 func_080AB788(s32);                             /* extern */
 
-void func_08039E18(void *arg0) {
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+    u8 _pad10[36];
+    void *unk34;
+} GenObj;
+void func_08039E18(GenObj *arg0) {
     s32 sp0;
 
     if (arg0->unk34->unkC != 1) {

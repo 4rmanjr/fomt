@@ -75,7 +75,7 @@ typedef struct GenObj {
 } GenObj;
 void func_08003DF0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     u8 *t;
-    u8 b;
+    u32 uvar;
     s32 temp;
     s32 var;
     GenObj *p;
@@ -83,9 +83,14 @@ void func_08003DF0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
 
     spbuf[0] = arg2;
     spbuf[1] = arg3;
-    b = *(u8 *)spbuf + 8 + (((arg1 * 2) + 1) * 8);
+    var = *(u8 *)spbuf;
+    var += 8;
+    var += (((arg1 * 2) + 1) * 8);
+    uvar = var;
+    uvar <<= 0x18;
+    uvar >>= 0x18;
     temp = spbuf[0] & 0xFFFFFF00;
-    temp |= b;
+    temp |= uvar;
     spbuf[0] = temp;
     var = ((u32) (temp << 7) >> 0x17) + 0x80;
     t = (u8 *)arg0 + 0x84;

@@ -8,33 +8,54 @@
 	.thumb_func
 func_08039204:
 	push	{r4, r5, r6, r7, lr}
-	add	sp, sp, #-0x4
-	add	r4, r0, #0
-	add	r7, r6, #0
-	add	r7, r7, #0x10
+	mov	r7, sl
+	mov	r6, r9
+	mov	r5, r8
+	push	{r5, r6, r7}
+	add	sp, sp, #-0xc
+	add	r5, r0, #0
+	mov	r9, r1
+	ldr	r4, [r5, #0x3c]
+	mov	r0, #0x10
+	add	r0, r0, r4
+	mov	sl, r0
+	ldrh	r3, [r4, #0x18]
 	cmp	r3, #0
 	beq	.L3	@cond_branch
 	sub	r0, r3, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r3, r0, #0x10
 .L3:
-	lsl	r0, r1, #0x10
-	asr	r0, r0, #0x10
-	lsl	r2, r2, #0x10
-	asr	r1, r2, #0x10
-	sub	r0, r0, r1
-	lsl	r5, r5, #0x10
+	ldrh	r1, [r5, #0x10]
+	ldrh	r2, [r5, #0x14]
+	mov	ip, r2
+	mov	r0, #0x14
+	ldrsh	r6, [r5, r0]
+	mov	r0, #0xb0
+	lsl	r0, r0, #0x1
+	mov	r2, #0xaa
+	lsl	r2, r2, #0x1
+	cmp	r6, r0
+	ble	.L4	@cond_branch
+	sub	r2, r2, #0x4c
+.L4:
+	ldr	r0, [r5, #0x8]
+	cmp	r0, #0x2
+	bne	.L12	@cond_branch
+	lsl	r1, r1, #0x10
+	asr	r0, r1, #0x10
+	sub	r0, r2, r0
+	lsl	r7, r2, #0x10
 	cmp	r0, #0
 	bge	.L7	@cond_branch
 	neg	r0, r0
 .L7:
 	cmp	r0, #0xf
 	bgt	.L11	@cond_branch
-	mov	r1, ip
-	lsl	r0, r1, #0x10
+	mov	r2, r8
+	lsl	r0, r2, #0x10
 	asr	r0, r0, #0x10
-	asr	r1, r5, #0x10
-	sub	r0, r0, r1
+	sub	r0, r0, r6
 	cmp	r0, #0
 	bge	.L9	@cond_branch
 	neg	r0, r0
@@ -44,17 +65,46 @@ func_08039204:
 .L11:
 	cmp	r3, #0
 	bne	.L13	@cond_branch
-	asr	r0, r2, #0x10
-	asr	r1, r5, #0x10
+	asr	r6, r1, #0x10
+	mov	r1, ip
+	lsl	r0, r1, #0x10
+	asr	r4, r0, #0x10
+	add	r0, r6, #0
+	add	r1, r4, #0
 	bl	func_080391C0
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L14	@cond_branch
-	add	r0, r4, #0
+	mov	r1, #0x0
+	mov	r2, r8
+	lsl	r0, r2, #0x10
+	asr	r0, r0, #0x10
+	cmp	r4, r0
+	blt	.L15	@cond_branch
+	mov	r1, #0x1
+.L15:
+	ldr	r0, [r5, #0x28]
+	cmp	r0, r1
+	beq	.L17	@cond_branch
+	add	r0, r5, #0
 	bl	SetAnimFacing__12AActorEntityUi
 	b	.L17
 .L14:
-	add	r0, r4, #0
+	asr	r2, r7, #0x10
+	mov	r0, r8
+	lsl	r3, r0, #0x10
+	asr	r3, r3, #0x10
+	mov	r1, r9
+	str	r1, [sp]
+	ldr	r0, [r5, #0x28]
+	str	r0, [sp, #0x4]
+	add	r0, r6, #0
+	add	r1, r4, #0
+	bl	func_080ABC40
+	ldr	r1, [r5, #0x28]
+	cmp	r1, r0
+	beq	.L17	@cond_branch
+	add	r0, r5, #0
 	bl	SetAnimFacing__12AActorEntityUi
 .L17:
 	mov	r0, #0x1e
@@ -63,18 +113,23 @@ func_08039204:
 	lsl	r0, r0, #0x10
 	lsr	r3, r0, #0x10
 .L13:
-	strh	r3, [r7]
+	mov	r2, sl
+	strh	r3, [r2]
 	b	.L2
 .L12:
 	mov	r1, #0x8d
 	lsl	r1, r1, #0x2
-	add	r0, r4, #0
+	add	r0, r5, #0
 	bl	SetMap__7AEntityUi
-	add	r0, r6, #0
-	mov	r1, sp
+	add	r0, r4, #0
+	add	r1, sp, #0x8
 	bl	func_0809C098
 .L2:
-	add	sp, sp, #0x4
+	add	sp, sp, #0xc
+	pop	{r3, r4, r5}
+	mov	r8, r3
+	mov	r9, r4
+	mov	sl, r5
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0

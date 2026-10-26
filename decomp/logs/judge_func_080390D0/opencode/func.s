@@ -7,6 +7,7 @@
 	.type	 func_080390D0,function
 	.thumb_func
 func_080390D0:
+	ldr	r1, [r0, #0x10]
 	neg	r0, r1
 	orr	r0, r0, r1
 	lsr	r0, r0, #0x1f

@@ -57,15 +57,35 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08039204/opencode/func.c" 2
 s32 SetAnimFacing__12AActorEntityUi(void *);
 s32 SetMap__7AEntityUi(void *, s32);
 s32 func_080391C0(s16, s16);
-s32 func_0809C098(void *, ? *);
+s32 func_0809C098(void *, s32 *);
 s32 func_080AB788(s32);
 s32 func_080ABC40(s16, s16, s16, s16, s32, s32);
 
-void func_08039204(void *arg1, s32 arg2) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk2;
+    s32 unk4;
+    u8 _pad8[2];
+    s32 unkA;
+    s32 unkE;
+    struct GenObj *unk10;
+    u8 _pad14[12];
+    s32 unk20;
+    u8 _pad24[16];
+    s32 unk34;
+} GenObj;
+void func_08039204(GenObj *arg1, s32 arg2) {
 s32 sp8;
 s32 spC;
     s32 sp10;
@@ -80,11 +100,11 @@ s32 spC;
     s32 var_r0_2;
     s32 var_r1_2;
     u16 var_r4;
-    void *temp_r0;
+    GenObj *temp_r0;
 
     sp10 = arg2;
     temp_r0 = arg1->unk34;
-    sp14 = temp_r0 + 0x10;
+    sp14 = (GenObj *)((u8 *)temp_r0 + 0x10);
     var_r4 = temp_r0->unk10;
     if (var_r4 != 0) {
         var_r4 -= 1;
@@ -98,9 +118,9 @@ s32 spC;
         var_r1 = 0x154;
         var_r2 = -0x10;
     }
-    sp8.unk0 = var_r1;
+    sp8 = var_r1;
     sp8.unk2 = var_r2;
-    temp_r3 = sp8.unk0;
+    temp_r3 = sp8;
     temp_r6 = sp8.unk2;
     if (arg1->unk4 == 2) {
         var_r0 = temp_r3 - temp_r0_2;

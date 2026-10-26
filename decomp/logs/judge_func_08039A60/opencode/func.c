@@ -1,6 +1,6 @@
 #include "common.h"
 s32 SetAnim__12AActorEntityUi(void *);                /* extern */
-s32 SetLocation__12AActorEntityRC13ActorLocation(void *, ? *); /* extern */
+s32 SetLocation__12AActorEntityRC13ActorLocation(void *, s32 *); /* extern */
 s32 func_08020080(void *, s32);                       /* extern */
 s32 func_080200C4(void *, s32);                       /* extern */
 s32 func_08020170(void *, s32 *);                     /* extern */
@@ -10,18 +10,44 @@ s32 func_08039D4C(void *, s32);                     /* extern */
 s32 func_08039D5C(void *, s32);                     /* extern */
 s32 func_0809C0AC(void *);                            /* extern */
 u32 func_080AB788(s32);                             /* extern */
-s32 func_080ABA90(s32 *, ? *, s32);                   /* extern */
-s32 memcpy(s32 *, ? *, s32);                            /* extern */
+s32 func_080ABA90(s32 *, s32 *, s32);                   /* extern */
+s32 memcpy(s32 *, s32 *, s32);                            /* extern */
 
-void func_08039A60(void *arg0, void *arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk1;
+    s32 unk2;
+    s32 unk3;
+    struct GenObj *unk4;
+    s32 unk6;
+    s32 unk8;
+    s32 unkA;
+    struct GenObj *unkC;
+    s32 unkE;
+    s32 unk10;
+    struct GenObj *unk14;
+    u8 _pad18[8];
+    s32 unk20;
+    s32 unk22;
+    s32 unk24;
+    s32 unk26;
+    s32 unk28;
+    s32 unk2C;
+    s32 unk30;
+    void *unk34;
+    u8 _pad38[20];
+    s32 unk4C;
+    s32 unk50;
+} GenObj;
+void func_08039A60(GenObj *arg0, GenObj *arg1) {
 s32 sp0;
 s32 sp8;
-    s32 sp10;
+    GenObj *sp10;
 s32 sp24;
     s32 sp30;
     s32 sp34;
-    s32 sp44;
-    s32 sp48;
+    GenObj *sp44;
+    GenObj *sp48;
     s32 sp4C;
     s32 sp54;
 s32 sp5C;
@@ -46,7 +72,7 @@ s32 sp64;
     void *temp_r0_2;
     void *temp_r0_5;
     void *temp_r0_7;
-    void *temp_r2;
+    GenObj *temp_r2;
 
     temp_r0 = arg0->unk0;
     if (arg1->unk4 == 0) {
@@ -75,7 +101,7 @@ s32 sp64;
             if ((temp_r0_3 != 0x64) && (func_080AB788(0x64) <= 0xEU)) {
                 temp_r6 = sp48.unk0;
                 temp_r1 = sp48.unk2;
-                sp0.unk0 = (u16) ((0xFFFFFC00 & sp0.unk0) | 2);
+                sp0 = (u16) ((0xFFFFFC00 & sp0) | 2);
                 sp0.unk1 = (u8) ((3 & sp0.unk1) | (((u16) temp_r6 & 0x3F) * 4));
                 sp0.unk2 = (u16) ((0xFFFFFC00 & sp0.unk2) | ((u32) (temp_r6 << 0x10) >> 0x16));
                 sp0.unk3 = (u8) ((3 & sp0.unk3) | (((u16) temp_r1 & 0x3F) * 4));
@@ -95,12 +121,12 @@ s32 sp64;
 
     } else {
         (*temp_r0)->unk34(&sp0, temp_r0, temp_r5);
-        arg0->unk14->unkC(&sp54, arg0);
+        ((void (*)(void *,...))(arg0->unk14->unkC))(&sp54, arg0);
         sp10 = 0x21;
         sp10.unk4 = -0x21;
         sp10.unk8 = -0x21;
         sp10.unkC = 0x21;
-        sp24.unk0 = (s32) sp0.unk0;
+        sp24 = (s32) sp0;
         sp24.unk4 = (s32) sp0.unk4;
         sp24.unk8 = (s32) sp0.unk8;
         sp30 = sp54;
@@ -111,13 +137,13 @@ s32 sp64;
         temp_r0_4 = arg0->unk0;
         temp_r0_5 = (*temp_r0_4)->unk40(temp_r0_4, 0);
         if ((temp_r0_5 != 0) && (temp_r0_5->unk4 == temp_r5)) {
-            temp_r0_5->unk14->unkC(&sp5C, temp_r0_5);
+            ((void (*)(void *,...))(temp_r0_5->unk14->unkC))(&sp5C, temp_r0_5);
             func_080ABA90(&sp10, &sp5C, 0);
         }
         temp_r0_6 = arg0->unk0;
         temp_r0_7 = (*temp_r0_6)->unk40(temp_r0_6, 0x4A);
         if ((temp_r0_7 != 0) && (temp_r0_7->unk4 == temp_r5)) {
-            temp_r0_7->unk14->unkC(&sp64, temp_r0_7);
+            ((void (*)(void *,...))(temp_r0_7->unk14->unkC))(&sp64, temp_r0_7);
             func_080ABA90(&sp10, &sp64, 0);
         }
         temp_r0_8 = ((arg0->unk34->unkC * 4) + arg0)->unk38;
@@ -149,7 +175,7 @@ s32 sp64;
     arg0->unk24 = var_r0;
     temp_r2 = arg0->unk10;
     if (temp_r2 != 0) {
-        temp_r2->unk4->unkC(temp_r2);
+        ((void (*)(void *,...))(temp_r2->unk4->unkC))(temp_r2);
     }
 }
 

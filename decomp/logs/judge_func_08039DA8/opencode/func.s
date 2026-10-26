@@ -27,10 +27,10 @@ func_08039DA8:
 	ldr	r0, .L4+0x8
 	and	r1, r1, r0
 	str	r1, [sp]
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x34]
 	mov	r1, sp
 	bl	func_0809C0C8
-	mov	r0, #0x0
+	ldr	r0, [r4, #0x34]
 	mov	r1, #0xf
 	bl	func_0809C068
 	add	r0, r4, #0

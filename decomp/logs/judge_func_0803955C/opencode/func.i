@@ -57,6 +57,13 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0803955C/opencode/func.c" 2
 s32 func_080200C4(void *, s32);
 u8 func_08039134(void **, u16, s16, s16);
@@ -67,7 +74,22 @@ s32 func_0809C0AC(void *, s32 *);
 s32 func_0809C0BC(void *, s32 *);
 u32 func_080AB788(s32);
 
-void func_0803955C(void *arg1) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    u8 _pad8[2];
+    s32 unkA;
+    s32 unkE;
+    struct GenObj *unk10;
+    struct GenObj *unk14;
+    u8 _pad18[28];
+    s32 unk34;
+    u8 _pad38[40];
+    s32 unk60;
+    u8 _pad64[28];
+    s32 unk80;
+} GenObj;
+void func_0803955C(GenObj *arg1) {
     s32 sp0;
     s32 sp4;
     s32 sp8;
@@ -82,13 +104,13 @@ void func_0803955C(void *arg1) {
     u8 var_r1;
     u8 var_r6;
     void **temp_r4_2;
-    void *temp_r0;
+    GenObj *temp_r0;
     void *temp_r0_3;
     void *temp_r4_3;
     void *temp_r6;
 
     temp_r0 = arg1->unk34;
-    temp_r6 = temp_r0 + 0x10;
+    temp_r6 = (GenObj *)((u8 *)temp_r0 + 0x10);
     temp_r4 = temp_r0->unk10;
     if (temp_r4 != 0) {
         var_r4 = temp_r4 - 1;
@@ -113,7 +135,7 @@ block_26:
         var_r1 = temp_r6->unk3;
     }
     temp_r0_3 = (*temp_r4_2)->unk40(temp_r4_2, var_r1);
-    if ((temp_r0_3 != 0) && (temp_r0_3->unk4 == temp_r7) && ((temp_r0_3->unk14->unk60(temp_r0_3) << 0x18) != 0)) {
+    if ((temp_r0_3 != 0) && (temp_r0_3->unk4 == temp_r7) && ((((void (*)(void *,...))(temp_r0_3->unk14->unk60))(temp_r0_3) << 0x18) != 0)) {
         var_r0 = temp_r0_3->unkA - temp_r2;
         if (var_r0 < 0) {
             var_r0 = 0 - var_r0;
@@ -124,7 +146,7 @@ block_26:
                 var_r3 = 0 - var_r3;
             }
             if (var_r3 <= 0xF) {
-                temp_r0_3->unk14->unk80(temp_r0_3);
+                ((void (*)(void *,...))(temp_r0_3->unk14->unk80))(temp_r0_3);
             }
         }
     }

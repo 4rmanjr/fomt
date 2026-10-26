@@ -8,23 +8,47 @@
 	.thumb_func
 func_08038820:
 	push	{r4, r5, r6, r7, lr}
+	mov	r7, r8
+	push	{r7}
 	add	r7, r0, #0
-	cmp	r1, #0x1
-	bne	.L4	@cond_branch
+	str	r1, [r7]
+	ldr	r0, .L13
+	str	r0, [r7, #0x4]
+	cmp	r5, #0x1
+	bne	.L3	@cond_branch
 	mov	r0, #0x4c
 	bl	__builtin_new
-	add	r1, r4, #0
+	add	r4, r0, #0
+	add	r1, r6, #0
 	mov	r2, #0x6
 	mov	r3, #0x1b
 	bl	func_080A4740
+	ldr	r0, .L13+0x4
+	str	r0, [r4, #0x24]
+	str	r5, [r4, #0x48]
+	b	.L4
+.L14:
+	.align	2, 0
+.L13:
+	.word	vtable_unk_080E736C
+	.word	vtable_unk_080E602C
+.L3:
+	mov	r4, #0x0
 .L4:
+	str	r4, [r7, #0x8]
+	mov	r0, #0x0
+	str	r0, [r7, #0xc]
+	str	r0, [r7, #0x10]
+	str	r0, [r7, #0x14]
 	mov	r0, #0xca
 	lsl	r0, r0, #0x1
 	bl	__builtin_new
 	mov	r1, #0x0
 	mov	r2, #0x1
 	bl	func_080DCB7C
-	cmp	r0, r6
+	mov	r8, r0
+	ldr	r6, [r7, #0x14]
+	cmp	r8, r6
 	beq	.L6	@cond_branch
 	cmp	r6, #0
 	beq	.L6	@cond_branch
@@ -49,7 +73,11 @@ func_08038820:
 	add	r0, r6, #0
 	bl	__builtin_delete
 .L6:
+	mov	r0, r8
+	str	r0, [r7, #0x14]
 	add	r0, r7, #0
+	pop	{r3}
+	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
