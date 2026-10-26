@@ -131,3 +131,10 @@ s32 m4aSoundVSyncOn();                                /* extern */
 void func_08008D84(void) {
     m4aSoundVSyncOn();
 }
+
+// DECOMP-MATCHED func_08008D90 (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aSoundVSyncOff();                               /* extern */
+
+void func_08008D90(void) {
+    m4aSoundVSyncOff();
+}
