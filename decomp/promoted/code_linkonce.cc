@@ -452,3 +452,10 @@ s32 func_080D035C();                                  /* extern */
 void func_080E392C(void) {
     func_080D035C();
 }
+
+// DECOMP-MATCHED func_080E3A44 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080D06A8();                                  /* extern */
+
+void func_080E3A44(void) {
+    func_080D06A8();
+}
