@@ -7,19 +7,20 @@
 	.type	 func_0804E3D8,function
 	.thumb_func
 func_0804E3D8:
-	push	{r4, r5, lr}
-	add	r4, r2, #0
-	mov	r5, #0x0
+	push	{r4, r5, r6, lr}
+	add	r3, r0, #0
+	add	r5, r2, #0
+	mov	r6, #0x0
 	cmp	r1, #0x4
 	bhi	.L3	@cond_branch
 	lsl	r0, r1, #0x2
-	ldr	r1, .L15
+	ldr	r1, .L14
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L16:
-	.align	2, 0
 .L15:
+	.align	2, 0
+.L14:
 	.word	.L12
 	.align	2, 0
 	.align	2, 0
@@ -28,43 +29,88 @@ func_0804E3D8:
 	.word	.L5
 	.word	.L7
 	.word	.L9
-	.word	.L3
+	.word	.L11
 .L4:
-	mov	r0, #0x0
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r3, r1
+	ldr	r0, [r0]
+	add	r0, r0, #0x14
 	bl	GetHorse__4Farm
-	b	.L14
+	add	r6, r0, #0
+	b	.L3
 .L5:
-	mov	r0, #0x0
+	mov	r0, #0xd4
+	lsl	r0, r0, #0x2
+	add	r4, r3, r0
+	ldr	r0, [r4]
+	mov	r1, #0xbe
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
 	bl	GetCapacity__C4Barn
-	cmp	r4, r0
+	cmp	r5, r0
 	bge	.L3	@cond_branch
-	mov	r0, #0x0
-	add	r1, r4, #0
+	ldr	r0, [r4]
+	mov	r1, #0xbe
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
+	add	r1, r5, #0
 	bl	GetCow__4BarnUi
-	b	.L14
+	add	r6, r0, #0
+	b	.L3
 .L7:
-	mov	r0, #0x0
+	mov	r0, #0xd4
+	lsl	r0, r0, #0x2
+	add	r4, r3, r0
+	ldr	r0, [r4]
+	mov	r1, #0xbe
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
 	bl	GetCapacity__C4Barn
-	cmp	r4, r0
+	cmp	r5, r0
 	bge	.L3	@cond_branch
-	mov	r0, #0x0
-	add	r1, r4, #0
+	ldr	r0, [r4]
+	mov	r1, #0xbe
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
+	add	r1, r5, #0
 	bl	GetSheep__4BarnUi
-	b	.L14
+	add	r6, r0, #0
+	b	.L3
 .L9:
-	mov	r0, #0x0
+	mov	r0, #0xd4
+	lsl	r0, r0, #0x2
+	add	r4, r3, r0
+	ldr	r0, [r4]
+	mov	r1, #0x82
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
 	bl	GetCapacity__C4Coop
-	cmp	r4, r0
+	cmp	r5, r0
 	bge	.L3	@cond_branch
-	mov	r0, #0x0
-	add	r1, r4, #0
+	ldr	r0, [r4]
+	mov	r1, #0x82
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
+	add	r1, r5, #0
 	bl	GetChicken__4CoopUi
-.L14:
-	add	r5, r0, #0
+	add	r6, r0, #0
+	b	.L3
+.L11:
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r3, r1
+	ldr	r0, [r0]
+	ldr	r1, .L16
+	add	r6, r0, r1
 .L3:
-	add	r0, r5, #0
-	pop	{r4, r5}
+	add	r0, r6, #0
+	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
+.L17:
+	.align	2, 0
+.L16:
+	.word	0x1c70
 .Lfe1:
 	.size	 func_0804E3D8,.Lfe1-func_0804E3D8

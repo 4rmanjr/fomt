@@ -57,6 +57,13 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;typedef struct { u8 pad[0x25]; u8 v; } S_AD8;typedef struct { u8 pad[0x26]; u8 v; } S_AE0;typedef struct { u8 pad[0x14]; u8 v; } S_CD8;typedef struct { u8 pad[3]; u8 v; } S_39C;typedef struct { u8 pad[0x58]; u8 v; } S_601C;typedef struct { u8 pad[0x14]; u8 v; } S_B68;typedef struct { u8 pad[0x26]; u8 v; } S_AEC;typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0804E354/opencode/func.c" 2
 s32 GetFirstSlotWithTool__C8RucksackUi(s32, s32);
 s32 GetFirstSlotWith__C9ToolChestUi(s32, s32);
@@ -64,7 +71,11 @@ s32 GetId__C4Tool(s8 *);
 s8 GetTool__C9ToolStack(s32);
 s32 IsEmpty__C9ToolStack(s32);
 
-s32 func_0804E354(void *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[848];
+    s32 unk350;
+} GenObj;
+s32 func_0804E354(GenObj *arg0, s32 arg1) {
     s8 sp0;
     s32 temp_r0;
     s32 temp_r4;

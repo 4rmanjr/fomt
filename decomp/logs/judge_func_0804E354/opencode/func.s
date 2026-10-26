@@ -7,9 +7,16 @@
 	.type	 func_0804E354,function
 	.thumb_func
 func_0804E354:
-	push	{r4, r5, lr}
+	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x4
-	add	r5, r1, #0
+	add	r5, r0, #0
+	add	r6, r1, #0
+	mov	r1, #0xd4
+	lsl	r1, r1, #0x2
+	add	r0, r5, r1
+	ldr	r0, [r0]
+	ldr	r1, .L10
+	add	r4, r0, r1
 	add	r0, r4, #0
 	bl	IsEmpty__C9ToolStack
 	lsl	r0, r0, #0x18
@@ -22,33 +29,46 @@ func_0804E354:
 	mov	r4, #0x0
 	mov	r0, sp
 	bl	GetId__C4Tool
-	cmp	r0, r5
+	cmp	r0, r6
 	bne	.L4	@cond_branch
 	mov	r4, #0x1
 .L4:
 	cmp	r4, #0
 	bne	.L7	@cond_branch
 .L6:
-	mov	r0, #0x0
-	add	r1, r5, #0
+	mov	r0, #0xd4
+	lsl	r0, r0, #0x2
+	add	r5, r5, r0
+	ldr	r0, [r5]
+	ldr	r1, .L10+0x4
+	add	r0, r0, r1
+	add	r1, r6, #0
 	bl	GetFirstSlotWithTool__C8RucksackUi
 	add	r4, r0, #0
 	mov	r0, #0x1
 	neg	r0, r0
 	cmp	r4, r0
 	bne	.L7	@cond_branch
-	mov	r0, #0x0
-	add	r1, r5, #0
+	ldr	r0, [r5]
+	mov	r1, #0xe0
+	lsl	r1, r1, #0x2
+	add	r0, r0, r1
+	add	r1, r6, #0
 	bl	GetFirstSlotWith__C9ToolChestUi
 	cmp	r0, r4
 	bne	.L7	@cond_branch
 	mov	r0, #0x0
 	b	.L9
+.L11:
+	.align	2, 0
+.L10:
+	.word	0x1c34
+	.word	0x1c38
 .L7:
 	mov	r0, #0x1
 .L9:
 	add	sp, sp, #0x4
-	pop	{r4, r5}
+	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
 .Lfe1:
