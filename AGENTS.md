@@ -61,6 +61,50 @@ antrean kosong. Catatan loop:
 - Klaim basi diambil alih setelah `FOMT_CLAIM_TTL` detik (default 1800).
   `FOMT_CLAIM_TTL=0` hanya bila tidak ada agent lain yang jalan.
 
+## Kalau DIFF (perbaikan manual draf)
+
+DIFF jarang kesalahan logika — mayoritas draf m2c mentah yang tidak
+dikompilasi agbcc apa adanya. Buka `decomp/drafts/<nama>.c` + log di
+`decomp/logs/judge_<nama>/<agent>/`, kenali polanya, perbaiki, jalankan
+`fomt` lagi (draf yang mtime-nya lebih baru dari `judged_mtime` otomatis
+ikut antre judge ulang):
+
+1. **`request for member 'unk*' in something not a structure or union`**
+   (paling sering; fungsi C++ `intro_scene.s`/`new_game.s`): argumen masih
+   `void *` tapi dipakai `arg->unkX`. Sanitizer biasanya sudah membuatkan
+   `typedef struct GenObj` — kalau draf belum memilikinya, jalankan `fomt`
+   sekali lagi (resanitasi otomatis menulis ulang draf mentah). Kalau masih
+   gagal: ganti nama `GenObj` menjadi tipe bersama dari fungsi MATCH
+   (`Vtbl`/`Obj` di `decomp/promoted/code_linkonce.cc`), atau tulis struct
+   sendiri dari offset akses + lebar (`ldrb`=u8, `ldrh`=u16, `ldr`=s32/ptr).
+   Virtual-call `t->unkA->unkB(...)`: cast eksplisit
+   `((void (*)(void *,...))(t->unkA->unkB))(t, ...)`.
+2. **`extern s32 .Lxxxxxx` / `syntax error before '.'`**: label literal-pool
+   bocor ke C. Sanitizer `_label_addrs` menggantinya dengan nilai heksa dari
+   blok asm — kalau draf masih memilikinya, jalankan `fomt` lagi untuk
+   resanitasi; kalau nilai tak ketemu (label lompatan), ganti manual dengan
+   konstanta dari ekor blok asm.
+3. **`unksp0 undeclared` / `sp +` di badan**: m2c salah merekonstruksi stack
+   (umum di fungsi dekompresi `Unpack`). Tulis ulang rangka stack manual
+   dari asm, betulkan tipe parameter.
+4. **Byte-DIFF (`byte +0xN: 0xAA vs ref 0xBB`)**: sudah kompilasi, tinggal
+   codegen. Pecah kondisi `||`/`&&` satu baris jadi `if` bertingkat sesuai
+   urutan asm; samakan urutan/tipe local stack.
+5. **`M2C_ERROR` di draf**: kontrol aliran m2c gagal total — regenerasi
+   tidak membantu. Tulis ulang fungsi dari asm.
+
+Aturan berhenti: jangan mengulang fungsi yang sama tanpa perubahan draf
+(`_queueable` juga tidak akan mengantrekannya lagi). Tulis catatan spesifik
+di `note` via draf: apa yang dicoba, sisa diff, kecurigaan — agar jalan
+berikutnya mulai dari attempt terbaik, bukan dari nol.
+
+Konteks bersama: struct bernama yang terbukti dari fungsi MATCH (mis.
+`Vtbl`, `Obj`, `S_*`) otomatis di-include saat judge
+(`decomp/run.py:_shared_context`, dari `decomp/promoted/*.cc`; nama konflik
+atau `GenObj` per-fungsi dikecualikan). Draf yang memakai nama tipe yang
+sama ikut terbantu; draf yang mendefinisikan sendiri tipe bernama sama
+tetap menang (C menolak redefinisi — judge yang menentukan).
+
 ## Batasan build
 
 - Semua tool decomp di-vendor di `tools/` (lihat `tools/VENDORED.md`).

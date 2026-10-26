@@ -20,16 +20,16 @@ func_08000F5C:
 	lsl	r2, r2, #0x4
 	add	r1, r5, #0
 	bl	func_08008EB8
+	ldr	r0, .L3+0x8
 	mov	r1, #0xc0
 	lsl	r1, r1, #0x13
-	mov	r0, #0x0
 	bl	Unpack
+	ldr	r0, .L3+0xc
 	mov	r1, #0xa0
 	lsl	r1, r1, #0x13
-	mov	r0, #0x0
 	mov	r2, #0x20
 	bl	func_08008E64
-	mov	r0, #0x0
+	ldr	r0, .L3+0x10
 	add	r1, r5, #0
 	bl	Unpack
 	add	r0, r4, #0
@@ -51,5 +51,8 @@ func_08000F5C:
 .L3:
 	.word	0x6007fe0
 	.word	0x600f800
+	.word	gUnk_0874E648
+	.word	gUnk_0874EB40
+	.word	gUnk_0874EB60
 .Lfe1:
 	.size	 func_08000F5C,.Lfe1-func_08000F5C

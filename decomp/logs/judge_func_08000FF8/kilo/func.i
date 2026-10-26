@@ -57,6 +57,24 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;
+typedef struct { u8 pad[0x25]; u8 v; } S_AD8;
+typedef struct { u8 pad[0x26]; u8 v; } S_AE0;
+typedef struct { u8 pad[0x14]; u8 v; } S_CD8;
+typedef struct { u8 pad[3]; u8 v; } S_39C;
+typedef struct { u8 pad[0x58]; u8 v; } S_601C;
+typedef struct { u8 pad[0x14]; u8 v; } S_B68;
+typedef struct { u8 pad[0x26]; u8 v; } S_AEC;
+typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;
+typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;
+typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08000FF8/kilo/func.c" 2
 
 
@@ -68,14 +86,16 @@ void *func_08008940(s32);
 s32 func_08008B6C(s32, s32);
 s32 func_08009300(void *, void *);
 s32 func_0800934C(void *, s32, s32, s32);
-extern s32 .L0800112C;
-extern s32 .L08001130;
-extern s32 .L08001134;
-extern s32 .L08001138;
-extern s32 .L0800113C;
-extern s32 .L08001140;
-extern s32 .L08001144;
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    struct GenObj *unk8;
+    u8 _padC[4];
+    s32 unk10;
+    u8 _pad14[60];
+    s32 unk50;
+} GenObj;
 void func_08000FF8(s32 arg0) {
     s16 sp0;
     void *sp4;
@@ -84,10 +104,10 @@ void func_08000FF8(s32 arg0) {
     s32 sp18;
     s32 sp1C;
     s32 temp_r3;
-    void *temp_r0;
-    void *temp_r0_2;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
     void *temp_r1;
-    void *temp_r4;
+    GenObj *temp_r4;
     void *temp_r5;
 
     func_08008724();
@@ -99,23 +119,23 @@ void func_08000FF8(s32 arg0) {
     temp_r1 = func_08008918(arg0);
     temp_r4->unk0 = 0;
     temp_r4->unk4 = 0;
-    temp_r4->unk8 = (s32) .L0800112C;
-    temp_r5 = temp_r4 + 0xC;
+    temp_r4->unk8 = (s32) 0;
+    temp_r5 = (GenObj *)((u8 *)temp_r4 + 0xC);
     func_08009300(temp_r5, temp_r1);
     sp4 = temp_r4;
-    func_0800934C(temp_r5, .L08001130, 1, 0);
+    func_0800934C(temp_r5, 0x00000889, 1, 0);
     temp_r0_2 = func_08008940(arg0);
-    temp_r0_2->unk8->unk10(temp_r0_2, sp4);
+    ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, sp4);
     func_08008B6C(arg0 + 8, 0x23);
-    *(arg0 + .L08001134) = 0x400;
-    *(arg0 + .L08001138) = 0;
-    *(arg0 + .L0800113C) = 0;
-    temp_r3 = .L08001138 + 4;
-    *(arg0 + temp_r3) = 0x400;
-    *(arg0 + (.L0800113C + 0xCA)) = 3;
-    *(arg0 + .L08001140) = 0xE0;
-    *(arg0 + .L08001144) = 0;
-    *(arg0 + (temp_r3 + 2)) = 0;
+    *((u8 *)arg0 + 0x00006C64) = 0x400;
+    *((u8 *)arg0 + 0x00006C66) = 0;
+    *((u8 *)arg0 + 0x00006C68) = 0;
+    temp_r3 = 0x00006C66 + 4;
+    *((u8 *)arg0 + temp_r3) = 0x400;
+    *((u8 *)arg0 + (0x00006C68 + 0xCA)) = 3;
+    *((u8 *)arg0 + 0x00006D30) = 0xE0;
+    *((u8 *)arg0 + 0x00006C6D) = 0;
+    *((u8 *)arg0 + (temp_r3 + 2)) = 0;
     sp10 = 0;
     sp14 = 0;
     sp18 = 0;

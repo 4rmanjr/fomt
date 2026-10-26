@@ -11,20 +11,33 @@ s32 func_08008B6C(void *, s32);                       /* extern */
 s32 func_08009300(void *, void *);                    /* extern */
 s32 func_0800934C(void *, s32, s32, s32);             /* extern */
 s32 func_08009378(void *, s32, s32, s32);             /* extern */
-extern ? vtable_unk_080E5B80;
+extern s32 vtable_unk_080E5B80;
 
-void func_08000E1C(void *arg0) {
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    struct GenObj *unk8;
+    s32 unkC;
+    s32 unk10;
+    u8 _pad14[60];
+    s32 unk50;
+    u8 _pad54[27864];
+    s32 unk6D2C;
+    u8 _pad6D30[2];
+    s32 unk6D32;
+} GenObj;
+void func_08000E1C(GenObj *arg0) {
     s16 sp0;
-    void *sp4;
+    GenObj *sp4;
     s16 temp_r0_3;
     s32 temp_r1_2;
     s32 temp_r1_3;
     s32 var_r6;
-    void *temp_r0;
-    void *temp_r0_2;
-    void *temp_r0_4;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_4;
     void *temp_r1;
-    void *temp_r4;
+    GenObj *temp_r4;
     void *temp_r5;
 
     func_08008724();
@@ -38,14 +51,14 @@ void func_08000E1C(void *arg0) {
     temp_r4->unk0 = 0;
     temp_r4->unk4 = 0;
     temp_r4->unk8 = &vtable_unk_080E5B80;
-    temp_r5 = temp_r4 + 0xC;
+    temp_r5 = (GenObj *)((u8 *)temp_r4 + 0xC);
     func_08009300(temp_r5, temp_r1);
     sp4 = temp_r4;
     func_0800934C(temp_r5, 0x889, 1, 0);
     temp_r0_2 = func_08008940(arg0);
-    temp_r0_2->unk8->unk10(temp_r0_2, sp4);
+    ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, sp4);
     arg0->unk6D32 = 0;
-    func_08008B6C(arg0 + 8, 0);
+    func_08008B6C((GenObj *)((u8 *)arg0 + 8), 0);
     do {
         func_080087C8(arg0);
         func_080088B8(arg0);
@@ -64,9 +77,9 @@ void func_08000E1C(void *arg0) {
                 arg0->unk6D2C = 0;
             }
             if ((s32) arg0->unk6D2C <= 0) {
-                func_08009378(sp4 + 0xC, 0x889, 1, 0);
+                func_08009378((GenObj *)((u8 *)sp4 + 0xC), 0x889, 1, 0);
                 temp_r0_4 = func_08008940(arg0);
-                temp_r0_4->unk8->unk10(temp_r0_4, sp4);
+                ((void (*)(void *,...))(temp_r0_4->unk8->unk10))(temp_r0_4, sp4);
                 arg0->unk6D32 = 2;
             }
             break;
@@ -79,7 +92,7 @@ void func_08000E1C(void *arg0) {
         }
     } while (var_r6 == 0);
     if (sp4 != 0) {
-        sp4->unk8->unkC(sp4, 3);
+        ((void (*)(void *,...))(sp4->unk8->unkC))(sp4, 3);
     }
 }
 

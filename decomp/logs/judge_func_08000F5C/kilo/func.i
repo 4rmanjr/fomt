@@ -57,14 +57,32 @@ typedef uint32_t u32;
 typedef int8_t s8;
 typedef int16_t s16;
 typedef int32_t s32;
+typedef struct { u8 pad[0x24]; u8 v; } S_AD0;
+typedef struct { u8 pad[0x25]; u8 v; } S_AD8;
+typedef struct { u8 pad[0x26]; u8 v; } S_AE0;
+typedef struct { u8 pad[0x14]; u8 v; } S_CD8;
+typedef struct { u8 pad[3]; u8 v; } S_39C;
+typedef struct { u8 pad[0x58]; u8 v; } S_601C;
+typedef struct { u8 pad[0x14]; u8 v; } S_B68;
+typedef struct { u8 pad[0x26]; u8 v; } S_AEC;
+typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;
+typedef struct { u8 pad[0x92C]; u8 v; } S_4D8;
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;
+typedef struct {
+    Vtbl *vtbl;
+} Obj;
 # 2 "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08000F5C/kilo/func.c" 2
 s32 Unpack(s32 *, s32);
 s16 *func_08008918(s32);
 s32 func_08008E64(s32 *, s32, s32);
 s32 func_08008EB8(s32, s32, s32);
-extern ? gUnk_0874E648;
-extern ? gUnk_0874EB40;
-extern ? gUnk_0874EB60;
+extern s32 gUnk_0874E648;
+extern s32 gUnk_0874EB40;
+extern s32 gUnk_0874EB60;
 
 void func_08000F5C(s32 arg0) {
     s16 sp0;

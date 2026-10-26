@@ -8,14 +8,16 @@ void *func_08008940(s32);                           /* extern */
 s32 func_08008B6C(s32, s32);                          /* extern */
 s32 func_08009300(void *, void *);                    /* extern */
 s32 func_0800934C(void *, s32, s32, s32);             /* extern */
-extern s32 .L0800112C;
-extern s32 .L08001130;
-extern s32 .L08001134;
-extern s32 .L08001138;
-extern s32 .L0800113C;
-extern s32 .L08001140;
-extern s32 .L08001144;
 
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    struct GenObj *unk8;
+    u8 _padC[4];
+    s32 unk10;
+    u8 _pad14[60];
+    s32 unk50;
+} GenObj;
 void func_08000FF8(s32 arg0) {
     s16 sp0;
     void *sp4;
@@ -24,10 +26,10 @@ void func_08000FF8(s32 arg0) {
     s32 sp18;
     s32 sp1C;
     s32 temp_r3;
-    void *temp_r0;
-    void *temp_r0_2;
+    GenObj *temp_r0;
+    GenObj *temp_r0_2;
     void *temp_r1;
-    void *temp_r4;
+    GenObj *temp_r4;
     void *temp_r5;
 
     func_08008724();
@@ -39,23 +41,23 @@ void func_08000FF8(s32 arg0) {
     temp_r1 = func_08008918(arg0);
     temp_r4->unk0 = 0;
     temp_r4->unk4 = 0;
-    temp_r4->unk8 = (s32) .L0800112C;
-    temp_r5 = temp_r4 + 0xC;
+    temp_r4->unk8 = (s32) 0;
+    temp_r5 = (GenObj *)((u8 *)temp_r4 + 0xC);
     func_08009300(temp_r5, temp_r1);
     sp4 = temp_r4;
-    func_0800934C(temp_r5, .L08001130, 1, 0);
+    func_0800934C(temp_r5, 0x00000889, 1, 0);
     temp_r0_2 = func_08008940(arg0);
-    temp_r0_2->unk8->unk10(temp_r0_2, sp4);
+    ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, sp4);
     func_08008B6C(arg0 + 8, 0x23);
-    *(arg0 + .L08001134) = 0x400;
-    *(arg0 + .L08001138) = 0;
-    *(arg0 + .L0800113C) = 0;
-    temp_r3 = .L08001138 + 4;
-    *(arg0 + temp_r3) = 0x400;
-    *(arg0 + (.L0800113C + 0xCA)) = 3;
-    *(arg0 + .L08001140) = 0xE0;
-    *(arg0 + .L08001144) = 0;
-    *(arg0 + (temp_r3 + 2)) = 0;
+    *((u8 *)arg0 + 0x00006C64) = 0x400;
+    *((u8 *)arg0 + 0x00006C66) = 0;
+    *((u8 *)arg0 + 0x00006C68) = 0;
+    temp_r3 = 0x00006C66 + 4;
+    *((u8 *)arg0 + temp_r3) = 0x400;
+    *((u8 *)arg0 + (0x00006C68 + 0xCA)) = 3;
+    *((u8 *)arg0 + 0x00006D30) = 0xE0;
+    *((u8 *)arg0 + 0x00006C6D) = 0;
+    *((u8 *)arg0 + (temp_r3 + 2)) = 0;
     sp10 = 0;
     sp14 = 0;
     sp18 = 0;

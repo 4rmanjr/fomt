@@ -59,7 +59,7 @@ SAFE_AGENT = re.sub(r"[^A-Za-z0-9_.-]", "_", AGENT)[:40] or "agent"
 MARK = re.compile(r'^\s*(thumb_func_start|arm_func_start|non_word_aligned_thumb_func_start)\s+(\S+)', re.M)
 LBL = re.compile(r'^\s*(\S+):\s*@\s*(0x[0-9A-Fa-f]+)')
 COMMON = ('#include <stdint.h>\ntypedef uint8_t u8;\ntypedef uint16_t u16;\ntypedef uint32_t u32;\n'
-          'typedef int8_t s8;\ntypedef int16_t s16;\ntypedef int32_t s32;\n')
+           'typedef int8_t s8;\ntypedef int16_t s16;\ntypedef int32_t s32;\n')
 SKIP_MODULES = {"code_lib_syscall.s", "code_iwram.s", "vtables.s"}
 # Fungsi svc satu instruksi (2-4 byte): C selalu kalah pendek vs agbcc -O2,
 # dan objek ref tidak diekstrak utuh oleh match. Lewati permanen.
@@ -353,20 +353,58 @@ def diff_note(cand, ref, module: str, name: str, ref_len: int) -> str:
 
 SANITIZE_VERSION = 4  # naikkan tiap _sanitize_m2c berubah perilaku
 
+# Penanda isi draf yg belum pernah lewat sanitasi kini: bila salah satu ada,
+# draf dianggap mentah walau sanitize_v sudah kini (kasus: draf ditulis oleh
+# jalan lama yg menandai versi baru tanpa menjalankan sanitasi).
+#
+# 'M2C_ERROR' TIDAK termasuk: itu kegagalan struktur kontrol m2c yg butuh
+# tulis manual — regenerasi otomatis tidak akan memperbaikinya, dan draf yg
+# sudah diperbaiki manual tidak boleh ditimpa. 'sp +' (Unpack) juga manual.
+RAW_MARKERS = ("extern ?", "extern s32 .L", "? *", "? temp", "? arg")
+
+
+def _looks_sanitized(text: str) -> bool:
+    """True bila draf tampaknya SUDAH lewat sanitasi kini.
+
+    Heuristik isi (bukan versi): ada GenObj/struct DAN tidak ada pola mentah.
+    Draf manual tulisan manusia (struct sendiri, typedef sendiri) juga lolos
+    di sini — memang tidak boleh disentuh regenerasi. Perlindungan ganda:
+    resanitize_stale juga melewati draf yg mtime-nya lebih baru dari
+    judged_mtime (aturan edit manual yg sama dgn _queueable)."""
+    has_struct = ("GenObj" in text or "typedef struct" in text
+                  or "->vtbl->" in text or "Vtbl" in text)
+    if any(m in text for m in RAW_MARKERS):
+        return False
+    if "->unk" in text and "GenObj" not in text:
+        return False
+    return has_struct
+
+
+def _raw_on_disk(p: Path) -> bool:
+    """True bila draf di disk masih mentah (belum lewat sanitasi kini)."""
+    try:
+        return not _looks_sanitized(p.read_text())
+    except OSError:
+        return False
+
 
 def resanitize_stale() -> int:
     """Tulis ulang draf failed yg dibuat sanitasi lama agar memakai sanitasi
-    baru, TANPA menyentuh draf yg pernah diedit manual.
+    kini, TANPA menyentuh draf yg pernah diedit manual.
 
     Draf manual = mtime lebih baru dari judged_mtime (aturan yg sama dgn
     _queueable). Draf m2c murni (mtime <= judged_mtime) di-regenerate dari
     m2c mentah + sanitasi kini; yg hasilnya beda dianggap 'berubah' sehingga
-    ikut antre judge ulang otomatis. Return: jumlah draf yg ditulis ulang."""
+    ikut antre judge ulang otomatis. Return: jumlah draf yg ditulis ulang.
+    Selain versi lama, draf yg ISINYA masih mentah (RAW_MARKERS) ikut ditulis
+    ulang walau sanitize_v sudah kini — menutup celah draf lama yg ditandai
+    versi baru tanpa pernah disanitasi."""
     st = load()
     print(f"[{AGENT}] resanitasi: memindai draf lama (sanitasi v{SANITIZE_VERSION})...")
     n = done = 0
     stale = [k for k in sorted(st)
-             if st[k]["status"] == "failed" and st[k].get("sanitize_v", 0) < SANITIZE_VERSION]
+             if st[k]["status"] == "failed" and (st[k].get("sanitize_v", 0) < SANITIZE_VERSION
+                 or _raw_on_disk(DRAFTS / f"{k}.c"))]
     total = len(stale)
     for k in stale:
         v = st[k]
@@ -788,7 +826,7 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
                     for s in sorted(used) if s != name and s not in pre and s not in pre_clean)
     work = LOGD / f"judge_{name}" / (tag or SAFE_AGENT)  # per-agent: tidak saling timpa
     work.mkdir(parents=True, exist_ok=True)
-    (work / "common.h").write_text(COMMON)
+    (work / "common.h").write_text(COMMON + _shared_context())
     (work / "func.c").write_text(f'#include "common.h"\n{decls}{body}\n')
     steps = [
         [str(CPP), "-nostdinc", "-undef", f"-I{AGINC}", f"-I{work}", str(work / "func.c"),
@@ -929,6 +967,39 @@ def promote(name: str) -> Path | None:
         e["promoted_to"] = str(out.relative_to(ROOT))
         save(st)
         return out
+
+
+CTX_MAX_BYTES = 6000  # batas agar judge tetap cepat; struct lama dipangkas
+
+
+def _shared_context() -> str:
+    """Konteks bersama utk judge: struct/prototype yg TERBUKTI dari fungsi
+    MATCH/promoted (padanan edit_context decompdecomp, versi file).
+
+    Diambil dari blok GenObj/typedef di decomp/promoted/*.cc; definisi yg
+    konflik (nama sama, isi beda) dibuang agar kompilasi tidak pecah.
+    Draf yg mendefinisikan sendiri tipe dgn nama sama tetap menang karena
+    C menolak redefinisi — judge yg menentukan. Return '' bila belum ada."""
+    try:
+        seen: dict[str, str] = {}
+        for f in sorted(PROMOTED.glob("*.cc")):
+            try:
+                text = f.read_text(errors="replace")
+            except OSError:
+                continue
+            for m in re.finditer(r"typedef\s+struct\s*\{.*?\}\s*(\w+)\s*;",
+                                 text, re.S):
+                key, block = m.group(1), m.group(0).strip() + "\n"
+                if key in ("GenObj",):
+                    continue  # anonim per-fungsi (layout beda tiap fungsi)
+                if key not in seen:
+                    seen[key] = block
+                elif seen[key] != block:
+                    seen[key] = ""  # konflik: buang, jangan racuni kompilasi
+        out = "".join(b for b in seen.values() if b)
+        return out[:CTX_MAX_BYTES]
+    except Exception:
+        return ""
 
 
 def progress(st: dict) -> str:
