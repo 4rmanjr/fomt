@@ -173,3 +173,8 @@ void func_08008EB8(s32 arg0, s32 arg1, s32 arg2) {
         func_080D0EBC(&sp0, arg1, var_r2 | 0x01000000, 0x040000D4);
     }
 }
+
+// DECOMP-MATCHED func_0800912C (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_0800912C(void) {
+    return 0x3FF & ~*(u16 *)0x04000130;
+}

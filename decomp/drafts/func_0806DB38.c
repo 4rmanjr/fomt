@@ -1,0 +1,146 @@
+void *__builtin_new(s32);                           /* extern */
+s32 func_08008724(void *);                            /* extern */
+s32 func_080087C8(void *);                            /* extern */
+s32 func_080088B8(void *);                            /* extern */
+void *func_08008918(void *);                        /* extern */
+void *func_08008940(void *);                        /* extern */
+s32 func_08009300(void *, void *);                    /* extern */
+s32 func_0800934C(void *, s32, s32, s32);             /* extern */
+s32 func_08009378(void *, s32, s32, s32);             /* extern */
+s32 func_0806DD9C(void *);                            /* extern */
+s32 func_0806DEC0(void *);                            /* extern */
+s32 func_0806E02C(void *);                            /* extern */
+s32 func_0806E164(void *);                          /* extern */
+s32 func_0806E1E8(void *);                            /* extern */
+s32 func_0806E234(void *);                            /* extern */
+s32 func_0806E43C(void *);                            /* extern */
+s32 func_0806E578(void *);                            /* extern */
+s32 func_0806E7E0(void *);                            /* extern */
+extern ? vtable_unk_080E5B80;
+
+s32 *func_0806DB38(s32 *arg0, void *arg1) {
+    s16 sp0;
+    void *sp4;
+    void **sp8;
+    void ***spC;
+    s16 *sp14;
+    s16 temp_r0_3;
+    s32 temp_r1_2;
+    s32 temp_r1_3;
+    s32 var_r2;
+    s32 var_r8;
+    s8 temp_r0_4;
+    s8 temp_r0_5;
+    s8 var_r7;
+    u32 var_r1;
+    void *temp_r0;
+    void *temp_r0_2;
+    void *temp_r0_6;
+    void *temp_r1;
+    void *temp_r4;
+
+    var_r7 = saved_reg_r10;
+    func_08008724(arg1);
+    temp_r0 = func_08008918(arg1);
+    sp0 = 0x3F;
+    temp_r0->unk50 = 0x3F;
+    temp_r4 = __builtin_new(0x10);
+    temp_r1 = func_08008918(arg1);
+    temp_r4->unk0 = 0;
+    temp_r4->unk4 = 0;
+    temp_r4->unk8 = &vtable_unk_080E5B80;
+    func_08009300(temp_r4 + 0xC, temp_r1);
+    sp4 = temp_r4;
+    func_0806E234(arg1);
+    func_0806E43C(arg1);
+    func_0806E578(arg1);
+    func_0800934C(sp4 + 0xC, 0x889, 1, 1);
+    temp_r0_2 = func_08008940(arg1);
+    temp_r0_2->unk8->unk10(temp_r0_2, sp4);
+    var_r8 = 0;
+    sp14 = &sp0 + 0xC;
+loop_1:
+    func_080087C8(arg1);
+    func_080088B8(arg1);
+    temp_r0_3 = arg1->unk44C;
+    switch ((u32) temp_r0_3) {                      /* switch 1; irregular */
+    case 0:                                         /* switch 1 */
+        temp_r1_2 = sp4->unk0;
+        if ((s32) ((0 - temp_r1_2) | temp_r1_2) < 0) {
+
+        } else {
+            arg1->unk44 = 1;
+block_27:
+            arg1->unk44C = (s16) ((u16) arg1->unk44C + 1);
+        }
+        break;
+    case 1:                                         /* switch 1 */
+        func_0806DEC0(arg1);
+        func_0806E02C(arg1);
+        if ((func_0806E164(arg1) << 0x18) != 0) {
+            arg1->unk44E = 0;
+            goto block_27;
+        }
+        func_0806E1E8(arg1);
+        break;
+    case 2:                                         /* switch 1 */
+        if (arg1->unk44E == 2) {
+            if (arg1->unk450 == 0) {
+                temp_r0_4 = (s8) arg1->unk449;
+                switch (temp_r0_4) {                /* switch 2; irregular */
+                case 0:                             /* switch 2 */
+                    var_r2 = 0;
+                    break;
+                case 4:                             /* switch 2 */
+                    var_r2 = 1;
+                    break;
+                case 8:                             /* switch 2 */
+                    var_r2 = 2;
+                    break;
+                default:                            /* switch 2 */
+                    var_r2 = 3;
+                    break;
+                }
+                var_r1 = (s8) arg1->unk44A - 1;
+                if (var_r1 > 0x1DU) {
+                    var_r1 = var_r1 % 30U;
+                }
+                temp_r0_5 = (-0x7D & ((-4 & var_r7) | var_r2)) | ((var_r1 & 0x1F) * 4);
+                var_r7 = temp_r0_5;
+                arg1->unk448 = temp_r0_5;
+                arg1->unk44 = 0;
+                goto block_27;
+            }
+            arg1->unk44C = (s16) ((u16) arg1->unk44C - 1);
+        }
+        break;
+    case 3:                                         /* switch 1 */
+        func_08009378(sp4 + 0xC, 0x889, 1, 1);
+        temp_r0_6 = func_08008940(arg1);
+        temp_r0_6->unk8->unk10(temp_r0_6, sp4);
+        goto block_27;
+    case 4:                                         /* switch 1 */
+        temp_r1_3 = sp4->unk0;
+        if ((s32) ((0 - temp_r1_3) | temp_r1_3) >= 0) {
+            var_r8 = 1;
+        }
+        break;
+    }
+    func_0806DD9C(arg1);
+    func_0806E7E0(arg1);
+    if (var_r8 == 0) {
+        goto loop_1;
+    }
+    sp8 = 0;
+    spC = &sp8;
+    sp14->unk4 = 0;
+    sp8 = 0;
+    *arg0 = 0;
+    if (sp8 != 0) {
+        (*sp8)->unk8(sp8, 3);
+    }
+    if (sp4 != 0) {
+        sp4->unk8->unkC(sp4, 3);
+    }
+    return arg0;
+}
