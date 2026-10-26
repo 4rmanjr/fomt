@@ -294,6 +294,37 @@ def pool_len(module: str, name: str, ref_len: int) -> int:
     return n * 4
 
 
+def trailing_data_len(module: str, name: str) -> int:
+    """Panjang data non-word (.byte/.2byte/.short) yg menempel di ekor blok
+    asm dan labelnya TIDAK dirujuk dari dalam blok (bukan literal pool).
+
+    Kasus: func_08005A3C — 12 byte `.byte` milik data lain menempel setelah
+    pool `.4byte` milik fungsi; ref mencakupnya (batas = simbol berikut)
+    tapi kandidat C tidak pernah bisa menghasilkannya. Tanpa pengecualian
+    ini fungsi tsb len-mismatch permanen. .byte yg labelnya dirujuk
+    dianggap pool legit (jangan potong)."""
+    lines = func_block(module, name).splitlines()
+    refs: set[str] = set()
+    for ln in lines:
+        s = ln.split("@")[0]
+        refs.update(re.findall(r"\.L[0-9A-Fa-f]+", s))
+    n = 0
+    for ln in reversed(lines):
+        s = ln.split("@")[0].strip()
+        m = re.match(r"^(\.\w+:)?\s*\.(byte|2byte|short)\b(.*)", s)
+        if m:
+            lab, _, args = m.groups()
+            if lab and lab.strip(":") in refs:
+                break  # pool legit milik fungsi: berhenti
+            cnt = len([a for a in args.split(",") if a.strip()])
+            n += cnt * (2 if "short" in (m.group(2) or "") or "2byte" in (m.group(2) or "") else 1)
+            continue
+        if s == "" or s.startswith(".align") or re.match(r"^\.\w+:$", s):
+            continue
+        break
+    return n
+
+
 def _mask_for_compare(f, code: bytes) -> bytes:
     """Mask reloc fields dengan aturan yang SAMA untuk kandidat dan ref.
     R_ARM_THM_CALL (type 10) dimask byte-wise; tipe lain pakai mask decompnet."""
@@ -336,6 +367,9 @@ def diff_note(cand, ref, module: str, name: str, ref_len: int) -> str:
         except Exception:
             pass
     pl = pool_len(module, name, ref_len)
+    td = trailing_data_len(module, name)
+    if td and len(rb) > td and len(a) == len(rb) - td:
+        rb = rb[:-td]  # data asing menempel: bandingkan tanpa data itu
     if pl and len(rb) > pl and len(a) == len(rb) - pl:
         rb = rb[:-pl]
     elif pl and len(rb) > pl and len(a) < len(rb) - pl:
@@ -1086,13 +1120,17 @@ def short_note(note: str, limit: int = 80) -> str:
     return pick if len(pick) <= limit else pick[:limit - 3] + "..."
 
 
-def autopush(name: str) -> bool:
-    """Commit + push hasil MATCH begitu satu fungsi berhasil.
+def autopush(names: str | list[str]) -> bool:
+    """Commit + push hasil MATCH. Dipanggil SEKALI per batch (bukan per fungsi).
 
-    Hanya jalan kalau ada perubahan (tidak ada push untuk batch DIFF semua).
+    Hanya stage file esensial: draf MATCH, blok promoted, progress.json.
+    Artefak judge (ref.o/func.o/func.i/common.h) di-ignore via .gitignore
+    dan TIDAK ikut commit. Log teks (func.c/func.s) tetap ikut sbg audit.
     FOMT_AUTOPUSH=0 mematikan. Gagal push tidak menggagalkan run: commit tetap
     ada di lokal dan pesan peringatan dicetak.
     """
+    if isinstance(names, str):
+        names = [names]
     if os.environ.get("FOMT_AUTOPUSH", "1") == "0":
         return False
     GIT_LOCK.parent.mkdir(parents=True, exist_ok=True)
@@ -1105,10 +1143,26 @@ def autopush(name: str) -> bool:
 
             if git("rev-parse", "--is-inside-work-tree").returncode != 0:
                 return False
-            git("add", "-A", "decomp")
+            st = load()
+            paths = {"decomp/state/progress.json"}
+            for name in names:
+                e = st.get(name)
+                paths.add(f"decomp/drafts/{name}.c")
+                if e and e.get("promoted_to"):
+                    paths.add(e["promoted_to"])
+                # log teks sbg audit (biner di-ignore, tidak ikut)
+                for leaf in ("func.c", "func.s"):
+                    p = LOGD / f"judge_{name}" / SAFE_AGENT / leaf
+                    if p.exists():
+                        paths.add(str(p.relative_to(ROOT)))
+            existing = [p for p in sorted(paths) if (ROOT / p).exists()]
+            if not existing:
+                return False
+            git("add", "--", *existing)
             if git("diff", "--cached", "--quiet").returncode == 0:
                 return False
-            msg = f"decomp: promote {name}"
+            msg = ("decomp: promote " + names[0] if len(names) == 1
+                   else f"decomp: promote {len(names)} funcs ({names[0]}..{names[-1]})")
             c = git("commit", "-q", "-m", msg)
             if c.returncode != 0:
                 print(f"[{AGENT}] autopush: commit gagal: {c.stderr.strip()[-200:]}")
@@ -1184,6 +1238,7 @@ def run_batch(n: int, modules: list[str] | None, retry_all: bool,
         print(f"{prefix} status | {progress(load())}")
         print(f"{prefix} {bar_text(load())}")
     done = {"MATCH": 0, "DIFF": 0}
+    matched_names: list[str] = []
     stopped = False
     try:
         for i, name in enumerate(todo, 1):
@@ -1199,6 +1254,7 @@ def run_batch(n: int, modules: list[str] | None, retry_all: bool,
                 done["MATCH"] += 1
                 matched = True
                 out = promote(name)
+                matched_names.append(name)
                 _clear_status()
                 print(f"{prefix} {tag} {name}: MATCH -> {out}"
                       f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
@@ -1208,8 +1264,6 @@ def run_batch(n: int, modules: list[str] | None, retry_all: bool,
                 print(f"{prefix} {tag} {name}: DIFF ({short_note(load()[name].get('note', ''))})"
                       f" | batch {done['MATCH']}M/{done['DIFF']}D | {progress(load())}")
             release(name)
-            if matched:
-                autopush(name)  # hasil MATCH langsung disimpan di remote
     except KeyboardInterrupt:
         _clear_status()
         stopped = True
@@ -1221,6 +1275,10 @@ def run_batch(n: int, modules: list[str] | None, retry_all: bool,
         # Lepas semua klaim batch ini; kalau tidak, fungsi sisa batch tetap
         # "dipegang" agent ini dan memblokir agent lain sampai TTL habis.
         release_all()
+        # Satu commit+push per batch (bukan per fungsi) supaya histori tidak
+        # spam dan push tidak balapan antar agent.
+        if matched_names:
+            autopush(matched_names)
     fin = load()
     now = time.time()
     held = sum(1 for v in fin.values() if _live(v, now) and v["claimed_by"] != AGENT)

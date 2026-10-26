@@ -17,3 +17,10 @@ decomp/state/*.lock
 
 # log audit `fomt verify` (bisa dibuat ulang, jangan bloat repo)
 decomp/logs/judge_*/verify_*/
+
+# artefak judge yg bisa dibuat ulang dari func.c (jangan bloat repo):
+# ref.o = rakitan 1 modul utuh (~30-660KB per fungsi), func.i/func.o turunan kompilasi
+decomp/logs/**/ref.o
+decomp/logs/**/func.o
+decomp/logs/**/func.i
+decomp/logs/**/common.h
