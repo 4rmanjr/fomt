@@ -9131,15 +9131,14 @@
  },
  "func_080387C8": {
   "addr": 134449096,
-  "claimed_at": 1793022288.6440713,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793004063.9620748,
+  "judged_mtime": 1793017319.6047,
   "module": "code_entities_08034CEC.s",
-  "note": ".c: In function `func_080387C8':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080387C8/opencode/func.c:5: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080387C8/opencode/func.c:5: request for member `unk10' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 192,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080387D8": {
