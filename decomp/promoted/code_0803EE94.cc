@@ -588,3 +588,16 @@ void func_0807EED4(GenObj *arg0, s32 arg1) {
     __builtin_delete(arg0->unk6AC);
     func_080C8360(arg0, arg1);
 }
+
+// DECOMP-MATCHED func_0807EF00 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[1708];
+    s32 unk6AC;
+} GenObj;
+void func_0807EF00(s32 *arg0, GenObj *arg1) {
+    s32 temp_r3;
+
+    temp_r3 = arg1->unk6AC;
+    arg1->unk6AC = 0;
+    *arg0 = temp_r3;
+}

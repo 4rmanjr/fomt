@@ -14230,15 +14230,14 @@
  },
  "func_0807EF00": {
   "addr": 134737664,
-  "claimed_at": 1793022682.8618813,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793003628.3112845,
+  "judged_mtime": 1793017587.697197,
   "module": "code_0803EE94.s",
-  "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EF00/kilo-1531/func.c:6: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807EF00/kilo-1531/func.c:6: request for member `unk6AC' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 217,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0807EF14": {
