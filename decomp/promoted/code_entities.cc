@@ -19,3 +19,8 @@ s32 func_08022320(s32 arg0) {
         return 2;
     }
 }
+
+// DECOMP-MATCHED func_08022B58 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_08022B58(void) {
+    return 0;
+}
