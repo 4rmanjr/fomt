@@ -22,3 +22,10 @@ void func_080DC294(s32 arg0) {
     LoadById__12ScriptEngineii(gUnk_0300040C + 8);
     func_080D7F3C(arg0);
 }
+
+// DECOMP-MATCHED func_080DCB4C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08037048();                                  /* extern */
+
+void func_080DCB4C(void) {
+    func_08037048();
+}

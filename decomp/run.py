@@ -643,12 +643,7 @@ def main(argv: list[str]) -> int:
              and k not in SKIP_FUNCS
              and (not modules or v["module"] in modules)
              and not (_live(v, now) and v["claimed_by"] != AGENT)]
-    todo: list[str] = []
-    for k in cands:
-        if len(todo) >= n:
-            break
-        if claim(k):
-            todo.append(k)
+    todo = claim_many(cands, n) if n else []
     if todo:
         print(f"[{AGENT}] mulai {len(todo)} fungsi | {progress(load())}")
     elif n:
