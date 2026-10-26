@@ -14060,11 +14060,9 @@
  },
  "func_0807DD68": {
   "addr": 134733160,
-  "claimed_at": 1793022648.1820314,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793003620.551821,
+  "judged_mtime": 1793016993.6251175,
   "module": "code_0803EE94.s",
-  "note": " structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807DD68/Prodesk_340333/func.c:16: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807DD68/Prodesk_340333/func.c:16: request for member `unk4' in something not a structure or union\n",
+  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807DD68/opencode/func.c:16: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807DD68/opencode/func.c:16: request for member `unk4' in something not a structure or union\n",
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
@@ -14073,15 +14071,14 @@
  },
  "func_0807DDA8": {
   "addr": 134733224,
-  "claimed_at": 1793022648.1820319,
-  "claimed_by": "opencode",
-  "judged_mtime": 1793003620.8610063,
+  "judged_mtime": 1793017583.533636,
   "module": "code_0803EE94.s",
-  "note": " a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807DDA8/Prodesk_340333/func.c:9: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807DDA8/Prodesk_340333/func.c:9: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 261,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0807DDC4": {

@@ -23,7 +23,7 @@ void ***func_080070D4(void ***arg0, GenObj *arg1) {
     sp0 = 0;
     *arg0 = sp0;
     if (sp0 != 0) {
-        (*sp0)->unk8(sp0, 3);
+        ((void (*)(void *,...))(sp0->vtbl->unk8))(sp0, 3);
     }
     return arg0;
 }

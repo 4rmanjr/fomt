@@ -29,6 +29,7 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     GenObj *volatile sp4;
     GenObj *sp8;
     GenObj **spC;
+    s32 sp10;
     GenObj **p7;
     GenObj ***p8;
     s32 temp_r1_2;
