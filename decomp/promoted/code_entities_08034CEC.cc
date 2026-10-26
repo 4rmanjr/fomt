@@ -84,3 +84,11 @@ void func_08038320(s32 arg0) {
     vfunc_2C__7AEntityUi();
     func_08038110(arg0);
 }
+
+// DECOMP-MATCHED func_080391C0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 func_080391C0(s32 arg0, s32 arg1) {
+    if (((arg1 <= 0x38) && (arg0 > 0x143) && (arg0 <= 0x164)) || ((arg1 > 0x27F) && (arg0 > 0xF7) && (arg0 <= 0x118))) {
+        return 1;
+    }
+    return 0;
+}
