@@ -7,9 +7,16 @@
 	.type	 func_080035C0,function
 	.thumb_func
 func_080035C0:
-	push	{r4, r5, lr}
-	add	sp, sp, #-0x8
+	push	{r4, r5, r6, r7, lr}
+	ldr	r4, .L13
+	add	sp, sp, r4
 	add	r4, r0, #0
+	lsl	r1, r1, #0x10
+	lsr	r5, r1, #0x10
+	mov	r1, #0x0
+	ldr	r0, .L13+0x4
+	add	r0, r0, sp
+	str	r1, [r0]
 	cmp	r3, #0x1
 	beq	.L7	@cond_branch
 	cmp	r3, #0x1
@@ -17,6 +24,11 @@ func_080035C0:
 	cmp	r3, #0
 	beq	.L4	@cond_branch
 	b	.L3
+.L14:
+	.align	2, 0
+.L13:
+	.word	-0x6b98
+	.word	0x6b94
 .L11:
 	cmp	r3, #0x2
 	beq	.L8	@cond_branch
@@ -25,52 +37,59 @@ func_080035C0:
 	mov	r1, #0xd7
 	lsl	r1, r1, #0x7
 	add	r0, r4, r1
-	ldr	r1, .L13
-	bl	func_0805E860
-	b	.L3
-.L14:
-	.align	2, 0
-.L13:
-	.word	0x91a
-.L7:
-	mov	r2, #0xd7
-	lsl	r2, r2, #0x7
-	add	r0, r4, r2
 	ldr	r1, .L15
 	bl	func_0805E860
 	b	.L3
 .L16:
 	.align	2, 0
 .L15:
-	.word	0x91b
-.L8:
-	mov	r3, #0xd7
-	lsl	r3, r3, #0x7
-	add	r0, r4, r3
+	.word	0x91a
+.L7:
+	mov	r1, #0xd7
+	lsl	r1, r1, #0x7
+	add	r0, r4, r1
 	ldr	r1, .L17
 	bl	func_0805E860
-.L3:
-	mov	r1, sp
-	mov	r0, sp
-	ldmia	r0!, {r2, r3, r5}
-	stmia	r1!, {r2, r3, r5}
-	ldmia	r0!, {r2, r3, r5}
-	stmia	r1!, {r2, r3, r5}
-	ldmia	r0!, {r2, r5}
-	stmia	r1!, {r2, r5}
-	add	r0, r4, #0
-	bl	func_08008920
-	add	r3, sp, #0x4
-	mov	r1, #0x0
-	mov	r2, #0x0
-	bl	func_0805E99C
-	add	sp, sp, #0x8
-	pop	{r4, r5}
-	pop	{r0}
-	bx	r0
+	b	.L3
 .L18:
 	.align	2, 0
 .L17:
+	.word	0x91b
+.L8:
+	mov	r1, #0xd7
+	lsl	r1, r1, #0x7
+	add	r0, r4, r1
+	ldr	r1, .L19
+	bl	func_0805E860
+.L3:
+	mov	r0, sp
+	mov	r1, sp
+	mov	r2, #0x20
+	bl	memcpy
+	ldr	r0, [r7, #0x14]
+	str	r0, [r6, #0x14]
+	lsl	r0, r5, #0x10
+	asr	r0, r0, #0x10
+	ldr	r1, .L19+0x4
+	add	r1, r1, sp
+	str	r0, [r1]
+	add	r0, r4, #0
+	bl	func_08008920
+	ldr	r3, .L19+0x4
+	add	r3, r3, sp
+	mov	r1, #0x0
+	mov	r2, #0x0
+	bl	func_0805E99C
+	ldr	r3, .L19+0x8
+	add	sp, sp, r3
+	pop	{r4, r5, r6, r7}
+	pop	{r0}
+	bx	r0
+.L20:
+	.align	2, 0
+.L19:
 	.word	0x91c
+	.word	0x6b94
+	.word	0x6b98
 .Lfe1:
 	.size	 func_080035C0,.Lfe1-func_080035C0
