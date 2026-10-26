@@ -99,3 +99,17 @@ s32 func_08039F50();                                  /* extern */
 void func_080DD938(void) {
     func_08039F50();
 }
+
+// DECOMP-MATCHED func_080DDE68 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08039F50();                                  /* extern */
+
+void func_080DDE68(void) {
+    func_08039F50();
+}
+
+// DECOMP-MATCHED func_080DDF0C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08039F50();                                  /* extern */
+
+void func_080DDF0C(void) {
+    func_08039F50();
+}
