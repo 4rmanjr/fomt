@@ -1650,3 +1650,30 @@ void func_0809444C(GenObj *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: var per-arg agar urutan load pas (o->r4 dulu, funcptr terakhir sblm call); b=(u8*) byte-arith. */
+
+// DECOMP-MATCHED func_0804F15C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[25];
+    u8 unk19;
+} GenObj;
+u8 func_0804F15C(GenObj *arg0) {
+    return arg0->unk19;
+}
+
+// DECOMP-MATCHED func_08093F20 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[13];
+    u8 unkD;
+} GenObj;
+u8 func_08093F20(GenObj *arg0) {
+    return arg0->unkD;
+}
+
+// DECOMP-MATCHED func_080943BC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[13];
+    u8 unkD;
+} GenObj;
+u8 func_080943BC(GenObj *arg0) {
+    return arg0->unkD;
+}
