@@ -5471,13 +5471,14 @@
  },
  "func_08020080": {
   "addr": 134348928,
-  "judged_mtime": 1793017222.542339,
+  "judged_mtime": 1793079501.6957211,
   "module": "code_entities.s",
-  "note": "len 68 vs ref 66",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 740,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080200C4": {
