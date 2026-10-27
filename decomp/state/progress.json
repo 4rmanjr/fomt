@@ -26791,13 +26791,14 @@
  },
  "func_080DE184": {
   "addr": 135127428,
-  "judged_mtime": 1793018160.1890087,
+  "judged_mtime": 1793082694.7178311,
   "module": "code_linkonce.s",
-  "note": "len 50 vs ref 48",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 449,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DE1B4": {
