@@ -351,3 +351,18 @@ void *func_080A3744(GenObj *arg0, s32 *arg1, s32 arg2) {
     arg0->unk8 = temp_r1;
     return arg0;
 }
+
+// DECOMP-MATCHED func_080A5A9C (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[140];
+    s32 unk8C;
+} GenObj;
+s32 func_080A5A9C(GenObj *arg0) {
+    s32 var_r1;
+
+    var_r1 = 0;
+    if (arg0->unk8C == 0) {
+        var_r1 = 1;
+    }
+    return var_r1;
+}
