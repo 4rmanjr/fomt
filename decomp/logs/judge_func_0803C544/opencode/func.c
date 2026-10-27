@@ -1,9 +1,0 @@
-#include "common.h"
-typedef struct GenObj {
-    u8 _pad0[15];
-    s32 unkF;
-} GenObj;
-void func_0803C544(GenObj *arg0) {
-    arg0->unkF = 0;
-}
-
