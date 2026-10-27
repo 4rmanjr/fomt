@@ -56,3 +56,14 @@ s32 func_0809D8B8(s32 *arg0) {
     }
     return var_r1;
 }
+
+// DECOMP-MATCHED func_0809C0A0 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+    s32 unk10;
+} GenObj;
+void func_0809C0A0(GenObj *arg0, s32 *arg1) {
+    arg0->unk10 = (s32) *arg1;
+    arg0->unkC = 1;
+}
