@@ -320,3 +320,13 @@ void func_0809EB20(s32 arg0, s32 arg1) {
     memcpy(temp_r6, arg1, var_r4);
     *((u8 *)temp_r6 + var_r4) = 0;
 }
+
+// DECOMP-MATCHED func_080A1ED4 (dari code_809E804.s; cek manusia sebelum ke src/)
+u32 func_080A1EA8();                                /* extern */
+
+s32 func_080A1ED4(s32 arg0) {
+    u32 temp_r0;
+
+    temp_r0 = func_080A1EA8();
+    return ((s32) *((u8 *)arg0 + (temp_r0 >> 3)) >> (7 & temp_r0)) & 1;
+}
