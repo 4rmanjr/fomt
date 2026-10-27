@@ -1395,3 +1395,122 @@ typedef struct GenObj {
 s32 func_0809496C(GenObj *arg0) {
     return arg0->unk8 + 0x27;
 }
+
+// DECOMP-MATCHED func_080881AC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080007EC(void *, s32);                       /* extern */
+extern s32 vtable_unk_080E7D3C;
+
+typedef struct Vtbl {
+    void *unk0;
+    void *unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;
+typedef struct Inner {
+    s32 unk0;
+    Vtbl *unk4;
+} Inner;
+typedef struct GenObj {
+    void *unk0;
+    Inner *unk4;
+    struct GenObj *unk8;
+} GenObj;
+typedef struct Obj {
+    Vtbl *unk0;
+    struct Obj *unk4;
+} Obj;
+void func_080881AC(GenObj *arg0, s32 arg1) {
+    Obj *temp_r1;
+    Inner *temp_r1_2;
+    Vtbl *v;
+
+    arg0->unk0 = &vtable_unk_080E7D3C;
+    temp_r1 = (Obj *) arg0->unk8;
+    if (temp_r1 != 0) {
+        temp_r1->unk0->unk8(temp_r1, 3);
+    }
+    temp_r1_2 = arg0->unk4;
+    if (temp_r1_2 != 0) {
+        v = temp_r1_2->unk4;
+        v->unk8(temp_r1_2, 3);
+    }
+    func_080007EC(arg0, arg1);
+}
+
+/* ATTEMPT-NOTE cline: blok-2 single-deref (Inner.unk4=Vtbl*); via lokal v agar agbcc tidak menghapus null-check (langsung temp->unk4->unk8 menghilangkan cmp/beq). */
+
+/* ATTEMPT-NOTE pi: len 62 vs ref 60 (+2: mov/bl tambahan?); vtable double-call; kandidat simpan arg1 ke r5 (adds r5,r1) sedang ref langsung pakai r1 — coba hindari copy arg1. */
+
+// DECOMP-MATCHED func_08088304 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080E3504(void *, s32);                       /* extern */
+extern s32 vtable_unk_080E7D4C;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    void *unk4;
+} GenObj;
+void func_08088304(GenObj *arg0, s32 arg1) {
+    arg0->unk4 = &vtable_unk_080E7D4C;
+    func_080E3504(arg0, arg1);
+}
+
+/* STRUCT-CHECK: byte-DIFF +0x3: str memakai r2 vs ref r1 — urutan alokasi reg vtable; coba void arg / u32 vtable, atau sisip temp */
+
+/* ATTEMPT-NOTE pi: byte +0x3: 0x49 vs ref 0x4a (str memakai r1 vs r2); urutan alokasi reg vtable; coba variasi tipe arg / temp void*. */
+
+/* ATTEMPT-NOTE cline: ref memakai ldr r2 (arg1 hidup) -> forward (arg0,arg1) ke func_080E3504; pola sama dgn func_08090F58. */
+
+// DECOMP-MATCHED func_0808AC14 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080E3504(void *, s32);                       /* extern */
+extern s32 vtable_unk_080E7D68;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    void *unk4;
+} GenObj;
+void func_0808AC14(GenObj *arg0, s32 arg1) {
+    arg0->unk4 = &vtable_unk_080E7D68;
+    func_080E3504(arg0, arg1);
+}
+/* ATTEMPT-NOTE cline: forward (arg0,arg1) ke func_080E3504 agar literal memakai r2 spt ref (saudara 88304/92690). */
+
+// DECOMP-MATCHED func_0808C650 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080E3504(void *, s32);                       /* extern */
+extern s32 vtable_unk_080E7D84;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    void *unk4;
+} GenObj;
+void func_0808C650(GenObj *arg0, s32 arg1) {
+    arg0->unk4 = &vtable_unk_080E7D84;
+    func_080E3504(arg0, arg1);
+}
+/* ATTEMPT-NOTE cline: forward (arg0,arg1) ke func_080E3504 agar literal memakai r2 spt ref (saudara 88304/92690). */
+
+// DECOMP-MATCHED func_0808EDB8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080E3504(void *, s32);                       /* extern */
+extern s32 vtable_unk_080E7DA0;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    void *unk4;
+} GenObj;
+void func_0808EDB8(GenObj *arg0, s32 arg1) {
+    arg0->unk4 = &vtable_unk_080E7DA0;
+    func_080E3504(arg0, arg1);
+}
+/* ATTEMPT-NOTE cline: forward (arg0,arg1) ke func_080E3504 agar literal memakai r2 spt ref (saudara 88304/92690). */
+
+// DECOMP-MATCHED func_08092690 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080E3504(void *, s32);                       /* extern */
+extern s32 vtable_unk_080E7DD8;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    void *unk4;
+} GenObj;
+void func_08092690(GenObj *arg0, s32 arg1) {
+    arg0->unk4 = &vtable_unk_080E7DD8;
+    func_080E3504(arg0, arg1);
+}
+/* ATTEMPT-NOTE cline: forward (arg0,arg1) ke func_080E3504 agar literal memakai r2 spt ref. */
