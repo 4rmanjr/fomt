@@ -2735,13 +2735,14 @@
  },
  "func_08011498": {
   "addr": 134288536,
-  "judged_mtime": 1793079365.1241307,
+  "judged_mtime": 1793082303.4075358,
   "module": "game_state.s",
-  "note": "len 46 vs ref 48 [3regalloc,1different @r ands r0, r2 | ands r2, r0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 556,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080114C8": {
