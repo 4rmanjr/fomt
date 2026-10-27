@@ -967,3 +967,25 @@ void func_080ABBA0(GenObj *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: 6-arg (r2=t live dari copy awal, r3=0, stack 0,0). */
+
+// DECOMP-MATCHED func_080ADD44 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    s32 unk0;
+    u16 unk4;
+    u16 unk6;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    u8 unk14;
+} GenObj;
+void func_080ADD44(GenObj *arg0) {
+    arg0->unk0 = 0;
+    arg0->unk4 = 0x80 << 1;
+    arg0->unk6 = 0;
+    arg0->unk8 = 0;
+    arg0->unkC = 0;
+    arg0->unk10 = 0;
+    arg0->unk14 = 0;
+}
+
+/* ATTEMPT-NOTE opencode: campuran s32/u16/u16/s32/s32/s32/u8; 0x100 via shift. */
