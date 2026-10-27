@@ -7,6 +7,24 @@
 	.type	 func_080B3BE4,function
 	.thumb_func
 func_080B3BE4:
-	bx	lr
+	push	{r4, r5, lr}
+	add	r4, r0, #0
+	add	r5, r1, #0
+	ldr	r0, .L3
+	str	r0, [r4]
+	ldr	r0, .L3+0x4
+	bl	__builtin_new
+	add	r1, r5, #0
+	bl	func_080ADF6C
+	str	r0, [r4, #0x4]
+	add	r0, r4, #0
+	pop	{r4, r5}
+	pop	{r1}
+	bx	r1
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E850C
+	.word	0x93c
 .Lfe1:
 	.size	 func_080B3BE4,.Lfe1-func_080B3BE4
