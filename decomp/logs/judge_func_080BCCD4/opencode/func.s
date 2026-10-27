@@ -7,6 +7,10 @@
 	.type	 func_080BCCD4,function
 	.thumb_func
 func_080BCCD4:
+	mov	r1, #0xc2
+	lsl	r1, r1, #0x3
+	add	r0, r0, r1
+	ldrb	r0, [r0]
 	bx	lr
 .Lfe1:
 	.size	 func_080BCCD4,.Lfe1-func_080BCCD4

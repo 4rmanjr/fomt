@@ -7,9 +7,29 @@
 	.type	 func_080BC8C0,function
 	.thumb_func
 func_080BC8C0:
-	push	{lr}
+	push	{r4, r5, lr}
+	add	r4, r0, #0
+	add	r5, r1, #0
+	ldr	r0, .L4
+	str	r0, [r4]
+	ldr	r1, [r4, #0x4]
+	cmp	r1, #0
+	beq	.L3	@cond_branch
+	ldr	r0, [r1, #0x4]
+	ldr	r2, [r0, #0x8]
+	add	r0, r1, #0
+	mov	r1, #0x3
+	bl	_call_via_r2
+.L3:
+	add	r0, r4, #0
+	add	r1, r5, #0
 	bl	func_080007EC
+	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
+.L5:
+	.align	2, 0
+.L4:
+	.word	vtable_unk_080E8528
 .Lfe1:
 	.size	 func_080BC8C0,.Lfe1-func_080BC8C0
