@@ -24112,13 +24112,14 @@
  },
  "func_080D6ECC": {
   "addr": 135098060,
-  "judged_mtime": 1793018109.2257934,
+  "judged_mtime": 1793080995.7603207,
   "module": "code_linkonce.s",
-  "note": "len 34 vs ref 32",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 266,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D6EEC": {
