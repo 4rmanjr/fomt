@@ -6,7 +6,8 @@ typedef struct GenObj {
     void *unk4;
     u8 _pad8[1692];
     s32 unk6A4;
-    s32 unk6A8;
+    u8 unk6A8;
+    u8 _pad6A9[3];
     s32 unk6AC;
 } GenObj;
 void *func_08081ACC(GenObj *arg0) {
