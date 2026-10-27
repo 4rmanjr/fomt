@@ -1,15 +1,16 @@
 typedef struct GenObj {
     u8 _pad0[17920];
     s32 unk4600;
-    s32 unk4604;
-    s32 unk4605;
-    u8 _pad4609[7];
-    s32 unk4610;
-    u8 _pad4614[34];
-    s32 unk4636;
-    s32 unk4637;
-    s32 unk4638;
-    s32 unk4639;
+    u8 unk4604;
+    u8 unk4605;
+    u8 _pad4606[10];
+    u8 unk4610;
+    u8 _pad4611[37];
+    u8 unk4636;
+    u8 unk4637;
+    u8 unk4638;
+    u8 unk4639;
+    u8 _pad463A[2];
     s32 unk463C;
 } GenObj;
 void func_08006334(GenObj *arg0) {
