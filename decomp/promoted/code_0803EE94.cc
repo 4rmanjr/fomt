@@ -841,3 +841,109 @@ u32 func_08085EEC(GenObj *arg0) {
     }
     return var_r0;
 }
+
+// DECOMP-MATCHED func_08088168 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+s32 func_08085584(s32, s32, s32);                   /* extern */
+extern s32 vtable_unk_080E7D3C;
+
+typedef struct GenObj {
+    void *unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+} GenObj;
+void *func_08088168(GenObj *arg0, s32 *arg1, s32 arg2, s32 arg3) {
+    s32 temp_r1;
+
+    arg0->unk0 = &vtable_unk_080E7D3C;
+    arg0->unk4 = func_08085584(__builtin_new(0x43E0), arg2, arg3);
+    temp_r1 = *arg1;
+    *arg1 = 0;
+    arg0->unk8 = temp_r1;
+    arg0->unkC = arg3;
+    arg0->unk10 = arg2;
+    return arg0;
+}
+
+// DECOMP-MATCHED func_080884F4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 GetAmount__C9FoodStack(s32 *);                  /* extern */
+s32 *GetFoodStackAt__6FridgeUi(s32, s32);           /* extern */
+s32 GetFood__C9FoodStack(s32 *, s32 *);                 /* extern */
+u16 GetIconId__C4Food(s32 *);                         /* extern */
+s32 IsEmpty__C9FoodStack(s32 *);                    /* extern */
+s32 func_080CC728(s32, u32, s32 *, u16, s32);           /* extern */
+s32 func_080CCDEC(s32, u32);                          /* extern */
+extern s32 gUnk_086678A0;
+
+typedef struct GenObj {
+    u8 _pad0[124];
+    s32 unk7C;
+    u8 _pad80[132];
+    s32 unk104;
+} GenObj;
+void func_080884F4(GenObj *arg0, s32 arg1) {
+    s32 sp4;
+s32 sp8;
+    u16 temp_r4;
+    u32 var_r5;
+
+    var_r5 = 0;
+    do {
+        sp4 = *GetFoodStackAt__6FridgeUi(arg0->unk104, (arg1 * 8) + var_r5);
+        if ((IsEmpty__C9FoodStack(&sp4) << 0x18) == 0) {
+            GetFood__C9FoodStack(&sp8, &sp4);
+            temp_r4 = GetIconId__C4Food(&sp8);
+            func_080CC728(arg0->unk7C, var_r5, &gUnk_086678A0, temp_r4, GetAmount__C9FoodStack(&sp4));
+        } else {
+            func_080CCDEC(arg0->unk7C, var_r5);
+        }
+        var_r5 += 1;
+    } while (var_r5 <= 7U);
+}
+
+// DECOMP-MATCHED func_08088574 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080884F4(void *, s32);                       /* extern */
+s32 func_080CEB80(s32);                             /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[148];
+    s32 unk94;
+} GenObj;
+void func_08088574(GenObj *arg0) {
+    func_080884F4(arg0, func_080CEB80(arg0->unk94));
+}
+
+// DECOMP-MATCHED func_08088590 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080884F4(void *, s32);                       /* extern */
+s32 func_080CEBC0(s32);                             /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[148];
+    s32 unk94;
+} GenObj;
+void func_08088590(GenObj *arg0) {
+    func_080884F4(arg0, func_080CEBC0(arg0->unk94));
+}
+
+// DECOMP-MATCHED func_0808AB38 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+s32 func_080882AC(s32, s32);                        /* extern */
+extern s32 vtable_unk_080E7D58;
+
+typedef struct GenObj {
+    void *unk0;
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+void *func_0808AB38(GenObj *arg0, s32 *arg1, s32 arg2) {
+    s32 temp_r1;
+
+    arg0->unk0 = &vtable_unk_080E7D58;
+    arg0->unk4 = func_080882AC(__builtin_new(0x10C), arg2);
+    temp_r1 = *arg1;
+    *arg1 = 0;
+    arg0->unk8 = temp_r1;
+    return arg0;
+}
