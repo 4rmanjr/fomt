@@ -1,8 +1,8 @@
 typedef struct GenObj {
     u8 _pad0[4];
-    s32 unk4;
-    u8 _pad8[6];
-    s32 unkE;
+    u16 unk4;
+    u8 _pad6[8];
+    s16 unkE;
 } GenObj;
 s32 func_08035AE0(GenObj *arg0) {
     s32 var_r2;
@@ -13,3 +13,5 @@ s32 func_08035AE0(GenObj *arg0) {
     }
     return var_r2;
 }
+
+/* ATTEMPT-NOTE opencode: unk4 u16 (ldrh), unkE s16 (ldrsh). */

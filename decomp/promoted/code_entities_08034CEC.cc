@@ -299,3 +299,65 @@ void func_08038E90(GenObj *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: unk50 u8 (strb via adds r0,#80); unk4C s32. */
+
+// DECOMP-MATCHED func_08035AE0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[4];
+    u16 unk4;
+    u8 _pad6[8];
+    s16 unkE;
+} GenObj;
+s32 func_08035AE0(GenObj *arg0) {
+    s32 var_r2;
+
+    var_r2 = 0;
+    if ((arg0->unk4 == 0x1D) && ((s32) arg0->unkE <= 0x37)) {
+        var_r2 = 1;
+    }
+    return var_r2;
+}
+
+/* ATTEMPT-NOTE opencode: unk4 u16 (ldrh), unkE s16 (ldrsh). */
+
+// DECOMP-MATCHED func_0803745C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 vfunc_14__7AEntity();                             /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[64];
+    u8 unk40;
+} GenObj;
+void func_0803745C(GenObj *arg0) {
+    vfunc_14__7AEntity();
+    arg0->unk40 = 0;
+}
+
+/* ATTEMPT-NOTE opencode: unk40 u8 (adds+strb). */
+
+// DECOMP-MATCHED func_080380EC (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[28];
+    s32 unk1C;
+    s32 unk20;
+    u8 unk24;
+    u8 unk25;
+} GenObj;
+void func_080380EC(GenObj *arg0, s8 arg1) {
+    arg0->unk24 = arg1;
+    arg0->unk1C = 0xA8 << 0xD;
+    arg0->unk20 = 0xC0 << 0xA;
+    arg0->unk25 = 1;
+}
+
+/* ATTEMPT-NOTE opencode: unk24/unk25 u8 (strb); konstanta via shift (movs+lsl) bukan imm. */
+
+// DECOMP-MATCHED func_0803A334 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern s32 gUnk_080F16D2;
+
+s16 func_0803A334(s32 dummy, s16 arg1) {
+    u8 *base = (u8 *)&gUnk_080F16D2;
+    s32 t = (arg1 + 0x40) & 0xFF;
+
+    return *(s16 *)(base + (t * 2));
+}
+
+/* ATTEMPT-NOTE opencode: arg di r1 (s32 dummy + s16 arg1); & 0xFF imm (movs belakangan, bukan var di awal); base (u8*) di var; ldrsh [r1,r2]. */
