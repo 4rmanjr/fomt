@@ -21677,13 +21677,14 @@
  },
  "func_080BC8F0": {
   "addr": 134990064,
-  "judged_mtime": 1793018023.7758362,
+  "judged_mtime": 1793103664.2825916,
   "module": "code_809E804.s",
-  "note": "byte +0x8: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 125,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080BC8FC": {
@@ -21968,13 +21969,14 @@
  },
  "func_080C0D74": {
   "addr": 135007604,
-  "judged_mtime": 1793018036.7637613,
+  "judged_mtime": 1793103730.7087216,
   "module": "code_809E804.s",
-  "note": "byte +0x8: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 125,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080C0D80": {
@@ -22302,13 +22304,14 @@
  },
  "func_080C7F00": {
   "addr": 135036672,
-  "judged_mtime": 1793018053.7730672,
+  "judged_mtime": 1793103730.711824,
   "module": "code_809E804.s",
-  "note": "byte +0x8: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 125,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080C7F0C": {
@@ -23058,7 +23061,7 @@
  },
  "func_080CE120": {
   "addr": 135061792,
-  "judged_mtime": 1793083741.914615,
+  "judged_mtime": 1793100780.4567475,
   "module": "code_809E804.s",
   "note": "len 96 vs ref 98 [5missing,4extra,11operand,4regalloc,2stack @i beq #0x1a | beq #0x24]",
   "ref_len": 100,
@@ -28077,13 +28080,14 @@
  },
  "func_080E3868": {
   "addr": 135149672,
-  "judged_mtime": 1793015174.7325149,
+  "judged_mtime": 1793103664.2836008,
   "module": "code_linkonce.s",
-  "note": "byte +0x8: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 120,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E3874": {
@@ -28335,9 +28339,9 @@
  },
  "func_080E3E28": {
   "addr": 135151144,
-  "judged_mtime": 1793015373.0178847,
+  "judged_mtime": 1793100780.4571927,
   "module": "code_linkonce.s",
-  "note": "len 118 vs ref 116",
+  "note": "byte +0x3a: 0x80 vs ref 0x40 [1operand @i asrs r0, r0, #1 | asrs r0, r0, #2]",
   "ref_len": 116,
   "sanitize_v": 4,
   "size": 982,
@@ -28635,9 +28639,9 @@
  },
  "func_080E542C": {
   "addr": 135156780,
-  "judged_mtime": 1793066095.8924875,
+  "judged_mtime": 1793100780.4571927,
   "module": "code_linkonce.s",
-  "note": "len 64 vs ref 60",
+  "note": "len 64 vs ref 60 [1missing,11extra,3operand,11regalloc,1different @i push {r4, r5, lr} | push {r4, lr}]",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 736,
@@ -28646,9 +28650,9 @@
  },
  "func_080E5478": {
   "addr": 135156856,
-  "judged_mtime": 1793066096.1258304,
+  "judged_mtime": 1793100780.457287,
   "module": "code_linkonce.s",
-  "note": "byte +0x22: 0x60 vs ref 0xa0",
+  "note": "byte +0x22: 0x60 vs ref 0xa0 [6extra,1different @| ldrh r0, [r4, #4] | ldr r0, [r4, #4]]",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 729,

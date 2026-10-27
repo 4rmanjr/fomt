@@ -1617,3 +1617,36 @@ typedef struct GenObj {
 s32 func_080B3C78(GenObj *arg0) {
     return func_080AE4D8(arg0->unk4);
 }
+
+// DECOMP-MATCHED func_080BC8F0 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080B44E0(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s32 func_080BC8F0(GenObj *arg0) {
+    return func_080B44E0(arg0->unk4);
+}
+
+// DECOMP-MATCHED func_080C0D74 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080BCCD4(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s32 func_080C0D74(GenObj *arg0) {
+    return func_080BCCD4(arg0->unk4);
+}
+
+// DECOMP-MATCHED func_080C7F00 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080C12B8(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s32 func_080C7F00(GenObj *arg0) {
+    return func_080C12B8(arg0->unk4);
+}
