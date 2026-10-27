@@ -7549,13 +7549,14 @@
  },
  "func_08035AFC": {
   "addr": 134437628,
-  "judged_mtime": 1793017292.4609976,
+  "judged_mtime": 1793101351.893481,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035B38": {
@@ -7571,13 +7572,14 @@
  },
  "func_08035B64": {
   "addr": 134437732,
-  "judged_mtime": 1793017292.8337288,
+  "judged_mtime": 1793101351.893589,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x2: 0x81 vs ref 0x84",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 691,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035B9C": {
@@ -7593,13 +7595,14 @@
  },
  "func_08035BC8": {
   "addr": 134437832,
-  "judged_mtime": 1793017293.192314,
+  "judged_mtime": 1793101351.893645,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035C04": {
@@ -7637,13 +7640,14 @@
  },
  "func_08035D04": {
   "addr": 134438148,
-  "judged_mtime": 1793017293.778876,
+  "judged_mtime": 1793101351.8936944,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035D40": {
@@ -7659,13 +7663,14 @@
  },
  "func_08035D70": {
   "addr": 134438256,
-  "judged_mtime": 1793017294.1450193,
+  "judged_mtime": 1793101351.8937483,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035DAC": {
@@ -7681,13 +7686,14 @@
  },
  "func_08035DD8": {
   "addr": 134438360,
-  "judged_mtime": 1793017294.5082252,
+  "judged_mtime": 1793101351.8938243,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035E14": {
@@ -7703,13 +7709,14 @@
  },
  "func_08035E40": {
   "addr": 134438464,
-  "judged_mtime": 1793017294.8719177,
+  "judged_mtime": 1793101351.893897,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035E7C": {
@@ -7725,13 +7732,14 @@
  },
  "func_08035EAC": {
   "addr": 134438572,
-  "judged_mtime": 1793017295.2428863,
+  "judged_mtime": 1793101351.8939722,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x2: 0x81 vs ref 0x84",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 639,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035EE4": {
@@ -7747,13 +7755,14 @@
  },
  "func_08035F10": {
   "addr": 134438672,
-  "judged_mtime": 1793017295.6099224,
+  "judged_mtime": 1793101351.8940184,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x2: 0x81 vs ref 0x84",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 667,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035F48": {
@@ -7769,13 +7778,14 @@
  },
  "func_08035F74": {
   "addr": 134438772,
-  "judged_mtime": 1793017295.965996,
+  "judged_mtime": 1793101351.8940644,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035FB0": {
@@ -7791,13 +7801,14 @@
  },
  "func_08035FE0": {
   "addr": 134438880,
-  "judged_mtime": 1793017296.3310933,
+  "judged_mtime": 1793101351.894109,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803601C": {
@@ -7813,13 +7824,14 @@
  },
  "func_08036048": {
   "addr": 134438984,
-  "judged_mtime": 1793017296.694859,
+  "judged_mtime": 1793101351.8941603,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036084": {
@@ -7857,13 +7869,14 @@
  },
  "func_08036184": {
   "addr": 134439300,
-  "judged_mtime": 1793017297.2807457,
+  "judged_mtime": 1793101351.8942049,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080361C0": {
@@ -7879,13 +7892,14 @@
  },
  "func_080361EC": {
   "addr": 134439404,
-  "judged_mtime": 1793017297.6373467,
+  "judged_mtime": 1793101351.8942497,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036228": {
@@ -7901,13 +7915,14 @@
  },
  "func_08036258": {
   "addr": 134439512,
-  "judged_mtime": 1793017298.006491,
+  "judged_mtime": 1793101351.894294,
   "module": "code_entities_08034CEC.s",
-  "note": "len 46 vs ref 50",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 679,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036290": {
@@ -7923,13 +7938,14 @@
  },
  "func_080362C0": {
   "addr": 134439616,
-  "judged_mtime": 1793017298.3710527,
+  "judged_mtime": 1793101351.8943386,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080362FC": {
@@ -7945,13 +7961,14 @@
  },
  "func_08036328": {
   "addr": 134439720,
-  "judged_mtime": 1793017298.7236261,
+  "judged_mtime": 1793101351.8943832,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036364": {
@@ -7967,13 +7984,14 @@
  },
  "func_08036390": {
   "addr": 134439824,
-  "judged_mtime": 1793022360.06615,
+  "judged_mtime": 1793101177.5045798,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080363CC": {
@@ -7989,13 +8007,14 @@
  },
  "func_080363F8": {
   "addr": 134439928,
-  "judged_mtime": 1793017299.281695,
+  "judged_mtime": 1793101351.894429,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x2: 0x81 vs ref 0x84",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 667,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036430": {
@@ -8033,13 +8052,14 @@
  },
  "func_08036530": {
   "addr": 134440240,
-  "judged_mtime": 1793017299.8708475,
+  "judged_mtime": 1793101351.8944736,
   "module": "code_entities_08034CEC.s",
-  "note": "len 46 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 619,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036564": {
@@ -8055,13 +8075,14 @@
  },
  "func_08036590": {
   "addr": 134440336,
-  "judged_mtime": 1793017300.2399414,
+  "judged_mtime": 1793101351.8945186,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080365CC": {
@@ -8099,13 +8120,14 @@
  },
  "func_080366CC": {
   "addr": 134440652,
-  "judged_mtime": 1793017300.821205,
+  "judged_mtime": 1793101351.894564,
   "module": "code_entities_08034CEC.s",
-  "note": "len 46 vs ref 50",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 667,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036704": {
@@ -8121,13 +8143,14 @@
  },
  "func_08036730": {
   "addr": 134440752,
-  "judged_mtime": 1793017301.1854358,
+  "judged_mtime": 1793101351.8946092,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x2: 0x81 vs ref 0x84",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 667,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036768": {
@@ -8165,13 +8188,14 @@
  },
  "func_080367F8": {
   "addr": 134440952,
-  "judged_mtime": 1793017301.7417665,
+  "judged_mtime": 1793101351.8946576,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036834": {
@@ -8187,13 +8211,14 @@
  },
  "func_08036860": {
   "addr": 134441056,
-  "judged_mtime": 1793017302.1058927,
+  "judged_mtime": 1793101351.8947024,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x2: 0x81 vs ref 0x84",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 667,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036898": {
@@ -8209,13 +8234,14 @@
  },
  "func_080368C4": {
   "addr": 134441156,
-  "judged_mtime": 1793017302.474416,
+  "judged_mtime": 1793101351.8947515,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036900": {
@@ -8253,13 +8279,14 @@
  },
  "func_08036A10": {
   "addr": 134441488,
-  "judged_mtime": 1793017303.061211,
+  "judged_mtime": 1793101351.8947966,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036A4C": {
@@ -8275,13 +8302,14 @@
  },
  "func_08036A78": {
   "addr": 134441592,
-  "judged_mtime": 1793017303.425929,
+  "judged_mtime": 1793101351.8948414,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 54",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 695,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036AB4": {
@@ -8319,13 +8347,14 @@
  },
  "func_08036B4C": {
   "addr": 134441804,
-  "judged_mtime": 1793017303.9843328,
+  "judged_mtime": 1793101351.8948874,
   "module": "code_entities_08034CEC.s",
-  "note": "len 46 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 619,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036B80": {
@@ -8363,13 +8392,14 @@
  },
  "func_08036C48": {
   "addr": 134442056,
-  "judged_mtime": 1793017304.7368028,
+  "judged_mtime": 1793101351.894931,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x2: 0x81 vs ref 0x84",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 667,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036C80": {
@@ -8385,13 +8415,14 @@
  },
  "func_08036CAC": {
   "addr": 134442156,
-  "judged_mtime": 1793017305.1048505,
+  "judged_mtime": 1793101351.8950684,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x0: 0x10 vs ref 0x30",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 579,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036CDC": {
@@ -8407,13 +8438,14 @@
  },
  "func_08036D0C": {
   "addr": 134442252,
-  "judged_mtime": 1793017305.4643693,
+  "judged_mtime": 1793101351.8951142,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x0: 0x10 vs ref 0x30",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 579,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036D3C": {
@@ -8429,13 +8461,14 @@
  },
  "func_08036D68": {
   "addr": 134442344,
-  "judged_mtime": 1793017305.8363545,
+  "judged_mtime": 1793101351.8951595,
   "module": "code_entities_08034CEC.s",
-  "note": "len 38 vs ref 42",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 563,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036D98": {
@@ -8451,9 +8484,9 @@
  },
  "func_08036DC4": {
   "addr": 134442436,
-  "judged_mtime": 1793017306.2037232,
+  "judged_mtime": 1793101351.8949773,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 104",
+  "note": "len 54 vs ref 104 [20missing @< push {r4, lr} | ]",
   "ref_len": 104,
   "sanitize_v": 4,
   "size": 998,
@@ -8462,13 +8495,14 @@
  },
  "func_08036E2C": {
   "addr": 134442540,
-  "judged_mtime": 1793017306.3893437,
+  "judged_mtime": 1793101351.8950224,
   "module": "code_entities_08034CEC.s",
-  "note": "len 54 vs ref 62",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 768,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036E70": {
@@ -8730,9 +8764,9 @@
  },
  "func_080378B8": {
   "addr": 134445240,
-  "judged_mtime": 1793017311.2252183,
+  "judged_mtime": 1793100780.4535956,
   "module": "code_entities_08034CEC.s",
-  "note": "len 48 vs ref 50",
+  "note": "len 48 vs ref 50 [1missing,1operand,2regalloc @< adds r1, r0, #0 | ]",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 508,
@@ -8785,9 +8819,9 @@
  },
  "func_08037A04": {
   "addr": 134445572,
-  "judged_mtime": 1793017312.1661537,
+  "judged_mtime": 1793100780.4535956,
   "module": "code_entities_08034CEC.s",
-  "note": "len 48 vs ref 50",
+  "note": "len 48 vs ref 50 [1missing,1operand,2regalloc @< adds r1, r0, #0 | ]",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 508,
