@@ -1,7 +1,16 @@
 s32 __builtin_new(s32);                             /* extern */
-s32 func_080041DC(s32, s32, Obj ***);                /* extern */
+s32 func_080041DC(s32, s32, void ***);                 /* extern */
 extern s32 vtable_unk_080E5A68;
 
+typedef struct Vtbl {
+    void *unk0;
+    void *unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;
+typedef struct Obj {
+    Vtbl *vtbl;
+    struct Obj *unk4;
+} Obj;
 typedef struct GenObj {
     void *unk0;
     s32 unk4;
@@ -22,3 +31,5 @@ void *func_08004B94(GenObj *arg0, s32 arg1, Obj ***arg2) {
     }
     return arg0;
 }
+
+/* ATTEMPT-NOTE opencode: Vtbl/Obj lokal agar blok mandiri (verify tanpa ctx); unk8 sbg funcptr. */
