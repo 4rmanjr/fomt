@@ -510,3 +510,27 @@ void func_080D404C(GenObj *arg0, s32 arg1) {
     }
     func_0800080C(arg0, arg1);
 }
+
+// DECOMP-MATCHED func_080D780C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080096F0(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+} GenObj;
+s32 func_080D780C(GenObj *arg0) {
+    func_080096F0(arg0->unkC);
+    return 0;
+}
+
+// DECOMP-MATCHED func_080D781C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08009864(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+} GenObj;
+s32 func_080D781C(GenObj *arg0) {
+    func_08009864(arg0->unkC);
+    return 0;
+}
