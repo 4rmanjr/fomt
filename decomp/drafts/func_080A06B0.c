@@ -1,7 +1,6 @@
 s32 func_080A0A04(s32);                             /* extern */
 
 s32 func_080A06B0(s32 arg0, s32 arg1) {
-    s32 var_r1;
     u32 temp_r0;
 
     temp_r0 = arg1 - 1;
@@ -25,107 +24,72 @@ s32 func_080A06B0(s32 arg0, s32 arg1) {
     case 6:
         return arg0 + 0xF0;
     case 7:
-        var_r1 = 0x104;
-block_45:
-        return arg0 + var_r1;
+        return arg0 + 0x104;
     case 8:
-        var_r1 = 0x118;
-        goto block_45;
+        return arg0 + 0x118;
     case 9:
-        var_r1 = 0x12C;
-        goto block_45;
+        return arg0 + 0x12C;
     case 10:
-        var_r1 = 0x140;
-        goto block_45;
+        return arg0 + 0x140;
     case 11:
-        var_r1 = 0x154;
-        goto block_45;
+        return arg0 + 0x154;
     case 12:
-        var_r1 = 0x16C;
-        goto block_45;
+        return arg0 + 0x16C;
     case 13:
-        var_r1 = 0x180;
-        goto block_45;
+        return arg0 + 0x180;
     case 14:
-        var_r1 = 0x194;
-        goto block_45;
+        return arg0 + 0x194;
     case 15:
-        var_r1 = 0x1A8;
-        goto block_45;
+        return arg0 + 0x1A8;
     case 16:
-        var_r1 = 0x1BC;
-        goto block_45;
+        return arg0 + 0x1BC;
     case 17:
-        var_r1 = 0x1D0;
-        goto block_45;
+        return arg0 + 0x1D0;
     case 18:
-        var_r1 = 0x1E4;
-        goto block_45;
+        return arg0 + 0x1E4;
     case 19:
-        var_r1 = 0x1FC;
-        goto block_45;
+        return arg0 + 0x1FC;
     case 20:
-        var_r1 = 0x210;
-        goto block_45;
+        return arg0 + 0x210;
     case 21:
-        var_r1 = 0x228;
-        goto block_45;
+        return arg0 + 0x228;
     case 22:
-        var_r1 = 0x23C;
-        goto block_45;
+        return arg0 + 0x23C;
     case 23:
-        var_r1 = 0x250;
-        goto block_45;
+        return arg0 + 0x250;
     case 24:
-        var_r1 = 0x264;
-        goto block_45;
+        return arg0 + 0x264;
     case 25:
-        var_r1 = 0x27C;
-        goto block_45;
+        return arg0 + 0x27C;
     case 26:
-        var_r1 = 0x290;
-        goto block_45;
+        return arg0 + 0x290;
     case 27:
-        var_r1 = 0x2A8;
-        goto block_45;
+        return arg0 + 0x2A8;
     case 28:
-        var_r1 = 0x2BC;
-        goto block_45;
+        return arg0 + 0x2BC;
     case 29:
-        var_r1 = 0x2D0;
-        goto block_45;
+        return arg0 + 0x2D0;
     case 30:
-        var_r1 = 0x2E4;
-        goto block_45;
+        return arg0 + 0x2E4;
     case 31:
-        var_r1 = 0x2FC;
-        goto block_45;
+        return arg0 + 0x2FC;
     case 32:
-        var_r1 = 0x310;
-        goto block_45;
+        return arg0 + 0x310;
     case 33:
-        var_r1 = 0x328;
-        goto block_45;
+        return arg0 + 0x328;
     case 35:
-        var_r1 = 0x33C;
-        goto block_45;
+        return arg0 + 0x33C;
     case 36:
-        var_r1 = 0x360;
-        goto block_45;
+        return arg0 + 0x360;
     case 37:
-        var_r1 = 0x384;
-        goto block_45;
+        return arg0 + 0x384;
     case 38:
-        var_r1 = 0x3A8;
-        goto block_45;
+        return arg0 + 0x3A8;
     case 39:
-        var_r1 = 0x3CC;
-        goto block_45;
+        return arg0 + 0x3CC;
     case 40:
-        var_r1 = 0x3F0;
-        goto block_45;
+        return arg0 + 0x3F0;
     case 41:
-        var_r1 = 0x414;
-        goto block_45;
+        return arg0 + 0x414;
     }
 }

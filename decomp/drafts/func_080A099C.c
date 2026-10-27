@@ -1,30 +1,20 @@
 s32 func_080A099C(s32 arg0, u32 arg1) {
-    s32 var_r1;
-
     switch (arg1) {
     default:
         return 0;
     case 0:
-        var_r1 = 0x33C;
-block_10:
-        return arg0 + var_r1;
+        return arg0 + 0x33C;
     case 1:
-        var_r1 = 0x360;
-        goto block_10;
+        return arg0 + 0x360;
     case 2:
-        var_r1 = 0x384;
-        goto block_10;
+        return arg0 + 0x384;
     case 3:
-        var_r1 = 0x3A8;
-        goto block_10;
+        return arg0 + 0x3A8;
     case 4:
-        var_r1 = 0x3CC;
-        goto block_10;
+        return arg0 + 0x3CC;
     case 5:
-        var_r1 = 0x3F0;
-        goto block_10;
+        return arg0 + 0x3F0;
     case 6:
-        var_r1 = 0x414;
-        goto block_10;
+        return arg0 + 0x414;
     }
 }
