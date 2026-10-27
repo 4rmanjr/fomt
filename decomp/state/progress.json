@@ -23545,13 +23545,14 @@
  },
  "func_080D116A": {
   "addr": 135074154,
-  "judged_mtime": 1793004563.0848827,
+  "judged_mtime": 1793076477.3253543,
   "module": "code_809E804.s",
-  "note": "len 10 vs ref 4",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 4,
   "sanitize_v": 4,
   "size": 108,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D116E": {
@@ -23592,13 +23593,14 @@
  },
  "func_080D14EC": {
   "addr": 135075052,
-  "judged_mtime": 1793018096.047681,
+  "judged_mtime": 1793076533.634209,
   "module": "code_809E804.s",
-  "note": "ch undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D14EC/opencode/func.c:14: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D14EC/opencode/func.c:15: `saved_reg_r7' undeclared (first use in this function)\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 393,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D1518": {
