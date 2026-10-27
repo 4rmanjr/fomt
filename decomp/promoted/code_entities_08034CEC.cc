@@ -259,3 +259,43 @@ u32 func_080390D0(GenObj *arg0) {
     temp_r1 = arg0->unk10;
     return (u32) ((0 - temp_r1) | temp_r1) >> 0x1F;
 }
+
+// DECOMP-MATCHED func_08037F74 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[84];
+    u8 unk54;
+} GenObj;
+void func_08037F74(GenObj *arg0) {
+    arg0->unk54 = 0xA;
+}
+
+/* ATTEMPT-NOTE opencode: member u8 (strb). */
+
+// DECOMP-MATCHED func_08038108 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[37];
+    u8 unk25;
+} GenObj;
+u8 func_08038108(GenObj *arg0) {
+    return arg0->unk25;
+}
+
+/* ATTEMPT-NOTE opencode: member+return u8 (ldrb, tanpa lsls/lsrs). */
+
+// DECOMP-MATCHED func_08038E90 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+    u8 _pad10[60];
+    s32 unk4C;
+    u8 unk50;
+} GenObj;
+void func_08038E90(GenObj *arg0) {
+    GenObj *temp_r0;
+
+    temp_r0 = arg0->unkC;
+    temp_r0->unk4C = 0x01200000;
+    temp_r0->unk50 = 1;
+}
+
+/* ATTEMPT-NOTE opencode: unk50 u8 (strb via adds r0,#80); unk4C s32. */
