@@ -23580,13 +23580,14 @@
  },
  "func_080D1186": {
   "addr": 135074182,
-  "judged_mtime": 1793076100.952487,
+  "judged_mtime": 1793076282.9284315,
   "module": "code_809E804.s",
-  "note": "byte +0x12: 0xf9 vs ref 0xf6 [1operand,2different @| bmi #<sub_080D119E> | movs r0, r0 <sub_080D119E>]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 288,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D14EC": {
