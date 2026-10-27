@@ -26234,13 +26234,14 @@
  },
  "func_080DCF4C": {
   "addr": 135122764,
-  "judged_mtime": 1793018150.1234288,
+  "judged_mtime": 1793084012.8524065,
   "module": "code_linkonce.s",
-  "note": "len 118 vs ref 120",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 128,
   "sanitize_v": 4,
   "size": 1133,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DCFCC": {

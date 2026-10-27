@@ -1218,3 +1218,61 @@ void func_080DE184(GenObj *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: (s32)arg0 agar adds r1,r1,r0 (bukan r0,r0,r1); var u8* utk +=4. */
+
+// DECOMP-MATCHED func_080DCF4C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 __builtin_delete(void *);                         /* extern */
+extern s32 __vt_7AEntity;
+extern s32 vtable_unk_080E7568;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    u8 _padC[4];
+    s32 unk10;
+    void *unk14;
+    s32 unk18;
+    u8 _pad1C[48];
+    struct GenObj *unk4C;
+} GenObj;
+void func_080DCF4C(GenObj *arg0, s32 arg1) {
+    s32 var_r5;
+    u32 temp_r7;
+    u32 var_r6;
+    s32 *var_r4;
+    GenObj *temp_r0;
+    GenObj *temp_r1;
+    GenObj *temp_r1_2;
+
+    arg0->unk14 = &vtable_unk_080E7568;
+    temp_r0 = arg0->unk10;
+    if (temp_r0 != 0) {
+        s32 t5 = arg0->unk18;
+        var_r6 = 0;
+        temp_r7 = temp_r0->unk8;
+        if (var_r6 < temp_r7) {
+            var_r5 = t5;
+            var_r4 = (s32 *)((u8 *)temp_r0 + 0xC);
+            do {
+                temp_r1 = (GenObj *)*var_r4;
+                if (temp_r1 != 0) {
+                    ((void (*)(void *,...))(temp_r1->unk4C->unk14))(temp_r1, var_r5);
+                }
+                var_r5 += 0x10;
+                var_r4 = (s32 *)((u8 *)var_r4 + 4);
+                var_r6 += 1;
+            } while (var_r6 < temp_r7);
+        }
+    }
+    arg0->unk14 = &__vt_7AEntity;
+    temp_r0 = arg0;
+    temp_r1_2 = temp_r0->unk10;
+    if (temp_r1_2 != 0) {
+        ((void (*)(void *,...))(temp_r1_2->unk4->unk8))(temp_r1_2, 3);
+    }
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+
+/* ATTEMPT-NOTE opencode: t5-var utk ldr-unk18-dulu (adds r5,r1); temp_r0-copy utk r2 di ekor; var_r6<temp_r7 (bukan >0U). */
