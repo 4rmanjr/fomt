@@ -8,15 +8,25 @@
 	.thumb_func
 func_080D7AAC:
 	push	{lr}
-	add	r2, r0, #0
+	add	r3, r0, #0
+	ldr	r0, .L4
+	str	r0, [r3, #0x4]
+	ldr	r2, .L4+0x4
+	ldr	r0, [r3]
+	str	r0, [r2]
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
 	beq	.L3	@cond_branch
-	add	r0, r2, #0
+	add	r0, r3, #0
 	bl	__builtin_delete
 .L3:
 	pop	{r0}
 	bx	r0
+.L5:
+	.align	2, 0
+.L4:
+	.word	vtable_unk_080E5B54
+	.word	gUnk_03000410
 .Lfe1:
 	.size	 func_080D7AAC,.Lfe1-func_080D7AAC

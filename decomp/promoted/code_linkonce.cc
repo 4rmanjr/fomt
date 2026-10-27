@@ -534,3 +534,59 @@ s32 func_080D781C(GenObj *arg0) {
     func_08009864(arg0->unkC);
     return 0;
 }
+
+// DECOMP-MATCHED func_080D7AAC (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 __builtin_delete(void *);                         /* extern */
+extern s32 gUnk_03000410;
+extern s32 vtable_unk_080E5B54;
+
+typedef struct GenObj {
+    s32 unk0;
+    void *unk4;
+} GenObj;
+void func_080D7AAC(GenObj *arg0, s32 arg1) {
+    arg0->unk4 = &vtable_unk_080E5B54;
+    gUnk_03000410 = arg0->unk0;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+
+// DECOMP-MATCHED func_080D7F60 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08050E8C();                                  /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[172];
+    s32 unkAC;
+} GenObj;
+void func_080D7F60(GenObj *arg0) {
+    if (arg0->unkAC != 0) {
+        func_08050E8C();
+    }
+}
+
+// DECOMP-MATCHED func_080D7F74 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08050E5C();                                  /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[172];
+    s32 unkAC;
+} GenObj;
+void func_080D7F74(GenObj *arg0) {
+    if (arg0->unkAC != 0) {
+        func_08050E5C();
+    }
+}
+
+// DECOMP-MATCHED func_080D7F88 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08050E74();                                  /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[172];
+    s32 unkAC;
+} GenObj;
+void func_080D7F88(GenObj *arg0) {
+    if (arg0->unkAC != 0) {
+        func_08050E74();
+    }
+}

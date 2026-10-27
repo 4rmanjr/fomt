@@ -8,7 +8,12 @@
 	.thumb_func
 func_080D7F88:
 	push	{lr}
+	add	r0, r0, #0xac
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L3	@cond_branch
 	bl	func_08050E74
+.L3:
 	pop	{r0}
 	bx	r0
 .Lfe1:
