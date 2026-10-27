@@ -341,3 +341,44 @@ void func_08009864(s32 arg0) {
     func_0800977C();
     func_08009834(arg0);
 }
+
+// DECOMP-MATCHED func_08007EA8 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_080D6EEC(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 unk0;
+    u8 unk1;
+} GenObj;
+void func_08007EA8(GenObj *arg0) {
+    func_080D6EEC((u8 *)arg0 + 4);
+    func_080D6EEC((u8 *)arg0 + 0x80);
+    arg0->unk0 = 1;
+    arg0->unk1 = 0;
+}
+
+/* ATTEMPT-NOTE opencode: unk0/unk1 u8 (strb); byte-arith (u8*)+N. */
+
+// DECOMP-MATCHED func_08009300 (dari hardware.s; cek manusia sebelum ke src/)
+void *__builtin_new(s32);                           /* extern */
+
+typedef struct GenObj {
+    s32 unk0;
+    u16 unk4;
+    s32 unk8;
+    u8 unkC;
+    u16 unkE;
+} GenObj;
+void **func_08009300(void **arg0, s32 arg1) {
+    GenObj *temp_r0;
+
+    temp_r0 = __builtin_new(0x10);
+    temp_r0->unk0 = arg1;
+    temp_r0->unk4 = 0;
+    temp_r0->unk8 = 0;
+    temp_r0->unkC = 0;
+    temp_r0->unkE = 0;
+    *arg0 = temp_r0;
+    return arg0;
+}
+
+/* ATTEMPT-NOTE opencode: member campuran s32/u16/s32/u8/u16 sesuai str/strh/strb. */

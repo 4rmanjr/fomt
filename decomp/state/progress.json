@@ -1251,13 +1251,14 @@
  },
  "func_08007EA8": {
   "addr": 134250152,
-  "judged_mtime": 1793017149.1448183,
+  "judged_mtime": 1793079718.9285884,
   "module": "hardware.s",
-  "note": "len 34 vs ref 32",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 311,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08007EC8": {
@@ -2051,13 +2052,14 @@
  },
  "func_08009300": {
   "addr": 134255360,
-  "judged_mtime": 1793017157.6543324,
+  "judged_mtime": 1793079718.9296534,
   "module": "hardware.s",
-  "note": "len 34 vs ref 36",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 383,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08009324": {
@@ -7482,13 +7484,14 @@
  },
  "func_08035AE0": {
   "addr": 134437600,
-  "judged_mtime": 1793017292.2814324,
+  "judged_mtime": 1793079718.9297616,
   "module": "code_entities_08034CEC.s",
-  "note": "len 26 vs ref 28",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 322,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035AFC": {
@@ -8517,13 +8520,14 @@
  },
  "func_0803745C": {
   "addr": 134444124,
-  "judged_mtime": 1793017308.4913964,
+  "judged_mtime": 1793079718.9315832,
   "module": "code_entities_08034CEC.s",
-  "note": "len 18 vs ref 20",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 217,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08037470": {
@@ -8970,13 +8974,14 @@
  },
  "func_080380EC": {
   "addr": 134447340,
-  "judged_mtime": 1793017316.354546,
+  "judged_mtime": 1793079718.9316509,
   "module": "code_entities_08034CEC.s",
-  "note": "len 24 vs ref 26",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 330,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08038108": {
@@ -9607,13 +9612,14 @@
  },
  "func_0803A334": {
   "addr": 134456116,
-  "judged_mtime": 1793017327.6816921,
+  "judged_mtime": 1793079827.1412814,
   "module": "code_entities_08034CEC.s",
-  "note": "len 20 vs ref 22",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 342,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803A350": {
