@@ -7,6 +7,10 @@
 	.type	 func_080CADA8,function
 	.thumb_func
 func_080CADA8:
+	mov	r1, #0x0
+	str	r1, [r0]
+	str	r1, [r0, #0x4]
+	str	r1, [r0, #0x8]
 	bx	lr
 .Lfe1:
 	.size	 func_080CADA8,.Lfe1-func_080CADA8

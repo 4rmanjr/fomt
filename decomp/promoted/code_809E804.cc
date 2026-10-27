@@ -676,3 +676,27 @@ void func_080C7ED0(GenObj *arg0, s32 arg1) {
     }
     func_080007EC(arg0, arg1);
 }
+
+// DECOMP-MATCHED func_080CAC70 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+void func_080CAC70(GenObj *arg0) {
+    arg0->unk0 = 0;
+    arg0->unk4 = 0;
+    arg0->unk8 = 0;
+}
+
+// DECOMP-MATCHED func_080CADA8 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+void func_080CADA8(GenObj *arg0) {
+    arg0->unk0 = 0;
+    arg0->unk4 = 0;
+    arg0->unk8 = 0;
+}
