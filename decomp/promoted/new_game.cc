@@ -202,3 +202,58 @@ void func_08005260(GenObj *arg0) {
     arg0->unk1A75 = 0;
     arg0->unk1A74 = 0;
 }
+
+// DECOMP-MATCHED func_08006334 (dari new_game.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[17920];
+    s32 unk4600;
+    u8 unk4604;
+    u8 unk4605;
+    u8 _pad4606[10];
+    u8 unk4610;
+    u8 _pad4611[37];
+    u8 unk4636;
+    u8 unk4637;
+    u8 unk4638;
+    u8 unk4639;
+    u8 _pad463A[2];
+    s32 unk463C;
+} GenObj;
+void func_08006334(GenObj *arg0) {
+    arg0->unk4639 = 0;
+    arg0->unk4638 = 0;
+    arg0->unk4636 = 0;
+    arg0->unk4637 = 0;
+    arg0->unk4605 = 0;
+    arg0->unk4604 = 0;
+    arg0->unk4600 = 0;
+    arg0->unk4610 = 0;
+    arg0->unk463C = 0;
+}
+
+// DECOMP-MATCHED func_0800598C (dari new_game.s; cek manusia sebelum ke src/)
+void *__builtin_new(s32);                             /* extern */
+s32 func_08004EFC(void *, s32, s32, s32, s32);          /* extern */
+extern s32 vtable_unk_080E5AA4;
+
+typedef struct GenObj {
+    void *unk0;
+    s32 unk4;
+} GenObj;
+GenObj *func_0800598C(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    void *nn;
+
+    arg0->unk0 = &vtable_unk_080E5AA4;
+    nn = __builtin_new(0x1A78);
+    arg0->unk4 = func_08004EFC(nn, arg1, arg2, arg3, arg4);
+    return arg0;
+}
+
+// DECOMP-MATCHED func_08005A3C (dari new_game.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    s32 unk0;
+    void *unk4;
+} GenObj;
+u8 func_08005A3C(GenObj *arg0) {
+    return *(u8 *)((u8 *)arg0->unk4 + 0x1A76);
+}
