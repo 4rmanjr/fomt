@@ -1,0 +1,375 @@
+#!/usr/bin/env python3
+"""Migrasi 1 fungsi MATCH dari asm/*.s ke src/*.cc secara aman.
+
+Alur per fungsi (sesuai urutan):
+  1. Ambil blok `// DECOMP-MATCHED <nama>` dari decomp/promoted/<stem>.cc
+     (hanya bila status fungsi di decomp/state/modules/<stem>.json == promoted).
+  2. Sisipkan (urut alamat) ke src/<stem>.cc — buat baru dgn
+     `#include "prelude.h"` bila belum ada. Blok dibungkus
+     `extern "C" { ... }` agar linkage C (repo memakai EC utk ini) dan
+     pemanggilan ke simbol asm (memcpy, func_*, gUnk_*) tidak mangled.
+  3. Hapus blok fungsi tsb dari asm/<modul>.s (dari baris
+     thumb_func_start/arm_func_start sampai marker fungsi berikut).
+  4. Daftarkan src/<stem>.o(.text) di fomt.lds tepat sesudah
+     asm/<stem>.o(.text) (tanpa ini section dibuang /DISCARD/ -> link gagal).
+     Lalu `make compare`: HIJAU -> lanjut fungsi berikut;
+     MERAH -> revert fungsi itu (snapshot file) dan BERHENTI + laporan.
+
+Urutan migrasi: tail-first (alamat menurun) per modul — hanya fungsi di
+ekor file yang pindah tanpa menggeser alamat fungsi lain, sehingga
+compare bisa tetap hijau. Modul default: pilot more_items.s, sram_proxy_1.s.
+
+Tidak pernah commit (working tree saja). Tidak menyentuh state JSON.
+"""
+
+import argparse
+import json
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent  # decomp/ -> repo root
+PILOT_MODULES = ["more_items.s", "sram_proxy_1.s"]
+
+MARKER = "// DECOMP-MATCHED "
+ASM_START_RE = re.compile(
+    r"^\s*((thumb|arm)_func_start|non_word_aligned_thumb_func_start)\s+(\w+)",
+    re.IGNORECASE,
+)
+MIGRATED_FN_RE = re.compile(r"// DECOMP-MATCHED (func_\w+)")
+
+
+def load_state(stem):
+    p = REPO / "decomp" / "state" / "modules" / f"{stem}.json"
+    with open(p) as f:
+        return json.load(f)
+
+
+def promoted_funcs(module):
+    """(nama, addr) fungsi berstatus promoted, urut alamat menurun (tail-first)."""
+    stem = module[: -len(".s")]
+    state = load_state(stem)
+    out = [
+        (name, info["addr"])
+        for name, info in state.items()
+        if info.get("module") == module and info.get("status") == "promoted"
+    ]
+    out.sort(key=lambda t: t[1], reverse=True)
+    return out
+
+
+def extract_block(promoted_path, func):
+    lines = promoted_path.read_text().splitlines(keepends=True)
+    start = None
+    for i, ln in enumerate(lines):
+        if ln.strip() == f"{MARKER}{func}":
+            # baris marker persis: "// DECOMP-MATCHED <func>" + info bebas
+            start = i
+            break
+        if ln.startswith(f"{MARKER}{func} ") or ln.startswith(f"{MARKER}{func}("):
+            start = i
+            break
+    if start is None:
+        # fallback: marker diawali prefix tsb
+        for i, ln in enumerate(lines):
+            if ln.startswith(MARKER + func):
+                start = i
+                break
+    if start is None:
+        return None
+    end = len(lines)
+    for i in range(start + 1, len(lines)):
+        if lines[i].startswith(MARKER):
+            end = i
+            break
+    block = "".join(lines[start:end]).rstrip() + "\n"
+    return block
+
+
+# Typedef harness judge (decomp/run.py COMMON) -> header repo (include/types.h).
+# s32 dkk tidak ada di repo (src memakai i32); tanpa ini .cc gagal kompilasi.
+# Hanya tipe signed judge; u8/u16/u32 sudah sama di kedua sisi.
+JUDGE_TYPEMAP = (("s32", "i32"), ("s16", "i16"), ("s8", "i8"))
+
+
+def translate_types(body):
+    for old, new in JUDGE_TYPEMAP:
+        body = re.sub(rf"\b{old}\b", new, body)
+    return body
+
+
+FAKE_MEMCPY_RE = re.compile(r"^\s*i32 memcpy\(i32, i32, i32\);\s*\n", re.M)
+MEMCPY_CALL_RE = re.compile(r"\bmemcpy\(([^,()]+),([^,()]+),([^()]+)\)")
+
+
+def adapt_memcpy(body):
+    """Hapus prototipe memcpy palsu ala-judge; pakai <string.h> + cast
+    pointer agar sah C++ tanpa mengubah codegen (cast itu no-op)."""
+    body, n = FAKE_MEMCPY_RE.subn("", body)
+    if not n:
+        return body, False
+    body = MEMCPY_CALL_RE.sub(
+        lambda m: f"memcpy((void *)({m.group(1).strip()}), "
+        f"(const void *)({m.group(2).strip()}), {m.group(3).strip()})",
+        body,
+    )
+    return body, True
+
+
+def split_marker_body(block):
+    """(marker_line, body): baris pertama marker, sisanya body."""
+    first, _, rest = block.partition("\n")
+    return first + "\n", rest
+
+
+def insert_ordered(src_text, marker_line, body, addr, state_addrs):
+    """Sisipkan blok (dibungkus extern C) dgn urutan alamat menaik."""
+    wrapped = marker_line + 'extern "C" {\n' + body.rstrip() + "\n}\n"
+    matches = list(MIGRATED_FN_RE.finditer(src_text))
+    pos = len(src_text)
+    for m in matches:
+        other = state_addrs.get(m.group(1))
+        if other is not None and other > addr:
+            pos = m.start()
+            # mundur ke awal baris + sertakan blank-line pemisah sebelumnya
+            while pos > 0 and src_text[pos - 1] != "\n":
+                pos -= 1
+            break
+    if not src_text.endswith("\n") and src_text:
+        src_text += "\n"
+    if src_text and not src_text.endswith("\n\n"):
+        # pastikan pemisah blank line sebelum blok baru di posisi akhir
+        if pos == len(src_text):
+            src_text += "\n"
+    new_text = src_text[:pos] + wrapped + "\n" + src_text[pos:]
+    return new_text
+
+
+def remove_asm_func(asm_text, func):
+    lines = asm_text.splitlines(keepends=True)
+    start = end = None
+    for i, ln in enumerate(lines):
+        m = ASM_START_RE.match(ln)
+        if m and m.group(3) == func:
+            start = i
+            break
+    if start is None:
+        return None
+    end = len(lines)
+    for i in range(start + 1, len(lines)):
+        if ASM_START_RE.match(lines[i]):
+            end = i
+            break
+    # sertakan blank-line pemisah sesudah blok bila ada
+    while end < len(lines) and lines[end].strip() == "":
+        end += 1
+    new_text = "".join(lines[:start] + lines[end:])
+    if not new_text.endswith("\n"):
+        new_text += "\n"
+    return new_text
+
+
+def ensure_lds(lds_text, stem):
+    asm_entry = f"asm/{stem}.o(.text);"
+    src_entry = f"src/{stem}.o(.text);"
+    if src_entry in lds_text:
+        return lds_text, False
+    lines = lds_text.splitlines(keepends=True)
+    for i, ln in enumerate(lines):
+        if asm_entry in ln:
+            indent = ln[: len(ln) - len(ln.lstrip())]
+            lines.insert(i + 1, f"{indent}{src_entry}\n")
+            return "".join(lines), True
+    raise RuntimeError(f"lds: entri {asm_entry} tidak ditemukan")
+
+
+def run_compare():
+    p = subprocess.run(
+        ["make", "compare"],
+        cwd=REPO,
+        capture_output=True,
+        text=True,
+        timeout=600,
+    )
+    tail = (p.stdout + p.stderr).strip().splitlines()[-5:]
+    return p.returncode == 0, "\n".join(tail)
+
+
+def migrate_one(module, func, dry_run=False):
+    stem = module[: -len(".s")]
+    state = load_state(stem)
+    info = state.get(func)
+    if info is None or info.get("status") != "promoted":
+        return {
+            "func": func,
+            "module": module,
+            "ok": False,
+            "skipped": True,
+            "detail": f"status={info.get('status') if info else 'unknown'} "
+            "(bukan promoted, dilewati)",
+        }
+    addr = info["addr"]
+    promoted_path = REPO / "decomp" / "promoted" / f"{stem}.cc"
+    src_path = REPO / "src" / f"{stem}.cc"
+    asm_path = REPO / "asm" / module
+    lds_path = REPO / "fomt.lds"
+
+    block = extract_block(promoted_path, func)
+    if block is None:
+        return {"func": func, "module": module, "ok": False,
+                "detail": "blok DECOMP-MATCHED tidak ditemukan di "
+                f"{promoted_path}"}
+    marker_line, body = split_marker_body(block)
+    body = translate_types(body)
+    body, need_string_h = adapt_memcpy(body)
+
+    asm_text = asm_path.read_text()
+    new_asm = remove_asm_func(asm_text, func)
+    if new_asm is None:
+        return {"func": func, "module": module, "ok": False,
+                "detail": f"{func} tidak ditemukan di {asm_path}"}
+
+    lds_text = lds_path.read_text()
+    try:
+        new_lds, lds_changed = ensure_lds(lds_text, stem)
+    except RuntimeError as e:
+        return {"func": func, "module": module, "ok": False, "detail": str(e)}
+
+    if src_path.exists():
+        src_text = src_path.read_text()
+        if func in src_text or MIGRATED_FN_RE.search(src_text) and \
+                re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b", src_text):
+            return {"func": func, "module": module, "ok": False,
+                    "detail": f"{func} sudah ada di {src_path}"}
+        if need_string_h and "#include <string.h>" not in src_text:
+            inc = src_text.splitlines(keepends=True)
+            for i, ln in enumerate(inc):
+                if ln.startswith("#include"):
+                    inc.insert(i + 1, "#include <string.h> // memcpy\n")
+                    break
+            else:
+                inc.insert(0, "#include <string.h> // memcpy\n")
+            src_text = "".join(inc)
+        state_addrs = {n: i.get("addr", 0) for n, i in state.items()}
+        new_src = insert_ordered(src_text, marker_line, body, addr,
+                                 state_addrs)
+    else:
+        head = '#include "prelude.h"\n'
+        if need_string_h:
+            head += "#include <string.h> // memcpy\n"
+        new_src = head + "\n" + marker_line + \
+            'extern "C" {\n' + body.rstrip() + "\n}\n"
+
+    if dry_run:
+        return {"func": func, "module": module, "ok": True, "dry": True,
+                "detail": f"rencana: +{src_path.name} ~{len(new_src)}B, "
+                f"lds_changed={lds_changed}"}
+
+    # snapshot utk revert
+    snap = {
+        asm_path: asm_text,
+        lds_path: lds_text,
+        src_path: src_path.read_text() if src_path.exists() else None,
+    }
+    try:
+        src_path.write_text(new_src)
+        asm_path.write_text(new_asm)
+        if lds_text != new_lds:
+            lds_path.write_text(new_lds)
+    except OSError as e:
+        for p, content in snap.items():
+            if content is not None:
+                p.write_text(content)
+        return {"func": func, "module": module, "ok": False,
+                "detail": f"gagal tulis: {e}"}
+
+    green, compare_tail = run_compare()
+    files = [str(src_path.relative_to(REPO)), str(asm_path.relative_to(REPO))]
+    if lds_changed:
+        files.append("fomt.lds")
+    if green:
+        return {"func": func, "module": module, "ok": True,
+                "detail": compare_tail, "files": files}
+    # MERAH: revert fungsi ini
+    for p, content in snap.items():
+        if content is None:
+            if p.exists():
+                p.unlink()
+        else:
+            p.write_text(content)
+    return {"func": func, "module": module, "ok": False, "reverted": True,
+            "detail": compare_tail, "files": files}
+
+
+def main():
+    ap = argparse.ArgumentParser(description="Migrasi aman 1 fungsi MATCH "
+                                 "asm -> src per compare.")
+    ap.add_argument("--module", action="append", default=None,
+                    help="modul .s (default pilot: more_items.s, "
+                    "sram_proxy_1.s)")
+    ap.add_argument("--func", default=None, help="satu fungsi saja")
+    ap.add_argument("--limit", type=int, default=None,
+                    help="maks fungsi diproses")
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--no-baseline", action="store_true",
+                    help="lewati cek compare baseline")
+    args = ap.parse_args()
+
+    modules = args.module or PILOT_MODULES
+    plan = []
+    for mod in modules:
+        for name, _ in promoted_funcs(mod):
+            if args.func and name != args.func:
+                continue
+            plan.append((mod, name))
+    if args.limit is not None:
+        plan = plan[: args.limit]
+    if not plan:
+        print("tidak ada kandidat (cek status promoted / nama fungsi).")
+        return 2
+
+    if not args.dry_run and not args.no_baseline:
+        green, tail = run_compare()
+        print(f"[baseline] compare {'HIJAU' if green else 'MERAH'}: {tail}")
+        if not green:
+            print("baseline merah — abort, tidak migrasi.")
+            return 2
+
+    moved, failed, dry = [], None, []
+    for mod, name in plan:
+        print(f"== migrasi {name} ({mod}) ...")
+        r = migrate_one(mod, name, dry_run=args.dry_run)
+        status = "OK" if r["ok"] else ("SKIP" if r.get("skipped") else "GAGAL")
+        print(f"   [{status}] {r['detail']}")
+        if r.get("dry"):
+            dry.append(r)
+            continue
+        if r["ok"]:
+            moved.append(r)
+        elif r.get("skipped"):
+            continue
+        else:
+            failed = r
+            break  # merah: revert sudah dilakukan, berhenti
+
+    print("---- laporan ----")
+    if dry:
+        print("rencana (dry-run): " +
+              ", ".join(f"{r['func']}({r['module']})" for r in dry))
+        return 0
+    print(f"pindah: {len(moved)} " +
+          (", ".join(f"{r['func']}({r['module']})" for r in moved)
+           if moved else "-"))
+    for r in moved:
+        print(f"  HIJAU {r['func']}: {r['detail']}")
+        print(f"    file: {', '.join(r['files'])}")
+    if failed:
+        print(f"  MERAH {failed['func']} ({failed['module']}): "
+              f"{failed['detail']} -> direvert, berhenti.")
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
