@@ -254,3 +254,20 @@ u32 func_080246BC(u32 arg0, s32 arg1) {
 }
 
 /* ATTEMPT-NOTE opencode: switch polos (jump-table) bukan compare-chain; default return. */
+
+// DECOMP-MATCHED func_080237F0 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080237F0(u32 arg0) {
+    if (arg0 <= 1U) {
+        goto ret1;
+    }
+    if (arg0 != 2) {
+        goto ret1;
+    }
+    goto ret2;
+ret1:
+    return 1;
+ret2:
+    return 2;
+}
+
+/* ATTEMPT-NOTE opencode: goto-chain agar bls/beq + urutan movs. */

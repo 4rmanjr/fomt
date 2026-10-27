@@ -6004,13 +6004,14 @@
  },
  "func_080237F0": {
   "addr": 134363120,
-  "judged_mtime": 1793003963.194137,
+  "judged_mtime": 1793090050.8635654,
   "module": "code_entities.s",
-  "note": "len 16 vs ref 20",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 254,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08023804": {
