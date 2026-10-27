@@ -440,3 +440,22 @@ void *func_0801A054(GenObj *arg0, GenObj *arg1, u32 arg2) {
 }
 
 /* ATTEMPT-NOTE opencode: layout struct tepat (_padC[12], _pad26[8]) agar offset pool 0x1038/0x1050 pas; u16 member; shift-konstanta. */
+
+// DECOMP-MATCHED func_08012BAC (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[148];
+    s32 unk9C;
+    u8 _padA0[64];
+    u16 unkE0;
+} GenObj;
+void func_08012BAC(GenObj *arg0, s16 arg1) {
+    GenObj *temp_r0;
+
+    temp_r0 = arg0->unk4;
+    temp_r0->unkE0 = arg1;
+    temp_r0->unk9C = 0x15;
+}
+
+/* ATTEMPT-NOTE opencode: unkE0 u16 (strh). */

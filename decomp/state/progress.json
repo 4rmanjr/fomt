@@ -3441,13 +3441,14 @@
  },
  "func_08012BAC": {
   "addr": 134294444,
-  "judged_mtime": 1793017178.191948,
+  "judged_mtime": 1793089741.7020943,
   "module": "game_state.s",
-  "note": "len 20 vs ref 16",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 207,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08012BBC": {
