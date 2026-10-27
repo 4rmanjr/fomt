@@ -1152,3 +1152,33 @@ end:
 }
 
 /* ATTEMPT-NOTE opencode: unk14 u8; goto-chain (bukan &&); lsrs dst r2. */
+
+// DECOMP-MATCHED func_080A0AD8 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080A0AD8(s32 arg0, u32 arg1) {
+    switch (arg1) {
+    case 0:
+    default:
+        return arg0 + 0x30;
+    case 1:
+        return arg0 + 0x38;
+    case 2:
+        return arg0 + 0x40;
+    }
+}
+
+/* ATTEMPT-NOTE hermes2: switch dgn case 0 eksplisit gabung default. */
+
+// DECOMP-MATCHED func_080A0AF4 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080A0AF4(s32 arg0, u32 arg1) {
+    switch (arg1) {
+    case 0:
+    default:
+        return arg0 + 0x48;
+    case 1:
+        return arg0 + 0x50;
+    case 2:
+        return arg0 + 0x58;
+    }
+}
+
+/* ATTEMPT-NOTE hermes2: switch dgn case 0 eksplisit gabung default (sama A0AD8). */
