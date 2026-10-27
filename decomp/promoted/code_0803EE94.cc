@@ -1288,3 +1288,38 @@ void func_08093DCC(s32 **arg0, s32 arg1) {
         __builtin_delete(arg0);
     }
 }
+
+// DECOMP-MATCHED func_08093F24 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[16];
+    s32 unk10;
+} GenObj;
+s32 func_08093F24(GenObj *arg0) {
+    return arg0->unk10;
+}
+
+// DECOMP-MATCHED func_080941A8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[20];
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    u8 _pad28[12];
+    s32 unk34;
+} GenObj;
+void func_080941A8(GenObj *arg0) {
+    ((void (*)(void *,...))(arg0->unk0->unk34))(arg0, arg0->unk18, arg0->unk1C, arg0->unk20, arg0->unk24);
+}
+
+// DECOMP-MATCHED func_08094268 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 __builtin_delete(s32 **);                           /* extern */
+extern s32 vtable_unk_080E8028;
+
+void func_08094268(s32 **arg0, s32 arg1) {
+    *arg0 = &vtable_unk_080E8028;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
