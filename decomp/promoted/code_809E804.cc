@@ -1522,3 +1522,87 @@ s32 func_080A099C(s32 arg0, u32 arg1) {
         return arg0 + 0x414;
     }
 }
+
+// DECOMP-MATCHED func_080B39BC (dari code_809E804.s; cek manusia sebelum ke src/)
+extern s32 gUnk_0810788A;
+
+u16 func_080B39BC(s32 arg0, s32 arg1) {
+    u8 *base = (u8 *)&gUnk_0810788A;
+    s32 idx = arg1 * 4;
+    s32 addr = arg0 + 0x870;
+    s32 t;
+
+    addr += idx;
+    t = *(s32 *)addr;
+    return *(u16 *)(base + (t * 2));
+}
+
+/* ATTEMPT-NOTE hermes6: pola D9D8 (idx dulu, akumulasi addr); offset
+   inline 0x870 agar movs#0x87+lsls#4 spt ref. */
+
+// DECOMP-MATCHED func_080B39D8 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern s32 gUnk_08107890;
+
+u16 func_080B39D8(s32 arg0, s32 arg1) {
+    s32 off = 0x848;
+    u8 *base = (u8 *)&gUnk_08107890;
+    s32 idx = arg1 * 4;
+    s32 addr = arg0 + off;
+    s32 t;
+
+    addr += idx;
+    t = *(s32 *)addr;
+    return *(u16 *)(base + (t * 2));
+}
+
+/* ATTEMPT-NOTE hermes6: idx dulu agar lsls di depan (urutan spt ref). */
+
+// DECOMP-MATCHED func_080B39F4 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern s32 gUnk_0810789A;
+
+u16 func_080B39F4(s32 arg0, s32 arg1) {
+    s32 off = 0x85C;
+    u8 *base = (u8 *)&gUnk_0810789A;
+    s32 idx = arg1 * 4;
+    s32 addr = arg0 + off;
+    s32 t;
+
+    addr += idx;
+    t = *(s32 *)addr;
+    return *(u16 *)(base + (t * 2));
+}
+
+/* ATTEMPT-NOTE hermes6: kembaran D9D8, idx dulu agar lsls di depan. */
+
+// DECOMP-MATCHED func_080D100C (dari code_809E804.s; cek manusia sebelum ke src/)
+extern s32 gUnk_03000450;
+
+s32 func_080D100C(s32 arg0, s32 arg1) {
+    register u8 *p asm("r2") = (u8 *)&gUnk_03000450;
+    s32 t;
+
+    arg0 <<= 2;
+    p += arg0;
+    t = *(s32 *)p;
+    *(s32 *)p = arg1;
+    return t;
+}
+
+/* ATTEMPT-NOTE hermes6: register-asm r2 (30+ varian natural selalu
+   memberi adds r2,r0,r2; hanya explicit-reg yg memberi r2,r2,r0). */
+
+// DECOMP-MATCHED func_080D101C (dari code_809E804.s; cek manusia sebelum ke src/)
+extern s32 gUnk_03000430;
+
+u16 func_080D101C(s32 arg0, u16 arg1) {
+    register u8 *p asm("r2") = (u8 *)&gUnk_03000430;
+    u16 t;
+
+    arg0 <<= 1;
+    p += arg0;
+    t = *(u16 *)p;
+    *(u16 *)p = arg1;
+    return t;
+}
+
+/* ATTEMPT-NOTE hermes6: register-asm r2 spt D100C (adds r2,r2,r0). */
