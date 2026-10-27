@@ -23528,9 +23528,9 @@
  },
  "func_080D100C": {
   "addr": 135073804,
-  "judged_mtime": 1793018094.5036945,
+  "judged_mtime": 1793080067.8977072,
   "module": "code_809E804.s",
-  "note": "len 14 vs ref 12",
+  "note": "byte +0x4: 0x82 vs ref 0x12 [2extra,1regalloc @r adds r2, r2, r0 | adds r2, r0, r2]",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 213,
@@ -23539,9 +23539,9 @@
  },
  "func_080D101C": {
   "addr": 135073820,
-  "judged_mtime": 1793018094.7554111,
+  "judged_mtime": 1793080067.897799,
   "module": "code_809E804.s",
-  "note": "len 14 vs ref 12",
+  "note": "byte +0x4: 0x82 vs ref 0x12 [2extra,1regalloc @r adds r2, r2, r0 | adds r2, r0, r2]",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 215,
@@ -23665,13 +23665,14 @@
  },
  "func_080D3778": {
   "addr": 135083896,
-  "judged_mtime": 1793005018.886307,
+  "judged_mtime": 1793080056.3160706,
   "module": "code_lib_sram.s",
-  "note": "len 36 vs ref 34",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_lib_sram.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 329,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D379C": {
