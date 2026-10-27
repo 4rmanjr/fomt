@@ -787,3 +787,57 @@ void *func_08082114(GenObj *arg0, s32 *arg1, s32 arg2) {
     arg0->unk8 = temp_r1;
     return arg0;
 }
+
+// DECOMP-MATCHED func_080854F4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+s32 func_08083BD4(s32, s32);                        /* extern */
+extern s32 vtable_unk_080E7D20;
+
+typedef struct GenObj {
+    void *unk0;
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+void *func_080854F4(GenObj *arg0, s32 *arg1, s32 arg2) {
+    s32 temp_r1;
+
+    arg0->unk0 = &vtable_unk_080E7D20;
+    arg0->unk4 = func_08083BD4(__builtin_new(0x61F4), arg2);
+    temp_r1 = *arg1;
+    *arg1 = 0;
+    arg0->unk8 = temp_r1;
+    return arg0;
+}
+
+// DECOMP-MATCHED func_08085568 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_08084228(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+s32 *func_08085568(s32 *arg0, GenObj *arg1) {
+    s32 temp_r1;
+
+    func_08084228(arg1->unk4);
+    temp_r1 = arg1->unk8;
+    arg1->unk8 = 0;
+    *arg0 = temp_r1;
+    return arg0;
+}
+
+// DECOMP-MATCHED func_08085EEC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[17368];
+    s32 unk43D8;
+} GenObj;
+u32 func_08085EEC(GenObj *arg0) {
+    u32 var_r0;
+
+    var_r0 = arg0->unk43D8;
+    if (var_r0 > 1U) {
+        var_r0 = 0x3E7;
+    }
+    return var_r0;
+}
