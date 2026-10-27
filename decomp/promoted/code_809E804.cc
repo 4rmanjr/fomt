@@ -1182,3 +1182,57 @@ s32 func_080A0AF4(s32 arg0, u32 arg1) {
 }
 
 /* ATTEMPT-NOTE hermes2: switch dgn case 0 eksplisit gabung default (sama A0AD8). */
+
+// DECOMP-MATCHED func_080A041C (dari code_809E804.s; cek manusia sebelum ke src/)
+u32 GetPlayerEventCount__C12Bachelorette(s32);      /* extern */
+
+s32 func_080A041C(s32 arg0) {
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x98) > 4U) {
+        return 3;
+    }
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x154) > 4U) {
+        return 0xC;
+    }
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x1E4) > 4U) {
+        return 0x13;
+    }
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x210) > 4U) {
+        return 0x15;
+    }
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x264) > 4U) {
+        return 0x19;
+    }
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x2E4) > 4U) {
+        return 0x1F;
+    }
+    return 0;
+}
+
+/* ATTEMPT-NOTE hermes3: ekor dibalik (bhi, bukan bls): if (>) return 0x1F; return 0. */
+
+// DECOMP-MATCHED func_080A0490 (dari code_809E804.s; cek manusia sebelum ke src/)
+u32 GetPlayerEventCount__C12Bachelorette(s32);      /* extern */
+
+s32 func_080A0490(s32 arg0) {
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x98) > 5U) {
+        return 3;
+    }
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x154) > 5U) {
+        return 0xC;
+    }
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x1E4) > 5U) {
+        return 0x13;
+    }
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x210) > 5U) {
+        return 0x15;
+    }
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x264) > 5U) {
+        return 0x19;
+    }
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x2E4) > 5U) {
+        return 0x1F;
+    }
+    return 0;
+}
+
+/* ATTEMPT-NOTE hermes3: ekor dibalik (bhi, bukan bls): if (>) return 0x1F; return 0. */

@@ -16,8 +16,10 @@ s32 func_080A0490(s32 arg0) {
     if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x264) > 5U) {
         return 0x19;
     }
-    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x2E4) <= 5U) {
-        return 0;
+    if (GetPlayerEventCount__C12Bachelorette(arg0 + 0x2E4) > 5U) {
+        return 0x1F;
     }
-    return 0x1F;
+    return 0;
 }
+
+/* ATTEMPT-NOTE hermes3: ekor dibalik (bhi, bukan bls): if (>) return 0x1F; return 0. */
