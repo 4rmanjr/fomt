@@ -198,3 +198,14 @@ void func_0809C644(s32 *arg0, s16 arg1) {
 /* ATTEMPT-NOTE opencode: pointer byte-arith via (u8*); sp0 stack-u16. */
 
 /* ATTEMPT-NOTE opencode: nested-if (bukan &&) agar dua compare terpisah; a4-var utk urutan adds; byte-arith (u8*). */
+
+// DECOMP-MATCHED func_0809C6AC (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[12];
+    u16 unkC;
+} GenObj;
+void func_0809C6AC(GenObj *arg0, s16 arg1) {
+    arg0->unkC = arg1;
+}
+
+/* ATTEMPT-NOTE opencode: unkC u16 (strh). */

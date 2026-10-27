@@ -17659,13 +17659,14 @@
  },
  "func_0809C6AC": {
   "addr": 134858412,
-  "judged_mtime": 1793017756.1085806,
+  "judged_mtime": 1793089661.997007,
   "module": "code_actor_0809BFE8.s",
-  "note": "len 8 vs ref 4",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc",
   "ref_len": 4,
   "sanitize_v": 4,
   "size": 98,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809C6B0": {
