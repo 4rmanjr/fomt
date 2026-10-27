@@ -477,18 +477,18 @@ RAW_MARKERS = ("extern ?", "extern s32 .L", "? *", "? temp", "? arg")
 def _looks_sanitized(text: str) -> bool:
     """True bila draf tampaknya SUDAH lewat sanitasi kini.
 
-    Heuristik isi (bukan versi): ada GenObj/struct DAN tidak ada pola mentah.
+    Heuristik isi (bukan versi): tidak ada pola mentah dan tidak ada akses
+    '->unk' yatim (tanpa GenObj). Draf C polos TANPA struct (mis. fungsi
+    aritmetika murni) juga bersih — tidak ada yang perlu disanitasi.
     Draf manual tulisan manusia (struct sendiri, typedef sendiri) juga lolos
     di sini — memang tidak boleh disentuh regenerasi. Perlindungan ganda:
     resanitize_stale juga melewati draf yg mtime-nya lebih baru dari
     judged_mtime (aturan edit manual yg sama dgn _queueable)."""
-    has_struct = ("GenObj" in text or "typedef struct" in text
-                  or "->vtbl->" in text or "Vtbl" in text)
     if any(m in text for m in RAW_MARKERS):
         return False
     if "->unk" in text and "GenObj" not in text:
         return False
-    return has_struct
+    return True
 
 
 def _raw_on_disk(p: Path) -> bool:
@@ -513,9 +513,11 @@ def resanitize_stale() -> int:
     st = load()
     print(f"[{AGENT}] resanitasi: memindai draf lama (sanitasi v{SANITIZE_VERSION})...")
     n = done = 0
+    checked_now: list[str] = []  # regen identik: fixpoint, jangan cek lagi
     stale = [k for k in sorted(st)
              if st[k]["status"] == "failed" and (st[k].get("sanitize_v", 0) < SANITIZE_VERSION
-                 or _raw_on_disk(DRAFTS / f"{k}.c"))]
+                 or (st[k].get("sanitize_checked_v", 0) < SANITIZE_VERSION
+                     and _raw_on_disk(DRAFTS / f"{k}.c")))]
     total = len(stale)
     for k in stale:
         v = st[k]
@@ -554,11 +556,19 @@ def resanitize_stale() -> int:
         if new.rstrip() != old.rstrip():
             p.write_text(new if new.endswith("\n") else new + "\n")
             n += 1
+        else:
+            # fixpoint: regen identik, sanitizer kini tak bisa memperbaiki
+            # draf ini (butuh tulis manual). Tandai agar tidak di-regen ulang
+            # tiap jalan; dibuka lagi saat SANITIZE_VERSION naik.
+            checked_now.append(k)
 
     def _mark(s):
         for k, v in s.items():
             if v["status"] == "failed" and v.get("sanitize_v", 0) < SANITIZE_VERSION:
                 v["sanitize_v"] = SANITIZE_VERSION
+        for k in checked_now:
+            if k in s and s[k]["status"] == "failed":
+                s[k]["sanitize_checked_v"] = SANITIZE_VERSION
 
     update(_mark)
     return n
@@ -1482,9 +1492,12 @@ def main(argv: list[str]) -> int:
 
     update(_baseline)
     # Regenerasi draf m2c-murni dgn sanitasi kini (tanpa sentuh edit manual),
-    # supaya perbaikan sanitasi langsung ikut antre judge ulang.
+    # supaya perbaikan sanitasi langsung ikut antre judge ulang. Dilewati
+    # untuk 'status' (n=0): hanya baca progres, tanpa kerja menit.
+    # Draf fixpoint ditandai sanitize_checked_v agar tidak di-regen ulang
+    # tiap jalan; dibuka lagi saat SANITIZE_VERSION naik.
     try:
-        n_new = resanitize_stale()
+        n_new = resanitize_stale() if n else 0
         if n_new:
             print(f"[{AGENT}] resanitasi {n_new} draf (sanitasi v{SANITIZE_VERSION})")
     except Exception as err:
