@@ -1056,3 +1056,40 @@ u16 func_080AAF28(s32 arg0, s32 arg1) {
 }
 
 /* ATTEMPT-NOTE opencode: t1/base/t terpisah agar ldr-pc di posisi 2 (dst r2); tanpa split ldr di posisi 5. */
+
+// DECOMP-MATCHED func_080A1EA8 (dari code_809E804.s; cek manusia sebelum ke src/)
+u32 func_080A1EA8(s32 dummy, u32 arg1, s32 arg2) {
+    u32 var_r0;
+
+    var_r0 = arg1;
+    if (var_r0 <= 0x5FU) {
+        if (arg2 == 1) {
+            goto c1;
+        }
+        if (arg2 <= 1) {
+            goto end;
+        }
+        if (arg2 == 2) {
+            goto c2;
+        }
+        if (arg2 == 3) {
+            goto c3;
+        }
+        goto end;
+    c1:
+        var_r0 -= 0x1A;
+        goto end;
+    c2:
+        var_r0 -= 0x3A;
+        goto end;
+    c3:
+        var_r0 -= 0x5E;
+        goto end;
+    end:;
+    } else {
+        var_r0 -= 0x3C;
+    }
+    return var_r0;
+}
+
+/* ATTEMPT-NOTE opencode: goto-chain agar compare-di-depan + body-di-belakang (switch/if-else digabung compiler). */
