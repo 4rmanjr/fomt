@@ -1,10 +1,10 @@
-s32 func_080323C8();                                  /* extern */
-
-typedef struct GenObj {
+typedef struct GenObj6 {
     u8 _pad0[6];
-    s32 unk6;
-} GenObj;
-void func_08024C64(GenObj *arg0) {
+    u8 unk6;
+} GenObj6;
+s32 func_080323C8(GenObj6 *);                            /* extern */
+
+void func_08024C64(GenObj6 *arg0) {
     arg0->unk6 = 0;
-    func_080323C8();
+    func_080323C8(arg0);
 }

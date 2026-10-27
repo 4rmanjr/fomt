@@ -1677,3 +1677,33 @@ typedef struct GenObj {
 u8 func_080943BC(GenObj *arg0) {
     return arg0->unkD;
 }
+
+// DECOMP-MATCHED func_08050DD8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[13];
+    u8 unkD;
+} GenObj;
+u8 func_08050DD8(GenObj **arg0) {
+    u8 temp_r0;
+    GenObj *temp_r2;
+
+    temp_r2 = *arg0;
+    temp_r0 = temp_r2->unkD;
+    temp_r2->unkD = 0U;
+    return temp_r0;
+}
+
+// DECOMP-MATCHED func_08050DE4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[13];
+    u8 unkD;
+} GenObj;
+u8 func_08050DE4(GenObj **arg0) {
+    u8 temp_r0;
+    GenObj *temp_r2;
+
+    temp_r2 = *arg0;
+    temp_r0 = temp_r2->unkD;
+    temp_r2->unkD = 1U;
+    return temp_r0;
+}

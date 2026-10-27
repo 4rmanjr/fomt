@@ -271,3 +271,27 @@ ret2:
 }
 
 /* ATTEMPT-NOTE opencode: goto-chain agar bls/beq + urutan movs. */
+
+// DECOMP-MATCHED func_08024C54 (dari code_entities.s; cek manusia sebelum ke src/)
+typedef struct GenObj6 {
+    u8 _pad0[6];
+    u8 unk6;
+} GenObj6;
+s32 func_080323C8(GenObj6 *);                            /* extern */
+
+void func_08024C54(GenObj6 *arg0) {
+    arg0->unk6 = 1;
+    func_080323C8(arg0);
+}
+
+// DECOMP-MATCHED func_08024C64 (dari code_entities.s; cek manusia sebelum ke src/)
+typedef struct GenObj6 {
+    u8 _pad0[6];
+    u8 unk6;
+} GenObj6;
+s32 func_080323C8(GenObj6 *);                            /* extern */
+
+void func_08024C64(GenObj6 *arg0) {
+    arg0->unk6 = 0;
+    func_080323C8(arg0);
+}

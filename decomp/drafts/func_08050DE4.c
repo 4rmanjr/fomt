@@ -1,8 +1,8 @@
 typedef struct GenObj {
     u8 _pad0[13];
-    s32 unkD;
+    u8 unkD;
 } GenObj;
-u8 func_08050DE4(void **arg0) {
+u8 func_08050DE4(GenObj **arg0) {
     u8 temp_r0;
     GenObj *temp_r2;
 
