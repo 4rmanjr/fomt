@@ -110,6 +110,13 @@ sendiri DIKECUALIKAN dari konteks (tidak duplikat). `fomt verify` menilai
 BLOK PROMOTED apa adanya (tanpa konteks, tanpa draf kerja) — cermin kondisi
 saat MATCH.
 
+**Blok promoted harus mandiri.** `promote()` otomatis menyalin definisi
+tipe konteks (`Vtbl`/`Obj`/`S_*`) yang dipakai draf ke depan blok
+(`decomp/run.py:_expand_ctx`, beserta dependensinya), supaya blok tetap
+kompilasi saat `verify` menilainya tanpa konteks — dan tetap kompilasi bila
+konteks berubah (tipe dihapus/konflik di kemudian hari). Jangan mengandalkan
+tipe dari blok fungsi lain.
+
 ## Batasan build
 
 - Semua tool decomp di-vendor di `tools/` (lihat `tools/VENDORED.md`).

@@ -954,7 +954,11 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
         return False, "no draft (m2c gagal; tulis manual)"
     body = promoted_src or d.read_text()
     used = set(re.findall(r"\b(func_[0-9A-Fa-f]{8}|vtable_unk_[0-9A-Fa-f]{8}|gUnk_[0-9A-Fa-f]{8}|mem\w+|rand|malloc|free)\b", body))
-    pre = body.split("{")[0]  # hanya cek deklarasi sebelum badan fungsi
+    # deklarasi = semua sebelum definisi FUNGSI (bukan sebelum '{' pertama:
+    # draf/blok bisa diawali typedef struct). Tanpa ini, prototype fungsi
+    # di bawah typedef diduplikasi dgn versi (void) -> conflicting types.
+    mdef = re.search(rf"\b{re.escape(name)}\s*\(", body)
+    pre = body[:mdef.start()] if mdef else body.split("{")[0]
     pre_clean = re.sub(r"\?\s*", "", pre)  # 'extern ? vtable...' tetap terhitung dideklarasikan
     decls = "".join(f"s32 {s}(void);\n" if s.startswith("func_") else f"extern s32 {s};\n"
                     for s in sorted(used) if s != name and s not in pre and s not in pre_clean)
@@ -1117,6 +1121,49 @@ def verify_all(tag: str | None = None) -> int:
 
 
 
+def _ctx_types(text: str) -> tuple[set[str], set[str]]:
+    """(dipakai, didefinisikan): tipe konteks (Vtbl/Obj/S_*) dalam satu teks."""
+    defines = set(re.findall(r"typedef\s+struct\s+\w*\s*\{.*?\}\s*(\w+)\s*;",
+                             text, re.S))
+    used = {m for m in re.findall(r"\b(Vtbl|Obj|S_[0-9A-Fa-f]+)\b", text)
+            if m not in defines}
+    return used, defines
+
+
+def _expand_ctx(body: str) -> str:
+    """Lengkapi draf/blok dgn definisi tipe konteks yg dipakainya.
+
+    Tipe konteks (Vtbl/Obj/S_*) yg dipakai tapi tidak didefinisikan lokal
+    disalin dari _shared_context() ke depan body — dahulu draf/blok seperti
+    itu hanya kompilasi berkat common.h saat judge, tapi gagal saat verify
+    (blok promoted dinilai apa adanya, tanpa konteks) atau saat konteks
+    berubah. Return body yg sudah mandiri."""
+    used, _ = _ctx_types(body)
+    if not used:
+        return body
+    avail = _shared_context()
+    if not avail:
+        return body
+    blocks: dict[str, str] = {}
+    for m in re.finditer(r"typedef\s+struct\s*\{.*?\}\s*(\w+)\s*;",
+                         avail, re.S):
+        blocks.setdefault(m.group(1), m.group(0).strip())
+    # dependensi transitif: definisi yg disalin bisa merujuk tipe ctx lain
+    # (mis. Obj -> Vtbl; S_* -> Vtbl)
+    need = set(used)
+    queue = sorted(used)
+    while queue:
+        blk = blocks.get(queue.pop(), "")
+        for dep in re.findall(r"\b(Vtbl|Obj|S_[0-9A-Fa-f]+)\b", blk):
+            if dep not in need and dep in blocks:
+                need.add(dep)
+                queue.append(dep)
+    # urutan dependensi: Vtbl dulu (Obj/S_* bisa merujuknya)
+    order = sorted(need, key=lambda t: (t != "Vtbl", t))
+    pre = "".join(blocks[t] + "\n" for t in order if t in blocks)
+    return (pre + body) if pre else body
+
+
 def promote(name: str) -> Path | None:
     # seluruh cek-marker + append + set status di bawah lock: dua agent tidak
     # bisa menyisipkan blok yang sama dua kali ke promoted/<modul>.cc
@@ -1131,8 +1178,9 @@ def promote(name: str) -> Path | None:
         marker = f"// DECOMP-MATCHED {name} (dari {e['module']}; cek manusia sebelum ke src/)\n"
         if marker not in (out.read_text(errors="replace") if out.exists() else ""):
             out.parent.mkdir(parents=True, exist_ok=True)
+            text = _expand_ctx((DRAFTS / f"{name}.c").read_text())
             with out.open("a", errors="replace") as f:
-                f.write(f"\n{marker}{(DRAFTS / f'{name}.c').read_text().rstrip()}\n")
+                f.write(f"\n{marker}{text.rstrip()}\n")
         e["status"] = "promoted"
         e["promoted_to"] = str(out.relative_to(ROOT))
         save(st)
