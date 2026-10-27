@@ -366,3 +366,15 @@ s32 func_080A5A9C(GenObj *arg0) {
     }
     return var_r1;
 }
+
+// DECOMP-MATCHED func_080A5EA0 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 *GetMapData(s32);                               /* extern */
+s32 Unpack(s32, s32);                                 /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+void func_080A5EA0(GenObj *arg0) {
+    Unpack(*GetMapData(arg0->unk4), 0x06000000);
+}
