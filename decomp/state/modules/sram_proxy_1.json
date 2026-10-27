@@ -1,0 +1,80 @@
+{
+ "func_080002E0": {
+  "addr": 134218464,
+  "judged_mtime": 1793017133.545004,
+  "module": "sram_proxy_1.s",
+  "note": "byte +0x2: 0x83 vs ref 0x8a",
+  "ref_len": 120,
+  "sanitize_v": 4,
+  "size": 1194,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_08000358": {
+  "addr": 134218584,
+  "judged_mtime": 1792998829.5753577,
+  "module": "sram_proxy_1.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/sram_proxy_1.cc",
+  "ref_len": 72,
+  "size": 709,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_080003A0": {
+  "addr": 134218656,
+  "judged_mtime": 1792994086.8415947,
+  "module": "sram_proxy_1.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/sram_proxy_1.cc",
+  "ref_len": 60,
+  "size": 601,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_080003DC": {
+  "addr": 134218716,
+  "judged_mtime": 1792998821.788129,
+  "module": "sram_proxy_1.s",
+  "note": "len 16 vs ref 10",
+  "ref_len": 12,
+  "sanitize_v": 4,
+  "size": 196,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_080003E8": {
+  "addr": 134218728,
+  "judged_mtime": 1792994087.434216,
+  "module": "sram_proxy_1.s",
+  "note": "len 62 vs ref 136",
+  "ref_len": 136,
+  "sanitize_v": 4,
+  "size": 1111,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_08000470": {
+  "addr": 134218864,
+  "judged_mtime": 1792997422.1819818,
+  "module": "sram_proxy_1.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/sram_proxy_1.cc",
+  "ref_len": 24,
+  "size": 235,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_08000488": {
+  "addr": 134218888,
+  "judged_mtime": 1792994087.945353,
+  "module": "sram_proxy_1.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/sram_proxy_1.cc",
+  "ref_len": 59,
+  "sanitize_v": 4,
+  "size": 601,
+  "status": "promoted",
+  "thumb": true
+ }
+}

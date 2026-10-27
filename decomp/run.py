@@ -3,7 +3,8 @@
 
 Pakai:  python3 decomp/run.py [N] [modul ...] [--loop] [--wait S] [--retry] [--until HH:MM]
   N = jumlah fungsi per batch (default 20). Ctrl-C kapan saja, jalankan lagi
-  untuk lanjut. Semua progres tersimpan di decomp/state/progress.json.
+  untuk lanjut. Semua progres tersimpan di shard decomp/state/modules/<modul>.json
+  + decomp/state/index.json (gabungannya setara progress.json lama).
   --loop mengulangi batch sampai antrean pending/drafted habis; tetap
   foreground (tiap fungsi + ringkasan batch dicetak langsung), berhenti
   dengan Ctrl-C / deadline / antrean kosong.
@@ -13,7 +14,7 @@ promote (stage ke decomp/promoted/). Hasil matched/promoted tidak pernah
 ditimpa oleh jalan berikutnya.
 """
 from __future__ import annotations
-import contextlib, fcntl, json, os, re, signal, socket, subprocess, sys, time
+import contextlib, copy, fcntl, json, os, re, signal, socket, subprocess, sys, time
 from collections import Counter
 from pathlib import Path
 
@@ -26,6 +27,10 @@ ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
 ASM = ROOT / "asm"
 STATE = ROOT / "decomp" / "state" / "progress.json"
+STATEDIR = STATE.parent
+MODDIR = STATEDIR / "modules"  # shard per modul: <stem>.json (di-track git)
+INDEXF = STATEDIR / "index.json"  # mungil: {nama_fungsi: stem}
+BAKF = STATEDIR / "progress.json.bak"  # arsip sekali saat migrasi
 DRAFTS = ROOT / "decomp" / "drafts"
 PROMOTED = ROOT / "decomp" / "promoted"
 LOGD = ROOT / "decomp" / "logs"
@@ -46,9 +51,10 @@ M2C = Path(os.environ.get("FOMT_M2C", TOOLS / "m2c/m2c.py"))
 
 # --- koordinasi antar-agent (multi-agent) -----------------------------------
 # Dua agent (mis. OpenCode dan VSCode) boleh jalan bersamaan: tiap fungsi
-# diklaim dulu di progress.json, jadi tidak ada fungsi yang digarap dua kali.
-# Semua baca-ubah-tulis state dilakukan di bawah flock antar-proses; kerja
-# panjang (m2c/agbcc) dilakukan DI LUAR lock supaya tetap paralel.
+# diklaim dulu di shard state, jadi tidak ada fungsi yang digarap dua kali.
+# Semua baca-ubah-tulis state dilakukan di bawah flock antar-proses (global
+# untuk index + fallback, per-modul untuk tulis subset); kerja panjang
+# (m2c/agbcc) dilakukan DI LUAR lock supaya tetap paralel.
 LOCKF = ROOT / "decomp" / "state" / "progress.lock"
 GIT_LOCK = ROOT / "decomp" / "state" / "git.lock"  # serialisasi commit/push antar-agent
 CLAIM_TTL = int(os.environ.get("FOMT_CLAIM_TTL", "1800"))  # detik; klaim basi diambil alih
@@ -66,20 +72,136 @@ SKIP_MODULES = {"code_lib_syscall.s", "code_iwram.s", "vtables.s"}
 SKIP_FUNCS = {"ArcTan2", "CpuFastSet", "CpuSet", "IntrWait", "SoftReset", "Sqrt"}
 
 
+def _stem_of_module(module: str) -> str:
+    """Stem modul ('code_x.s' -> 'code_x'); entri tanpa modul -> '_unknown'."""
+    return Path(module).stem if module else "_unknown"
+
+
+def _shard_path(stem: str) -> Path:
+    return MODDIR / f"{stem}.json"
+
+
+def _module_lockf(stem: str) -> Path:
+    # flat di decomp/state/ agar tetap ke-ignore via pola decomp/state/*.lock
+    return STATEDIR / f"{stem}.lock"
+
+
+def _read_index() -> dict:
+    try:
+        return json.loads(INDEXF.read_text())
+    except (FileNotFoundError, NotADirectoryError, OSError, ValueError):
+        return {}
+
+
+def _write_index(idx: dict) -> None:
+    STATEDIR.mkdir(parents=True, exist_ok=True)
+    tmp = INDEXF.with_suffix(".tmp")
+    tmp.write_text(json.dumps(idx, indent=1, sort_keys=True))
+    tmp.replace(INDEXF)
+
+
+def _read_shard(stem: str) -> dict:
+    try:
+        return json.loads(_shard_path(stem).read_text())
+    except (FileNotFoundError, NotADirectoryError, OSError, ValueError):
+        return {}
+
+
+def _write_shard(stem: str, data: dict) -> None:
+    MODDIR.mkdir(parents=True, exist_ok=True)
+    p = _shard_path(stem)
+    tmp = p.with_suffix(".tmp")
+    tmp.write_text(json.dumps(data, indent=1, sort_keys=True))
+    tmp.replace(p)
+
+
+def _all_shard_stems() -> set:
+    try:
+        return {p.stem for p in MODDIR.glob("*.json")}
+    except OSError:
+        return set()
+
+
+def _load_all() -> dict:
+    """Gabung semua shard (tanpa lock; pemanggil yang mengunci)."""
+    st: dict = {}
+    try:
+        paths = sorted(MODDIR.glob("*.json"))
+    except OSError:
+        return st
+    for p in paths:
+        try:
+            st.update(json.loads(p.read_text()))
+        except (OSError, ValueError):
+            continue
+    return st
+
+
+def _save_split(st: dict) -> None:
+    """Pecah state gabungan per modul + tulis ulang index (tanpa lock)."""
+    grouped: dict = {}
+    for name, e in st.items():
+        stem = _stem_of_module(e.get("module", "") if isinstance(e, dict) else "")
+        grouped.setdefault(stem, {})[name] = e
+    MODDIR.mkdir(parents=True, exist_ok=True)
+    for stem, data in grouped.items():
+        _write_shard(stem, data)
+    for stem in _all_shard_stems() - set(grouped):
+        try:
+            _shard_path(stem).unlink()
+        except OSError:
+            pass
+    _write_index({n: _stem_of_module(e.get("module", "") if isinstance(e, dict) else "")
+                  for n, e in st.items()})
+
+
+def _migrate_if_needed_locked() -> bool:
+    """Pecah progress.json jadi shard+index sekali, lalu rename -> .bak.
+
+    Harus dipanggil dengan global lock dipegang. Return True bila migrasi jalan."""
+    if _all_shard_stems():
+        return False
+    if not STATE.exists():
+        return False
+    try:
+        st = json.loads(STATE.read_text())
+    except (OSError, ValueError):
+        st = {}
+    _save_split(st)
+    try:
+        STATE.rename(BAKF)
+    except OSError:
+        pass
+    return True
+
+
+def _migrate_if_needed() -> bool:
+    if _all_shard_stems() or not STATE.exists():
+        return False
+    with locked():
+        return _migrate_if_needed_locked()
+
+
 def load() -> dict:
-    return json.loads(STATE.read_text()) if STATE.exists() else {}
+    if _all_shard_stems():
+        return _load_all()
+    if STATE.exists():
+        _migrate_if_needed()
+        return _load_all() if _all_shard_stems() else {}
+    return {}
 
 
 def save(s: dict) -> None:
-    STATE.parent.mkdir(parents=True, exist_ok=True)
-    tmp = STATE.with_suffix(".tmp")
-    tmp.write_text(json.dumps(s, indent=1, sort_keys=True))
-    tmp.replace(STATE)
+    """Pecah state gabungan per modul (untuk admin/migrasi). Tanpa lock
+    sendiri — pemanggil yang butuh atomisitas memakai update()/locked*."""
+    _migrate_if_needed()
+    _save_split(s)
 
 
 @contextlib.contextmanager
 def locked():
-    """Kunci eksklusif antar-proses untuk progress.json (flock)."""
+    """Kunci global eksklusif antar-proses (flock). Melindungi index.json
+    dan dipakai jalur fallback yang menyentuh semua shard."""
     LOCKF.parent.mkdir(parents=True, exist_ok=True)
     with LOCKF.open("a+") as fh:
         fcntl.flock(fh, fcntl.LOCK_EX)
@@ -89,13 +211,84 @@ def locked():
             fcntl.flock(fh, fcntl.LOCK_UN)
 
 
-def update(fn):
+@contextlib.contextmanager
+def locked_modules(stems):
+    """Kunci HANYA file lock modul-modul itu (urut nama biar tidak deadlock)."""
+    stems = sorted(set(stems))
+    STATEDIR.mkdir(parents=True, exist_ok=True)
+    fhs = []
+    try:
+        for s in stems:
+            fh = _module_lockf(s).open("a+")
+            fcntl.flock(fh, fcntl.LOCK_EX)
+            fhs.append(fh)
+        yield
+    finally:
+        for fh in fhs:
+            try:
+                fcntl.flock(fh, fcntl.LOCK_UN)
+            except OSError:
+                pass
+            try:
+                fh.close()
+            except OSError:
+                pass
+
+
+def update(fn, names=None):
     """Baca state -> ubah lewat fn(st) -> simpan, semuanya di bawah lock.
-    Selalu baca ulang di dalam lock supaya tulisan agent lain tidak tertimpa."""
-    with locked():
-        st = load()
-        out = fn(st)
-        save(st)
+    Selalu baca ulang di dalam lock supaya tulisan agent lain tidak tertimpa.
+
+    names=None: jalur lama — kunci global + semua modul, operasi state
+    gabungan penuh. names=[...]: tentukan shard via index, kunci HANYA lock
+    modul-modul itu (urut nama), baca subset shard terkait, terapkan fn pada
+    subset, simpan shard yang berubah. Nama yang belum terindeks (fungsi /
+    modul baru dari scan) jatuh ke jalur global yang juga menulis index.
+    """
+    if names is None:
+        with locked():
+            _migrate_if_needed_locked()
+            with locked_modules(_all_shard_stems() | set(_read_index().values())):
+                st = _load_all()
+                out = fn(st)
+                _save_split(st)
+                return out
+    names = list(names)
+    if not names:
+        return fn({})
+    _migrate_if_needed()
+    idx = _read_index()
+    names_set = set(names)
+    if any(n not in idx for n in names):
+        with locked():
+            _migrate_if_needed_locked()
+            with locked_modules(_all_shard_stems() | set(_read_index().values())):
+                st = _load_all()
+                out = fn(st)
+                _save_split(st)
+                return out
+    stems = sorted({idx[n] for n in names})
+    with locked_modules(stems):
+        shards = {s: _read_shard(s) for s in stems}
+        sub = {k: copy.deepcopy(v)
+               for s in stems for k, v in shards[s].items() if k in names_set}
+        out = fn(sub)
+        changed: set = set()
+        for k, v in sub.items():
+            s = idx.get(k)
+            if s is None and isinstance(v, dict):
+                s = _stem_of_module(v.get("module", ""))
+            if s is None or s not in shards:
+                continue  # tak terduga di jalur murni; jangan rusak shard lain
+            if shards[s].get(k) != v:
+                shards[s][k] = v
+                changed.add(s)
+        for s in stems:
+            for k in [k for k in shards[s] if k in names_set and k not in sub]:
+                del shards[s][k]
+                changed.add(s)
+        for s in sorted(changed):
+            _write_shard(s, shards[s])
         return out
 
 
@@ -118,14 +311,15 @@ def claim(name: str, agent: str | None = None) -> bool:
         e["claimed_by"], e["claimed_at"] = agent, now
         return True
 
-    return update(m)
+    return update(m, names=[name])
 
 
 def claim_many(names: list[str], limit: int, agent: str | None = None) -> list[str]:
     """Klaim sampai `limit` fungsi dalam SATU tulis state.
 
-    Klaim satu-per-satu menulis ulang progress.json (~800 KB) tiap fungsi;
-    untuk batch besar itu puluhan detik tanpa output dan mengunci agent lain.
+    Klaim satu-per-satu menulis ulang satu shard kecil per modul yang
+    tersentuh, bukan seluruh state; untuk batch besar tetap satu tulis per
+    modul yang berubah dan tidak mengunci agent lain di modul lain.
     """
     agent = agent or AGENT
 
@@ -144,7 +338,7 @@ def claim_many(names: list[str], limit: int, agent: str | None = None) -> list[s
             out.append(name)
         return out
 
-    return update(m)
+    return update(m, names=names)
 
 
 def release_all(agent: str | None = None) -> int:
@@ -154,6 +348,9 @@ def release_all(agent: str | None = None) -> int:
     sampai FOMT_CLAIM_TTL habis.
     """
     agent = agent or AGENT
+    names = [k for k, v in load().items() if v.get("claimed_by") == agent]
+    if not names:
+        return 0
 
     def m(st):
         n = 0
@@ -164,7 +361,7 @@ def release_all(agent: str | None = None) -> int:
                 n += 1
         return n
 
-    return update(m)
+    return update(m, names=names)
 
 
 def touch(name: str, **kw) -> bool:
@@ -176,7 +373,7 @@ def touch(name: str, **kw) -> bool:
         e.update(kw)
         return True
 
-    return update(m)
+    return update(m, names=[name])
 
 
 def release(name: str) -> None:
@@ -187,7 +384,7 @@ def release(name: str) -> None:
             e.pop("claimed_by", None)
             e.pop("claimed_at", None)
 
-    update(m)
+    update(m, names=[name])
 
 
 def ref_sizes(module: str) -> dict[str, int]:
@@ -248,11 +445,17 @@ def scan(modules: list[str] | None = None) -> dict:
                 meta["ref_len"] = sizes[f.name][name]
             scanned[name] = meta
 
-    def m(st):
-        for name, meta in scanned.items():
-            st[name] = meta | {"status": "pending"} if name not in st else st[name] | meta
+    by_stem: dict = {}
+    for name, meta in scanned.items():
+        by_stem.setdefault(_stem_of_module(meta["module"]), {})[name] = meta
+    for stem in sorted(by_stem):
+        group = by_stem[stem]
 
-    update(m)
+        def _merge(st, _group=group):
+            for name, meta in _group.items():
+                st[name] = meta | {"status": "pending"} if name not in st else st[name] | meta
+
+        update(_merge, names=list(group))
     return load()
 
 
@@ -570,7 +773,7 @@ def resanitize_stale() -> int:
             if k in s and s[k]["status"] == "failed":
                 s[k]["sanitize_checked_v"] = SANITIZE_VERSION
 
-    update(_mark)
+    update(_mark, names=stale) if stale else None
     return n
 
 
@@ -1172,27 +1375,42 @@ def _expand_ctx(body: str) -> str:
     return (pre + body) if pre else body
 
 
+def _promote_in_shard(stem: str, name: str) -> Path | None:
+    """Badan promote dgn asumsi lock modul `stem` sudah dipegang."""
+    shard = _read_shard(stem)
+    e = shard[name]
+    if e["status"] == "promoted":
+        return Path(e["promoted_to"])
+    if e["status"] != "matched":
+        return None
+    out = PROMOTED / f"{Path(e['module']).stem}.cc"
+    marker = f"// DECOMP-MATCHED {name} (dari {e['module']}; cek manusia sebelum ke src/)\n"
+    if marker not in (out.read_text(errors="replace") if out.exists() else ""):
+        out.parent.mkdir(parents=True, exist_ok=True)
+        text = _expand_ctx((DRAFTS / f"{name}.c").read_text())
+        with out.open("a", errors="replace") as f:
+            f.write(f"\n{marker}{text.rstrip()}\n")
+    e["status"] = "promoted"
+    e["promoted_to"] = str(out.relative_to(ROOT))
+    _write_shard(stem, shard)
+    return out
+
+
 def promote(name: str) -> Path | None:
-    # seluruh cek-marker + append + set status di bawah lock: dua agent tidak
-    # bisa menyisipkan blok yang sama dua kali ke promoted/<modul>.cc
-    with locked():
-        st = load()
-        e = st[name]
-        if e["status"] == "promoted":
-            return Path(e["promoted_to"])
-        if e["status"] != "matched":
-            return None
-        out = PROMOTED / f"{Path(e['module']).stem}.cc"
-        marker = f"// DECOMP-MATCHED {name} (dari {e['module']}; cek manusia sebelum ke src/)\n"
-        if marker not in (out.read_text(errors="replace") if out.exists() else ""):
-            out.parent.mkdir(parents=True, exist_ok=True)
-            text = _expand_ctx((DRAFTS / f"{name}.c").read_text())
-            with out.open("a", errors="replace") as f:
-                f.write(f"\n{marker}{text.rstrip()}\n")
-        e["status"] = "promoted"
-        e["promoted_to"] = str(out.relative_to(ROOT))
-        save(st)
-        return out
+    # seluruh cek-marker + append + set status di bawah lock modul: dua agent
+    # tidak bisa menyisipkan blok yang sama dua kali ke promoted/<modul>.cc
+    _migrate_if_needed()
+    stem = _read_index().get(name)
+    if stem is None:
+        with locked():
+            _migrate_if_needed_locked()
+            with locked_modules(_all_shard_stems() | set(_read_index().values())):
+                st = _load_all()
+                if name not in st:
+                    raise KeyError(name)
+                return _promote_in_shard(_stem_of_module(st[name].get("module", "")), name)
+    with locked_modules([stem]):
+        return _promote_in_shard(stem, name)
 
 
 CTX_MAX_BYTES = 6000  # batas agar judge tetap cepat; struct lama dipangkas
@@ -1289,8 +1507,8 @@ def short_note(note: str, limit: int = 80) -> str:
 def autopush(names: str | list[str]) -> bool:
     """Commit + push hasil MATCH. Dipanggil SEKALI per batch (bukan per fungsi).
 
-    Hanya stage file esensial: draf MATCH, blok promoted, progress.json.
-    Artefak judge (ref.o/func.o/func.i/common.h) di-ignore via .gitignore
+    Hanya stage file esensial: draf MATCH, blok promoted, shard state
+    modules/ + index.json. Artefak judge (ref.o/func.o/func.i/common.h) di-ignore via .gitignore
     dan TIDAK ikut commit. Log teks (func.c/func.s) tetap ikut sbg audit.
     FOMT_AUTOPUSH=0 mematikan. Gagal push tidak menggagalkan run: commit tetap
     ada di lokal dan pesan peringatan dicetak.
@@ -1310,7 +1528,20 @@ def autopush(names: str | list[str]) -> bool:
             if git("rev-parse", "--is-inside-work-tree").returncode != 0:
                 return False
             st = load()
-            paths = {"decomp/state/progress.json"}
+            if _all_shard_stems():
+                idx = _read_index()
+                stems = set()
+                for name in names:
+                    e = st.get(name)
+                    if isinstance(e, dict) and e.get("module"):
+                        stems.add(_stem_of_module(e["module"]))
+                    elif name in idx:
+                        stems.add(idx[name])
+                paths = {f"decomp/state/modules/{s}.json" for s in stems}
+                if INDEXF.exists():
+                    paths.add("decomp/state/index.json")
+            else:
+                paths = {"decomp/state/progress.json"}
             for name in names:
                 e = st.get(name)
                 paths.add(f"decomp/drafts/{name}.c")
@@ -1525,7 +1756,9 @@ def main(argv: list[str]) -> int:
             if k in fixed and fixed[k] != v.get("ref_len"):
                 v["ref_len"] = fixed[k]
 
-    update(_fix)
+    names_fix = [k for k in fixed if k in st]
+    if names_fix:
+        update(_fix, names=names_fix)
 
     def _skip(s):
         for k, v in s.items():
@@ -1533,7 +1766,9 @@ def main(argv: list[str]) -> int:
                 v["status"] = "failed"
                 v["note"] = "skip permanen (svc satu instruksi; tulis manual jika perlu)"
 
-    update(_skip)
+    names_skip = [k for k in SKIP_FUNCS if k in st]
+    if names_skip:
+        update(_skip, names=names_skip)
 
     def _baseline(s):
         # entri lama (sebelum ada judged_mtime) dianggap sudah pernah di-judge:
@@ -1546,7 +1781,11 @@ def main(argv: list[str]) -> int:
             if v["status"] == "failed" and "sanitize_v" not in v:
                 v["sanitize_v"] = 0  # draf lama: sanitasi versi awal
 
-    update(_baseline)
+    names_base = [k for k, v in st.items()
+                  if ("judged_mtime" not in v and v["status"] in ("failed", "matched", "promoted"))
+                  or (v["status"] == "failed" and "sanitize_v" not in v)]
+    if names_base:
+        update(_baseline, names=names_base)
     # Regenerasi draf m2c-murni dgn sanitasi kini (tanpa sentuh edit manual),
     # supaya perbaikan sanitasi langsung ikut antre judge ulang. Dilewati
     # untuk 'status' (n=0): hanya baca progres, tanpa kerja menit.
@@ -1590,8 +1829,12 @@ def main(argv: list[str]) -> int:
                       f" | total loop {total_m}M/{total_d}D | {progress(load())}")
                 print(f"[{AGENT}] {bar_text(load())}")
                 return 0
-            scan(modules)  # modul bisa berubah di tengah loop; pending baru ikut antre
-            update(_baseline)
+            _st2 = scan(modules)  # modul bisa berubah di tengah loop; pending baru ikut antre
+            _nb = [k for k, v in _st2.items()
+                   if ("judged_mtime" not in v and v["status"] in ("failed", "matched", "promoted"))
+                   or (v["status"] == "failed" and "sanitize_v" not in v)]
+            if _nb:
+                update(_baseline, names=_nb)
             print(f"[{AGENT}] loop lanjut batch#{batches + 1} dalam {wait_s:g}s"
                   f" (Ctrl-C untuk berhenti) | {progress(load())}")
             try:

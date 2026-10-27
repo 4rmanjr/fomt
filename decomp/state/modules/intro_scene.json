@@ -1,0 +1,139 @@
+{
+ "func_08000914": {
+  "addr": 134220052,
+  "judged_mtime": 1793020041.3442187,
+  "module": "intro_scene.s",
+  "note": "len 1118 vs ref 1102",
+  "ref_len": 1104,
+  "sanitize_v": 4,
+  "size": 9991,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_08000D64": {
+  "addr": 134221156,
+  "judged_mtime": 1793017135.3347697,
+  "module": "intro_scene.s",
+  "note": " different size\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08000D64/kilo/func.c:56: request for member `unk8' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08000D64/kilo/func.c:67: request for member `unk8' in something not a structure or union\n",
+  "ref_len": 184,
+  "sanitize_v": 4,
+  "size": 1805,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_08000E1C": {
+  "addr": 134221340,
+  "judged_mtime": 1793020041.6729076,
+  "module": "intro_scene.s",
+  "note": "len 322 vs ref 320",
+  "ref_len": 320,
+  "sanitize_v": 4,
+  "size": 2962,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_08000F5C": {
+  "addr": 134221660,
+  "judged_mtime": 1793020041.963547,
+  "module": "intro_scene.s",
+  "note": "ture or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08000F5C/kilo/func.c:30: request for member `unk1C' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08000F5C/kilo/func.c:33: request for member `unk1E' in something not a structure or union\n",
+  "ref_len": 156,
+  "sanitize_checked_v": 4,
+  "sanitize_v": 4,
+  "size": 1439,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_08000FF8": {
+  "addr": 134221816,
+  "judged_mtime": 1793020042.329896,
+  "module": "intro_scene.s",
+  "note": "len 186 vs ref 198",
+  "ref_len": 198,
+  "sanitize_v": 4,
+  "size": 1897,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_080019D8": {
+  "addr": 134224344,
+  "judged_mtime": 1793020043.514954,
+  "module": "intro_scene.s",
+  "note": "omt/decomp/logs/judge_func_080019D8/kilo/func.c:644: warning: passing arg 2 of `func_080074C0' makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080019D8/kilo/func.c:651: warning: passing arg 2 of `func_08007D4C' makes integer from pointer without a cast\n",
+  "ref_len": 2824,
+  "sanitize_checked_v": 4,
+  "sanitize_v": 4,
+  "size": 27332,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_080024E0": {
+  "addr": 134227168,
+  "judged_mtime": 1793020045.646984,
+  "module": "intro_scene.s",
+  "note": "tproject/fomt/decomp/logs/judge_func_080024E0/opencode/func.c:1305: warning: passing arg 2 of `func_0805E99C' makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080024E0/opencode/func.c:1306: request for member `unk2' in something not a structure or union\n",
+  "ref_len": 4320,
+  "sanitize_v": 4,
+  "size": 41953,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_080035C0": {
+  "addr": 134231488,
+  "judged_mtime": 1793020045.960318,
+  "module": "intro_scene.s",
+  "note": "gitproject/fomt/decomp/logs/judge_func_080035C0/opencode/func.c:100: request for member `unk4' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080035C0/opencode/func.c:102: warning: passing arg 2 of `func_0805E99C' makes integer from pointer without a cast\n",
+  "ref_len": 312,
+  "sanitize_v": 4,
+  "size": 3117,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_080036F8": {
+  "addr": 134231800,
+  "judged_mtime": 1793017135.5260704,
+  "module": "intro_scene.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/intro_scene.cc",
+  "ref_len": 36,
+  "sanitize_v": 4,
+  "size": 406,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_0800371C": {
+  "addr": 134231836,
+  "judged_mtime": 1793020046.1820323,
+  "module": "intro_scene.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/intro_scene.cc",
+  "ref_len": 48,
+  "sanitize_v": 4,
+  "size": 510,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_0800374C": {
+  "addr": 134231884,
+  "judged_mtime": 1793021825.7278774,
+  "module": "intro_scene.s",
+  "note": "len 32 vs ref 59",
+  "ref_len": 59,
+  "sanitize_v": 4,
+  "size": 566,
+  "status": "failed",
+  "thumb": true
+ },
+ "sub_080010BE": {
+  "addr": 134222014,
+  "judged_mtime": 1793066101.9582896,
+  "module": "intro_scene.s",
+  "note": " `argA' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080010BE/cline/func.c:299: `argB' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080010BE/cline/func.c:400: `arg4' undeclared (first use in this function)\n",
+  "ref_len": 2330,
+  "sanitize_checked_v": 4,
+  "sanitize_v": 4,
+  "size": 23125,
+  "status": "failed",
+  "thumb": true
+ }
+}

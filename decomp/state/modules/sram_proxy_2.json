@@ -1,0 +1,57 @@
+{
+ "func_0800063C": {
+  "addr": 134219324,
+  "judged_mtime": 1792993701.1155586,
+  "module": "sram_proxy_2.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/sram_proxy_2.cc",
+  "ref_len": 4,
+  "size": 90,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_08000640": {
+  "addr": 134219328,
+  "judged_mtime": 1792993701.4839256,
+  "module": "sram_proxy_2.s",
+  "note": "len 26 vs ref 100",
+  "ref_len": 100,
+  "sanitize_v": 4,
+  "size": 860,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_080006A4": {
+  "addr": 134219428,
+  "judged_mtime": 1792993701.8002956,
+  "module": "sram_proxy_2.s",
+  "note": "len 55 vs ref 64",
+  "ref_len": 64,
+  "sanitize_v": 4,
+  "size": 668,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_080006E4": {
+  "addr": 134219492,
+  "judged_mtime": 1792993702.088772,
+  "module": "sram_proxy_2.s",
+  "note": "the original pointer does not target `gUnk_03000400`; the original call does not target `func_080D379C`",
+  "ref_len": 68,
+  "sanitize_v": 4,
+  "size": 665,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_08000728": {
+  "addr": 134219560,
+  "judged_mtime": 1792993702.4298291,
+  "module": "sram_proxy_2.s",
+  "note": "the original pointer does not target `gUnk_03000400`; the original pointer does not target `gUnk_03000400`",
+  "ref_len": 191,
+  "sanitize_v": 4,
+  "size": 2248,
+  "status": "failed",
+  "thumb": true
+ }
+}

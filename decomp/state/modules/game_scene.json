@@ -1,0 +1,24 @@
+{
+ "func_0801004C": {
+  "addr": 134283340,
+  "judged_mtime": 1793017163.8272045,
+  "module": "game_scene.s",
+  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801004C/opencode/func.c:47: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801004C/opencode/func.c:47: request for member `unk8' in something not a structure or union\n",
+  "ref_len": 268,
+  "sanitize_v": 4,
+  "size": 2229,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_08010158": {
+  "addr": 134283608,
+  "judged_mtime": 1793017164.0267386,
+  "module": "game_scene.s",
+  "note": "c.c:19: `_' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08010158/opencode/func.c:19: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08010158/opencode/func.c:19: for each function it appears in.)\n",
+  "ref_len": 495,
+  "sanitize_v": 4,
+  "size": 3528,
+  "status": "failed",
+  "thumb": true
+ }
+}

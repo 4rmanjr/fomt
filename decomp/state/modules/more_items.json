@@ -1,0 +1,91 @@
+{
+ "func_0800FF8C": {
+  "addr": 134283148,
+  "judged_mtime": 1793017163.0746284,
+  "module": "more_items.s",
+  "note": "omp/logs/judge_func_0800FF8C/opencode/func.c:18: invalid operands to binary &\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800FF8C/opencode/func.c:19: invalid operands to binary &\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800FF8C/opencode/func.c:20: invalid operands to binary &\n",
+  "ref_len": 68,
+  "sanitize_v": 4,
+  "size": 718,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_0800FFD0": {
+  "addr": 134283216,
+  "judged_mtime": 1792992490.9139972,
+  "module": "more_items.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/more_items.cc",
+  "ref_len": 4,
+  "size": 91,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_0800FFD4": {
+  "addr": 134283220,
+  "judged_mtime": 1792992491.0992832,
+  "module": "more_items.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/more_items.cc",
+  "ref_len": 4,
+  "size": 90,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_0800FFD8": {
+  "addr": 134283224,
+  "judged_mtime": 1793079036.277884,
+  "module": "more_items.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/more_items.cc",
+  "ref_len": 8,
+  "sanitize_v": 4,
+  "size": 127,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_0800FFE0": {
+  "addr": 134283232,
+  "judged_mtime": 1792997389.2625022,
+  "module": "more_items.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/more_items.cc",
+  "ref_len": 20,
+  "size": 207,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_0800FFF4": {
+  "addr": 134283252,
+  "judged_mtime": 1793017163.4343054,
+  "module": "more_items.s",
+  "note": "len 36 vs ref 30",
+  "ref_len": 32,
+  "sanitize_v": 4,
+  "size": 353,
+  "status": "failed",
+  "thumb": true
+ },
+ "func_08010014": {
+  "addr": 134283284,
+  "judged_mtime": 1792997389.2925036,
+  "module": "more_items.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/more_items.cc",
+  "ref_len": 16,
+  "size": 166,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_08010024": {
+  "addr": 134283300,
+  "judged_mtime": 1793017163.6155057,
+  "module": "more_items.s",
+  "note": "func.c:10: warning: comparison between pointer and integer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08010024/opencode/func.c:13: warning: comparison between pointer and integer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08010024/opencode/func.c:15: invalid operands to binary -\n",
+  "ref_len": 39,
+  "sanitize_v": 4,
+  "size": 441,
+  "status": "failed",
+  "thumb": true
+ }
+}

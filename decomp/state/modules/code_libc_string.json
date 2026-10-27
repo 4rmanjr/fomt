@@ -1,0 +1,82 @@
+{
+ "memcmp": {
+  "addr": 135084360,
+  "judged_mtime": 1793015411.8841975,
+  "module": "code_libc_string.s",
+  "note": "decomp/logs/judge_memcmp/opencode/func.c:15: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memcmp/opencode/func.c:32: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memcmp/opencode/func.c:33: invalid type argument of `unary *'\n",
+  "ref_len": 76,
+  "sanitize_v": 4,
+  "size": 644,
+  "status": "failed",
+  "thumb": true
+ },
+ "memcpy": {
+  "addr": 135084436,
+  "judged_mtime": 1793015412.2289429,
+  "module": "code_libc_string.s",
+  "note": "decomp/logs/judge_memcpy/opencode/func.c:36: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memcpy/opencode/func.c:46: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memcpy/opencode/func.c:46: invalid type argument of `unary *'\n",
+  "ref_len": 100,
+  "sanitize_checked_v": 4,
+  "sanitize_v": 4,
+  "size": 848,
+  "status": "failed",
+  "thumb": true
+ },
+ "memmove": {
+  "addr": 135084536,
+  "judged_mtime": 1793015412.5603862,
+  "module": "code_libc_string.s",
+  "note": "omp/logs/judge_memmove/opencode/func.c:53: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memmove/opencode/func.c:63: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memmove/opencode/func.c:63: invalid type argument of `unary *'\n",
+  "ref_len": 140,
+  "sanitize_checked_v": 4,
+  "sanitize_v": 4,
+  "size": 1167,
+  "status": "failed",
+  "thumb": true
+ },
+ "memset": {
+  "addr": 135084676,
+  "judged_mtime": 1793015412.9034216,
+  "module": "code_libc_string.s",
+  "note": "encode/func.c:29: warning: assignment makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memset/opencode/func.c:35: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memset/opencode/func.c:46: invalid type argument of `unary *'\n",
+  "ref_len": 88,
+  "sanitize_checked_v": 4,
+  "sanitize_v": 4,
+  "size": 752,
+  "status": "failed",
+  "thumb": true
+ },
+ "strcat": {
+  "addr": 135084764,
+  "judged_mtime": 1793015413.5770943,
+  "module": "code_libc_string.s",
+  "note": "decomp/logs/judge_strcat/opencode/func.c:14: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_strcat/opencode/func.c:19: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_strcat/opencode/func.c:25: invalid type argument of `unary *'\n",
+  "ref_len": 76,
+  "sanitize_v": 4,
+  "size": 687,
+  "status": "failed",
+  "thumb": true
+ },
+ "strcpy": {
+  "addr": 135084840,
+  "judged_mtime": 1793015413.8982491,
+  "module": "code_libc_string.s",
+  "note": "decomp/logs/judge_strcpy/opencode/func.c:22: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_strcpy/opencode/func.c:28: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_strcpy/opencode/func.c:29: invalid type argument of `unary *'\n",
+  "ref_len": 80,
+  "sanitize_v": 4,
+  "size": 724,
+  "status": "failed",
+  "thumb": true
+ },
+ "strlen": {
+  "addr": 135084920,
+  "judged_mtime": 1793015414.1951296,
+  "module": "code_libc_string.s",
+  "note": "decomp/logs/judge_strlen/opencode/func.c:14: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_strlen/opencode/func.c:19: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_strlen/opencode/func.c:26: invalid type argument of `unary *'\n",
+  "ref_len": 71,
+  "sanitize_v": 4,
+  "size": 664,
+  "status": "failed",
+  "thumb": true
+ }
+}

@@ -1,0 +1,68 @@
+{
+ "ArcTan2": {
+  "addr": 135083848,
+  "judged_mtime": 1792994083.1586595,
+  "module": "code_lib_syscall.s",
+  "note": "skip permanen (svc satu instruksi; tulis manual jika perlu)",
+  "ref_len": 4,
+  "sanitize_v": 4,
+  "size": 66,
+  "status": "failed",
+  "thumb": true
+ },
+ "CpuFastSet": {
+  "addr": 135083852,
+  "judged_mtime": 1792994083.4558592,
+  "module": "code_lib_syscall.s",
+  "note": "skip permanen (svc satu instruksi; tulis manual jika perlu)",
+  "ref_len": 4,
+  "sanitize_v": 4,
+  "size": 72,
+  "status": "failed",
+  "thumb": true
+ },
+ "CpuSet": {
+  "addr": 135083856,
+  "judged_mtime": 1792994083.7347436,
+  "module": "code_lib_syscall.s",
+  "note": "skip permanen (svc satu instruksi; tulis manual jika perlu)",
+  "ref_len": 4,
+  "sanitize_v": 4,
+  "size": 64,
+  "status": "failed",
+  "thumb": true
+ },
+ "IntrWait": {
+  "addr": 135083860,
+  "judged_mtime": 1792994084.274812,
+  "module": "code_lib_syscall.s",
+  "note": "skip permanen (svc satu instruksi; tulis manual jika perlu)",
+  "ref_len": 8,
+  "sanitize_v": 4,
+  "size": 92,
+  "status": "failed",
+  "thumb": true
+ },
+ "SoftReset": {
+  "addr": 135083868,
+  "judged_mtime": 1792994084.5643098,
+  "module": "code_lib_syscall.s",
+  "note": "skip permanen (svc satu instruksi; tulis manual jika perlu)",
+  "ref_len": 24,
+  "sanitize_v": 4,
+  "size": 263,
+  "status": "failed",
+  "thumb": true
+ },
+ "Sqrt": {
+  "addr": 135083892,
+  "judged_mtime": 1792994084.843886,
+  "module": "code_lib_syscall.s",
+  "note": "skip permanen (svc satu instruksi; tulis manual jika perlu)",
+  "ref_len": 3,
+  "sanitize_v": 4,
+  "size": 58,
+  "status": "failed",
+  "thumb": true
+ }
+}
