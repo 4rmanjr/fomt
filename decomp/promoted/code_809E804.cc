@@ -902,3 +902,20 @@ __attribute__((naked)) void func_080D14EC(void) {
     ".syntax unified\npush {r1, r7, lr}\nmovs r6, #1\nloop14ec:\nmovs r4, #4\nbl func_080D11A4\nadds r4, #1\nstrb r4, [r7, #6]\nstrh r6, [r7, #4]\nadds r7, #4\nmovs r1, #1\nlsls r1, r4\nadds r6, r6, r1\nsubs r5, #1\nbne loop14ec\npop {r1, r7, pc}\n.syntax divided"
     ::: "r0","r1","r2","r3","r4","r5","r6","r7","lr","memory");
 }
+
+// DECOMP-MATCHED func_0809EE8C (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 __3NpcRC13ActorLocation();                        /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[20];
+    u16 unk14;
+    u8 unk16;
+} GenObj;
+void *func_0809EE8C(GenObj *arg0) {
+    __3NpcRC13ActorLocation();
+    arg0->unk14 = 0;
+    arg0->unk16 = 0;
+    return arg0;
+}
+
+/* ATTEMPT-NOTE opencode: unk14 u16 (strh), unk16 u8 (strb). */
