@@ -7,8 +7,14 @@
 	.type	 func_080D01E0,function
 	.thumb_func
 func_080D01E0:
-	ldr	r1, .L3
-	str	r0, [r1]
+	ldr	r2, .L3
+	str	r0, [r2]
+	sub	r1, r1, #0x10
+	str	r1, [r0]
+	mov	r1, #0x0
+	str	r1, [r0, #0x4]
+	str	r1, [r0, #0x8]
+	str	r1, [r0, #0xc]
 	bx	lr
 .L4:
 	.align	2, 0
