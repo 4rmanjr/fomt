@@ -8,7 +8,7 @@
 	.thumb_func
 func_080AD960:
 	push	{lr}
-	mov	r0, #0x0
+	ldr	r0, [r0, #0x4]
 	bl	func_080A6300
 	mov	r0, #0x0
 	pop	{r1}
