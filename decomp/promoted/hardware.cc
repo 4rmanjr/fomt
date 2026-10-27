@@ -414,3 +414,14 @@ void func_080092C8(GenObj *arg0, u16 arg1) {
 /* ATTEMPT-NOTE opencode: hoist load ke atas loop (r5/r6/r3/r2/r1); member u16; 0x200 via shift. */
 
 /* ATTEMPT-NOTE opencode: decrement via (u8*)-2 agar subs #2 (u16* -=2 memberi #4). */
+
+// DECOMP-MATCHED func_080092FC (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[12];
+    u16 unkC;
+} GenObj;
+void func_080092FC(GenObj *arg0, s16 arg1) {
+    arg0->unkC = arg1;
+}
+
+/* ATTEMPT-NOTE opencode: unkC u16 (strh). */
