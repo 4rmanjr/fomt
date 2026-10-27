@@ -9,6 +9,8 @@
 func_080E4544:
 	push	{lr}
 	add	r2, r0, #0
+	ldr	r0, .L4
+	str	r0, [r2]
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
@@ -18,5 +20,9 @@ func_080E4544:
 .L3:
 	pop	{r0}
 	bx	r0
+.L5:
+	.align	2, 0
+.L4:
+	.word	vtable_unk_080E61A0
 .Lfe1:
 	.size	 func_080E4544,.Lfe1-func_080E4544
