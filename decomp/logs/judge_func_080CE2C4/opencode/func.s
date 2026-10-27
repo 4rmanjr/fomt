@@ -9,9 +9,26 @@
 func_080CE2C4:
 	push	{r4, lr}
 	add	r4, r0, #0
+	add	r0, r0, #0x8c
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L3	@cond_branch
 	bl	func_080CDDD4
+.L3:
+	add	r0, r4, #0
+	add	r0, r0, #0x90
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L4	@cond_branch
 	bl	func_080CECE8
+.L4:
+	add	r0, r4, #0
+	add	r0, r0, #0x94
+	ldr	r0, [r0]
+	cmp	r0, #0
+	beq	.L5	@cond_branch
 	bl	func_080CE790
+.L5:
 	add	r0, r4, #0
 	bl	func_080CD8A0
 	pop	{r4}
