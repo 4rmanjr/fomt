@@ -940,3 +940,36 @@ void func_080E3734(s32 arg0) {
     func_08050DC8(temp_r4, &gUnk_08100594, 0, 0);
     func_08050E50(temp_r4, 0x38);
 }
+
+// DECOMP-MATCHED func_080E3B60 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08094268(s32 **, s32);                         /* extern */
+s32 func_080D02EC();                                  /* extern */
+extern s32 vtable_unk_080E7F0C;
+
+void func_080E3B60(s32 **arg0, s32 arg1) {
+    *arg0 = &vtable_unk_080E7F0C;
+    func_080D02EC();
+    func_08094268(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080E3D94 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 __builtin_delete(s32 **);                           /* extern */
+extern s32 vtable_unk_080E76F8;
+
+void func_080E3D94(s32 **arg0, s32 arg1) {
+    *arg0 = &vtable_unk_080E76F8;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+
+// DECOMP-MATCHED func_080E4190 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 __builtin_delete(s32 **);                           /* extern */
+extern s32 vtable_unk_080E76F8;
+
+void func_080E4190(s32 **arg0, s32 arg1) {
+    *arg0 = &vtable_unk_080E76F8;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}

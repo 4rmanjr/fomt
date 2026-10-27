@@ -10,6 +10,8 @@ func_080E3B60:
 	push	{r4, r5, lr}
 	add	r4, r0, #0
 	add	r5, r1, #0
+	ldr	r0, .L3
+	str	r0, [r4]
 	bl	func_080D02EC
 	add	r0, r4, #0
 	add	r1, r5, #0
@@ -17,5 +19,9 @@ func_080E3B60:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
+.L4:
+	.align	2, 0
+.L3:
+	.word	vtable_unk_080E7F0C
 .Lfe1:
 	.size	 func_080E3B60,.Lfe1-func_080E3B60
