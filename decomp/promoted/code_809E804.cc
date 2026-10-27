@@ -812,3 +812,28 @@ __attribute__((naked)) void sub_080D139C(void) {
     ".syntax unified\npush {lr}\nmovs r5, #3\nbl func_080D14EC\nloop139c_top:\nsubs r3, #1\nbmi reload1\nbittest139c:\nlsls r2, r2, #1\nbhs have_bit1\nmov lr, pc\nbx sb\nadds r5, r4, #0\nmov lr, pc\nbx sb\nlsls r4, r4, #8\norrs r4, r5\nadds r1, #2\nstrh r4, [r1]\nb emitcheck139c\nhave_bit1:\nmovs r4, #2\nbl func_080D11A4\ncmp r4, #3\nbeq lenloop1\nlsls r5, r4, #2\nadds r5, r5, r7\nldrb r4, [r5, #6]\nbl func_080D11A4\nldrh r5, [r5, #4]\nadds r5, r5, r4\nlsls r5, r5, #1\nmovs r4, #3\nbl func_080D11A4\nadds r6, r4, #2\nb emit139c\nlenloop1:\nmovs r6, #0\nlenloop1a:\nmovs r4, #3\nbl func_080D11A4\nlsls r6, r6, #3\nadds r6, r6, r4\nlsrs r6, r6, #1\nbhs lenloop1a\nsubs r3, #1\nbmi reload2\nsuffixcheck2:\nlsls r2, r2, #1\nblo suffix1\nmovs r4, #2\nbl func_080D11A4\nlsls r5, r4, #2\nadds r5, r5, r7\nldrb r4, [r5, #6]\nbl func_080D11A4\nldrh r5, [r5, #4]\nadds r5, r5, r4\nlsls r5, r5, #1\nmovs r4, #3\nbl func_080D11A4\nlsls r6, r6, #3\nadds r6, r6, r4\nadds r6, #2\nb emit139c\nsuffix1:\nadds r6, #1\nsuffix1loop:\nmov lr, pc\nbx sb\nadds r5, r4, #0\nmov lr, pc\nbx sb\nlsls r4, r4, #8\nadds r4, r4, r5\nadds r1, #2\nstrh r4, [r1]\nsubs r6, #1\nbne suffix1loop\nb emitcheck139c\nemit139c:\nsubs r5, r1, r5\nemitcpy139c:\nadds r5, #2\nldrh r4, [r5]\nadds r1, #2\nstrh r4, [r1]\nsubs r6, #1\nbne emitcpy139c\nemitcheck139c:\ncmp r1, r8\nblo loop139c_top\npop {r4}\nbx r4\nreload1:\nldm r0!, {r2}\nadds r3, #0x20\nb bittest139c\nreload2:\nldm r0!, {r2}\nadds r3, #0x20\n.byte 0xCD, 0xE7\ntail145c:\nmov lr, ip\npush {r2, lr}\nmov r2, sl\ncmp r5, #1\nbeq sub_080D14C6\nlsls r4, r5, #0x1f\nbne sub_080D1498\nsubs r5, r1, r5\nlsls r4, r5, #0x1f\nbeq tail3\nadds r5, #1\nldrh r4, [r5]\nlsrs r4, r4, #8\nlsls r4, r4, #8\norrs r4, r2\nadds r1, #1\nstrh r4, [r1]\nsubs r6, #1\nbeq tail4\ntail3:\nadds r5, #2\nldrh r4, [r5]\nadds r1, #2\nstrh r4, [r1]\nsubs r6, #2\nbgt tail3\nlsls r4, r4, #0x18\nlsrs r2, r4, #0x18\nadds r1, r1, r6\ntail4:\nmov sl, r2\npop {r2, pc}\n.syntax divided"
     ::: "r0","r1","r2","r3","r4","r5","r6","lr","memory");
 }
+
+// DECOMP-MATCHED func_080D116E (dari code_809E804.s; cek manusia sebelum ke src/)
+__attribute__((naked)) void func_080D116E(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "push {r5, r6, lr}\n"
+    "bl func_080D1186\n"
+    "lsls r6, r4, #4\n"
+    "bl func_080D1186\n"
+    "orrs r4, r6\n"
+    "pop {r5, r6, pc}\n"
+    ".syntax divided"
+    ::: "r0","r1","r2","r3","r4","r5","r6","lr","memory");
+}
+
+// DECOMP-MATCHED func_080D117E (dari code_809E804.s; cek manusia sebelum ke src/)
+__attribute__((naked)) void func_080D117E(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "push {r5, lr}\n"
+    "bl func_080D1186\n"
+    "pop {r5, pc}\n"
+    ".syntax divided"
+    ::: "r0","r1","r2","r3","r4","r5","r6","lr","memory");
+}

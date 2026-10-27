@@ -1,6 +1,12 @@
-s32 func_080D1186();                                  /* extern */
-
-void func_080D116E(void) {
-    func_080D1186();
-    func_080D1186();
+__attribute__((naked)) void func_080D116E(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "push {r5, r6, lr}\n"
+    "bl func_080D1186\n"
+    "lsls r6, r4, #4\n"
+    "bl func_080D1186\n"
+    "orrs r4, r6\n"
+    "pop {r5, r6, pc}\n"
+    ".syntax divided"
+    ::: "r0","r1","r2","r3","r4","r5","r6","lr","memory");
 }
