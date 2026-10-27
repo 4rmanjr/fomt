@@ -376,13 +376,90 @@ def diff_note(cand, ref, module: str, name: str, ref_len: int) -> str:
         rb = rb[:len(a)]  # kandidat lebih pendek: bandingkan awalan saja
     b = _mask_for_compare(ref, rb)
     if len(a) != len(b):
-        return f"len {len(a)} vs ref {len(b)}"
+        tag = _score_tag(cand, ref, rb)
+        return f"len {len(a)} vs ref {len(b)}{tag}"
     for i, (x, y) in enumerate(zip(a, b)):
         if x != y:
-            return f"byte +{i:#x}: {x:#x} vs ref {y:#x}"
+            tag = _score_tag(cand, ref, rb)
+            return f"byte +{i:#x}: {x:#x} vs ref {y:#x}{tag}"
     cr = [(r.offset, r.type, r.symbol) for r in cand.relocs]
     rr = [(r.offset, r.type, r.symbol) for r in ref.relocs]
-    return "" if cr == rr else f"reloc {cr} vs ref {rr}"
+    if cr != rr:
+        tag = _score_tag(cand, ref, rb)
+        return f"reloc {cr} vs ref {rr}{tag}"
+    return ""
+
+
+def _score_tag(cand, ref, rb: bytes) -> str:
+    """Adopsi scoring.diff (decompdecomp): klasifikasi selisih
+    r=regalloc s=stack i=operand + lokasi instruksi pertama yg beda.
+
+    Hanya anotasi (tidak mengubah keputusan MATCH); gagal diam-diam -> ''.
+    scoring upstream hanya kenal ARM-mode: jalankan capstone Thumb manual.
+    """
+    try:
+        sys.path.insert(0, str(DECOMP_SRC))
+        sys.path.insert(0, str(PYDEPS))
+        from decompnet import scoring as _sc
+        import capstone as _cs
+        md = _cs.Cs(_cs.CS_ARCH_ARM, _cs.CS_MODE_THUMB)
+        md.detail = True
+        md.skipdata = True
+
+        def _dis(code, relocs):
+            masked = bytearray(code)
+            for r in relocs:
+                if r.type == 10:  # R_ARM_THM_CALL: kedua paruh bl
+                    for j in range(4):
+                        m = (0xFF, 0x07, 0x07, 0xFF)[j]
+                        if r.offset + j < len(masked):
+                            masked[r.offset + j] &= 0xFF ^ m
+                elif r.type == 2:  # R_ARM_ABS32: word literal pool
+                    for j in range(4):
+                        if r.offset + j < len(masked):
+                            masked[r.offset + j] = 0
+            out = []
+            for ins in md.disasm(bytes(masked), 0):
+                rel = next((r for r in relocs if ins.address <= r.offset < ins.address + ins.size), None)
+                ops = ins.op_str
+                if rel is not None:
+                    tgt = f"<{rel.symbol}>"
+                    nums = list(re.finditer(r"-?0x[0-9a-f]+|\b\d+\b", ops))
+                    ops = ops[:nums[-1].start()] + tgt + ops[nums[-1].end():] if nums else f"{ops} {tgt}".strip()
+                out.append(_sc.Insn(ins.address, ins.mnemonic, ops, f"{ins.mnemonic} {ops}".strip()))
+            return out
+
+        t_ins, c_ins = _dis(bytes(rb), ref.relocs), _dis(bytes(_mask_for_compare(cand, cand.code)), cand.relocs)
+        rows = []
+        sm = __import__("difflib").SequenceMatcher(a=[i.mnemonic for i in t_ins],
+                                                     b=[i.mnemonic for i in c_ins], autojunk=False)
+        counts: dict[str, int] = {}
+        first = None
+        for op, a0, a1, b0, b1 in sm.get_opcodes():
+            if op == "equal":
+                for x, y in zip(t_ins[a0:a1], c_ins[b0:b1]):
+                    pen, mark = _sc._classify(x, y)
+                    if mark != " ":
+                        counts[mark] = counts.get(mark, 0) + 1
+                        if first is None:
+                            first = (mark, x.text, y.text)
+                continue
+            for k in range(max(a1 - a0, b1 - b0)):
+                x = t_ins[a0 + k] if a0 + k < a1 else None
+                y = c_ins[b0 + k] if b0 + k < b1 else None
+                m = "|" if (x and y) else ("<" if x else ">")
+                counts[m] = counts.get(m, 0) + 1
+                if first is None:
+                    first = (m, x.text if x else "", y.text if y else "")
+        if not counts:
+            return ""
+        summary = ",".join(f"{n}{_sc.MARKERS.get(m, m)}" for m, n in sorted(counts.items()))
+        if first is not None:
+            m, t, c = first
+            return f" [{summary} @{m} {t[:38]} | {c[:38]}]"
+        return f" [{summary}]"
+    except Exception:
+        return ""
 
 
 SANITIZE_VERSION = 4  # naikkan tiap _sanitize_m2c berubah perilaku
@@ -919,6 +996,23 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
             _dd = _g(_E(_B(data)))
             if nm in _dd and _dd[nm][1] & 1 and (f.arch or "").lower().startswith("arm"):
                 _sx, _so, _ss = _dd[nm]
+                # Adopsi match_arm.link (decompdecomp): simbol tanpa .size
+                # (rakitan; as menandainya STT_FUNC tapi st_size=0) diukur
+                # sampai simbol berikut / akhir section, bukan dari st_value
+                # ganjil (bit Thumb) seperti upstream. STT_FUNC dgn .size asli
+                # (agbcc) tidak tersentuh.
+                try:
+                    _st = _E(_B(data)).get_section_by_name(".symtab")
+                    if next(s["st_size"] for s in _st.iter_symbols()
+                            if s.name == nm) == 0:
+                        _starts = sorted((o & ~1) for (sx, o, s) in _dd.values()
+                                         if sx == _sx)
+                        _so0 = _so & ~1
+                        _nxt = next((o for o in _starts if o > _so0), None)
+                        _sc0 = _E(_B(data)).get_section(_sx).data()
+                        _ss = (_nxt if _nxt is not None else len(_sc0)) - _so0
+                except Exception:
+                    pass
                 _sc = _E(_B(data)).get_section(_sx).data()
                 _so &= ~1
                 _true = _sc[_so:_so + _ss]

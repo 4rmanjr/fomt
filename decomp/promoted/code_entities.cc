@@ -136,3 +136,30 @@ void func_0802907C(GenObj *arg0) {
         func_0802A7D8(arg0);
     }
 }
+
+// DECOMP-MATCHED func_080202C8 (dari code_entities.s; cek manusia sebelum ke src/)
+void func_080202C8(void) {
+
+}
+
+// DECOMP-MATCHED func_08022B5C (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_08022B5C(s32 arg0) {
+    switch (arg0) {                                 /* irregular */
+    case 0:
+    default:
+        return 6;
+    case 1:
+        return 7;
+    }
+}
+
+// DECOMP-MATCHED func_080244D8 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080244D8(s32 arg0) {
+    switch (arg0) {                                 /* irregular */
+    case 0:
+    default:
+        return 0xA;
+    case 1:
+        return 0xD;
+    }
+}

@@ -254,3 +254,41 @@ typedef struct GenObj {
 void func_0801FD60(GenObj *arg0) {
     func_080A59BC(arg0->unk4);
 }
+
+// DECOMP-MATCHED func_0801FD6C (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_080A5960(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+void func_0801FD6C(GenObj *arg0) {
+    func_080A5960(arg0->unk4);
+}
+
+// DECOMP-MATCHED func_08010F0C (dari game_state.s; cek manusia sebelum ke src/)
+u32 func_08010F0C(s32 *arg0) {
+    return (u32) (*arg0 << 0xE) >> 0x1B;
+}
+
+// DECOMP-MATCHED func_0801DD30 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_080A61F0(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+void func_0801DD30(GenObj *arg0) {
+    func_080A61F0(arg0->unk4);
+}
+
+// DECOMP-MATCHED func_0801DE24 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_080A63B8(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+void func_0801DE24(GenObj *arg0) {
+    func_080A63B8(arg0->unk4);
+}

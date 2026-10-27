@@ -143,3 +143,12 @@ u8 func_0809C4B4(s32 arg0) {
     }
     return var_r2;
 }
+
+// DECOMP-MATCHED func_0809CE7C (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+extern s32 gUnk_08103A18;
+
+s32 func_0809CE7C(s32 arg0, s32 arg1) {
+    s32 *temp_r0 = &gUnk_08103A18;
+
+    return temp_r0[arg1];
+}

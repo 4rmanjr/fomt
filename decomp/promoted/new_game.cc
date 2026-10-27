@@ -257,3 +257,12 @@ typedef struct GenObj {
 u8 func_08005A3C(GenObj *arg0) {
     return *(u8 *)((u8 *)arg0->unk4 + 0x1A76);
 }
+
+// DECOMP-MATCHED func_08007110 (dari new_game.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s32 func_08007110(GenObj *arg0) {
+    return arg0->unk4 + 0x461C;
+}

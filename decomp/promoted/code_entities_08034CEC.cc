@@ -238,3 +238,24 @@ void func_08039F50(GenObj *arg0, s32 arg1) {
         __builtin_delete(arg0);
     }
 }
+
+// DECOMP-MATCHED func_0803A320 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern s32 gUnk_080F16D2;
+
+s16 func_0803A320(s32 arg0, s32 arg1) {
+    s8 *temp_r0 = (s8 *) &gUnk_080F16D2;
+
+    return *(s16 *) (temp_r0 + (((s32) (arg1 << 0x10)) >> 0xF));
+}
+
+// DECOMP-MATCHED func_080390D0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[16];
+    s32 unk10;
+} GenObj;
+u32 func_080390D0(GenObj *arg0) {
+    s32 temp_r1;
+
+    temp_r1 = arg0->unk10;
+    return (u32) ((0 - temp_r1) | temp_r1) >> 0x1F;
+}

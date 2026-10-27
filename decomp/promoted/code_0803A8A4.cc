@@ -165,3 +165,10 @@ void func_0803D7E4(s32 arg0, s32 arg1) {
         func_0803D688(temp_r0, &gUnk_080F29C0, arg1);
     }
 }
+
+// DECOMP-MATCHED func_0803BF08 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+s32 func_0803BDEC(s32);                               /* extern */
+
+void func_0803BF08(s32 *arg0) {
+    func_0803BDEC(*arg0);
+}

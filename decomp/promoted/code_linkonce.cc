@@ -1113,3 +1113,22 @@ void func_080E596C(GenObj *arg0, s32 arg1) {
     arg0->unk10 = &vtable_unk_080E5A28;
     func_080086BC(arg0, arg1);
 }
+
+// DECOMP-MATCHED func_080D7B44 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080098AC();                                  /* extern */
+
+void func_080D7B44(void) {
+    func_080098AC();
+}
+
+// DECOMP-MATCHED func_080E10EC (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080E10EC(void) {
+    return 1;
+}
+
+// DECOMP-MATCHED func_080E59C0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080A4B6C();                                  /* extern */
+
+void func_080E59C0(void) {
+    func_080A4B6C();
+}

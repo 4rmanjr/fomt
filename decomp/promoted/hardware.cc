@@ -254,3 +254,90 @@ void func_0800959C(GenObj *arg0, s32 arg1) {
     func_0800956C(arg0);
     func_080098DC(arg0, arg1);
 }
+
+// DECOMP-MATCHED func_08008920 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08008920(s32 *arg0) {
+    return *arg0 + 0x8C;
+}
+
+// DECOMP-MATCHED func_08008AE0 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08008AE0(s32 *arg0) {
+    return *arg0 + 0xC;
+}
+
+// DECOMP-MATCHED func_08008BE0 (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aMPlayStop(s32);                                /* extern */
+
+void func_08008BE0(s32 *arg0) {
+    m4aMPlayStop(*arg0);
+}
+
+// DECOMP-MATCHED func_08008BF8 (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aMPlayFadeOut(s32, u16);                        /* extern */
+
+void func_08008BF8(s32 *arg0, u16 arg1) {
+    m4aMPlayFadeOut(*arg0, arg1);
+}
+
+// DECOMP-MATCHED func_08008DB8 (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aSongNumStartOrChange(u16);                     /* extern */
+
+void func_08008DB8(u16 arg0) {
+    m4aSongNumStartOrChange(arg0);
+}
+
+// DECOMP-MATCHED func_08008DE8 (dari hardware.s; cek manusia sebelum ke src/)
+s32 m4aMPlayAllStop();                                /* extern */
+
+void func_08008DE8(void) {
+    m4aMPlayAllStop();
+}
+
+// DECOMP-MATCHED func_08008F60 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+} GenObj;
+void *func_08008F60(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 temp_r1;
+    s32 var_r1;
+    s32 var_r3;
+
+    if (arg2 != 0) {
+        if ((arg3 != 0) && (temp_r1 = arg2 | arg3, ((1 & temp_r1) == 0))) {
+            if (!(temp_r1 & 3)) {
+                var_r3 = ((u32) (arg3 << 0xE) >> 0x10) | 0x84000000;
+            } else {
+                var_r3 = ((u32) (arg3 << 0xF) >> 0x10) | 0x80000000;
+            }
+        } else {
+            var_r3 = 0;
+        }
+        var_r1 = 0x01000000 | var_r3;
+    } else {
+        var_r1 = 0;
+    }
+    arg0->unk0 = 1;
+    arg0->unk4 = arg1;
+    arg0->unk8 = arg2;
+    arg0->unkC = var_r1;
+    return arg0;
+}
+
+// DECOMP-MATCHED func_0800977C (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08008E64(s32, s32, s32);                     /* extern */
+
+void func_0800977C(s32 arg0) {
+    func_08008E64(arg0 + 4, 0x07000000, 0x400);
+}
+
+// DECOMP-MATCHED func_08009864 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_0800977C();                                  /* extern */
+s32 func_08009834(s32);                               /* extern */
+
+void func_08009864(s32 arg0) {
+    func_0800977C();
+    func_08009834(arg0);
+}
