@@ -7270,13 +7270,14 @@
  },
  "func_08033914": {
   "addr": 134428948,
-  "judged_mtime": 1793004015.3306422,
+  "judged_mtime": 1793079636.7642057,
   "module": "code_entities_080320DC.s",
-  "note": "len 20 vs ref 18",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 244,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08033928": {
@@ -7337,13 +7338,14 @@
  },
  "func_08034248": {
   "addr": 134431304,
-  "judged_mtime": 1793017288.7545943,
+  "judged_mtime": 1793079636.764297,
   "module": "code_entities_080320DC.s",
-  "note": "len 18 vs ref 20",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 318,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08034260": {
