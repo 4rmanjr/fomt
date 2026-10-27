@@ -14,3 +14,14 @@ s32 func_08032900(s32 arg0, s32 arg1, s32 arg2) {
 s32 func_080324B8(void) {
     return 0;
 }
+
+// DECOMP-MATCHED func_08033B7C (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[65];
+    u8 unk41;
+} GenObj;
+void func_08033B7C(GenObj *arg0) {
+    arg0->unk41 = 0;
+}
+
+/* ATTEMPT-NOTE opencode: member u8 (strb). */
