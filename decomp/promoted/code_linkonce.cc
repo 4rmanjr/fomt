@@ -813,3 +813,130 @@ void func_080E20C0(GenObj *arg0, s32 arg1) {
         __builtin_delete(arg0);
     }
 }
+
+// DECOMP-MATCHED func_080E2B5C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 free(void *);                                     /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    s32 unkC;
+} GenObj;
+void func_080E2B5C(s32 arg0, void *arg1) {
+    void *temp_r5;
+    GenObj *var_r4;
+
+    var_r4 = arg1;
+    if (var_r4 != 0) {
+        do {
+            func_080E2B5C(arg0, var_r4->unkC);
+            temp_r5 = var_r4->unk8;
+            if (var_r4 != 0) {
+                free(var_r4);
+            }
+            var_r4 = temp_r5;
+        } while (var_r4 != 0);
+    }
+}
+
+// DECOMP-MATCHED func_080E2B88 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 free(void *);                                     /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    s32 unkC;
+} GenObj;
+void func_080E2B88(s32 arg0, void *arg1) {
+    void *temp_r5;
+    GenObj *var_r4;
+
+    var_r4 = arg1;
+    if (var_r4 != 0) {
+        do {
+            func_080E2B88(arg0, var_r4->unkC);
+            temp_r5 = var_r4->unk8;
+            if (var_r4 != 0) {
+                free(var_r4);
+            }
+            var_r4 = temp_r5;
+        } while (var_r4 != 0);
+    }
+}
+
+// DECOMP-MATCHED func_080E2E78 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 free(void *);                                     /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    s32 unkC;
+} GenObj;
+void func_080E2E78(s32 arg0, void *arg1) {
+    void *temp_r5;
+    GenObj *var_r4;
+
+    var_r4 = arg1;
+    if (var_r4 != 0) {
+        do {
+            func_080E2E78(arg0, var_r4->unkC);
+            temp_r5 = var_r4->unk8;
+            if (var_r4 != 0) {
+                free(var_r4);
+            }
+            var_r4 = temp_r5;
+        } while (var_r4 != 0);
+    }
+}
+
+// DECOMP-MATCHED func_080E35E8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08050DC8(s32, s32 *, s32, s32);                /* extern */
+s32 func_08050E50(s32, s32);                          /* extern */
+extern s32 gUnk_081004E0;
+
+void func_080E35E8(s32 arg0) {
+    s32 temp_r4;
+
+    temp_r4 = arg0 + 0x1C8;
+    func_08050DC8(temp_r4, &gUnk_081004E0, 0, 0);
+    func_08050E50(temp_r4, 0x39);
+}
+
+// DECOMP-MATCHED func_080E3628 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08050DC8(s32, s32 *, s32, s32);                /* extern */
+s32 func_08050E50(s32, s32);                          /* extern */
+extern s32 gUnk_08100524;
+
+void func_080E3628(s32 arg0) {
+    s32 temp_r4;
+
+    temp_r4 = arg0 + 0x1C8;
+    func_08050DC8(temp_r4, &gUnk_08100524, 0, 0);
+    func_08050E50(temp_r4, 0x38);
+}
+
+// DECOMP-MATCHED func_080E3650 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08050DC8(s32, s32 *, s32, s32);                /* extern */
+s32 func_08050E50(s32, s32);                          /* extern */
+extern s32 gUnk_08100540;
+
+void func_080E3650(s32 arg0) {
+    s32 temp_r4;
+
+    temp_r4 = arg0 + 0x1C8;
+    func_08050DC8(temp_r4, &gUnk_08100540, 0, 0);
+    func_08050E50(temp_r4, 0x38);
+}
+
+// DECOMP-MATCHED func_080E3734 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08050DC8(s32, s32 *, s32, s32);                /* extern */
+s32 func_08050E50(s32, s32);                          /* extern */
+extern s32 gUnk_08100594;
+
+void func_080E3734(s32 arg0) {
+    s32 temp_r4;
+
+    temp_r4 = arg0 + 0x1C8;
+    func_08050DC8(temp_r4, &gUnk_08100594, 0, 0);
+    func_08050E50(temp_r4, 0x38);
+}
