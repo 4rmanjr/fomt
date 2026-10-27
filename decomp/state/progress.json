@@ -2439,13 +2439,14 @@
  },
  "func_0800FFD8": {
   "addr": 134283224,
-  "judged_mtime": 1793017163.2461634,
+  "judged_mtime": 1793079036.277884,
   "module": "more_items.s",
-  "note": "len 10 vs ref 8",
+  "note": "",
+  "promoted_to": "decomp/promoted/more_items.cc",
   "ref_len": 8,
   "sanitize_v": 4,
   "size": 127,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0800FFE0": {
@@ -6188,13 +6189,14 @@
  },
  "func_08024C98": {
   "addr": 134368408,
-  "judged_mtime": 1793017258.396554,
+  "judged_mtime": 1793079069.8845642,
   "module": "code_entities.s",
-  "note": "len 6 vs ref 8",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 8,
   "sanitize_v": 4,
   "size": 127,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08024CA0": {
@@ -7300,13 +7302,14 @@
  },
  "func_08033B7C": {
   "addr": 134429564,
-  "judged_mtime": 1793017288.1337442,
+  "judged_mtime": 1793079069.8846588,
   "module": "code_entities_080320DC.s",
-  "note": "len 6 vs ref 8",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
   "ref_len": 8,
   "sanitize_v": 4,
   "size": 127,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08033B84": {
@@ -8919,13 +8922,14 @@
  },
  "func_08037F74": {
   "addr": 134446964,
-  "judged_mtime": 1793017315.5457435,
+  "judged_mtime": 1793079069.884716,
   "module": "code_entities_08034CEC.s",
-  "note": "len 6 vs ref 8",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 8,
   "sanitize_v": 4,
   "size": 129,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08037F7C": {
@@ -8974,13 +8978,14 @@
  },
  "func_08038108": {
   "addr": 134447368,
-  "judged_mtime": 1793017316.5371296,
+  "judged_mtime": 1793079069.884769,
   "module": "code_entities_08034CEC.s",
-  "note": "len 8 vs ref 6",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 8,
   "sanitize_v": 4,
   "size": 127,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08038110": {
@@ -9254,13 +9259,14 @@
  },
  "func_08038E90": {
   "addr": 134450832,
-  "judged_mtime": 1793017321.7382631,
+  "judged_mtime": 1793079069.8848214,
   "module": "code_entities_08034CEC.s",
-  "note": "len 14 vs ref 16",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 216,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08038EA0": {
@@ -17616,13 +17622,14 @@
  },
  "func_0809CE24": {
   "addr": 134860324,
-  "judged_mtime": 1793017758.342819,
+  "judged_mtime": 1793079082.0542076,
   "module": "code_actor_0809BFE8.s",
-  "note": "len 8 vs ref 10",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 163,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809CE30": {
@@ -23704,13 +23711,14 @@
  },
  "func_080D38D4": {
   "addr": 135084244,
-  "judged_mtime": 1793005020.4030352,
+  "judged_mtime": 1793079004.9123342,
   "module": "code_lib_sram.s",
-  "note": "len 56 vs ref 55",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_lib_sram.cc",
   "ref_len": 55,
   "sanitize_v": 4,
   "size": 526,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D3BC0": {
