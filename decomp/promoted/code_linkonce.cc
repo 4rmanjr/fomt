@@ -1393,3 +1393,19 @@ void func_080E1A54(GenObj *arg0, s32 arg1) {
     arg0->unk9C4 = &vtable_unk_080E5A28;
     func_08076E0C(arg0, arg1);
 }
+
+// DECOMP-MATCHED func_080E44E4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+s32 func_080324BC(s32, s32, s32, s32);              /* extern */
+
+struct Params_func_080E44E4 { s32 a; s32 b; s32 c; };
+
+s32 func_080E44E4(s32 arg0) {
+    s32 t;
+    struct Params_func_080E44E4 w;
+    volatile u8 flag;
+
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 0; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 5, 0x1b);
+}

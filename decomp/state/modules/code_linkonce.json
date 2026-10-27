@@ -4533,13 +4533,14 @@
  },
  "func_080E44E4": {
   "addr": 135152868,
-  "judged_mtime": 1793015384.7108645,
+  "judged_mtime": 1793108770.4543343,
   "module": "code_linkonce.s",
-  "note": "len 40 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 357,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E4510": {
@@ -4769,9 +4770,9 @@
  },
  "func_080E5898": {
   "addr": 135157912,
-  "judged_mtime": 1793066098.4388347,
+  "judged_mtime": 1793100780.45756,
   "module": "code_linkonce.s",
-  "note": "t a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5898/vscode/func.c:53: warning: passing arg 2 of `func_08007C28' makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5898/vscode/func.c:62: `arg1' undeclared (first use in this function)\n",
+  "note": "cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5898/hermes11/func.c:53: warning: passing arg 2 of `func_08007C28' makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5898/hermes11/func.c:62: `arg1' undeclared (first use in this function)\n",
   "ref_len": 212,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -4816,9 +4817,9 @@
  },
  "sub_080DA76C": {
   "addr": 135112556,
-  "judged_mtime": 1793066128.7541847,
+  "judged_mtime": 1793100780.459567,
   "module": "code_linkonce.s",
-  "note": "k4' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080DA76C/opencode/func.c:408: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080DA76C/opencode/func.c:423: called object is not a function\n",
+  "note": "k4' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080DA76C/hermes11/func.c:408: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080DA76C/hermes11/func.c:423: called object is not a function\n",
   "ref_len": 2399,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
