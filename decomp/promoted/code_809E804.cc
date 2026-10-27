@@ -1606,3 +1606,14 @@ u16 func_080D101C(s32 arg0, u16 arg1) {
 }
 
 /* ATTEMPT-NOTE hermes6: register-asm r2 spt D100C (adds r2,r2,r0). */
+
+// DECOMP-MATCHED func_080B3C78 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080AE4D8(s32);
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s32 func_080B3C78(GenObj *arg0) {
+    return func_080AE4D8(arg0->unk4);
+}

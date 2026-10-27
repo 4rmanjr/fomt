@@ -18299,7 +18299,7 @@
  },
  "func_0809EBEC": {
   "addr": 134867948,
-  "judged_mtime": 1793083219.750557,
+  "judged_mtime": 1793100780.455998,
   "module": "code_809E804.s",
   "note": "byte +0x16: 0x21 vs ref 0x22 [4missing,4extra,2operand,12regalloc @r ldrb r2, [r4, #0x14] | ldrb r1, [r4, #0x14]]",
   "ref_len": 92,
@@ -18310,7 +18310,7 @@
  },
  "func_0809EC48": {
   "addr": 134868040,
-  "judged_mtime": 1793083335.2814388,
+  "judged_mtime": 1793100780.4561086,
   "module": "code_809E804.s",
   "note": "len 70 vs ref 72 [4missing,3extra,7operand,2regalloc,2stack,2different @s sub sp, #8 | sub sp, #4]",
   "ref_len": 72,
@@ -18354,7 +18354,7 @@
  },
  "func_0809ED04": {
   "addr": 134868228,
-  "judged_mtime": 1793083400.9662864,
+  "judged_mtime": 1793100780.4561467,
   "module": "code_809E804.s",
   "note": "len 88 vs ref 96 [5missing,1extra,9operand,4regalloc,2different @>  | adds r3, r2, #0]",
   "ref_len": 96,
@@ -18365,9 +18365,9 @@
  },
  "func_0809ED64": {
   "addr": 134868324,
-  "judged_mtime": 1793065338.1209457,
+  "judged_mtime": 1793100780.4561965,
   "module": "code_809E804.s",
-  "note": "byte +0x4: 0x50 vs ref 0x10",
+  "note": "byte +0x4: 0x50 vs ref 0x10 [8missing,8extra,6operand,2regalloc,5stack,4different @| ldrb r0, [r2, #0x14] | ldr r0, [r2, #0x14]]",
   "ref_len": 188,
   "sanitize_v": 4,
   "size": 1628,
@@ -18376,7 +18376,7 @@
  },
  "func_0809EE20": {
   "addr": 134868512,
-  "judged_mtime": 1793082452.2010698,
+  "judged_mtime": 1793100780.456255,
   "module": "code_809E804.s",
   "note": "byte +0x4: 0xb vs ref 0x19 [10regalloc @r ands r1, r3 | ands r3, r1]",
   "ref_len": 44,
@@ -18387,7 +18387,7 @@
  },
  "func_0809EE4C": {
   "addr": 134868556,
-  "judged_mtime": 1793083452.4514134,
+  "judged_mtime": 1793100780.456309,
   "module": "code_809E804.s",
   "note": "len 68 vs ref 64 [2missing,4extra,1operand,5regalloc @r ldrh r2, [r4, #0x14] | ldrh r1, [r4, #0x14]]",
   "ref_len": 64,
@@ -18525,7 +18525,7 @@
  },
  "func_080A03A4": {
   "addr": 134874020,
-  "judged_mtime": 1793090538.260635,
+  "judged_mtime": 1793100780.456309,
   "module": "code_809E804.s",
   "note": "byte +0x2: 0xa vs ref 0x11 [5regalloc @r ands r1, r2 | ands r2, r1]",
   "ref_len": 20,
@@ -18935,9 +18935,9 @@
  },
  "func_080A1FC4": {
   "addr": 134881220,
-  "judged_mtime": 1793065344.2402618,
+  "judged_mtime": 1793100780.4564133,
   "module": "code_809E804.s",
-  "note": "len 628 vs ref 584",
+  "note": "len 628 vs ref 584 [123missing,145extra,50operand,42regalloc,11different @i push {r4, r5, lr} | push {r4, r5, r6, lr}]",
   "ref_len": 584,
   "sanitize_v": 4,
   "size": 5153,
@@ -19091,9 +19091,9 @@
  },
  "func_080A3AF8": {
   "addr": 134888184,
-  "judged_mtime": 1793065344.7708938,
+  "judged_mtime": 1793100780.456452,
   "module": "code_809E804.s",
-  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3AF8/opencode/func.c:68: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3AF8/opencode/func.c:68: request for member `unkC' in something not a structure or union\n",
+  "note": "omething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3AF8/hermes8/func.c:68: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3AF8/hermes8/func.c:68: request for member `unkC' in something not a structure or union\n",
   "ref_len": 252,
   "sanitize_v": 4,
   "size": 2144,
@@ -19157,9 +19157,9 @@
  },
  "func_080A3F4C": {
   "addr": 134889292,
-  "judged_mtime": 1793065345.5273838,
+  "judged_mtime": 1793100780.4565191,
   "module": "code_809E804.s",
-  "note": "hing not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3F4C/opencode/func.c:426: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3F4C/opencode/func.c:426: request for member `unk8' in something not a structure or union\n",
+  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3F4C/hermes8/func.c:426: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3F4C/hermes8/func.c:426: request for member `unk8' in something not a structure or union\n",
   "ref_len": 1628,
   "sanitize_v": 4,
   "size": 13440,
@@ -19436,7 +19436,7 @@
  },
  "func_080A5DB8": {
   "addr": 134897080,
-  "judged_mtime": 1793083525.1641488,
+  "judged_mtime": 1793100780.4565191,
   "module": "code_809E804.s",
   "note": "len 66 vs ref 68 [4missing,3extra,2operand,8regalloc,1different @r adds r4, r0, #0 | adds r5, r0, #0]",
   "ref_len": 68,
@@ -20962,7 +20962,7 @@
  },
  "func_080B3A10": {
   "addr": 134953488,
-  "judged_mtime": 1793090684.218719,
+  "judged_mtime": 1793100780.4566185,
   "module": "code_809E804.s",
   "note": "byte +0x0: 0x4 vs ref 0x3 [1missing,4extra,1operand,2regalloc,1different @< ldr r1, [pc, #0xc] | ]",
   "ref_len": 24,
@@ -21030,13 +21030,14 @@
  },
  "func_080B3C78": {
   "addr": 134954104,
-  "judged_mtime": 1793017997.4143429,
+  "judged_mtime": 1793102170.4907882,
   "module": "code_809E804.s",
-  "note": "byte +0x8: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 125,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080B3C84": {
