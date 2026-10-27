@@ -1575,3 +1575,20 @@ void *func_0807D070(GenObj *arg0, s32 *arg1, s32 arg2, s32 arg3) {
     arg0->unk10 = arg2;
     return arg0;
 }
+
+// DECOMP-MATCHED func_08057F4C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[44];
+    u8 unk2C;
+} GenObj;
+s32 func_08057F4C(GenObj *arg0) {
+    s32 var_r2;
+
+    var_r2 = 0;
+    if ((3 & arg0->unk2C) == 3) {
+        var_r2 = 1;
+    }
+    return var_r2;
+}
+
+/* ATTEMPT-NOTE opencode: unk2C u8 (ldrb + adds#2c); movs+ands+cmp+bne. */

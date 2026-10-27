@@ -1,6 +1,6 @@
 typedef struct GenObj {
     u8 _pad0[44];
-    s32 unk2C;
+    u8 unk2C;
 } GenObj;
 s32 func_08057F4C(GenObj *arg0) {
     s32 var_r2;
@@ -11,3 +11,5 @@ s32 func_08057F4C(GenObj *arg0) {
     }
     return var_r2;
 }
+
+/* ATTEMPT-NOTE opencode: unk2C u8 (ldrb + adds#2c); movs+ands+cmp+bne. */

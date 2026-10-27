@@ -12033,13 +12033,14 @@
  },
  "func_08057F4C": {
   "addr": 134577996,
-  "judged_mtime": 1793017498.739599,
+  "judged_mtime": 1793080056.3182313,
   "module": "code_0803EE94.s",
-  "note": "len 22 vs ref 24",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 229,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08057F64": {
