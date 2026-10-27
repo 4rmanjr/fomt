@@ -641,3 +641,38 @@ void func_080C0D44(GenObj *arg0, s32 arg1) {
     }
     func_080007EC(arg0, arg1);
 }
+
+// DECOMP-MATCHED func_080C7EA8 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+s32 func_080C0DCC(s32, s32);                        /* extern */
+extern s32 vtable_unk_080E8560;
+
+typedef struct GenObj {
+    void *unk0;
+    s32 unk4;
+} GenObj;
+void *func_080C7EA8(GenObj *arg0, s32 arg1) {
+    arg0->unk0 = &vtable_unk_080E8560;
+    arg0->unk4 = func_080C0DCC(__builtin_new(0x98C), arg1);
+    return arg0;
+}
+
+// DECOMP-MATCHED func_080C7ED0 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080007EC(void *, s32);                       /* extern */
+extern s32 vtable_unk_080E8560;
+
+typedef struct GenObj {
+    void *unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+} GenObj;
+void func_080C7ED0(GenObj *arg0, s32 arg1) {
+    GenObj *temp_r1;
+
+    arg0->unk0 = &vtable_unk_080E8560;
+    temp_r1 = arg0->unk4;
+    if (temp_r1 != 0) {
+        ((void (*)(void *,...))(temp_r1->unk4->unk8))(temp_r1, 3);
+    }
+    func_080007EC(arg0, arg1);
+}
