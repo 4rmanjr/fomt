@@ -8,14 +8,14 @@ s32 func_0803A8A4(u32, s32, s32, s32, s32);         /* extern */
 typedef struct GenObj {
     struct GenObj *unk0;
     struct GenObj *unk4;
-    s32 unk8;
-    s32 unkA;
-    u8 _padE[10];
+    u16 unk8;
+    u16 unkA;
+    u8 _padC[12];
     s32 unk18;
     s32 unk1C;
-    s32 unk20;
-    s32 unk22;
-    u8 _pad26[6];
+    u16 unk20;
+    u16 unk22;
+    u8 _pad26[8];
     struct GenObj *unk2C;
     u8 _pad30[4104];
     s32 unk1038;
@@ -45,18 +45,22 @@ void *func_0801A054(GenObj *arg0, GenObj *arg1, u32 arg2) {
         temp_r0 = arg1->unk4;
         sp4 = temp_r0->unk0;
         if ((arg2 == 2) && (sp4 != 2)) {
-            arg0->unk0 = (s32) arg1->unk1050;
+            s32 v0 = arg1->unk1050;
+            u16 a = 0x80;
+            u16 b = 0x58;
+            arg0->unk0 = v0;
             arg0->unk4 = 0;
-            arg0->unk8 = 0x80U;
-            arg0->unkA = 0x58U;
+            arg0->unk8 = a;
+            arg0->unkA = b;
         } else {
             if (sp4 == arg2) {
                 var_r0 = temp_r0->unk4;
             } else {
-                temp_r8 = func_0800E324(arg1->unk1038 + 0x10);
-                temp_r6 = GetUpgradeLevel__C9FarmHouse(arg1->unk1038 + 0x1F4);
-                temp_r5 = GetUpgradeLevel__C4Coop(arg1->unk1038 + 0x410);
-                var_r0 = func_0803A8A4(arg2, temp_r8, temp_r6, temp_r5, GetUpgradeLevel__C4Barn(arg1->unk1038 + 0x5F0));
+                u8 *b1038 = (u8 *)arg1 + 0x1038;
+                temp_r8 = func_0800E324(*(s32 *)b1038 + 0x10);
+                temp_r6 = GetUpgradeLevel__C9FarmHouse(*(s32 *)b1038 + (0xFA << 1));
+                temp_r5 = GetUpgradeLevel__C4Coop(*(s32 *)b1038 + (0x82 << 3));
+                var_r0 = func_0803A8A4(arg2, temp_r8, temp_r6, temp_r5, GetUpgradeLevel__C4Barn(*(s32 *)b1038 + (0xBE << 3)));
             }
             temp_r0_2 = GetMapData(var_r0);
             temp_r5_2 = temp_r0_2->unk20;
@@ -78,3 +82,5 @@ void *func_0801A054(GenObj *arg0, GenObj *arg1, u32 arg2) {
     }
     return arg0;
 }
+
+/* ATTEMPT-NOTE opencode: layout struct tepat (_padC[12], _pad26[8]) agar offset pool 0x1038/0x1050 pas; u16 member; shift-konstanta. */
