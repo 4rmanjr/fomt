@@ -1004,3 +1004,8 @@ s32 *func_0808C5DC(s32 *arg0, GenObj *arg1) {
     *arg0 = temp_r1;
     return arg0;
 }
+
+// DECOMP-MATCHED func_0804E9CC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_0804E9CC(void) {
+    return 0;
+}
