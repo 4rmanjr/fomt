@@ -10,9 +10,9 @@ func_080D404C:
 	push	{r4, r5, lr}
 	add	r4, r0, #0
 	add	r5, r1, #0
-	cmp	r2, #0
+	ldr	r0, [r4, #0x4]
+	cmp	r0, #0
 	beq	.L3	@cond_branch
-	add	r0, r2, #0
 	mov	r1, #0x3
 	bl	func_080D4480
 .L3:

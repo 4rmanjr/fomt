@@ -481,3 +481,32 @@ extern s32 *gUnk_03000414;
 void func_080E5418(void) {
     func_080CA6F4(*gUnk_03000414);
 }
+
+// DECOMP-MATCHED func_080D3ED4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 __builtin_delete(s32 **);                           /* extern */
+extern s32 vtable_unk_080E5A28;
+
+void func_080D3ED4(s32 **arg0, s32 arg1) {
+    *arg0 = &vtable_unk_080E5A28;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+
+// DECOMP-MATCHED func_080D404C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);                       /* extern */
+s32 func_080D4480(s32, s32);                          /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+void func_080D404C(GenObj *arg0, s32 arg1) {
+    s32 temp_r0;
+
+    temp_r0 = arg0->unk4;
+    if (temp_r0 != 0) {
+        func_080D4480(temp_r0, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
