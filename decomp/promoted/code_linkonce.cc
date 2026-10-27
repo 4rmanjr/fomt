@@ -1181,3 +1181,12 @@ void func_080D6F1C(GenObj *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: call-1 langsung (adds r0), call-2 via copy; u8 member. */
+
+// DECOMP-MATCHED func_080E3A5C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080D0644(s32, u8);                           /* extern */
+
+void func_080E3A5C(s32 dummy, s32 arg1, u8 arg2) {
+    func_080D0644(arg1, arg2);
+}
+
+/* ATTEMPT-NOTE opencode: dummy agar arg1=r1, arg2=r2 (lsls/lsrs u8). */
