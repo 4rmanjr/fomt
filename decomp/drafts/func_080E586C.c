@@ -1,10 +1,14 @@
 s32 free();                                           /* extern */
 
-void func_080E586C(void *arg0) {
-    ? *temp_r0;
-    ? *temp_r0_2;
-    ? *temp_r0_3;
-    ? *var_r4;
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+} GenObj;
+void func_080E586C(GenObj *arg0) {
+    GenObj *temp_r0;
+    s32 *temp_r0_2;
+    GenObj *temp_r0_3;
+    s32 *var_r4;
 
     temp_r0 = arg0->unk4;
     var_r4 = temp_r0->unk0;
