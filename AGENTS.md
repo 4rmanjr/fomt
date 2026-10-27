@@ -59,7 +59,9 @@ antrean kosong. Catatan loop:
 
 - State: `decomp/state/progress.json` (ditulis atomik di bawah `flock`).
 - Draf: `decomp/drafts/<nama>.c`.
-- Log judge: `decomp/logs/judge_<nama>/<agent>/`.
+- Log judge: `decomp/logs/judge_<nama>/<agent>/` (ramping: hanya
+  `func.c`/`func.s`; artefak `.o`/`.i`/`ref.o`/`common.h` dihapus otomatis
+  tiap judge selesai — butuh lengkap? `FOMT_KEEP_ARTIFACTS=1`).
 - Klaim basi diambil alih setelah `FOMT_CLAIM_TTL` detik (default 1800).
   `FOMT_CLAIM_TTL=0` hanya bila tidak ada agent lain yang jalan.
 

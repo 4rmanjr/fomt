@@ -1049,6 +1049,12 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
         ok = not (note := diff_note(cand, ref, e["module"], name, ref_len))
     except AssertionError as err:
         ok, note = False, str(err)[-300:]
+    if os.environ.get("FOMT_KEEP_ARTIFACTS", "") == "":
+        for leaf in ("func.o", "func.i", "ref.o", "common.h"):
+            try:
+                (work / leaf).unlink()  # ramping: hanya func.c/func.s yg disimpan
+            except OSError:
+                pass
     return ok, note
 
 
