@@ -6111,13 +6111,14 @@
  },
  "func_080246BC": {
   "addr": 134366908,
-  "judged_mtime": 1793003989.0817473,
+  "judged_mtime": 1793088468.5340655,
   "module": "code_entities.s",
-  "note": "len 106 vs ref 104",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 104,
   "sanitize_v": 4,
   "size": 1056,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08024724": {
