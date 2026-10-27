@@ -989,3 +989,17 @@ void func_080ADD44(GenObj *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: campuran s32/u16/u16/s32/s32/s32/u8; 0x100 via shift. */
+
+// DECOMP-MATCHED func_080CE184 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080CE184(s32 dummy, s32 arg1, s32 arg2) {
+    s32 var_r0;
+
+    if (arg1 <= 8) {
+        var_r0 = (arg2 * 8) - 1;
+    } else {
+        var_r0 = (arg2 * 8) - 0xA;
+    }
+    return arg1 + var_r0;
+}
+
+/* ATTEMPT-NOTE opencode: s32 dummy agar arg1=r1, arg2=r2 (lsls r0,r2). */
