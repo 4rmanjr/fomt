@@ -12,5 +12,7 @@ u8 func_080507D0(u32 arg0, s32 arg1) {
     if ((u32) (var_r1 - 1) > 5U) {
         var_r1 = 1;
     }
-    return *((var_r2 * 6) + var_r1 + &gUnk_080F9F3C);
+    return *((u8 *)((var_r2 * 2 + var_r2) * 2 + var_r1 + (u8 *)&gUnk_080F9F3C));
 }
+
+/* ATTEMPT-NOTE opencode: *6 via (v*2+v)*2 (lsl/add/lsl); base (u8*) agar byte-arith + ldrb. */
