@@ -957,8 +957,16 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
     # deklarasi = semua sebelum definisi FUNGSI (bukan sebelum '{' pertama:
     # draf/blok bisa diawali typedef struct). Tanpa ini, prototype fungsi
     # di bawah typedef diduplikasi dgn versi (void) -> conflicting types.
-    mdef = re.search(rf"\b{re.escape(name)}\s*\(", body)
-    pre = body[:mdef.start()] if mdef else body.split("{")[0]
+    # Blok promoted diawali marker '// DECOMP-MATCHED <nama> (dari ...)':
+    # kurung "(dari" menjebak pencarian di bawah (-> pre terpotong tinggal
+    # fragmen komentar, SEMUA deklarasi blok diduplikasi). Analisis memakai
+    # teks tanpa marker; definisi = kemunculan nama yg dibuka badan '{'
+    # (prototype diakhiri ';' tidak ikut).
+    probe = re.sub(r"(?m)^[ \t]*// DECOMP-MATCHED .*$", "", body)
+    mdef = re.search(rf"\b{re.escape(name)}\s*\([^;{{}}]*\)\s*\{{", probe)
+    if mdef is None:  # fallback: kemunculan pertama seperti dulu
+        mdef = re.search(rf"\b{re.escape(name)}\s*\(", probe)
+    pre = probe[:mdef.start()] if mdef else probe.split("{")[0]
     pre_clean = re.sub(r"\?\s*", "", pre)  # 'extern ? vtable...' tetap terhitung dideklarasikan
     decls = "".join(f"s32 {s}(void);\n" if s.startswith("func_") else f"extern s32 {s};\n"
                     for s in sorted(used) if s != name and s not in pre and s not in pre_clean)
