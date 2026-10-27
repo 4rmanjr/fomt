@@ -31,5 +31,3 @@ void *func_08004B94(GenObj *arg0, s32 arg1, Obj ***arg2) {
     }
     return arg0;
 }
-
-/* ATTEMPT-NOTE opencode: Vtbl/Obj lokal agar blok mandiri (verify tanpa ctx); unk8 sbg funcptr. */
