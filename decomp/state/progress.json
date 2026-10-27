@@ -8509,13 +8509,14 @@
  },
  "func_08037434": {
   "addr": 134444084,
-  "judged_mtime": 1793017308.3104296,
+  "judged_mtime": 1793080299.119721,
   "module": "code_entities_08034CEC.s",
-  "note": "len 36 vs ref 38",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 412,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803745C": {
