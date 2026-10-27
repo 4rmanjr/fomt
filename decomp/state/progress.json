@@ -10342,13 +10342,14 @@
  },
  "func_0803D404": {
   "addr": 134468612,
-  "judged_mtime": 1793017374.8027794,
+  "judged_mtime": 1793082827.893373,
   "module": "code_0803A8A4.s",
-  "note": "len 60 vs ref 58",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 578,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803D440": {
