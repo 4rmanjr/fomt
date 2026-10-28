@@ -852,3 +852,12 @@ void func_08007EE8(GenObj *arg0, u32 arg1, u32 arg2) {
     arg0->unk0 = var_r1_2;
     arg0->unk1 = 0;
 }
+
+// DECOMP-MATCHED func_08009158 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_0800912C();                                /* extern */
+
+s32 func_08009158(s16 *arg0) {
+    s32 v = func_0800912C();
+    *arg0 = v;
+    return v;
+}
