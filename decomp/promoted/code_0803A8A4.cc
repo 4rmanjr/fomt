@@ -410,7 +410,7 @@ s32 func_0803EE50(u8 *arg0) {
 }
 
 // DECOMP-MATCHED func_0803EDCC (dari code_0803A8A4.s; cek manusia sebelum ke src/)
-s32 func_0803D52C(void *, void *);                       /* extern */
+s32 func_0803D52C(s32 *, s32);                          /* extern */
 s32 func_0803D644(u8, u8);                          /* extern */
 
 typedef struct GenObj {
@@ -434,7 +434,7 @@ s32 func_0803EDCC(GenObj *arg0) {
     u8 v2;
     u8 v3;
 
-    func_0803D52C(&sp0, (u8 *)arg0 + 0x10);
+    func_0803D52C((s32 *)&sp0, (s32)((u8 *)arg0 + 0x10));
     v1 = sp0.unk1;
     v2 = sp0.unk2;
     v3 = sp0.unk3;

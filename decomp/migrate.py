@@ -158,6 +158,21 @@ def take_structs(text):
 
 
 STRUCT_RE = re.compile(r"(typedef\s+)?struct\s+\w+\s*\{", re.M)
+EXTERN_RE = re.compile(
+    r"^\s*(?:i32|u32|u16|u8|s32|s16|s8|void)\s+(\w+)\s*\(([^;{}]*)\)\s*;"
+    r"\s*(?:/\*.*?\*/)?\s*$",
+    re.M)
+
+
+def extern_decls(text):
+    """Petakan nama -> himpunan tanda tangan deklarasi extern di teks."""
+    out = {}
+    for m in EXTERN_RE.finditer(text):
+        if "(*" in m.group(0):
+            continue
+        sig = re.sub(r"\s+", " ", m.group(2).strip())
+        out.setdefault(m.group(1), set()).add(sig)
+    return out
 
 
 def split_marker_body(block):
@@ -351,6 +366,16 @@ def migrate_one(module, func, dry_run=False):
                     "skipped": True,
                     "detail": f"struct {struct_conflict} beda isi antar blok "
                     "(butuh penyatuan manual), dilewati"}
+        # Deklarasi extern yang sama dengan tanda tangan beda juga tabrakan
+        # di scope file (braces extern "C" tidak membuat scope).
+        decl_old, decl_new = extern_decls(src_text), extern_decls(body)
+        for nm, sigs in decl_new.items():
+            if nm in decl_old and not sigs.issubset(decl_old[nm]):
+                return {"func": func, "module": module, "ok": False,
+                        "skipped": True,
+                        "detail": f"extern {nm} beda tanda tangan "
+                        f"({sorted(decl_old[nm])} vs {sorted(sigs)}), "
+                        "butuh penyatuan manual, dilewati"}
         if merged:
             top = "\n".join(merged) + "\n\n"
             anchor = src_text.find("// DECOMP-MATCHED")

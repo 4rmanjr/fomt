@@ -3,7 +3,8 @@ typedef struct GenObj {
     struct GenObj *unk4;
     u8 _pad8[244];
     s32 unkFC;
-    u8 _pad100[44];
+    u8 _pad100[40];
+    s32 unk128;
     s32 unk12C;
 } GenObj;
 s32 func_0809B0D8(GenObj *arg0) {
