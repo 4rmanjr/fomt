@@ -5,16 +5,14 @@ typedef struct GenObj {
     s32 unkBC;
 } GenObj;
 s32 func_080CEBC0(GenObj *arg0) {
-    s32 temp_r0;
-    s32 var_r0;
-
-    temp_r0 = arg0->unkBC;
-    if (temp_r0 != 0) {
-        var_r0 = temp_r0 - 1;
+    s32 *p = &arg0->unkBC;
+    s32 temp = *p;
+    if (temp != 0) {
+        temp -= 1;
     } else {
-        var_r0 = 7;
+        temp = 7;
     }
-    arg0->unkBC = var_r0;
+    *p = temp;
     func_080CE510(arg0, arg0->unkBC + 1, 0x0600F0F6, 0x20, 0, 0x20);
     return arg0->unkBC;
 }

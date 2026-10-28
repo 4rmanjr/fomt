@@ -1958,3 +1958,43 @@ void func_080A63B8(GenObj *arg0, s32 arg1) {
     }
     arg0->unk29 = 1;
 }
+
+// DECOMP-MATCHED func_080CEB80 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080CE510(void *, s32, s32, s32, s32, s32);
+
+typedef struct GenObj {
+    u8 _pad0[188];
+    s32 unkBC;
+} GenObj;
+u32 func_080CEB80(GenObj *arg0) {
+    s32 *p = &arg0->unkBC;
+    u32 temp = *p;
+    if (temp <= 6U) {
+        temp += 1;
+    } else {
+        temp = 0;
+    }
+    *p = temp;
+    func_080CE510(arg0, arg0->unkBC + 1, 0x0600F0F6, 0x20, 0, 0x20);
+    return arg0->unkBC;
+}
+
+// DECOMP-MATCHED func_080CEBC0 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080CE510(void *, s32, s32, s32, s32, s32);   /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[188];
+    s32 unkBC;
+} GenObj;
+s32 func_080CEBC0(GenObj *arg0) {
+    s32 *p = &arg0->unkBC;
+    s32 temp = *p;
+    if (temp != 0) {
+        temp -= 1;
+    } else {
+        temp = 7;
+    }
+    *p = temp;
+    func_080CE510(arg0, arg0->unkBC + 1, 0x0600F0F6, 0x20, 0, 0x20);
+    return arg0->unkBC;
+}

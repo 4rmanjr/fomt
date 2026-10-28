@@ -5183,24 +5183,26 @@
  },
  "func_080CEB80": {
   "addr": 135064448,
-  "judged_mtime": 1793018081.0213454,
+  "judged_mtime": 1793162534.9695218,
   "module": "code_809E804.s",
-  "note": "byte +0x6: 0x1c vs ref 0x19",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 560,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080CEBC0": {
   "addr": 135064512,
-  "judged_mtime": 1793018081.2759902,
+  "judged_mtime": 1793162545.3935313,
   "module": "code_809E804.s",
-  "note": "byte +0x6: 0x1c vs ref 0x19",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 560,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080CEC00": {
