@@ -129,11 +129,7 @@ def struct_name(blk):
 
 
 def _is_pure_type(blk):
-    """True bila blok struct hanya definisi tipe (aman di-hoist).
-
-    `struct FR {...} fr;` mendeklarasikan VARIABEL fr — memindahkannya ke
-    scope file mengubah codegen (stack -> .bss global). Hanya hoist bila
-    diawali typedef atau diakhiri `};` polos."""
+    """True bila blok struct hanya definisi tipe (aman di-hoist)."""
     if blk.lstrip().startswith("typedef"):
         return True
     tail = blk[blk.rfind("}") + 1:].strip()
@@ -188,6 +184,30 @@ def extern_decls(text):
         sig = re.sub(r"\s+", " ", m.group(2).strip())
         out.setdefault(m.group(1), set()).add(sig)
     return out
+
+
+def _src_struct_differs(src_text, nm, blk):
+    """True bila src memuat definisi tipe murni bernama nm yang isinya
+    beda dari blk (tabrakan yang harus disatukan manual)."""
+    for m in STRUCT_RE.finditer(src_text):
+        depth, k = 0, m.end() - 1
+        while k < len(src_text):
+            if src_text[k] == "{":
+                depth += 1
+            elif src_text[k] == "}":
+                depth -= 1
+                if depth == 0:
+                    break
+            k += 1
+        end = src_text.find(";", k)
+        if end == -1:
+            continue
+        cand = src_text[m.start(): end + 1]
+        if not _is_pure_type(cand):
+            continue
+        if struct_name(cand) == nm and cand != blk:
+            return True
+    return False
 
 
 def split_marker_body(block):
@@ -262,17 +282,31 @@ def remove_asm_func(asm_text, func):
 
 
 def ensure_lds(lds_text, stem):
+    """Pastikan `src/<stem>.o(.text);` TEPAT sesudah `asm/<stem>.o(.text);`.
+
+    Migrasi hanya lestari bila src tersambung langsung sesudah asm: fungsi
+    pindah menempati offset yang sama persis. Bila entri src sudah ada di
+    tempat lain (layout tulisan-tangan, mis. src/hardware.o SEBELUM asm),
+    raise agar migrasi SKIP — butuh kerja lds manual, bukan auto-revert
+    yang membingungkan."""
     asm_entry = f"asm/{stem}.o(.text);"
     src_entry = f"src/{stem}.o(.text);"
-    if src_entry in lds_text:
-        return lds_text, False
     lines = lds_text.splitlines(keepends=True)
-    for i, ln in enumerate(lines):
-        if asm_entry in ln:
-            indent = ln[: len(ln) - len(ln.lstrip())]
-            lines.insert(i + 1, f"{indent}{src_entry}\n")
-            return "".join(lines), True
-    raise RuntimeError(f"lds: entri {asm_entry} tidak ditemukan")
+    ai = next((i for i, ln in enumerate(lines) if ln.strip() == asm_entry),
+              None)
+    if ai is None:
+        raise RuntimeError(f"lds: entri {asm_entry} tidak ditemukan")
+    j = ai + 1
+    while j < len(lines) and not lines[j].strip():
+        j += 1
+    if j < len(lines) and lines[j].strip() == src_entry:
+        return lds_text, False
+    if any(ln.strip() == src_entry for ln in lines):
+        raise RuntimeError(f"lds: {src_entry} tidak tepat sesudah "
+                           f"{asm_entry} (layout tulisan-tangan)")
+    indent = lines[ai][: len(lines[ai]) - len(lines[ai].lstrip())]
+    lines.insert(ai + 1, f"{indent}{src_entry}\n")
+    return "".join(lines), True
 
 
 def run_compare():
@@ -362,20 +396,17 @@ def migrate_one(module, func, dry_run=False):
                 inc.insert(0, "#include <string.h> // memcpy\n")
             src_text = "".join(inc)
         state_addrs = {n: i.get("addr", 0) for n, i in state.items()}
-        # Struct naik ke scope file (satu salinan): definisi tipe tidak
-        # mengubah codegen jadi aman untuk compare.
+        # Struct dari body naik ke scope file (satu salinan). src TIDAK
+        # pernah dirombak: definisinya dibiarkan apa adanya, hanya body baru
+        # yang diproses (aman untuk src tulisan-tangan ber-method).
         body, new_structs = take_structs(body)
-        src_text, old_structs = take_structs(src_text)
-        merged, seen_names = [], {}
-        struct_conflict = None
-        for blk in old_structs + new_structs:
-            nm = struct_name(blk)
-            if blk in merged:
+        merged, struct_conflict = [], None
+        for blk in new_structs:
+            if blk in merged or blk in src_text:
                 continue
-            if nm in seen_names and seen_names[nm] != blk:
-                struct_conflict = nm  # nama sama isi beda: butuh manusia
+            if _src_struct_differs(src_text, struct_name(blk), blk):
+                struct_conflict = struct_name(blk)  # butuh penyatuan manual
                 break
-            seen_names[nm] = blk
             merged.append(blk)
         if struct_conflict:
             return {"func": func, "module": module, "ok": False,
@@ -395,8 +426,14 @@ def migrate_one(module, func, dry_run=False):
         if merged:
             top = "\n".join(merged) + "\n\n"
             anchor = src_text.find("// DECOMP-MATCHED")
-            src_text = (src_text[:anchor] + top + src_text[anchor:]
-                        if anchor != -1 else src_text + "\n" + top)
+            if anchor != -1:
+                src_text = src_text[:anchor] + top + src_text[anchor:]
+            else:
+                # src tulisan-tangan tanpa marker: taruh sesudah blok include
+                # (tipe butuh i32/u8 dari prelude), bukan di akhir file.
+                hm = re.match(r"(?:#[^\n]*\n)+", src_text)
+                pos = hm.end() if hm else 0
+                src_text = src_text[:pos] + top + src_text[pos:]
         new_src = insert_ordered(src_text, marker_line, body, addr,
                                  state_addrs)
     else:
