@@ -3627,13 +3627,14 @@
  },
  "func_080BC254": {
   "addr": 134988372,
-  "judged_mtime": 1793018022.19091,
+  "judged_mtime": 1793196382.5228894,
   "module": "code_809E804.s",
-  "note": "byte +0x0: 0x70 vs ref 0xf0",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 523,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080BC288": {

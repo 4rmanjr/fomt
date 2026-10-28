@@ -2245,3 +2245,23 @@ void *func_080B3C90(GenObj *arg0) {
     arg0->unk11 = 0;
     return arg0;
 }
+
+// DECOMP-MATCHED func_080BC254 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080BC254(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 i = 0;
+    s32 n = arg1 * 2;
+    u8 *dst;
+    u8 *src;
+
+    if (i >= n) {
+        goto end;
+    }
+    dst = (u8 *)(arg0 + 0xB35);
+    src = (u8 *)(arg2 * 2 + arg3);
+    do {
+        dst[i] = *src++;
+        i++;
+    } while (i < n);
+end:
+    return arg0 + 0xB35;
+}
