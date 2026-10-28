@@ -4566,13 +4566,14 @@
  },
  "func_0808A4C0": {
   "addr": 134784192,
-  "judged_mtime": 1793150387.8557122,
+  "judged_mtime": 1793199814.6603603,
   "module": "code_0803EE94.s",
-  "note": "len 156 vs ref 154 [3missing,4extra,3operand @i b #0x92 | b #0x94]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 156,
   "sanitize_v": 4,
   "size": 1193,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0808A55C": {

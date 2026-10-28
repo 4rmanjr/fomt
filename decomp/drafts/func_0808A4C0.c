@@ -26,6 +26,7 @@ void func_0808A4C0(GenObj *arg0, s32 arg1) {
     s32 temp_r4;
     s32 temp_r4_2;
     s32 temp_r4_4;
+    s32 temp_ce;
 
     if (arg1 == 0) {
         func_0800F390(arg0->unkFC);
@@ -39,7 +40,8 @@ void func_0808A4C0(GenObj *arg0, s32 arg1) {
         func_080CBA60(temp_r4_2, func_080CE184(arg0, arg1, 0));
         return;
     }
-    temp_r4_3 = GetFoodStackAt__6FridgeUi(arg0->unk104, func_080CE184(arg0, arg1, *(s32 *) (arg0->unk94 + 0xBC)));
+    temp_ce = func_080CE184(arg0, arg1, *(s32 *) (arg0->unk94 + 0xBC));
+    temp_r4_3 = GetFoodStackAt__6FridgeUi(arg0->unk104, temp_ce);
     __9FoodStack(&sp0);
     *temp_r4_3 = sp0;
     temp_r4_4 = arg0->unk7C;
