@@ -1,6 +1,6 @@
 typedef struct GenObj {
     u8 _pad0[12];
-    s32 unkC;
+    u16 unkC;
 } GenObj;
 s32 func_0809C694(GenObj *arg0, u16 arg1) {
     s32 var_r2;
