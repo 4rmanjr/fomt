@@ -47,13 +47,14 @@
  },
  "func_080D3870": {
   "addr": 135084144,
-  "judged_mtime": 1793018098.2373688,
+  "judged_mtime": 1793203083.644216,
   "module": "code_lib_sram.s",
-  "note": "judge_func_080D3870/opencode/func.c:14: invalid operands to binary -\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3870/opencode/func.c:18: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3870/opencode/func.c:24: called object is not a function\n",
-  "ref_len": 100,
+  "note": "",
+  "promoted_to": "decomp/promoted/code_lib_sram.cc",
+  "ref_len": 99,
   "sanitize_v": 4,
-  "size": 933,
-  "status": "failed",
+  "size": 934,
+  "status": "promoted",
   "thumb": true
  },
  "func_080D38D4": {

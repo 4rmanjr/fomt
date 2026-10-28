@@ -1,24 +1,39 @@
-extern s32 func_080D3840;
+extern u8 func_080D3840[];
 
-void func_080D3870(s32 arg0, s32 arg1, s32 arg2) {
-    u16 sp0;
-    s32 var_r3;
-    u16 *var_r2;
-    u32 temp_r1;
-    u32 var_r0;
+s32 func_080D3870(s32 arg0, s32 arg1, s32 arg2) {
+    u8 buf[0xC0];
+    u16 *src;
+    u16 *dst;
+    u32 one;
+    u32 tfn;
+    u32 x;
+    u32 n;
+    u16 reg;
 
-    *(u16 *)0x04000204 = (*(u16 *)0x04000204 & 0xFFFC) | 3;
-    var_r3 = (s32) &func_080D3840 & ~1;
-    var_r2 = &sp0;
-    var_r0 = (func_080D3870 - &func_080D3840) << 0xF;
-loop_2:
-    temp_r1 = var_r0 >> 0x10;
-    if (temp_r1 != 0) {
-        *var_r2 = *var_r3;
-        var_r3 += 2;
-        var_r2 += 2;
-        var_r0 = (temp_r1 - 1) << 0x10;
-        goto loop_2;
-    }
-    (&sp0 + 1)(arg0, arg1, arg2);
+    reg = *(u16 *)0x04000204;
+    reg &= 0xFFFC;
+    reg |= 3;
+    *(u16 *)0x04000204 = reg;
+    /* agbcc lipat `& ~1` jadi mov+neg+and; jangkar agar `one` tetap di
+       register sehingga jadi `movs r0,#1; bics r3,r0` seperti ref. */
+    src = (u16 *)(u32)func_080D3840;
+    one = 1;
+    __asm__ volatile ("" : "+r" (one));
+    src = (u16 *)((u32)src & ~one);
+    dst = (u16 *)buf;
+    x = ((u32)func_080D3870 - (u32)func_080D3840) << 15;
+    goto test;
+    do {
+        *dst = *src;
+        src += 1;
+        dst += 1;
+        x = (n - 1) << 16;
+    test:
+        n = x >> 16;
+    } while (n != 0);
+    /* target panggil = buf+1 (bit Thumb); hitung setelah loop agar tetap
+       `mov r3,sp` (C murni selalu di-hoist sebelum loop -> r4). */
+    __asm__ volatile ("mov %0, sp" : "=r" (tfn));
+    tfn += 1;
+    return ((s32 (*)(s32, s32, s32))tfn)(arg0, arg1, arg2);
 }
