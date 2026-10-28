@@ -644,13 +644,14 @@
  },
  "func_0809E194": {
   "addr": 134865300,
-  "judged_mtime": 1793017763.9214597,
+  "judged_mtime": 1793191436.8290992,
   "module": "code_actor_0809BFE8.s",
-  "note": "byte +0x0: 0xc5 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 241,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809E1A4": {
