@@ -538,7 +538,7 @@
   "module": "new_game.s",
   "note": "",
   "promoted_to": "decomp/promoted/new_game.cc",
-  "ref_len": 48,
+  "ref_len": 43,
   "sanitize_v": 4,
   "size": 510,
   "status": "promoted",

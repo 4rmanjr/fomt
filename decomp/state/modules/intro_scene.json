@@ -83,7 +83,7 @@
   "judged_mtime": 1793020045.960318,
   "module": "intro_scene.s",
   "note": "gitproject/fomt/decomp/logs/judge_func_080035C0/opencode/func.c:100: request for member `unk4' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080035C0/opencode/func.c:102: warning: passing arg 2 of `func_0805E99C' makes integer from pointer without a cast\n",
-  "ref_len": 312,
+  "ref_len": 311,
   "sanitize_v": 4,
   "size": 3117,
   "status": "failed",
