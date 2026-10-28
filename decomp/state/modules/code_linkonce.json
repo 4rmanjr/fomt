@@ -59,9 +59,9 @@
  },
  "func_080D3C78": {
   "addr": 135085176,
-  "judged_mtime": 1793168955.06466,
+  "judged_mtime": 1793178216.436397,
   "module": "code_linkonce.s",
-  "note": "byte +0x2f: 0x48 vs ref 0x4a [1extra,40regalloc @r ldr r2, [pc, #0x1d0] | ldr r0, [pc, #0x1d0]]",
+  "note": "len 598 vs ref 602 [1missing,2extra,2operand,9regalloc,1different @>  | ldr r2, [pc, #0x78]]",
   "ref_len": 604,
   "sanitize_v": 4,
   "size": 4703,
@@ -348,13 +348,14 @@
  },
  "func_080D6E98": {
   "addr": 135098008,
-  "judged_mtime": 1793018108.7852242,
+  "judged_mtime": 1793186901.334666,
   "module": "code_linkonce.s",
-  "note": "byte +0x4: 0x81 vs ref 0x41",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 207,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D6EAC": {
@@ -4713,7 +4714,7 @@
  },
  "func_080E54F0": {
   "addr": 135156976,
-  "judged_mtime": 1793100780.4573362,
+  "judged_mtime": 1793150387.8599102,
   "module": "code_linkonce.s",
   "note": "byte +0x6: 0x1d vs ref 0x5 [25missing,25extra,8operand,1stack @>  | adds r5, r3, #0]",
   "ref_len": 192,

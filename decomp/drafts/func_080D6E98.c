@@ -1,6 +1,7 @@
 typedef struct GenObj {
-    s32 unk0;
-    s32 unk1;
+    u8 unk0;
+    u8 unk1;
+    u8 _pad2[2];
     s32 unk4;
     s32 unk8;
 } GenObj;
