@@ -2,18 +2,19 @@ s32 GetDaysSincePlayerEvent_bugged__C12Bachelorette(s32); /* extern */
 s32 GetDaysSinceRivalEvent__C12Bachelorette(s32);   /* extern */
 s32 GetPlayerEventCount__C12Bachelorette(s32);      /* extern */
 s32 GetRivalEventCount__C12Bachelorette(s32);       /* extern */
-s32 func_080A0878(s32);                             /* extern */
+s32 func_080A0878(s32, s32);                         /* extern */
 
 typedef struct GenObj {
     u8 _pad0[848];
     s32 unk350;
 } GenObj;
-s32 func_08045584(GenObj *arg0, u8 arg2) {
+s32 func_08045584(GenObj *arg0, s32 arg1, u8 arg2) {
     s32 temp_r0;
 
-    temp_r0 = func_080A0878(arg0->unk350 + 0x1CD4);
+    temp_r0 = func_080A0878(arg0->unk350 + 0x1CD4, arg1);
     if (temp_r0 != 0) {
         if (arg2 == 0) {
+            __asm__ volatile("" : : : "r0"); /* barrier: paksa reload r4->r0 (quirk agbcc reload inheritance) */
             if (GetPlayerEventCount__C12Bachelorette(temp_r0) == 5) {
                 return GetDaysSincePlayerEvent_bugged__C12Bachelorette(temp_r0);
             }
