@@ -1571,6 +1571,8 @@ def _shared_context() -> str:
                 key, block = m.group(1), m.group(0).strip() + "\n"
                 if key in ("GenObj",):
                     continue  # anonim per-fungsi (layout beda tiap fungsi)
+                if re.search(r"\bGenObj\b", block):
+                    continue  # merujuk tipe per-fungsi yg tak ada di ctx -> kompilasi pecah
                 if key not in seen:
                     seen[key] = block
                 elif seen[key] != block:
