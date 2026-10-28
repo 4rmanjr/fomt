@@ -2637,3 +2637,39 @@ void func_08094560(GenObj *arg0, s32 arg1) {
     }
     arg0->unk8 = &gUnk_0810098C;
 }
+
+// DECOMP-MATCHED func_080940E4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct Vtbl38 {
+    u8 _pad0[0x38];
+    void (*unk38)(void *, s32, s32);
+} Vtbl38;
+typedef struct GenObj {
+    Vtbl38 *unk0;
+    u8 _pad4[8];
+    u8 unkC;
+} GenObj;
+void func_080940E4(GenObj *arg0) {
+    if (arg0->unkC != 0) {
+        arg0->unk0->unk38(arg0, 0, 1);
+    } else {
+        arg0->unk0->unk38(arg0, 1, 1);
+    }
+}
+
+// DECOMP-MATCHED func_08094584 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct Vtbl38 {
+    u8 _pad0[0x38];
+    void (*unk38)(void *, s32, s32);
+} Vtbl38;
+typedef struct GenObj {
+    Vtbl38 *unk0;
+    u8 _pad4[8];
+    u8 unkC;
+} GenObj;
+void func_08094584(GenObj *arg0) {
+    if (arg0->unkC != 0) {
+        arg0->unk0->unk38(arg0, 0, 1);
+    } else {
+        arg0->unk0->unk38(arg0, 1, 1);
+    }
+}

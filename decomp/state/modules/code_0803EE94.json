@@ -5480,9 +5480,9 @@
  },
  "func_08093DEC": {
   "addr": 134823404,
-  "judged_mtime": 1793167145.4303677,
+  "judged_mtime": 1793167222.8811483,
   "module": "code_0803EE94.s",
-  "note": ":9: syntax error before `Vtbl'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08093DEC/hermes30/common.h:9: warning: no semicolon at end of struct or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08093DEC/hermes30/common.h:10: warning: data definition has no type or storage class\n",
+  "note": "byte +0xc: 0x1 vs ref 0x3 [2extra,1operand,1regalloc @r ldr r3, [r0, #0x20] | ldr r1, [r0, #0x20]]",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 554,
@@ -5616,13 +5616,14 @@
  },
  "func_080940E4": {
   "addr": 134824164,
-  "judged_mtime": 1793167145.4174972,
+  "judged_mtime": 1793167222.8770857,
   "module": "code_0803EE94.s",
-  "note": ":9: syntax error before `Vtbl'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080940E4/hermes30/common.h:9: warning: no semicolon at end of struct or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080940E4/hermes30/common.h:10: warning: data definition has no type or storage class\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 383,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08094110": {
@@ -5684,9 +5685,9 @@
  },
  "func_08094288": {
   "addr": 134824584,
-  "judged_mtime": 1793167145.4235444,
+  "judged_mtime": 1793167222.8776882,
   "module": "code_0803EE94.s",
-  "note": ":9: syntax error before `Vtbl'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08094288/hermes30/common.h:9: warning: no semicolon at end of struct or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08094288/hermes30/common.h:10: warning: data definition has no type or storage class\n",
+  "note": "byte +0xc: 0x1 vs ref 0x3 [2extra,1operand,1regalloc @r ldr r3, [r0, #0x20] | ldr r1, [r0, #0x20]]",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 554,
@@ -5821,13 +5822,14 @@
  },
  "func_08094584": {
   "addr": 134825348,
-  "judged_mtime": 1793167145.4174972,
+  "judged_mtime": 1793167222.8735197,
   "module": "code_0803EE94.s",
-  "note": ":9: syntax error before `Vtbl'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08094584/hermes30/common.h:9: warning: no semicolon at end of struct or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08094584/hermes30/common.h:10: warning: data definition has no type or storage class\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 383,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080945B0": {
