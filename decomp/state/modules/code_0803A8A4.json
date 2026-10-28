@@ -1040,13 +1040,14 @@
  },
  "func_0803ECC0": {
   "addr": 134474944,
-  "judged_mtime": 1793017382.4241893,
+  "judged_mtime": 1793194868.1180718,
   "module": "code_0803A8A4.s",
-  "note": "er type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0803ECC0/opencode/func.c:25: warning: passing arg 2 of `func_0803D52C' makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0803ECC0/opencode/func.c:67: default label not within a switch statement\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 267,
   "sanitize_v": 4,
   "size": 2260,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803EDCC": {
