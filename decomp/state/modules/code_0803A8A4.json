@@ -457,24 +457,26 @@
  },
  "func_0803C518": {
   "addr": 134464792,
-  "judged_mtime": 1793017336.686394,
+  "judged_mtime": 1793162188.9349368,
   "module": "code_0803A8A4.s",
-  "note": "byte +0xa: 0x20 vs ref 0x60",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 193,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803C52C": {
   "addr": 134464812,
-  "judged_mtime": 1793017336.8679664,
+  "judged_mtime": 1793162188.939036,
   "module": "code_0803A8A4.s",
-  "note": "byte +0xa: 0x20 vs ref 0x60",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 193,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803C540": {

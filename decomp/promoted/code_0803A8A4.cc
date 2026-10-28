@@ -236,3 +236,33 @@ s32 func_0803BE9C(GenObj **arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: unkB-unkC u8 + hi-var; sisa alokasi hi r1 vs ref r2. */
+
+// DECOMP-MATCHED func_0803C518 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+s32 func_0803BEBC();                                  /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[13];
+    u8 unkD;
+    u8 _padE;
+    u8 unkF;
+} GenObj;
+void func_0803C518(GenObj *arg0) {
+    func_0803BEBC();
+    arg0->unkD = 1;
+    arg0->unkF = 1;
+}
+
+// DECOMP-MATCHED func_0803C52C (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+s32 func_0803BEC8();                                  /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[13];
+    u8 unkD;
+    u8 _padE;
+    u8 unkF;
+} GenObj;
+void func_0803C52C(GenObj *arg0) {
+    func_0803BEC8();
+    arg0->unkD = 1;
+    arg0->unkF = 1;
+}
