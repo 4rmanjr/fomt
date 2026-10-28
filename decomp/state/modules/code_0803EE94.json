@@ -2010,13 +2010,14 @@
  },
  "func_08063E8C": {
   "addr": 134626956,
-  "judged_mtime": 1793003563.348183,
+  "judged_mtime": 1793161451.8550355,
   "module": "code_0803EE94.s",
-  "note": "byte +0x1d: 0xd0 vs ref 0xd1",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 409,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08063EB8": {

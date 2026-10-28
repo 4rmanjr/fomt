@@ -2327,3 +2327,17 @@ void func_0804EE30(u32 arg0, s16 *arg1, u32 arg2, s32 arg3) {
         var_r5 -= 1;
     } while (var_r4 != 0);
 }
+
+// DECOMP-MATCHED func_08063E8C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 IsSick__C9Livestock();                          /* extern */
+s32 IsUnhappy__C9Livestock(s32);                    /* extern */
+
+s32 func_08063E8C(s32 arg0) {
+    if ((IsSick__C9Livestock() << 0x18) != 0) {
+        return 0x58;
+    }
+    if ((IsUnhappy__C9Livestock(arg0) << 0x18) != 0) {
+        return 0x48;
+    }
+    return 0x38;
+}
