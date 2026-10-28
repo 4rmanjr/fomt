@@ -1460,3 +1460,189 @@ void func_080DCF20(GenObj *arg0, s32 arg1) {
         __builtin_delete(arg0);
     }
 }
+
+// DECOMP-MATCHED func_080E09E4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[448];
+    s32 unk1C0;
+} GenObj;
+void func_080E09E4(GenObj *arg0, s32 arg1) {
+    s32 var_r4;
+    u8 *var_r1;
+    u32 temp_r2;
+
+    var_r4 = arg1;
+    var_r1 = (u8 *)arg0;
+    var_r1 += 0x30;
+    temp_r2 = *(u32 *)((u8 *)arg0 + 0x1C0);
+    if (temp_r2 <= 0x63U) {
+        *(s32 *)((temp_r2 << 2) + var_r1) = var_r4;
+        *(u32 *)((u8 *)arg0 + 0x1C0) = temp_r2 + 1;
+    }
+}
+
+// DECOMP-MATCHED func_080E0EFC (dari code_linkonce.s; cek manusia sebelum ke src/)
+void func_080E0EFC(u32 arg0, s32 arg1) {
+    register u32 var_r5 __asm__("r5");
+    u32 var_r1;
+    register s8 *var_r4 __asm__("r4");
+    register u32 var_r2 __asm__("r2");
+
+    var_r5 = arg0;
+    var_r4 = arg1 + 1;
+    var_r2 = 0x19999999U;
+    var_r1 = 0xA;
+    if (var_r5 >= var_r1) {
+        var_r4 += 1;
+loop_2:
+        var_r1 *= 0xA;
+        if (var_r5 >= var_r1) {
+            var_r4 += 1;
+            if (var_r1 <= var_r2) {
+                goto loop_2;
+            }
+        }
+    }
+    *var_r4 = 0;
+    do {
+        u32 var_q;
+        u32 var_t;
+        register u32 var_d __asm__("r1");
+
+        var_r4 -= 1;
+        var_q = var_r5 / 10U;
+        var_t = var_q * 10;
+        var_d = var_r5 - var_t;
+        *var_r4 = var_d + 0x30;
+        var_r5 = var_q;
+    } while (var_r5 != 0);
+}
+
+// DECOMP-MATCHED func_080E0F48 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_08009094(void *, void *);                    /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+} GenObj;
+s32 func_080E0F48(GenObj *arg0) {
+    s32 *temp_r5;
+    s32 temp_r1;
+    s32 var_r0;
+    void *temp_r0;
+    void *temp_r4;
+    register void *var_r1 __asm__("r1");
+    register s32 var_r3 __asm__("r3");
+    register void *var_r2 __asm__("r2");
+    register s32 var_r0b __asm__("r0");
+
+    temp_r5 = arg0->unkC;
+    var_r0 = 0;
+    temp_r1 = *temp_r5;
+    if (temp_r1 == 0) {
+        var_r0 = 1;
+    }
+    if (var_r0 == 0) {
+        temp_r4 = (void *)((u8 *)temp_r5 + 4);
+        func_08009094(temp_r4, temp_r4 + (temp_r1 * 0x10));
+        temp_r0 = (void *)((u8 *)temp_r5 + ((*temp_r5 * 0x10) + 4));
+        var_r2 = temp_r0;
+        var_r1 = temp_r4;
+        __asm__ volatile("" : : : "memory");
+        var_r3 = *temp_r5;
+        if (var_r1 != var_r2) {
+            do {
+                var_r1 += 0x10;
+            } while (var_r1 != var_r2);
+        }
+        var_r0b = var_r3 - ((s32) (temp_r0 - temp_r4) >> 4);
+        *temp_r5 = var_r0b;
+    }
+    return 0;
+}
+
+// DECOMP-MATCHED func_080E3A50 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080D0678();                                  /* extern */
+
+s32 func_080E3A50(void) {
+    return func_080D0678();
+}
+
+// DECOMP-MATCHED func_080E3E28 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u16 *func_080E3E28(u16 *arg0, u16 *arg1, u16 *arg2) {
+    s32 temp_r0;
+    s32 var_r2;
+    u8 *var_r3;
+    u16 temp_r1;
+
+    var_r3 = (u8 *)arg0;
+    var_r2 = ((s32)((u8 *)arg1 - var_r3)) >> 3;
+    if (var_r2 > 0) {
+        temp_r1 = *arg2;
+    loop_2:
+        if (*(u16 *)var_r3 != temp_r1) {
+            var_r3 += 2;
+            if (*(u16 *)var_r3 != temp_r1) {
+                var_r3 += 2;
+                if (*(u16 *)var_r3 != temp_r1) {
+                    var_r3 += 2;
+                    if (*(u16 *)var_r3 != temp_r1) {
+                        var_r3 += 2;
+                        var_r2 -= 1;
+                        if (var_r2 <= 0) {
+                            goto block_7;
+                        }
+                        goto loop_2;
+                    }
+                }
+            }
+        }
+        goto block_16;
+    }
+block_7:
+    temp_r0 = ((s32)((u8 *)arg1 - var_r3)) >> 1;
+    if (temp_r0 == 1) {
+        goto c1;
+    }
+    if (temp_r0 <= 1) {
+        goto ret_arg1;
+    }
+    if (temp_r0 == 2) {
+        goto c2;
+    }
+    if (temp_r0 != 3) {
+        goto ret_arg1;
+    }
+    if (*(u16 *)var_r3 != *arg2) {
+        var_r3 += 2;
+    }
+c2:
+    if (*(u16 *)var_r3 != *arg2) {
+        var_r3 += 2;
+    }
+c1:
+    if (*(u16 *)var_r3 != *arg2) {
+        goto ret_arg1;
+    }
+block_16:
+    return (u16 *)var_r3;
+ret_arg1:
+    return arg1;
+}
+
+/* ATTEMPT-NOTE opencode: pola E3DB4 + tail dua asrs eksplisit. */
+
+/* ATTEMPT-NOTE opencode: pola E3DB4; sisa 1 byte: >>1>>1 di-fold jadi >>2 (ref 2x asrs#1); tmp2/var-reuse dicoba. */
+
+// DECOMP-MATCHED func_080E44B8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 __builtin_delete(s32 **);                           /* extern */
+s32 func_080AC85C(s32, s32);                          /* extern */
+extern s32 vtable_unk_080E61A0;
+
+void func_080E44B8(s32 **arg0, s32 arg1) {
+    func_080AC85C((s32 *)((u8 *)arg0 + 4), 2);
+    *arg0 = &vtable_unk_080E61A0;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}

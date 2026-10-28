@@ -1,6 +1,5 @@
 u16 *func_080E3E28(u16 *arg0, u16 *arg1, u16 *arg2) {
     s32 temp_r0;
-    s32 tmp2;
     s32 var_r2;
     u8 *var_r3;
     u16 temp_r1;
@@ -30,8 +29,7 @@ u16 *func_080E3E28(u16 *arg0, u16 *arg1, u16 *arg2) {
         goto block_16;
     }
 block_7:
-    tmp2 = ((s32)((u8 *)arg1 - var_r3)) >> 1;
-    temp_r0 = tmp2 >> 1;
+    temp_r0 = ((s32)((u8 *)arg1 - var_r3)) >> 1;
     if (temp_r0 == 1) {
         goto c1;
     }

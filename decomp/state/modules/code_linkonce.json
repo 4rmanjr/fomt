@@ -450,7 +450,7 @@
  },
  "func_080D7014": {
   "addr": 135098388,
-  "judged_mtime": 1793100780.4568398,
+  "judged_mtime": 1793150387.8591843,
   "module": "code_linkonce.s",
   "note": "len 122 vs ref 128 [7missing,4extra,13operand,5regalloc @i bhi #0x78 | bhi #0x72]",
   "ref_len": 128,
@@ -560,7 +560,7 @@
  },
  "func_080D7568": {
   "addr": 135099752,
-  "judged_mtime": 1793100780.4568987,
+  "judged_mtime": 1793150387.859348,
   "module": "code_linkonce.s",
   "note": "len 120 vs ref 118 [1extra,10operand,25regalloc,1different @r adds r6, r0, #0 | adds r4, r0, #0]",
   "ref_len": 120,
@@ -571,7 +571,7 @@
  },
  "func_080D75E0": {
   "addr": 135099872,
-  "judged_mtime": 1793100780.456976,
+  "judged_mtime": 1793150387.85943,
   "module": "code_linkonce.s",
   "note": "byte +0x8: 0x22 vs ref 0x20 [1missing,1extra,2regalloc @>  | adds r2, r4, #4]",
   "ref_len": 84,
@@ -762,7 +762,7 @@
  },
  "func_080D7AD4": {
   "addr": 135101140,
-  "judged_mtime": 1793100780.456976,
+  "judged_mtime": 1793150387.8595116,
   "module": "code_linkonce.s",
   "note": "reloc [(20, 10, 'func_080D7944'), (28, 10, 'func_0800959C'), (40, 2, 'vtable_unk_080E5B0C'), (44, 2, 'vtable_unk_080E5B18')] vs ref [(20, 10, 'func_080D7944'), (28, 10, 'func_0800959C'), (40, 2, 'vtable_unk_080E5B0C')] [5extra @>  | movs r0, r0]",
   "ref_len": 40,
@@ -2765,7 +2765,7 @@
  },
  "func_080DDF3C": {
   "addr": 135126844,
-  "judged_mtime": 1793100780.4570718,
+  "judged_mtime": 1793150387.8595912,
   "module": "code_linkonce.s",
   "note": "len 20 vs ref 44 [12missing,4operand,2different @i push {r4, r5, lr} | push {lr}]",
   "ref_len": 44,
@@ -2975,9 +2975,9 @@
  },
  "func_080E0908": {
   "addr": 135137544,
-  "judged_mtime": 1793100780.4571226,
+  "judged_mtime": 1793150387.8596437,
   "module": "code_linkonce.s",
-  "note": "unc.c:54: `_' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E0908/hermes8/func.c:54: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E0908/hermes8/func.c:54: for each function it appears in.)\n",
+  "note": "c.c:54: `_' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E0908/hermes17/func.c:54: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E0908/hermes17/func.c:54: for each function it appears in.)\n",
   "ref_len": 156,
   "sanitize_v": 4,
   "size": 1417,
@@ -3008,13 +3008,14 @@
  },
  "func_080E09E4": {
   "addr": 135137764,
-  "judged_mtime": 1793018162.2939909,
+  "judged_mtime": 1793151556.6472785,
   "module": "code_linkonce.s",
-  "note": "byte +0x2: 0x3 vs ref 0xc",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 339,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E0A08": {
@@ -3130,24 +3131,26 @@
  },
  "func_080E0EFC": {
   "addr": 135139068,
-  "judged_mtime": 1793018164.4194205,
+  "judged_mtime": 1793151817.0325809,
   "module": "code_linkonce.s",
-  "note": "byte +0x2: 0x4 vs ref 0x5",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 667,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E0F48": {
   "addr": 135139144,
-  "judged_mtime": 1793018164.6748333,
+  "judged_mtime": 1793152083.1999016,
   "module": "code_linkonce.s",
-  "note": "byte +0x13: 0x1c vs ref 0x1d",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 633,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E0F90": {
@@ -4244,13 +4247,14 @@
  },
  "func_080E3A50": {
   "addr": 135150160,
-  "judged_mtime": 1793015356.682321,
+  "judged_mtime": 1793151109.3475995,
   "module": "code_linkonce.s",
-  "note": "byte +0x6: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 120,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E3A5C": {
@@ -4370,13 +4374,14 @@
  },
  "func_080E3E28": {
   "addr": 135151144,
-  "judged_mtime": 1793100780.4571927,
+  "judged_mtime": 1793151113.37177,
   "module": "code_linkonce.s",
-  "note": "byte +0x3a: 0x80 vs ref 0x40 [1operand @i asrs r0, r0, #1 | asrs r0, r0, #2]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 116,
   "sanitize_v": 4,
   "size": 982,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E3E9C": {
@@ -4525,13 +4530,14 @@
  },
  "func_080E44B8": {
   "addr": 135152824,
-  "judged_mtime": 1793018190.3417964,
+  "judged_mtime": 1793151224.4553301,
   "module": "code_linkonce.s",
-  "note": "byte +0x6: 0x10 vs ref 0x28",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 406,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E44E4": {
@@ -4671,7 +4677,7 @@
  },
  "func_080E542C": {
   "addr": 135156780,
-  "judged_mtime": 1793100780.4571927,
+  "judged_mtime": 1793150387.8598077,
   "module": "code_linkonce.s",
   "note": "len 64 vs ref 60 [1missing,11extra,3operand,11regalloc,1different @i push {r4, r5, lr} | push {r4, lr}]",
   "ref_len": 76,
