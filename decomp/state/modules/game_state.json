@@ -2929,14 +2929,15 @@
  },
  "func_0801FB7C": {
   "addr": 134347644,
-  "judged_mtime": 1793003781.0152867,
+  "judged_mtime": 1793194743.7753205,
   "module": "game_state.s",
-  "note": "c: In function `func_0801FB7C':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801FB7C/opencode/func.c:25: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801FB7C/opencode/func.c:25: request for member `unk8' in something not a structure or union\n",
-  "ref_len": 400,
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
+  "ref_len": 399,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
-  "size": 2957,
-  "status": "failed",
+  "size": 2958,
+  "status": "promoted",
   "thumb": true
  },
  "func_0801FD0C": {
