@@ -1,4 +1,4 @@
-void func_080050F8(void *, void *);                     /* extern */
+void func_080050F8(void *, s32);                     /* extern */
 
 typedef struct GenObj {
     struct GenObj *unk0;
@@ -6,19 +6,28 @@ typedef struct GenObj {
     void (*unk8)(void *, s32);
 } GenObj;
 GenObj *func_08005A00(GenObj *arg0, GenObj *arg1) {
-    struct { GenObj *volatile sp0; void *sp4; void *sp8; } fr;
+    /* Frame 12 byte: sp0 volatile (reload paksa utk null-check, krn
+       *sp4 alias sp0), sp4 volatile (store tidak dilipat),
+       sp8 nilai tersimpan. tmp di r2; salinan alamat r0->r1 via
+       copy register + barrier asm (tanpa itu agbcc melipat jadi
+       `str [sp]` atau reload `ldr`). Pola sama dgn func_0800374C. */
+    struct { GenObj *volatile sp0; GenObj **volatile sp4; GenObj *sp8; } fr;
+    register GenObj *tmp __asm__("r2");
+    register GenObj **q __asm__("r0");
+    register GenObj **sp4r __asm__("r1");
     GenObj *c;
-    GenObj *tmp;
-    s32 *q;
 
-    func_080050F8(&fr.sp0, (void *)arg1->unk4);
+    func_080050F8((void *)&fr.sp0, arg1->unk4);
     tmp = fr.sp0;
-    q = fr.sp4 = &fr.sp0;
+    q = (GenObj **)&fr.sp0;
+    fr.sp4 = q;
     fr.sp8 = tmp;
+    sp4r = q;
+    __asm__ volatile ("" : "+r" (sp4r) : : "memory");
+    *sp4r = 0;
     arg0->unk0 = tmp;
-    *q = 0;
     if ((c = fr.sp0) != 0) {
-        ((void (*)(void *,...))((GenObj *)c->unk0)->unk8)(c, 3);
+        ((GenObj *)c->unk0)->unk8(c, 3);
     }
     return arg0;
 }

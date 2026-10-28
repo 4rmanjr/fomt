@@ -57,7 +57,7 @@
  },
  "func_08003DF0": {
   "addr": 134233584,
-  "judged_mtime": 1793100780.4512854,
+  "judged_mtime": 1793150387.851642,
   "module": "new_game.s",
   "note": "byte +0x1f: 0x4b vs ref 0x48 [3missing,3extra,8operand,17regalloc @r ldr r0, [pc, #0x68] | ldr r3, [pc, #0x68]]",
   "ref_len": 152,
@@ -68,9 +68,9 @@
  },
  "func_08003E88": {
   "addr": 134233736,
-  "judged_mtime": 1793100780.452506,
+  "judged_mtime": 1793150387.851642,
   "module": "new_game.s",
-  "note": "ut a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08003E88/hermes11/func.c:27: warning: assignment makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08003E88/hermes11/func.c:28: request for member `unk4' in something not a structure or union\n",
+  "note": "ast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08003E88/worker-050a/func.c:27: warning: assignment makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08003E88/worker-050a/func.c:28: request for member `unk4' in something not a structure or union\n",
   "ref_len": 100,
   "sanitize_v": 4,
   "size": 1027,
@@ -79,7 +79,7 @@
  },
  "func_08003EEC": {
   "addr": 134233836,
-  "judged_mtime": 1793100780.452554,
+  "judged_mtime": 1793150387.851906,
   "module": "new_game.s",
   "note": "byte +0x2: 0x3 vs ref 0x2 [10missing,13extra,10operand,6regalloc,1stack,2different @r adds r2, r0, #0 | adds r3, r0, #0]",
   "ref_len": 176,
@@ -90,7 +90,7 @@
  },
  "func_08003F9C": {
   "addr": 134234012,
-  "judged_mtime": 1793100780.4526143,
+  "judged_mtime": 1793150387.851976,
   "module": "new_game.s",
   "note": "byte +0xa: 0x85 vs ref 0x86 [11missing,14extra,8operand,16regalloc,8stack,4different @s sub sp, #0x18 | sub sp, #0x14]",
   "ref_len": 260,
@@ -101,7 +101,7 @@
  },
  "func_080040A0": {
   "addr": 134234272,
-  "judged_mtime": 1793100780.4526143,
+  "judged_mtime": 1793150387.851976,
   "module": "new_game.s",
   "note": "byte +0xa: 0x83 vs ref 0x84 [20missing,24extra,25operand,20regalloc,5stack,12different @s sub sp, #0x10 | sub sp, #0xc]",
   "ref_len": 316,
@@ -112,7 +112,7 @@
  },
  "func_080041DC": {
   "addr": 134234588,
-  "judged_mtime": 1793100780.4527087,
+  "judged_mtime": 1793150387.8520756,
   "module": "new_game.s",
   "note": "len 918 vs ref 914 [47missing,50extra,49operand,67regalloc,20stack,18different @s sub sp, #0x70 | sub sp, #0x48]",
   "ref_len": 916,
@@ -123,9 +123,9 @@
  },
  "func_08004570": {
   "addr": 134235504,
-  "judged_mtime": 1793100780.4527793,
+  "judged_mtime": 1793150387.8521383,
   "module": "new_game.s",
-  "note": "st\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004570/hermes11/func.c:147: `sp20' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004570/hermes11/func.c:147: warning: passing arg 2 of `func_080074C0' makes integer from pointer without a cast\n",
+  "note": "me/armanjr/gitproject/fomt/decomp/logs/judge_func_08004570/worker-050a/func.c:147: `sp20' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004570/worker-050a/func.c:147: warning: passing arg 2 of `func_080074C0' makes integer from pointer without a cast\n",
   "ref_len": 1512,
   "sanitize_v": 4,
   "size": 14178,
@@ -205,9 +205,9 @@
  },
  "func_08004C68": {
   "addr": 134237288,
-  "judged_mtime": 1793100780.4527793,
+  "judged_mtime": 1793150387.8521383,
   "module": "new_game.s",
-  "note": " from incompatible pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004C68/hermes11/func.c:135: warning: assignment from incompatible pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004C68/hermes11/func.c:162: warning: assignment from incompatible pointer type\n",
+  "note": "incompatible pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004C68/worker-050a/func.c:135: warning: assignment from incompatible pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08004C68/worker-050a/func.c:162: warning: assignment from incompatible pointer type\n",
   "ref_len": 660,
   "sanitize_v": 4,
   "size": 5740,
@@ -239,7 +239,7 @@
  },
  "func_080050F8": {
   "addr": 134238456,
-  "judged_mtime": 1793100780.4529004,
+  "judged_mtime": 1793150387.8522425,
   "module": "new_game.s",
   "note": "len 348 vs ref 346 [4missing,5extra,6operand,13regalloc,1stack,1different @r mov r1, sp | mov r2, sp]",
   "ref_len": 348,
@@ -273,7 +273,7 @@
  },
  "func_08005278": {
   "addr": 134238840,
-  "judged_mtime": 1793100780.4529786,
+  "judged_mtime": 1793150387.8523366,
   "module": "new_game.s",
   "note": "len 1426 vs ref 1414 [156missing,163extra,155operand,114regalloc,19stack,61different @s sub sp, #0x94 | sub sp, #0x68]",
   "ref_len": 1416,
@@ -284,7 +284,7 @@
  },
  "func_08005800": {
   "addr": 134240256,
-  "judged_mtime": 1793100780.453046,
+  "judged_mtime": 1793150387.8524053,
   "module": "new_game.s",
   "note": "byte +0xa: 0x84 vs ref 0x83 [35missing,34extra,27operand,17regalloc,3stack,11different @s sub sp, #0xc | sub sp, #0x10]",
   "ref_len": 396,
@@ -319,13 +319,14 @@
  },
  "func_08005A00": {
   "addr": 134240768,
-  "judged_mtime": 1793100780.4531164,
+  "judged_mtime": 1793186882.2922127,
   "module": "new_game.s",
-  "note": "len 56 vs ref 58 [1missing,1operand,5regalloc,1different @r ldr r2, [sp] | ldr r0, [sp]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 566,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08005A3C": {
@@ -548,9 +549,9 @@
   "judged_mtime": 1793100780.4533846,
   "module": "new_game.s",
   "note": "len 48 vs ref 58 [5missing,1operand,3regalloc,2stack @s sub sp, #0xc | sub sp, #4]",
-  "ref_len": 60,
+  "ref_len": 59,
   "sanitize_v": 4,
-  "size": 566,
+  "size": 567,
   "status": "failed",
   "thumb": true
  },
