@@ -313,13 +313,14 @@
  },
  "func_0803BEB0": {
   "addr": 134463152,
-  "judged_mtime": 1793004112.6599631,
+  "judged_mtime": 1793167032.996852,
   "module": "code_0803A8A4.s",
-  "note": "byte +0x8: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 121,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803BEBC": {

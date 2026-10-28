@@ -294,3 +294,10 @@ typedef struct GenObj {
 void func_0803C544(GenObj *arg0) {
     arg0->unkF = 0;
 }
+
+// DECOMP-MATCHED func_0803BEB0 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+s32 func_0803BAAC(s32);
+
+s32 func_0803BEB0(s32 *arg0) {
+    return func_0803BAAC(*arg0);
+}
