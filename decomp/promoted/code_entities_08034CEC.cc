@@ -1680,3 +1680,48 @@ s32 func_080376E4(s32 arg0) {
     w.a = 2; w.b = 0xC; w.c = 0; flag = 0;
     return func_080324BC(t, arg0, 4, 0xC);
 }
+
+// DECOMP-MATCHED func_08037618 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern s32 gUnk_080F1560;
+
+u16 func_08037618(s32 arg0, s32 arg1) {
+    u8 *temp_r0 = (u8 *) &gUnk_080F1560;
+
+    return *(u16 *) (temp_r0 + arg1 * 2);
+}
+
+// DECOMP-MATCHED func_080377C4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern s32 gUnk_080F15A4;
+
+u16 func_080377C4(s32 arg0, s32 arg1) {
+    u8 *temp_r0 = (u8 *) &gUnk_080F15A4;
+
+    return *(u16 *) (temp_r0 + arg1 * 2);
+}
+
+// DECOMP-MATCHED func_080378EC (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern s32 gUnk_080F161C;
+
+u16 func_080378EC(s32 arg0, s32 arg1) {
+    u8 *temp_r0 = (u8 *) &gUnk_080F161C;
+
+    return *(u16 *) (temp_r0 + arg1 * 2);
+}
+
+// DECOMP-MATCHED func_08037A38 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern s32 gUnk_080F1644;
+
+u16 func_08037A38(s32 arg0, s32 arg1) {
+    u8 *temp_r0 = (u8 *) &gUnk_080F1644;
+
+    return *(u16 *) (temp_r0 + arg1 * 2);
+}
+
+// DECOMP-MATCHED func_08039D4C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern s32 gUnk_080F16AE;
+
+u16 func_08039D4C(s32 arg0, s32 arg1) {
+    u8 *temp_r0 = (u8 *) &gUnk_080F16AE;
+
+    return *(u16 *) (temp_r0 + arg1 * 2);
+}
