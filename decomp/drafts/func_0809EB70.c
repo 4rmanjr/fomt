@@ -8,8 +8,12 @@ s32 func_0809EB70(GenObj *arg0) {
 
     var_r2 = 0;
     temp_r1 = arg0->unk14;
-    if (((temp_r1 << 0x1C) != 0) && !(0x70 & temp_r1)) {
-        var_r2 = 1;
+    if ((temp_r1 << 0x1C) != 0) {
+        s32 temp_r0 = 0x70;
+        temp_r0 &= temp_r1;
+        if (temp_r0 == 0) {
+            var_r2 = 1;
+        }
     }
     return var_r2;
 }
