@@ -5,35 +5,40 @@ typedef struct GenObj {
     u8 unk15;
 } GenObj;
 void func_0809EC48(GenObj *arg0) {
-    u16 sp0;
-    s32 temp_r0;
-    s32 neg;
+    struct { u16 v; u8 _f[6]; } loc;
+    s32 a;
+    s32 b;
+    register s32 v asm("r0");
+    register s32 w asm("r1");
 
-    GetLocation__C3Npc(&sp0, arg0);
-        temp_r0 = (s32) (sp0 << 0x16) >> 0x16;
-    if (temp_r0 == 0x11) {
+    GetLocation__C3Npc(&loc.v, arg0);
+    a = (s32)(((u32)loc.v << 0x16) >> 0x16);
+    b = a;
+    if (a == 0x11) {
         goto set;
     }
-    if (temp_r0 > 0x11) {
-        if ((temp_r0 != 0x1D) && (temp_r0 != 0x25)) {
-            goto clear;
-        }
+    if (a > 0x11) {
+        goto big;
+    }
+    if (a == 7) {
         goto set;
     }
-    if (temp_r0 != 7) {
-        goto clear;
+    goto clear;
+big:
+    if (b == 0x1D) {
+        goto set;
     }
-    goto set;
+    if (b == 0x25) {
+        goto set;
+    }
 clear:
-    neg = 2;
-    neg = 0 - neg;
-    neg &= arg0->unk15;
-    arg0->unk15 = neg;
-    return;
+    w = arg0->unk15;
+    v = (0 - 2) & w;
+    goto store;
 set:
-    arg0->unk15 = arg0->unk15 | 1;
+    v = arg0->unk15 | 1;
+store:
+    arg0->unk15 = v;
 }
 
-/* ATTEMPT-NOTE opencode: goto-chain sesuai compare ref; neg-var utk movs+rsbs. */
-
-/* ATTEMPT-NOTE opencode: goto-chain + neg-var + unk15 u8; sisa sub sp (#4 vs #8 — compiler kukuh #4 utk 1 var; array/struct/dummy dicoba). */
+/* ATTEMPT-NOTE worker-ec48: MATCH-candidate; struct 8B paksa sub sp,#8; mask unsigned (lsr); a/b pisah utk copy adds r1,r0; v/w dipin r0/r1 utk regalloc clear/set. */
