@@ -49,3 +49,10 @@ u16 func_08034248(GenObj *arg0, s32 arg1) {
 }
 
 /* ATTEMPT-NOTE opencode: unk30 u8; base (u8*) di var agar ldr-pc dulu + byte-arith (lsl#1) bukan s32-scale (lsl#3). */
+
+// DECOMP-MATCHED func_080338F0 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+u32 func_080AB788(s32);
+
+s32 func_080338F0(s32 arg0) {
+    return func_080AB788(0x200) < (u32)(arg0 + 0x100);
+}
