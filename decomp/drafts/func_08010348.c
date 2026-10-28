@@ -1,7 +1,9 @@
 s32 rand();                                         /* extern */
 
-void func_08010348(void) {
+s32 func_08010348(void) {
+    s32 r;
     do {
-
-    } while (rand() == 0);
+        r = rand();
+    } while (r == 0);
+    return r;
 }

@@ -1,9 +1,9 @@
 {
  "func_0800FF8C": {
   "addr": 134283148,
-  "judged_mtime": 1793017163.0746284,
+  "judged_mtime": 1793155030.0409563,
   "module": "more_items.s",
-  "note": "omp/logs/judge_func_0800FF8C/opencode/func.c:18: invalid operands to binary &\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800FF8C/opencode/func.c:19: invalid operands to binary &\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0800FF8C/opencode/func.c:20: invalid operands to binary &\n",
+  "note": "byte +0x0: 0x10 vs ref 0x30 [3missing,3extra,3operand,21regalloc @i push {r4, r5, lr} | push {r4, lr}]",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 718,
@@ -57,13 +57,14 @@
  },
  "func_0800FFF4": {
   "addr": 134283252,
-  "judged_mtime": 1793017163.4343054,
+  "judged_mtime": 1793153401.907246,
   "module": "more_items.s",
-  "note": "len 36 vs ref 30",
+  "note": "",
+  "promoted_to": "decomp/promoted/more_items.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 353,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08010014": {

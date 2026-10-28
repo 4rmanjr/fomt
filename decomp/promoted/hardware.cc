@@ -464,3 +464,41 @@ s32 func_08009190(GenObj *arg0) {
 /* ATTEMPT-NOTE opencode: unk u16; bic via & ~. */
 
 /* ATTEMPT-NOTE opencode: unk u16; sisa alokasi arg-copy (r4 vs r5). */
+
+// DECOMP-MATCHED func_08007714 (dari hardware.s; cek manusia sebelum ke src/)
+s32 __builtin_delete(s32 *);                            /* extern */
+s32 free();                                           /* extern */
+s32 func_08007184(s32 *, s32);                          /* extern */
+s32 func_080073E0(s32 *, s32);                          /* extern */
+
+typedef struct GenObj {
+    s32 unk0;
+    struct GenObj *unk4;
+} GenObj;
+void func_08007714(s32 *arg0, s32 arg1) {
+    GenObj *temp_r0;
+    GenObj *var_r4;
+    s32 temp_r5;
+
+    if (*(GenObj **)arg0 == 0) {
+        goto tail;
+    }
+    temp_r0 = *(GenObj **)arg0;
+    temp_r5 = temp_r0->unk4;
+    var_r4 = temp_r0->unk0;
+    if (var_r4 != temp_r5) {
+        do {
+            func_080073E0(var_r4, var_r4->unk4);
+            func_08007184(var_r4, 2);
+            var_r4 += 1;
+        } while (var_r4 != temp_r5);
+    }
+    if (temp_r0->unk0 != 0) {
+        free();
+    }
+    __builtin_delete(temp_r0);
+tail:
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}

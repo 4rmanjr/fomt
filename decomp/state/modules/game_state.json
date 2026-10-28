@@ -1,13 +1,14 @@
 {
  "func_08010348": {
   "addr": 134284104,
-  "judged_mtime": 1793003611.8367355,
+  "judged_mtime": 1793154065.3088572,
   "module": "game_state.s",
-  "note": "byte +0xa: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 175,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08010358": {
@@ -190,7 +191,7 @@
  },
  "func_08011464": {
   "addr": 134288484,
-  "judged_mtime": 1793079263.4838626,
+  "judged_mtime": 1793150387.853389,
   "module": "game_state.s",
   "note": "byte +0x0: 0x0 vs ref 0x10 [4missing,4extra,4operand,12regalloc @i push {r4, lr} | push {lr}]",
   "ref_len": 52,
@@ -236,13 +237,14 @@
  },
  "func_08011510": {
   "addr": 134288656,
-  "judged_mtime": 1793022151.7422047,
+  "judged_mtime": 1793155120.5758884,
   "module": "game_state.s",
-  "note": "byte +0x8: 0x81 vs ref 0x1",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 169,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801151C": {
@@ -1921,13 +1923,14 @@
  },
  "func_080167CC": {
   "addr": 134309836,
-  "judged_mtime": 1793017198.8085568,
+  "judged_mtime": 1793155158.0045447,
   "module": "game_state.s",
-  "note": "byte +0xa: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 178,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080167DC": {
@@ -2424,13 +2427,14 @@
  },
  "func_0801A8C0": {
   "addr": 134326464,
-  "judged_mtime": 1793003764.765393,
+  "judged_mtime": 1793153916.4193535,
   "module": "game_state.s",
-  "note": "byte +0x3: 0x28 vs ref 0x29",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 371,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801A8E0": {
@@ -2831,9 +2835,9 @@
  },
  "func_0801F5F0": {
   "addr": 134346224,
-  "judged_mtime": 1793017219.7661073,
+  "judged_mtime": 1793153653.8232007,
   "module": "game_state.s",
-  "note": "byte +0x5: 0x49 vs ref 0x4a",
+  "note": "byte +0x5: 0x49 vs ref 0x4a [1extra,5regalloc @r ldr r2, [pc, #0x18] | ldr r1, [pc, #0x18]]",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 396,
@@ -2968,9 +2972,9 @@
  },
  "sub_0801B464": {
   "addr": 134329444,
-  "judged_mtime": 1793066102.2368672,
+  "judged_mtime": 1793150387.860483,
   "module": "game_state.s",
-  "note": " for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0801B464/cline/func.c:4: `saved_reg_r6' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0801B464/cline/func.c:4: `saved_reg_r10' undeclared (first use in this function)\n",
+  "note": "ach function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0801B464/hermes18/func.c:4: `saved_reg_r6' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0801B464/hermes18/func.c:4: `saved_reg_r10' undeclared (first use in this function)\n",
   "ref_len": 3220,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,

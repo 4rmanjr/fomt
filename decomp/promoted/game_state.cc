@@ -459,3 +459,49 @@ void func_08012BAC(GenObj *arg0, s16 arg1) {
 }
 
 /* ATTEMPT-NOTE opencode: unkE0 u16 (strh). */
+
+// DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
+s32 rand();                                         /* extern */
+
+s32 func_08010348(void) {
+    s32 r;
+    do {
+        r = rand();
+    } while (r == 0);
+    return r;
+}
+
+// DECOMP-MATCHED func_08011510 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    u8 unk8;
+} GenObj;
+void func_08011510(GenObj *arg0) {
+    arg0->unk0 = 0x10;
+    arg0->unk4 = 0x10;
+    arg0->unk8 = 0;
+}
+
+// DECOMP-MATCHED func_080167CC (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_08008CD0(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s32 func_080167CC(GenObj *arg0) {
+    return func_08008CD0(arg0->unk4 + 0xBC);
+}
+
+// DECOMP-MATCHED func_0801A8C0 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_0801A8C0(s32 arg0, u32 arg1) {
+    if (arg1 <= 5U) {
+        return 3;
+    } else if (arg1 <= 0xBU) {
+        return 0;
+    } else if (arg1 > 0x11U) {
+        return 2;
+    }
+    return 1;
+}

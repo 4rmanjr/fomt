@@ -30,3 +30,18 @@ void *func_0800FFD8(s32 *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: pointer arithmetic byte ((u8 *)arg0 + N); draf m2c (GenObj* + N) mengalikan sizeof. */
+
+// DECOMP-MATCHED func_0800FFF4 (dari more_items.s; cek manusia sebelum ke src/)
+void func_0800FFF4(u32 *arg0, s32 arg1) {
+    u8 *temp_r0_2;
+    u32 temp_r0;
+
+    temp_r0 = *arg0;
+    if (temp_r0 <= 0x1DU) {
+        temp_r0_2 = (u8 *)arg0 + (temp_r0 + 4);
+        if (temp_r0_2 != 0) {
+            *temp_r0_2 = arg1;
+        }
+        *arg0 += 1;
+    }
+}
