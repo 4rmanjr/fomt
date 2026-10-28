@@ -9,8 +9,9 @@ typedef struct {
 void func_08000D64(void *, s32);                     /* extern */
 
 typedef struct GenObj {
-    u8 _pad0[4];
-    s32 unk4;
+    void *unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
 } GenObj;
 Obj **func_0800374C(Obj **arg0, GenObj *arg1) {
     /* Frame 12 byte: sp0 volatile (reload paksa utk null-check, krn
@@ -24,7 +25,7 @@ Obj **func_0800374C(Obj **arg0, GenObj *arg1) {
     register Obj **sp4r __asm__("r1");
     Obj *c;
 
-    func_08000D64((void *)&fr.sp0, arg1->unk4);
+    func_08000D64((void *)&fr.sp0, (s32)arg1->unk4);
     tmp = fr.sp0;
     q = (Obj **)&fr.sp0;
     fr.sp4 = q;

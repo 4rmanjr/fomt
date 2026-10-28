@@ -4,11 +4,12 @@ extern s32 vtable_unk_080E5A18;
 
 typedef struct GenObj {
     void *unk0;
-    s32 unk4;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
 } GenObj;
 void *func_080036F8(GenObj *arg0) {
     arg0->unk0 = &vtable_unk_080E5A18;
     __builtin_new(0x6D34);
-    arg0->unk4 = func_08000914();
+    arg0->unk4 = (GenObj *)func_08000914();
     return arg0;
 }
