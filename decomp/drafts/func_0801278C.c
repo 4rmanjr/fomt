@@ -2,7 +2,7 @@ s32 func_08050E5C();                                  /* extern */
 
 typedef struct GenObj {
     u8 _pad0[4];
-    void *unk4;
+    struct GenObj *unk4;
     u8 _pad8[164];
     s32 unkAC;
 } GenObj;

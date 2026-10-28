@@ -20,10 +20,7 @@ s32 sp0;
     temp_r4 = arg0->unk350 + 0x1C2C;
     if (((func_0800F190(temp_r4) << 0x18) == 0) && (func_0800F204(temp_r4) == 0)) {
         func_0800F20C(&sp0, temp_r4);
-        var_r1 = 0;
-        if (GetId__C4Food(&sp0) == arg1) {
-            var_r1 = 1;
-        }
+        var_r1 = (GetId__C4Food(&sp0) == arg1);
         if (var_r1 == 0) {
             goto block_5;
         }

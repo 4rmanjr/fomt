@@ -4,16 +4,16 @@ s32 func_0809ABD8(s32, s32);                          /* extern */
 
 typedef struct GenObj {
     u8 _pad0[13509];
-    s32 unk34C5;
+    u8 unk34C5;
 } GenObj;
 u32 func_0801140C(GenObj *arg0) {
     s32 temp_r0;
     s32 temp_r6;
     s32 temp_r7;
 
-    temp_r7 = arg0 + 0x54;
+    temp_r7 = (s32)((u8 *)arg0 + 0x54);
     temp_r0 = GetValueShipped__C11ShippingBin(temp_r7);
-    temp_r6 = arg0 + 0x1AA8;
+    temp_r6 = (s32)((u8 *)arg0 + 0x1AA8);
     func_0809ABD8(temp_r6, temp_r0);
     if (arg0->unk34C5 != 0) {
         func_0809ABD8(temp_r6, temp_r0);
