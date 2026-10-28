@@ -194,9 +194,9 @@
  },
  "func_0809C510": {
   "addr": 134858000,
-  "judged_mtime": 1793065333.9144504,
+  "judged_mtime": 1793150387.8576856,
   "module": "code_actor_0809BFE8.s",
-  "note": "' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809C510/opencode/func.c:54: request for member `unk0' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809C510/opencode/func.c:57: warning: assignment makes integer from pointer without a cast\n",
+  "note": "' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809C510/hermes29/func.c:54: request for member `unk0' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809C510/hermes29/func.c:57: warning: assignment makes integer from pointer without a cast\n",
   "ref_len": 160,
   "sanitize_v": 4,
   "size": 1836,
@@ -295,13 +295,14 @@
  },
  "func_0809C6B0": {
   "addr": 134858416,
-  "judged_mtime": 1793017756.3170457,
+  "judged_mtime": 1793166958.8408375,
   "module": "code_actor_0809BFE8.s",
-  "note": "byte +0x2: 0xc1 vs ref 0x81",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 181,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809C6BC": {
@@ -317,9 +318,9 @@
  },
  "func_0809CD78": {
   "addr": 134860152,
-  "judged_mtime": 1793017757.2613442,
+  "judged_mtime": 1793150387.8577657,
   "module": "code_actor_0809BFE8.s",
-  "note": "len 26 vs ref 30",
+  "note": "len 26 vs ref 30 [3missing,1extra,3operand,8regalloc @i push {r4, lr} | push {lr}]",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 341,
@@ -361,13 +362,14 @@
  },
  "func_0809CE1C": {
   "addr": 134860316,
-  "judged_mtime": 1793017758.1311738,
+  "judged_mtime": 1793166992.0080264,
   "module": "code_actor_0809BFE8.s",
-  "note": "byte +0x2: 0x9 vs ref 0x40",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc",
   "ref_len": 8,
   "sanitize_v": 4,
   "size": 131,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809CE24": {
@@ -562,9 +564,9 @@
  },
  "func_0809DA00": {
   "addr": 134863360,
-  "judged_mtime": 1793065337.4484677,
+  "judged_mtime": 1793150387.8579912,
   "module": "code_actor_0809BFE8.s",
-  "note": "len 1342 vs ref 1322",
+  "note": "len 1342 vs ref 1322 [125missing,128extra,132operand,55regalloc,7stack,34different @s sub sp, #0x10 | sub sp, #0xc]",
   "ref_len": 1324,
   "sanitize_v": 4,
   "size": 13038,

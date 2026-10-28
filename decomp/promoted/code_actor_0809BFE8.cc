@@ -209,3 +209,18 @@ void func_0809C6AC(GenObj *arg0, s16 arg1) {
 }
 
 /* ATTEMPT-NOTE opencode: unkC u16 (strh). */
+
+// DECOMP-MATCHED func_0809C6B0 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[12];
+    u16 unkC;
+} GenObj;
+void func_0809C6B0(GenObj *arg0) {
+    arg0->unkC = 0xFFFF;
+}
+
+// DECOMP-MATCHED func_0809CE1C (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+s32 func_0809CE1C(s32 arg0, s32 arg1) {
+    arg0 += arg1 * 8;
+    return *(s32 *)arg0;
+}
