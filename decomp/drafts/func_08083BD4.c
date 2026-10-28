@@ -8,13 +8,15 @@ typedef struct GenObj {
     u8 _pad0[4];
     void *unk4;
     u8 _pad8[1692];
-    s32 unk6A4;
-    u8 _pad6A8[96];
+    u8 unk6A4;
+    u8 _pad6A5[99];
     s32 unk708;
-    s32 unk70C;
+    u8 unk70C;
+    u8 _pad70D[3];
     s32 unk710;
     u8 _pad714[23260];
-    s32 unk61F0;
+    u8 unk61F0;
+    u8 _pad61F1[3];
 } GenObj;
 void *func_08083BD4(GenObj *arg0) {
     s32 var_r0;
@@ -31,7 +33,7 @@ void *func_08083BD4(GenObj *arg0) {
     do {
         var_r0 -= 1;
     } while (var_r0 != -1);
-    temp_r6 = arg0 + 0x6170;
+    temp_r6 = (void *)((u8 *)arg0 + 0x6170);
     var_r4 = strlen(&gUnk_080FF838);
     if (var_r4 > 0x7FU) {
         var_r4 = 0x7F;

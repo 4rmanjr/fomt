@@ -4177,13 +4177,14 @@
  },
  "func_08083BD4": {
   "addr": 134757332,
-  "judged_mtime": 1793153488.0889187,
+  "judged_mtime": 1793154150.3572204,
   "module": "code_0803EE94.s",
-  "note": "byte +0x70: 0xc0 vs ref 0x70 [1extra,1operand,1different @| str r0, [r6, #0x14] | ldr r6, [pc, #0x300]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 124,
   "sanitize_v": 4,
   "size": 1107,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08083C50": {
