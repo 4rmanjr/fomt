@@ -5894,13 +5894,14 @@
  },
  "func_080D1574": {
   "addr": 135075188,
-  "judged_mtime": 1793018097.0587595,
+  "judged_mtime": 1793194766.477537,
   "module": "code_809E804.s",
-  "note": "ved_reg_r8' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D1574/opencode/func.c:21: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D1574/opencode/func.c:21: for each function it appears in.)\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 31,
   "sanitize_v": 4,
   "size": 308,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "malloc": {
