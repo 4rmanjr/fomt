@@ -1,12 +1,20 @@
 s32 func_08009158();                                /* extern */
 
 typedef struct GenObj {
-    s32 unk0;
-    s32 unk4;
+    u16 unk0;
+    u16 _pad2;
+    u16 unk4;
 } GenObj;
-void func_08009190(GenObj *arg0) {
-    u16 temp_r5;
+s32 func_08009190(GenObj *arg0) {
+    register s32 temp_r5 asm("r5");
+    s32 res;
 
     temp_r5 = arg0->unk0;
-    arg0->unk4 = (s16) (func_08009158() & ~temp_r5);
+    res = func_08009158() & ~temp_r5;
+    arg0->unk4 = res;
+    return res;
 }
+
+/* ATTEMPT-NOTE opencode: unk u16; bic via & ~. */
+
+/* ATTEMPT-NOTE opencode: unk u16; sisa alokasi arg-copy (r4 vs r5). */
