@@ -91,13 +91,14 @@
  },
  "func_080077DC": {
   "addr": 134248412,
-  "judged_mtime": 1793003436.0012927,
+  "judged_mtime": 1793156447.7188163,
   "module": "hardware.s",
-  "note": "len 104 vs ref 102",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 104,
   "sanitize_v": 4,
   "size": 1037,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08007844": {
