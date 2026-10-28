@@ -1,13 +1,14 @@
 {
  "func_0801004C": {
   "addr": 134283340,
-  "judged_mtime": 1793017163.8272045,
+  "judged_mtime": 1793195679.3382738,
   "module": "game_scene.s",
-  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801004C/opencode/func.c:47: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801004C/opencode/func.c:47: request for member `unk8' in something not a structure or union\n",
-  "ref_len": 268,
+  "note": "",
+  "promoted_to": "decomp/promoted/game_scene.cc",
+  "ref_len": 267,
   "sanitize_v": 4,
-  "size": 2229,
-  "status": "failed",
+  "size": 2230,
+  "status": "promoted",
   "thumb": true
  },
  "func_08010158": {

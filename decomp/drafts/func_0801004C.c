@@ -1,50 +1,78 @@
 s32 __builtin_new(s32);                             /* extern */
-s32 func_0800082C(void ***);                          /* extern */
-s32 func_08008980(s32 *);                               /* extern */
-s32 func_08008A68(s32 *, s32);                          /* extern */
-void **func_08011DC4(s32, s32, void ***);           /* extern */
+s32 func_0800082C(void *);                          /* extern */
+s32 func_08008980(void *);                          /* extern */
+s32 func_08008A68(void *, s32);                     /* extern */
+void *func_08011DC4(void *, s32, void *);           /* extern */
 
+typedef struct Vtbl {
+    void *unk0;
+    void *unk4;
+    void (*unk8)(void *, s32);
+} Vtbl;
+typedef struct Obj {
+    Vtbl *unk0;
+} Obj;
 typedef struct GenObj {
     u8 _pad0[4];
     s32 unk4;
-    u8 _pad8[860];
-    s32 unk364;
+    u8 _pad8[0x35C];
+    u8 unk364;
 } GenObj;
-s32 *func_0801004C(s32 *arg0, GenObj *arg1) {
-s32 sp0;
-    void **sp4;
-    void **sp8;
-    void ***sp14;
-    void **temp_r0;
-    void **temp_r0_2;
+typedef struct Flag12 {
+    s32 a;
+    s32 b;
+    s32 c;
+} Flag12;
+typedef struct Pair {
+    Flag12 *p;
+    s32 q;
+} Pair;
 
-    func_08008980(&sp0);
-    sp4 = 0;
-    if (arg1->unk364 != 0) {
-        sp8 = 0;
+s32 *func_0801004C(s32 *arg0, GenObj *arg1) {
+    struct { void *sp0; Obj *volatile sp4; Flag12 flag; Pair pr; } fr;
+    register GenObj *a1 __asm__("r5") = arg1;
+    Flag12 *p;
+    Flag12 *q;
+    Obj *c;
+    Obj *t2;
+    Obj *c2;
+    Obj *c3;
+    Pair *pp;
+
+    func_08008980(&fr.sp0);
+    fr.sp4 = 0;
+    if (a1->unk364 != 0) {
+        p = &fr.flag;
+        fr.flag.a = 0;
     } else {
-        sp8 = (void **)1;
+        p = &fr.flag;
+        fr.flag.a = 1;
     }
-    temp_r0 = func_08011DC4(__builtin_new(8), arg1->unk4, &sp8);
-    if ((temp_r0 != sp4) && (sp4 != 0)) {
-        (*sp4)->unk8(sp4, 3);
+    a1 = (GenObj *)func_08011DC4((void *)__builtin_new(8), a1->unk4, p);
+    c = fr.sp4;
+    q = p;
+    if ((((Obj *)a1) != c) && (c != 0)) {
+        c->unk0->unk8(c, 3);
     }
-    sp4 = temp_r0;
-    temp_r0_2 = sp4;
-    sp4 = 0;
-    sp8 = temp_r0_2;
-    func_0800082C(&sp8);
-    sp8 = 0;
-    sp14 = &sp8;
-    sp14.unk4 = 0;
-    sp8 = 0;
+    fr.sp4 = (Obj *)a1;
+    t2 = fr.sp4;
+    fr.sp4 = 0;
+    fr.flag.a = (s32)t2;
+    func_0800082C(q);
+    fr.flag.a = 0;
+    pp = &fr.pr;
+    fr.pr.p = q;
+    pp->q = 0;
+    q->a = 0;
     *arg0 = 0;
-    if (sp8 != 0) {
-        (*sp8)->unk8(sp8, 3);
+    c2 = (Obj *)(void *)fr.flag.a;
+    if (c2 != 0) {
+        c2->unk0->unk8(c2, 3);
     }
-    if (sp4 != 0) {
-        (*sp4)->unk8(sp4, 3);
+    c3 = fr.sp4;
+    if (c3 != 0) {
+        c3->unk0->unk8(c3, 3);
     }
-    func_08008A68(&sp0, 2);
+    func_08008A68(&fr.sp0, 2);
     return arg0;
 }
