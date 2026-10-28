@@ -19,5 +19,5 @@ __attribute__((naked)) void func_080D1574(void) {
     "blo loop1574\n"
     "bx lr\n"
     ".syntax divided"
-    ::: "r0","r1","r2","r3","r4","r5","r6","memory");
+    : : : "r0","r1","r2","r3","r4","r5","r6","memory");
 }

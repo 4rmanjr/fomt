@@ -8,5 +8,5 @@ __attribute__((naked)) void func_080D116E(void) {
     "orrs r4, r6\n"
     "pop {r5, r6, pc}\n"
     ".syntax divided"
-    ::: "r0","r1","r2","r3","r4","r5","r6","lr","memory");
+    : : : "r0","r1","r2","r3","r4","r5","r6","lr","memory");
 }

@@ -16,5 +16,5 @@ __attribute__((naked)) void sub_080868BC(void) {
     ".4byte gUnk_080FFCF4\n"
     ".4byte 0x00003B98\n"
     ".syntax divided"
-    ::: "memory");
+    : : : "memory");
 }

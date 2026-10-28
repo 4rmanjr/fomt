@@ -25,7 +25,7 @@ void ***func_0801FB7C(void ***arg0, s32 arg1, s32 arg2, u8 arg3) {
     Fb7cObj **tmp;
 
     fr.s8 = func_080A6474(__builtin_new(0xBC), arg1);
-    nn = __builtin_new(0x10CC);
+    nn = (Fb7cObj *)__builtin_new(0x10CC);
     p8 = &fr.s8;
     ps0 = (u8 *)&fr;
     *ps0 = arg3;

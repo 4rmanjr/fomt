@@ -103,6 +103,7 @@ SECTIONS
         asm/code_entities.o(.text);
         src/entity_actor.o(.text);
         asm/code_entities_080320DC.o(.text);
+        src/code_entities_080320DC.o(.text);
         src/npc_entity.o(.text);
         asm/code_entities_08034CEC.o(.text);
 
@@ -129,6 +130,7 @@ SECTIONS
         src/harvest_sprite.o(.text);
 
         asm/code_809E804.o(.text);
+        src/code_809E804.o(.text);
 
         src/m4a_1.o(.text);
         src/m4a.o(.text);

@@ -3,12 +3,35 @@
 typedef struct GenObj {
     u8 _pad0[4];
     struct GenObj *unk4;
-    u8 _pad8[244];
+    i32 unk8;
+    u8 _padC[240];
     i32 unkFC;
-    u8 _pad100[40];
+    u8 _pad100[36];
+    i32 unk124;
     i32 unk128;
     i32 unk12C;
 } GenObj;
+
+// DECOMP-MATCHED func_0809B084 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+
+i32 func_0809B084(GenObj *arg0) {
+    u8 *p = (u8 *)arg0 + 8;
+    i32 n = arg0->unk8;
+    i32 off = (n - 1) * 8 + 4;
+    i32 v;
+    i32 lim;
+    i32 *q;
+    p += off;
+    v = arg0->unk124;
+    lim = *(i32 *)(p + 4);
+    q = (i32 *)(p + 4);
+    if ((u32)v >= (u32)lim) {
+        q = &arg0->unk124;
+    }
+    return *q;
+}
+}
 
 // DECOMP-MATCHED func_0809B0B0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {

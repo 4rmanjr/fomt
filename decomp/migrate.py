@@ -128,6 +128,18 @@ def struct_name(blk):
     return m.group(1) if m else ""
 
 
+def _is_pure_type(blk):
+    """True bila blok struct hanya definisi tipe (aman di-hoist).
+
+    `struct FR {...} fr;` mendeklarasikan VARIABEL fr — memindahkannya ke
+    scope file mengubah codegen (stack -> .bss global). Hanya hoist bila
+    diawali typedef atau diakhiri `};` polos."""
+    if blk.lstrip().startswith("typedef"):
+        return True
+    tail = blk[blk.rfind("}") + 1:].strip()
+    return tail == ";"
+
+
 def take_structs(text):
     """Pisahkan definisi struct dari teks -> (teks_tanpa_struct, [blok]).
 
@@ -148,6 +160,9 @@ def take_structs(text):
         end = text.find(";", k)
         if end == -1:
             continue
+        blk = text[m.start(): end + 1]
+        if not _is_pure_type(blk):
+            continue  # deklarasi variabel: biarkan di tempat
         spans.append((m.start(), end + 1))
     blocks = []
     for s, e in reversed(spans):
@@ -335,7 +350,8 @@ def migrate_one(module, func, dry_run=False):
         if func in src_text or MIGRATED_FN_RE.search(src_text) and \
                 re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b", src_text):
             return {"func": func, "module": module, "ok": False,
-                    "detail": f"{func} sudah ada di {src_path}"}
+                    "skipped": True,
+                    "detail": f"{func} sudah ada di {src_path} (dilewati)"}
         if need_string_h and "#include <string.h>" not in src_text:
             inc = src_text.splitlines(keepends=True)
             for i, ln in enumerate(inc):

@@ -179406,29 +179406,3 @@ func_0809B05C: @ 0x0809B05C
 	pop {r1}
 	bx r1
 
-	thumb_func_start func_0809B084
-func_0809B084: @ 0x0809B084
-	push {lr}
-	adds r2, r0, #0
-	adds r1, r2, #0
-	adds r1, #8
-	ldr r0, [r2, #8]
-	subs r0, #1
-	lsls r0, r0, #3
-	adds r0, #4
-	adds r1, r1, r0
-	movs r0, #0x92
-	lsls r0, r0, #1
-	adds r3, r2, r0
-	ldr r2, [r3]
-	ldr r0, [r1, #4]
-	adds r1, #4
-	cmp r2, r0
-	blo .L0809B0A8
-	adds r1, r3, #0
-.L0809B0A8:
-	ldr r0, [r1]
-	pop {r1}
-	bx r1
-	.align 2, 0
-

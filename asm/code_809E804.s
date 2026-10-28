@@ -104110,22 +104110,3 @@ func_080D1564: @ 0x080D1564
 	blo .L080D1566
 	bx lr
 
-	thumb_func_start func_080D1574
-func_080D1574: @ 0x080D1574
-	movs r3, #0xff
-	lsls r6, r3, #8
-	movs r4, #0
-	movs r5, #0
-.L080D157C:
-	ldrh r2, [r0, #2]
-	adds r4, r4, r2
-	ands r4, r3
-	adds r5, r5, r2
-	ands r5, r6
-	adds r1, r5, #0
-	orrs r1, r4
-	strh r1, [r0, #2]
-	adds r0, #2
-	cmp r0, r8
-	blo .L080D157C
-	bx lr

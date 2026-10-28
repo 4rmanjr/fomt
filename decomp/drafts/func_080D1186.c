@@ -15,5 +15,5 @@ __attribute__((naked)) void func_080D1186(void) {
     "mvns r4, r4\n"
     "bx lr\n"
     ".syntax divided"
-    ::: "r0","r1","r2","r3","r4","r5","lr","memory");
+    : : : "r0","r1","r2","r3","r4","r5","lr","memory");
 }

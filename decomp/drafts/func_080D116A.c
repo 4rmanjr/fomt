@@ -4,7 +4,7 @@ __attribute__((naked)) void func_080D116A(void) {
     "movs r4, #8\n"
     "b func_080D11A4\n"
     ".syntax divided"
-    ::: "r0","r1","r2","r3","r4","r5","r6","lr","memory");
+    : : : "r0","r1","r2","r3","r4","r5","r6","lr","memory");
 }
 __asm__(
   ".syntax unified\n"
