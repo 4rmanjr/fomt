@@ -2952,13 +2952,14 @@
  },
  "func_0801FD3C": {
   "addr": 134348092,
-  "judged_mtime": 1793017221.7882307,
+  "judged_mtime": 1793187276.1950169,
   "module": "game_state.s",
-  "note": "len 12 vs ref 34",
-  "ref_len": 36,
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
+  "ref_len": 35,
   "sanitize_v": 4,
-  "size": 317,
-  "status": "failed",
+  "size": 318,
+  "status": "promoted",
   "thumb": true
  },
  "func_0801FD60": {
@@ -2967,7 +2968,7 @@
   "module": "game_state.s",
   "note": "",
   "promoted_to": "decomp/promoted/game_state.cc",
-  "ref_len": 12,
+  "ref_len": 11,
   "sanitize_v": 4,
   "size": 143,
   "status": "promoted",

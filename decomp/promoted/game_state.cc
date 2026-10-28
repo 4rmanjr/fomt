@@ -757,3 +757,14 @@ s32 func_08011464(s32 *arg0, u32 arg1) {
 }
 
 /* ATTEMPT-NOTE worker-11464: register-pin r4/r2/r3/r1 agar push{r4,lr}+regalloc pas; pola store tiru 11498 (shift-var, mask-var). */
+
+// DECOMP-MATCHED func_0801FD3C (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_080A5A9C(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s32 func_0801FD3C(GenObj *arg0) {
+    return func_080A5A9C(arg0->unk4);
+}
