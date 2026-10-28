@@ -2007,3 +2007,15 @@ typedef struct GenObj {
 u8 func_080C12B8(GenObj *arg0) {
     return arg0->unk96A;
 }
+
+// DECOMP-MATCHED func_080AA8DC (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[148];
+    u8 unk98;
+} GenObj;
+void func_080AA8DC(GenObj *arg0) {
+    if (arg0->unk0 == 0x1D) {
+        arg0->unk98 = 1;
+    }
+}
