@@ -564,13 +564,14 @@
  },
  "func_080D7568": {
   "addr": 135099752,
-  "judged_mtime": 1793150387.859348,
+  "judged_mtime": 1793200047.36535,
   "module": "code_linkonce.s",
-  "note": "len 120 vs ref 118 [1extra,10operand,25regalloc,1different @r adds r6, r0, #0 | adds r4, r0, #0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 120,
   "sanitize_v": 4,
   "size": 1029,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D75E0": {
