@@ -1388,11 +1388,12 @@
   "addr": 134257108,
   "judged_mtime": 1793017162.8922725,
   "module": "hardware.s",
-  "note": "len 22 vs ref 115",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 115,
   "sanitize_v": 4,
   "size": 925,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  }
 }
