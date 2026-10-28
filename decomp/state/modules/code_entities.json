@@ -3,7 +3,7 @@
   "addr": 134348896,
   "judged_mtime": 1793017222.33747,
   "module": "code_entities.s",
-  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020060/opencode/func.c: In function `func_08020060':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020060/opencode/func.c:10: invalid type argument of `unary *'\n",
+  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020060/worker-2b8e/func.c: In function `func_08020060':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020060/worker-2b8e/func.c:10: invalid type argument of `unary *'\n",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 336,
@@ -1303,13 +1303,14 @@
  },
  "func_0802B8EC": {
   "addr": 134396140,
-  "judged_mtime": 1793003996.912736,
+  "judged_mtime": 1793176862.5471153,
   "module": "code_entities.s",
-  "note": "byte +0x16: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 283,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0802B908": {
