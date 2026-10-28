@@ -1376,13 +1376,14 @@
  },
  "func_080099B0": {
   "addr": 134257072,
-  "judged_mtime": 1793017162.7129107,
+  "judged_mtime": 1793202640.1342828,
   "module": "hardware.s",
-  "note": "ointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080099B0/opencode/func.c:19: warning: assignment makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080099B0/opencode/func.c:20: warning: assignment makes integer from pointer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 420,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080099D4": {
