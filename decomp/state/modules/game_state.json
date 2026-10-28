@@ -2625,13 +2625,14 @@
  },
  "func_0801DCA8": {
   "addr": 134339752,
-  "judged_mtime": 1793017215.1771746,
+  "judged_mtime": 1793167594.9139493,
   "module": "game_state.s",
-  "note": "byte +0x0: 0x10 vs ref 0x30",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 460,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801DCD4": {
@@ -2843,7 +2844,7 @@
  },
  "func_0801F5F0": {
   "addr": 134346224,
-  "judged_mtime": 1793165555.380596,
+  "judged_mtime": 1793167563.9463205,
   "module": "game_state.s",
   "note": "byte +0x5: 0x49 vs ref 0x4a [1extra,5regalloc @r ldr r2, [pc, #0x18] | ldr r1, [pc, #0x18]]",
   "ref_len": 36,
