@@ -4,18 +4,22 @@ typedef struct GenObj {
 } GenObj;
 void func_0809EE20(GenObj *arg0, s32 arg1, s32 arg2) {
     s32 neg;
-    u8 t;
+    register u8 t __asm__("r4");
     u16 h;
     u32 mask;
-    s32 c40 = 0x40;
+    register s32 c3f __asm__("r3");
+    register s32 c7 __asm__("r1");
 
-    arg1 = 0x3F & arg1;
+    c3f = 0x3F;
+    arg1 &= c3f;
     t = arg0->unk14;
-    neg = c40;
+    __asm__ volatile("" : : : "r3");
+    neg = 0x40;
     neg = 0 - neg;
     neg &= t;
-    arg0->unk14 = arg1 | neg;
-    arg2 = 7 & arg2;
+    arg0->unk14 = neg | arg1;
+    c7 = 7;
+    arg2 &= c7;
     arg2 = arg2 * 64;
     h = *(u16 *)((u8 *)arg0 + 0x14);
     mask = 0xFFFFFE3F;

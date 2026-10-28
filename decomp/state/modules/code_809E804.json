@@ -355,13 +355,14 @@
  },
  "func_0809EE20": {
   "addr": 134868512,
-  "judged_mtime": 1793150387.85842,
+  "judged_mtime": 1793153455.186051,
   "module": "code_809E804.s",
-  "note": "byte +0x4: 0xb vs ref 0x19 [10regalloc @r ands r1, r3 | ands r3, r1]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 425,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809EE4C": {
@@ -915,7 +916,7 @@
  },
  "func_080A1FC4": {
   "addr": 134881220,
-  "judged_mtime": 1793100780.4564133,
+  "judged_mtime": 1793150387.8586497,
   "module": "code_809E804.s",
   "note": "len 628 vs ref 584 [123missing,145extra,50operand,42regalloc,11different @i push {r4, r5, lr} | push {r4, r5, r6, lr}]",
   "ref_len": 584,
@@ -1071,9 +1072,9 @@
  },
  "func_080A3AF8": {
   "addr": 134888184,
-  "judged_mtime": 1793100780.456452,
+  "judged_mtime": 1793150387.8587015,
   "module": "code_809E804.s",
-  "note": "omething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3AF8/hermes8/func.c:68: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3AF8/hermes8/func.c:68: request for member `unkC' in something not a structure or union\n",
+  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3AF8/hermes17/func.c:68: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080A3AF8/hermes17/func.c:68: request for member `unkC' in something not a structure or union\n",
   "ref_len": 252,
   "sanitize_v": 4,
   "size": 2144,
