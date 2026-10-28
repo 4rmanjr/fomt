@@ -1,38 +1,41 @@
-s32 func_08008FE4(s32, s32);                          /* extern */
+void func_08008FE4(u8 *, u8 *);                        /* extern */
 
+typedef struct Range {
+    u8 *unk0;
+    u8 *unk4;
+} Range;
 typedef struct GenObj {
-    struct GenObj *unk0;
-    struct GenObj *unk4;
-    u8 _pad8[4];
-    s32 unkC;
+    u8 _pad0[12];
+    Range *unkC;
 } GenObj;
 s32 func_080D782C(GenObj *arg0) {
-    s32 temp_r0;
-    s32 temp_r1;
-    s32 temp_r1_2;
-    s32 temp_r2;
-    s32 var_r0;
-    s32 var_r2;
-    GenObj *temp_r4;
+    Range *t;
+    u8 *start;
+    u8 *end;
+    s32 flag;
+    /* pin r0: samakan alokasi register agbcc aslinya (ldr r0 + mov r2,r0) */
+    register u8 *cur asm ("r0");
+    u8 *saved;
+    u8 *lim;
 
-    temp_r4 = arg0->unkC;
-    var_r2 = 0;
-    temp_r0 = temp_r4->unk0;
-    temp_r1 = temp_r4->unk4;
-    if (temp_r0 == temp_r1) {
-        var_r2 = 1;
+    t = arg0->unkC;
+    flag = 0;
+    start = t->unk0;
+    end = t->unk4;
+    if (start == end) {
+        flag = 1;
     }
-    if (var_r2 == 0) {
-        func_08008FE4(temp_r0, temp_r0 + (((s32) (temp_r1 - temp_r0) >> 4) * 0x10));
-        var_r0 = temp_r4->unk0;
-        temp_r2 = var_r0;
-        temp_r1_2 = temp_r4->unk4;
-        if (temp_r2 != temp_r1_2) {
+    if (flag == 0) {
+        func_08008FE4(start, start + (((end - start) >> 4) << 4));
+        cur = t->unk0;
+        saved = cur;
+        lim = t->unk4;
+        if (saved != lim) {
             do {
-                var_r0 += 0x10;
-            } while (var_r0 != temp_r1_2);
+                cur += 0x10;
+            } while (cur != lim);
         }
-        temp_r4->unk4 = temp_r2;
+        t->unk4 = saved;
     }
     return 0;
 }
