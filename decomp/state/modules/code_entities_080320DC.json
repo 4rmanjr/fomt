@@ -338,13 +338,14 @@
  },
  "func_08034C64": {
   "addr": 134433892,
-  "judged_mtime": 1793017290.5684502,
+  "judged_mtime": 1793194133.3939273,
   "module": "code_entities_080320DC.s",
-  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08034C64/opencode/func.c:34: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08034C64/opencode/func.c:34: request for member `unkA' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
   "ref_len": 135,
   "sanitize_v": 4,
   "size": 1367,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  }
 }
