@@ -4,7 +4,7 @@ extern u16 gUnk_03000400;
 extern s32 gUnk_080E862C;
 
 s32 func_080002E0(s32 arg0) {
-    u32 sp0;
+    u8 sp0[0x20];
     u32 sp20;
     u32 sp24;
     s32 var_r4;
