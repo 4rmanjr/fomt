@@ -11,9 +11,15 @@ void func_08003C28(s32 arg0) {
     s32 temp_r8;
     s32 temp_sb;
 
+    s32 temp_r0;
+    s32 temp_r1;
+    s32 temp_r4b;
     temp_sb = func_080088DC();
     temp_r8 = func_08008920(arg0);
     temp_r6 = func_08008918(arg0);
     temp_r5 = func_08008940(arg0);
-    func_08050D3C(arg0 + 0x10, temp_sb, temp_r8, temp_r6, temp_r5, func_0800894C(arg0), arg0 + 0x14);
+    temp_r0 = func_0800894C(arg0);
+    temp_r1 = arg0 + 0x10;
+    temp_r4b = arg0 + 0x14;
+    func_08050D3C(temp_r1, temp_sb, temp_r8, temp_r6, temp_r5, temp_r0, temp_r4b);
 }

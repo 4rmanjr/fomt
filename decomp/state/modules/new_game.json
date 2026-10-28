@@ -12,7 +12,7 @@
  },
  "func_08003B40": {
   "addr": 134232896,
-  "judged_mtime": 1793100780.4512854,
+  "judged_mtime": 1793150387.8498404,
   "module": "new_game.s",
   "note": "len 120 vs ref 116 [2missing,4extra,4operand,6regalloc,1stack,1different @r mov r1, sp | mov r2, sp]",
   "ref_len": 116,
@@ -34,13 +34,14 @@
  },
  "func_08003C28": {
   "addr": 134233128,
-  "judged_mtime": 1793002146.517447,
+  "judged_mtime": 1793171295.7543533,
   "module": "new_game.s",
-  "note": "byte +0xd: 0x0 vs ref 0xf0",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 88,
   "sanitize_v": 4,
   "size": 762,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08003C80": {
