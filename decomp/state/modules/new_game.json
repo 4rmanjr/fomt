@@ -343,7 +343,7 @@
  },
  "func_08005A58": {
   "addr": 134240856,
-  "judged_mtime": 1793100780.4531164,
+  "judged_mtime": 1793150387.8525255,
   "module": "new_game.s",
   "note": "len 214 vs ref 218 [2missing,3extra,14operand,14regalloc,1stack @i ldr r0, [pc, #0xb0] | ldr r0, [pc, #0xac]]",
   "ref_len": 224,
@@ -388,7 +388,7 @@
  },
  "func_080061A0": {
   "addr": 134242720,
-  "judged_mtime": 1793100780.453212,
+  "judged_mtime": 1793150387.8525746,
   "module": "new_game.s",
   "note": "byte +0x0: 0x70 vs ref 0xf0 [52missing,55extra,24operand,48regalloc,1stack,17different @i push {r4, r5, r6, r7, lr} | push {r4, r5, r6, lr}]",
   "ref_len": 404,
@@ -434,7 +434,7 @@
  },
  "func_08006858": {
   "addr": 134244440,
-  "judged_mtime": 1793100780.4532459,
+  "judged_mtime": 1793150387.8528059,
   "module": "new_game.s",
   "note": "len 106 vs ref 114 [7missing,4extra,3operand,20regalloc,1stack @r adds r4, r0, #0 | adds r5, r0, #0]",
   "ref_len": 116,
@@ -467,7 +467,7 @@
  },
  "func_08006B90": {
   "addr": 134245264,
-  "judged_mtime": 1793100780.4532871,
+  "judged_mtime": 1793150387.8528059,
   "module": "new_game.s",
   "note": "len 146 vs ref 150 [8missing,7extra,9operand,19regalloc,6different @< sub sp, #4 | ]",
   "ref_len": 152,
@@ -478,7 +478,7 @@
  },
  "func_08006C28": {
   "addr": 134245416,
-  "judged_mtime": 1793100780.4533277,
+  "judged_mtime": 1793150387.8530412,
   "module": "new_game.s",
   "note": "len 50 vs ref 54 [3missing,2extra,5operand,5regalloc @r adds r4, r0, #0 | adds r3, r0, #0]",
   "ref_len": 56,
@@ -489,9 +489,9 @@
  },
  "func_08006C60": {
   "addr": 134245472,
-  "judged_mtime": 1793062415.2608185,
+  "judged_mtime": 1793171258.7024796,
   "module": "new_game.s",
-  "note": "byte +0x5: 0x25 vs ref 0x26",
+  "note": "byte +0x5: 0x25 vs ref 0x26 [3missing,4extra,3operand,18regalloc,1different @r movs r6, #0 | movs r5, #0]",
   "ref_len": 124,
   "sanitize_v": 4,
   "size": 1312,
@@ -511,7 +511,7 @@
  },
  "func_08006ED8": {
   "addr": 134246104,
-  "judged_mtime": 1793100780.4533846,
+  "judged_mtime": 1793150387.8530412,
   "module": "new_game.s",
   "note": "byte +0x18: 0xb6 vs ref 0xb8 [10missing,11extra,18operand,22regalloc,1stack,18different @i b #0x18c | b #0x188]",
   "ref_len": 416,
@@ -546,13 +546,14 @@
  },
  "func_080070D4": {
   "addr": 134246612,
-  "judged_mtime": 1793100780.4533846,
+  "judged_mtime": 1793188094.5326715,
   "module": "new_game.s",
-  "note": "len 48 vs ref 58 [5missing,1operand,3regalloc,2stack @s sub sp, #0xc | sub sp, #4]",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 59,
   "sanitize_v": 4,
   "size": 567,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08007110": {
