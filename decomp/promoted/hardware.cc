@@ -671,3 +671,12 @@ void *func_080091A4(GenObj *arg0, u16 arg1, u16 arg2) {
     }
     return arg0;
 }
+
+// DECOMP-MATCHED func_08007844 (dari hardware.s; cek manusia sebelum ke src/)
+void func_08007844(s32 *arg0, s32 arg1, u32 arg2) {
+    if (arg2 <= 4U) {
+        *arg0 &= ~(((1 << (1 << arg2)) - 1) << (0x1F & arg1));
+    } else if (arg2 == 5) {
+        *arg0 = 0;
+    }
+}
