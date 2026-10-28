@@ -734,3 +734,10 @@ void func_08008BB0(void **arg0, s32 arg1) {
         m4aMPlayContinue(temp_r2);
     }
 }
+
+// DECOMP-MATCHED func_080094AC (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_080093AC(s32);
+
+s32 func_080094AC(s32 arg0) {
+    return func_080093AC(arg0 + 0xC);
+}
