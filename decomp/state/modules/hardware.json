@@ -1319,13 +1319,14 @@
  },
  "func_080098DC": {
   "addr": 134256860,
-  "judged_mtime": 1793017161.7853918,
+  "judged_mtime": 1793196290.8148947,
   "module": "hardware.s",
-  "note": "byte +0x12: 0xc0 vs ref 0x10",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 466,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08009908": {
