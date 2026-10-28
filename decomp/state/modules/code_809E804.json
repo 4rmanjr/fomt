@@ -3402,9 +3402,9 @@
  },
  "func_080B9F0C": {
   "addr": 134979340,
-  "judged_mtime": 1793018014.5932107,
+  "judged_mtime": 1793192736.372034,
   "module": "code_809E804.s",
-  "note": "byte +0x0: 0x10 vs ref 0x30",
+  "note": "byte +0x0: 0x10 vs ref 0x30 [4missing,5extra,4operand,4regalloc,1stack @i push {r4, r5, lr} | push {r4, lr}]",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 393,
@@ -5079,13 +5079,14 @@
  },
  "func_080CE19C": {
   "addr": 135061916,
-  "judged_mtime": 1793018077.9881132,
+  "judged_mtime": 1793192940.6677423,
   "module": "code_809E804.s",
-  "note": "byte +0x8: 0x5 vs ref 0x6",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 382,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080CE1C4": {
