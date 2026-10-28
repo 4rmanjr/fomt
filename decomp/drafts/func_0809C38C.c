@@ -1,11 +1,11 @@
 typedef struct GenObj {
     u8 _pad0[6];
-    s32 unk6;
-    s32 unk7;
-    s32 unk8;
-    s32 unk9;
-    s32 unkA;
-    s32 unkB;
+    u8 unk6;
+    u8 unk7;
+    u8 unk8;
+    u8 unk9;
+    u8 unkA;
+    u8 unkB;
 } GenObj;
 u32 func_0809C38C(GenObj *arg0) {
     u32 var_r2;
