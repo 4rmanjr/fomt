@@ -1,11 +1,16 @@
 typedef struct GenObj {
     u8 _pad0[11];
-    s32 unkB;
-    s32 unkC;
+    u8 unkB;
+    u8 unkC;
 } GenObj;
-s32 func_0803BE9C(void **arg0) {
-    GenObj *temp_r0;
+s32 func_0803BE9C(GenObj **arg0) {
+    GenObj *t = *arg0;
+    s32 hi = t->unkB >> 7;
+    s32 c = t->unkC;
+    s32 mask = 0x7F;
+    s32 lo = (c & mask) * 2;
 
-    temp_r0 = *arg0;
-    return ((temp_r0->unkC & 0x7F) * 2) | ((u8) temp_r0->unkB >> 7);
+    return (lo | hi);
 }
+
+/* ATTEMPT-NOTE opencode: unkB-unkC u8 + hi-var; sisa alokasi hi r1 vs ref r2. */
