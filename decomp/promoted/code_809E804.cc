@@ -2019,3 +2019,10 @@ void func_080AA8DC(GenObj *arg0) {
         arg0->unk98 = 1;
     }
 }
+
+// DECOMP-MATCHED func_080CC134 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern s32 gUnk_0811783C;
+
+void func_080CC134(s32 *arg0, s32 arg1, s32 arg2) {
+    *arg0 = (&gUnk_0811783C)[arg2];
+}

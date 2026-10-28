@@ -4739,13 +4739,14 @@
  },
  "func_080CC134": {
   "addr": 135053620,
-  "judged_mtime": 1793018068.7668486,
+  "judged_mtime": 1793176514.2009144,
   "module": "code_809E804.s",
-  "note": "byte +0x0: 0x9 vs ref 0x92",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 213,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080CC144": {
