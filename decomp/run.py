@@ -1294,10 +1294,31 @@ def judge(name: str) -> bool:
     return ok
 
 
-def verify_all(tag: str | None = None) -> int:
+def _migrated_to_src(name: str) -> bool:
+    """Fungsi sudah pindah ke src/ via migrate.py? (dikawal make compare)."""
+    try:
+        return any(
+            re.search(rf"\b{re.escape(name)}\s*\(", (ROOT / "src" / f).read_text(errors="replace"))
+            for f in os.listdir(ROOT / "src") if f.endswith((".c", ".cc"))
+        )
+    except OSError:
+        return False
+
+
+def _verify_one(payload: tuple[str, str]) -> tuple[str, bool, str]:
+    """Satu unit kerja verify (aman untuk multiprocessing): tanpa ubah state."""
+    name, tag = payload
+    ok, note = _judge(name, tag=tag)
+    if not ok and "no ref symbol" in (note or "") and _migrated_to_src(name):
+        ok, note = True, "migrated to src (covered by make compare)"
+    return name, ok, note
+
+
+def verify_all(tag: str | None = None, jobs: int | None = None) -> int:
     """Audit ulang semua fungsi promoted/matched dari nol, TANPA ubah state.
 
     Return: jumlah fungsi yang tidak lagi MATCH (0 = semua lolos audit).
+    jobs: jumlah worker paralel (default: CPU, maks 8; 1 = sekuensial).
     """
     st = load()
     names = sorted(k for k, v in st.items() if v["status"] in ("promoted", "matched"))
@@ -1306,26 +1327,34 @@ def verify_all(tag: str | None = None) -> int:
         print(f"[{AGENT}] verify: belum ada fungsi promoted/matched")
         return 0
     print(f"[{AGENT}] verify {len(names)} fungsi | log decomp/logs/judge_<nama>/{tag}/")
+    if jobs is None:
+        try:
+            jobs = int(os.environ.get("FOMT_JOBS", "") or 0)
+        except ValueError:
+            jobs = 0
+        if jobs <= 0:
+            jobs = min(8, os.cpu_count() or 4)
     bad: list[tuple[str, str]] = []
-    for i, name in enumerate(names, 1):
-        ok, note = _judge(name, tag=tag)
-        if not ok and "no ref symbol" in (note or ""):
-            # Blok asm sudah pindah ke src/ via migrate.py: tidak ada ref
-            # pembanding lagi. Selama fungsi ada di src/, make compare
-            # yg mengawal — anggap lolos audit.
+    if jobs > 1 and len(names) > 1:
+        import multiprocessing as _mp
+        with _mp.Pool(min(jobs, len(names))) as _pool:
             try:
-                migrated = any(
-                    re.search(rf"\b{re.escape(name)}\s*\(", (ROOT / "src" / f).read_text(errors="replace"))
-                    for f in os.listdir(ROOT / "src") if f.endswith((".c", ".cc"))
-                )
-            except OSError:
-                migrated = False
-            if migrated:
-                ok, note = True, "migrated to src (covered by make compare)"
-        print(f"[{AGENT}] [{i}/{len(names)}] {name}: {'MATCH' if ok else 'DIFF'}"
-              f" ({short_note(note)}) | gagal {len(bad)}")
-        if not ok:
-            bad.append((name, note))
+                it = _pool.imap(_verify_one, [(n, tag) for n in names], chunksize=4)
+                for i, (name, ok, note) in enumerate(it, 1):
+                    print(f"[{AGENT}] [{i}/{len(names)}] {name}: {'MATCH' if ok else 'DIFF'}"
+                          f" ({short_note(note)}) | gagal {len(bad)}")
+                    if not ok:
+                        bad.append((name, note))
+            except KeyboardInterrupt:
+                _pool.terminate()
+                raise
+    else:
+        for i, name in enumerate(names, 1):
+            _, ok, note = _verify_one((name, tag))
+            print(f"[{AGENT}] [{i}/{len(names)}] {name}: {'MATCH' if ok else 'DIFF'}"
+                  f" ({short_note(note)}) | gagal {len(bad)}")
+            if not ok:
+                bad.append((name, note))
     # Cek juga isi promoted benar-benar sama dengan draf yang diverifikasi.
     stale = []
     for name in names:
@@ -1704,6 +1733,7 @@ def main(argv: list[str]) -> int:
     loop = False
     wait_s = 5.0
     until = ""
+    jobs = 0  # 0 = default (CPU, maks 8) utk verify; env FOMT_JOBS juga bisa
     args: list[str] = []
     it = iter(argv)
     for a in it:
@@ -1730,11 +1760,23 @@ def main(argv: list[str]) -> int:
             until = (next(it, "") or "").strip()
         elif a.startswith("--until="):
             until = a.split("=", 1)[1].strip()
+        elif a == "--jobs":
+            try:
+                jobs = max(0, int((next(it, "") or "0").strip() or "0"))
+            except (ValueError, StopIteration):
+                print("format --jobs harus angka, mis. --jobs 4", file=sys.stderr)
+                return 2
+        elif a.startswith("--jobs="):
+            try:
+                jobs = max(0, int(a.split("=", 1)[1].strip() or "0"))
+            except ValueError:
+                print("format --jobs harus angka, mis. --jobs=4", file=sys.stderr)
+                return 2
         else:
             args.append(a)
     SAFE_AGENT = re.sub(r"[^A-Za-z0-9_.-]", "_", AGENT)[:40] or "agent"
     if args and args[0] == "verify":
-        return 1 if verify_all() else 0
+        return 1 if verify_all(jobs=jobs or None) else 0
     deadline = None
     if until:
         try:
