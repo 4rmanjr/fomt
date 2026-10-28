@@ -1805,3 +1805,156 @@ void func_0809EE20(GenObj *arg0, s32 arg1, s32 arg2) {
 }
 
 /* ATTEMPT-NOTE opencode: struktur+urutan pas (push r4/lr, movs/lsl/ands/orrs/strb, half-part); sisa dst-and (ands r3,r1 vs ref ands r1,r3; ands r1,r2+orrs r1,r3 vs ref ands r2,r1... wait ref ands r2,r1+orrs r1,r2). 6+ varian (swap/maskvar/reuse/no-t) dicoba, compiler kukuh dst=r3. */
+
+// DECOMP-MATCHED func_080A6138 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080A5BD8(void *, s32 *, s32, s32);             /* extern */
+extern s32 gUnk_08106A7C;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[33];
+    u8 unk29;
+} GenObj;
+void func_080A6138(GenObj *arg0) {
+    s32 temp_r0;
+
+    temp_r0 = arg0->unk4;
+    switch (temp_r0) {                              /* irregular */
+    case 41:
+        func_080A5BD8(arg0, &gUnk_08106A7C, 0x19, 0xF);
+        break;
+    case 42:
+        func_080A5BD8(arg0, &gUnk_08106A7C, 0x28, 0xF);
+        break;
+    case 43:
+        func_080A5BD8(arg0, &gUnk_08106A7C, 0x36, 0xF);
+        break;
+    }
+    arg0->unk29 = 1;
+}
+
+// DECOMP-MATCHED func_080A6194 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080A5BD8(void *, s32 *, s32, s32);             /* extern */
+extern s32 gUnk_08106A94;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[33];
+    u8 unk29;
+} GenObj;
+void func_080A6194(GenObj *arg0) {
+    s32 temp_r0;
+
+    temp_r0 = arg0->unk4;
+    switch (temp_r0) {                              /* irregular */
+    case 41:
+        func_080A5BD8(arg0, &gUnk_08106A94, 0x19, 0xF);
+        break;
+    case 42:
+        func_080A5BD8(arg0, &gUnk_08106A94, 0x28, 0xF);
+        break;
+    case 43:
+        func_080A5BD8(arg0, &gUnk_08106A94, 0x36, 0xF);
+        break;
+    }
+    arg0->unk29 = 1;
+}
+
+// DECOMP-MATCHED func_080A6300 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080A5BD8(void *, s32 *, s32, s32);             /* extern */
+extern s32 gUnk_08106B3C;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[33];
+    u8 unk29;
+} GenObj;
+void func_080A6300(GenObj *arg0) {
+    s32 temp_r0;
+
+    temp_r0 = arg0->unk4;
+    switch (temp_r0) {                              /* irregular */
+    case 41:
+        func_080A5BD8(arg0, &gUnk_08106B3C, 1, 0x11);
+        break;
+    case 42:
+        func_080A5BD8(arg0, &gUnk_08106B3C, 0x10, 0x11);
+        break;
+    case 43:
+        func_080A5BD8(arg0, &gUnk_08106B3C, 0x18, 0x11);
+        break;
+    default:
+        return;
+    }
+    arg0->unk29 = 1;
+}
+
+// DECOMP-MATCHED func_080A635C (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080A5BD8(void *, s32 *, s32, s32);             /* extern */
+extern s32 gUnk_08106B24;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[33];
+    u8 unk29;
+} GenObj;
+void func_080A635C(GenObj *arg0) {
+    s32 temp_r0;
+
+    temp_r0 = arg0->unk4;
+    switch (temp_r0) {                              /* irregular */
+    case 41:
+        func_080A5BD8(arg0, &gUnk_08106B24, 1, 0x11);
+        break;
+    case 42:
+        func_080A5BD8(arg0, &gUnk_08106B24, 0x10, 0x11);
+        break;
+    case 43:
+        func_080A5BD8(arg0, &gUnk_08106B24, 0x18, 0x11);
+        break;
+    default:
+        return;
+    }
+    arg0->unk29 = 1;
+}
+
+// DECOMP-MATCHED func_080A63B8 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080A5BD8(void *, s32 *, s32, s32);             /* extern */
+extern s32 gUnk_081070C4;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    u8 _pad8[33];
+    u8 unk29;
+} GenObj;
+void func_080A63B8(GenObj *arg0, s32 arg1) {
+    s32 temp_r0;
+    s32 *temp_r2;
+    s32 var_r3;
+
+    temp_r0 = arg0->unk4;
+    switch (temp_r0) {                              /* irregular */
+    case 0x40:
+        func_080A5BD8(arg0, &gUnk_081070C4, 1, 0xD);
+        break;
+    case 0x24:
+        func_080A5BD8(arg0, &gUnk_081070C4, 1, 0x11);
+        break;
+    case 0x25:
+        temp_r2 = &gUnk_081070C4;
+        var_r3 = 0xD;
+        if (arg1 == 0) {
+            var_r3 = 0x11;
+        }
+        func_080A5BD8(arg0, temp_r2, 1, var_r3);
+        break;
+    default:
+        return;
+    }
+    arg0->unk29 = 1;
+}

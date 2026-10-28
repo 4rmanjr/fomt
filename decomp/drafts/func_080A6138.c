@@ -5,22 +5,19 @@ typedef struct GenObj {
     u8 _pad0[4];
     s32 unk4;
     u8 _pad8[33];
-    s32 unk29;
+    u8 unk29;
 } GenObj;
 void func_080A6138(GenObj *arg0) {
     s32 temp_r0;
-    s32 var_r2;
 
     temp_r0 = arg0->unk4;
     switch (temp_r0) {                              /* irregular */
     case 41:
-        var_r2 = 0x19;
-block_8:
-        func_080A5BD8(arg0, &gUnk_08106A7C, var_r2, 0xF);
+        func_080A5BD8(arg0, &gUnk_08106A7C, 0x19, 0xF);
         break;
     case 42:
-        var_r2 = 0x28;
-        goto block_8;
+        func_080A5BD8(arg0, &gUnk_08106A7C, 0x28, 0xF);
+        break;
     case 43:
         func_080A5BD8(arg0, &gUnk_08106A7C, 0x36, 0xF);
         break;
