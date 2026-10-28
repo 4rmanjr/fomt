@@ -625,3 +625,17 @@ void *func_08009168(GenObj *arg0) {
     arg0->unk4 = arg0->unk0;
     return arg0;
 }
+
+// DECOMP-MATCHED func_0800917C (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08009154();                                  /* extern */
+
+typedef struct GenObj {
+    u16 unk0;
+    u8 _pad2[2];
+    u16 unk4;
+} GenObj;
+void *func_0800917C(GenObj *arg0) {
+    func_08009154();
+    arg0->unk4 = arg0->unk0;
+    return arg0;
+}
