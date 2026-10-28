@@ -285,3 +285,12 @@ GenObj *func_0803B6FC(GenObj *arg0, s32 *arg1, s32 arg2) {
     arg0->unk8 = arg2;
     return arg0;
 }
+
+// DECOMP-MATCHED func_0803C544 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[15];
+    u8 unkF;
+} GenObj;
+void func_0803C544(GenObj *arg0) {
+    arg0->unkF = 0;
+}
