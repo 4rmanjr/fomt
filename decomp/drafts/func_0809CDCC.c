@@ -10,7 +10,7 @@ s32 func_0809CDCC(s32 arg0) {
         if (*var_r1 == 0) {
             var_r3 = 0;
         }
-        var_r1 += 8;
+        var_r1 += 2;
         var_r2 += 1;
     } while (var_r2 <= 0x3AU);
     return var_r3;
