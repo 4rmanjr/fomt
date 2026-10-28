@@ -9,9 +9,9 @@ s32 func_08016784(GenObj *arg0) {
     s32 temp_r4;
 
     temp_r4 = arg0->unk4 + 0xBC;
-    if ((func_08008CD0(temp_r4) << 0x18) != 0) {
-        func_08008BF8(temp_r4, 5);
-        return 1;
+    if ((func_08008CD0(temp_r4) << 0x18) == 0) {
+        return 0;
     }
-    return 0;
+    func_08008BF8(temp_r4, 5);
+    return 1;
 }

@@ -1912,13 +1912,14 @@
  },
  "func_08016784": {
   "addr": 134309764,
-  "judged_mtime": 1793017198.447517,
+  "judged_mtime": 1793172108.1388369,
   "module": "game_state.s",
-  "note": "byte +0x12: 0x1 vs ref 0x5",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 406,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080167AC": {
