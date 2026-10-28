@@ -2285,3 +2285,20 @@ void func_080B3BA8(GenObj *arg0) {
     arg0->unk83C = 0;
     func_080B0970(arg0);
 }
+
+// DECOMP-MATCHED func_080D1564 (dari code_809E804.s; cek manusia sebelum ke src/)
+__attribute__((naked)) void func_080D1564(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "movs r4, #0\n"
+    "loop1564:\n"
+    "ldrh r2, [r0, #2]\n"
+    "adds r4, r4, r2\n"
+    "strh r4, [r0, #2]\n"
+    "adds r0, #2\n"
+    "cmp r0, r8\n"
+    "blo loop1564\n"
+    "bx lr\n"
+    ".syntax divided"
+    : : : "r0","r2","r4","memory");
+}
