@@ -321,3 +321,21 @@ void func_0803BDEC(GenObj *arg0, s32 arg1, s32 arg2) {
     arg0->unk0 = (u16) (arg0->unk0 + arg1);
     arg0->unk2 = (u16) (arg0->unk2 + arg2);
 }
+
+// DECOMP-MATCHED func_0803B6B8 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+s32 memcpy(s32 *, s32, u32);                            /* extern */
+s32 strcpy(s32, s32 *);                                 /* extern */
+u32 strlen(s32);                                    /* extern */
+
+void func_0803B6B8(s32 arg0, s32 arg1, s32 arg2) {
+u8 sp0[0x18];
+    u32 var_r4;
+
+    var_r4 = strlen(arg2);
+    if (var_r4 > 0x16U) {
+        var_r4 = 0x16;
+    }
+    memcpy(&sp0, arg2, var_r4);
+    sp0[var_r4] = 0;
+    strcpy((arg1 * 0x18) + arg0 + 8, &sp0);
+}
