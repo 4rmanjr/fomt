@@ -483,7 +483,7 @@
  },
  "func_0804F160": {
   "addr": 134541664,
-  "judged_mtime": 1793150387.8536456,
+  "judged_mtime": 1793166642.9676201,
   "module": "code_0803EE94.s",
   "note": "len 14 vs ref 18 [2missing,1operand,1regalloc @< adds r1, r0, #0 | ]",
   "ref_len": 20,
@@ -4333,9 +4333,9 @@
  },
  "func_08085EC4": {
   "addr": 134766276,
-  "judged_mtime": 1793003641.6828594,
+  "judged_mtime": 1793166642.967958,
   "module": "code_0803EE94.s",
-  "note": "len 32 vs ref 38",
+  "note": "len 32 vs ref 38 [3missing,2operand,5regalloc,2different @i push {r4, lr} | push {lr}]",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 333,
@@ -5082,13 +5082,14 @@
  },
  "func_08090E84": {
   "addr": 134811268,
-  "judged_mtime": 1793150387.8561924,
+  "judged_mtime": 1793166941.7003455,
   "module": "code_0803EE94.s",
-  "note": "byte +0x1c: 0x60 vs ref 0x61 [2extra,1operand,3regalloc,1different @r ldr r1, [r4, #4] | ldr r0, [r4, #4]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08090EC4": {
@@ -5229,13 +5230,14 @@
  },
  "func_080925C4": {
   "addr": 134817220,
-  "judged_mtime": 1793150387.8570552,
+  "judged_mtime": 1793166941.7024908,
   "module": "code_0803EE94.s",
-  "note": "byte +0x1c: 0x60 vs ref 0x61 [2extra,1operand,3regalloc,1different @r ldr r1, [r4, #4] | ldr r0, [r4, #4]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08092604": {
@@ -5658,9 +5660,9 @@
  },
  "func_0809424C": {
   "addr": 134824524,
-  "judged_mtime": 1793162506.5634816,
+  "judged_mtime": 1793165382.3524885,
   "module": "code_0803EE94.s",
-  "note": "reloc [(20, 2, 'vtable_unk_080E8028'), (24, 2, 'gUnk_081009DC')] vs ref [(20, 2, 'vtable_unk_080E8028')] [5extra @>  | movs r0, r0]",
+  "note": "byte +0xe: 0x1 vs ref 0x41 [5extra,1different @| strb r1, [r0, #0xd] | str r1, [r0, #0x10]]",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 330,
