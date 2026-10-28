@@ -18,6 +18,10 @@ s32 *func_0809FE3C(s32 arg0, u32 arg1) {
     case 0:
         /* fallthrough */
     default:
-        return *((arg1 * 8) + &gUnk_08104258);
+        {
+            u8 *p = (u8 *)&gUnk_08104258;
+            arg1 = (u32)(p + (arg1 << 3));
+            return *(s32 *)arg1;
+        }
     }
 }

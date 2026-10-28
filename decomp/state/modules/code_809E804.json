@@ -427,13 +427,14 @@
  },
  "func_0809FE3C": {
   "addr": 134872636,
-  "judged_mtime": 1793017770.1630292,
+  "judged_mtime": 1793198812.1045947,
   "module": "code_809E804.s",
-  "note": "byte +0x28: 0x48 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 554,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809FE74": {
@@ -2656,9 +2657,9 @@
  },
  "func_080ADF40": {
   "addr": 134930240,
-  "judged_mtime": 1793195691.8488302,
+  "judged_mtime": 1793198297.6928315,
   "module": "code_809E804.s",
-  "note": "len 36 vs ref 44 [4missing,3operand,10regalloc,1different @i push {r4, r5, lr} | push {r4, lr}]",
+  "note": "len 38 vs ref 44 [4missing,1extra,2operand,11regalloc @r adds r2, r0, #0 | adds r3, r0, #0]",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 420,
@@ -5881,9 +5882,9 @@
   "judged_mtime": 1793018096.5550516,
   "module": "code_809E804.s",
   "note": "ved_reg_r8' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D1548/opencode/func.c:20: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D1548/opencode/func.c:20: for each function it appears in.)\n",
-  "ref_len": 28,
+  "ref_len": 27,
   "sanitize_v": 4,
-  "size": 282,
+  "size": 283,
   "status": "failed",
   "thumb": true
  },
