@@ -1939,13 +1939,14 @@
  },
  "func_080AB788": {
   "addr": 134920072,
-  "judged_mtime": 1793003836.4499707,
+  "judged_mtime": 1793191781.6075287,
   "module": "code_809E804.s",
-  "note": "byte +0xc: 0x20 vs ref 0x8",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 273,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080AB7A4": {

@@ -2095,3 +2095,10 @@ __attribute__((naked)) void sub_080D1204(void) {
     ".syntax unified\npush {lr}\nmov r6, r8\nsubs r6, r6, r1\nmov lr, pc\nbx sb\n.byte 0x01, 0x31\n.byte 0xCD, 0x07, 0x02, 0xD4, 0x24, 0x02, 0x54, 0x44, 0x0C, 0x80, 0xA2, 0x46, 0x01, 0x3E, 0xF4, 0xD1\n.byte 0x10, 0xBC, 0x20, 0x47\n.syntax divided"
     ::: "r6", "lr", "memory");
 }
+
+// DECOMP-MATCHED func_080AB788 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 rand();                                         /* extern */
+
+u32 func_080AB788(s32 arg0) {
+    return (u32) ((0xFFFF & rand()) * arg0) >> 0x10;
+}
