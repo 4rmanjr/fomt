@@ -323,3 +323,12 @@ u16 func_08022980(GenObj *arg0, s32 arg1) {
     s32 v = GetGrowthStage__C7Chicken(arg0->unk34);
     return *(u16 *)(base + (v * 5 + arg1) * 2);
 }
+
+// DECOMP-MATCHED func_0802A7D8 (dari code_entities.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[136];
+    u8 unk88;
+} GenObj;
+void func_0802A7D8(GenObj *arg0) {
+    arg0->unk88 = 0;
+}

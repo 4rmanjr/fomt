@@ -1180,13 +1180,14 @@
  },
  "func_0802A7D8": {
   "addr": 134391768,
-  "judged_mtime": 1793017272.2424743,
+  "judged_mtime": 1793166899.5621061,
   "module": "code_entities.s",
-  "note": "byte +0x5: 0x60 vs ref 0x70",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 8,
   "sanitize_v": 4,
   "size": 127,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0802A7E0": {
