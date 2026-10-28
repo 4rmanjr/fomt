@@ -8,8 +8,8 @@ s32 func_08050DF0(void **arg0) {
     GenObj *temp_r1;
 
     temp_r1 = *arg0;
-    if (temp_r1->unk8 != 6) {
-        return temp_r1->unk158;
+    if (temp_r1->unk8 == 6) {
+        return 0;
     }
-    return 0;
+    return temp_r1->unk158;
 }

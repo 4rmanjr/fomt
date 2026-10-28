@@ -342,9 +342,9 @@
  },
  "func_0804EE30": {
   "addr": 134540848,
-  "judged_mtime": 1793004207.4651291,
+  "judged_mtime": 1793152160.6367836,
   "module": "code_0803EE94.s",
-  "note": "byte +0x2: 0x12 vs ref 0x4",
+  "note": "byte +0x2: 0x12 vs ref 0x4 [3missing,3extra,6regalloc @>  | lsls r2, r2, #0x10]",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 480,
@@ -412,13 +412,14 @@
  },
  "func_0804EEFC": {
   "addr": 134541052,
-  "judged_mtime": 1793017475.686591,
+  "judged_mtime": 1793151237.810039,
   "module": "code_0803EE94.s",
-  "note": "byte +0x6: 0x81 vs ref 0x41",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 342,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0804EF20": {
@@ -480,7 +481,7 @@
  },
  "func_0804F160": {
   "addr": 134541664,
-  "judged_mtime": 1793149791.9796567,
+  "judged_mtime": 1793150387.8536456,
   "module": "code_0803EE94.s",
   "note": "len 14 vs ref 18 [2missing,1operand,1regalloc @< adds r1, r0, #0 | ]",
   "ref_len": 20,
@@ -558,9 +559,9 @@
  },
  "func_0805039C": {
   "addr": 134546332,
-  "judged_mtime": 1793149791.9807289,
+  "judged_mtime": 1793150387.8538291,
   "module": "code_0803EE94.s",
-  "note": "len 74 vs ref 72 [4missing,5extra,6operand,2different @i bne #0x34 | bne #0x3a]",
+  "note": "byte +0x4: 0xa5 vs ref 0xa6 [2missing,2extra,8regalloc @r ldr r6, [r4, #8] | ldr r5, [r4, #8]]",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 627,
@@ -569,13 +570,14 @@
  },
  "func_080503E4": {
   "addr": 134546404,
-  "judged_mtime": 1793017480.0017505,
+  "judged_mtime": 1793151237.8118603,
   "module": "code_0803EE94.s",
-  "note": "byte +0xe: 0xe0 vs ref 0x20",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 216,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080503FC": {
@@ -902,13 +904,14 @@
  },
  "func_08050DF0": {
   "addr": 134548976,
-  "judged_mtime": 1793017485.5806231,
+  "judged_mtime": 1793151246.8908753,
   "module": "code_0803EE94.s",
-  "note": "byte +0x8: 0x1 vs ref 0x4",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 277,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08050E0C": {
