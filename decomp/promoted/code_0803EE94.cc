@@ -2341,3 +2341,111 @@ s32 func_08063E8C(s32 arg0) {
     }
     return 0x38;
 }
+
+// DECOMP-MATCHED func_08050D3C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_0804F7A4(s32, s32, s32, s32, s32, s32, s32); /* extern */
+
+s32 func_08050D3C(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
+    return func_0804F7A4(*arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+}
+
+// DECOMP-MATCHED func_08050E30 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_08050664(s32, s32, s32, s32, s32, s32, s32); /* extern */
+
+void func_08050E30(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
+    func_08050664(*arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+}
+
+// DECOMP-MATCHED func_08075DB8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_08075C88(void *, s16);                       /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[6];
+    u16 unk6;
+    u16 _pad8;
+    s16 unkA;
+} GenObj;
+void func_08075DB8(GenObj *arg0, s16 arg1) {
+    arg0->unk6 = 0xFFFF;
+    arg0->unkA = -1;
+    func_08075C88(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_08091420 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_08091420(void *arg0, s32 arg1, s32 arg2) {
+    s32 var_r5;
+    u32 temp_r0;
+    u32 temp_r4;
+    u32 var_r3;
+
+    temp_r4 = arg1 & 7;
+    var_r3 = 0;
+    var_r5 = 0;
+    temp_r0 = arg2 - 0x12;
+    switch (temp_r0) {
+    case 0:
+        var_r3 = 1;
+        break;
+    case 1:
+        var_r3 = 2;
+        break;
+    case 2:
+        var_r3 = 3;
+        break;
+    case 3:
+        var_r3 = 4;
+        break;
+    case 10:
+        var_r3 = 7;
+        break;
+    }
+    if (temp_r4 == var_r3) {
+        var_r5 = 1;
+    } else if (temp_r4 > var_r3) {
+        var_r5 = 2;
+    } else if (temp_r4 < var_r3) {
+        var_r5 = 3;
+    }
+    return var_r5;
+}
+
+// DECOMP-MATCHED func_080914A0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080914A0(void *arg0, s32 arg1, s32 arg2) {
+    s32 var_r5;
+    u32 temp_r0;
+    u32 temp_r3;
+    u32 var_r4;
+
+    temp_r3 = arg1 & 7;
+    var_r4 = 0;
+    var_r5 = 0;
+    temp_r0 = arg2 - 0x12;
+    switch (temp_r0) {
+    case 0:
+        var_r4 = 1;
+        break;
+    case 1:
+        var_r4 = 2;
+        break;
+    case 2:
+        var_r4 = 3;
+        break;
+    case 3:
+        var_r4 = 4;
+        break;
+    case 10:
+        var_r4 = 7;
+        break;
+    }
+    if (temp_r3 == var_r4) {
+        var_r5 = 0;
+    } else if (temp_r3 > var_r4) {
+        var_r5 = 1;
+    } else if (temp_r3 < var_r4) {
+        var_r5 = var_r4 - temp_r3;
+        if ((temp_r3 == 6) && (var_r4 == 7)) {
+            var_r5 = 2;
+        }
+    }
+    return var_r5;
+}

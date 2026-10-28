@@ -779,13 +779,14 @@
  },
  "func_08050D3C": {
   "addr": 134548796,
-  "judged_mtime": 1793004237.093986,
+  "judged_mtime": 1793162730.0545967,
   "module": "code_0803EE94.s",
-  "note": "len 12 vs ref 30",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 305,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08050D5C": {
@@ -929,13 +930,14 @@
  },
  "func_08050E30": {
   "addr": 134549040,
-  "judged_mtime": 1793004265.4946759,
+  "judged_mtime": 1793162730.0517075,
   "module": "code_0803EE94.s",
-  "note": "len 12 vs ref 30",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 305,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08050E50": {
@@ -2824,13 +2826,14 @@
  },
  "func_08075DB8": {
   "addr": 134700472,
-  "judged_mtime": 1793017563.5940254,
+  "judged_mtime": 1793162474.4623742,
   "module": "code_0803EE94.s",
-  "note": "byte +0x4: 0x82 vs ref 0xc2",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 294,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08075DD4": {
@@ -5177,24 +5180,26 @@
  },
  "func_08091420": {
   "addr": 134812704,
-  "judged_mtime": 1793003664.7779942,
+  "judged_mtime": 1793162708.3484955,
   "module": "code_0803EE94.s",
-  "note": "byte +0x0: 0x10 vs ref 0x30",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 128,
   "sanitize_v": 4,
   "size": 1111,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080914A0": {
   "addr": 134812832,
-  "judged_mtime": 1793003668.377916,
+  "judged_mtime": 1793162708.3482854,
   "module": "code_0803EE94.s",
-  "note": "byte +0x0: 0x10 vs ref 0x30",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 140,
   "sanitize_v": 4,
   "size": 1197,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809152C": {
@@ -5651,9 +5656,9 @@
  },
  "func_0809424C": {
   "addr": 134824524,
-  "judged_mtime": 1793017722.425356,
+  "judged_mtime": 1793162506.5634816,
   "module": "code_0803EE94.s",
-  "note": "byte +0xe: 0x1 vs ref 0x41",
+  "note": "reloc [(20, 2, 'vtable_unk_080E8028'), (24, 2, 'gUnk_081009DC')] vs ref [(20, 2, 'vtable_unk_080E8028')] [5extra @>  | movs r0, r0]",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 330,

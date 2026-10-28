@@ -1,4 +1,4 @@
-s32 func_08091420(s32 arg1, s32 arg2) {
+s32 func_08091420(void *arg0, s32 arg1, s32 arg2) {
     s32 var_r5;
     u32 temp_r0;
     u32 temp_r4;
