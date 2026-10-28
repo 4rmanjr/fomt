@@ -2618,13 +2618,14 @@
  },
  "func_080ADD5C": {
   "addr": 134929756,
-  "judged_mtime": 1793017978.50234,
+  "judged_mtime": 1793176815.4194205,
   "module": "code_809E804.s",
-  "note": "byte +0x0: 0xc1 vs ref 0x81",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 258,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080ADD74": {
