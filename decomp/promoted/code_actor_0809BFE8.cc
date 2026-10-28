@@ -241,3 +241,12 @@ void func_0809C0AC(GenObj *arg0, GenObj *arg1) {
     arg0->unk14 = b;
     arg0->unkC = 2;
 }
+
+// DECOMP-MATCHED func_0809E174 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[1572];
+    u8 unk624;
+} GenObj;
+u32 func_0809E174(GenObj *arg0) {
+    return (u32) (arg0->unk624 << 0x1F) >> 0x1F;
+}
