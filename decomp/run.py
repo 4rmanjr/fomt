@@ -579,7 +579,14 @@ def diff_note(cand, ref, module: str, name: str, ref_len: int) -> str:
     from io import BytesIO as _BB
     _raw = getattr(ref, "_raw_data", None)
     a = depad(_mask_for_compare(cand, cand.code))
-    rb = depad(ref.code[:ref_len])
+    _raw_slice = ref.code[:ref_len]
+    _td0 = trailing_data_len(module, name)
+    if _td0 and len(_raw_slice) > _td0 and len(a) == len(depad(_raw_slice[:-_td0])):
+        # Data asing (.byte tak dirujuk) menempel di ekor: buang SEBELUM
+        # depad, karena depad bisa lebih dulu memakan 00 00-nya sehingga
+        # trim susulan gagal (mis. func_0801FD3C: len 12 vs ref 34).
+        _raw_slice = _raw_slice[:-_td0]
+    rb = depad(_raw_slice)
     if _raw is not None and len(a) > len(rb):
         try:
             _dd = _gg(_EE(_BB(_raw)))
