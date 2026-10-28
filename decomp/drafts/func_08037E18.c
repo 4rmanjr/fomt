@@ -8,10 +8,10 @@ typedef struct GenObj {
     s32 unk18;
 } GenObj;
 void *func_08037E18(GenObj *arg0, s32 arg1, s32 arg2) {
-s32 sp0;
+s32 sp0[2];
 
-    func_0800FFE0(&sp0, arg2);
-    __7AEntityP10GameObjectRC8Location(arg0, arg1, &sp0);
+    func_0800FFE0(sp0, arg2);
+    __7AEntityP10GameObjectRC8Location(arg0, arg1, sp0);
     arg0->unk14 = &vtable_unk_080E73FC;
     arg0->unk18 = arg2;
     return arg0;
