@@ -3402,13 +3402,14 @@
  },
  "func_080B9F0C": {
   "addr": 134979340,
-  "judged_mtime": 1793192736.372034,
+  "judged_mtime": 1793193677.3204207,
   "module": "code_809E804.s",
-  "note": "byte +0x0: 0x10 vs ref 0x30 [4missing,5extra,4operand,4regalloc,1stack @i push {r4, r5, lr} | push {r4, lr}]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 393,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080B9F38": {
