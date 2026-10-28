@@ -332,13 +332,14 @@
  },
  "func_0809CD98": {
   "addr": 134860184,
-  "judged_mtime": 1793003739.91692,
+  "judged_mtime": 1793198741.941769,
   "module": "code_actor_0809BFE8.s",
-  "note": "byte +0x8: 0xc9 vs ref 0xca",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 569,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809CDCC": {
