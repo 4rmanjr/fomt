@@ -360,13 +360,14 @@
  },
  "func_080D6EAC": {
   "addr": 135098028,
-  "judged_mtime": 1793018109.0030146,
+  "judged_mtime": 1793190793.1484106,
   "module": "code_linkonce.s",
-  "note": "byte +0x5: 0x30 vs ref 0x1d",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 266,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D6ECC": {
@@ -4725,7 +4726,7 @@
  },
  "func_080E55B0": {
   "addr": 135157168,
-  "judged_mtime": 1793100780.4574034,
+  "judged_mtime": 1793150387.8599627,
   "module": "code_linkonce.s",
   "note": "len 172 vs ref 178 [9missing,6extra,7operand,29regalloc,4stack,5different @s sub sp, #0x14 | sub sp, #0x10]",
   "ref_len": 180,
