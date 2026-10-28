@@ -2449,3 +2449,67 @@ s32 func_080914A0(void *arg0, s32 arg1, s32 arg2) {
     }
     return var_r5;
 }
+
+// DECOMP-MATCHED func_08075AE8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080E2BB4(s32, s32, s32, s32, s32);
+void func_08075AE8(s32 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    func_080E2BB4(*arg0, arg1, arg2, arg3, arg4);
+}
+
+// DECOMP-MATCHED func_0809B018 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[8];
+    u32 unk8;
+} GenObj;
+void *func_0809B018(GenObj *arg0, u32 arg1) {
+    u8 *p = (u8 *)arg0;
+    u32 n;
+    void *r;
+    p += 8;
+    n = arg0->unk8;
+    if (arg1 >= n) {
+        r = (u8 *)arg0 + 12;
+    } else {
+        u32 t = arg1 + 1;
+        r = 4 + ((n - t) * 8) + p;
+    }
+    return r;
+}
+
+// DECOMP-MATCHED func_08063E64 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+u32 GetAffection__C6Animal(void *);
+u32 func_08063E64(void *arg0) {
+    u32 st[2];
+    u32 *pq;
+    u32 *p;
+    u32 t;
+    st[0] = 10;
+    st[1] = GetAffection__C6Animal(arg0) / 25;
+    pq = &st[1];
+    t = st[0];
+    p = &st[0];
+    if (t > st[1]) {
+        p = pq;
+    }
+    return *p;
+}
+
+// DECOMP-MATCHED func_0809B038 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+} GenObj;
+void *func_0809B038(GenObj *arg0, u32 arg1) {
+    u8 *p = (u8 *)arg0;
+    u32 n;
+    void *r;
+    p += 0xFC;
+    n = *(u32 *)p;
+    if (arg1 >= n) {
+        r = (u8 *)arg0 + 0x100;
+    } else {
+        u32 t = arg1 + 1;
+        r = 4 + ((n - t) * 8) + p;
+    }
+    return r;
+}

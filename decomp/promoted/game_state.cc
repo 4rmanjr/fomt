@@ -603,3 +603,15 @@ typedef struct GenObj {
 s32 func_0801DB44(GenObj *arg0) {
     return func_0801468C(arg0->unk1054);
 }
+
+// DECOMP-MATCHED func_08011568 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    u8 unk8;
+} GenObj;
+void func_08011568(GenObj *arg0) {
+    if ((arg0->unk0 != 0x10) && (arg0->unk4 != 0x10) && (arg0->unk8 != 0)) {
+        arg0->unk8--;
+    }
+}

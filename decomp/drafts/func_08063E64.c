@@ -1,17 +1,16 @@
-u32 GetAffection__C6Animal();                       /* extern */
-
-u32 func_08063E64(void) {
-    u32 sp0;
-    u32 sp4;
-    u32 *var_r3;
-    u32 temp_r0;
-
-    sp0 = 0xA;
-    temp_r0 = GetAffection__C6Animal() / 25U;
-    sp4 = temp_r0;
-    var_r3 = &sp0;
-    if (temp_r0 < 0xAU) {
-        var_r3 = &sp4;
+u32 GetAffection__C6Animal(void *);
+u32 func_08063E64(void *arg0) {
+    u32 st[2];
+    u32 *pq;
+    u32 *p;
+    u32 t;
+    st[0] = 10;
+    st[1] = GetAffection__C6Animal(arg0) / 25;
+    pq = &st[1];
+    t = st[0];
+    p = &st[0];
+    if (t > st[1]) {
+        p = pq;
     }
-    return *var_r3;
+    return *p;
 }

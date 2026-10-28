@@ -2001,13 +2001,14 @@
  },
  "func_08063E64": {
   "addr": 134626916,
-  "judged_mtime": 1793003562.076246,
+  "judged_mtime": 1793166450.6915114,
   "module": "code_0803EE94.s",
-  "note": "len 36 vs ref 40",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 330,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08063E8C": {
@@ -2782,13 +2783,14 @@
  },
  "func_08075AE8": {
   "addr": 134699752,
-  "judged_mtime": 1793003591.0910983,
+  "judged_mtime": 1793166024.561448,
   "module": "code_0803EE94.s",
-  "note": "len 12 vs ref 22",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 206,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08075B00": {
@@ -5951,7 +5953,7 @@
   "addr": 134826220,
   "judged_mtime": 1793003712.5410435,
   "module": "code_0803EE94.s",
-  "note": "len 6 vs ref 16",
+  "note": "PARK hermes27: trailing .byte milik func_080948FC menempel di blok; ref_len/pool kacau. Butuh fix infra.",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 207,
@@ -6583,24 +6585,26 @@
  },
  "func_0809B018": {
   "addr": 134852632,
-  "judged_mtime": 1793017750.0725312,
+  "judged_mtime": 1793166413.5825465,
   "module": "code_0803EE94.s",
-  "note": "len 36 vs ref 30",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 312,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809B038": {
   "addr": 134852664,
-  "judged_mtime": 1793017750.3332288,
+  "judged_mtime": 1793166572.9823303,
   "module": "code_0803EE94.s",
-  "note": "len 38 vs ref 34",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 346,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809B05C": {

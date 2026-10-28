@@ -1,13 +1,18 @@
 typedef struct GenObj {
-    u8 _pad0[252];
-    s32 unkFC;
+    u8 _pad0[8];
+    s32 unk8;
 } GenObj;
 void *func_0809B038(GenObj *arg0, u32 arg1) {
-    u32 temp_r2;
-
-    temp_r2 = arg0->unkFC;
-    if (arg1 >= temp_r2) {
-        return arg0 + 0x100;
+    u8 *p = (u8 *)arg0;
+    u32 n;
+    void *r;
+    p += 0xFC;
+    n = *(u32 *)p;
+    if (arg1 >= n) {
+        r = (u8 *)arg0 + 0x100;
+    } else {
+        u32 t = arg1 + 1;
+        r = 4 + ((n - t) * 8) + p;
     }
-    return arg0 + 0xFC + (((temp_r2 - (arg1 + 1)) * 8) + 4);
+    return r;
 }
