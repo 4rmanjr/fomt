@@ -1661,3 +1661,15 @@ void func_080D6F0C(GenObj *arg0) {
     arg0->unk0 = 0;
     arg0->unk1 = 1;
 }
+
+// DECOMP-MATCHED func_080DCFCC (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 vfunc_14__7AEntity();                             /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[28];
+    u8 unk1C;
+} GenObj;
+void func_080DCFCC(GenObj *arg0) {
+    vfunc_14__7AEntity();
+    arg0->unk1C = 0;
+}

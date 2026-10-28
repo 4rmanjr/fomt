@@ -2348,13 +2348,14 @@
  },
  "func_080DCFCC": {
   "addr": 135122892,
-  "judged_mtime": 1793018150.3569264,
+  "judged_mtime": 1793176839.2115772,
   "module": "code_linkonce.s",
-  "note": "byte +0xa: 0xe0 vs ref 0x20",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 191,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DCFE0": {
@@ -4689,7 +4690,7 @@
  },
  "func_080E5478": {
   "addr": 135156856,
-  "judged_mtime": 1793100780.457287,
+  "judged_mtime": 1793150387.859861,
   "module": "code_linkonce.s",
   "note": "byte +0x22: 0x60 vs ref 0xa0 [6extra,1different @| ldrh r0, [r4, #4] | ldr r0, [r4, #4]]",
   "ref_len": 76,
