@@ -818,7 +818,7 @@ void ***func_0801FB7C(void ***arg0, s32 arg1, s32 arg2, u8 arg3) {
     Fb7cObj **tmp;
 
     fr.s8 = func_080A6474(__builtin_new(0xBC), arg1);
-    nn = __builtin_new(0x10CC);
+    nn = (Fb7cObj *)__builtin_new(0x10CC);
     p8 = &fr.s8;
     ps0 = (u8 *)&fr;
     *ps0 = arg3;
@@ -836,4 +836,17 @@ void ***func_0801FB7C(void ***arg0, s32 arg1, s32 arg2, u8 arg3) {
         ((void (*)(void *, s32))(fr.s4->vtab->f8))(fr.s4, 3);
     }
     return arg0;
+}
+
+// DECOMP-MATCHED func_0801F5F0 (dari game_state.s; cek manusia sebelum ke src/)
+s32 SetVaseArticleId__9FarmHouseUi(s32, s32);         /* extern */
+s32 func_0801F3E4(void *);                            /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4152];
+    s32 unk1038;
+} GenObj;
+void func_0801F5F0(GenObj *arg0, s32 arg1) {
+    SetVaseArticleId__9FarmHouseUi((u8 *)arg0->unk1038 + (0xFA << 1), arg1);
+    func_0801F3E4(arg0);
 }

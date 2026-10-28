@@ -2850,13 +2850,14 @@
  },
  "func_0801F5F0": {
   "addr": 134346224,
-  "judged_mtime": 1793167563.9463205,
+  "judged_mtime": 1793195822.1541214,
   "module": "game_state.s",
-  "note": "byte +0x5: 0x49 vs ref 0x4a [1extra,5regalloc @r ldr r2, [pc, #0x18] | ldr r1, [pc, #0x18]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 396,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801F614": {
@@ -2921,9 +2922,9 @@
   "judged_mtime": 1793017221.2103329,
   "module": "game_state.s",
   "note": "ignment makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801FAC8/opencode/func.c:33: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801FAC8/opencode/func.c:36: warning: assignment from incompatible pointer type\n",
-  "ref_len": 180,
+  "ref_len": 179,
   "sanitize_v": 4,
-  "size": 1815,
+  "size": 1816,
   "status": "failed",
   "thumb": true
  },
