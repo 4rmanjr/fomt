@@ -2045,3 +2045,14 @@ void func_080ADD5C(GenObj *arg0, s32 arg1, s32 arg2) {
     arg0->unk0 = (u32) ((u32) ((0 - arg1) | arg1) >> 0x1F);
     arg0->unk6 = 0;
 }
+
+// DECOMP-MATCHED func_080C0B58 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern u16 gUnk_08107FC6[];
+
+typedef struct GenObj {
+    u8 _pad0[1560];
+    s32 unk618;
+} GenObj;
+u16 func_080C0B58(GenObj *arg0) {
+    return gUnk_08107FC6[arg0->unk618];
+}
