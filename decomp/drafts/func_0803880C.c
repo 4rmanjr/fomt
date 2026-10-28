@@ -5,8 +5,8 @@ typedef struct GenObj {
     s32 unk10;
 } GenObj;
 s32 func_0803880C(GenObj *arg0) {
-    if (arg0->unk10 == 0) {
-        return 0;
+    if (arg0->unk10 != 0) {
+        return func_080390D0();
     }
-    return func_080390D0();
+    return 0;
 }

@@ -3,7 +3,7 @@
   "addr": 134435712,
   "judged_mtime": 1793017291.2399373,
   "module": "code_entities_08034CEC.s",
-  "note": "union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08035380/opencode/func.c:365: request for member `unk2' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08035380/opencode/func.c:365: request for member `unk6' in something not a structure or union\n",
+  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08035380/worker-3880/func.c:365: request for member `unk2' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08035380/worker-3880/func.c:365: request for member `unk6' in something not a structure or union\n",
   "ref_len": 1416,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -1881,13 +1881,14 @@
  },
  "func_0803880C": {
   "addr": 134449164,
-  "judged_mtime": 1793017320.340627,
+  "judged_mtime": 1793176506.2154145,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x6: 0x2 vs ref 0x1",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 237,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08038820": {
