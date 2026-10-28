@@ -1,15 +1,17 @@
 s32 *func_080D770C(s32 arg0, s32 arg1, s32 *arg2) {
-    s32 *temp_r0;
+    s32 tmp;
     s32 *var_r1;
+    s32 *t;
 
-    var_r1 = arg0 + ((arg1 * 8) - 8);
-    *var_r1 = arg2;
-    if (var_r1 != arg0) {
+    tmp = (arg1 << 3) - 8;
+    var_r1 = (s32 *)(arg0 + tmp);
+    *var_r1 = (s32)arg2;
+    if (var_r1 != (s32 *)arg0) {
         do {
-            temp_r0 = var_r1;
-            var_r1 -= 8;
-            *var_r1 = temp_r0;
-        } while (var_r1 != arg0);
+            t = var_r1;
+            var_r1 -= 2;
+            *var_r1 = (s32)t;
+        } while (var_r1 != (s32 *)arg0);
     }
     return var_r1;
 }

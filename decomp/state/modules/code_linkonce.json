@@ -619,13 +619,14 @@
  },
  "func_080D770C": {
   "addr": 135100172,
-  "judged_mtime": 1793018115.0231369,
+  "judged_mtime": 1793192260.336192,
   "module": "code_linkonce.s",
-  "note": "byte +0x4: 0x8 vs ref 0xc9",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 308,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D772C": {

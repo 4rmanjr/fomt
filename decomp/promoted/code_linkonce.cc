@@ -1722,3 +1722,22 @@ s32 *func_080D6D98(s32 arg0, s32 arg1, s32 *arg2) {
     }
     return (s32 *)var_r1;
 }
+
+// DECOMP-MATCHED func_080D770C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 *func_080D770C(s32 arg0, s32 arg1, s32 *arg2) {
+    s32 tmp;
+    s32 *var_r1;
+    s32 *t;
+
+    tmp = (arg1 << 3) - 8;
+    var_r1 = (s32 *)(arg0 + tmp);
+    *var_r1 = (s32)arg2;
+    if (var_r1 != (s32 *)arg0) {
+        do {
+            t = var_r1;
+            var_r1 -= 2;
+            *var_r1 = (s32)t;
+        } while (var_r1 != (s32 *)arg0);
+    }
+    return var_r1;
+}
