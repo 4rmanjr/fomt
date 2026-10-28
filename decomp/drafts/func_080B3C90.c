@@ -4,8 +4,8 @@ extern s32 gUnk_081078BC;
 
 typedef struct GenObj {
     u8 _pad0[16];
-    s32 unk10;
-    s32 unk11;
+    u8 unk10;
+    u8 unk11;
 } GenObj;
 void *func_080B3C90(GenObj *arg0) {
     u32 var_r4;
