@@ -579,3 +579,27 @@ s32 func_08011524(GenObj *arg0) {
     }
     return var_r2;
 }
+
+// DECOMP-MATCHED func_080114F8 (dari game_state.s; cek manusia sebelum ke src/)
+void func_080114F8(u8 *arg0) {
+    s32 v;
+    s32 w;
+    w = *arg0;
+    v = -2;
+    v &= w;
+    v |= 2;
+    v |= 4;
+    v |= 8;
+    *arg0 = v;
+}
+
+// DECOMP-MATCHED func_0801DB44 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_0801468C(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4180];
+    s32 unk1054;
+} GenObj;
+s32 func_0801DB44(GenObj *arg0) {
+    return func_0801468C(arg0->unk1054);
+}

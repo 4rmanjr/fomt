@@ -227,13 +227,14 @@
  },
  "func_080114F8": {
   "addr": 134288632,
-  "judged_mtime": 1793003670.0759234,
+  "judged_mtime": 1793163158.180066,
   "module": "game_state.s",
-  "note": "len 14 vs ref 24",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 258,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08011510": {
@@ -2589,13 +2590,14 @@
  },
  "func_0801DB44": {
   "addr": 134339396,
-  "judged_mtime": 1793017214.5320108,
+  "judged_mtime": 1793162437.7445686,
   "module": "game_state.s",
-  "note": "byte +0xc: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 242,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801DB58": {
