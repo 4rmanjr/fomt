@@ -12,13 +12,14 @@
  },
  "func_08010158": {
   "addr": 134283608,
-  "judged_mtime": 1793017164.0267386,
+  "judged_mtime": 1793183564.8687508,
   "module": "game_scene.s",
-  "note": "c.c:19: `_' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08010158/opencode/func.c:19: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08010158/opencode/func.c:19: for each function it appears in.)\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_scene.cc",
   "ref_len": 495,
   "sanitize_v": 4,
   "size": 3528,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  }
 }
