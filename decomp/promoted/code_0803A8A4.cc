@@ -266,3 +266,22 @@ void func_0803C52C(GenObj *arg0) {
     arg0->unkD = 1;
     arg0->unkF = 1;
 }
+
+// DECOMP-MATCHED func_0803B6FC (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern s32 vtable_unk_080E7748;
+
+typedef struct GenObj {
+    void *unk0;
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+GenObj *func_0803B6FC(GenObj *arg0, s32 *arg1, s32 arg2) {
+    s32 temp_r4;
+
+    arg0->unk0 = &vtable_unk_080E7748;
+    temp_r4 = *arg1;
+    *arg1 = 0;
+    arg0->unk4 = temp_r4;
+    arg0->unk8 = arg2;
+    return arg0;
+}
