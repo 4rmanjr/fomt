@@ -932,13 +932,14 @@
  },
  "func_08009168": {
   "addr": 134254952,
-  "judged_mtime": 1793017156.319085,
+  "judged_mtime": 1793157256.42604,
   "module": "hardware.s",
-  "note": "byte +0xa: 0x60 vs ref 0xa0",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 219,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0800917C": {
