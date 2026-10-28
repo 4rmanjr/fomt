@@ -1049,13 +1049,14 @@
  },
  "func_0803EDCC": {
   "addr": 134475212,
-  "judged_mtime": 1793017382.641262,
+  "judged_mtime": 1793187242.4633694,
   "module": "code_0803A8A4.s",
-  "note": "len 158 vs ref 132",
-  "ref_len": 132,
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
+  "ref_len": 131,
   "sanitize_v": 4,
-  "size": 1171,
-  "status": "failed",
+  "size": 1172,
+  "status": "promoted",
   "thumb": true
  },
  "func_0803EE50": {

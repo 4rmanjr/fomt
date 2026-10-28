@@ -1,46 +1,48 @@
-s32 func_0803D52C(s32 *, s32);                          /* extern */
+s32 func_0803D52C(void *, void *);                       /* extern */
 s32 func_0803D644(u8, u8);                          /* extern */
 
 typedef struct GenObj {
-    u8 _pad0[1];
-    s32 unk1;
-    s32 unk2;
-    s32 unk3;
-    u8 _pad7[1];
+    u8 _pad0[8];
     s32 unk8;
-    u8 _padC[8526];
-    s32 unk215A;
-    u8 _pad215E[68];
-    s32 unk21A2;
+    u8 _padC[0x215A - 0xC];
+    u8 unk215A;
+    u8 _pad215B[0x21A2 - 0x215B];
+    u8 unk21A2;
 } GenObj;
-s32 func_0803EDCC(GenObj *arg0) {
-GenObj sp0;
-    u8 temp_r0;
-    u8 temp_r4;
-    u8 temp_r6;
+typedef struct {
+    u8 pad0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+} Buf4;
 
-    func_0803D52C(&sp0, arg0 + 0x10);
-    temp_r6 = sp0.unk1;
-    temp_r0 = sp0.unk2;
-    temp_r4 = sp0.unk3;
-    if ((func_0803D644(temp_r6, temp_r0) << 0x18) != 0) {
+s32 func_0803EDCC(GenObj *arg0) {
+    Buf4 sp0;
+    u8 v1;
+    u8 v2;
+    u8 v3;
+
+    func_0803D52C(&sp0, (u8 *)arg0 + 0x10);
+    v1 = sp0.unk1;
+    v2 = sp0.unk2;
+    v3 = sp0.unk3;
+    if ((func_0803D644(v1, v2) << 0x18) != 0) {
         return 5;
     }
-    if ((temp_r6 == 2) && (temp_r0 == 0x1E) && (((u32) (arg0->unk21A2 << 0x1A) >> 0x1E) != 2)) {
+    if ((v1 == 2) && (v2 == 0x1E) && ((((u32)(arg0->unk21A2 << 0x1A)) >> 0x1E) != 2)) {
         return 6;
     }
-    if ((s32) (arg0->unk215A << 0x1C) < 0) {
+    if (((s32)(arg0->unk215A << 0x1C)) < 0) {
         return 0;
     }
     if (arg0->unk8 == 0) {
-        switch (temp_r4) {                          /* irregular */
-        case 1:
+        if (v3 == 1) {
             return 1;
-        case 3:
-            return 2;
-        default:
-            return 3;
         }
+        if (v3 == 3) {
+            return 2;
+        }
+        return 3;
     } else {
         return 4;
     }
