@@ -1,22 +1,29 @@
-void func_08077E34(s32 arg1, u16 *arg2) {
-    u16 *var_r2;
-    u16 *var_r3_2;
-    u32 var_r1;
-    u32 var_r3;
+void func_08077E34(s32 arg0, s32 arg1, u16 *arg2) {
+    u16 *src;
+    u16 *dst;
+    u32 base;
+    u32 ofs;
+    u32 x;
+    u32 y;
+    u32 y_next;
 
-    var_r2 = arg2;
-    var_r3 = 0;
+    y = 0;
+    src = arg2;
+    base = arg1 << 11;
     do {
-        var_r1 = 0;
-        var_r3_2 = (arg1 << 0xB) + ((var_r3 << 6) + 0x06000000);
-loop_2:
-        *var_r3_2 = *var_r2;
-        var_r2 += 2;
-        var_r3_2 += 2;
-        var_r1 += 1;
-        if (var_r1 <= 0x1DU) {
-            goto loop_2;
+        x = 0;
+        ofs = y << 6;
+        y_next = y + 1;
+        ofs += 0x06000000;
+        dst = (u16 *)(base + ofs);
+loop:
+        *dst = *src;
+        src += 1;
+        dst += 1;
+        x += 1;
+        if (x <= 0x1DU) {
+            goto loop;
         }
-        var_r3 += 1;
-    } while (var_r3 <= 0xCU);
+        y = y_next;
+    } while (y <= 0xCU);
 }
