@@ -7,10 +7,10 @@ typedef struct GenObj {
     void *unk14;
 } GenObj;
 void *func_0802B908(GenObj *arg0, s32 arg1, s32 arg2) {
-s32 sp4;
+struct { s32 sp4; s32 _b; } fr;
 
-    func_0800E924(&sp4, arg2 + 0x1BD8);
-    __12AActorEntityP10GameObjectRC13ActorLocationUiUi(arg0, arg1, &sp4, 2, 0x192);
+    func_0800E924(&fr.sp4, arg2 + 0x1BD8);
+    __12AActorEntityP10GameObjectRC13ActorLocationUiUi(arg0, arg1, &fr.sp4, 2, 0x192);
     arg0->unk14 = &vtable_unk_080E676C;
     return arg0;
 }

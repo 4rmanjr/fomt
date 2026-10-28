@@ -1313,13 +1313,14 @@
  },
  "func_0802B908": {
   "addr": 134396168,
-  "judged_mtime": 1793017275.352386,
+  "judged_mtime": 1793171968.117041,
   "module": "code_entities.s",
-  "note": "byte +0x2: 0x82 vs ref 0x83",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 661,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0802B944": {
