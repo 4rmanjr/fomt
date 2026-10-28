@@ -1,15 +1,16 @@
 void func_08010024(s32 *arg0) {
-    s32 temp_r5;
-    s32 var_r1;
-    void *temp_r0;
+    register s32 *a asm("r3") = arg0;
+    register u8 *start asm("r5") = (u8 *)a + 4;
+    register u8 *end asm("r0") = (u8 *)a + (*a + 4);
+    register u8 *limit asm("r2") = end;
+    register u8 *p asm("r1") = start;
+    register s32 val asm("r4") = *(volatile s32 *)a;
+    s32 diff;
 
-    temp_r5 = arg0 + 4;
-    temp_r0 = arg0 + (*arg0 + 4);
-    var_r1 = temp_r5;
-    if (var_r1 != temp_r0) {
-        do {
-            var_r1 += 1;
-        } while (var_r1 != temp_r0);
+    while (p != limit) {
+        p += 1;
     }
-    *arg0 -= temp_r0 - temp_r5;
+    diff = end - start;
+    diff = val - diff;
+    *a = diff;
 }

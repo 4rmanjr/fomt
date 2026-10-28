@@ -81,13 +81,14 @@
  },
  "func_08010024": {
   "addr": 134283300,
-  "judged_mtime": 1793017163.6155057,
+  "judged_mtime": 1793179239.470301,
   "module": "more_items.s",
-  "note": "func.c:10: warning: comparison between pointer and integer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08010024/opencode/func.c:13: warning: comparison between pointer and integer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08010024/opencode/func.c:15: invalid operands to binary -\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/more_items.cc",
   "ref_len": 39,
   "sanitize_v": 4,
   "size": 441,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  }
 }
