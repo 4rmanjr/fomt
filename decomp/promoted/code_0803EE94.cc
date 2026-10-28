@@ -2071,3 +2071,25 @@ s32 func_0804F178(GenObj *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: unk4/unk8 u8; sisa adds r1,r0 (copy temp->var dilipat compiler; +0/ifelse/u32temp dicoba, tetap fold). */
+
+// DECOMP-MATCHED func_08050B3C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[476];
+    u8 unk1DC;
+} GenObj;
+void func_08050B3C(GenObj *arg0) {
+    register s32 v asm("r2");
+    v = (u8)arg0->unk1DC;
+    arg0->unk1DC = (u8)(-2 & v);
+}
+
+// DECOMP-MATCHED func_08050C18 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[496];
+    u8 unk1F0;
+} GenObj;
+void func_08050C18(GenObj *arg0) {
+    register s32 v asm("r2");
+    v = (u8)arg0->unk1F0;
+    arg0->unk1F0 = (u8)(-2 & v);
+}

@@ -480,7 +480,7 @@
  },
  "func_0804F160": {
   "addr": 134541664,
-  "judged_mtime": 1793102113.546436,
+  "judged_mtime": 1793149791.9796567,
   "module": "code_0803EE94.s",
   "note": "len 14 vs ref 18 [2missing,1operand,1regalloc @< adds r1, r0, #0 | ]",
   "ref_len": 20,
@@ -558,9 +558,9 @@
  },
  "func_0805039C": {
   "addr": 134546332,
-  "judged_mtime": 1793100780.4538581,
+  "judged_mtime": 1793149791.9807289,
   "module": "code_0803EE94.s",
-  "note": "byte +0x4: 0xa5 vs ref 0xa6 [2missing,2extra,8regalloc @r ldr r6, [r4, #8] | ldr r5, [r4, #8]]",
+  "note": "len 74 vs ref 72 [4missing,5extra,6operand,2different @i bne #0x34 | bne #0x3a]",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 627,
@@ -683,13 +683,14 @@
  },
  "func_08050B3C": {
   "addr": 134548284,
-  "judged_mtime": 1793100780.4539313,
+  "judged_mtime": 1793150114.1480813,
   "module": "code_0803EE94.s",
-  "note": "byte +0x6: 0x1 vs ref 0x2 [3regalloc @r ldrb r2, [r0] | ldrb r1, [r0]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 204,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08050B50": {
@@ -705,13 +706,14 @@
  },
  "func_08050C18": {
   "addr": 134548504,
-  "judged_mtime": 1793100780.4539845,
+  "judged_mtime": 1793150126.8669102,
   "module": "code_0803EE94.s",
-  "note": "byte +0x6: 0x1 vs ref 0x2 [3regalloc @r ldrb r2, [r0] | ldrb r1, [r0]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 204,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08050C2C": {
@@ -2388,9 +2390,9 @@
  },
  "func_0806EA78": {
   "addr": 134670968,
-  "judged_mtime": 1793100780.4539845,
+  "judged_mtime": 1793149791.9817145,
   "module": "code_0803EE94.s",
-  "note": " something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0806EA78/hermes8/func.c:41: invalid operands to binary -\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0806EA78/hermes8/func.c:46: warning: passing arg 1 of `func_080094B8' from incompatible pointer type\n",
+  "note": "ed (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0806EA78/hermes14/func.c:30: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0806EA78/hermes14/func.c:30: request for member `unk8' in something not a structure or union\n",
   "ref_len": 124,
   "sanitize_v": 4,
   "size": 999,
