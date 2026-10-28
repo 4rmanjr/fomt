@@ -607,24 +607,26 @@
  },
  "func_08008B88": {
   "addr": 134253448,
-  "judged_mtime": 1793017153.7155519,
+  "judged_mtime": 1793160853.3919108,
   "module": "hardware.s",
-  "note": "byte +0x2: 0x3 vs ref 0x9",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 454,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008BB0": {
   "addr": 134253488,
-  "judged_mtime": 1793017153.8975656,
+  "judged_mtime": 1793160853.392911,
   "module": "hardware.s",
-  "note": "byte +0x2: 0x3 vs ref 0x9",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 515,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008BE0": {
