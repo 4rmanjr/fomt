@@ -2077,3 +2077,14 @@ s32 func_0809EB70(GenObj *arg0) {
     }
     return var_r2;
 }
+
+// DECOMP-MATCHED func_080B3A10 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern u16 gUnk_081078A0[];
+
+typedef struct GenObj {
+    u8 _pad0[2356];
+    s32 unk934;
+} GenObj;
+u16 func_080B3A10(GenObj *arg0) {
+    return gUnk_081078A0[arg0->unk934];
+}

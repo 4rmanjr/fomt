@@ -2955,13 +2955,14 @@
  },
  "func_080B3A10": {
   "addr": 134953488,
-  "judged_mtime": 1793150387.8589747,
+  "judged_mtime": 1793191451.2711804,
   "module": "code_809E804.s",
-  "note": "byte +0x0: 0x4 vs ref 0x3 [1missing,4extra,1operand,2regalloc,1different @< ldr r1, [pc, #0xc] | ]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 295,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080B3A28": {
