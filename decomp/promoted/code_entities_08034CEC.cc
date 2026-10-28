@@ -1313,3 +1313,49 @@ s32 func_08039A30(s32 arg0) {
     w.a = 0; w.b = 8; w.c = 0; flag = 0;
     return func_080324BC(t, arg0, 2, 0x1b);
 }
+
+// DECOMP-MATCHED func_080378B8 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 SetAnim__12AActorEntityUi(void *, s32);           /* extern */
+s32 SetLocation__12AActorEntityRC13ActorLocation(void *, s32 *); /* extern */
+s32 func_080378EC(void *, s32);                     /* extern */
+s32 func_080A198C(s32 *);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[34];
+    u16 unk22;
+} GenObj;
+void func_080378B8(GenObj *arg0) {
+    s32 sp[2];
+    s32 t;
+
+    func_080A198C(&sp[0]);
+    SetLocation__12AActorEntityRC13ActorLocation(arg0, &sp[0]);
+    t = func_080378EC(arg0, 0);
+    if (arg0->unk22 != t) {
+        SetAnim__12AActorEntityUi(arg0, t);
+    }
+}
+
+// DECOMP-MATCHED func_08037A04 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 SetAnim__12AActorEntityUi(void *, s32);           /* extern */
+s32 SetLocation__12AActorEntityRC13ActorLocation(void *, s32 *); /* extern */
+s32 func_08037A38(void *, s32);                     /* extern */
+s32 func_080A19EC(s32 *);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[34];
+    u16 unk22;
+} GenObj;
+void func_08037A04(GenObj *arg0) {
+    s32 sp[2];
+    s32 t;
+
+    func_080A19EC(&sp[0]);
+    SetLocation__12AActorEntityRC13ActorLocation(arg0, &sp[0]);
+    t = func_08037A38(arg0, 0);
+    if (arg0->unk22 != t) {
+        SetAnim__12AActorEntityUi(arg0, t);
+    }
+}
+
+/* ATTEMPT-NOTE opencode: pola 378B8 (sp-array + t-var); sisa adds-copy. */
