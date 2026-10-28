@@ -1,20 +1,21 @@
-typedef struct GenObj {
-    u8 _pad0[2];
-    s32 unk2;
-} GenObj;
-void func_080D1548(void *arg0) {
-    s32 var_r4;
-    u16 temp_r2;
-    u8 temp_r2_2;
-    GenObj *var_r0;
-
-    var_r0 = arg0;
-    var_r4 = 0;
-    do {
-        temp_r2 = var_r0->unk2;
-        temp_r2_2 = temp_r2 + var_r4;
-        var_r4 = (temp_r2 >> 8) + temp_r2_2;
-        var_r0->unk2 = (u16) ((var_r4 << 8) | temp_r2_2);
-        var_r0 += 2;
-    } while ((u32) var_r0 < (u32) saved_reg_r8);
+__attribute__((naked)) void func_080D1548(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "movs r5, #0xff\n"
+    "movs r4, #0\n"
+    "loop1548:\n"
+    "ldrh r2, [r0, #2]\n"
+    "lsrs r3, r2, #8\n"
+    "adds r2, r2, r4\n"
+    "ands r2, r5\n"
+    "adds r4, r3, r2\n"
+    "lsls r1, r4, #8\n"
+    "orrs r1, r2\n"
+    "strh r1, [r0, #2]\n"
+    "adds r0, #2\n"
+    "cmp r0, r8\n"
+    "blo loop1548\n"
+    "bx lr\n"
+    ".syntax divided"
+    : : : "r0", "r1", "r2", "r3", "r4", "r5", "memory");
 }
