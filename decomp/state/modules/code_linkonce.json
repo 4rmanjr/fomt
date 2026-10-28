@@ -2287,24 +2287,26 @@
  },
  "func_080DCE94": {
   "addr": 135122580,
-  "judged_mtime": 1793018149.0928526,
+  "judged_mtime": 1793150224.1930265,
   "module": "code_linkonce.s",
-  "note": "byte +0x6: 0x40 vs ref 0x8",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 406,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DCEC0": {
   "addr": 135122624,
-  "judged_mtime": 1793018149.3275943,
+  "judged_mtime": 1793150224.2194712,
   "module": "code_linkonce.s",
-  "note": "byte +0x6: 0x40 vs ref 0x8",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 406,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DCEEC": {
@@ -2321,13 +2323,14 @@
  },
  "func_080DCF20": {
   "addr": 135122720,
-  "judged_mtime": 1793018149.8352156,
+  "judged_mtime": 1793150224.2482219,
   "module": "code_linkonce.s",
-  "note": "byte +0x6: 0x40 vs ref 0x8",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 406,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DCF4C": {

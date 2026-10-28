@@ -7,7 +7,7 @@ typedef struct GenObj {
     void *unk4;
 } GenObj;
 void func_080DCEC0(GenObj *arg0, s32 arg1) {
-    func_080A47B4(arg0 + 8, 2);
+    func_080A47B4((GenObj *)((u8 *)arg0 + 8), 2);
     arg0->unk4 = &vtable_unk_080E65E0;
     if (1 & arg1) {
         __builtin_delete(arg0);
