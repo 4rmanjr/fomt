@@ -4739,9 +4739,9 @@
  },
  "func_080E5664": {
   "addr": 135157348,
-  "judged_mtime": 1793100780.4574034,
+  "judged_mtime": 1793150387.8600168,
   "module": "code_linkonce.s",
-  "note": "e pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5664/hermes10/func.c:160: warning: passing arg 4 of `func_080E54F0' from incompatible pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5664/hermes10/func.c:160: too few arguments to function `func_080E54F0'\n",
+  "note": "type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5664/Prodesk_64840/func.c:160: warning: passing arg 4 of `func_080E54F0' from incompatible pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5664/Prodesk_64840/func.c:160: too few arguments to function `func_080E54F0'\n",
   "ref_len": 440,
   "sanitize_v": 4,
   "size": 3572,
@@ -4750,13 +4750,14 @@
  },
  "func_080E581C": {
   "addr": 135157788,
-  "judged_mtime": 1793100780.4574957,
+  "judged_mtime": 1793150387.860087,
   "module": "code_linkonce.s",
-  "note": "reloc [(24, 10, '__builtin_delete'), (32, 2, 'vtable_unk_080E8594'), (36, 2, 'gUnk_03000414')] vs ref [(24, 10, '__builtin_delete'), (32, 2, 'vtable_unk_080E8594')] [4extra @>  | movs r0, r0 <vtable_unk_080E8594>]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 421,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E5844": {
@@ -4785,9 +4786,9 @@
  },
  "func_080E5898": {
   "addr": 135157912,
-  "judged_mtime": 1793100780.45756,
+  "judged_mtime": 1793150387.860151,
   "module": "code_linkonce.s",
-  "note": "cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5898/hermes11/func.c:53: warning: passing arg 2 of `func_08007C28' makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5898/hermes11/func.c:62: `arg1' undeclared (first use in this function)\n",
+  "note": "/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5898/Prodesk_64840/func.c:53: warning: passing arg 2 of `func_08007C28' makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5898/Prodesk_64840/func.c:62: `arg1' undeclared (first use in this function)\n",
   "ref_len": 212,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -4832,9 +4833,9 @@
  },
  "sub_080DA76C": {
   "addr": 135112556,
-  "judged_mtime": 1793100780.459567,
+  "judged_mtime": 1793150387.8629239,
   "module": "code_linkonce.s",
-  "note": "k4' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080DA76C/hermes11/func.c:408: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080DA76C/hermes11/func.c:423: called object is not a function\n",
+  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080DA76C/Prodesk_64840/func.c:408: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080DA76C/Prodesk_64840/func.c:423: called object is not a function\n",
   "ref_len": 2399,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,

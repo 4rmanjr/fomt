@@ -3414,13 +3414,14 @@
  },
  "func_080B9F38": {
   "addr": 134979384,
-  "judged_mtime": 1793018014.8528295,
+  "judged_mtime": 1793195504.6567252,
   "module": "code_809E804.s",
-  "note": "byte +0x0: 0x10 vs ref 0x30",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 393,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080B9F64": {
@@ -5886,9 +5887,9 @@
   "judged_mtime": 1793018096.8062775,
   "module": "code_809E804.s",
   "note": "ved_reg_r8' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D1564/opencode/func.c:16: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D1564/opencode/func.c:16: for each function it appears in.)\n",
-  "ref_len": 16,
+  "ref_len": 15,
   "sanitize_v": 4,
-  "size": 189,
+  "size": 190,
   "status": "failed",
   "thumb": true
  },

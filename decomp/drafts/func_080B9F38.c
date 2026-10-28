@@ -1,9 +1,17 @@
 s32 rand();                                         /* extern */
 
 void func_080B9F38(s32 arg0, s32 arg1) {
-    u32 temp_r5;
+    register u32 t asm("r5");
+    s32 p;
+    s32 r;
+    u32 v;
 
-    temp_r5 = (u32) (arg1 << 0x18) >> 0x12;
-    *((u8 *)arg0 + 0x6C + temp_r5) = 4;
-    *((u8 *)arg0 + 0x74 + temp_r5) = (u32) (0xFFFF & rand()) >> 0xE;
+    t = (u32) (arg1 << 0x18);
+    t >>= 0x12;
+    p = arg0 + 0x6C;
+    *(u32 *)(p + t) = 4;
+    r = rand();
+    v = (u32) (r & 0xFFFF) >> 0xE;
+    arg0 += 0x74;
+    *(u32 *)(arg0 + t) = v;
 }
