@@ -1827,3 +1827,12 @@ s32 func_08038820(s32, s32);                          /* extern */
 s32 func_080387A0(s32 arg0) {
     return func_08038820(__builtin_new(0x18), arg0);
 }
+
+// DECOMP-MATCHED func_0803836C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[30];
+    s16 unk1E;
+} GenObj;
+s16 func_0803836C(GenObj *arg0) {
+    return arg0->unk1E;
+}
