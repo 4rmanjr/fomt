@@ -2133,13 +2133,14 @@
  },
  "func_08069E14": {
   "addr": 134651412,
-  "judged_mtime": 1793017536.1755342,
+  "judged_mtime": 1793198660.4910297,
   "module": "code_0803EE94.s",
-  "note": "byte +0x10: 0xa vs ref 0xb",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 580,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08069E58": {
@@ -6615,9 +6616,9 @@
   "module": "code_0803EE94.s",
   "note": "",
   "promoted_to": "decomp/promoted/code_0803EE94.cc",
-  "ref_len": 36,
+  "ref_len": 35,
   "sanitize_v": 4,
-  "size": 346,
+  "size": 347,
   "status": "promoted",
   "thumb": true
  },
