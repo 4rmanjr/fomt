@@ -574,13 +574,14 @@
  },
  "func_08008B24": {
   "addr": 134253348,
-  "judged_mtime": 1793017153.3542204,
+  "judged_mtime": 1793198202.9145033,
   "module": "hardware.s",
-  "note": "byte +0x2: 0x1 vs ref 0x2",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 531,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008B54": {
