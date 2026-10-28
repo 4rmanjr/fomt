@@ -1,9 +1,12 @@
 # Decompile fomt: satu perintah
 
 ```bash
-python3 decomp/run.py [N] [modul ...]
-python3 decomp/run.py [N] [modul ...] --agent <nama>
-fomt verify [--agent <nama>]
+fomt                    # 20 fungsi berikutnya
+fomt decomp [N]         # sama (N default 20)
+fomt status             # progres saja
+fomt verify             # audit ulang semua promoted
+fomt migrate            # pindah 1 MATCH ke src/ (aman, per compare)
+fomt migrate all        # semua kandidat pilot
 ```
 
 - `N` = jumlah fungsi per jalan (default 20).
