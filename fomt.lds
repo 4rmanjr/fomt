@@ -70,6 +70,7 @@ SECTIONS
         src/scene.o(.text);
         asm/scene.o(.text);
         asm/intro_scene.o(.text);
+        src/intro_scene.o(.text);
         asm/new_game.o(.text);
         src/new_game.o(.text);
         src/hardware.o(.text);
@@ -94,6 +95,7 @@ SECTIONS
         asm/more_items.o(.text);
         src/more_items.o(.text);
         asm/game_scene.o(.text);
+        src/game_scene.o(.text);
         asm/game_state.o(.text);
         src/game_state.o(.text);
         src/entity.o(.text);
@@ -105,8 +107,10 @@ SECTIONS
         asm/code_entities_08034CEC.o(.text);
 
         asm/code_0803A8A4.o(.text);
+        src/code_0803A8A4.o(.text);
         src/script_engine.o(.text);
         asm/code_0803EE94.o(.text);
+        src/code_0803EE94.o(.text);
 
         src/actor.o(.text);
         src/animal.o(.text);

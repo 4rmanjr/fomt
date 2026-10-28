@@ -24,7 +24,7 @@ Obj **func_0800374C(Obj **arg0, GenObj *arg1) {
     register Obj **sp4r __asm__("r1");
     Obj *c;
 
-    func_08000D64(&fr.sp0, arg1->unk4);
+    func_08000D64((void *)&fr.sp0, arg1->unk4);
     tmp = fr.sp0;
     q = (Obj **)&fr.sp0;
     fr.sp4 = q;

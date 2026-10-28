@@ -336,15 +336,21 @@ def migrate_one(module, func, dry_run=False):
         body, new_structs = take_structs(body)
         src_text, old_structs = take_structs(src_text)
         merged, seen_names = [], {}
+        struct_conflict = None
         for blk in old_structs + new_structs:
             nm = struct_name(blk)
             if blk in merged:
                 continue
             if nm in seen_names and seen_names[nm] != blk:
-                body = blk + "\n" + body  # nama sama isi beda: biar error
-                continue
+                struct_conflict = nm  # nama sama isi beda: butuh manusia
+                break
             seen_names[nm] = blk
             merged.append(blk)
+        if struct_conflict:
+            return {"func": func, "module": module, "ok": False,
+                    "skipped": True,
+                    "detail": f"struct {struct_conflict} beda isi antar blok "
+                    "(butuh penyatuan manual), dilewati"}
         if merged:
             top = "\n".join(merged) + "\n\n"
             anchor = src_text.find("// DECOMP-MATCHED")
