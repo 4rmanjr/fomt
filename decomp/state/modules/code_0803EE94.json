@@ -6853,13 +6853,14 @@
  },
  "sub_080868BC": {
   "addr": 134768828,
-  "judged_mtime": 1793015441.9756048,
+  "judged_mtime": 1793192879.1938643,
   "module": "code_0803EE94.s",
-  "note": "byte +0x0: 0x70 vs ref 0x12",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 372,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "sub_08086DFA": {
