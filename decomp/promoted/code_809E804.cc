@@ -2265,3 +2265,23 @@ s32 func_080BC254(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 end:
     return arg0 + 0xB35;
 }
+
+// DECOMP-MATCHED func_080B3BA8 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_08008B6C(s32, s32);                          /* extern */
+s32 func_080B0934(void *);                            /* extern */
+s32 func_080B0970(void *);                            /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[2108];
+    s32 unk83C;
+} GenObj;
+void func_080B3BA8(GenObj *arg0) {
+    func_08008B6C((u8 *)arg0 + 0x818, 0xB8);
+    if (arg0->unk83C == 0) {
+        arg0->unk83C = 1;
+        func_080B0934(arg0);
+        return;
+    }
+    arg0->unk83C = 0;
+    func_080B0970(arg0);
+}
