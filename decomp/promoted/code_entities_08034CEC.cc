@@ -1836,3 +1836,39 @@ typedef struct GenObj {
 s16 func_0803836C(GenObj *arg0) {
     return arg0->unk1E;
 }
+
+// DECOMP-MATCHED func_08036AB4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 func_08035908(void *, s32);                       /* extern */
+s32 func_08035940(void *, s32);                       /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    u16 unk4;
+} GenObj;
+void func_08036AB4(GenObj *arg0) {
+    s32 var_r1;
+    s32 var_r5;
+    u16 t;
+    s32 s;
+    var_r1 = 0x9D3;
+    var_r5 = 0x9D7;
+    t = arg0->unk4;
+    s = t;
+    if (s != 0x11) {
+        if (s <= 0x11) {
+            if (s != 7) {
+
+            } else {
+                goto block_6;
+            }
+        } else if ((t == 0x1D) || (t == 0x25)) {
+            goto block_6;
+        }
+    } else {
+block_6:
+        var_r1 = 0x9DF;
+        var_r5 = 0x9E3;
+    }
+    func_08035908(arg0, var_r1);
+    func_08035940(arg0, var_r5);
+}

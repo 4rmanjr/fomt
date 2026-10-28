@@ -861,13 +861,14 @@
  },
  "func_08036AB4": {
   "addr": 134441652,
-  "judged_mtime": 1793166788.4968145,
+  "judged_mtime": 1793167070.3470883,
   "module": "code_entities_08034CEC.s",
-  "note": "len 70 vs ref 74 [2missing,1extra,7operand,2regalloc,1stack @s ldr r1, [pc, #0x14] | ldr r1, [pc, #0x10]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 825,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036B00": {

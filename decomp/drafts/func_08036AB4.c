@@ -3,24 +3,25 @@ s32 func_08035940(void *, s32);                       /* extern */
 
 typedef struct GenObj {
     u8 _pad0[4];
-    s32 unk4;
+    u16 unk4;
 } GenObj;
 void func_08036AB4(GenObj *arg0) {
     s32 var_r1;
     s32 var_r5;
-    u16 temp_r0;
-
+    u16 t;
+    s32 s;
     var_r1 = 0x9D3;
     var_r5 = 0x9D7;
-    temp_r0 = arg0->unk4;
-    if (temp_r0 != 0x11) {
-        if ((s32) temp_r0 <= 0x11) {
-            if (temp_r0 != 7) {
+    t = arg0->unk4;
+    s = t;
+    if (s != 0x11) {
+        if (s <= 0x11) {
+            if (s != 7) {
 
             } else {
                 goto block_6;
             }
-        } else if ((temp_r0 == 0x1D) || (temp_r0 == 0x25)) {
+        } else if ((t == 0x1D) || (t == 0x25)) {
             goto block_6;
         }
     } else {
