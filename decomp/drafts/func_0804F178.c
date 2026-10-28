@@ -1,12 +1,13 @@
 typedef struct GenObj {
     u8 _pad0[4];
-    s32 unk4;
-    s32 unk8;
+    u8 unk4;
+    u8 _pad5[3];
+    u8 unk8;
 } GenObj;
 s32 func_0804F178(GenObj *arg0) {
     s32 var_r2;
-    u8 temp_r0;
-    u8 var_r1;
+    s32 temp_r0;
+    register s32 var_r1 asm("r1");
 
     var_r2 = 0;
     if (arg0->unk8 != 0) {
@@ -21,3 +22,5 @@ s32 func_0804F178(GenObj *arg0) {
     }
     return var_r2;
 }
+
+/* ATTEMPT-NOTE opencode: unk4/unk8 u8; sisa adds r1,r0 (copy temp->var dilipat compiler; +0/ifelse/u32temp dicoba, tetap fold). */

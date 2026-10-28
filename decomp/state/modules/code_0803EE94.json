@@ -502,13 +502,14 @@
  },
  "func_0804F178": {
   "addr": 134541688,
-  "judged_mtime": 1793100780.4537642,
+  "judged_mtime": 1793148693.6991599,
   "module": "code_0803EE94.s",
-  "note": "len 32 vs ref 34 [1missing,3operand,2regalloc @i beq #0x1c | beq #0x1a]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 338,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0804F19C": {
