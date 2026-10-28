@@ -6621,13 +6621,14 @@
  },
  "func_0809B05C": {
   "addr": 134852700,
-  "judged_mtime": 1793017750.5869849,
+  "judged_mtime": 1793191802.1574628,
   "module": "code_0803EE94.s",
-  "note": "len 56 vs ref 40",
-  "ref_len": 40,
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
+  "ref_len": 39,
   "sanitize_v": 4,
-  "size": 363,
-  "status": "failed",
+  "size": 364,
+  "status": "promoted",
   "thumb": true
  },
  "func_0809B084": {
