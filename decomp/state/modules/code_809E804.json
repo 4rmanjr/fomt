@@ -6025,13 +6025,14 @@
  },
  "sub_080D1204": {
   "addr": 135074308,
-  "judged_mtime": 1793015455.764751,
+  "judged_mtime": 1793191587.2432365,
   "module": "code_809E804.s",
-  "note": "byte +0x2: 0x0 vs ref 0x46",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 280,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "sub_080D1224": {
