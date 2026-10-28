@@ -14,7 +14,7 @@ typedef struct GenObj {
     s32 unk18;
 } GenObj;
 void func_08038098(GenObj *arg0, s32 arg1) {
-s32 sp0;
+u8 sp0[8];
     s32 temp_r4;
     GenObj *temp_r1;
 

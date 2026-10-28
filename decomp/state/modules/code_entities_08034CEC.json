@@ -1521,13 +1521,14 @@
  },
  "func_08037E48": {
   "addr": 134446664,
-  "judged_mtime": 1793017314.4443836,
+  "judged_mtime": 1793161784.3052907,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x2: 0x81 vs ref 0x82",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 84,
   "sanitize_v": 4,
   "size": 861,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08037E9C": {
@@ -1622,13 +1623,14 @@
  },
  "func_08038098": {
   "addr": 134447256,
-  "judged_mtime": 1793017316.1749682,
+  "judged_mtime": 1793161784.3046741,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x2: 0x81 vs ref 0x82",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 84,
   "sanitize_v": 4,
   "size": 870,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080380EC": {
