@@ -301,3 +301,23 @@ s32 func_0803BAAC(s32);
 s32 func_0803BEB0(s32 *arg0) {
     return func_0803BAAC(*arg0);
 }
+
+// DECOMP-MATCHED func_0803BDE4 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u16 unk0;
+    u16 unk2;
+} GenObj;
+void func_0803BDE4(GenObj *arg0, s16 arg1, s16 arg2) {
+    arg0->unk0 = arg1;
+    arg0->unk2 = arg2;
+}
+
+// DECOMP-MATCHED func_0803BDEC (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u16 unk0;
+    u16 unk2;
+} GenObj;
+void func_0803BDEC(GenObj *arg0, s32 arg1, s32 arg2) {
+    arg0->unk0 = (u16) (arg0->unk0 + arg1);
+    arg0->unk2 = (u16) (arg0->unk2 + arg2);
+}

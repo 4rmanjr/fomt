@@ -255,24 +255,26 @@
  },
  "func_0803BDE4": {
   "addr": 134462948,
-  "judged_mtime": 1793017334.1487043,
+  "judged_mtime": 1793167482.8719065,
   "module": "code_0803A8A4.s",
-  "note": "len 14 vs ref 6",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 8,
   "sanitize_v": 4,
   "size": 115,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803BDEC": {
   "addr": 134462956,
-  "judged_mtime": 1793017334.3218453,
+  "judged_mtime": 1793167482.8720348,
   "module": "code_0803A8A4.s",
-  "note": "len 22 vs ref 14",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 183,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803BDFC": {
