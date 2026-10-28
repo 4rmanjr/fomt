@@ -1795,3 +1795,35 @@ u8 sp0[8];
         __builtin_delete(arg0);
     }
 }
+
+// DECOMP-MATCHED func_08037CF0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+s32 func_08037D08(s32, s32);                          /* extern */
+
+s32 func_08037CF0(s32 arg0) {
+    return func_08037D08(__builtin_new(0x54), arg0);
+}
+
+// DECOMP-MATCHED func_08037E9C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+s32 func_08037EF0(s32, s32);                          /* extern */
+
+s32 func_08037E9C(s32 arg0) {
+    return func_08037EF0(__builtin_new(0x58), arg0);
+}
+
+// DECOMP-MATCHED func_08038334 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+s32 func_0803853C(s32, s32);                          /* extern */
+
+s32 func_08038334(s32 arg0) {
+    return func_0803853C(__builtin_new(0x48), arg0);
+}
+
+// DECOMP-MATCHED func_080387A0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+s32 func_08038820(s32, s32);                          /* extern */
+
+s32 func_080387A0(s32 arg0) {
+    return func_08038820(__builtin_new(0x18), arg0);
+}
