@@ -505,3 +505,61 @@ s32 func_0801A8C0(s32 arg0, u32 arg1) {
     }
     return 1;
 }
+
+// DECOMP-MATCHED func_08010F1C (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[3];
+    u8 unk3;
+} GenObj;
+u32 func_08010F1C(GenObj *arg0) {
+    return (u32) (arg0->unk3 << 0x19) >> 0x1A;
+}
+
+// DECOMP-MATCHED func_08011544 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    u8 unk8;
+} GenObj;
+void func_08011544(GenObj *arg0) {
+    arg0->unk4 = (s32) arg0->unk0;
+    arg0->unk8 = 2;
+}
+
+// DECOMP-MATCHED func_08012AA4 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_0803B6B8(s32, s32, s32 *);                     /* extern */
+s32 func_0804EC84(s32, s32 *, s32);                     /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+    u8 _pad8[168];
+    struct GenObj *unkB0;
+} GenObj;
+void func_08012AA4(GenObj *arg0, s32 arg1, s32 arg2) {
+u8 sp0[0x34];
+    GenObj *temp_r4;
+
+    temp_r4 = arg0->unk4;
+    func_0804EC84(arg2, &sp0, 0);
+    func_0803B6B8(temp_r4->unkB0, arg1, &sp0);
+}
+
+// DECOMP-MATCHED func_08012ADC (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_0803B6B8(s32, s32, s32 *);                     /* extern */
+s32 func_0804EC84(s32, s32 *, s32);                     /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+    u8 _pad8[168];
+    struct GenObj *unkB0;
+} GenObj;
+void func_08012ADC(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
+u8 sp0[0x34];
+    GenObj *temp_r4;
+
+    temp_r4 = arg0->unk4;
+    func_0804EC84(arg2, &sp0, arg3);
+    func_0803B6B8(temp_r4->unkB0, arg1, &sp0);
+}

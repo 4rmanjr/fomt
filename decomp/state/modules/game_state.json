@@ -103,13 +103,14 @@
  },
  "func_08010F1C": {
   "addr": 134287132,
-  "judged_mtime": 1793017165.9218361,
+  "judged_mtime": 1793161385.0415256,
   "module": "game_state.s",
-  "note": "byte +0x0: 0x40 vs ref 0xc0",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 8,
   "sanitize_v": 4,
   "size": 142,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08010F24": {
@@ -294,13 +295,14 @@
  },
  "func_08011544": {
   "addr": 134288708,
-  "judged_mtime": 1793017167.7715898,
+  "judged_mtime": 1793161385.0415256,
   "module": "game_state.s",
-  "note": "byte +0x6: 0x81 vs ref 0x1",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 166,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08011550": {
@@ -850,13 +852,14 @@
  },
  "func_08012AA4": {
   "addr": 134294180,
-  "judged_mtime": 1793017177.2327635,
+  "judged_mtime": 1793161394.6549494,
   "module": "game_state.s",
-  "note": "byte +0x2: 0x81 vs ref 0x8d",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 383,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08012ACC": {
@@ -872,13 +875,14 @@
  },
  "func_08012ADC": {
   "addr": 134294236,
-  "judged_mtime": 1793017177.5994537,
+  "judged_mtime": 1793161394.6575568,
   "module": "game_state.s",
-  "note": "byte +0x2: 0x81 vs ref 0x8d",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 387,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08012B04": {
@@ -2835,7 +2839,7 @@
  },
  "func_0801F5F0": {
   "addr": 134346224,
-  "judged_mtime": 1793153653.8232007,
+  "judged_mtime": 1793160903.246442,
   "module": "game_state.s",
   "note": "byte +0x5: 0x49 vs ref 0x4a [1extra,5regalloc @r ldr r2, [pc, #0x18] | ldr r1, [pc, #0x18]]",
   "ref_len": 36,
