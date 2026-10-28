@@ -225,10 +225,24 @@ def migrate_one(module, func, dry_run=False):
     body, need_string_h = adapt_memcpy(body)
 
     asm_text = asm_path.read_text()
+    # Hanya fungsi TERAKHIR di asm yang boleh pindah: mencabut fungsi yang
+    # masih punya penerus menggeser semua penerusnya -> compare pasti MERAH
+    # (bukan salah codegen). Cek terhadap isi asm SAAT INI karena tiap
+    # migrasi sukses mengubah urutan sisa.
+    remaining = [m.group(3) for ln in asm_text.splitlines()
+                 for m in [ASM_START_RE.match(ln)] if m]
+    if func in remaining and remaining.index(func) != len(remaining) - 1:
+        return {"func": func, "module": module, "ok": False,
+                "skipped": True,
+                "detail": f"bukan fungsi terakhir di {module} "
+                f"({len(remaining) - remaining.index(func) - 1} penerus "
+                "belum pindah, dilewati)"}
     new_asm = remove_asm_func(asm_text, func)
     if new_asm is None:
         return {"func": func, "module": module, "ok": False,
-                "detail": f"{func} tidak ditemukan di {asm_path}"}
+                "skipped": True,
+                "detail": f"{func} tidak ditemukan di {asm_path} "
+                "(mungkin sudah pindah sebelumnya, dilewati)"}
 
     lds_text = lds_path.read_text()
     try:

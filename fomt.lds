@@ -91,6 +91,7 @@ SECTIONS
         src/held_item.o(.text);
         src/rucksack.o(.text);
         asm/more_items.o(.text);
+        src/more_items.o(.text);
         asm/game_scene.o(.text);
         asm/game_state.o(.text);
         src/entity.o(.text);
