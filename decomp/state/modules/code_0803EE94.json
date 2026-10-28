@@ -2393,9 +2393,9 @@
  },
  "func_0806EA78": {
   "addr": 134670968,
-  "judged_mtime": 1793149791.9817145,
+  "judged_mtime": 1793150387.854221,
   "module": "code_0803EE94.s",
-  "note": "ed (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0806EA78/hermes14/func.c:30: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0806EA78/hermes14/func.c:30: request for member `unk8' in something not a structure or union\n",
+  "note": "omething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0806EA78/hermes19/func.c:41: invalid operands to binary -\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0806EA78/hermes19/func.c:46: warning: passing arg 1 of `func_080094B8' from incompatible pointer type\n",
   "ref_len": 124,
   "sanitize_v": 4,
   "size": 999,
@@ -3087,7 +3087,7 @@
  },
  "func_08077E64": {
   "addr": 134708836,
-  "judged_mtime": 1793100780.4540749,
+  "judged_mtime": 1793150387.8543117,
   "module": "code_0803EE94.s",
   "note": "byte +0xa: 0x17 vs ref 0x16 [3missing,3extra,3operand,8regalloc @r adds r6, r2, #0 | adds r7, r2, #0]",
   "ref_len": 92,
@@ -3209,9 +3209,9 @@
  },
  "func_08079DC0": {
   "addr": 134716864,
-  "judged_mtime": 1793100780.4541256,
+  "judged_mtime": 1793150387.8544614,
   "module": "code_0803EE94.s",
-  "note": "hout a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08079DC0/hermes8/func.c:147: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08079DC0/hermes8/func.c:148: warning: assignment makes pointer from integer without a cast\n",
+  "note": "ut a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08079DC0/hermes19/func.c:147: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08079DC0/hermes19/func.c:148: warning: assignment makes pointer from integer without a cast\n",
   "ref_len": 460,
   "sanitize_v": 4,
   "size": 3946,
@@ -3454,9 +3454,9 @@
  },
  "func_0807DD68": {
   "addr": 134733160,
-  "judged_mtime": 1793100780.4541996,
+  "judged_mtime": 1793150387.8544614,
   "module": "code_0803EE94.s",
-  "note": "nt from incompatible pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807DD68/hermes8/func.c:17: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807DD68/hermes8/func.c:17: request for member `unk8' in something not a structure or union\n",
+  "note": " from incompatible pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807DD68/hermes19/func.c:17: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0807DD68/hermes19/func.c:17: request for member `unk8' in something not a structure or union\n",
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
@@ -4177,9 +4177,9 @@
  },
  "func_08083BD4": {
   "addr": 134757332,
-  "judged_mtime": 1793017602.9226887,
+  "judged_mtime": 1793153488.0889187,
   "module": "code_0803EE94.s",
-  "note": "byte +0x13: 0x60 vs ref 0x70",
+  "note": "byte +0x70: 0xc0 vs ref 0x70 [1extra,1operand,1different @| str r0, [r6, #0x14] | ldr r6, [pc, #0x300]]",
   "ref_len": 124,
   "sanitize_v": 4,
   "size": 1107,
@@ -4347,9 +4347,9 @@
  },
  "func_08085F08": {
   "addr": 134766344,
-  "judged_mtime": 1793100780.4541996,
+  "judged_mtime": 1793150387.8546724,
   "module": "code_0803EE94.s",
-  "note": "incompatible type for argument 1 of `func_0804EC84'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08085F08/hermes8/func.c:650: warning: assignment from incompatible pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08085F08/hermes8/func.c:678: incompatible types in assignment\n",
+  "note": "compatible type for argument 1 of `func_0804EC84'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08085F08/hermes19/func.c:650: warning: assignment from incompatible pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08085F08/hermes19/func.c:678: incompatible types in assignment\n",
   "ref_len": 2464,
   "sanitize_v": 4,
   "size": 19643,
@@ -4358,7 +4358,7 @@
  },
  "func_080868E4": {
   "addr": 134768868,
-  "judged_mtime": 1793100780.4543328,
+  "judged_mtime": 1793150387.8546724,
   "module": "code_0803EE94.s",
   "note": "byte +0x2: 0x8 vs ref 0x9 [14missing,15extra,8operand,4different @i ldr r4, [pc, #0x24] | ldr r4, [pc, #0x20]]",
   "ref_len": 188,
@@ -4369,7 +4369,7 @@
  },
  "func_080869A0": {
   "addr": 134769056,
-  "judged_mtime": 1793100780.4543328,
+  "judged_mtime": 1793150387.8549085,
   "module": "code_0803EE94.s",
   "note": "len 98 vs ref 102 [5missing,3extra,4operand,20regalloc,3different @r adds r4, r0, #0 | adds r5, r0, #0]",
   "ref_len": 104,
@@ -4380,7 +4380,7 @@
  },
  "func_08086A08": {
   "addr": 134769160,
-  "judged_mtime": 1793100780.4544387,
+  "judged_mtime": 1793150387.855082,
   "module": "code_0803EE94.s",
   "note": "len 1122 vs ref 1010 [104missing,159extra,91operand,139regalloc,1stack,38different @| sub sp, #0xb4 | ldr r4, [pc, #0x290]]",
   "ref_len": 1010,
@@ -4415,7 +4415,7 @@
  },
  "func_080881EC": {
   "addr": 134775276,
-  "judged_mtime": 1793100780.4544857,
+  "judged_mtime": 1793150387.855082,
   "module": "code_0803EE94.s",
   "note": "len 162 vs ref 192 [20missing,5extra,11operand,29regalloc,3different @r mov r7, sl | mov r7, sb]",
   "ref_len": 192,
@@ -4426,7 +4426,7 @@
  },
  "func_080882AC": {
   "addr": 134775468,
-  "judged_mtime": 1793100780.4545445,
+  "judged_mtime": 1793150387.8551905,
   "module": "code_0803EE94.s",
   "note": "byte +0x0: 0x30 vs ref 0x70 [2missing,3extra,3operand,15regalloc,1stack,1different @i push {r4, r5, r6, lr} | push {r4, r5, lr}]",
   "ref_len": 88,
@@ -4449,7 +4449,7 @@
  },
  "func_08088318": {
   "addr": 134775576,
-  "judged_mtime": 1793100780.4545445,
+  "judged_mtime": 1793150387.8552258,
   "module": "code_0803EE94.s",
   "note": "byte +0x2: 0x82 vs ref 0x84 [36missing,38extra,37operand,4regalloc,3stack,12different @s sub sp, #0x10 | sub sp, #8]",
   "ref_len": 476,
@@ -4496,7 +4496,7 @@
  },
  "func_080885AC": {
   "addr": 134776236,
-  "judged_mtime": 1793100780.454633,
+  "judged_mtime": 1793150387.855283,
   "module": "code_0803EE94.s",
   "note": "byte +0x2: 0x81 vs ref 0x82 [2missing,4extra,8operand,2stack,1different @s sub sp, #8 | sub sp, #4]",
   "ref_len": 220,
@@ -4507,7 +4507,7 @@
  },
  "func_08088688": {
   "addr": 134776456,
-  "judged_mtime": 1793100780.4547,
+  "judged_mtime": 1793150387.855436,
   "module": "code_0803EE94.s",
   "note": "len 1298 vs ref 1304 [298missing,295extra,70operand,44regalloc,15stack,17different @s sub sp, #0x34 | sub sp, #0x138]",
   "ref_len": 1304,
@@ -4529,7 +4529,7 @@
  },
  "func_08089AD8": {
   "addr": 134781656,
-  "judged_mtime": 1793100780.4547,
+  "judged_mtime": 1793150387.8555136,
   "module": "code_0803EE94.s",
   "note": "byte +0xa: 0xd0 vs ref 0x8e [584missing,583extra,66operand,28regalloc,25stack,13different @s sub sp, #0x38 | sub sp, #0x140]",
   "ref_len": 2076,
@@ -4540,7 +4540,7 @@
  },
  "func_0808A2F4": {
   "addr": 134783732,
-  "judged_mtime": 1793100780.4548185,
+  "judged_mtime": 1793150387.8556569,
   "module": "code_0803EE94.s",
   "note": "byte +0x2: 0x47 vs ref 0x85 [46missing,49extra,25operand,25regalloc,3stack,7different @>  | push {r4, r5, r6, r7, lr}]",
   "ref_len": 460,
@@ -4551,7 +4551,7 @@
  },
  "func_0808A4C0": {
   "addr": 134784192,
-  "judged_mtime": 1793100780.4548724,
+  "judged_mtime": 1793150387.8557122,
   "module": "code_0803EE94.s",
   "note": "len 156 vs ref 154 [3missing,4extra,3operand @i b #0x92 | b #0x94]",
   "ref_len": 156,
@@ -4562,7 +4562,7 @@
  },
  "func_0808A55C": {
   "addr": 134784348,
-  "judged_mtime": 1793100780.4549177,
+  "judged_mtime": 1793150387.8558333,
   "module": "code_0803EE94.s",
   "note": "len 1446 vs ref 1500 [92missing,65extra,79operand,130regalloc,4stack,23different @s sub sp, #0x1c | sub sp, #8]",
   "ref_len": 1500,
@@ -4608,13 +4608,14 @@
  },
  "func_0808ABC4": {
   "addr": 134785988,
-  "judged_mtime": 1793017616.1481202,
+  "judged_mtime": 1793154030.6519997,
   "module": "code_0803EE94.s",
-  "note": "byte +0x13: 0x60 vs ref 0x70",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 737,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0808AC14": {
@@ -4935,9 +4936,9 @@
  },
  "func_0808ED64": {
   "addr": 134802788,
-  "judged_mtime": 1793017700.1484675,
+  "judged_mtime": 1793153488.0866785,
   "module": "code_0803EE94.s",
-  "note": "byte +0x13: 0x60 vs ref 0x70",
+  "note": "byte +0x14: 0xa1 vs ref 0x22 [1missing,2extra @>  | ldr r1, [r4, #8]]",
   "ref_len": 84,
   "sanitize_v": 4,
   "size": 755,
@@ -5037,7 +5038,7 @@
  },
  "func_080908CC": {
   "addr": 134809804,
-  "judged_mtime": 1793100780.4549866,
+  "judged_mtime": 1793150387.8558333,
   "module": "code_0803EE94.s",
   "note": "len 144 vs ref 142 [3extra,3operand,3regalloc,1stack @>  | adds r1, r0, #0]",
   "ref_len": 148,
@@ -5048,7 +5049,7 @@
  },
  "func_08090960": {
   "addr": 134809952,
-  "judged_mtime": 1793100780.4550538,
+  "judged_mtime": 1793150387.8561268,
   "module": "code_0803EE94.s",
   "note": "len 1178 vs ref 1268 [96missing,56extra,68operand,108regalloc,4stack,25different @s sub sp, #0x14 | sub sp, #8]",
   "ref_len": 1268,
@@ -5071,7 +5072,7 @@
  },
  "func_08090E84": {
   "addr": 134811268,
-  "judged_mtime": 1793100780.4551015,
+  "judged_mtime": 1793150387.8561924,
   "module": "code_0803EE94.s",
   "note": "byte +0x1c: 0x60 vs ref 0x61 [2extra,1operand,3regalloc,1different @r ldr r1, [r4, #4] | ldr r0, [r4, #4]]",
   "ref_len": 64,
@@ -5094,7 +5095,7 @@
  },
  "func_08090EE0": {
   "addr": 134811360,
-  "judged_mtime": 1793100780.4551616,
+  "judged_mtime": 1793150387.8562562,
   "module": "code_0803EE94.s",
   "note": "byte +0x1c: 0xb1 vs ref 0x32 [3missing,4extra,2regalloc @>  | ldr r1, [r6, #8]]",
   "ref_len": 120,
@@ -5105,7 +5106,7 @@
  },
  "func_08090F58": {
   "addr": 134811480,
-  "judged_mtime": 1793100780.4552064,
+  "judged_mtime": 1793150387.8562562,
   "module": "code_0803EE94.s",
   "note": "len 120 vs ref 108 [7extra,4operand,1different @i ldr r0, [pc, #0x64] | ldr r0, [pc, #0x68]]",
   "ref_len": 116,
@@ -5116,7 +5117,7 @@
  },
  "func_08090FCC": {
   "addr": 134811596,
-  "judged_mtime": 1793100780.4552064,
+  "judged_mtime": 1793150387.856452,
   "module": "code_0803EE94.s",
   "note": "len 190 vs ref 194 [11missing,12extra,13operand,11regalloc,3stack,7different @>  | push {r4, r5, r6, r7, lr}]",
   "ref_len": 200,
@@ -5127,7 +5128,7 @@
  },
  "func_08091094": {
   "addr": 134811796,
-  "judged_mtime": 1793100780.4553015,
+  "judged_mtime": 1793150387.856452,
   "module": "code_0803EE94.s",
   "note": "byte +0x2: 0x47 vs ref 0x84 [30missing,33extra,40operand,20regalloc,2stack,15different @>  | push {r4, r5, r6, r7, lr}]",
   "ref_len": 492,
@@ -5138,7 +5139,7 @@
  },
  "func_08091280": {
   "addr": 134812288,
-  "judged_mtime": 1793100780.4553404,
+  "judged_mtime": 1793150387.856744,
   "module": "code_0803EE94.s",
   "note": "byte +0x2: 0x83 vs ref 0x4f [51missing,54extra,12operand,24regalloc,3different @< push {r4, r5, r6, r7, lr} | ]",
   "ref_len": 300,
@@ -5193,7 +5194,7 @@
  },
  "func_0809152C": {
   "addr": 134812972,
-  "judged_mtime": 1793100780.4554088,
+  "judged_mtime": 1793150387.8568811,
   "module": "code_0803EE94.s",
   "note": "len 3980 vs ref 4162 [493missing,415extra,246operand,183regalloc,53stack,30different @s sub sp, #0x68 | sub sp, #0x74]",
   "ref_len": 4164,
@@ -5216,7 +5217,7 @@
  },
  "func_080925C4": {
   "addr": 134817220,
-  "judged_mtime": 1793100780.4554088,
+  "judged_mtime": 1793150387.8570552,
   "module": "code_0803EE94.s",
   "note": "byte +0x1c: 0x60 vs ref 0x61 [2extra,1operand,3regalloc,1different @r ldr r1, [r4, #4] | ldr r0, [r4, #4]]",
   "ref_len": 64,
@@ -5238,7 +5239,7 @@
  },
  "func_08092640": {
   "addr": 134817344,
-  "judged_mtime": 1793100780.4555442,
+  "judged_mtime": 1793150387.8571553,
   "module": "code_0803EE94.s",
   "note": "byte +0x14: 0xa1 vs ref 0x22 [1missing,2extra @>  | ldr r1, [r4, #8]]",
   "ref_len": 80,
@@ -5261,7 +5262,7 @@
  },
  "func_080926A4": {
   "addr": 134817444,
-  "judged_mtime": 1793100780.455601,
+  "judged_mtime": 1793150387.857199,
   "module": "code_0803EE94.s",
   "note": "len 178 vs ref 170 [5missing,12extra,13operand,7regalloc,10different @>  | push {r4, r5, r6, r7, lr}]",
   "ref_len": 176,
@@ -5272,7 +5273,7 @@
  },
  "func_08092754": {
   "addr": 134817620,
-  "judged_mtime": 1793100780.455601,
+  "judged_mtime": 1793150387.8572462,
   "module": "code_0803EE94.s",
   "note": "byte +0x2: 0x47 vs ref 0x84 [30missing,33extra,40operand,20regalloc,2stack,15different @>  | push {r4, r5, r6, r7, lr}]",
   "ref_len": 492,
@@ -5534,9 +5535,9 @@
  },
  "func_08093F48": {
   "addr": 134823752,
-  "judged_mtime": 1793100780.4556873,
+  "judged_mtime": 1793150387.8574007,
   "module": "code_0803EE94.s",
-  "note": "alue not ignored as it ought to be\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08093F48/hermes8/func.c:27: void value not ignored as it ought to be\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08093F48/hermes8/func.c:33: warning: assignment makes integer from pointer without a cast\n",
+  "note": "ue not ignored as it ought to be\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08093F48/hermes19/func.c:27: void value not ignored as it ought to be\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08093F48/hermes19/func.c:33: warning: assignment makes integer from pointer without a cast\n",
   "ref_len": 100,
   "sanitize_v": 4,
   "size": 957,
@@ -6373,9 +6374,9 @@
  },
  "func_08099ACC": {
   "addr": 134847180,
-  "judged_mtime": 1793100780.455754,
+  "judged_mtime": 1793150387.8574495,
   "module": "code_0803EE94.s",
-  "note": "/gitproject/fomt/decomp/logs/judge_func_08099ACC/hermes9/func.c:714: request for member `unk20' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08099ACC/hermes9/func.c:716: warning: passing arg 2 of `func_0805E99C' makes integer from pointer without a cast\n",
+  "note": "itproject/fomt/decomp/logs/judge_func_08099ACC/hermes19/func.c:714: request for member `unk20' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08099ACC/hermes19/func.c:716: warning: passing arg 2 of `func_0805E99C' makes integer from pointer without a cast\n",
   "ref_len": 2324,
   "sanitize_v": 4,
   "size": 19647,
@@ -6516,7 +6517,7 @@
  },
  "func_0809AB8C": {
   "addr": 134851468,
-  "judged_mtime": 1793100780.455754,
+  "judged_mtime": 1793150387.8575335,
   "module": "code_0803EE94.s",
   "note": "byte +0xa: 0x2 vs ref 0x21 [3missing,3extra,2operand,16regalloc @>  | movs r1, #2]",
   "ref_len": 76,
@@ -6637,9 +6638,9 @@
  },
  "sub_08047766": {
   "addr": 134510438,
-  "judged_mtime": 1793100780.4581387,
+  "judged_mtime": 1793150387.8609285,
   "module": "code_0803EE94.s",
-  "note": "arning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08047766/hermes10/func.c:15: request for member `unk21A7' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08047766/hermes10/func.c:15: called object is not a function\n",
+  "note": "arning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08047766/hermes19/func.c:15: request for member `unk21A7' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08047766/hermes19/func.c:15: called object is not a function\n",
   "ref_len": 6278,
   "sanitize_v": 4,
   "size": 57219,
@@ -6659,9 +6660,9 @@
  },
  "sub_08050342": {
   "addr": 134546242,
-  "judged_mtime": 1793100780.4582014,
+  "judged_mtime": 1793150387.8610208,
   "module": "code_0803EE94.s",
-  "note": ".c:13: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08050342/hermes10/func.c:13: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08050342/hermes10/func.c:20: `arg4' undeclared (first use in this function)\n",
+  "note": ".c:13: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08050342/hermes19/func.c:13: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08050342/hermes19/func.c:20: `arg4' undeclared (first use in this function)\n",
   "ref_len": 90,
   "sanitize_v": 4,
   "size": 830,
@@ -6670,9 +6671,9 @@
  },
  "sub_08052A1E": {
   "addr": 134556190,
-  "judged_mtime": 1793100780.4582014,
+  "judged_mtime": 1793150387.8610716,
   "module": "code_0803EE94.s",
-  "note": " undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08052A1E/hermes10/func.c:619: `arg14' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08052A1E/hermes10/func.c:621: `argF' undeclared (first use in this function)\n",
+  "note": " undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08052A1E/hermes19/func.c:619: `arg14' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08052A1E/hermes19/func.c:621: `argF' undeclared (first use in this function)\n",
   "ref_len": 3094,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -6682,9 +6683,9 @@
  },
  "sub_08056442": {
   "addr": 134571074,
-  "judged_mtime": 1793100780.4583375,
+  "judged_mtime": 1793150387.8610716,
   "module": "code_0803EE94.s",
-  "note": "mp/logs/judge_sub_08056442/hermes10/func.c:1734: warning: passing arg 2 of `func_08007D4C' makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08056442/hermes10/func.c:1735: warning: passing arg 2 of `func_080074C0' makes integer from pointer without a cast\n",
+  "note": "mp/logs/judge_sub_08056442/hermes19/func.c:1734: warning: passing arg 2 of `func_08007D4C' makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08056442/hermes19/func.c:1735: warning: passing arg 2 of `func_080074C0' makes integer from pointer without a cast\n",
   "ref_len": 5490,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -6694,9 +6695,9 @@
  },
  "sub_08061E00": {
   "addr": 134618624,
-  "judged_mtime": 1793100780.458485,
+  "judged_mtime": 1793150387.8614671,
   "module": "code_0803EE94.s",
-  "note": " integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08061E00/hermes10/func.c:1360: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08061E00/hermes10/func.c:1412: `arg7F' undeclared (first use in this function)\n",
+  "note": " integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08061E00/hermes19/func.c:1360: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08061E00/hermes19/func.c:1412: `arg7F' undeclared (first use in this function)\n",
   "ref_len": 4252,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -6706,9 +6707,9 @@
  },
  "sub_08065B14": {
   "addr": 134634260,
-  "judged_mtime": 1793100780.458485,
+  "judged_mtime": 1793150387.8615677,
   "module": "code_0803EE94.s",
-  "note": "kes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08065B14/hermes10/func.c:404: `arg3E' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08065B14/hermes10/func.c:405: `arg3F' undeclared (first use in this function)\n",
+  "note": "kes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08065B14/hermes19/func.c:404: `arg3E' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08065B14/hermes19/func.c:405: `arg3F' undeclared (first use in this function)\n",
   "ref_len": 2314,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -6729,9 +6730,9 @@
  },
  "sub_0806C492": {
   "addr": 134661266,
-  "judged_mtime": 1793100780.4586706,
+  "judged_mtime": 1793150387.8616493,
   "module": "code_0803EE94.s",
-  "note": "ut a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0806C492/hermes10/func.c:1485: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0806C492/hermes10/func.c:1486: warning: assignment makes pointer from integer without a cast\n",
+  "note": "ut a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0806C492/hermes19/func.c:1485: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0806C492/hermes19/func.c:1486: warning: assignment makes pointer from integer without a cast\n",
   "ref_len": 5152,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
