@@ -7,16 +7,37 @@ u16 func_080AAF28(s32, s32);                        /* extern */
 void *func_080D3BC0(s32);                           /* extern */
 s32 func_080E2B28(void *);                          /* extern */
 void *malloc(s32);                                  /* extern */
-extern ? gUnk_08107204;
-extern ? gUnk_08107230;
-extern ? gUnk_0810725C;
-extern ? gUnk_08107288;
-extern ? gUnk_081072B4;
-extern ? gUnk_081072E0;
-extern ? gUnk_0810730C;
-extern ? vtable_unk_080E5A28;
+extern s32 gUnk_08107204;
+extern s32 gUnk_08107230;
+extern s32 gUnk_0810725C;
+extern s32 gUnk_08107288;
+extern s32 gUnk_081072B4;
+extern s32 gUnk_081072E0;
+extern s32 gUnk_0810730C;
+extern s32 vtable_unk_080E5A28;
 
-void sub_080A9122(void *arg1, ? *arg4, s32 arg12, ? arg18, u16 *arg64, u32 arg66, u32 arg67, void *arg68, void *arg69, s32 arg6B, void *arg6C, s32 arg71, void *arg73, void *arg74) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    s32 unk10;
+    s32 unk14;
+    u8 _pad18[52];
+    s32 unk4C;
+    s32 unk4E;
+    s32 unk4F;
+    s32 unk51;
+    s32 unk52;
+    s32 unk54;
+    s32 unk55;
+    s32 unk56;
+    u8 _pad5A[3];
+    s32 unk5D;
+    u8 _pad61[55];
+    s32 unk98;
+} GenObj;
+void sub_080A9122(GenObj *arg1, GenObj *arg4, GenObj *arg12, ? arg18, u16 *arg64, u32 arg66, u32 arg67, GenObj *arg68, GenObj *arg69, s32 arg6B, void *arg6C, s32 arg71, void *arg73, void *arg74) {
     s32 temp_r0;
     s32 temp_r0_2;
     s32 temp_r0_3;
@@ -25,19 +46,19 @@ void sub_080A9122(void *arg1, ? *arg4, s32 arg12, ? arg18, u16 *arg64, u32 arg66
     s32 temp_r4;
     s32 temp_r4_2;
     s32 var_r8;
-    s32 var_sl;
+    GenObj *var_sl;
     u16 var_r3;
     u32 *var_r0;
     u32 temp_r0_4;
     u32 var_r3_3;
-    void *temp_r1_2;
+    GenObj *temp_r1_2;
     void *temp_r1_3;
     void *temp_r3;
     void *var_r0_2;
     void *var_r0_3;
-    void *var_r2;
-    void *var_r2_2;
-    void *var_r3_2;
+    GenObj *var_r2;
+    GenObj *var_r2_2;
+    GenObj *var_r3_2;
     void *var_r5;
 
     if (arg1 != 0) {
@@ -109,7 +130,7 @@ void sub_080A9122(void *arg1, ? *arg4, s32 arg12, ? arg18, u16 *arg64, u32 arg66
     if ((s32) ((0 - temp_r1) | temp_r1) >= 0) {
 
     } else {
-        arg6C = &arg4 + 0x30;
+        arg6C = &(GenObj *)((u8 *)arg4 + 0x30);
 loop_76:
         arg4->unkC(&arg64, &arg4, func_080AAF28(var_sl->unk10, 0));
         arg4->unk10(arg6C, &arg4, *arg64);
@@ -171,7 +192,7 @@ loop_76:
                     var_r3_2->unk8 = (s32) arg18.unk8;
                     var_r3_2->unkC = (s32) arg18.unkC;
                 }
-                var_r5 = var_r3_2 + 0x10;
+                var_r5 = (GenObj *)((u8 *)var_r3_2 + 0x10);
             } else {
                 var_r3_3 = temp_r0_4;
                 var_r2_2 = var_r3_2;

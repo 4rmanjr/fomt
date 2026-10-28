@@ -12,7 +12,17 @@ s32 func_08009378(void *, s32, s32, s32);             /* extern */
 s32 func_0805E860(void *, s32);                       /* extern */
 s32 rand();                                           /* extern */
 
-s32 sub_080010BE(u16 arg4, void *arg5, ? arg6, s32 arg8, s32 arg9, s32 argA, s32 argB) {
+typedef struct GenObj {
+    s32 unk0;
+    u8 _pad4[4];
+    struct GenObj *unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
+    s32 unk1C;
+} GenObj;
+s32 sub_080010BE(u16 arg4, GenObj *arg5, ? arg6, s32 arg8, s32 arg9, s32 argA, s32 argB) {
     s16 *var_r1;
     s16 *var_r1_3;
     s16 temp_r0;
@@ -51,11 +61,11 @@ s32 sub_080010BE(u16 arg4, void *arg5, ? arg6, s32 arg8, s32 arg9, s32 argA, s32
     u16 temp_r1_9;
     u8 temp_r0_7;
     u8 temp_r1_3;
-    void *temp_r0_10;
-    void *temp_r0_12;
-    void *temp_r0_13;
-    void *temp_r0_14;
-    void *temp_r0_15;
+    GenObj *temp_r0_10;
+    GenObj *temp_r0_12;
+    GenObj *temp_r0_13;
+    GenObj *temp_r0_14;
+    GenObj *temp_r0_15;
 
     var_r6 = saved_reg_r6;
     var_r8 = saved_reg_r8;
@@ -277,9 +287,9 @@ block_71:
         }
         break;
     case 12:                                        /* switch 1 */
-        func_08009378(arg5 + 0xC, 0x889, 1, 0);
+        func_08009378((GenObj *)((u8 *)arg5 + 0xC), 0x889, 1, 0);
         temp_r0_10 = func_08008940(saved_reg_r7);
-        temp_r0_10->unk8->unk10(temp_r0_10, arg5);
+        ((void (*)(void *,...))(temp_r0_10->unk8->unk10))(temp_r0_10, arg5);
         saved_reg_r7->unk6D32 = 0x10U;
         break;
     case 13:                                        /* switch 1 */
@@ -405,7 +415,7 @@ block_115:
         sub_080010BE();
     }
     if (arg5 != 0) {
-        arg5->unk8->unkC(arg5, 3);
+        ((void (*)(void *,...))(arg5->unk8->unkC))(arg5, 3);
     }
     return argA;
 }

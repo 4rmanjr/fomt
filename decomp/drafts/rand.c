@@ -1,3 +1,8 @@
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+} GenObj;
 u32 rand(void) {
     s32 *temp_r1;
     s32 temp_r0;

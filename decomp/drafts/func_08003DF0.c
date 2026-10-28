@@ -20,8 +20,7 @@ void func_08003DF0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     var += (((arg1 * 2) + 1) * 8);
     var <<= 0x18;
     var >>= 0x18;
-    temp = 0xFFFFFF00;
-    temp &= spbuf[0];
+    temp = spbuf[0] & 0xFFFFFF00;
     temp |= var;
     spbuf[0] = temp;
     var = ((u32) (temp << 7) >> 0x17) + 0x80;
@@ -31,7 +30,8 @@ void func_08003DF0(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     var += 0x40;
 skip_add:
-    temp = (0xFE00FFFF & temp) | ((var & 0x1FF) << 0x10);
+    var &= 0x1FF;
+    temp = ((var << 0x10)) | (0xFE00FFFF & temp);
     spbuf[0] = temp;
     if (arg1 != 1) {
         goto skip_set;

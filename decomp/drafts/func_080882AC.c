@@ -7,12 +7,12 @@ typedef struct GenObj {
     void *unk4;
     s32 unk8;
     u8 _padC[140];
-    s32 unk98;
-    u8 _pad9C[96];
+    u8 unk98;
+    u8 _pad99[99];
     s32 unkFC;
     s32 unk100;
     s32 unk104;
-    s32 unk108;
+    u8 unk108;
 } GenObj;
 void *func_080882AC(GenObj *arg0) {
     s32 temp_r0;
@@ -27,3 +27,9 @@ void *func_080882AC(GenObj *arg0) {
     arg0->unk108 = 0;
     return arg0;
 }
+
+/* STRUCT-CHECK: ref push {r4,r5,r6,lr} (0x70) vs kandidat {r4,r5,lr} (0x30):
+   kandidat kurang 1 saved-reg -> butuh 1 var lagi di stack/spill agar
+   allocator menyimpan r6. Tambah local dummy / pakai var agar push=r6. */
+
+/* ATTEMPT-NOTE pi: byte +0x0: 0x30 vs ref 0x70 (push {r4,r5,lr} vs {r4,r5,r6,lr}); butuh 1 saved-reg lagi; coba tambah local/param agar r6 terpakai. */

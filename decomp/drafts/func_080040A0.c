@@ -13,9 +13,11 @@ extern s32 gUnk_080E88D8;
 extern s32 vtable_unk_080E5A4C;
 
 typedef struct GenObj {
-    u8 _pad0[8];
+    void *unk0;
+    s32 unk4;
     s32 unk8;
-    s32 unkC;
+    struct GenObj *unkC;
+    void (*unk8_fn)(void *, s32);
     u8 _pad10[117];
     s32 unk85;
     u8 _pad89[3];
@@ -26,8 +28,8 @@ s32 func_080040A0(GenObj *arg0) {
     s32 sp4;
     s32 sp8;
     void *spC;
-    s32 **temp_r0_4;
-    s32 **temp_r1_2;
+    GenObj *temp_r0_4;
+    GenObj *temp_r1_2;
     s32 temp_r0_2;
     s32 temp_r0_3;
     s32 temp_r1;
@@ -63,7 +65,7 @@ loop_1:
             temp_r0_4->unk4 = temp_r1;
             temp_r1_2 = arg0->unkC;
             if ((temp_r0_4 != temp_r1_2) && (temp_r1_2 != 0)) {
-                (*temp_r1_2)->unk8(temp_r1_2, 3);
+                temp_r1_2->unk8_fn(temp_r1_2, 3);
             }
             arg0->unkC = temp_r0_4;
         }

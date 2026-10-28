@@ -48,9 +48,9 @@
   "judged_mtime": 1792994087.434216,
   "module": "sram_proxy_1.s",
   "note": "len 62 vs ref 136",
-  "ref_len": 136,
+  "ref_len": 135,
   "sanitize_v": 4,
-  "size": 1111,
+  "size": 1112,
   "status": "failed",
   "thumb": true
  },

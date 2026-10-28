@@ -18,10 +18,16 @@ typedef struct GenObj {
     u8 _pad100[4];
     s32 unk104;
 } GenObj;
+typedef struct {
+    s32 unk0;
+    u8 tool[2];
+    u8 _pad6[2];
+    s8 unk8;
+    u8 unk9;
+    u8 _padA[2];
+} Sp;
 void func_080926A4(GenObj *arg0, u32 arg1) {
-    GenObj *sp0;
-s32 sp4;
-    s8 sp8;
+    Sp sp;
     s32 temp_r5;
     u16 temp_r4;
     u16 temp_r4_2;
@@ -30,20 +36,20 @@ s32 sp4;
     var_r5 = 0;
     if (arg1 > 0U) {
         do {
-            memcpy(&sp4, GetToolAt__8RucksackUi(arg0->unk104, var_r5), 2);
-            if ((IsEmpty__C9ToolStack(&sp4) << 0x18) == 0) {
-                sp8 = GetTool__C9ToolStack(&sp4);
+            memcpy((s32 *)sp.tool, GetToolAt__8RucksackUi(arg0->unk104, var_r5), 2);
+            if ((IsEmpty__C9ToolStack((s32 *)sp.tool) << 0x18) == 0) {
+                sp.unk8 = GetTool__C9ToolStack((s32 *)sp.tool);
                 temp_r4 = GetIconId__C4Tool();
-                sp0 = GetAmount__C9ToolStack(&sp4);
+                sp.unk0 = GetAmount__C9ToolStack((s32 *)sp.tool);
                 func_080CB304(arg0->unk78, var_r5, &gUnk_086678A0, temp_r4);
             }
             var_r5 += 1;
         } while (var_r5 < arg1);
     }
-    if ((IsEmpty__C9ToolStack(arg0->unkFC) << 0x18) == 0) {
-        sp0.unk9 = GetTool__C9ToolStack(arg0->unkFC);
+    if ((IsEmpty__C9ToolStack((s32 *)arg0->unkFC) << 0x18) == 0) {
+        sp.unk9 = GetTool__C9ToolStack((s32 *)arg0->unkFC);
         temp_r4_2 = GetIconId__C4Tool();
         temp_r5 = arg0->unk78;
-        func_080CBAF0(temp_r5, &gUnk_086678A0, temp_r4_2, GetAmount__C9ToolStack(arg0->unkFC));
+        func_080CBAF0(temp_r5, &gUnk_086678A0, temp_r4_2, GetAmount__C9ToolStack((s32 *)arg0->unkFC));
     }
 }

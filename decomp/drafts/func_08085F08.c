@@ -676,3 +676,5 @@ block_154:
     }
     *((temp_r0_2 * 0x84) + (GenObj *)((u8 *)arg0 + 0x00003B98)) = 1;
 }
+
+/* ATTEMPT-NOTE pi: KOMPILE-GAGAL func_0804EC84 arg1 (u32,s32*,s32): kandidat kirim (GenObj*)(arg0+0x6B0+arg10*8) sbg u32; coba ubah prototipe extern func_0804EC84(s32,...) / cast arg ke s32*; juga ada extern s32 *0 (4x) yg meracuni judge — cari & hapus sumbernya (label literal?) */

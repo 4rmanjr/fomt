@@ -22,27 +22,35 @@ extern s32 gUnk_080E893C;
 extern s32 gUnk_080E8944;
 extern s32 vtable_unk_080E5A78;
 
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+    void (*unk8)(void *, s32);
+    u8 _padC[24];
+    s32 unk24;
+} GenObj;
+
 s32 ***func_08004C68(s32 ***arg0) {
     s32 *sp0;
 s32 sp4;
     s32 *sp8;
     s32 *sp18;
     s32 *sp28;
-    s32 **sp38;
+    GenObj *sp38;
     void **sp40;
     s32 **sp44;
     s32 ***sp4C;
     s32 **sp50;
     s32 **sp54;
-    s32 **sp58;
+    GenObj *sp58;
     s32 **temp_r0;
     s32 **temp_r5;
     s32 **temp_r5_2;
     s32 **temp_r5_3;
-    s32 **temp_r5_4;
-    s32 **temp_r5_5;
-    s32 **temp_r5_6;
-    s32 **temp_r6;
+    GenObj *temp_r5_4;
+    GenObj *temp_r5_5;
+    GenObj *temp_r5_6;
+    GenObj *temp_r6;
     s8 var_r8;
     u32 var_r4;
     u32 var_r4_2;
@@ -61,7 +69,7 @@ s32 sp4;
     var_r8 = -4 & saved_reg_r8 & ~0x7C;
     temp_r0 = &sp0 + 0x38;
     sp54 = temp_r0;
-    sp58 = &sp0 + 0x44;
+    sp58 = (GenObj *)(&sp0 + 0x44);
 loop_1:
     func_08007078(temp_r0, &gUnk_080E8934, &sp8);
     func_080070D4(&sp40, temp_r0);
@@ -124,14 +132,14 @@ loop_1:
     sp50 = &sp0 + 0x28;
     temp_r6->unk0 = &__vt_13AUnk_0800080C;
     temp_r6->unk0 = &vtable_unk_080E5A78;
-    temp_r5_4 = temp_r6 + 4;
+    temp_r5_4 = (GenObj *)((u8 *)temp_r6 + 4);
     var_r4_4 = strlen(&sp18);
     if (var_r4_4 > 0xCU) {
         var_r4_4 = 0xC;
     }
-    memcpy(temp_r5_4, &sp18, var_r4_4);
+    memcpy((s32 **)temp_r5_4, &sp18, var_r4_4);
     *((u8 *)temp_r5_4 + var_r4_4) = 0;
-    temp_r5_5 = temp_r6 + 0x14;
+    temp_r5_5 = (GenObj *)((u8 *)temp_r6 + 0x14);
     var_r4_5 = strlen(&sp8);
     if (var_r4_5 > 0xCU) {
         var_r4_5 = 0xC;
@@ -139,7 +147,7 @@ loop_1:
     memcpy((s32 **) temp_r5_5, &sp8, var_r4_5);
     *((u8 *)temp_r5_5 + var_r4_5) = 0;
     temp_r6->unk24 = var_r8;
-    temp_r5_6 = temp_r6 + 0x28;
+    temp_r5_6 = (GenObj *)((u8 *)temp_r6 + 0x28);
     var_r4_6 = strlen(sp50);
     if (var_r4_6 > 0xCU) {
         var_r4_6 = 0xC;
@@ -152,7 +160,7 @@ loop_1:
     *sp54 = 0;
     *sp4C = temp_r6;
     if (sp38 != 0) {
-        (*sp38)->unk8(sp38, 3);
+        ((void (*)(void *,...))(sp38->unk0->unk8))(sp38, 3);
     }
     func_08008A68(&sp4, 2);
     return sp4C;

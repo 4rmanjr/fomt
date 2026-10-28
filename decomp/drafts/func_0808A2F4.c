@@ -32,7 +32,7 @@ typedef struct GenObj {
     s32 unk108;
 } GenObj;
 void func_0808A2F4(GenObj *arg0, s32 arg1) {
-    GenObj *sp0;
+    s32 sp0;
     s32 sp4;
     s32 sp8;
     s32 spC;
@@ -84,7 +84,7 @@ void func_0808A2F4(GenObj *arg0, s32 arg1) {
             temp_r4_2 = arg0->unk100;
             spC = *GetItemAt__8RucksackUi(temp_r4_2, func_080CE184(arg0, arg1, 0));
             if (GetKind__C12RucksackItem(&spC) == 1) {
-                sp0.unk11 = GetArticle__C12RucksackItem(&spC);
+                *(s8 *) (&sp0 + 0x11) = GetArticle__C12RucksackItem(&spC);
                 if (((CanBeDiscarded__C7Article() ^ 1) << 0x18) != 0) {
 block_17:
                     func_08050DC8((GenObj *)((u8 *)arg0 + 0x80), gUnk_08117ADC, 0, 0);
@@ -121,3 +121,5 @@ block_25:
         }
     }
 }
+
+/* ATTEMPT-NOTE pi: byte +0x2: 0x47 vs ref 0x85 (push {r4-r7} vs {r4-r7,r8?}+sub sp,0x14); ref frame lebih besar; tambah locals. */

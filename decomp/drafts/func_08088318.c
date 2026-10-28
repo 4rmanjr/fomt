@@ -32,7 +32,7 @@ typedef struct GenObj {
     s32 unk100;
 } GenObj;
 void func_08088318(GenObj *arg0, u32 arg1) {
-    GenObj *sp0;
+    s32 sp0;
     s32 sp4;
     s32 sp8;
     s8 spC;
@@ -92,7 +92,7 @@ block_30:
         func_080CBAF0(arg0->unk78, var_r1, (s32) var_r2, 1);
         return;
     case 1:                                         /* switch 2 */
-        sp0.unkD = func_0800F258(arg0->unkFC);
+        sp0 = func_0800F258(arg0->unkFC);
         var_r5_3 = GetIconId__C7Article();
         func_0800F294(&sp4, arg0->unkFC);
         if ((IsWrapped__C12RucksackItem(&sp4) << 0x18) != 0) {
@@ -127,3 +127,5 @@ block_30:
         break;
     }
 }
+
+/* ATTEMPT-NOTE pi: byte +0x2: 0x82 vs ref 0x84 (sub sp,8 vs sub sp,0x10); ref alokasi stack 2x kandidat; tambah local u32/s32 agar frame 0x10. */

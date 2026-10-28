@@ -1,11 +1,14 @@
 s32 __builtin_new(s32);                             /* extern */
-s32 func_080324BC(s32, s32, s32, s32, s32, s32, s32); /* extern */
+struct Params_func_080376E4 { s32 a; s32 b; s32 c; };
 
-void func_080376E4(s32 arg0) {
-    s8 spC;
-    s32 temp_r0;
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
 
-    temp_r0 = __builtin_new(0x8C);
-    spC = 0;
-    func_080324BC(temp_r0, arg0, 4, 0xC, 2, 0xC, 0);
+s32 func_080376E4(s32 arg0) {
+    s32 t;
+    struct Params_func_080376E4 w;
+    volatile u8 flag;
+
+    t = __builtin_new(0x8C);
+    w.a = 2; w.b = 0xC; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 4, 0xC);
 }

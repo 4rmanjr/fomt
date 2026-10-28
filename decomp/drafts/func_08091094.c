@@ -31,11 +31,16 @@ typedef struct GenObj {
     s32 unk100;
     s32 unk104;
 } GenObj;
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s8 unkC;
+    s8 unkD;
+    u8 _padE[2];
+} Sp;
 void func_08091094(GenObj *arg0, u32 arg1) {
-    GenObj *sp0;
-    s32 sp4;
-    s32 sp8;
-    s8 spC;
+    Sp sp;
     s32 *var_r1;
     s32 temp_r0;
     u16 var_r0;
@@ -49,26 +54,26 @@ void func_08091094(GenObj *arg0, u32 arg1) {
     var_r6 = 0;
     if (arg1 > 0U) {
         do {
-            sp4 = *GetItemAt__8RucksackUi(arg0->unk104, var_r6);
-            if ((IsEmpty__C12RucksackItem(&sp4) << 0x18) == 0) {
+            sp.unk4 = *GetItemAt__8RucksackUi(arg0->unk104, var_r6);
+            if ((IsEmpty__C12RucksackItem(&sp.unk4) << 0x18) == 0) {
                 var_r4 = 0;
-                temp_r0 = GetKind__C12RucksackItem(&sp4);
+                temp_r0 = GetKind__C12RucksackItem(&sp.unk4);
                 switch (temp_r0) {                  /* switch 1; irregular */
                 case 0:                             /* switch 1 */
-                    GetFood__C12RucksackItem(&sp8, &sp4);
-                    var_r0 = GetIconId__C4Food(&sp8);
+                    GetFood__C12RucksackItem(&sp.unk8, &sp.unk4);
+                    var_r0 = GetIconId__C4Food(&sp.unk8);
 block_7:
                     var_r4 = var_r0;
                     break;
                 case 1:                             /* switch 1 */
-                    spC = GetArticle__C12RucksackItem(&sp4);
+                    sp.unkC = GetArticle__C12RucksackItem(&sp.unk4);
                     var_r0 = GetIconId__C7Article();
                     goto block_7;
                 }
-                if ((IsWrapped__C12RucksackItem(&sp4) << 0x18) != 0) {
+                if ((IsWrapped__C12RucksackItem(&sp.unk4) << 0x18) != 0) {
                     var_r4 = 0x160;
                 }
-                sp0 = 1;
+                sp.unk0 = 1;
                 func_080CC728(arg0->unk7C, var_r6, &gUnk_086678A0, var_r4);
             }
             var_r6 += 1;
@@ -80,10 +85,10 @@ block_7:
     temp_r0_2 = func_0800F204(arg0->unk100);
     switch (temp_r0_2) {                            /* switch 2; irregular */
     case 0:                                         /* switch 2 */
-        func_0800F20C(&sp4, arg0->unk100);
-        var_r6_2 = GetIconId__C4Food(&sp4);
-        func_0800F294(&sp4, arg0->unk100);
-        if ((IsWrapped__C12RucksackItem(&sp4) << 0x18) != 0) {
+        func_0800F20C(&sp.unk4, arg0->unk100);
+        var_r6_2 = GetIconId__C4Food(&sp.unk4);
+        func_0800F294(&sp.unk4, arg0->unk100);
+        if ((IsWrapped__C12RucksackItem(&sp.unk4) << 0x18) != 0) {
             var_r6_2 = 0x160;
         }
         var_r1 = &gUnk_086678A0;
@@ -92,10 +97,10 @@ block_30:
         func_080CCE58(arg0->unk7C, var_r1, (s32) var_r2, 1);
         return;
     case 1:                                         /* switch 2 */
-        sp0.unkD = func_0800F258(arg0->unk100);
+        sp.unkD = func_0800F258(arg0->unk100);
         var_r6_3 = GetIconId__C7Article();
-        func_0800F294(&sp4, arg0->unk100);
-        if ((IsWrapped__C12RucksackItem(&sp4) << 0x18) != 0) {
+        func_0800F294(&sp.unk4, arg0->unk100);
+        if ((IsWrapped__C12RucksackItem(&sp.unk4) << 0x18) != 0) {
             var_r6_3 = 0x160;
         }
         var_r1 = &gUnk_086678A0;

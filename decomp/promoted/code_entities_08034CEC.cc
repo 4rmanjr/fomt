@@ -1426,3 +1426,257 @@ s32 sp0[2];
     arg0->unk18 = arg2;
     return arg0;
 }
+
+// DECOMP-MATCHED func_08035CD4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_08035CD4 { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+s32 func_08035C04();                                  /* extern */
+
+s32 func_08035CD4(s32 arg0) {
+    s32 t;
+    struct Params_func_08035CD4 w;
+    volatile u8 flag;
+
+    func_08035C04();
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 0; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 5, 0x1B);
+}
+
+// DECOMP-MATCHED func_08035D40 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_08035D40 { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+
+s32 func_08035D40(s32 arg0) {
+    s32 t;
+    struct Params_func_08035D40 w;
+    volatile u8 flag;
+
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 3; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 4, 0x1B);
+}
+
+// DECOMP-MATCHED func_08035E7C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_08035E7C { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+
+s32 func_08035E7C(s32 arg0) {
+    s32 t;
+    struct Params_func_08035E7C w;
+    volatile u8 flag;
+
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 2; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 4, 0x1B);
+}
+
+// DECOMP-MATCHED func_08035FB0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_08035FB0 { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+
+s32 func_08035FB0(s32 arg0) {
+    s32 t;
+    struct Params_func_08035FB0 w;
+    volatile u8 flag;
+
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 2; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 4, 0x1B);
+}
+
+// DECOMP-MATCHED func_08036154 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_08036154 { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+s32 func_08036084();                                  /* extern */
+
+s32 func_08036154(s32 arg0) {
+    s32 t;
+    struct Params_func_08036154 w;
+    volatile u8 flag;
+
+    func_08036084();
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 0; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 5, 0x1B);
+}
+
+// DECOMP-MATCHED func_08036228 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_08036228 { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+
+s32 func_08036228(s32 arg0) {
+    s32 t;
+    struct Params_func_08036228 w;
+    volatile u8 flag;
+
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 2; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 4, 0x1B);
+}
+
+// DECOMP-MATCHED func_08036290 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_08036290 { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+
+s32 func_08036290(s32 arg0) {
+    s32 t;
+    struct Params_func_08036290 w;
+    volatile u8 flag;
+
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 2; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 4, 0x1B);
+}
+
+// DECOMP-MATCHED func_08036500 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_08036500 { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+s32 func_08036430();                                  /* extern */
+
+s32 func_08036500(s32 arg0) {
+    s32 t;
+    struct Params_func_08036500 w;
+    volatile u8 flag;
+
+    func_08036430();
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 0; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 5, 0x1B);
+}
+
+// DECOMP-MATCHED func_0803669C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_0803669C { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+s32 func_080365CC();                                  /* extern */
+
+s32 func_0803669C(s32 arg0) {
+    s32 t;
+    struct Params_func_0803669C w;
+    volatile u8 flag;
+
+    func_080365CC();
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 0; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 5, 0x1B);
+}
+
+// DECOMP-MATCHED func_080367C8 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_080367C8 { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+s32 func_08036768();                                  /* extern */
+
+s32 func_080367C8(s32 arg0) {
+    s32 t;
+    struct Params_func_080367C8 w;
+    volatile u8 flag;
+
+    func_08036768();
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 0; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 5, 0x1B);
+}
+
+// DECOMP-MATCHED func_080369E0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_080369E0 { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+s32 func_08036900();                                  /* extern */
+
+s32 func_080369E0(s32 arg0) {
+    s32 t;
+    struct Params_func_080369E0 w;
+    volatile u8 flag;
+
+    func_08036900();
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 0; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 5, 0x1B);
+}
+
+// DECOMP-MATCHED func_08036B1C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_08036B1C { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+s32 func_08036AB4();                                  /* extern */
+
+s32 func_08036B1C(s32 arg0) {
+    s32 t;
+    struct Params_func_08036B1C w;
+    volatile u8 flag;
+
+    func_08036AB4();
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 0; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 5, 0x1B);
+}
+
+// DECOMP-MATCHED func_08036B80 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_08036B80 { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+
+s32 func_08036B80(s32 arg0) {
+    s32 t;
+    struct Params_func_08036B80 w;
+    volatile u8 flag;
+
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 2; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 4, 0x1B);
+}
+
+// DECOMP-MATCHED func_08036CDC (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_08036CDC { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+
+s32 func_08036CDC(s32 arg0) {
+    s32 t;
+    struct Params_func_08036CDC w;
+    volatile u8 flag;
+
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 2; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 4, 0x1B);
+}
+
+// DECOMP-MATCHED func_080376E4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __builtin_new(s32);                             /* extern */
+struct Params_func_080376E4 { s32 a; s32 b; s32 c; };
+
+s32 func_080324BC(s32, s32, s32, s32); /* extern */
+
+s32 func_080376E4(s32 arg0) {
+    s32 t;
+    struct Params_func_080376E4 w;
+    volatile u8 flag;
+
+    t = __builtin_new(0x8C);
+    w.a = 2; w.b = 0xC; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 4, 0xC);
+}

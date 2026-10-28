@@ -13,7 +13,7 @@ extern s32 gUnk_08100030;
 
 typedef struct GenObj {
     u8 _pad0[148];
-    void *unk94;
+    s32 unk94;
     s32 unk98;
     u8 _pad9C[32];
     s32 unkBC;
@@ -33,7 +33,7 @@ void func_080885AC(GenObj *arg0, s32 arg1) {
     s32 temp_r6_2;
 
     var_r7 = 0;
-    temp_r6 = arg0 + 0x98;
+    temp_r6 = (s32) arg0 + 0x98;
     arg0->unk98 = 0;
     if (arg1 == 0) {
         if ((func_0800F190(arg0->unkFC) << 0x18) == 0) {
@@ -49,7 +49,7 @@ void func_080885AC(GenObj *arg0, s32 arg1) {
             goto block_8;
         }
     } else {
-        temp_r4_2 = arg0->unk94->unkBC;
+        temp_r4_2 = *(s32 *) (arg0->unk94 + 0xBC);
         temp_r6_2 = (temp_r4_2 * 8) + func_080CE184(arg0, arg1, 0);
         GetFoodStackAt__6FridgeUi(arg0->unk104, temp_r6_2);
         if ((IsEmpty__C9FoodStack() << 0x18) == 0) {
@@ -60,8 +60,10 @@ block_8:
         }
     }
     if (var_r7 != 0) {
-        func_08050DC8(arg0 + 0x80, var_r7, 0, 0);
+        func_08050DC8((void *) ((s32) arg0 + 0x80), var_r7, 0, 0);
         return;
     }
-    func_08050DC8(arg0 + 0x80, &gUnk_08100030, 0, 0);
+    func_08050DC8((void *) ((s32) arg0 + 0x80), &gUnk_08100030, 0, 0);
 }
+
+/* ATTEMPT-NOTE pi: byte +0x2: 0x81 vs ref 0x82 (sub sp,4 vs sub sp,8); tambah 1 local s32. */

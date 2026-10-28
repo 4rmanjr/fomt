@@ -19,14 +19,14 @@ s32 func_080088CC(void *);                          /* extern */
 void *func_08008940(void *);                        /* extern */
 s32 func_08009378(void *, s32, s32, s32);             /* extern */
 s32 func_0800EB2C(s32, s32);                        /* extern */
-s32 func_0800EB34(s32, ? *);                          /* extern */
+s32 func_0800EB34(s32, s32 *);                          /* extern */
 s32 func_0800EFB4(s32, s32);                          /* extern */
 s32 func_0800F190(s32);                             /* extern */
 s32 func_0800F204(s32);                             /* extern */
 s8 func_0800F258(s32);                              /* extern */
 s32 func_0800F390(s32);                               /* extern */
 s32 func_08050DF0(void *);                          /* extern */
-s32 func_08050E0C(void *, ? *, ? *, s32);             /* extern */
+s32 func_08050E0C(void *, s32 *, s32 *, s32);             /* extern */
 s32 func_08050E50(void *, s32);                       /* extern */
 s32 func_08050E5C(void *);                            /* extern */
 s32 func_0808268C(void *);                            /* extern */
@@ -36,24 +36,42 @@ s32 func_0809EE20(s32, s32, s32);                     /* extern */
 s32 func_080C8550(void *);                            /* extern */
 s32 func_080C9020(void *, s32);                       /* extern */
 s32 func_080C96C4(void *);                            /* extern */
-s32 func_080CABA0(void *, ? *);                       /* extern */
-s32 memcpy(s32 *, ? *, s32);                            /* extern */
+s32 func_080CABA0(void *, s32 *);                       /* extern */
+s32 memcpy(s32 *, s32 *, s32);                            /* extern */
 s32 memmove(void *, void *, s32);                     /* extern */
-extern ? gUnk_080FED8C;
-extern ? gUnk_080FF15C;
-extern ? gUnk_080FF178;
-extern ? gUnk_080FF1A0;
-extern ? gUnk_080FF1B0;
-extern ? gUnk_080FF200;
-extern ? gUnk_080FF228;
-extern ? gUnk_080FF230;
-extern ? gUnk_080FF240;
-extern ? gUnk_080FF270;
-extern ? gUnk_080FF29C;
-extern ? gUnk_080FF2EC;
+extern s32 gUnk_080FED8C;
+extern s32 gUnk_080FF15C;
+extern s32 gUnk_080FF178;
+extern s32 gUnk_080FF1A0;
+extern s32 gUnk_080FF1B0;
+extern s32 gUnk_080FF200;
+extern s32 gUnk_080FF228;
+extern s32 gUnk_080FF230;
+extern s32 gUnk_080FF240;
+extern s32 gUnk_080FF270;
+extern s32 gUnk_080FF29C;
+extern s32 gUnk_080FF2EC;
 
-s32 sub_08082F50(s32 arg4, s32 arg8, s32 argA, void *argE, s32 argF, ? arg10, ? arg12, u8 arg14, s8 arg15, s8 arg16, s8 arg17) {
-    ? *temp_r5;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    struct GenObj *unk8;
+    s32 unkC;
+    s32 unk10;
+    u8 _pad14[45];
+    s32 unk41;
+    s32 unk42;
+    s32 unk43;
+    s32 unk45;
+    s32 unk46;
+    s32 unk47;
+    s32 unk49;
+    s32 unk4A;
+    s32 unk4B;
+    s32 unk4D;
+} GenObj;
+s32 sub_08082F50(GenObj *arg4, GenObj *arg8, s32 argA, GenObj *argE, s32 argF, ? arg10, ? arg12, u8 arg14, s8 arg15, s8 arg16, s8 arg17) {
+    s32 *temp_r5;
     s32 *temp_r4_3;
     s32 *var_r1;
     s32 temp_r0_2;
@@ -78,9 +96,9 @@ s32 sub_08082F50(s32 arg4, s32 arg8, s32 argA, void *argE, s32 argF, ? arg10, ? 
     u32 var_r4;
     u32 var_r4_2;
     u32 var_r5;
-    void *temp_r0_10;
+    GenObj *temp_r0_10;
     void *temp_r0_3;
-    void *temp_r0_7;
+    GenObj *temp_r0_7;
     void *temp_r1_3;
     void *temp_r1_4;
     void *temp_r1_5;
@@ -94,7 +112,7 @@ s32 sub_08082F50(s32 arg4, s32 arg8, s32 argA, void *argE, s32 argF, ? arg10, ? 
     temp_r1 = argE->unk0;
     if ((s32) ((0 - temp_r1) | temp_r1) >= 0) {
         if (saved_reg_r8 != 0) {
-            argE->unk8->unkC(argE, 3);
+            ((void (*)(void *,...))(argE->unk8->unkC))(argE, 3);
             return 0;
         }
         temp_r0 = saved_reg_r7->unk6A4;
@@ -123,7 +141,7 @@ s32 sub_08082F50(s32 arg4, s32 arg8, s32 argA, void *argE, s32 argF, ? arg10, ? 
             arg8.unk4 = (s32) temp_r1_3->unk4;
             arg8.unk8 = (s32) temp_r1_3->unk8;
             arg8.unkC = (s32) temp_r1_3->unkC;
-            (&arg8 + 0xC)->unk4 = (s32) (temp_r1_3 + 0xC)->unk4;
+            (&(GenObj *)((u8 *)arg8 + 0xC))->unk4 = (s32) ((GenObj *)((u8 *)temp_r1_3 + 0xC))->unk4;
             if (temp_r3 > 0xAU) {
 block_17:
                 saved_reg_r7->unk14 = (s32) saved_reg_r7->unk10;
@@ -138,7 +156,7 @@ block_17:
                 arg8.unk4 = (s32) temp_r1_4->unk4;
                 arg8.unk8 = (s32) temp_r1_4->unk8;
                 arg8.unkC = (s32) temp_r1_4->unkC;
-                (&arg8 + 0xC)->unk4 = (s32) (temp_r1_4 + 0xC)->unk4;
+                (&(GenObj *)((u8 *)arg8 + 0xC))->unk4 = (s32) ((GenObj *)((u8 *)temp_r1_4 + 0xC))->unk4;
                 func_0809ACC0(saved_reg_r7->unk8 + 0x1AA8, argA);
                 func_080C8550(saved_reg_r7);
                 if ((IsEmpty__C9ToolStack(saved_reg_r7->unk8 + 0x1C34) << 0x18) != 0) {
@@ -336,9 +354,9 @@ loop_88:
                         goto block_91;
                     }
 block_92:
-                    func_08009378(argE + 0xC, 0x889, 1, 1);
+                    func_08009378((GenObj *)((u8 *)argE + 0xC), 0x889, 1, 1);
                     temp_r0_7 = func_08008940(saved_reg_r7);
-                    temp_r0_7->unk8->unk10(temp_r0_7, argE);
+                    ((void (*)(void *,...))(temp_r0_7->unk8->unk10))(temp_r0_7, argE);
                     saved_reg_r7->unk6A4 = 0xCU;
                 }
                 goto block_128;
@@ -430,9 +448,9 @@ block_92:
                 if (saved_reg_r7->unk350 == 3) {
                     temp_r1_7 = argE->unk0;
                     if ((s32) ((0 - temp_r1_7) | temp_r1_7) >= 0) {
-                        func_08009378(argE + 0xC, 0x889, 1, 1);
+                        func_08009378((GenObj *)((u8 *)argE + 0xC), 0x889, 1, 1);
                         temp_r0_10 = func_08008940(saved_reg_r7);
-                        temp_r0_10->unk8->unk10(temp_r0_10, argE);
+                        ((void (*)(void *,...))(temp_r0_10->unk8->unk10))(temp_r0_10, argE);
                     }
                 }
                 goto block_128;
@@ -441,10 +459,10 @@ block_92:
                 temp_r1_8 = argE->unk0;
                 if ((s32) ((0 - temp_r1_8) | temp_r1_8) >= 0) {
                     if (saved_reg_r7->unk6A8 != 0) {
-                        argE->unk8->unkC(argE, 3);
+                        ((void (*)(void *,...))(argE->unk8->unkC))(argE, 3);
                         return 2;
                     }
-                    argE->unk8->unkC(argE, 3);
+                    ((void (*)(void *,...))(argE->unk8->unkC))(argE, 3);
                     return 1;
                 }
                 goto block_128;

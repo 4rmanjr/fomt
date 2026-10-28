@@ -66,10 +66,12 @@ typedef struct GenObj {
     u8 _pad80[4];
     struct GenObj *unk84;
     s32 unk88;
-    void *unk8C;
+    struct GenObj *unk8C;
     s32 unk90;
     s32 unk94;
-    u8 _pad98[104];
+    u8 _pad98[36];
+    s32 unkBC;
+    u8 _padC0[64];
     s32 unk100;
     u8 _pad104[4];
     s32 unk108;
@@ -80,7 +82,7 @@ void func_08090960(GenObj *arg0) {
     s8 sp4;
     s16 sp8;
     GenObj *spC;
-    void **sp10;
+    GenObj **sp10;
     s32 temp_r0_3;
     s32 temp_r0_8;
     s32 temp_r0_9;
@@ -97,30 +99,30 @@ void func_08090960(GenObj *arg0) {
     s32 temp_r8;
     s32 var_r4;
     s32 var_r8;
-    void *temp_r0;
+    GenObj *temp_r0;
     GenObj *temp_r0_10;
-    void *temp_r0_2;
-    void *temp_r0_4;
-    void *temp_r0_5;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_4;
+    GenObj *temp_r0_5;
     GenObj *temp_r0_6;
     GenObj *temp_r0_7;
     GenObj *temp_r1;
     GenObj *temp_r1_2;
     void *temp_r1_3;
     GenObj *temp_r1_6;
-    void *temp_r2;
-    void *temp_r2_2;
+    GenObj *temp_r2;
+    GenObj *temp_r2_2;
     GenObj *temp_r3;
-    void *temp_r4_2;
-    void *temp_r4_3;
-    void *temp_r4_4;
-    void *temp_r4_5;
+    GenObj *temp_r4_2;
+    GenObj *temp_r4_3;
+    GenObj *temp_r4_4;
+    GenObj *temp_r4_5;
     GenObj *temp_r4_6;
-    void *temp_r5_2;
+    GenObj *temp_r5_2;
     GenObj *temp_r5_4;
     GenObj *temp_r5_5;
-    void *temp_r5_6;
-    void *temp_r6;
+    GenObj *temp_r5_6;
+    GenObj *temp_r6;
 
     func_08008724();
     func_080CE294(arg0);
@@ -307,7 +309,7 @@ block_56:
             if (temp_r5_7 == arg0->unk8C->unk4) {
 
             } else {
-                func_0808EF68(arg0);
+                func_0808EF68(arg0, arg0->unk8C->unk4);
             }
             break;
         }

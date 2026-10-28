@@ -133,8 +133,22 @@ typedef struct GenObj {
     u8 _pad214[6292];
     s32 unk1AA8;
 } GenObj;
+typedef struct {
+    u8 _pad0[0x34];
+    s8 unk34;
+    s8 unk35;
+    s8 unk36;
+    s8 unk37;
+    s8 unk38;
+    s8 unk39;
+    s8 unk3A;
+    s8 unk3B;
+    s8 unk3C;
+    s8 unk3D;
+} SpB;
 void **func_0809152C(void **arg0, GenObj *arg1) {
     GenObj *sp0;
+    SpB spB;
     s32 sp4;
     s32 sp8;
     s32 spC;
@@ -154,8 +168,8 @@ s32 sp20;
     s32 sp54;
     s32 sp58;
     s32 sp5C;
-    void **sp60;
-    void **sp64;
+    GenObj **sp60;
+    GenObj **sp64;
     s32 *temp_r2_3;
     s32 *temp_r4_35;
     s32 *temp_r4_37;
@@ -269,7 +283,7 @@ s32 sp20;
     void *temp_r4_24;
     void *temp_r4_28;
     void *temp_r4_29;
-    void *temp_r4_2;
+    GenObj *temp_r4_2;
     void *temp_r4_31;
     void *temp_r4_32;
     void *temp_r4_33;
@@ -277,11 +291,11 @@ s32 sp20;
     void *temp_r4_36;
     void *temp_r4_38;
     void *temp_r4_39;
-    void *temp_r4_3;
-    void *temp_r4_4;
-    void *temp_r4_5;
-    void *temp_r4_6;
-    void *temp_r4_7;
+    GenObj *temp_r4_3;
+    GenObj *temp_r4_4;
+    GenObj *temp_r4_5;
+    GenObj *temp_r4_6;
+    GenObj *temp_r4_7;
     GenObj *temp_r4_8;
     void *temp_r4_9;
     void *temp_r5_2;
@@ -295,6 +309,18 @@ s32 sp20;
     void *temp_r6_9;
     void *temp_r8_2;
     void *temp_r8_3;
+    s32 temp_fw1;
+    s32 temp_fw2;
+    s32 temp_fw3;
+    s32 temp_fw4;
+    s32 temp_fw5;
+    s32 temp_fw6;
+    s32 temp_fw7;
+    s32 temp_fw8;
+    s32 temp_fw9;
+    s32 temp_fw10;
+    s32 temp_fw11;
+    s32 temp_fw12;
     GenObj *var_r0;
     void *var_r4_3;
 
@@ -391,7 +417,7 @@ s32 sp20;
     sp54 = 0;
     sp58 = 0;
     sp5C = 0;
-default:                                            /* switch 1 */
+/* default: switch 1 hilang di m2c (jump table) */
 loop_16:
     func_080087C8(arg1);
     func_080088B8(arg1);
@@ -482,8 +508,8 @@ block_36:
                                 goto block_80;
                             }
                             temp_r4_11 = arg1->unk104;
-                            GetToolAt__8RucksackUi(temp_r4_11, func_080CE184(arg1, temp_r1_8, 0));
-                            if ((IsEmpty__C9ToolStack() << 0x18) == 0) {
+                            temp_fw1 = GetToolAt__8RucksackUi(temp_r4_11, func_080CE184(arg1, temp_r1_8, 0));
+                            if ((IsEmpty__C9ToolStack(temp_fw1) << 0x18) == 0) {
                                 var_r5_2 = 1;
                             }
 block_80:
@@ -523,20 +549,20 @@ block_82:
                             }
                         } else {
                             temp_r4_14 = arg1->unk104;
-                            GetItemAt__8RucksackUi(temp_r4_14, func_080CE184(arg1, temp_r1_8, 0));
-                            if ((IsEmpty__C12RucksackItem() << 0x18) != 0) {
+                            temp_fw2 = GetItemAt__8RucksackUi(temp_r4_14, func_080CE184(arg1, temp_r1_8, 0));
+                            if ((IsEmpty__C12RucksackItem(temp_fw2) << 0x18) != 0) {
 
                             } else {
                                 temp_r6_2 = (*sp60)->unk4;
                                 temp_r4_15 = arg1->unk104;
-                                GetItemAt__8RucksackUi(temp_r4_15, func_080CE184(arg1, temp_r6_2, 0));
-                                temp_r0_8 = GetKind__C12RucksackItem();
-                                if ((temp_r0_8 == 1) && (temp_r4_16 = arg1->unk104, GetItemAt__8RucksackUi(temp_r4_16, func_080CE184(arg1, temp_r6_2, 0)), ((func_080913DC(arg1, GetArticle__C12RucksackItem()) << 0x18) != 0))) {
+                                temp_fw3 = GetItemAt__8RucksackUi(temp_r4_15, func_080CE184(arg1, temp_r6_2, 0));
+                                temp_r0_8 = GetKind__C12RucksackItem(temp_fw3);
+                                if ((temp_r0_8 == 1) && (temp_r4_16 = arg1->unk104, temp_fw4 = GetItemAt__8RucksackUi(temp_r4_16, func_080CE184(arg1, temp_r6_2, 0)), ((func_080913DC(arg1, GetArticle__C12RucksackItem(temp_fw4)) << 0x18) != 0))) {
                                     func_080CECD0(arg1->unk10C);
                                     func_080CEC84(arg1->unk10C, (*sp60)->unk4, 0);
                                     temp_r5_7 = arg1->unk104;
-                                    GetItemAt__8RucksackUi(temp_r5_7, func_080CE184(arg1, func_080CF050(arg1->unk10C), 0));
-                                    sp0.unk3D = GetArticle__C12RucksackItem();
+                                    temp_fw5 = GetItemAt__8RucksackUi(temp_r5_7, func_080CE184(arg1, func_080CF050(arg1->unk10C), 0));
+                                    spB.unk3D = GetArticle__C12RucksackItem(temp_fw5);
                                     sp50 = GetId__C7Article();
                                     func_08008B6C((GenObj *)((u8 *)arg1 + 0xC), 0xC5);
                                     arg1->unk108 = temp_r0_8;
@@ -561,8 +587,8 @@ block_82:
                             var_r5_3 = (u32) ((0 - temp_r0_9) | temp_r0_9) >> 0x1F;
                         } else {
                             temp_r4_18 = arg1->unk104;
-                            GetItemAt__8RucksackUi(temp_r4_18, func_080CE184(arg1, temp_r1_9, 0));
-                            if ((IsEmpty__C12RucksackItem() << 0x18) == 0) {
+                            temp_fw6 = GetItemAt__8RucksackUi(temp_r4_18, func_080CE184(arg1, temp_r1_9, 0));
+                            if ((IsEmpty__C12RucksackItem(temp_fw6) << 0x18) == 0) {
                                 var_r5_3 = 0;
                             }
                         }
@@ -579,14 +605,14 @@ block_82:
                         }
                     } else if (temp_r1_9 != 0) {
                         temp_r4_20 = arg1->unk104;
-                        GetToolAt__8RucksackUi(temp_r4_20, func_080CE184(arg1, temp_r1_9, 0));
-                        if ((IsEmpty__C9ToolStack() << 0x18) != 0) {
+                        temp_fw7 = GetToolAt__8RucksackUi(temp_r4_20, func_080CE184(arg1, temp_r1_9, 0));
+                        if ((IsEmpty__C9ToolStack(temp_fw7) << 0x18) != 0) {
 
                         } else {
                             temp_r6_3 = (*sp60)->unk4;
                             temp_r4_21 = arg1->unk104;
-                            GetToolAt__8RucksackUi(temp_r4_21, func_080CE184(arg1, temp_r6_3, 0));
-                            sp38 = GetTool__C9ToolStack();
+                            temp_fw8 = GetToolAt__8RucksackUi(temp_r4_21, func_080CE184(arg1, temp_r6_3, 0));
+                            sp38 = GetTool__C9ToolStack(temp_fw8);
                             if (GetId__C4Tool() > 0x2F) {
                                 temp_r4_22 = (GenObj *)((u8 *)arg1 + 0x80);
                                 func_08050D8C(temp_r4_22, &gUnk_08100208);
@@ -596,8 +622,8 @@ block_82:
                                 var_r0_2 = 5;
                             } else {
                                 temp_r4_23 = arg1->unk104;
-                                GetToolAt__8RucksackUi(temp_r4_23, func_080CE184(arg1, temp_r6_3, 0));
-                                if ((func_080913B0(arg1, GetTool__C9ToolStack()) << 0x18) != 0) {
+                                temp_fw9 = GetToolAt__8RucksackUi(temp_r4_23, func_080CE184(arg1, temp_r6_3, 0));
+                                if ((func_080913B0(arg1, GetTool__C9ToolStack(temp_fw9)) << 0x18) != 0) {
                                     temp_r4_24 = (GenObj *)((u8 *)arg1 + 0x80);
                                     func_08050D8C(temp_r4_24, &gUnk_081001A4);
                                     func_08050E50(temp_r4_24, 0xA8);
@@ -607,19 +633,19 @@ block_82:
                                 } else {
                                     func_080CEC84(*sp64, (*sp60)->unk4, 0);
                                     temp_r4_25 = arg1->unk104;
-                                    GetToolAt__8RucksackUi(temp_r4_25, func_080CE184(arg1, temp_r6_3, 0));
-                                    sp0.unk39 = GetTool__C9ToolStack();
+                                    temp_fw10 = GetToolAt__8RucksackUi(temp_r4_25, func_080CE184(arg1, temp_r6_3, 0));
+                                    spB.unk39 = GetTool__C9ToolStack(temp_fw10);
                                     if (!(7 & GetId__C4Tool())) {
                                         temp_r4_26 = arg1->unk8 + 0x1BD8;
                                         temp_r5_8 = arg1->unk104;
-                                        GetToolAt__8RucksackUi(temp_r5_8, func_080CE184(arg1, temp_r6_3, 0));
-                                        sp0.unk3A = func_0800E550(temp_r4_26, GetTool__C9ToolStack());
+                                        temp_fw11 = GetToolAt__8RucksackUi(temp_r5_8, func_080CE184(arg1, temp_r6_3, 0));
+                                        spB.unk3A = func_0800E550(temp_r4_26, GetTool__C9ToolStack(temp_fw11));
                                         sp4C = GetId__C4Tool();
                                         sp58 = 1;
                                     } else {
                                         temp_r4_27 = arg1->unk104;
-                                        GetToolAt__8RucksackUi(temp_r4_27, func_080CE184(arg1, temp_r6_3, 0));
-                                        sp0.unk3B = GetTool__C9ToolStack();
+                                        temp_fw12 = GetToolAt__8RucksackUi(temp_r4_27, func_080CE184(arg1, temp_r6_3, 0));
+                                        spB.unk3B = GetTool__C9ToolStack(temp_fw12);
                                         sp4C = GetId__C4Tool();
                                     }
                                     temp_r4_28 = (GenObj *)((u8 *)arg1 + 0x80);
@@ -646,14 +672,14 @@ block_82:
                                 var_r0_2 = 5;
                             } else {
                                 func_080CEC84(*sp64, (*sp60)->unk4, 0);
-                                sp0.unk35 = GetTool__C9ToolStack(arg1->unkFC);
+                                spB.unk35 = GetTool__C9ToolStack(arg1->unkFC);
                                 if (!(7 & GetId__C4Tool())) {
                                     temp_r4_30 = arg1->unk8 + 0x1BD8;
-                                    sp0.unk36 = func_0800E550(temp_r4_30, GetTool__C9ToolStack(arg1->unkFC));
+                                    spB.unk36 = func_0800E550(temp_r4_30, GetTool__C9ToolStack(arg1->unkFC));
                                     sp4C = GetId__C4Tool();
                                     sp58 = 1;
                                 } else {
-                                    sp0.unk37 = GetTool__C9ToolStack(arg1->unkFC);
+                                    spB.unk37 = GetTool__C9ToolStack(arg1->unkFC);
                                     sp4C = GetId__C4Tool();
                                 }
                                 temp_r4_31 = (GenObj *)((u8 *)arg1 + 0x80);
@@ -679,7 +705,7 @@ block_102:
             if (temp_sb == (*sp60)->unk4) {
 
             } else {
-                func_08091280(arg1);
+                func_08091280(arg1, (*sp60)->unk4);
             }
             goto loop_16;
         case 1:                                     /* switch 1 */

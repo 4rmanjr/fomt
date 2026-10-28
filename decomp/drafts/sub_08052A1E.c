@@ -10,8 +10,8 @@ s32 func_08008B6C(void *, s32);                       /* extern */
 s32 func_08008F0C(void ***, void *, s32, s32);        /* extern */
 s32 func_0800934C(s32, s32, s32, s32);                /* extern */
 s32 func_08009378(void *, s32, s32, s32);             /* extern */
-s32 func_080522D8(void *, ? *, s32);                  /* extern */
-s32 func_080522E8(void *, ? *, s32);                  /* extern */
+s32 func_080522D8(void *, s32 *, s32);                  /* extern */
+s32 func_080522E8(void *, s32 *, s32);                  /* extern */
 s32 func_08053634(void *);                            /* extern */
 u16 func_08053960(void *);                          /* extern */
 s32 func_080550AC(void *, s16);                       /* extern */
@@ -20,7 +20,21 @@ void *func_080D3BC0(s32);                           /* extern */
 void *malloc(s32);                                  /* extern */
 s32 rand();                                           /* extern */
 
-s32 *sub_08052A1E(s32 arg4, void *arg5, void **arg6, ? argA, s32 argB, s32 argC, s32 *argF, s32 arg10, s32 arg11, s32 arg12, void *arg13, void *arg14, void *arg15) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    s32 unk10;
+    u8 _pad14[8];
+    s32 unk1C;
+    u8 _pad20[24];
+    s32 unk38;
+    u8 _pad3C[7264];
+    struct GenObj *unk1C9C;
+    struct GenObj *unk1C9D;
+} GenObj;
+s32 *sub_08052A1E(GenObj *arg4, GenObj *arg5, void **arg6, ? argA, s32 argB, s32 argC, s32 *argF, s32 arg10, s32 arg11, s32 arg12, GenObj *arg13, GenObj *arg14, void *arg15) {
     s16 *var_r1;
     s16 *var_r1_2;
     s16 *var_r1_3;
@@ -60,21 +74,21 @@ s32 *sub_08052A1E(s32 arg4, void *arg5, void **arg6, ? argA, s32 argB, s32 argC,
     u8 temp_r0_12;
     u8 temp_r2_2;
     u8 var_r2;
-    void *temp_r0_11;
+    GenObj *temp_r0_11;
     void *temp_r0_14;
-    void *temp_r0_2;
-    void *temp_r0_9;
-    void *temp_r1_8;
+    GenObj *temp_r0_2;
+    GenObj *temp_r0_9;
+    GenObj *temp_r1_8;
     void *temp_r2_3;
-    void *temp_r3;
-    void *temp_r3_2;
-    void *temp_r3_3;
-    void *temp_r6;
-    void *var_ip;
+    GenObj *temp_r3;
+    GenObj *temp_r3_2;
+    GenObj *temp_r3_3;
+    GenObj *temp_r6;
+    GenObj *var_ip;
     void *var_r0_5;
     void *var_r1_8;
-    void *var_r2_2;
-    void *var_r2_3;
+    GenObj *var_r2_2;
+    GenObj *var_r2_3;
     void *var_r4_2;
 
     func_080087C8(saved_reg_r5);
@@ -119,9 +133,9 @@ block_5:
             saved_reg_r5->unk232A = 0;
             saved_reg_r5->unk22C0 = 0;
             saved_reg_r5->unk2292 = 0;
-            func_0800934C(arg5 + 0xC, 0x889, 1, 1);
+            func_0800934C((GenObj *)((u8 *)arg5 + 0xC), 0x889, 1, 1);
             temp_r0_2 = func_08008940(saved_reg_r5);
-            temp_r0_2->unk8->unk10(temp_r0_2, arg5);
+            ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, arg5);
             break;
         case 1:                                     /* switch 1 */
             temp_r1 = arg5->unk0;
@@ -429,9 +443,9 @@ block_97:
             }
             break;
         case 27:                                    /* switch 1 */
-            func_08009378(arg5 + 0xC, 0x889, 1, 1);
+            func_08009378((GenObj *)((u8 *)arg5 + 0xC), 0x889, 1, 1);
             temp_r0_9 = func_08008940(saved_reg_r5);
-            temp_r0_9->unk8->unk10(temp_r0_9, arg5);
+            ((void (*)(void *,...))(temp_r0_9->unk8->unk10))(temp_r0_9, arg5);
             var_r1_4 = saved_reg_r5 + 0x2328;
             goto block_116;
         case 28:                                    /* switch 1 */
@@ -559,7 +573,7 @@ loop_128:
                         var_ip->unk8 = (s32) arg13->unk8;
                         var_ip->unkC = (s32) arg13->unkC;
                     }
-                    var_r4_2 = var_ip + 0x10;
+                    var_r4_2 = (GenObj *)((u8 *)var_ip + 0x10);
                 } else {
                     var_ip_2 = argC;
                     var_r2_3 = var_ip;
@@ -608,7 +622,7 @@ loop_128:
         (*arg6)->unk8(arg6, 3);
     }
     if (arg5 != 0) {
-        arg5->unk8->unkC(arg5, 3);
+        ((void (*)(void *,...))(arg5->unk8->unkC))(arg5, 3);
     }
     return argF;
 }

@@ -21,12 +21,12 @@ typedef struct GenObj {
     s32 unk104;
 } GenObj;
 void func_08090FCC(GenObj *arg0, u32 arg1) {
-    GenObj *sp0;
-s32 sp4;
+    s32 sp0;
+    s32 sp4;
     s8 sp8;
+    s8 sp9;
     s32 temp_r4;
     u16 temp_r6;
-    u16 temp_r6_2;
     u32 var_r5;
 
     var_r5 = 0;
@@ -42,10 +42,10 @@ s32 sp4;
             var_r5 += 1;
         } while (var_r5 < arg1);
     }
-    if ((IsEmpty__C9ToolStack(arg0->unkFC) << 0x18) == 0) {
-        sp0.unk9 = func_0800E550(arg0->unk8 + 0x1BD8, GetTool__C9ToolStack(arg0->unkFC));
-        temp_r6_2 = GetIconId__C4Tool();
+    if ((IsEmpty__C9ToolStack((s32 *)arg0->unkFC) << 0x18) == 0) {
+        sp9 = func_0800E550(arg0->unk8 + 0x1BD8, GetTool__C9ToolStack((s32 *)arg0->unkFC));
+        temp_r6 = GetIconId__C4Tool();
         temp_r4 = arg0->unk78;
-        func_080CBAF0(temp_r4, &gUnk_086678A0, temp_r6_2, GetAmount__C9ToolStack(arg0->unkFC));
+        func_080CBAF0(temp_r4, &gUnk_086678A0, temp_r6, GetAmount__C9ToolStack((s32 *)arg0->unkFC));
     }
 }

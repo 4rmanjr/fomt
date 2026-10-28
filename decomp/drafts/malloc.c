@@ -1,12 +1,19 @@
 extern void *gUnk_03000418;
 
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    struct GenObj *unkC;
+    s32 unk10;
+} GenObj;
 void *malloc(s32 arg0) {
     s32 temp_r5;
     u32 temp_r1;
     u32 temp_r4;
     void *temp_r0;
     void *temp_r0_2;
-    void *temp_r3;
+    GenObj *temp_r3;
     void *var_r2;
 
     temp_r4 = ((u32) (arg0 + 3) >> 2) * 4;
@@ -17,7 +24,7 @@ loop_1:
         if ((temp_r5 == 0) && (temp_r1 = var_r2->unk0, (temp_r1 >= temp_r4))) {
             if (temp_r1 >= (u32) (temp_r4 + 0x20)) {
                 temp_r0 = var_r2 + temp_r4;
-                temp_r3 = temp_r0 + 0x10;
+                temp_r3 = (GenObj *)((u8 *)temp_r0 + 0x10);
                 temp_r0->unk10 = (s32) ((temp_r1 - 0x10) - temp_r4);
                 temp_r3->unk4 = temp_r5;
                 temp_r3->unk8 = var_r2;

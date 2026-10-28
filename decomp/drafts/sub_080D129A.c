@@ -1,4 +1,4 @@
-? .L080D145C();                                     /* extern */
+? 0();                                     /* extern */
 s32 func_080D11A4();                                  /* extern */
 s32 func_080D14EC();                                  /* extern */
 
@@ -18,7 +18,7 @@ block_1:
     temp_r4 = (saved_reg_r7 + 8)->unk6;
     func_080D11A4();
     func_080D11A4();
-    .L080D145C();
+    0();
     return;
 block_3:
     saved_reg_r9();

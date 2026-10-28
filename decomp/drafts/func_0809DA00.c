@@ -8,7 +8,15 @@ u8 func_0809DFAC(void *);                           /* extern */
 u8 func_0809E02C(void *);                           /* extern */
 s32 func_0809ED04(s32);                             /* extern */
 
-s32 func_0809DA00(void *arg0, s32 arg1, void *arg2) {
+typedef struct GenObj {
+    u8 _pad0[16];
+    s32 unk10;
+    u8 _pad14[1552];
+    s32 unk624;
+    s32 unk625;
+    s32 unk626;
+} GenObj;
+s32 func_0809DA00(GenObj *arg0, s32 arg1, GenObj *arg2) {
     u16 sp0;
     u32 sp8;
     u32 spC;

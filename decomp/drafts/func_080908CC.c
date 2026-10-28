@@ -17,14 +17,15 @@ typedef struct GenObj {
     u8 _pad80[136];
     s32 unk108;
 } GenObj;
+typedef struct { s32 unk0; s32 unk4; s32 unk8; } Sp12;
 void func_080908CC(GenObj *arg0, s32 arg1) {
-s32 sp0;
+    Sp12 sp0;
     s32 temp_r4;
     s32 temp_r4_2;
     s32 var_r1;
     GenObj *var_r0;
 
-    func_080CAC70(&sp0);
+    func_080CAC70((s32 *)&sp0);
     if (arg1 == 0) {
         var_r0 = func_080CB2FC(arg0->unk78);
     } else if (arg1 <= 8) {
@@ -34,11 +35,9 @@ s32 sp0;
         temp_r4_2 = arg0->unk7C;
         var_r0 = func_080CC70C(temp_r4_2, func_080CE184(arg0, arg1, 0));
     }
-    sp0 = (s32) var_r0->unk0;
-    sp0.unk4 = (s32) var_r0->unk4;
-    sp0.unk8 = (s32) var_r0->unk8;
+    sp0 = *(Sp12 *)var_r0;
     var_r1 = 0;
-    if ((sp4 == 0) || (sp8 == 0)) {
+    if ((sp0.unk4 == 0) || (sp0.unk8 == 0)) {
         var_r1 = 1;
     }
     if (var_r1 == 0) {

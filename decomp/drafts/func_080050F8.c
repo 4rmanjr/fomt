@@ -27,7 +27,7 @@ typedef struct GenObj {
 s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     struct { s32 sp0; GenObj *volatile sp4; GenObj *slot[3]; } fr;
     GenObj **p7;
-    GenObj ***p8;
+    GenObj **p8;
     s32 temp_r1_2;
     s32 temp_r1_3;
     s32 var_r4;
@@ -43,11 +43,12 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     func_08005260(arg1);
     func_08005278(arg1);
     temp_r0 = func_08008918(arg1);
-    *(volatile s16 *)&sp0 = 0x3F;
+    *(volatile s16 *)&fr.sp0 = 0x3F;
     temp_r0->unk50 = 0x3F;
     temp_r4 = __builtin_new(0x10);
     temp_r1 = func_08008918(arg1);
-    temp_r4->unk0 = temp_r4->unk4 = 0;
+    temp_r4->unk0 = 0;
+    temp_r4->unk4 = 0;
     temp_r4->unk8 = &vtable_unk_080E5B80;
     temp_r5 = (GenObj *)((u8 *)temp_r4 + 0xC);
     func_08009300(temp_r5, temp_r1);
@@ -55,8 +56,8 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     func_0800934C(temp_r5, 0x889, 1, 1);
     temp_r0_2 = func_08008940(arg1);
     ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, fr.sp4);
-    p7 = &spslot[0];
-    p8 = (GenObj ***)&fr.slot[1];
+    p7 = &fr.slot[0];
+    p8 = &fr.slot[1];
     var_r4 = 0;
     var_r5 = 0;
     do {
@@ -65,7 +66,7 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
         func_080088D4(arg1);
         switch (var_r4) {                           /* irregular */
         case 0:
-            temp_r1_2 = sp4->unk0;
+            temp_r1_2 = fr.sp4->unk0;
             if ((s32) ((0 - temp_r1_2) | temp_r1_2) >= 0) {
                 var_r4 = 1;
             }
@@ -77,13 +78,13 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
             }
             break;
         case 2:
-            func_08009378((GenObj *)((u8 *)sp4 + 0xC), 0x889, 1, 1);
+            func_08009378((GenObj *)((u8 *)fr.sp4 + 0xC), 0x889, 1, 1);
             temp_r0_3 = func_08008940(arg1);
-            ((void (*)(void *,...))(temp_r0_3->unk8->unk10))(temp_r0_3, sp4);
+            ((void (*)(void *,...))(temp_r0_3->unk8->unk10))(temp_r0_3, fr.sp4);
             var_r4 = 3;
             break;
         case 3:
-            temp_r1_3 = sp4->unk0;
+            temp_r1_3 = fr.sp4->unk0;
             if ((s32) ((0 - temp_r1_3) | temp_r1_3) >= 0) {
                 var_r5 = 1;
             }
@@ -91,14 +92,16 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
         }
     } while (var_r5 == 0);
     fr.slot[0] = 0;
-    *p8 = p7;
+    fr.slot[1] = p7;
     *(s32 *)(p8 + 1) = 0;
     *p7 = 0;
     *arg0 = 0;
-    if (fr.slot[0] != 0) {
+    if (fr.slot[0] == 0) {
+    } else {
         ((void (*)(void *,...))(fr.slot[0]->unk4->unk8))(fr.slot[0], 3);
     }
-    if (fr.sp4 != 0) {
+    if (fr.sp4 == 0) {
+    } else {
         ((void (*)(void *,...))(fr.sp4->unk8->unkC))(fr.sp4, 3);
     }
     return arg0;

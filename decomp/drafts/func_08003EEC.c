@@ -11,13 +11,13 @@ extern s32 gUnk_080E8878;
 typedef struct GenObj {
     u8 _pad0[128];
     s32 unk80;
-    s32 unk84;
-    s32 unk85;
+    u8 unk84;
+    u8 unk85;
+    u8 _pad86[14];
+    u8 unk94;
 } GenObj;
 void func_08003EEC(GenObj *arg0) {
     s32 *var_r1;
-    s32 temp_r1;
-    s32 var_r3;
     u32 temp_r0;
 
     var_r1 = 0;
@@ -29,18 +29,15 @@ void func_08003EEC(GenObj *arg0) {
             var_r1 = &gUnk_080E8770;
         }
         break;
-    case 1:
-        temp_r1 = arg0->unk85 << 7;
-        var_r3 = 0;
-        if ((temp_r1 + arg0)->unk98 == 0) {
-            var_r3 = 1;
-        }
-        if (var_r3 == 0) {
-            var_r1 = temp_r1 + arg0 + 0x98;
+    case 1: {
+        u8 *q = (u8 *)arg0 + (arg0->unk85 << 7);
+        if (q[0x98] != 0) {
+            var_r1 = (s32 *)(q + 0x98);
         } else {
             var_r1 = &gUnk_080E878C;
         }
         break;
+    }
     case 2:
         var_r1 = &gUnk_080E87A4;
         break;
@@ -57,5 +54,5 @@ void func_08003EEC(GenObj *arg0) {
     if (var_r1 == 0) {
         var_r1 = &gUnk_080E86C0;
     }
-    func_08050DC8(arg0 + 0x10, var_r1, 0, 0);
+    func_08050DC8((u8 *)arg0 + 0x10, var_r1, 0, 0);
 }

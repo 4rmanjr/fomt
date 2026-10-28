@@ -2,11 +2,12 @@ s32 func_080D6EEC(void *);                            /* extern */
 u32 func_080D74F0(u8 *, u32);                       /* extern */
 
 typedef struct GenObj {
-    s32 unk0;
-    s32 unk1;
-    s32 unk4;
-    u8 _pad8[56];
-    s32 unk40;
+    u8 unk0;
+    u8 unk1;
+    u8 _pad2[2];
+    u8 unk4;
+    u8 _pad5[59];
+    u8 unk40;
 } GenObj;
 s32 func_080D7568(GenObj *arg0, u32 arg1) {
     s32 sp0;
@@ -19,7 +20,7 @@ s32 func_080D7568(GenObj *arg0, u32 arg1) {
 
     if (arg1 <= 8U) {
         var_r3 = 0;
-        var_r4 = arg0 + 4;
+        var_r4 = (u8 *)arg0 + 4;
 loop_2:
         temp_r5 = *var_r4;
         if (temp_r5 == 0) {
@@ -55,3 +56,5 @@ block_9:
 block_14:
     return 0x200;
 }
+
+/* ATTEMPT-NOTE opencode: unk u8 + byte-arith; sisa alokasi reg sistematis (r4/r6/r5/r7/r2 vs r6/r7/r4/r5/r3); copy-a0/a1/register-asm dicoba. */

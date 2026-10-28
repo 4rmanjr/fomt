@@ -27,10 +27,11 @@ extern s32 gUnk_086678A0;
 
 typedef struct GenObj {
     u8 _pad0[17];
-    s32 unk11;
-    s32 unk12;
-    s32 unk15;
-    s32 unk16;
+    u8 unk11;
+    u8 unk12;
+    u8 _pad13[2];
+    u8 unk15;
+    u8 unk16;
     s32 unk19;
     s32 unk1A;
     u8 _pad1E[90];
@@ -46,8 +47,9 @@ typedef struct GenObj {
     s32 unk100;
     s32 unk104;
 } GenObj;
-void func_08089AD8(GenObj *arg0, s32 arg1, s32 arg2) {
-    GenObj *sp0;
+u8 func_08089AD8(GenObj *arg0, s32 arg1, s32 arg2) {
+    GenObj sp0;
+    s32 sp00;
     s32 sp4;
     s32 sp8;
     s32 spC;
@@ -60,7 +62,7 @@ void func_08089AD8(GenObj *arg0, s32 arg1, s32 arg2) {
     s32 *sp28;
     s32 *sp2C;
     s32 *sp30;
-    s32 *sp34;
+    s32 sp34;
     s32 *temp_r0;
     s32 *temp_r0_2;
     s32 *temp_r4_21;
@@ -143,7 +145,7 @@ void func_08089AD8(GenObj *arg0, s32 arg1, s32 arg2) {
             sp4 = *GetFoodStackAt__6FridgeUi(arg0->unk104, sp24);
             sp34 = (GenObj *)((u8 *)arg0 + 0x90);
             if (sp20 != 0) {
-                temp_r0 = &(GenObj *)((u8 *)sp0 + 8);
+                temp_r0 = (s32 *) ((s32) &sp0 + 8);
                 sp2C = temp_r0;
                 temp_r4 = arg0->unk100;
                 GetFood__C12RucksackItem(temp_r0, GetItemAt__8RucksackUi(temp_r4, func_080CE184(arg0, sp20, 0)));
@@ -158,16 +160,16 @@ void func_08089AD8(GenObj *arg0, s32 arg1, s32 arg2) {
                     *temp_r4_3 = spC;
                     temp_r4_4 = arg0->unk78;
                     func_080CBA60(temp_r4_4, func_080CE184(arg0, sp20, 0));
-                    temp_r4_5 = arg0->unk94->unkBC;
-                    if (temp_r4_5 == func_080CF054(*sp34)) {
+                    temp_r4_5 = *(s32 *) (arg0->unk94 + 0xBC);
+                    if (temp_r4_5 == func_080CF054(sp34)) {
                         temp_r5 = arg0->unk7C;
                         temp_r4_6 = func_080CE184(arg0, sp1C, 0);
                         temp_r3 = GetIconId__C4Food(sp2C);
-                        sp0 = 1;
+                        sp00 = 1;
                         func_080CC728(temp_r5, temp_r4_6, &gUnk_086678A0, temp_r3);
                     }
                 } else {
-                    temp_r0_2 = &(GenObj *)((u8 *)sp0 + 0xC);
+                                    temp_r0_2 = (s32 *) ((s32) &sp0 + 0xC);
                     sp30 = temp_r0_2;
                     GetFood__C9FoodStack(temp_r0_2, GetFoodStackAt__6FridgeUi(arg0->unk104, sp24));
                     temp_r4_7 = GetId__C4Food(temp_r0_2);
@@ -186,20 +188,20 @@ void func_08089AD8(GenObj *arg0, s32 arg1, s32 arg2) {
                         temp_r5_2 = arg0->unk78;
                         temp_r4_9 = func_080CE184(arg0, sp20, 0);
                         temp_r3_2 = GetIconId__C4Food(sp30);
-                        sp0 = 1;
+                        sp00 = 1;
                         func_080CB304(temp_r5_2, temp_r4_9, &gUnk_086678A0, temp_r3_2);
-                        temp_r4_10 = arg0->unk94->unkBC;
-                        if (temp_r4_10 == func_080CF054(*sp34)) {
+                        temp_r4_10 = *(s32 *) (arg0->unk94 + 0xBC);
+                        if (temp_r4_10 == func_080CF054(sp34)) {
                             temp_r5_3 = arg0->unk7C;
                             temp_r4_11 = func_080CE184(arg0, sp1C, 0);
                             temp_r3_3 = GetIconId__C4Food(sp2C);
-                            sp0 = 1;
+                            sp00 = 1;
                             func_080CC728(temp_r5_3, temp_r4_11, &gUnk_086678A0, temp_r3_3);
                         }
                     }
                 }
             } else {
-                sp28 = &(GenObj *)((u8 *)sp0 + 8);
+                sp28 = (s32 *) ((s32) &sp0 + 8);
                 func_0800F20C(sp28, arg0->unkFC);
                 if ((IsEmpty__C9FoodStack(&sp4) << 0x18) == 0) {
                     GetFood__C9FoodStack(&spC, GetFoodStackAt__6FridgeUi(arg0->unk104, sp24));
@@ -217,14 +219,14 @@ void func_08089AD8(GenObj *arg0, s32 arg1, s32 arg2) {
                         *temp_r6_2 = sp10;
                         temp_r4_14 = arg0->unk78;
                         func_080CBAF0(temp_r4_14, &gUnk_086678A0, GetIconId__C4Food(&spC), 1);
-                        temp_r4_15 = arg0->unk94->unkBC;
-                        if (temp_r4_15 != func_080CF054(*sp34)) {
+                        temp_r4_15 = *(s32 *) (arg0->unk94 + 0xBC);
+                        if (temp_r4_15 != func_080CF054(sp34)) {
 
                         } else {
                             temp_r5_4 = arg0->unk7C;
                             temp_r4_16 = func_080CE184(arg0, sp1C, 0);
                             temp_r3_4 = GetIconId__C4Food(sp28);
-                            sp0 = 1;
+                            sp00 = 1;
                             func_080CC728(temp_r5_4, temp_r4_16, &gUnk_086678A0, temp_r3_4);
                         }
                     }
@@ -235,14 +237,14 @@ void func_08089AD8(GenObj *arg0, s32 arg1, s32 arg2) {
                     *temp_r6_3 = spC;
                     func_0800F390(arg0->unkFC);
                     func_080CC0B4(arg0->unk78);
-                    temp_r4_17 = arg0->unk94->unkBC;
-                    if (temp_r4_17 != func_080CF054(*sp34)) {
+                    temp_r4_17 = *(s32 *) (arg0->unk94 + 0xBC);
+                    if (temp_r4_17 != func_080CF054(sp34)) {
 
                     } else {
                         temp_r5_5 = arg0->unk7C;
                         temp_r4_18 = func_080CE184(arg0, sp1C, 0);
                         temp_r3_5 = GetIconId__C4Food(sp28);
-                        sp0 = 1;
+                        sp00 = 1;
                         func_080CC728(temp_r5_5, temp_r4_18, &gUnk_086678A0, temp_r3_5);
                     }
                 }
@@ -250,7 +252,7 @@ void func_08089AD8(GenObj *arg0, s32 arg1, s32 arg2) {
         } else {
             temp_r4_19 = arg0->unk100;
             GetFood__C12RucksackItem(&sp4, GetItemAt__8RucksackUi(temp_r4_19, func_080CE184(arg0, sp1C, 0)));
-            temp_r0_3 = func_080CE184(arg0, sp20, arg0->unk94->unkBC);
+            temp_r0_3 = func_080CE184(arg0, sp20, *(s32 *) (arg0->unk94 + 0xBC));
             sp8 = *GetFoodStackAt__6FridgeUi(arg0->unk104, temp_r0_3);
             if ((IsEmpty__C9FoodStack(&sp8) << 0x18) != 0) {
                 temp_r6_4 = GetFoodStackAt__6FridgeUi(arg0->unk104, temp_r0_3);
@@ -292,12 +294,12 @@ void func_08089AD8(GenObj *arg0, s32 arg1, s32 arg2) {
                 temp_r6_5 = arg0->unk78;
                 temp_r4_29 = func_080CE184(arg0, sp1C, 0);
                 temp_r3_6 = GetIconId__C4Food(&spC);
-                sp0 = 1;
+                sp00 = 1;
                 func_080CB304(temp_r6_5, temp_r4_29, &gUnk_086678A0, temp_r3_6);
                 temp_r6_6 = arg0->unk7C;
                 temp_r4_30 = func_080CE184(arg0, sp20, 0);
                 var_r3 = GetIconId__C4Food(&sp4);
-                sp0 = 1;
+                sp00 = 1;
                 var_r0 = temp_r6_6;
                 var_r1 = temp_r4_30;
                 goto block_17;
@@ -306,7 +308,7 @@ void func_08089AD8(GenObj *arg0, s32 arg1, s32 arg2) {
         }
     } else {
         func_0800F20C(&sp4, arg0->unkFC);
-        temp_r0_4 = func_080CE184(arg0, sp20, arg0->unk94->unkBC);
+        temp_r0_4 = func_080CE184(arg0, sp20, *(s32 *) (arg0->unk94 + 0xBC));
         sp8 = *GetFoodStackAt__6FridgeUi(arg0->unk104, temp_r0_4);
         if ((IsEmpty__C9FoodStack(&sp8) << 0x18) != 0) {
             temp_r6_7 = GetFoodStackAt__6FridgeUi(arg0->unk104, temp_r0_4);
@@ -319,7 +321,7 @@ block_16:
             temp_r5_9 = arg0->unk7C;
             temp_r4_31 = func_080CE184(arg0, sp20, 0);
             var_r3 = GetIconId__C4Food(&sp4);
-            sp0 = 1;
+            sp00 = 1;
             var_r0 = temp_r5_9;
             var_r1 = temp_r4_31;
             goto block_17;
@@ -332,8 +334,7 @@ block_16:
             func_080CC0B4(arg0->unk78);
             temp_r5_10 = arg0->unk7C;
             temp_r4_33 = func_080CE184(arg0, sp20, 0);
-            GetFoodStackAt__6FridgeUi(arg0->unk104, temp_r0_4);
-            func_080CCD48(temp_r5_10, temp_r4_33, GetAmount__C9FoodStack());
+            func_080CCD48(temp_r5_10, temp_r4_33, GetAmount__C9FoodStack(&spC));
         } else {
             temp_r6_8 = GetFoodStackAt__6FridgeUi(arg0->unk104, temp_r0_4);
             memcpy(&sp14, &sp4, 3);
@@ -348,7 +349,7 @@ block_16:
             temp_r5_11 = arg0->unk7C;
             temp_r4_36 = func_080CE184(arg0, sp20, 0);
             var_r3 = GetIconId__C4Food(&sp4);
-            sp0 = 1;
+            sp00 = 1;
             var_r0 = temp_r5_11;
             var_r1 = temp_r4_36;
 block_17:
@@ -357,5 +358,7 @@ block_17:
 block_18:
         sp34 = (GenObj *)((u8 *)arg0 + 0x90);
     }
-    func_080CECD0(*sp34);
+    func_080CECD0(sp34);
 }
+
+/* ATTEMPT-NOTE pi: byte +0xa: 0xd0 vs ref 0x8e (sub sp besar: kandidat sub sp,0x150? vs ref 0x38+str sp); ret u8? frame jauh; cek jumlah/tipe locals: kandidat simpan r1,r2 di sp+0x130; ref pakai sp+0x1c/0x20 — KURANGI locals agar frame kecil. */

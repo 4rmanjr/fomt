@@ -1,9 +1,15 @@
-extern ? gUnk_081036D4;
-extern ? gUnk_08107094;
-extern ? gUnk_081070AC;
+extern s32 gUnk_081036D4;
+extern s32 gUnk_08107094;
+extern s32 gUnk_081070AC;
 
-void *func_0809C510(void *arg0, s32 *arg1, u32 arg2, u8 arg3) {
-    ? *var_r0_2;
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unk9;
+} GenObj;
+void *func_0809C510(GenObj *arg0, s32 *arg1, u32 arg2, u8 arg3) {
+    s32 *var_r0_2;
     s32 temp_r0_2;
     s32 temp_r1;
     u32 var_r0;
@@ -31,7 +37,7 @@ void *func_0809C510(void *arg0, s32 *arg1, u32 arg2, u8 arg3) {
         }
         temp_r0_2 = arg2 * 0xC;
         temp_r0_3 = temp_r0_2 + &gUnk_081036D4;
-        arg0->unk0 = (s32 *) *(temp_r0_2 + (&gUnk_081036D4 + 4));
+        arg0->unk0 = (s32 *) *((u8 *)temp_r0_2 + (&gUnk_081036D4 + 4));
         arg0->unk4 = (s32) temp_r0_3->unk8;
         arg0->unk8 = (s32) temp_r0_3->unk9;
     } else {

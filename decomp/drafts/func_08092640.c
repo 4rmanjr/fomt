@@ -6,8 +6,8 @@ typedef struct GenObj {
     void *unk4;
     s32 unk8;
     u8 _padC[140];
-    s32 unk98;
-    u8 _pad9C[96];
+    u8 unk98;
+    u8 _pad99[99];
     s32 unkFC;
     s32 unk100;
     s32 unk104;

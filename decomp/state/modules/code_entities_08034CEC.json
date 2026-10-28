@@ -151,13 +151,14 @@
  },
  "func_08035CD4": {
   "addr": 134438100,
-  "judged_mtime": 1793004021.7902899,
+  "judged_mtime": 1793150910.7756617,
   "module": "code_entities_08034CEC.s",
-  "note": "len 44 vs ref 48",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 441,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035D04": {
@@ -174,13 +175,14 @@
  },
  "func_08035D40": {
   "addr": 134438208,
-  "judged_mtime": 1793004022.551232,
+  "judged_mtime": 1793150911.0026426,
   "module": "code_entities_08034CEC.s",
-  "note": "len 42 vs ref 46",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 452,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035D70": {
@@ -245,13 +247,14 @@
  },
  "func_08035E7C": {
   "addr": 134438524,
-  "judged_mtime": 1793004024.5549996,
+  "judged_mtime": 1793150911.1220317,
   "module": "code_entities_08034CEC.s",
-  "note": "len 42 vs ref 46",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 452,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035EAC": {
@@ -316,13 +319,14 @@
  },
  "func_08035FB0": {
   "addr": 134438832,
-  "judged_mtime": 1793004026.538765,
+  "judged_mtime": 1793150911.2420812,
   "module": "code_entities_08034CEC.s",
-  "note": "len 42 vs ref 46",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 452,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035FE0": {
@@ -385,13 +389,14 @@
  },
  "func_08036154": {
   "addr": 134439252,
-  "judged_mtime": 1793004035.784988,
+  "judged_mtime": 1793150911.360406,
   "module": "code_entities_08034CEC.s",
-  "note": "len 44 vs ref 48",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 441,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036184": {
@@ -432,13 +437,14 @@
  },
  "func_08036228": {
   "addr": 134439464,
-  "judged_mtime": 1793004037.157444,
+  "judged_mtime": 1793150911.4790587,
   "module": "code_entities_08034CEC.s",
-  "note": "len 42 vs ref 46",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 452,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036258": {
@@ -455,13 +461,14 @@
  },
  "func_08036290": {
   "addr": 134439568,
-  "judged_mtime": 1793004037.8140452,
+  "judged_mtime": 1793150911.5884135,
   "module": "code_entities_08034CEC.s",
-  "note": "len 42 vs ref 46",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 452,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080362C0": {
@@ -572,13 +579,14 @@
  },
  "func_08036500": {
   "addr": 134440192,
-  "judged_mtime": 1793004026.9951756,
+  "judged_mtime": 1793150911.6977735,
   "module": "code_entities_08034CEC.s",
-  "note": "len 44 vs ref 48",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 441,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036530": {
@@ -641,13 +649,14 @@
  },
  "func_0803669C": {
   "addr": 134440604,
-  "judged_mtime": 1793004039.9781017,
+  "judged_mtime": 1793150911.8048222,
   "module": "code_entities_08034CEC.s",
-  "note": "len 44 vs ref 48",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 441,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080366CC": {
@@ -710,13 +719,14 @@
  },
  "func_080367C8": {
   "addr": 134440904,
-  "judged_mtime": 1793004019.704181,
+  "judged_mtime": 1793150911.9136436,
   "module": "code_entities_08034CEC.s",
-  "note": "len 44 vs ref 48",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 441,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080367F8": {
@@ -803,13 +813,14 @@
  },
  "func_080369E0": {
   "addr": 134441440,
-  "judged_mtime": 1793004031.3028524,
+  "judged_mtime": 1793150912.022094,
   "module": "code_entities_08034CEC.s",
-  "note": "len 44 vs ref 48",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 441,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036A10": {
@@ -872,13 +883,14 @@
  },
  "func_08036B1C": {
   "addr": 134441756,
-  "judged_mtime": 1793014441.9523797,
+  "judged_mtime": 1793150912.1303113,
   "module": "code_entities_08034CEC.s",
-  "note": "len 44 vs ref 48",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 441,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036B4C": {
@@ -895,13 +907,14 @@
  },
  "func_08036B80": {
   "addr": 134441856,
-  "judged_mtime": 1793014442.7108839,
+  "judged_mtime": 1793150912.2392488,
   "module": "code_entities_08034CEC.s",
-  "note": "len 42 vs ref 46",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 452,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036BB0": {
@@ -964,13 +977,14 @@
  },
  "func_08036CDC": {
   "addr": 134442204,
-  "judged_mtime": 1793004042.745888,
+  "judged_mtime": 1793150912.3479958,
   "module": "code_entities_08034CEC.s",
-  "note": "len 42 vs ref 46",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 452,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036D0C": {
@@ -1023,9 +1037,9 @@
  },
  "func_08036DC4": {
   "addr": 134442436,
-  "judged_mtime": 1793149791.9796567,
+  "judged_mtime": 1793150387.8535657,
   "module": "code_entities_08034CEC.s",
-  "note": "len 50 vs ref 104 [23missing,1extra,6operand,1regalloc,2stack,1different @s sub sp, #0x10 | sub sp, #4]",
+  "note": "len 54 vs ref 104 [20missing @< push {r4, lr} | ]",
   "ref_len": 104,
   "sanitize_v": 4,
   "size": 998,
@@ -1239,13 +1253,14 @@
  },
  "func_080376E4": {
   "addr": 134444772,
-  "judged_mtime": 1793004050.8422012,
+  "judged_mtime": 1793150912.4571967,
   "module": "code_entities_08034CEC.s",
-  "note": "len 42 vs ref 46",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 453,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08037714": {

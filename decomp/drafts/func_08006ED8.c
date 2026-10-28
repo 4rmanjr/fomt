@@ -23,26 +23,28 @@ typedef struct GenObj {
     s32 unk4639;
     s32 unk463C;
 } GenObj;
-void func_08006ED8(GenObj *arg0, ? arg3) {
+void func_08006ED8(GenObj *arg0, s32 arg3) {
     s32 temp_r4;
     s32 temp_r5;
     s32 temp_r6;
     s32 temp_r8;
     s32 temp_sb;
     s32 temp_sl;
+    GenObj *tmp4;
     u32 temp_r0;
     u8 temp_r0_2;
 
     if (arg0->unk463C == 0) {
         return;
     }
-    temp_r6 = func_08050D34(arg0->unk45F8);
-    temp_sb = arg0->unk45F8;
+    tmp4 = arg0 + 0x45F8;
+    temp_r6 = func_08050D34(tmp4->unk45F8);
+    temp_sb = tmp4->unk45F8;
     temp_r8 = func_080088DC(arg0);
     temp_sl = func_08008920(arg0);
     temp_r5 = func_08008918(arg0);
     temp_r4 = func_08008940(arg0);
-    temp_r0 = func_08050D3C(temp_sb, temp_r8, temp_sl, temp_r5, temp_r4, func_0800894C(arg0), arg0 + 0x45F0);
+    temp_r0 = func_08050D3C(temp_sb, temp_r8, temp_sl, temp_r5, temp_r4, func_0800894C(arg0), tmp4 - 8);
     switch (temp_r0) {                              /* switch 1; irregular */
     case 0:                                         /* switch 1 */
         if (arg0->unk4638 != 0) {
@@ -66,11 +68,6 @@ void func_08006ED8(GenObj *arg0, ? arg3) {
                 func_08050E30(arg0->unk45F8, &gUnk_080E8C2C, &gUnk_080E8C44, &gUnk_080E8C48, 0, 0, 0);
                 return;
             }
-        case 1:                                     /* switch 1 */
-        case 2:                                     /* switch 1 */
-        case 4:                                     /* switch 1 */
-        case 5:                                     /* switch 1 */
-        case 6:                                     /* switch 1 */
             return;
         case 6:                                     /* switch 2 */
             temp_r0_2 = func_08050DF0(arg0->unk45F8);
@@ -85,5 +82,10 @@ void func_08006ED8(GenObj *arg0, ? arg3) {
             break;
         }
         break;
+    case 2:                                     /* switch 1 */
+    case 4:                                     /* switch 1 */
+    case 5:                                     /* switch 1 */
+    case 6:                                     /* switch 1 */
+        return;
     }
 }

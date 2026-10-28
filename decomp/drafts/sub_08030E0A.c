@@ -1,8 +1,8 @@
-? .L08031A5C();                                     /* extern */
-? .L08031C7C();                                     /* extern */
-? .L08031EA6(s32, ? (*)(void *));                   /* extern */
-? .L08031F0A(s32);                                  /* extern */
-? .L08031F0E();                                     /* extern */
+? 0();                                     /* extern */
+? 0();                                     /* extern */
+? 0(s32, ? (*)(void *));                   /* extern */
+? 0(s32);                                  /* extern */
+? 0();                                     /* extern */
 s32 GetUnkFlag12__C4Farm(void *);                   /* extern */
 s32 IsEmpty__C12RucksackItem(void *);               /* extern */
 s32 func_08008B6C(s32, s32);                          /* extern */
@@ -22,7 +22,22 @@ s32 method_08009F80__4Farm(void *);                   /* extern */
 s32 rand();                                         /* extern */
 s32 sub_08031E0A();                                   /* extern */
 
-void sub_08030E0A(s32 arg4, s32 arg6, ? arg35, ? arg37, ? arg39, void **arg4B, u32 arg4C, u8 *arg53, u8 *arg55, u8 *arg56, void *arg57, u8 *arg59) {
+typedef struct GenObj {
+    struct GenObj *unk0;
+    struct GenObj *unk1;
+    struct GenObj *unk2;
+    struct GenObj *unk3;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    s32 unkA;
+    struct GenObj *unkC;
+    struct GenObj *unk10;
+    struct GenObj *unk14;
+    struct GenObj *unk18;
+    u8 _pad1C[100];
+    struct GenObj *unk80;
+} GenObj;
+void sub_08030E0A(GenObj *arg4, GenObj *arg6, ? arg35, ? arg37, ? arg39, void **arg4B, u32 arg4C, u8 *arg53, u8 *arg55, u8 *arg56, void *arg57, u8 *arg59) {
     s16 *var_r1;
     s16 var_r0_6;
     s32 *var_r0_8;
@@ -59,7 +74,7 @@ void sub_08030E0A(s32 arg4, s32 arg6, ? arg35, ? arg37, ? arg39, void **arg4B, u
     s32 var_r1_6;
     s32 var_r1_8;
     s32 var_r1_9;
-    s32 var_r4;
+    GenObj *var_r4;
     s32 var_r5;
     u16 temp_r0_14;
     u16 temp_r0_17;
@@ -89,19 +104,19 @@ void sub_08030E0A(s32 arg4, s32 arg6, ? arg35, ? arg37, ? arg39, void **arg4B, u
     u8 var_r4_2;
     void **temp_r0_10;
     void **temp_r0_21;
-    void *temp_r0_11;
+    GenObj *temp_r0_11;
     void *temp_r0_4;
-    void *temp_r0_5;
+    GenObj *temp_r0_5;
     void *temp_r0_7;
     void *temp_r0_9;
-    void *temp_r1_2;
+    GenObj *temp_r1_2;
     void *temp_r1_3;
-    void *temp_r2;
-    void *var_r0_2;
-    void *var_r0_3;
+    GenObj *temp_r2;
+    GenObj *var_r0_2;
+    GenObj *var_r0_3;
 
     if (saved_reg_r10->unk3F != 5) {
-        .L08031F0E();
+        0();
     }
     temp_r2 = saved_reg_r10 + 0x88;
     temp_r2->unk4 = (s32) (temp_r2->unk4 + temp_r2->unkC);
@@ -111,23 +126,23 @@ void sub_08030E0A(s32 arg4, s32 arg6, ? arg35, ? arg37, ? arg39, void **arg4B, u
     temp_r1 = temp_r2->unk14 + temp_r0;
     if (temp_r1 > 0) {
         temp_r2->unk14 = temp_r1;
-        .L08031F0E();
+        0();
     }
     M2C_ERROR(/* Read from unset register $r2 */)->unk14 = (s32) M2C_ERROR(/* Read from unset register $r3 */);
     M2C_ERROR(/* Read from unset register $r2 */)->unk18 = (s32) M2C_ERROR(/* Read from unset register $r3 */);
-    .L08031F0E();
+    0();
     if (saved_reg_r10->unkC3 == 0) {
         if ((0xFFFFC7D7 != 0) && ((void *)0xFFFFC7D7->unk4 & 2)) {
             *arg53 = 0x20;
         } else {
             if (saved_reg_r10->unk58 == 0) {
-                .L08031F0E();
+                0();
             }
             var_r1 = saved_reg_r10 + 0x54;
             temp_r0_2 = saved_reg_r10->unk54 + 1;
             saved_reg_r10->unk54 = temp_r0_2;
             if (temp_r0_2 != *M2C_ERROR(/* Read from unset register $r2 */)) {
-                var_r1 = SECOND_REG(.L08031F0E());
+                var_r1 = SECOND_REG(0());
             }
             *var_r1 = 0;
             var_r4 = 0x1E;
@@ -135,13 +150,13 @@ void sub_08030E0A(s32 arg4, s32 arg6, ? arg35, ? arg37, ? arg39, void **arg4B, u
                 var_r4 = 0x3C;
             }
             if ((s32) ((s32) (rand() >> 2) % 100) > var_r4) {
-                .L08031F0E();
+                0();
             }
             *arg53 = 0x1F;
             func_0802A4C0(saved_reg_r10, 0xA1, 0);
             func_08032384(saved_reg_r10, 2, 0);
             saved_reg_r10->unk78 = 1U;
-            .L08031F0E();
+            0();
             temp_r0_3 = saved_reg_r10->unk54 + 1;
             saved_reg_r10->unk54 = temp_r0_3;
             if (temp_r0_3 == saved_reg_r10->unk5A) {
@@ -150,18 +165,18 @@ void sub_08030E0A(s32 arg4, s32 arg6, ? arg35, ? arg37, ? arg39, void **arg4B, u
                 func_0802A4C0(saved_reg_r10, 0xA0, 0);
             }
             if (var_r4 == 0) {
-                .L08031F0E();
+                0();
             }
             if (!(var_r4->unk4 & 2)) {
-                .L08031F0E();
+                0();
             }
             func_080A3F4C(&arg4, saved_reg_r10->unk5C, saved_reg_r10->unk40, saved_reg_r10->unk34);
             temp_r1_2 = saved_reg_r10 + 0x60;
-            temp_r0_4 = &arg4 + 0xC;
+            temp_r0_4 = &(GenObj *)((u8 *)arg4 + 0xC);
             saved_reg_r10->unk60 = (s32) arg4.unk0;
             temp_r1_2->unk4 = (s32) arg4.unk4;
             temp_r1_2->unk8 = (s32) arg4.unk8;
-            temp_r1_3 = temp_r1_2 + 0xC;
+            temp_r1_3 = (GenObj *)((u8 *)temp_r1_2 + 0xC);
             temp_r1_2->unkC = (s32) arg4.unkC;
             temp_r1_3->unk4 = (s32) temp_r0_4->unk4;
             temp_r1_3->unk8 = (s32) temp_r0_4->unk8;
@@ -172,13 +187,13 @@ block_23:
         *arg53 = 0x20;
     }
     func_0802A4C0(saved_reg_r10, 0xA2, 1);
-    .L08031F0E();
+    0();
     var_r1_2 = 0;
     if (saved_reg_r10->unk24 == 0) {
         var_r1_2 = 1;
     }
     if (var_r1_2 == 0) {
-        .L08031F0E();
+        0();
     }
     func_0802A7D8(saved_reg_r10);
     if (saved_reg_r10->unk34->unk34C4 == 0) {
@@ -199,7 +214,7 @@ block_23:
     }
     if (saved_reg_r10->unk6C != 0) {
         temp_r0_5 = saved_reg_r10->unk14;
-        .L08031EA6(temp_r0_5 + 0x80, temp_r0_5->unk80);
+        0((GenObj *)((u8 *)temp_r0_5 + 0x80), temp_r0_5->unk80);
     }
     var_r4_2 = saved_reg_r10->unk6D;
     if (var_r4_2 == 0) {
@@ -322,16 +337,16 @@ block_85:
         }
 block_86:
         func_08008B6C(var_r0_4, 0x6A);
-        .L08031F0E();
+        0();
     }
     *arg53 = var_r4_2;
-    .L08031F0E();
+    0();
     var_r1_6 = 0;
     if (saved_reg_r10->unk24 == 0) {
         var_r1_6 = 1;
     }
     if (var_r1_6 == 0) {
-        .L08031F0E();
+        0();
     }
     temp_r0_10 = saved_reg_r10->unk0;
     arg35.unk0 = 0x3D0;
@@ -342,14 +357,14 @@ block_86:
     temp_r0_11->unk4 = 0;
     temp_r0_11->unk8 = 0;
     temp_r0_11->unk14 = 0x150000;
-    .L08031F0E();
+    0();
     arg4B = saved_reg_r10->unk0;
     arg4C = 0U;
     arg57 = saved_reg_r10 + 0x4A;
     arg55 = saved_reg_r10 + 0x48;
     arg56 = saved_reg_r10 + 0x49;
 loop_92:
-    if (*(arg57 + arg4C) == 0) {
+    if (*((u8 *)arg57 + arg4C) == 0) {
 
     } else {
         temp_r3_2 = *arg55 + 1;
@@ -394,7 +409,7 @@ loop_92:
             temp_r1_4 = arg6.unk4;
             var_r0_7 = (temp_r3_3 * temp_r0_14) + temp_r5;
             if (temp_r1_4 != 0) {
-                var_r0_7 = *(temp_r1_4 + var_r0_7);
+                var_r0_7 = *((u8 *)temp_r1_4 + var_r0_7);
             }
             var_r0_8 = arg6 + (var_r0_7 * 4);
         } else {
@@ -403,7 +418,7 @@ loop_92:
         if (var_r0_8 != 0) {
             temp_r1_5 = *var_r0_8;
             if (((temp_r1_5 << 0x1F) != 0) || ((s32) (temp_r1_5 << 0x1E) < 0)) {
-                *(arg57 + arg4C) = 0;
+                *((u8 *)arg57 + arg4C) = 0;
             } else {
                 var_r4_3 = (*arg4B)->unkC0(arg4B, &arg4);
                 if ((var_r4_3 == 4) && ((GetUnkFlag12__C4Farm(saved_reg_r10->unk34 + 0x14) << 0x18) != 0)) {
@@ -447,7 +462,7 @@ loop_92:
     temp_r0_16 = *arg55 + 1;
     *arg55 = temp_r0_16;
     if (temp_r0_16 != *arg56) {
-        .L08031F0E();
+        0();
     }
     if (saved_reg_r10->unk34->unk34C4 == 0) {
         temp_r2_4 = func_0800EB2C(saved_reg_r10->unk38, 0);
@@ -458,7 +473,7 @@ loop_92:
         func_0800EF88(temp_r2_4, var_r1_8);
     }
     if (saved_reg_r10->unk52 != 0) {
-        saved_reg_r10->unk14->unk80(saved_reg_r10);
+        ((void (*)(void *,...))(saved_reg_r10->unk14->unk80))(saved_reg_r10);
     } else {
         temp_r0_17 = saved_reg_r10->unk50;
         if (temp_r0_17 != 0) {
@@ -468,7 +483,7 @@ loop_92:
         }
     }
     (*arg4B)->unkF8(arg4B);
-    .L08031F0E();
+    0();
     temp_r2_5 = saved_reg_r10->unk4E;
     if (temp_r2_5 != saved_reg_r10->unk4F) {
         var_r1_9 = 0;
@@ -532,21 +547,21 @@ loop_92:
             var_r1_12 = 1;
         }
         if (var_r1_12 != 0) {
-            .L08031C7C();
+            0();
             return;
         }
-        var_r1_10 = (u8) SECOND_REG(.L08031F0A(0x1D));
+        var_r1_10 = (u8) SECOND_REG(0(0x1D));
         goto block_171;
     }
 block_171:
     *arg59 = var_r1_10 + 1;
-    .L08031F0E();
+    0();
     var_r1_13 = 0;
     if (saved_reg_r10->unk24 == 0) {
         var_r1_13 = 1;
     }
     if (var_r1_13 == 0) {
-        .L08031F0E();
+        0();
     }
-    .L08031A5C();
+    0();
 }

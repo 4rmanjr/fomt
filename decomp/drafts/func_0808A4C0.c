@@ -1,5 +1,5 @@
 s32 ExtractItemAt__8RucksackUi(s32 *, s32, s32);      /* extern */
-s32 *GetFoodStackAt__6FridgeUi(s32, s32);           /* extern */
+s32 *GetFoodStackAt__6FridgeUi(s32, s32);            /* extern */
 s32 __9FoodStack(s32 *);                              /* extern */
 s32 func_0800F390(s32);                               /* extern */
 s32 func_080CBA60(s32, s32);                          /* extern */
@@ -39,9 +39,11 @@ void func_0808A4C0(GenObj *arg0, s32 arg1) {
         func_080CBA60(temp_r4_2, func_080CE184(arg0, arg1, 0));
         return;
     }
-    temp_r4_3 = GetFoodStackAt__6FridgeUi(arg0->unk104, func_080CE184(arg0, arg1, arg0->unk94->unkBC));
+    temp_r4_3 = GetFoodStackAt__6FridgeUi(arg0->unk104, func_080CE184(arg0, arg1, *(s32 *) (arg0->unk94 + 0xBC)));
     __9FoodStack(&sp0);
     *temp_r4_3 = sp0;
     temp_r4_4 = arg0->unk7C;
     func_080CCDEC(temp_r4_4, func_080CE184(arg0, arg1, 0));
 }
+
+/* ATTEMPT-NOTE pi: len 156 vs ref 154 (+2); dekat; bandingkan tail: kandidat bl func_0800F390 pakai ldr langsung? cek objdump. */
