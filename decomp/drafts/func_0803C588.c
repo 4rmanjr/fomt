@@ -8,6 +8,6 @@ typedef struct GenObj {
 } GenObj;
 void func_0803C588(GenObj *arg0, s32 arg1) {
     arg0->unk4 = &vtable_unk_080E77E0;
-    func_0803C7A0(arg0 + 8, 2);
+    func_0803C7A0((u8 *)arg0 + 8, 2);
     func_0803BE50(arg0, arg1);
 }
