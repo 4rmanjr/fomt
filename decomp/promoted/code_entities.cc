@@ -350,3 +350,16 @@ struct { s32 sp4; s32 _b; } fr;
     arg0->unk14 = &vtable_unk_080E676C;
     return arg0;
 }
+
+// DECOMP-MATCHED func_08025AFC (dari code_entities.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[4];
+    u16 unk4;
+} GenObj;
+s32 func_08025AFC(GenObj *arg0) {
+    s32 v = arg0->unk4;
+    if (v <= 8) {
+        return 1;
+    }
+    return 0;
+}

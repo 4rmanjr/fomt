@@ -893,13 +893,14 @@
  },
  "func_08025AFC": {
   "addr": 134372092,
-  "judged_mtime": 1793017262.0740428,
+  "judged_mtime": 1793175989.4976127,
   "module": "code_entities.s",
-  "note": "byte +0x2: 0x40 vs ref 0x80",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 246,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08025B10": {
