@@ -35,13 +35,14 @@
  },
  "func_080003DC": {
   "addr": 134218716,
-  "judged_mtime": 1792998821.788129,
+  "judged_mtime": 1793167598.329334,
   "module": "sram_proxy_1.s",
-  "note": "len 16 vs ref 10",
+  "note": "",
+  "promoted_to": "decomp/promoted/sram_proxy_1.cc",
   "ref_len": 12,
   "sanitize_v": 4,
   "size": 196,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080003E8": {

@@ -85,3 +85,9 @@ s32 func_080002E0(s32 arg0) {
     }
     return var_r4;
 }
+
+// DECOMP-MATCHED func_080003DC (dari sram_proxy_1.s; cek manusia sebelum ke src/)
+s32 func_080003DC(s32 arg0, s32 arg1) {
+    u32 m = 0x3FEC;
+    return (arg1 * m) + 0x28;
+}
