@@ -2862,3 +2862,29 @@ void func_0809424C(GenObj *arg0) {
     arg0->unk8 = 0;
     arg0->unkD = 1;
 }
+
+// DECOMP-MATCHED func_0809B0D8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+    u8 _pad8[244];
+    s32 unkFC;
+    u8 _pad100[44];
+    s32 unk12C;
+} GenObj;
+s32 func_0809B0D8(GenObj *arg0) {
+    u8 *p = (u8 *)arg0 + 0xFC;
+    s32 n = *(s32 *)p;
+    s32 off = (n - 1) * 8 + 4;
+    s32 v;
+    s32 lim;
+    s32 *q;
+    p += off;
+    v = arg0->unk12C;
+    lim = *(s32 *)(p + 4);
+    q = (s32 *)(p + 4);
+    if ((u32)v >= (u32)lim) {
+        q = &arg0->unk12C;
+    }
+    return *q;
+}

@@ -7,13 +7,18 @@ typedef struct GenObj {
     s32 unk12C;
 } GenObj;
 s32 func_0809B0D8(GenObj *arg0) {
-    s32 *var_r1;
-    GenObj *temp_r1;
-
-    temp_r1 = (GenObj *)((u8 *)arg0 + 0xFC) + (((arg0->unkFC - 1) * 8) + 4);
-    var_r1 = (GenObj *)((u8 *)temp_r1 + 4);
-    if ((u32) arg0->unk12C >= (u32) temp_r1->unk4) {
-        var_r1 = (GenObj *)((u8 *)arg0 + 0x12C);
+    u8 *p = (u8 *)arg0 + 0xFC;
+    s32 n = *(s32 *)p;
+    s32 off = (n - 1) * 8 + 4;
+    s32 v;
+    s32 lim;
+    s32 *q;
+    p += off;
+    v = arg0->unk12C;
+    lim = *(s32 *)(p + 4);
+    q = (s32 *)(p + 4);
+    if ((u32)v >= (u32)lim) {
+        q = &arg0->unk12C;
     }
-    return *var_r1;
+    return *q;
 }
