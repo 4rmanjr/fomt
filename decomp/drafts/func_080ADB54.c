@@ -5,10 +5,12 @@ typedef struct GenObj {
     struct GenObj *unk14;
 } GenObj;
 void func_080ADB54(s32 arg0, s32 arg1) {
-    void **temp_r4;
+    s32 *temp_a;
+    GenObj **temp_r4;
     GenObj *temp_r1;
 
-    temp_r4 = arg0 + 8 + (arg1 * 4);
+    temp_a = (s32 *)(arg0 + 8);
+    temp_r4 = (GenObj **)(temp_a + arg1);
     temp_r1 = *temp_r4;
     if (temp_r1 != 0) {
         ((void (*)(void *,...))(temp_r1->unk14->unk8))(temp_r1, 3);

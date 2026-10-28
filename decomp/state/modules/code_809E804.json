@@ -2495,13 +2495,14 @@
  },
  "func_080ADB54": {
   "addr": 134929236,
-  "judged_mtime": 1793017975.42327,
+  "judged_mtime": 1793192364.0658894,
   "module": "code_809E804.s",
-  "note": "byte +0x2: 0x89 vs ref 0x8",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 317,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080ADB78": {

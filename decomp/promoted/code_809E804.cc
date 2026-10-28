@@ -2102,3 +2102,24 @@ s32 rand();                                         /* extern */
 u32 func_080AB788(s32 arg0) {
     return (u32) ((0xFFFF & rand()) * arg0) >> 0x10;
 }
+
+// DECOMP-MATCHED func_080ADB54 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[8];
+    s32 unk8;
+    u8 _padC[8];
+    struct GenObj *unk14;
+} GenObj;
+void func_080ADB54(s32 arg0, s32 arg1) {
+    s32 *temp_a;
+    GenObj **temp_r4;
+    GenObj *temp_r1;
+
+    temp_a = (s32 *)(arg0 + 8);
+    temp_r4 = (GenObj **)(temp_a + arg1);
+    temp_r1 = *temp_r4;
+    if (temp_r1 != 0) {
+        ((void (*)(void *,...))(temp_r1->unk14->unk8))(temp_r1, 3);
+        *temp_r4 = 0;
+    }
+}
