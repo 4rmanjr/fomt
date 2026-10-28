@@ -511,13 +511,14 @@
  },
  "func_0803C54C": {
   "addr": 134464844,
-  "judged_mtime": 1793017337.392026,
+  "judged_mtime": 1793198609.0409818,
   "module": "code_0803A8A4.s",
-  "note": "byte +0x26: 0x40 vs ref 0x8",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 547,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803C588": {
