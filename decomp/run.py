@@ -1226,6 +1226,7 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
                 # sampai simbol berikut / akhir section, bukan dari st_value
                 # ganjil (bit Thumb) seperti upstream. STT_FUNC dgn .size asli
                 # (agbcc) tidak tersentuh.
+                _recollected = None
                 try:
                     _st = _E(_B(data)).get_section_by_name(".symtab")
                     if next(s["st_size"] for s in _st.iter_symbols()
@@ -1236,11 +1237,71 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
                         _nxt = next((o for o in _starts if o > _so0), None)
                         _sc0 = _E(_B(data)).get_section(_sx).data()
                         _ss = (_nxt if _nxt is not None else len(_sc0)) - _so0
+                        # Pool literal (.4byte ke simbol eksternal = word nol
+                        # di .o) dimakan zero-stripping upstream, sehingga
+                        # reloc yg jatuh di luar jendela truncated hilang dari
+                        # f.relocs. Kumpulkan ulang reloc dalam jendela
+                        # terkoreksi (logika = extract_function upstream).
+                        from decompnet import elfobj as _EO
+                        from elftools.elf.relocation import RelocationSection as _RS
+                        _elf2 = _E(_B(data))
+                        _arch2, _be2 = _EO._arch_of(_elf2)
+                        _symtab2 = _elf2.get_section_by_name(".symtab")
+                        _code2 = _elf2.get_section(_sx).data()[_so0:_so0 + _ss]
+                        _raw2 = []
+                        for _rsec in _elf2.iter_sections():
+                            if not isinstance(_rsec, _RS) or _rsec["sh_info"] != _sx:
+                                continue
+                            _rsymtab = _elf2.get_section(_rsec["sh_link"])
+                            for _rel in _rsec.iter_relocations():
+                                _off = _rel["r_offset"]
+                                if not (_so0 <= _off < _so0 + _ss):
+                                    continue
+                                _rtype = _rel["r_info_type"]
+                                if _rel.is_RELA():
+                                    _value = _rel["r_addend"]
+                                else:
+                                    _dl, _ln, _mk = _EO.MASKS_BY_ARCH.get(
+                                        (_arch2, _rtype), (0, 4, 0xFFFFFFFF))
+                                    _fa = _off - _so0 + _dl
+                                    _value = int.from_bytes(
+                                        _code2[_fa:_fa + _ln],
+                                        "big" if _be2 else "little") & _mk
+                                _raw2.append({"off": _off - _so0, "type": _rtype,
+                                              "symidx": _rel["r_info_sym"],
+                                              "rela": _rel.is_RELA(),
+                                              "value": _value, "symtab": _rsymtab})
+                        _raw2.sort(key=lambda r: r["off"])
+                        _recollected = []
+                        for _k, _r in enumerate(_raw2):
+                            _sn, _issec = _EO._symbol_name(
+                                _elf2, _r["symtab"], _r["symidx"])
+                            _ad = _r["value"]
+                            if _issec:
+                                _ad = 0
+                                _secidx = _r["symtab"].get_symbol(
+                                    _r["symidx"])["st_shndx"]
+                                _tgt = _EO.section_target(_arch2, _raw2, _k)
+                                _named = _EO.symbol_at(
+                                    _symtab2, _secidx, _tgt) \
+                                    if _tgt is not None else None
+                                if _named:
+                                    _sn, _res = _named
+                                    _ad = _EO._encode(_arch2, _r, _res)
+                            _recollected.append(
+                                _RL(_r["off"], _r["type"], _sn, _ad))
+                        _recollected.sort(key=lambda r: r.offset)
                 except Exception:
-                    pass
+                    _recollected = None
                 _sc = _E(_B(data)).get_section(_sx).data()
                 _so &= ~1
                 _true = _sc[_so:_so + _ss]
+                if _recollected is not None:
+                    # Jendela dikoreksi + reloc dikumpulkan ulang: offset
+                    # sudah absolut-terhadap-awal, tanpa shift off-by-one.
+                    f = _FO(name=f.name, arch=f.arch, big_endian=f.big_endian,
+                            code=_true, relocs=_recollected)
+                    return f
                 # f.code mulai satu byte setelah _true (st_value ganjil). Cek
                 # terhadap section utuh: fungsi terakhir bisa terpotong 1 byte.
                 _shifted = bool(f.code) and f.code == _sc[_so + 1:_so + 1 + len(f.code)]
