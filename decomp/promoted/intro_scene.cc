@@ -52,9 +52,10 @@ typedef struct GenObj {
 } GenObj;
 Obj **func_0800374C(Obj **arg0, GenObj *arg1) {
     /* Frame 12 byte: sp0 volatile (reload paksa utk null-check, krn
-       *arg0 boleh alias sp0), sp4 non-volatile (salinan alamat via
-       `adds`, bukan reload), sp8 nilai tersimpan. Pola sama dgn
-       func_08005A00. */
+       *arg0 boleh alias sp0), sp4 volatile (store tidak dilipat),
+       sp8 nilai tersimpan. tmp di r2; salinan alamat r0->r1 via
+       copy register + barrier asm (tanpa itu agbcc melipat jadi
+       `str [sp]` atau reload `ldr`). Pola sama dgn func_08005A00. */
     struct { Obj *volatile sp0; Obj **volatile sp4; Obj *sp8; } fr;
     register Obj *tmp __asm__("r2");
     register Obj **q __asm__("r0");

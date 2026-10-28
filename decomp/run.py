@@ -483,15 +483,40 @@ def depad(code: bytes) -> bytes:
 
 
 def pool_len(module: str, name: str, ref_len: int) -> int:
-    """Panjang literal pool milik fungsi: word-word .4byte di ekor blok asm."""
+    """Panjang literal pool milik fungsi: word-word .4byte di ekor blok asm.
+
+    Bila data non-word (.byte/.short) menempel SETELAH pool (fungsi terakhir
+    modul / fungsi tanpa thumb_func_start berikut, mis. func_08010158 dengan
+    pool 8 + trailing 424), lewati dulu data ekor itu — tanpa ini pool tak
+    terdeteksi (return 0) dan kasus [pool+trailing] len-mismatch permanen.
+    Fungsi normal yg berakhir di pool tidak tersentuh (fase 1 langsung stop).
+    """
     lines = func_block(module, name).splitlines()
-    n = 0
-    for ln in reversed(lines):
-        s = ln.split("@")[0].strip()
+    refs: set[str] = set()  # fase 1: lewati data ekor (aturan = trailing_data_len)
+    for ln in lines:
+        refs.update(re.findall(r"\.L[0-9A-Fa-f]+", ln.split("@")[0]))
+    i = len(lines) - 1
+    while i >= 0:
+        s = lines[i].split("@")[0].strip()
+        m = re.match(r"^(\.\w+:)?\s*\.(byte|2byte|short)\b", s)
+        if m:
+            lab = m.group(1) or ""
+            if lab and lab.strip(":") in refs:
+                return 0  # ekor = pool .byte legit milik fungsi: bukan kasus .4byte
+            i -= 1
+            continue
+        if s == "" or s.startswith(".align") or re.match(r"^\.\w+:$", s):
+            i -= 1
+            continue
+        break
+    n = 0  # fase 2: hitung word-word pool
+    while i >= 0:
+        s = lines[i].split("@")[0].strip()
         if re.match(r"^(\.\w+:)?\s*\.(4byte|word|long)\b", s):
             n += 1
+            i -= 1
         elif s == "" or s.startswith(".align"):
-            continue
+            i -= 1
         else:
             break
     return n * 4

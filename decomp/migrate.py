@@ -37,6 +37,12 @@ ASM_START_RE = re.compile(
     r"^\s*((thumb|arm)_func_start|non_word_aligned_thumb_func_start)\s+(\w+)",
     re.IGNORECASE,
 )
+# Konten setelah fungsi TERAKHIR yang harus dipertahankan (data tanpa
+# marker, tabel, dsb): berhenti sebelum baris-baris ini, jangan ditelan.
+_LAST_KEEP_RE = re.compile(
+    r"^\s*(\.byte\b|\.ascii\b|\.asciz\b|\.incbin\b|\.space\b|\.comm\b|"
+    r"\.global\b|\.type\b|\.size\b|\.section\b|\.(text|data|rodata)\b)"
+)
 MIGRATED_FN_RE = re.compile(r"// DECOMP-MATCHED (func_\w+)")
 
 
@@ -117,6 +123,43 @@ def adapt_memcpy(body):
     return body, True
 
 
+def struct_name(blk):
+    m = re.search(r"struct\s+(\w+)", blk)
+    return m.group(1) if m else ""
+
+
+def take_structs(text):
+    """Pisahkan definisi struct dari teks -> (teks_tanpa_struct, [blok]).
+
+    Dipakai agar struct yang dibawa tiap blok MATCH naik ke scope file
+    (satu salinan), bukan terjebak di dalam blok `extern "C"` masing-masing
+    yang bikin blok berikutnya 'was not declared' / 'redefinition'."""
+    spans = []
+    for m in STRUCT_RE.finditer(text):
+        depth, k = 0, m.end() - 1
+        while k < len(text):
+            if text[k] == "{":
+                depth += 1
+            elif text[k] == "}":
+                depth -= 1
+                if depth == 0:
+                    break
+            k += 1
+        end = text.find(";", k)
+        if end == -1:
+            continue
+        spans.append((m.start(), end + 1))
+    blocks = []
+    for s, e in reversed(spans):
+        blocks.append(text[s: e])
+        text = text[:s] + text[e:]
+    blocks.reverse()
+    return re.sub(r"\n{3,}", "\n\n", text), blocks
+
+
+STRUCT_RE = re.compile(r"(typedef\s+)?struct\s+\w+\s*\{", re.M)
+
+
 def split_marker_body(block):
     """(marker_line, body): baris pertama marker, sisanya body."""
     first, _, rest = block.partition("\n")
@@ -147,6 +190,11 @@ def insert_ordered(src_text, marker_line, body, addr, state_addrs):
 
 
 def remove_asm_func(asm_text, func):
+    """Hapus blok fungsi dari asm -> (new_asm, tail).
+
+    tail = ekor tak-bermarker sesudah fungsi terakhir. Ekor ikut DICABUT
+    dari asm dan HARUS dibawa verbatim ke src (posisi tepat sesudah fungsi)
+    supaya tidak ada byte yang bergeser/duplikat."""
     lines = asm_text.splitlines(keepends=True)
     start = end = None
     for i, ln in enumerate(lines):
@@ -155,19 +203,32 @@ def remove_asm_func(asm_text, func):
             start = i
             break
     if start is None:
-        return None
+        return None, None
     end = len(lines)
     for i in range(start + 1, len(lines)):
         if ASM_START_RE.match(lines[i]):
             end = i
             break
+    tail = ""
+    if end == len(lines):
+        # Fungsi terakhir: cari akhir konten fungsi sendiri (sebelum baris
+        # KEEP pertama). Semua dari sana sampai EOF ikut dicabut; tail-nya
+        # dibawa ke src. Tanpa KEEP: tail kosong (perilaku lama).
+        i = start + 1
+        while i < len(lines):
+            if ASM_START_RE.match(lines[i]) or _LAST_KEEP_RE.match(lines[i]):
+                break
+            i += 1
+        if i < len(lines):
+            tail = "".join(lines[i:])
+            end = len(lines)
     # sertakan blank-line pemisah sesudah blok bila ada
     while end < len(lines) and lines[end].strip() == "":
         end += 1
     new_text = "".join(lines[:start] + lines[end:])
     if not new_text.endswith("\n"):
         new_text += "\n"
-    return new_text
+    return new_text, tail
 
 
 def ensure_lds(lds_text, stem):
@@ -237,18 +298,22 @@ def migrate_one(module, func, dry_run=False):
                 "detail": f"bukan fungsi terakhir di {module} "
                 f"({len(remaining) - remaining.index(func) - 1} penerus "
                 "belum pindah, dilewati)"}
-    new_asm = remove_asm_func(asm_text, func)
+    new_asm, asm_tail = remove_asm_func(asm_text, func)
     if new_asm is None:
         return {"func": func, "module": module, "ok": False,
                 "skipped": True,
                 "detail": f"{func} tidak ditemukan di {asm_path} "
                 "(mungkin sudah pindah sebelumnya, dilewati)"}
+    asm_tail = asm_tail or ""
 
     lds_text = lds_path.read_text()
     try:
         new_lds, lds_changed = ensure_lds(lds_text, stem)
     except RuntimeError as e:
-        return {"func": func, "module": module, "ok": False, "detail": str(e)}
+        return {"func": func, "module": module, "ok": False,
+                "skipped": True,
+                "detail": f"layout lds {module} tak didukung migrasi "
+                f"otomatis ({e}), dilewati"}
 
     if src_path.exists():
         src_text = src_path.read_text()
@@ -266,6 +331,25 @@ def migrate_one(module, func, dry_run=False):
                 inc.insert(0, "#include <string.h> // memcpy\n")
             src_text = "".join(inc)
         state_addrs = {n: i.get("addr", 0) for n, i in state.items()}
+        # Struct naik ke scope file (satu salinan): definisi tipe tidak
+        # mengubah codegen jadi aman untuk compare.
+        body, new_structs = take_structs(body)
+        src_text, old_structs = take_structs(src_text)
+        merged, seen_names = [], {}
+        for blk in old_structs + new_structs:
+            nm = struct_name(blk)
+            if blk in merged:
+                continue
+            if nm in seen_names and seen_names[nm] != blk:
+                body = blk + "\n" + body  # nama sama isi beda: biar error
+                continue
+            seen_names[nm] = blk
+            merged.append(blk)
+        if merged:
+            top = "\n".join(merged) + "\n\n"
+            anchor = src_text.find("// DECOMP-MATCHED")
+            src_text = (src_text[:anchor] + top + src_text[anchor:]
+                        if anchor != -1 else src_text + "\n" + top)
         new_src = insert_ordered(src_text, marker_line, body, addr,
                                  state_addrs)
     else:
@@ -274,6 +358,17 @@ def migrate_one(module, func, dry_run=False):
             head += "#include <string.h> // memcpy\n"
         new_src = head + "\n" + marker_line + \
             'extern "C" {\n' + body.rstrip() + "\n}\n"
+
+    if asm_tail.strip():
+        # Ekor tak-bermarker dibawa verbatim tepat sesudah fungsi ini
+        # (basic asm scope file; tidak mengubah codegen fungsi).
+        wrapped = marker_line + 'extern "C" {\n' + body.rstrip() + "\n}\n"
+        asm_lines = [ln.rstrip().replace("\\", "\\\\").replace('"', '\\"')
+                     for ln in asm_tail.splitlines() if ln.strip()]
+        tail_src = ("// ekor tak-bermarker dari " + module +
+                    " (verbatim, jangan diubah)\nasm(\n" +
+                    "".join(f'"{ln}\\n"\n' for ln in asm_lines) + ");\n")
+        new_src = new_src.replace(wrapped, wrapped + tail_src, 1)
 
     if dry_run:
         return {"func": func, "module": module, "ok": True, "dry": True,

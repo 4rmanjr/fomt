@@ -190,34 +190,3 @@ func_080D3870: @ 0x080D3870
 	pop {r1}
 	bx r1
 
-	thumb_func_start func_080D38D4
-func_080D38D4: @ 0x080D38D4
-	push {r4, r5, r6, r7, lr}
-	adds r6, r0, #0
-	adds r5, r1, #0
-	adds r4, r2, #0
-	movs r7, #0
-	b .L080D38E6
-.L080D38E0:
-	adds r0, r7, #1
-	lsls r0, r0, #0x18
-	lsrs r7, r0, #0x18
-.L080D38E6:
-	cmp r7, #2
-	bhi .L080D3904
-	adds r0, r6, #0
-	adds r1, r5, #0
-	adds r2, r4, #0
-	bl func_080D3800
-	adds r0, r6, #0
-	adds r1, r5, #0
-	adds r2, r4, #0
-	bl func_080D3870
-	adds r3, r0, #0
-	cmp r3, #0
-	bne .L080D38E0
-.L080D3904:
-	adds r0, r3, #0
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1

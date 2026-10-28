@@ -71,6 +71,7 @@ SECTIONS
         asm/scene.o(.text);
         asm/intro_scene.o(.text);
         asm/new_game.o(.text);
+        src/new_game.o(.text);
         src/hardware.o(.text);
         asm/hardware.o(.text);
         src/farm.o(.text);
@@ -94,6 +95,7 @@ SECTIONS
         src/more_items.o(.text);
         asm/game_scene.o(.text);
         asm/game_state.o(.text);
+        src/game_state.o(.text);
         src/entity.o(.text);
         src/code_entity_08020018.o(.text);
         asm/code_entities.o(.text);
@@ -128,6 +130,7 @@ SECTIONS
         src/m4a.o(.text);
         asm/code_lib_syscall.o(.text);
         asm/code_lib_sram.o(.text);
+        src/code_lib_sram.o(.text);
         *libgcc.a:_call_via_rX.o(.text);
         /* these need to be recompiled using -mthumb-interwork */
         /* *libc.a:memcmp.o(.text); */
