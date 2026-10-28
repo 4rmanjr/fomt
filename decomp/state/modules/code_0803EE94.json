@@ -2910,13 +2910,14 @@
  },
  "func_08076B64": {
   "addr": 134703972,
-  "judged_mtime": 1793017566.1828136,
+  "judged_mtime": 1793195690.3410532,
   "module": "code_0803EE94.s",
-  "note": "byte +0x0: 0x10 vs ref 0x30",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 427,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08076B94": {
