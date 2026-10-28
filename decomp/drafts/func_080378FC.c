@@ -1,4 +1,4 @@
-s32 func_080378FC(u32 arg1) {
+s32 func_080378FC(s32 arg0, u32 arg1) {
     switch (arg1) {
     default:
     case 0:

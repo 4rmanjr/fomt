@@ -1359,3 +1359,50 @@ void func_08037A04(GenObj *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: pola 378B8 (sp-array + t-var); sisa adds-copy. */
+
+// DECOMP-MATCHED func_08037628 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 func_08037628(s32 arg0, s32 arg1) {
+    if (arg1 == 1) {
+        return 0x8000;
+    }
+    return 0;
+}
+
+// DECOMP-MATCHED func_080377D4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 func_080377D4(s32 arg0, s32 arg1) {
+    if (arg1 == 1) {
+        return 0x8000;
+    }
+    return 0;
+}
+
+// DECOMP-MATCHED func_080378FC (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 func_080378FC(s32 arg0, u32 arg1) {
+    switch (arg1) {
+    default:
+    case 0:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 12:
+        return 0;
+    case 1:
+        return 0x8000;
+    case 2:
+    case 11:
+        return 0x10000;
+    }
+}
+
+// DECOMP-MATCHED func_08037A48 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 func_08037A48(s32 arg0, s32 arg1) {
+    if (arg1 == 1) {
+        return 0x8000;
+    }
+    return 0;
+}

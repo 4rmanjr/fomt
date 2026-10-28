@@ -1023,9 +1023,9 @@
  },
  "func_08036DC4": {
   "addr": 134442436,
-  "judged_mtime": 1793101351.8949773,
+  "judged_mtime": 1793149791.9796567,
   "module": "code_entities_08034CEC.s",
-  "note": "len 54 vs ref 104 [20missing @< push {r4, lr} | ]",
+  "note": "len 50 vs ref 104 [23missing,1extra,6operand,1regalloc,2stack,1different @s sub sp, #0x10 | sub sp, #4]",
   "ref_len": 104,
   "sanitize_v": 4,
   "size": 998,
@@ -1216,13 +1216,14 @@
  },
  "func_08037628": {
   "addr": 134444584,
-  "judged_mtime": 1793004050.1136842,
+  "judged_mtime": 1793149979.916703,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x3: 0x28 vs ref 0x29",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 247,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803763C": {
@@ -1271,13 +1272,14 @@
  },
  "func_080377D4": {
   "addr": 134445012,
-  "judged_mtime": 1793004051.90788,
+  "judged_mtime": 1793149984.19422,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x3: 0x28 vs ref 0x29",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 247,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080377E8": {
@@ -1328,13 +1330,14 @@
  },
  "func_080378FC": {
   "addr": 134445308,
-  "judged_mtime": 1793004053.705565,
+  "judged_mtime": 1793149881.3573353,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x3: 0x28 vs ref 0x29",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 92,
   "sanitize_v": 4,
   "size": 915,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08037958": {
@@ -1385,13 +1388,14 @@
  },
  "func_08037A48": {
   "addr": 134445640,
-  "judged_mtime": 1793004055.641664,
+  "judged_mtime": 1793149984.1941457,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x3: 0x28 vs ref 0x29",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 247,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08037A5C": {
