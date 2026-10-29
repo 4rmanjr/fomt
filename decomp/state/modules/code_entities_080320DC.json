@@ -327,13 +327,14 @@
  },
  "func_08034BFC": {
   "addr": 134433788,
-  "judged_mtime": 1793017290.3447273,
+  "judged_mtime": 1793252204.5070105,
   "module": "code_entities_080320DC.s",
-  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08034BFC/opencode/func.c:26: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08034BFC/opencode/func.c:26: request for member `unk2' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
   "ref_len": 103,
   "sanitize_v": 4,
-  "size": 1852,
-  "status": "failed",
+  "size": 1853,
+  "status": "promoted",
   "thumb": true
  },
  "func_08034C64": {
