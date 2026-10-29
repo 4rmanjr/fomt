@@ -270,7 +270,20 @@ def remove_asm_func(asm_text, func):
                 break
             i += 1
         if i < len(lines):
-            tail = "".join(lines[i:])
+            # Bawa serta direktif `.align` (+ label lokal) tepat sebelum
+            # konten KEEP: tanpa ini pad ala rakitan asli hilang dan ekor
+            # bergeser (kasus interrupt.s: 2B). Aman karena hanya direktif
+            # align/label, bukan instruksi.
+            j = i
+            while j - 1 > start:
+                s = lines[j - 1].split("@")[0].strip()
+                if re.match(r"^\.align\b", s) or re.match(r"^[\w.]+:$", s):
+                    j -= 1
+                elif s == "":
+                    j -= 1
+                else:
+                    break
+            tail = "".join(lines[j:])
             end = len(lines)
     # sertakan blank-line pemisah sesudah blok bila ada
     while end < len(lines) and lines[end].strip() == "":
@@ -381,8 +394,10 @@ def migrate_one(module, func, dry_run=False):
 
     if src_path.exists():
         src_text = src_path.read_text()
-        if func in src_text or MIGRATED_FN_RE.search(src_text) and \
-                re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b", src_text):
+        # Hanya marker yang sah sebagai tanda "sudah pindah". Substring
+        # polos (dulu: `func in src_text`) false-positive pada pemanggilan /
+        # deklarasi extern fungsi lain (kasus 004F4 dipanggil 0050C).
+        if re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b", src_text):
             return {"func": func, "module": module, "ok": False,
                     "skipped": True,
                     "detail": f"{func} sudah ada di {src_path} (dilewati)"}
