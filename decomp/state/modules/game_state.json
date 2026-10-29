@@ -2919,13 +2919,14 @@
  },
  "func_0801FAC8": {
   "addr": 134347464,
-  "judged_mtime": 1793017221.2103329,
+  "judged_mtime": 1793261484.8142865,
   "module": "game_state.s",
-  "note": "ignment makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801FAC8/opencode/func.c:33: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0801FAC8/opencode/func.c:36: warning: assignment from incompatible pointer type\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 179,
   "sanitize_v": 4,
   "size": 1816,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801FB7C": {
