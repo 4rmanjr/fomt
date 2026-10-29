@@ -13,13 +13,14 @@
  },
  "func_080004F4": {
   "addr": 134218996,
-  "judged_mtime": 1793242759.1485865,
+  "judged_mtime": 1793242996.1525865,
   "module": "interrupt.s",
-  "note": "byte +0x2: 0x4 vs ref 0x0 [1missing,4extra @>  | ldr r1, [pc, #0x10]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/interrupt.cc",
   "ref_len": 20,
   "sanitize_v": 5,
   "size": 279,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0800050C": {
