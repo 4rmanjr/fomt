@@ -24,9 +24,9 @@
  },
  "func_080006A4": {
   "addr": 134219428,
-  "judged_mtime": 1793007431.084389,
+  "judged_mtime": 1793239472.452947,
   "module": "sram_proxy_2.s",
-  "note": "len 56 vs ref 58 [2missing,3extra,5operand,8regalloc,1different @i push {r4, r5, r6, r7, lr} | push {r4, r5, r6, lr}]",
+  "note": "byte +0x0: 0x70 vs ref 0xf0 [2missing,5extra,4operand,9regalloc @i push {r4, r5, r6, r7, lr} | push {r4, r5, r6, lr}]",
   "ref_len": 64,
   "sanitize_v": 5,
   "size": 668,
@@ -35,9 +35,9 @@
  },
  "func_080006E4": {
   "addr": 134219492,
-  "judged_mtime": 1793007431.084389,
+  "judged_mtime": 1793239478.3209467,
   "module": "sram_proxy_2.s",
-  "note": "len 44 vs ref 66 [14missing,4extra,2operand,4regalloc,1stack,1different @i push {r4, r5, lr} | push {r4, lr}]",
+  "note": "len 44 vs ref 66 [15missing,5extra,2operand,4regalloc,1stack,1different @i push {r4, r5, lr} | push {r4, lr}]",
   "ref_len": 68,
   "sanitize_v": 5,
   "size": 665,
@@ -46,13 +46,14 @@
  },
  "func_08000728": {
   "addr": 134219560,
-  "judged_mtime": 1793007431.084389,
+  "judged_mtime": 1793239654.6034205,
   "module": "sram_proxy_2.s",
-  "note": "byte +0x2: 0x0 vs ref 0x9 [8missing,8extra,22operand,4regalloc,2different @r lsls r1, r1, #0x10 | lsls r0, r0, #0x10]",
+  "note": "",
+  "promoted_to": "decomp/promoted/sram_proxy_2.cc",
   "ref_len": 191,
   "sanitize_v": 5,
   "size": 2248,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  }
 }
