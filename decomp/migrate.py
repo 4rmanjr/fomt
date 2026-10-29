@@ -242,19 +242,24 @@ STRUCT_RE = re.compile(r"(typedef\s+)?struct\s+(?:\w+\s*)?\{", re.M)
 FWD_TYPEDEF_RE = re.compile(r"^[ \t]*typedef\s+struct\s+\w+\s+\w+\s*;[ \t]*$",
                              re.M)
 EXTERN_RE = re.compile(
-    r"^\s*(?:i32|u32|u16|u8|s32|s16|s8|void)\s+(\w+)\s*\(([^;{}]*)\)\s*;"
+    r"^\s*(i32|u32|u16|u8|s32|s16|s8|void)\s*(\*?)\s*(\w+)\s*\(([^;{}]*)\)\s*;"
     r"\s*(?:/\*.*?\*/)?\s*$",
     re.M)
 
 
 def extern_decls(text):
-    """Petakan nama -> himpunan tanda tangan deklarasi extern di teks."""
+    """Petakan nama -> himpunan tanda tangan deklarasi extern di teks.
+
+    Tanda tangan mencakup tipe return: `void* f(int)` vs `i32 f(int)`
+    tabrakan di C++ (kasus __builtin_new) — dulu lolos cek karena hanya
+    parameter yang dibandingkan, baru meledak saat kompilasi."""
     out = {}
     for m in EXTERN_RE.finditer(text):
         if "(*" in m.group(0):
             continue
-        sig = re.sub(r"\s+", " ", m.group(2).strip())
-        out.setdefault(m.group(1), set()).add(sig)
+        sig = (m.group(1) + m.group(2) + " "
+               + "(" + re.sub(r"\s+", " ", m.group(4).strip()) + ")")
+        out.setdefault(m.group(3), set()).add(sig)
     return out
 
 
