@@ -71,13 +71,27 @@ chmod +x ~/x86sys/wrap/agbcc
 
 # 5. shim driving decomp/run.py through the official FOMT_* overrides
 #    (see tools/VENDORED.md); vendored capstone .so is x86-64, so point
-#    the loader at the native one via LIBCAPSTONE_PATH
+#    the loader at the native one via LIBCAPSTONE_PATH.
+#    On proot-distro/Ubuntu, also install the native assembler: it is
+#    ~20x faster than the qemu-wrapped one and produces byte-identical
+#    .o output (verified on judge samples), roughly halving verify time.
+apt-get install -y binutils-arm-none-eabi   # proot-distro/Ubuntu only
 cat > ~/bin/fomt <<'EOF'
 #!/bin/sh
+# Termux/proot wrapper: x86-64 tools run via qemu-user, except where a
+# native equivalent exists (byte-identical, much faster). Standard PCs
+# don't use this file (run.py defaults apply) — PC results unaffected.
+# A pre-set FOMT_* env is always respected.
 unset LD_PRELOAD
-export FOMT_AGBCC="$HOME/x86sys/wrap/agbcc"
-export FOMT_AS="$HOME/x86sys/wrap/arm-none-eabi-as"
-export FOMT_CPP="$HOME/bin/clang-cpp-arm"
+[ -n "$FOMT_AGBCC" ] || export FOMT_AGBCC="$HOME/x86sys/wrap/agbcc"
+if [ -z "$FOMT_AS" ]; then
+    if command -v arm-none-eabi-as >/dev/null 2>&1; then
+        export FOMT_AS="$(command -v arm-none-eabi-as)"   # native, fast
+    else
+        export FOMT_AS="$HOME/x86sys/wrap/arm-none-eabi-as"   # qemu fallback
+    fi
+fi
+[ -n "$FOMT_CPP" ] || export FOMT_CPP="$HOME/bin/clang-cpp-arm"
 export LIBCAPSTONE_PATH=/data/data/com.termux/files/usr/lib/python3.14/site-packages/capstone/lib
 exec python3 "$HOME/gitproject/fomt/decomp/run.py" "$@"
 EOF
