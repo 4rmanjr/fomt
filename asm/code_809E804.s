@@ -104080,21 +104080,3 @@ func_080D1518: @ 0x080D1518
 	blo .L080D151C
 	bx lr
 
-	thumb_func_start func_080D1548
-func_080D1548: @ 0x080D1548
-	movs r5, #0xff
-	movs r4, #0
-.L080D154C:
-	ldrh r2, [r0, #2]
-	lsrs r3, r2, #8
-	adds r2, r2, r4
-	ands r2, r5
-	adds r4, r3, r2
-	lsls r1, r4, #8
-	orrs r1, r2
-	strh r1, [r0, #2]
-	adds r0, #2
-	cmp r0, r8
-	blo .L080D154C
-	bx lr
-
