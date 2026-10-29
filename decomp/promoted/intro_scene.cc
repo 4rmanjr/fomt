@@ -4,11 +4,37 @@ s32 __builtin_new(s32);                               /* extern */
 s32 func_08000914();                                /* extern */
 extern s32 vtable_unk_080E5A18;
 
-typedef struct GenObj {
+typedef struct O6B O6B;
+typedef struct Sub Sub;
+typedef struct CellW CellW;
+typedef struct Blk Blk;
+typedef struct GenObj GenObj;
+struct Sub {
+    s32 unk0;
+    s32 unk4;
+};
+struct CellW {
+    u16 v;
+    u16 _p;
+};
+struct Blk {
+    O6B *p;
+    CellW *arr;
+    u8 _x[4];
+    u16 idx;
+};
+struct GenObj {
     void *unk0;
     struct GenObj *unk4;
     struct GenObj *unk8;
-} GenObj;
+    u8 _padC[0x6B80 - 0xC];
+    Blk blk;
+    u8 _padX[0x6CD0 - 0x6B90];
+    Sub k0;
+    Sub k1;
+    Sub k2;
+    Sub k3;
+};
 void *func_080036F8(GenObj *arg0) {
     arg0->unk0 = &vtable_unk_080E5A18;
     __builtin_new(0x6D34);
@@ -20,11 +46,37 @@ void *func_080036F8(GenObj *arg0) {
 s32 func_080007EC(void *, s32);                       /* extern */
 extern s32 vtable_unk_080E5A18;
 
-typedef struct GenObj {
+typedef struct O6B O6B;
+typedef struct Sub Sub;
+typedef struct CellW CellW;
+typedef struct Blk Blk;
+typedef struct GenObj GenObj;
+struct Sub {
+    s32 unk0;
+    s32 unk4;
+};
+struct CellW {
+    u16 v;
+    u16 _p;
+};
+struct Blk {
+    O6B *p;
+    CellW *arr;
+    u8 _x[4];
+    u16 idx;
+};
+struct GenObj {
     void *unk0;
     struct GenObj *unk4;
     struct GenObj *unk8;
-} GenObj;
+    u8 _padC[0x6B80 - 0xC];
+    Blk blk;
+    u8 _padX[0x6CD0 - 0x6B90];
+    Sub k0;
+    Sub k1;
+    Sub k2;
+    Sub k3;
+};
 void func_0800371C(GenObj *arg0, s32 arg1) {
     GenObj *temp_r1;
 
@@ -47,11 +99,37 @@ typedef struct {
 } Obj;
 void func_08000D64(void *, s32);                     /* extern */
 
-typedef struct GenObj {
+typedef struct O6B O6B;
+typedef struct Sub Sub;
+typedef struct CellW CellW;
+typedef struct Blk Blk;
+typedef struct GenObj GenObj;
+struct Sub {
+    s32 unk0;
+    s32 unk4;
+};
+struct CellW {
+    u16 v;
+    u16 _p;
+};
+struct Blk {
+    O6B *p;
+    CellW *arr;
+    u8 _x[4];
+    u16 idx;
+};
+struct GenObj {
     void *unk0;
     struct GenObj *unk4;
     struct GenObj *unk8;
-} GenObj;
+    u8 _padC[0x6B80 - 0xC];
+    Blk blk;
+    u8 _padX[0x6CD0 - 0x6B90];
+    Sub k0;
+    Sub k1;
+    Sub k2;
+    Sub k3;
+};
 Obj **func_0800374C(Obj **arg0, GenObj *arg1) {
     /* Frame 12 byte: sp0 volatile (reload paksa utk null-check, krn
        *arg0 boleh alias sp0), sp4 volatile (store tidak dilipat),
@@ -147,7 +225,10 @@ struct S20 {
     Cell c3;
 };
 struct GenObj {
-    u8 _pad0[0x6B80];
+    void *unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    u8 _padC[0x6B80 - 0xC];
     Blk blk;
     u8 _padX[0x6CD0 - 0x6B90];
     Sub k0;

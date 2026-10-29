@@ -114,6 +114,10 @@ $(BUILD_DIR)/%.d: %.cc
 	@$(CPP) $(CPPFLAGS) $< -o $@ -MM -MG -MT $@ -MT $(BUILD_DIR)/$*.o
 
 # C++ object
+# intro_scene: agbcp -O2 meng-inline memcpy kecil bila prototipe <string.h>
+# terlihat; ref memakai `bl memcpy` (judge memakai deklarasi palsu yang tak
+# dikenali sebagai builtin). Matikan builtin khusus TU ini.
+build/src/intro_scene.o: CXXFLAGS += -fno-builtin
 $(BUILD_DIR)/%.o: %.cc $(BUILD_DIR)/%.d
 	@echo "CP $<"
 	@$(CPP) $(CPPFLAGS) $< | ($(CC1PLUS) $(CXXFLAGS) -o $(BUILD_DIR)/$*.s || false)

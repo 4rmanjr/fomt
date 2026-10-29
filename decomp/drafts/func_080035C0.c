@@ -65,7 +65,10 @@ struct S20 {
     Cell c3;
 };
 struct GenObj {
-    u8 _pad0[0x6B80];
+    void *unk0;
+    struct GenObj *unk4;
+    struct GenObj *unk8;
+    u8 _padC[0x6B80 - 0xC];
     Blk blk;
     u8 _padX[0x6CD0 - 0x6B90];
     Sub k0;

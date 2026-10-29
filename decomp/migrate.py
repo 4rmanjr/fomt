@@ -105,7 +105,10 @@ def translate_types(body):
     return body
 
 
-FAKE_MEMCPY_RE = re.compile(r"^\s*i32 memcpy\(i32, i32, i32\);\s*\n", re.M)
+FAKE_MEMCPY_RE = re.compile(
+    r"^\s*i32 memcpy\(\s*i32\s*\*?\s*,\s*i32\s*\*?\s*,\s*i32\s*\)\s*;"
+    r"\s*(?:/\*.*?\*/)?\s*$\n",
+    re.M)
 MEMCPY_CALL_RE = re.compile(r"\bmemcpy\(([^,()]+),([^,()]+),([^()]+)\)")
 
 
@@ -125,7 +128,58 @@ def adapt_memcpy(body):
 
 def struct_name(blk):
     m = re.search(r"struct\s+(\w+)", blk)
+    if m:
+        return m.group(1)
+    m = re.search(r"\}\s*(\w+)\s*;", blk)  # typedef anonim: typedef struct {...} X;
     return m.group(1) if m else ""
+
+
+_PRIMITIVE_TYPES = set(
+    "u8 s8 u16 s16 u32 s32 i32 u64 s64 i64 int char short long signed "
+    "unsigned void float double _Bool size_t".split())
+
+
+def _defined_names(blk):
+    """Nama tipe yang didefinisikan satu unit hoist."""
+    names = set()
+    mf = re.match(r"\s*typedef\s+struct\s+(\w+)\s+(\w+)\s*;", blk)
+    if mf:
+        return {mf.group(1), mf.group(2)}
+    m = re.match(r"\s*(?:typedef\s+)?struct\s+(\w+)", blk)
+    if m:
+        names.add(m.group(1))
+    m = re.search(r"\}\s*(\w+)\s*;", blk)
+    if m and blk.lstrip().startswith("typedef"):
+        names.add(m.group(1))
+    return names - _PRIMITIVE_TYPES
+
+
+def _topo_order(blocks):
+    """Urutkan unit hoist agar dependensi tipe selalu didefinisikan dulu
+    (stabil; siklus -> pertahankan urutan semula)."""
+    keys = list(range(len(blocks)))
+    defs = [_defined_names(b) for b in blocks]
+    by_name = {}
+    for k, ds in zip(keys, defs):
+        for n in ds:
+            by_name.setdefault(n, k)
+    all_names = set(by_name)
+    deps = {}
+    for k, b in zip(keys, blocks):
+        words = set(re.findall(r"[A-Za-z_]\w*", b))
+        deps[k] = {by_name[w] for w in (words & all_names) - defs[k]
+                   if by_name[w] != k}
+    out, done, remaining = [], set(), list(keys)
+    while remaining:
+        for k in list(remaining):
+            if deps[k] <= done:
+                out.append(k)
+                done.add(k)
+                remaining.remove(k)
+                break
+        else:
+            out.append(remaining.pop(0))  # siklus: jangan macet
+    return [blocks[k] for k in out]
 
 
 def _is_pure_type(blk):
@@ -141,18 +195,29 @@ def take_structs(text):
 
     Dipakai agar struct yang dibawa tiap blok MATCH naik ke scope file
     (satu salinan), bukan terjebak di dalam blok `extern "C"` masing-masing
-    yang bikin blok berikutnya 'was not declared' / 'redefinition'."""
-    spans = []
-    for m in STRUCT_RE.finditer(text):
-        depth, k = 0, m.end() - 1
+    yang bikin blok berikutnya 'was not declared' / 'redefinition'.
+
+    Menangkap juga forward-typedef (`typedef struct X X;`) dan typedef
+    anonim (`typedef struct {...} X;`) agar hoist tidak kehilangan
+    dependensi tipe."""
+
+    def brace_end(start):
+        depth, k = 0, start
         while k < len(text):
             if text[k] == "{":
                 depth += 1
             elif text[k] == "}":
                 depth -= 1
                 if depth == 0:
-                    break
+                    return k
             k += 1
+        return -1
+
+    spans = []
+    for m in STRUCT_RE.finditer(text):
+        k = brace_end(m.end() - 1)
+        if k == -1:
+            continue
         end = text.find(";", k)
         if end == -1:
             continue
@@ -160,6 +225,11 @@ def take_structs(text):
         if not _is_pure_type(blk):
             continue  # deklarasi variabel: biarkan di tempat
         spans.append((m.start(), end + 1))
+    for m in FWD_TYPEDEF_RE.finditer(text):
+        if any(s <= m.start() < e for s, e in spans):
+            continue
+        spans.append((m.start(), m.end()))
+    spans.sort()
     blocks = []
     for s, e in reversed(spans):
         blocks.append(text[s: e])
@@ -168,7 +238,9 @@ def take_structs(text):
     return re.sub(r"\n{3,}", "\n\n", text), blocks
 
 
-STRUCT_RE = re.compile(r"(typedef\s+)?struct\s+\w+\s*\{", re.M)
+STRUCT_RE = re.compile(r"(typedef\s+)?struct\s+(?:\w+\s*)?\{", re.M)
+FWD_TYPEDEF_RE = re.compile(r"^[ \t]*typedef\s+struct\s+\w+\s+\w+\s*;[ \t]*$",
+                             re.M)
 EXTERN_RE = re.compile(
     r"^\s*(?:i32|u32|u16|u8|s32|s16|s8|void)\s+(\w+)\s*\(([^;{}]*)\)\s*;"
     r"\s*(?:/\*.*?\*/)?\s*$",
@@ -456,7 +528,11 @@ def migrate_one(module, func, dry_run=False):
             nm = struct_name(blk)
             if blk in merged or blk in src_nostruct:
                 continue  # salinan identik sudah ada di luar span
-            if (any(struct_name(o) == nm and o != blk for o in merged)
+            if FWD_TYPEDEF_RE.match(blk.strip()):
+                merged.append(blk)  # forward-decl kompatibel dgn definisi apa pun
+                continue
+            if (any(not FWD_TYPEDEF_RE.match(o.strip())
+                    and struct_name(o) == nm and o != blk for o in merged)
                     or _src_struct_differs(src_nostruct, nm, blk)):
                 struct_conflict = nm  # butuh penyatuan manual
                 break
@@ -477,6 +553,7 @@ def migrate_one(module, func, dry_run=False):
                         f"({sorted(decl_old[nm])} vs {sorted(sigs)}), "
                         "butuh penyatuan manual, dilewati"}
         if merged:
+            merged = _topo_order(merged)
             sec = MANAGED_BEGIN + "\n".join(merged) + "\n" + MANAGED_END
             anchor = src_nostruct.find("// DECOMP-MATCHED")
             if anchor != -1:

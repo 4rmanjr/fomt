@@ -8,11 +8,37 @@ typedef struct {
 } Obj;
 void func_08000D64(void *, s32);                     /* extern */
 
-typedef struct GenObj {
+typedef struct O6B O6B;
+typedef struct Sub Sub;
+typedef struct CellW CellW;
+typedef struct Blk Blk;
+typedef struct GenObj GenObj;
+struct Sub {
+    s32 unk0;
+    s32 unk4;
+};
+struct CellW {
+    u16 v;
+    u16 _p;
+};
+struct Blk {
+    O6B *p;
+    CellW *arr;
+    u8 _x[4];
+    u16 idx;
+};
+struct GenObj {
     void *unk0;
     struct GenObj *unk4;
     struct GenObj *unk8;
-} GenObj;
+    u8 _padC[0x6B80 - 0xC];
+    Blk blk;
+    u8 _padX[0x6CD0 - 0x6B90];
+    Sub k0;
+    Sub k1;
+    Sub k2;
+    Sub k3;
+};
 Obj **func_0800374C(Obj **arg0, GenObj *arg1) {
     /* Frame 12 byte: sp0 volatile (reload paksa utk null-check, krn
        *arg0 boleh alias sp0), sp4 volatile (store tidak dilipat),
