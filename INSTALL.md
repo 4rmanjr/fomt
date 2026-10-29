@@ -106,6 +106,22 @@ Known limits on Termux (same as elsewhere, plus one):
   vendored) — unchanged from other platforms.
 - everything runs under CPU emulation, so a batch is slower than on x86.
 
+### Migrasi di proot-distro (tanpa compare hijau)
+
+`make compare` merah di proot bukan salah kodemu: `src/m4a.c` 24B lebih
+besar dari aslinya sehingga semua alamat sesudah `0x080D3778` bergeser +24.
+Untuk modul pre-m4a (`interrupt.s`, `main.s`, `sram_proxy_*.s`) validasi
+penggantinya adalah **zero-diff**: ROM hasil build harus byte-identik
+dengan sebelum migrasi (judge MATCH sudah membuktikan C == asm).
+
+```bash
+python3 tools/migrate_proot.py --module interrupt.s --dry-run  # lihat kandidat
+python3 tools/migrate_proot.py --module interrupt.s            # eksekusi, tail-first
+```
+
+Gate per fungsi: ukuran tetap + nol byte berubah, kalau tidak otomatis
+revert (bawaan `migrate.py`). Modul pasca-m4a tetap butuh PC x86.
+
 ## Old instructions
 
 Install the devkitARM toolchain of devkitPro as per [the instructions on their wiki](https://devkitpro.org/wiki/devkitPro_pacman).
