@@ -1616,13 +1616,14 @@
  },
  "func_0803205C": {
   "addr": 134422620,
-  "judged_mtime": 1793017283.752188,
+  "judged_mtime": 1793260135.2053444,
   "module": "code_entities.s",
-  "note": "len 26 vs ref 52",
-  "ref_len": 52,
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
+  "ref_len": 51,
   "sanitize_v": 4,
-  "size": 483,
-  "status": "failed",
+  "size": 484,
+  "status": "promoted",
   "thumb": true
  },
  "func_08032090": {
