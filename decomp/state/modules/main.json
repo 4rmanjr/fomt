@@ -1,14 +1,15 @@
 {
  "AgbMain": {
   "addr": 134218124,
-  "judged_mtime": 1793203100.955277,
+  "judged_mtime": 1793260460.3491473,
   "module": "main.s",
-  "note": "decomp/logs/judge_AgbMain/hermes/func.c: In function `AgbMain':\n/root/gitproject/fomt/decomp/logs/judge_AgbMain/hermes/func.c:47: warning: dereferencing `void *' pointer\n/root/gitproject/fomt/decomp/logs/judge_AgbMain/hermes/func.c:47: request for member `unk8' in something not a structure or union\n",
-  "ref_len": 180,
+  "note": "",
+  "promoted_to": "decomp/promoted/main.cc",
+  "ref_len": 179,
   "sanitize_checked_v": 5,
   "sanitize_v": 5,
-  "size": 1573,
-  "status": "failed",
+  "size": 1574,
+  "status": "promoted",
   "thumb": true
  },
  "func_08000240": {
