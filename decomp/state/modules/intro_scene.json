@@ -80,13 +80,14 @@
  },
  "func_080035C0": {
   "addr": 134231488,
-  "judged_mtime": 1793020045.960318,
+  "judged_mtime": 1793262321.3867786,
   "module": "intro_scene.s",
-  "note": "gitproject/fomt/decomp/logs/judge_func_080035C0/opencode/func.c:100: request for member `unk4' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080035C0/opencode/func.c:102: warning: passing arg 2 of `func_0805E99C' makes integer from pointer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/intro_scene.cc",
   "ref_len": 311,
   "sanitize_v": 4,
-  "size": 3117,
-  "status": "failed",
+  "size": 3118,
+  "status": "promoted",
   "thumb": true
  },
  "func_080036F8": {
@@ -107,9 +108,9 @@
   "module": "intro_scene.s",
   "note": "",
   "promoted_to": "decomp/promoted/intro_scene.cc",
-  "ref_len": 48,
+  "ref_len": 43,
   "sanitize_v": 4,
-  "size": 510,
+  "size": 511,
   "status": "promoted",
   "thumb": true
  },
