@@ -103,11 +103,13 @@ SECTIONS
         src/entity.o(.text);
         src/code_entity_08020018.o(.text);
         asm/code_entities.o(.text);
+        src/code_entities.o(.text);
         src/entity_actor.o(.text);
         asm/code_entities_080320DC.o(.text);
         src/code_entities_080320DC.o(.text);
         src/npc_entity.o(.text);
         asm/code_entities_08034CEC.o(.text);
+        src/code_entities_08034CEC.o(.text);
 
         asm/code_0803A8A4.o(.text);
         src/code_0803A8A4.o(.text);
