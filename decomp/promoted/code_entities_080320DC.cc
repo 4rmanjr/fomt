@@ -31,9 +31,9 @@ typedef struct GenObj {
     u8 _padC9;
     u8 unkCA;
     u8 unkCB;
-    i16 unkCC;
-    i16 unkCE;
-    i16 unkD0;
+    s16 unkCC;
+    s16 unkCE;
+    s16 unkD0;
 } GenObj;
 void func_08033B7C(GenObj *arg0) {
     arg0->unk41 = 0;
@@ -67,9 +67,9 @@ typedef struct GenObj {
     u8 _padC9;
     u8 unkCA;
     u8 unkCB;
-    i16 unkCC;
-    i16 unkCE;
-    i16 unkD0;
+    s16 unkCC;
+    s16 unkCE;
+    s16 unkD0;
 } GenObj;
 u16 func_08034248(GenObj *arg0, s32 arg1) {
     u8 *base = (u8 *)&gUnk_080F1450;
@@ -105,9 +105,9 @@ typedef struct GenObj {
     u8 _padC9;
     u8 unkCA;
     u8 unkCB;
-    i16 unkCC;
-    i16 unkCE;
-    i16 unkD0;
+    s16 unkCC;
+    s16 unkCE;
+    s16 unkD0;
 } GenObj;
 
 typedef struct {
@@ -170,9 +170,9 @@ typedef struct GenObj {
     u8 _padC9;
     u8 unkCA;
     u8 unkCB;
-    i16 unkCC;
-    i16 unkCE;
-    i16 unkD0;
+    s16 unkCC;
+    s16 unkCE;
+    s16 unkD0;
 } GenObj;
 void func_08034BFC(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     u16 v = gUnk_080F14F0[arg1];
