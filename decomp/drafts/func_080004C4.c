@@ -1,4 +1,4 @@
-s32 func_08000528(s32);
+u16 func_08000528(u16);
 s32 func_080D100C(s32, s32);
 extern void func_03000958(void);
 

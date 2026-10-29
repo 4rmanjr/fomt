@@ -1,4 +1,4 @@
-s32 func_080004F4(s32);
+u16 func_080004F4(s32);
 
 /* ATTEMPT-NOTE hermes: tulis manual (m2c gagal). Set IME-ish reg lalu
    teruskan nilai yg sama ke dispatcher. */

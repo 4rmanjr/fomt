@@ -1,6 +1,6 @@
 
 // DECOMP-MATCHED func_080004C4 (dari interrupt.s; cek manusia sebelum ke src/)
-s32 func_08000528(s32);
+u16 func_08000528(u16);
 s32 func_080D100C(s32, s32);
 extern void func_03000958(void);
 
@@ -17,7 +17,7 @@ void func_080004C4(void) {
 }
 
 // DECOMP-MATCHED func_0800050C (dari interrupt.s; cek manusia sebelum ke src/)
-s32 func_080004F4(s32);
+u16 func_080004F4(s32);
 
 /* ATTEMPT-NOTE hermes: tulis manual (m2c gagal). Set IME-ish reg lalu
    teruskan nilai yg sama ke dispatcher. */
