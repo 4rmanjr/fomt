@@ -20,10 +20,23 @@ typedef struct Arg1 {
 } Arg1;
 
 typedef struct GenObj {
-    u8 _pad0[4];
-    void *unk4;
-    u8 _pad8[0xC8];
-    u16 unkD0;
+    u16 unk0;
+    u8 _pad2[2];
+    struct GenObj *unk4;
+    u8 _pad8[2];
+    u16 unkA;
+    u8 _padC[0x24];
+    u8 unk30;
+    u8 _pad31[0x10];
+    u8 unk41;
+    u8 _pad42[0x86];
+    u8 unkC8;
+    u8 _padC9;
+    u8 unkCA;
+    u8 unkCB;
+    s16 unkCC;
+    s16 unkCE;
+    s16 unkD0;
 } GenObj;
 
 struct Stk {
@@ -53,7 +66,7 @@ void *func_08034A14(GenObj *arg0, Arg1 *arg1) {
     zero = 0;
     w.a = zero; w.b = 4; w.c = zero; flag = zero;
     func_080324BC(arg0, arg1, 3, v1);
-    arg0->unk4 = &vtable_unk_080E6904;
+    arg0->unk4 = (GenObj *)&vtable_unk_080E6904;
     o = x->unk0;
     temp = o->unk0->unk68(o);
     hbase = gUnk_080F14F0;

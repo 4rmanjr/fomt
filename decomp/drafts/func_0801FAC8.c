@@ -1,11 +1,14 @@
-s32 __builtin_new(s32);                             /* extern */
+void *__builtin_new(s32);                             /* extern */
 s32 func_0803AEA0(s32, void *, s32, s32, s32);      /* extern */
 s32 func_0803B0A8(s32, s32);                          /* extern */
 
 typedef struct GenObj {
     u8 _pad0[4];
     s32 *unk4;
-    u8 _pad8[4212];
+    s32 unk8;
+    u8 _padC[8];
+    struct GenObj *unk14;
+    u8 _pad18[0x1064];
     s32 unk107C;
 } GenObj;
 void func_0801FAC8(GenObj *arg0, s32 arg1) {
@@ -54,7 +57,7 @@ void func_0801FAC8(GenObj *arg0, s32 arg1) {
         }
         /* res menahan hasil call di r0 melewati hitung-alamat slot;
            salinan nv = res yg memaksa urutan emisi ldr/adds/adds */
-        res = func_0803AEA0(__builtin_new(0x46C), arg0, (s32)var_r8, arg1, var_r7);
+        res = func_0803AEA0((s32)__builtin_new(0x46C), arg0, (s32)var_r8, arg1, var_r7);
         slot = &arg0->unk107C;
         nv = res;
         if ((nv != *slot) && (*slot != 0)) {

@@ -2,10 +2,12 @@
 
 typedef struct GenObj {
     u8 _pad0[4];
-    i32 unk4;
+    i32 *unk4;
     i32 unk8;
     u8 _padC[8];
     struct GenObj *unk14;
+    u8 _pad18[0x1064];
+    i32 unk107C;
 } GenObj;
 struct Fb7cV {
     void *f0;
@@ -15,6 +17,69 @@ struct Fb7cV {
 struct Fb7cObj {
     Fb7cV *vtab;
 };
+
+// DECOMP-MATCHED func_0801FAC8 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                             /* extern */
+i32 func_0803AEA0(i32, void *, i32, i32, i32);      /* extern */
+i32 func_0803B0A8(i32, i32);                          /* extern */
+
+void func_0801FAC8(GenObj *arg0, i32 arg1) {
+    i32 temp_r5;
+    i32 var_r7;
+    void *var_r8;
+    u32 var_r3;
+    void **var_r1;
+    GenObj *temp_r0;
+    void **temp_r2;
+    i32 res;
+    i32 nv;
+    i32 *slot;
+
+    var_r8 = 0;
+    if (arg1 != 0) {
+        if (arg1 == 1) {
+            var_r8 = (void *)((u8 *)arg0 + 0xED4);
+        }
+    } else {
+        var_r8 = (void *)((u8 *)arg0 + 0xEA4);
+    }
+    if (var_r8 != 0) {
+        var_r7 = 0x20;
+        temp_r5 = *arg0->unk4;
+        if (temp_r5 == 2) {
+            var_r3 = 0;
+            var_r1 = (void **)((u8 *)arg0 + 8);
+            temp_r2 = (void **)((u8 *)arg0 + 0x198);
+            if (var_r1 != temp_r2) {
+                do {
+                    temp_r0 = (GenObj *)*var_r1;
+                    if ((temp_r0 != 0) && (*(u16 *)((u8 *)temp_r0 + 4) == temp_r5)) {
+                        var_r3 += 1;
+                    }
+                    var_r1 += 1;
+                } while (var_r1 != temp_r2);
+            }
+            if ((u32) (var_r3 + 0xA) > 0xAU) {
+                if (var_r3 <= 0x15U) {
+                    var_r7 = 0x20 - var_r3;
+                } else {
+                    var_r7 = 0xA;
+                }
+            }
+        }
+        /* res menahan hasil call di r0 melewati hitung-alamat slot;
+           salinan nv = res yg memaksa urutan emisi ldr/adds/adds */
+        res = func_0803AEA0((i32)__builtin_new(0x46C), arg0, (i32)var_r8, arg1, var_r7);
+        slot = &arg0->unk107C;
+        nv = res;
+        if ((nv != *slot) && (*slot != 0)) {
+            func_0803B0A8(*slot, 3);
+        }
+        *slot = nv;
+    }
+}
+}
 
 // DECOMP-MATCHED func_0801FB7C (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -107,7 +172,7 @@ extern "C" {
 i32 func_080A5A9C(i32);                               /* extern */
 
 i32 func_0801FD3C(GenObj *arg0) {
-    return func_080A5A9C(arg0->unk4);
+    return func_080A5A9C((i32)arg0->unk4);
 }
 }
 // ekor tak-bermarker dari game_state.s (verbatim, jangan diubah)
@@ -121,7 +186,7 @@ extern "C" {
 i32 func_080A59BC(i32);                               /* extern */
 
 void func_0801FD60(GenObj *arg0) {
-    func_080A59BC(arg0->unk4);
+    func_080A59BC((i32)arg0->unk4);
 }
 }
 
@@ -130,6 +195,6 @@ extern "C" {
 i32 func_080A5960(i32);                               /* extern */
 
 void func_0801FD6C(GenObj *arg0) {
-    func_080A5960(arg0->unk4);
+    func_080A5960((i32)arg0->unk4);
 }
 }
