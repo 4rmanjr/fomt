@@ -1,33 +1,47 @@
-s32 SoftReset(s32);                                   /* extern */
-s32 func_08000528(s32);                               /* extern */
+s32 func_08000528(s32);
+s32 SoftReset(s32);
 
-typedef struct GenObj {
-    u8 _pad0[10];
-    struct GenObj *unkA;
-} GenObj;
+/* ATTEMPT-NOTE hermes: tulis manual dr asm (draf m2c rusak: void*->unk).
+   Init hardware: reg 04000000, poll KEYCNT, matikan 4 channel DMA (pola
+   volatile RMW + dead-load tiap grup), lalu SoftReset + loop selamanya. */
 void func_08000240(void) {
-    void *temp_r1;
-    GenObj *temp_r1_2;
+    volatile u8 *base;
+    volatile u16 *r;
+    u16 v;
 
     func_08000528(0xFFFF);
-    (void *)0x04000000->unk0 = 0x80;
-    (void *)0x04000000->unk84 = 0;
-    if (0xF & ~*(u16 *)0x04000130) {
-        do {
-
-        } while (0xF & ~*(u16 *)0x04000130);
+    *(volatile u16 *)0x04000000 = 0x80;
+    *(volatile u8 *)0x04000084 = 0;
+    while (0xF & ~*(volatile u16 *)0x04000130) {
     }
-    (void *)0x040000B0->unkA = (u16) (0xC5FF & (void *)0x040000B0->unkA);
-    (void *)0x040000B0->unkA = (u16) (0x7FFF & (void *)0x040000B0->unkA);
-    temp_r1 = (void *)0x040000B0 + 0xC;
-    temp_r1->unkA = (u16) (0xC5FF & temp_r1->unkA);
-    temp_r1->unkA = (u16) (0x7FFF & temp_r1->unkA);
-    temp_r1_2 = (GenObj *)((u8 *)temp_r1 + 0xC);
-    temp_r1_2->unkA = (u16) (0xC5FF & temp_r1_2->unkA);
-    temp_r1_2->unkA = (u16) (0x7FFF & temp_r1_2->unkA);
-    (void *)0x040000D4->unkA = (u16) (0xC5FF & (void *)0x040000D4->unkA);
-    (void *)0x040000D4->unkA = (u16) (0x7FFF & (void *)0x040000D4->unkA);
+    base = (volatile u8 *)0x040000B0;
+    r = (volatile u16 *)(base + 0xA);
+    v = *r;
+    *r = 0xC5FF & v;
+    *r = 0x7FFF & *r;
+    v = *r;
+    base += 0xC;
+    r = (volatile u16 *)(base + 0xA);
+    v = *r;
+    *r = 0xC5FF & v;
+    *r = 0x7FFF & *r;
+    v = *r;
+    base += 0xC;
+    r = (volatile u16 *)(base + 0xA);
+    v = *r;
+    *r = 0xC5FF & v;
+    *r = 0x7FFF & *r;
+    v = *r;
+    {
+        volatile u8 *b2 = (volatile u8 *)0x040000D4;
+        volatile u16 *r2 = (volatile u16 *)(b2 + 0xA);
+        v = *r2;
+        *r2 = 0xC5FF & v;
+        *r2 = 0x7FFF & *r2;
+        v = *r2;
+    }
+    (void)v;
     SoftReset(0xFF);
-loop_4:
-    goto loop_4;
+    while (1) {
+    }
 }

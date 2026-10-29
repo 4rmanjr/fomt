@@ -1,25 +1,26 @@
 {
  "AgbMain": {
   "addr": 134218124,
-  "judged_mtime": 1793017131.5191314,
+  "judged_mtime": 1793203100.955277,
   "module": "main.s",
-  "note": "s/judge_AgbMain/kilo/func.c: In function `AgbMain':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_AgbMain/kilo/func.c:47: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_AgbMain/kilo/func.c:47: request for member `unk8' in something not a structure or union\n",
+  "note": "decomp/logs/judge_AgbMain/hermes/func.c: In function `AgbMain':\n/root/gitproject/fomt/decomp/logs/judge_AgbMain/hermes/func.c:47: warning: dereferencing `void *' pointer\n/root/gitproject/fomt/decomp/logs/judge_AgbMain/hermes/func.c:47: request for member `unk8' in something not a structure or union\n",
   "ref_len": 180,
-  "sanitize_checked_v": 4,
-  "sanitize_v": 4,
+  "sanitize_checked_v": 5,
+  "sanitize_v": 5,
   "size": 1573,
   "status": "failed",
   "thumb": true
  },
  "func_08000240": {
   "addr": 134218304,
-  "judged_mtime": 1793017133.340045,
+  "judged_mtime": 1793242892.5885866,
   "module": "main.s",
-  "note": "/fomt/decomp/logs/judge_func_08000240/kilo/func.c:29: invalid type argument of `->'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08000240/kilo/func.c:30: invalid type argument of `->'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08000240/kilo/func.c:30: invalid type argument of `->'\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/main.cc",
   "ref_len": 159,
-  "sanitize_v": 4,
+  "sanitize_v": 5,
   "size": 1698,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  }
 }
