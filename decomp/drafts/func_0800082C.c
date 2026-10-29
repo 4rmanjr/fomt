@@ -1,60 +1,96 @@
-void func_0800082C(void ***arg0) {
-    void **sp0;
-    void **sp4;
-    void **sp8;
-    void ***spC;
-    void **sp10;
-    void ***sp14;
-    void **sp18;
-    void **temp_r0;
-    void **temp_r1;
-    void **temp_r1_2;
-    void **temp_r1_3;
+typedef struct Vtbl {
+    void *unk0;
+    void *unk4;
+    void (*unk8)(void *, s32);
+    void (*unkC)(void *, void *);
+} Vtbl;
+typedef struct Obj {
+    Vtbl *unk0;
+} Obj;
 
-    if (*arg0 != 0) {
-loop_2:
-        (**arg0)->unkC(&sp4);
-        spC = &sp4;
-        sp10 = sp4;
-        sp4 = 0;
-        sp0 = sp4;
-        if (sp4 != 0) {
-            (*sp4)->unk8(sp4, 3);
-        }
-        temp_r1 = *arg0;
-        if ((temp_r1 != 0) && (temp_r1 != 0)) {
-            (*temp_r1)->unk8(temp_r1, 3);
-        }
-        *arg0 = 0;
-        if (sp0 != 0) {
-            (*sp0)->unkC(&sp8, sp0);
-            sp14 = &sp8;
-            sp18 = sp8;
-            sp8 = 0;
-            sp4 = sp8;
-            if (sp8 != 0) {
-                (*sp8)->unk8(sp8, 3);
-            }
-            temp_r0 = sp4;
-            sp4 = 0;
-            temp_r1_2 = *arg0;
-            if ((temp_r0 != temp_r1_2) && (temp_r1_2 != 0)) {
-                (*temp_r1_2)->unk8(temp_r1_2, 3);
-            }
-            *arg0 = temp_r0;
-            if (sp4 != 0) {
-                (*sp4)->unk8(sp4, 3);
-            }
-            if (sp0 != 0) {
-                (*sp0)->unk8(sp0, 3);
-            }
-            if (*arg0 != 0) {
-                goto loop_2;
-            }
-        }
+void func_0800082C(Obj **arg0) {
+    Obj *volatile sp0;
+    Obj *volatile sp4;
+    Obj *volatile sp8;
+    Obj **volatile spC;
+    Obj *volatile sp10;
+    Obj **volatile sp14;
+    Obj *volatile sp18;
+    Obj *volatile *pA;
+    Obj *volatile *pB;
+    register Obj **pp __asm__("r5") = arg0;
+    register Obj *var_r5 __asm__("r4");
+    register Obj *u __asm__("r3");
+    register Vtbl *vtA __asm__("r2");
+    register Vtbl *vtB __asm__("r1");
+    register Obj *w __asm__("r0");
+    Obj *t;
+    Obj *z;
+
+    if (*pp == 0) {
+        goto done;
     }
-    temp_r1_3 = *arg0;
-    if (temp_r1_3 != 0) {
-        (*temp_r1_3)->unk8(temp_r1_3, 3);
+    pA = &sp4;
+    pB = &sp8;
+loop:
+    t = *pp;
+    vtA = t->unk0;
+    w = (Obj *)pA;
+    vtA->unkC(w, t);
+    t = sp4;
+    spC = pA;
+    sp10 = t;
+    *pA = 0;
+    sp0 = t;
+    t = sp4;
+    if (t != 0) {
+        t->unk0->unk8(t, 3);
+    }
+    var_r5 = 0;
+    t = *pp;
+    if ((var_r5 != t) && (t != 0)) {
+        t->unk0->unk8(t, 3);
+    }
+    *pp = var_r5;
+    u = sp0;
+    if (u == 0) {
+        goto done;
+    }
+    vtB = u->unk0;
+    w = (Obj *)pB;
+    vtB->unkC(w, u);
+    w = sp8;
+    sp14 = pB;
+    sp18 = w;
+    z = 0;
+    *pB = z;
+    sp4 = w;
+    t = sp8;
+    if (t != 0) {
+        t->unk0->unk8(t, 3);
+    }
+    w = sp4;
+    sp4 = z;
+    var_r5 = w;
+    t = *pp;
+    if ((var_r5 != t) && (t != 0)) {
+        t->unk0->unk8(t, 3);
+    }
+    *pp = var_r5;
+    t = sp4;
+    if (t != 0) {
+        t->unk0->unk8(t, 3);
+    }
+    t = sp0;
+    if (t != 0) {
+        t->unk0->unk8(t, 3);
+    }
+    if (*pp != 0) {
+        goto loop;
+    }
+done:
+    t = *pp;
+    if (t != 0) {
+        t->unk0->unk8(t, 3);
     }
 }
