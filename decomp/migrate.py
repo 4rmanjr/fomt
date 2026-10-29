@@ -210,6 +210,39 @@ def _src_struct_differs(src_text, nm, blk):
     return False
 
 
+MANAGED_BEGIN = "// === MIGRATED TYPES (auto-managed by migrate.py) ===\n"
+MANAGED_END = "// === END MIGRATED TYPES ===\n"
+
+
+def _migrated_spans(src_text):
+    """Rentang tiap blok DECOMP-MATCHED (tanpa tail asm) -> [(start, end)].
+    Zona lain (include, hoist lama, tail asm, kode tulisan tangan) tak tersentuh."""
+    marks = [m.start() for m in MIGRATED_FN_RE.finditer(src_text)]
+    spans = []
+    for i, s in enumerate(marks):
+        if i + 1 < len(marks):
+            e = marks[i + 1]
+        else:
+            tm = re.search(r"(?m)^(?:asm\(|// ekor tak-bermarker)",
+                           src_text[s:])
+            e = s + tm.start() if tm else len(src_text)
+        spans.append((s, e))
+    return spans
+
+
+def _strip_in_spans(text, spans):
+    """Hapus definisi struct murni HANYA dalam span -> (teks, [blok])."""
+    out, pos, stripped = [], 0, []
+    for s, e in spans:
+        out.append(text[pos:s])
+        seg, blks = take_structs(text[s:e])
+        stripped.extend(blks)
+        out.append(seg)
+        pos = e
+    out.append(text[pos:])
+    return "".join(out), stripped
+
+
 def split_marker_body(block):
     """(marker_line, body): baris pertama marker, sisanya body."""
     first, _, rest = block.partition("\n")
@@ -411,16 +444,21 @@ def migrate_one(module, func, dry_run=False):
                 inc.insert(0, "#include <string.h> // memcpy\n")
             src_text = "".join(inc)
         state_addrs = {n: i.get("addr", 0) for n, i in state.items()}
-        # Struct dari body naik ke scope file (satu salinan). src TIDAK
-        # pernah dirombak: definisinya dibiarkan apa adanya, hanya body baru
-        # yang diproses (aman untuk src tulisan-tangan ber-method).
+        # Struct: satukan SATU salinan di section terkelola sebelum marker
+        # pertama. Salinan di blok-blok lama (zona migrate) di-strip agar tak
+        # ganda; zona tulisan tangan/hoist lama tak tersentuh (cocok identik
+        # -> pakai yang ada; beda nama sama -> SKIP manual).
         body, new_structs = take_structs(body)
+        src_nostruct, old_structs = _strip_in_spans(
+            src_text, _migrated_spans(src_text))
         merged, struct_conflict = [], None
-        for blk in new_structs:
-            if blk in merged or blk in src_text:
-                continue
-            if _src_struct_differs(src_text, struct_name(blk), blk):
-                struct_conflict = struct_name(blk)  # butuh penyatuan manual
+        for blk in old_structs + new_structs:
+            nm = struct_name(blk)
+            if blk in merged or blk in src_nostruct:
+                continue  # salinan identik sudah ada di luar span
+            if (any(struct_name(o) == nm and o != blk for o in merged)
+                    or _src_struct_differs(src_nostruct, nm, blk)):
+                struct_conflict = nm  # butuh penyatuan manual
                 break
             merged.append(blk)
         if struct_conflict:
@@ -439,16 +477,20 @@ def migrate_one(module, func, dry_run=False):
                         f"({sorted(decl_old[nm])} vs {sorted(sigs)}), "
                         "butuh penyatuan manual, dilewati"}
         if merged:
-            top = "\n".join(merged) + "\n\n"
-            anchor = src_text.find("// DECOMP-MATCHED")
+            sec = MANAGED_BEGIN + "\n".join(merged) + "\n" + MANAGED_END
+            anchor = src_nostruct.find("// DECOMP-MATCHED")
             if anchor != -1:
-                src_text = src_text[:anchor] + top + src_text[anchor:]
+                src_text = (src_nostruct[:anchor] + sec + "\n" +
+                            src_nostruct[anchor:])
             else:
                 # src tulisan-tangan tanpa marker: taruh sesudah blok include
                 # (tipe butuh i32/u8 dari prelude), bukan di akhir file.
-                hm = re.match(r"(?:#[^\n]*\n)+", src_text)
+                hm = re.match(r"(?:#[^\n]*\n)+", src_nostruct)
                 pos = hm.end() if hm else 0
-                src_text = src_text[:pos] + top + src_text[pos:]
+                src_text = (src_nostruct[:pos] + sec + "\n" +
+                            src_nostruct[pos:])
+        else:
+            src_text = src_nostruct
         new_src = insert_ordered(src_text, marker_line, body, addr,
                                  state_addrs)
     else:
