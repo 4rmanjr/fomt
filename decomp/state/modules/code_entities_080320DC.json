@@ -316,13 +316,14 @@
  },
  "func_08034A14": {
   "addr": 134433300,
-  "judged_mtime": 1793017290.1486,
+  "judged_mtime": 1793261547.4139516,
   "module": "code_entities_080320DC.s",
-  "note": "`func_08034A14':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08034A14/opencode/func.c:26: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08034A14/opencode/func.c:29: warning: passing arg 4 of `func_080A4A00' makes pointer from integer without a cast\n",
-  "ref_len": 488,
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
+  "ref_len": 487,
   "sanitize_v": 4,
-  "size": 3643,
-  "status": "failed",
+  "size": 3644,
+  "status": "promoted",
   "thumb": true
  },
  "func_08034BFC": {
