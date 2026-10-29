@@ -1,17 +1,17 @@
 s32 __builtin_new(s32);                               /* extern */
-s32 func_080002E0(s32 *);                             /* extern */
+s32 func_080002E0(s32);                             /* extern */
 s32 func_08000358(s32 *);                               /* extern */
-s32 func_080004C4();                                  /* extern */
-s32 func_0800050C(s32);                               /* extern */
-s32 func_08000640(s32 *);                               /* extern */
+void func_080004C4(void);                                  /* extern */
+u16 func_0800050C(u16);                               /* extern */
+s32 func_08000640(s32);                               /* extern */
 s32 func_0800082C(volatile s32 *);                    /* extern */
 s32 func_080036F8();                                /* extern */
 s32 func_08008980(s32 *);                               /* extern */
 s32 func_08008A68(s32 *, s32);                          /* extern */
 s32 func_08008AFC();                                  /* extern */
-s32 func_080D100C(s32, s32 *);                          /* extern */
+s32 func_080D100C(s32, s32);                          /* extern */
 extern s32 func_03000490;
-extern s32 func_08000240;
+extern void func_08000240(void);
 
 typedef struct Vtbl {
     void *unk0;
@@ -36,13 +36,13 @@ void AgbMain(void) {
 
     *(s16 *)0x04000204 = 0x4014;
     func_080004C4();
-    func_080D100C(0xD, &func_03000490);
+    func_080D100C(0xD, (s32)&func_03000490);
     func_0800050C(0x2000);
-    func_08000640(&fr.spC);
-    if ((func_080002E0(&fr.spC) << 0x18) == 0) {
+    func_08000640((s32)&fr.spC);
+    if ((func_080002E0((s32)&fr.spC) << 0x18) == 0) {
         func_08000358(&fr.spC);
     }
-    func_080D100C(0xC, &func_08000240);
+    func_080D100C(0xC, (s32)&func_08000240);
     *(u16 *)0x04000132 = 0xC00F;
     func_0800050C(0x1000);
     func_08008AFC();
