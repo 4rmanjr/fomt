@@ -1,33 +1,39 @@
-typedef struct GenObj {
-    u8 _pad0[2];
-    s32 unk2;
-    s32 unk4;
-} GenObj;
+typedef struct { u16 unk0; u16 unk2; } EItem;
+typedef struct { EItem *ptr; u16 count; } EPair;
+typedef struct { u8 _00[12]; void (*unkC)(EPair *, void **, s32); } ETab;
 s32 func_08032090(void **arg0, s32 arg1) {
-    void *sp0;
-    GenObj *sp8;
-    s32 spC;
-    s32 var_r4;
-    u16 var_r1;
-    u32 var_r3;
-    GenObj *var_r1_2;
-
-    (*arg0)->unkC(&sp0, arg0, arg1);
-    sp8 = sp0;
-    spC = sp4;
-    var_r4 = 0;
-    var_r3 = 0;
-    var_r1 = 0;
-    if (sp0 != 0) {
-        var_r1 = sp8.unk4;
-    }
-    if ((u32) var_r1 > 0U) {
-        var_r1_2 = sp0;
+    EPair tmp;
+    EPair tmp2;
+    register EPair *pp __asm__("r2");
+    register EPair *pt0 __asm__("r0");
+    register u32 sum __asm__("r4");
+    register u32 i __asm__("r3");
+    register u32 count __asm__("r1");
+    register u32 lim __asm__("r2");
+    EItem *p;
+    EItem *q;
+    register ETab *t __asm__("r1");
+    register void **a4 __asm__("r4") = arg0;
+    register s32 a2 __asm__("r2") = arg1;
+    t = (ETab *)*a4;
+    pt0 = &tmp;
+    t->unkC(pt0, a4, a2);
+    tmp2 = tmp;
+    pp = &tmp2;
+    sum = 0;
+    i = 0;
+    p = tmp2.ptr;
+    count = 0;
+    if (p != 0)
+        count = pp->count;
+    lim = count;
+    if (sum < lim) {
+        q = p;
         do {
-            var_r4 += var_r1_2->unk2;
-            var_r1_2 += 4;
-            var_r3 += 1;
-        } while (var_r3 < (u32) var_r1);
+            sum += q->unk2;
+            q++;
+            i++;
+        } while (i < lim);
     }
-    return var_r4;
+    return sum;
 }

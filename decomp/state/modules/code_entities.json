@@ -1627,13 +1627,14 @@
  },
  "func_08032090": {
   "addr": 134422672,
-  "judged_mtime": 1793017283.953352,
+  "judged_mtime": 1793252222.8255105,
   "module": "code_entities.s",
-  "note": "ared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08032090/opencode/func.c:18: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08032090/opencode/func.c:23: request for member `unk4' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 75,
   "sanitize_v": 4,
   "size": 769,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "sub_0802FBFC": {
