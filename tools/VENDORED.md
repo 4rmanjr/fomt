@@ -16,9 +16,9 @@ terbukti byte-identik dengan pipeline x86 asli. Lihat `INSTALL.md`
 
 | Folder | Isi | Sumber | Lisensi |
 |---|---|---|---|
-| `agbcc/` | `agbcc`, `old_agbcc`, `agbcc_arm`, header, lib | https://github.com/pret/agbcc (`release`) | GPL-2.0 (`COPYING`) |
+| `agbcc/` | `agbcc`, `old_agbcc`, `agbcc_arm`, header, lib | https://github.com/pret/agbcc (`release` 2023-09-03; stamp `gcc 2.9-arm-000512`) — PINNED, jangan update | GPL-2.0 (`COPYING`) |
 | `arm-gnu/bin/` | `arm-none-eabi-as`, `arm-none-eabi-cpp` | ARM GNU Toolchain 14.3.rel1 | GPL (`license.txt`) |
-| `m2c/` | m2c + pycparser + graphviz (pure Python) | https://github.com/matt-kempster/m2c | GPL-3.0 |
+| `m2c/` | m2c + pycparser + graphviz (pure Python) | https://github.com/matt-kempster/m2c @ `c632946` (2026-10-22) | GPL-3.0 |
 | `decompnet/` | package `decompnet` (tanpa `__pycache__`) | decompnet 1.0.7a1 | lihat `decompnet/LICENSE` |
 | `python/` | `pyelftools` 0.33, `capstone` 5.0.9 | PyPI | public domain / BSD |
 
