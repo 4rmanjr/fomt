@@ -18,6 +18,51 @@ typedef struct {
 } Buf4;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0803EC44 {
+    u8 _pad0[8];
+    i32 unk8;
+} GenObj__func_0803EC44;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_0803EC44 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0803D52C(i32 *, i32);                        /* extern */
+i32 func_0803D644(u8, u8);                          /* extern */
+i32 func_0809ECD8(void *);                          /* extern */
+i32 func_0809ECE0(void *);                          /* extern */
+
+i32 func_0803EC44(GenObj__func_0803EC44 *arg0) {
+    Buf4 sp0;
+    u8 v1;
+    u8 v2;
+    u8 v3;
+    void *p4;
+
+    if ((i32)(((u8 *)arg0)[0x21CA] << 0x1B) < 0) {
+        return 0;
+    }
+    func_0803D52C((i32 *)&sp0, (i32)((u8 *)arg0 + 0x10));
+    v1 = sp0.unk1;
+    v2 = sp0.unk2;
+    v3 = sp0.unk3;
+    if ((func_0803D644(v1, v2) << 0x18) != 0) {
+        return 4;
+    }
+    p4 = (void *)((u8 *)arg0 + 0x1DAC);
+    if ((func_0809ECD8(p4) != 0) && ((func_0809ECE0(p4) << 0x18) == 0)) {
+        return 5;
+    }
+    if (v3 == 4) {
+        if (arg0->unk8 == 0) {
+            return 2;
+        }
+        return 3;
+    }
+    return 1;
+}
+}
+
 // DECOMP-MATCHED func_0803ECC0 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0803D52C(i32 *, i32);                          /* extern */

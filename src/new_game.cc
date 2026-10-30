@@ -6,6 +6,26 @@ typedef struct GenObj {
     void (*unk8)(void *, i32);
 } GenObj;
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08007078 {
+    void *unk0;
+    i32 unk4;
+} GenObj__func_08007078;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08007078 (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __builtin_new(i32);                             /* extern */
+i32 func_08005A58(i32, i32, i32);                   /* extern */
+extern i32 vtable_unk_080E5AC0;
+
+void *func_08007078(GenObj__func_08007078 *arg0, i32 arg1, i32 arg2) {
+    arg0->unk0 = &vtable_unk_080E5AC0;
+    arg0->unk4 = func_08005A58(__builtin_new(0x4640), arg1, arg2);
+    return arg0;
+}
+}
+
 // DECOMP-MATCHED func_080070A4 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080007EC(void *, i32);                       /* extern */

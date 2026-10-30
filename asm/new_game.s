@@ -7089,25 +7089,3 @@ func_08006ED8: @ 0x08006ED8
     .align 2, 0
 .L08007074: .4byte 0x00004638
 
-    thumb_func_start func_08007078
-func_08007078: @ 0x08007078
-    push {r4, r5, r6, lr}
-    adds r4, r0, #0
-    adds r5, r1, #0
-    adds r6, r2, #0
-    ldr r0, .L0800709C @ =vtable_unk_080E5AC0
-    str r0, [r4]
-    ldr r0, .L080070A0 @ =0x00004640
-    bl __builtin_new
-    adds r1, r5, #0
-    adds r2, r6, #0
-    bl func_08005A58
-    str r0, [r4, #4]
-    adds r0, r4, #0
-    pop {r4, r5, r6}
-    pop {r1}
-    bx r1
-    .align 2, 0
-.L0800709C: .4byte vtable_unk_080E5AC0
-.L080070A0: .4byte 0x00004640
-

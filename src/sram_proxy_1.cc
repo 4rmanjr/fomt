@@ -1,4 +1,29 @@
 #include "prelude.h"
+#include <string.h> // memcpy
+
+// DECOMP-MATCHED func_080002E0 (dari sram_proxy_1.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080006E4(i32, void *, i32, i32);              /* extern */
+extern u16 gUnk_03000400;
+extern i32 gUnk_080E862C;
+
+i32 func_080002E0(i32 arg0) {
+    u8 sp0[0x20];
+    u32 sp20;
+    u32 sp24;
+    i32 var_r4;
+
+    func_080006E4(arg0, &sp0, 0, 0x20);
+    if ((gUnk_03000400 != 0) || (sp20 = (u32) gUnk_03000400, func_080006E4(arg0, &sp20, 0x20, 4), (gUnk_03000400 != 0)) || (sp24 = (u32) gUnk_03000400, func_080006E4(arg0, &sp24, 0x24, 4), (gUnk_03000400 != 0))) {
+        return 0;
+    }
+    var_r4 = 0;
+    if ((memcmp(&sp0, &gUnk_080E862C, 0x20) == 0) && ((3 & sp20) == sp20) && (sp24 <= 1U)) {
+        var_r4 = 1;
+    }
+    return var_r4;
+}
+}
 
 // DECOMP-MATCHED func_08000358 (dari sram_proxy_1.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -22,14 +47,14 @@ void func_08000358(i32 arg0) {
 
 // DECOMP-MATCHED func_080003A0 (dari sram_proxy_1.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080002E0();                                /* extern */
-i32 func_080006E4(i32, i32 *, i32, i32);              /* extern */
+i32 func_080002E0(i32);                             /* extern */
+i32 func_080006E4(i32, void *, i32, i32);              /* extern */
 extern u16 gUnk_03000400;
 
 i32 func_080003A0(i32 arg0) {
     i32 sp0;
 
-    if ((func_080002E0() << 0x18) != 0) {
+    if ((func_080002E0(arg0) << 0x18) != 0) {
         sp0 = 0;
         func_080006E4(arg0, &sp0, 0x20, 4);
         if (gUnk_03000400 == 0) {
@@ -51,7 +76,7 @@ i32 func_080003DC(i32 arg0, i32 arg1) {
 // DECOMP-MATCHED func_080003E8 (dari sram_proxy_1.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080006A4(i32, i32, i32 *, i32);              /* extern */
-i32 func_080006E4(i32, i32 *, i32, i32);              /* extern */
+i32 func_080006E4(i32, void *, i32, i32);              /* extern */
 extern u16 gUnk_03000400;
 
 void func_080003E8(i32 arg0, i32 arg1) {
@@ -88,14 +113,14 @@ void func_08000470(i32 arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_08000488 (dari sram_proxy_1.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080002E0();                                /* extern */
-i32 func_080006E4(i32, i32 *, i32, i32);              /* extern */
+i32 func_080002E0(i32);                             /* extern */
+i32 func_080006E4(i32, void *, i32, i32);              /* extern */
 extern u16 gUnk_03000400;
 
 i32 func_08000488(i32 arg0) {
     i32 sp0;
 
-    if ((func_080002E0() << 0x18) != 0) {
+    if ((func_080002E0(arg0) << 0x18) != 0) {
         sp0 = 0;
         func_080006E4(arg0, &sp0, 0x24, 4);
         if (gUnk_03000400 == 0) {

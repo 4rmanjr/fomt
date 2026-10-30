@@ -13,6 +13,32 @@ typedef struct GenObj {
     i32 unk12C;
 } GenObj;
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809B018 {
+    u8 _pad0[8];
+    u32 unk8;
+} GenObj__func_0809B018;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_0809B018 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+
+void *func_0809B018(GenObj__func_0809B018 *arg0, u32 arg1) {
+    u8 *p = (u8 *)arg0;
+    u32 n;
+    void *r;
+    p += 8;
+    n = arg0->unk8;
+    if (arg1 >= n) {
+        r = (u8 *)arg0 + 12;
+    } else {
+        u32 t = arg1 + 1;
+        r = 4 + ((n - t) * 8) + p;
+    }
+    return r;
+}
+}
+
 // DECOMP-MATCHED func_0809B038 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 /* GENOBJ-UNIFIED: view penuh gabungan 9B05C/9B084/9B0B0/9B0D8 (src) + 9B038
