@@ -1,29 +1,28 @@
 #!/usr/bin/env python3
-"""Migrasi 1 fungsi MATCH dari asm/*.s ke src/*.cc secara aman.
+"""Migrasi 1 fungsi MATCH dari asm/*.s ke src/*.cc via section-replace.
 
-Alur per fungsi (sesuai urutan):
+Alur per fungsi:
   1. Ambil blok `// DECOMP-MATCHED <nama>` dari decomp/promoted/<stem>.cc
      (hanya bila status fungsi di decomp/state/modules/<stem>.json == promoted).
-  2. Sisipkan (urut alamat) ke src/<stem>.cc — buat baru dgn
-     `#include "prelude.h"` bila belum ada. Blok dibungkus
-     `extern "C" { ... }` agar linkage C (repo memakai EC utk ini) dan
-     pemanggilan ke simbol asm (memcpy, func_*, gUnk_*) tidak mangled.
-  3. Hapus blok fungsi tsb dari asm/<modul>.s (dari baris
-     thumb_func_start/arm_func_start sampai marker fungsi berikut).
-  4. Daftarkan src/<stem>.o(.text) di fomt.lds tepat sesudah
-     asm/<stem>.o(.text) (tanpa ini section dibuang /DISCARD/ -> link gagal).
-     Lalu `make compare`: HIJAU -> lanjut fungsi berikut;
-     MERAH -> revert fungsi itu (snapshot file) dan BERHENTI + laporan.
+  2. Syarat pindah: `func in migratable_set(stem)` (grup 1-fungsi menurut
+     tools/scripts/split_asm_sections.py). BUKAN tail-only, BUKAN addr%4 —
+     section-replace tak menggeser alamat fungsi lain.
+  3. Sisipkan (urut alamat menaik) ke src/<stem>.cc, dibungkus
+     `extern "C" { ... }` + `__attribute__((section("<secname>")))` tepat
+     sebelum definisi fungsi. Splitter build (split_asm_sections.split)
+     otomatis meng-omit section asm bernama sama, dan blok SORT_BY_NAME di
+     fomt.lds menaruh section src tepat di posisi section asm yang dicabut.
+  4. File asm/*.s TIDAK disentuh sama sekali. fomt.lds tak berubah per fungsi
+     (blok SORT_BY_NAME + entri src sudah ada).
+  5. `make compare`: HIJAU -> lanjut; MERAH -> revert (snapshot file) + STOP.
 
-Urutan migrasi: tail-first (alamat menurun) per modul — hanya fungsi di
-ekor file yang pindah tanpa menggeser alamat fungsi lain, sehingga
-compare bisa tetap hijau. Modul default: pilot more_items.s, sram_proxy_1.s.
-
-Tidak pernah commit (working tree saja). Tidak menyentuh state JSON.
+Tidak pernah commit (working tree saja, kecuali autopush via main()).
+Tidak menyentuh state JSON / draf.
 """
 
 import argparse
 import fcntl
+import functools
 import json
 import os
 import re
@@ -35,46 +34,68 @@ REPO = Path(__file__).resolve().parent.parent  # decomp/ -> repo root
 PILOT_MODULES = ["more_items.s", "sram_proxy_1.s"]
 
 MARKER = "// DECOMP-MATCHED "
-ASM_START_RE = re.compile(
-    r"^\s*((thumb|arm)_func_start|non_word_aligned_thumb_func_start)\s+(\w+)",
-    re.IGNORECASE,
-)
-# Konten setelah fungsi TERAKHIR yang harus dipertahankan (data tanpa
-# marker, tabel, dsb): berhenti sebelum baris-baris ini, jangan ditelan.
-_LAST_KEEP_RE = re.compile(
-    r"^\s*(\.byte\b|\.ascii\b|\.asciz\b|\.incbin\b|\.space\b|\.comm\b|"
-    r"\.global\b|\.type\b|\.size\b|\.section\b|\.(text|data|rodata)\b)"
-)
 MIGRATED_FN_RE = re.compile(r"// DECOMP-MATCHED (func_\w+)")
 
-sys.path.insert(0, str(REPO / "tools" / "scripts"))
+_TOOLS_SCRIPTS = str(REPO / "tools" / "scripts")
+if _TOOLS_SCRIPTS not in sys.path:
+    sys.path.insert(0, _TOOLS_SCRIPTS)
 from split_asm_sections import analyze as split_analyze
+from split_asm_sections import migratable as split_migratable  # noqa: F401
+# ^ diimpor sbg referensi kanonis aturan migratable (dipakai --migratable);
+#   migratable_set() di bawah menyalin aturan tsb di atas cache _analyze_stem
+#   agar tak parse ganda bersama asm_section_of().
+
+
+@functools.lru_cache(maxsize=None)
+def _analyze_stem(stem):
+    """Grup section splitter utk satu modul (cache per proses).
+
+    asm/*.s tak pernah ditulis migrate (hanya dibaca di sini), jadi cache
+    valid selama proses berjalan. Selalu dgn migrated=set(): struktur
+    intrinsik (solo vs gabungan), bukan status migrasi sesaat."""
+    try:
+        text = (REPO / "asm" / f"{stem}.s").read_text(errors="replace")
+    except OSError:
+        return ()
+    _pre, groups = split_analyze(text, stem, migrated=set())
+    return groups
 
 
 def asm_section_of(stem, func, addr):
-    """Nama section asm utk fungsi, atau None bila modul tak di-split."""
-    try:
-        text = (REPO / "asm" / f"{stem}.s").read_text(errors="replace")
-    except OSError:
-        return None
-    _pre, groups = split_analyze(text, stem, migrated=set())
-    if not groups:
-        return None  # modul tak di-split (linkonce/actor/hardware/syscall)
-    want = f"{addr:08X}"
-    for chs in groups:
+    """Nama section asm utk fungsi, atau None bila grup gabungan/tak-split."""
+    for chs in _analyze_stem(stem):
         funcs = [c for c in chs if c["kind"] == "func"]
         if len(funcs) == 1 and funcs[0]["name"] == func:
             return chs[0]["secname"]
-    return None  # grup gabungan / tak ketemu
+    return None
 
 
 def migratable_set(stem):
+    """Nama fungsi yang boleh pindah sendirian.
+
+    Aturan identik dgn split_asm_sections.migratable (grup tepat 1 chunk
+    fungsi); dihitung dari cache _analyze_stem agar tak parse ganda
+    bersama asm_section_of."""
+    out = set()
+    for chs in _analyze_stem(stem):
+        funcs = [c["name"] for c in chs if c["kind"] == "func"]
+        if len(funcs) == 1:
+            out.update(funcs)
+    return out
+
+
+def is_split_module(stem):
+    """True bila build memecah asm modul per-section (section-replace berlaku).
+
+    False utk modul src-sebelum-asm (hardware/actor: splitter nonaktif, asm
+    utuh .text) dan modul tak-split (linkonce/scene/pilot: tanpa grup)."""
+    if not _analyze_stem(stem):
+        return False
     try:
-        text = (REPO / "asm" / f"{stem}.s").read_text(errors="replace")
+        lds_text = (REPO / "fomt.lds").read_text(errors="replace")
     except OSError:
-        return set()
-    from split_asm_sections import migratable as split_migratable
-    return set(split_migratable(text, stem))
+        return False
+    return _lds_layout(lds_text, stem) != "before"
 
 
 def load_state(stem):
@@ -83,16 +104,23 @@ def load_state(stem):
         return json.load(f)
 
 
-def promoted_funcs(module):
-    """(nama, addr) fungsi berstatus promoted, urut alamat menurun (tail-first)."""
+def promoted_funcs(module, ascending=None):
+    """(nama, addr) fungsi berstatus promoted.
+
+    Modul split (section-replace): alamat menaik — pindah urutan apa pun
+    aman karena section-replace tak menggeser fungsi lain. Modul non-split
+    (tail-only lama: hardware/actor/scene/pilot): alamat menurun
+    (tail-first) seperti semula. ascending=None -> otomatis per modul."""
     stem = module[: -len(".s")]
+    if ascending is None:
+        ascending = is_split_module(stem)
     state = load_state(stem)
     out = [
         (name, info["addr"])
         for name, info in state.items()
         if info.get("module") == module and info.get("status") == "promoted"
     ]
-    out.sort(key=lambda t: t[1], reverse=True)
+    out.sort(key=lambda t: t[1], reverse=not ascending)
     return out
 
 
@@ -436,9 +464,34 @@ def split_marker_body(block):
     return first + "\n", rest
 
 
-def insert_ordered(src_text, marker_line, body, addr, state_addrs):
+_FUNC_DEF_RE = re.compile(r"^\w.*\(.*\)\s*(\{|$)")
+
+
+def apply_section_attr(body, secname):
+    """Sisipkan __attribute__((section(...))) tepat sebelum definisi fungsi.
+
+    Letak: baris pertama yg tampak spt definisi (mulai dgn kata, ada `(`,
+    diakhiri `{` atau header multi-baris). extern/struct sisa di atasnya
+    tak tersentuh. Fallback: prepend di awal body bila tak ketemu."""
+    lines = body.splitlines(keepends=True)
+    for i, ln in enumerate(lines):
+        if _FUNC_DEF_RE.match(ln):
+            lines.insert(i, f'__attribute__((section("{secname}")))\n')
+            return "".join(lines)
+    return f'__attribute__((section("{secname}")))\n' + body
+
+
+def wrap_block(marker_line, body, secname=None):
+    """Bungkus blok C: extern "C" + atribut section opsional."""
+    if secname is not None:
+        body = apply_section_attr(body, secname)
+    return marker_line + 'extern "C" {\n' + body.rstrip() + "\n}\n"
+
+
+def insert_ordered(src_text, marker_line, body, addr, state_addrs,
+                   secname=None):
     """Sisipkan blok (dibungkus extern C) dgn urutan alamat menaik."""
-    wrapped = marker_line + 'extern "C" {\n' + body.rstrip() + "\n}\n"
+    wrapped = wrap_block(marker_line, body, secname)
     matches = list(MIGRATED_FN_RE.finditer(src_text))
     pos = len(src_text)
     for m in matches:
@@ -459,15 +512,29 @@ def insert_ordered(src_text, marker_line, body, addr, state_addrs):
     return new_text
 
 
-def _shared_local_labels(asm_text, func):
-    """Label `.Lxxx` yang didefinisikan di blok func TAPI dipakai di luar
-    blok itu (subrutin/pool bersama). Mencabut blok akan menggantung
-    pemakai lain -> link error; byte juga tak bisa diduplikat ke src
-    (ROM harus memuatnya tepat sekali)."""
+# --- Legacy tail-only: tak terpakai lagi sejak section-replace. ---
+# asm/*.s TIDAK disentuh migrate (splitter build otomatis meng-omit section
+# asm yang namanya sudah ada di src). Fungsi di bawah dipertahankan agar
+# riwayat git utuh; jangan dipakai di alur baru.
+_ASM_START_RE_UNUSED = re.compile(
+    r"^\s*((thumb|arm)_func_start|non_word_aligned_thumb_func_start)\s+(\w+)",
+    re.IGNORECASE,
+)
+# Konten setelah fungsi TERAKHIR yang harus dipertahankan (data tanpa
+# marker, tabel, dsb): berhenti sebelum baris-baris ini, jangan ditelan.
+_LAST_KEEP_RE_UNUSED = re.compile(
+    r"^\s*(\.byte\b|\.ascii\b|\.asciz\b|\.incbin\b|\.space\b|\.comm\b|"
+    r"\.global\b|\.type\b|\.size\b|\.section\b|\.(text|data|rodata)\b)"
+)
+
+
+def _shared_local_labels_UNUSED(asm_text, func):
+    """(TAK TERPAKAI — warisan tail-only.) Label `.Lxxx` yang didefinisikan
+    di blok func TAPI dipakai di luar blok itu."""
     lines = asm_text.splitlines()
     start = end = None
     for i, ln in enumerate(lines):
-        m = ASM_START_RE.match(ln)
+        m = _ASM_START_RE_UNUSED.match(ln)
         if m and m.group(3) == func:
             start = i
             break
@@ -475,7 +542,7 @@ def _shared_local_labels(asm_text, func):
         return set()
     end = len(lines)
     for i in range(start + 1, len(lines)):
-        if ASM_START_RE.match(lines[i]):
+        if _ASM_START_RE_UNUSED.match(lines[i]):
             end = i
             break
     defined = set(re.findall(r"(?m)^\s*(\.L[\w.]+):", "\n".join(lines[start:end])))
@@ -484,22 +551,15 @@ def _shared_local_labels(asm_text, func):
     return defined & used_outside
 
 
-def remove_asm_func(asm_text, func, keep_aliases=None):
-    """Hapus blok fungsi dari asm -> (new_asm, tail).
+def remove_asm_func_UNUSED(asm_text, func, keep_aliases=None):
+    """(TAK TERPAKAI — warisan tail-only.) Hapus blok fungsi dari asm.
 
-    tail = ekor tak-bermarker sesudah fungsi terakhir. Ekor ikut DICABUT
-    dari asm dan HARUS dibawa verbatim ke src (posisi tepat sesudah fungsi)
-    supaya tidak ada byte yang bergeser/duplikat.
-
-    keep_aliases: dict {label: addr} — definisi `.Lxxx:` dalam span yang
-    dicabut dipertahankan sebagai assignment absolut (pemakai lain di file
-    tetap resolve ke alamat yang sama; byte-nya kini hidup di src).
-    Definisi yang sama di span tail ikut di-strip (src mengandalkan salinan
-    dari blok draf) supaya tak ganda."""
+    Section-replace tak mencabut apa pun dari asm; hanya dibiarkan di sini
+    sebagai dokumentasi perilaku lama."""
     lines = asm_text.splitlines(keepends=True)
     start = end = None
     for i, ln in enumerate(lines):
-        m = ASM_START_RE.match(ln)
+        m = _ASM_START_RE_UNUSED.match(ln)
         if m and m.group(3) == func:
             start = i
             break
@@ -507,7 +567,7 @@ def remove_asm_func(asm_text, func, keep_aliases=None):
         return None, None
     end = len(lines)
     for i in range(start + 1, len(lines)):
-        if ASM_START_RE.match(lines[i]):
+        if _ASM_START_RE_UNUSED.match(lines[i]):
             end = i
             break
     tail = ""
@@ -518,7 +578,8 @@ def remove_asm_func(asm_text, func, keep_aliases=None):
         # dibawa ke src. Tanpa KEEP: tail kosong (perilaku lama).
         i = start + 1
         while i < len(lines):
-            if ASM_START_RE.match(lines[i]) or _LAST_KEEP_RE.match(lines[i]):
+            if (_ASM_START_RE_UNUSED.match(lines[i])
+                    or _LAST_KEEP_RE_UNUSED.match(lines[i])):
                 break
             i += 1
         if i < len(lines):
@@ -568,22 +629,27 @@ def remove_asm_func(asm_text, func, keep_aliases=None):
 
 
 def ensure_lds(lds_text, stem, src_stem=None, allow_src_before=False):
-    """Pastikan `src/<src_stem>.o(.text);` TEPAT sesudah blok asm modul.
+    """Pastikan entri lds utk modul ada (no-op bila sudah ada).
 
-    Migrasi hanya lestari bila src tersambung langsung sesudah asm: fungsi
-    pindah menempati offset yang sama persis. Tiga layout didukung:
-
-    - `asm/<stem>.o(.text);` lalu `src/<stem>.o(.text);` (normal).
-    - src TEPAT SEBELUM asm + asm akan kosong (allow_src_before): semua
-      fungsi asm pindah, jadi menambah ke src tetap di posisi yang sama.
-    - asm dipecah per-section (mis. code_linkonce): entri src disisipkan
-      sesudah entri `asm/<stem>.o(...)` TERAKHIR.
+    Modul MAP-split (blok SORT_BY_NAME + entri src) SUDAH benar dari awal
+    migrasi section-replace; fungsi ini hanya verifikasi dan mengembalikan
+    (teks, False). Modul non-split (tail-only: pilot/scene/interrupt, multi
+    mis. linkonce) memakai jalur lama yang sama seperti sebelumnya.
 
     `src_stem` dipakai bila modul punya src tulisan-tangan yang tak boleh
     digeser (mis. hardware -> `src/hardware_migrated.cc`)."""
     src_stem = src_stem or stem
-    asm_entry = f"asm/{stem}.o(.text);"
     src_entry = f"src/{src_stem}.o(.text);"
+    lines = lds_text.splitlines()
+    stripped = [ln.strip() for ln in lines]
+    # Modul MAP-split: blok SORT_BY_NAME(.text.<stem>.*) + entri src sudah
+    # ada -> no-op (section src otomatis menempati posisi section asm yg
+    # dicabut; lds tak berubah per fungsi).
+    if (any(f"*(SORT_BY_NAME(.text.{stem}.*))" in s.replace(" ", "")
+            for s in stripped)
+            and src_entry in stripped):
+        return lds_text, False
+    asm_entry = f"asm/{stem}.o(.text);"
     lines = lds_text.splitlines(keepends=True)
     ai = next((i for i, ln in enumerate(lines) if ln.strip() == asm_entry),
               None)
@@ -663,7 +729,6 @@ def migrate_one(module, func, dry_run=False):
     addr = info["addr"]
     promoted_path = REPO / "decomp" / "promoted" / f"{stem}.cc"
     src_path = REPO / "src" / f"{stem}.cc"
-    asm_path = REPO / "asm" / module
     lds_path = REPO / "fomt.lds"
 
     block = extract_block(promoted_path, func)
@@ -677,65 +742,78 @@ def migrate_one(module, func, dry_run=False):
     body, need_memcmp = adapt_memcmp(body)
     need_string_h = need_memcpy or need_memcmp
 
-    asm_text = asm_path.read_text()
-    # Hanya fungsi TERAKHIR di asm yang boleh pindah: mencabut fungsi yang
-    # masih punya penerus menggeser semua penerusnya -> compare pasti MERAH
-    # (bukan salah codegen). Cek terhadap isi asm SAAT INI karena tiap
-    # migrasi sukses mengubah urutan sisa.
-    remaining = [m.group(3) for ln in asm_text.splitlines()
-                 for m in [ASM_START_RE.match(ln)] if m]
-    if func in remaining and remaining.index(func) != len(remaining) - 1:
+    split = is_split_module(stem)
+    secname = asm_section_of(stem, func, addr) if split else None
+    if split and func not in migratable_set(stem):
         return {"func": func, "module": module, "ok": False,
                 "skipped": True,
-                "detail": f"bukan fungsi terakhir di {module} "
-                f"({len(remaining) - remaining.index(func) - 1} penerus "
-                "belum pindah, dilewati)"}
-    # Fungsi terakhir di alamat tak-sejajar-4: mencabut blok membuat file
-    # berakhir 2-mod-4 -> pad akhir-section (+2) menggeser semua src
-    # sesudahnya (kasus sub_08031E0A). Bandingkan: migrasi aman butuh
-    # prefix berakhir 4-sejajar. (Asumsi basis modul 4-sejajar; compare
-    # jadi backstop bila asumsi meleset.)
-    if state.get(func, {}).get("addr", 0) % 4 != 0:
+                "detail": f"{func} grup gabungan/tak-split "
+                "(lihat split_asm_sections.py --migratable), dilewati"}
+    if split and secname is None:
         return {"func": func, "module": module, "ok": False,
                 "skipped": True,
-                "detail": f"{func} di alamat tak-sejajar-4 "
-                f"({state[func]['addr']:#x}): pad akhir-section menggeser "
-                "layout saat blok terakhir dicabut (butuh penanganan manual), "
-                "dilewati"}
-    shared = _shared_local_labels(asm_text, func)
-    aliases = {}
-    for lab in sorted(shared):
-        ma = re.match(r"\.L([0-9A-Fa-f]{8})$", lab)
-        if not ma:
-            return {"func": func, "module": module, "ok": False,
-                    "skipped": True,
-                    "detail": f"label {lab} dipakai fungsi lain tapi namanya "
-                    "bukan alamat (butuh penanganan manual), dilewati"}
-        aliases[lab] = int(ma.group(1), 16)
-    new_asm, asm_tail = remove_asm_func(asm_text, func, keep_aliases=aliases)
-    if new_asm is None:
-        return {"func": func, "module": module, "ok": False,
-                "skipped": True,
-                "detail": f"{func} tidak ditemukan di {asm_path} "
-                "(mungkin sudah pindah sebelumnya, dilewati)"}
-    asm_tail = asm_tail or ""
+                "detail": f"{func} grup gabungan/tak-split "
+                "(lihat split_asm_sections.py --migratable), dilewati"}
 
     lds_text = lds_path.read_text()
-    # Layout src-vs-asm: bila src tulisan-tangan berada SEBELUM asm dan masih
-    # ada fungsi asm lain, migrasi harus ke objek terpisah sesudah asm
-    # (mis. hardware -> src/hardware_migrated.cc). Bila asm tinggal fungsi
-    # ini (akan kosong), menambah ke src yang sama tetap aman (mis. scene).
+    # Layout src-vs-asm: bila src tulisan-tangan berada SEBELUM asm
+    # (hardware/actor, alur tail-only lama), migrasi ke objek terpisah
+    # sesudah asm (mis. hardware -> src/hardware_migrated.cc), kecuali asm
+    # tinggal satu fungsi. Modul split SELALU ke src/<stem>.cc sendiri.
     layout = _lds_layout(lds_text, stem)
     src_stem, allow_src_before = stem, False
-    if layout == "before":
-        if len(remaining) == 1:
-            allow_src_before = True
-        else:
-            src_stem = f"{stem}_migrated"
+    asm_text = new_asm = asm_tail = None
+    remaining = []
+    if not split:
+        # Alur tail-only lama: baca asm untuk cek ekor + cabut blok.
+        asm_path = REPO / "asm" / module
+        asm_text = asm_path.read_text()
+        remaining = [m.group(3) for ln in asm_text.splitlines()
+                     for m in [_ASM_START_RE_UNUSED.match(ln)] if m]
+        if layout == "before":
+            if len(remaining) == 1:
+                allow_src_before = True
+            else:
+                src_stem = f"{stem}_migrated"
+        # Hanya fungsi TERAKHIR di asm yang boleh pindah: mencabut fungsi
+        # yang masih punya penerus menggeser semua penerusnya.
+        if func in remaining and remaining.index(func) != len(remaining) - 1:
+            return {"func": func, "module": module, "ok": False,
+                    "skipped": True,
+                    "detail": f"bukan fungsi terakhir di {module} "
+                    f"({len(remaining) - remaining.index(func) - 1} penerus "
+                    "belum pindah, dilewati)"}
+        # Alamat tak-sejajar-4: mencabut blok terakhir membuat file berakhir
+        # 2-mod-4 -> pad akhir-section menggeser layout (kasus sub_08031E0A).
+        if state.get(func, {}).get("addr", 0) % 4 != 0:
+            return {"func": func, "module": module, "ok": False,
+                    "skipped": True,
+                    "detail": f"{func} di alamat tak-sejajar-4 "
+                    f"({state[func]['addr']:#x}): pad akhir-section menggeser "
+                    "layout saat blok terakhir dicabut, dilewati"}
+        shared = _shared_local_labels_UNUSED(asm_text, func)
+        aliases = {}
+        for lab in sorted(shared):
+            ma = re.match(r"\.L([0-9A-Fa-f]{8})$", lab)
+            if not ma:
+                return {"func": func, "module": module, "ok": False,
+                        "skipped": True,
+                        "detail": f"label {lab} dipakai fungsi lain tapi "
+                        "namanya bukan alamat (butuh penanganan manual), "
+                        "dilewati"}
+            aliases[lab] = int(ma.group(1), 16)
+        new_asm, asm_tail = remove_asm_func_UNUSED(
+            asm_text, func, keep_aliases=aliases)
+        if new_asm is None:
+            return {"func": func, "module": module, "ok": False,
+                    "skipped": True,
+                    "detail": f"{func} tidak ditemukan di {asm_path} "
+                    "(mungkin sudah pindah sebelumnya, dilewati)"}
+        asm_tail = asm_tail or ""
     src_path = REPO / "src" / f"{src_stem}.cc"
     try:
         new_lds, lds_changed = ensure_lds(
-            lds_text, stem, src_stem=src_stem,
+            lds_text, stem, src_stem=src_path.stem,
             allow_src_before=allow_src_before)
     except RuntimeError as e:
         return {"func": func, "module": module, "ok": False,
@@ -818,17 +896,16 @@ def migrate_one(module, func, dry_run=False):
         else:
             src_text = src_nostruct
         new_src = insert_ordered(src_text, marker_line, body, addr,
-                                 state_addrs)
+                                 state_addrs, secname=secname)
     else:
         head = '#include "prelude.h"\n'
         if need_string_h:
             head += "#include <string.h> // memcpy\n"
-        new_src = head + "\n" + marker_line + \
-            'extern "C" {\n' + body.rstrip() + "\n}\n"
+        new_src = head + "\n" + wrap_block(marker_line, body, secname)
 
-    if asm_tail.strip():
-        # Ekor tak-bermarker dibawa verbatim tepat sesudah fungsi ini
-        # (basic asm scope file; tidak mengubah codegen fungsi).
+    if not split and asm_tail and asm_tail.strip():
+        # Legacy tail-only: ekor tak-bermarker dibawa verbatim tepat
+        # sesudah fungsi ini (basic asm scope file; tidak codegen).
         wrapped = marker_line + 'extern "C" {\n' + body.rstrip() + "\n}\n"
         asm_lines = [ln.rstrip().replace("\\", "\\\\").replace('"', '\\"')
                      for ln in asm_tail.splitlines() if ln.strip()]
@@ -838,19 +915,24 @@ def migrate_one(module, func, dry_run=False):
         new_src = new_src.replace(wrapped, wrapped + tail_src, 1)
 
     if dry_run:
+        detail = (f"rencana: +{src_path.name} ~{len(new_src)}B, "
+                  f"lds_changed={lds_changed}")
+        if split:
+            detail += f", section={secname}"
         return {"func": func, "module": module, "ok": True, "dry": True,
-                "detail": f"rencana: +{src_path.name} ~{len(new_src)}B, "
-                f"lds_changed={lds_changed}"}
+                "detail": detail}
 
-    # snapshot utk revert
+    # snapshot utk revert (asm hanya di jalur legacy; split tak menyentuhnya)
     snap = {
-        asm_path: asm_text,
         lds_path: lds_text,
         src_path: src_path.read_text() if src_path.exists() else None,
     }
+    if not split:
+        snap[asm_path] = asm_text
     try:
         src_path.write_text(new_src)
-        asm_path.write_text(new_asm)
+        if not split:
+            asm_path.write_text(new_asm)
         if lds_text != new_lds:
             lds_path.write_text(new_lds)
     except OSError as e:
@@ -861,7 +943,9 @@ def migrate_one(module, func, dry_run=False):
                 "detail": f"gagal tulis: {e}"}
 
     green, compare_tail = run_compare()
-    files = [str(src_path.relative_to(REPO)), str(asm_path.relative_to(REPO))]
+    files = [str(src_path.relative_to(REPO))]
+    if not split:
+        files.append(str(asm_path.relative_to(REPO)))
     if lds_changed:
         files.append("fomt.lds")
     if green:
@@ -882,8 +966,8 @@ def autopush_migrate(moved):
     """Commit + push hasil migrasi (tiap fungsi sudah compare HIJAU).
 
     Satu commit per pemanggilan, hanya stage file milik migrasi ini
-    (src/asm/lds) — bukan draf worker atau artefak lain.
-    FOMT_AUTOPUSH=0 mematikan."""
+    (src saja utk split; src/asm/lds utk legacy) — bukan draf worker atau
+    artefak lain. FOMT_AUTOPUSH=0 mematikan."""
     if not moved or os.environ.get("FOMT_AUTOPUSH", "1") == "0":
         return False
     lock = REPO / "decomp" / "state" / "git.lock"
