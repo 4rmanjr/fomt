@@ -128,6 +128,19 @@ def adapt_memcpy(body):
     return body, True
 
 
+FAKE_MEMCMP_RE = re.compile(
+    r"^\s*(?:i32|s32|int)\s+memcmp\s*\([^;]*\)\s*;"
+    r"\s*(?:/\*.*?\*/)?\s*$\n",
+    re.M)
+
+
+def adapt_memcmp(body):
+    """Hapus prototipe memcmp palsu ala-judge; <string.h> sudah cukup karena
+    semua pointer argumen otomatis konversi ke `const void *` (no-op)."""
+    body, n = FAKE_MEMCMP_RE.subn("", body)
+    return body, bool(n)
+
+
 def struct_name(blk):
     m = re.search(r"struct\s+(\w+)", blk)
     if m:
@@ -287,6 +300,72 @@ def _src_struct_differs(src_text, nm, blk):
         if struct_name(cand) == nm and cand != blk:
             return True
     return False
+
+
+_PTR_TYPE_RE = re.compile(
+    r"\b(?:u8|s8|u16|s16|u32|s32|i8|i16|i32|void|char|int)\s*\*+")
+
+
+def _norm_ptr_types(text):
+    """Ganti semua tipe pointer dgn `void *` (dipakai untuk membandingkan
+    tanda tangan yang hanya beda signedness pointee)."""
+    return _PTR_TYPE_RE.sub("void *", text)
+
+
+def _deconflict_new_structs(body, blocks, old_blocks, src_nostruct, func):
+    """Beri nama unik pada struct baru yang tabrakan dgn tipe file/Blok lain.
+
+    Codegen tidak berubah (nama tipe lokal), tapi blok tetap mandiri dan
+    tidak memaksa penyatuan manual hanya karena layout/field berbeda."""
+    renames = {}
+    for i, blk in enumerate(blocks):
+        nm = struct_name(blk)
+        if not nm or FWD_TYPEDEF_RE.match(blk.strip()):
+            continue
+        others = list(old_blocks) + [b for j, b in enumerate(blocks) if j != i]
+        conflict = _src_struct_differs(src_nostruct, nm, blk) or any(
+            struct_name(o) == nm and o.strip() != blk.strip()
+            and not FWD_TYPEDEF_RE.match(o.strip()) for o in others)
+        if conflict and nm not in renames:
+            renames[nm] = f"{nm}__{func}"
+    for old, new in renames.items():
+        body = re.sub(rf"\b{old}\b", new, body)
+        blocks = [re.sub(rf"\b{old}\b", new, b) for b in blocks]
+    return body, blocks
+
+
+def _rewrite_decl_params(text, name, norm):
+    """Normalisasi parameter deklarasi extern `name` di teks (pertahankan
+    komentar ekor). Return (teks, jumlah yang diubah)."""
+    def repl(m):
+        if m.group(3) != name:
+            return m.group(0)
+        orig = m.group(0)
+        a = m.start(4) - m.start(0)
+        b = m.end(4) - m.start(0)
+        return orig[:a] + norm(m.group(4)) + orig[b:]
+
+    out, n = EXTERN_RE.subn(repl, text)
+    return out, n
+
+
+def _unify_extern_ptrs(body, src_text):
+    """Satukan deklarasi extern yang hanya beda tipe pointer (mis. i32* vs
+    u32*) menjadi `void *` di body DAN src. Pointer apa pun konversi implisit
+    ke void*, jadi call-site tetap sah tanpa cast; codegen tidak berubah."""
+    old = extern_decls(src_text)
+    new = extern_decls(body)
+    for nm, sigs in new.items():
+        if nm not in old or sigs.issubset(old[nm]):
+            continue
+        old_norm = {_norm_ptr_types(s) for s in old[nm]}
+        if not {_norm_ptr_types(s) for s in sigs}.issubset(old_norm):
+            continue  # beda nyata (bukan cuma pointer) -> biarkan cek gagal
+        body, n1 = _rewrite_decl_params(body, nm, _norm_ptr_types)
+        src_text, n2 = _rewrite_decl_params(src_text, nm, _norm_ptr_types)
+        if n1 and n2:
+            continue
+    return body, src_text
 
 
 MANAGED_BEGIN = "// === MIGRATED TYPES (auto-managed by migrate.py) ===\n"
@@ -459,32 +538,72 @@ def remove_asm_func(asm_text, func, keep_aliases=None):
     return new_text, tail
 
 
-def ensure_lds(lds_text, stem):
-    """Pastikan `src/<stem>.o(.text);` TEPAT sesudah `asm/<stem>.o(.text);`.
+def ensure_lds(lds_text, stem, src_stem=None, allow_src_before=False):
+    """Pastikan `src/<src_stem>.o(.text);` TEPAT sesudah blok asm modul.
 
     Migrasi hanya lestari bila src tersambung langsung sesudah asm: fungsi
-    pindah menempati offset yang sama persis. Bila entri src sudah ada di
-    tempat lain (layout tulisan-tangan, mis. src/hardware.o SEBELUM asm),
-    raise agar migrasi SKIP — butuh kerja lds manual, bukan auto-revert
-    yang membingungkan."""
+    pindah menempati offset yang sama persis. Tiga layout didukung:
+
+    - `asm/<stem>.o(.text);` lalu `src/<stem>.o(.text);` (normal).
+    - src TEPAT SEBELUM asm + asm akan kosong (allow_src_before): semua
+      fungsi asm pindah, jadi menambah ke src tetap di posisi yang sama.
+    - asm dipecah per-section (mis. code_linkonce): entri src disisipkan
+      sesudah entri `asm/<stem>.o(...)` TERAKHIR.
+
+    `src_stem` dipakai bila modul punya src tulisan-tangan yang tak boleh
+    digeser (mis. hardware -> `src/hardware_migrated.cc`)."""
+    src_stem = src_stem or stem
     asm_entry = f"asm/{stem}.o(.text);"
-    src_entry = f"src/{stem}.o(.text);"
+    src_entry = f"src/{src_stem}.o(.text);"
     lines = lds_text.splitlines(keepends=True)
     ai = next((i for i, ln in enumerate(lines) if ln.strip() == asm_entry),
               None)
     if ai is None:
-        raise RuntimeError(f"lds: entri {asm_entry} tidak ditemukan")
+        # asm multi-section: sisipkan sesudah entri asm modul terakhir.
+        idx = [i for i, ln in enumerate(lines)
+               if ln.strip().startswith(f"asm/{stem}.o(")]
+        if not idx:
+            raise RuntimeError(f"lds: entri asm/{stem}.o(...) tidak ditemukan")
+        ai = idx[-1]
     j = ai + 1
     while j < len(lines) and not lines[j].strip():
         j += 1
     if j < len(lines) and lines[j].strip() == src_entry:
         return lds_text, False
     if any(ln.strip() == src_entry for ln in lines):
+        if allow_src_before:
+            # src sudah tepat sebelum asm (semua asm pindah) -> tak berubah.
+            k = ai - 1
+            while k >= 0 and not lines[k].strip():
+                k -= 1
+            if k >= 0 and lines[k].strip() == src_entry:
+                return lds_text, False
         raise RuntimeError(f"lds: {src_entry} tidak tepat sesudah "
-                           f"{asm_entry} (layout tulisan-tangan)")
+                           f"asm/{stem}.o(...) (layout tulisan-tangan)")
     indent = lines[ai][: len(lines[ai]) - len(lines[ai].lstrip())]
     lines.insert(ai + 1, f"{indent}{src_entry}\n")
     return "".join(lines), True
+
+
+def _lds_layout(lds_text, stem):
+    """Posisi entri src modul terhadap asm: 'after' | 'before' | 'multi' | 'none'."""
+    lines = lds_text.splitlines()
+    exact = f"asm/{stem}.o(.text);"
+    src = f"src/{stem}.o(.text);"
+    ai = next((i for i, ln in enumerate(lines) if ln.strip() == exact), None)
+    if ai is None:
+        return "multi" if any(ln.strip().startswith(f"asm/{stem}.o(")
+                              for ln in lines) else "none"
+    si = next((i for i, ln in enumerate(lines) if ln.strip() == src), None)
+    if si is None:
+        return "after"
+    lo, hi = (ai, si) if ai < si else (si, ai)
+    gap_empty = all(not lines[k].strip() for k in range(lo + 1, hi))
+    if si > ai and gap_empty:
+        return "after"
+    if si < ai and gap_empty:
+        return "before"
+    return "other"
 
 
 def run_compare():
@@ -525,7 +644,9 @@ def migrate_one(module, func, dry_run=False):
                 f"{promoted_path}"}
     marker_line, body = split_marker_body(block)
     body = translate_types(body)
-    body, need_string_h = adapt_memcpy(body)
+    body, need_memcpy = adapt_memcpy(body)
+    body, need_memcmp = adapt_memcmp(body)
+    need_string_h = need_memcpy or need_memcmp
 
     asm_text = asm_path.read_text()
     # Hanya fungsi TERAKHIR di asm yang boleh pindah: mencabut fungsi yang
@@ -571,8 +692,22 @@ def migrate_one(module, func, dry_run=False):
     asm_tail = asm_tail or ""
 
     lds_text = lds_path.read_text()
+    # Layout src-vs-asm: bila src tulisan-tangan berada SEBELUM asm dan masih
+    # ada fungsi asm lain, migrasi harus ke objek terpisah sesudah asm
+    # (mis. hardware -> src/hardware_migrated.cc). Bila asm tinggal fungsi
+    # ini (akan kosong), menambah ke src yang sama tetap aman (mis. scene).
+    layout = _lds_layout(lds_text, stem)
+    src_stem, allow_src_before = stem, False
+    if layout == "before":
+        if len(remaining) == 1:
+            allow_src_before = True
+        else:
+            src_stem = f"{stem}_migrated"
+    src_path = REPO / "src" / f"{src_stem}.cc"
     try:
-        new_lds, lds_changed = ensure_lds(lds_text, stem)
+        new_lds, lds_changed = ensure_lds(
+            lds_text, stem, src_stem=src_stem,
+            allow_src_before=allow_src_before)
     except RuntimeError as e:
         return {"func": func, "module": module, "ok": False,
                 "skipped": True,
@@ -605,6 +740,9 @@ def migrate_one(module, func, dry_run=False):
         body, new_structs = take_structs(body)
         src_nostruct, old_structs = _strip_in_spans(
             src_text, _migrated_spans(src_text))
+        body, new_structs = _deconflict_new_structs(
+            body, new_structs, old_structs, src_nostruct, func)
+        body, src_nostruct = _unify_extern_ptrs(body, src_nostruct)
         merged, struct_conflict = [], None
         for blk in old_structs + new_structs:
             nm = struct_name(blk)
@@ -626,7 +764,7 @@ def migrate_one(module, func, dry_run=False):
                     "(butuh penyatuan manual), dilewati"}
         # Deklarasi extern yang sama dengan tanda tangan beda juga tabrakan
         # di scope file (braces extern "C" tidak membuat scope).
-        decl_old, decl_new = extern_decls(src_text), extern_decls(body)
+        decl_old, decl_new = extern_decls(src_nostruct), extern_decls(body)
         for nm, sigs in decl_new.items():
             if nm in decl_old and not sigs.issubset(decl_old[nm]):
                 return {"func": func, "module": module, "ok": False,
