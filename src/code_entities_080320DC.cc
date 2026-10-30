@@ -1,24 +1,53 @@
 #include "prelude.h"
 
 // === MIGRATED TYPES (auto-managed by migrate.py) ===
-typedef struct GenObj {
-    u16 unk0;
-    u8 _pad2[2];
-    struct GenObj *unk4;
-    u8 _pad8[2];
+/* GENOBJ-UNIFIED (i-spelling): sama dgn blok promoted func_08034940 dkk
+   setelah translate_types s->i; definisi penuh view-34940 di-seed agar
+   src tetap kompilasi sebelum migrasi. */
+typedef struct Ret08034940 {
+    u8 _pad0[10];
     u16 unkA;
-    u8 _padC[0x24];
-    u8 unk30;
-    u8 _pad31[0x10];
-    u8 unk41;
-    u8 _pad42[0x86];
-    u8 unkC8;
-    u8 _padC9;
-    u8 unkCA;
-    u8 unkCB;
-    i16 unkCC;
-    i16 unkCE;
-    i16 unkD0;
+} Ret08034940;
+typedef struct Vtbl08034940 {
+    u8 _pad0[0x144];
+    Ret08034940 *(*unk144)(void *arg0);
+} Vtbl08034940;
+typedef struct Obj08034940 {
+    Vtbl08034940 *unk0;
+} Obj08034940;
+typedef struct XY08034940 {
+    i16 x;
+    i16 y;
+} XY08034940;
+typedef struct GenObj {
+    union {
+        Obj08034940 *unk0o;  /* +0x00: view func_08034940 */
+        u16 unk0;            /* +0x00: view fungsi lain */
+    } u0;
+    union {
+        u16 unk4s;           /* +0x04: view func_08034940 */
+        struct GenObj *unk4; /* +0x04: view fungsi lain */
+    } u4;
+    u8 _pad8[2];             /* +0x08 */
+    union {
+        i16 unkAs;           /* +0x0A: view func_08034940 (ldrsh) */
+        u16 unkA;            /* +0x0A: view fungsi lain (ldrh) */
+    } __attribute__((packed)) uA;
+    u8 _padC[0x24];          /* +0x0C */
+    u8 unk30;                /* +0x30 */
+    u8 _pad31[3];            /* +0x31 */
+    i32 unk34;               /* +0x34 */
+    i32 unk38;               /* +0x38 */
+    u8 _pad3C[5];            /* +0x3C */
+    u8 unk41;                /* +0x41 */
+    u8 _pad42[0x86];         /* +0x42 */
+    u8 unkC8;                /* +0xC8 */
+    u8 _padC9;               /* +0xC9 */
+    u8 unkCA;                /* +0xCA */
+    u8 unkCB;                /* +0xCB */
+    i16 unkCC;               /* +0xCC */
+    i16 unkCE;               /* +0xCE */
+    i16 unkD0;               /* +0xD0 */
 } GenObj;
 // === END MIGRATED TYPES ===
 
@@ -39,6 +68,75 @@ struct Stk {
     i32 a, b, c;
 };
 // === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct {
+    i32 (*unk0)(i32 arg0);
+    i32 unk4;
+    GenObj **unk8;
+} UnkF29C0;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08034940 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 SetLocation__7AEntityUiii(void *, i32, i32, i32); /* extern */
+i32 func_08034180(void *, i32, i32, i32);             /* extern */
+i32 func_0809E994(i32, i32);                           /* extern */
+i32 method_0809E7FC__13HarvestSprite(i32, i32 *);       /* extern */
+i32 smethod_08009ADC__4Farm(i32 *);                     /* extern */
+i32 smethod_08009AE8__4Farm(i32 *);                     /* extern */
+
+/* GENOBJ-UNIFIED: gabungan view func_08034940 (u0.unk0o/u4.unk4s/unk34/unk38)
+   + view fungsi lain (u0.unk0/u4.unk4/unk41/unkC8..unkD0); union bernama
+   (agbcc menolak anonymous union); offset/size identik di semua view. */
+
+i32 func_08034940(GenObj *arg0) {
+    XY08034940 a;
+    XY08034940 b;
+    i32 tmp;
+    i32 y;
+    Ret08034940 *r;
+    u16 t;
+    u32 lo;
+    i32 v;
+
+    r = arg0->u0.unk0o->unk0->unk144(arg0->u0.unk0o);
+    t = r->unkA;
+    lo = ((u32)t << 27) >> 27;
+    if ((lo <= 5U) || (u32)(((lo - 6) * 0x3C) + (((u32)t << 21) >> 26)) >= (u32)(arg0->unk30 + 0x385)) {
+        i32 x = arg0->u4.unk4s;
+        if (x == 17) {
+            goto L17;
+        }
+        if (x <= 17) {
+            goto Lend;
+        }
+        if (x != 37) {
+            goto Lend;
+        }
+        smethod_08009ADC__4Farm((i32 *)&a);
+        SetLocation__7AEntityUiii(arg0, 2, a.x, a.y);
+        goto Lend;
+L17:
+        smethod_08009AE8__4Farm((i32 *)&b);
+        SetLocation__7AEntityUiii(arg0, 2, b.x, b.y);
+Lend:
+        func_0809E994(arg0->unk38, arg0->unk30);
+        method_0809E7FC__13HarvestSprite(arg0->unk34, &tmp);
+        y = arg0->uA.unkAs;
+        if (y == 0x168) {
+            v = 1;
+        } else if (y <= 0x167) {
+            v = 3;
+        } else {
+            v = 2;
+        }
+        func_08034180(arg0, 1, v, 0x8000);
+        return 1;
+    }
+    return 0;
+}
+}
 
 // DECOMP-MATCHED func_08034A14 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -71,7 +169,7 @@ void *func_08034A14(GenObj *arg0, Arg1 *arg1) {
     zero = 0;
     w.a = zero; w.b = 4; w.c = zero; flag = zero;
     func_080324BC(arg0, arg1, 3, v1);
-    arg0->unk4 = (GenObj *)&vtable_unk_080E6904;
+    arg0->u4.unk4 = (GenObj *)&vtable_unk_080E6904;
     o = x->unk0;
     temp = o->unk0->unk68(o);
     hbase = gUnk_080F14F0;
@@ -160,12 +258,6 @@ asm(
 extern "C" {
 i32 func_080D7ECC(i32, i32, i32 *, i32, i32);       /* extern */
 
-typedef struct {
-    i32 (*unk0)(i32 arg0);
-    i32 unk4;
-    GenObj **unk8;
-} UnkF29C0;
-
 extern UnkF29C0 gUnk_080F29C0;
 
 u32 func_08034C64(i32 arg0, u16 *arg1) {
@@ -186,12 +278,12 @@ u32 func_08034C64(i32 arg0, u16 *arg1) {
             var_r2 += 0x18;
         }
         sp4 = (var_r2 * 0x3C) + ((u32) (temp_r1_2 << 0x15) >> 0x1A);
-        temp_r4 = (i32) temp_r5->unk4;
-        temp_r0 = ((func_080D7ECC(temp_r4, temp_r4 + ((i32) temp_r5->unk0 * 8), &sp4, 0, 0) - temp_r4) >> 3) - 1;
-        if (temp_r0 < (u32) temp_r5->unk0) {
-            temp_r0_2 = ((GenObj *) ((i32) temp_r5->unk4 + (temp_r0 * 8)))->unk4;
+        temp_r4 = (i32) temp_r5->u4.unk4;
+        temp_r0 = ((func_080D7ECC(temp_r4, temp_r4 + ((i32) temp_r5->u0.unk0 * 8), &sp4, 0, 0) - temp_r4) >> 3) - 1;
+        if (temp_r0 < (u32) temp_r5->u0.unk0) {
+            temp_r0_2 = ((GenObj *) ((i32) temp_r5->u4.unk4 + (temp_r0 * 8)))->u4.unk4;
             if (temp_r0_2 != 0) {
-                temp_r1 = ((u32) (temp_r0_2->unkA << 0x16) >> 0x16) ^ 0x1D;
+                temp_r1 = ((u32) (temp_r0_2->uA.unkA << 0x16) >> 0x16) ^ 0x1D;
                 return (u32) ((0 - temp_r1) | temp_r1) >> 0x1F;
             }
         }
