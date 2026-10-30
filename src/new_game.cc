@@ -13,6 +13,36 @@ typedef struct GenObj__func_08007078 {
 } GenObj__func_08007078;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_08003C28 (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080088DC();                                /* extern */
+i32 func_08008918(i32);                             /* extern */
+i32 func_08008920(i32);                             /* extern */
+i32 func_08008940(i32);                             /* extern */
+i32 func_0800894C(i32);                             /* extern */
+i32 func_08050D3C(i32, i32, i32, i32, i32, i32, i32); /* extern */
+
+__attribute__((section(".text.new_game.08003C28")))
+void func_08003C28(i32 arg0) {
+    i32 temp_r5;
+    i32 temp_r6;
+    i32 temp_r8;
+    i32 temp_sb;
+
+    i32 temp_r0;
+    i32 temp_r1;
+    i32 temp_r4b;
+    temp_sb = func_080088DC();
+    temp_r8 = func_08008920(arg0);
+    temp_r6 = func_08008918(arg0);
+    temp_r5 = func_08008940(arg0);
+    temp_r0 = func_0800894C(arg0);
+    temp_r1 = arg0 + 0x10;
+    temp_r4b = arg0 + 0x14;
+    func_08050D3C(temp_r1, temp_sb, temp_r8, temp_r6, temp_r5, temp_r0, temp_r4b);
+}
+}
+
 // DECOMP-MATCHED func_08007078 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __builtin_new(i32);                             /* extern */
