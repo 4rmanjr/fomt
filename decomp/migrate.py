@@ -23,7 +23,9 @@ Tidak pernah commit (working tree saja). Tidak menyentuh state JSON.
 """
 
 import argparse
+import fcntl
 import json
+import os
 import re
 import subprocess
 import sys
@@ -634,6 +636,50 @@ def migrate_one(module, func, dry_run=False):
             "detail": compare_tail, "files": files}
 
 
+def autopush_migrate(moved):
+    """Commit + push hasil migrasi (tiap fungsi sudah compare HIJAU).
+
+    Satu commit per pemanggilan, hanya stage file milik migrasi ini
+    (src/asm/lds) — bukan draf worker atau artefak lain.
+    FOMT_AUTOPUSH=0 mematikan."""
+    if not moved or os.environ.get("FOMT_AUTOPUSH", "1") == "0":
+        return False
+    lock = REPO / "decomp" / "state" / "git.lock"
+    lock.parent.mkdir(parents=True, exist_ok=True)
+    with lock.open("a+") as fh:
+        fcntl.flock(fh, fcntl.LOCK_EX)
+        try:
+            def git(*args):
+                return subprocess.run(["git", "-C", str(REPO), *args],
+                                      capture_output=True, text=True)
+            if git("rev-parse", "--is-inside-work-tree").returncode != 0:
+                return False
+            paths = sorted({f for r in moved for f in r.get("files", [])})
+            existing = [p for p in paths if (REPO / p).exists()]
+            if not existing:
+                return False
+            git("add", "--", *existing)
+            if git("diff", "--cached", "--quiet").returncode == 0:
+                return False
+            names = ", ".join(r["func"] for r in moved)
+            msg = (f"decomp: migrate {names} "
+                   f"({len(moved)} funcs, compare hijau)")
+            c = git("commit", "-q", "-m", msg)
+            if c.returncode != 0:
+                print(f"autopush migrasi: commit gagal: "
+                      f"{c.stderr.strip()[-200:]}")
+                return False
+            p = git("push", "-q")
+            if p.returncode != 0:
+                print(f"autopush migrasi: commit lokal OK, push gagal: "
+                      f"{p.stderr.strip()[-160:]}")
+                return False
+            print(f"autopush migrasi: {msg}")
+            return True
+        finally:
+            fcntl.flock(fh, fcntl.LOCK_UN)
+
+
 def main():
     ap = argparse.ArgumentParser(description="Migrasi aman 1 fungsi MATCH "
                                  "asm -> src per compare.")
@@ -696,6 +742,8 @@ def main():
     for r in moved:
         print(f"  HIJAU {r['func']}: {r['detail']}")
         print(f"    file: {', '.join(r['files'])}")
+    if moved:
+        autopush_migrate(moved)
     if failed:
         print(f"  MERAH {failed['func']} ({failed['module']}): "
               f"{failed['detail']} -> direvert, berhenti.")

@@ -1647,7 +1647,9 @@ def autopush(names: str | list[str]) -> bool:
     Hanya stage file esensial: draf MATCH, blok promoted, shard state
     modules/ + index.json. Artefak judge (ref.o/func.o/func.i/common.h) di-ignore via .gitignore
     dan TIDAK ikut commit. Log teks (func.c/func.s) tetap ikut sbg audit.
-    FOMT_AUTOPUSH=0 mematikan. Gagal push tidak menggagalkan run: commit tetap
+    FOMT_AUTOPUSH=0 mematikan (master switch). Selain itu, pemanggil batch
+    menggate via FOMT_AUTOPUSH_PROMOTE (default mati: hanya migrasi yang push).
+    Gagal push tidak menggagalkan run: commit tetap
     ada di lokal dan pesan peringatan dicetak.
     """
     if isinstance(names, str):
@@ -1809,9 +1811,10 @@ def run_batch(n: int, modules: list[str] | None, retry_all: bool,
         # Lepas semua klaim batch ini; kalau tidak, fungsi sisa batch tetap
         # "dipegang" agent ini dan memblokir agent lain sampai TTL habis.
         release_all()
-        # Satu commit+push per batch (bukan per fungsi) supaya histori tidak
-        # spam dan push tidak balapan antar agent.
-        if matched_names:
+        # Autopush promote DIMATIKAN secara default (FOMT_AUTOPUSH_PROMOTE=1
+        # untuk hidupkan lagi): hanya migrasi compare-hijau yang push,
+        # supaya histori tidak spam dan push tidak balapan antar agent.
+        if matched_names and os.environ.get("FOMT_AUTOPUSH_PROMOTE", "0") == "1":
             autopush(matched_names)
     fin = load()
     now = time.time()
