@@ -17,7 +17,7 @@ loop_2:
         var_r5 += 1;
         var_r3 += 1;
         if (temp_r1 != temp_r0) {
-            return var_r3 - 1;
+            return (s32)(var_r3 - 1);
         }
         var_r4 -= 1;
         if (var_r4 != var_r2) {

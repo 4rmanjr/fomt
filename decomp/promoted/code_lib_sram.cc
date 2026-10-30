@@ -64,7 +64,7 @@ loop_2:
         var_r5 += 1;
         var_r3 += 1;
         if (temp_r1 != temp_r0) {
-            return var_r3 - 1;
+            return (s32)(var_r3 - 1);
         }
         var_r4 -= 1;
         if (var_r4 != var_r2) {
@@ -75,7 +75,7 @@ loop_2:
 }
 
 // DECOMP-MATCHED func_080D3870 (dari code_lib_sram.s; cek manusia sebelum ke src/)
-extern u8 func_080D3840[];
+extern s32 func_080D3840(u8 *, u8 *, s32);
 
 s32 func_080D3870(s32 arg0, s32 arg1, s32 arg2) {
     u8 buf[0xC0];

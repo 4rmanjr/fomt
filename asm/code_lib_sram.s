@@ -109,34 +109,3 @@ func_080D3800: @ 0x080D3800
 .L080D3838: .4byte 0x04000204
 .L080D383C: .4byte 0x0000FFFC
 
-	thumb_func_start func_080D3840
-func_080D3840: @ 0x080D3840
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	adds r3, r1, #0
-	subs r4, r2, #1
-	cmp r2, #0
-	beq .L080D3866
-	movs r2, #1
-	rsbs r2, r2, #0
-.L080D3850:
-	ldrb r1, [r3]
-	ldrb r0, [r5]
-	adds r5, #1
-	adds r3, #1
-	cmp r1, r0
-	beq .L080D3860
-	subs r0, r3, #1
-	b .L080D3868
-.L080D3860:
-	subs r4, #1
-	cmp r4, r2
-	bne .L080D3850
-.L080D3866:
-	movs r0, #0
-.L080D3868:
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-
