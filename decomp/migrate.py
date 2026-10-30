@@ -435,6 +435,257 @@ def _unify_extern_ptrs(body, src_text):
     return body, src_text
 
 
+def _split_top_commas(s):
+    """Pecah berdasar koma level-atas (abaikan koma dalam kurung/bracket)."""
+    parts, depth, cur = [], 0, []
+    for ch in s:
+        if ch in "([":
+            depth += 1
+        elif ch in ")]" and depth:
+            depth -= 1
+        if ch == "," and depth == 0:
+            parts.append("".join(cur))
+            cur = []
+        else:
+            cur.append(ch)
+    parts.append("".join(cur))
+    return parts
+
+
+def _strip_code_noise(text):
+    """Samarkan string/char literal + komentar agar scan call-site tak
+    false-positive pada `(` di dalamnya (panjang dipertahankan)."""
+    out = []
+    i, n = 0, len(text)
+    while i < n:
+        ch = text[i]
+        if ch == "/" and i + 1 < n and text[i + 1] == "/":
+            j = text.find("\n", i)
+            j = n if j == -1 else j
+            out.append(" " * (j - i))
+            i = j
+        elif ch == "/" and i + 1 < n and text[i + 1] == "*":
+            j = text.find("*/", i + 2)
+            j = n if j == -1 else j + 2
+            out.append(" " * (j - i))
+            i = j
+        elif ch in "\"'":
+            j = i + 1
+            while j < n and text[j] != ch:
+                j += 2 if text[j] == "\\" else 1
+            j = min(n, j + 1)
+            out.append(" " * (j - i))
+            i = j
+        else:
+            out.append(ch)
+            i += 1
+    return "".join(out)
+
+
+_CALLSITE_KW = set(
+    "if else for while do switch return sizeof typedef struct enum union "
+    "class new delete using namespace template asm __asm__ volatile "
+    "register static extern const unsigned signed void int char short long "
+    "float double".split())
+_NUMERIC_RE = re.compile(
+    r"^[+-]?(?:0[xX][0-9a-fA-F]+|\d[\d']*(?:\.\d*)?|\.\d+)[uUlLfF]*$")
+_LOCAL_DECL_RE = re.compile(
+    r"\s*(?!(?:extern|return|typedef|static|register|const)\b)"
+    r"([\w:]+(?:\s*\*+)?)\s*(\w+)\s*(?:[=;]|$)")
+_CALL_RE = re.compile(r"\b([A-Za-z_]\w*)\s*\(")
+
+
+def _norm_base(base):
+    base = re.sub(r"\b(const|volatile|struct|union|enum)\b", "", base)
+    return re.sub(r"\s+", " ", base).strip()
+
+
+def _ptr_parts(typ):
+    """(base, level) utk tipe pointer; None bila bukan tipe polos
+    (function pointer/kurung/array -> tak dinilai, bukan mismatch)."""
+    t = (typ or "").strip()
+    if not t or "(" in t or ")" in t or "[" in t:
+        return None
+    return _norm_base(t.replace("*", "")), t.count("*")
+
+
+def _add_star(t):
+    """Tambah satu level pointer, spasi bintang dinormalisasi (`T **` +
+    satu -> `T***`, bukan `T ** *`)."""
+    return re.sub(r"\s*\*", "*", t.strip()) + "*"
+
+
+def _param_type(p):
+    """Tipe satu parameter deklarasi (nama variabel dibuang)."""
+    p = p.strip()
+    if not p or p in ("void", "..."):
+        return p
+    if "(" in p or ")" in p:
+        return None  # function pointer: tak dinilai
+    m = re.match(r"^(.*?)\b([\w:]+)\s*(\[[^\]]*\])?$", p)
+    if not m:
+        return p if p.endswith("*") else None
+    typ, name, arr = m.group(1).strip(), m.group(2), m.group(3)
+    if not typ:
+        return name  # 'i32' polos: tipe tanpa nama
+    if arr:
+        return (typ + " *").strip()  # array -> decay pointer
+    return typ
+
+
+def _param_name(p):
+    """Nama satu parameter deklarasi, atau None bila tanpa nama."""
+    p = p.strip()
+    m = re.match(r"^(.*[\*\s])\b([\w:]+)\s*(\[[^\]]*\])?$", p)
+    return m.group(2) if m else None
+
+
+def _local_var_types(body):
+    """nama -> tipe utk parameter definisi fungsi + variabel lokal body."""
+    vars = {}
+    m = re.search(r"^\s*[\w:]+\s*\**\s*\w+\s*\(([^;{}]*)\)\s*\{", body, re.M)
+    if m:
+        for p in _split_top_commas(m.group(1)):
+            t, nm = _param_type(p), _param_name(p)
+            if t and nm and nm not in _CALLSITE_KW:
+                vars[nm] = t
+    for ln in body.splitlines():
+        m = _LOCAL_DECL_RE.match(ln)
+        if (m and m.group(1) not in _CALLSITE_KW
+                and m.group(2) not in _CALLSITE_KW):
+            vars[m.group(2)] = m.group(1).strip()
+    return vars
+
+
+def _find_calls(clean):
+    """Yield (fname, args_str, pos): call `fname(...)` kurung-seimbang.
+    `clean` sudah disamarkan dari string/komentar."""
+    for m in _CALL_RE.finditer(clean):
+        i = m.end()
+        depth, j = 1, i
+        while j < len(clean) and depth:
+            if clean[j] == "(":
+                depth += 1
+            elif clean[j] == ")":
+                depth -= 1
+            j += 1
+        if depth:
+            continue  # tak-seimbang: abaikan
+        yield m.group(1), clean[i: j - 1], m.start()
+
+
+def _arg_type(arg, vartypes):
+    """Tipe argumen call; None = tak-diketahui -> selalu lolos (bukan SKIP).
+    Literal numerik/NULL/string, ekspresi operator, dan call bersarang
+    tak pernah dinilai."""
+    a = arg.strip()
+    if not a:
+        return None
+    if _NUMERIC_RE.match(a) or a in ("NULL", "nullptr"):
+        return None
+    if a.startswith('"'):
+        return None
+    m = re.match(r"^\(([^()]*)\)", a)
+    if m:
+        return _param_type(m.group(1))  # cast: tipe hasil = tipe cast
+    m = re.match(r"^&([A-Za-z_]\w*)$", a)
+    if m:
+        t = vartypes.get(m.group(1))
+        return _add_star(t) if t else None
+    m = re.match(r"^(\*+)([A-Za-z_]\w*)$", a)
+    if m:
+        t = vartypes.get(m.group(2))
+        parts = _ptr_parts(t) if t else None
+        if not parts:
+            return None
+        base, stars = parts
+        if stars < len(m.group(1)):
+            return None
+        return base if stars == len(m.group(1)) else (
+            base + "*" * (stars - len(m.group(1))))
+    m = re.match(r"^[A-Za-z_]\w*$", a)
+    if m:
+        return vartypes.get(a)
+    return None
+
+
+def _ptr_arg_ok(arg_t, param_t):
+    """True bila argumen boleh lewat. C++ hanya mengizinkan T* -> void*
+    SATU level total; T** -> void** (atau lebih) butuh cast eksplisit.
+    Skalar (level 0) dan tipe tak-dikenal selalu lolos (konservatif)."""
+    if not arg_t or not param_t or param_t == "...":
+        return True
+    ap, pp = _ptr_parts(arg_t), _ptr_parts(param_t)
+    if not ap or not pp:
+        return True
+    a_base, a_stars = ap
+    p_base, p_stars = pp
+    if a_stars == 0 or p_stars == 0:
+        return True
+    if p_base == "void" and p_stars == 1:
+        return True
+    return a_stars == p_stars and a_base == p_base
+
+
+def _callsite_ptr_mismatch(body, src_nostruct):
+    """Cek pre-compile call-site vs deklarasi extern (aturan konversi C++).
+
+    Cek decl-vs-decl hanya bandingkan tanda tangan; mismatch call-site vs
+    deklarasi DALAM satu body (multi-level pointer) lolos dan baru meledak
+    saat kompilasi (kasus func_08004B94: `&sp0` bertipe `Obj ***` ke
+    parameter `void ***`). Return string SKIP informatif, atau None bila
+    tak ada mismatch (unknown/ambigu -> lolos, bukan SKIP)."""
+    decls = {}
+    for text in (body, src_nostruct):
+        for m in EXTERN_RE.finditer(text):
+            if "(*" in m.group(0):
+                continue
+            params = [_param_type(p) for p in _split_top_commas(m.group(4))]
+            decls.setdefault(m.group(3), []).append(params)
+    if not any("**" in (t or "") for pl in decls.values()
+               for ps in pl for t in ps):
+        return None  # cepat: tanpa parameter multi-pointer tak ada yg dicek
+    vartypes = _local_var_types(body)
+    clean = _strip_code_noise(body)
+    for fname, args, pos in _find_calls(clean):
+        if fname in _CALLSITE_KW or fname not in decls:
+            continue
+        line_start = clean.rfind("\n", 0, pos) + 1
+        if re.fullmatch(r"\s*[\w:]+\s*\**\s*", clean[line_start:pos]):
+            continue  # deklarasi/definisi, bukan call-site
+        arglist = _split_top_commas(args)
+        if len(arglist) == 1 and not arglist[0].strip():
+            arglist = []
+        compared, first_bad = False, None
+        for sig in decls[fname]:
+            if "..." in sig:
+                named = [t for t in sig if t != "..."]
+                if len(arglist) < len(named):
+                    continue
+                pairs = zip(arglist[: len(named)], named)
+            elif len(arglist) != len(sig):
+                continue  # () C = arg tak-spesifik: tak dinilai
+            else:
+                pairs = zip(arglist, sig)
+            compared = True
+            bad = [(a.strip(), _arg_type(a, vartypes), p)
+                   for a, p in pairs
+                   if not _ptr_arg_ok(_arg_type(a, vartypes), p)]
+            if not bad:
+                first_bad = None
+                break
+            if first_bad is None:
+                first_bad = bad[0]
+        else:
+            if compared and first_bad:
+                # Semua overload cocok-jumlah gagal: laporkan yg pertama.
+                a, at, p = first_bad
+                return (f"call-site {fname}: argumen `{a}` (`{at}`) tak "
+                        f"konversi implisit ke parameter `{p}` "
+                        f"(multi-pointer butuh cast/penyatuan manual)")
+    return None
+
+
 MANAGED_BEGIN = "// === MIGRATED TYPES (auto-managed by migrate.py) ===\n"
 MANAGED_END = "// === END MIGRATED TYPES ===\n"
 
@@ -882,6 +1133,11 @@ def migrate_one(module, func, dry_run=False):
                         "detail": f"extern {nm} beda tanda tangan "
                         f"({sorted(decl_old[nm])} vs {sorted(sigs)}), "
                         "butuh penyatuan manual, dilewati"}
+        ck = _callsite_ptr_mismatch(body, src_nostruct)
+        if ck:
+            return {"func": func, "module": module, "ok": False,
+                    "skipped": True,
+                    "detail": f"{ck}, dilewati"}
         if merged:
             merged = _topo_order(merged)
             sec = MANAGED_BEGIN + "\n".join(merged) + "\n" + MANAGED_END
