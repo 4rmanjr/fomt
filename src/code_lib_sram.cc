@@ -1,5 +1,28 @@
 #include "prelude.h"
 
+// DECOMP-MATCHED func_080D3800 (dari code_lib_sram.s; cek manusia sebelum ke src/)
+extern "C" {
+void func_080D3800(u8 *arg0, u8 *arg1, i32 arg2) {
+    i32 n;
+    u16 reg;
+
+    n = arg2;
+    reg = *(u16 *)0x04000204;
+    reg &= 0xFFFC;
+    reg |= 3;
+    *(u16 *)0x04000204 = reg;
+    n -= 1;
+    if (n != -1) {
+        do {
+            *arg1 = *arg0;
+            arg0 += 1;
+            arg1 += 1;
+            n -= 1;
+        } while (n != -1);
+    }
+}
+}
+
 // DECOMP-MATCHED func_080D3840 (dari code_lib_sram.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080D3840(u8 *arg0, u8 *arg1, i32 arg2) {
@@ -78,7 +101,7 @@ i32 func_080D3870(i32 arg0, i32 arg1, i32 arg2) {
 // DECOMP-MATCHED func_080D38D4 (dari code_lib_sram.s; cek manusia sebelum ke src/)
 extern "C" {
 
-i32 func_080D3800(i32, i32, i32);
+void func_080D3800(u8 *, u8 *, i32);
 i32 func_080D3870(i32, i32, i32);
 
 i32 func_080D38D4(i32 arg0, i32 arg1, i32 arg2, i32 arg3) {
@@ -93,7 +116,7 @@ check:
         if (i > 2) {
             break;
         }
-        func_080D3800(arg0, arg1, arg2);
+        func_080D3800((u8 *)arg0, (u8 *)arg1, arg2);
         var_r3 = func_080D3870(arg0, arg1, arg2);
     } while (var_r3 != 0);
     return var_r3;

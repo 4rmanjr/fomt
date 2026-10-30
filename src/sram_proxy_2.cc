@@ -1,5 +1,25 @@
 #include "prelude.h"
 
+// DECOMP-MATCHED func_080006E4 (dari sram_proxy_2.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080D379C(i32, i32, i32);                      /* extern */
+extern i16 gUnk_03000400;
+
+i32 func_080006E4(i32 arg0, i32 arg1, i32 arg2, i32 arg3) {
+    gUnk_03000400 = 0;
+    if (arg3 == 0)
+        return 0;
+    func_080D379C(0x0E000000 | arg2, arg1, arg3);
+    return 1;
+}
+}
+// ekor tak-bermarker dari sram_proxy_2.s (verbatim, jangan diubah)
+asm(
+".L08000714:\n"
+"    .byte 0x00, 0xB5, 0x00, 0x79, 0x03, 0x22, 0x10, 0x40, 0x03, 0x30, 0xD0, 0xF0\n"
+"    .byte 0x75, 0xFC, 0x02, 0xBC, 0x08, 0x47, 0x00, 0x00\n"
+);
+
 // DECOMP-MATCHED func_08000728 (dari sram_proxy_2.s; cek manusia sebelum ke src/)
 extern "C" {
 extern i16 gUnk_03000400;

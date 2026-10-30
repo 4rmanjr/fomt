@@ -1,7 +1,7 @@
 
 // DECOMP-MATCHED func_080D38D4 (dari code_lib_sram.s; cek manusia sebelum ke src/)
 
-s32 func_080D3800(s32, s32, s32);
+void func_080D3800(u8 *, u8 *, s32);
 s32 func_080D3870(s32, s32, s32);
 
 s32 func_080D38D4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -16,7 +16,7 @@ check:
         if (i > 2) {
             break;
         }
-        func_080D3800(arg0, arg1, arg2);
+        func_080D3800((u8 *)arg0, (u8 *)arg1, arg2);
         var_r3 = func_080D3870(arg0, arg1, arg2);
     } while (var_r3 != 0);
     return var_r3;
