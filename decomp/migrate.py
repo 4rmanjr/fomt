@@ -310,7 +310,18 @@ STRUCT_RE = re.compile(r"(typedef\s+)?struct\s+(?:\w+\s*)?\{", re.M)
 FWD_TYPEDEF_RE = re.compile(r"^[ \t]*typedef\s+struct\s+\w+\s+\w+\s*;[ \t]*$",
                              re.M)
 EXTERN_RE = re.compile(
-    r"^\s*(i32|u32|u16|u8|s32|s16|s8|void)\s*(\*?)\s*(\w+)\s*\(([^;{}]*)\)\s*;"
+    # Tipe return umum ([\w:]+): cakup struct/typedef/enum pointee selain
+    # primitif (mis. GenObj *, S_3E *). Bintang multi-level (\**): cakup
+    # s32 **__builtin_new. Guard keyword: tanpa daftar tipe hardcoded,
+    # statement `return f(x);` / `if (x) g();` ikut match (TYPE=return/if)
+    # -> tolak kata kunci statement/deklarasi sebagai tipe. `(?=[\s\*])`
+    # mencegah SATU identifier terbelah dua (call `foo(x);` -> TYPE=fo,
+    # NAME=o): deklarasi asli selalu punya spasi/bintang antara tipe dan
+    # nama, call tidak.
+    r"^\s*(?!(?:return|if|else|while|for|do|switch|case|break|continue|goto|"
+    r"sizeof|typedef|struct|enum|union|class|new|delete|using|namespace|"
+    r"template|asm|__asm__|volatile|register|default|co_return|co_await|"
+    r"co_yield)\b)([\w:]+)(?=[\s\*])\s*(\**)\s*(\w+)\s*\(([^;{}]*)\)\s*;"
     r"\s*(?:/\*.*?\*/)?\s*$",
     re.M)
 
@@ -356,7 +367,10 @@ def _src_struct_differs(src_text, nm, blk):
 
 
 _PTR_TYPE_RE = re.compile(
-    r"\b(?:u8|s8|u16|s16|u32|s32|i8|i16|i32|void|char|int)\s*\*+")
+    # Pointee umum ([\w:]+): cakup struct/typedef (GenObj *, S_3E *) agar
+    # _unify_extern_ptrs tetap berfungsi. Aman dari `*` perkalian: hanya
+    # dipakai pada tanda tangan deklarasi (_norm_ptr_types).
+    r"\b[\w:]+\s*\*+")
 
 
 def _norm_ptr_types(text):
