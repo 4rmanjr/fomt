@@ -35,13 +35,14 @@
  },
  "func_080006E4": {
   "addr": 134219492,
-  "judged_mtime": 1793239478.3209467,
+  "judged_mtime": 1793320408.0489063,
   "module": "sram_proxy_2.s",
-  "note": "len 44 vs ref 66 [15missing,5extra,2operand,4regalloc,1stack,1different @i push {r4, r5, lr} | push {r4, lr}]",
-  "ref_len": 68,
+  "note": "",
+  "promoted_to": "decomp/promoted/sram_proxy_2.cc",
+  "ref_len": 67,
   "sanitize_v": 5,
-  "size": 665,
-  "status": "failed",
+  "size": 666,
+  "status": "promoted",
   "thumb": true
  },
  "func_08000728": {

@@ -89,3 +89,15 @@ TAIL:
 END:
     return;
 }
+
+// DECOMP-MATCHED func_080006E4 (dari sram_proxy_2.s; cek manusia sebelum ke src/)
+s32 func_080D379C(s32, s32, s32);                      /* extern */
+extern s16 gUnk_03000400;
+
+s32 func_080006E4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    gUnk_03000400 = 0;
+    if (arg3 == 0)
+        return 0;
+    func_080D379C(0x0E000000 | arg2, arg1, arg3);
+    return 1;
+}
