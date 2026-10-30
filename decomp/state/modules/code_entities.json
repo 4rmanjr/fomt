@@ -1697,14 +1697,15 @@
  },
  "sub_08031E0A": {
   "addr": 134422026,
-  "judged_mtime": 1793015419.5940769,
+  "judged_mtime": 1793321390.1962905,
   "module": "code_entities.s",
-  "note": "unc.c:3: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08031E0A/opencode/func.c:3: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08031E0A/opencode/func.c:3: `arg0' undeclared (first use in this function)\n",
-  "ref_len": 594,
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
+  "ref_len": 593,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
-  "size": 4878,
-  "status": "failed",
+  "size": 4879,
+  "status": "promoted",
   "thumb": true
  }
 }
