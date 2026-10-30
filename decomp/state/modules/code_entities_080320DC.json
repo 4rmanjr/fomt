@@ -305,13 +305,14 @@
  },
  "func_08034940": {
   "addr": 134433088,
-  "judged_mtime": 1793017289.9544647,
+  "judged_mtime": 1793320973.1183367,
   "module": "code_entities_080320DC.s",
-  "note": "nary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08034940/opencode/func.c:37: request for member `unk2' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08034940/opencode/func.c:41: request for member `unk2' in something not a structure or union\n",
-  "ref_len": 212,
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
+  "ref_len": 211,
   "sanitize_v": 4,
-  "size": 2066,
-  "status": "failed",
+  "size": 2067,
+  "status": "promoted",
   "thumb": true
  },
  "func_08034A14": {
