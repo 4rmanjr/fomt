@@ -78,6 +78,7 @@ SECTIONS
         src/new_game.o(.text);
         src/hardware.o(.text);
         asm/hardware.o(.text);
+        src/hardware_migrated.o(.text);
         src/farm.o(.text);
         src/field.o(.text);
         src/shipping_bin.o(.text);
@@ -166,6 +167,7 @@ SECTIONS
         asm/code_linkonce.o(.text.code_080D7CFC);
         *(.gnu.linkonce.t.__lower_bound__H4ZPC12JumpTableEntZiZ28ScriptJumpTableSearchCompareZl_X01T0RCX11X21PX31_X01);
         asm/code_linkonce.o(.text.code_080E0EF0);
+        src/code_linkonce.o(.text);
 
         *(.gnu.linkonce.d.__vt_6AScene);
         *(.gnu.linkonce.d.__vt_13AUnk_0800080C);
