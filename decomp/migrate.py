@@ -351,6 +351,31 @@ def insert_ordered(src_text, marker_line, body, addr, state_addrs):
     return new_text
 
 
+def _shared_local_labels(asm_text, func):
+    """Label `.Lxxx` yang didefinisikan di blok func TAPI dipakai di luar
+    blok itu (subrutin/pool bersama). Mencabut blok akan menggantung
+    pemakai lain -> link error; byte juga tak bisa diduplikat ke src
+    (ROM harus memuatnya tepat sekali)."""
+    lines = asm_text.splitlines()
+    start = end = None
+    for i, ln in enumerate(lines):
+        m = ASM_START_RE.match(ln)
+        if m and m.group(3) == func:
+            start = i
+            break
+    if start is None:
+        return set()
+    end = len(lines)
+    for i in range(start + 1, len(lines)):
+        if ASM_START_RE.match(lines[i]):
+            end = i
+            break
+    defined = set(re.findall(r"(?m)^\s*(\.L[\w.]+):", "\n".join(lines[start:end])))
+    outside = "\n".join(lines[:start] + lines[end:])
+    used_outside = set(re.findall(r"\.L[\w.]+", outside))
+    return defined & used_outside
+
+
 def remove_asm_func(asm_text, func):
     """Hapus blok fungsi dari asm -> (new_asm, tail).
 
@@ -487,6 +512,13 @@ def migrate_one(module, func, dry_run=False):
                 "detail": f"bukan fungsi terakhir di {module} "
                 f"({len(remaining) - remaining.index(func) - 1} penerus "
                 "belum pindah, dilewati)"}
+    shared = _shared_local_labels(asm_text, func)
+    if shared:
+        return {"func": func, "module": module, "ok": False,
+                "skipped": True,
+                "detail": f"label {sorted(shared)[0]} dipakai fungsi lain "
+                f"di {module} (subrutin bersama): migrasi harus atomik "
+                "dengan semua pemakai, dilewati"}
     new_asm, asm_tail = remove_asm_func(asm_text, func)
     if new_asm is None:
         return {"func": func, "module": module, "ok": False,
