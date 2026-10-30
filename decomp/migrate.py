@@ -47,6 +47,35 @@ _LAST_KEEP_RE = re.compile(
 )
 MIGRATED_FN_RE = re.compile(r"// DECOMP-MATCHED (func_\w+)")
 
+sys.path.insert(0, str(REPO / "tools" / "scripts"))
+from split_asm_sections import analyze as split_analyze
+
+
+def asm_section_of(stem, func, addr):
+    """Nama section asm utk fungsi, atau None bila modul tak di-split."""
+    try:
+        text = (REPO / "asm" / f"{stem}.s").read_text(errors="replace")
+    except OSError:
+        return None
+    _pre, groups = split_analyze(text, stem, migrated=set())
+    if not groups:
+        return None  # modul tak di-split (linkonce/actor/hardware/syscall)
+    want = f"{addr:08X}"
+    for chs in groups:
+        funcs = [c for c in chs if c["kind"] == "func"]
+        if len(funcs) == 1 and funcs[0]["name"] == func:
+            return chs[0]["secname"]
+    return None  # grup gabungan / tak ketemu
+
+
+def migratable_set(stem):
+    try:
+        text = (REPO / "asm" / f"{stem}.s").read_text(errors="replace")
+    except OSError:
+        return set()
+    from split_asm_sections import migratable as split_migratable
+    return set(split_migratable(text, stem))
+
 
 def load_state(stem):
     p = REPO / "decomp" / "state" / "modules" / f"{stem}.json"
