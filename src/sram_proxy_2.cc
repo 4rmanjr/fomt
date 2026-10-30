@@ -1,5 +1,31 @@
 #include "prelude.h"
 
+// DECOMP-MATCHED func_0800063C (dari sram_proxy_2.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.sram_proxy_2.0800063C")))
+void func_0800063C(void) {
+
+}
+}
+
+// DECOMP-MATCHED func_08000640 (dari sram_proxy_2.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i16 gUnk_03000400;
+extern u8 gUnk_03000402;
+
+__attribute__((section(".text.sram_proxy_2.08000640")))
+i32 func_08000640(i32 arg0) {
+    u8 temp_r1;
+
+    temp_r1 = gUnk_03000402;
+    if (temp_r1 == 0) {
+        gUnk_03000402 = 1;
+        gUnk_03000400 = (i16) temp_r1;
+    }
+    return arg0;
+}
+}
+
 // DECOMP-MATCHED func_080006E4 (dari sram_proxy_2.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080D379C(i32, i32, i32);                      /* extern */

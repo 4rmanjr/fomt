@@ -95,7 +95,7 @@ compare: $(ROM)
 # ELF
 $(ELF): $(ALL_OBJS) $(LDS)
 	@echo "LD $(LDS) $(ALL_OBJS:$(BUILD_DIR)/%=%)"
-	@cd $(BUILD_DIR) && $(LD) -T ../$(LDS) -Map ../$(MAP) -L../tools/agbcc/lib -lgcc -lc $(ALL_OBJS:$(BUILD_DIR)/%=%) -o ../$@
+	@cd $(BUILD_DIR) && $(LD) -T ../$(LDS) -Map ../$(MAP) $(ALL_OBJS:$(BUILD_DIR)/%=%) -L../tools/agbcc/lib -lgcc -lc -o ../$@
 	@$(STRIP) -N .gcc2_compiled. $(ELF)
 
 # C dependency file
@@ -129,9 +129,15 @@ $(BUILD_DIR)/%.d: $(BUILD_DIR)/%.o
 	@touch $@
 
 # ASM object
-$(BUILD_DIR)/%.o: %.s
+# Sumber dipecah per-fungsi menjadi section .text.<nama> (lihat
+# tools/scripts/split_asm_sections.py) agar migrasi fungsi non-ekor bisa
+# menyelipkan src tepat di posisi asm yang dicabut. File tanpa fungsi /
+# yang sudah punya .section sendiri dikembalikan apa adanya.
+$(BUILD_DIR)/%.o: %.s tools/scripts/split_asm_sections.py $(CXX_SRCS) $(LDS)
 	@echo "AS $<"
-	@$(AS) $(ASFLAGS) $< -o $@ --MD $(BUILD_DIR)/$*.d
+	@mkdir -p $(dir $(BUILD_DIR)/$*.split.s)
+	@python3 tools/scripts/split_asm_sections.py $< $(BUILD_DIR)/$*.split.s
+	@$(AS) $(ASFLAGS) $(BUILD_DIR)/$*.split.s -o $@ --MD $(BUILD_DIR)/$*.d
 
 # overrides for matching
 $(BUILD_DIR)/src/m4a.o: CC1 := $(OLD_CC1)

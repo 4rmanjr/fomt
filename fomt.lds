@@ -68,13 +68,13 @@ SECTIONS
         src/interrupt.o(.text);
         src/new.o(.text);
         src/pure_virtual.o(.text);
-        asm/sram_proxy_2.o(.text);
+        *(SORT_BY_NAME(.text.sram_proxy_2.*))
         src/sram_proxy_2.o(.text);
         src/scene.o(.text);
         asm/scene.o(.text);
-        asm/intro_scene.o(.text);
+        *(SORT_BY_NAME(.text.intro_scene.*))
         src/intro_scene.o(.text);
-        asm/new_game.o(.text);
+        *(SORT_BY_NAME(.text.new_game.*))
         src/new_game.o(.text);
         src/hardware.o(.text);
         asm/hardware.o(.text);
@@ -100,23 +100,23 @@ SECTIONS
         src/more_items.o(.text);
         asm/game_scene.o(.text);
         src/game_scene.o(.text);
-        asm/game_state.o(.text);
+        *(SORT_BY_NAME(.text.game_state.*))
         src/game_state.o(.text);
         src/entity.o(.text);
         src/code_entity_08020018.o(.text);
-        asm/code_entities.o(.text);
+        *(SORT_BY_NAME(.text.code_entities.*))
         src/code_entities.o(.text);
         src/entity_actor.o(.text);
-        asm/code_entities_080320DC.o(.text);
+        *(SORT_BY_NAME(.text.code_entities_080320DC.*))
         src/code_entities_080320DC.o(.text);
         src/npc_entity.o(.text);
-        asm/code_entities_08034CEC.o(.text);
+        *(SORT_BY_NAME(.text.code_entities_08034CEC.*))
         src/code_entities_08034CEC.o(.text);
 
-        asm/code_0803A8A4.o(.text);
+        *(SORT_BY_NAME(.text.code_0803A8A4.*))
         src/code_0803A8A4.o(.text);
         src/script_engine.o(.text);
-        asm/code_0803EE94.o(.text);
+        *(SORT_BY_NAME(.text.code_0803EE94.*))
         src/code_0803EE94.o(.text);
 
         src/actor.o(.text);
@@ -135,13 +135,13 @@ SECTIONS
         src/bachelorette.o(.text);
         src/harvest_sprite.o(.text);
 
-        asm/code_809E804.o(.text);
+        *(SORT_BY_NAME(.text.code_809E804.*))
         src/code_809E804.o(.text);
 
         src/m4a_1.o(.text);
         src/m4a.o(.text);
         asm/code_lib_syscall.o(.text);
-        asm/code_lib_sram.o(.text);
+        *(SORT_BY_NAME(.text.code_lib_sram.*))
         src/code_lib_sram.o(.text);
         *libgcc.a:_call_via_rX.o(.text);
         /* these need to be recompiled using -mthumb-interwork */
