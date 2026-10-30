@@ -376,12 +376,18 @@ def _shared_local_labels(asm_text, func):
     return defined & used_outside
 
 
-def remove_asm_func(asm_text, func):
+def remove_asm_func(asm_text, func, keep_aliases=None):
     """Hapus blok fungsi dari asm -> (new_asm, tail).
 
     tail = ekor tak-bermarker sesudah fungsi terakhir. Ekor ikut DICABUT
     dari asm dan HARUS dibawa verbatim ke src (posisi tepat sesudah fungsi)
-    supaya tidak ada byte yang bergeser/duplikat."""
+    supaya tidak ada byte yang bergeser/duplikat.
+
+    keep_aliases: dict {label: addr} — definisi `.Lxxx:` dalam span yang
+    dicabut dipertahankan sebagai assignment absolut (pemakai lain di file
+    tetap resolve ke alamat yang sama; byte-nya kini hidup di src).
+    Definisi yang sama di span tail ikut di-strip (src mengandalkan salinan
+    dari blok draf) supaya tak ganda."""
     lines = asm_text.splitlines(keepends=True)
     start = end = None
     for i, ln in enumerate(lines):
@@ -397,6 +403,7 @@ def remove_asm_func(asm_text, func):
             end = i
             break
     tail = ""
+    tail_start = None
     if end == len(lines):
         # Fungsi terakhir: cari akhir konten fungsi sendiri (sebelum baris
         # KEEP pertama). Semua dari sana sampai EOF ikut dicabut; tail-nya
@@ -420,12 +427,33 @@ def remove_asm_func(asm_text, func):
                     j -= 1
                 else:
                     break
+            tail_start = j
             tail = "".join(lines[j:])
             end = len(lines)
     # sertakan blank-line pemisah sesudah blok bila ada
     while end < len(lines) and lines[end].strip() == "":
         end += 1
-    new_text = "".join(lines[:start] + lines[end:])
+    keep = set((keep_aliases or {}))
+    if keep:
+        ka = keep_aliases or {}
+        # Strip definisi keep dari tail (src mengandalkan salinan blok
+        # draf); data lain tail tetap terbawa verbatim.
+        if tail:
+            kept_tl = []
+            for ln in tail.splitlines(keepends=True):
+                m = re.match(r"^(\s*)(\.L[\w.]+):(\s*(?:@.*)?)$",
+                             ln.rstrip("\n"))
+                if m and m.group(2) in keep:
+                    continue
+                kept_tl.append(ln)
+            tail = "".join(kept_tl)
+        alias = ["@ label bersama: definisi pindah ke src, "
+                 "alamat absolut dipertahankan utk pemakai lain\n"]
+        for lab in sorted(keep):
+            alias.append(f"{lab} = 0x{ka[lab]:08X}\n")
+        new_text = "".join(lines[:start] + alias + lines[end:])
+    else:
+        new_text = "".join(lines[:start] + lines[end:])
     if not new_text.endswith("\n"):
         new_text += "\n"
     return new_text, tail
@@ -512,14 +540,29 @@ def migrate_one(module, func, dry_run=False):
                 "detail": f"bukan fungsi terakhir di {module} "
                 f"({len(remaining) - remaining.index(func) - 1} penerus "
                 "belum pindah, dilewati)"}
-    shared = _shared_local_labels(asm_text, func)
-    if shared:
+    # Fungsi terakhir di alamat tak-sejajar-4: mencabut blok membuat file
+    # berakhir 2-mod-4 -> pad akhir-section (+2) menggeser semua src
+    # sesudahnya (kasus sub_08031E0A). Bandingkan: migrasi aman butuh
+    # prefix berakhir 4-sejajar. (Asumsi basis modul 4-sejajar; compare
+    # jadi backstop bila asumsi meleset.)
+    if state.get(func, {}).get("addr", 0) % 4 != 0:
         return {"func": func, "module": module, "ok": False,
                 "skipped": True,
-                "detail": f"label {sorted(shared)[0]} dipakai fungsi lain "
-                f"di {module} (subrutin bersama): migrasi harus atomik "
-                "dengan semua pemakai, dilewati"}
-    new_asm, asm_tail = remove_asm_func(asm_text, func)
+                "detail": f"{func} di alamat tak-sejajar-4 "
+                f"({state[func]['addr']:#x}): pad akhir-section menggeser "
+                "layout saat blok terakhir dicabut (butuh penanganan manual), "
+                "dilewati"}
+    shared = _shared_local_labels(asm_text, func)
+    aliases = {}
+    for lab in sorted(shared):
+        ma = re.match(r"\.L([0-9A-Fa-f]{8})$", lab)
+        if not ma:
+            return {"func": func, "module": module, "ok": False,
+                    "skipped": True,
+                    "detail": f"label {lab} dipakai fungsi lain tapi namanya "
+                    "bukan alamat (butuh penanganan manual), dilewati"}
+        aliases[lab] = int(ma.group(1), 16)
+    new_asm, asm_tail = remove_asm_func(asm_text, func, keep_aliases=aliases)
     if new_asm is None:
         return {"func": func, "module": module, "ok": False,
                 "skipped": True,
