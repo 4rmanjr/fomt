@@ -1,7 +1,11 @@
 #include "prelude.h"
 
+typedef struct Vtbl1FAB8 {
+    u8 _pad0[0x44];
+    i32 (*unk44)(void *, i32);
+} Vtbl1FAB8;
 typedef struct GenObj {
-    u8 _pad0[4];
+    Vtbl1FAB8 *unk0;
     i32 *unk4;
     i32 unk8;
     u8 _padC[8];
@@ -17,6 +21,20 @@ struct Fb7cV {
 struct Fb7cObj {
     Fb7cV *vtab;
 };
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Fb7cV Fb7cV;
+typedef struct Fb7cObj Fb7cObj;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_0801FAB8 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+i32 func_0801FAB8(GenObj *arg0, i32 arg1) {
+    return arg0->unk0->unk44(arg0, arg1);
+}
+}
 
 // DECOMP-MATCHED func_0801FAC8 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -83,8 +101,6 @@ void func_0801FAC8(GenObj *arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_0801FB7C (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
-typedef struct Fb7cV Fb7cV;
-typedef struct Fb7cObj Fb7cObj;
 
 void *__builtin_new(i32);                        /* extern */
 i32 func_080A6474(void *, i32);                  /* extern */

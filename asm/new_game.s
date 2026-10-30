@@ -7111,28 +7111,3 @@ func_08007078: @ 0x08007078
 .L0800709C: .4byte vtable_unk_080E5AC0
 .L080070A0: .4byte 0x00004640
 
-    thumb_func_start func_080070A4
-func_080070A4: @ 0x080070A4
-    push {r4, r5, lr}
-    adds r4, r0, #0
-    adds r5, r1, #0
-    ldr r0, .L080070D0 @ =vtable_unk_080E5AC0
-    str r0, [r4]
-    ldr r1, [r4, #4]
-    cmp r1, #0
-    beq .L080070C0
-    ldr r0, [r1, #4]
-    ldr r2, [r0, #8]
-    adds r0, r1, #0
-    movs r1, #3
-    bl _call_via_r2
-.L080070C0:
-    adds r0, r4, #0
-    adds r1, r5, #0
-    bl func_080007EC
-    pop {r4, r5}
-    pop {r0}
-    bx r0
-    .align 2, 0
-.L080070D0: .4byte vtable_unk_080E5AC0
-

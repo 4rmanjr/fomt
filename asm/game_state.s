@@ -26326,13 +26326,3 @@ func_0801FAA8: @ 0x0801FAA8
     bx r1
     .align 2, 0
 
-    thumb_func_start func_0801FAB8
-func_0801FAB8: @ 0x0801FAB8
-    push {lr}
-    ldr r2, [r0]
-    ldr r2, [r2, #0x44]
-    bl _call_via_r2
-    pop {r1}
-    bx r1
-    .align 2, 0
-

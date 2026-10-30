@@ -6,6 +6,23 @@ typedef struct GenObj {
     void (*unk8)(void *, i32);
 } GenObj;
 
+// DECOMP-MATCHED func_080070A4 (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080007EC(void *, i32);                       /* extern */
+extern i32 vtable_unk_080E5AC0;
+
+void func_080070A4(GenObj *arg0, i32 arg1) {
+    GenObj *temp_r1;
+
+    arg0->unk0 = (GenObj *)&vtable_unk_080E5AC0;
+    temp_r1 = (GenObj *)arg0->unk4;
+    if (temp_r1 != 0) {
+        ((GenObj *)temp_r1->unk4)->unk8(temp_r1, 3);
+    }
+    func_080007EC(arg0, arg1);
+}
+}
+
 // DECOMP-MATCHED func_080070D4 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 void func_08005B68(void *, i32);                     /* extern */
