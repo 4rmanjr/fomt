@@ -888,11 +888,12 @@ def _base_type(t):
     return b.split()[-1] if b else None
 
 
-def _rhs_ptr_type(rhs, vartypes, ftypes):
+def _rhs_ptr_type(rhs, vartypes, ftypes, gtypes=None):
     """Tipe pointer RHS bila DIKETAHUI pointer; None bila bukan/tak-tahu.
 
-    Menangani: var-pointer, &var, *p (deref), field-access (tipe dari
-    ftypes), string literal TIDAK (biarkan). Call/ekspresi -> None."""
+    Menangani: var-pointer, &var/&global (global dari gtypes decl extern),
+    *p (deref), field-access (tipe dari ftypes), string literal TIDAK
+    (biarkan). Call/ekspresi -> None."""
     s = rhs.strip()
     if not s or s.startswith('"') or "(" in s:
         return None
@@ -903,6 +904,8 @@ def _rhs_ptr_type(rhs, vartypes, ftypes):
     m = re.match(r"^&([A-Za-z_]\w*)$", s)
     if m:
         t = vartypes.get(m.group(1))
+        if t is None and gtypes:
+            t = gtypes.get(m.group(1))
         return _add_star(t) if t else None
     m = re.match(r"^(\*+)([A-Za-z_]\w*)$", s)
     if m:
@@ -962,6 +965,15 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
     ekspresi tak-dikenal dibiarkan (cast di sana tak perlu; call-site
     multi-pointer ditangani _callsite_ptr_mismatch sbg SKIP)."""
     vartypes = _local_var_types(body)
+    gtypes = {}
+    for gm in EXTERN_RE.finditer(body):
+        if "(" not in gm.group(0):
+            gtypes[gm.group(3)] = (gm.group(1) + gm.group(2)).strip()
+    # Variabel global extern (`extern s32 gUnk_...;`, tanpa kurung — tidak
+    # tertangkap EXTERN_RE yg khusus fungsi).
+    for gm in re.finditer(r"^\s*extern\s+([\w:]+(?:\s*\*+)?)\s+(\w+)\s*;",
+                          body, re.M):
+        gtypes.setdefault(gm.group(2), gm.group(1).strip())
     scalars = set()
     for ln in body.splitlines():
         m = _LOCAL_DECL_RE.match(ln)
@@ -997,13 +1009,21 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
             # ARAH BALIK: LHS skalar = RHS pointer -> cast (T)rhs (no-op
             # mov; C++ menolak pointer->int implisit, kasus
             # `sp4 = temp_r0->unk0` di func_0801A054).
-            rt = _rhs_ptr_type(rhs, vartypes, ftypes)
+            rt = _rhs_ptr_type(rhs, vartypes, ftypes, gtypes)
             if rt:
                 out.append(f"{ind}{lhs} = ({vt})({rhs});")
             else:
                 out.append(ln)
             continue
         if not vp or vp[1] == 0:
+            rt = _rhs_ptr_type(rhs, vartypes, ftypes, gtypes)
+            if rt is not None:
+                # LHS skalar = RHS pointer (mis. `i32 x = *p;`): C++
+                # menolak implisit; cast (T)(...) no-op semantik.
+                # Codegen agbcc/agbcp kadang berubah (regalloc) -> biarkan
+                # compare yg memutuskan (HIJAU lanjut, MERAH revert/SKIP).
+                out.append(f"{ind}{lhs} = ({vt})({rhs});")
+                continue
             out.append(ln)
             continue  # LHS bukan pointer: bukan urusan fungsi ini
         if rhs.startswith("(") or rhs.startswith("&"):
@@ -1058,7 +1078,7 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
                 continue
         elif not (_NUMERIC_RE.match(rhs) or rhs in ("NULL", "nullptr")
                   or rhs in scalars or rhs in vartypes):
-            rt = _rhs_ptr_type(rhs, vartypes, ftypes)
+            rt = _rhs_ptr_type(rhs, vartypes, ftypes, gtypes)
             if rt is not None:
                 # RHS pointer-diketahui (deref/&var/field): cast bila base
                 # beda atau rhs void* (void*->T* tak implisit). Sama persis
@@ -1350,17 +1370,22 @@ def apply_section_attr(body, secname, func):
     return f'__attribute__((section("{secname}")))\n' + body
 
 
-def wrap_block(marker_line, body, secname=None, func=None):
-    """Bungkus blok C: extern "C" + atribut section opsional."""
+def wrap_block(marker_line, body, secname=None, func=None, extern_c=True):
+    """Bungkus blok C: extern "C" + atribut section opsional.
+
+    extern_c=False utk file .c pendamping (agbcc mode C menolak sintaks
+    extern "C"; simbol C memang unmangled)."""
     if secname is not None:
         body = apply_section_attr(body, secname, func)
-    return marker_line + 'extern "C" {\n' + body.rstrip() + "\n}\n"
+    if extern_c:
+        return marker_line + 'extern "C" {\n' + body.rstrip() + "\n}\n"
+    return marker_line + body.rstrip() + "\n"
 
 
 def insert_ordered(src_text, marker_line, body, addr, state_addrs,
-                   secname=None, func=None):
+                   secname=None, func=None, extern_c=True):
     """Sisipkan blok (dibungkus extern C) dgn urutan alamat menaik."""
-    wrapped = wrap_block(marker_line, body, secname, func)
+    wrapped = wrap_block(marker_line, body, secname, func, extern_c)
     matches = list(MIGRATED_FN_RE.finditer(src_text))
     pos = len(src_text)
     for m in matches:
@@ -1578,8 +1603,27 @@ def run_compare():
         text=True,
         timeout=600,
     )
-    tail = (p.stdout + p.stderr).strip().splitlines()[-5:]
+    lines = (p.stdout + p.stderr).strip().splitlines()
+    tail = lines[-5:]
+    # baris kunci (checksum/error) selalu ikut meski di luar 5 terakhir
+    key = [l for l in lines if re.search(
+        r"sha1sum|did NOT match|FAILED|error|Error", l)]
+    seen = set(tail)
+    tail = tail + [l for l in key if l not in seen]
     return p.returncode == 0, "\n".join(tail)
+
+
+def compare_failed_byte_diff(compare_tail):
+    """True bila compare MERAH karena byte-DIFF (bukan error kompilasi).
+
+    Byte-diff: sha1sum WARNING/FAILED. Error kompilasi: 'error' dari
+    compiler/as/ld TANPA baris checksum (link tak sampai objcopy).
+    Syarat fallback .c/agbcc hanya byte-diff (codegen), bukan kompilasi.
+    """
+    t = compare_tail
+    if "did NOT match" in t or "FAILED" in t:
+        return True
+    return False
 
 
 def migrate_one(module, func, dry_run=False):
@@ -1724,7 +1768,13 @@ def migrate_one(module, func, dry_run=False):
         # Hanya marker yang sah sebagai tanda "sudah pindah". Substring
         # polos (dulu: `func in src_text`) false-positive pada pemanggilan /
         # deklarasi extern fungsi lain (kasus 004F4 dipanggil 0050C).
-        if re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b", src_text):
+        # Cek juga file .c pendamping (fallback agbcc): fungsi yg pindah
+        # via .c tidak ada markernya di .cc.
+        c_path = REPO / "src" / f"{stem}_c.c"
+        c_text = c_path.read_text() if c_path.exists() else ""
+        if (re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b", src_text)
+                or re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b",
+                             c_text)):
             return {"func": func, "module": module, "ok": False,
                     "skipped": True,
                     "detail": f"{func} sudah ada di {src_path} (dilewati)"}
@@ -1904,6 +1954,79 @@ def migrate_one(module, func, dry_run=False):
     if green:
         return {"func": func, "module": module, "ok": True,
                 "detail": compare_tail, "files": files}
+    # MERAH byte-DIFF + modul split: fallback ke file .c pendamping
+    # (agbcc mode C). agbcp (C++) kadang memilih alokasi register berbeda
+    # dari agbcc yg dipakai judge (kasus func_08050D0C: r4<->r5), sementara
+    # agbcc C mereproduksi codegen judge persis. Hanya utk byte-diff
+    # (checksum FAILED); error kompilasi tetap SKIP/BERHENTI sbg biasa.
+    if split and compare_failed_byte_diff(compare_tail):
+        # Revert .cc dulu (hindari duplikat definisi dgn .c), siapkan lds.
+        if snap[src_path] is None:
+            if src_path.exists():
+                src_path.unlink()
+        else:
+            src_path.write_text(snap[src_path])
+        c_entry = f"src/{stem}_c.o(.text);"
+        c_lds_changed = False
+        if c_entry not in lds_text.split():
+            lds_lines = lds_text.splitlines(keepends=True)
+            anchor = f"src/{stem}.o(.text);"
+            ai = next((i for i, ln in enumerate(lds_lines)
+                       if ln.strip() == anchor), None)
+            if ai is not None:
+                lds_lines.insert(ai + 1, lds_lines[ai].replace(
+                    f"src/{stem}.o", f"src/{stem}_c.o"))
+                lds_path.write_text("".join(lds_lines))
+                c_lds_changed = True
+        c_path = REPO / "src" / f"{stem}_c.c"
+        c_text = (c_path.read_text() if c_path.exists()
+                  else '#include "prelude.h"\n')
+        c_state_addrs = state_addrs
+        c_new = c_text
+        for dsec, addr8, addr_int, bytevals in data_plan:
+            c_new = insert_ordered(c_new, *split_marker_body(
+                data_block_text(stem, dsec, addr8, bytevals)),
+                addr_int, c_state_addrs)
+        if merged:
+            # Struct yg dipakai body HARUS ikut ke .c (file C terpisah
+            # tidak melihat managed-types di .cc). Sisipkan sekali,
+            # sebelum marker fungsi pertama (atau sesudah include bila
+            # belum ada marker).
+            c_structs = "\n".join(_topo_order(merged)) + "\n"
+            anchor = c_new.find("// DECOMP-MATCHED")
+            if anchor != -1:
+                c_new = (c_new[:anchor] + c_structs + "\n"
+                         + c_new[anchor:])
+            else:
+                hm = re.match(r"(?:#[^\n]*\n)+", c_new)
+                pos = hm.end() if hm else 0
+                c_new = c_new[:pos] + c_structs + "\n" + c_new[pos:]
+        c_new = insert_ordered(c_new, marker_line, body, addr,
+                               c_state_addrs, secname=secname, func=func,
+                               extern_c=False)
+        c_snap = c_path.read_text() if c_path.exists() else None
+        c_path.write_text(c_new)
+        c_green, c_tail = run_compare()
+        if c_green:
+            files = [str(c_path.relative_to(REPO))]
+            if lds_changed or c_lds_changed:
+                files.append("fomt.lds")
+            return {"func": func, "module": module, "ok": True,
+                    "detail": c_tail + " (via .c/agbcc)",
+                    "files": files}
+        if c_snap is None:
+            if c_path.exists():
+                c_path.unlink()
+        else:
+            c_path.write_text(c_snap)
+        # fallback .c gagal juga -> revert total di bawah (termasuk lds):
+        if c_lds_changed:
+            lds_path.write_text(lds_text)
+        if snap[src_path] is None:
+            if src_path.exists():
+                src_path.unlink()
+        else:
+            src_path.write_text(snap[src_path])
     # MERAH: revert fungsi ini
     for p, content in snap.items():
         if content is None:

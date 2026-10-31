@@ -118,6 +118,7 @@ SECTIONS
         src/script_engine.o(.text);
         *(SORT_BY_NAME(.text.code_0803EE94.*))
         src/code_0803EE94.o(.text);
+        src/code_0803EE94_c.o(.text);
 
         src/actor.o(.text);
         src/animal.o(.text);

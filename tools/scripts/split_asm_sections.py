@@ -161,11 +161,12 @@ def _pc_refs(lines) -> set:
 
 def src_section_names() -> set:
     names = set()
-    for p in (REPO / "src").glob("*.cc"):
-        try:
-            names.update(SRC_SECTION_RE.findall(p.read_text(errors="replace")))
-        except OSError:
-            pass
+    for pat in ("*.cc", "*.c"):
+        for p in (REPO / "src").glob(pat):
+            try:
+                names.update(SRC_SECTION_RE.findall(p.read_text(errors="replace")))
+            except OSError:
+                pass
     return names
 
 
