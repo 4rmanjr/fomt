@@ -77,6 +77,84 @@ typedef struct {
 } UnkF29C0;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_080324B8 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities_080320DC.080324B8")))
+i32 func_080324B8(void) {
+    return 0;
+}
+}
+
+// DECOMP-MATCHED func_08032900 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities_080320DC.08032900")))
+i32 func_08032900(i32 arg0, i32 arg1, i32 arg2) {
+    if (arg0 == 2) {
+        if (((u32) (arg1 + 0xFFFFFEF0) <= 0x2AFU) && (arg2 > 0xAF) && (arg2 <= 0x24F)) {
+            return 1;
+        }
+        return 2;
+    }
+    return 0;
+}
+}
+
+// DECOMP-MATCHED func_080338F0 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+extern "C" {
+u32 func_080AB788(i32);
+
+__attribute__((section(".text.code_entities_080320DC.080338F0")))
+i32 func_080338F0(i32 arg0) {
+    return func_080AB788(0x200) < (u32)(arg0 + 0x100);
+}
+}
+
+// DECOMP-MATCHED func_08033914 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities_080320DC.08033914")))
+i32 func_08033914(i32 arg0) {
+    u32 m = 0x18000;
+    return ((m * (arg0 + 1)) >> 8) + 0x8000;
+}
+
+/* ATTEMPT-NOTE opencode: konstanta di u32 var agar muls (movs/lsl) bukan shift-add; u32 agar lsrs bukan asrs. */
+}
+
+// DECOMP-MATCHED func_08033B7C (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+extern "C" {
+typedef struct Obj08034940 Obj08034940; /* fwd: definisi penuh ikut blok func_08034940 */
+/* GENOBJ-UNIFIED: gabungan view func_08034940 (u0.unk0o/u4.unk4s/unk34/unk38)
+   + view fungsi lain (u0.unk0/u4.unk4/unk41/unkC8..unkD0); union bernama
+   (agbcc menolak anonymous union); offset/size identik di semua view. */
+
+__attribute__((section(".text.code_entities_080320DC.08033B7C")))
+void func_08033B7C(GenObj *arg0) {
+    arg0->unk41 = 0;
+}
+
+/* ATTEMPT-NOTE opencode: member u8 (strb). */
+}
+
+// DECOMP-MATCHED func_08034248 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 gUnk_080F1450;
+
+typedef struct Obj08034940 Obj08034940; /* fwd: definisi penuh ikut blok func_08034940 */
+/* GENOBJ-UNIFIED: gabungan view func_08034940 (u0.unk0o/u4.unk4s/unk34/unk38)
+   + view fungsi lain (u0.unk0/u4.unk4/unk41/unkC8..unkD0); union bernama
+   (agbcc menolak anonymous union); offset/size identik di semua view. */
+
+__attribute__((section(".text.code_entities_080320DC.08034248")))
+u16 func_08034248(GenObj *arg0, i32 arg1) {
+    u8 *base = (u8 *)&gUnk_080F1450;
+    i32 t = arg0->unk30;
+
+    return *(u16 *)(base + ((t * 5 + arg1) * 2));
+}
+
+/* ATTEMPT-NOTE opencode: unk30 u8; base (u8*) di var agar ldr-pc dulu + byte-arith (lsl#1) bukan i32-scale (lsl#3). */
+}
+
 // DECOMP-MATCHED func_08034940 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 SetLocation__7AEntityUiii(void *, i32, i32, i32); /* extern */

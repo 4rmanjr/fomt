@@ -58,12 +58,114 @@ def _analyze_stem(stem):
 
 
 def asm_section_of(stem, func):
-    """Nama section asm utk fungsi, atau None bila grup gabungan/tak-split."""
+    """Nama section asm utk fungsi, atau None bila grup gabungan/tak-split.
+
+    SELALU section chunk FUNGSI (bukan chs[0]): utk grup [data, func]
+    (aturan data-join splitter) chs[0] adalah section DATA-ekor milik
+    grup berikut — memakai itu sbg section src bikin simbol ganda
+    (src + asm sama-sama menaruh section itu) -> multiple definition."""
     for chs in _analyze_stem(stem):
         funcs = [c for c in chs if c["kind"] == "func"]
         if len(funcs) == 1 and funcs[0]["name"] == func:
-            return chs[0]["secname"]
+            return funcs[0]["secname"]
     return None
+
+
+def group_data_chunks(stem, func):
+    """Chunk data se-grup dgn fungsi (aturan data-join splitter).
+
+    -> [(secname, addr8, addr_int, lines)] (urut alamat menaik, data dulu
+    karena addr data < addr fungsi pemilik-grup); [] bila grup solo-fungsi
+    murni. addr8/addr_int None bila secname tanpa alamat (`<funcsec>.zz`).
+
+    Urutan alamat: grup dibentuk data-join splitter dari chunk data ekor
+    + chunk fungsi berikut; alamat data selalu di bawah fungsi grupnya.
+    Diurutkan menaik agar insert via insert_ordered menaruh data sebelum
+    fungsi. Bila MULTI chunk data (belum pernah terlihat: 0 kasus di
+    6 modul Task 3) semuanya dikembalikan — pemanggil meng-emit semuanya;
+    linker SORT_BY_NAME menempatkannya sesuai nama section."""
+    for chs in _analyze_stem(stem):
+        funcs = [c for c in chs if c["kind"] == "func"]
+        if len(funcs) == 1 and funcs[0]["name"] == func:
+            out = []
+            for c in chs:
+                if c["kind"] != "data":
+                    continue
+                m = re.search(r"\.([0-9A-Fa-f]{8})(?:\.zz)?$", c["secname"])
+                a8 = m.group(1).upper() if m else None
+                out.append((c["secname"], a8,
+                            int(a8, 16) if a8 else None, c["lines"]))
+            out.sort(key=lambda t: (t[2] is None, t[2] or 0))
+            return out
+    return []
+
+
+_DATA_DIRECTIVE_RE = re.compile(
+    r"^(?:[.\w][\w.]*:\s*)?\.(byte|2byte|short|hword|4byte|word|long)"
+    r"\b(.*)$")
+_DATA_NUM_RE = re.compile(r"^[+-]?(?:0[xX][0-9a-fA-F]+|\d+)[uUlL]*$")
+_DATA_WIDTH = {"byte": 1, "2byte": 2, "short": 2, "hword": 2,
+               "4byte": 4, "word": 4, "long": 4}
+
+
+def parse_data_bytes(lines):
+    """Nilai byte data-chunk, atau None bila ada entri simbolik/asing.
+
+    Hanya direktif numerik murni. Label telanjang (.Lxxxxxxxx:) diabaikan
+    (di-strip — data-join hanya utk data tak-dirujuk, terverifikasi tak
+    ada rujukan keluar). Direktif lain (termasuk .align/.ascii/simbolik
+    .4byte label) -> None = grup non-migratable sementara (SKIP)."""
+    out = []
+    for ln in lines:
+        s = ln.split("@")[0].strip()
+        if not s:
+            continue
+        if re.match(r"^[.\w][\w.]*:$", s):
+            continue  # label telanjang: di-strip
+        m = _DATA_DIRECTIVE_RE.match(s)
+        if not m:
+            return None
+        width = _DATA_WIDTH[m.group(1)]
+        for p in m.group(2).split(","):
+            p = p.strip()
+            if not p:
+                continue
+            if not _DATA_NUM_RE.match(p):
+                return None  # simbolik (label/extern) -> SKIP
+            v = int(re.sub(r"[uUlL]+$", "", p), 0) & ((1 << (8 * width)) - 1)
+            out.extend((v >> (8 * k)) & 0xFF for k in range(width))
+    return out
+
+
+def data_block_text(stem, dsec, addr8, bytevals):
+    """Deklarasi C byte-identik utk satu data-chunk (tanpa wrapper extern).
+
+    `extern const` (linkage luar, C): agbcc tak-drop simbol tak-terpakai;
+    section "a" (readonly) ditempatkan lds SORT_BY_NAME tepat di posisi
+    section asm yg dicabut.
+
+    TERVERIFIKASI (uji 2026-10-31, game_state.08010F14): file uji berisi
+    1 data_block + 1 fungsi dikompilasi agbcp -O2 lalu dirakit; readelf -S
+    menunjukkan `.text.game_state.08010F14` PROGBITS AX (bukan .rodata.*)
+    dgn simbol OBJECT GLOBAL 8B. Jadi compare HIJAU tanpa trik tambahan.
+
+    Simbol dibungkus marker DECOMP-MATCHED sendiri (`... .data.<addr8>`)
+    agar dikenali sbg unit yg sudah pindah (tak di-emit ganda).
+
+    Nama simbol unik ROM (stem+addr); label asm tak-dipertahankan (data
+    tak-dirujuk modul — splitter hanya join data tak-bermarker). Bila
+    di masa depan ada label DIRUJUK, splitter menggabungkannya ke grup
+    fungsi pemakainya dan parse_data_bytes me-SKIP-nya (simbolik)."""
+    init = ", ".join(f"0x{b:02X}" for b in bytevals)
+    tag = f"// DECOMP-MATCHED gData_{stem}_{addr8}.data.{addr8}\n"
+    return (
+        tag +
+        f"// data tak-dirujuk di 0x{addr8} (label di-strip; tak dirujuk modul)"
+        f" — byte-identik dgn asm\n"
+        f"extern const u8 gData_{stem}_{addr8}"
+        f"[{len(bytevals)}]"
+        f' __attribute__((section("{dsec}"))) = {{{init}}};\n'
+    )
 
 
 def migratable_set(stem):
@@ -161,7 +263,9 @@ def translate_types(body):
 
 
 FAKE_MEMCPY_RE = re.compile(
-    r"^\s*i32 memcpy\(\s*i32\s*\*?\s*,\s*i32\s*\*?\s*,\s*i32\s*\)\s*;"
+    r"^\s*(?:i32|s32|void)\s+memcpy\(\s*(?:i32|s32|void|u8|u32|char)"
+    r"\s*\*?\s*,\s*(?:i32|s32|void|u8|u32|char)\s*\*?\s*,\s*"
+    r"(?:i32|s32|u32|unsigned\s+int|int|size_t)\s*\)\s*;"
     r"\s*(?:/\*.*?\*/)?\s*$\n",
     re.M)
 MEMCPY_CALL_RE = re.compile(r"\bmemcpy\(([^,()]+),([^,()]+),([^()]+)\)")
@@ -192,6 +296,105 @@ def adapt_memcmp(body):
     semua pointer argumen otomatis konversi ke `const void *` (no-op)."""
     body, n = FAKE_MEMCMP_RE.subn("", body)
     return body, bool(n)
+
+
+# Prototipe libc palsu ala-judge (judge C/agbcc tanpa builtin check):
+# `i32 strcpy(i32, i32 *);`, `u32 strlen(i32);` dsb + `/* extern */`.
+# Di src (C++ dgn -Werror) deklarasi ini konflik dgn builtin gcc
+# (`conflicts with built-in declaration ... strlen`) -> hapus, pakai
+# <string.h> + cast no-op di call-site (reinterpretasi, codegen identik).
+_LIBC_FAKE_RE = re.compile(
+    r"^\s*(?:i32|s32|u32|int|void|u8\s*\*|char\s*\*|size_t)\s+"
+    r"(strcpy|strncpy|strcat|strncat|strcmp|strncmp|strlen|strchr|strrchr|"
+    r"memset|memmove)\s*\([^;]*\)\s*;"
+    r"\s*(?:/\*.*?\*/)?\s*$\n",
+    re.M)
+_LIBC_CALL_RE = {
+    "strlen": (re.compile(r"\bstrlen\(([^,()]+)\)"),
+               lambda m: f"strlen((const char *)({m.group(1).strip()}))"),
+    "strcpy": (re.compile(r"\bstrcpy\(([^,()]+),([^,()]+)\)"),
+               lambda m: f"strcpy((char *)({m.group(1).strip()}), "
+               f"(const char *)({m.group(2).strip()}))"),
+    "strncpy": (re.compile(r"\bstrncpy\(([^,()]+),([^,()]+),([^()]+)\)"),
+               lambda m: f"strncpy((char *)({m.group(1).strip()}), "
+               f"(const char *)({m.group(2).strip()}), "
+               f"{m.group(3).strip()})"),
+    "strcat": (re.compile(r"\bstrcat\(([^,()]+),([^,()]+)\)"),
+               lambda m: f"strcat((char *)({m.group(1).strip()}), "
+               f"(const char *)({m.group(2).strip()}))"),
+    "strcmp": (re.compile(r"\bstrcmp\(([^,()]+),([^,()]+)\)"),
+               lambda m: f"strcmp((const char *)({m.group(1).strip()}), "
+               f"(const char *)({m.group(2).strip()}))"),
+    "strncmp": (re.compile(r"\bstrncmp\(([^,()]+),([^,()]+),([^()]+)\)"),
+                lambda m: f"strncmp((const char *)({m.group(1).strip()}), "
+                f"(const char *)({m.group(2).strip()}), "
+                f"{m.group(3).strip()})"),
+    "memset": (re.compile(r"\bmemset\(([^,()]+),([^,()]+),([^()]+)\)"),
+               lambda m: f"memset((void *)({m.group(1).strip()}), "
+               f"{m.group(2).strip()}, {m.group(3).strip()})"),
+    "memmove": (re.compile(r"\bmemmove\(([^,()]+),([^,()]+),([^()]+)\)"),
+                lambda m: f"memmove((void *)({m.group(1).strip()}), "
+                f"(const void *)({m.group(2).strip()}), "
+                f"{m.group(3).strip()})"),
+}
+
+
+def _wrap_libc_args(clean, fname, casts):
+    """Bungkus argumen call libc dgn cast (kurung-seimbang, 1+ level).
+
+    casts = list format per posisi: None = biarkan, atau callable
+    str->str. Argumen lebih/kurang dari casts -> biarkan apa adanya."""
+    out = []
+    pos = 0
+    for fn, args, start in _find_calls(clean):
+        if fn != fname:
+            continue
+        parts = _split_top_commas(args)
+        if len(parts) != len(casts):
+            continue
+        new_parts = [c(p.strip()) if c else p.strip()
+                     for p, c in zip(parts, casts)]
+        if new_parts == [p.strip() for p in parts]:
+            continue
+        out.append((start, fn, args, new_parts))
+    # terapkan dari belakang agar offset tak bergeser
+    for start, fn, args, new_parts in reversed(out):
+        end = start + len(fn) + 1 + len(args) + 1
+        clean = (clean[:start] + fn + "(" + ", ".join(new_parts)
+                 + clean[end - 1:])
+    return clean
+
+
+def adapt_libc_string(body):
+    """Hapus prototipe libc palsu ala-judge; <string.h> + cast no-op.
+
+    Return (body, need_string_h). Cast pointer (T *)x adalah no-op codegen
+    (reinterpretasi register), jadi byte-identik terjaga; tanpa cast,
+    -Werror meledakkan konversi int->pointer di call-site."""
+    new_body, n = _LIBC_FAKE_RE.subn("", body)
+    if not n:
+        return body, False
+    char_p = lambda p: f"(char *)({p})"
+    cchar_p = lambda p: f"(const char *)({p})"
+    void_p = lambda p: f"(void *)({p})"
+    cvoid_p = lambda p: f"(const void *)({p})"
+    specs = {
+        "strlen": [cchar_p],
+        "strcpy": [char_p, cchar_p],
+        "strncpy": [char_p, cchar_p, None],
+        "strcat": [char_p, cchar_p],
+        "strcmp": [cchar_p, cchar_p],
+        "strncmp": [cchar_p, cchar_p, None],
+        "memset": [void_p, None, None],
+        "memmove": [void_p, cvoid_p, None],
+    }
+    for name, casts in specs.items():
+        new_body = _wrap_libc_args(new_body, name, casts)
+    # fallback regex utk argumen sederhana tanpa kurung (lebih cepat,
+    # mencakup pola yg terlewat _find_calls bila ada)
+    for name, (rx, fmt) in _LIBC_CALL_RE.items():
+        new_body = rx.sub(fmt, new_body)
+    return new_body, True
 
 
 def struct_name(blk):
@@ -324,6 +527,14 @@ EXTERN_RE = re.compile(
     r"co_yield)\b)([\w:]+)(?=[\s\*])\s*(\**)\s*(\w+)\s*\(([^;{}]*)\)\s*;"
     r"\s*(?:/\*.*?\*/)?\s*$",
     re.M)
+# Pola yang sama untuk DEFINISI fungsi (`... {` bukan `... ;`).
+FUNC_DEF_RE = re.compile(
+    r"^\s*(?!(?:return|if|else|while|for|do|switch|case|break|continue|goto|"
+    r"sizeof|typedef|struct|enum|union|class|new|delete|using|namespace|"
+    r"template|asm|__asm__|volatile|register|default|co_return|co_await|"
+    r"co_yield)\b)([\w:]+)(?=[\s\*])\s*(\**)\s*(\w+)\s*\(([^;{}]*)\)\s*\{"
+    r"\s*(?:/\*.*?\*/)?\s*$",
+    re.M)
 
 
 def extern_decls(text):
@@ -334,6 +545,16 @@ def extern_decls(text):
     parameter yang dibandingkan, baru meledak saat kompilasi."""
     out = {}
     for m in EXTERN_RE.finditer(text):
+        if "(*" in m.group(0):
+            continue
+        sig = (m.group(1) + m.group(2) + " "
+               + "(" + re.sub(r"\s+", " ", m.group(4).strip()) + ")")
+        out.setdefault(m.group(3), set()).add(sig)
+    # Definisi fungsi juga mengikat tanda tangan di scope file: deklarasi
+    # `i32 f(int);` di blok baru vs definisi `void f(GenObj *, ...)` yg
+    # sudah pindah -> konflik kompilasi (kasus func_0803BEFC vs 03BDE4).
+    # Tangkap dgn pola yg sama + kurung kurawal pembuka.
+    for m in FUNC_DEF_RE.finditer(text):
         if "(*" in m.group(0):
             continue
         sig = (m.group(1) + m.group(2) + " "
@@ -554,6 +775,16 @@ def _local_var_types(body):
         if (m and m.group(1) not in _CALLSITE_KW
                 and m.group(2) not in _CALLSITE_KW):
             vars[m.group(2)] = m.group(1).strip()
+    # Array lokal (`u8 sp0[52];`): simpan sbg `u8(*)[52]` agar &sp0/sp0
+    # dikenali pointer-to-array (butuh cast ke pointer-elemen; alamat
+    # sama -> no-op codegen, kasus func_08012AA4 &sp0 -> i32 *).
+    for ln in body.splitlines():
+        m = re.match(r"^\s*(?!(?:extern|return|typedef|static|register|"
+                     r"const)\b)([\w:]+(?:\s*\*+)?)\s*(\w+)\s*"
+                     r"(\[[^\]]*\])\s*(?:[=;]|$)", ln)
+        if (m and m.group(1) not in _CALLSITE_KW
+                and m.group(2) not in _CALLSITE_KW):
+            vars[m.group(2)] = f"{m.group(1).strip()}(*){m.group(3)}"
     return vars
 
 
@@ -599,10 +830,9 @@ def _arg_type(arg, vartypes):
         if not parts:
             return None
         base, stars = parts
-        if stars < len(m.group(1)):
-            return None
-        return base if stars == len(m.group(1)) else (
-            base + "*" * (stars - len(m.group(1))))
+        if stars <= len(m.group(1)):
+            return None  # deref habis -> skalar, bukan pointer
+        return base + "*" * (stars - len(m.group(1)))
     m = re.match(r"^[A-Za-z_]\w*$", a)
     if m:
         return vartypes.get(a)
@@ -625,6 +855,386 @@ def _ptr_arg_ok(arg_t, param_t):
     if p_base == "void" and p_stars == 1:
         return True
     return a_stars == p_stars and a_base == p_base
+
+
+_DECL_TYPE_RE = re.compile(
+    r"^\s*((?:(?:struct|union|enum|const|volatile|signed|unsigned|short|"
+    r"long)\s+)*[\w:]+\s*\**)\s*(\w+)(\s*\[[^\]]*\])?\s*;",
+    re.M)
+# ^ catatan: bintang boleh menempel nama (`GenObj *p`), qualifier hanya
+# dari daftar known agar `s32 unk4` tak terbaca tipe=`s32 unk`.
+
+
+def _struct_field_types(struct_blocks):
+    """{type: {field: type}} dari blok struct (definisi `T f;` per baris)."""
+    out = {}
+    for blk in struct_blocks:
+        nm = struct_name(blk)
+        if not nm:
+            continue
+        fields = {}
+        for m in _DECL_TYPE_RE.finditer(blk):
+            fields[m.group(2)] = m.group(1).strip()
+        out[nm] = fields
+    return out
+
+
+def _base_type(t):
+    """Nama tipe tanpa bintang/const, mis. 'GenObj *' -> 'GenObj'."""
+    if not t:
+        return None
+    b = re.sub(r"\b(const|volatile|struct|union|enum)\b", "", t)
+    b = re.sub(r"\s+", " ", b.replace("*", " ")).strip()
+    return b.split()[-1] if b else None
+
+
+def _rhs_ptr_type(rhs, vartypes, ftypes):
+    """Tipe pointer RHS bila DIKETAHUI pointer; None bila bukan/tak-tahu.
+
+    Menangani: var-pointer, &var, *p (deref), field-access (tipe dari
+    ftypes), string literal TIDAK (biarkan). Call/ekspresi -> None."""
+    s = rhs.strip()
+    if not s or s.startswith('"') or "(" in s:
+        return None
+    if s in ("NULL", "nullptr"):
+        return None
+    if _NUMERIC_RE.match(s):
+        return None
+    m = re.match(r"^&([A-Za-z_]\w*)$", s)
+    if m:
+        t = vartypes.get(m.group(1))
+        return _add_star(t) if t else None
+    m = re.match(r"^(\*+)([A-Za-z_]\w*)$", s)
+    if m:
+        t = vartypes.get(m.group(2))
+        parts = _ptr_parts(t) if t else None
+        if not parts:
+            return None
+        base, stars = parts
+        if stars <= len(m.group(1)):
+            return None  # deref habis -> skalar, bukan pointer
+        return base + "*" * (stars - len(m.group(1)))
+    m = re.match(r"^([A-Za-z_]\w*)$", s)
+    if m:
+        t = vartypes.get(m.group(1))
+        parts = _ptr_parts(t) if t else None
+        return t if parts and parts[1] > 0 else None
+    m = re.match(r"^([A-Za-z_]\w*)\s*->\s*([A-Za-z_]\w*)$", s)
+    if m:
+        vt = vartypes.get(m.group(1))
+        if vt is None:
+            return None
+        bt = _base_type(vt)
+        ft = ftypes.get(bt, {}).get(m.group(2))
+        if ft is None:
+            return None
+        parts = _ptr_parts(ft)
+        return ft if parts and parts[1] > 0 else None
+    m = re.match(r"^([A-Za-z_]\w*)\s*\.\s*([A-Za-z_]\w*)$", s)
+    if m:
+        vt = vartypes.get(m.group(1))
+        if vt is None:
+            return None
+        bt = _base_type(vt)
+        ft = ftypes.get(bt, {}).get(m.group(2))
+        if ft is None:
+            return None
+        parts = _ptr_parts(ft)
+        return ft if parts and parts[1] > 0 else None
+    return None
+
+
+def _ptr_scalar_cast_fix(body, struct_blocks=None):
+    """Tambahkan cast no-op pada `PTR = SKALAR;` agar lolos C++.
+
+    Judge (C/agbcc) mengizinkan int->pointer implisit dgn warning; C++
+    menolak assignment `GenObj *p = <s32>` (kasus temp_r1 = arg0->unk4
+    dgn field s32). Cast `(T *)rhs` adalah no-op codegen (reinterpretasi
+    register; mov yang sama di -O2), jadi byte-identik terjaga.
+
+    LHS didukung: var pointer lokal DAN field-access (`p->f`, `p.f`).
+    Tipe field diambil dari struct_blocks (blok struct post-rename);
+    field tak-dikenal diperlakukan skalar hanya bila RHS literal/known-
+    skalar (bila tidak, biarkan — konservatif).
+
+    Hanya menyentuh assignment dgn RHS skalar yang DIKETAHUI (literal
+    numerik, var/field bertipe skalar). RHS pointer/call/address-of/cast/
+    ekspresi tak-dikenal dibiarkan (cast di sana tak perlu; call-site
+    multi-pointer ditangani _callsite_ptr_mismatch sbg SKIP)."""
+    vartypes = _local_var_types(body)
+    scalars = set()
+    for ln in body.splitlines():
+        m = _LOCAL_DECL_RE.match(ln)
+        if m and "*" not in (m.group(1) or ""):
+            scalars.add(m.group(2))
+    # field struct bertipe skalar di body
+    for m in re.finditer(
+            r"^\s*(s8|u8|s16|u16|s32|u32|i8|i16|i32|int|char|short|long)"
+            r"\s+(\w+)\s*;", body, re.M):
+        scalars.add(m.group(2))
+    ftypes = _struct_field_types(struct_blocks or [])
+    out = []
+    for ln in body.splitlines():
+        m = re.match(r"^(\s*)([A-Za-z_]\w*(?:\s*(?:->|\.)\s*[A-Za-z_]\w*)*)\s*=\s*(.+?);\s*$", ln)
+        if not m:
+            out.append(ln)
+            continue
+        ind, lhs, rhs = m.group(1), m.group(2).strip(), m.group(3).strip()
+        vt = vartypes.get(lhs)
+        if vt is None and ("->" in lhs or "." in lhs):
+            parts = re.split(r"\s*(?:->|\.)\s*", lhs)
+            vt = vartypes.get(parts[0])
+            for fld in parts[1:]:
+                bt = _base_type(vt)
+                ft = ftypes.get(bt, {}).get(fld)
+                if ft is None:
+                    vt = None
+                    break
+                vt = ft
+        var = lhs
+        vp = _ptr_parts(vt) if vt else None
+        if vp and vp[1] == 0:
+            # ARAH BALIK: LHS skalar = RHS pointer -> cast (T)rhs (no-op
+            # mov; C++ menolak pointer->int implisit, kasus
+            # `sp4 = temp_r0->unk0` di func_0801A054).
+            rt = _rhs_ptr_type(rhs, vartypes, ftypes)
+            if rt:
+                out.append(f"{ind}{lhs} = ({vt})({rhs});")
+            else:
+                out.append(ln)
+            continue
+        if not vp or vp[1] == 0:
+            out.append(ln)
+            continue  # LHS bukan pointer: bukan urusan fungsi ini
+        if rhs.startswith("(") or rhs.startswith("&"):
+            out.append(ln)
+            continue  # cast/address-of: biarkan
+        fm_call = re.match(r"^([A-Za-z_]\w*)\s*\((.*)\)\s*$", rhs, re.S)
+        if fm_call and "(" not in fm_call.group(1):
+            # RHS call: tentukan tipe return dari deklarasi extern body.
+            rt = None
+            for m in EXTERN_RE.finditer(body):
+                if m.group(3) == fm_call.group(1) and "(*" not in m.group(0):
+                    rt = (m.group(1) + m.group(2)).strip()
+                    break
+            rp = _ptr_parts(rt) if rt else None
+            if rp is not None and vp is not None:
+                if rp[1] == 0 and vp[1] == 0:
+                    out.append(ln)
+                    continue  # skalar = skalar: bukan urusan fungsi ini
+                rb, rs = _norm_base(rp[0]), rp[1]
+                vb, vs = _norm_base(vp[0]), vp[1]
+                if rs == vs and rb == vb:
+                    out.append(ln)
+                    continue  # tipe sama persis: biarkan
+                # Beda (void*->T*, int->T*, T*->skalar): cast no-op.
+                out.append(f"{ind}{lhs} = ({vt})({rhs});")
+                continue
+            out.append(ln)
+            continue  # return tak-dikenal: biarkan (konservatif)
+        if "(" in rhs:
+            out.append(ln)
+            continue  # ekspresi: biarkan
+        if rhs in vartypes:
+            rp = _ptr_parts(vartypes[rhs])
+            if rp and rp[1] > 0:
+                out.append(ln)
+                continue  # RHS var pointer: sudah benar, biarkan
+        fm = re.match(r"^([A-Za-z_]\w*)\s*->\s*([A-Za-z_]\w*)$", rhs)
+        if fm:
+            # field-access: cast KECUALI field tsb DIKETAHUI bertipe
+            # pointer (deklarasi lokal/struct body). Field tak-dikenal
+            # diperlakukan skalar: cast no-op aman codegen; bila ternyata
+            # pointer pun cast redundan tetap no-op & kompilasi OK.
+            known_ptr = False
+            for sm in re.finditer(
+                    r"^\s*([\w:]+(?:\s*\*+)?)\s+(\w+)\s*;",
+                    body, re.M):
+                if sm.group(2) == fm.group(2) and "*" in (sm.group(1) or ""):
+                    known_ptr = True
+                    break
+            if known_ptr:
+                out.append(ln)
+                continue
+        elif not (_NUMERIC_RE.match(rhs) or rhs in ("NULL", "nullptr")
+                  or rhs in scalars or rhs in vartypes):
+            rt = _rhs_ptr_type(rhs, vartypes, ftypes)
+            if rt is not None:
+                # RHS pointer-diketahui (deref/&var/field): cast bila base
+                # beda atau rhs void* (void*->T* tak implisit). Sama persis
+                # -> biarkan (cast redundan bisa ubah codegen agbcc).
+                rp = _ptr_parts(rt)
+                if (rp and rp[1] > 0 and _norm_base(rp[0]) != _norm_base(vp[0])):
+                    out.append(f"{ind}{var} = ({vt})({rhs});")
+                    continue
+            out.append(ln)
+            continue  # RHS tak-dikenal: biarkan (konservatif)
+        if _NUMERIC_RE.match(rhs) and int(rhs.strip().rstrip("uUlL"),
+                                          0) == 0:
+            out.append(ln)
+            continue  # `p = 0` / `p = NULL` legal C++ (null pointer
+            # constant); cast redundan dilarang (bisa ubah codegen agbcc,
+            # kasus temp_r0 = (*arg0) yg MATCH tanpa cast).
+        out.append(f"{ind}{var} = ({vt})({rhs});")
+    if out == body.splitlines():
+        return body  # tak ada perubahan: kembalikan verbatim
+    fixed = "\n".join(out)
+    if body.endswith("\n") and not fixed.endswith("\n"):
+        fixed += "\n"
+    return fixed
+
+
+def _ptr_to_int_cast_fix(body):
+    """Cast `(T)` pada argumen pointer ke parameter skalar (no-op codegen).
+
+    Draf MATCH sering mendeklarasikan parameter sbg s32/i32 padahal ROM
+    melewatkan alamat (judge peduli ukuran, bukan nama tipe). C++ menolak
+    pointer->int implisit. Cast eksplisit adalah mov yg sama di -O2
+    (reinterpretasi), jadi byte-identik terjaga.
+
+    Hanya bila: decl diketahui (body/src), tipe argumen JELAS pointer
+    (var-ptr lokal / &var / u8* expr dgn operator), tipe param JELAS
+    skalar (s32/i32/u32/int... level 0). Selain itu -> biarkan (SKIP
+    ditangani _callsite_ptr_mismatch untuk kasus multi-pointer)."""
+    vartypes = _local_var_types(body)
+    decls = {}
+    for m in EXTERN_RE.finditer(body):
+        if "(*" in m.group(0):
+            continue
+        params = [_param_type(p) for p in _split_top_commas(m.group(4))]
+        decls.setdefault(m.group(3), []).append(params)
+
+    def _expr_ptr_level(a):
+        """Level pointer argumen-ekspresi, atau None bila tak-diketahui.
+
+        Lebih berani dari _arg_type: operan var-pointer lokal (+ operator
+        aritmetika) dianggap pointer; &var menaikkan satu level. Call
+        bersarang / string / numerik murni -> None (biarkan)."""
+        s = a.strip()
+        if not s or _NUMERIC_RE.match(s) or s in ("NULL", "nullptr"):
+            return None
+        if s.startswith('"'):
+            return None
+        if re.match(r"^\(([^()]*)\)$", s):
+            inner = _ptr_parts(_param_type(s[1:-1]))
+            if inner:
+                return inner[1]
+        depth, toks, cur = 0, [], ""
+        for ch in s:
+            if ch == "(":
+                depth += 1
+                cur += ch
+            elif ch == ")":
+                depth -= 1
+                cur += ch
+            elif depth == 0 and (ch.isalnum() or ch in "_&*"):
+                cur += ch
+            else:
+                if depth == 0 and cur.strip():
+                    toks.append(cur.strip())
+                cur = ""
+        if cur.strip() and depth == 0:
+            toks.append(cur.strip())
+        if any("(" in t for t in toks):
+            return None  # ada call bersarang/ekspresi: tak-dinilai
+        best = None
+        for t in toks:
+            m = re.match(r"^&([A-Za-z_]\w*)$", t)
+            if m and m.group(1) in vartypes:
+                vt = vartypes[m.group(1)]
+                if "[" in vt:
+                    best = 1 if best is None else max(best, 1)
+                    continue  # &array: alamat elemen pertama
+                p = _ptr_parts(vt)
+                if p:
+                    lv = p[1] + 1
+                    best = lv if best is None else max(best, lv)
+                continue
+            m = re.match(r"^(\*+)?([A-Za-z_]\w*)$", t)
+            if m and m.group(2) in vartypes:
+                vt = vartypes[m.group(2)]
+                if "[" in vt and not m.group(1):
+                    best = 1 if best is None else max(best, 1)
+                    continue  # array decay -> pointer elemen
+                p = _ptr_parts(vt)
+                if p:
+                    lv = p[1] - len(m.group(1) or "")
+                    if lv > 0:
+                        best = lv if best is None else max(best, lv)
+        return best
+
+    clean = _strip_code_noise(body)
+    edits = []
+    for fname, args, pos in _find_calls(clean):
+        if fname not in decls:
+            continue
+        parts = _split_top_commas(args)
+        for plist in decls[fname]:
+            if len(plist) != len(parts):
+                continue
+            new_parts, changed = [], False
+            for a, p in zip(parts, plist):
+                at, pp = _arg_type(a.strip(), vartypes), None
+                if p and p not in ("...", "void"):
+                    pp = _ptr_parts(p)
+                ap = _ptr_parts(at) if at else None
+                if ap is None and pp is not None and pp[1] == 0:
+                    # _arg_type konservatif (ekspresi operator -> None);
+                    # tebak level dari operan var-pointer lokal.
+                    lv = _expr_ptr_level(a.strip())
+                    if lv:
+                        ap = ("?", lv)
+                if ap is None and pp is not None and pp[1] >= 1:
+                    # Array lokal (&arr / arr-decay): alamat elemen pertama
+                    # == alamat array, cast (Tparam) no-op. Base boleh beda
+                    # (u8 vs i32): hanya reinterpretasi alamat (mov sama).
+                    toks = re.findall(r"&?([A-Za-z_]\w*)", a.strip())
+                    if any("[" in (vartypes.get(t) or "") for t in toks):
+                        ap = ("?", 1)
+                if (ap and pp and ap[1] > 0
+                        and (pp[1] == 0 or ap[0] == "?")
+                        and re.search(r"[A-Za-z_]", a)):
+                    new_parts.append(f"({p})({a.strip()})")
+                    changed = True
+                else:
+                    new_parts.append(a.strip())
+            if changed:
+                edits.append((pos, fname, args, new_parts))
+            break  # overload pertama yg cocok: nilai itu
+    for pos, fname, args, new_parts in reversed(edits):
+        end = pos + len(fname) + 1 + len(args) + 1
+        body = (body[:pos] + fname + "(" + ", ".join(new_parts)
+                + body[end - 1:])
+    return body
+
+
+def _void_ptr_arith_fix(body):
+    """`void *v` -> `u8 *v` bila v dipakai arithmetic (`v + N`, `v[N]`).
+
+    C++ melarang arithmetic pada void* (GNU C mengizinkan sbg byte-wise).
+    u8* memberikan semantic byte-wise yg sama; semua assignment yg sahih
+    utk void* tetap sahih utk u8* (konversi implisit), dan address
+    computation bersifat compile-time -> codegen identik (byte-identik).
+    Hanya var lokal yg dideklarasikan `void *` di body ini."""
+    declared = set(re.findall(r"^\s*void\s*\*\s*([A-Za-z_]\w*)\s*;",
+                              body, re.M))
+    if not declared:
+        return body
+    used_arith = set()
+    for m in re.finditer(r"\b([A-Za-z_]\w*)\s*(?:\+|-)\s*(?:0[xX][0-9a-fA-F]+|\d+)",
+                         body):
+        if m.group(1) in declared:
+            used_arith.add(m.group(1))
+    for m in re.finditer(r"\b([A-Za-z_]\w*)\s*\[", body):
+        if m.group(1) in declared:
+            used_arith.add(m.group(1))
+    for m in re.finditer(r"\b([A-Za-z_]\w*)\s*(\+=|-=)", body):
+        if m.group(1) in declared:
+            used_arith.add(m.group(1))
+    for v in used_arith:
+        body = re.sub(rf"^(\s*)void\s*\*\s*({re.escape(v)})\s*;",
+                      rf"\1u8 *\2;", body, flags=re.M)
+    return body
 
 
 def _callsite_ptr_mismatch(body, src_nostruct):
@@ -999,7 +1609,8 @@ def migrate_one(module, func, dry_run=False):
     body = translate_types(body)
     body, need_memcpy = adapt_memcpy(body)
     body, need_memcmp = adapt_memcmp(body)
-    need_string_h = need_memcpy or need_memcmp
+    body, need_libc = adapt_libc_string(body)
+    need_string_h = need_memcpy or need_memcmp or need_libc
 
     split = is_split_module(stem)
     if split and func not in migratable_set(stem):
@@ -1008,6 +1619,39 @@ def migrate_one(module, func, dry_run=False):
                 "detail": f"{func} grup gabungan/tak-split "
                 "(lihat split_asm_sections.py --migratable), dilewati"}
     secname = asm_section_of(stem, func) if split else None
+    # Data se-grup (aturan data-join splitter): tiap data-chunk perlu
+    # di-emit ke src dgn nama section yg sama agar splitter meng-omit-nya
+    # dari asm (kalau tidak, asm + src sama-sama menaruh section itu ->
+    # multiple definition, kasus game_state func_08010F1C).
+    data_plan = []  # [(dsec, addr8, addr_int, bytevals)]
+    if split:
+        for dsec, addr8, addr_int, dlines in group_data_chunks(stem, func):
+            bytevals = parse_data_bytes(dlines)
+            if bytevals is None:
+                return {"func": func, "module": module, "ok": False,
+                        "skipped": True,
+                        "detail": f"{func} data {dsec} simbolik/asing "
+                        "(butuh penanganan manual), dilewati"}
+            if not bytevals:
+                return {"func": func, "module": module, "ok": False,
+                        "skipped": True,
+                        "detail": f"{func} data {dsec} kosong "
+                        "(butuh penanganan manual), dilewati"}
+            if addr8 is None or addr_int is None:
+                return {"func": func, "module": module, "ok": False,
+                        "skipped": True,
+                        "detail": f"{func} data {dsec} tanpa alamat "
+                        "(.zz — tak ada alamat; tak bisa namai section "
+                        "dgn aman, dilewati)"}
+            data_plan.append((dsec, addr8, addr_int, bytevals))
+        for i in range(len(data_plan)):
+            for j in range(i + 1, len(data_plan)):
+                if data_plan[i][0] == data_plan[j][0]:
+                    return {"func": func, "module": module, "ok": False,
+                            "skipped": True,
+                            "detail": f"{func} dua data-chunk section sama "
+                            f"({data_plan[i][0]}), butuh penanganan manual, "
+                            "dilewati"}
 
     lds_text = lds_path.read_text()
     # Layout src-vs-asm: bila src tulisan-tangan berada SEBELUM asm
@@ -1103,7 +1747,20 @@ def migrate_one(module, func, dry_run=False):
             src_text, _migrated_spans(src_text))
         body, new_structs = _deconflict_new_structs(
             body, new_structs, old_structs, src_nostruct, func)
-        body, src_nostruct = _unify_extern_ptrs(body, src_nostruct)
+        # Urutan penting: arith-fix DULU (void* yang dipakai arithmetic
+        # menjadi u8*), baru scalar-cast (LHS sudah final) lalu ptr->int
+        # di call-site. Bila scalar-cast dulu, RHS skalar dibungkus
+        # (void*) lalu arith-fix mengubah LHS jadi u8* -> `u8* = (void*)`
+        # yang justru error kompilasi (kasus func_0803BE50).
+        body = _void_ptr_arith_fix(body)
+        body = _ptr_scalar_cast_fix(body, new_structs)
+        body = _ptr_to_int_cast_fix(body)
+        # _unify_extern_ptrs DINONAKTIFKAN (2026-10-31): rewrite param
+        # i32*/s32* -> void* TERBUKTI mengubah regalloc agbcc (kasus
+        # func_0803C7A0: draf MATCH dgn (s32 *), hasil unify (void *) jadi
+        # byte-DIFF r4<->r5). Konflik pointer ditangani SKIP konservatif
+        # via cek decl-vs-decl di bawah (extern beda tanda tangan).
+        # body, src_nostruct = _unify_extern_ptrs(body, src_nostruct)
         merged, struct_conflict = [], None
         for blk in old_structs + new_structs:
             nm = struct_name(blk)
@@ -1154,13 +1811,50 @@ def migrate_one(module, func, dry_run=False):
                             src_nostruct[pos:])
         else:
             src_text = src_nostruct
-        new_src = insert_ordered(src_text, marker_line, body, addr,
-                                 state_addrs, secname=secname, func=func)
+        # Blok fungsi sudah siap (body + managed types + cek konflik di
+        # atas). Emit unit data SEBELUM fungsi agar urutan alamat menaik
+        # terjaga (addr data < addr fungsi; insert_ordered menaruh tiap
+        # unit sebelum marker fungsi dgn addr lebih besar).
+        if data_plan:
+            data_ids = {f"gData_{stem}_{a8}" for _, a8, _, _ in data_plan}
+            if any(re.search(rf"// DECOMP-MATCHED {re.escape(d)}\b",
+                             src_text) for d in data_ids):
+                return {"func": func, "module": module, "ok": False,
+                        "skipped": True,
+                        "detail": f"{func} data {sorted(data_ids)} sudah ada "
+                        f"di {src_path} (dilewati)"}
+            for dsec, addr8, addr_int, bytevals in data_plan:
+                dmark, dbody = split_marker_body(
+                    data_block_text(stem, dsec, addr8, bytevals))
+                if f"gData_{stem}_{addr8}" not in dbody:
+                    return {"func": func, "module": module, "ok": False,
+                            "skipped": True,
+                            "detail": f"{func} data {dsec} format blok tak "
+                            "terduga (butuh penanganan manual), dilewati"}
+                dupe = [m for m in MIGRATED_FN_RE.finditer(src_text)
+                        if m.group(1) in data_ids]
+                if dupe:
+                    return {"func": func, "module": module, "ok": False,
+                            "skipped": True,
+                            "detail": f"{func} data {sorted(data_ids)} "
+                            f"sudah ada di {src_path} (dilewati)"}
+                src_text = insert_ordered(src_text, dmark, dbody, addr_int,
+                                          state_addrs)
+            new_src = insert_ordered(src_text, marker_line, body, addr,
+                                     state_addrs, secname=secname, func=func)
+        else:
+            new_src = insert_ordered(src_text, marker_line, body, addr,
+                                     state_addrs, secname=secname, func=func)
     else:
+        # Belum ada src/<stem>.cc: emit unit data dulu (urut alamat menaik)
+        # lalu fungsi, masing-masing dgn wrapper extern "C" sendiri.
         head = '#include "prelude.h"\n'
         if need_string_h:
             head += "#include <string.h> // memcpy\n"
-        new_src = head + "\n" + wrap_block(marker_line, body, secname, func)
+        new_src = head + "\n"
+        for dsec, addr8, addr_int, bytevals in data_plan:
+            new_src += data_block_text(stem, dsec, addr8, bytevals) + "\n"
+        new_src += wrap_block(marker_line, body, secname, func) + "\n"
 
     if not split and asm_tail and asm_tail.strip():
         # Legacy tail-only: ekor tak-bermarker dibawa verbatim tepat
