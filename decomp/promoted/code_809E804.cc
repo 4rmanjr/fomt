@@ -155,8 +155,13 @@ void func_080CFFC0(s32);
 void func_080AD938(s32 *arg0) { func_080CFFC0(arg0[1]); }
 
 // DECOMP-MATCHED func_080AD944 (dari code_809E804.s; cek manusia sebelum ke src/)
-void func_080A63B8(s32);
-void func_080AD944(s32 *arg0) { func_080A63B8(arg0[1]); }
+/* SKIP-MANUAL (callee A63B8 tidak-umittable): `ldr r0,[r4,#4]` pakai r0-asli
+   + call 2-arg r0=obj,r1; AD944 tak-dipanggil (0 bl-ref). SELF-REF tak-bisa:
+   tipe GenObj__ di-rename per-fungsi. Penyatuan butuh tulis-ulang callee
+   atau call-site dgn cast eksplisit per-A63B8. Draf dibiarkan 1-arg K&R. */
+void func_080A63B8(void);
+void func_080AD944(s32 *arg0) { (void)arg0; func_080A63B8(); }
+
 
 // DECOMP-MATCHED func_080A0504 (dari code_809E804.s; cek manusia sebelum ke src/)
 s32 func_080A0490();                                /* extern */
@@ -993,7 +998,6 @@ void func_080ADD44(GenObj *arg0) {
 // DECOMP-MATCHED func_080CE184 (dari code_809E804.s; cek manusia sebelum ke src/)
 s32 func_080CE184(s32 dummy, s32 arg1, s32 arg2) {
     s32 var_r0;
-
     if (arg1 <= 8) {
         var_r0 = (arg2 * 8) - 1;
     } else {
@@ -1001,7 +1005,6 @@ s32 func_080CE184(s32 dummy, s32 arg1, s32 arg2) {
     }
     return arg1 + var_r0;
 }
-
 /* ATTEMPT-NOTE opencode: s32 dummy agar arg1=r1, arg2=r2 (lsls r0,r2). */
 
 // DECOMP-MATCHED func_080A0384 (dari code_809E804.s; cek manusia sebelum ke src/)
@@ -1013,7 +1016,6 @@ void *func_080A0384(GenObj *arg0) {
     GenObj *t = arg0;
     void *var_r2;
     s32 sh = t->unk3 << 0x1E;
-
     var_r2 = 0;
     if (sh >= 0) {
     } else {
@@ -1021,7 +1023,6 @@ void *func_080A0384(GenObj *arg0) {
     }
     return var_r2;
 }
-
 /* ATTEMPT-NOTE opencode: copy arg0 ke t + sh-var agar movs r2 di posisi 4 (setelah lsls); unk3 u8. */
 
 // DECOMP-MATCHED func_080A0A04 (dari code_809E804.s; cek manusia sebelum ke src/)
@@ -1033,7 +1034,6 @@ void *func_080A0A04(GenObj *arg0) {
     GenObj *t = arg0;
     void *var_r2;
     s32 sh = t->unk3 << 0x1E;
-
     var_r2 = 0;
     if (sh >= 0) {
     } else {
@@ -1041,7 +1041,6 @@ void *func_080A0A04(GenObj *arg0) {
     }
     return var_r2;
 }
-
 /* ATTEMPT-NOTE opencode: sama A0384. */
 
 // DECOMP-MATCHED func_080AAF28 (dari code_809E804.s; cek manusia sebelum ke src/)

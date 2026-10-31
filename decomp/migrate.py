@@ -554,6 +554,12 @@ def extern_decls(text):
     # `i32 f(int);` di blok baru vs definisi `void f(GenObj *, ...)` yg
     # sudah pindah -> konflik kompilasi (kasus func_0803BEFC vs 03BDE4).
     # Tangkap dgn pola yg sama + kurung kurawal pembuka.
+    # BUG-FIX 2026-11-01 (TERBUKTI func_080A0384): kasus KEBALIKAN —
+    # body yg dimigrasi MENDEFINISIKAN fungsi sementara src hanya punya
+    # extern usang (i32(0384) dari blok 0030 yg pindah duluan). extern_decls
+    # src tak memuat definisi calon; defined_here dihitung SETELAH
+    # take_structs (struct dipisah, definisi utuh) di semua jalur pakai —
+    # JANGAN hitung defined_here dari body pra-take_structs.
     for m in FUNC_DEF_RE.finditer(text):
         if "(*" in m.group(0):
             continue
@@ -922,6 +928,19 @@ def _rhs_ptr_type(rhs, vartypes, ftypes, gtypes=None):
         t = vartypes.get(m.group(1))
         parts = _ptr_parts(t) if t else None
         return t if parts and parts[1] > 0 else None
+    # Subscript var-pointer (`p[i]`, `p[i][j]`, `p[i]+k`): deref parsial
+    # -> masih pointer (TERBUKTI func_080AAF1C, 2026-11-01:
+    # `volatile s32 v = arg0[0xC/4];` dgn arg0 `s32**` = `s32*`).
+    # Beda dgn `*p` penuh (skalar). Hanya var-lokal/param-pointer;
+    # field-subscript tak ditangani (konservatif).
+    m = re.match(r"^([A-Za-z_]\w*)\s*(\[[^\[\]]+\])+"
+                 r"(\s*[+\-]\s*[^+\-]+)?$", s)
+    if m:
+        t = vartypes.get(m.group(1))
+        parts = _ptr_parts(t) if t else None
+        if parts and parts[1] > 0:
+            return parts[0] + "*" * (parts[1] - 1) or parts[0]
+        return None
     m = re.match(r"^([A-Za-z_]\w*)\s*->\s*([A-Za-z_]\w*)$", s)
     if m:
         vt = vartypes.get(m.group(1))
@@ -974,6 +993,15 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
     for gm in re.finditer(r"^\s*extern\s+([\w:]+(?:\s*\*+)?)\s+(\w+)\s*;",
                           body, re.M):
         gtypes.setdefault(gm.group(2), gm.group(1).strip())
+    # Deklarasi volatile lokal (`volatile s32 v = ...;`): _LOCAL_DECL_RE
+    # tak menangkap `volatile` (negative lookahead) -> tambahkan manual
+    # agar inisialisasi skalar-dari-pointer dikenali (TERBUKTI
+    # func_080AAF1C, 2026-11-01: `volatile s32 v = arg0[0xC/4];`
+    # ditolak C++ `volatile i32 <- i32*`).
+    for gm in re.finditer(
+            r"^\s*volatile\s+([\w:]+(?:\s*\*+)?)\s+(\w+)\s*=",
+            body, re.M):
+        scalars.add(gm.group(2))
     scalars = set()
     for ln in body.splitlines():
         m = _LOCAL_DECL_RE.match(ln)
@@ -985,11 +1013,109 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
             r"\s+(\w+)\s*;", body, re.M):
         scalars.add(m.group(2))
     ftypes = _struct_field_types(struct_blocks or [])
+    # RETURN-CAST (TERBUKTI func_0809FE3C, 2026-11-01): `return <skalar>;`
+    # di fungsi ber-return pointer DITOLAK C++ (`i32* <- i32`) padahal
+    # judge C/agbcc lolos dgn warning. Cast `(Tret)(rhs)` no-op codegen
+    # (reinterpretasi register). Syarat: rhs literal/var-skalar/call
+    # NON-pointer (pointer sudah sahih); `return;` (void) dibiarkan.
+    _retm = re.search(
+        r"^\s*[\w:]+(?:\s*\*+)?\s*\w+\s*\([^;{}]*\)\s*\{",
+        body, re.M)
+    _rett = None
+    if _retm:
+        _rm = re.match(r"^\s*([\w:]+(?:\s*\*+)?)\s*\w+\s*\(",
+                        _retm.group(0))
+        if _rm:
+            _rett = _rm.group(1).strip()
+    _ret_parts = _ptr_parts(_rett) if _rett else None
+    if _ret_parts and _ret_parts[1] > 0:
+        _ret_lines = []
+        for _ln in body.splitlines():
+            _rm2 = re.match(r"^(\s*)return\s+(.+?);\s*$", _ln)
+            if _rm2 and not _rm2.group(2).strip().startswith(("(", "&")):
+                _rr = _rm2.group(2).strip()
+                if not _rhs_ptr_type(_rr, vartypes, ftypes, gtypes):
+                    _ln = (f"{_rm2.group(1)}return ({_rett})({_rr});")
+            _ret_lines.append(_ln)
+        body = "\n".join(_ret_lines)
+    # Normalisasi SATU-BARIS (TERBUKTI func_080AAF1C, 2026-11-01): draf
+    # m2c kadang satu-baris (`void f(..) { volatile s32 v = ...; }`)
+    # yg gagal diproses fix per-baris (deklarasi+assignment sebaris).
+    # Pecah `{`/`}`/`;` level-atas hanya utk analisis; body akhir tetap
+    # verbatim (out == splitlines -> return body). Aman: struktur
+    # brace-depth dihitung, string literal dilindungi sederhana.
+    work = body
+    if "\n" not in body.strip().strip("\n") or (
+            re.search(r"\{[^\n{}]*;", body)):
+        parts, depth, cur, instr = [], 0, [], False
+        for ch in body:
+            if ch == '"' and (not cur or cur[-1] != '\\'):
+                instr = not instr
+            cur.append(ch)
+            if not instr:
+                if ch in '{;':
+                    if ch == '{':
+                        depth += 1
+                    parts.append(''.join(cur)); cur = []
+                elif ch == '}':
+                    depth = max(0, depth - 1)
+                    parts.append(''.join(cur)); cur = []
+        if cur:
+            parts.append(''.join(cur))
+        work = '\n'.join(p for p in parts)
     out = []
-    for ln in body.splitlines():
+    for ln in work.splitlines():
         m = re.match(r"^(\s*)([A-Za-z_]\w*(?:\s*(?:->|\.)\s*[A-Za-z_]\w*)*)\s*=\s*(.+?);\s*$", ln)
+        decl_init = None
         if not m:
-            out.append(ln)
+            # Inisialisasi sebaris (`volatile s32 v = <rhs>;` satu-baris
+            # m2c; TERBUKTI func_080AAF1C, 2026-11-01) — perlakukan spt
+            # assignment utk penentuan cast (deklarator dipertahankan).
+            dm = re.match(
+                r"^(\s*)((?:(?:struct|union|enum|const|volatile)\s+)*"
+                r"[\w:]+(?:\s*\*+)?)\s+(\w+)\s*=\s*(.+?);\s*$", ln)
+            if dm and dm.group(3) not in _CALLSITE_KW:
+                decl_init = (dm.group(1), dm.group(2).strip(),
+                             dm.group(3), dm.group(4).strip())
+                m = True  # penanda: pakai jalur decl-init
+            else:
+                out.append(ln)
+                continue
+        if decl_init is not None:
+            ind, vt, var, rhs = decl_init
+            lhs = var
+            vp = _ptr_parts(vt) if vt else None
+            if vp and vp[1] > 0:
+                # LHS deklarasi pointer: biarkan bila RHS bukan
+                # skalar-diketahui; cast bila RHS skalar (int->ptr).
+                cast = False
+                if not (rhs.startswith("(") or rhs.startswith("&") or
+                        _rhs_ptr_type(rhs, vartypes, ftypes, gtypes)):
+                    import re as _re2
+                    _amm = _re2.match(
+                        r"^([A-Za-z_]\w*)\s*\+\s*([A-Za-z_]\w*)\s*$",
+                        rhs)
+                    if rhs in scalars or _NUMERIC_RE.match(rhs) or _amm:
+                        cast = True
+                if cast:
+                    lead = ln[: len(ln) - len(ln.lstrip())]
+                    cut = ln.lstrip()
+                    eq = cut.find("=")
+                    out.append(f"{lead}{cut[:eq+1]} ({vt})({rhs});")
+                else:
+                    out.append(ln)
+                continue
+            # LHS deklarasi skalar (=, mis. `volatile s32 v`): cast
+            # bila RHS DIKETAHUI pointer (ptr->skalar implisit;
+            # TERBUKTI func_080AAF1C: `v = arg0[0xC/4]`).
+            rt = _rhs_ptr_type(rhs, vartypes, ftypes, gtypes)
+            if rt is not None:
+                lead = ln[: len(ln) - len(ln.lstrip())]
+                cut = ln.lstrip()
+                eq = cut.find("=")
+                out.append(f"{lead}{cut[:eq+1]} ({vt})({rhs});")
+            else:
+                out.append(ln)
             continue
         ind, lhs, rhs = m.group(1), m.group(2).strip(), m.group(3).strip()
         vt = vartypes.get(lhs)
@@ -1053,8 +1179,48 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
             out.append(ln)
             continue  # return tak-dikenal: biarkan (konservatif)
         if "(" in rhs:
+            # PENGECUALIAN TERBUKTI (func_080A1C94, 2026-11-01): RHS
+            # `PARAM + var-skalar` (pointer arithmetic mentah dgn base
+            # parameter skalar, mis. `temp_r2 = arg0 + temp_r0_2;`) ADALAH
+            # pola int->pointer implisit yg DITOLAK C++ (`u8 *` dari
+            # `unsigned int`). Cast `(T *)(rhs)` no-op codegen
+            # (reinterpretasi register; judge C/agbcc dgn warning,
+            # C++ butuh cast eksplisit). Syarat ketat: LHS var pointer
+            # lokal (vartypes), RHS tepat `<ident> + <ident>` dua var
+            # skalar-dikenal (param/lokal). Kasus lain tetap dibiarkan.
+            amm = re.match(r"^([A-Za-z_]\w*)\s*\+\s*([A-Za-z_]\w*)\s*$",
+                           rhs)
+            if amm and lhs in vartypes:
+                # vartypes[param] kadang salah-isi utk param pertama
+                # (kasus `s32 arg0` -> `{'2': 'temp_r'}` bila regex
+                # param gagal). Fallback: tipenya diambil dari
+                # deklarasi definisi fungsi langsung.
+                vt_lhs = vartypes.get(lhs)
+                vtypes = dict(vartypes)
+                if not _ptr_parts(vt_lhs or ""):
+                    pm = re.search(
+                        r"^\s*[\w:]+\s*\**\s*\w+\s*\(([^;{}]*)\)\s*\{",
+                        body, re.M)
+                    if pm:
+                        for p in _split_top_commas(pm.group(1)):
+                            t2, nm2 = _param_type(p), _param_name(p)
+                            if t2 and nm2:
+                                vtypes.setdefault(nm2, t2)
+                def _is_scalar_var(nm):
+                    if nm in scalars:
+                        return True
+                    vt2 = vtypes.get(nm)
+                    pp = _ptr_parts(vt2) if vt2 else None
+                    # pointer level 0 / tipe tak-pointer-polus
+                    # (function/array -> None) = skalar utk tujuan ini
+                    return pp is None or pp[1] == 0
+                if _is_scalar_var(amm.group(1)) and _is_scalar_var(
+                        amm.group(2)):
+                    vt_use = vtypes.get(lhs, vt)
+                    out.append(f"{ind}{var} = ({vt_use})({rhs});")
+                    continue
             out.append(ln)
-            continue  # ekspresi: biarkan
+            continue  # ekspresi lain: biarkan
         if rhs in vartypes:
             rp = _ptr_parts(vartypes[rhs])
             if rp and rp[1] > 0:
@@ -1096,7 +1262,7 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
             # constant); cast redundan dilarang (bisa ubah codegen agbcc,
             # kasus temp_r0 = (*arg0) yg MATCH tanpa cast).
         out.append(f"{ind}{var} = ({vt})({rhs});")
-    if out == body.splitlines():
+    if out == work.splitlines():
         return body  # tak ada perubahan: kembalikan verbatim
     fixed = "\n".join(out)
     if body.endswith("\n") and not fixed.endswith("\n"):
@@ -1272,6 +1438,17 @@ def _callsite_ptr_mismatch(body, src_nostruct):
                 continue
             params = [_param_type(p) for p in _split_top_commas(m.group(4))]
             decls.setdefault(m.group(3), []).append(params)
+    # Definisi berargumen (FUNC_DEF_RE) ikut mengikat arity: deklarasi
+    # K&R `s32 f()` + definisi `s32 f(s32)` = call `f()` arity-mismatch
+    # (TERBUKTI 0504/0490, 2026-11-01). Tanpa ini call `f()` hanya
+    # dibanding deklarasi K&R (lolos) lalu meledak saat kompilasi.
+    for text in (body, src_nostruct):
+        for m in FUNC_DEF_RE.finditer(text):
+            if "(*" in m.group(0):
+                continue
+            params = [_param_type(p) for p in _split_top_commas(m.group(4))]
+            if m.group(3) not in decls or params not in decls[m.group(3)]:
+                decls.setdefault(m.group(3), []).append(params)
     if not any("**" in (t or "") for pl in decls.values()
                for ps in pl for t in ps):
         return None  # cepat: tanpa parameter multi-pointer tak ada yg dicek
@@ -1284,7 +1461,8 @@ def _callsite_ptr_mismatch(body, src_nostruct):
         if re.fullmatch(r"\s*[\w:]+\s*\**\s*", clean[line_start:pos]):
             continue  # deklarasi/definisi, bukan call-site
         arglist = _split_top_commas(args)
-        if len(arglist) == 1 and not arglist[0].strip():
+        _knr_empty = len(arglist) == 1 and not arglist[0].strip()
+        if _knr_empty:
             arglist = []
         compared, first_bad = False, None
         for sig in decls[fname]:
@@ -1294,6 +1472,19 @@ def _callsite_ptr_mismatch(body, src_nostruct):
                     continue
                 pairs = zip(arglist[: len(named)], named)
             elif len(arglist) != len(sig):
+                # PENGECUALIAN TERBUKTI (func_080A0504, 2026-11-01):
+                # call `f()` (0 arg) ke deklarasi K&R `s32 f()` (C: arg
+                # tak-spesifik, BUKAN void) dgn definisi berargumen —
+                # bytecode memakai register-sampah pemanggil. Di C++ ini
+                # error kompilasi yg TAK-terdeteksi sbg mismatch (lolos
+                # ke GAGAL mentah). Tangkap di sini sbg SKIP informatif.
+                # Params K&R kosong (['']) dinormalisasi ke [] di atas;
+                # sig dgn params nyata (mis. ['s32'] definisi) vs call
+                # kosong = arity-mismatch -> SKIP (TERBUKTI 0504).
+                if _knr_empty and [p for p in sig if p.strip()]:
+                    compared = True
+                    first_bad = ("(tak ada argumen)", "void",
+                                 " vs ".join(sig))
                 continue  # () C = arg tak-spesifik: tak dinilai
             else:
                 pairs = zip(arglist, sig)
@@ -1356,17 +1547,50 @@ def split_marker_body(block):
 
 
 def apply_section_attr(body, secname, func):
-    """Sisipkan __attribute__((section(...))) tepat sebelum definisi fungsi.
+    """Sisipkan __attribute__((section(...))) tepat sebelum DEFINISI fungsi.
 
     Letak: baris pertama yg menyebut `func` sbg definisi (nama persis,
     boleh ter-indentasi / header multi-baris). Tak false-positive pada
-    `if(`/macro pemanggil. Fallback: prepend di awal body bila tak ketemu."""
+    `if`/macro pemanggil. Fallback: prepend di awal body bila tak ketemu.
+    BUG-FIX 2026-11-01 (TERBUKTI 0384): pola lama match baris EXTERN
+    (`s32 f(s32);`) bila definisi belum ada di body — attribute menempel
+    di extern, DEFINISI tanpa section jatuh ke `.text` default. Perbaikan:
+    hanya sisip di baris DEFINISI (`{` di ekor / baris berikut `{`); bila
+    hanya extern yg match -> fallback prepend (definisi selalu di awal
+    body pasca-take_structs).
+    BUG-FIX 2026-11-01 (TERBUKTI CC144): definisi SATU-BARIS
+    (`void f(..) { ..; }`) mengandung `;` di ekor (dari statement di
+    dalamnya) — abaikan-`;` versi awal melewatkannya lalu fallback
+    prepend menaruh attribute sebelum baris EXTERN di awal body, bukan
+    sebelum definisi -> DEFINISI tanpa section jatuh ke `.text` default.
+    Perbaikan: deteksi `;`-hanya-bila-tak-ada-`{`-sebelumnya (extern murni
+    `...;` tanpa `{`; definisi satu-baris punya `{` sebelum `;`)."""
     pat = re.compile(rf"^\s*[\w].*\b{re.escape(func)}\s*\(")
     lines = body.splitlines(keepends=True)
     for i, ln in enumerate(lines):
         if pat.match(ln):
-            lines.insert(i, f'__attribute__((section("{secname}")))\n')
-            return "".join(lines)
+            code = ln.split("//")[0].rstrip()
+            is_def = code.endswith("{") or ("{" in code)
+            # Kalimat extern (`...;` TANPA `{`) BUKAN definisi walau
+            # namanya cocok (TERBUKTI 2026-11-01 CC144: `extern i32
+            # gUnk_08117838;` mengandung substring CC144 sbg bagian nama
+            # global). Abaikan deklarasi-`;`-murni; definisi satu-baris
+            # (`void f(..) { ..; }`) punya `{` sebelum `;` -> tetap definisi.
+            # Cek-`{`-dulu (bukan cek-`;`-dulu): definisi satu-baris
+            # BERAKHIR `;`-dari-statement (`..; }`) tapi mengandung `{`.
+            if "{" in code:
+                lines.insert(i, f'__attribute__((section("{secname}")))\n')
+                return "".join(lines)
+            if code.endswith(";"):
+                continue
+            if not is_def:
+                j = i + 1
+                while j < len(lines) and not lines[j].strip():
+                    j += 1
+                is_def = j < len(lines) and lines[j].strip().startswith("{")
+            if is_def:
+                lines.insert(i, f'__attribute__((section("{secname}")))\n')
+                return "".join(lines)
     return f'__attribute__((section("{secname}")))\n' + body
 
 
@@ -1390,12 +1614,161 @@ def insert_ordered(src_text, marker_line, body, addr, state_addrs,
     pos = len(src_text)
     for m in matches:
         other = state_addrs.get(m.group(1))
+        # Titik sisip = SEBELUM marker src PERTAMA yg addrnya melebihi
+        # tujuan, dgn pengecualian jarak-loncat: bila marker itu JAUH di
+        # atas tujuan sementara ada marker lain yg addrnya TEPAT di bawah
+        # tujuan, sisipkan SESUDAH marker-bawah itu (TERBUKTI B45E4,
+        # 2026-11-01: B44E0(0x80b44e0) < B45E4(0x80b45e4) < D1548(0x80d1548)
+        # dgn puluhan fungsi di antaranya belum pindah; menaruh B45E4
+        # tepat sebelum D1548 MEMBELAH brace extern-C D1548. Sisip sesudah
+        # B44E0 = posisi alamat yg benar).
         if other is not None and other > addr:
             pos = m.start()
             # mundur ke awal baris + sertakan blank-line pemisah sebelumnya
             while pos > 0 and src_text[pos - 1] != "\n":
                 pos -= 1
             break
+    else:
+        m = None
+    if m is not None:
+        _below = [(mm.start(), mm.group(1)) for mm in matches
+                  if (mm.start() < m.start()
+                      and (state_addrs.get(mm.group(1)) or 0) < addr)]
+        if _below:
+            _bs, _bn = max(_below)
+            # Koreksi bila blok-bawah dan marker-atas BERBEDA BLOK (ada
+            # fungsi-belum-pindah di antaranya yg memisahkan keduanya).
+            # Ukur BERDASARKAN SELISIH ALAMAT state (bukan selisih byte
+            # src — TERKOREKSI 2026-11-01: versi awal memakai gap byte
+            # src 207B yg kecil krn D1548 menempel tepat sesudah B44E0
+            # di src; yg benar = selisih alamat 0x80b45e4-0x80b44e0 vs
+            # 0x80d1548-0x80b45e4).
+            # SYARAT-KETAT (TERKOREKSI B45E4-final, 2026-11-01): koreksi
+            # HANYA bila blok-bawah adalah TETANGGA LANGSUNG tujuan di
+            # ROM (tak ada fungsi promoted LAIN di antaranya). Versi awal
+            # memakai marker-src-terdekat (B44E0) pdhl puluhan fungsi
+            # diantaranya BELUM pindah; menaruh B45E4 sesudah B44E0
+            # justru MENDAHULUI D1548 yg-blm-pindah -> duplikat/redefine.
+            # Cek via state_addrs: tak ada addr promoted lain di
+            # (below_addr, addr).
+            # TIDAK-JADI-DIPAKAI (B45E4-final2, 2026-11-01): _between
+            # kosong karena B44EC/B45F0/dst FAILED (belum pindah), jadi
+            # koreksi tetap jalan dan menaruh B45E4 sesudah B44E0 —
+            # MENDAHULUI puluhan fungsi-belum-pindah (B44EC..D1547)
+            # yg masih di asm. Aturan yg benar: koreksi ke-bawah HANYA
+            # bila tujuan adalah PENERUS LANGSUNG blok-bawah di ROM
+            # (below_addr = alamat fungsi promoted/blok-src terbesar yg
+            # < addr, TANPA kecuali status). B44E0(…4e0) -> B45E4(…5e4)
+            # dipisahkan B44EC(…4ec) yg ADDR-nya di antaranya (meski
+            # failed) -> BUKAN penerus langsung -> JANGAN koreksi;
+            # biarkan pos = sebelum D1548 (lihat guard-2 di bawah yg
+            # menahannya di luar brace extern-C D1548).
+            _below_addr = state_addrs.get(_bn) or 0
+            _above_addr = state_addrs.get(m.group(1)) or 0
+            _between_any = [nm for nm, ad in state_addrs.items()
+                            if _below_addr < ad < addr]
+            if (_above_addr - addr > addr - _below_addr
+                    and not _between_any):
+                # Sisip tepat sesudah blok fungsi BAWAH (_bn): majukan
+                # pos dari awal-marker _bs melewati SATU blok fungsi
+                # (sampai `}` penutup extern-C blok itu). Berhenti di
+                # marker BERIKUTNYA — JANGAN makan blok-blok sesudahnya
+                # (TERKOREKSI B45E4-tryB, 2026-11-01: walker versi awal
+                # terus memakan D1548 dst sampai EOF lalu duplikat).
+                _lines2 = src_text[_bs:].splitlines(keepends=True)
+                _consumed, _i2, _pass_marker = 0, 0, False
+                while _i2 < len(_lines2):
+                    _l2, _s2 = _lines2[_i2], _lines2[_i2].strip()
+                    _consumed += len(_l2)
+                    _i2 += 1
+                    if not _pass_marker:
+                        if _s2.startswith('// DECOMP-MATCHED'):
+                            _pass_marker = True
+                        continue
+                    # sesudah marker blok-bawah: blok fungsi = dari
+                    # `extern "C" {` sampai `}` penutupnya (kedalaman 1).
+                    # Satu-baris (`u8 f(..){..}`) maupun multi-baris
+                    # sama-sama berakhir di baris yg stripnya `}`.
+                    # TAPI: blok naked multi-baris mengandung baris `}`
+                    # di dlm string asm (mis. blok ...1548: `}` penutup
+                    # fungsi lalu `}` penutup extern-C). Walker ini hanya
+                    # dipakai utk blok-bawah yg SUDAH pindah (B44E0 dkk,
+                    # bukan naked) — cukup hitung `}` pertama sesudah
+                    # baris DEFINISI fungsi terlihat.
+                    if _s2 == '}' and re.search(
+                            r'\bfunc_\w+\s*\([^;{}]*\)\s*\{',
+                            src_text[_bs:_bs + _consumed]):
+                        break
+                if _consumed:
+                    pos = _bs + _consumed
+    # Jangan belah blok `extern "C" {` milik fungsi lain: bila pos
+    # jatuh di DALAM brace extern-C yg belum ditutup (TERBUKTI B45E4 vs
+    # D1548, 2026-11-01). Guard naked-aware: bila definisinya naked,
+    # SEMUA baris sampai `);` penutup pernyataan asm dianggap isi-fungsi
+    # (tak ada `}` penutup di situ) agar scanner tak salah hitung `}`
+    # di dlm string-asm (TERBUKTI try6: depth balik 0 di tengah blok
+    # naked D1548 shg pos "di antara } fungsi dan } extern" tak terdeteksi).
+    _depth = 0
+    _in_ec = False
+    _in_naked = False
+    _lines = src_text[:pos].splitlines(keepends=True)
+    _idx = 0
+    while _idx < len(_lines):
+        _ln = _lines[_idx]
+        _s = _ln.strip()
+        if _in_naked:
+            if ');' in _ln:
+                _in_naked = False
+            _idx += 1
+            continue
+        if _s.startswith('extern "C"') and _s.endswith('{'):
+            _in_ec = True
+            _depth += 1
+        elif _in_ec and re.match(
+                r'^\s*(?!return\b)[\w:]+(?=[\s\*])\s*\**\s*\w+\s*\([^;{}]*\)\s*\{',
+                _ln):
+            # baris DEFINISI fungsi di dlm extern-C: brace `}` penutupnya
+            # nanti hanya milik fungsi, BUKAN milik brace extern-C
+            # (TERKOREKSI 2026-11-01: versi awal menghitung SEMUA `}`
+            # sbg penutup extern-C shg depth balik 0 pdhl brace extern
+            # msh terbuka).
+            if 'naked' in _ln and ');' not in _ln:
+                _in_naked = True
+            _depth += 1
+        elif _s == '}' and _in_ec:
+            _depth -= 1
+            if _depth <= 0:
+                _in_ec = False
+                _depth = 0
+        _idx += 1
+    if _in_ec:
+        _tail = src_text[pos:]
+        # TAIL naked-aware: baris `}` di dlm string-asm multi-baris
+        # (`__asm__ volatile ("..." ... ");`) BUKAN penutup brace.
+        # Cari penutup dgn melompati segmen naked (sampai `);`).
+        _tlines = _tail.splitlines(keepends=True)
+        _d2, _off, _acc, _ti, _tnak = _depth, 0, 0, 0, False
+        while _ti < len(_tlines):
+            _tl = _tlines[_ti]
+            _acc += len(_tl)
+            _ti += 1
+            if _tnak:
+                if ');' in _tl:
+                    _tnak = False
+                continue
+            if re.match(
+                    r'^\s*(?!return\b)[\w:]+(?=[\s\*])\s*\**\s*\w+'
+                    r'\s*\([^;{}]*\)\s*\{', _tl) and 'naked' in _tl \
+                    and ');' not in _tl:
+                _tnak = True
+                continue
+            if _tl.strip() == '}':
+                _d2 -= 1
+                if _d2 <= 0:
+                    _off = _acc
+                    break
+        if _off:
+            pos = pos + _off
     if not src_text.endswith("\n") and src_text:
         src_text += "\n"
     if src_text and not src_text.endswith("\n\n"):
@@ -1677,10 +2050,12 @@ def migrate_one(module, func, dry_run=False):
                         "detail": f"{func} data {dsec} simbolik/asing "
                         "(butuh penanganan manual), dilewati"}
             if not bytevals:
-                return {"func": func, "module": module, "ok": False,
-                        "skipped": True,
-                        "detail": f"{func} data {dsec} kosong "
-                        "(butuh penanganan manual), dilewati"}
+                # Chunk data KOSONG (padding `.align`/blank sisa
+                # pemotongan 2-mod-4/orphan-tail — tak ada byte ROM):
+                # lewati diam-diam, BUKAN SKIP fungsi (TERBUKTI
+                # 2026-11-01: func_0809EE4C/EE8C/9E988 EED0 dkk;
+                # tanpanya 251 fungsi 809E804 macet di SKIP palsu).
+                continue
             if addr8 is None or addr_int is None:
                 return {"func": func, "module": module, "ok": False,
                         "skipped": True,
@@ -1795,8 +2170,35 @@ def migrate_one(module, func, dry_run=False):
         body, new_structs = take_structs(body)
         src_nostruct, old_structs = _strip_in_spans(
             src_text, _migrated_spans(src_text))
+        # src_nostruct = src + BLOK CALON (belum di-insert): cek konflik
+        # harus melihat kode final (khususnya definisi yg dibawa blok
+        # ini sendiri sbg validator rewrite extern). (TERBUKTI 5EA0:
+        # tanpa ini GetMapData di src tak-terlihat karena _strip_in_spans
+        # hanya strip struct, BUKAN definisi fungsi — definisi tetap ada.
+        # Koreksi: definisi di src ADA; yg hilang hanya definisi dlm body
+        # calon. Jadi tambahkan definisi body-calon, bukan seluruh body.)
+        # DEFINISI + EXTERN body-calon (TERKOREKSI 5EA0/2:: extern calon
+        # spt `void* GetMapData(i32)` JUGA validator — definisi fisiknya
+        # di blok src lain. Tanpa baris ini GetMapData tak-terlihat:
+        # decl_new vs src_defs kosong -> jatuh ke SKIP yg benar? TIDAK —
+        # 5EA0 butuh GetMapData ter-resolve agar rewrite jalan; Unpack
+        # (failed) tetap SKIP via validator callee.)
+        _cand_defs = "\n".join(
+            m.group(0) for m in FUNC_DEF_RE.finditer(body)
+            if "(*" not in m.group(0))
+        _cand_ext = "\n".join(
+            m.group(0) for m in EXTERN_RE.finditer(body)
+            if "(*" not in m.group(0))
+        # Validator-only: tempelkan ke SALINAN utk cek-konflik, JANGAN ke
+        # src_nostruct yg dipakai sbg basis insert (TERBUKTI B45E4-final3,
+        # 2026-11-01: versi awal append permanen ke src_nostruct; karena
+        # jalur `merged` kosong -> `src_text = src_nostruct` (dgn tempelan
+        # _cand_defs/_cand_ext mentah TANPA marker/wrap), lalu insert
+        # menambah blok final -> definisi ganda + `syntax error at end
+        # of input` (extern tanpa `;` di ekor)).
+        _conflict_view = src_nostruct + "\n" + _cand_defs + "\n" + _cand_ext
         body, new_structs = _deconflict_new_structs(
-            body, new_structs, old_structs, src_nostruct, func)
+            body, new_structs, old_structs, _conflict_view, func)
         # Urutan penting: arith-fix DULU (void* yang dipakai arithmetic
         # menjadi u8*), baru scalar-cast (LHS sudah final) lalu ptr->int
         # di call-site. Bila scalar-cast dulu, RHS skalar dibungkus
@@ -1832,19 +2234,227 @@ def migrate_one(module, func, dry_run=False):
                     "(butuh penyatuan manual), dilewati"}
         # Deklarasi extern yang sama dengan tanda tangan beda juga tabrakan
         # di scope file (braces extern "C" tidak membuat scope).
-        decl_old, decl_new = extern_decls(src_nostruct), extern_decls(body)
+        # PENGECUALIAN SELF-REF (TERBUKTI func_080B3C78, 2026-11-01): bila
+        # blok yg dimigrasi MENDEFINISIKAN nm sbg fungsi benaran (bukan
+        # sekadar extern), definisi final MENANG atas extern usang di
+        # src — extern lama di src di-REWRITE ke tanda definisi (fix
+        # terverifikasi di tempat, judge ulang menentukan HIJAU; bila
+        # ternyata codegen beda -> MERAH terdeteksi, bukan senyap).
+        # Tanpa ini, blok dgn extern warisan salah-tanda (m2c) macet
+        # permanen di SKIP meski definisi benar sudah pindah duluan.
+        decl_old, decl_new = extern_decls(_conflict_view), extern_decls(body)
+        # defined_here: definisi yg dibawa body calon (pre-section —
+        # attribute-section disisipkan BELAKANGAN di insert_ordered, jadi
+        # hitung SEBELUM wrap; FUNC_DEF_RE tak cocok bila attribute sudah
+        # menempel di depan definisi). BUG 2026-11-01 (TERBUKTI 0384).
+        defined_here = {m.group(3) for m in FUNC_DEF_RE.finditer(body)
+                        if "(*" not in m.group(0)}
+        # SELF-REF diperluas (TERKOREKSI 2026-11-01): yg menang bukan
+        # definisi dlm body, melainkan DEFINISI FINAL yg sudah pindah
+        # ke src (extern usang di body merujuk fungsi yg definisinya
+        # benar ada di src). Contoh: body B3C78 hanya mendeklarasikan
+        # `s32 AE4D8(s32)`, definisi benar `u8 AE4D8(S_4D8*)` sudah di
+        # src (dari blok AE4D8 yg pindah duluan) -> rewrite extern usang
+        # di body+src ke tanda definisi. `defined_here` tetap dipakai:
+        # bila nm didefinisikan di body, tanda body yg menang.
+        # CATATAN: extern_decls(src) tak menangkap definisi dalam
+        # wrapper `extern "C" {` bila pola membutuhkan `^` diawal baris
+        # dgn indentasi tertentu — kumpulkan src_defs dari DEFINISI
+        # yg lolos filter FUNC_DEF_RE SAJA (bukan dari decl). Bila tak
+        # ketemu (kasus u8 AE4D8 satu-baris yg FUNC_DEF_RE lewatkan),
+        # fallback: cari `) {` setelah nama di _conflict_view.
+        src_defs = {}
+        for m in FUNC_DEF_RE.finditer(_conflict_view):
+            if "(*" in m.group(0):
+                continue
+            src_defs.setdefault(m.group(3), set()).add(
+                (m.group(1) + m.group(2) + " "
+                 + "(" + re.sub(r"\s+", " ", m.group(4).strip()) + ")"))
+        for _nm in set(decl_old) | set(decl_new):
+            if _nm not in src_defs:
+                _dm = re.search(
+                    r"^\s*[\w:]+(?:\s*\*+)?\s*" + re.escape(_nm)
+                    + r"\s*\(([^;{}]*)\)\s*\{[^}]*\}",
+                    _conflict_view, re.M | re.S)
+                if _dm:
+                    _rt = re.search(
+                        r"^\s*([\w:]+(?:\s*\*+)?)\s*" + re.escape(_nm),
+                        _conflict_view, re.M)
+                    if _rt:
+                        src_defs[_nm] = {
+                            _rt.group(1).strip() + " (" +
+                            re.sub(r"\s+", " ", _dm.group(1).strip())
+                            + ")"}
+        # Kasus B3C78/AE4D8: extern usang HANYA di body (tak ada di src
+        # karena definisi benar di src bukan extern) -> konflik tak
+        # tertangkap decl-vs-decl. Cek tiap extern body vs definisi src:
+        # bila beda -> rewrite extern body ke tanda definisi src.
+        # SYARAT validator callee (TERBUKTI func_080A5EA0/Unpack,
+        # 2026-11-01): callee harus MATCH (status promoted); callee
+        # failed (asm tak-valid) tak-bisa divalidasi -> SKIP pemanggil
+        # dgn pesan jelas (bukan GAGAL kompilasi mentah).
+        _callee_status = {k: (v.get("status") if isinstance(v, dict)
+                               else None)
+                          for k, v in state.items()}
         for nm, sigs in decl_new.items():
-            if nm in decl_old and not sigs.issubset(decl_old[nm]):
+            # Syarat rewrite TANPA-pandang-lokasi-deklarasi (TERKOREKSI
+            # AD944-final, 2026-11-01): versi awal mensyaratkan
+            # `nm not in decl_old` — padahal decl_old mencakup definisi-src
+            # (extern_decls menangkap definisi juga), shg extern-usang-body
+            # yg definisinya SUDAH di src (A63B8) lolos loop ini dan jatuh
+            # ke konflik-mentah di bawah. Syarat yg benar: rewrite bila
+            # src punya DEFINISI nm (validator) yg beda dari extern body.
+            if nm in src_defs and not sigs.issubset(src_defs[nm]):
+                if _callee_status.get(nm) != "promoted":
+                    # BUKAN SKIP-menunggu-kematangan (callee failed takkan
+                    # pernah MATCH): ini SKIP-PERMANEN yg butuh perbaikan
+                    # manual callee. Pesan eksplisit agar tak diulang sia2.
+                    _perm = " (SKIP-PERMANEN: callee tak-MATCH; butuh tulis manual callee)" \
+                        if _callee_status.get(nm) != "drafted" else ""
+                    return {"func": func, "module": module, "ok": False,
+                            "skipped": True, "permanent": True,
+                            "detail": f"callee {nm} bukan MATCH "
+                            f"(status={_callee_status.get(nm)}); "
+                            "penyatuan extern butuh validator; dilewati" + _perm}
+                new_sig = sorted(src_defs[nm])[0]
+                _pm = re.match(r"^(.*?)\s*\((.*)\)\s*$", new_sig)
+                if _pm:
+                    _ret, _params = _pm.group(1), _pm.group(2)
+                    def _repl2(m):
+                        if m.group(3) != nm:
+                            return m.group(0)
+                        return (f"{_ret} {nm}({_params});"
+                                "                             /* extern */")
+                    body, _n = EXTERN_RE.subn(_repl2, body, count=1)
+        decl_new = extern_decls(body)  # segarkan setelah rewrite
+        # Konflik DEFINISI-vs-EXTERN (TERBUKTI func_080A0384, 2026-11-01):
+        # body MENDEFINISIKAN nm sementara src hanya punya extern usang
+        # (tak ada di decl-vs-decl karena body tak mengextern-kan dirinya
+        # sendiri). Syarat: definisi di body (defined_here) + src BELUM
+        # punya definisi itu (nm tak di src_defs/definisi-src, hanya extern
+        # usang di decl_old) -> SKIP informatif (manusia menyatukan draf;
+        # rewrite-buta ke tanda body tak-aman bila call-site di blok src
+        # lain (mis. 0030-case34 `return 0384(arg0)`) ikut harus di-cast).
+        # HALUS: src_defs mencakup definisi calon (_cand_defs) dgn tanda
+        # LAMA pre-rename (GenObj vs GenObj__0384) — JANGAN anggap itu
+        # sbg "definisi sudah ada"; bandingkan sig: SKIP bila sig body
+        # (decl_new, post-rename) tak-cocok DUA-DUANYA dgn sig lain
+        # (extern usang maupun definisi-calon-lama).
+        for nm in defined_here:
+            if nm in decl_old and nm in decl_new and not decl_new[nm].issubset(
+                    decl_old[nm]) and not decl_new[nm].issubset(
+                    src_defs.get(nm, set())):
                 return {"func": func, "module": module, "ok": False,
                         "skipped": True,
-                        "detail": f"extern {nm} beda tanda tangan "
-                        f"({sorted(decl_old[nm])} vs {sorted(sigs)}), "
-                        "butuh penyatuan manual, dilewati"}
-        ck = _callsite_ptr_mismatch(body, src_nostruct)
+                        "detail": f"definisi {nm} di body vs extern usang "
+                        f"di src ({sorted(decl_old[nm])}); butuh penyatuan "
+                        "manual (definisi + call-site), dilewati"}
+        for nm, sigs in decl_new.items():
+            if nm in decl_old and not sigs.issubset(decl_old[nm]):
+                if nm in defined_here:
+                    # definisi dlm body menang: rewrite extern usang di
+                    # src ke tanda body.
+                    new_sig = sorted(sigs)[0]
+                    winner = "body"
+                elif nm in src_defs:
+                    # definisi final sudah di src: rewrite extern usang
+                    # di BODY ke tanda src (kasus B3C78/AE4D8).
+                    new_sig = sorted(src_defs[nm])[0]
+                    winner = "src"
+                elif _callee_status.get(nm) == "promoted":
+                    # definisi final SUDAH di src TAPI src_defs tak
+                    # melihatnya (definisi ada di src_nostruct dgn
+                    # attribute-section di depannya sehingga pola
+                    # definisi-src lolos — TERBUKTI 2026-11-01 AD944:
+                    # `void A63B8(GenObj__*,i32)` di src tak-tercatat di
+                    # src_defs, rewrite-body ke tanda definisi-src
+                    # di-SKIP dan konflik mentah lolos ke kompilasi).
+                    # Syarat callee MATCH (promoted) sbg validator.
+                    _dm2 = re.search(
+                        r"^\s*[\w:]+(?:\s*\*+)?\s*" + re.escape(nm)
+                        + r"\s*\(([^;{}]*)\)\s*\{",
+                        src_nostruct, re.M)
+                    if _dm2 is None:
+                        return {"func": func, "module": module,
+                                "ok": False, "skipped": True,
+                                "detail": f"extern {nm} beda tanda "
+                                f"tangan ({sorted(decl_old[nm])} vs "
+                                f"{sorted(sigs)}), butuh penyatuan "
+                                "manual, dilewati"}
+                    _rt2 = re.search(
+                        r"^\s*([\w:]+(?:\s*\*+)?)\s*" + re.escape(nm),
+                        src_nostruct, re.M)
+                    _new_sig2 = ((_rt2.group(1).strip() + " (" +
+                                  re.sub(r"\s+", " ",
+                                         _dm2.group(1).strip()) + ")")
+                                 if _rt2 else None)
+                    if _new_sig2 is None:
+                        return {"func": func, "module": module,
+                                "ok": False, "skipped": True,
+                                "detail": f"extern {nm} beda tanda "
+                                f"tangan ({sorted(decl_old[nm])} vs "
+                                f"{sorted(sigs)}), butuh penyatuan "
+                                "manual, dilewati"}
+                    new_sig = _new_sig2
+                    winner = "src"
+                else:
+                    return {"func": func, "module": module, "ok": False,
+                            "skipped": True,
+                            "detail": f"extern {nm} beda tanda tangan "
+                            f"({sorted(decl_old[nm])} vs {sorted(sigs)}), "
+                            "butuh penyatuan manual, dilewati"}
+                _pm = re.match(r"^(.*?)\s*\((.*)\)\s*$", new_sig)
+                if _pm:
+                    _ret, _params = _pm.group(1), _pm.group(2)
+                    def _repl(m):
+                        if m.group(3) != nm:
+                            return m.group(0)
+                        return (f"{_ret} {nm}({_params});"
+                                "                             /* extern */")
+                    if winner == "body":
+                        # Rewrite extern usang di BASIS-INSERT (src_nostruct
+                        # murni, bukan _conflict_view validator) agar fix
+                        # ikut ter-emit.
+                        src_nostruct, _n = EXTERN_RE.subn(
+                            _repl, src_nostruct, count=1)
+                    else:
+                        body, _n = EXTERN_RE.subn(
+                            _repl, body, count=1)
+                        # Sinkronkan validator agar cek lanjutan konsisten.
+                        _conflict_view, _n = EXTERN_RE.subn(
+                            _repl, _conflict_view, count=1)
+        ck = _callsite_ptr_mismatch(body, _conflict_view)
         if ck:
-            return {"func": func, "module": module, "ok": False,
-                    "skipped": True,
-                    "detail": f"{ck}, dilewati"}
+            # PENGECUALIAN call-vs-DEFINISI (TERBUKTI B3C78, 2026-11-01):
+            # `func_080AE4D8(arg0->unk4)` i32->S_4D8* tak-konversi bahkan
+            # dgn cast (base beda; cast hanya utk pointer-vs-skalar di
+            # _ptr_scalar_cast_fix, bukan pointer-vs-pointer beda-base).
+            # Rewrite call-site `f(x)` -> `f((T*)(x))` NO-OP codegen
+            # (reinterpretasi register; judge C maafkan, C++ butuh cast).
+            # Syarat: 1 arg, callee definisi pointer-di-src, argumen
+            # skalar/pointer-diketahui (bukan call/cast/address-of).
+            import re as _re2
+            _m2 = _re2.match(
+                r"^call-site (\w+): argumen `(.*?)` \(`(.*?)`\) tak "
+                r"konversi implisit ke parameter `(.*?)`", ck)
+            _fixed = False
+            if _m2:
+                _fn, _a, _at, _p = _m2.groups()
+                _pp = _ptr_parts(_p)
+                if (_pp and _pp[1] > 0 and "(" not in _a
+                        and not _a.strip().startswith(("&", "*"))):
+                    _pat = re.compile(r"\b" + re.escape(_fn) + r"\s*\("
+                                        + re.escape(_a) + r"\s*\)")
+                    _newbody, _n = _pat.subn(
+                        f"{_fn}(({_p})({_a}))", body, count=1)
+                    if _n:
+                        body = _newbody
+                        ck = _callsite_ptr_mismatch(body, _conflict_view)
+                        _fixed = ck is None
+            if ck and not _fixed:
+                return {"func": func, "module": module, "ok": False,
+                        "skipped": True,
+                        "detail": f"{ck}, dilewati"}
         if merged:
             merged = _topo_order(merged)
             sec = MANAGED_BEGIN + "\n".join(merged) + "\n" + MANAGED_END
@@ -2116,7 +2726,7 @@ def main():
             print("baseline merah — abort, tidak migrasi.")
             return 2
 
-    moved, failed, dry = [], None, []
+    moved, failed, dry, perm_skips = [], None, [], []
     for mod, name in plan:
         _analyze_stem.cache_clear()  # asm dibaca ulang per iterasi (tulisan real)
         print(f"== migrasi {name} ({mod}) ...")
@@ -2129,6 +2739,8 @@ def main():
         if r["ok"]:
             moved.append(r)
         elif r.get("skipped"):
+            if r.get("permanent"):
+                perm_skips.append(r)
             continue
         else:
             failed = r
@@ -2142,6 +2754,9 @@ def main():
     print(f"pindah: {len(moved)} " +
           (", ".join(f"{r['func']}({r['module']})" for r in moved)
            if moved else "-"))
+    if perm_skips:
+        print(f"SKIP-permanen: {len(perm_skips)} " +
+              ", ".join(f"{r['func']}({r['detail'][:80]})" for r in perm_skips))
     for r in moved:
         print(f"  HIJAU {r['func']}: {r['detail']}")
         print(f"    file: {', '.join(r['files'])}")

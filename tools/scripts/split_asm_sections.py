@@ -210,16 +210,120 @@ def _trailing_data_start(chunk, refs):
     section asal maupun baru). Tanpa ini, data seperti 11F8 (yang
     dibatasi `.align` dari kode rand) ikut terpotong dan pindah section,
     menambah byte hantu saat `.ALIGN` macro dihitung ulang.
+
+    PENGECUALIAN TERBUKTI (code_809E804.func_0809EEA4, 2026-11-01): satu
+    `.align` + segelintir baris data YATIM (label tak dirujuk modul)
+    tepat di ujung chunk, DAN chunk fungsi pemiliknya BERAKHIR di situ
+    (data adalah hal terakhir sebelum thumb_func_start berikut — bukan
+    `.align` pemisah antar dua blok kode). Itu ekor literal pemiliknya
+    (di ROM asli menempel setelah kode, sebelum section fungsi berikut)
+    — BUKAN milik blok berikut: fungsi berikut selalu diawali macro
+    thumb_func_start + label globalnya sendiri, tak pernah memakai data
+    ini. Tanpa pengecualian, suffix yatim ini tetap di chunk fungsi;
+    saat fungsi dimigrated, splitter meng-omit SELURUH section
+    (kode + suffix) dari asm sementara data_plan migrate (hanya melihat
+    chunk data TERPISAH) tak membawanya ke src -> 12 byte hilang dari
+    ROM (terkonfirmasi: .text ROM -0xC, pool .L0809EEC4 lenyap dari peta).
+    Syarat ketat pengecualian: (1) maksimal 2 baris setelah `.align`
+    terakhir dan label-labelnya yatim (tak ada di refs); (2) `.align`
+    itu adalah `.align` TERAKHIR chunk dan setelahnya hanya
+    data/label/blank sampai ujung chunk; (3) tepat setelah `.align`
+    ada baris KOSONG (jeda antar-fungsi asli) — tanpa jeda (`.align`
+    langsung diikuti data/label, mis. grup 2/3) DITOLAK: itu
+    padding/alignment internal kode pemiliknya (kasus 11F8 di atas).
+    Pola `.align` + blank + thumb_func_start (pemisah blok kosong,
+    tanpa data — mis. grup 2/3 code_809E804) juga DITOLAK: data milik
+    jalur fallthrough blok SEBELUMNYA.
     """
+    # Kandidat pengecualian: `.align` TERAKHIR chunk + <=2 baris
+    # data/label yatim MENEMPEL `.align` (tanpa blank di antaranya),
+    # DITUTUP baris KOSONG sebelum ujung chunk (jeda antar-fungsi;
+    # setelah blank hanya blank sampai ujung — thumb_func_start
+    # berikut ada di chunk BERIKUTNYA, bukan di sini).
+    # Bukti bentuk (TERBUKTI 2026-11-01):
+    # - func_0809EEA4 (LOLOS): `.align`/`.L0809EEC4:`/`.byte`//blank
+    #   = paket literal pemilik; blank memisahkan dari fungsi berikut.
+    # - grup 2/3 code_809E804 (DITOLAK): `.align` langsung diikuti
+    #   data yatim TANPA blank penutup = padding/alignment internal
+    #   pemilik (kasus 11F8 di docstring utama).
+    # - pola `.align` + blank + thumb_func_start (pemisah blok kosong)
+    #   DITOLAK: setelah `.align` tak ada data (data milik jalur
+    #   fallthrough blok SEBELUMNYA).
+    # Hitung dulu, pakai hanya bila scan utama berhenti tepat di
+    # `.align` itu (bukan di kode/label-rujuk).
+    tail_ok = None  # indeks awal kandidat, atau None
+    j = len(chunk) - 1
+    while j >= 0 and not _strip(chunk[j]):
+        j -= 1
+    # cari `.align` terakhir yg setelahnya hanya data/label yatim+blank
+    k = j
+    n = 0
+    ok = True
+    ai = None
+    while k >= 0:
+        s = _strip(chunk[k])
+        if not s:
+            k -= 1
+            continue
+        if re.match(r"^\.align\b", s):
+            # harus `.align` TERAKHIR: tak boleh ada `.align` lain
+            # antara ai dan ujung (k==posisi ini; pastikan tak ada
+            # `.align` di (k, j])
+            if any(re.match(r"^\.align\b", _strip(chunk[q]))
+                   for q in range(k + 1, j + 1)):
+                ok = False
+            else:
+                ai = k
+            break
+        md = DATA_RE.match(s)
+        ml = (LABEL_RE.match(s)
+              if not START_RE.match(chunk[k]) else None)
+        lab = None
+        if md:
+            lab = md.group(1)
+        elif ml:
+            lab = ml.group(1)
+        else:
+            ok = False
+            break
+        if lab and lab in refs:
+            ok = False
+            break
+        n += 1
+        if n > 2:
+            ok = False
+            break
+        k -= 1
+    if ok and ai is not None:
+        # kandidat valid: data menempel `.align`, DITUTUP >=1 baris
+        # KOSONG sebelum ujung chunk (setelah data hanya blank).
+        # Tanpa blank penutup = padding internal -> tolak.
+        # tail_ok = indeks `.align` (bukan ai+1!): pemotongan di
+        # `.align` agar `.align` ikut pindah ke chunk data — di section
+        # baru, `.align` dihitung dari awal section (offset 0, sudah
+        # align) = 0 byte hantu; bila `.align` TERTINGGAL di chunk
+        # fungsi, ia dihitung dari ujung kode (offset 2-mod-4) dan
+        # menambah 2 byte hantu (kasus func_0809EEA4: -0xC +0x2).
+        # j = indeks baris non-blank terakhir; blank = j+1..len-1.
+        # Sah bila t (ujung data) <= j < len-1 (ada blank penutup).
+        t = ai + 1
+        while t <= j and _strip(chunk[t]):
+            t += 1
+        tail_ok = ai if t > ai + 1 and j < len(chunk) - 1 else None
     i = len(chunk) - 1
     start = None
+    stopped_at_align = False
     while i >= 0:
         s = _strip(chunk[i])
         if not s:
             i -= 1
             continue
         if re.match(r"^\.align\b", s):
-            start = None
+            if tail_ok is not None and i == ai:
+                start = tail_ok
+            else:
+                start = None
+            stopped_at_align = True
             break
         md = DATA_RE.match(s)
         if md:
@@ -394,6 +498,23 @@ def split(text: str, stem: str, migrated=None) -> str:
         funcs = [c for c in chs if c["kind"] == "func"]
         migratable = len(funcs) == 1
         if migratable and funcs[0]["migrated"]:
+            continue
+        # Grup 2-fungsi yg SALAH SATU sudah migrated (terbentuk via
+        # merger 2-mod-4/padding atau paritas data — mis. [EEA4, EED0]
+        # setelah EED0 pindah duluan): emit ULANG chunk NON-migrated
+        # saja di section-nya sendiri; chunk migrated di-omit.
+        # (TERBUKTI 2026-11-01: tanpa ini, EED0 yg sudah di src ikut
+        # di-emit ulang dari asm -> multiple definition.)
+        if not migratable and any(c.get("migrated") for c in chs):
+            for ch in chs:
+                if ch.get("migrated"):
+                    continue
+                if ch["kind"] == "data" and not ch["lines"]:
+                    continue  # chunk data kosong (padding) -> omit
+                out.append(
+                    f'    .section "{ch["secname"]}", "ax",'
+                    f' %progbits\n')
+                out.extend(ch["lines"])
             continue
         out.append(f'    .section "{chs[0]["secname"]}", "ax", %progbits\n')
         lines = []
