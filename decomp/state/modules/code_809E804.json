@@ -45,9 +45,9 @@
  },
  "free": {
   "addr": 135070304,
-  "judged_mtime": 1793017133.1258748,
+  "judged_mtime": 1793506659.3936064,
   "module": "code_809E804.s",
-  "note": "s/judge_free/kilo/func.c:29: invalid operands to binary +\n/home/armanjr/gitproject/fomt/decomp/logs/judge_free/kilo/func.c:33: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_free/kilo/func.c:33: request for member `unk8' in something not a structure or union\n",
+  "note": "8/func.c:29: invalid operands to binary +\n/home/armanjr/gitproject/fomt/decomp/logs/judge_free/worker-d1518/func.c:33: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_free/worker-d1518/func.c:33: request for member `unk8' in something not a structure or union\n",
   "ref_len": 108,
   "sanitize_v": 4,
   "size": 920,
@@ -5870,13 +5870,14 @@
  },
  "func_080D1518": {
   "addr": 135075096,
-  "judged_mtime": 1793018096.2992458,
+  "judged_mtime": 1793506666.8618984,
   "module": "code_809E804.s",
-  "note": "ved_reg_r8' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D1518/opencode/func.c:28: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D1518/opencode/func.c:28: for each function it appears in.)\n",
-  "ref_len": 48,
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
+  "ref_len": 47,
   "sanitize_v": 4,
-  "size": 439,
-  "status": "failed",
+  "size": 440,
+  "status": "promoted",
   "thumb": true
  },
  "func_080D1548": {
