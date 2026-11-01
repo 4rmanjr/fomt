@@ -70,13 +70,14 @@
  },
  "strlen": {
   "addr": 135084920,
-  "judged_mtime": 1793015414.1951296,
+  "judged_mtime": 1793509581.898502,
   "module": "code_libc_string.s",
-  "note": "decomp/logs/judge_strlen/opencode/func.c:14: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_strlen/opencode/func.c:19: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_strlen/opencode/func.c:26: invalid type argument of `unary *'\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_libc_string.cc",
   "ref_len": 71,
   "sanitize_v": 4,
   "size": 664,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  }
 }
