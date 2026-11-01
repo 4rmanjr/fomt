@@ -4158,25 +4158,3 @@ func_080098AC: @ 0x080098AC
 .L080098D8:
     .byte 0x01, 0x20, 0x70, 0x47
 
-    thumb_func_start func_080098DC
-func_080098DC: @ 0x080098DC
-    push {r4, r5, lr}
-    adds r4, r0, #0
-    adds r5, r1, #0
-    ldr r0, .L08009904 @ =vtable_unk_080E5BB4
-    str r0, [r4, #8]
-    adds r0, r4, #0
-    bl func_08009984
-    adds r0, r4, #0
-    adds r0, #0x10
-    movs r1, #2
-    bl func_080098AC
-    adds r0, r4, #0
-    adds r1, r5, #0
-    bl func_080098AC
-    pop {r4, r5}
-    pop {r0}
-    bx r0
-    .align 2, 0
-.L08009904: .4byte vtable_unk_080E5BB4
-

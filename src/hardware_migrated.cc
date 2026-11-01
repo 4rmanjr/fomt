@@ -38,6 +38,28 @@ typedef struct GenObj__func_08009908 {
 } GenObj__func_08009908;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080098DC {
+    u8 _pad0[8];
+    void *unk8;
+} GenObj__func_080098DC;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_080098DC (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080098AC(void *, i32);                       /* extern */
+
+void func_08009984(GenObj *arg0);                     /* extern */
+extern i32 vtable_unk_080E5BB4;
+
+void func_080098DC(GenObj__func_080098DC *arg0, i32 arg1) {
+    arg0->unk8 = &vtable_unk_080E5BB4;
+    func_08009984((GenObj *)arg0);
+    func_080098AC((u8 *)arg0 + 0x10, 2);
+    func_080098AC(arg0, arg1);
+}
+}
+
 // DECOMP-MATCHED func_08009908 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 
