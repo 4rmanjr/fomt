@@ -1,7 +1,9 @@
 #include "prelude.h"
 
+/* Vtable gabungan: slot 0x40 (func_0801FAA8) + 0x44 (func_0801FAB8). Offset jangan digeser. */
 typedef struct Vtbl1FAB8 {
-    u8 _pad0[0x44];
+    u8 _pad0[0x40];
+    i32 (*unk40)(void *, i32);
     i32 (*unk44)(void *, i32);
 } Vtbl1FAB8;
 typedef struct GenObj {
@@ -1066,6 +1068,16 @@ __attribute__((section(".text.game_state.0801F5F0")))
 void func_0801F5F0(GenObj__func_0801F5F0 *arg0, i32 arg1) {
     SetVaseArticleId__9FarmHouseUi((i32)((u8 *)arg0->unk1038 + (0xFA << 1)), arg1);
     func_0801F3E4(arg0);
+}
+}
+
+// DECOMP-MATCHED func_0801FAA8 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.game_state.0801FAA8")))
+i32 func_0801FAA8(GenObj *arg0, i32 arg1) {
+    return arg0->unk0->unk40(arg0, arg1);
 }
 }
 
