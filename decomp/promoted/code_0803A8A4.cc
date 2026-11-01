@@ -756,7 +756,7 @@ s32 func_0803EB40(u8 *arg0) {
 
 // DECOMP-MATCHED func_0803EADC (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 s32 func_0803D52C(s32 *, s32);                          /* extern */
-s32 func_0803D644(u8, u8);                              /* extern */
+s32 func_0803D644(s32, s32);                            /* extern */
 
 s32 func_0803EADC(u8 *arg0) {
     u8 sp0[4];
