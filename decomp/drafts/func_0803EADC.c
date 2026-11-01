@@ -4,7 +4,8 @@ s32 func_0803D644(s32, s32);                            /* extern */
 s32 func_0803EADC(u8 *arg0) {
     u8 sp0[4];
     u8 *bp;
-    u8 a1, a2;
+    u8 a1;
+    u8 a2;
 
     if ((arg0[0x21CA] & 0x7C) != 0) {
         return 0;
