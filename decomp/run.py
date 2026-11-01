@@ -1733,7 +1733,8 @@ def _queueable(k, v, retry_all: bool) -> bool:
 
 
 def run_batch(n: int, modules: list[str] | None, retry_all: bool,
-              until: str, batch_no: int | None = None) -> tuple[int, int, bool, bool]:
+              until: str, batch_no: int | None = None,
+              migratable_only: bool = False) -> tuple[int, int, bool, bool]:
     """Kerjakan satu batch hingga `n` fungsi. Tetap foreground: tiap fungsi
     dan baris progres dicetak ke stdout saat dikerjakan.
 
@@ -1746,10 +1747,28 @@ def run_batch(n: int, modules: list[str] | None, retry_all: bool,
     # fungsi tidak diganggu; klaim basi (lewat FOMT_CLAIM_TTL) boleh diambil alih.
     st = load()
     now = time.time()
+    _gate = None
+    if migratable_only:
+        try:
+            from decomp.migrate import migrate_gate
+        except ImportError:
+            from migrate import migrate_gate
+        _gate_cache: dict[str, bool] = {}
+        def _gate(k, v):
+            mod = v.get("module", "")
+            stem = mod[:-len(".s")] if mod.endswith(".s") else mod
+            ck = f"{stem}/{k}"
+            if ck not in _gate_cache:
+                try:
+                    _gate_cache[ck] = bool(migrate_gate(stem, k)[0])
+                except Exception:
+                    _gate_cache[ck] = True
+            return _gate_cache[ck]
     cands = [k for k, v in sorted(st.items())
              if _queueable(k, v, retry_all)
              and k not in SKIP_FUNCS
              and (not modules or v["module"] in modules)
+             and (_gate(k, v) if _gate else True)
              and not (_live(v, now) and v["claimed_by"] != AGENT)]
     todo = claim_many(cands, n) if n else []
     if todo:
@@ -1829,6 +1848,7 @@ def main(argv: list[str]) -> int:
     global AGENT, SAFE_AGENT
     retry_all = False
     loop = False
+    migratable_only = False
     wait_s = 5.0
     until = ""
     jobs = 0  # 0 = default (CPU, maks 8) utk verify; env FOMT_JOBS juga bisa
@@ -1841,6 +1861,8 @@ def main(argv: list[str]) -> int:
             AGENT = ((a.split("=", 1)[1]).strip() or "agent")[:40]
         elif a == "--retry":
             retry_all = True  # ulangi juga fungsi 'failed' yang drafnya tidak berubah
+        elif a == "--migratable":
+            migratable_only = True  # hanya fungsi yg BISA migrate ke src
         elif a == "--loop":
             loop = True  # ulangi batch sampai antrean habis (tetap foreground)
         elif a.startswith("--wait"):
@@ -1889,6 +1911,15 @@ def main(argv: list[str]) -> int:
             return 2
     n = int(args[0]) if args and args[0].isdigit() else 20
     modules = [a for a in args if not a.isdigit()] or None
+    if migratable_only and not modules:
+        # Prioritas migratable: modul yg migrasinya TERBUKTI bisa pindah
+        # (section-replace), sisa-terbanyak dulu. Filter modul eksplisit
+        # tetap menang bila diberikan (mis. fomt 5 sram_proxy_1.s).
+        try:
+            from decomp.migrate import MIGRATABLE_MODULES
+        except ImportError:
+            from migrate import MIGRATABLE_MODULES
+        modules = list(MIGRATABLE_MODULES)
     st = scan(modules)
     # ref_len basi (diukur saat bug .size) -> hitung ulang bila hilang/tidak cocok
     # Catatan: ref_sizes memakai batas simbol berikut; utk fungsi TERAKHIR modul
@@ -1955,7 +1986,8 @@ def main(argv: list[str]) -> int:
         signal.setitimer(signal.ITIMER_REAL, max(0.0, deadline - time.time()))
     try:
         if not loop:
-            run_batch(n, modules, retry_all, until)
+            run_batch(n, modules, retry_all, until,
+                        migratable_only=migratable_only)
             return 0
         # Mode loop: ulangi batch sampai antrean habis / Ctrl-C / deadline.
         # Tetap foreground: tiap fungsi + ringkasan batch dicetak langsung.
@@ -1970,7 +2002,8 @@ def main(argv: list[str]) -> int:
         total_m = total_d = batches = 0
         while True:
             batches += 1
-            m, d, had_work, stopped = run_batch(n, modules, retry_all, until, batches)
+            m, d, had_work, stopped = run_batch(n, modules, retry_all, until, batches,
+                                                 migratable_only=migratable_only)
             total_m += m
             total_d += d
             if stopped:

@@ -182,6 +182,66 @@ def migratable_set(stem):
     return out
 
 
+# Modul yg migrasinya TERBUKTI bisa pindah (section-replace, bukan
+# tail-blokir/grup-gabungan/linkonce). Urutan = sisa terbanyak dulu, agar
+# `fomt --migratable` mengerjakan modul dgn hasil terbesar lebih dulu.
+# Diperbarui 2026-11-01 (hasil Task 3: 417 sisa promoted belum-di-src).
+MIGRATABLE_MODULES = [
+    "code_0803EE94.s",          # 24 sisa; pola paling dikenal
+    "code_809E804.s",           # 49 sisa (terbesar kedua)
+    "code_entities_08034CEC.s",  # 102 sisa; 42x __builtin_new SKIP-permanen
+    "code_entities.s",           # 9 sisa
+    "code_0803A8A4.s",           # 7 sisa
+    "new_game.s",                # 3 sisa (grup + extern manual)
+    "game_state.s",              # 1 sisa
+    "main.s",                    # 1 sisa
+]
+
+
+def migrate_gate(stem, func):
+    """Gate pra-judge: (boleh_antre, alasan). dipakai `fomt --migratable`.
+
+    False bila fungsi PASTI tak-bisa-migrate (SKIP-permanen by-design):
+    grup gabungan/tak-split, data asing tak-diselamatkan di ekor chunk
+    solo (TERBUKTI func_080202C8), modul tail-blokir (hardware/actor) &
+    tak-split (linkonce/scene). True = layak dikerjakan (bisa MATCH dan
+    BISA pindah). Cek ini MURAH (parse asm + state, tanpa kompilasi)."""
+    if not is_split_module(stem):
+        return False, "modul tak-split/tail-only (linkonce/hardware/actor)"
+    if func not in migratable_set(stem):
+        return False, "grup gabungan/tak-split"
+    if group_data_chunks(stem, func):
+        return True, ""
+    try:
+        from decomp import run as _run
+    except ImportError:
+        import run as _run
+    try:
+        _td = _run.trailing_data_len(f"{stem}.s", func)
+    except Exception:
+        return True, ""
+    if not _td:
+        return True, ""
+    try:
+        _ref = _run.ref_sizes(f"{stem}.s").get(func, 0) or 0
+    except Exception:
+        _ref = 0
+    if _ref <= _td:
+        return True, ""
+    try:
+        _fa = int(re.search(r"func_([0-9A-Fa-f]{8})", func).group(1), 16)
+    except (AttributeError, ValueError):
+        return True, ""
+    for _chs in _analyze_stem(stem):
+        for _c in _chs:
+            if _c["kind"] != "data":
+                continue
+            _m2 = re.search(r"\.([0-9A-Fa-f]{8})", _c.get("secname", ""))
+            if _m2 and _fa < int(_m2.group(1), 16) < _fa + _ref:
+                return True, ""
+    return False, f"data asing {_td}B di ekor (SKIP-permanen)"
+
+
 def is_split_module(stem):
     """True bila build memecah asm modul per-section (section-replace berlaku).
 

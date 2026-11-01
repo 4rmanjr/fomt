@@ -28,6 +28,12 @@ Mineral Town, decomp GBA).
 
 ```bash
 fomt                      # 20 fungsi berikutnya
+fomt --migratable        # hanya fungsi yg BISA migrate ke src:
+                          # modul migratable dulu (0803EE94/809E804/
+                          # entities/34CEC/0803A8A4/new_game/game_state/
+                          # main), SKIP-permanen dilewati (grup gabungan,
+                          # data-asing ekor, modul tail-only/linkonce)
+fomt 10 --migratable     # 10 fungsi migratable
 fomt 10                   # 10 fungsi berikutnya
 fomt 5 sram_proxy_1.s     # 5 fungsi dari modul itu
 fomt status               # progres saja (total/berhasil/sisa)
@@ -51,6 +57,12 @@ antrean kosong. Catatan loop:
   bersama filter modul, kalau tidak ditolak (akan berputar selamanya).
 - Klaim per-batch dilepas di akhir tiap batch (`release_all`), jadi agent lain
   bisa mengambil alih di jeda `--wait S` (default 5 detik).
+- `--migratable` hanya mengantrekan fungsi yg lolos `migrate_gate`
+  (`decomp/migrate.py`: grup solo + bukan data-asing-tak-selamat +
+  modul split). Prioritas: kerjakan MATCH yg langsung bisa `migrate` ke
+  `src/` (compare HIJAU) — bukan fungsi yg MATCH tapi SKIP-permanen
+  (grup gabungan, pool yatim, `__builtin_new`, tail-blokir). Default
+  (tanpa flag) tak berubah: semua modul terantre seperti semula.
 
 ## Alur per fungsi
 
