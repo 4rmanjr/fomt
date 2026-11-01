@@ -16,6 +16,16 @@ typedef struct GenObj__func_080361EC {
 } GenObj__func_080361EC;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08036AB4 GenObj__func_08036AB4;
+typedef struct GenObj__func_08037EB4 {
+    u8 _pad0[16];
+    i32 unk10;
+    u8 _pad14[4];
+    i32 unk18;
+} GenObj__func_08037EB4;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035CB8 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08034F00();                                  /* extern */
@@ -115,15 +125,18 @@ void func_080369C4(i32 arg0, i32 arg1) {
 }
 
 // DECOMP-MATCHED func_08036B00 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+// PENYATUAN-MANUAL 2026-11-01 (pola A0030/A0384: arg0 pointer-sbg-i32 diteruskan ke
+// 36AB4 (GenObj__36AB4*); ref: adds r0,r5; bl; cast no-op, verify MATCH + HIJAU).
 extern "C" {
 i32 func_08034F00();                                  /* extern */
-i32 func_08036AB4(i32);                               /* extern */
+
+void func_08036AB4(GenObj__func_08036AB4 *);               /* extern */
 
 __attribute__((section(".text.code_entities_08034CEC.08036B00")))
 void func_08036B00(i32 arg0, i32 arg1) {
     func_08034F00();
     if (arg1 > 1) {
-        func_08036AB4(arg0);
+        func_08036AB4((GenObj__func_08036AB4 *)arg0);
     }
 }
 }
@@ -228,6 +241,20 @@ i32 func_08037A48(i32 arg0, i32 arg1) {
         return 0x8000;
     }
     return 0;
+}
+}
+
+// DECOMP-MATCHED func_08037EB4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800FFF4(i32, u8);                           /* extern */
+i32 func_08037F74();                                  /* extern */
+
+__attribute__((section(".text.code_entities_08034CEC.08037EB4")))
+void func_08037EB4(GenObj__func_08037EB4 *arg0, u8 *arg1) {
+    func_0800FFF4((i32)(arg0->unk18), *arg1);
+    if (arg0->unk10 != 0) {
+        func_08037F74();
+    }
 }
 }
 
