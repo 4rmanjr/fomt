@@ -395,6 +395,17 @@ typedef struct GenObj__func_080CEBC0 {
 } GenObj__func_080CEBC0;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080CE19C {
+    u8 _pad0[4];
+    struct GenObj__func_080CE19C *unk4;
+    u8 _pad8[132];
+    i32 unk8C;
+    i32 unk90;
+    i32 unk94;
+} GenObj__func_080CE19C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -1988,6 +1999,24 @@ __attribute__((naked)) void func_080D1548(void) {
     ".syntax divided"
     : : : "r0", "r1", "r2", "r3", "r4", "r5", "memory");
 }
+// DECOMP-MATCHED func_080CE19C (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+// PENYATUAN-MANUAL 2026-11-01: &vtable (i32*) ke unk4 (GenObj__func_080CE19C*); cast no-op
+// (ref: ldr r0,=vtable; str r0,[r4,4]). C maafkan implisit, C++ butuh cast.
+i32 func_080CD578();                                  /* extern */
+extern i32 vtable_unk_080E85DC;
+
+__attribute__((section(".text.code_809E804.080CE19C")))
+void *func_080CE19C(GenObj__func_080CE19C *arg0) {
+    func_080CD578();
+    arg0->unk4 = (struct GenObj__func_080CE19C *) &vtable_unk_080E85DC;
+    arg0->unk8C = 0;
+    arg0->unk90 = 0;
+    arg0->unk94 = 0;
+    return arg0;
+}
+}
+
 // DECOMP-MATCHED func_080CEBC0 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080CE510(void *, i32, i32, i32, i32, i32);   /* extern */
