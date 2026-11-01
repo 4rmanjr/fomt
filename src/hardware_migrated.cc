@@ -13,6 +13,31 @@ typedef struct GenObj__func_080099B0 {
 } GenObj__func_080099B0;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_08009984 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+void func_08009984(GenObj *arg0) {
+    u8 *temp_r0;
+    u8 *temp_r0_2;
+    u8 *temp_r3;
+    u8 *var_r1;
+
+    var_r1 = (u8 *)arg0->unkC;
+    temp_r3 = (u8 *)arg0 + 0x10;
+    if (var_r1 != temp_r3) {
+        do {
+            temp_r0 = var_r1;
+            var_r1 = *(u8 **)(void *)(var_r1 + 4);
+            *(u32 *)(void *)temp_r0 = 0;
+            *(u32 *)(void *)(temp_r0 + 4) = 0;
+        } while (var_r1 != temp_r3);
+    }
+    temp_r0_2 = (u8 *)arg0 + 0x10;
+    arg0->unkC = (i32)temp_r0_2;
+    arg0->unk10 = (i32)(temp_r0_2 - 4);
+}
+}
+
 // DECOMP-MATCHED func_080099B0 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 
