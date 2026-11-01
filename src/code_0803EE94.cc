@@ -1019,6 +1019,15 @@ typedef struct GenObj__func_0807EE14 {
 } GenObj__func_0807EE14;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0807EEA0 GenObj__func_0807EEA0;
+typedef struct GenObj__func_0807F580 {
+    void *unk0;
+    i32 unk4;
+    i32 unk8;
+} GenObj__func_0807F580;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -2227,12 +2236,15 @@ i32 *func_0807EE84(i32 *arg0, GenObj__func_0807EE84 *arg1) {
 }
 
 // DECOMP-MATCHED func_0807EEA0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+// PARAM-UNUSED 2026-11-01 (pola 7EE14: caller 7F580 menyiapkan r1=arg2; callee abaikan r1;
+// codegen callee identik 1-vs-2-param, probe agbcc; verify tetap MATCH).
 extern "C" {
 i32 func_080C7F58();                                  /* extern */
 extern i32 vtable_unk_080E7C5C;
 
 __attribute__((section(".text.code_0803EE94.0807EEA0")))
-void *func_0807EEA0(GenObj__func_0807EEA0 *arg0) {
+void *func_0807EEA0(GenObj__func_0807EEA0 *arg0, i32 arg1) {
+    (void)arg1;
     func_080C7F58();
     arg0->unk4 = &vtable_unk_080E7C5C;
     arg0->unk6A4 = 0;
@@ -2273,6 +2285,28 @@ void func_0807EF00(i32 *arg0, GenObj__func_0807EF00 *arg1) {
 extern "C" {
 // data tak-dirujuk di 0x0807F60C (label di-strip; tak dirujuk modul) — byte-identik dgn asm
 extern const u8 gData_code_0803EE94_0807F60C[48] __attribute__((section(".text.code_0803EE94.0807F60C"))) = {0x10, 0xB5, 0x83, 0xB0, 0x04, 0x1C, 0x49, 0x68, 0x68, 0x46, 0xFF, 0xF7, 0x73, 0xFC, 0x00, 0x9A, 0x68, 0x46, 0x01, 0x90, 0x02, 0x92, 0x01, 0x1C, 0x00, 0x20, 0x08, 0x60, 0x22, 0x60, 0x00, 0x98, 0x80, 0xF7, 0xEC, 0xFF, 0x20, 0x1C, 0x03, 0xB0, 0x10, 0xBC, 0x02, 0xBC, 0x08, 0x47, 0x00, 0x00};
+}
+
+// DECOMP-MATCHED func_0807F580 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+// PENYATUAN-MANUAL 2026-11-01 (pola 7EE14: callee EEA0-(ptr,unused) + caller-cast;
+// ref: adds r1,r5; bl EEA0; callee abaikan r1. Cast no-op, probe 7EE14.)
+
+i32 __builtin_new(i32);                             /* extern */
+void* func_0807EEA0(GenObj__func_0807EEA0 *arg0, i32 arg1);                             /* extern */
+extern i32 vtable_unk_080E7C68;
+
+__attribute__((section(".text.code_0803EE94.0807F580")))
+void *func_0807F580(GenObj__func_0807F580 *arg0, i32 *arg1, i32 arg2) {
+    i32 temp_r1;
+
+    arg0->unk0 = &vtable_unk_080E7C68;
+    arg0->unk4 = (i32)func_0807EEA0((GenObj__func_0807EEA0 *)__builtin_new(0x6B0), arg2);
+    temp_r1 = *arg1;
+    *arg1 = 0;
+    arg0->unk8 = temp_r1;
+    return arg0;
+}
 }
 
 // DECOMP-MATCHED func_0807F63C (dari code_0803EE94.s; cek manusia sebelum ke src/)
