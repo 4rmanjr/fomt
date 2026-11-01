@@ -153,7 +153,9 @@ SECTIONS
         /* *libc.a:strcat.o(.text); */
         /* *libc.a:strcpy.o(.text); */
         /* *libc.a:strlen.o(.text); */
+        *(SORT_BY_NAME(.text.code_libc_string.*))
         asm/code_libc_string.o(.text);
+        src/code_libc_string.o(.text);
 
         asm/code_linkonce.o(.text.code_080D3BC0);
         *(.gnu.linkonce.t.__as__6AnimalRC6Animal);
