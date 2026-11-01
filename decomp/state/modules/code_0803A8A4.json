@@ -1018,14 +1018,15 @@
  },
  "func_0803EB9C": {
   "addr": 134474652,
-  "judged_mtime": 1793017382.170888,
+  "judged_mtime": 1793510550.5419817,
   "module": "code_0803A8A4.s",
-  "note": "tifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0803EB9C/opencode/func.c:23: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0803EB9C/opencode/func.c:26: warning: passing arg 1 of `func_0803D52C' from incompatible pointer type\n",
-  "ref_len": 168,
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
+  "ref_len": 167,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
-  "size": 1430,
-  "status": "failed",
+  "size": 1431,
+  "status": "promoted",
   "thumb": true
  },
  "func_0803EC44": {
