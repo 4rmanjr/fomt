@@ -977,21 +977,76 @@ void func_08009984(GenObj *arg0) {
 }
 
 // DECOMP-MATCHED func_08009968 (dari hardware.s; cek manusia sebelum ke src/)
-typedef struct GenObj {
+typedef struct GenObj__func_08009968 {
     void *unk0;
     void *unk4;
-} GenObj;
-void func_08009968(GenObj *arg0, GenObj *arg1) {
+} GenObj__func_08009968;
+void func_08009968(GenObj__func_08009968 *arg0, GenObj__func_08009968 *arg1) {
     void **temp_r2;
     void *temp_r0;
 
     (void)arg0;
     temp_r2 = (void **)arg1->unk0;
     if (temp_r2 != 0) {
-        temp_r0 = arg1->unk4;
+        temp_r0 = (void *)(arg1->unk4);
         *temp_r2 = temp_r0;
         *(void **)arg1->unk4 = (void *)temp_r2;
         arg1->unk0 = 0;
         arg1->unk4 = 0;
     }
+}
+
+// DECOMP-MATCHED func_08009940 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct GenObj__func_08009940 {
+    void *unk0;
+    void *unk4;
+    u8 _pad8[8];
+    void *unk10;
+} GenObj__func_08009940;
+void func_08009940(GenObj__func_08009940 *arg0, GenObj__func_08009940 *arg1) {
+    void **temp_r2;
+    void *temp_r0;
+    void **temp_r0_2;
+    u8 *temp_r1;
+    u8 *temp_r1_2;
+
+    temp_r2 = (void **)arg1->unk0;
+    if (temp_r2 != 0) {
+        temp_r0 = (void *)(arg1->unk4);
+        *temp_r2 = temp_r0;
+        *(void **)arg1->unk4 = (void *)temp_r2;
+    }
+    temp_r0_2 = (void **)arg0->unk10;
+    *temp_r0_2 = (void *)arg1;
+    arg1->unk0 = (void *)temp_r0_2;
+    temp_r1 = (u8 *)arg0 + 0x10;
+    arg1->unk4 = (void *)temp_r1;
+    temp_r1_2 = (u8 *)arg1 + 4;
+    arg0->unk10 = (void *)temp_r1_2;
+}
+
+// DECOMP-MATCHED func_08009908 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct GenObj__func_08009908 {
+    void *unk0;
+    void *unk4;
+    void *unk8;
+    void *unkC;
+} GenObj__func_08009908;
+s32 func_08009908(GenObj__func_08009908 *arg0) {
+    GenObj__func_08009908 *temp_r4;
+    register GenObj__func_08009908 *var_r5 asm("r5");
+    GenObj__func_08009908 *temp_r7;
+
+    var_r5 = (GenObj__func_08009908 *)arg0->unkC;
+    temp_r7 = (GenObj__func_08009908 *)((u8 *)arg0 + 0x10);
+loop_1:
+    if (var_r5 != temp_r7) {
+        temp_r4 = var_r5;
+        var_r5 = (GenObj__func_08009908 *)var_r5->unk4;
+        if ((((s32 (*)(GenObj__func_08009908 *))(*(void **)((u8 *)temp_r4->unk8 + 8)))(temp_r4) << 0x18) == 0) {
+            ((void (*)(GenObj__func_08009908 *, GenObj__func_08009908 *))(*(void **)((u8 *)arg0->unk8 + 0x14)))(arg0, temp_r4);
+        }
+        goto loop_1;
+    }
+    return 1;
 }
