@@ -1046,6 +1046,15 @@ typedef struct GenObj__func_08080D94 {
 } GenObj__func_08080D94;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08080E20 GenObj__func_08080E20;
+typedef struct GenObj__func_08081A40 {
+    void *unk0;
+    i32 unk4;
+    i32 unk8;
+} GenObj__func_08081A40;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -2456,12 +2465,15 @@ i32 *func_08080E04(i32 *arg0, GenObj__func_08080E04 *arg1) {
 }
 
 // DECOMP-MATCHED func_08080E20 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+// PARAM-UNUSED 2026-11-01 (pola 7EE14: caller 81A40 menyiapkan r1=arg2; callee abaikan r1;
+// codegen callee identik 1-vs-2-param, probe agbcc; verify tetap MATCH).
 extern "C" {
 i32 func_080C7F58();                                  /* extern */
 extern i32 vtable_unk_080E7CB0;
 
 __attribute__((section(".text.code_0803EE94.08080E20")))
-void *func_08080E20(GenObj__func_08080E20 *arg0) {
+void *func_08080E20(GenObj__func_08080E20 *arg0, i32 arg1) {
+    (void)arg1;
     func_080C7F58();
     arg0->unk4 = &vtable_unk_080E7CB0;
     arg0->unk6A4 = 0;
@@ -2480,6 +2492,28 @@ __attribute__((section(".text.code_0803EE94.08080E54")))
 void func_08080E54(GenObj__func_08080E54 *arg0, i32 arg1) {
     arg0->unk4 = &vtable_unk_080E7CB0;
     func_080C8360(arg0, arg1);
+}
+}
+
+// DECOMP-MATCHED func_08081A40 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+// PENYATUAN-MANUAL 2026-11-01 (pola 7EE14: callee 80E20-(ptr,unused) + caller-cast;
+// ref: adds r1,r5; bl 80E20; callee abaikan r1. Cast no-op, probe 7EE14.)
+
+i32 __builtin_new(i32);                             /* extern */
+void* func_08080E20(GenObj__func_08080E20 *arg0, i32 arg1);                             /* extern */
+extern i32 vtable_unk_080E7CBC;
+
+__attribute__((section(".text.code_0803EE94.08081A40")))
+void *func_08081A40(GenObj__func_08081A40 *arg0, i32 *arg1, i32 arg2) {
+    i32 temp_r1;
+
+    arg0->unk0 = &vtable_unk_080E7CBC;
+    arg0->unk4 = (i32)func_08080E20((GenObj__func_08080E20 *)__builtin_new(0x710), arg2);
+    temp_r1 = *arg1;
+    *arg1 = 0;
+    arg0->unk8 = temp_r1;
+    return arg0;
 }
 }
 
