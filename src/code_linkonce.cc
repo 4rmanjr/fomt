@@ -14,6 +14,82 @@ typedef struct GenObj {
 } GenObj;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct {
+    i32 unk0;
+    i32 unk4;
+} E8;
+typedef struct {
+    u8 _00[0x210];
+    void *unk210;
+    i32 unk214;
+} Obj;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_080E5898 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08007184(void *, i32);                       /* extern */
+i32 func_080073E0(void *, i32);                       /* extern */
+i32 func_080079E8(void *, i32);                       /* extern */
+i32 func_08007C28(void *, i32);                       /* extern */
+i32 func_080CADF0(void *, i32);                       /* extern */
+extern i32 vtable_unk_080E85AC;
+
+void func_080E5898(Obj *arg0, i32 arg1) {
+    u8 *t0;
+    u8 *t1;
+    u8 *tail;
+    E8 *end;
+    E8 *end2;
+    E8 *e1;
+    E8 *e2;
+    u8 *p;
+    u8 *e;
+    i32 c;
+
+    arg0->unk210 = &vtable_unk_080E85AC;
+    t0 = (u8 *)arg0 + 0x2EC;
+    if (t0 != 0) {
+        end = (E8 *)((u8 *)arg0 + 0x32C);
+        if (t0 != (u8 *)end) {
+            do {
+                end--;
+                func_080073E0(end, (i32)(end->unk4));
+                func_08007184(end, 2);
+            } while ((u8 *)arg0 + 0x2EC != (u8 *)end);
+        }
+    }
+    t1 = (u8 *)arg0 + 0x2AC;
+    tail = (u8 *)arg0 + 0x218;
+    if (t1 != 0) {
+        end2 = (E8 *)((u8 *)arg0 + 0x2EC);
+        if (t1 != (u8 *)end2) {
+            do {
+                end2--;
+                func_08007C28(end2, (i32)(end2->unk4));
+                func_080079E8(end2, 2);
+            } while ((u8 *)arg0 + 0x2AC != (u8 *)end2);
+        }
+    }
+    e1 = (E8 *)((u8 *)arg0 + 0x2A4);
+    func_080073E0(e1, (i32)(e1->unk4));
+    func_08007184(e1, 2);
+    e2 = (E8 *)((u8 *)arg0 + 0x29C);
+    func_08007C28(e2, (i32)(e2->unk4));
+    func_080079E8(e2, 2);
+    e = (u8 *)arg0 + 0x214;
+    c = *(i32 *)e;
+    e = e + (c * 0xC + 4);
+    p = tail;
+    if (p != e) {
+        do {
+            p += 0xC;
+        } while (p != e);
+    }
+    func_080CADF0(arg0, arg1);
+}
+}
+
 // DECOMP-MATCHED func_080E596C (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080086BC(void *, i32);                       /* extern */
