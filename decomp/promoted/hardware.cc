@@ -952,8 +952,8 @@ void func_080099B0(GenObj *arg0, GenObj *arg1) {
 // DECOMP-MATCHED func_08009984 (dari hardware.s; cek manusia sebelum ke src/)
 typedef struct GenObj {
     u8 _pad0[12];
-    void *unkC;
-    void *unk10;
+    s32 unkC;
+    s32 unk10;
 } GenObj;
 void func_08009984(GenObj *arg0) {
     u8 *temp_r0;
@@ -972,6 +972,26 @@ void func_08009984(GenObj *arg0) {
         } while (var_r1 != temp_r3);
     }
     temp_r0_2 = (u8 *)arg0 + 0x10;
-    arg0->unkC = (void *)temp_r0_2;
-    arg0->unk10 = (void *)(temp_r0_2 - 4);
+    arg0->unkC = (s32)temp_r0_2;
+    arg0->unk10 = (s32)(temp_r0_2 - 4);
+}
+
+// DECOMP-MATCHED func_08009968 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    void *unk0;
+    void *unk4;
+} GenObj;
+void func_08009968(GenObj *arg0, GenObj *arg1) {
+    void **temp_r2;
+    void *temp_r0;
+
+    (void)arg0;
+    temp_r2 = (void **)arg1->unk0;
+    if (temp_r2 != 0) {
+        temp_r0 = arg1->unk4;
+        *temp_r2 = temp_r0;
+        *(void **)arg1->unk4 = (void *)temp_r2;
+        arg1->unk0 = 0;
+        arg1->unk4 = 0;
+    }
 }

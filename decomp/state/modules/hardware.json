@@ -1354,13 +1354,14 @@
  },
  "func_08009968": {
   "addr": 134257000,
-  "judged_mtime": 1793017162.3432956,
+  "judged_mtime": 1793509508.9776483,
   "module": "hardware.s",
-  "note": "es pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08009968/opencode/func.c:11: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08009968/opencode/func.c:12: invalid type argument of `unary *'\n",
-  "ref_len": 28,
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
+  "ref_len": 27,
   "sanitize_v": 4,
-  "size": 310,
-  "status": "failed",
+  "size": 311,
+  "status": "promoted",
   "thumb": true
  },
  "func_08009984": {
@@ -1371,7 +1372,7 @@
   "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 43,
   "sanitize_v": 4,
-  "size": 489,
+  "size": 490,
   "status": "promoted",
   "thumb": true
  },
