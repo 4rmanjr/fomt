@@ -25,6 +25,38 @@ i32 func_08000640(i32 arg0) {
     return arg0;
 }
 }
+// DECOMP-MATCHED gData_sram_proxy_2_08000664.data.08000664
+extern "C" {
+// data tak-dirujuk di 0x08000664 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+extern const u8 gData_sram_proxy_2_08000664[64] __attribute__((section(".text.sram_proxy_2.08000664"))) = {0x70, 0xB5, 0x82, 0xB0, 0x06, 0x1C, 0x00, 0x22, 0xFF, 0x23, 0x69, 0x46, 0x88, 0x18, 0x01, 0x78, 0x19, 0x43, 0x01, 0x70, 0x50, 0x1C, 0x00, 0x06, 0x02, 0x0E, 0x07, 0x2A, 0xF5, 0xD9, 0x00, 0x24, 0x80, 0x25, 0x2D, 0x02, 0x30, 0x1C, 0x21, 0x1C, 0x6A, 0x46, 0x08, 0x23, 0x00, 0xF0, 0x08, 0xF8, 0x08, 0x34, 0xAC, 0x42, 0xF6, 0xD3, 0x01, 0x20, 0x02, 0xB0, 0x70, 0xBC, 0x02, 0xBC, 0x08, 0x47};
+}
+
+
+// DECOMP-MATCHED func_080006A4 (dari sram_proxy_2.s; cek manusia sebelum ke src/)
+extern "C" {
+void func_08000728(i32 arg0, i32 arg1);                             /* extern */
+i32 func_080D38D4(i32, i32, i32);                   /* extern */
+extern i16 gUnk_03000400;
+
+__attribute__((section(".text.sram_proxy_2.080006A4")))
+i32 func_080006A4(i32 arg0, i32 arg1, i32 arg2, i32 arg3) {
+    register i32 var_r0 __asm__("r0");
+    i32 var_r6;
+    i16 *p = &gUnk_03000400;
+
+    var_r0 = 0;
+    *p = var_r0;
+    if (arg3 != 0) {
+        var_r6 = 1;
+        if (func_080D38D4(arg2, 0x0E000000 | arg1, arg3) != 0) {
+            func_08000728(arg0, 0x100);
+            var_r6 = 0;
+        }
+        var_r0 = var_r6;
+    }
+    return var_r0;
+}
+}
 
 // DECOMP-MATCHED func_080006E4 (dari sram_proxy_2.s; cek manusia sebelum ke src/)
 extern "C" {

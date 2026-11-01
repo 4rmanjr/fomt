@@ -1846,6 +1846,42 @@ __attribute__((naked)) void func_080D1548(void) {
     : : : "r0", "r1", "r2", "r3", "r4", "r5", "memory");
 }
 }
+// DECOMP-MATCHED func_080D1518 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080D1518")))
+__attribute__((naked)) void func_080D1518(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "movs r6, #0xf\n"
+    "movs r5, #0\n"
+    "loop1518:\n"
+    "ldrh r2, [r0, #2]\n"
+    "lsrs r1, r2, #4\n"
+    "lsrs r3, r2, #0xc\n"
+    "lsrs r4, r2, #8\n"
+    "adds r1, r1, r5\n"
+    "adds r2, r2, r1\n"
+    "adds r3, r3, r2\n"
+    "adds r5, r4, r3\n"
+    "ands r1, r6\n"
+    "ands r2, r6\n"
+    "ands r5, r6\n"
+    "lsls r1, r1, #4\n"
+    "lsls r3, r3, #0xc\n"
+    "lsls r4, r5, #8\n"
+    "orrs r1, r2\n"
+    "orrs r1, r3\n"
+    "orrs r1, r4\n"
+    "strh r1, [r0, #2]\n"
+    "adds r0, #2\n"
+    "cmp r0, r8\n"
+    "blo loop1518\n"
+    "bx lr\n"
+    ".syntax divided"
+    : : : "r0", "r1", "r2", "r3", "r4", "r5", "r6", "memory");
+}
+}
+
 // DECOMP-MATCHED func_080D101C (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 extern i32 gUnk_03000430;
