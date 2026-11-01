@@ -186,7 +186,7 @@ GenObj__func_0803B6FC *func_0803B6FC(GenObj__func_0803B6FC *arg0, i32 *arg1, i32
 extern "C" {
 
 __attribute__((section(".text.code_0803A8A4.0803BDE4")))
-void func_0803BDE4(GenObj__func_0803BDE4 *arg0, i16 arg1, i16 arg2) {
+void func_0803BDE4(GenObj__func_0803BDE4 *arg0, i32 arg1, i32 arg2) {
     arg0->unk0 = arg1;
     arg0->unk2 = arg2;
 }
@@ -299,6 +299,17 @@ extern "C" {
 __attribute__((section(".text.code_0803A8A4.0803BEEC")))
 i16 func_0803BEEC(i16 **arg0) {
     return **arg0;
+}
+}
+
+// DECOMP-MATCHED func_0803BEFC (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+
+void func_0803BDE4(GenObj__func_0803BDE4 *arg0, i32 arg1, i32 arg2);  /* extern */
+
+__attribute__((section(".text.code_0803A8A4.0803BEFC")))
+void func_0803BEFC(GenObj__func_0803BDE4 **arg0, i32 arg1, i32 arg2) {
+    func_0803BDE4(*arg0, arg1, arg2);
 }
 }
 
