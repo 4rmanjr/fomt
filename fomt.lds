@@ -133,6 +133,7 @@ SECTIONS
         src/sheep.o(.text);
         src/code_actor_0809BFE8.o(.text);
         asm/code_actor_0809BFE8.o(.text);
+        src/code_actor_0809BFE8_migrated.o(.text);
         src/npc.o(.text);
         src/bachelorette.o(.text);
         src/harvest_sprite.o(.text);
