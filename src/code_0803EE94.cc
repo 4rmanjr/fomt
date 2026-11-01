@@ -1055,6 +1055,15 @@ typedef struct GenObj__func_08081A40 {
 } GenObj__func_08081A40;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0808ED64 GenObj__func_0808ED64;
+typedef struct GenObj__func_08090E54 {
+    void *unk0;
+    i32 unk4;
+    i32 unk8;
+} GenObj__func_08090E54;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -2534,12 +2543,14 @@ i32 *func_08081AB0(i32 *arg0, GenObj__func_08081AB0 *arg1) {
 }
 
 // DECOMP-MATCHED func_08081ACC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+// PARAM-UNUSED 2026-11-01 (pola 7EE14: caller 08082114 menyiapkan r1=arg2; callee abaikan r1).
 extern "C" {
 i32 func_080C7F58();                                  /* extern */
 extern i32 vtable_unk_080E7CCC;
 
 __attribute__((section(".text.code_0803EE94.08081ACC")))
-void *func_08081ACC(GenObj__func_08081ACC *arg0) {
+void *func_08081ACC(GenObj__func_08081ACC *arg0, i32 arg1) {
+    (void)arg1;
     func_080C7F58();
     arg0->unk4 = &vtable_unk_080E7CCC;
     arg0->unk6A4 = 0;
@@ -2589,13 +2600,15 @@ void func_08082250(GenObj__func_08082250 *arg0, i32 arg1) {
 }
 
 // DECOMP-MATCHED func_08083BD4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+// PARAM-UNUSED 2026-11-01 (pola 7EE14: caller 080854F4 menyiapkan r1=arg2; callee abaikan r1).
 extern "C" {
 i32 func_080C7F58();                                  /* extern */
 extern i32 gUnk_080FF838;
 extern i32 vtable_unk_080E7D14;
 
 __attribute__((section(".text.code_0803EE94.08083BD4")))
-void *func_08083BD4(GenObj__func_08083BD4 *arg0) {
+void *func_08083BD4(GenObj__func_08083BD4 *arg0, i32 arg1) {
+    (void)arg1;
     i32 var_r0;
     u32 var_r4;
     void *temp_r6;
@@ -2814,12 +2827,14 @@ i32 *func_0808ABA8(i32 *arg0, GenObj__func_0808ABA8 *arg1) {
 }
 
 // DECOMP-MATCHED func_0808ABC4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+// PARAM-UNUSED 2026-11-01 (pola 7EE14: caller 0808C56C menyiapkan r1=arg2; callee abaikan r1).
 extern "C" {
 i32 func_080CE19C();                                  /* extern */
 extern i32 vtable_unk_080E7D68;
 
 __attribute__((section(".text.code_0803EE94.0808ABC4")))
-void *func_0808ABC4(GenObj__func_0808ABC4 *arg0) {
+void *func_0808ABC4(GenObj__func_0808ABC4 *arg0, i32 arg1) {
+    (void)arg1;
     i32 temp_r1;
     i32 *temp_r2;
 
@@ -2936,12 +2951,14 @@ i32 *func_0808ED48(i32 *arg0, GenObj__func_0808ED48 *arg1) {
 }
 
 // DECOMP-MATCHED func_0808ED64 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+// PARAM-UNUSED 2026-11-01 (pola 7EE14: caller 08090E54 menyiapkan r1=arg2; callee abaikan r1).
 extern "C" {
 i32 func_080CE19C();                                  /* extern */
 extern i32 vtable_unk_080E7DA0;
 
 __attribute__((section(".text.code_0803EE94.0808ED64")))
-void *func_0808ED64(GenObj__func_0808ED64 *arg0) {
+void *func_0808ED64(GenObj__func_0808ED64 *arg0, i32 arg1) {
+    (void)arg1;
     i32 temp_r1;
     i32 *temp_r2;
 
@@ -2990,6 +3007,28 @@ i32 func_080CEBC0(i32);                             /* extern */
 __attribute__((section(".text.code_0803EE94.0808EF4C")))
 void func_0808EF4C(GenObj__func_0808EF4C *arg0) {
     func_0808EE9C(arg0, func_080CEBC0((i32)(arg0->unk94)));
+}
+}
+
+// DECOMP-MATCHED func_08090E54 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+// PENYATUAN-MANUAL 2026-11-01 (pola 7EE14: callee 8ED64-(ptr,unused) + caller-cast;
+// ref: adds r1,r5; bl 8ED64; callee abaikan r1. Cast no-op, probe 7EE14.)
+
+i32 __builtin_new(i32);                             /* extern */
+void* func_0808ED64(GenObj__func_0808ED64 *arg0, i32 arg1);                             /* extern */
+extern i32 vtable_unk_080E7DAC;
+
+__attribute__((section(".text.code_0803EE94.08090E54")))
+void *func_08090E54(GenObj__func_08090E54 *arg0, i32 *arg1, i32 arg2) {
+    i32 temp_r1;
+
+    arg0->unk0 = &vtable_unk_080E7DAC;
+    arg0->unk4 = (i32)func_0808ED64((GenObj__func_0808ED64 *)__builtin_new(0x10C), arg2);
+    temp_r1 = *arg1;
+    *arg1 = 0;
+    arg0->unk8 = temp_r1;
+    return arg0;
 }
 }
 
