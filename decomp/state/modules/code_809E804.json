@@ -6112,13 +6112,14 @@
  },
  "sub_080D14C6": {
   "addr": 135075014,
-  "judged_mtime": 1793015458.2694354,
+  "judged_mtime": 1793509534.2210898,
   "module": "code_809E804.s",
-  "note": "80D14C6/opencode/func.c:24: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080D14C6/opencode/func.c:26: `s64' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080D14C6/opencode/func.c:26: syntax error before `var_r6'\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 38,
   "sanitize_v": 4,
   "size": 397,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  }
 }

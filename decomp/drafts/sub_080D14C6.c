@@ -1,29 +1,28 @@
-void sub_080D14C6(s32 arg1, s32 arg2) {
-    s32 var_r1;
-    s32 var_r6;
-    u16 var_r4;
-    u32 temp_r4;
-
-    /* Flowgraph is not reducible, falling back to gotos-only mode. */
-    var_r6 = saved_reg_r6;
-    var_r1 = arg1;
-    if ((s32) (var_r1 << 0x1F) >= 0) {
-        goto block_2;
-    }
-    var_r4 = (arg2 << 8) | arg2;
-    var_r1 += 1;
-    var_r6 = saved_reg_r6 + 1;
-    goto block_4;
-block_2:
-    temp_r4 = (u16) *var_r1 >> 8;
-    var_r4 = temp_r4 | (temp_r4 << 8);
-block_3:
-    var_r1 += 2;
-block_4:
-    *var_r1 = var_r4;
-    var_r6 -= 2;
-    if ((s64) var_r6 > 0) {
-        goto block_3;
-    }
-    return;
+__attribute__((naked)) void sub_080D14C6(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "lsls r4, r1, #0x1f\n"
+    "bpl .L080D14D4\n"
+    "lsls r4, r2, #8\n"
+    "orrs r4, r2\n"
+    "adds r1, #1\n"
+    "adds r6, #1\n"
+    "b .L080D14DE\n"
+    ".L080D14D4:\n"
+    "ldrh r4, [r1]\n"
+    "lsrs r4, r4, #8\n"
+    "lsls r2, r4, #8\n"
+    "orrs r4, r2\n"
+    ".L080D14DC:\n"
+    "adds r1, #2\n"
+    ".L080D14DE:\n"
+    "strh r4, [r1]\n"
+    "subs r6, #2\n"
+    "bgt .L080D14DC\n"
+    "lsrs r2, r4, #8\n"
+    "adds r1, r1, r6\n"
+    "mov sl, r2\n"
+    "pop {r2, pc}\n"
+    ".syntax divided"
+    : : : "r4", "memory");
 }
