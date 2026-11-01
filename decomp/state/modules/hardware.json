@@ -1365,13 +1365,14 @@
  },
  "func_08009984": {
   "addr": 134257028,
-  "judged_mtime": 1793017162.5305169,
+  "judged_mtime": 1793506677.9719765,
   "module": "hardware.s",
-  "note": "' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08009984/opencode/func.c:20: request for member `unk4' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08009984/opencode/func.c:26: warning: assignment makes integer from pointer without a cast\n",
-  "ref_len": 44,
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
+  "ref_len": 43,
   "sanitize_v": 4,
   "size": 489,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080099B0": {
