@@ -308,6 +308,14 @@ typedef struct GenObj__func_080A5DB8 {
 typedef struct { u8 pad[0xB30]; u8 v; } S_44E0;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080A0384 GenObj__func_080A0384;
+typedef struct GenObj__func_080A0384 {
+    u8 _pad0[3];
+    u8 unk3;
+} GenObj__func_080A0384;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -581,9 +589,10 @@ i32 *func_0809FE3C(i32 arg0, u32 arg1) {
 }
 
 // DECOMP-MATCHED func_080A0030 (dari code_809E804.s; cek manusia sebelum ke src/)
+// PENYATUAN-MANUAL 2026-11-01: case34 meneruskan arg0 (pointer sbg i32) ke 0384
+// (GenObj__0384*); cast no-op (ref: adds r0,r2; bl). Return (i32) dari void* no-op.
 extern "C" {
-i32 func_080A0384(i32);                             /* extern */
-
+void* func_080A0384(GenObj__func_080A0384 *arg0);                             /* extern */
 __attribute__((section(".text.code_809E804.080A0030")))
 i32 func_080A0030(i32 arg0, i32 arg1) {
     u32 temp_r0;
@@ -593,7 +602,7 @@ i32 func_080A0030(i32 arg0, i32 arg1) {
     default:
         return 0;
     case 34:
-        return func_080A0384(arg0);
+        return (i32)func_080A0384((GenObj__func_080A0384 *)arg0);
     case 0:
         return arg0 + 0x70;
     case 1:
@@ -709,6 +718,24 @@ i32 func_080A031C(i32 arg0, u32 arg1) {
         return arg0 + 0x414;
     }
 }
+}
+
+// DECOMP-MATCHED func_080A0384 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_809E804.080A0384")))
+void *func_080A0384(GenObj__func_080A0384 *arg0) {
+    GenObj__func_080A0384 *t = arg0;
+    void *var_r2;
+    i32 sh = t->unk3 << 0x1E;
+    var_r2 = 0;
+    if (sh >= 0) {
+    } else {
+        var_r2 = (u8 *)t + 4;
+    }
+    return var_r2;
+}
+/* ATTEMPT-NOTE opencode: copy arg0 ke t + sh-var agar movs r2 di posisi 4 (setelah lsls); unk3 u8. */
 }
 
 // DECOMP-MATCHED func_080A039C (dari code_809E804.s; cek manusia sebelum ke src/)
