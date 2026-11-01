@@ -996,24 +996,26 @@
  },
  "func_0803EADC": {
   "addr": 134474460,
-  "judged_mtime": 1793017381.724887,
+  "judged_mtime": 1793521132.944919,
   "module": "code_0803A8A4.s",
-  "note": "len 118 vs ref 100",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 100,
   "sanitize_v": 4,
   "size": 867,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803EB40": {
   "addr": 134474560,
-  "judged_mtime": 1793017381.9339678,
+  "judged_mtime": 1793512868.2317464,
   "module": "code_0803A8A4.s",
-  "note": "len 114 vs ref 92",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 92,
   "sanitize_v": 4,
   "size": 803,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803EB9C": {

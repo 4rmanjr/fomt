@@ -33,14 +33,18 @@ s16 func_0803BEEC(s16 **arg0) {
 }
 
 // DECOMP-MATCHED func_0803BEFC (dari code_0803A8A4.s; cek manusia sebelum ke src/)
-s32 func_0803BDE4(s32);                               /* extern */
+typedef struct GenObj__func_0803BDE4 {
+    u16 unk0;
+    u16 unk2;
+} GenObj__func_0803BDE4;
+void func_0803BDE4(GenObj__func_0803BDE4 *arg0, s32 arg1, s32 arg2);  /* extern */
 
-void func_0803BEFC(s32 *arg0) {
-    func_0803BDE4(*arg0);
+void func_0803BEFC(GenObj__func_0803BDE4 **arg0, s32 arg1, s32 arg2) {
+    func_0803BDE4(*arg0, arg1, arg2);
 }
 
 // DECOMP-MATCHED func_0803C7A0 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(s32 *);                          /* extern */
+s32 __builtin_delete(void *);                          /* extern */
 s32 func_080E0D70(s32, s32);                          /* extern */
 
 void func_0803C7A0(s32 *arg0, s32 arg1) {
@@ -167,10 +171,14 @@ void func_0803D7E4(s32 arg0, s32 arg1) {
 }
 
 // DECOMP-MATCHED func_0803BF08 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
-s32 func_0803BDEC(s32);                               /* extern */
+typedef struct GenObj__func_0803BDEC {
+    u16 unk0;
+    u16 unk2;
+} GenObj__func_0803BDEC;
+void func_0803BDEC(GenObj__func_0803BDEC *arg0, s32 arg1, s32 arg2);  /* extern */
 
-void func_0803BF08(s32 *arg0) {
-    func_0803BDEC(*arg0);
+void func_0803BF08(GenObj__func_0803BDEC **arg0, s32 arg1, s32 arg2) {
+    func_0803BDEC(*arg0, arg1, arg2);
 }
 
 // DECOMP-MATCHED func_0803D404 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
@@ -238,31 +246,31 @@ s32 func_0803BE9C(GenObj **arg0) {
 /* ATTEMPT-NOTE opencode: unkB-unkC u8 + hi-var; sisa alokasi hi r1 vs ref r2. */
 
 // DECOMP-MATCHED func_0803C518 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
-s32 func_0803BEBC();                                  /* extern */
+void func_0803BEBC(s32 *arg0);                            /* extern */
 
-typedef struct GenObj {
+typedef struct GenObj__func_0803C518 {
     u8 _pad0[13];
     u8 unkD;
     u8 _padE;
     u8 unkF;
-} GenObj;
-void func_0803C518(GenObj *arg0) {
-    func_0803BEBC();
+} GenObj__func_0803C518;
+void func_0803C518(GenObj__func_0803C518 *arg0) {
+    func_0803BEBC((s32 *)arg0);
     arg0->unkD = 1;
     arg0->unkF = 1;
 }
 
 // DECOMP-MATCHED func_0803C52C (dari code_0803A8A4.s; cek manusia sebelum ke src/)
-s32 func_0803BEC8();                                  /* extern */
+void func_0803BEC8(s32 *arg0);                            /* extern */
 
-typedef struct GenObj {
+typedef struct GenObj__func_0803C52C {
     u8 _pad0[13];
     u8 unkD;
     u8 _padE;
     u8 unkF;
-} GenObj;
-void func_0803C52C(GenObj *arg0) {
-    func_0803BEC8();
+} GenObj__func_0803C52C;
+void func_0803C52C(GenObj__func_0803C52C *arg0) {
+    func_0803BEC8((s32 *)arg0);
     arg0->unkD = 1;
     arg0->unkF = 1;
 }
@@ -307,7 +315,7 @@ typedef struct GenObj {
     u16 unk0;
     u16 unk2;
 } GenObj;
-void func_0803BDE4(GenObj *arg0, s16 arg1, s16 arg2) {
+void func_0803BDE4(GenObj *arg0, s32 arg1, s32 arg2) {
     arg0->unk0 = arg1;
     arg0->unk2 = arg2;
 }
@@ -461,18 +469,18 @@ s32 func_0803EDCC(GenObj *arg0) {
 }
 
 // DECOMP-MATCHED func_0803C588 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
-s32 func_0803BE50(void *, s32);                       /* extern */
-s32 func_0803C7A0(void *, s32);                       /* extern */
+void func_0803BE50(struct GenObj__func_0803BE50 *arg0, s32 arg1);  /* extern */
+void func_0803C7A0(s32 *arg0, s32 arg1);                      /* extern */
 extern s32 vtable_unk_080E77E0;
 
-typedef struct GenObj {
+typedef struct GenObj__func_0803C588 {
     u8 _pad0[4];
     void *unk4;
-} GenObj;
-void func_0803C588(GenObj *arg0, s32 arg1) {
+} GenObj__func_0803C588;
+void func_0803C588(GenObj__func_0803C588 *arg0, s32 arg1) {
     arg0->unk4 = &vtable_unk_080E77E0;
-    func_0803C7A0((u8 *)arg0 + 8, 2);
-    func_0803BE50(arg0, arg1);
+    func_0803C7A0((s32 *)((u8 *)arg0 + 8), 2);
+    func_0803BE50((struct GenObj__func_0803BE50 *)arg0, arg1);
 }
 
 // DECOMP-MATCHED func_0803DA24 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
@@ -660,10 +668,10 @@ s32 func_0803D52C(s32 *, s32);                        /* extern */
 s32 func_0803D644(s32, s32);                        /* extern */
 u32 GetRivalEventCount__C12Bachelorette(s32);       /* extern */
 
-typedef struct GenObj {
+typedef struct GenObj__func_0803EB9C {
     u8 _pad0[8];
     s32 unk8;
-} GenObj;
+} GenObj__func_0803EB9C;
 typedef struct {
     u8 pad0;
     u8 unk1;
@@ -671,7 +679,7 @@ typedef struct {
     u8 unk3;
 } Buf4;
 
-s32 func_0803EB9C(GenObj *arg0) {
+s32 func_0803EB9C(GenObj__func_0803EB9C *arg0) {
     Buf4 sp0;
     register u32 v1 asm("r6");
     u8 v2;
@@ -712,4 +720,65 @@ s32 func_0803EB9C(GenObj *arg0) {
     } else {
         return 1;
     }
+}
+
+// DECOMP-MATCHED func_0803EB40 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+s32 func_0803D52C(s32 *, s32);                          /* extern */
+s32 func_0803D644(s32, s32);                            /* extern */
+
+s32 func_0803EB40(u8 *arg0) {
+    u8 sp0[4];
+    u8 *bp;
+    u8 a1;
+    u8 a2;
+
+    if (((s32)(arg0[0x21CA] << 0x1C)) >= 0) {
+        bp = sp0;
+        func_0803D52C((s32 *)sp0, (s32)(arg0 + 0x10));
+        a1 = bp[1];
+        a2 = bp[2];
+        bp = (u8 *)bp[3];
+        if (a1 == 1) {
+            if ((func_0803D644(1, a2) << 0x18) != 0) {
+                return 4;
+            }
+            if ((u32)bp == 0) {
+                if (*(s32 *)(arg0 + 8) == 0) {
+                    return 2;
+                }
+                return 3;
+            }
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// DECOMP-MATCHED func_0803EADC (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+s32 func_0803D52C(s32 *, s32);                          /* extern */
+s32 func_0803D644(u8, u8);                              /* extern */
+
+s32 func_0803EADC(u8 *arg0) {
+    u8 sp0[4];
+    u8 *bp;
+    u8 a1, a2;
+
+    if ((arg0[0x21CA] & 0x7C) != 0) {
+        return 0;
+    }
+    bp = sp0;
+    func_0803D52C((s32 *)sp0, (s32)(arg0 + 0x10));
+    a1 = bp[1];
+    a2 = bp[2];
+    bp = (u8 *)bp[3];
+    if ((a1 == 2) && (a2 == 3)) {
+        return 9;
+    }
+    if ((func_0803D644(a1, a2) << 0x18) != 0) {
+        return 8;
+    }
+    if (((u32)bp == 1) || ((u32)bp == 3) || (*(s32 *)(arg0 + 8) != 0)) {
+        return 1;
+    }
+    return 2;
 }
