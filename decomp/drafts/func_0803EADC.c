@@ -1,5 +1,5 @@
 s32 func_0803D52C(s32 *, s32);                          /* extern */
-s32 func_0803D644(u8, u8);                              /* extern */
+s32 func_0803D644(s32, s32);                            /* extern */
 
 s32 func_0803EADC(u8 *arg0) {
     u8 sp0[4];
