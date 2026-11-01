@@ -583,6 +583,32 @@ i32 func_0803DA24(u8 *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_0803EA98 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0803D52C(i32 *, i32);                          /* extern */
+i32 func_0803D644(i32, i32);                            /* extern */
+
+__attribute__((section(".text.code_0803A8A4.0803EA98")))
+i32 func_0803EA98(u8 *arg0) {
+    u8 sp0[4];
+    u8 *bp;
+    u8 a1;
+    u8 a2;
+
+    if (((i32)(arg0[0x21CA] << 0x1A)) < 0) {
+        return 0;
+    }
+    bp = (u8 *)(sp0);
+    func_0803D52C((i32 *)sp0, (i32)(arg0 + 0x10));
+    a1 = (u8)(bp[1]);
+    a2 = (u8)(bp[2]);
+    if ((func_0803D644(a1, a2) << 0x18) != 0) {
+        return 2;
+    }
+    return 1;
+}
+}
+
 // DECOMP-MATCHED func_0803EADC (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0803D52C(i32 *, i32);                          /* extern */
