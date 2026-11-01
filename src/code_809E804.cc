@@ -316,6 +316,14 @@ typedef struct GenObj__func_080A0384 {
 } GenObj__func_080A0384;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080A0A04 GenObj__func_080A0A04;
+typedef struct GenObj__func_080A0A04 {
+    u8 _pad0[3];
+    u8 unk3;
+} GenObj__func_080A0A04;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -871,9 +879,10 @@ i32 func_080A0518(i32 arg0) {
 }
 
 // DECOMP-MATCHED func_080A06B0 (dari code_809E804.s; cek manusia sebelum ke src/)
+// PENYATUAN-MANUAL 2026-11-01 (pola A0030/A0384: case34 meneruskan pointer sbg i32
+// ke A0A04 (GenObj__A0A04*); cast no-op codegen, verify MATCH + compare HIJAU).
 extern "C" {
-i32 func_080A0A04(i32);                             /* extern */
-
+void* func_080A0A04(GenObj__func_080A0A04 *arg0);                             /* extern */
 __attribute__((section(".text.code_809E804.080A06B0")))
 i32 func_080A06B0(i32 arg0, i32 arg1) {
     u32 temp_r0;
@@ -883,7 +892,7 @@ i32 func_080A06B0(i32 arg0, i32 arg1) {
     default:
         return 0;
     case 34:
-        return func_080A0A04(arg0);
+        return (i32)func_080A0A04((GenObj__func_080A0A04 *)arg0);
     case 0:
         return arg0 + 0x70;
     case 1:
@@ -1048,6 +1057,24 @@ i32 func_080A099C(i32 arg0, u32 arg1) {
     }
 }
 }
+// DECOMP-MATCHED func_080A0A04 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_809E804.080A0A04")))
+void *func_080A0A04(GenObj__func_080A0A04 *arg0) {
+    GenObj__func_080A0A04 *t = arg0;
+    void *var_r2;
+    i32 sh = t->unk3 << 0x1E;
+    var_r2 = 0;
+    if (sh >= 0) {
+    } else {
+        var_r2 = (u8 *)t + 4;
+    }
+    return var_r2;
+}
+/* ATTEMPT-NOTE opencode: sama A0384. */
+}
+
 
 // DECOMP-MATCHED func_080A0AD8 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
