@@ -407,6 +407,33 @@ void func_0803D404(void **arg0, i32 arg1) {
 /* ATTEMPT-NOTE opencode: off2 literal di store agar ldr-pool 2x (reuse var hanya 1x load); arg1 i32 (tanpa zero-extend). */
 }
 
+// DECOMP-MATCHED func_0803D644 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+u8 *func_080E0E80(i32 *, void *, u32 *, i32, i32);    /* extern */
+extern i32 gUnk_080F1A66;
+
+__attribute__((section(".text.code_0803A8A4.0803D644")))
+i32 func_0803D644(i32 arg0, i32 arg1) {
+    u32 sp4;
+    i32 var_r2;
+    u8 *temp_r0;
+    u8 *temp_r4;
+    i32 t;
+    i32 *p;
+
+    t = (((arg0 << 4) - arg0) << 1) - 1;
+    sp4 = t + arg1;
+    p = &gUnk_080F1A66;
+    temp_r4 = (u8 *)p + 0xE;
+    temp_r0 = func_080E0E80(p, temp_r4, &sp4, 0, 0);
+    var_r2 = 0;
+    if ((temp_r0 != temp_r4) && (sp4 >= (u32) *temp_r0)) {
+        var_r2 = 1;
+    }
+    return var_r2;
+}
+}
+
 // DECOMP-MATCHED func_0803D7E4 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0803D688(i32, i32 *, i32);                     /* extern */
@@ -489,7 +516,7 @@ void func_0803D7E4(i32 arg0, i32 arg1) {
 // DECOMP-MATCHED func_0803DA24 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0803D52C(i32 *, i32);                          /* extern */
-i32 func_0803D644(u8, u8);                              /* extern */
+i32 func_0803D644(i32 arg0, i32 arg1);
 
 __attribute__((section(".text.code_0803A8A4.0803DA24")))
 i32 func_0803DA24(u8 *arg0) {
@@ -521,7 +548,7 @@ i32 func_0803DA24(u8 *arg0) {
 // DECOMP-MATCHED func_0803EC44 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0803D52C(i32 *, i32);                        /* extern */
-i32 func_0803D644(u8, u8);                          /* extern */
+i32 func_0803D644(i32 arg0, i32 arg1);
 i32 func_0809ECD8(void *);                          /* extern */
 i32 func_0809ECE0(void *);                          /* extern */
 
@@ -559,7 +586,7 @@ i32 func_0803EC44(GenObj__func_0803EC44 *arg0) {
 // DECOMP-MATCHED func_0803ECC0 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0803D52C(i32 *, i32);                          /* extern */
-i32 func_0803D644(u8, u8);                              /* extern */
+i32 func_0803D644(i32 arg0, i32 arg1);
 u32 func_0809EB68(void *);                              /* extern */
 i32 func_0809EB70(void *);                              /* extern */
 u32 func_0809EB8C(void *);                              /* extern */
@@ -638,7 +665,7 @@ i32 func_0803ECC0(GenObj *arg0) {
 // DECOMP-MATCHED func_0803EDCC (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0803D52C(i32 *, i32);                          /* extern */
-i32 func_0803D644(u8, u8);                          /* extern */
+i32 func_0803D644(i32 arg0, i32 arg1);
 
 i32 func_0803EDCC(GenObj *arg0) {
     Buf4 sp0;
@@ -676,7 +703,7 @@ i32 func_0803EDCC(GenObj *arg0) {
 // DECOMP-MATCHED func_0803EE50 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0803D52C(i32 *, i32);                          /* extern */
-i32 func_0803D644(u8, u8);                              /* extern */
+i32 func_0803D644(i32 arg0, i32 arg1);
 
 i32 func_0803EE50(u8 *arg0) {
     u8 sp0[4];
