@@ -1695,10 +1695,38 @@ def insert_ordered(src_text, marker_line, body, addr, state_addrs,
                     # dipakai utk blok-bawah yg SUDAH pindah (B44E0 dkk,
                     # bukan naked) — cukup hitung `}` pertama sesudah
                     # baris DEFINISI fungsi terlihat.
+                    # BUG-FIX 2026-11-01 (TERBUKTI 46BC vs 45E0): `}`
+                    # pertama sesudah definisi BELUM TENTU tutup blok —
+                    # bisa tutup `if`/`switch` di tengah badan (45E0:
+                    # `}` tutup `if` di case 18). Hitung depth brace
+                    # sejak `extern "C" {`; berhenti hanya saat depth
+                    # kembali 0 (tutup extern-C). Abaikan string-asm
+                    # naked (sampai `);`) + literal char/string
+                    # (`'}'`/`"}"`). Satu-baris (`u8 f(..){..}`)
+                    # tetap berhenti di baris itu (depth 1->0).
+                    if _s2.startswith('extern "C"') and _s2.endswith('{'):
+                        _wd, _wd_nak = 1, False
+                    elif '_wd' in locals() and _wd is not None:
+                        _cl = _l2
+                        if _wd_nak:
+                            if ');' in _cl:
+                                _wd_nak = False
+                            _cl = ''
+                        else:
+                            if 'naked' in _cl and ');' not in _cl:
+                                _wd_nak = True
+                                _cl = ''
+                        if _cl:
+                            _cl = re.sub(r"'(?:\\.|[^'\\])*'", "''", _cl)
+                            _cl = re.sub(r'"(?:\\.|[^"\\])*"', '""', _cl)
+                            _wd += _cl.count('{') - _cl.count('}')
+                        if _wd <= 0:
+                            break
                     if _s2 == '}' and re.search(
                             r'\bfunc_\w+\s*\([^;{}]*\)\s*\{',
                             src_text[_bs:_bs + _consumed]):
-                        break
+                        if '_wd' not in locals() or _wd is None:
+                            break
                 if _consumed:
                     pos = _bs + _consumed
     # Jangan belah blok `extern "C" {` milik fungsi lain: bila pos
@@ -2035,12 +2063,72 @@ def migrate_one(module, func, dry_run=False):
                 "skipped": True,
                 "detail": f"{func} grup gabungan/tak-split "
                 "(lihat split_asm_sections.py --migratable), dilewati"}
+    data_plan = []  # [(dsec, addr8, addr_int, bytevals)]
     secname = asm_section_of(stem, func) if split else None
+    # GUARD 2026-11-01 (TERBUKTI func_080202C8): data ASING menempel
+    # di ekor chunk fungsi (trailing_data_len > 0) sementara grupnya
+    # SOLO (data_plan kosong — splitter tak-memisahkannya jadi chunk
+    # data sendiri). Judge MATCH dgn memotong data asing dari ref
+    # (diff_note: rb = ref tanpa trailing), TAPI ROM tetap butuh byte
+    # itu di alamat tsb — yg saat ini hidup dari chunk fungsi di asm.
+    # Bila fungsi pindah, splitter meng-omit SELURUH chunk (kode +
+    # data asing) sementara src hanya membawa kode -> byte-DIFF -N
+    # (C8: -68B). Data asing BUKAN milik fungsi ini (judge: tak-dirujuk
+    # modul) -> tak-bisa dibawa via data_plan; pindah HANYA BERSAMA
+    # pemilik aslinya (yg grupnya mencakup alamat tsb). SKIP-PERMANEN
+    # by-design spt grup gabungan (bukan MERAH yg diulang sia-sia).
+    # SYARAT-KETAT: hanya bila grup solo (len(funcs)==1, data_plan
+    # kosong) + trailing>0 + ref_len > trailing (ada kode tersisa)
+    # + TAK-DISELAMATKAN (tak ada chunk data/gData yg mencakup rentang
+    # trailing — TERKOREKSI 2026-11-01: versi awal SKIP juga 22B5C/44D8
+    # yg SUDAH pindah HIJAU; 168B/244B mereka diselamatkan gData via
+    # fungsi berikut (data-join: 22C18 membawa 22B70, 45E0 membawa
+    # 244EC). C8 (68B di 202CC) tak-diselamatkan siapa pun: grup 0310
+    # berikut data-plan-nya kosong).
+    # BUKAN utk pool legit (pool_len>0, trailing==0) atau data-join
+    # (data_plan non-kosong -> dibawa ke src).
+    # NOTE-URUTAN: guard dievaluasi SETELAH data_plan diisi (di bawah)
+    # agar data-join tak-kena SKIP palsu; evaluasi di sini (pre-plan)
+    # memakai group_data_chunks langsung bila perlu. Untuk kasus
+    # TERBUKTI C8 (grup solo murni, group_data_chunks kosong), cek
+    # sekarang dgn group_data_chunks (sama dgn yg dipakai data_plan).
+    if split and secname is not None and not group_data_chunks(stem, func):
+        try:
+            import run as _run
+            _td = _run.trailing_data_len(module, func)
+        except Exception:
+            _td = 0
+        _saved = False
+        if _td and info.get("ref_len", 0) > _td:
+            # Diselamatkan? cari chunk data/gData di grup fungsi BERIKUT
+            # yg addr-nya di dalam (addr_func, addr_func+ref_len).
+            try:
+                _fa = info.get("addr", 0)
+                for _chs in _analyze_stem(stem):
+                    for _c in _chs:
+                        if _c["kind"] != "data":
+                            continue
+                        import re as _re2
+                        _m2 = _re2.search(r"\.([0-9A-Fa-f]{8})",
+                                             _c.get("secname", ""))
+                        if _m2 and _fa < int(_m2.group(1), 16) < _fa + info.get("ref_len", 0):
+                            _saved = True
+                            break
+                    if _saved:
+                        break
+            except Exception:
+                _saved = False
+        if _td and info.get("ref_len", 0) > _td and not _saved:
+            return {"func": func, "module": module, "ok": False,
+                    "skipped": True, "permanent": True,
+                    "detail": f"{func} data asing {_td}B menempel ekor "
+                    f"(ref {info.get('ref_len')}B, kode saja MATCH); "
+                    "pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), "
+                    "dilewati"}
     # Data se-grup (aturan data-join splitter): tiap data-chunk perlu
     # di-emit ke src dgn nama section yg sama agar splitter meng-omit-nya
     # dari asm (kalau tidak, asm + src sama-sama menaruh section itu ->
     # multiple definition, kasus game_state func_08010F1C).
-    data_plan = []  # [(dsec, addr8, addr_int, bytevals)]
     if split:
         for dsec, addr8, addr_int, dlines in group_data_chunks(stem, func):
             bytevals = parse_data_bytes(dlines)
@@ -2243,6 +2331,13 @@ def migrate_one(module, func, dry_run=False):
         # Tanpa ini, blok dgn extern warisan salah-tanda (m2c) macet
         # permanen di SKIP meski definisi benar sudah pindah duluan.
         decl_old, decl_new = extern_decls(_conflict_view), extern_decls(body)
+        # decl_src_murni: extern di SRC SAJA (tanpa _cand body) — utk
+        # deteksi konflik loop-2. BUG-FIX 2026-11-01 (TERBUKTI 35B38 vs
+        # __builtin_new): decl_old tercemar _cand_ext dari body, shg
+        # sig body selalu subset decl_old -> konflik body-vs-src
+        # (s32 vs void*) DISEMBUNYIKAN -> lolos ke kompilasi -> MERAH.
+        # Loop-2 harus bandingkan body vs SRC-murni.
+        decl_src = extern_decls(src_nostruct)
         # defined_here: definisi yg dibawa body calon (pre-section —
         # attribute-section disisipkan BELAKANGAN di insert_ordered, jadi
         # hitung SEBELUM wrap; FUNC_DEF_RE tak cocok bila attribute sudah
@@ -2350,7 +2445,7 @@ def migrate_one(module, func, dry_run=False):
                         f"di src ({sorted(decl_old[nm])}); butuh penyatuan "
                         "manual (definisi + call-site), dilewati"}
         for nm, sigs in decl_new.items():
-            if nm in decl_old and not sigs.issubset(decl_old[nm]):
+            if nm in decl_src and not sigs.issubset(decl_src[nm]):
                 if nm in defined_here:
                     # definisi dlm body menang: rewrite extern usang di
                     # src ke tanda body.
@@ -2398,11 +2493,20 @@ def migrate_one(module, func, dry_run=False):
                     new_sig = _new_sig2
                     winner = "src"
                 else:
+                    # PERMANEN bila callee tak-MATCH (TERBUKTI __builtin_new
+                    # 2026-11-01: operator new, tak-ada di state, takkan
+                    # pernah promoted — spt AD944-final loop-1). BUKAN
+                    # menunggu-kematangan; jangan ulang sia-sia.
+                    _perm2 = (" (SKIP-PERMANEN: callee tak-MATCH; butuh "
+                               "tulis manual callee)"
+                               if _callee_status.get(nm) != "promoted"
+                               and nm not in defined_here else "")
                     return {"func": func, "module": module, "ok": False,
                             "skipped": True,
+                            "permanent": bool(_perm2),
                             "detail": f"extern {nm} beda tanda tangan "
                             f"({sorted(decl_old[nm])} vs {sorted(sigs)}), "
-                            "butuh penyatuan manual, dilewati"}
+                            "butuh penyatuan manual, dilewati" + _perm2}
                 _pm = re.match(r"^(.*?)\s*\((.*)\)\s*$", new_sig)
                 if _pm:
                     _ret, _params = _pm.group(1), _pm.group(2)
