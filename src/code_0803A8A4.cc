@@ -119,6 +119,13 @@ typedef struct GenObj__func_0803C588 {
 } GenObj__func_0803C588;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0803EB9C {
+    u8 _pad0[8];
+    i32 unk8;
+} GenObj__func_0803EB9C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0803B474 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -376,7 +383,6 @@ void func_0803C588(GenObj__func_0803C588 *arg0, i32 arg1) {
 }
 }
 
-
 // DECOMP-MATCHED func_0803D340 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __udivsi3(i32, i32);                             /* extern */
@@ -563,6 +569,57 @@ i32 func_0803DA24(u8 *arg0) {
         return 1;
     }
     return 2;
+}
+}
+
+// DECOMP-MATCHED func_0803EB9C (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0803D52C(i32 *, i32);                        /* extern */
+i32 func_0803D644(i32, i32);                        /* extern */
+u32 GetRivalEventCount__C12Bachelorette(i32);       /* extern */
+
+__attribute__((section(".text.code_0803A8A4.0803EB9C")))
+i32 func_0803EB9C(GenObj__func_0803EB9C *arg0) {
+    Buf4 sp0;
+    register u32 v1 asm("r6");
+    u8 v2;
+    u8 v3;
+    u32 t;
+
+    if ((i32)(((u8 *)arg0)[0x21CA] << 0x1B) < 0) {
+        return 0;
+    }
+    func_0803D52C((i32 *)&sp0, (i32)((u8 *)arg0 + 0x10));
+    v1 = sp0.unk1;
+    v2 = sp0.unk2;
+    v3 = sp0.unk3;
+    t = GetRivalEventCount__C12Bachelorette((i32)((u8 *)arg0 + 0x1E28));
+    if (t > 4U) {
+        if ((func_0803D644(v1, v2) << 0x18) != 0) {
+            return 9;
+        }
+        if (v3 == 4) {
+            if (arg0->unk8 == 0) {
+                return 6;
+            }
+            return 7;
+        }
+        return 5;
+    }
+    if ((func_0803D644(v1, v2) << 0x18) != 0) {
+        return 8;
+    }
+    if (t != 0) {
+        if (v3 == 1) {
+            return 3;
+        }
+        if (v3 == 4) {
+            return 4;
+        }
+        return 2;
+    } else {
+        return 1;
+    }
 }
 }
 
