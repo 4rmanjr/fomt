@@ -115,6 +115,7 @@ SECTIONS
 
         *(SORT_BY_NAME(.text.code_0803A8A4.*))
         src/code_0803A8A4.o(.text);
+        src/code_0803A8A4_c.o(.text);
         src/script_engine.o(.text);
         *(SORT_BY_NAME(.text.code_0803EE94.*))
         src/code_0803EE94.o(.text);
