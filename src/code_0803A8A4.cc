@@ -270,6 +270,17 @@ i16 func_0803BEEC(i16 **arg0) {
 }
 }
 
+// DECOMP-MATCHED func_0803BF08 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+
+void func_0803BDEC(GenObj__func_0803BDEC *arg0, i32 arg1, i32 arg2);  /* extern */
+
+__attribute__((section(".text.code_0803A8A4.0803BF08")))
+void func_0803BF08(GenObj__func_0803BDEC **arg0, i32 arg1, i32 arg2) {
+    func_0803BDEC(*arg0, arg1, arg2);
+}
+}
+
 // DECOMP-MATCHED func_0803C540 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 
