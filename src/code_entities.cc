@@ -450,6 +450,15 @@ void func_0802907C(GenObj__func_0802907C *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_0802A7D8 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_entities.0802A7D8")))
+void func_0802A7D8(GenObj__func_0802A7D8 *arg0) {
+    arg0->unk88 = 0;
+}
+}
+
 // DECOMP-MATCHED func_0802B8EC (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __builtin_new(i32);                             /* extern */
@@ -476,7 +485,6 @@ struct { i32 sp4; i32 _b; } fr;
     return arg0;
 }
 }
-
 
 // DECOMP-MATCHED func_0802C2DC (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
