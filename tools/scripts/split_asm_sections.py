@@ -66,7 +66,17 @@ ADDR_LABEL_RE = re.compile(r"^\.L([0-9A-Fa-f]{8})$")
 ADDR_COMMENT_RE = re.compile(r"@\s*0x([0-9A-Fa-f]+)")
 FUNC_NAME_ADDR_RE = re.compile(r"func_([0-9A-Fa-f]{8})$")
 SRC_SECTION_RE = re.compile(r'section\s*\(\s*"([^"]+)"\s*\)')
+_SPACE_FILL_RE = re.compile(r"^\.(space|fill|skip)\b")
+_ALIGN2_RE = re.compile(r"^\.align\s+2,\s*0\s*$")
+_ALIGN_RE = re.compile(r"^\.align\b")
+_DATA_LABEL_STRIP_RE = re.compile(r"^\s*[.\w][\w.]*:\s*")
+_REF_WORD_RE = re.compile(r"[.\w]*\.L[\w.]+|\b[A-Za-z_]\w*\b")
+_PC_LABEL_RE = re.compile(r"[.\w]*\.L[\w.]+")
+_NUM_RE = re.compile(r"0x[0-9A-Fa-f]+|\d+")
+_LABEL_DEF_RE = re.compile(r"^\s*([.\w][\w.]*):")
+_DOTWORD_COLON_RE = re.compile(r"^[.\w]")
 _HIGH_REG_RE = re.compile(r"\b(r8|r9|r10|r11|r12|sl|sb|sp|pc|lr)\b")
+HIGH_REG_RE = _HIGH_REG_RE  # alias publik (dipakai calon optimasi caller)
 _THUMB32_RE = re.compile(r"^\s*(bl\s|b\.w\s|blx\s)\b")
 
 
@@ -88,16 +98,21 @@ def _instr_len(ln: str) -> int:
 
 def _group_len_mod4(chs) -> int | None:
     """Estimasi (panjang grup) mod 4 via simulasi offset, atau None bila
-    ada direktif yang tak bisa disimulasikan (.incbin/.space/.fill)."""
+    ada direktif yang tak bisa disimulasikan (.incbin/.space/.fill).
+
+    CATATAN: TIDAK bisa di-memoize per-chunk dgn penjumlahan mod-4:
+    komponen align-up `(4 - off%4)%4` bergantung posisi absolut dalam
+    grup, jadi hasil grup != jumlah hasil chunk. Simulasi ulang penuh
+    per panggilan (benar, walau O(n) per grup)."""
     off = 0
     for ch in chs:
         for ln in ch["lines"]:
             s = _strip(ln)
             if not s:
                 continue
-            if ".incbin" in s or re.match(r"^\.(space|fill|skip)\b", s):
+            if ".incbin" in s or _SPACE_FILL_RE.match(s):
                 return None
-            if re.match(r"^\.align\s+2,\s*0\s*$", s) or (
+            if _ALIGN2_RE.match(s) or (
                 START_RE.match(ln) and "non_word_aligned" not in ln
             ):
                 off += (4 - off % 4) % 4
@@ -107,7 +122,7 @@ def _group_len_mod4(chs) -> int | None:
             md = DATA_RE.match(s)
             if md:
                 kind = md.group(2)
-                n = len(re.findall(r"0x[0-9A-Fa-f]+|\d+", s))
+                n = len(_NUM_RE.findall(s))
                 if kind in ("byte",):
                     off += n
                 elif kind in ("2byte", "short", "hword"):
@@ -124,7 +139,7 @@ def _group_len_mod4(chs) -> int | None:
                     continue
             if DIRECTIVE_RE.match(s):
                 continue
-            if re.match(r"^[.\w]", s) and ":" in s.split()[0]:
+            if _DOTWORD_COLON_RE.match(s) and ":" in s.split()[0]:
                 rest = s.split(":", 1)[1].strip()
                 if not rest:
                     continue
@@ -141,9 +156,8 @@ def _refs(lines) -> set:
     """Nama yang DIRUJUK (definisi label di baris itu sendiri tidak dihitung)."""
     out = set()
     for ln in lines:
-        s = ln.split("@")[0]
-        s = re.sub(r"^\s*[.\w][\w.]*:\s*", "", s)
-        out.update(re.findall(r"[.\w]*\.L[\w.]+|\b[A-Za-z_]\w*\b", s))
+        s = _DATA_LABEL_STRIP_RE.sub("", ln.split("@")[0])
+        out.update(_REF_WORD_RE.findall(s))
     return out
 
 
@@ -151,22 +165,56 @@ def _pc_refs(lines) -> set:
     """Label yang dirujuk lewat instruksi (PC-relative), bukan data."""
     out = set()
     for ln in lines:
-        s = ln.split("@")[0]
-        s = re.sub(r"^\s*[.\w][\w.]*:\s*", "", s).strip()
+        s = _DATA_LABEL_STRIP_RE.sub("", ln.split("@")[0]).strip()
         if not s or DIRECTIVE_RE.match(s) or DATA_RE.match(s):
             continue
-        out.update(re.findall(r"[.\w]*\.L[\w.]+", s))
+        out.update(_PC_LABEL_RE.findall(s))
     return out
 
 
+def _refs_and_pc(lines) -> tuple[set, set]:
+    """Gabungan _refs + _pc_refs dalam 1 pass (hemat ~2x split/strip/regex).
+
+    Dipakai analyze(): modul besar = 1.1M baris-dipindai per panggilan;
+    1 pass = separuh pemindaian. Hasil identik dgn memanggil keduanya.
+    (Saat ini dipakai _pc saja per chunk; _refs global tetap 1 pass.)"""
+    refs, pcrefs = set(), set()
+    for ln in lines:
+        s = _DATA_LABEL_STRIP_RE.sub("", ln.split("@")[0])
+        refs.update(_REF_WORD_RE.findall(s))
+        t = s.strip()
+        if not t or DIRECTIVE_RE.match(t) or DATA_RE.match(t):
+            continue
+        pcrefs.update(_PC_LABEL_RE.findall(t))
+    return refs, pcrefs
+
+
+_SRC_NAMES_CACHE: tuple[float, set] | None = None  # (mtime-src-terbaru, names)
+
+
 def src_section_names() -> set:
+    """Section yg sudah disediakan src/*.cc|*.c. Di-cache per mtime direktori.
+
+    Dipanggil tiap file .s saat build (Makefile: tiap target .o memicu
+    split 1 file). Tanpa cache: tiap panggilan = glob + baca ~100 file
+    src (~0.1-0.3 dtk) x 20+ modul = detik sia-sia per build. Cache
+    di-invalidasi bila ada file src yg mtime-nya berubah.
+    """
+    global _SRC_NAMES_CACHE
+    try:
+        files = list((REPO / "src").glob("*.cc")) + list((REPO / "src").glob("*.c"))
+        newest = max((p.stat().st_mtime for p in files), default=0.0)
+    except OSError:
+        return set()
+    if _SRC_NAMES_CACHE is not None and _SRC_NAMES_CACHE[0] >= newest:
+        return _SRC_NAMES_CACHE[1]
     names = set()
-    for pat in ("*.cc", "*.c"):
-        for p in (REPO / "src").glob(pat):
-            try:
-                names.update(SRC_SECTION_RE.findall(p.read_text(errors="replace")))
-            except OSError:
-                pass
+    for p in files:
+        try:
+            names.update(SRC_SECTION_RE.findall(p.read_text(errors="replace")))
+        except OSError:
+            pass
+    _SRC_NAMES_CACHE = (newest, names)
     return names
 
 
@@ -265,11 +313,11 @@ def _trailing_data_start(chunk, refs):
         if not s:
             k -= 1
             continue
-        if re.match(r"^\.align\b", s):
+        if _ALIGN_RE.match(s):
             # harus `.align` TERAKHIR: tak boleh ada `.align` lain
             # antara ai dan ujung (k==posisi ini; pastikan tak ada
             # `.align` di (k, j])
-            if any(re.match(r"^\.align\b", _strip(chunk[q]))
+            if any(_ALIGN_RE.match(_strip(chunk[q]))
                    for q in range(k + 1, j + 1)):
                 ok = False
             else:
@@ -318,7 +366,7 @@ def _trailing_data_start(chunk, refs):
         if not s:
             i -= 1
             continue
-        if re.match(r"^\.align\b", s):
+        if _ALIGN_RE.match(s):
             if tail_ok is not None and i == ai:
                 start = tail_ok
             else:
@@ -358,7 +406,7 @@ def _data_suffix_addr(lines):
 def _defined_labels(lines):
     out = set()
     for ln in lines:
-        m = re.match(r"^\s*([.\w][\w.]*):", ln)
+        m = _LABEL_DEF_RE.match(ln)
         if m:
             out.add(m.group(1))
     return out

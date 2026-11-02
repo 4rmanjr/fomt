@@ -3251,8 +3251,16 @@ def main():
             return 2
 
     moved, failed, dry, perm_skips = [], None, [], []
+    last_stem = None
     for mod, name in plan:
-        _analyze_stem.cache_clear()  # asm dibaca ulang per iterasi (tulisan real)
+        stem = mod[:-len(".s")] if mod.endswith(".s") else mod
+        if stem != last_stem:
+            # asm/*.s tak pernah ditulis jalur split (tulis hanya terjadi
+            # di jalur legacy tak-split yg tak memakai cache ini), jadi
+            # cukup invalidate 1x per modul, bukan per fungsi (hemat
+            # ~1-4 dtk parse ulang per iterasi; terukur 20 dtk/5 fungsi).
+            _analyze_stem.cache_clear()
+            last_stem = stem
         print(f"== migrasi {name} ({mod}) ...")
         r = migrate_one(mod, name, dry_run=args.dry_run)
         status = "OK" if r["ok"] else ("SKIP" if r.get("skipped") else "GAGAL")

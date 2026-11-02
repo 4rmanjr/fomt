@@ -49,6 +49,19 @@ AS = Path(os.environ.get("FOMT_AS", TOOLS / "arm-gnu/bin/arm-none-eabi-as"))
 CPP = Path(os.environ.get("FOMT_CPP", TOOLS / "arm-gnu/bin/arm-none-eabi-cpp"))
 M2C = Path(os.environ.get("FOMT_M2C", TOOLS / "m2c/m2c.py"))
 
+# Cache ref_sizes (rakit asm -> ukur simbol): asm/*.s tak pernah ditulis
+# worker decomp (hanya state/draf/promoted yg berubah), jadi hasil valid
+# selama mtime file sama. Tanpa ini tiap `fomt` invocation merakit ulang
+# ~22 modul (terukur: scan+ref 7.7 dtk, mayoritas di sini). Simpan di
+# /tmp (bukan repo): cache lokal mesin, tak ikut commit, auto-basi bila
+# file berubah (kunci = mtime+size).
+_REF_CACHE_DIR = Path(os.environ.get("FOMT_REFCACHE",
+                                     "/tmp/opencode/fomt_refcache"))
+try:
+    _REF_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
+
 # --- koordinasi antar-agent (multi-agent) -----------------------------------
 # Dua agent (mis. OpenCode dan VSCode) boleh jalan bersamaan: tiap fungsi
 # diklaim dulu di shard state, jadi tidak ada fungsi yang digarap dua kali.
@@ -389,10 +402,26 @@ def release(name: str) -> None:
 
 def ref_sizes(module: str) -> dict[str, int]:
     """Ukuran aktual tiap fungsi dari objek rakitan utuh (macro .size absen di
-    file-file lama, jadi batas fungsi = offset simbol berikut dalam section)."""
+    file-file lama, jadi batas fungsi = offset simbol berikut dalam section).
+
+    Hasil di-cache di /tmp per (mtime, size) file asm: aman karena worker
+    decomp tak pernah menulis asm/*.s. Bila cache hit, hemat 1x rakit as
+    (~0.3-1 dtk per modul besar) + parse ELF."""
+    pf = ASM / module
+    try:
+        st = pf.stat()
+        key = (module, st.st_mtime_ns, st.st_size)
+        cf = _REF_CACHE_DIR / (re.sub(r"[^\w.-]", "_", module) + ".json")
+        try:
+            saved = json.loads(cf.read_text())
+            if saved.get("key") == list(key):
+                return dict(saved.get("sizes", {}))
+        except (OSError, ValueError):
+            pass
+    except OSError:
+        return {}
     from elftools.elf.elffile import ELFFile as _EF
     from io import BytesIO as _BIO
-    pf = ASM / module
     txt = pf.read_text(errors="replace")
     pre = ""
     if '.INCLUDE "asm/macro.inc"' in txt:
@@ -414,7 +443,12 @@ def ref_sizes(module: str) -> dict[str, int]:
         sys.path.insert(0, str(DECOMP_SRC))
         from decompnet.elfobj import _function_symbols as _fs
         d = _fs(_EF(_BIO(Path(op).read_bytes())))
-        return {k: v[2] for k, v in d.items()}
+        out = {k: v[2] for k, v in d.items()}
+        try:
+            cf.write_text(json.dumps({"key": list(key), "sizes": out}))
+        except OSError:
+            pass
+        return out
     except Exception:
         return {}
     finally:
