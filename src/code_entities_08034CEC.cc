@@ -538,6 +538,19 @@ typedef struct GenObj__func_0803880C {
 struct Params_func_08039A30 { i32 a; i32 b; i32 c; };
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080399C0 {
+    u8 _pad0[4];
+    struct GenObj__func_080399C0 *unk4;
+    struct GenObj__func_080399C0 *unk8;
+    u8 _padC[4];
+    i32 unk10;
+    void *unk14;
+    u8 _pad18[28];
+    i32 unk34;
+} GenObj__func_080399C0;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035AE0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -2066,6 +2079,53 @@ __attribute__((section(".text.code_entities_08034CEC.0803930C")))
 i32 func_0803930C(void) {
     return 1;
 }
+}
+
+// DECOMP-MATCHED func_080399C0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 GetLocation__C12AActorEntity(i32 *, void *);        /* extern */
+i32 SetLocation__5ActorRC13ActorLocation(i32, i32 *);   /* extern */
+void __builtin_delete(void *);                             /* extern */
+extern i32 __vt_7AEntity;
+extern i32 vtable_unk_080E74DC;
+
+__attribute__((section(".text.code_entities_08034CEC.080399C0")))
+void func_080399C0(GenObj__func_080399C0 *arg0, i32 arg1) {
+i32 sp[2];
+    i32 temp_r4;
+    i32 *var_r4;
+    u8 *var_r6;
+    void *temp_r0;
+    GenObj__func_080399C0 *temp_r1;
+
+    arg0->unk14 = &vtable_unk_080E74DC;
+    temp_r4 = arg0->unk34;
+    GetLocation__C12AActorEntity((i32 *)(&sp[0]), arg0);
+    SetLocation__5ActorRC13ActorLocation(temp_r4, (i32 *)(&sp[0]));
+    temp_r0 = (u8 *)arg0 + 0x38;
+    if (temp_r0 == 0) {
+        goto skip;
+    }
+    var_r4 = (i32 *)((u8 *)arg0 + 0x4C);
+    if (temp_r0 != (u8 *)var_r4) {
+        var_r6 = (u8 *)(temp_r0);
+        do {
+            var_r4 = (i32 *)((u8 *)var_r4 - 4);
+            __builtin_delete((void *)*var_r4);
+        } while ((u8 *)var_r6 != (u8 *)var_r4);
+    }
+skip:;
+    arg0->unk14 = &__vt_7AEntity;
+    temp_r1 = (GenObj__func_080399C0 *)(arg0->unk10);
+    if (temp_r1 != 0) {
+        ((void (*)(void *,...))(temp_r1->unk4->unk8))(temp_r1, 3);
+    }
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+
+/* ATTEMPT-NOTE opencode: null-check temp_r0 dulu (sebelum var_r4); u8-byte-arith + var_r6 copy; sp array utk sub#8. */
 }
 
 // DECOMP-MATCHED func_08039A30 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
