@@ -1872,7 +1872,6 @@ u8 func_08038108(GenObj__func_08038108 *arg0) {
 /* ATTEMPT-NOTE opencode: member+return u8 (ldrb, tanpa lsls/lsrs). */
 }
 
-
 // DECOMP-MATCHED func_08038320 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08038110(i32);                               /* extern */
@@ -1884,6 +1883,17 @@ void func_08038320(i32 arg0) {
     func_08038110(arg0);
 }
 }
+// DECOMP-MATCHED func_08038334 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+void* __builtin_new(i32);                             /* extern */
+i32 func_0803853C(i32, i32);                          /* extern */
+
+__attribute__((section(".text.code_entities_08034CEC.08038334")))
+i32 func_08038334(i32 arg0) {
+    return func_0803853C((i32)(__builtin_new(0x48)), arg0);
+}
+}
+
 
 // DECOMP-MATCHED func_080391C0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
