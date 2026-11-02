@@ -153,7 +153,7 @@
   "addr": 134438100,
   "judged_mtime": 1793150910.7756617,
   "module": "code_entities_08034CEC.s",
-  "note": "",
+  "note": "SKIP-migrasi permanen: callee func_08035C04 failed (K&R i32() vs i32(i32)); butuh tulis manual callee dulu.",
   "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
