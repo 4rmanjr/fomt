@@ -589,6 +589,17 @@ typedef struct GenObj__func_080396F4 {
 } GenObj__func_080396F4;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Sub08038EA0 {
+    u8 _pad0[80];
+    u8 unk50;
+} Sub08038EA0;
+typedef struct GenObj__func_08038EA0 {
+    u8 _pad0[12];
+    Sub08038EA0 *unkC;
+} GenObj__func_08038EA0;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035AE0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -2068,12 +2079,11 @@ void func_080387C8(GenObj__func_080387C8 *arg0) {
 }
 // DECOMP-MATCHED func_080387D8 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08038EA0();                                /* extern */
-
+i32 func_08038EA0(GenObj__func_08038EA0 *arg0);                             /* extern */
 __attribute__((section(".text.code_entities_08034CEC.080387D8")))
 i32 func_080387D8(GenObj__func_080387D8 *arg0) {
     if (arg0->unk10 != 0) {
-        return func_08038EA0();
+        return func_08038EA0((GenObj__func_08038EA0 *)arg0->unk10);
     }
     return 1;
 }
@@ -2113,6 +2123,28 @@ i32 func_0803880C(GenObj__func_0803880C *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_08038EA0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.code_entities_08034CEC.08038EA0")))
+i32 func_08038EA0(GenObj__func_08038EA0 *arg0) {
+    Sub08038EA0 *temp_r0;
+    i32 temp_r0_2;
+    i32 var_r1;
+
+    temp_r0 = (Sub08038EA0 *)(arg0->unkC);
+    var_r1 = 0;
+    temp_r0_2 = temp_r0->unk50;
+    if (temp_r0_2 == 0) {
+        var_r1 = 1;
+    }
+    return var_r1;
+}
+
+/* ATTEMPT-NOTE manual: byte +0x50 via struct dalam. */
+}
+
 // DECOMP-MATCHED func_080391C0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_entities_08034CEC.080391C0")))
@@ -2148,7 +2180,6 @@ i32 func_0803930C(void) {
 
 // DECOMP-MATCHED func_080396F4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
-
 
 __attribute__((section(".text.code_entities_08034CEC.080396F4")))
 i32 func_080396F4(i32 arg0, GenObj__func_080396F4 *arg1) {
