@@ -11,15 +11,17 @@ typedef struct GenObj {
 } GenObj;
 void func_08036768(GenObj *arg0) {
     s32 var_r1;
+    s32 var_r1b;
     s32 var_r5;
 
     var_r1 = 0x27B;
+    var_r1b = 0x27F;
     var_r5 = 2;
     if ((((u32) (arg0->unk34[0x2181] << 0x1E)) >> 0x1E) == 1) {
         var_r1 = 0x293;
         var_r5 = 1;
     }
     func_08035908(arg0, var_r1);
-    func_08035940(arg0, 0x27F);
+    func_08035940(arg0, var_r1b);
     arg0->unk21 = var_r5;
 }

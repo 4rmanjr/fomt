@@ -8,22 +8,22 @@ typedef struct GenObj {
     u8 unkC;
 } GenObj;
 void func_0805039C(GenObj *arg0) {
-    u8 *temp_r5;
-    s32 temp_r6;
+    u8 *temp_r6;
+    s32 temp_r5;
 
-    temp_r6 = arg0->unk8;
-    temp_r5 = (u8 *)arg0 + 0x20;
-    if (temp_r6 == 0) {
+    temp_r5 = arg0->unk8;
+    temp_r6 = (u8 *)arg0 + 0x20;
+    if (temp_r5 == 0) {
         func_0804F0E0((u8 *)arg0 + 0xD0);
         if (arg0->unk4 != 1) {
-            func_08009940(temp_r5, (u8 *)arg0 + (0x98 << 1));
+            func_08009940(temp_r6, (u8 *)arg0 + (0x98 << 1));
         }
-        func_08009940(temp_r5, (u8 *)arg0 + (0xA4 << 1));
-        arg0->unkC = temp_r6;
+        func_08009940(temp_r6, (u8 *)arg0 + (0xA4 << 1));
+        arg0->unkC = temp_r5;
     }
-    temp_r6 = arg0->unk8;
-    if (temp_r6 >= 0) {
-        if (temp_r6 <= 2) {
+    temp_r5 = arg0->unk8;
+    if (temp_r5 >= 0) {
+        if (temp_r5 <= 2) {
             arg0->unk8 = 1;
         }
     }

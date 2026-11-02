@@ -70,3 +70,47 @@ void func_08037A04(GenObj__func_08037A04 *arg0) {
         SetAnim__12AActorEntityUi((i32)arg0, t);
     }
 }
+// DECOMP-MATCHED func_08036768 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+i32 func_08035908(i32, i32);
+i32 func_08035940(i32, i32);
+typedef struct GenObj__func_08036768 {
+    u8 _pad0[33];
+    u8 unk21;
+    u8 _pad22[18];
+    u8 *unk34;
+    u8 _pad38[8521];
+    i32 unk2181;
+} GenObj__func_08036768;
+
+__attribute__((section(".text.code_entities_08034CEC.08036768")))
+void func_08036768(GenObj__func_08036768 *arg0) {
+    i32 var_r1;
+    i32 var_r1b;
+    i32 var_r5;
+
+    var_r1 = 0x27B;
+    var_r1b = 0x27F;
+    var_r5 = 2;
+    if ((((u32) (arg0->unk34[0x2181] << 0x1E)) >> 0x1E) == 1) {
+        var_r1 = 0x293;
+        var_r5 = 1;
+    }
+    func_08035908((i32)arg0, var_r1);
+    func_08035940((i32)arg0, var_r1b);
+    arg0->unk21 = (u8)var_r5;
+}
+// DECOMP-MATCHED func_080367C8 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+i32 __builtin_new(i32);
+i32 func_080324BC(i32, i32, i32, i32);
+
+__attribute__((section(".text.code_entities_08034CEC.080367C8")))
+i32 func_080367C8(i32 arg0) {
+    i32 t;
+    volatile struct { i32 a; i32 b; i32 c; } w;
+    volatile u8 flag;
+
+    func_08036768((GenObj__func_08036768 *)arg0);
+    t = __builtin_new(0x8C);
+    w.a = 1; w.b = 0; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 5, 0x1B);
+}
