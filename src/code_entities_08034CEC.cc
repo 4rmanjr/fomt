@@ -565,6 +565,19 @@ typedef struct GenObj__func_08037F60 {
 } GenObj__func_08037F60;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Sub08039D98 {
+    u8 _pad0[12];
+    i32 unkC;
+} Sub08039D98;
+typedef struct GenObj__func_08039D98 {
+    u8 _pad0[12];
+    i32 unkC;
+    u8 _pad10[36];
+    Sub08039D98 *unk34;
+} GenObj__func_08039D98;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035AE0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -2203,6 +2216,19 @@ u16 func_08039D4C(i32 arg0, i32 arg1) {
     u8 *temp_r0 = (u8 *) &gUnk_080F16AE;
 
     return *(u16 *) (temp_r0 + arg1 * 2);
+}
+}
+
+// DECOMP-MATCHED func_08039D98 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.code_entities_08034CEC.08039D98")))
+u32 func_08039D98(GenObj__func_08039D98 *arg0) {
+    i32 temp_r1;
+
+    temp_r1 = arg0->unk34->unkC ^ 4;
+    return (u32) ((0 - temp_r1) | temp_r1) >> 0x1F;
 }
 }
 
