@@ -2608,6 +2608,35 @@ def migrate_one(module, func, dry_run=False):
         # `unk4 = callee(...)` (rhs dianggap skalar saat itu). Pass kedua
         # menangkapnya sbg pointer->skalar (no-op codegen, compare penentu).
         body = _ptr_scalar_cast_fix(body, new_structs)
+        # DEREF void* (TERBUKTI 5EA0): rewrite extern usang i32* ->
+        # void* membuat `*GetMapData(...)` invalid (void value). Cast
+        # `*(T *)call` no-op (TERUJI byte-identik: ldr yg sama).
+        # T = tipe param-pertama pemanggil F di `F(*G(...))`;
+        # hanya bila G ber-extern void* (pasca-rewrite).
+        import re as _re8
+        for _m8 in list(EXTERN_RE.finditer(body)):
+            _g8, _rt8 = _m8.group(3), (_m8.group(1)
+                                       + _m8.group(2)).strip()
+            _pp8 = _ptr_parts(_rt8) if _rt8 else None
+            if not (_pp8 and _pp8[1] == 1 and _pp8[0] == "void"):
+                continue
+            for _f8 in EXTERN_RE.finditer(body):
+                if _f8.group(3) == _g8:
+                    continue
+                _plist8 = [_param_type(p) for p in
+                           _split_top_commas(_f8.group(4))]
+                if not _plist8 or _plist8[0] in ("...", "void"):
+                    continue
+                _patf = re.compile(
+                    r"\b" + re.escape(_f8.group(3)) + r"\s*\(\s*\*\s*"
+                    + re.escape(_g8) + r"\s*\(")
+                _newb, _n8 = _patf.subn(
+                    lambda mm: mm.group(0).replace(
+                        "*" + _g8, "*(" + _plist8[0] + " *)" + _g8, 1),
+                    body)
+                if _n8:
+                    body = _newb
+                    break
         decl_new = extern_decls(body)  # segarkan setelah rewrite
         # Konflik DEFINISI-vs-EXTERN (TERBUKTI func_080A0384, 2026-11-01):
         # body MENDEFINISIKAN nm sementara src hanya punya extern usang
