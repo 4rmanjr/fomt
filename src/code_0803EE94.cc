@@ -1122,6 +1122,13 @@ typedef struct GenObj__func_0804EE9C {
 } GenObj__func_0804EE9C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0804F160 {
+    u8 _pad0[4];
+    u8 unk4;
+} GenObj__func_0804F160;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -1487,6 +1494,25 @@ u8 func_0804F15C(GenObj__func_0804F15C *arg0) {
     return arg0->unk19;
 }
 }
+// DECOMP-MATCHED func_0804F160 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_0803EE94.0804F160")))
+u32 func_0804F160(GenObj__func_0804F160 *arg0) {
+    u32 temp_r0;
+    register u32 var_r1 asm("r1");
+
+    temp_r0 = arg0->unk4;
+    var_r1 = temp_r0;
+    if (temp_r0 != 0) {
+        var_r1 = 1;
+    }
+    return var_r1;
+}
+
+/* ATTEMPT-NOTE manual: u8 field, u32 locals + register r1 (pola MATCH 0804F178); copy adds r1,r0 dipertahankan. */
+}
+
 
 // DECOMP-MATCHED func_0804F174 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -1644,7 +1670,6 @@ void func_08050D8C(i32 *arg0, i32 arg1) {
     func_08050424(*arg0, arg1, 0x100, 0);
 }
 }
-
 
 // DECOMP-MATCHED func_08050DD8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
