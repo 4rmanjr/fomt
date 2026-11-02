@@ -884,9 +884,9 @@
  },
  "func_08036B1C": {
   "addr": 134441756,
-  "judged_mtime": 1793150912.1303113,
+  "judged_mtime": 1793592647.2281847,
   "module": "code_entities_08034CEC.s",
-  "note": "",
+  "note": "DRAF-DIPERBAIKI manual 2026-11-02: call AB4() 0-arg K&R -> AB4((GenObj__AB4*)arg0) 1-param (ref menyiapkan r0; definisi final AB4 1-param); judge MATCH; blok promoted diganti.",
   "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
