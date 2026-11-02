@@ -1984,7 +1984,7 @@
   "addr": 134451408,
   "judged_mtime": 1793017322.6005468,
   "module": "code_entities_08034CEC.s",
-  "note": "",
+  "note": "SKIP-migrasi permanen: data asing 88B di ekor chunk solo (gate).",
   "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 100,
   "sanitize_v": 4,
