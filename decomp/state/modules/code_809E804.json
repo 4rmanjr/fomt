@@ -3033,7 +3033,7 @@
   "addr": 134954104,
   "judged_mtime": 1793102170.4907882,
   "module": "code_809E804.s",
-  "note": "",
+  "note": "SKIP-migrasi: return-type mismatch (draf i32 vs definisi final u8). Ref B3C78 tanpa zero-extend (pakai hasil u8 langsung sbg i32); tanda final u8->i32 butuh extend -> byte-DIFF tak-terhindarkan. Butuh analisis manual: apakah pemanggil B3C78 hanya pakai byte bawah (ubah return B3C78 jadi u8) atau definisi E4D8 yg perlu dikoreksi. Draf B3C78 MATCH semu (extern i32 menutupi).",
   "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 12,
   "sanitize_v": 4,
