@@ -1691,6 +1691,23 @@ i32 func_08037A48(i32 arg0, i32 arg1) {
 }
 }
 
+// DECOMP-MATCHED gData_code_entities_08034CEC_08037CDC.data.08037CDC
+extern "C" {
+// data tak-dirujuk di 0x08037CDC (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+extern const u8 gData_code_entities_08034CEC_08037CDC[20] __attribute__((section(".text.code_entities_08034CEC.08037CDC"))) = {0x0A, 0x23, 0xCA, 0x5E, 0x0E, 0x23, 0xC9, 0x5E, 0x02, 0x80, 0x01, 0x31, 0x41, 0x80, 0x82, 0x80, 0xC1, 0x80, 0x70, 0x47};
+}
+
+// DECOMP-MATCHED func_08037CF0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+void* __builtin_new(i32);                             /* extern */
+i32 func_08037D08(i32, i32);                          /* extern */
+
+__attribute__((section(".text.code_entities_08034CEC.08037CF0")))
+i32 func_08037CF0(i32 arg0) {
+    return func_08037D08((i32)(__builtin_new(0x54)), arg0);
+}
+}
+
 // DECOMP-MATCHED func_08037E18 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __7AEntityP10GameObjectRC8Location(void *, i32, i32 *); /* extern */
