@@ -787,6 +787,28 @@ def _norm_base(base):
     return re.sub(r"\s+", " ", base).strip()
 
 
+def _norm_sig(sig):
+    """Signature tanpa nama parameter (nama tak-pengaruh codegen).
+
+    `void (G *arg0)` vs `void (G *)` = tipe SAMA; bandingkan versi
+    tanpa-nama agar tak-SKIP-palsu (TERBUKTI AB4: extern src tanpa-nama
+    vs definisi body bernama). K&R `i32 ()` dan `void` tak-berubah."""
+    def _strip(m):
+        inner = m.group(1)
+        parts = _split_top_commas(inner)
+        out = []
+        for p in parts:
+            p = p.strip()
+            if not p or p in ("void", "..."):
+                out.append(p)
+                continue
+            q = re.sub(r"\s*\b[A-Za-z_]\w*\s*$", "", p)
+            # jangan hapus tipe-1-kata (`i32` -> ``): kembalikan
+            out.append(q if q.strip() else p)
+        return "(" + ", ".join(out) + ")"
+    return re.sub(r"\(([^;{}]*)\)", lambda m: _strip(m), sig)
+
+
 def _ptr_parts(typ):
     """(base, level) utk tipe pointer; None bila bukan tipe polos
     (function pointer/kurung/array -> tak dinilai, bukan mismatch)."""
@@ -2753,9 +2775,10 @@ def migrate_one(module, func, dry_run=False):
                     # Bandingkan thd src-murni: SKIP hanya bila src
                     # benar-benar punya deklarasi/definisi lain utk nm.
                     and nm in decl_src
-                    and not decl_new[nm].issubset(decl_src[nm])
-                    and not decl_new[nm].issubset(
-                        src_defs.get(nm, set()))):
+                    and not {_norm_sig(s) for s in decl_new[nm]}.issubset(
+                        {_norm_sig(s) for s in decl_src[nm]})
+                    and not {_norm_sig(s) for s in decl_new[nm]}.issubset(
+                        {_norm_sig(s) for s in src_defs.get(nm, set())})):
                 return {"func": func, "module": module, "ok": False,
                         "skipped": True,
                         "detail": f"definisi {nm} di body vs extern usang "
