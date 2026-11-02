@@ -383,7 +383,7 @@
   "addr": 134540956,
   "judged_mtime": 1793137678.3683147,
   "module": "code_0803EE94.s",
-  "note": "",
+  "note": "SKIP-migrasi: call-site 5-arg (unkC,unk10,unk14,unk16,unk18->stack) vs definisi EE30 di src 4-arg (u32,i16*,u32,i32); arg ke-5 dead-store tak-dibaca EE30 (ref EE9C spill, definisi EE30 hanya baca r0-r3). Rewrite extern+call ke 4-arg mengubah codegen (hilang spill str [sp]) -> byte-DIFF. Butuh tulis manual: pangkas arg ke-5 + sesuaikan struct draf EE9C, lalu judge ulang. Draf EE9C sendiri tetap MATCH sbg TU terpisah.",
   "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 32,
   "sanitize_v": 4,
