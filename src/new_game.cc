@@ -93,6 +93,22 @@ typedef struct GenObj__func_08004B58 {
 } GenObj__func_08004B58;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Vtbl {
+    void *unk0;
+    void *unk4;
+    void (*unk8)(void *, i32);
+} Vtbl;
+typedef struct Obj {
+    Vtbl *vtbl;
+    struct Obj *unk4;
+} Obj;
+typedef struct GenObj__func_08004B94 {
+    void *unk0;
+    i32 unk4;
+} GenObj__func_08004B94;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08003C28 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080088DC();                                /* extern */
@@ -143,6 +159,31 @@ void *func_08004B58(GenObj__func_08004B58 *arg0) {
     return arg0;
 }
 }
+// DECOMP-MATCHED func_08004B94 (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+void* __builtin_new(i32);                             /* extern */
+i32 func_080041DC(i32 **, i32, i32 ***);                 /* extern */
+extern i32 vtable_unk_080E5A68;
+
+__attribute__((section(".text.new_game.08004B94")))
+void *func_08004B94(GenObj__func_08004B94 *arg0, i32 arg1, Obj ***arg2) {
+    i32 **sp0;
+    Obj **temp_r1;
+    Obj *temp_r4;
+
+    arg0->unk0 = &vtable_unk_080E5A68;
+    temp_r1 = *arg2;
+    *arg2 = 0;
+    sp0 = (i32 **)temp_r1;
+    arg0->unk4 = func_080041DC((i32 **)__builtin_new(0x1A0), arg1, (i32 ***)&sp0);
+    temp_r4 = (Obj *)*arg2;
+    if (temp_r4 != 0) {
+        temp_r4->vtbl->unk8(temp_r4, 3);
+    }
+    return arg0;
+}
+}
+
 
 // DECOMP-MATCHED func_08004BDC (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
