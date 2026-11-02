@@ -3680,7 +3680,7 @@
   "addr": 134990064,
   "judged_mtime": 1793103664.2825916,
   "module": "code_809E804.s",
-  "note": "",
+  "note": "SKIP-migrasi: pola sama B3C78 (draf i32->i32 vs definisi final u8 S_44E0*; ref tanpa zero-extend; tanda final butuh extend -> byte-DIFF). Butuh analisis manual.",
   "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 12,
   "sanitize_v": 4,
