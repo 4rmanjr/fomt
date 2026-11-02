@@ -2722,6 +2722,12 @@ def migrate_one(module, func, dry_run=False):
         # `unk4 = callee(...)` (rhs dianggap skalar saat itu). Pass kedua
         # menangkapnya sbg pointer->skalar (no-op codegen, compare penentu).
         body = _ptr_scalar_cast_fix(body, new_structs)
+        # PASS-2 PTR->INT (TERBUKTI 78B8/7A04): pra-rewrite membaca tanda
+        # USANG body (void* -> tak-cast, sah-C++) + skip_pre melewatkan
+        # callee yg akan di-rewrite; pasca-rewrite tanda FINAL (i32)
+        # butuh cast (i32)(ptr) no-op. Tanpa skip (tanda sudah final).
+        body = _ptr_to_int_cast_fix(body)
+        body = _ptr_scalar_cast_fix(body, new_structs)
         # REFRESH VALIDATOR (TERBUKTI B1C): _cand/_conflict_view dibuat
         # dari body PRA-rewrite (extern lama K&R `i32 f()` ikut sbg
         # overload cocok-jumlah yg MENUTUPI arity-mismatch call `f()`
