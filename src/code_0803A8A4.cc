@@ -126,6 +126,29 @@ typedef struct GenObj__func_0803EB9C {
 } GenObj__func_0803EB9C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0803B454 {
+    i32 unk0;
+    i32 unk4;
+    i32 unk8;
+    i32 unkC;
+    i32 unk10;
+} GenObj__func_0803B454;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_0803B454 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+void func_0803B474(GenObj__func_0803B474 *arg0, i32 arg1, i32 arg2);                             /* extern */
+__attribute__((section(".text.code_0803A8A4.0803B454")))
+void *func_0803B454(GenObj__func_0803B454 *arg0, GenObj__func_0803B454 *arg1, i32 arg2, i32 arg3) {
+    *arg0 = *arg1;
+    func_0803B474((GenObj__func_0803B474 *)arg0, arg2, arg3);
+    return arg0;
+}
+
+/* ATTEMPT-NOTE manual: copy 5 kata via struct-assign (ldm/stm); i32 kelima di +0x10. */
+}
+
 // DECOMP-MATCHED func_0803B474 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
