@@ -1,4 +1,5 @@
 #include "prelude.h"
+#include <string.h> // memcpy
 
 // === MIGRATED TYPES (auto-managed by migrate.py) ===
 typedef struct GenObj {
@@ -453,6 +454,18 @@ typedef struct GenObj__func_08037E48 {
     void *unk14;
     i32 unk18;
 } GenObj__func_08037E48;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08038098 {
+    u8 _pad0[4];
+    struct GenObj__func_08038098 *unk4;
+    struct GenObj__func_08038098 *unk8;
+    u8 _padC[4];
+    i32 unk10;
+    void *unk14;
+    i32 unk18;
+} GenObj__func_08038098;
 // === END MIGRATED TYPES ===
 
 // DECOMP-MATCHED func_08035AE0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
@@ -1766,7 +1779,6 @@ u8 sp0[8];
 }
 }
 
-
 // DECOMP-MATCHED func_08037E9C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 void* __builtin_new(i32);                             /* extern */
@@ -1788,6 +1800,34 @@ void func_08037EB4(GenObj__func_08037EB4 *arg0, u8 *arg1) {
     func_0800FFF4((i32)(arg0->unk18), *arg1);
     if (arg0->unk10 != 0) {
         func_08037F74();
+    }
+}
+}
+
+// DECOMP-MATCHED func_08038098 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 GetLocation__C7AEntity(i32 *, void *);              /* extern */
+void __builtin_delete(void *);                             /* extern */
+extern i32 __vt_7AEntity;
+extern i32 vtable_unk_080E73B4;
+
+__attribute__((section(".text.code_entities_08034CEC.08038098")))
+void func_08038098(GenObj__func_08038098 *arg0, i32 arg1) {
+u8 sp0[8];
+    i32 temp_r4;
+    GenObj__func_08038098 *temp_r1;
+
+    arg0->unk14 = &vtable_unk_080E73B4;
+    temp_r4 = arg0->unk18;
+    GetLocation__C7AEntity((i32 *)(&sp0), arg0);
+    memcpy((void *)(temp_r4), (const void *)(&sp0), 6);
+    arg0->unk14 = &__vt_7AEntity;
+    temp_r1 = (GenObj__func_08038098 *)(arg0->unk10);
+    if (temp_r1 != 0) {
+        ((void (*)(void *,...))(temp_r1->unk4->unk8))(temp_r1, 3);
+    }
+    if (1 & arg1) {
+        __builtin_delete(arg0);
     }
 }
 }
