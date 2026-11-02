@@ -45,3 +45,13 @@ __attribute__((section(".text.code_809E804.080C12B8")))
 u8 func_080C12B8(GenObj__func_080C12B8 *arg0) {
     return arg0->unk96A;
 }
+// DECOMP-MATCHED func_080A0504 (dari code_809E804.s; cek manusia sebelum ke src/)
+u32 func_080A0490();
+
+__attribute__((section(".text.code_809E804.080A0504")))
+u32 func_080A0504(void) {
+    i32 temp_r0;
+
+    temp_r0 = func_080A0490();
+    return (u32) ((0 - temp_r0) | temp_r0) >> 0x1F;
+}
