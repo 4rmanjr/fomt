@@ -331,6 +331,13 @@ typedef struct GenObj__func_08036B4C {
 struct Params_func_08036B80 { i32 a; i32 b; i32 c; };
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08036AB4 {
+    u8 _pad0[4];
+    u16 unk4;
+} GenObj__func_08036AB4;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035AE0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -1139,15 +1146,48 @@ void *func_08036A78(GenObj__func_08036A78 *arg0, void *a, void *b, u32 c) {
     return arg0;
 }
 }
+// DECOMP-MATCHED func_08036AB4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08035908(void *, i32);                       /* extern */
+i32 func_08035940(void *, i32);                       /* extern */
+
+__attribute__((section(".text.code_entities_08034CEC.08036AB4")))
+void func_08036AB4(GenObj__func_08036AB4 *arg0) {
+    i32 var_r1;
+    i32 var_r5;
+    u16 t;
+    i32 s;
+    var_r1 = 0x9D3;
+    var_r5 = 0x9D7;
+    t = arg0->unk4;
+    s = t;
+    if (s != 0x11) {
+        if (s <= 0x11) {
+            if (s != 7) {
+
+            } else {
+                goto block_6;
+            }
+        } else if ((t == 0x1D) || (t == 0x25)) {
+            goto block_6;
+        }
+    } else {
+block_6:
+        var_r1 = 0x9DF;
+        var_r5 = 0x9E3;
+    }
+    func_08035908(arg0, var_r1);
+    func_08035940(arg0, var_r5);
+}
+}
+
 
 // DECOMP-MATCHED func_08036B00 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 // PENYATUAN-MANUAL 2026-11-01 (pola A0030/A0384: arg0 pointer-sbg-i32 diteruskan ke
 // 36AB4 (GenObj__36AB4*); ref: adds r0,r5; bl; cast no-op, verify MATCH + HIJAU).
 extern "C" {
 i32 func_08034F00();                                  /* extern */
-
-void func_08036AB4(GenObj__func_08036AB4 *);               /* extern */
-
+void func_08036AB4(GenObj__func_08036AB4 *arg0);                             /* extern */
 __attribute__((section(".text.code_entities_08034CEC.08036B00")))
 void func_08036B00(i32 arg0, i32 arg1) {
     func_08034F00();
@@ -1186,7 +1226,6 @@ i32 func_08036B80(i32 arg0) {
     return func_080324BC(t, arg0, 4, 0x1B);
 }
 }
-
 
 // DECOMP-MATCHED func_08037618 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
