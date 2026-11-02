@@ -3119,3 +3119,10 @@ void func_0808A4C0(GenObj *arg0, s32 arg1) {
 }
 
 /* ATTEMPT-NOTE pi: len 156 vs ref 154 (+2); dekat; bandingkan tail: kandidat bl func_0800F390 pakai ldr langsung? cek objdump. */
+
+// DECOMP-MATCHED func_08050D8C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_08050424(s32, s32, s32, s32);                  /* extern */
+
+void func_08050D8C(s32 *arg0, s32 arg1) {
+    func_08050424(*arg0, arg1, 0x100, 0);
+}

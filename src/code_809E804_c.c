@@ -79,3 +79,46 @@ i32 func_080A1ED4(i32 arg0) {
     temp_r0 = func_080A1EA8();
     return ((i32) *((u8 *)(arg0 + (temp_r0 >> 3))) >> (7 & temp_r0)) & 1;
 }
+// DECOMP-MATCHED func_080AD944 (dari code_809E804.s; cek manusia sebelum ke src/)
+void func_080A63B8();
+
+__attribute__((section(".text.code_809E804.080AD944")))
+void func_080AD944(i32 *arg0) { func_080A63B8(arg0[1]); }
+// DECOMP-MATCHED func_080BA574 (dari code_809E804.s; cek manusia sebelum ke src/)
+void func_08050D8C();
+extern i32 gUnk_08107B28;
+extern i32 gUnk_08107B5C;
+extern i32 gUnk_08107C18;
+extern i32 gUnk_08107CB0;
+extern i32 gUnk_08107CE0;
+
+typedef struct GenObj__func_080BA574 {
+    u8 _pad0[1816];
+    i32 unk718;
+} GenObj__func_080BA574;
+
+__attribute__((section(".text.code_809E804.080BA574")))
+void func_080BA574(GenObj__func_080BA574 *arg0, i32 arg1) {
+    u32 temp_r0;
+
+    temp_r0 = (u32)(arg1 - 1);
+    switch (temp_r0) {
+    case 0:
+        func_08050D8C((i32)arg0->unk718, (i32)&gUnk_08107B28);
+        return;
+    case 1:
+        func_08050D8C((i32)arg0->unk718, (i32)&gUnk_08107B5C);
+        return;
+    case 2:
+        func_08050D8C((i32)arg0->unk718, (i32)&gUnk_08107C18);
+        return;
+    case 3:
+        func_08050D8C((i32)arg0->unk718, (i32)&gUnk_08107CB0);
+        return;
+    case 4:
+        func_08050D8C((i32)arg0->unk718, (i32)&gUnk_08107CE0);
+        /* fallthrough */
+    default:
+        return;
+    }
+}
