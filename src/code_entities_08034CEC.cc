@@ -386,6 +386,13 @@ typedef struct GenObj__func_08036D68 {
 struct Params_func_08036D98 { i32 a; i32 b; i32 c; };
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08036E2C {
+    u8 _pad0[20];
+    void *unk14;
+} GenObj__func_08036E2C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035AE0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -1405,6 +1412,26 @@ i32 func_08036D98(i32 arg0) {
 }
 }
 
+// DECOMP-MATCHED gData_code_entities_08034CEC_08036E00.data.08036E00
+extern "C" {
+// data tak-dirujuk di 0x08036E00 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+extern const u8 gData_code_entities_08034CEC_08036E00[44] __attribute__((section(".text.code_entities_08034CEC.08036E00"))) = {0x10, 0xB5, 0x84, 0xB0, 0x04, 0x1C, 0x8C, 0x20, 0xC9, 0xF7, 0xE4, 0xFB, 0x01, 0x21, 0x00, 0x91, 0x00, 0x21, 0x01, 0x91, 0x02, 0x91, 0x03, 0xAA, 0x11, 0x70, 0x21, 0x1C, 0x04, 0x22, 0x1B, 0x23, 0xFB, 0xF7, 0x4C, 0xFB, 0x04, 0xB0, 0x10, 0xBC, 0x02, 0xBC, 0x08, 0x47};
+}
+
+// DECOMP-MATCHED func_08036E2C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __10ANpcEntityP10GameObjectP3NpcUiPCvUiUiUi(void *, void *, void *, u32, i32 *, i32, i32, i32); /* extern */
+extern i32 gUnk_080F29C0;
+extern i32 vtable_unk_080E6918;
+
+__attribute__((section(".text.code_entities_08034CEC.08036E2C")))
+void *func_08036E2C(GenObj__func_08036E2C *arg0, void *a, void *b, u32 c) {
+    __10ANpcEntityP10GameObjectP3NpcUiPCvUiUiUi(arg0, a, b, c, &gUnk_080F29C0, 0x267, 0x26F, 0x3E3);
+    arg0->unk14 = &vtable_unk_080E6918;
+    ((u16 *)arg0)[0x24] = 0;
+    return arg0;
+}
+}
 
 // DECOMP-MATCHED func_08037618 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
