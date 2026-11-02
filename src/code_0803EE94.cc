@@ -3466,6 +3466,20 @@ i32 *func_08093AD4(i32 *arg0, GenObj__func_08093AD4 *arg1) {
 }
 }
 
+// DECOMP-MATCHED func_08093DCC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __builtin_delete(i32);                            /* extern */
+extern i32 vtable_unk_080E812C;
+
+__attribute__((section(".text.code_0803EE94.08093DCC")))
+void func_08093DCC(i32 *arg0, i32 arg1) {
+    *arg0 = (i32)&vtable_unk_080E812C;
+    if (1 & arg1) {
+        __builtin_delete((i32)(arg0));
+    }
+}
+}
+
 // DECOMP-MATCHED func_08093DEC (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 extern i32 gUnk_081007AC;
