@@ -1,0 +1,13 @@
+#include "prelude.h"
+// DECOMP-MATCHED func_080B3C78 (dari code_809E804.s; cek manusia sebelum ke src/)
+i32 func_080AE4D8(i32);
+
+typedef struct GenObj__func_080B3C78 {
+    u8 _pad0[4];
+    i32 unk4;
+} GenObj__func_080B3C78;
+
+__attribute__((section(".text.code_809E804.080B3C78")))
+i32 func_080B3C78(GenObj__func_080B3C78 *arg0) {
+    return func_080AE4D8(arg0->unk4);
+}
