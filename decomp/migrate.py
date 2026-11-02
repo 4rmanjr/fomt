@@ -458,7 +458,7 @@ def adapt_libc_string(body):
 
 
 def struct_name(blk):
-    m = re.search(r"struct\s+(\w+)", blk)
+    m = re.search(r"(?:struct|union|enum)\s+(\w+)", blk)
     if m:
         return m.group(1)
     m = re.search(r"\}\s*(\w+)\s*;", blk)  # typedef anonim: typedef struct {...} X;
@@ -569,7 +569,7 @@ def take_structs(text):
     return re.sub(r"\n{3,}", "\n\n", text), blocks
 
 
-STRUCT_RE = re.compile(r"(typedef\s+)?struct\s+(?:\w+\s*)?\{", re.M)
+STRUCT_RE = re.compile(r"(typedef\s+)?(?:struct|union|enum)\s+(?:\w+\s*)?\{", re.M)
 FWD_TYPEDEF_RE = re.compile(r"^[ \t]*typedef\s+struct\s+\w+\s+\w+\s*;[ \t]*$",
                              re.M)
 EXTERN_RE = re.compile(
