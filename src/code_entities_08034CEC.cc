@@ -578,6 +578,17 @@ typedef struct GenObj__func_08039D98 {
 } GenObj__func_08039D98;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Sub080396F4 {
+    u8 _pad0[18];
+    u8 unk12;
+} Sub080396F4;
+typedef struct GenObj__func_080396F4 {
+    u8 _pad0[52];
+    Sub080396F4 *unk34;
+} GenObj__func_080396F4;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035AE0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -2135,6 +2146,26 @@ i32 func_0803930C(void) {
 }
 }
 
+// DECOMP-MATCHED func_080396F4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.code_entities_08034CEC.080396F4")))
+i32 func_080396F4(i32 arg0, GenObj__func_080396F4 *arg1) {
+    i32 temp_r0;
+    i32 var_r1;
+
+    temp_r0 = arg1->unk34->unk12;
+    var_r1 = 0;
+    if (temp_r0 != 0) {
+        var_r1 = 3;
+    }
+    return var_r1;
+}
+
+/* ATTEMPT-NOTE manual: arg objek di r1 (param ke-2); byte +0x12 via struct dalam. */
+}
+
 // DECOMP-MATCHED func_080399C0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 GetLocation__C12AActorEntity(i32 *, void *);        /* extern */
@@ -2221,7 +2252,6 @@ u16 func_08039D4C(i32 arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_08039D98 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
-
 
 __attribute__((section(".text.code_entities_08034CEC.08039D98")))
 u32 func_08039D98(GenObj__func_08039D98 *arg0) {
