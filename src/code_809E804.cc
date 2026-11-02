@@ -415,6 +415,13 @@ typedef struct GenObj__func_080D01E0 {
 } GenObj__func_080D01E0;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080A5EA0 {
+    u8 _pad0[4];
+    i32 unk4;
+} GenObj__func_080A5EA0;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -1351,6 +1358,17 @@ void func_080A5DB8(GenObj__func_080A5DB8 *arg0, i32 arg1, i32 arg2) {
 }
 
 /* ATTEMPT-NOTE worker-a5db MATCH-candidate: hoist v=t->unk4 (ldr sblm lsl); u8 *b + i32 off (r4=arg0/r5=arg2 ✓); switch 0/1/2+3 (ble/beq/b ✓). */
+}
+
+// DECOMP-MATCHED func_080A5EA0 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+void* GetMapData(i32 arg0);                             /* extern */
+i32 Unpack(i32, i32);                                 /* extern */
+
+__attribute__((section(".text.code_809E804.080A5EA0")))
+void func_080A5EA0(GenObj__func_080A5EA0 *arg0) {
+    Unpack(*(i32 *)GetMapData((i32)(arg0->unk4)), 0x06000000);
+}
 }
 
 // DECOMP-MATCHED func_080A601C (dari code_809E804.s; cek manusia sebelum ke src/)
