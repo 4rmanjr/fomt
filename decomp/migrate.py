@@ -1424,6 +1424,8 @@ def _ptr_to_int_cast_fix(body, skip_calls=()):
             return None
         if s.startswith('"'):
             return None
+        if re.match(r"^(?:__builtin_new|new)\s*\(", s):
+            return 1  # operator new SELALU return pointer (TERBUKTI 7CF0)
         if re.match(r"^\(([^()]*)\)$", s):
             inner = _ptr_parts(_param_type(s[1:-1]))
             if inner:
@@ -2563,6 +2565,9 @@ def migrate_one(module, func, dry_run=False):
         # (benar; unifikasi batch tersendiri, tak-disentuh di sini).
         _CANON_OPS = {"__builtin_new": ("void*", "i32"),
                       "__builtin_delete": ("void", "void *")}
+        # DUA-ARAH (TERBUKTI 7E48/8098): body SUDAH kanonik tapi src
+        # masih usang (`i32 (void*)`) -> rewrite SRC ke kanonik
+        # (kanonik tunggal reviewer-set; aman tanpa validator).
         for _nm, (_cret, _cparams) in _CANON_OPS.items():
             if _nm in decl_new:
                 _have = decl_new[_nm]
@@ -2581,6 +2586,32 @@ def migrate_one(module, func, dry_run=False):
                         _conflict_view, _ = EXTERN_RE.subn(
                             _repl_op, _conflict_view)
                         decl_new = extern_decls(body)
+        # KANONIK DUA-ARAH (TERBUKTI 7E48/8098): body SUDAH kanonik
+        # (`void (void*)`) tapi src masih usang (`i32 (void*)`) -> rewrite
+        # SRC ke kanonik (tanpa validator; kanonik tunggal reviewer-set).
+        # Syarat: body subset kanonik (sudah-kanonik) + src punya tanda
+        # lain (usang). Rewrite src + sinkron validator.
+        for _nm, (_cret, _cparams) in _CANON_OPS.items():
+            if _nm in decl_new and _nm in decl_src:
+                _csig = {f"{_cret} ({_cparams})"}
+                if {_norm_sig(s) for s in decl_new[_nm]}.issubset(
+                        {_norm_sig(s) for s in _csig}):
+                    _old_src = sorted(decl_src[_nm])
+                    if not _csig.issubset(set(_old_src)):
+                        def _repl_canon(m, _nm=_nm, _cret=_cret,
+                                        _cparams=_cparams):
+                            if m.group(3) != _nm:
+                                return m.group(0)
+                            return (f"{_cret} {_nm}({_cparams});"
+                                    "                             /* extern */")
+                        _pre_c = src_nostruct
+                        src_nostruct, _ = EXTERN_RE.subn(
+                            _repl_canon, src_nostruct)
+                        if src_nostruct != _pre_c:
+                            _conflict_view, _ = EXTERN_RE.subn(
+                                _repl_canon, _conflict_view)
+                            # refresh agar loop decl-vs-decl melihat kanonik
+                            decl_src = extern_decls(src_nostruct)
         for nm, sigs in decl_new.items():
             # Syarat rewrite TANPA-pandang-lokasi-deklarasi (TERKOREKSI
             # AD944-final, 2026-11-01): versi awal mensyaratkan
