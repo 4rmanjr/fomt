@@ -649,6 +649,26 @@ void func_08011568(GenObj__func_08011568 *arg0) {
     }
 }
 }
+// DECOMP-MATCHED func_08011588 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.game_state.08011588")))
+i32 func_08011588(u8 *arg0, i32 arg1) {
+    i32 sum = 0;
+    u8 *p;
+    i32 n;
+    if ((arg0 != 0) && (arg1 != 0)) {
+        p = arg0;
+        n = arg1;
+        do {
+            sum += *p;
+            p++;
+            n--;
+        } while (n != 0);
+    }
+    return sum;
+}
+}
+
 
 // DECOMP-MATCHED gData_game_state_08011ED8.data.08011ED8
 extern "C" {
