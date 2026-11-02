@@ -1200,6 +1200,33 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
                 out.append(ln)
             continue
         ind, lhs, rhs = m.group(1), m.group(2).strip(), m.group(3).strip()
+        # VOID-PTR (TERBUKTI 99C0): `u8 *p = voidvar;` — C++ menolak
+        # void*->T* implisit; cast `(T *)(rhs)` no-op (TERUJI byte-identik).
+        # Syarat ketat: LHS pointer-non-void, RHS ident-var tunggal
+        # bertipe void* (diketahui dari vartypes/gtypes).
+        _vm = re.match(r"^([A-Za-z_]\w*)$", rhs)
+        if _vm:
+            _vt0 = vartypes.get(_vm.group(1))
+            if _vt0 is None and gtypes:
+                _vt0 = gtypes.get(_vm.group(1))
+            _vp0 = _ptr_parts(_vt0) if _vt0 else None
+            _vtL = vartypes.get(lhs)
+            if _vtL is None and ("->" in lhs or "." in lhs):
+                _parts0 = re.split(r"\s*(?:->|\.)\s*", lhs)
+                _vtL = vartypes.get(_parts0[0])
+                for _fld0 in _parts0[1:]:
+                    _bt0 = _base_type(_vtL) if _vtL else None
+                    _ft0 = ftypes.get(_bt0, {}).get(_fld0) if _bt0 else None
+                    if _ft0 is None:
+                        _vtL = None
+                        break
+                    _vtL = _ft0
+            _vpL = _ptr_parts(_vtL) if _vtL else None
+            if (_vp0 is not None and _vp0[1] == 1 and _vp0[0] == "void"
+                    and _vpL is not None and _vpL[1] >= 1
+                    and _vpL[0] != "void"):
+                out.append(f"{ind}{lhs} = ({_vtL})({rhs});")
+                continue
         vt = vartypes.get(lhs)
         if vt is None and ("->" in lhs or "." in lhs):
             parts = re.split(r"\s*(?:->|\.)\s*", lhs)

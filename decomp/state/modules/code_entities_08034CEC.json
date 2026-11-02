@@ -1939,7 +1939,7 @@
   "addr": 134450832,
   "judged_mtime": 1793079069.8848214,
   "module": "code_entities_08034CEC.s",
-  "note": "",
+  "note": "SKIP-migrasi: guard definisi-vs-extern BENAR (blok 87C8 di src punya extern usang i32() + call-site). Butuh penyatuan manual spt C12B8.",
   "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 16,
   "sanitize_v": 4,
