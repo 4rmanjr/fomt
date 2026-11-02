@@ -237,6 +237,13 @@ typedef struct GenObj__func_080363F8 {
 } GenObj__func_080363F8;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08036530 {
+    u8 _pad0[20];
+    void *unk14;
+} GenObj__func_08036530;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035AE0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -789,7 +796,6 @@ void *func_080363F8(GenObj__func_080363F8 *arg0, void *a, void *b, u32 c) {
 }
 }
 
-
 // DECOMP-MATCHED func_080364E4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08034F00();                                  /* extern */
@@ -801,6 +807,20 @@ void func_080364E4(i32 arg0, i32 arg1) {
     if (arg1 > 1) {
         func_08036430(arg0);
     }
+}
+}
+
+// DECOMP-MATCHED func_08036530 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __10ANpcEntityP10GameObjectP3NpcUiPCvUiUiUi(void *, void *, void *, u32, i32 *, i32, i32, i32); /* extern */
+extern i32 gUnk_080F3010;
+extern i32 vtable_unk_080E6CD8;
+
+__attribute__((section(".text.code_entities_08034CEC.08036530")))
+void *func_08036530(GenObj__func_08036530 *arg0, void *a, void *b, u32 c) {
+    __10ANpcEntityP10GameObjectP3NpcUiPCvUiUiUi(arg0, a, b, c, &gUnk_080F3010, (0xC8 << 2), (0xC8 << 2) + 4, 0x3E6);
+    arg0->unk14 = &vtable_unk_080E6CD8;
+    return arg0;
 }
 }
 
