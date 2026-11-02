@@ -2481,6 +2481,70 @@ def migrate_one(module, func, dry_run=False):
                         return (f"{_ret} {nm}({_params});"
                                 "                             /* extern */")
                     body, _n = EXTERN_RE.subn(_repl2, body, count=1)
+                    # CAST call-site int->pointer (TERBUKTI func_08050D68):
+                    # rewrite extern di atas mengubah tanda callee ke
+                    # definisi final src (mis. i32 -> GenObj *), tapi
+                    # call-site di body masih mengirim skalar (`*arg0`).
+                    # C++ menolak int->pointer implisit; cast `(T *)(a)`
+                    # no-op codegen (reinterpretasi register; TERUJI D68
+                    # byte-identik dgn/tanpa cast). Syarat ketat: param
+                    # final pointer-1-level, arg skalar non-numerik tanpa
+                    # call/cast/paren (hindari false-cast ekspresi).
+                    # Sinkron dgn _ptr_to_int_cast_fix (arah baliknya).
+                    if _n:
+                        _plist = [_param_type(p) for p in
+                                  _split_top_commas(_params)]
+                        import re as _re3
+                        _clean3 = _strip_code_noise(body)
+                        for _fn3, _args3, _pos3 in _find_calls(_clean3):
+                            if _fn3 != nm:
+                                continue
+                            _parts3 = _split_top_commas(_args3)
+                            if len(_parts3) != len(_plist):
+                                continue
+                            _new3, _chg3 = [], False
+                            _vt3 = _local_var_types(body)
+                            for _a3, _p3 in zip(_parts3, _plist):
+                                _at3 = _arg_type(_a3.strip(), _vt3)
+                                if _at3 is None:
+                                    # Deref-habis (`*p`, `**pp`) = SKALAR
+                                    # pasti (bukan unknown): _arg_type
+                                    # mengembalikan None utk keduanya.
+                                    # Bedakan: deref var-dikenal -> skalar
+                                    # (level 0); sisanya tetap unknown.
+                                    import re as _re4
+                                    _dm4 = _re4.match(
+                                        r"^(\*+)([A-Za-z_]\w*)$",
+                                        _a3.strip())
+                                    if (_dm4 and _dm4.group(2) in _vt3
+                                            and _ptr_parts(
+                                                _vt3[_dm4.group(2)])):
+                                        _at3 = "int"
+                                _pp3 = (_ptr_parts(_p3) if _p3
+                                        and _p3 not in ("...", "void")
+                                        else None)
+                                _ap3 = (_ptr_parts(_at3) if _at3
+                                        else None)
+                                if (_ap3 is not None and _pp3 is not None
+                                        and _ap3[1] == 0 and _pp3[1] == 1
+                                        and _re3.search(r"[A-Za-z_]",
+                                                        _a3.strip())
+                                        and "(" not in _a3.strip()
+                                        and not _NUMERIC_RE.match(
+                                            _a3.strip())):
+                                    _new3.append(
+                                        f"({_p3})({_a3.strip()})")
+                                    _chg3 = True
+                                else:
+                                    _new3.append(_a3.strip())
+                            if _chg3:
+                                _pat3 = re.compile(
+                                    r"\b" + re.escape(nm) + r"\s*\("
+                                    + re.escape(_args3) + r"\s*\)")
+                                body, _ = _pat3.subn(
+                                    nm + "(" + ", ".join(_new3) + ")",
+                                    body, count=1)
+                                break
         decl_new = extern_decls(body)  # segarkan setelah rewrite
         # Konflik DEFINISI-vs-EXTERN (TERBUKTI func_080A0384, 2026-11-01):
         # body MENDEFINISIKAN nm sementara src hanya punya extern usang
