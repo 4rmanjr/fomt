@@ -26,6 +26,40 @@ typedef struct {
 } Obj;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E586C {
+    struct GenObj__func_080E586C *unk0;
+    struct GenObj__func_080E586C *unk4;
+} GenObj__func_080E586C;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_080E586C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 free();                                           /* extern */
+
+void func_080E586C(GenObj__func_080E586C *arg0) {
+    GenObj__func_080E586C *temp_r0;
+    GenObj__func_080E586C *temp_r0_2;
+    GenObj__func_080E586C *temp_r0_3;
+    GenObj__func_080E586C *var_r4;
+
+    temp_r0 = (GenObj__func_080E586C *)(arg0->unk4);
+    var_r4 = (GenObj__func_080E586C *)(temp_r0->unk0);
+    if (var_r4 != temp_r0) {
+        do {
+            temp_r0_2 = var_r4;
+            var_r4 = (GenObj__func_080E586C *)(var_r4->unk0);
+            if (temp_r0_2 != (GenObj__func_080E586C *)0) {
+                free();
+            }
+        } while (var_r4 != arg0->unk4);
+    }
+    temp_r0_3 = (GenObj__func_080E586C *)(arg0->unk4);
+    temp_r0_3->unk0 = temp_r0_3;
+    temp_r0_3->unk4 = temp_r0_3;
+}
+}
+
 // DECOMP-MATCHED func_080E5898 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08007184(void *, i32);                       /* extern */

@@ -35283,30 +35283,3 @@ func_080E5844: @ 0x080E5844
 .L080E5864: .4byte vtable_unk_080E8594
 .L080E5868: .4byte gUnk_03000414
 
-	thumb_func_start func_080E586C
-func_080E586C: @ 0x080E586C
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r0, [r5, #4]
-	ldr r4, [r0]
-	cmp r4, r0
-	beq .L080E588A
-.L080E5878:
-	adds r0, r4, #0
-	ldr r4, [r4]
-	cmp r0, #0
-	beq .L080E5884
-	bl free
-.L080E5884:
-	ldr r0, [r5, #4]
-	cmp r4, r0
-	bne .L080E5878
-.L080E588A:
-	ldr r0, [r5, #4]
-	str r0, [r0]
-	str r0, [r0, #4]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-
