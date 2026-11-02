@@ -986,6 +986,14 @@ typedef struct GenObj__func_08094648 {
 // === END MIGRATED TYPES ===
 
 // === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08094814 {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+} GenObj__func_08094814;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
 typedef struct GenObj__func_08094900 {
     u8 _pad0[4];
     i32 unk4;
@@ -3563,6 +3571,20 @@ void func_080941A8(GenObj__func_080941A8 *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_08094268 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __builtin_delete(i32);                            /* extern */
+extern i32 vtable_unk_080E8028;
+
+__attribute__((section(".text.code_0803EE94.08094268")))
+void func_08094268(i32 *arg0, i32 arg1) {
+    *arg0 = (i32)&vtable_unk_080E8028;
+    if (1 & arg1) {
+        __builtin_delete((i32)(arg0));
+    }
+}
+}
+
 // DECOMP-MATCHED func_0809424C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 extern i32 gUnk_081009DC;
@@ -3712,6 +3734,25 @@ extern "C" {
 __attribute__((section(".text.code_0803EE94.080948FC")))
 i32 func_080948FC(i32 arg0) {
     return arg0 + 0xC;
+}
+}
+
+// DECOMP-MATCHED func_08094814 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __builtin_delete(i32);                            /* extern */
+i32 __builtin_vec_delete();                           /* extern */
+
+__attribute__((section(".text.code_0803EE94.08094814")))
+void func_08094814(GenObj__func_08094814 *arg0, i32 arg1) {
+    if (arg0->unk4 != 0) {
+        __builtin_vec_delete();
+    }
+    if (arg0->unk8 != 0) {
+        __builtin_vec_delete();
+    }
+    if (1 & arg1) {
+        __builtin_delete((i32)(arg0));
+    }
 }
 }
 
