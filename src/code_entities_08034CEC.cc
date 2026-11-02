@@ -419,6 +419,10 @@ typedef struct GenObj__func_08037434 {
 } GenObj__func_08037434;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+struct Params_func_0803753C { i32 a; i32 b; i32 c; };
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035AE0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -1483,7 +1487,6 @@ void func_08037434(GenObj__func_08037434 *arg0) {
 /* ATTEMPT-NOTE opencode: named union U3C/S3E (agbcc29 tolak anon); unk40 u8@0x40, unk3E u16@0x3E, unk3C funcptr@0x3C. */
 }
 
-
 // DECOMP-MATCHED func_0803745C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 vfunc_14__7AEntity();                             /* extern */
@@ -1495,6 +1498,23 @@ void func_0803745C(GenObj__func_0803745C *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: unk40 u8 (adds+strb). */
+}
+
+// DECOMP-MATCHED func_0803753C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+void* __builtin_new(i32);                             /* extern */
+i32 func_080324BC(i32, i32, i32, i32);              /* extern */
+
+__attribute__((section(".text.code_entities_08034CEC.0803753C")))
+i32 func_0803753C(i32 arg0) {
+    i32 t;
+    struct Params_func_0803753C w;
+    volatile u8 flag;
+
+    t = (i32)(__builtin_new(0x8C));
+    w.a = 0; w.b = 7; w.c = 0; flag = 0;
+    return func_080324BC(t, arg0, 2, 9);
+}
 }
 
 // DECOMP-MATCHED func_08037618 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
