@@ -1567,6 +1567,15 @@ void func_08050D68(i32 *arg0) {
     func_080503E4((GenObj__func_080503E4 *)(*arg0));
 }
 }
+// DECOMP-MATCHED func_08050D74 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+void func_080503FC(GenObj__func_080503FC *arg0);                             /* extern */
+__attribute__((section(".text.code_0803EE94.08050D74")))
+void func_08050D74(i32 *arg0) {
+    func_080503FC((GenObj__func_080503FC *)(*arg0));
+}
+}
+
 
 // DECOMP-MATCHED func_08050DD8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
