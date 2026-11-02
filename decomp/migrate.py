@@ -2480,7 +2480,15 @@ def migrate_one(module, func, dry_run=False):
                             return m.group(0)
                         return (f"{_ret} {nm}({_params});"
                                 "                             /* extern */")
-                    body, _n = EXTERN_RE.subn(_repl2, body, count=1)
+                    # FIX off-by-one substitusi (TERBUKTI 2114):
+                    # subn(count=1) menghitung match yg _repl2 LEWATI
+                    # (group3 != nm, dikembalikan identik) sbg 1 substitusi,
+                    # shg rewrite tak-pernah menyentuh baris target bila ada
+                    # extern lain sebelumnya. Tanpa count, _repl2 hanya
+                    # mengubah baris target; _n = yg benar2 berubah.
+                    _pre = body
+                    body, _n0 = EXTERN_RE.subn(_repl2, body)
+                    _n = 0 if body == _pre else 1
                     # CAST call-site int->pointer (TERBUKTI func_08050D68):
                     # rewrite extern di atas mengubah tanda callee ke
                     # definisi final src (mis. i32 -> GenObj *), tapi
@@ -2652,14 +2660,18 @@ def migrate_one(module, func, dry_run=False):
                         # Rewrite extern usang di BASIS-INSERT (src_nostruct
                         # murni, bukan _conflict_view validator) agar fix
                         # ikut ter-emit.
-                        src_nostruct, _n = EXTERN_RE.subn(
-                            _repl, src_nostruct, count=1)
+                        _pre2 = src_nostruct
+                        src_nostruct, _ = EXTERN_RE.subn(
+                            _repl, src_nostruct)
+                        _n = 0 if src_nostruct == _pre2 else 1
                     else:
-                        body, _n = EXTERN_RE.subn(
-                            _repl, body, count=1)
+                        _pre3 = body
+                        body, _ = EXTERN_RE.subn(
+                            _repl, body)
+                        _n = 0 if body == _pre3 else 1
                         # Sinkronkan validator agar cek lanjutan konsisten.
-                        _conflict_view, _n = EXTERN_RE.subn(
-                            _repl, _conflict_view, count=1)
+                        _conflict_view, _ = EXTERN_RE.subn(
+                            _repl, _conflict_view)
         ck = _callsite_ptr_mismatch(body, _conflict_view)
         if ck:
             # PENGECUALIAN call-vs-DEFINISI (TERBUKTI B3C78, 2026-11-01):
