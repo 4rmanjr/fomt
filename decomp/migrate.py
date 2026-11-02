@@ -2496,13 +2496,22 @@ def migrate_one(module, func, dry_run=False):
         # (decl_new, post-rename) tak-cocok DUA-DUANYA dgn sig lain
         # (extern usang maupun definisi-calon-lama).
         for nm in defined_here:
-            if nm in decl_old and nm in decl_new and not decl_new[nm].issubset(
-                    decl_old[nm]) and not decl_new[nm].issubset(
-                    src_defs.get(nm, set())):
+            if (nm in decl_old and nm in decl_new
+                    # decl_old tercemar _cand pre-rename: definisi-calon
+                    # dgn tanda LAMA (GenObj) selalu tercatat di decl_old,
+                    # shg sig body post-rename (GenObj__func) tak-pernah
+                    # subset decl_old meski src BERSIH (TERBUKTI 4EE9C:
+                    # decl_src[func] = None tapi SKIP tetap terpicu).
+                    # Bandingkan thd src-murni: SKIP hanya bila src
+                    # benar-benar punya deklarasi/definisi lain utk nm.
+                    and nm in decl_src
+                    and not decl_new[nm].issubset(decl_src[nm])
+                    and not decl_new[nm].issubset(
+                        src_defs.get(nm, set()))):
                 return {"func": func, "module": module, "ok": False,
                         "skipped": True,
                         "detail": f"definisi {nm} di body vs extern usang "
-                        f"di src ({sorted(decl_old[nm])}); butuh penyatuan "
+                        f"di src ({sorted(decl_src[nm])}); butuh penyatuan "
                         "manual (definisi + call-site), dilewati"}
         for nm, sigs in decl_new.items():
             if nm in decl_src and not sigs.issubset(decl_src[nm]):
