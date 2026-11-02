@@ -2397,6 +2397,35 @@ def migrate_one(module, func, dry_run=False):
         # menambah blok final -> definisi ganda + `syntax error at end
         # of input` (extern tanpa `;` di ekor)).
         _conflict_view = src_nostruct + "\n" + _cand_defs + "\n" + _cand_ext
+
+        def _src_defs_of(_view, _names):
+            """{nm: {sig}} definisi final di view (FUNC_DEF_RE + fallback
+            satu-baris `u8 f(..) { ..; }` yg FUNC_DEF_RE lewatkan karena
+            butuh `$` akhir-baris — TERBUKTI E4D8/B3C78)."""
+            _out = {}
+            for _m in FUNC_DEF_RE.finditer(_view):
+                if "(*" in _m.group(0):
+                    continue
+                _out.setdefault(_m.group(3), set()).add(
+                    (_m.group(1) + _m.group(2) + " ("
+                     + re.sub(r"\s+", " ", _m.group(4).strip()) + ")"))
+            for _nm in _names:
+                if _nm not in _out:
+                    _dm = re.search(
+                        r"^\s*[\w:]+(?:\s*\*+)?\s*" + re.escape(_nm)
+                        + r"\s*\(([^;{}]*)\)\s*\{[^}]*\}",
+                        _view, re.M | re.S)
+                    if _dm:
+                        _rt = re.search(
+                            r"^\s*([\w:]+(?:\s*\*+)?)\s*" + re.escape(_nm),
+                            _view, re.M)
+                        if _rt:
+                            _out[_nm] = {
+                                _rt.group(1).strip() + " (" +
+                                re.sub(r"\s+", " ", _dm.group(1).strip())
+                                + ")"}
+            return _out
+
         body, new_structs = _deconflict_new_structs(
             body, new_structs, old_structs, _conflict_view, func)
         # Urutan penting: arith-fix DULU (void* yang dipakai arithmetic
@@ -2410,14 +2439,8 @@ def migrate_one(module, func, dry_run=False):
         _skip_pre = set()
         try:
             _decl_pre = extern_decls(body)
-            _src_defs_pre = {}
-            for _mpre in FUNC_DEF_RE.finditer(_conflict_view):
-                if "(*" in _mpre.group(0):
-                    continue
-                _src_defs_pre.setdefault(_mpre.group(3), set()).add(
-                    (_mpre.group(1) + _mpre.group(2) + " ("
-                     + re.sub(r"\s+", " ", _mpre.group(4).strip())
-                     + ")"))
+            _src_defs_pre = _src_defs_of(
+                _conflict_view, set(_decl_pre))
             for _nmpre, _sigspre in _decl_pre.items():
                 if (_nmpre in _src_defs_pre
                         and not _sigspre.issubset(
@@ -2491,28 +2514,10 @@ def migrate_one(module, func, dry_run=False):
         # yg lolos filter FUNC_DEF_RE SAJA (bukan dari decl). Bila tak
         # ketemu (kasus u8 AE4D8 satu-baris yg FUNC_DEF_RE lewatkan),
         # fallback: cari `) {` setelah nama di _conflict_view.
-        src_defs = {}
-        for m in FUNC_DEF_RE.finditer(_conflict_view):
-            if "(*" in m.group(0):
-                continue
-            src_defs.setdefault(m.group(3), set()).add(
-                (m.group(1) + m.group(2) + " "
-                 + "(" + re.sub(r"\s+", " ", m.group(4).strip()) + ")"))
-        for _nm in set(decl_old) | set(decl_new):
-            if _nm not in src_defs:
-                _dm = re.search(
-                    r"^\s*[\w:]+(?:\s*\*+)?\s*" + re.escape(_nm)
-                    + r"\s*\(([^;{}]*)\)\s*\{[^}]*\}",
-                    _conflict_view, re.M | re.S)
-                if _dm:
-                    _rt = re.search(
-                        r"^\s*([\w:]+(?:\s*\*+)?)\s*" + re.escape(_nm),
-                        _conflict_view, re.M)
-                    if _rt:
-                        src_defs[_nm] = {
-                            _rt.group(1).strip() + " (" +
-                            re.sub(r"\s+", " ", _dm.group(1).strip())
-                            + ")"}
+        # Memakai helper _src_defs_of yg didefinisikan di atas
+        # (satu sumber kebenaran dgn SKIP-SET pra-fix).
+        src_defs = _src_defs_of(
+            _conflict_view, set(decl_old) | set(decl_new))
         # Kasus B3C78/AE4D8: extern usang HANYA di body (tak ada di src
         # karena definisi benar di src bukan extern) -> konflik tak
         # tertangkap decl-vs-decl. Cek tiap extern body vs definisi src:
