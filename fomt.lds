@@ -112,6 +112,7 @@ SECTIONS
         src/npc_entity.o(.text);
         *(SORT_BY_NAME(.text.code_entities_08034CEC.*))
         src/code_entities_08034CEC.o(.text);
+        src/code_entities_08034CEC_c.o(.text);
 
         *(SORT_BY_NAME(.text.code_0803A8A4.*))
         src/code_0803A8A4.o(.text);
