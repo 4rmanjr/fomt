@@ -717,6 +717,35 @@ typedef struct GenObj__func_08014264 {
 } GenObj__func_08014264;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct R14290 R14290;
+typedef struct T2_14290 {
+    u8 _pad0[56];
+    void (*unk38)(R14290 *, i32);
+} T2_14290;
+struct R14290 {
+    u8 _pad0[20];
+    T2_14290 *unk14;
+};
+typedef struct VtA14290 {
+    u8 _pad0[64];
+    R14290 *(*unk40)(void *, i32);
+} VtA14290;
+typedef struct OA14290 {
+    VtA14290 *vt;
+} OA14290;
+typedef struct T4_14290 {
+    u8 _pad0[156];
+    i32 unk9C;
+    u8 _padA0[8];
+    OA14290 *unkA8;
+} T4_14290;
+typedef struct GenObj__func_08014290 {
+    u8 _pad0[4];
+    T4_14290 *unk4;
+} GenObj__func_08014290;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -1473,7 +1502,6 @@ i32 func_0801424C(GenObj__func_0801424C *arg0, i32 arg1) {
 // DECOMP-MATCHED func_08014264 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 __attribute__((section(".text.game_state.08014264")))
 void func_08014264(GenObj__func_08014264 *arg0, i32 arg1, i32 arg2) {
     T4_14264 *t = arg0->unk4;
@@ -1484,6 +1512,21 @@ void func_08014264(GenObj__func_08014264 *arg0, i32 arg1, i32 arg2) {
 }
 
 /* ATTEMPT-NOTE manual: 3-arg; fnA(o,arg1)->R; fnB(R,arg2). */
+}
+// DECOMP-MATCHED func_08014290 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.game_state.08014290")))
+void func_08014290(GenObj__func_08014290 *arg0, i32 arg1) {
+    T4_14290 *t = arg0->unk4;
+    R14290 *tmp = t->unkA8->vt->unk40(t->unkA8, arg1);
+    if (tmp != 0) {
+        tmp->unk14->unk38(tmp, 0);
+    }
+}
+
+/* ATTEMPT-NOTE manual: fnA(o,arg1)->R; fnB(R,0). */
 }
 
 
