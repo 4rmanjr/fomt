@@ -1676,7 +1676,7 @@
   "addr": 134447872,
   "judged_mtime": 1793017317.0535085,
   "module": "code_entities_08034CEC.s",
-  "note": "",
+  "note": "SKIP-migrasi permanen: callee func_08038110 tak-MATCH; butuh tulis manual callee dulu.",
   "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 32,
   "sanitize_v": 4,
