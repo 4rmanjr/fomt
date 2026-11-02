@@ -1726,6 +1726,17 @@ i32 sp0[2];
 }
 }
 
+// DECOMP-MATCHED func_08037E9C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+void* __builtin_new(i32);                             /* extern */
+i32 func_08037EF0(i32, i32);                          /* extern */
+
+__attribute__((section(".text.code_entities_08034CEC.08037E9C")))
+i32 func_08037E9C(i32 arg0) {
+    return func_08037EF0((i32)(__builtin_new(0x58)), arg0);
+}
+}
+
 // DECOMP-MATCHED func_08037EB4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0800FFF4(i32, u8);                           /* extern */
