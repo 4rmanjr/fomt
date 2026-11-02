@@ -324,6 +324,22 @@ void func_0803BF08(GenObj__func_0803BDEC **arg0, i32 arg1, i32 arg2) {
 }
 }
 
+// DECOMP-MATCHED gData_code_0803A8A4_0803BFF0.data.0803BFF0
+extern "C" {
+// data tak-dirujuk di 0x0803BFF0 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+extern const u8 gData_code_0803A8A4_0803BFF0[28] __attribute__((section(".text.code_0803A8A4.0803BFF0"))) = {0x30, 0xB5, 0x83, 0xB0, 0x06, 0x9C, 0x07, 0x9D, 0x00, 0x94, 0x01, 0x95, 0x00, 0x24, 0x02, 0x94, 0x00, 0xF0, 0x12, 0xF8, 0x03, 0xB0, 0x30, 0xBC, 0x02, 0xBC, 0x08, 0x47};
+}
+
+// DECOMP-MATCHED func_0803C00C (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0803C028(i32, i32, i32, i32, i32, i32, i32); /* extern */
+
+__attribute__((section(".text.code_0803A8A4.0803C00C")))
+i32 func_0803C00C(i32 a0, i32 a1, i32 a2, i32 a3, i32 a4, i32 a5, i32 a6) {
+    return func_0803C028(a0, a1, a2, a3, a4, a5, a6);
+}
+}
+
 // DECOMP-MATCHED func_0803C518 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 void func_0803BEBC(i32 *arg0);                            /* extern */
