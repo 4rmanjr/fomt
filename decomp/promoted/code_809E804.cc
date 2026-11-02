@@ -2526,3 +2526,37 @@ __attribute__((naked)) void sub_080D14C6(void) {
     ".syntax divided"
     : : : "r4", "memory");
 }
+
+// DECOMP-MATCHED sub_080D1498 (dari code_809E804.s; cek manusia sebelum ke src/)
+__attribute__((naked)) void sub_080D1498(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "subs r5, r1, r5\n"
+    "lsls r4, r5, #0x1f\n"
+    "beq .L080D14AA\n"
+    "adds r5, #1\n"
+    "ldrh r2, [r5]\n"
+    "lsrs r2, r2, #8\n"
+    "adds r1, #1\n"
+    "subs r6, #1\n"
+    "beq .L080D14C2\n"
+    ".L080D14AA:\n"
+    "subs r1, #1\n"
+    ".L080D14AC:\n"
+    "adds r5, #2\n"
+    "ldrh r4, [r5]\n"
+    "lsls r4, r4, #8\n"
+    "orrs r4, r2\n"
+    "adds r1, #2\n"
+    "strh r4, [r1]\n"
+    "lsrs r2, r4, #0x10\n"
+    "subs r6, #2\n"
+    "bgt .L080D14AC\n"
+    "adds r6, #1\n"
+    "adds r1, r1, r6\n"
+    ".L080D14C2:\n"
+    "mov sl, r2\n"
+    "pop {r2, pc}\n"
+    ".syntax divided"
+    : : : "r4", "memory");
+}

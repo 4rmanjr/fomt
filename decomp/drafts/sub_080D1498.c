@@ -1,24 +1,32 @@
-void sub_080D1498(s32 arg1, u32 arg2) {
-    s32 var_r1;
-    s32 var_r5;
-    s32 var_r6;
-    u16 *var_r1_2;
-    u16 temp_r4;
-    u32 var_r2;
-
-    var_r6 = saved_reg_r6;
-    var_r1 = arg1;
-    var_r2 = arg2;
-    var_r5 = var_r1 - saved_reg_r5;
-    if (((var_r5 << 0x1F) == 0) || (var_r5 += 1, var_r2 = (u16) *var_r5 >> 8, var_r1 += 1, var_r6 = saved_reg_r6 - 1, (var_r6 != 0))) {
-        var_r1_2 = var_r1 - 1;
-        do {
-            var_r5 += 2;
-            temp_r4 = (*var_r5 << 8) | var_r2;
-            var_r1_2 += 2;
-            *var_r1_2 = temp_r4;
-            var_r2 = temp_r4 >> 0x10;
-            var_r6 -= 2;
-        } while ((s64) var_r6 > 0);
-    }
+__attribute__((naked)) void sub_080D1498(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "subs r5, r1, r5\n"
+    "lsls r4, r5, #0x1f\n"
+    "beq .L080D14AA\n"
+    "adds r5, #1\n"
+    "ldrh r2, [r5]\n"
+    "lsrs r2, r2, #8\n"
+    "adds r1, #1\n"
+    "subs r6, #1\n"
+    "beq .L080D14C2\n"
+    ".L080D14AA:\n"
+    "subs r1, #1\n"
+    ".L080D14AC:\n"
+    "adds r5, #2\n"
+    "ldrh r4, [r5]\n"
+    "lsls r4, r4, #8\n"
+    "orrs r4, r2\n"
+    "adds r1, #2\n"
+    "strh r4, [r1]\n"
+    "lsrs r2, r4, #0x10\n"
+    "subs r6, #2\n"
+    "bgt .L080D14AC\n"
+    "adds r6, #1\n"
+    "adds r1, r1, r6\n"
+    ".L080D14C2:\n"
+    "mov sl, r2\n"
+    "pop {r2, pc}\n"
+    ".syntax divided"
+    : : : "r4", "memory");
 }

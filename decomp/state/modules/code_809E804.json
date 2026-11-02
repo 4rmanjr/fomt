@@ -6101,13 +6101,14 @@
  },
  "sub_080D1498": {
   "addr": 135074968,
-  "judged_mtime": 1793015457.9395716,
+  "judged_mtime": 1793620111.39202,
   "module": "code_809E804.s",
-  "note": "judge_sub_080D1498/opencode/func.c:23: `s64' undeclared (first use in this function)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080D1498/opencode/func.c:23: syntax error before `var_r6'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_080D1498/opencode/func.c:23: syntax error before `)'\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 46,
   "sanitize_v": 4,
   "size": 439,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "sub_080D14C6": {
