@@ -1196,6 +1196,23 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
             # mov; C++ menolak pointer->int implisit, kasus
             # `sp4 = temp_r0->unk0` di func_0801A054).
             rt = _rhs_ptr_type(rhs, vartypes, ftypes, gtypes)
+            if rt is None:
+                # LHS skalar = CALL ber-return-pointer (TERBUKTI 54F4):
+                # _rhs_ptr_type menolak call (gerbang "("); baca return
+                # langsung dari extern body (pasca-rewrite: void*).
+                _fm7 = re.match(r"^([A-Za-z_]\w*)\s*\((.*)\)\s*$",
+                                rhs, re.S)
+                if _fm7 and "(" not in _fm7.group(1):
+                    for _m7 in EXTERN_RE.finditer(body):
+                        if (_m7.group(3) == _fm7.group(1)
+                                and "(*" not in _m7.group(0)):
+                            _rt7 = (_m7.group(1)
+                                    + _m7.group(2)).strip()
+                            _rp7 = (_ptr_parts(_rt7) if _rt7
+                                    else None)
+                            if _rp7 is not None and _rp7[1] > 0:
+                                rt = _rt7
+                            break
             if rt:
                 out.append(f"{ind}{lhs} = ({vt})({rhs});")
             else:
@@ -1203,6 +1220,25 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
             continue
         if not vp or vp[1] == 0:
             rt = _rhs_ptr_type(rhs, vartypes, ftypes, gtypes)
+            if rt is None:
+                # LHS skalar = CALL ber-return-pointer (TERBUKTI 54F4:
+                # `unk4 = 83BD4(new(...), ...)`; extern pasca-rewrite
+                # void*). _rhs_ptr_type menolak call (gerbang "("),
+                # jadi baca return langsung dari extern body.
+                # Cast (T)(call) no-op (TERUJI byte-identik 54F4).
+                _fm6 = re.match(r"^([A-Za-z_]\w*)\s*\((.*)\)\s*$",
+                                rhs, re.S)
+                if _fm6 and "(" not in _fm6.group(1):
+                    for _m6 in EXTERN_RE.finditer(body):
+                        if (_m6.group(3) == _fm6.group(1)
+                                and "(*" not in _m6.group(0)):
+                            _rt6 = (_m6.group(1)
+                                    + _m6.group(2)).strip()
+                            _rp6 = (_ptr_parts(_rt6) if _rt6
+                                    else None)
+                            if _rp6 is not None and _rp6[1] > 0:
+                                rt = _rt6
+                            break
             if rt is not None:
                 # LHS skalar = RHS pointer (mis. `i32 x = *p;`): C++
                 # menolak implisit; cast (T)(...) no-op semantik.
@@ -2533,13 +2569,27 @@ def migrate_one(module, func, dry_run=False):
                                         else None)
                                 _ap3 = (_ptr_parts(_at3) if _at3
                                         else None)
-                                if (_ap3 is not None and _pp3 is not None
-                                        and _ap3[1] == 0 and _pp3[1] == 1
-                                        and _re3.search(r"[A-Za-z_]",
-                                                        _a3.strip())
-                                        and "(" not in _a3.strip()
-                                        and not _NUMERIC_RE.match(
-                                            _a3.strip())):
+                                _a3s = _a3.strip()
+                                _is_new = bool(_re3.match(
+                                    r"^(?:__builtin_new|new)\s*\(",
+                                    _a3s))
+                                # __builtin_new/new SELALU return pointer:
+                                # perlakukan sbg pointer-1-level agar
+                                # di-cast ke param pointer (TERBUKTI 54F4:
+                                # (G *)(__builtin_new(0x61F4)) no-op,
+                                # byte-identik). Call umum lain tetap
+                                # ditolak (return tak-diketahui).
+                                _ap3e = (("?", 1) if
+                                         (_ap3 is None and _is_new)
+                                         else _ap3)
+                                if (_ap3e is not None and _pp3 is not None
+                                        and ((_ap3e[1] == 0
+                                              and _pp3[1] == 1)
+                                             or (_is_new and _ap3e[1] == 1
+                                                 and _pp3[1] == 1))
+                                        and _re3.search(r"[A-Za-z_]", _a3s)
+                                        and ("(" not in _a3s or _is_new)
+                                        and not _NUMERIC_RE.match(_a3s)):
                                     _new3.append(
                                         f"({_p3})({_a3.strip()})")
                                     _chg3 = True
@@ -2553,6 +2603,11 @@ def migrate_one(module, func, dry_run=False):
                                     nm + "(" + ", ".join(_new3) + ")",
                                     body, count=1)
                                 break
+        # PASS KEDUA (TERBUKTI 54F4/8C56C): rewrite di atas mengubah
+        # return callee i32 -> void*; fix pra-rewrite tak menangkap
+        # `unk4 = callee(...)` (rhs dianggap skalar saat itu). Pass kedua
+        # menangkapnya sbg pointer->skalar (no-op codegen, compare penentu).
+        body = _ptr_scalar_cast_fix(body, new_structs)
         decl_new = extern_decls(body)  # segarkan setelah rewrite
         # Konflik DEFINISI-vs-EXTERN (TERBUKTI func_080A0384, 2026-11-01):
         # body MENDEFINISIKAN nm sementara src hanya punya extern usang
