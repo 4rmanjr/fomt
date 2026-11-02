@@ -116,6 +116,13 @@ typedef struct GenObj__func_0800598C {
 } GenObj__func_0800598C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08006C28 {
+    u8 _pad0[17959];
+    u8 unk4627;
+} GenObj__func_08006C28;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08003C28 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080088DC();                                /* extern */
@@ -381,6 +388,31 @@ void func_08006334(GenObj__func_08006334 *arg0) {
     arg0->unk4610 = 0;
     arg0->unk463C = 0;
 }
+}
+
+// DECOMP-MATCHED func_08006C28 (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.new_game.08006C28")))
+void func_08006C28(GenObj__func_08006C28 *arg0, u32 arg1) {
+    u8 *base_r3;
+    u8 *d_r2;
+    register u32 var_r1 asm("r1");
+
+    var_r1 = (arg1 << 0x18) >> 0x18;
+    if (var_r1 <= 0xAU) {
+        base_r3 = (u8 *)arg0 + 0x461C;
+        do {
+            d_r2 = base_r3 + var_r1;
+            var_r1 += 1;
+            *d_r2 = *(base_r3 + var_r1);
+            var_r1 = (var_r1 << 0x18) >> 0x18;
+        } while (var_r1 <= 0xAU);
+    }
+    arg0->unk4627 = 0x5F;
+}
+
+/* ATTEMPT-NOTE manual: geser byte; var pin r1; mask eksplisit pasca-store. */
 }
 
 // DECOMP-MATCHED func_08007078 (dari new_game.s; cek manusia sebelum ke src/)
