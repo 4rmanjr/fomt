@@ -17,3 +17,10 @@ void func_08050D0C(i32 *arg0, i32 arg1) {
 }
 
 
+// DECOMP-MATCHED func_08050D5C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+i32 func_0805039C();
+
+__attribute__((section(".text.code_0803EE94.08050D5C")))
+void func_08050D5C(i32 *arg0) {
+    func_0805039C(*arg0);
+}
