@@ -1366,8 +1366,13 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
     return fixed
 
 
-def _ptr_to_int_cast_fix(body):
+def _ptr_to_int_cast_fix(body, skip_calls=()):
     """Cast `(T)` pada argumen pointer ke parameter skalar (no-op codegen).
+    skip_calls: nama callee yg AKAN di-rewrite ke tanda final src
+    (TERBUKTI D950: fix pra-rewrite membaca extern USANG `i32 (i32)`
+    lalu meng-cast arg ke (i32), mengunci arg dari cast benar
+    `(GenObj *)(...)` pasca-rewrite. Lewati call ke callee tsb di sini;
+    serahkan ke logika cast pasca-rewrite).
 
     Draf MATCH sering mendeklarasikan parameter sbg s32/i32 padahal ROM
     melewatkan alamat (judge peduli ukuran, bukan nama tipe). C++ menolak
@@ -1450,6 +1455,8 @@ def _ptr_to_int_cast_fix(body):
     for fname, args, pos in _find_calls(clean):
         if fname not in decls:
             continue
+        if fname in (skip_calls or ()):
+            continue  # tanda final menyusul via rewrite; jangan kunci dgn cast usang
         parts = _split_top_commas(args)
         for plist in decls[fname]:
             if len(plist) != len(parts):
@@ -2388,9 +2395,30 @@ def migrate_one(module, func, dry_run=False):
         # di call-site. Bila scalar-cast dulu, RHS skalar dibungkus
         # (void*) lalu arith-fix mengubah LHS jadi u8* -> `u8* = (void*)`
         # yang justru error kompilasi (kasus func_0803BE50).
+        # SKIP-SET (TERBUKTI D950): callee yg AKAN di-rewrite ke tanda
+        # final src jangan di-cast di sini (tanda usang mengunci arg).
+        # src_defs/decl_new sudah tersedia (dari _conflict_view/body).
+        _skip_pre = set()
+        try:
+            _decl_pre = extern_decls(body)
+            _src_defs_pre = {}
+            for _mpre in FUNC_DEF_RE.finditer(_conflict_view):
+                if "(*" in _mpre.group(0):
+                    continue
+                _src_defs_pre.setdefault(_mpre.group(3), set()).add(
+                    (_mpre.group(1) + _mpre.group(2) + " ("
+                     + re.sub(r"\s+", " ", _mpre.group(4).strip())
+                     + ")"))
+            for _nmpre, _sigspre in _decl_pre.items():
+                if (_nmpre in _src_defs_pre
+                        and not _sigspre.issubset(
+                            _src_defs_pre[_nmpre])):
+                    _skip_pre.add(_nmpre)
+        except Exception:
+            _skip_pre = set()
         body = _void_ptr_arith_fix(body)
         body = _ptr_scalar_cast_fix(body, new_structs)
-        body = _ptr_to_int_cast_fix(body)
+        body = _ptr_to_int_cast_fix(body, _skip_pre)
         # _unify_extern_ptrs DINONAKTIFKAN (2026-10-31): rewrite param
         # i32*/s32* -> void* TERBUKTI mengubah regalloc agbcc (kasus
         # func_0803C7A0: draf MATCH dgn (s32 *), hasil unify (void *) jadi
@@ -2579,9 +2607,29 @@ def migrate_one(module, func, dry_run=False):
                                 # (G *)(__builtin_new(0x61F4)) no-op,
                                 # byte-identik). Call umum lain tetap
                                 # ditolak (return tak-diketahui).
-                                _ap3e = (("?", 1) if
-                                         (_ap3 is None and _is_new)
-                                         else _ap3)
+                                # FIELD/VAR skalar-dikenal (TERBUKTI D950:
+                                # `arg0->unk4` i32 ke GenObj*): _arg_type
+                                # tak-mengenali field-access (-> None);
+                                # baca ftypes langsung -> skalar pasti.
+                                _ap3e = _ap3
+                                if _ap3e is None and _is_new:
+                                    _ap3e = ("?", 1)
+                                if _ap3e is None:
+                                    import re as _re9
+                                    _fm9 = _re9.match(
+                                        r"^([A-Za-z_]\w*)\s*"
+                                        r"(?:->|\.)\s*([A-Za-z_]\w*)$",
+                                        _a3s)
+                                    if _fm9:
+                                        _ft9 = _struct_field_types(
+                                            new_structs).get(
+                                            _base_type(_vt3.get(
+                                                _fm9.group(1), "") or ""),
+                                            {}).get(_fm9.group(2))
+                                        _pp9 = (_ptr_parts(_ft9) if _ft9
+                                                else None)
+                                        if _pp9 is not None and _pp9[1] == 0:
+                                            _ap3e = ("?", 0)
                                 if (_ap3e is not None and _pp3 is not None
                                         and ((_ap3e[1] == 0
                                               and _pp3[1] == 1)
