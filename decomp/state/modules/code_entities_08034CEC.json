@@ -1594,7 +1594,7 @@
   "addr": 134446964,
   "judged_mtime": 1793079069.884716,
   "module": "code_entities_08034CEC.s",
-  "note": "",
+  "note": "SKIP-migrasi: guard definisi-vs-extern BENAR (src punya extern usang i32() + call-site; definisi final beda). Butuh penyatuan manual spt C12B8.",
   "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 8,
   "sanitize_v": 4,
