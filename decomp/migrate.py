@@ -1832,6 +1832,7 @@ def insert_ordered(src_text, marker_line, body, addr, state_addrs,
                             break
                 if _consumed:
                     pos = _bs + _consumed
+
     # Jangan belah blok `extern "C" {` milik fungsi lain: bila pos
     # jatuh di DALAM brace extern-C yg belum ditutup (TERBUKTI B45E4 vs
     # D1548, 2026-11-01). Guard naked-aware: bila definisinya naked,
@@ -1863,9 +1864,17 @@ def insert_ordered(src_text, marker_line, body, addr, state_addrs,
             # (TERKOREKSI 2026-11-01: versi awal menghitung SEMUA `}`
             # sbg penutup extern-C shg depth balik 0 pdhl brace extern
             # msh terbuka).
+            # NET-BRACE (TERBUKTI D988, 2026-11-02): definisi SATU-BARIS
+            # (`void f(..) { ..; }`) membuka-tutup brace di baris yg
+            # sama; +1 buta membocorkan depth (+1 per blok satu-baris;
+            # guard-2 lalu mengira pos di dlm extern-C dan memajukan pos
+            # ke tengah blok lain). Hitung net brace baris ini
+            # (string-aware, spt walker) gantikan +1 buta di bawah.
             if 'naked' in _ln and ');' not in _ln:
                 _in_naked = True
-            _depth += 1
+            _cl0 = re.sub(r"'(?:\\.|[^'\\])*'", "''", _ln)
+            _cl0 = re.sub(r'"(?:\\.|[^"\\])*"', '""', _cl0)
+            _depth += _cl0.count('{') - _cl0.count('}')
         elif _s == '}' and _in_ec:
             _depth -= 1
             if _depth <= 0:
