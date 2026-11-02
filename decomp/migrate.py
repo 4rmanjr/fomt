@@ -2722,6 +2722,18 @@ def migrate_one(module, func, dry_run=False):
         # `unk4 = callee(...)` (rhs dianggap skalar saat itu). Pass kedua
         # menangkapnya sbg pointer->skalar (no-op codegen, compare penentu).
         body = _ptr_scalar_cast_fix(body, new_structs)
+        # REFRESH VALIDATOR (TERBUKTI B1C): _cand/_conflict_view dibuat
+        # dari body PRA-rewrite (extern lama K&R `i32 f()` ikut sbg
+        # overload cocok-jumlah yg MENUTUPI arity-mismatch call `f()`
+        # vs definisi final berargumen -> lolos ke MERAH). Bangun ulang
+        # dari body FINAL agar cek call-site menilai tanda final.
+        _cand_defs = "\n".join(
+            m.group(0) for m in FUNC_DEF_RE.finditer(body)
+            if "(*" not in m.group(0))
+        _cand_ext = "\n".join(
+            m.group(0) for m in EXTERN_RE.finditer(body)
+            if "(*" not in m.group(0))
+        _conflict_view = src_nostruct + "\n" + _cand_defs + "\n" + _cand_ext
         # DEREF void* (TERBUKTI 5EA0): rewrite extern usang i32* ->
         # void* membuat `*GetMapData(...)` invalid (void value). Cast
         # `*(T *)call` no-op (TERUJI byte-identik: ldr yg sama).
