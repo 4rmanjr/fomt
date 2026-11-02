@@ -80,6 +80,40 @@ typedef struct GenObj__func_08024C88 {
 } GenObj__func_08024C88;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct T20060 {
+    u8 _pad0[20];
+    i32 (*unk14)(void *);
+} T20060;
+typedef struct O20060 {
+    T20060 *unk0;
+} O20060;
+typedef struct GenObj__func_08020060 {
+    O20060 *unk0;
+    u16 unk4;
+} GenObj__func_08020060;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08020060 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.code_entities.08020060")))
+i32 func_08020060(GenObj__func_08020060 *arg0) {
+    i32 temp_r0;
+    i32 var_r1;
+
+    temp_r0 = arg0->unk0->unk0->unk14(arg0->unk0);
+    var_r1 = 0;
+    if (temp_r0 == arg0->unk4) {
+        var_r1 = 1;
+    }
+    return var_r1;
+}
+
+/* ATTEMPT-NOTE manual: vcall 1-arg di +0x14; unk4 u16 (ldrh). */
+}
+
 // DECOMP-MATCHED func_08020080 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 
