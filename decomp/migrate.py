@@ -2529,6 +2529,36 @@ def migrate_one(module, func, dry_run=False):
         _callee_status = {k: (v.get("status") if isinstance(v, dict)
                                else None)
                           for k, v in state.items()}
+        # KANONIK OPERATOR (TERBUKTI 34CEC/5B38): __builtin_new/delete
+        # adalah operator bahasa (tak-punya definisi di ROM/state) dgn
+        # tanda kanonik tunggal: `void *__builtin_new(i32)` (param i32
+        # ala-reviewer; u32 setara) dan `void __builtin_delete(void *)`.
+        # Tanpa ini body usang `i32 (i32)` vs src kanonik `void *(i32)`
+        # jatuh ke SKIP-PERMANEN "callee tak-MATCH" (operator takkan
+        # pernah promoted). Tanpa syarat promoted; tanpa validator
+        # definisi. Di modul TERKONTAMINASI usang (EE94 .cc `i32 (i32)`),
+        # kanonik vs usang tetap konflik di loop decl-vs-decl -> SKIP
+        # (benar; unifikasi batch tersendiri, tak-disentuh di sini).
+        _CANON_OPS = {"__builtin_new": ("void*", "i32"),
+                      "__builtin_delete": ("void", "void *")}
+        for _nm, (_cret, _cparams) in _CANON_OPS.items():
+            if _nm in decl_new:
+                _have = decl_new[_nm]
+                _csig = {f"{_cret} ({_cparams})"}
+                if not _have.issubset(_csig):
+                    def _repl_op(mm, _nm=_nm, _cret=_cret,
+                                 _cparams=_cparams):
+                        if mm.group(3) != _nm:
+                            return mm.group(0)
+                        return (f"{_cret} {_nm}({_cparams});"
+                                "                             /* extern */")
+                    _pre = body
+                    body, _ = EXTERN_RE.subn(_repl_op, body)
+                    if body != _pre:
+                        # sinkronkan validator + decl agar cek lanjutan konsisten
+                        _conflict_view, _ = EXTERN_RE.subn(
+                            _repl_op, _conflict_view)
+                        decl_new = extern_decls(body)
         for nm, sigs in decl_new.items():
             # Syarat rewrite TANPA-pandang-lokasi-deklarasi (TERKOREKSI
             # AD944-final, 2026-11-01): versi awal mensyaratkan
