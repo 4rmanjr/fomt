@@ -11,6 +11,12 @@ typedef struct GenObj__func_080099B0 {
     void *unkC;
     void *unk10;
 } GenObj__func_080099B0;
+typedef struct GenObj__func_08009834 {
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+} GenObj__func_08009834;
 typedef struct GenObj__func_080098AC {
     struct GenObj__func_080098AC *unk0;
     struct GenObj__func_080098AC *unk4;
@@ -50,14 +56,37 @@ typedef struct GenObj__func_080098DC {
 } GenObj__func_080098DC;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_08009834 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+void func_08009834(GenObj__func_08009834 *arg0) {
+    u8 temp_r3;
+    u8 temp_r4;
+    u8 *var_r1;
+    u8 *end;
+
+    temp_r4 = arg0->unk0;
+    temp_r3 = arg0->unk1;
+    if (temp_r4 > temp_r3) {
+        var_r1 = (u8 *)arg0 + ((temp_r3 * 8) + 4);
+        end = (u8 *)arg0 + ((temp_r4 * 8) + 4);
+        do {
+            var_r1[1] = 2;
+            var_r1 += 8;
+        } while (var_r1 != end);
+    }
+    arg0->unk0 = temp_r3;
+    arg0->unk2 = arg0->unk3;
+}
+}
+
 // DECOMP-MATCHED func_08009864 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0800977C();                                  /* extern */
-i32 func_08009834(i32);                               /* extern */
-
+void func_08009834(GenObj__func_08009834 *arg0);                             /* extern */
 void func_08009864(i32 arg0) {
     func_0800977C();
-    func_08009834(arg0);
+    func_08009834((GenObj__func_08009834 *)(arg0));
 }
 }
 // ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
