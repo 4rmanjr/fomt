@@ -184,3 +184,9 @@ void func_080D0A54(i32 arg0) {
     *gUnk_0300041C = 0;
     gUnk_03000420->unk180 = arg0;
 }
+// DECOMP-MATCHED func_080D0A74 (dari code_809E804.s; cek manusia sebelum ke src/)
+__attribute__((section(".text.code_809E804.080D0A74")))
+void func_080D0A74(void) {
+    *gUnk_0300041C = 0;
+    gUnk_03000420->unk180 = 0;
+}
