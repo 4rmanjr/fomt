@@ -2610,10 +2610,24 @@ def migrate_one(module, func, dry_run=False):
         # (benar; unifikasi batch tersendiri, tak-disentuh di sini).
         _CANON_OPS = {"__builtin_new": ("void*", "i32"),
                       "__builtin_delete": ("void", "void *")}
+        # GUARD-KONVENSI 2026-11-04 (TERBUKTI EE94/57DD8): bila src SUDAH
+        # memanggil op kanonik (modul punya konvensi mapan, usang maupun
+        # kanonik), JANGAN rewrite paksa dua arah — ikuti konvensi modul.
+        # Rewrite paksa void* meracuni call-site lama yg mengandalkan i32
+        # (agbcp pakai decl pertama terlihat -> MERAH di fungsi tak-
+        # tersentuh). Loop decl-vs-decl di bawah menangani mismatch asli
+        # (SKIP bila beda, jalan bila sama) — lebih aman dari rewrite.
+        _src_op_calls = set()
+        for _nm in _CANON_OPS:
+            if re.search(r"(?<![\w:])" + re.escape(_nm) + r"\s*\(",
+                         src_nostruct):
+                _src_op_calls.add(_nm)
         # DUA-ARAH (TERBUKTI 7E48/8098): body SUDAH kanonik tapi src
         # masih usang (`i32 (void*)`) -> rewrite SRC ke kanonik
         # (kanonik tunggal reviewer-set; aman tanpa validator).
         for _nm, (_cret, _cparams) in _CANON_OPS.items():
+            if _nm in _src_op_calls:
+                continue  # konvensi modul menang; decl-vs-decl yg menilai
             if _nm in decl_new:
                 _have = decl_new[_nm]
                 _csig = {f"{_cret} ({_cparams})"}
@@ -2643,6 +2657,15 @@ def migrate_one(module, func, dry_run=False):
                         {_norm_sig(s) for s in _csig}):
                     _old_src = sorted(decl_src[_nm])
                     if not _csig.issubset(set(_old_src)):
+                        # (Guard-konvensi di loop pertama: bila src sudah
+                        # memanggil op ini, rewrite dilewati via continue
+                        # di bawah — loop ini hanya jalan utk modul yg
+                        # belum mapan. Bila sampai sini dgn src memanggil,
+                        # berarti body kanonik vs src usang: JANGAN rewrite
+                        # src (merusak call-site lama) — lewati, biarkan
+                        # loop decl-vs-decl menilai (SKIP normal bila beda).
+                        if _nm in _src_op_calls:
+                            continue
                         def _repl_canon(m, _nm=_nm, _cret=_cret,
                                         _cparams=_cparams):
                             if m.group(3) != _nm:
