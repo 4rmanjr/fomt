@@ -162,3 +162,14 @@ tipe dari blok fungsi lain.
 - `fomt verify` untuk audit ulang semua fungsi promoted/matched dari nol
   (tidak mengubah state; exit 0 = semua masih MATCH).
 - Jangan pernah bilang "selesai" tanpa output perintah yang mendukung.
+- Tutup sesi decomp/migrasi dengan LAPORAN TOTAL ringkas (angka saja,
+  tanpa rincian per fungsi). Format baku — `y` = yang dikerjakan sesi ini:
+  ```text
+  decomp total 2626 fungsi
+  berhasil 904+4 (34.6%)
+  failed 1722-4
+  pending 0+0
+  src 689+4
+  ```
+  Angka harus dari data segar sesi itu (baca ulang state + hitung marker
+  `DECOMP-MATCHED` di `src/`), bukan dari ingatan atau output batch lama.
