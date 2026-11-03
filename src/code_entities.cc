@@ -97,7 +97,6 @@ typedef struct GenObj__func_08020060 {
 // DECOMP-MATCHED func_08020060 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 __attribute__((section(".text.code_entities.08020060")))
 i32 func_08020060(GenObj__func_08020060 *arg0) {
     i32 temp_r0;
@@ -171,6 +170,20 @@ i32 func_0802161C(void) {
     return 0;
 }
 }
+// DECOMP-MATCHED func_08021620 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.08021620")))
+i32 func_08021620(i32 arg0) {
+    switch (arg0) {                                 /* irregular */
+    case 0:
+    default:
+        return 6;
+    case 1:
+        return 8;
+    }
+}
+}
+
 
 // DECOMP-MATCHED gData_code_entities_080222F4.data.080222F4
 extern "C" {
