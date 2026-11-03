@@ -132,6 +132,8 @@ typedef struct S_03000420 {
     u8 _pad18[28];
     i32 unk34;
     i32 unk38;
+    u8 _pad3C[324];
+    i32 unk180;
 } S_03000420;
 extern S_03000420 *gUnk_03000420;
 __attribute__((section(".text.code_809E804.080D0444")))
@@ -160,4 +162,25 @@ i32 func_080D0C10(void) {
         var_r2 = 1;
     }
     return var_r2;
+}
+extern i32 *gUnk_0300041C;
+// DECOMP-MATCHED gData_code_809E804_080D02B8.data.080D02B8
+// data tak-dirujuk di 0x080D02B8 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+const u8 gData_code_809E804_080D02B8[20] __attribute__((section(".text.code_809E804.080D02B8"))) = {0x00, 0xB5, 0x00, 0x28, 0x02, 0xD0, 0x10, 0x38, 0x00, 0x68, 0x00, 0xE0, 0x00, 0x20, 0x02, 0xBC, 0x08, 0x47, 0x00, 0x00};
+// DECOMP-MATCHED func_080D02CC (dari code_809E804.s; cek manusia sebelum ke src/)
+i32 func_080D0B88();
+
+__attribute__((section(".text.code_809E804.080D02CC")))
+void func_080D02CC(i32 *arg0) {
+    gUnk_03000420 = (S_03000420 *)arg0;
+    *arg0 = 0;
+    func_080D0B88();
+    gUnk_03000420->unk4 = 0;
+    gUnk_03000420->unk8 = 0;
+}
+// DECOMP-MATCHED func_080D0A54 (dari code_809E804.s; cek manusia sebelum ke src/)
+__attribute__((section(".text.code_809E804.080D0A54")))
+void func_080D0A54(i32 arg0) {
+    *gUnk_0300041C = 0;
+    gUnk_03000420->unk180 = arg0;
 }
