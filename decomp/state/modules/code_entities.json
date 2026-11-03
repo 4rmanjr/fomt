@@ -3,11 +3,11 @@
   "addr": 134348896,
   "judged_mtime": 1793017222.33747,
   "module": "code_entities.s",
-  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020060/worker-2b8e/func.c: In function `func_08020060':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020060/worker-2b8e/func.c:10: invalid type argument of `unary *'\n",
+  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020060/worker-2b8e/func.c: In function `func_08020060':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020060/worker-2b8e/func.c:10: invalid type argument of `unary *'\n [audit_sync: duplikat di src]",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 336,
-  "status": "failed",
+  "status": "migrated",
   "thumb": true
  },
  "func_08020080": {
@@ -729,11 +729,11 @@
   "addr": 134368392,
   "judged_mtime": 1793017258.2084558,
   "module": "code_entities.s",
-  "note": "len 10 vs ref 16",
+  "note": "len 10 vs ref 16 [audit_sync: duplikat di src]",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 203,
-  "status": "failed",
+  "status": "migrated",
   "thumb": true
  },
  "func_08024C98": {

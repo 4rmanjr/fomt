@@ -1586,11 +1586,11 @@
   "addr": 134446944,
   "judged_mtime": 1793582714.094408,
   "module": "code_entities_08034CEC.s",
-  "note": "len 26 vs ref 20 [3extra,1operand,3different @| adds r1, #0x54 | ldr r0, [r1, #0x54]]",
+  "note": "len 26 vs ref 20 [3extra,1operand,3different @| adds r1, #0x54 | ldr r0, [r1, #0x54]] [audit_sync: duplikat di src]",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 238,
-  "status": "failed",
+  "status": "migrated",
   "thumb": true
  },
  "func_08037F74": {
@@ -1954,11 +1954,11 @@
   "addr": 134450848,
   "judged_mtime": 1793582714.0964077,
   "module": "code_entities_08034CEC.s",
-  "note": ".c: In function `func_08038EA0':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08038EA0/opencode/func.c:12: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08038EA0/opencode/func.c:12: request for member `unk50' in something not a structure or union\n",
+  "note": ".c: In function `func_08038EA0':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08038EA0/opencode/func.c:12: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08038EA0/opencode/func.c:12: request for member `unk50' in something not a structure or union\n [audit_sync: duplikat di src]",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 275,
-  "status": "failed",
+  "status": "migrated",
   "thumb": true
  },
  "func_08038EB8": {

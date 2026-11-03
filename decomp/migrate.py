@@ -1288,11 +1288,13 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
                             if _rp6 is not None and _rp6[1] > 0:
                                 rt = _rt6
                             break
-            if rt is not None:
+            if rt is not None and vt is not None:
                 # LHS skalar = RHS pointer (mis. `i32 x = *p;`): C++
                 # menolak implisit; cast (T)(...) no-op semantik.
                 # Codegen agbcc/agbcp kadang berubah (regalloc) -> biarkan
                 # compare yg memutuskan (HIJAU lanjut, MERAH revert/SKIP).
+                # vt None (mis. var explicit-reg tak-terparse): biarkan
+                # (konservatif; emit (None) merusak kompilasi).
                 out.append(f"{ind}{lhs} = ({vt})({rhs});")
                 continue
             out.append(ln)
@@ -2389,21 +2391,37 @@ def migrate_one(module, func, dry_run=False):
                 "detail": f"layout lds {module} tak didukung migrasi "
                 f"otomatis ({e}), dilewati"}
 
+    # Sudah-pindah dicek DULU dan SELALU (di luar `if src_path.exists()`
+    # agar modul tanpa stem.cc pun tercakup): marker di SEMUA varian src
+    # (.cc/.c, polos/_c/_v/_migrated). BUG 2026-11-04: hanya .cc + _c.c
+    # dicek, func_080D0644 lolos dry-run padahal sudah ada di _v.c ->
+    # multiple definition saat link. Dry-run dan real-run melewati titik
+    # ini — satu sumber kebenaran untuk keduanya.
+    _already_where = ""
+    for _suf in ("", "_c", "_v", "_migrated"):
+        for _ext in ("cc", "c"):
+            _p = REPO / "src" / f"{stem}{_suf}.{_ext}"
+            if not _p.exists():
+                continue
+            try:
+                _t = _p.read_text()
+            except OSError:
+                continue
+            if re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b", _t):
+                _already_where = str(_p)
+                break
+        if _already_where:
+            break
+    if _already_where:
+        return {"func": func, "module": module, "ok": False,
+                "skipped": True,
+                "detail": f"{func} sudah ada di {_already_where} (dilewati)"}
     if src_path.exists():
         src_text = src_path.read_text()
         # Hanya marker yang sah sebagai tanda "sudah pindah". Substring
         # polos (dulu: `func in src_text`) false-positive pada pemanggilan /
         # deklarasi extern fungsi lain (kasus 004F4 dipanggil 0050C).
-        # Cek juga file .c pendamping (fallback agbcc): fungsi yg pindah
-        # via .c tidak ada markernya di .cc.
-        c_path = REPO / "src" / f"{stem}_c.c"
-        c_text = c_path.read_text() if c_path.exists() else ""
-        if (re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b", src_text)
-                or re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b",
-                             c_text)):
-            return {"func": func, "module": module, "ok": False,
-                    "skipped": True,
-                    "detail": f"{func} sudah ada di {src_path} (dilewati)"}
+        # (Cek semua-varian sudah dilakukan di atas, sebelum blok ini.)
         if need_string_h and "#include <string.h>" not in src_text:
             inc = src_text.splitlines(keepends=True)
             for i, ln in enumerate(inc):

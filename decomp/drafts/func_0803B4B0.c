@@ -10,7 +10,7 @@ void *func_0803B4B0(GenObj *arg0, s32 arg1) {
 
     arg0->unk0 = &vtable_unk_080E76E8;
     arg0->unk4 = arg1;
-    var_r0 = arg0 + 8;
+    var_r0 = (s8 *)arg0 + 8;
     var_r1 = 3;
     do {
         *var_r0 = 0;

@@ -1441,14 +1441,46 @@ def _verify_one(payload: tuple[str, str]) -> tuple[str, bool, str]:
     return name, ok, note
 
 
-def verify_all(tag: str | None = None, jobs: int | None = None) -> int:
+def verify_all(tag: str | None = None, jobs: int | None = None,
+               since: str | None = None, module: str | None = None) -> int:
     """Audit ulang semua fungsi promoted/matched dari nol, TANPA ubah state.
 
     Return: jumlah fungsi yang tidak lagi MATCH (0 = semua lolos audit).
     jobs: jumlah worker paralel (default: CPU, maks 8; 1 = sekuensial).
+    since: hanya fungsi yang blok promoted-nya berubah sejak rev git
+        tsb (mis. "HEAD~5"); kosong = semua. Dipakai agar audit
+        inkremental (<5 mnt) bukan penuh (>7 mnt, timeout).
+    module: hanya fungsi dari modul tsb (stem tanpa .s, mis.
+        "code_0803A8A4"); kosong = semua modul.
     """
     st = load()
     names = sorted(k for k, v in st.items() if v["status"] in ("promoted", "matched"))
+    if module:
+        stem = module[:-2] if module.endswith(".s") else module
+        mod_funcs = set()
+        import json as _json
+        _mp = ROOT / "decomp" / "state" / "modules" / f"{stem}.json"
+        if _mp.exists():
+            try:
+                _md = _json.loads(_mp.read_text())
+                mod_funcs = {k for k, v in _md.items() if isinstance(v, dict)}
+            except ValueError:
+                pass
+        names = [n for n in names if n in mod_funcs]
+    if since:
+        import subprocess as _sp
+        try:
+            # Tanpa `..HEAD` agar perubahan working-tree ikut tercakup
+            # (blok promoted terakumulasi uncommitted antar-migrasi).
+            _diff = _sp.run(
+                ["git", "diff", since, "--", "decomp/promoted/"],
+                capture_output=True, text=True, cwd=str(ROOT),
+                timeout=60).stdout
+        except Exception:
+            _diff = ""
+        _changed = set(re.findall(r"^\+// DECOMP-MATCHED (func_\w+)",
+                                  _diff, re.M))
+        names = [n for n in names if n in _changed]
     tag = tag or f"verify_{SAFE_AGENT}"
     if not names:
         print(f"[{AGENT}] verify: belum ada fungsi promoted/matched")
@@ -1820,9 +1852,52 @@ def run_batch(n: int, modules: list[str] | None, retry_all: bool,
                   f"agent lain (klaim basi diambil alih setelah {CLAIM_TTL}s)."
                   f" | {progress(fin)}")
         else:
+            # Transparansi antrean: rincikan KENAPA kosong, bukan sekadar
+            # "antrean habis". Hitung per alasan agar operator tahu aksi
+            # berikutnya (edit draf? --retry? ganti modul?).
+            _reasons = {"failed-tak-berubah": 0, "sudah-promoted/matched": 0,
+                        "modul-lain": 0, "gate-migratable": 0,
+                        "SKIP_FUNCS": 0, "klaim-agent-lain": 0}
+            for k, v in fin.items():
+                _mod_ok = (not modules or v.get("module") in modules)
+                if not _mod_ok:
+                    _reasons["modul-lain"] += 1
+                    continue
+                if k in SKIP_FUNCS:
+                    _reasons["SKIP_FUNCS"] += 1
+                    continue
+                if v["status"] in ("promoted", "matched"):
+                    _reasons["sudah-promoted/matched"] += 1
+                    continue
+                if v["status"] not in ("pending", "drafted", "failed"):
+                    _reasons["sudah-promoted/matched"] += 1
+                    continue
+                if v["status"] == "failed" and not retry_all:
+                    p = DRAFTS / f"{k}.c"
+                    try:
+                        _edited = (p.exists() and p.stat().st_mtime >
+                                   v.get("judged_mtime", 0))
+                    except OSError:
+                        _edited = False
+                    if not _edited:
+                        _reasons["failed-tak-berubah"] += 1
+                        continue
+                if _gate and not _gate(k, v):
+                    _reasons["gate-migratable"] += 1
+                    continue
+                if _live(v, time.time()) and v["claimed_by"] != AGENT:
+                    _reasons["klaim-agent-lain"] += 1
+                    continue
+            _r = ", ".join(f"{kk}={vv}" for kk, vv in _reasons.items()
+                           if vv)
             print(f"{prefix} antrean habis: tidak ada pending/drafted"
                   f" (sisa failed butuh perbaikan manual di decomp/drafts/)."
                   f" | {progress(fin)}")
+            if _r:
+                print(f"{prefix} rincian skip: {_r}.")
+                print(f"{prefix} aksi: edit draf failed lalu ulangi, "
+                      f"atau tambah --retry (ulangi semua failed), "
+                      f"atau ganti filter modul.")
     else:
         print(f"{prefix} status | {progress(load())}")
         print(f"{prefix} {bar_text(load())}")
@@ -1930,7 +2005,28 @@ def main(argv: list[str]) -> int:
             args.append(a)
     SAFE_AGENT = re.sub(r"[^A-Za-z0-9_.-]", "_", AGENT)[:40] or "agent"
     if args and args[0] == "verify":
-        return 1 if verify_all(jobs=jobs or None) else 0
+        _vargs = args[1:]
+        _vsince = None
+        _vmod = None
+        _vi = 0
+        while _vi < len(_vargs):
+            _a = _vargs[_vi]
+            if _a == "--since" and _vi + 1 < len(_vargs):
+                _vsince = _vargs[_vi + 1]
+                _vi += 2
+            elif _a.startswith("--since="):
+                _vsince = _a[len("--since="):]
+                _vi += 1
+            elif _a == "--module" and _vi + 1 < len(_vargs):
+                _vmod = _vargs[_vi + 1]
+                _vi += 1
+            elif _a.startswith("--module="):
+                _vmod = _a[len("--module="):]
+                _vi += 1
+            else:
+                _vi += 1
+        return 1 if verify_all(jobs=jobs or None, since=_vsince,
+                               module=_vmod) else 0
     deadline = None
     if until:
         try:

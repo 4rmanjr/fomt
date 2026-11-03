@@ -12,14 +12,14 @@ typedef struct GenObj {
     s32 unkB14;
     s32 unkB18;
     u8 _padB1C[21];
-    s32 unkB31;
-    s32 unkB32;
-    u8 _padB36[7];
-    s32 unkB3D;
-    s32 unkB3E;
-    s32 unkB3F;
-    u8 _padB43[21];
-    s32 unkB58;
+    u8 unkB31;
+    u8 unkB32;
+    u8 _padB33[10];
+    u8 unkB3D;
+    u8 unkB3E;
+    u8 unkB3F;
+    u8 _padB40[24];
+    u8 unkB58;
 } GenObj;
 void func_080B45F0(GenObj *arg0) {
     s32 temp_r5;
@@ -40,5 +40,5 @@ void func_080B45F0(GenObj *arg0) {
     temp_r8 = func_08008920(arg0);
     temp_r6 = func_08008918(arg0);
     temp_r5 = func_08008940(arg0);
-    func_08050D3C(temp_sl, temp_sb, temp_r8, temp_r6, temp_r5, func_0800894C(arg0), arg0 + 0x708);
+    func_08050D3C(temp_sl, temp_sb, temp_r8, temp_r6, temp_r5, func_0800894C(arg0), (void *)((u8 *)arg0 + 0x708));
 }

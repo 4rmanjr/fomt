@@ -18,12 +18,13 @@ typedef struct GenObj {
     s32 unk108;
 } GenObj;
 typedef struct { s32 unk0; s32 unk4; s32 unk8; } Sp12;
+/* ref: arg0->r6, arg1->r5; ldm/stm untuk Sp12; tail via (arg0+0x80)/(arg0+0xC). */
 void func_080908CC(GenObj *arg0, s32 arg1) {
     Sp12 sp0;
     s32 temp_r4;
     s32 temp_r4_2;
     s32 var_r1;
-    GenObj *var_r0;
+    register void *var_r0 __asm__("r0");
 
     func_080CAC70((s32 *)&sp0);
     if (arg1 == 0) {

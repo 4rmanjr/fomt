@@ -5,6 +5,7 @@ typedef struct GenObj {
     s32 unk3;
 } GenObj;
 void *func_0803D52C(GenObj *arg0, GenObj *arg1) {
+    register u32 sb_in asm("sb");
     u32 sp0;
     u32 sp4;
     u8 sp8;
@@ -28,7 +29,7 @@ void *func_0803D52C(GenObj *arg0, GenObj *arg1) {
     if (var_r3 > 6U) {
         var_r3 = var_r3 % 7U;
     }
-    var_r6 = (-8 & saved_reg_r9) | (7 & var_r3);
+    var_r6 = (-8 & sb_in) | (7 & var_r3);
     sp0 = 0xC8;
     temp_r0 = arg1->unk0;
     temp_r1 = ((temp_r0 >> 3) * 7) + ((u32) (temp_r0 << 0x1D) >> 0x1D);

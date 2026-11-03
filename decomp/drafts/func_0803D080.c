@@ -3,36 +3,34 @@ extern s32 gUnk_0875A440;
 
 typedef struct GenObj {
     u8 _pad0[396];
-    s32 unk18C;
+    u8 unk18C;
 } GenObj;
 void func_0803D080(void **arg0, s32 arg1) {
     s32 sp0;
     s32 sp4;
-    s32 var_r2;
+    s32 one;
     GenObj *temp_r7;
 
     temp_r7 = *arg0;
-    switch (arg1) {                                 /* irregular */
-    default:
-        sp0 = 0xB;
-        var_r2 = 0xC;
-        break;
-    case 1:
+    if (arg1 == 1) {
         sp0 = 0xD;
-        var_r2 = 0xE;
-        break;
-    case 2:
+        sp4 = 0xE;
+    } else if (arg1 <= 1) {
+        sp0 = 0xB;
+        sp4 = 0xC;
+    } else if (arg1 == 2) {
         sp0 = 0xF;
-        var_r2 = 0x10;
-        break;
-    case 3:
+        sp4 = 0x10;
+    } else if (arg1 == 3) {
         sp0 = 0x11;
-        var_r2 = 0x12;
-        break;
+        sp4 = 0x12;
+    } else {
+        sp0 = 0xB;
+        sp4 = 0xC;
     }
-    sp4 = var_r2;
-    memcpy((GenObj *)((u8 *)temp_r7 + 0x84), (sp0 << 5) + &gUnk_0875A440, 0x20);
-    temp_r7->unk18C = 1;
-    memcpy((GenObj *)((u8 *)temp_r7 + 0xA4), (var_r2 << 5) + &gUnk_0875A440, 0x20);
-    temp_r7->unk18C = 1;
+    one = 1;
+    memcpy((GenObj *)((u8 *)temp_r7 + 0x84), (u8 *)((u8 *)&gUnk_0875A440 + (sp0 << 5)), 0x20);
+    temp_r7->unk18C = one;
+    memcpy((GenObj *)((u8 *)temp_r7 + 0xA4), (u8 *)((u8 *)&gUnk_0875A440 + (sp4 << 5)), 0x20);
+    temp_r7->unk18C = one;
 }
