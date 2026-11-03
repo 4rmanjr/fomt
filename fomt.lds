@@ -142,6 +142,7 @@ SECTIONS
         *(SORT_BY_NAME(.text.code_809E804.*))
         src/code_809E804.o(.text);
         src/code_809E804_c.o(.text);
+        src/code_809E804_v.o(.text);
 
         src/m4a_1.o(.text);
         src/m4a.o(.text);
