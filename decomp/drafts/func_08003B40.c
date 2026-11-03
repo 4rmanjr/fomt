@@ -42,18 +42,19 @@ void func_08003B40(s32 arg0) {
     GenObj *temp_r0;
     ObjB40 *temp_r0_2;
     void *temp_r1;
+    s32 *p_unk0 = &sp4.unk0;
 
     temp_r0 = func_08008918();
     sp4.f0 = 0x3F;
     *(u16 *)((u8 *)temp_r0 + 0x50) = 0x3F;
     temp_r1 = func_08008918(arg0);
     sp4.unk0 = 0;
-    sp4.unk4 = 0;
+    p_unk0[1] = 0;
     sp4.unk8 = &vtable_unk_080E5B80;
     func_08009300(&sp4.tail, temp_r1);
     func_0800934C(&sp4.tail, 0x889, 1, 1);
     temp_r0_2 = (ObjB40 *)func_08008940(arg0);
-    ((void (*)(void *, ...))temp_r0_2->unk8->unk10)(temp_r0_2, &sp4.unk0);
+    ((void (*)(void *, ...))temp_r0_2->unk8->unk10)(temp_r0_2, p_unk0);
     goto loop_check;
 loop_2:
     func_080087C8(arg0);
@@ -61,5 +62,5 @@ loop_check:
     if ((s32) ((0 - (s32)sp4.unk0) | (s32)sp4.unk0) < 0) {
         goto loop_2;
     }
-    func_080094B8(&sp4.unk0, 2);
+    func_080094B8(p_unk0, 2);
 }

@@ -9,13 +9,9 @@ typedef struct GenObj {
 } GenObj;
 s32 func_080455D8(GenObj *arg0, u16 arg1, s32 arg2, u32 arg3, u8 arg4) {
     u32 var_r0;
-    u8 temp_r5;
-    s32 t2;
-    u32 t3;
-
-    t2 = arg2;
-    t3 = arg3;
-    temp_r5 = arg4;
+    s32 t2 = arg2;
+    u32 t3 = arg3;
+    u8 temp_r5 = arg4;
     if ((func_0809C694(arg0->unk350 + 0x214C, arg1) << 0x18) != 0) {
         return 1;
     }
@@ -25,11 +21,10 @@ s32 func_080455D8(GenObj *arg0, u16 arg1, s32 arg2, u32 arg3, u8 arg4) {
         } else {
             var_r0 = GetRivalEventCount__C12Bachelorette();
         }
-        if (var_r0 < t3) {
-            goto block_7;
+        if (var_r0 >= t3) {
+            return 2;
         }
-        return 2;
+        return 0;
     }
-block_7:
     return 0;
 }

@@ -23,7 +23,6 @@ void func_08035C04(GenObj *arg0) {
     s32 var_r7;
     s32 var_r8;
     GenObj *temp_r5;
-    register s32 (*fn)(void) asm("r1");
 
     var_r7 = 0x22F;
     var_r8 = 0x233;
@@ -33,8 +32,8 @@ void func_08035C04(GenObj *arg0) {
         if (((func_08035AE0(arg0) << 0x18) != 0) || (((u32) (temp_r5->unk216B << 0x19) >> 0x1E) == 1)) {
             var_r7 = 0x23F;
         } else if ((func_080A0384(temp_r6) != 0) && (func_0809EAD8() <= 0x3BU)) {
-            fn = (*arg0->unk0)->unk144;
-            if ((func_08034C64(temp_r5, fn() + 0xA) << 0x18) != 0) {
+            Vtbl144 **pp = arg0->unk0;
+            if ((func_08034C64(temp_r5, (*pp)->unk144() + 0xA) << 0x18) != 0) {
                 var_r7 = 0x247;
                 var_r8 = 0x24B;
             }
