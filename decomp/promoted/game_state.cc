@@ -944,3 +944,144 @@ typedef struct GenObj {
 s32 func_0801FAA8(GenObj *arg0, s32 arg1) {
     return arg0->unk0->unk40(arg0, arg1);
 }
+
+// DECOMP-MATCHED func_08011588 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_08011588(u8 *arg0, s32 arg1) {
+    s32 sum = 0;
+    u8 *p;
+    s32 n;
+    if ((arg0 != 0) && (arg1 != 0)) {
+        p = arg0;
+        n = arg1;
+        do {
+            sum += *p;
+            p++;
+            n--;
+        } while (n != 0);
+    }
+    return sum;
+}
+
+// DECOMP-MATCHED func_08012ACC (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_0803B6B8(s32);                               /* extern */
+
+typedef struct Inner12ACC { u8 _pad0[176]; s32 unkB0; } Inner12ACC;
+typedef struct GenObj {
+    u8 _pad0[4];
+    Inner12ACC *unk4;
+} GenObj;
+void func_08012ACC(GenObj *arg0) {
+    func_0803B6B8(arg0->unk4->unkB0);
+}
+
+// DECOMP-MATCHED func_080142F0 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Inner142F0 { u8 _pad0[140]; void *unk8C; } Inner142F0;
+typedef struct GenObj {
+    u8 _pad0[4];
+    Inner142F0 *unk4;
+} GenObj;
+void func_080142F0(GenObj *arg0) {
+    ((u8 *)arg0->unk4->unk8C)[0x34C4] = 1;
+}
+
+// DECOMP-MATCHED func_08014304 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Inner14304 { u8 _pad0[140]; void *unk8C; } Inner14304;
+typedef struct GenObj {
+    u8 _pad0[4];
+    Inner14304 *unk4;
+} GenObj;
+void func_08014304(GenObj *arg0) {
+    ((u8 *)arg0->unk4->unk8C)[0x34C4] = 0;
+}
+
+// DECOMP-MATCHED func_08014034 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Mid14034 { u8 _pad0[168]; void **unkA8; } Mid14034;
+typedef struct GenObj { u8 _pad0[4]; Mid14034 *unk4; } GenObj;
+void func_08014034(GenObj *arg0) {
+    register void *p asm("r1") = *arg0->unk4->unkA8;
+    register void (*fn)(void) asm("r1");
+    fn = *(void (**)(void))((u8 *)p + 0x84);
+    fn();
+}
+
+// DECOMP-MATCHED func_0801DD78 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_080A601C(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+void func_0801DD78(GenObj *arg0) {
+    func_080A601C(arg0->unk4);
+}
+
+// DECOMP-MATCHED func_0801DE48 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_080AA8DC(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+void func_0801DE48(GenObj *arg0) {
+    func_080AA8DC(arg0->unk4);
+}
+
+// DECOMP-MATCHED func_08014064 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Mid64 { u8 _pad0[168]; void **unkA8; } Mid64;
+typedef struct GenObj { u8 _pad0[4]; Mid64 *unk4; } GenObj;
+void func_08014064(GenObj *arg0) {
+    register void *p asm("r1") = *arg0->unk4->unkA8;
+    register void (*fn)(void) asm("r1");
+    fn = *(void (**)(void))((u8 *)p + 0x8C);
+    fn();
+}
+
+// DECOMP-MATCHED func_08014094 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Mid94 { u8 _pad0[168]; void **unkA8; } Mid94;
+typedef struct GenObj { u8 _pad0[4]; Mid94 *unk4; } GenObj;
+void func_08014094(GenObj *arg0) {
+    register void *p asm("r1") = *arg0->unk4->unkA8;
+    register void (*fn)(void) asm("r1");
+    fn = *(void (**)(void))((u8 *)p + 0x94);
+    fn();
+}
+
+// DECOMP-MATCHED func_080140AC (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct MidAC { u8 _pad0[168]; void **unkA8; } MidAC;
+typedef struct GenObj { u8 _pad0[4]; MidAC *unk4; } GenObj;
+void func_080140AC(GenObj *arg0) {
+    register void *p asm("r1") = *arg0->unk4->unkA8;
+    register void (*fn)(void) asm("r1");
+    fn = *(void (**)(void))((u8 *)p + 0x98);
+    fn();
+}
+
+// DECOMP-MATCHED func_080140C4 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Mid140C4 { u8 _pad0[168]; void **unkA8; } Mid140C4;
+typedef struct GenObj { u8 _pad0[4]; Mid140C4 *unk4; } GenObj;
+void func_080140C4(GenObj *arg0) {
+    register void *p asm("r2") = *arg0->unk4->unkA8;
+    register void (*fn)(void) asm("r2");
+    fn = *(void (**)(void))((u8 *)p + 0x9C);
+    fn();
+}
+
+// DECOMP-MATCHED func_080140DC (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Mid140DC { u8 _pad0[168]; void **unkA8; } Mid140DC;
+typedef struct GenObj { u8 _pad0[4]; Mid140DC *unk4; } GenObj;
+void func_080140DC(GenObj *arg0) {
+    register void *p asm("r2") = *arg0->unk4->unkA8;
+    register void (*fn)(void) asm("r2");
+    fn = *(void (**)(void))((u8 *)p + 0xA0);
+    fn();
+}
+
+// DECOMP-MATCHED func_080140F4 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Mid140F4 { u8 _pad0[168]; void **unkA8; } Mid140F4;
+typedef struct GenObj { u8 _pad0[4]; Mid140F4 *unk4; } GenObj;
+void func_080140F4(GenObj *arg0) {
+    register void *p asm("r1") = *arg0->unk4->unkA8;
+    register void (*fn)(void) asm("r1");
+    fn = *(void (**)(void))((u8 *)p + 0x80);
+    fn();
+}

@@ -1050,3 +1050,26 @@ loop_1:
     }
     return 1;
 }
+
+// DECOMP-MATCHED func_080088CC (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct Inner088CC { u8 _pad0[4]; u16 unk4; } Inner088CC;
+u16 func_080088CC(Inner088CC **arg0) {
+    return (*arg0)->unk4;
+}
+
+// DECOMP-MATCHED func_080088D4 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct Inner088D4 { u8 _pad0[8]; u16 unk8; } Inner088D4;
+u16 func_080088D4(Inner088D4 **arg0) {
+    return (*arg0)->unk8;
+}
+
+// DECOMP-MATCHED func_080088DC (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_080088DC(s32 *arg0) {
+    return *arg0;
+}
+
+// DECOMP-MATCHED func_080094A4 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct Inner094A4 { u8 _pad0[4]; s16 unk4; } Inner094A4;
+s16 func_080094A4(Inner094A4 **arg0) {
+    return (*arg0)->unk4;
+}

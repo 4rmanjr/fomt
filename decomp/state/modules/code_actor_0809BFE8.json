@@ -617,9 +617,9 @@
   "judged_mtime": 1793017763.2989244,
   "module": "code_actor_0809BFE8.s",
   "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809E0AC/opencode/func.c: In function `func_0809E0AC':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809E0AC/opencode/func.c:11: invalid type argument of `unary *'\n",
-  "ref_len": 200,
+  "ref_len": 199,
   "sanitize_v": 4,
-  "size": 1943,
+  "size": 1944,
   "status": "failed",
   "thumb": true
  },

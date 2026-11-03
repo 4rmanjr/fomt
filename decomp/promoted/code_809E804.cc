@@ -2560,3 +2560,269 @@ __attribute__((naked)) void sub_080D1498(void) {
     ".syntax divided"
     : : : "r4", "memory");
 }
+
+// DECOMP-MATCHED func_080AD9D0 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080A601C(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+void func_080AD9D0(GenObj *arg0) {
+    func_080A601C(arg0->unk4);
+}
+
+// DECOMP-MATCHED func_080C0D80 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct InnerC0D80 { u8 _pad0[1540]; s32 unk604; } InnerC0D80;
+typedef struct GenObj {
+    u8 _pad0[4];
+    InnerC0D80 *unk4;
+} GenObj;
+s32 func_080C0D80(GenObj *arg0) {
+    return arg0->unk4->unk604;
+}
+
+// DECOMP-MATCHED func_080CABEC (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_08050DC8(s32, s32, s32, s32);                /* extern */
+s32 func_08050E98(s32, s32);                          /* extern */
+
+void func_080CABEC(s32 arg0, s32 arg1) {
+    s32 temp_r4;
+
+    temp_r4 = arg0 + 0x348;
+    func_08050E98(temp_r4, 4);
+    func_08050E98(temp_r4, 8);
+    func_08050E98(temp_r4, 1);
+    func_08050E98(temp_r4, 2);
+    func_08050E98(temp_r4, 0x10);
+    func_08050E98(temp_r4, 0x20);
+    func_08050DC8(temp_r4, arg1, 0, 0);
+}
+
+// DECOMP-MATCHED func_080C7F0C (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct InnerC7F0C { u8 _pad0[2420]; s32 unk974; } InnerC7F0C;
+typedef struct GenObj {
+    u8 _pad0[4];
+    InnerC7F0C *unk4;
+} GenObj;
+s32 func_080C7F0C(GenObj *arg0) {
+    return arg0->unk4->unk974;
+}
+
+// DECOMP-MATCHED func_080D0444 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct GenObj { u8 _pad0[4]; s32 unk4; s32 unk8; } GenObj;
+extern GenObj *gUnk_03000420;
+void func_080D0444(s32 arg0, s32 arg1) {
+    gUnk_03000420->unk4 = arg0;
+    gUnk_03000420->unk8 = arg1;
+}
+
+// DECOMP-MATCHED func_080D06B4 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct GenObj { u8 _pad0[20]; s32 unk14; } GenObj;
+extern GenObj *gUnk_03000420;
+s32 func_080D06B4(void) {
+    s32 var_r1;
+
+    var_r1 = 0;
+    if (gUnk_03000420->unk14 == 0) {
+        var_r1 = 1;
+    }
+    return var_r1;
+}
+
+// DECOMP-MATCHED func_080D0C10 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct GenObj { u8 _pad0[52]; s32 unk34; s32 unk38; } GenObj;
+extern GenObj *gUnk_03000420;
+s32 func_080D0C10(void) {
+    s32 var_r2;
+
+    var_r2 = 0;
+    if (gUnk_03000420->unk34 == gUnk_03000420->unk38) {
+        var_r2 = 1;
+    }
+    return var_r2;
+}
+
+// DECOMP-MATCHED func_080D02CC (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080D0B88();                                  /* extern */
+typedef struct S_03000420 { u8 _pad0[4]; s32 unk4; s32 unk8; u8 _padC[8]; s32 unk14; u8 _pad18[28]; s32 unk34; s32 unk38; } S_03000420;
+extern S_03000420 *gUnk_03000420;
+
+void func_080D02CC(s32 *arg0) {
+    gUnk_03000420 = (S_03000420 *)arg0;
+    *arg0 = 0;
+    func_080D0B88();
+    gUnk_03000420->unk4 = 0;
+    gUnk_03000420->unk8 = 0;
+}
+
+// DECOMP-MATCHED func_080D0A54 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern s32 *gUnk_0300041C;
+typedef struct G420_0A54 { u8 _pad0[384]; s32 unk180; } G420_0A54;
+extern G420_0A54 *gUnk_03000420;
+
+void func_080D0A54(s32 arg0) {
+    *gUnk_0300041C = 0;
+    gUnk_03000420->unk180 = arg0;
+}
+
+// DECOMP-MATCHED func_080D0A74 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern s32 *gUnk_0300041C;
+typedef struct G420_0A74 { u8 _pad0[384]; s32 unk180; } G420_0A74;
+extern G420_0A74 *gUnk_03000420;
+
+void func_080D0A74(void) {
+    *gUnk_0300041C = 0;
+    gUnk_03000420->unk180 = 0;
+}
+
+// DECOMP-MATCHED func_080D0B88 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct S_03000420 { u8 _pad0[4]; s32 unk4; s32 unk8; u8 _padC[8]; s32 unk14; u8 _pad18[28]; s32 unk34; s32 unk38; s32 unk3C; u8 _pad40[320]; s32 unk180; } S_03000420;
+extern S_03000420 *gUnk_03000420;
+extern s32 *gUnk_0300041C;
+
+void func_080D0B88(void) {
+    gUnk_03000420->unk34 = 0;
+    gUnk_03000420->unk38 = 0;
+    gUnk_0300041C = (s32 *)((u8 *)gUnk_03000420 + 0x3C);
+    gUnk_03000420->unk3C = 0;
+}
+
+// DECOMP-MATCHED func_080D02F0 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080D0ABC();                                  /* extern */
+s32 func_080D0B14(s32, s32);                          /* extern */
+s32 func_080D0BA8(s32 *);                             /* extern */
+typedef struct S_03000420F {
+    s32 unk0; s32 unk4; s32 unk8; s32 unkC; s32 unk10; s32 unk14; s32 unk18; s32 unk1C; s32 unk20;
+    u8 _pad24[16]; s32 unk34; s32 unk38; s32 unk3C; u8 _pad40[316]; s32 unk17C; s32 unk180; s32 unk184;
+} S_03000420F;
+extern S_03000420F *gUnk_03000420;
+
+void func_080D02F0(void) {
+    struct { s32 v; u8 _pad[28]; } sp0s;
+    s32 *sp0 = &sp0s.v;
+    s32 temp_r2;
+
+    temp_r2 = gUnk_03000420->unk0;
+    if (temp_r2 == 0) {
+        gUnk_03000420->unk0 = 1;
+        gUnk_03000420->unk14 = temp_r2;
+        gUnk_03000420->unk18 = temp_r2;
+        gUnk_03000420->unk1C = temp_r2;
+        gUnk_03000420->unk20 = 1;
+        gUnk_03000420->unk180 = temp_r2;
+        gUnk_03000420->unk184 = temp_r2;
+        gUnk_03000420->unk17C = temp_r2;
+        gUnk_03000420->unkC = temp_r2;
+        gUnk_03000420->unk10 = temp_r2;
+        *sp0 = temp_r2;
+        func_080D0BA8(sp0);
+        func_080D0B14(0, 0);
+        func_080D0ABC();
+    }
+}
+
+// DECOMP-MATCHED func_080D0644 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080D05DC();                                  /* extern */
+typedef struct S_03000420G { u8 _pad0[40]; u8 unk28; u8 unk29; u8 unk2A; u8 unk2B; u8 _pad2C[4]; s32 unk30; } S_03000420G;
+extern S_03000420G *gUnk_03000420;
+
+void func_080D0644(u32 arg0, s32 arg1) {
+    gUnk_03000420->unk28 = (u8)arg0;
+    gUnk_03000420->unk29 = (u8)(arg0 >> 8);
+    gUnk_03000420->unk2A = (u8)(arg0 >> 0x10);
+    gUnk_03000420->unk2B = (u8)(arg0 >> 0x18);
+    gUnk_03000420->unk30 = arg1;
+    func_080D05DC();
+}
+
+// DECOMP-MATCHED func_080ADA84 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct MapData { u8 _pad0[34]; u16 unk22; } MapData;
+MapData *GetMapData(void);
+s32 func_0803A8A4(s32, s32, s32, s32, s32);
+
+s32 func_080ADA84(s32 dummy, s32 arg1) {
+    func_0803A8A4(arg1, 1, 0, 0, 0);
+    return GetMapData()->unk22 * 8;
+}
+
+// DECOMP-MATCHED func_080D0BE0 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern void *gUnk_0300041C;
+typedef struct S_D0BE0 { u8 _pad0[52]; u32 unk34; u32 unk38; } S_D0BE0;
+extern S_D0BE0 *gUnk_03000420;
+
+void func_080D0BE0(void) {
+    u32 temp_r0;
+    u32 temp_r1;
+
+    temp_r1 = gUnk_03000420->unk34;
+    if (temp_r1 != gUnk_03000420->unk38) {
+        temp_r0 = (u32) (temp_r1 + 1) % 10U;
+        gUnk_03000420->unk34 = temp_r0;
+        gUnk_0300041C = (void *)((u8 *)gUnk_03000420 + ((temp_r0 << 5) + 0x3C));
+    }
+}
+
+// DECOMP-MATCHED func_080D0678 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct S_G2 { u8 _pad0[44]; u8 unk2C; u8 unk2D; u8 unk2E; u8 unk2F; } S_G2;
+extern S_G2 *gUnk_03000420;
+s32 func_080D0678(void) {
+    return gUnk_03000420->unk2C | (gUnk_03000420->unk2D << 8) | (gUnk_03000420->unk2E << 0x10) | (gUnk_03000420->unk2F << 0x18);
+}
+
+// DECOMP-MATCHED func_080ADAA8 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct MapData { u8 _pad0[32]; u16 unk20; } MapData;
+MapData *GetMapData(void);
+s32 func_0803A8A4(s32, s32, s32, s32, s32);
+s32 func_080ADAA8(s32 dummy, s32 arg1) {
+    func_0803A8A4(arg1, 1, 0, 0, 0);
+    return GetMapData()->unk20 * 8;
+}
+
+// DECOMP-MATCHED func_080ADACC (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 memcpy(void *, s32, s32);                          /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[130];
+    u8 unk82;
+    u8 unk83;
+} GenObj;
+void func_080ADACC(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
+    GenObj *temp_r4;
+
+    temp_r4 = (GenObj *)(arg0 + (0xDE << 1));
+    temp_r4 = (GenObj *)((u8 *)temp_r4 + (arg2 * 0x84));
+    memcpy(temp_r4, arg1, 0x20);
+    temp_r4->unk82 = 1;
+    temp_r4->unk83 = arg3;
+}
+
+// DECOMP-MATCHED func_080D05DC (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080D0BA8(s32 *);                             /* extern */
+typedef struct S_D05DC { u8 _pad0[20]; s32 unk14; u8 _pad18[24]; s32 unk30; } S_D05DC;
+extern S_D05DC *gUnk_03000420;
+typedef struct SP_D05DC { s32 v; u8 _pad4[12]; void *ptr; u8 _pad14[4]; s32 num; u16 tail; u8 _pad1E[2]; } SP_D05DC;
+void func_080D05DC(void) {
+    SP_D05DC sp0;
+
+    gUnk_03000420->unk14 = 5;
+    if (gUnk_03000420->unk30 != 0) {
+        sp0.v = 1;
+        func_080D0BA8(&sp0.v);
+    }
+    sp0.v = 4;
+    sp0.ptr = (void *)((u8 *)gUnk_03000420 + 0x24);
+    sp0.num = 2;
+    sp0.tail = 0;
+    func_080D0BA8((s32 *)&sp0);
+    sp0.v = 3;
+    sp0.ptr = (void *)((u8 *)gUnk_03000420 + 0x2C);
+    sp0.num = 2;
+    sp0.tail = 0;
+    func_080D0BA8((s32 *)&sp0);
+    sp0.v = 2;
+    sp0.ptr = (void *)((u8 *)gUnk_03000420 + 0x28);
+    sp0.num = 2;
+    sp0.tail = 0;
+    func_080D0BA8((s32 *)&sp0);
+}

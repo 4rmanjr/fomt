@@ -4768,9 +4768,9 @@
   "module": "code_linkonce.s",
   "note": "",
   "promoted_to": "decomp/promoted/code_linkonce.cc",
-  "ref_len": 40,
+  "ref_len": 31,
   "sanitize_v": 4,
-  "size": 421,
+  "size": 422,
   "status": "promoted",
   "thumb": true
  },

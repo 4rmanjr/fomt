@@ -1963,3 +1963,67 @@ void func_08036768(GenObj *arg0) {
     func_08035940(arg0, var_r1b);
     arg0->unk21 = var_r5;
 }
+
+// DECOMP-MATCHED func_08036DC4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __10ANpcEntityP10GameObjectP3NpcUiPCvUiUiUi(void *, void *, void *, u32, s32 *, s32, s32, s32); /* extern */
+extern s32 gUnk_080F6B10;
+extern s32 vtable_unk_080E6958;
+
+typedef struct GenObj {
+    u8 _pad0[20];
+    void *unk14;
+} GenObj;
+void *func_08036DC4(GenObj *arg0, void *a, void *b, u32 c) {
+    __10ANpcEntityP10GameObjectP3NpcUiPCvUiUiUi(arg0, a, b, c, &gUnk_080F6B10, 0x8D8, 0x8DC, 0x3FE);
+    arg0->unk14 = &vtable_unk_080E6958;
+    return arg0;
+}
+
+// DECOMP-MATCHED func_08037CC4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 __7AEntityP10GameObjectRC8Location();             /* extern */
+extern s32 vtable_unk_080E7444;
+
+typedef struct GenObj {
+    u8 _pad0[20];
+    void *unk14;
+} GenObj;
+void *func_08037CC4(GenObj *arg0) {
+    __7AEntityP10GameObjectRC8Location();
+    arg0->unk14 = &vtable_unk_080E7444;
+    return arg0;
+}
+
+// DECOMP-MATCHED func_08039D98 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct Inner39D98 {
+    u8 _pad0[12];
+    s32 unkC;
+} Inner39D98;
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+    u8 _pad10[36];
+    Inner39D98 *unk34;
+} GenObj;
+u32 func_08039D98(GenObj *arg0) {
+    s32 temp_r1;
+
+    temp_r1 = arg0->unk34->unkC ^ 4;
+    return (u32) ((0 - temp_r1) | temp_r1) >> 0x1F;
+}
+
+// DECOMP-MATCHED func_080396F4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct Inner396F4 {
+    u8 _pad0[18];
+    u8 unk12;
+} Inner396F4;
+typedef struct GenObj {
+    u8 _pad0[18];
+    s32 unk12;
+    u8 _pad16[28];
+    Inner396F4 *unk34;
+} GenObj;
+s32 func_080396F4(void *dummy, GenObj *arg1) {
+    Inner396F4 *p = arg1->unk34;
+    s32 var_r1 = (p->unk12 != 0) ? 3 : 0;
+    return var_r1;
+}

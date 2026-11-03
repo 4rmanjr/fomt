@@ -297,9 +297,9 @@
   "judged_mtime": 1793017289.7209988,
   "module": "code_entities_080320DC.s",
   "note": "uest for member `unk9' in something not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0803436C/opencode/func.c:320: `temp_r4_6' used prior to declaration\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0803436C/opencode/func.c:320: invalid type argument of `unary *'\n",
-  "ref_len": 1492,
+  "ref_len": 1491,
   "sanitize_v": 4,
-  "size": 14274,
+  "size": 14275,
   "status": "failed",
   "thumb": true
  },
