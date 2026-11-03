@@ -123,10 +123,41 @@ void func_080BA574(GenObj__func_080BA574 *arg0, i32 arg1) {
     }
 }
 // DECOMP-MATCHED func_080D0444 (dari code_809E804.s; cek manusia sebelum ke src/)
-typedef struct GenObj__func_080D0444 { u8 _pad0[4]; i32 unk4; i32 unk8; } GenObj__func_080D0444;
-extern GenObj__func_080D0444 *gUnk_03000420;
+typedef struct S_03000420 {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+    u8 _padC[8];
+    i32 unk14;
+    u8 _pad18[28];
+    i32 unk34;
+    i32 unk38;
+} S_03000420;
+extern S_03000420 *gUnk_03000420;
 __attribute__((section(".text.code_809E804.080D0444")))
 void func_080D0444(i32 arg0, i32 arg1) {
     gUnk_03000420->unk4 = arg0;
     gUnk_03000420->unk8 = arg1;
+}
+// DECOMP-MATCHED func_080D06B4 (dari code_809E804.s; cek manusia sebelum ke src/)
+__attribute__((section(".text.code_809E804.080D06B4")))
+i32 func_080D06B4(void) {
+    i32 var_r1;
+
+    var_r1 = 0;
+    if (gUnk_03000420->unk14 == 0) {
+        var_r1 = 1;
+    }
+    return var_r1;
+}
+// DECOMP-MATCHED func_080D0C10 (dari code_809E804.s; cek manusia sebelum ke src/)
+__attribute__((section(".text.code_809E804.080D0C10")))
+i32 func_080D0C10(void) {
+    i32 var_r2;
+
+    var_r2 = 0;
+    if (gUnk_03000420->unk34 == gUnk_03000420->unk38) {
+        var_r2 = 1;
+    }
+    return var_r2;
 }
