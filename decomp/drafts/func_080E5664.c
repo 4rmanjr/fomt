@@ -1,16 +1,16 @@
-u32 *func_080E2354(u32 *);                          /* extern */
-u32 *func_080E2B28(u32 *);                          /* extern */
-s32 func_080E54F0(u32 **, void *, u32 *, u32 *, s32); /* extern */
+void *func_080E2354(void *);                          /* extern */
+void *func_080E2B28(void *);                          /* extern */
+void **func_080E54F0(void **, void *, s32, void *, void *, s32); /* extern */
 s32 func_080E55B0(u32 **, void *, u32 *);             /* extern */
 
 typedef struct GenObj {
     u8 _pad0[4];
     s32 unk4;
     struct GenObj *unk8;
-    void *unkC;
+    struct GenObj *unkC;
     s32 unk10;
 } GenObj;
-u32 **func_080E5664(u32 **arg0, GenObj *arg1, u32 **arg2, u32 *arg3) {
+u32 **func_080E5664(u32 **arg0, GenObj *arg1, GenObj **arg2, u32 *arg3) {
     u32 *sp8;
     u32 *spC;
     u32 *sp10;
@@ -28,7 +28,6 @@ u32 **func_080E5664(u32 **arg0, GenObj *arg1, u32 **arg2, u32 *arg3) {
     u32 *temp_r0_3;
     GenObj *temp_r0_4;
     GenObj *temp_r2;
-    u32 *var_r0;
     u32 *var_r2;
     GenObj *var_r3;
     GenObj *var_r5;
@@ -43,7 +42,7 @@ u32 **func_080E5664(u32 **arg0, GenObj *arg1, u32 **arg2, u32 *arg3) {
     if (temp_r2 == temp_r1->unk8) {
         if (arg1->unk8 == 0) {
             func_080E55B0(&sp8, arg1, arg3);
-            var_r0 = sp8;
+            *arg0 = sp8;
             goto block_50;
         }
         var_r0_2 = 0;
@@ -93,7 +92,7 @@ u32 **func_080E5664(u32 **arg0, GenObj *arg1, u32 **arg2, u32 *arg3) {
                 goto block_43;
             }
             func_080E55B0(&sp8, arg1, arg3);
-            var_r0 = sp8;
+            *arg0 = sp8;
             goto block_50;
         }
         sp8 = temp_r2;
@@ -117,14 +116,15 @@ u32 **func_080E5664(u32 **arg0, GenObj *arg1, u32 **arg2, u32 *arg3) {
                     goto block_46;
                 }
 block_32:
-                func_080E54F0(arg0, arg1, var_r3, arg3, 0);
+                func_080E54F0(arg0, arg1, var_r3, var_r3, arg3, 0);
+                goto block_50;
             } else {
                 goto block_33;
             }
         } else {
 block_33:
             spC = *arg2;
-            temp_r0_3 = func_080E2B28();
+            temp_r0_3 = func_080E2B28(*arg2);
             spC = temp_r0_3;
             var_r1 = var_r5_3 ^ 1;
             if (var_r5_3 == 0) {
@@ -151,12 +151,14 @@ block_41:
                     if (temp_r0_4->unkC == 0) {
 block_42:
 block_43:
-                        func_080E54F0(arg0, arg1, 0);
+                        func_080E54F0(arg0, arg1, 0, temp_r0_4, arg3, temp_r0_4);
+                        goto block_50;
                     } else {
 block_45:
                         var_r2 = var_r5;
 block_46:
-                        func_080E54F0(arg0, arg1, var_r2, var_r5);
+                        func_080E54F0(arg0, arg1, var_r2, var_r5, arg3, 0);
+                        goto block_50;
                     }
                 } else {
                     goto block_47;
@@ -164,14 +166,13 @@ block_46:
             } else {
 block_47:
                 if (var_r5_3 == var_r1) {
-                    var_r0 = *arg2;
+                    *arg0 = *arg2;
                 } else {
 block_49:
                     func_080E55B0(&sp10, arg1, arg3);
-                    var_r0 = sp10;
+                    *arg0 = sp10;
                 }
 block_50:
-                *arg0 = var_r0;
             }
         }
     }
