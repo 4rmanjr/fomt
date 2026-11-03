@@ -122,3 +122,11 @@ void func_080BA574(GenObj__func_080BA574 *arg0, i32 arg1) {
         return;
     }
 }
+// DECOMP-MATCHED func_080D0444 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct GenObj__func_080D0444 { u8 _pad0[4]; i32 unk4; i32 unk8; } GenObj__func_080D0444;
+extern GenObj__func_080D0444 *gUnk_03000420;
+__attribute__((section(".text.code_809E804.080D0444")))
+void func_080D0444(i32 arg0, i32 arg1) {
+    gUnk_03000420->unk4 = arg0;
+    gUnk_03000420->unk8 = arg1;
+}
