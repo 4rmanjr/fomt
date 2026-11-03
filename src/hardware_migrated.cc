@@ -11,6 +11,11 @@ typedef struct GenObj__func_080099B0 {
     void *unkC;
     void *unk10;
 } GenObj__func_080099B0;
+typedef struct GenObj__func_080098AC {
+    struct GenObj__func_080098AC *unk0;
+    struct GenObj__func_080098AC *unk4;
+    void *unk8;
+} GenObj__func_080098AC;
 // === END MIGRATED TYPES ===
 
 // === MIGRATED TYPES (auto-managed by migrate.py) ===
@@ -45,18 +50,41 @@ typedef struct GenObj__func_080098DC {
 } GenObj__func_080098DC;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_080098AC (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+void __builtin_delete(void *);                             /* extern */
+extern i32 vtable_unk_080E5BE8;
+
+void func_080098AC(GenObj__func_080098AC *arg0, i32 arg1) {
+    GenObj__func_080098AC *t2;
+    arg0->unk8 = &vtable_unk_080E5BE8;
+    t2 = (GenObj__func_080098AC *)(arg0->unk0);
+    if (t2 != 0) {
+        t2->unk0 = (struct GenObj__func_080098AC *)(arg0->unk4);
+        arg0->unk4->unk0 = t2;
+    }
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+// ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
+asm(
+".L080098D8:\n"
+"    .byte 0x01, 0x20, 0x70, 0x47\n"
+);
+
 // DECOMP-MATCHED func_080098DC (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC(void *, i32);                       /* extern */
-
+void func_080098AC(GenObj__func_080098AC *arg0, i32 arg1);                             /* extern */
 void func_08009984(GenObj *arg0);                     /* extern */
 extern i32 vtable_unk_080E5BB4;
 
 void func_080098DC(GenObj__func_080098DC *arg0, i32 arg1) {
     arg0->unk8 = &vtable_unk_080E5BB4;
     func_08009984((GenObj *)arg0);
-    func_080098AC((u8 *)arg0 + 0x10, 2);
-    func_080098AC(arg0, arg1);
+    func_080098AC((GenObj__func_080098AC *)((u8 *)arg0 + 0x10), 2);
+    func_080098AC((GenObj__func_080098AC *)(arg0), arg1);
 }
 }
 
