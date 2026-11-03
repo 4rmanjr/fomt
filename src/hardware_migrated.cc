@@ -73,6 +73,31 @@ typedef struct GenObj__func_08009744 {
 } GenObj__func_08009744;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080096F0 {
+    u8 _pad0[84];
+    u16 unk54;
+} GenObj__func_080096F0;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_080096F0 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08008E64(i32, i32, i32);                  /* extern */
+
+void func_080096F0(GenObj__func_080096F0 *arg0) {
+    func_08008E64((i32)arg0, 0x04000000, 0x54);
+    *(u16 *)0x04000054 = arg0->unk54;
+}
+}
+// ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
+asm(
+".L08009710:\n"
+"    .byte 0x10, 0xB5, 0x04, 0x1C, 0x80, 0x21, 0xC9, 0x04, 0x10, 0x22, 0xCA, 0xF0, 0x17, 0xF8, 0x20, 0x1C\n"
+"    .byte 0x40, 0x30, 0x05, 0x49, 0x05, 0x4A, 0xCA, 0xF0, 0x13, 0xF8, 0x05, 0x49, 0xA0, 0x8A, 0x08, 0x80\n"
+"    .byte 0x10, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00, 0x40, 0x00, 0x00, 0x04, 0x05, 0x00, 0x00, 0x04\n"
+"    .byte 0x14, 0x00, 0x00, 0x04\n"
+);
+
 // DECOMP-MATCHED func_08009744 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 
