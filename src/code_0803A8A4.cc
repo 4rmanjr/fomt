@@ -181,6 +181,17 @@ typedef struct GenObj__func_0803E40C {
 } GenObj__func_0803E40C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct SP0803EA5C {
+    u8 _pad0[3];
+    u8 unk3;
+} SP0803EA5C;
+typedef struct GenObj__func_0803EA5C {
+    u8 _pad0[0x2186];
+    u8 unk2186;
+} GenObj__func_0803EA5C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0803B454 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 void func_0803B474(GenObj__func_0803B474 *arg0, i32 arg1, i32 arg2);                             /* extern */
@@ -782,7 +793,6 @@ i32 func_0803DECC(i32 arg0) {
 // DECOMP-MATCHED func_0803E40C (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 i32 func_0803D52C(i32 *, i32);                          /* extern */
 __attribute__((section(".text.code_0803A8A4.0803E40C")))
 i32 func_0803E40C(GenObj__func_0803E40C *arg0) {
@@ -795,6 +805,28 @@ u8 c2;
     c2 = *(u8 *)((u8 *)p_sp + 3);
     c1 = ((u32) (arg0->unk2187 << 0x1B) >> 0x1E);
     if (c1 == 2 && c2 == 0) {
+        return 1;
+    }
+    return 0;
+}
+}
+
+// DECOMP-MATCHED func_0803EA5C (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+i32 func_0803D52C(i32 *, i32);                          /* extern */
+__attribute__((section(".text.code_0803A8A4.0803EA5C")))
+i32 func_0803EA5C(GenObj__func_0803EA5C *arg0) {
+SP0803EA5C sp0;
+SP0803EA5C *p_sp;
+u32 c1;
+u8 c2;
+    p_sp = &sp0;
+    func_0803D52C((i32 *)p_sp, (i32)((u8 *)arg0 + 0x10));
+    c2 = *(u8 *)((u8 *)p_sp + 3);
+    c1 = ((u32) (arg0->unk2186 << 0x19) >> 0x1E);
+    if (c1 == 2 && c2 == 3) {
         return 1;
     }
     return 0;
