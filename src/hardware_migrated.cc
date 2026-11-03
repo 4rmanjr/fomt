@@ -56,6 +56,57 @@ typedef struct GenObj__func_080098DC {
 } GenObj__func_080098DC;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Entry {
+    i32 unk0;
+    u16 unk4;
+    u16 unk6;
+} Entry;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_080097A4 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+void func_080097A4(u8 *arg0) {
+    u16 temp_r2;
+    u32 var_r5;
+    Entry *temp_r6;
+    Entry *var_r1;
+    Entry *var_r3;
+    Entry *var_r4;
+
+    var_r3 = (Entry *)(arg0 + 4);
+    var_r4 = (Entry *)0x07000000;
+    temp_r6 = (Entry *)(arg0 + ((*arg0 * 8) + 4));
+    var_r5 = 0;
+    do {
+        var_r1 = (Entry *)(arg0 + 4);
+        if (var_r1 != temp_r6) {
+            do {
+                temp_r2 = var_r1->unk4;
+                if ((temp_r2 & 0xC00) == var_r5) {
+                    var_r4->unk0 = var_r1->unk0;
+                    var_r4->unk4 = temp_r2;
+                    var_r4->unk6 = var_r3->unk6;
+                    var_r3 += 1;
+                    var_r4 += 1;
+                }
+                var_r1 += 1;
+            } while (var_r1 != temp_r6);
+        }
+        var_r5 += 0x400;
+    } while (var_r5 <= 0xFFFU);
+    if (var_r4 != (Entry *)0x07000400) {
+        do {
+            var_r4->unk0 = 0x200;
+            var_r4->unk6 = var_r3->unk6;
+            var_r3 += 1;
+            var_r4 += 1;
+        } while (var_r4 != (Entry *)0x07000400);
+    }
+}
+}
+
 // DECOMP-MATCHED func_08009834 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 
