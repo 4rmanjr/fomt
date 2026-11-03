@@ -253,3 +253,24 @@ i32 func_080ADA84(i32 dummy, i32 arg1) {
     func_0803A8A4(arg1, 1, 0, 0, 0);
     return GetMapData()->unk22 * 8;
 }
+// DECOMP-MATCHED func_080D0BE0 (dari code_809E804.s; cek manusia sebelum ke src/)
+__attribute__((section(".text.code_809E804.080D0BE0")))
+void func_080D0BE0(void) {
+    u32 temp_r0;
+    u32 temp_r1;
+
+    temp_r1 = gUnk_03000420->unk34;
+    if (temp_r1 != gUnk_03000420->unk38) {
+        temp_r0 = (u32) (temp_r1 + 1) % 10U;
+        gUnk_03000420->unk34 = temp_r0;
+        gUnk_0300041C = (void *)((u8 *)gUnk_03000420 + ((temp_r0 << 5) + 0x3C));
+    }
+}
+// DECOMP-MATCHED func_080D0678 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct G0678 { u8 _pad0[44]; u8 unk2C; u8 unk2D; u8 unk2E; u8 unk2F; } G0678;
+
+__attribute__((section(".text.code_809E804.080D0678")))
+i32 func_080D0678(void) {
+    G0678 *g = (G0678 *)gUnk_03000420;
+    return g->unk2C | (g->unk2D << 8) | (g->unk2E << 0x10) | (g->unk2F << 0x18);
+}
