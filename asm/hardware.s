@@ -3904,36 +3904,3 @@ func_08009674: @ 0x08009674
     bx r0
     .align 2, 0
 
-    thumb_func_start func_080096B0
-func_080096B0: @ 0x080096B0
-    push {r4, lr}
-    sub sp, #4
-    adds r4, r0, #0
-    mov r1, sp
-    movs r0, #0
-    strh r0, [r1]
-    ldr r2, .L080096EC @ =0x0100002B
-    mov r0, sp
-    adds r1, r4, #0
-    bl CpuSet
-    movs r0, #0x80
-    str r0, [r4]
-    movs r0, #0
-    movs r1, #0x80
-    lsls r1, r1, #1
-    strh r1, [r4, #0x20]
-    strh r0, [r4, #0x22]
-    strh r0, [r4, #0x24]
-    strh r1, [r4, #0x26]
-    strh r1, [r4, #0x30]
-    strh r0, [r4, #0x32]
-    strh r0, [r4, #0x34]
-    strh r1, [r4, #0x36]
-    adds r0, r4, #0
-    add sp, #4
-    pop {r4}
-    pop {r1}
-    bx r1
-    .align 2, 0
-.L080096EC: .4byte 0x0100002B
-
