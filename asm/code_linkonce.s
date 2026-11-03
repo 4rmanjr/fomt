@@ -35261,25 +35261,3 @@ func_080E581C: @ 0x080E581C
 .L080E583C: .4byte vtable_unk_080E8594
 .L080E5840: .4byte gUnk_03000414
 
-	thumb_func_start func_080E5844
-func_080E5844: @ 0x080E5844
-	push {lr}
-	adds r3, r0, #0
-	ldr r0, .L080E5864 @ =vtable_unk_080E8594
-	str r0, [r3, #4]
-	ldr r2, .L080E5868 @ =gUnk_03000414
-	ldr r0, [r3]
-	str r0, [r2]
-	movs r0, #1
-	ands r0, r1
-	cmp r0, #0
-	beq .L080E5860
-	adds r0, r3, #0
-	bl __builtin_delete
-.L080E5860:
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L080E5864: .4byte vtable_unk_080E8594
-.L080E5868: .4byte gUnk_03000414
-
