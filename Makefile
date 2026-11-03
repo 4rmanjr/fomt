@@ -133,7 +133,7 @@ $(BUILD_DIR)/%.d: $(BUILD_DIR)/%.o
 # tools/scripts/split_asm_sections.py) agar migrasi fungsi non-ekor bisa
 # menyelipkan src tepat di posisi asm yang dicabut. File tanpa fungsi /
 # yang sudah punya .section sendiri dikembalikan apa adanya.
-$(BUILD_DIR)/%.o: %.s tools/scripts/split_asm_sections.py $(CXX_SRCS) $(LDS)
+$(BUILD_DIR)/%.o: %.s tools/scripts/split_asm_sections.py $(CXX_SRCS) $(C_SRCS) $(LDS)
 	@echo "AS $<"
 	@mkdir -p $(dir $(BUILD_DIR)/$*.split.s)
 	@python3 tools/scripts/split_asm_sections.py $< $(BUILD_DIR)/$*.split.s
