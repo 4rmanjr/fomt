@@ -641,6 +641,28 @@ void func_08035908(GenObj__func_08035908 *arg0, i32 arg1) {
     }
 }
 }
+// DECOMP-MATCHED func_08035940 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 SetAnim__12AActorEntityUi(void *, i32);           /* extern */
+
+__attribute__((section(".text.code_entities_08034CEC.08035940")))
+void func_08035940(GenObj__func_08035940 *arg0, i32 arg1) {
+    u16 temp_r0;
+    u16 temp_r6;
+
+    temp_r6 = arg0->unk46;
+    if (arg1 != temp_r6) {
+        arg0->unk46 = arg1;
+        if ((((i32 (*)(void *,...))(arg0->unk14->unk28))(arg0) << 0x18) == 0) {
+            temp_r0 = arg0->unk22;
+            if ((temp_r0 == temp_r6) && (temp_r0 != arg1)) {
+                SetAnim__12AActorEntityUi(arg0, arg1);
+            }
+        }
+    }
+}
+}
+
 
 // DECOMP-MATCHED func_08035AE0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -1453,8 +1475,7 @@ void *func_08036A78(GenObj__func_08036A78 *arg0, void *a, void *b, u32 c) {
 // DECOMP-MATCHED func_08036AB4 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 void func_08035908(GenObj__func_08035908 *arg0, i32 arg1);                             /* extern */
-void func_08035940(GenObj__func_08035940 *, i32);                       /* extern */
-
+void func_08035940(GenObj__func_08035940 *arg0, i32 arg1);                             /* extern */
 __attribute__((section(".text.code_entities_08034CEC.08036AB4")))
 void func_08036AB4(GenObj__func_08036AB4 *arg0) {
     i32 var_r1;
