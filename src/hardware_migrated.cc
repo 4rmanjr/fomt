@@ -50,6 +50,25 @@ typedef struct GenObj__func_080098DC {
 } GenObj__func_080098DC;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_08009864 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800977C();                                  /* extern */
+i32 func_08009834(i32);                               /* extern */
+
+void func_08009864(i32 arg0) {
+    func_0800977C();
+    func_08009834(arg0);
+}
+}
+// ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
+asm(
+".L08009878:\n"
+"    .byte 0x10, 0xB5, 0x04, 0x1C, 0x20, 0x1D, 0xE0, 0x21\n"
+"    .byte 0xC9, 0x04, 0x80, 0x22, 0x52, 0x00, 0xC9, 0xF0, 0x61, 0xFF, 0x20, 0x1C, 0xFF, 0xF7, 0xD2, 0xFF\n"
+"    .byte 0x10, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00, 0x10, 0xB5, 0x04, 0x1C, 0xFF, 0xF7, 0x82, 0xFF\n"
+"    .byte 0x20, 0x1C, 0xFF, 0xF7, 0xC7, 0xFF, 0x10, 0xBC, 0x01, 0xBC, 0x00, 0x47\n"
+);
+
 // DECOMP-MATCHED func_080098AC (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 void __builtin_delete(void *);                             /* extern */
