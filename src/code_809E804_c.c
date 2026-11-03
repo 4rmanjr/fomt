@@ -124,16 +124,29 @@ void func_080BA574(GenObj__func_080BA574 *arg0, i32 arg1) {
 }
 // DECOMP-MATCHED func_080D0444 (dari code_809E804.s; cek manusia sebelum ke src/)
 typedef struct S_03000420 {
-    u8 _pad0[4];
+    i32 unk0;
     i32 unk4;
     i32 unk8;
-    u8 _padC[8];
+    i32 unkC;
+    i32 unk10;
     i32 unk14;
-    u8 _pad18[28];
+    i32 unk18;
+    i32 unk1C;
+    i32 unk20;
+    u8 _pad24[4];
+    i32 unk28;
+    u8 unk29;
+    u8 unk2A;
+    u8 unk2B;
+    u8 _pad2C;
+    i32 unk30;
     i32 unk34;
     i32 unk38;
-    u8 _pad3C[324];
+    i32 unk3C;
+    u8 _pad40[316];
+    i32 unk17C;
     i32 unk180;
+    i32 unk184;
 } S_03000420;
 extern S_03000420 *gUnk_03000420;
 __attribute__((section(".text.code_809E804.080D0444")))
@@ -168,7 +181,7 @@ extern i32 *gUnk_0300041C;
 // data tak-dirujuk di 0x080D02B8 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
 const u8 gData_code_809E804_080D02B8[20] __attribute__((section(".text.code_809E804.080D02B8"))) = {0x00, 0xB5, 0x00, 0x28, 0x02, 0xD0, 0x10, 0x38, 0x00, 0x68, 0x00, 0xE0, 0x00, 0x20, 0x02, 0xBC, 0x08, 0x47, 0x00, 0x00};
 // DECOMP-MATCHED func_080D02CC (dari code_809E804.s; cek manusia sebelum ke src/)
-i32 func_080D0B88();
+void func_080D0B88(void);
 
 __attribute__((section(".text.code_809E804.080D02CC")))
 void func_080D02CC(i32 *arg0) {
@@ -189,4 +202,41 @@ __attribute__((section(".text.code_809E804.080D0A74")))
 void func_080D0A74(void) {
     *gUnk_0300041C = 0;
     gUnk_03000420->unk180 = 0;
+}
+// DECOMP-MATCHED func_080D0B88 (dari code_809E804.s; cek manusia sebelum ke src/)
+__attribute__((section(".text.code_809E804.080D0B88")))
+void func_080D0B88(void) {
+    gUnk_03000420->unk34 = 0;
+    gUnk_03000420->unk38 = 0;
+    gUnk_0300041C = (i32 *)((u8 *)gUnk_03000420 + 0x3C);
+    gUnk_03000420->unk3C = 0;
+}
+// DECOMP-MATCHED func_080D02F0 (dari code_809E804.s; cek manusia sebelum ke src/)
+i32 func_080D0ABC();
+i32 func_080D0B14(i32, i32);
+i32 func_080D0BA8(i32 *);
+
+__attribute__((section(".text.code_809E804.080D02F0")))
+void func_080D02F0(void) {
+    struct { i32 v; u8 _pad[28]; } sp0s;
+    i32 *sp0 = &sp0s.v;
+    i32 temp_r2;
+
+    temp_r2 = gUnk_03000420->unk0;
+    if (temp_r2 == 0) {
+        gUnk_03000420->unk0 = 1;
+        gUnk_03000420->unk14 = temp_r2;
+        gUnk_03000420->unk18 = temp_r2;
+        gUnk_03000420->unk1C = temp_r2;
+        gUnk_03000420->unk20 = 1;
+        gUnk_03000420->unk180 = temp_r2;
+        gUnk_03000420->unk184 = temp_r2;
+        gUnk_03000420->unk17C = temp_r2;
+        gUnk_03000420->unkC = temp_r2;
+        gUnk_03000420->unk10 = temp_r2;
+        *sp0 = temp_r2;
+        func_080D0BA8(sp0);
+        func_080D0B14(0, 0);
+        func_080D0ABC();
+    }
 }
