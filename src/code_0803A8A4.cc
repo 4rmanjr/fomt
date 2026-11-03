@@ -360,6 +360,31 @@ void func_0803BF08(GenObj__func_0803BDEC **arg0, i32 arg1, i32 arg2) {
 }
 }
 
+// DECOMP-MATCHED func_0803BFC8 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+void func_0803BE50(GenObj__func_0803BE50 *arg0, i32 arg1); /* extern */
+i32 func_080E0C38(i32, i32);                          /* extern */
+extern i32 vtable_unk_080E77A4;
+
+typedef struct GenObj__func_0803BFC8 {
+    u8 _pad0[4];
+    void *unk4;
+    i32 unk8;
+} GenObj__func_0803BFC8;
+
+__attribute__((section(".text.code_0803A8A4.0803BFC8")))
+void func_0803BFC8(GenObj__func_0803BFC8 *arg0, i32 arg1) {
+    i32 temp_r0;
+
+    arg0->unk4 = &vtable_unk_080E77A4;
+    temp_r0 = arg0->unk8;
+    if (temp_r0 != 0) {
+        func_080E0C38(temp_r0, 3);
+    }
+    func_0803BE50((GenObj__func_0803BE50 *)arg0, arg1);
+}
+}
+
 // DECOMP-MATCHED gData_code_0803A8A4_0803BFF0.data.0803BFF0
 extern "C" {
 // data tak-dirujuk di 0x0803BFF0 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
