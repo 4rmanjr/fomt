@@ -2257,7 +2257,6 @@ void func_08076B64(GenObj__func_08076B64 *arg0) {
 // DECOMP-MATCHED func_08076BE0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 __attribute__((section(".text.code_0803EE94.08076BE0")))
 void func_08076BE0(GenObj__func_08076BE0 *arg0, i16 arg1) {
     arg0->unk8->unk590 = arg1;
@@ -3827,6 +3826,16 @@ i32 func_080948E0(void) {
     return gUnk_08100A98;
 }
 }
+// DECOMP-MATCHED func_080948EC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 gUnk_08100AA0;
+
+__attribute__((section(".text.code_0803EE94.080948EC")))
+i32 func_080948EC(void) {
+    return gUnk_08100AA0;
+}
+}
+
 
 // DECOMP-MATCHED gData_code_0803EE94_080948F8.data.080948F8
 extern "C" {
