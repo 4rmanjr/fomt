@@ -64,6 +64,36 @@ typedef struct Entry {
 } Entry;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08009744 {
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+} GenObj__func_08009744;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08009744 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+void *func_08009744(GenObj__func_08009744 *arg0, u8 arg1, u8 arg2) {
+    u8 *p;
+    u8 *end;
+
+    arg0->unk1 = arg1 & 0x7F;
+    arg0->unk0 = arg1 & 0x7F;
+    arg0->unk3 = arg2 & 0x1F;
+    arg0->unk2 = arg2 & 0x1F;
+    p = (u8 *)arg0 + 4;
+    end = (u8 *)arg0 + 0x404;
+    do {
+        p[1] = 2;
+        p += 8;
+    } while (p != end);
+    return arg0;
+}
+}
+
 // DECOMP-MATCHED func_0800977C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08008E64(i32, i32, i32);                     /* extern */

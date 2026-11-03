@@ -3960,34 +3960,3 @@ func_080096F0: @ 0x080096F0
     .byte 0x10, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00, 0x40, 0x00, 0x00, 0x04, 0x05, 0x00, 0x00, 0x04
     .byte 0x14, 0x00, 0x00, 0x04
 
-    thumb_func_start func_08009744
-func_08009744: @ 0x08009744
-    push {lr}
-    adds r3, r0, #0
-    lsls r1, r1, #0x18
-    lsrs r1, r1, #0x18
-    lsls r2, r2, #0x18
-    lsrs r2, r2, #0x18
-    movs r0, #0x7f
-    ands r1, r0
-    strb r1, [r3, #1]
-    strb r1, [r3]
-    movs r0, #0x1f
-    ands r2, r0
-    strb r2, [r3, #3]
-    strb r2, [r3, #2]
-    adds r0, r3, #4
-    ldr r2, .L08009778 @ =0x00000404
-    adds r1, r3, r2
-    movs r2, #2
-.L08009768:
-    strb r2, [r0, #1]
-    adds r0, #8
-    cmp r0, r1
-    bne .L08009768
-    adds r0, r3, #0
-    pop {r1}
-    bx r1
-    .align 2, 0
-.L08009778: .4byte 0x00000404
-
