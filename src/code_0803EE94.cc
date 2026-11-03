@@ -1204,6 +1204,16 @@ typedef struct FTab93F28 { u8 _pad0[40]; void (*unk28)(void *); u8 _pad2C[4]; vo
 typedef struct FTab943C4 { u8 _pad0[40]; void (*unk28)(void *); u8 _pad2C[4]; void (*unk30)(void *); } FTab943C4;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Vtbl521FC { u8 _pad0[8]; void (*unk8)(void *, i32); } Vtbl521FC;
+typedef struct GenObj__func_080521FC {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+} GenObj__func_080521FC;
+typedef struct Obj521FC { Vtbl521FC *unk0; } Obj521FC;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -1884,6 +1894,26 @@ void *func_0805218C(GenObj__func_0805218C *arg0, i32 *arg1, i32 arg2) {
     temp_r1 = *arg1;
     *arg1 = 0;
     arg0->unk8 = temp_r1;
+    return arg0;
+}
+}
+
+// DECOMP-MATCHED func_080521FC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08051504(void ***, i32);                     /* extern */
+
+__attribute__((section(".text.code_0803EE94.080521FC")))
+i32 *func_080521FC(i32 *arg0, GenObj__func_080521FC *arg1) {
+    Obj521FC *sp0;
+    i32 temp_r1;
+
+    func_08051504((void ***)&sp0, (i32)(arg1->unk4));
+    if (sp0 != 0) {
+        ((void (*)(void *,...))(sp0->unk0->unk8))(sp0, 3);
+    }
+    temp_r1 = arg1->unk8;
+    arg1->unk8 = 0;
+    *arg0 = temp_r1;
     return arg0;
 }
 }
@@ -3844,7 +3874,6 @@ void func_080943C4(FTab943C4 **arg0) {
     ((void (*)(void *,...))((*arg0)->unk30))(arg0);
 }
 }
-
 
 // DECOMP-MATCHED func_0809444C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
