@@ -776,6 +776,11 @@ typedef struct GenObj__func_0801DE48 {
 } GenObj__func_0801DE48;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Mid08016BDC { u8 _pad0[168]; void **unkA8; } Mid08016BDC;
+typedef struct GenObj__func_08016BDC { u8 _pad0[4]; Mid08016BDC *unk4; } GenObj__func_08016BDC;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -1618,6 +1623,19 @@ i32 func_080167CC(GenObj__func_080167CC *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_08016BDC (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.game_state.08016BDC")))
+void func_08016BDC(GenObj__func_08016BDC *arg0) {
+    register void *p asm("r1") = *arg0->unk4->unkA8;
+    register void (*fn)(void) asm("r1");
+    fn = *(void (**)(void))((u8 *)p + 0xFC);
+    fn();
+}
+}
+
 // DECOMP-MATCHED func_0801A054 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 void *GetMapData(i32);                              /* extern */
@@ -1851,7 +1869,6 @@ void func_0801DE48(GenObj__func_0801DE48 *arg0) {
     func_080AA8DC((i32)(arg0->unk4));
 }
 }
-
 
 // DECOMP-MATCHED gData_game_state_0801F518.data.0801F518
 extern "C" {
