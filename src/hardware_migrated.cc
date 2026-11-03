@@ -64,6 +64,21 @@ typedef struct Entry {
 } Entry;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_0800977C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08008E64(i32, i32, i32);                     /* extern */
+
+void func_0800977C(i32 arg0) {
+    func_08008E64(arg0 + 4, 0x07000000, 0x400);
+}
+}
+// ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
+asm(
+".L08009790:\n"
+"    .byte 0x00, 0xB5, 0x04, 0x30, 0xE0, 0x21, 0xC9, 0x04, 0x80, 0x22, 0x52, 0x00, 0xC9, 0xF0, 0xD6, 0xFF\n"
+"    .byte 0x01, 0xBC, 0x00, 0x47\n"
+);
+
 // DECOMP-MATCHED func_080097A4 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -133,10 +148,10 @@ void func_08009834(GenObj__func_08009834 *arg0) {
 
 // DECOMP-MATCHED func_08009864 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0800977C();                                  /* extern */
+void func_0800977C(i32 arg0);                             /* extern */
 void func_08009834(GenObj__func_08009834 *arg0);                             /* extern */
 void func_08009864(i32 arg0) {
-    func_0800977C();
+    func_0800977C(arg0);
     func_08009834((GenObj__func_08009834 *)(arg0));
 }
 }
