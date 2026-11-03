@@ -161,6 +161,15 @@ typedef struct GenObj__func_0803D440 {
 } GenObj__func_0803D440;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0803D3A0 {
+    u8 _pad0[716];
+    u8 unk2CC;
+    u8 _pad2CD[35];
+    u8 unk2F0;
+} GenObj__func_0803D3A0;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0803B454 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 void func_0803B474(GenObj__func_0803B474 *arg0, i32 arg1, i32 arg2);                             /* extern */
@@ -538,6 +547,40 @@ void func_0803D340(void **arg0, u32 arg1) {
 
 /* ATTEMPT-NOTE opencode: strb di tengah via dst2-var (2x); base live lintas call -> r8? */
 }
+// DECOMP-MATCHED func_0803D3A0 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_0803A8A4.0803D3A0")))
+void func_0803D3A0(void **arg0, u32 arg1) {
+    u8 var_r0;
+    GenObj__func_0803D3A0 *temp_r2;
+
+    temp_r2 = (GenObj__func_0803D3A0 *)(*arg0);
+    var_r0 = temp_r2->unk2CC;
+    switch (arg1) {
+    case 0:
+        var_r0 = 0;
+        break;
+    case 1:
+        var_r0 = 1;
+        break;
+    case 2:
+        var_r0 = 2;
+        break;
+    case 3:
+        var_r0 = 3;
+        break;
+    case 4:
+        var_r0 = 4;
+        break;
+    }
+    if (var_r0 != temp_r2->unk2CC) {
+        temp_r2->unk2CC = var_r0;
+        temp_r2->unk2F0 = 1;
+    }
+}
+}
+
 
 // DECOMP-MATCHED func_0803D404 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -571,7 +614,6 @@ void func_0803D440(void **arg0) {
     }
 }
 }
-
 
 // DECOMP-MATCHED func_0803D644 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
