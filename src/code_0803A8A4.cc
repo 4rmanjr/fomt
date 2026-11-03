@@ -74,6 +74,15 @@ typedef struct GenObj__func_0803BE9C {
 // === END MIGRATED TYPES ===
 
 // === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0803BD60 {
+    u8 _pad0[11];
+    u8 unkB;
+    u8 unkC;
+    u8 unkD;
+} GenObj__func_0803BD60;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
 typedef struct GenObj__func_0803C540 {
     u8 _pad0[12];
     i32 unkC;
@@ -440,6 +449,28 @@ GenObj__func_0803B6FC *func_0803B6FC(GenObj__func_0803B6FC *arg0, i32 *arg1, i32
 }
 }
 
+// DECOMP-MATCHED func_0803BD60 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0803BCF8(i32);                                  /* extern */
+
+__attribute__((section(".text.code_0803A8A4.0803BD60")))
+void func_0803BD60(GenObj__func_0803BD60 *arg0) {
+register i32 neg __asm__("r0");
+u8 b;
+u8 c;
+    func_0803BCF8((i32)arg0);
+    b = arg0->unkB;
+    arg0->unkB = (u8) (b | 0x80);
+    c = arg0->unkC;
+    neg = -0x80;
+    __asm__ volatile ("" : "+r" (neg));
+    neg &= c;
+    neg |= 1;
+    arg0->unkC = (u8) neg;
+    arg0->unkD = 9;
+}
+}
+
 // DECOMP-MATCHED func_0803BDE4 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -524,11 +555,10 @@ void func_0803BEBC(i32 *arg0) {
 
 // DECOMP-MATCHED func_0803BEC8 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0803BD60(i32);                               /* extern */
-
+void func_0803BD60(GenObj__func_0803BD60 *arg0);                             /* extern */
 __attribute__((section(".text.code_0803A8A4.0803BEC8")))
 void func_0803BEC8(i32 *arg0) {
-    func_0803BD60(*arg0);
+    func_0803BD60((GenObj__func_0803BD60 *)*arg0);
 }
 }
 
@@ -595,7 +625,6 @@ extern "C" {
 // data tak-dirujuk di 0x0803BF14 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
 extern const u8 gData_code_0803A8A4_0803BF14[100] __attribute__((section(".text.code_0803A8A4.0803BF14"))) = {0xF0, 0xB5, 0x05, 0x9C, 0x84, 0x61, 0x06, 0x9E, 0x07, 0x9D, 0x08, 0x9F, 0x00, 0x24, 0x04, 0x60, 0x44, 0x60, 0x10, 0x4C, 0x84, 0x60, 0xC1, 0x60, 0x02, 0x61, 0x43, 0x61, 0x1F, 0x21, 0x0E, 0x40, 0x02, 0x7F, 0x20, 0x21, 0x49, 0x42, 0x11, 0x40, 0x31, 0x43, 0x01, 0x77, 0x0A, 0x4A, 0x11, 0x1C, 0x0D, 0x40, 0x6D, 0x01, 0x82, 0x8B, 0x09, 0x49, 0x11, 0x40, 0x29, 0x43, 0x81, 0x83, 0x0F, 0x21, 0x0F, 0x40, 0xFB, 0x03, 0xC1, 0x69, 0x06, 0x4A, 0x11, 0x40, 0x19, 0x43, 0xC1, 0x61, 0xF0, 0xBC, 0x02, 0xBC, 0x08, 0x47, 0x58, 0x77, 0x0E, 0x08, 0xFF, 0x03, 0x00, 0x00, 0x1F, 0x80, 0xFF, 0xFF, 0xFF, 0x7F, 0xF8, 0xFF};
 }
-
 
 // DECOMP-MATCHED func_0803BF78 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
