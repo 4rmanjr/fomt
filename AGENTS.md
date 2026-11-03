@@ -23,6 +23,24 @@ Mineral Town, decomp GBA).
 4. **Jangan force-push** ke `main`.
 5. **Multi-agent:** pakai `--agent <nama>` yang unik per sesi. Jangan pakai
    nama sama di dua sesi yang jalan bersamaan.
+6. **Pesan commit harus terkait pekerjaan aktual.** Judul menyebut fungsi
+   yang dikerjakan; badan menjelaskan KENAPA begitu (bukan template):
+   jalur otomatis MERAH karena apa, pola manual apa yang dipakai, bukti
+   HIJAU apa. Contoh yang patuh:
+   ```text
+   decomp: migrate func_08077C40 func_0807F5F0 func_080804CC (3 funcs, compare hijau)
+
+   Manual (edit diizinkan). Jalur .cc MERAH: insert memicu rewrite
+   self-ref yg merusak extern blok lama (080931B0/08093A58). TU .c
+   terpisah: draf verbatim K&R (callee failed tetap sah dideklarasi),
+   codegen judge-identik. Lds tak berubah (entri _c.o sudah ada).
+   ```
+   Dilarang: pesan generik ("update", "fix", "migrasi beberapa fungsi"),
+   klaim tanpa bukti (tulis `compare hijau` hanya bila `make compare`
+   benar-benar HIJAU di sesi itu), menyebut file/fungsi yang tidak
+   disentuh commit tersebut. Sebelum commit manual, cek
+   `git status`/`git diff --cached`: hanya stage file milik pekerjaan
+   ini (draf/state/log milik batch lain JANGAN ikut).
 
 ## Perintah
 
