@@ -30,6 +30,22 @@ semua failed diulang — gabungkan dengan `--loop` hanya bersama filter modul.
 Jangan pakai `python3 decomp/run.py` langsung — selalu lewat `fomt`.
 Jangan pakai perintah lama (`workflow.py scan/draft/judge/promote`) — sudah diganti `run.py`.
 
+## Perintah agen (`/decomp`, `/decomp n`)
+
+Custom command OpenCode (lihat `~/.config/opencode/command/decomp.md`,
+di luar repo agar repo tetap bersih) — pintasan bahasa alami:
+
+- `/decomp` → "decomp sampai migrasi, edit manual diizinkan, dilarang
+  halusinasi, minimal 1 target migrasi ke src"
+- `/decomp n` → sama, dengan target minimal `n` migrasi
+  (mis. `/decomp 3` = minimal 3 migrasi)
+
+Setiap agen AI yang membaca repo ini WAJIB mengenali pola ini: jika user
+mengetik `decomp` (atau `decomp n`), kerjakan alur penuh decomp → judge →
+promote → migrate ke `src/` dengan target minimal tersebut, patuh
+AGENTS.md butir 6 (pesan commit terkait aktual) + tutup dengan LAPORAN
+TOTAL format baku. Tanpa argumen = target 1.
+
 ## Multi-agent (dua agent sekaligus)
 
 Aman dijalankan bersamaan, mis. OpenCode dan VSCode di repo yang sama:
