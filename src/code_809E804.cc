@@ -606,6 +606,14 @@ typedef struct GenObj__func_0809EB4C {
 } GenObj__func_0809EB4C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809EBD4 {
+    u8 _pad0[20];
+    u8 unk14;
+    u8 unk15;
+} GenObj__func_0809EBD4;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -779,6 +787,26 @@ end:
 }
 
 /* ATTEMPT-NOTE opencode: unk14 u8; goto-chain (bukan &&); lsrs dst r2. */
+}
+
+// DECOMP-MATCHED func_0809EBD4 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_809E804.0809EBD4")))
+void func_0809EBD4(GenObj__func_0809EBD4 *arg0) {
+    register i32 n __asm__("r1");
+    register u8 cur __asm__("r2");
+    cur = arg0->unk14;
+    n = 0x10;
+    __asm__ volatile ("" : "+r" (n));
+    n = -n;
+    arg0->unk14 = (u8) (n & cur);
+    cur = arg0->unk15;
+    n = 2;
+    __asm__ volatile ("" : "+r" (n));
+    n = -n;
+    arg0->unk15 = (u8) (n & cur);
+}
 }
 
 // DECOMP-MATCHED func_0809EC48 (dari code_809E804.s; cek manusia sebelum ke src/)
