@@ -644,6 +644,13 @@ typedef struct GenObj__func_0809EE4C {
 } GenObj__func_0809EE4C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809ED04 {
+    u8 _pad0[21];
+    u8 unk15;
+} GenObj__func_0809ED04;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -983,6 +990,45 @@ i32 func_0809ECE0(GenObj__func_0809ECE0 *arg0) {
     return ret;
 }
 }
+// DECOMP-MATCHED func_0809ED04 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_809E804.0809ED04")))
+i32 func_0809ED04(GenObj__func_0809ED04 *arg0) {
+    register u8 t __asm__("r2");
+    u8 var_r1;
+    u32 h;
+
+    t = arg0->unk15;
+    h = (u8) (2 & t);
+    h = 0 - h;
+    var_r1 = (u8) (h >> 31);
+    if ((4 & t) != 0) {
+        var_r1 = var_r1 + 1;
+    }
+    if ((8 & t) != 0) {
+        var_r1 = (u8) (var_r1 + 1);
+    }
+    if ((0x10 & t) != 0) {
+        var_r1 = (u8) (var_r1 + 1);
+    }
+    if ((0x20 & t) != 0) {
+        var_r1 = (u8) (var_r1 + 1);
+    }
+    if ((0x40 & t) != 0) {
+        var_r1 = (u8) (var_r1 + 1);
+    }
+    if (var_r1 == 6) {
+        return 1;
+    }
+    return 0;
+}
+
+/* ATTEMPT-NOTE opencode: unk15 u8 + var u8 (zero-extend tiap adds via lsls/lsrs). */
+
+/* ATTEMPT-NOTE opencode: unk15 u8; sisa pola awal (2&t -> rsbs/lsrs) + dst-and; ~5 varian and/cast dicoba, compiler fold/cabang. */
+}
+
 
 // DECOMP-MATCHED func_0809EE20 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -1044,7 +1090,6 @@ void func_0809EE4C(GenObj__func_0809EE4C *arg0) {
     }
 }
 }
-
 
 // DECOMP-MATCHED func_0809EE8C (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
