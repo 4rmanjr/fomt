@@ -614,6 +614,14 @@ typedef struct GenObj__func_0809EBD4 {
 } GenObj__func_0809EBD4;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809EBA8 {
+    u8 _pad0[20];
+    u8 unk14;
+    u8 unk15;
+} GenObj__func_0809EBA8;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -788,6 +796,40 @@ end:
 
 /* ATTEMPT-NOTE opencode: unk14 u8; goto-chain (bukan &&); lsrs dst r2. */
 }
+// DECOMP-MATCHED func_0809EBA8 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_809E804.0809EBA8")))
+void func_0809EBA8(GenObj__func_0809EBA8 *arg0, i32 arg1) {
+    register i32 t1 __asm__("r1");
+    register i32 t2 __asm__("r2");
+    register u8 cur __asm__("r3");
+    u8 cur2;
+    t1 = arg1 & 0xF;
+    cur = arg0->unk14;
+    t2 = 0x10;
+    __asm__ volatile ("" : "+r" (t2));
+    t2 = -t2;
+    t2 &= cur;
+    t2 |= t1;
+    t1 = 0x71;
+    __asm__ volatile ("" : "+r" (t1));
+    t1 = -t1;
+    t2 &= t1;
+    t1 = 0x30;
+    t2 |= t1;
+    t1 = 0x80;
+    t2 |= t1;
+    arg0->unk14 = (u8) t2;
+    cur2 = arg0->unk15;
+    t1 = 2;
+    __asm__ volatile ("" : "+r" (t1));
+    t1 = -t1;
+    t1 &= cur2;
+    arg0->unk15 = (u8) t1;
+}
+}
+
 
 // DECOMP-MATCHED func_0809EBD4 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
