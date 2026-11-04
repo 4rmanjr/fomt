@@ -1,12 +1,20 @@
 typedef struct GenObj {
-    u8 _pad0[4];
-    void *unk4;
-    u8 _pad8[160];
-    s32 unkA8;
+    void *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[12];
+    struct GenObj *unk14;
+    u8 _pad18[40];
+    void *unk40;
+    void *unk44;
+    u8 _pad48[96];
+    struct GenObj *unkA8;
 } GenObj;
 void func_08014D7C(GenObj *arg0) {
-    void **temp_r0;
-
-    temp_r0 = arg0->unk4->unkA8;
-    (*temp_r0)->unk40(temp_r0, 0)->unk14->unk44();
+    GenObj *t;
+    GenObj *m;
+    GenObj *x;
+    t = arg0->unk4->unkA8;
+    m = (GenObj *)(t->unk0);
+    x = ((GenObj *(*)(GenObj *, s32))(m->unk40))(t, 0);
+    ((void (*)(GenObj *))(x->unk14->unk44))(x);
 }
