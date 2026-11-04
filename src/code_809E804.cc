@@ -591,6 +591,13 @@ typedef struct GenObj__func_080A3C8C {
 } GenObj__func_080A3C8C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809EAF8 {
+    u8 _pad0[37];
+    u8 unk25;
+} GenObj__func_0809EAF8;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -658,6 +665,26 @@ extern "C" {
 __attribute__((section(".text.code_809E804.0809EAEC")))
 void func_0809EAEC(S_AEC *arg0) { u32 x = arg0->v; arg0->v = x | 1; }
 }
+// DECOMP-MATCHED func_0809EAF8 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 DayUpdate__3NpcUi(void *, i32);                   /* extern */
+i32 rand();                                         /* extern */
+
+__attribute__((section(".text.code_809E804.0809EAF8")))
+void func_0809EAF8(GenObj__func_0809EAF8 *arg0) {
+    u8 *p;
+    u8 v;
+
+    p = (u8 *)arg0;
+    DayUpdate__3NpcUi(arg0, rand() % 100);
+    p += 0x25;
+    v = *p;
+    if ((u32) v <= 0xFEU) {
+        *p = (u8) (v + 1);
+    }
+}
+}
+
 
 // DECOMP-MATCHED func_0809EB20 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
