@@ -637,6 +637,13 @@ typedef struct GenObj__func_0809ECE0 {
 } GenObj__func_0809ECE0;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809EE4C {
+    u8 _pad0[20];
+    u16 unk14;
+} GenObj__func_0809EE4C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -977,7 +984,6 @@ i32 func_0809ECE0(GenObj__func_0809ECE0 *arg0) {
 }
 }
 
-
 // DECOMP-MATCHED func_0809EE20 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -1009,6 +1015,36 @@ void func_0809EE20(GenObj__func_0809EE20 *arg0, i32 arg1, i32 arg2) {
 
 /* ATTEMPT-NOTE opencode: struktur+urutan pas (push r4/lr, movs/lsl/ands/orrs/strb, half-part); sisa dst-and (ands r3,r1 vs ref ands r1,r3; ands r1,r2+orrs r1,r3 vs ref ands r2,r1... wait ref ands r2,r1+orrs r1,r2). 6+ varian (swap/maskvar/reuse/no-t) dicoba, compiler kukuh dst=r3. */
 }
+// DECOMP-MATCHED func_0809EE4C (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 DayUpdate__3NpcUi(void *, i32);                   /* extern */
+i32 rand();                                         /* extern */
+
+__attribute__((section(".text.code_809E804.0809EE4C")))
+void func_0809EE4C(GenObj__func_0809EE4C *arg0) {
+    register u16 t __asm__("r2");
+    register u32 m __asm__("r0");
+    register u32 c __asm__("r1");
+    DayUpdate__3NpcUi(arg0, rand() % 100);
+    t = arg0->unk14;
+    m = 0xE0;
+    m <<= 1;
+    m &= t;
+    if (m != 0) {
+        m = (u32)t << 23;
+        m >>= 29;
+        m -= 1;
+        c = 7;
+        m &= c;
+        m <<= 6;
+        c = 0xFFFFFE3F;
+        c &= t;
+        c |= m;
+        arg0->unk14 = (u16)c;
+    }
+}
+}
+
 
 // DECOMP-MATCHED func_0809EE8C (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
