@@ -1830,6 +1830,28 @@ i32 func_0804E3D8(GenObj__func_0804E3D8 *arg0, u32 arg1, i32 arg2) {
 }
 }
 
+// DECOMP-MATCHED func_0804E7A0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 CpuFastSet(i32 *, i32, i32);                        /* extern */
+
+__attribute__((section(".text.code_0803EE94.0804E7A0")))
+void func_0804E7A0(u32 arg0, i32 arg1, i32 arg2) {
+    i32 sp0;
+    i32 t;
+    u32 lo;
+    u32 m;
+
+    t = 0xF & arg2;
+    t |= t << 4;
+    t |= t << 8;
+    t |= t << 16;
+    lo = (arg0 << 16) >> 16;
+    m = ((arg0 >> 16) << 5) * lo;
+    sp0 = t;
+    CpuFastSet(&sp0, arg1, ((m >> 2) & 0x1FFFFF) | 0x01000000);
+}
+}
+
 // DECOMP-MATCHED func_0804E9C8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_0803EE94.0804E9C8")))
