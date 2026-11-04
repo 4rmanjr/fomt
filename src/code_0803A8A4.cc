@@ -15,6 +15,16 @@ typedef struct GenObj__func_0803BDFC {
     i32 unk0;
     void *unk4;
 } GenObj__func_0803BDFC;
+typedef struct GenObj__func_0803BD88 {
+    u8 _pad0[11];
+    u8 unkB;
+    u8 unkC;
+} GenObj__func_0803BD88;
+typedef struct GenObj__func_0803BDB8 {
+    u8 _pad0[11];
+    u8 unkB;
+    u8 unkC;
+} GenObj__func_0803BDB8;
 typedef struct {
     u8 pad0;
     u8 unk1;
@@ -485,6 +495,40 @@ u8 c;
 }
 }
 
+// DECOMP-MATCHED func_0803BDB8 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_0803A8A4.0803BDB8")))
+void func_0803BDB8(GenObj__func_0803BDB8 *arg0) {
+register GenObj__func_0803BDB8 *a __asm__("r2");
+register u8 b __asm__("r3");
+u8 c;
+i32 u;
+i32 t;
+i32 t2;
+i32 seven;
+i32 b7v;
+    a = arg0;
+    b = a->unkB;
+    b7v = b >> 7;
+    u = a->unkC;
+    seven = 0x7F;
+    t = ((u & seven) * 2) | b7v;
+    if (t != 0) {
+        t2 = seven & b;
+        a->unkB = (u8) t2;
+        c = a->unkC;
+        {
+            register i32 neg __asm__("r0");
+            neg = -0x80;
+            __asm__ volatile ("" : "+r" (neg));
+            neg &= c;
+            a->unkC = (u8) neg;
+        }
+    }
+}
+}
+
 // DECOMP-MATCHED func_0803BDE4 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -517,7 +561,6 @@ void *func_0803BDFC(GenObj__func_0803BDFC *arg0, i32 arg1, i32 arg2, i32 arg3, i
     return arg0;
 }
 }
-
 
 // DECOMP-MATCHED func_0803BE50 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -592,21 +635,20 @@ void func_0803BEC8(i32 *arg0) {
 
 // DECOMP-MATCHED func_0803BED4 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0803BD88(i32);                               /* extern */
+void func_0803BD88(GenObj__func_0803BD88 *);                  /* extern */
 
 __attribute__((section(".text.code_0803A8A4.0803BED4")))
 void func_0803BED4(i32 *arg0) {
-    func_0803BD88(*arg0);
+    func_0803BD88((GenObj__func_0803BD88 *)*arg0);
 }
 }
 
 // DECOMP-MATCHED func_0803BEE0 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0803BDB8(i32);                               /* extern */
-
+void func_0803BDB8(GenObj__func_0803BDB8 *arg0);                             /* extern */
 __attribute__((section(".text.code_0803A8A4.0803BEE0")))
 void func_0803BEE0(i32 *arg0) {
-    func_0803BDB8(*arg0);
+    func_0803BDB8((GenObj__func_0803BDB8 *)*arg0);
 }
 }
 
