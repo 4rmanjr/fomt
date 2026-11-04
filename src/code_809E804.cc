@@ -1029,7 +1029,6 @@ i32 func_0809ED04(GenObj__func_0809ED04 *arg0) {
 /* ATTEMPT-NOTE opencode: unk15 u8; sisa pola awal (2&t -> rsbs/lsrs) + dst-and; ~5 varian and/cast dicoba, compiler fold/cabang. */
 }
 
-
 // DECOMP-MATCHED func_0809EE20 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -2761,6 +2760,24 @@ void func_080CCDEC(i32 arg0, i32 arg1) {
     t01 = t0 * 2;
     tin = t01 + 0x0600F080;
     func_080CAE60(arg0, t1 + tin, 0x54, 2, 1, 0, 0x20);
+}
+}
+
+// DECOMP-MATCHED func_080CD534 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 gUnk_0811783C;
+
+__attribute__((section(".text.code_809E804.080CD534")))
+void func_080CD534(i32 *arg0, i32 arg1, i32 arg2) {
+    i32 temp_r2;
+    i32 t;
+    u8 b;
+
+    temp_r2 = *(i32 *)((u8 *)&gUnk_0811783C + arg2 * 4);
+    t = temp_r2;
+    t += 0x78;
+    b = (u8) t;
+    *arg0 = (temp_r2 & 0xFFFFFF00) | b;
 }
 }
 
