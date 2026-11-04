@@ -567,6 +567,14 @@ typedef struct GenObj__func_080C7B64 {
 } GenObj__func_080C7B64;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080A3BF4 {
+    void *unk0;
+    struct GenObj__func_080A3BF4 *unk4;
+    void *unk8;
+} GenObj__func_080A3BF4;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -1451,6 +1459,24 @@ __attribute__((section(".text.code_809E804.080A4698")))
 void *GetMapData(i32 arg0) {
     i32 x = (arg0 << 2) + arg0;
     return (i8 *)&gUnk_08105EDC + (x << 3);
+}
+}
+
+// DECOMP-MATCHED func_080A3BF4 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080007EC(void *, i32);                       /* extern */
+extern i32 vtable_unk_080E8288;
+
+__attribute__((section(".text.code_809E804.080A3BF4")))
+void func_080A3BF4(GenObj__func_080A3BF4 *arg0, i32 arg1) {
+    GenObj__func_080A3BF4 *t1;
+
+    arg0->unk0 = &vtable_unk_080E8288;
+    t1 = (GenObj__func_080A3BF4 *)(arg0->unk4);
+    if (t1 != 0) {
+        ((i32 (*)(void *, ...))(((GenObj__func_080A3BF4 *)(t1->unk0))->unk8))(t1, 3);
+    }
+    func_080007EC(arg0, arg1);
 }
 }
 
