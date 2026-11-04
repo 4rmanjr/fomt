@@ -11,6 +11,10 @@ typedef struct GenObj {
 } GenObj;
 
 // === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0803BDFC {
+    i32 unk0;
+    void *unk4;
+} GenObj__func_0803BDFC;
 typedef struct {
     u8 pad0;
     u8 unk1;
@@ -500,6 +504,20 @@ void func_0803BDEC(GenObj__func_0803BDEC *arg0, i32 arg1, i32 arg2) {
     arg0->unk2 = (u16) (arg0->unk2 + arg2);
 }
 }
+// DECOMP-MATCHED func_0803BDFC (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+void* __builtin_new(i32);                             /* extern */
+i32 func_0803B8CC(i32, i32, i32, i32, i32, i32, i32, i32, i32); /* extern */
+extern i32 vtable_unk_080E7778;
+
+__attribute__((section(".text.code_0803A8A4.0803BDFC")))
+void *func_0803BDFC(GenObj__func_0803BDFC *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4, i32 arg5, i32 arg6, i32 arg7, i32 arg8) {
+    arg0->unk4 = &vtable_unk_080E7778;
+    arg0->unk0 = func_0803B8CC((i32)(__builtin_new(0x64)), arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+    return arg0;
+}
+}
+
 
 // DECOMP-MATCHED func_0803BE50 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -639,13 +657,13 @@ extern const u8 gData_code_0803A8A4_0803BF14[100] __attribute__((section(".text.
 // DECOMP-MATCHED func_0803BF78 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
 void* __builtin_new(i32);                             /* extern */
-i32 func_0803BDFC(void *, i32, i32, i32, i32, i32, i32, i32, i32); /* extern */
+void* func_0803BDFC(GenObj__func_0803BDFC *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4, i32 arg5, i32 arg6, i32 arg7, i32 arg8);                             /* extern */
 i32 func_080E0A94();                                /* extern */
 extern i32 vtable_unk_080E77A4;
 
 __attribute__((section(".text.code_0803A8A4.0803BF78")))
 void *func_0803BF78(GenObj__func_0803BF78 *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4, i32 arg5) {
-    func_0803BDFC(arg0, 0, 0x88, 0xF0, 0x18, arg1, arg2, arg3, arg4);
+    func_0803BDFC((GenObj__func_0803BDFC *)arg0, 0, 0x88, 0xF0, 0x18, arg1, arg2, arg3, arg4);
     arg0->unk4 = &vtable_unk_080E77A4;
     __builtin_new(0x41C);
     arg0->unk8 = func_080E0A94();
@@ -736,13 +754,13 @@ void func_0803C544(GenObj__func_0803C544 *arg0) {
 
 // DECOMP-MATCHED func_0803C54C (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0803BDFC(void *, i32, i32, i32, i32, i32, i32, i32, i32); /* extern */
+void* func_0803BDFC(GenObj__func_0803BDFC *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4, i32 arg5, i32 arg6, i32 arg7, i32 arg8);                             /* extern */
 i32 func_0803C5B0(void *);                            /* extern */
 extern i32 vtable_unk_080E77E0;
 
 __attribute__((section(".text.code_0803A8A4.0803C54C")))
 void *func_0803C54C(GenObj__func_0803C54C *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4) {
-    func_0803BDFC(arg0, 0x80, 0x88, 0x70, 0x18, arg1, arg2, arg3, arg4);
+    func_0803BDFC((GenObj__func_0803BDFC *)arg0, 0x80, 0x88, 0x70, 0x18, arg1, arg2, arg3, arg4);
     arg0->unk4 = &vtable_unk_080E77E0;
     func_0803C5B0((u8 *)arg0 + 8);
     return arg0;
@@ -912,7 +930,6 @@ extern "C" {
 // data tak-dirujuk di 0x0803D464 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
 extern const u8 gData_code_0803A8A4_0803D464[116] __attribute__((section(".text.code_0803A8A4.0803D464"))) = {0x00, 0xB5, 0x08, 0x30, 0xFF, 0xF7, 0xEA, 0xFF, 0x01, 0xBC, 0x00, 0x47, 0x00, 0xB5, 0x08, 0x30, 0xFF, 0xF7, 0xC6, 0xFF, 0x01, 0xBC, 0x00, 0x47, 0x00, 0xB5, 0x08, 0x30, 0xFF, 0xF7, 0x8E, 0xFF, 0x01, 0xBC, 0x00, 0x47, 0x00, 0xB5, 0x08, 0x30, 0xFF, 0xF7, 0x58, 0xFF, 0x01, 0xBC, 0x00, 0x47, 0x00, 0xB5, 0x09, 0x06, 0x09, 0x0E, 0x08, 0x30, 0xFF, 0xF7, 0x24, 0xFF, 0x01, 0xBC, 0x00, 0x47, 0x00, 0xB5, 0x08, 0x30, 0xFF, 0xF7, 0xCA, 0xFE, 0x01, 0xBC, 0x00, 0x47, 0x00, 0xB5, 0x08, 0x30, 0xFF, 0xF7, 0x1C, 0xFE, 0x01, 0xBC, 0x00, 0x47, 0x00, 0xB5, 0x08, 0x30, 0xFF, 0xF7, 0xDE, 0xFD, 0x01, 0xBC, 0x00, 0x47, 0x00, 0xB5, 0x12, 0x06, 0x12, 0x0E, 0x08, 0x30, 0xFF, 0xF7, 0x3C, 0xFC, 0x01, 0xBC, 0x00, 0x47};
 }
-
 
 // DECOMP-MATCHED func_0803D644 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
