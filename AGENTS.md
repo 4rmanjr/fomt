@@ -41,6 +41,41 @@ Mineral Town, decomp GBA).
    disentuh commit tersebut. Sebelum commit manual, cek
    `git status`/`git diff --cached`: hanya stage file milik pekerjaan
    ini (draf/state/log milik batch lain JANGAN ikut).
+7. **Hemat token untuk SEMUA perintah berisik.** Berlaku untuk perintah
+   APAPUN yang outputnya >20 baris atau jalan >30 detik: `fomt`, `fomt
+   verify`, `fomt --loop`, `make`, `ninja`, `make compare`, `git log`,
+   `grep -r`, dsb. WAJIB redirect ke `/tmp/` (bukan ke repo, biar
+   tidak ikut git):
+   `<perintah> > /tmp/<nama>.log 2>&1; echo "exit:$?"`.
+   Ke chat hanya: exit code + ringkasan (`grep -c`/hitung + baris
+   ERROR/DIFF/FAIL via `grep ... | head -20` + `tail -5`). Dilarang
+   print full log ke chat; full log tetap di `/tmp/*.log` bila diminta.
+   Contoh pola per perintah:
+   - `fomt ... > /tmp/fomt.log 2>&1; echo "exit:$?"; tail -5 /tmp/fomt.log`
+   - `fomt verify > /tmp/verify.log 2>&1; echo "exit:$?"; grep -c MATCH
+     /tmp/verify.log; grep DIFF /tmp/verify.log | head -20`
+   - `make compare > /tmp/build.log 2>&1; echo "exit:$?";
+     grep -iE "error|fail|diff" /tmp/build.log | head -20; tail -5 /tmp/build.log`
+   Untuk audit cepat pakai inkremental: `fomt verify --since HEAD~5`
+   atau `fomt verify --module <stem>` (bukan verify penuh >7 mnt).
+
+   **Format laporan wajib ke chat (maks 5 baris):**
+   - 1 baris: `exit:<kode> | MATCH:<n> | DIFF:<n>`
+   - 1 baris: status ringkas (`total/berhasil (%) | sisa | failed`)
+   - maks 3 baris: hanya fungsi MATCH baru atau DIFF penting (nama +
+     satu frasa alasan); sisanya tetap di log.
+   - Log penuh tidak pernah ditempel ke chat; sebut path `/tmp/*.log`
+     bila perlu.
+
+   **Aturan tambahan hemat token:**
+   - Jangan dump source tooling (`sed -n` rentang besar `run.py`,
+     `migrate.py`); pakai `grep -n "<pola>"` untuk menemukan bagian.
+   - Jangan `cat` ulang file setelah edit — diff dari tool edit sudah
+     cukup; baca file hanya untuk konteks yang belum pernah dilihat.
+   - Gabungkan perintah independen dalam satu pemanggilan shell
+     (`cmd1; cmd2`) agar tidak ada round-trip terpisah.
+   - Untuk diagnosis fungsi: `grep -n` baris error di draf/log dulu;
+     buka asm hanya di sekitar offset yang berbeda.
 
 ## Perintah
 
