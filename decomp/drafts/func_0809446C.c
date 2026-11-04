@@ -13,8 +13,8 @@ typedef struct GenObj {
 void func_0809446C(GenObj *arg0) {
     s32 *var_r0;
 
-    if ((((void (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
-        if ((((void (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
+    if ((((s32 (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
+        if ((((s32 (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
             var_r0 = &gUnk_08100A04;
         } else {
             var_r0 = &gUnk_0810093C;

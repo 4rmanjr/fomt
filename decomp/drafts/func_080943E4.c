@@ -20,10 +20,10 @@ void func_080943E4(GenObj *arg0, s32 arg1) {
     if (arg1 == 1) {
         ((void (*)(void *,...))(arg0->unk0->unk3C))(arg0);
     }
-    if ((((void (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
-        if ((((void (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
+    if ((((s32 (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
+        if ((((s32 (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
             var_r0 = &gUnk_08100A04;
-        } else if ((((void (*)(void *,...))(arg0->unk0->unk44))(arg0) << 0x18) != 0) {
+        } else if ((((s32 (*)(void *,...))(arg0->unk0->unk44))(arg0) << 0x18) != 0) {
             arg0->unk10 = 1;
             var_r0 = &gUnk_081009DC;
         } else {
