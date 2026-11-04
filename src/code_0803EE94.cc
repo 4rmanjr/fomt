@@ -4040,6 +4040,26 @@ void func_0808562C(GenObj__func_0808562C *arg0, i32 arg1) {
 }
 }
 
+// DECOMP-MATCHED func_08085EC4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_0803EE94.08085EC4")))
+u32 func_08085EC4(i32 arg0, u32 arg1) {
+    u32 st[2];
+    u32 *q;
+    u32 *p;
+    u32 ten;
+    ten = 10;
+    st[0] = ten;
+    st[1] = arg1 / 25U;
+    q = &st[1];
+    p = &st[0];
+    if (ten > st[1]) {
+        p = q;
+    }
+    return *p;
+}
+}
+
 // DECOMP-MATCHED func_08085EEC (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 
