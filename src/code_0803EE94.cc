@@ -2144,6 +2144,14 @@ extern "C" {
 extern const u8 gData_code_0803EE94_08050C70[80] __attribute__((section(".text.code_0803EE94.08050C70"))) = {0x10, 0xB5, 0x83, 0xB0, 0x04, 0x1C, 0x02, 0xAA, 0x00, 0x20, 0x10, 0x70, 0x68, 0x46, 0x12, 0x1A, 0x00, 0x21, 0x82, 0xF0, 0xFF, 0xFE, 0x68, 0x46, 0x02, 0x30, 0x01, 0x22, 0x02, 0x70, 0x69, 0x46, 0x03, 0x31, 0x15, 0x20, 0x08, 0x70, 0x68, 0x46, 0x07, 0x30, 0x02, 0x70, 0x21, 0x1C, 0x68, 0x46, 0x0C, 0xC8, 0x0C, 0xC1, 0x20, 0x1C, 0x03, 0xB0, 0x10, 0xBC, 0x02, 0xBC, 0x08, 0x47, 0x00, 0x00, 0x03, 0x21, 0x02, 0x48, 0x02, 0x40, 0x0A, 0x43, 0x10, 0x1C, 0x70, 0x47, 0x00, 0xFF, 0xFF, 0xFF};
 }
 
+// DECOMP-MATCHED func_08050C64 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_0803EE94.08050C64")))
+void func_08050C64(void *arg0) {
+    *(u8 *)((u8 *)arg0 + 0x500) = 0;
+}
+}
+
 // DECOMP-MATCHED func_08050CC0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __builtin_new(i32);                             /* extern */
@@ -2291,7 +2299,6 @@ void func_08050E0C(i32 *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4, i32 arg5, 
 }
 }
 
-
 // DECOMP-MATCHED func_08050E30 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08050664(i32, i32, i32, i32, i32, i32, i32); /* extern */
@@ -2354,11 +2361,10 @@ void func_08050E80(i32 *arg0) {
 
 // DECOMP-MATCHED func_08050E8C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08050C64(i32);                               /* extern */
-
+void func_08050C64(void *arg0);                             /* extern */
 __attribute__((section(".text.code_0803EE94.08050E8C")))
 void func_08050E8C(i32 *arg0) {
-    func_08050C64(*arg0);
+    func_08050C64((void *)*arg0);
 }
 }
 
