@@ -1536,7 +1536,6 @@ extern "C" {
 extern const u8 gData_code_809E804_080A3C70[28] __attribute__((section(".text.code_809E804.080A3C70"))) = {0x30, 0xB5, 0x05, 0x4C, 0x04, 0x60, 0x0D, 0x68, 0x00, 0x24, 0x0C, 0x60, 0x45, 0x60, 0x82, 0x60, 0xC3, 0x60, 0x30, 0xBC, 0x02, 0xBC, 0x08, 0x47, 0x98, 0x82, 0x0E, 0x08};
 }
 
-
 // DECOMP-MATCHED gData_code_809E804_080A3C24.data.080A3C24
 extern "C" {
 // data tak-dirujuk di 0x080A3C24 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -2455,6 +2454,34 @@ extern "C" {
 __attribute__((section(".text.code_809E804.080C7F0C")))
 i32 func_080C7F0C(GenObj__func_080C7F0C *arg0) {
     return arg0->unk4->unk974;
+}
+}
+
+// DECOMP-MATCHED func_080CCDEC (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+struct GenObj__func_080CADA8;
+void func_080CADA8(GenObj__func_080CADA8 *arg0);                             /* extern */
+i32 func_080CAE60(i32, i32, i32, i32, i32, i32, i32); /* extern */
+extern i32 gUnk_08117860;
+
+__attribute__((section(".text.code_809E804.080CCDEC")))
+void func_080CCDEC(i32 arg0, i32 arg1) {
+    u32 spC;
+    u8 *spC_bytes;
+    i32 temp_r1;
+    u8 b;
+    u32 t1, t0, t01, tin;
+
+    func_080CADA8((struct GenObj__func_080CADA8 *)(((arg1 * 2) + arg1) * 4 + arg0 + 0x218));
+    temp_r1 = *(&gUnk_08117860 + arg1);
+    b = (u8) (temp_r1 + 0xF);
+    spC = (temp_r1 & 0xFFFFFF00) | b;
+    spC_bytes = (u8 *)&spC;
+    t1 = spC_bytes[1] << 6;
+    t0 = spC_bytes[0];
+    t01 = t0 * 2;
+    tin = t01 + 0x0600F080;
+    func_080CAE60(arg0, t1 + tin, 0x54, 2, 1, 0, 0x20);
 }
 }
 
