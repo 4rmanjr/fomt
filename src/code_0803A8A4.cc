@@ -494,6 +494,41 @@ u8 c;
     arg0->unkD = 9;
 }
 }
+// DECOMP-MATCHED func_0803BD88 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_0803A8A4.0803BD88")))
+void func_0803BD88(GenObj__func_0803BD88 *arg0) {
+register GenObj__func_0803BD88 *a __asm__("r2");
+register u8 b __asm__("r3");
+u8 c;
+i32 u;
+i32 t;
+i32 t2;
+i32 seven;
+i32 b7v;
+    a = arg0;
+    b = a->unkB;
+    b7v = b >> 7;
+    u = a->unkC;
+    seven = 0x7F;
+    t = ((u & seven) * 2) | b7v;
+    if (t != 0) {
+        t2 = seven & b;
+        a->unkB = (u8) t2;
+        c = a->unkC;
+        {
+            register i32 neg __asm__("r0");
+            neg = -0x80;
+            __asm__ volatile ("" : "+r" (neg));
+            neg &= c;
+            neg |= 1;
+            a->unkC = (u8) neg;
+        }
+    }
+}
+}
+
 
 // DECOMP-MATCHED func_0803BDB8 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -635,8 +670,7 @@ void func_0803BEC8(i32 *arg0) {
 
 // DECOMP-MATCHED func_0803BED4 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
-void func_0803BD88(GenObj__func_0803BD88 *);                  /* extern */
-
+void func_0803BD88(GenObj__func_0803BD88 *arg0);                             /* extern */
 __attribute__((section(".text.code_0803A8A4.0803BED4")))
 void func_0803BED4(i32 *arg0) {
     func_0803BD88((GenObj__func_0803BD88 *)*arg0);
