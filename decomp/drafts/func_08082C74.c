@@ -11,7 +11,8 @@ typedef struct GenObj {
 s32 func_08082C74(GenObj *arg0, s32 arg1) {
     s8 sp0;
     s32 temp_r0;
-    s32 var_r1;
+    s32 id_r0;
+    register s32 var_r1 __asm__("r1");
     s32 var_r7;
 
     var_r7 = 1;
@@ -21,8 +22,9 @@ s32 func_08082C74(GenObj *arg0, s32 arg1) {
     }
     if ((IsEmpty__C9ToolStack(arg0->unk8 + 0x1C34) << 0x18) == 0) {
         sp0 = GetTool__C9ToolStack(arg0->unk8 + 0x1C34);
+        id_r0 = GetId__C4Tool(&sp0);
         var_r1 = 0;
-        if (GetId__C4Tool(&sp0) == arg1) {
+        if (id_r0 == arg1) {
             var_r1 = 1;
         }
         if (var_r1 != 0) {
