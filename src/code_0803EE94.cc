@@ -1612,6 +1612,13 @@ typedef struct GenObj__func_08057F24 {
 } GenObj__func_08057F24;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08082C74 {
+    u8 _pad0[8];
+    i32 unk8;
+} GenObj__func_08082C74;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -3907,6 +3914,42 @@ __attribute__((section(".text.code_0803EE94.08082250")))
 void func_08082250(GenObj__func_08082250 *arg0, i32 arg1) {
     arg0->unk4 = &vtable_unk_080E7CE8;
     func_080C8360(arg0, arg1);
+}
+}
+
+// DECOMP-MATCHED func_08082C74 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 GetFirstSlotWithTool__C8RucksackUi(i32, i32);   /* extern */
+i32 GetFirstSlotWith__C9ToolChestUi(i32, i32);      /* extern */
+i32 GetId__C4Tool(i8 *);                            /* extern */
+i8 GetTool__C9ToolStack(i32);                       /* extern */
+i32 IsEmpty__C9ToolStack(i32);                      /* extern */
+
+__attribute__((section(".text.code_0803EE94.08082C74")))
+i32 func_08082C74(GenObj__func_08082C74 *arg0, i32 arg1) {
+    i8 sp0;
+    i32 temp_r0;
+    i32 id_r0;
+    register i32 var_r1 __asm__("r1");
+    i32 var_r7;
+
+    var_r7 = 1;
+    temp_r0 = GetFirstSlotWith__C9ToolChestUi((i32)(arg0->unk8 + 0x380), arg1);
+    if ((temp_r0 != -1) || (GetFirstSlotWithTool__C8RucksackUi((i32)(arg0->unk8 + 0x1C38), arg1) != temp_r0)) {
+        var_r7 = 0;
+    }
+    if ((IsEmpty__C9ToolStack((i32)(arg0->unk8 + 0x1C34)) << 0x18) == 0) {
+        sp0 = GetTool__C9ToolStack((i32)(arg0->unk8 + 0x1C34));
+        id_r0 = GetId__C4Tool(&sp0);
+        var_r1 = 0;
+        if (id_r0 == arg1) {
+            var_r1 = 1;
+        }
+        if (var_r1 != 0) {
+            var_r7 = 0;
+        }
+    }
+    return var_r7;
 }
 }
 
