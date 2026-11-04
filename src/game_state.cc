@@ -1911,6 +1911,19 @@ void func_08016CCC(GenObj__func_08016CCC *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_08016D80 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 gUnk_0300040C;
+
+__attribute__((section(".text.game_state.08016D80")))
+void func_08016D80(void) {
+    u8 *p = (u8 *)gUnk_0300040C + 0x36C;
+
+    *p = 0;
+    *(i32 *)(p + 4) = 0x234;
+}
+}
+
 // DECOMP-MATCHED func_08016D9C (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 extern i32 gUnk_0300040C;
