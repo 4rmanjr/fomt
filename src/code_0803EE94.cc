@@ -1626,6 +1626,13 @@ typedef struct GenObj__func_08094940 {
 } GenObj__func_08094940;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809494C {
+    u8 _pad0[8];
+    i32 unk8;
+} GenObj__func_0809494C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -5477,7 +5484,6 @@ extern "C" {
 extern const u8 gData_code_0803EE94_08094914[44] __attribute__((section(".text.code_0803EE94.08094914"))) = {0x00, 0xB5, 0x82, 0x68, 0x00, 0xF0, 0x72, 0xF8, 0x01, 0xBC, 0x00, 0x47, 0x00, 0xB5, 0x82, 0x68, 0x0D, 0x32, 0x00, 0xF0, 0x6B, 0xF8, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00, 0x00, 0xB5, 0x82, 0x68, 0x1A, 0x32, 0x00, 0xF0, 0x63, 0xF8, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00};
 }
 
-
 // DECOMP-MATCHED func_08094940 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08094A00(void *, i32, i32);                    /* extern */
@@ -5487,6 +5493,16 @@ void func_08094940(GenObj__func_08094940 *arg0, i32 arg1) {
     func_08094A00(arg0, arg1, (i32)(arg0->unk8));
 }
 }
+// DECOMP-MATCHED func_0809494C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08094A00(void *, i32, i32);                    /* extern */
+
+__attribute__((section(".text.code_0803EE94.0809494C")))
+void func_0809494C(GenObj__func_0809494C *arg0, i32 arg1) {
+    func_08094A00(arg0, arg1, (i32)(arg0->unk8 + 0xD));
+}
+}
+
 
 // DECOMP-MATCHED func_0809496C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
