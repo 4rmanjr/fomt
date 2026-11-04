@@ -1977,6 +1977,15 @@ void func_08050DA0(i32 *arg0, i32 arg1, i32 arg2) {
     func_08050424(*arg0, arg1, 0x100, arg2);
 }
 }
+// DECOMP-MATCHED func_08050DB4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08050424(i32, i32, u16, i32);                  /* extern */
+
+__attribute__((section(".text.code_0803EE94.08050DB4")))
+void func_08050DB4(i32 *arg0, i32 arg1, u16 arg2) {
+    func_08050424(*arg0, arg1, arg2, 0);
+}
+}
 
 
 // DECOMP-MATCHED func_08050DD8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
