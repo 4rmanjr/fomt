@@ -1961,13 +1961,23 @@ void func_08050D80(i32 *arg0) {
 }
 // DECOMP-MATCHED func_08050D8C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08050424(i32, i32, i32, i32);                  /* extern */
+i32 func_08050424(i32, i32, u16, i32);                  /* extern */
 
 __attribute__((section(".text.code_0803EE94.08050D8C")))
 void func_08050D8C(i32 *arg0, i32 arg1) {
     func_08050424(*arg0, arg1, 0x100, 0);
 }
 }
+// DECOMP-MATCHED func_08050DA0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08050424(i32, i32, u16, i32);                  /* extern */
+
+__attribute__((section(".text.code_0803EE94.08050DA0")))
+void func_08050DA0(i32 *arg0, i32 arg1, i32 arg2) {
+    func_08050424(*arg0, arg1, 0x100, arg2);
+}
+}
+
 
 // DECOMP-MATCHED func_08050DD8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -4492,7 +4502,6 @@ void func_08094668(GenObj__func_08094668 *arg0) {
     }
 }
 }
-
 
 // DECOMP-MATCHED func_080946BC (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
