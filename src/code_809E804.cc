@@ -598,6 +598,14 @@ typedef struct GenObj__func_0809EAF8 {
 } GenObj__func_0809EAF8;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809EB4C {
+    u8 _pad0[20];
+    u8 unk14;
+    u8 unk15;
+} GenObj__func_0809EB4C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -685,7 +693,6 @@ void func_0809EAF8(GenObj__func_0809EAF8 *arg0) {
 }
 }
 
-
 // DECOMP-MATCHED func_0809EB20 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809EB20")))
@@ -700,6 +707,25 @@ void func_0809EB20(i32 arg0, i32 arg1) {
     }
     memcpy((void *)(temp_r6), (const void *)(arg1), var_r4);
     *((u8 *)temp_r6 + var_r4) = 0;
+}
+}
+
+// DECOMP-MATCHED func_0809EB4C (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __3NpcRC13ActorLocation();                        /* extern */
+
+__attribute__((section(".text.code_809E804.0809EB4C")))
+void *func_0809EB4C(GenObj__func_0809EB4C *arg0) {
+    register u8 cur __asm__("r1");
+    register i32 z __asm__("r0");
+    __3NpcRC13ActorLocation();
+    z = 0;
+    arg0->unk14 = (u8)z;
+    cur = arg0->unk15;
+    __asm__ volatile ("" : "+r" (cur));
+    z -= 2;
+    arg0->unk15 = (u8) (z & cur);
+    return arg0;
 }
 }
 
