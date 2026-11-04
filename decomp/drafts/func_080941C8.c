@@ -16,8 +16,8 @@ void func_080941C8(GenObj *arg0) {
     s32 *var_r0;
     u8 temp_r0;
 
-    if ((((void (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
-        temp_r0 = ((void (*)(void *,...))(arg0->unk0->unk48))(arg0);
+    if ((((s32 (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
+        temp_r0 = ((s32 (*)(void *,...))(arg0->unk0->unk48))(arg0);
         if (temp_r0 != 0) {
             var_r0 = &gUnk_081008C4;
         } else {
