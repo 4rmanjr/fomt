@@ -3152,6 +3152,28 @@ void *func_0807B038(GenObj__func_0807B038 *arg0, i32 *arg1, i32 arg2, i32 arg3) 
 }
 }
 
+// DECOMP-MATCHED func_0807B8F4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+u32 GetAffection__C6Animal(void *);                 /* extern */
+
+__attribute__((section(".text.code_0803EE94.0807B8F4")))
+u32 func_0807B8F4(i32 arg0, void *arg1) {
+    u32 st[2];
+    u32 *pq;
+    u32 *p;
+    u32 t;
+    st[0] = 10;
+    st[1] = GetAffection__C6Animal(arg1) / 25;
+    pq = &st[1];
+    t = st[0];
+    p = &st[0];
+    if (t > st[1]) {
+        p = pq;
+    }
+    return *p;
+}
+}
+
 // DECOMP-MATCHED func_0807D070 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __builtin_new(i32);                             /* extern */
@@ -5375,7 +5397,6 @@ void func_0809A518(GenObj__func_0809A518 *arg0, i32 arg1) {
     func_080007EC(arg0, arg1);
 }
 }
-
 
 // DECOMP-MATCHED func_0809B018 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
