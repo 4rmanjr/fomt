@@ -26,7 +26,7 @@ s32 func_0801CCE4(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
     temp_r6 = (arg1 + (0x2B * arg2)) * 4;
     temp_r2 = arg0->unk1038 + 0x9DC + temp_r6;
     sp4 = method_0800A33C__9FieldPloti(temp_r2, arg3);
-    if (((void (*)(void *,...))(arg0->unk0->unk14))(arg0) == 2) {
+    if ((((s32 (*)(void *,...))(arg0->unk0->unk14))(arg0)) == 2) {
         temp_sl = arg0->unk4;
         temp_r2_2 = arg0->unk1038 + 0x9DC;
         temp_r1 = arg2 + 1;
