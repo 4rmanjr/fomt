@@ -2781,6 +2781,16 @@ void func_080CD534(i32 *arg0, i32 arg1, i32 arg2) {
 }
 }
 
+// DECOMP-MATCHED func_080D06D0 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 *gUnk_03000420;
+
+__attribute__((section(".text.code_809E804.080D06D0")))
+i32 func_080D06D0(void) {
+    return *(i32 *)((u8 *)gUnk_03000420 + 0x18);
+}
+}
+
 // DECOMP-MATCHED func_080D1548 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((naked)) void func_080D1548(void) {
