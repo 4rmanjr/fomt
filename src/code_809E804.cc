@@ -622,6 +622,14 @@ typedef struct GenObj__func_0809EBA8 {
 } GenObj__func_0809EBA8;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809EC90 {
+    u8 _pad0[20];
+    u8 unk14;
+    u8 unk15;
+} GenObj__func_0809EC90;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -830,7 +838,6 @@ void func_0809EBA8(GenObj__func_0809EBA8 *arg0, i32 arg1) {
 }
 }
 
-
 // DECOMP-MATCHED func_0809EBD4 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -894,6 +901,47 @@ store:
 }
 
 /* ATTEMPT-NOTE worker-ec48: MATCH-candidate; struct 8B paksa sub sp,#8; mask unsigned (lsr); a/b pisah utk copy adds r1,r0; v/w dipin r0/r1 utk regalloc clear/set. */
+}
+
+// DECOMP-MATCHED func_0809EC90 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __3NpcRC13ActorLocation();                        /* extern */
+
+__attribute__((section(".text.code_809E804.0809EC90")))
+void *func_0809EC90(GenObj__func_0809EC90 *arg0) {
+    register i32 acc __asm__("r0");
+    register i32 t1 __asm__("r1");
+    __3NpcRC13ActorLocation();
+    t1 = arg0->unk14;
+    acc = 0x40;
+    __asm__ volatile ("" : "+r" (acc));
+    acc = -acc;
+    acc &= t1;
+    arg0->unk14 = (u8) acc;
+    t1 = *(u16 *)&arg0->unk14;
+    acc = 0xFFFFFE3F;
+    acc &= t1;
+    *(u16 *)&arg0->unk14 = (u16) acc;
+    t1 = arg0->unk15;
+    acc = 3;
+    __asm__ volatile ("" : "+r" (acc));
+    acc = -acc;
+    acc &= t1;
+    t1 = 5;
+    __asm__ volatile ("" : "+r" (t1));
+    t1 = -t1;
+    acc &= t1;
+    t1 -= 4;
+    acc &= t1;
+    t1 -= 8;
+    acc &= t1;
+    t1 -= 0x10;
+    acc &= t1;
+    t1 -= 0x20;
+    acc &= t1;
+    arg0->unk15 = (u8) acc;
+    return arg0;
+}
 }
 
 // DECOMP-MATCHED func_0809ECD8 (dari code_809E804.s; cek manusia sebelum ke src/)
