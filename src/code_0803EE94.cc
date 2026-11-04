@@ -2281,6 +2281,16 @@ i32 func_08050DF0(void **arg0) {
     return temp_r1->unk158;
 }
 }
+// DECOMP-MATCHED func_08050E0C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08050478(i32, i32, i32, i32, i32, i32, i32, i32); /* extern */
+
+__attribute__((section(".text.code_0803EE94.08050E0C")))
+void func_08050E0C(i32 *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4, i32 arg5, i32 arg6, i32 arg7) {
+    func_08050478(*arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+}
+}
+
 
 // DECOMP-MATCHED func_08050E30 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
