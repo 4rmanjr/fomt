@@ -2791,6 +2791,20 @@ i32 func_080D06D0(void) {
 }
 }
 
+// DECOMP-MATCHED func_080D0ABC (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080D0ABC")))
+void func_080D0ABC(void) {
+    volatile u16 *a = (volatile u16 *)0x04000208;
+    u16 t;
+
+    t = *a;
+    *a = 0;
+    *(volatile u16 *)0x04000200 |= 0x80;
+    *a = t;
+}
+}
+
 // DECOMP-MATCHED func_080D1548 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((naked)) void func_080D1548(void) {
