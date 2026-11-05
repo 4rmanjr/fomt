@@ -1025,6 +1025,24 @@ typedef struct GenObj08016BF4 {
 } GenObj08016BF4;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Vt08016C10 {
+    u8 _pad0[0x104];
+    void (*unk0x104)(void);
+} Vt08016C10;
+typedef struct H08016C10 {
+    Vt08016C10 *unk0;
+} H08016C10;
+typedef struct M08016C10 {
+    u8 _pad0[0xA8];
+    H08016C10 *unkA8;
+} M08016C10;
+typedef struct GenObj08016C10 {
+    u8 _pad0[4];
+    M08016C10 *unk4;
+} GenObj08016C10;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -2046,7 +2064,6 @@ void func_08016BDC(GenObj__func_08016BDC *arg0) {
 // DECOMP-MATCHED func_08016BF4 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 __attribute__((section(".text.game_state.08016BF4")))
 void func_08016BF4(GenObj08016BF4 *arg0) {
     register Vt08016BF4 *vt __asm__("r1");
@@ -2063,6 +2080,25 @@ void func_08016BF4(GenObj08016BF4 *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_08016C10 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.game_state.08016C10")))
+void func_08016C10(GenObj08016C10 *arg0) {
+    register Vt08016C10 *vt __asm__("r1");
+    register u32 off __asm__("r2");
+    register void (*fn)(void) __asm__("r1");
+    H08016C10 *h;
+
+    h = *(H08016C10 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x104;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+}
 
 // DECOMP-MATCHED func_08016C2C (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
