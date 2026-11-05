@@ -2868,8 +2868,8 @@ void func_080D0A94(s32 arg0) {
 
 
 // DECOMP-MATCHED func_080D0A14 (dari code_809E804.s; cek manusia sebelum ke src/)
-extern i32 *gUnk_0300041C;
-extern i32 *gUnk_03000420;
+extern void *gUnk_0300041C;
+extern void *gUnk_03000420;
 
 void func_080D0A14(void) {
     register s32 *ctr __asm__("r2");
