@@ -1,4 +1,5 @@
-s32 __builtin_delete(s32 *);                          /* extern */
+// DECOMP-MATCHED func_0803C7A0 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
+s32 __builtin_delete(void *);                          /* extern */
 s32 func_080E0D70(s32, s32);                          /* extern */
 
 void func_0803C7A0(s32 *arg0, s32 arg1) {

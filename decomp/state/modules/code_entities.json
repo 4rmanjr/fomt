@@ -750,13 +750,13 @@
  },
  "func_08024CA0": {
   "addr": 134368416,
-  "judged_mtime": 1793017258.589262,
+  "judged_mtime": 1793869323.4111636,
   "module": "code_entities.s",
-  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08024CA0/opencode/func.c: In function `func_08024CA0':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08024CA0/opencode/func.c:13: void value not ignored as it ought to be\n",
+  "note": "byte +0x1d: 0xd8 vs ref 0xdc [1operand,2different @| bgt #0x26 | bhi #0x26]",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 543,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_08024CD0": {

@@ -1,8 +1,13 @@
+// DECOMP-MATCHED func_08039D98 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct Inner39D98 {
+    u8 _pad0[12];
+    s32 unkC;
+} Inner39D98;
 typedef struct GenObj {
     u8 _pad0[12];
     s32 unkC;
     u8 _pad10[36];
-    void *unk34;
+    Inner39D98 *unk34;
 } GenObj;
 u32 func_08039D98(GenObj *arg0) {
     s32 temp_r1;

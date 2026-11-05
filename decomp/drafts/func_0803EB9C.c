@@ -1,11 +1,12 @@
+// DECOMP-MATCHED func_0803EB9C (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 s32 func_0803D52C(s32 *, s32);                        /* extern */
 s32 func_0803D644(s32, s32);                        /* extern */
 u32 GetRivalEventCount__C12Bachelorette(s32);       /* extern */
 
-typedef struct GenObj {
+typedef struct GenObj__func_0803EB9C {
     u8 _pad0[8];
     s32 unk8;
-} GenObj;
+} GenObj__func_0803EB9C;
 typedef struct {
     u8 pad0;
     u8 unk1;
@@ -13,7 +14,7 @@ typedef struct {
     u8 unk3;
 } Buf4;
 
-s32 func_0803EB9C(GenObj *arg0) {
+s32 func_0803EB9C(GenObj__func_0803EB9C *arg0) {
     Buf4 sp0;
     register u32 v1 asm("r6");
     u8 v2;

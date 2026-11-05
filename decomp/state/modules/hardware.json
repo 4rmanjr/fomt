@@ -1224,10 +1224,10 @@
   "judged_mtime": 1793582714.031418,
   "module": "hardware.s",
   "note": ".c:10: (Each undeclared identifier is reported only once\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08009674/opencode/func.c:10: for each function it appears in.)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08009674/opencode/func.c:10: `arg1' undeclared (first use in this function)\n",
-  "ref_len": 60,
+  "ref_len": 59,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
-  "size": 530,
+  "size": 531,
   "status": "failed",
   "thumb": true
  },

@@ -1,9 +1,13 @@
 void func_080D0AE0(void) {
-    u16 temp_r3;
+    register volatile u16 *reg208 __asm__("r4");
+    volatile u16 *reg200;
+    u32 ime;
 
-    temp_r3 = *(u16 *)0x04000208;
-    *(u16 *)0x04000208 = 0;
-    *(u16 *)0x04000200 &= 0xFF7F;
-    *(s16 *)0x04000202 = 0x80;
-    *(u16 *)0x04000208 = temp_r3;
+    reg208 = (volatile u16 *)0x04000208;
+    ime = *reg208;
+    *reg208 = 0;
+    reg200 = (volatile u16 *)0x04000200;
+    *reg200 &= 0xFF7F;
+    *(volatile u16 *)0x04000202 = 0x80;
+    *reg208 = ime;
 }

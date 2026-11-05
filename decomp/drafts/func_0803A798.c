@@ -1,3 +1,4 @@
+// DECOMP-MATCHED func_0803A798 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 s32 __7AEntityP10GameObjectRC8Location(void *, s32, s32 *); /* extern */
 void *__builtin_new(s32);                           /* extern */
 extern s32 vtable_unk_080E7568;
@@ -15,7 +16,7 @@ void *func_0803A798(s32 arg0, s32 arg1) {
     s32 m;
     register u16 t0 asm("r2");
 
-    r5 = __builtin_new(0x20);
+    r5 = (GenObj *)__builtin_new(0x20);
     p = buf;
     t0 = *(u16 *)p;
     m = 0xFFFFFC00;

@@ -1095,3 +1095,338 @@ void func_08016BDC(GenObj *arg0) {
     fn = *(void (**)(void))((u8 *)p + 0xFC);
     fn();
 }
+
+// DECOMP-MATCHED func_080142D4 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Vt080142D4 {
+    u8 _pad0[0x11C];
+    void (*unk11C)(void);
+} Vt080142D4;
+
+typedef struct H080142D4 {
+    Vt080142D4 *unk0;
+} H080142D4;
+
+typedef struct M080142D4 {
+    u8 _pad0[0xA8];
+    H080142D4 *unkA8;
+} M080142D4;
+
+typedef struct GenObj080142D4 {
+    u8 _pad0[4];
+    M080142D4 *unk4;
+} GenObj080142D4;
+
+void func_080142D4(GenObj080142D4 *arg0) {
+    register Vt080142D4 *vt __asm__("r1");
+    register u32 off __asm__("r2");
+    register void (*fn)(void) __asm__("r1");
+    H080142D4 *h;
+
+    h = *(H080142D4 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x11C;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+
+// DECOMP-MATCHED func_08014694 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Vt08014694 {
+    u8 _pad0[0x150];
+    void (*unk150)(void);
+} Vt08014694;
+
+typedef struct H08014694 {
+    Vt08014694 *unk0;
+} H08014694;
+
+typedef struct M08014694 {
+    u8 _pad0[0xA8];
+    H08014694 *unkA8;
+} M08014694;
+
+typedef struct GenObj08014694 {
+    u8 _pad0[4];
+    M08014694 *unk4;
+} GenObj08014694;
+
+void func_08014694(GenObj08014694 *arg0) {
+    register Vt08014694 *vt __asm__("r2");
+    register u32 off __asm__("r3");
+    register void (*fn)(void) __asm__("r2");
+    H08014694 *h;
+
+    h = *(H08014694 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x150;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+
+// DECOMP-MATCHED func_08016BA4 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Vt08016BA4 {
+    u8 _pad0[0x10C];
+    void (*unk10C)(void);
+} Vt08016BA4;
+
+typedef struct H08016BA4 {
+    Vt08016BA4 *unk0;
+} H08016BA4;
+
+typedef struct M08016BA4 {
+    u8 _pad0[0xA8];
+    H08016BA4 *unkA8;
+} M08016BA4;
+
+typedef struct GenObj08016BA4 {
+    u8 _pad0[4];
+    M08016BA4 *unk4;
+} GenObj08016BA4;
+
+void func_08016BA4(GenObj08016BA4 *arg0) {
+    register Vt08016BA4 *vt __asm__("r2");
+    register u32 off __asm__("r3");
+    register void (*fn)(void) __asm__("r2");
+    H08016BA4 *h;
+
+    h = *(H08016BA4 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x10C;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+
+// DECOMP-MATCHED func_080146B0 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Vt080146B0 {
+    u8 _pad0[0x154];
+    void (*unk0x154)(void);
+} Vt080146B0;
+
+typedef struct H080146B0 {
+    Vt080146B0 *unk0;
+} H080146B0;
+
+typedef struct M080146B0 {
+    u8 _pad0[0xA8];
+    H080146B0 *unkA8;
+} M080146B0;
+
+typedef struct GenObj080146B0 {
+    u8 _pad0[4];
+    M080146B0 *unk4;
+} GenObj080146B0;
+
+void func_080146B0(GenObj080146B0 *arg0) {
+    register Vt080146B0 *vt __asm__("r2");
+    register u32 off __asm__("r3");
+    register void (*fn)(void) __asm__("r2");
+    H080146B0 *h;
+
+    h = *(H080146B0 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x154;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+
+// DECOMP-MATCHED func_08016BF4 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Vt08016BF4 {
+    u8 _pad0[0x100];
+    void (*unk0x100)(void);
+} Vt08016BF4;
+
+typedef struct H08016BF4 {
+    Vt08016BF4 *unk0;
+} H08016BF4;
+
+typedef struct M08016BF4 {
+    u8 _pad0[0xA8];
+    H08016BF4 *unkA8;
+} M08016BF4;
+
+typedef struct GenObj08016BF4 {
+    u8 _pad0[4];
+    M08016BF4 *unk4;
+} GenObj08016BF4;
+
+void func_08016BF4(GenObj08016BF4 *arg0) {
+    register Vt08016BF4 *vt __asm__("r1");
+    register u32 off __asm__("r2");
+    register void (*fn)(void) __asm__("r1");
+    H08016BF4 *h;
+
+    h = *(H08016BF4 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x100;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+
+// DECOMP-MATCHED func_08016C10 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Vt08016C10 {
+    u8 _pad0[0x104];
+    void (*unk0x104)(void);
+} Vt08016C10;
+
+typedef struct H08016C10 {
+    Vt08016C10 *unk0;
+} H08016C10;
+
+typedef struct M08016C10 {
+    u8 _pad0[0xA8];
+    H08016C10 *unkA8;
+} M08016C10;
+
+typedef struct GenObj08016C10 {
+    u8 _pad0[4];
+    M08016C10 *unk4;
+} GenObj08016C10;
+
+void func_08016C10(GenObj08016C10 *arg0) {
+    register Vt08016C10 *vt __asm__("r1");
+    register u32 off __asm__("r2");
+    register void (*fn)(void) __asm__("r1");
+    H08016C10 *h;
+
+    h = *(H08016C10 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x104;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+
+// DECOMP-MATCHED func_080142B8 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Vt080142B8 {
+    u8 _pad0[0x118];
+    void (*unk0x118)(void);
+} Vt080142B8;
+
+typedef struct H080142B8 {
+    Vt080142B8 *unk0;
+} H080142B8;
+
+typedef struct M080142B8 {
+    u8 _pad0[0xA8];
+    H080142B8 *unkA8;
+} M080142B8;
+
+typedef struct GenObj080142B8 {
+    u8 _pad0[4];
+    M080142B8 *unk4;
+} GenObj080142B8;
+
+void func_080142B8(GenObj080142B8 *arg0) {
+    register Vt080142B8 *vt __asm__("r2");
+    register u32 off __asm__("r3");
+    register void (*fn)(void) __asm__("r2");
+    H080142B8 *h;
+
+    h = *(H080142B8 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x118;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+
+// DECOMP-MATCHED func_08016BC0 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Vt08016BC0 {
+    u8 _pad0[0x110];
+    void (*unk0x110)(void);
+} Vt08016BC0;
+
+typedef struct H08016BC0 {
+    Vt08016BC0 *unk0;
+} H08016BC0;
+
+typedef struct M08016BC0 {
+    u8 _pad0[0xA8];
+    H08016BC0 *unkA8;
+} M08016BC0;
+
+typedef struct GenObj08016BC0 {
+    u8 _pad0[4];
+    M08016BC0 *unk4;
+} GenObj08016BC0;
+
+void func_08016BC0(GenObj08016BC0 *arg0) {
+    register Vt08016BC0 *vt __asm__("r2");
+    register u32 off __asm__("r3");
+    register void (*fn)(void) __asm__("r2");
+    H08016BC0 *h;
+
+    h = *(H08016BC0 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x110;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+
+// DECOMP-MATCHED func_08016EF0 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Vt08016EF0 {
+    u8 _pad0[0x164];
+    void (*unk0x164)(void);
+} Vt08016EF0;
+
+typedef struct H08016EF0 {
+    Vt08016EF0 *unk0;
+} H08016EF0;
+
+typedef struct M08016EF0 {
+    u8 _pad0[0xA8];
+    H08016EF0 *unkA8;
+} M08016EF0;
+
+typedef struct GenObj08016EF0 {
+    u8 _pad0[4];
+    M08016EF0 *unk4;
+} GenObj08016EF0;
+
+void func_08016EF0(GenObj08016EF0 *arg0) {
+    register Vt08016EF0 *vt __asm__("r2");
+    register u32 off __asm__("r3");
+    register void (*fn)(void) __asm__("r2");
+    H08016EF0 *h;
+
+    h = *(H08016EF0 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x164;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+
+// DECOMP-MATCHED func_0801238C (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct Vt0801238C {
+    u8 _pad0[0x24];
+    void (*unk24)(void);
+} Vt0801238C;
+
+typedef struct H0801238C {
+    Vt0801238C *unk0;
+} H0801238C;
+
+typedef struct M0801238C {
+    u8 _pad0[0xA8];
+    H0801238C *unkA8;
+} M0801238C;
+
+typedef struct G0801238C {
+    u8 _pad0[4];
+    M0801238C *unk4;
+} G0801238C;
+
+void func_0801238C(G0801238C *arg0) {
+    register Vt0801238C *vt __asm__("r4");
+    register void (*fn)(void) __asm__("r4");
+
+    vt = arg0->unk4->unkA8->unk0;
+    fn = vt->unk24;
+    fn();
+}

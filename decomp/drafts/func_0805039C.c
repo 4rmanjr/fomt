@@ -1,3 +1,4 @@
+// DECOMP-MATCHED func_0805039C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 s32 func_08009940(void *, void *);                    /* extern */
 s32 func_0804F0E0(void *);                            /* extern */
 
@@ -8,27 +9,27 @@ typedef struct GenObj {
     u8 unkC;
 } GenObj;
 void func_0805039C(GenObj *arg0) {
-    u8 *temp_r6;
-    s32 temp_r5;
+    register u8 *temp_r5 asm("r5");
+    register s32 temp_r6 asm("r6");
+    s32 t;
 
-    temp_r5 = arg0->unk8;
-    temp_r6 = (u8 *)arg0 + 0x20;
-    if (temp_r5 == 0) {
+    temp_r6 = arg0->unk8;
+    if (temp_r6 == 0) {
         func_0804F0E0((u8 *)arg0 + 0xD0);
-        if (arg0->unk4 != 1) {
-            func_08009940(temp_r6, (u8 *)arg0 + (0x98 << 1));
+        t = arg0->unk4;
+        temp_r5 = (u8 *)arg0 + 0x20;
+        if (t != 1) {
+            func_08009940(temp_r5, (u8 *)arg0 + (0x98 << 1));
         }
-        func_08009940(temp_r6, (u8 *)arg0 + (0xA4 << 1));
-        arg0->unkC = temp_r5;
+        func_08009940(temp_r5, (u8 *)arg0 + (0xA4 << 1));
+        arg0->unkC = temp_r6;
     }
-    temp_r5 = arg0->unk8;
-    if (temp_r5 >= 0) {
-        if (temp_r5 <= 2) {
-            arg0->unk8 = 1;
+    {
+        s32 t2 = arg0->unk8;
+        if (t2 >= 0) {
+            if (t2 <= 2) {
+                arg0->unk8 = 1;
+            }
         }
     }
 }
-
-/* ATTEMPT-NOTE opencode: unkC u8; offset via shift; byte-arith; if bersarang utk blt/bgt. */
-
-/* ATTEMPT-NOTE opencode: unkC u8 + shift-offset + byte-arith; sisa alokasi unk8/temp (r5/r6 vs r6/r5); urutan hitung/tipe dicoba. */

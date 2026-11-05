@@ -606,9 +606,9 @@
   "judged_mtime": 1793017763.0627441,
   "module": "code_actor_0809BFE8.s",
   "note": "byte +0x0: 0x10 vs ref 0x0",
-  "ref_len": 128,
+  "ref_len": 127,
   "sanitize_v": 4,
-  "size": 1440,
+  "size": 1441,
   "status": "failed",
   "thumb": true
  },

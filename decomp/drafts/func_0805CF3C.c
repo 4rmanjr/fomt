@@ -1,17 +1,20 @@
+// DECOMP-MATCHED func_0805CF3C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 s32 func_080588AC(void ***, s32);                     /* extern */
 
+typedef struct Vtbl5CF3C { u8 _pad0[8]; void (*unk8)(void *, s32); } Vtbl5CF3C;
 typedef struct GenObj {
     u8 _pad0[4];
     s32 unk4;
     s32 unk8;
 } GenObj;
+typedef struct Obj5CF3C { Vtbl5CF3C *unk0; } Obj5CF3C;
 s32 *func_0805CF3C(s32 *arg0, GenObj *arg1) {
-    void **sp0;
+    Obj5CF3C *sp0;
     s32 temp_r1;
 
-    func_080588AC(&sp0, arg1->unk4);
+    func_080588AC((void ***)&sp0, arg1->unk4);
     if (sp0 != 0) {
-        (*sp0)->unk8(sp0, 3);
+        ((void (*)(void *,...))(sp0->unk0->unk8))(sp0, 3);
     }
     temp_r1 = arg1->unk8;
     arg1->unk8 = 0;

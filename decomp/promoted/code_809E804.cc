@@ -2827,3 +2827,121 @@ void func_080D05DC(void) {
     sp0.tail = 0;
     func_080D0BA8((s32 *)&sp0);
 }
+
+// DECOMP-MATCHED func_080D0AE0 (dari code_809E804.s; cek manusia sebelum ke src/)
+void func_080D0AE0(void) {
+    register volatile u16 *reg208 __asm__("r4");
+    volatile u16 *reg200;
+    u32 ime;
+
+    reg208 = (volatile u16 *)0x04000208;
+    ime = *reg208;
+    *reg208 = 0;
+    reg200 = (volatile u16 *)0x04000200;
+    *reg200 &= 0xFF7F;
+    *(volatile u16 *)0x04000202 = 0x80;
+    *reg208 = ime;
+}
+
+// DECOMP-MATCHED func_080D0A94 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080D0A54();                                  /* extern */
+extern s32 *gUnk_03000420;
+
+void func_080D0A94(s32 arg0) {
+    register s32 **gp __asm__("r5");
+    register u32 off __asm__("r4");
+    register s32 *t1 __asm__("r1");
+    register u32 v __asm__("r2");
+    s32 *t2;
+
+    gp = &gUnk_03000420;
+    t1 = *gp;
+    off = 0x17C;
+    __asm__ volatile("" : "+r"(off));
+    t1 = (s32 *)((u8 *)t1 + off);
+    v = 1;
+    *t1 = (s32) v;
+    func_080D0A54();
+    t2 = (s32 *)((u8 *)*gp + off);
+    *t2 = 0;
+}
+
+
+// DECOMP-MATCHED func_080D0A14 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern i32 *gUnk_0300041C;
+extern i32 *gUnk_03000420;
+
+void func_080D0A14(void) {
+    register s32 *ctr __asm__("r2");
+    volatile u32 *dst;
+    volatile u16 *h;
+    s32 *g;
+
+    ctr = *(s32 **)&gUnk_0300041C;
+    if (*ctr == 1) {
+        if ((u32) ctr[1] <= 2U) {
+            (void) *(volatile u32 *)0x04000150;
+            dst = (volatile u32 *)0x04000154;
+            g = *(s32 **)&gUnk_03000420;
+            *dst = g[1];
+            __asm__ volatile("" : "+r"(dst));
+            dst = (volatile u32 *)((u8 *)dst + 4);
+            *(volatile u16 *)dst = 0x20;
+            ctr[1] = ctr[1] + 1;
+        }
+    }
+}
+
+// DECOMP-MATCHED func_080D0B14 (dari code_809E804.s; cek manusia sebelum ke src/)
+void func_080D0B14(s32 arg0, s32 arg1) {
+    register u16 saved __asm__("r4");
+    register volatile u32 *dst __asm__("r1");
+    volatile u16 *reg208;
+    volatile u16 *h134;
+    volatile u16 *ha;
+    volatile u16 *hb;
+    register volatile u16 *hr __asm__("r0");
+    register u32 val __asm__("r0");
+    register u16 temp __asm__("r1");
+    register u32 c8 __asm__("r2");
+
+    reg208 = (volatile u16 *)0x04000208;
+    temp = *reg208;
+    __asm__ volatile("" : "+r"(temp));
+    saved = temp;
+    *reg208 = 0;
+    if (arg0 != 0) {
+        h134 = (volatile u16 *)0x04000134;
+        c8 = 0x80;
+        __asm__ volatile("" : "+r"(c8));
+        c8 = c8 << 8;
+        __asm__ volatile("" : "+r"(c8));
+        val = c8;
+        *h134 = (u16) val;
+    }
+    h134 = (volatile u16 *)0x04000134;
+    c8 = 0xC0;
+    __asm__ volatile("" : "+r"(c8));
+    c8 = c8 << 8;
+    __asm__ volatile("" : "+r"(c8));
+    val = c8;
+    *h134 = (u16) val;
+    if (arg1 == 0) {
+        ha = (volatile u16 *)0x04000158;
+        *ha = arg1;
+    } else {
+        hb = (volatile u16 *)0x04000158;
+        *hb = 0x30;
+    }
+    (void) *(volatile u32 *)0x04000150;
+    dst = (volatile u32 *)0x04000154;
+    *dst = 0;
+    __asm__ volatile("" : "+r"(dst));
+    dst = (volatile u32 *)((u8 *)dst - 0x14);
+    *(volatile u16 *)dst = 0x47;
+    __asm__ volatile("" : "+r"(dst));
+    dst = (volatile u32 *)((u8 *)dst + 0xC2);
+    *(volatile u16 *)dst = 0x80;
+    hr = (volatile u16 *)0x04000208;
+    *hr = saved;
+}
