@@ -26,8 +26,11 @@ Catatan:
 
 - `arm-gnu` penuh berukuran ~1 GB; yang disalin hanya dua binary yang dipakai
   judge (`as` dan `cpp`).
-- `agbcp` (C++) **tidak** ada di toolchain agbcc ini. Build penuh
-  (`make compare`) masih butuh `agbcp` + `baserom.gba`.
+- `agbcp` (C++) di-install via `tools/install_agbcp.sh` (cloning
+  notyourav/agbcc branch `cp`). Binary-nya x86-64, dijalankan via wrapper
+  qemu di proot — lihat INSTALL.md bagian proot. Build penuh
+  (`make compare`) butuh `agbcp` + `baserom.gba`; di proot sudah
+  terverifikasi HIJAU (SHA1 cocok).
 - Path bisa di-override lewat env: `FOMT_AGBCC`, `FOMT_AGBCC_INCLUDE`,
   `FOMT_AS`, `FOMT_CPP`, `FOMT_M2C`, `FOMT_DECOMPNET`.
 

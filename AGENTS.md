@@ -9,17 +9,14 @@ Mineral Town, decomp GBA).
    langsung dan jangan pakai `decomp/workflow.py` (legacy).
 2. **Jangan menimpa hasil MATCH.** `matched`/`promoted` tidak pernah diulang
    otomatis; jangan mengubah draf/berkas promoted-nya tanpa alasan.
-3. **Autopush sudah otomatis.** Setiap batch dengan MATCH di-commit dan
-   di-push SEKALI di akhir batch oleh `run.py` (`decomp/run.py:autopush`).
-   Tidak perlu commit/push manual setelah decomp; jangan lakukan `git add -A`
-   sembarangan untuk hal lain.
-   - Hanya jalan bila ada MATCH (batch DIFF semua tidak di-push).
-   - Yang di-commit: draf MATCH + blok promoted + `progress.json` + log teks
-     (`func.c`/`func.s` sbg audit). Artefak biner judge (`ref.o`/`func.o`/
-     `func.i`/`common.h`) di-ignore, tidak ikut commit.
-   - Matikan sementara dengan `FOMT_AUTOPUSH=0`.
-   - Kalau push gagal (offline), commit tetap lokal dan run lanjut; push
-     manual nanti.
+3. **Autopush MATI (default).** Commit + push ditangani manual per sesi oleh
+   agent — kumpulkan migrasi/MATCH lalu commit (hanya file milik pekerjaan)
+   dan push di akhir sesi. Jangan `git add -A` sembarangan.
+   - Aktifkan kembali sementara dengan `FOMT_AUTOPUSH=1`
+     (`run.py:autopush` utk batch MATCH, `migrate.py:autopush_migrate`
+     utk migrasi src).
+   - Yang layak commit per sesi: draf MATCH + blok promoted + shard state
+     `modules/`, file src hasil migrasi; artefak biner judge di-ignore.
 4. **Jangan force-push** ke `main`.
 5. **Multi-agent:** pakai `--agent <nama>` yang unik per sesi. Jangan pakai
    nama sama di dua sesi yang jalan bersamaan.
@@ -185,8 +182,12 @@ tipe dari blok fungsi lain.
 ## Batasan build
 
 - Semua tool decomp di-vendor di `tools/` (lihat `tools/VENDORED.md`).
-- `make compare` belum bisa penuh: `agbcp` (C++) belum ada, `baserom.gba`
-  tidak disertakan (copyright), dan binutils beberapa masih dari sistem.
+- `make compare` HIJAU di proot-distro juga (lihat INSTALL.md bagian
+  proot): `agbcp` sudah ter-install via `tools/install_agbcp.sh` dan semua
+  binary x86-64 di `tools/agbcc/bin/` dibungkus wrapper qemu
+  (`<nama>.x86` + script). Jangan mem-passing `CC1`/`OLD_CC1` di command
+  line make — itu menimpa override `OLD_CC1` untuk `src/m4a.o` dan bikin
+  compare merah +24B.
 - Jangan mengklaim build ROM berhasil tanpa menjalankan `make compare` dan
   melihat SHA1 cocok.
 

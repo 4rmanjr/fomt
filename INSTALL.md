@@ -102,25 +102,60 @@ fomt status
 
 Known limits on Termux (same as elsewhere, plus one):
 
-- `make compare` still needs `agbcp` + `baserom.gba` (copyrighted, not
-  vendored) — unchanged from other platforms.
+- `make compare` butuh `agbcp` (install via `tools/install_agbcp.sh`, lalu
+  bungkus dengan wrapper qemu — lihat bagian di bawah) + `baserom.gba`
+  (copyrighted, tidak di-vendor) — berlaku di semua platform.
 - everything runs under CPU emulation, so a batch is slower than on x86.
 
-### Migrasi di proot-distro (tanpa compare hijau)
+### Status `make compare` di proot-distro: HIJAU ✅
 
-`make compare` merah di proot bukan salah kodemu: `src/m4a.c` 24B lebih
-besar dari aslinya sehingga semua alamat sesudah `0x080D3778` bergeser +24.
-Untuk modul pre-m4a (`interrupt.s`, `main.s`, `sram_proxy_*.s`) validasi
-penggantinya adalah **zero-diff**: ROM hasil build harus byte-identik
-dengan sebelum migrasi (judge MATCH sudah membuktikan C == asm).
+Dengan setup di atas (wrapper qemu), `make compare` berjalan penuh dan
+SHA1-nya cocok. Syarat:
+
+- `agbcp` harus ter-install dulu: `bash tools/install_agbcp.sh` — lalu
+  bungkus binary-nya dengan wrapper yang sama (lihat bawah). Sumber m4a
+  di-cloning menimpa `agbcc`/`old_agbcc` dengan build yang rusak di ARM;
+  pulihkan dengan `git checkout -- tools/agbcc/bin/agbcc
+  tools/agbcc/bin/old_agbcc` sebelum membungkusnya.
+- **Jangan pernah mem-passing `CC1`/`OLD_CC1` di command line make**
+  (mis. `make CC1=...`). Argumen command-line menimpa *target-specific
+  override* Makefile `$(BUILD_DIR)/src/m4a.o: CC1 := $(OLD_CC1)`, sehingga
+  `src/m4a.c` terkompilasi dengan `agbcc` baru (+24 byte) alih-alih
+  `old_agbcc` (byte-identik) — ini penyebab `make compare` merah +24B yang
+  dulu disalahkan pada proot. `CPP` boleh di-passing di command line
+  (tidak pernah di-override per-target), mis. `CPP=~/bin/clang-cpp-arm`.
+
+Lapisan wrapper: binary vendor x86-64 di `tools/agbcc/bin/` dipasang
+sebagai `<nama>.x86`, dan nama aslinya jadi script shell yang menjalankan
+`qemu-x86_64 -L $HOME/x86sys/root` — sehingga semua target-specific
+override Makefile bekerja alami tanpa argumen command-line:
 
 ```bash
-python3 tools/migrate_proot.py --module interrupt.s --dry-run  # lihat kandidat
-python3 tools/migrate_proot.py --module interrupt.s            # eksekusi, tail-first
+cd tools/agbcc/bin
+for t in agbcc old_agbcc agbcc_arm agbcp agbcp_arm; do
+    [ -f "$t.x86" ] || mv "$t" "$t.x86"
+    cat > "$t" <<EOF
+#!/bin/sh
+unset LD_PRELOAD
+exec qemu-x86_64 -L "\$HOME/x86sys/root" "\$(dirname "\$0")/$t.x86" "\$@"
+EOF
+    chmod +x "$t"
+done
 ```
 
-Gate per fungsi: ukuran tetap + nol byte berubah, kalau tidak otomatis
-revert (bawaan `migrate.py`). Modul pasca-m4a tetap butuh PC x86.
+Wrapper `~/x86sys/wrap/*` (untuk `FOMT_AGBCC` dsb. di shim `fomt`) harus
+menunjuk ke binary `.x86` langsung, bukan ke script wrapper di
+`tools/agbcc/bin/` (qemu tidak bisa mengeksekusi script).
+
+Validasi: `make compare` → `fomt.gba: OK` (SHA1 cocok), dan
+`fomt verify` → 977/977 MATCH, `promoted != draft: 0`, exit 0.
+
+### Migrasi di proot-distro (riwayat — sudah tidak perlu)
+
+Sebelum wrapper di atas ada, `src/m4a.c` kompilasi +24B dan modul
+pre-m4a (`interrupt.s`, `main.s`, `sram_proxy_*.s`) divalidasi
+zero-diff via `tools/migrate_proot.py`. Dengan `make compare` hijau,
+alur ini usang; scriptnya tetap ada untuk konteks.
 
 ## Old instructions
 
