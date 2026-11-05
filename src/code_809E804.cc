@@ -2403,6 +2403,24 @@ void func_080ADC84(i32 *arg0, i32 arg1) {
 }
 }
 
+// DECOMP-MATCHED func_080ADD20 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0805E6CC(i32 **, i32 *);                         /* extern */
+extern i32 gUnk_0852D984;
+extern i32 vtable_unk_080E5A28;
+
+__attribute__((section(".text.code_809E804.080ADD20")))
+u16 func_080ADD20(void) {
+    u8 sp0[0x30];
+    u16 v;
+
+    func_0805E6CC((i32 **)sp0, &gUnk_0852D984);
+    v = *(u16 *)(sp0 + 0x20);
+    *(i32 *)sp0 = (i32)&vtable_unk_080E5A28;
+    return v;
+}
+}
+
 // DECOMP-MATCHED func_080ADD44 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 
