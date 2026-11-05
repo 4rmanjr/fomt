@@ -1043,6 +1043,60 @@ typedef struct GenObj08016C10 {
 } GenObj08016C10;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Vt080142B8 {
+    u8 _pad0[0x118];
+    void (*unk0x118)(void);
+} Vt080142B8;
+typedef struct H080142B8 {
+    Vt080142B8 *unk0;
+} H080142B8;
+typedef struct M080142B8 {
+    u8 _pad0[0xA8];
+    H080142B8 *unkA8;
+} M080142B8;
+typedef struct GenObj080142B8 {
+    u8 _pad0[4];
+    M080142B8 *unk4;
+} GenObj080142B8;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Vt08016BC0 {
+    u8 _pad0[0x110];
+    void (*unk0x110)(void);
+} Vt08016BC0;
+typedef struct H08016BC0 {
+    Vt08016BC0 *unk0;
+} H08016BC0;
+typedef struct M08016BC0 {
+    u8 _pad0[0xA8];
+    H08016BC0 *unkA8;
+} M08016BC0;
+typedef struct GenObj08016BC0 {
+    u8 _pad0[4];
+    M08016BC0 *unk4;
+} GenObj08016BC0;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Vt08016EF0 {
+    u8 _pad0[0x164];
+    void (*unk0x164)(void);
+} Vt08016EF0;
+typedef struct H08016EF0 {
+    Vt08016EF0 *unk0;
+} H08016EF0;
+typedef struct M08016EF0 {
+    u8 _pad0[0xA8];
+    H08016EF0 *unkA8;
+} M08016EF0;
+typedef struct GenObj08016EF0 {
+    u8 _pad0[4];
+    M08016EF0 *unk4;
+} GenObj08016EF0;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -1881,6 +1935,25 @@ void func_08014290(GenObj__func_08014290 *arg0, i32 arg1) {
 /* ATTEMPT-NOTE manual: fnA(o,arg1)->R; fnB(R,0). */
 }
 
+// DECOMP-MATCHED func_080142B8 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.game_state.080142B8")))
+void func_080142B8(GenObj080142B8 *arg0) {
+    register Vt080142B8 *vt __asm__("r2");
+    register u32 off __asm__("r3");
+    register void (*fn)(void) __asm__("r2");
+    H080142B8 *h;
+
+    h = *(H080142B8 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x118;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+}
+
 // DECOMP-MATCHED func_080142D4 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -2050,6 +2123,25 @@ void func_08016BA4(GenObj08016BA4 *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_08016BC0 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.game_state.08016BC0")))
+void func_08016BC0(GenObj08016BC0 *arg0) {
+    register Vt08016BC0 *vt __asm__("r2");
+    register u32 off __asm__("r3");
+    register void (*fn)(void) __asm__("r2");
+    H08016BC0 *h;
+
+    h = *(H08016BC0 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x110;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
+}
+
 // DECOMP-MATCHED func_08016BDC (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -2082,7 +2174,6 @@ void func_08016BF4(GenObj08016BF4 *arg0) {
 
 // DECOMP-MATCHED func_08016C10 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
-
 
 __attribute__((section(".text.game_state.08016C10")))
 void func_08016C10(GenObj08016C10 *arg0) {
@@ -2218,6 +2309,26 @@ void func_08016E9C(GenObj__func_08016E9C *arg0) {
     x = ((GenObj__func_08016E9C *(*)(GenObj__func_08016E9C *, i32))(m->unk40))(t, 0);
     ((void (*)(GenObj__func_08016E9C *))(x->unk14->unk70))(x);
     temp_r4->unk9C = 0x19;
+}
+}
+
+// DECOMP-MATCHED func_08016EF0 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.game_state.08016EF0")))
+void func_08016EF0(GenObj08016EF0 *arg0) {
+    register Vt08016EF0 *vt __asm__("r2");
+    register u32 off __asm__("r3");
+    register void (*fn)(void) __asm__("r2");
+    H08016EF0 *h;
+
+    h = *(H08016EF0 **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = 0x164;
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
 }
 }
 
