@@ -3218,8 +3218,9 @@ def autopush_migrate(moved):
 
     Satu commit per pemanggilan, hanya stage file milik migrasi ini
     (src saja utk split; src/asm/lds utk legacy) — bukan draf worker atau
-    artefak lain. FOMT_AUTOPUSH=0 mematikan."""
-    if not moved or os.environ.get("FOMT_AUTOPUSH", "1") == "0":
+    artefak lain. Default MATI; commit + push ditangani manual per sesi.
+    Set FOMT_AUTOPUSH=1 untuk mengaktifkan lagi."""
+    if not moved or os.environ.get("FOMT_AUTOPUSH", "0") != "1":
         return False
     lock = REPO / "decomp" / "state" / "git.lock"
     lock.parent.mkdir(parents=True, exist_ok=True)

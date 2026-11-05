@@ -1713,14 +1713,15 @@ def autopush(names: str | list[str]) -> bool:
     Hanya stage file esensial: draf MATCH, blok promoted, shard state
     modules/ + index.json. Artefak judge (ref.o/func.o/func.i/common.h) di-ignore via .gitignore
     dan TIDAK ikut commit. Log teks (func.c/func.s) tetap ikut sbg audit.
-    FOMT_AUTOPUSH=0 mematikan (master switch). Selain itu, pemanggil batch
+    FOMT_AUTOPUSH=1 mengaktifkan (default MATI: commit + push ditangani
+    manual per sesi). Selain itu, pemanggil batch
     menggate via FOMT_AUTOPUSH_PROMOTE (default mati: hanya migrasi yang push).
     Gagal push tidak menggagalkan run: commit tetap
     ada di lokal dan pesan peringatan dicetak.
     """
     if isinstance(names, str):
         names = [names]
-    if os.environ.get("FOMT_AUTOPUSH", "1") == "0":
+    if os.environ.get("FOMT_AUTOPUSH", "0") != "1":
         return False
     GIT_LOCK.parent.mkdir(parents=True, exist_ok=True)
     with GIT_LOCK.open("a+") as fh:
