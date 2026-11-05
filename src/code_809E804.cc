@@ -2809,6 +2809,32 @@ i32 func_080D06D0(void) {
 }
 }
 
+// DECOMP-MATCHED func_080D0A94 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080D0A54();                                  /* extern */
+extern i32 *gUnk_03000420;
+
+__attribute__((section(".text.code_809E804.080D0A94")))
+void func_080D0A94(i32 arg0) {
+    register i32 **gp __asm__("r5");
+    register u32 off __asm__("r4");
+    register i32 *t1 __asm__("r1");
+    register u32 v __asm__("r2");
+    i32 *t2;
+
+    gp = &gUnk_03000420;
+    t1 = *gp;
+    off = 0x17C;
+    __asm__ volatile("" : "+r"(off));
+    t1 = (i32 *)((u8 *)t1 + off);
+    v = 1;
+    *t1 = (i32) v;
+    func_080D0A54();
+    t2 = (i32 *)((u8 *)*gp + off);
+    *t2 = 0;
+}
+}
+
 // DECOMP-MATCHED func_080D0ABC (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.080D0ABC")))
@@ -2839,7 +2865,6 @@ void func_080D0AE0(void) {
     *reg208 = ime;
 }
 }
-
 
 // DECOMP-MATCHED func_080D1548 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -3117,8 +3142,7 @@ i32 func_080D100C(i32 arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_080D06A8 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080D0A94(i32);                               /* extern */
-
+void func_080D0A94(i32 arg0);                             /* extern */
 __attribute__((section(".text.code_809E804.080D06A8")))
 void func_080D06A8(void) {
     func_080D0A94(0xB);
