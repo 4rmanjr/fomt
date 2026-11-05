@@ -1,10 +1,13 @@
 s32 func_08023804(u32 arg0) {
-    switch (arg0) {                                 /* irregular */
-    case 1:
+    if (arg0 == 1) {
         return 0xB;
-    case 2:
-        return 0xC;
-    default:
-        return 9;
     }
+    if (arg0 != 0) {
+        if (arg0 != 2) {
+            goto def;
+        }
+        return 0xC;
+    }
+def:
+    return 9;
 }

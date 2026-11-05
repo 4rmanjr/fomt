@@ -591,13 +591,13 @@
  },
  "func_080122A0": {
   "addr": 134292128,
-  "judged_mtime": 1793582714.0394168,
+  "judged_mtime": 1793881164.831159,
   "module": "game_state.s",
-  "note": ".c: In function `func_080122A0':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080122A0/opencode/func.c:11: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080122A0/opencode/func.c:11: request for member `unkA8' in something not a structure or union\n",
+  "note": "len 26 vs ref 28 [1missing,2operand,1regalloc @< ldr r0, [r0] | ]",
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 286,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_080122BC": {
@@ -1762,13 +1762,13 @@
  },
  "func_08014D5C": {
   "addr": 134303068,
-  "judged_mtime": 1793582714.049415,
+  "judged_mtime": 1793880559.1271594,
   "module": "game_state.s",
-  "note": "mething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08014D5C/opencode/func.c:12: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08014D5C/opencode/func.c:12: request for member `unk40' in something not a structure or union\n",
+  "note": "len 36 vs ref 30 [3extra,4operand,4regalloc,1different @i push {lr} | push {r4, lr}]",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 319,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_08014D7C": {
@@ -1874,24 +1874,24 @@
  },
  "func_08015950": {
   "addr": 134306128,
-  "judged_mtime": 1793582714.051415,
+  "judged_mtime": 1793880503.8991594,
   "module": "game_state.s",
-  "note": "mething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08015950/opencode/func.c:12: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08015950/opencode/func.c:12: request for member `unk40' in something not a structure or union\n",
+  "note": "len 38 vs ref 32 [3extra,4operand,5regalloc,1different @i push {lr} | push {r4, lr}]",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 315,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_08015970": {
   "addr": 134306160,
-  "judged_mtime": 1793582714.051415,
+  "judged_mtime": 1793880468.6271594,
   "module": "game_state.s",
-  "note": "mething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08015970/opencode/func.c:12: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08015970/opencode/func.c:12: request for member `unk40' in something not a structure or union\n",
+  "note": "len 36 vs ref 32 [1missing,3extra,3operand,7regalloc @i push {lr} | push {r4, lr}]",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 315,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_08015990": {
@@ -1902,7 +1902,7 @@
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 315,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_080159B0": {
@@ -1947,7 +1947,7 @@
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 315,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_080167CC": {
@@ -2348,13 +2348,13 @@
  },
  "func_08017C00": {
   "addr": 134315008,
-  "judged_mtime": 1793582714.0574138,
+  "judged_mtime": 1793881447.047159,
   "module": "game_state.s",
-  "note": "1: invalid type argument of `->'\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08017C00/opencode/func.c:11: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08017C00/opencode/func.c:11: request for member `unk24' in something not a structure or union\n",
+  "note": "len 42 vs ref 46 [2missing,4operand,2regalloc @i ldr r2, [pc, #0x1c] | ldr r2, [pc, #0x18]]",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 496,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_08017C30": {
@@ -2608,13 +2608,14 @@
  },
  "func_0801D9A8": {
   "addr": 134338984,
-  "judged_mtime": 1793582714.0604134,
+  "judged_mtime": 1793881030.8231592,
   "module": "game_state.s",
-  "note": "byte +0x3: 0x49 vs ref 0x4b [1extra,2regalloc @r ldr r3, [pc, #0xc] | ldr r1, [pc, #0xc]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 412,
   "sanitize_v": 4,
   "size": 2840,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801DB44": {

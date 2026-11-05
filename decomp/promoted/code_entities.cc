@@ -594,3 +594,38 @@ __attribute__((naked)) void sub_08031E0A(void) {
     ".syntax divided\n"
     );
 }
+
+// DECOMP-MATCHED func_08022334 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_08022334(s32 arg0) {
+    if (arg0 == 0) {
+        return 0xE;
+    }
+    if (arg0 == 1) {
+        return 0xF;
+    }
+    return 0xE;
+}
+
+// DECOMP-MATCHED func_08023400 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_08023400(s32 arg0, s32 arg1) {
+    if (arg1 == 1) {
+        return 0x8000;
+    }
+    return 0;
+}
+
+// DECOMP-MATCHED func_080240BC (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080240BC(s32 arg0, s32 arg1) {
+    if (arg1 == 1) {
+        return 0x8000;
+    }
+    return 0;
+}
+
+// DECOMP-MATCHED func_080229A4 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080229A4(s32 arg0, s32 arg1) {
+    if (arg1 == 1) {
+        return 0x8000;
+    }
+    return 0;
+}

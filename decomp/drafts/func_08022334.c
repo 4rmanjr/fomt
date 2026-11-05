@@ -1,9 +1,9 @@
 s32 func_08022334(s32 arg0) {
-    switch (arg0) {                                 /* irregular */
-    case 0:
-    default:
+    if (arg0 == 0) {
         return 0xE;
-    case 1:
+    }
+    if (arg0 == 1) {
         return 0xF;
     }
+    return 0xE;
 }

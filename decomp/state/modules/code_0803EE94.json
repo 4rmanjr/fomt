@@ -1014,13 +1014,13 @@
  },
  "func_08050E98": {
   "addr": 134549144,
-  "judged_mtime": 1793582714.1154046,
+  "judged_mtime": 1793844164.5907722,
   "module": "code_0803EE94.s",
   "note": "len 26 vs ref 36 [7missing,2extra,5regalloc,1different @< push {r4, lr} | ]",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 326,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_08050EBC": {
@@ -1500,13 +1500,13 @@
  },
  "func_0805A6E4": {
   "addr": 134588132,
-  "judged_mtime": 1793582714.1194038,
+  "judged_mtime": 1793880179.1151595,
   "module": "code_0803EE94.s",
-  "note": ":10: `unksp0' undeclared (first use in this function)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0805A6E4/opencode/func.c:10: (Each undeclared identifier is reported only once\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0805A6E4/opencode/func.c:10: for each function it appears in.)\n",
+  "note": "byte +0x2: 0x4f vs ref 0x13 [15missing,16extra,5operand,11regalloc,4different @>  | push {r4, r5, r6, r7, lr}]",
   "ref_len": 96,
   "sanitize_v": 4,
   "size": 919,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_0805A744": {
@@ -1711,13 +1711,13 @@
  },
  "func_0805DF68": {
   "addr": 134602600,
-  "judged_mtime": 1793582714.1224034,
+  "judged_mtime": 1793844164.6547723,
   "module": "code_0803EE94.s",
-  "note": "/judge_func_0805DF68/opencode/func.c:8: incompatible types in assignment\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0805DF68/opencode/func.c:9: incompatible types in assignment\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0805DF68/opencode/func.c:10: incompatible types in assignment\n",
+  "note": "/fomt/decomp/logs/judge_func_0805DF68/alexams/func.c:8: incompatible types in assignment\n/root/gitproject/fomt/decomp/logs/judge_func_0805DF68/alexams/func.c:9: incompatible types in assignment\n/root/gitproject/fomt/decomp/logs/judge_func_0805DF68/alexams/func.c:10: incompatible types in assignment\n",
   "ref_len": 92,
   "sanitize_v": 4,
   "size": 792,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_0805DFC4": {
@@ -2867,13 +2867,13 @@
  },
  "func_08075DEC": {
   "addr": 134700524,
-  "judged_mtime": 1793582714.1344016,
+  "judged_mtime": 1793844164.762772,
   "module": "code_0803EE94.s",
   "note": "byte +0x3: 0x49 vs ref 0x4a [3extra,2regalloc @r ldr r2, [pc, #0xc] | ldr r1, [pc, #0xc]]",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 466,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_08075E24": {
@@ -3447,14 +3447,14 @@
  },
  "func_0807D1DC": {
   "addr": 134730204,
-  "judged_mtime": 1793582714.1414003,
+  "judged_mtime": 1793881860.7071588,
   "module": "code_0803EE94.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0807D1DC/opencode/func.c: In function `func_0807D1DC':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0807D1DC/opencode/func.c:10: invalid type argument of `->'\n",
+  "note": "byte +0xa: 0x60 vs ref 0x9 [3extra,1operand,6regalloc @r adds r1, r1, r4 | adds r0, r4, r1]",
   "ref_len": 60,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 483,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_0807D218": {
@@ -5186,24 +5186,24 @@
  },
  "func_080913B0": {
   "addr": 134812592,
-  "judged_mtime": 1793582714.1553981,
+  "judged_mtime": 1793844164.9907722,
   "module": "code_0803EE94.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080913B0/opencode/func.c: In function `func_080913B0':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080913B0/opencode/func.c:8: too few arguments to function `GetId__C4Tool'\n",
+  "note": "/root/gitproject/fomt/decomp/logs/judge_func_080913B0/alexams/func.c: In function `func_080913B0':\n/root/gitproject/fomt/decomp/logs/judge_func_080913B0/alexams/func.c:8: too few arguments to function `GetId__C4Tool'\n",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 350,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_080913DC": {
   "addr": 134812636,
-  "judged_mtime": 1793582714.156398,
+  "judged_mtime": 1793844164.9907722,
   "module": "code_0803EE94.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080913DC/opencode/func.c: In function `func_080913DC':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080913DC/opencode/func.c:8: too few arguments to function `GetId__C7Article'\n",
+  "note": "/root/gitproject/fomt/decomp/logs/judge_func_080913DC/alexams/func.c: In function `func_080913DC':\n/root/gitproject/fomt/decomp/logs/judge_func_080913DC/alexams/func.c:8: too few arguments to function `GetId__C7Article'\n",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 524,
-  "status": "failed",
+  "status": "drafted",
   "thumb": true
  },
  "func_08091420": {
@@ -6836,7 +6836,7 @@
  },
  "sub_08080440": {
   "addr": 134743104,
-  "judged_mtime": 1793582714.26738,
+  "judged_mtime": 1793844166.2147722,
   "module": "code_0803EE94.s",
   "note": "len 16 vs ref 28 [7missing,1extra,2regalloc @>  | push {lr}]",
   "ref_len": 28,
@@ -6859,7 +6859,7 @@
  },
  "sub_080854D8": {
   "addr": 134763736,
-  "judged_mtime": 1793582714.26738,
+  "judged_mtime": 1793844166.2147722,
   "module": "code_0803EE94.s",
   "note": "len 16 vs ref 28 [7missing,1extra,2regalloc @>  | push {lr}]",
   "ref_len": 28,
