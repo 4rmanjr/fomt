@@ -2822,6 +2822,24 @@ void func_080D0ABC(void) {
     *a = t;
 }
 }
+// DECOMP-MATCHED func_080D0AE0 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080D0AE0")))
+void func_080D0AE0(void) {
+    register volatile u16 *reg208 __asm__("r4");
+    volatile u16 *reg200;
+    u32 ime;
+
+    reg208 = (volatile u16 *)0x04000208;
+    ime = *reg208;
+    *reg208 = 0;
+    reg200 = (volatile u16 *)0x04000200;
+    *reg200 &= 0xFF7F;
+    *(volatile u16 *)0x04000202 = 0x80;
+    *reg208 = ime;
+}
+}
+
 
 // DECOMP-MATCHED func_080D1548 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -3109,7 +3127,7 @@ void func_080D06A8(void) {
 
 // DECOMP-MATCHED func_080D0340 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080D0AE0();                                  /* extern */
+void func_080D0AE0(void);                             /* extern */
 extern i32 *gUnk_03000420;
 
 __attribute__((section(".text.code_809E804.080D0340")))
