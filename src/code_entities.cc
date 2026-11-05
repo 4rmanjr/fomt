@@ -228,6 +228,20 @@ i32 func_08022320(i32 arg0) {
     }
 }
 }
+// DECOMP-MATCHED func_08022334 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.08022334")))
+i32 func_08022334(i32 arg0) {
+    if (arg0 == 0) {
+        return 0xE;
+    }
+    if (arg0 == 1) {
+        return 0xF;
+    }
+    return 0xE;
+}
+}
+
 
 // DECOMP-MATCHED func_08022980 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {

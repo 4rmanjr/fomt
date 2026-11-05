@@ -69,10 +69,25 @@ Mineral Town, decomp GBA).
      `migrate.py`); pakai `grep -n "<pola>"` untuk menemukan bagian.
    - Jangan `cat` ulang file setelah edit — diff dari tool edit sudah
      cukup; baca file hanya untuk konteks yang belum pernah dilihat.
+   - File yang sudah tampil di konteks sesi ini JANGAN dibaca ulang —
+     untuk delta pakai `grep`/`sed -n` baris spesifik saja.
    - Gabungkan perintah independen dalam satu pemanggilan shell
      (`cmd1; cmd2`) agar tidak ada round-trip terpisah.
+   - Edit draf + judge dalam SATU command (wajib): hemat round-trip dan
+     memenuhi syarat mtime resanitize (edit hilang bila batch jalan di
+     antaranya).
    - Untuk diagnosis fungsi: `grep -n` baris error di draf/log dulu;
      buka asm hanya di sekitar offset yang berbeda.
+   - Skrip > heredoc: butuh query/queue/dump lebih dari 1x, tulis ke
+     `tools/scripts/` sekali, pakai ulang — jangan heredoc ad-hoc tiap
+     sesi.
+   - Cap 5 judge per fungsi: di atas itu hampir selalu wall struktural;
+     parkir + regenerasi draf (regenerasi = draf murni m2c agar tak
+     mengantre ulang), catat di log sesi, pindah fungsi.
+   - Transfer verbatim antar-saudara pola sama tanpa re-diagnosis (pin/
+     offset sesuai asm ref masing-masing terbukti MATCH langsung).
+   - Verify parsial dulu: 1 fungsi disentuh cukup `judge` + `make
+     compare`; `verify` penuh hanya di akhir sesi atau bila diminta.
 
 ## Perintah
 
