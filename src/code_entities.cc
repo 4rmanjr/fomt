@@ -106,6 +106,11 @@ typedef struct GenObj__func_0802BEFC {
 } GenObj__func_0802BEFC;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Sub20130 { u8 _pad0[0xE]; u16 unkE; i16 unk10; } Sub20130;
+typedef struct GenObj__func_08020130 { u8 _pad0[0x10]; i32 unk10; } GenObj__func_08020130;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08020060 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -159,6 +164,34 @@ void func_08020080(GenObj__func_08020080 *arg0, i32 arg1) {
 }
 
 /* ATTEMPT-NOTE opencode: unk20 u8 + u8 t switch (bukan if-else): switch polos comparator-chain beq/bgt/beq + push r4,r5 via var i32 + t. */
+}
+
+// DECOMP-MATCHED func_08020130 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0805E894(void *);                          /* extern */
+
+__attribute__((section(".text.code_entities.08020130")))
+i32 func_08020130(GenObj__func_08020130 *arg0) {
+    i32 var_r4;
+    u32 var_r1;
+    Sub20130 *temp_r2;
+    i32 temp_r1_2;
+
+    if (arg0->unk10 != 0) {
+        var_r4 = 0;
+        temp_r2 = (Sub20130 *)(arg0->unk10 + 0x30);
+        var_r1 = 0;
+        if (temp_r2->unkE != 0) {
+            temp_r1_2 = temp_r2->unk10;
+            var_r1 = (u32) ((0 - temp_r1_2) | temp_r1_2) >> 0x1F;
+        }
+        if ((var_r1 == 0) || ((func_0805E894(temp_r2) << 0x18) != 0)) {
+            var_r4 = 1;
+        }
+        return var_r4;
+    }
+    return 1;
+}
 }
 
 // DECOMP-MATCHED func_080202C4 (dari code_entities.s; cek manusia sebelum ke src/)
