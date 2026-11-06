@@ -3010,3 +3010,21 @@ void func_080ABBEC(GenObj *arg0) {
     t->unk8 = -t->unk24;
     func_080AC388((u8 *)t + 0x10, (u8 *)t + 0x1C, 0, 0, (s32)((u8 *)t + 8), 0);
 }
+
+// DECOMP-MATCHED func_080A6420 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_0803A8A4(s32, s32, s32, s32, s32);           /* extern */
+
+s32 func_080A6420(s32 *arg0) {
+    return func_0803A8A4(*arg0, 1, 0, 0, 0);
+}
+
+// DECOMP-MATCHED func_080ADB78 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080A5A9C(s32);                               /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+s32 func_080ADB78(GenObj *arg0) {
+    return func_080A5A9C(arg0->unk4);
+}

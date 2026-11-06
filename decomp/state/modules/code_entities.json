@@ -1434,13 +1434,14 @@
  },
  "func_0802C210": {
   "addr": 134398480,
-  "judged_mtime": 1793844164.1227722,
+  "judged_mtime": 1793937185.2857852,
   "module": "code_entities.s",
-  "note": "byte +0x12: 0x1 vs ref 0x2 [2regalloc @r pop {r1} | pop {r0}]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 204,
   "sanitize_v": 4,
   "size": 1435,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0802C2DC": {

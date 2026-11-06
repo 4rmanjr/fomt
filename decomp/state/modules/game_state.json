@@ -1895,24 +1895,26 @@
  },
  "func_08015970": {
   "addr": 134306160,
-  "judged_mtime": 1793935233.3386643,
+  "judged_mtime": 1793937285.003513,
   "module": "game_state.s",
-  "note": "t a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08015970/lenovo_131914/func.c:12: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08015970/lenovo_131914/func.c:12: request for member `unk40' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 315,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08015990": {
   "addr": 134306192,
-  "judged_mtime": 1793935233.6636426,
+  "judged_mtime": 1793937285.004513,
   "module": "game_state.s",
-  "note": "t a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08015990/lenovo_131914/func.c:12: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08015990/lenovo_131914/func.c:12: request for member `unk40' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 315,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080159B0": {
@@ -1951,13 +1953,14 @@
  },
  "func_080167AC": {
   "addr": 134309804,
-  "judged_mtime": 1793935234.0302064,
+  "judged_mtime": 1793937285.0065129,
   "module": "game_state.s",
-  "note": "t a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080167AC/lenovo_131914/func.c:12: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080167AC/lenovo_131914/func.c:12: request for member `unk40' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 315,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080167CC": {

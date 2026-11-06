@@ -12,9 +12,9 @@
  },
  "Unpack": {
   "addr": 135073836,
-  "judged_mtime": 1793844163.486772,
+  "judged_mtime": 1793582714.007422,
   "module": "code_809E804.s",
-  "note": "on it appears in.)\n/root/gitproject/fomt/decomp/logs/judge_Unpack/localhost_28844/func.c:27: warning: passing arg 1 of `func_080D11A4' makes integer from pointer without a cast\n/root/gitproject/fomt/decomp/logs/judge_Unpack/localhost_28844/func.c:28: `unksp0' undeclared (first use in this function)\n",
+  "note": "ars in.)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_Unpack/lenovo_128755/func.c:27: warning: passing arg 1 of `func_080D11A4' makes integer from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_Unpack/lenovo_128755/func.c:28: `unksp0' undeclared (first use in this function)\n",
   "ref_len": 196,
   "sanitize_v": 4,
   "size": 1617,
@@ -45,7 +45,7 @@
  },
  "free": {
   "addr": 135070304,
-  "judged_mtime": 1793850980.3897421,
+  "judged_mtime": 1793925743.9891815,
   "module": "code_809E804.s",
   "note": "byte +0x16: 0x18 vs ref 0x10 [11regalloc @r ldr r0, [r2] | ldr r0, [r3]]",
   "ref_len": 108,
@@ -1619,13 +1619,14 @@
  },
  "func_080A6420": {
   "addr": 134898720,
-  "judged_mtime": 1793844165.334772,
+  "judged_mtime": 1793937216.5635107,
   "module": "code_809E804.s",
-  "note": "byte +0x16: 0x1 vs ref 0x2 [2regalloc @r pop {r1} | pop {r0}]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 84,
   "sanitize_v": 4,
   "size": 602,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080A6474": {
@@ -2517,13 +2518,14 @@
  },
  "func_080ADB78": {
   "addr": 134929272,
-  "judged_mtime": 1793844165.430772,
+  "judged_mtime": 1793937216.5654647,
   "module": "code_809E804.s",
-  "note": "byte +0x8: 0x1 vs ref 0x2 [2regalloc @r pop {r1} | pop {r0}]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 293,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080ADB9C": {
