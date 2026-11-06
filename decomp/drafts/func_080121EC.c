@@ -12,11 +12,12 @@ typedef struct GenObj {
 } GenObj;
 void func_080121EC(GenObj *arg0, s32 arg1, s32 arg2) {
     GenObj *t;
+    GenObj *o;
     GenObj *x;
 
     t = arg0->unk4;
-    x = *(GenObj **) ((u8 *) t + 0xA8);
-    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) (*(GenObj **) ((u8 *) t + 0xA8)))->unk40))(x, arg1);
+    o = *(GenObj **) ((u8 *) t + 0xA8);
+    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) o)->unk40))(o, arg1);
     if (x != 0) {
         if (*(u16 *) ((u8 *) x + 0x22) != arg2) {
             SetAnim__12AActorEntityUi((s32) x, arg2);
