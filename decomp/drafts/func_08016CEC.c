@@ -1,27 +1,26 @@
 typedef struct GenObj {
-    u8 _pad0[4];
-    s32 unk4;
-    u8 _pad8[12];
-    struct GenObj *unk14;
-    u8 _pad18[8];
-    s32 unk20;
-    u8 _pad24[4];
-    s32 unk28;
-    u8 _pad2C[124];
+    void *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[0x30];
+    void *unk38;
+    u8 _pad3C[4];
+    void *unk40;
+    u8 _pad44[0x58];
+    s32 unk9C;
+    u8 _padA0[8];
     struct GenObj *unkA8;
 } GenObj;
-void func_08016CEC(GenObj *arg0, s32 arg1) {
-    void **temp_r0;
-    void **temp_r0_2;
-    void *temp_r0_3;
-    GenObj *temp_r4;
 
-    temp_r4 = arg0->unk4;
-    temp_r0 = temp_r4->unkA8;
-    (*temp_r0)->unk38(temp_r0, arg1);
-    temp_r0_2 = temp_r4->unkA8;
-    temp_r0_3 = (*temp_r0_2)->unk40(temp_r0_2, arg1);
-    if ((temp_r0_3 != 0) && ((((void (*)(void *,...))(temp_r0_3->unk14->unk28))(temp_r0_3) << 0x18) == 0)) {
-        ((void (*)(void *,...))(temp_r0_3->unk14->unk20))(temp_r0_3);
+void func_08016CEC(GenObj *arg0, s32 arg1) {
+    GenObj **slot;
+    GenObj *x;
+
+    slot = (GenObj **) ((u8 *) arg0->unk4 + 0xA8);
+    ((s32 (*)(GenObj *, s32)) (((GenObj *) *(void **) *slot)->unk38))(*slot, arg1);
+    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) *slot)->unk40))(*slot, arg1);
+    if (x != 0) {
+        if (((u8) ((s32 (*)(GenObj *)) *(void **) (*(s32 *) ((u8 *) x + 0x14) + 0x28))(x)) == 0) {
+            ((s32 (*)(GenObj *)) *(void **) (*(s32 *) ((u8 *) x + 0x14) + 0x20))(x);
+        }
     }
 }

@@ -1469,6 +1469,19 @@ typedef struct GenObj__func_08016F0C {
 } GenObj__func_08016F0C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08014D30 {
+    void *unk0;
+    struct GenObj__func_08014D30 *unk4;
+    u8 _pad8[0x34];
+    void *unk3C;
+    u8 _pad40[0x4C];
+    void *unk8C;
+    u8 _pad90[0x18];
+    struct GenObj__func_08014D30 *unkA8;
+} GenObj__func_08014D30;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -2671,6 +2684,24 @@ void func_08014C0C(GenObj__func_08014C0C *arg0, i32 arg1, i32 arg2) {
 }
 }
 
+// DECOMP-MATCHED func_08014D30 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 RemoveHorse__4Farm(void *);                       /* extern */
+
+__attribute__((section(".text.game_state.08014D30")))
+void func_08014D30(GenObj__func_08014D30 *arg0, i32 arg1) {
+    GenObj__func_08014D30 *t;
+    GenObj__func_08014D30 *a;
+
+    t = (GenObj__func_08014D30 *)(arg0->unk4);
+    if (arg1 == 0) {
+        a = *(GenObj__func_08014D30 **) ((u8 *) t + 0xA8);
+        ((i32 (*)(GenObj__func_08014D30 *, i32)) (((GenObj__func_08014D30 *) *(void **) a)->unk3C))(a, 0x2C);
+        RemoveHorse__4Farm((u8 *) t->unk8C + 0x14);
+    }
+}
+}
+
 // DECOMP-MATCHED func_08014D5C (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -3122,7 +3153,6 @@ void func_08016EF0(GenObj08016EF0 *arg0) {
 // DECOMP-MATCHED func_08016F0C (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 __attribute__((section(".text.game_state.08016F0C")))
 void func_08016F0C(GenObj__func_08016F0C *arg0, i32 arg1) {
     GenObj__func_08016F0C *t;
@@ -3137,7 +3167,6 @@ void func_08016F0C(GenObj__func_08016F0C *arg0, i32 arg1) {
     ((i32 (*)(GenObj__func_08016F0C *, u8)) *(void **) (*(i32 *) ((u8 *) x + 0x14) + 0x9C))(x, v);
 }
 }
-
 
 // DECOMP-MATCHED func_08016F34 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {

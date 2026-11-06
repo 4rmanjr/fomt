@@ -1,21 +1,23 @@
-s32 RemoveHorse__4Farm(s32);                          /* extern */
+s32 RemoveHorse__4Farm(void *);                       /* extern */
 
 typedef struct GenObj {
-    u8 _pad0[4];
-    s32 unk4;
-    u8 _pad8[132];
-    struct GenObj *unk8C;
-    u8 _pad90[24];
+    void *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[0x34];
+    void *unk3C;
+    u8 _pad40[0x4C];
+    void *unk8C;
+    u8 _pad90[0x18];
     struct GenObj *unkA8;
 } GenObj;
 void func_08014D30(GenObj *arg0, s32 arg1) {
-    void **temp_r0;
-    GenObj *temp_r4;
+    GenObj *t;
+    GenObj *a;
 
-    temp_r4 = arg0->unk4;
+    t = arg0->unk4;
     if (arg1 == 0) {
-        temp_r0 = temp_r4->unkA8;
-        (*temp_r0)->unk3C(temp_r0, 0x2C);
-        RemoveHorse__4Farm(temp_r4->unk8C + 0x14);
+        a = *(GenObj **) ((u8 *) t + 0xA8);
+        ((s32 (*)(GenObj *, s32)) (((GenObj *) *(void **) a)->unk3C))(a, 0x2C);
+        RemoveHorse__4Farm((u8 *) t->unk8C + 0x14);
     }
 }
