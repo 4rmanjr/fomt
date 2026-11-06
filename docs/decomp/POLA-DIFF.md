@@ -186,9 +186,10 @@ kanan-ke-kiri — pecah sesuai urutan store ref.
 - Varian vtable-call yang **nilai balik call-nya dipakai** setelah call
   (`bl; cmp r0; ldr r1,[r0,#N]`): pin tidak pernah menutup residual.
 
-**Verifikasi blok vs draf:** kalau `fomt verify` melaporkan
-`promoted != draft` untuk fungsi yang bloknya sudah **tidak ada** di
-`promoted/` padahal fungsinya sudah di `src/`, itu bukan kerusakan —
+**Verifikasi blok vs draf:** bila `fomt verify` dijalankan (hanya atas
+permintaan) dan melaporkan `promoted != draft` untuk fungsi yang bloknya
+sudah **tidak ada** di `promoted/` padahal fungsinya sudah di `src/`, itu
+bukan kerusakan —
 kebenarannya dipegang `make compare`. Jangan “memperbaiki” dengan
 menambal draf; kalau blok promoted masih ada tapi berbeda, itu baru
 sinyal resync (lihat `MIGRATE.md` §7).

@@ -122,8 +122,9 @@ diedit. Untuk mengulang judge (mis. setelah membetulkan tanda tangan):
 
 Lakukan hanya kalau memang perlu: mengedit **blok promoted** langsung
 (codegen-netral, mis. ganti `s32`→`i32`, ubah padding komentar, samakan
-tanda tangan extern) tidak butuh re-judge — cukup dibuktikan dengan
-`fomt verify --module <stem>` sebelum migrate.
+tanda tangan extern) tidak butuh re-judge — buktinya `make compare` HIJAU
+setelah migrate (opsional: `fomt verify --module <stem>`, hanya bila
+diminta).
 
 ## 7. Status "sudah di src tapi state masih failed"
 
