@@ -651,6 +651,25 @@ typedef struct GenObj__func_0809ED04 {
 } GenObj__func_0809ED04;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080ABBC4 {
+    i32 unk0;
+    i32 unk4;
+    u8 _pad0[0x1c];
+    i32 unk24;
+} GenObj__func_080ABBC4;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080ABBEC {
+    i32 unk0;
+    i32 unk4;
+    i32 unk8;
+    u8 _pad0[0x18];
+    i32 unk24;
+} GenObj__func_080ABBEC;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -2209,6 +2228,29 @@ void func_080ABBA0(GenObj__func_080ABBA0 *arg0) {
 
 /* ATTEMPT-NOTE opencode: 6-arg (r2=t live dari copy awal, r3=0, stack 0,0). */
 }
+// DECOMP-MATCHED func_080ABBC4 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080AC388(void *, void *, void *, i32, i32, i32);
+
+__attribute__((section(".text.code_809E804.080ABBC4")))
+void func_080ABBC4(GenObj__func_080ABBC4 *arg0) {
+    GenObj__func_080ABBC4 *t = arg0;
+    t->unk4 = -t->unk24;
+    func_080AC388((u8 *)t + 0x10, (u8 *)t + 0x1C, 0, (i32)((u8 *)t + 4), 0, 0);
+}
+}
+// DECOMP-MATCHED func_080ABBEC (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080AC388(void *, void *, void *, i32, i32, i32);
+
+__attribute__((section(".text.code_809E804.080ABBEC")))
+void func_080ABBEC(GenObj__func_080ABBEC *arg0) {
+    GenObj__func_080ABBEC *t = arg0;
+    t->unk8 = -t->unk24;
+    func_080AC388((u8 *)t + 0x10, (u8 *)t + 0x1C, 0, 0, (i32)((u8 *)t + 8), 0);
+}
+}
+
 
 // DECOMP-MATCHED func_080AD938 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -2734,6 +2776,25 @@ extern "C" {
 __attribute__((section(".text.code_809E804.080C0D80")))
 i32 func_080C0D80(GenObj__func_080C0D80 *arg0) {
     return arg0->unk4->unk604;
+}
+}
+
+// DECOMP-MATCHED func_080C7B38 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 gUnk_08108268;
+
+__attribute__((section(".text.code_809E804.080C7B38")))
+u16 func_080C7B38(i32 arg0) {
+    u8 *base = (u8 *)&gUnk_08108268;
+    i32 offset1 = 0x8BC;
+    i32 r1;
+    u16 *p1;
+    i32 r2;
+
+    r1 = *(i32 *)(arg0 + offset1);
+    p1 = (u16 *)(base + (r1 * 2));
+    r2 = *(i32 *)(arg0 + 0x980);
+    return (r2 * 0x54) + *p1;
 }
 }
 

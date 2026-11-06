@@ -1,11 +1,14 @@
 extern s32 gUnk_08108268;
 
-typedef struct GenObj {
-    u8 _pad0[2236];
-    s32 unk8BC;
-    u8 _pad8C0[192];
-    s32 unk980;
-} GenObj;
-u16 func_080C7B38(GenObj *arg0) {
-    return (u16) ((arg0->unk980 * 0x54) + *((arg0->unk8BC * 2) + &gUnk_08108268));
+u16 func_080C7B38(s32 arg0) {
+    u8 *base = (u8 *)&gUnk_08108268;
+    s32 offset1 = 0x8BC;
+    s32 r1;
+    u16 *p1;
+    s32 r2;
+
+    r1 = *(s32 *)(arg0 + offset1);
+    p1 = (u16 *)(base + (r1 * 2));
+    r2 = *(s32 *)(arg0 + 0x980);
+    return (r2 * 0x54) + *p1;
 }

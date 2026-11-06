@@ -2961,3 +2961,52 @@ u16 func_080B3990(s32 arg0) {
     r2 = *(s32 *)(arg0 + 0x930);
     return (r2 * 0x54) + *p1;
 }
+
+// DECOMP-MATCHED func_080C7B38 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern s32 gUnk_08108268;
+
+u16 func_080C7B38(s32 arg0) {
+    u8 *base = (u8 *)&gUnk_08108268;
+    s32 offset1 = 0x8BC;
+    s32 r1;
+    u16 *p1;
+    s32 r2;
+
+    r1 = *(s32 *)(arg0 + offset1);
+    p1 = (u16 *)(base + (r1 * 2));
+    r2 = *(s32 *)(arg0 + 0x980);
+    return (r2 * 0x54) + *p1;
+}
+
+// DECOMP-MATCHED func_080ABBC4 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080AC388(void *, void *, void *, s32, s32, s32);
+
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    u8 _pad0[0x1c];
+    s32 unk24;
+} GenObj;
+
+void func_080ABBC4(GenObj *arg0) {
+    GenObj *t = arg0;
+    t->unk4 = -t->unk24;
+    func_080AC388((u8 *)t + 0x10, (u8 *)t + 0x1C, 0, (s32)((u8 *)t + 4), 0, 0);
+}
+
+// DECOMP-MATCHED func_080ABBEC (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080AC388(void *, void *, void *, s32, s32, s32);
+
+typedef struct GenObj {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    u8 _pad0[0x18];
+    s32 unk24;
+} GenObj;
+
+void func_080ABBEC(GenObj *arg0) {
+    GenObj *t = arg0;
+    t->unk8 = -t->unk24;
+    func_080AC388((u8 *)t + 0x10, (u8 *)t + 0x1C, 0, 0, (s32)((u8 *)t + 8), 0);
+}
