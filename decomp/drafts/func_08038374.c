@@ -5,7 +5,7 @@ typedef struct GenObj {
     s32 unk8;
     s32 unkC;
     u8 _pad10[22];
-    s32 unk26;
+    u8 unk26;
 } GenObj;
 void func_08038374(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     arg0->unk26 = 1;

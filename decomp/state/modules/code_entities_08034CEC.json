@@ -1738,13 +1738,14 @@
  },
  "func_08038374": {
   "addr": 134447988,
-  "judged_mtime": 1793582714.094408,
+  "judged_mtime": 1793945444.7339067,
   "module": "code_entities_08034CEC.s",
-  "note": "len 26 vs ref 34 [4missing,3operand,1stack,1different @i push {r4, r5, r6, lr} | push {r4, r5, lr}]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 382,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08038398": {

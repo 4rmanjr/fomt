@@ -727,13 +727,14 @@
  },
  "func_08050C2C": {
   "addr": 134548524,
-  "judged_mtime": 1793582714.113405,
+  "judged_mtime": 1793945276.634515,
   "module": "code_0803EE94.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08050C2C/opencode/func.c: In function `func_08050C2C':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08050C2C/opencode/func.c:10: structure has no member named `unk20'\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 547,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08050C64": {
@@ -5567,9 +5568,9 @@
  },
  "func_08093EEC": {
   "addr": 134823660,
-  "judged_mtime": 1793687133.668225,
+  "judged_mtime": 1793945420.4680293,
   "module": "code_0803EE94.s",
-  "note": "`var_r1' used prior to declaration\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08093EEC/hermes6/func.c:22: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08093EEC/hermes6/func.c:22: request for member `unk20' in something not a structure or union\n",
+  "note": "d prior to declaration\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08093EEC/lenovo_192831/func.c:22: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08093EEC/lenovo_192831/func.c:22: request for member `unk20' in something not a structure or union\n",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 476,
@@ -5779,9 +5780,9 @@
  },
  "func_08094388": {
   "addr": 134824840,
-  "judged_mtime": 1793686233.3364365,
+  "judged_mtime": 1793945420.472029,
   "module": "code_0803EE94.s",
-  "note": "ar_r1' used prior to declaration\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08094388/opencode/func.c:22: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08094388/opencode/func.c:22: request for member `unk20' in something not a structure or union\n",
+  "note": "d prior to declaration\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08094388/lenovo_192831/func.c:22: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08094388/lenovo_192831/func.c:22: request for member `unk20' in something not a structure or union\n",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 476,

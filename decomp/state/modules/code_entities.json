@@ -136,9 +136,9 @@
  },
  "func_0802110C": {
   "addr": 134353164,
-  "judged_mtime": 1793017225.7606266,
+  "judged_mtime": 1793582714.0644128,
   "module": "code_entities.s",
-  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0802110C/opencode/func.c: In function `func_0802110C':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0802110C/opencode/func.c:16: invalid operands to binary +\n",
+  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0802110C/lenovo_192327/func.c: In function `func_0802110C':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0802110C/lenovo_192327/func.c:16: invalid operands to binary +\n",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 411,
@@ -227,12 +227,12 @@
   "judged_mtime": 1793003806.969084,
   "module": "code_entities.s",
   "note": "len 20 vs ref 154",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 156,
   "sanitize_v": 4,
   "size": 1163,
   "status": "promoted",
-  "thumb": true,
-  "promoted_to": "decomp/promoted/code_entities.cc"
+  "thumb": true
  },
  "func_080216BC": {
   "addr": 134354620,
@@ -722,9 +722,9 @@
  },
  "func_08024C74": {
   "addr": 134368372,
-  "judged_mtime": 1793017258.0290399,
+  "judged_mtime": 1793945291.8484716,
   "module": "code_entities.s",
-  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08024C74/opencode/func.c: In function `func_08024C74':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08024C74/opencode/func.c:14: structure has no member named `unk68'\n",
+  "note": "len 20 vs ref 18 [1missing,2extra,7regalloc @>  | adds r2, r0, #0]",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 234,
@@ -1394,12 +1394,12 @@
   "judged_mtime": 1793017276.7000058,
   "module": "code_entities.s",
   "note": "len 38 vs ref 48",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 489,
   "status": "promoted",
-  "thumb": true,
-  "promoted_to": "decomp/promoted/code_entities.cc"
+  "thumb": true
  },
  "func_0802BF2C": {
   "addr": 134397740,

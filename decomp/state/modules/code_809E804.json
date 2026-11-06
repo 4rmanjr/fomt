@@ -3265,9 +3265,9 @@
  },
  "func_080B8DAC": {
   "addr": 134974892,
-  "judged_mtime": 1793582714.2023904,
+  "judged_mtime": 1793945349.8258402,
   "module": "code_809E804.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080B8DAC/opencode/func.c: In function `func_080B8DAC':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080B8DAC/opencode/func.c:16: invalid operands to binary +\n",
+  "note": "len 58 vs ref 62 [3missing,6extra,3operand,5regalloc @i push {r4, lr} | push {lr}]",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 707,
