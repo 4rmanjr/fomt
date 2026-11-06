@@ -10,15 +10,16 @@ typedef struct GenObj {
     u8 _padA0[8];
     struct GenObj *unkA8;
 } GenObj;
+
 s32 func_08015920(GenObj *arg0, s32 arg1) {
     GenObj *t;
     GenObj *o;
     GenObj *x;
 
+    t = arg0->unk4;
     if ((u32) (arg1 - 0x24) > 6U) {
         return 0;
     }
-    t = arg0->unk4;
     o = *(GenObj **) ((u8 *) t + 0xA8);
     x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) o)->unk40))(o, arg1);
     if (x == 0) {

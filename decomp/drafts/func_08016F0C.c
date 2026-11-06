@@ -8,13 +8,16 @@ typedef struct GenObj {
     u8 _padA0[8];
     struct GenObj *unkA8;
 } GenObj;
+
 void func_08016F0C(GenObj *arg0, s32 arg1) {
     GenObj *t;
     GenObj *o;
     GenObj *x;
+    u8 v;
 
+    v = (u8) arg1;
     t = arg0->unk4;
     o = *(GenObj **) ((u8 *) t + 0xA8);
     x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) o)->unk40))(o, 0);
-    ((s32 (*)(GenObj *, u8)) *(void **) (*(s32 *) ((u8 *) x + 0x14) + 0x9C))(x, (u8) arg1);
+    ((s32 (*)(GenObj *, u8)) *(void **) (*(s32 *) ((u8 *) x + 0x14) + 0x9C))(x, v);
 }
