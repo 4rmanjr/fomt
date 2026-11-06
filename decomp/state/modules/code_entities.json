@@ -24,9 +24,9 @@
  },
  "func_080200C4": {
   "addr": 134348996,
-  "judged_mtime": 1793017222.7700021,
+  "judged_mtime": 1793582714.063413,
   "module": "code_entities.s",
-  "note": ":22: warning: comparison between pointer and integer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080200C4/opencode/func.c:28: warning: comparison between pointer and integer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080200C4/opencode/func.c:35: invalid type argument of `unary *'\n",
+  "note": "arning: comparison between pointer and integer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080200C4/lenovo_46309/func.c:28: warning: comparison between pointer and integer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080200C4/lenovo_46309/func.c:35: invalid type argument of `unary *'\n",
   "ref_len": 108,
   "sanitize_v": 4,
   "size": 1037,
@@ -1108,13 +1108,14 @@
  },
  "func_080299D0": {
   "addr": 134388176,
-  "judged_mtime": 1793017269.9835968,
+  "judged_mtime": 1793927125.4135141,
   "module": "code_entities.s",
-  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080299D0/opencode/func.c: In function `func_080299D0':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080299D0/opencode/func.c:10: incompatible types in assignment\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 299,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080299EC": {

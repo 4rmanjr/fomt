@@ -2918,13 +2918,14 @@
  },
  "func_080B3990": {
   "addr": 134953360,
-  "judged_mtime": 1793582714.1983912,
+  "judged_mtime": 1793927902.864846,
   "module": "code_809E804.s",
-  "note": "len 38 vs ref 42 [6missing,7extra,2operand,5regalloc,2different @< ldr r2, [pc, #0x20] | ]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 449,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080B39BC": {

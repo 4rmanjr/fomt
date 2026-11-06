@@ -1,3 +1,9 @@
 #!/bin/sh
 unset LD_PRELOAD
-exec qemu-x86_64 -L "$HOME/x86sys/root" "$(dirname "$0")/old_agbcc.x86" "$@"
+BIN="$(dirname "$0")/old_agbcc.x86"
+
+if [ "$(uname -m)" != "x86_64" ] || [ -n "$FOMT_USE_QEMU" ]; then
+    exec qemu-x86_64 -L "${QEMU_LD_PREFIX:-$HOME/x86sys/root}" "$BIN" "$@"
+fi
+
+exec "$BIN" "$@"

@@ -1,11 +1,8 @@
-s32 SetAnim__12AActorEntityUi(void *, s32);           /* extern */
+i32 SetAnim__12AActorEntityUi(void *, u16);
 
-typedef struct GenObj {
-    u8 _pad0[164];
-    s32 unkA4;
-} GenObj;
-void func_080299D0(GenObj *arg0) {
-    arg0->unkA4 = 0;
-    *((arg0 + 0xA4) - 0x1C) = 0;
-    SetAnim__12AActorEntityUi(arg0, 0x192);
+void func_080299D0(u8 *arg0) {
+    u8 *p = arg0 + 0xa4;
+    *p = 0;
+    *(p - 0x1c) = 0;
+    SetAnim__12AActorEntityUi(arg0, 402);
 }

@@ -242,7 +242,6 @@ i32 func_08022334(i32 arg0) {
 }
 }
 
-
 // DECOMP-MATCHED func_08022980 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 GetGrowthStage__C7Chicken(i32);                 /* extern */
@@ -537,6 +536,19 @@ void func_0802907C(GenObj__func_0802907C *arg0) {
         func_0800F390((i32)(arg0->unk38 + 0x54));
         func_0802A7D8((GenObj__func_0802A7D8 *)arg0);
     }
+}
+}
+
+// DECOMP-MATCHED func_080299D0 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 SetAnim__12AActorEntityUi(void *, u16);
+
+__attribute__((section(".text.code_entities.080299D0")))
+void func_080299D0(u8 *arg0) {
+    u8 *p = arg0 + 0xa4;
+    *p = 0;
+    *(p - 0x1c) = 0;
+    SetAnim__12AActorEntityUi(arg0, 402);
 }
 }
 

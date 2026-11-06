@@ -1801,7 +1801,8 @@ def _queueable(k, v, retry_all: bool) -> bool:
 
 def run_batch(n: int, modules: list[str] | None, retry_all: bool,
               until: str, batch_no: int | None = None,
-              migratable_only: bool = False) -> tuple[int, int, bool, bool]:
+              migratable_only: bool = False,
+              target_funcs: set[str] | None = None) -> tuple[int, int, bool, bool]:
     """Kerjakan satu batch hingga `n` fungsi. Tetap foreground: tiap fungsi
     dan baris progres dicetak ke stdout saat dikerjakan.
 
@@ -1832,7 +1833,8 @@ def run_batch(n: int, modules: list[str] | None, retry_all: bool,
                     _gate_cache[ck] = True
             return _gate_cache[ck]
     cands = [k for k, v in sorted(st.items())
-             if _queueable(k, v, retry_all)
+             if (_queueable(k, v, retry_all) or (target_funcs and k in target_funcs))
+             and (not target_funcs or k in target_funcs)
              and k not in SKIP_FUNCS
              and (not modules or v["module"] in modules)
              and (_gate(k, v) if _gate else True)
@@ -2041,7 +2043,24 @@ def main(argv: list[str]) -> int:
             print(f"--until {until} sudah lewat; pakai jam yang akan datang", file=sys.stderr)
             return 2
     n = int(args[0]) if args and args[0].isdigit() else 20
-    modules = [a for a in args if not a.isdigit()] or None
+    raw_modules = [a for a in args if not a.isdigit()] or None
+    target_funcs: set[str] = set()
+    modules = None
+    if raw_modules:
+        idx = json.load(open(INDEXF)) if INDEXF.exists() else {}
+        res_mods = set()
+        for a in raw_modules:
+            if a.endswith(".s"):
+                res_mods.add(a)
+            elif a in idx:
+                target_funcs.add(a)
+                res_mods.add(f"{idx[a]}.s")
+            elif (ac := re.sub(r"\.c$", "", a)) in idx:
+                target_funcs.add(ac)
+                res_mods.add(f"{idx[ac]}.s")
+            else:
+                res_mods.add(a)
+        modules = sorted(res_mods) if res_mods else None
     if migratable_only and not modules:
         # Prioritas migratable: modul yg migrasinya TERBUKTI bisa pindah
         # (section-replace), sisa-terbanyak dulu. Filter modul eksplisit
@@ -2118,7 +2137,8 @@ def main(argv: list[str]) -> int:
     try:
         if not loop:
             run_batch(n, modules, retry_all, until,
-                        migratable_only=migratable_only)
+                        migratable_only=migratable_only,
+                        target_funcs=target_funcs)
             return 0
         # Mode loop: ulangi batch sampai antrean habis / Ctrl-C / deadline.
         # Tetap foreground: tiap fungsi + ringkasan batch dicetak langsung.
@@ -2134,7 +2154,8 @@ def main(argv: list[str]) -> int:
         while True:
             batches += 1
             m, d, had_work, stopped = run_batch(n, modules, retry_all, until, batches,
-                                                 migratable_only=migratable_only)
+                                                 migratable_only=migratable_only,
+                                                 target_funcs=target_funcs)
             total_m += m
             total_d += d
             if stopped:

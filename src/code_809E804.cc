@@ -2475,6 +2475,25 @@ void func_080AE6C0(void) {
 }
 }
 
+// DECOMP-MATCHED func_080B3990 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 gUnk_08107882;
+
+__attribute__((section(".text.code_809E804.080B3990")))
+u16 func_080B3990(i32 arg0) {
+    u8 *base = (u8 *)&gUnk_08107882;
+    i32 offset1 = 0x844;
+    i32 r1;
+    u16 *p1;
+    i32 r2;
+
+    r1 = *(i32 *)(arg0 + offset1);
+    p1 = (u16 *)(base + (r1 * 2));
+    r2 = *(i32 *)(arg0 + 0x930);
+    return (r2 * 0x54) + *p1;
+}
+}
+
 // DECOMP-MATCHED func_080B39BC (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 extern i32 gUnk_0810788A;
