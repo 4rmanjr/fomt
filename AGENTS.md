@@ -239,6 +239,8 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
 - `python3 tools/scripts/audit_consistency.py` untuk audit cepat read-only
   state ↔ promoted ↔ src (blok duplikat, state yatim, status basi).
 - `fomt status` untuk memastikan state konsisten.
+- `fomt verify` HANYA bila diminta user — jangan dijalankan rutin di akhir
+  sesi (mahal; `make compare` + `audit_consistency.py` sudah cukup).
 - `fomt verify` untuk audit ulang semua fungsi promoted/matched dari nol
   (tidak mengubah state; exit 0 = semua masih MATCH).
 - Jangan pernah bilang "selesai" tanpa output perintah yang mendukung.

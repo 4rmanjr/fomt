@@ -7,10 +7,12 @@ typedef struct GenObj {
 } GenObj;
 u16 func_0802110C(GenObj *arg0, s32 arg1) {
     s32 var_r4;
+    u8 *base;
 
+    base = (u8 *) &gUnk_080F0908;
     var_r4 = arg1 * 2;
     if (GetGrowthStage__C3Dog(arg0->unk34) == 1) {
         var_r4 += 0x1A;
     }
-    return *((u8 *)var_r4 + &gUnk_080F0908);
+    return *(u16 *) (base + var_r4);
 }

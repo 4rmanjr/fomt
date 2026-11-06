@@ -3596,9 +3596,9 @@
  },
  "func_0807E51C": {
   "addr": 134735132,
-  "judged_mtime": 1793582714.1414003,
+  "judged_mtime": 1793948071.5919895,
   "module": "code_0803EE94.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0807E51C/lenovo_180770/func.c: In function `func_0807E51C':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0807E51C/lenovo_180770/func.c:10: invalid type argument of `->'\n",
+  "note": "byte +0xa: 0x61 vs ref 0x9 [3extra,1regalloc @r adds r1, r1, r4 | adds r1, r4, r1]",
   "ref_len": 60,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,

@@ -69,9 +69,9 @@
  },
  "func_08010E68": {
   "addr": 134286952,
-  "judged_mtime": 1793933523.5843868,
+  "judged_mtime": 1793940073.8204381,
   "module": "game_state.s",
-  "note": "byte +0x2a: 0x82 vs ref 0x0 [2missing,2extra,3operand @i movs r4, #0 | movs r0, #0x82]",
+  "note": "byte +0x2a: 0x82 vs ref 0x0 [2missing,2extra,2operand @i movs r4, #0 | movs r0, #0x82]",
   "ref_len": 156,
   "sanitize_v": 4,
   "size": 1532,
@@ -507,9 +507,9 @@
  },
  "func_08012174": {
   "addr": 134291828,
-  "judged_mtime": 1793934475.2765446,
+  "judged_mtime": 1793940073.8214383,
   "module": "game_state.s",
-  "note": "ction `func_08012174':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08012174/lenovo_129781/func.c:13: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08012174/lenovo_129781/func.c:13: request for member `unkA8' in something not a structure or union\n",
+  "note": "byte +0xc: 0x0 vs ref 0x2 [1operand,4regalloc @r ldr r2, [r0] | ldr r0, [r0]]",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 407,
@@ -518,13 +518,14 @@
  },
  "func_0801219C": {
   "addr": 134291868,
-  "judged_mtime": 1793934604.9422774,
+  "judged_mtime": 1793948154.0220134,
   "module": "game_state.s",
-  "note": "ction `func_0801219C':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0801219C/lenovo_130003/func.c:13: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0801219C/lenovo_130003/func.c:13: request for member `unkA8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 407,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080121C4": {

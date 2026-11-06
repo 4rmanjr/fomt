@@ -8,8 +8,8 @@ void func_08024C74(GenObj *arg0) {
     u16 z;
     u8 *p;
 
-    z = 0;
     p = (u8 *) arg0 + 0x3C;
+    z = 0;
     *p = (u8) z;
     p += 2;
     *p = (u8) z;

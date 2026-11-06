@@ -2,11 +2,13 @@ s32 func_080211E4(void *, s32, u8);                   /* extern */
 s32 func_080212C0(void *);                            /* extern */
 s32 method_0809BB48__3DogPC15UnkBarnAnimal2C(void *, s32 *); /* extern */
 
+typedef struct Sub_08020410 { u8 _pad20[0x20]; s32 unk20; } Sub_08020410;
+
 typedef struct GenObj {
-    u8 _pad0[32];
+    u8 _pad0[0x20];
     s32 unk20;
-    u8 _pad24[16];
-    void *unk34;
+    u8 _pad24[0x10];
+    Sub_08020410 *unk34;
 } GenObj;
 void func_08020410(GenObj *arg0, u16 arg1) {
     s32 sp0;

@@ -675,3 +675,20 @@ s32 func_0802B9C0(s32, s32);                          /* extern */
 s32 func_0802C210(s32 arg0) {
     return func_0802B9C0(__builtin_new(0x5C), arg0);
 }
+
+// DECOMP-MATCHED func_08020460 (dari code_entities.s; cek manusia sebelum ke src/)
+typedef struct Sub_08020460 { u8 _pad20[0x20]; s32 unk20; } Sub_08020460;
+
+typedef struct GenObj {
+    u8 _pad0[0x34];
+    Sub_08020460 *unk34;
+} GenObj;
+s32 func_08020460(GenObj *arg0) {
+    s32 var_r1;
+
+    var_r1 = 0;
+    if (arg0->unk34->unk20 == 5) {
+        var_r1 = 1;
+    }
+    return var_r1;
+}

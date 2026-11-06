@@ -686,6 +686,20 @@ typedef struct GenObj__func_080ABC14 {
 } GenObj__func_080ABC14;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080AAF3C {
+    i32 unk0;
+    u8 _pad4[144];
+    i32 unk94;
+} GenObj__func_080AAF3C;
+typedef struct GenObj__func_080C8550 {
+    u8 _pad0[8];
+    void *unk8;
+    u8 _padC[6812];
+    i32 unk1AA8;
+} GenObj__func_080C8550;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -2277,14 +2291,9 @@ void func_080ABC14(GenObj__func_080ABC14 *arg0) {
 }
 }
 
-
 // DECOMP-MATCHED func_080AAF3C (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
-typedef struct GenObj__func_080AAF3C {
-    i32 unk0;
-    u8 _pad4[144];
-    i32 unk94;
-} GenObj__func_080AAF3C;
+
 i32 GetUpgradeLevel__C4Barn(i32);
 i32 GetUpgradeLevel__C4Coop(i32);
 i32 GetUpgradeLevel__C9FarmHouse(i32);
@@ -2891,6 +2900,19 @@ extern "C" {
 __attribute__((section(".text.code_809E804.080C7F0C")))
 i32 func_080C7F0C(GenObj__func_080C7F0C *arg0) {
     return arg0->unk4->unk974;
+}
+}
+
+// DECOMP-MATCHED func_080C8550 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08008EB8(i32, i32, i32);                     /* extern */
+i32 func_0804EDB4(i32, i32, i32, i32, i32);           /* extern */
+
+__attribute__((section(".text.code_809E804.080C8550")))
+void func_080C8550(GenObj__func_080C8550 *arg0) {
+    func_08008EB8(0x03FF03FF, 0x0600FF8A, 0x28);
+    func_08008EB8(0x03FF03FF, 0x0600FFCA, 0x28);
+    func_0804EDB4(*(i32 *) ((u8 *) arg0->unk8 + 0x1AA8), 0x0600FFB2, 0xA0, 0, 0x20);
 }
 }
 
