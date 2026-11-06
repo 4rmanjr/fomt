@@ -45,9 +45,9 @@
  },
  "func_0803AE58": {
   "addr": 134458968,
-  "judged_mtime": 1793582714.100407,
+  "judged_mtime": 1793753152.0755618,
   "module": "code_0803A8A4.s",
-  "note": ".c: In function `func_0803AE58':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803AE58/opencode/func.c:12: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803AE58/opencode/func.c:12: request for member `unk28' in something not a structure or union\n",
+  "note": "byte +0x0: 0x30 vs ref 0x70 [6missing,5extra,1operand,8regalloc,1stack,3different @< push {r4, r5, r6, lr} | ]",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 645,
@@ -240,10 +240,11 @@
   "judged_mtime": 1793698811.6416204,
   "module": "code_0803A8A4.s",
   "note": "byte +0x6: 0x7f vs ref 0xd9 [1missing,1extra,2regalloc @>  | movs r4, #0x7f]",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 443,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803BDB8": {
@@ -251,10 +252,11 @@
   "judged_mtime": 1793700523.5058048,
   "module": "code_0803A8A4.s",
   "note": "len 46 vs ref 44 [1extra,3operand,5regalloc @i push {r4, lr} | push {r4, r5, lr}]",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 417,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803BDE4": {
@@ -286,11 +288,12 @@
   "judged_mtime": 1793582714.1014068,
   "module": "code_0803A8A4.s",
   "note": "g6' undeclared (first use in this function)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803BDFC/opencode/func.c:12: `arg7' undeclared (first use in this function)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803BDFC/opencode/func.c:12: `arg8' undeclared (first use in this function)\n",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 84,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 747,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803BE50": {
@@ -681,11 +684,12 @@
   "judged_mtime": 1793582714.1044064,
   "module": "code_0803A8A4.s",
   "note": "g3' undeclared (first use in this function)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803D4D8/opencode/func.c:16: `arg4' undeclared (first use in this function)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803D4D8/opencode/func.c:19: `arg1' undeclared (first use in this function)\n",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 84,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 673,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803D52C": {
@@ -960,13 +964,14 @@
  },
  "func_0803E8E8": {
   "addr": 134473960,
-  "judged_mtime": 1793695227.1292467,
+  "judged_mtime": 1793932380.5931928,
   "module": "code_0803A8A4.s",
-  "note": "byte +0x10: 0x35 vs ref 0x26 [4missing,4extra,4operand,7regalloc,1stack,2different @i blt #0x60 | blt #0x7e]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 136,
   "sanitize_v": 4,
   "size": 1227,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803E970": {
