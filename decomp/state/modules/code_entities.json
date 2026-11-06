@@ -666,9 +666,9 @@
  },
  "func_08024B9C": {
   "addr": 134368156,
-  "judged_mtime": 1793017257.275025,
+  "judged_mtime": 1793948458.82626,
   "module": "code_entities.s",
-  "note": "encode/func.c: In function `func_08024B9C':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08024B9C/opencode/func.c:21: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08024B9C/opencode/func.c:21: invalid operands to binary <<\n",
+  "note": "byte +0x6: 0x60 vs ref 0xa0 [2missing,3extra,2operand,1stack,3different @| ldrh r0, [r4, #4] | ldr r0, [r4, #4]]",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 780,

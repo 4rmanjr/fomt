@@ -473,7 +473,7 @@
  },
  "func_08012114": {
   "addr": 134291732,
-  "judged_mtime": 1793937789.0758567,
+  "judged_mtime": 1793948436.6282654,
   "module": "game_state.s",
   "note": "byte +0x12: 0x1 vs ref 0x2 [2missing,2extra,1different @| beq #0x1a | bne #0x18]",
   "ref_len": 32,
@@ -496,24 +496,26 @@
  },
  "func_08012154": {
   "addr": 134291796,
-  "judged_mtime": 1793582714.0384169,
+  "judged_mtime": 1793948481.616467,
   "module": "game_state.s",
-  "note": "mething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08012154/opencode/func.c:15: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08012154/opencode/func.c:15: request for member `unk21' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 339,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08012174": {
   "addr": 134291828,
-  "judged_mtime": 1793940073.8214383,
+  "judged_mtime": 1793948415.5581443,
   "module": "game_state.s",
-  "note": "byte +0xc: 0x0 vs ref 0x2 [1operand,4regalloc @r ldr r2, [r0] | ldr r0, [r0]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 407,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801219C": {
@@ -609,13 +611,14 @@
  },
  "func_080122BC": {
   "addr": 134292156,
-  "judged_mtime": 1793582714.0394168,
+  "judged_mtime": 1793948481.6638107,
   "module": "game_state.s",
-  "note": ".c: In function `func_080122BC':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080122BC/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080122BC/opencode/func.c:13: request for member `unkA8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 359,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080122E0": {

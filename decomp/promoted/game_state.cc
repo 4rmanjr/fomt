@@ -1781,3 +1781,66 @@ void func_0801219C(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
         func_0803233C(temp_r0, arg2, arg3);
     }
 }
+
+// DECOMP-MATCHED func_08012174 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_08032308(s32, s32, s32);                     /* extern */
+
+typedef struct GenObj {
+    u8 _pad4[4];
+    struct GenObj *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x64];
+    struct GenObj *unkA8;
+} GenObj;
+void func_08012174(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    GenObj *t;
+    s32 temp_r0;
+
+    t = arg0->unk4->unkA8;
+    temp_r0 = ((s32 (*)(GenObj *, s32)) (((GenObj *) *(void **) t)->unk40))(t, arg1);
+    if (temp_r0 != 0) {
+        func_08032308(temp_r0, arg2, arg3);
+    }
+}
+
+// DECOMP-MATCHED func_08012154 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    void *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x64];
+    struct GenObj *unkA8;
+} GenObj;
+void func_08012154(GenObj *arg0, s32 arg1, s32 arg2) {
+    GenObj *t;
+    GenObj *x;
+
+    t = arg0->unk4->unkA8;
+    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) t)->unk40))(t, arg1);
+    if (x != 0) {
+        *(u8 *) ((u8 *) x + 0x21) = (u8) arg2;
+    }
+}
+
+// DECOMP-MATCHED func_080122BC (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    void *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x64];
+    struct GenObj *unkA8;
+} GenObj;
+s32 func_080323E0(s32, s32);                        /* extern */
+void func_080122BC(GenObj *arg0, s32 arg1, s32 arg2) {
+    GenObj *t;
+    GenObj *x;
+
+    t = arg0->unk4->unkA8;
+    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) t)->unk40))(t, arg1);
+    if (x != 0) {
+        func_080323E0((s32) x, arg2);
+    }
+}
