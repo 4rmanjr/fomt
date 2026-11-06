@@ -1,4 +1,4 @@
-void *GetMapData(i32);                              /* extern */
+void *GetMapData(s32);                              /* extern */
 s32 GetUpgradeLevel__C4Barn(s32);                   /* extern */
 s32 GetUpgradeLevel__C4Coop(s32);                   /* extern */
 s32 GetUpgradeLevel__C9FarmHouse(s32);              /* extern */

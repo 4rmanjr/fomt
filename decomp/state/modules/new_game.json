@@ -484,8 +484,9 @@
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 645,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/new_game.cc"
  },
  "func_08006C60": {
   "addr": 134245472,

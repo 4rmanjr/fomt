@@ -142,7 +142,10 @@ antrean kosong. Catatan loop:
 `scan` -> `draft` (m2c) -> `judge` (agbcc `-O2`, byte-identik vs asm) ->
 `promote` (ke `decomp/promoted/<modul>.cc`) -> `autopush`.
 
-- State: `decomp/state/progress.json` (ditulis atomik di bawah `flock`).
+- State: `decomp/state/modules/<stem>.json` (shard per modul) +
+  `decomp/state/index.json` (peta nama→modul); ditulis atomik di bawah
+  `flock`. File lama `decomp/state/progress.json` sudah dipecah otomatis
+  (tersisa sebagai `.bak`), jangan dipakai lagi.
 - Draf: `decomp/drafts/<nama>.c`.
 - Log judge: `decomp/logs/judge_<nama>/<agent>/` (ramping: hanya
   `func.c`/`func.s`; artefak `.o`/`.i`/`ref.o`/`common.h` dihapus otomatis
@@ -233,6 +236,8 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
 ## Verifikasi sebelum selesai
 
 - `python3 -m py_compile decomp/run.py` untuk perubahan skrip.
+- `python3 tools/scripts/audit_consistency.py` untuk audit cepat read-only
+  state ↔ promoted ↔ src (blok duplikat, state yatim, status basi).
 - `fomt status` untuk memastikan state konsisten.
 - `fomt verify` untuk audit ulang semua fungsi promoted/matched dari nol
   (tidak mengubah state; exit 0 = semua masih MATCH).

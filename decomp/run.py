@@ -1212,7 +1212,7 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
         # audit: nilai BLOK PROMOTED apa adanya (bukan draf kerja yg mungkin
         # sudah disanitasi ulang) — cermin kondisi saat MATCH, bukan kini.
         p = ROOT / e.get("promoted_to", "")
-        if p.exists():
+        if p.is_file():
             marker = f"// DECOMP-MATCHED {name} "
             text = p.read_text(errors="replace")
             i = text.find(marker)
@@ -1432,9 +1432,62 @@ def _migrated_to_src(name: str) -> bool:
         return False
 
 
+_SRC_BLOCKS: set[str] | None = None
+
+
+def _block_in_src(name: str) -> bool:
+    """Ada blok `// DECOMP-MATCHED <name>` di src/ (varian .c/.cc mana pun)?
+
+    Stricter dari _migrated_to_src (yang juga cocok pada call-site): dipakai
+    untuk memutuskan bahwa kebenaran fungsi ini dipegang `make compare`,
+    bukan draf (bisa jadi draf m2c lama yang belum pernah disanitasi).
+    Cache per proses: verify memanggil ini untuk tiap fungsi.
+    """
+    global _SRC_BLOCKS
+    if _SRC_BLOCKS is None:
+        found: set[str] = set()
+        try:
+            for f in os.listdir(ROOT / "src"):
+                if f.endswith((".c", ".cc")):
+                    found |= set(re.findall(
+                        r"// DECOMP-MATCHED (\w+)",
+                        (ROOT / "src" / f).read_text(errors="replace")))
+        except OSError:
+            pass
+        _SRC_BLOCKS = found
+    return name in _SRC_BLOCKS
+
+
+def _promoted_block(name: str) -> str | None:
+    """Teks blok `// DECOMP-MATCHED <name>` di file promoted_to-nya (None
+    kalau tidak ada / file hilang)."""
+    try:
+        e = load().get(name) or {}
+    except Exception:
+        return None
+    rel = e.get("promoted_to") or ""
+    p = ROOT / rel
+    if not rel or not p.is_file():
+        return None
+    text = p.read_text(errors="replace")
+    marker = f"// DECOMP-MATCHED {name} "
+    i = text.find(marker)
+    if i < 0:
+        return None
+    j = text.find("// DECOMP-MATCHED ", i + len(marker))
+    return text[i:j if j >= 0 else len(text)]
+
+
 def _verify_one(payload: tuple[str, str]) -> tuple[str, bool, str]:
     """Satu unit kerja verify (aman untuk multiprocessing): tanpa ubah state."""
     name, tag = payload
+    # Sudah pindah ke src/ DAN blok promoted-nya sudah tidak ada (dicabut /
+    # di-revert setelah migrate): draf bisa jadi draf m2c lama, dan blok
+    # promoted tak bisa diadili. Kebenaran fungsi ini dipegang `make
+    # compare` (sha1 ROM), jadi jangan diadili dari draf — dulu ini
+    # melaporkan DIFF palsu utk puluhan fungsi yg sudah hijau di src.
+    if _block_in_src(name) and not _promoted_block(name):
+        return name, True, "migrated to src (blok di src; diawasi make compare)"
     ok, note = _judge(name, tag=tag)
     if not ok and "no ref symbol" in (note or "") and _migrated_to_src(name):
         ok, note = True, "migrated to src (covered by make compare)"
@@ -1515,8 +1568,24 @@ def verify_all(tag: str | None = None, jobs: int | None = None,
             if not ok:
                 bad.append((name, note))
     # Cek juga isi promoted benar-benar sama dengan draf yang diverifikasi.
+    # Fungsi yang SUDAH pindah ke src/ dikecualikan: blok promoted-nya boleh
+    # sudah tidak ada (blok dicabut/di-revert manual setelah migrate), dan
+    # kebenarannya dijaga `make compare` + marker di src (lihat _verify_one).
+    _src_blob = ""
+    for _f in os.listdir(ROOT / "src"):
+        if _f.endswith((".c", ".cc")):
+            try:
+                _src_blob += (ROOT / "src" / _f).read_text(errors="replace")
+            except OSError:
+                pass
+
+    def _in_src(nm: str) -> bool:
+        return re.search(rf"\b{re.escape(nm)}\s*\(", _src_blob) is not None
+
     stale = []
     for name in names:
+        if _in_src(name):
+            continue
         d = DRAFTS / f"{name}.c"
         p = ROOT / st[name].get("promoted_to", "")
         body = d.read_text() if d.exists() else ""

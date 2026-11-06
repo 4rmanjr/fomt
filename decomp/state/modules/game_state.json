@@ -432,8 +432,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 600,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/game_state.cc"
  },
  "func_080120A4": {
   "addr": 134291620,
@@ -1329,8 +1330,9 @@
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 247,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/game_state.cc"
  },
  "func_08014064": {
   "addr": 134299748,
@@ -1352,8 +1354,9 @@
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 247,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/game_state.cc"
  },
  "func_08014094": {
   "addr": 134299796,
@@ -1435,8 +1438,9 @@
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 561,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/game_state.cc"
  },
  "func_08014164": {
   "addr": 134300004,
@@ -1457,8 +1461,9 @@
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 427,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/game_state.cc"
  },
  "func_080141C4": {
   "addr": 134300100,
@@ -1516,8 +1521,9 @@
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 247,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/game_state.cc"
  },
  "func_08014264": {
   "addr": 134300260,
@@ -1527,8 +1533,9 @@
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 446,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/game_state.cc"
  },
  "func_08014290": {
   "addr": 134300304,
@@ -1538,8 +1545,9 @@
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 405,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/game_state.cc"
  },
  "func_080142B8": {
   "addr": 134300344,
@@ -2184,8 +2192,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 333,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/game_state.cc"
  },
  "func_08016D9C": {
   "addr": 134311324,
@@ -2196,8 +2205,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 260,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/game_state.cc"
  },
  "func_08016DB0": {
   "addr": 134311344,

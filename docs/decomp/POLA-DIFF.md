@@ -52,6 +52,23 @@ callee belum MATCH) dan butir 2.2 (argumen yang dibuang m2c).
 Kontrol aliran m2c gagal total — regenerasi tidak membantu. Tulis ulang
 fungsi dari asm.
 
+### 1.6 `syntax error before '<nama>'` pada baris deklarasi `i32 ...`
+Harness judge/verify menyediakan `u8/u16/u32/s8/s16/s32` — **tidak ada
+`i32`**. Dua efek berbeda, dan yang kedua mematikan:
+
+- `void *GetMapData(i32);` → cuma **warning** `parameter names (without
+  types) in function declaration`. GCC 2.9 membacanya sebagai deklarasi
+  K&R dengan parameter bernama `i32` (implicit int) → lolos tanpa error,
+  tapi menyesatkan. (Terbukti pada blok `func_08017C00/08019F7C/08019FE8`.)
+- `i32 SetAnim__12AActorEntityUi(void *, u16);` → **hard error**
+  `syntax error before 'SetAnim__12AActorEntityUi'` karena `i32` di posisi
+  tipe-return tak bisa ditafsirkan. (Terbukti `func_080299D0`, bikin
+  `fomt verify` merah padahal `make compare` hijau.)
+
+Aturan: **tipe di draf dan blok promoted selalu `s32`** (huruf kecil `s`).
+`i32` hanya milik `src/` (diterjemahkan otomatis oleh migrate). Cek massal:
+`grep -rn "\bi32\b" decomp/drafts decomp/promoted` harus kosong.
+
 ---
 
 ## 2. Sudah kompilasi, sisa byte-DIFF (codegen)
@@ -168,6 +185,13 @@ kanan-ke-kiri — pecah sesuai urutan store ref.
   bisa MATCH** — deteksi dari dua instruksi pertama/terakhir asm, skip.
 - Varian vtable-call yang **nilai balik call-nya dipakai** setelah call
   (`bl; cmp r0; ldr r1,[r0,#N]`): pin tidak pernah menutup residual.
+
+**Verifikasi blok vs draf:** kalau `fomt verify` melaporkan
+`promoted != draft` untuk fungsi yang bloknya sudah **tidak ada** di
+`promoted/` padahal fungsinya sudah di `src/`, itu bukan kerusakan —
+kebenarannya dipegang `make compare`. Jangan “memperbaiki” dengan
+menambal draf; kalau blok promoted masih ada tapi berbeda, itu baru
+sinyal resync (lihat `MIGRATE.md` §7).
 
 Aturan berhenti: cap ~5 kali judge per fungsi. Di atas itu hampir selalu
 wall struktural → parkir, regenerasi draf mentah (`r.draft(name)`) supaya

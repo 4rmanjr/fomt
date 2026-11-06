@@ -180,8 +180,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 525,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0804E7DC": {
   "addr": 134539228,
@@ -743,8 +744,9 @@
   "ref_len": 92,
   "sanitize_v": 4,
   "size": 668,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08050CC0": {
   "addr": 134548672,
@@ -755,8 +757,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 622,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08050D0C": {
   "addr": 134548748,
@@ -860,8 +863,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 184,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08050DB4": {
   "addr": 134548916,
@@ -872,8 +876,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 187,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08050DC8": {
   "addr": 134548936,
@@ -884,8 +889,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 161,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08050DD8": {
   "addr": 134548952,
@@ -931,8 +937,9 @@
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 356,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08050E30": {
   "addr": 134549040,
@@ -1121,8 +1128,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_080521FC": {
   "addr": 134554108,
@@ -1325,8 +1333,9 @@
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 611,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08057E1C": {
   "addr": 134577692,
@@ -1336,8 +1345,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08057E5C": {
   "addr": 134577756,
@@ -1371,8 +1381,9 @@
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 340,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08057F4C": {
   "addr": 134577996,
@@ -1605,8 +1616,9 @@
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 611,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0805CEFC": {
   "addr": 134598396,
@@ -1616,8 +1628,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0805CF3C": {
   "addr": 134598460,
@@ -1751,8 +1764,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0805E698": {
   "addr": 134604440,
@@ -1941,8 +1955,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0805FD44": {
   "addr": 134610244,
@@ -2161,8 +2176,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08069E98": {
   "addr": 134651544,
@@ -2746,8 +2762,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0807565C": {
   "addr": 134698588,
@@ -3342,8 +3359,9 @@
   "ref_len": 184,
   "sanitize_v": 4,
   "size": 1344,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0807B0F0": {
   "addr": 134721776,
@@ -3386,8 +3404,9 @@
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 360,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0807B920": {
   "addr": 134723872,
@@ -3488,8 +3507,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0807DDA8": {
   "addr": 134733224,
@@ -3533,8 +3553,9 @@
   "ref_len": 128,
   "sanitize_v": 4,
   "size": 983,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0807E4B8": {
   "addr": 134735032,
@@ -3615,8 +3636,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0807EE84": {
   "addr": 134737540,
@@ -3708,8 +3730,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0807F5F0": {
   "addr": 134739440,
@@ -3801,8 +3824,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_080804CC": {
   "addr": 134743244,
@@ -3871,8 +3895,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08080E04": {
   "addr": 134745604,
@@ -3963,8 +3988,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08081AB0": {
   "addr": 134748848,
@@ -4056,8 +4082,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08082184": {
   "addr": 134750596,
@@ -4159,8 +4186,9 @@
   "ref_len": 120,
   "sanitize_v": 4,
   "size": 1086,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08082CEC": {
   "addr": 134753516,
@@ -4181,8 +4209,9 @@
   "ref_len": 112,
   "sanitize_v": 4,
   "size": 995,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08083AEC": {
   "addr": 134757100,
@@ -4192,8 +4221,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08083B2C": {
   "addr": 134757164,
@@ -4294,8 +4324,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08085568": {
   "addr": 134763880,
@@ -4362,8 +4393,9 @@
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 333,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08085EEC": {
   "addr": 134766316,
@@ -4624,8 +4656,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0808ABA8": {
   "addr": 134785960,
@@ -4771,8 +4804,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0808C5DC": {
   "addr": 134792668,
@@ -4952,8 +4986,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0808ED48": {
   "addr": 134802760,
@@ -5386,8 +5421,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08093220": {
   "addr": 134820384,
@@ -5454,8 +5490,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08093AC8": {
   "addr": 134822600,
@@ -5584,8 +5621,9 @@
   "ref_len": 100,
   "sanitize_v": 4,
   "size": 957,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08093FB0": {
   "addr": 134823856,
@@ -5595,8 +5633,9 @@
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 189,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08093FC4": {
   "addr": 134823876,
@@ -5617,8 +5656,9 @@
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 586,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_08094048": {
   "addr": 134824008,
@@ -5686,8 +5726,9 @@
   "ref_len": 132,
   "sanitize_v": 4,
   "size": 1079,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0809424C": {
   "addr": 134824524,
@@ -5792,8 +5833,9 @@
   "ref_len": 104,
   "sanitize_v": 4,
   "size": 957,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0809444C": {
   "addr": 134825036,
@@ -5826,8 +5868,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 538,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_080944E8": {
   "addr": 134825192,
@@ -5895,8 +5938,9 @@
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 629,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_080946A8": {
   "addr": 134825640,
@@ -5906,8 +5950,9 @@
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 188,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_080946BC": {
   "addr": 134825660,
@@ -6077,8 +6122,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 125,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0809494C": {
   "addr": 134826316,
@@ -6089,8 +6135,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 153,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0809495C": {
   "addr": 134826332,
@@ -6101,8 +6148,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 154,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0809496C": {
   "addr": 134826348,
@@ -6455,8 +6503,9 @@
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 611,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0809A518": {
   "addr": 134849816,
@@ -6466,8 +6515,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 584,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_0803EE94.cc"
  },
  "func_0809A558": {
   "addr": 134849880,

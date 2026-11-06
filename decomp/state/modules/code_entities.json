@@ -230,8 +230,9 @@
   "ref_len": 156,
   "sanitize_v": 4,
   "size": 1163,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_entities.cc"
  },
  "func_080216BC": {
   "addr": 134354620,
@@ -1396,8 +1397,9 @@
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 489,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_entities.cc"
  },
  "func_0802BF2C": {
   "addr": 134397740,

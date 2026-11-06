@@ -106,11 +106,53 @@ Lakukan hanya kalau memang perlu: mengedit **blok promoted** langsung
 tanda tangan extern) tidak butuh re-judge — cukup dibuktikan dengan
 `fomt verify --module <stem>` sebelum migrate.
 
-## 7. Verifikasi
+## 7. Status "sudah di src tapi state masih failed"
+
+Kelas buku catatan yang paling sering menyebabkan kerja sia-sia: fungsi
+sudah punya blok `// DECOMP-MATCHED <fn>` di `src/` (berarti ROM hijau
+lewat `make compare`), tetapi state-nya masih `failed`/`drafted`. Akibat:
+
+- `fomt`/`--migratable` mengantrekannya ulang → judge melihat
+  “no ref symbol” → MATCH → `promote()` menambah blok **DUPLIKAT** ke
+  `promoted/<stem>.cc` (lihat §2), dan statistik “berhasil” ikut salah.
+
+Penanganan:
+
+```bash
+python3 tools/scripts/audit_consistency.py            # lihat daftar
+python3 tools/scripts/audit_consistency.py --fix      # failed/drafted -> promoted
+```
+
+`--fix` hanya menyentuh entri yang **marker-nya benar-benar ada di src**,
+dan mengisi `promoted_to` yang kosong (tanpa itu `_judge` verify bisa
+membaca direktori repo — sudah ditambal dengan `is_file()`).
+
+**Jangan pakai status `"migrated"`** (dipakai `decomp/audit_sync.py`):
+`decomp/run.py` hanya mengenal `pending/drafted/failed/promoted/matched`,
+jadi `"migrated"` menghilangkan fungsi dari statistik sekaligus dari
+verify. Status yang benar untuk “selesai & ada di src” adalah `promoted`.
+
+## 8. Verifikasi
 
 - `migrate.py` sudah menjalankan `make compare` (baseline + target);
   `[OK] sha1sum -c fomt.sha1` = HIJAU.
 - Setelah beberapa migrasi: `make compare` sekali lagi sebelum commit.
+- **Audit konsistensi state ↔ promoted ↔ src:**
+  `python3 tools/scripts/audit_consistency.py` (read-only; cek blok
+  duplikat, blok kurung rusak, `state` promoted tanpa blok/src, blok
+  promoted yang belum di src, dan status basi `failed` yang fungsinya
+  sudah di src). Exit 1 = ada masalah struktural.
+  Pelengkap: `python3 decomp/audit_sync.py` (khusus status basi).
+- **`fomt verify` penuh** hanya di akhir sesi (mahal); audit per modul:
+  `fomt verify --module <stem>`. Dua pengecualian yang sudah dibangun ke
+  dalam verify (2026-11-06):
+  - cek `promoted != draft` melewati fungsi yang **sudah punya blok di
+    src** (blok promoted boleh sudah dicabut);
+  - pengadilan blok dilewati (dicatat `migrated to src (blok di src;
+    diawasi make compare)`) hanya bila blok promoted-nya sudah **tidak
+    ada**. Kalau bloknya masih ada, verify tetap mengadili apa adanya.
+  Jadi verify hijau ≠ blok promoted lengkap — pelengkapnya tetap
+  `audit_consistency.py` + `make compare`.
 - Commit hanya file pekerjaan: `src/<stem>.cc`, `decomp/promoted/<stem>.cc`,
   `decomp/drafts/*` yang diedit, `decomp/state/modules/<stem>.json`.
   JANGAN `git add -A`; jangan commit `promoted/*.cc` milik batch lain.

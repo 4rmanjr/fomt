@@ -1251,8 +1251,9 @@
   "ref_len": 84,
   "sanitize_v": 4,
   "size": 718,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/hardware.cc"
  },
  "func_08009744": {
   "addr": 134256452,
@@ -1262,8 +1263,9 @@
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 610,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/hardware.cc"
  },
  "func_0800977C": {
   "addr": 134256508,
@@ -1285,8 +1287,9 @@
   "ref_len": 144,
   "sanitize_v": 4,
   "size": 1436,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/hardware.cc"
  },
  "func_08009834": {
   "addr": 134256692,
@@ -1296,8 +1299,9 @@
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 514,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/hardware.cc"
  },
  "func_08009864": {
   "addr": 134256740,
@@ -1319,8 +1323,9 @@
   "ref_len": 47,
   "sanitize_v": 4,
   "size": 550,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/hardware.cc"
  },
  "func_080098DC": {
   "addr": 134256860,

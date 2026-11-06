@@ -1446,7 +1446,7 @@ void func_0801D9A8(GenObj *arg0) {
 }
 
 // DECOMP-MATCHED func_08019F7C (dari game_state.s; cek manusia sebelum ke src/)
-void *GetMapData(i32);                              /* extern */
+void *GetMapData(s32);                              /* extern */
 s32 GetUpgradeLevel__C4Barn(s32);                   /* extern */
 s32 GetUpgradeLevel__C4Coop(s32);                   /* extern */
 s32 GetUpgradeLevel__C9FarmHouse(s32);              /* extern */
@@ -1472,7 +1472,7 @@ s32 func_08019F7C(GenObj *arg0, s32 arg1) {
 }
 
 // DECOMP-MATCHED func_08019FE8 (dari game_state.s; cek manusia sebelum ke src/)
-void *GetMapData(i32);                              /* extern */
+void *GetMapData(s32);                              /* extern */
 s32 GetUpgradeLevel__C4Barn(s32);                   /* extern */
 s32 GetUpgradeLevel__C4Coop(s32);                   /* extern */
 s32 GetUpgradeLevel__C9FarmHouse(s32);              /* extern */
@@ -1633,7 +1633,7 @@ s32 func_080167AC(GenObj *arg0) {
 }
 
 // DECOMP-MATCHED func_08017C00 (dari game_state.s; cek manusia sebelum ke src/)
-void *GetMapData(i32);                              /* extern */
+void *GetMapData(s32);                              /* extern */
 
 typedef struct GenObj { u8 _pad4[4]; u8 *unk4; } GenObj;
 s32 func_08017C00(GenObj *arg0) {

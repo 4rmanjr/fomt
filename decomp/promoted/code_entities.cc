@@ -631,7 +631,7 @@ s32 func_080229A4(s32 arg0, s32 arg1) {
 }
 
 // DECOMP-MATCHED func_080299D0 (dari code_entities.s; cek manusia sebelum ke src/)
-i32 SetAnim__12AActorEntityUi(void *, u16);
+s32 SetAnim__12AActorEntityUi(void *, u16);
 
 void func_080299D0(u8 *arg0) {
     u8 *p = arg0 + 0xa4;

@@ -194,8 +194,9 @@
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 316,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_0809EB20": {
   "addr": 134867744,
@@ -217,8 +218,9 @@
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 270,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_0809EB68": {
   "addr": 134867816,
@@ -263,8 +265,9 @@
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 403,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_0809EBD4": {
   "addr": 134867924,
@@ -274,8 +277,9 @@
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 258,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_0809EBEC": {
   "addr": 134867948,
@@ -308,8 +312,9 @@
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 629,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_0809ECD8": {
   "addr": 134868184,
@@ -330,8 +335,9 @@
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 340,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_0809ED04": {
   "addr": 134868228,
@@ -341,8 +347,9 @@
   "ref_len": 96,
   "sanitize_v": 4,
   "size": 886,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_0809ED64": {
   "addr": 134868324,
@@ -375,8 +382,9 @@
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 543,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_0809EE8C": {
   "addr": 134868620,
@@ -1093,8 +1101,9 @@
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 635,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_080A3C40": {
   "addr": 134888512,
@@ -1104,8 +1113,9 @@
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 635,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_080A3C8C": {
   "addr": 134888588,
@@ -1115,8 +1125,9 @@
   "ref_len": 104,
   "sanitize_v": 4,
   "size": 821,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_080A3CF4": {
   "addr": 134888692,
@@ -2617,8 +2628,9 @@
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 362,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_080ADD44": {
   "addr": 134929732,
@@ -4246,8 +4258,9 @@
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 295,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_080C7B7C": {
   "addr": 135035772,
@@ -4897,8 +4910,9 @@
   "ref_len": 108,
   "sanitize_v": 4,
   "size": 964,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_080CCE58": {
   "addr": 135056984,
@@ -4942,8 +4956,9 @@
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 376,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_080CD558": {
   "addr": 135058776,
@@ -5583,8 +5598,9 @@
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 462,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_080D0704": {
   "addr": 135071492,
@@ -5680,8 +5696,9 @@
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 361,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_809E804.cc"
  },
  "func_080D0AE0": {
   "addr": 135072480,

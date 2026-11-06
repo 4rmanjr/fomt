@@ -244,8 +244,9 @@
   "ref_len": 1532,
   "sanitize_v": 4,
   "size": 10155,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_entities_080320DC.cc"
  },
  "func_08034180": {
   "addr": 134431104,

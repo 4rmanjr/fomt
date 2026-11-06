@@ -26,7 +26,7 @@ fomt 20 --agent opencode
 fomt 20 --agent vscode
 ```
 
-- Tiap fungsi **diklam** dulu (`claimed_by`, `claimed_at` di `progress.json`),
+- Tiap fungsi **diklam** dulu (`claimed_by`, `claimed_at` di `state/modules/<stem>.json`),
   jadi tidak ada fungsi yang digarap dua kali.
 - Semua baca-ubah-tulis state di bawah `flock` (`decomp/state/progress.lock`);
   kerja m2c/agbcc di luar lock supaya tetap paralel.
@@ -41,7 +41,7 @@ fomt 20 --agent vscode
 `scan` → `draft` (m2c) → `judge` (agbcc `-O2`, byte-identik vs asm) →
 `promote` (tampung di `decomp/promoted/<modul>.cc` untuk cek manusia).
 
-## Status (tersimpan di `decomp/state/progress.json`)
+## Status (tersimpan di `decomp/state/modules/<stem>.json` + `index.json`)
 
 | status | arti | tindak lanjut |
 |---|---|---|
@@ -82,7 +82,7 @@ Setiap batch dengan MATCH di-commit dan di-push SEKALI di akhir batch oleh
 ```
 
 - Hanya jalan bila ada MATCH — run yang DIFF semua tidak menghasilkan push.
-- Yang di-commit: draf MATCH + blok promoted + `progress.json` + log teks
+- Yang di-commit: draf MATCH + blok promoted + shard `state/modules/` + log teks
   (`func.c`/`func.s` sbg audit). Artefak biner judge (`ref.o`/`func.o`/
   `func.i`/`common.h`) di-ignore, tidak ikut commit.
 - `FOMT_AUTOPUSH=0` mematikan autopush untuk sementara.

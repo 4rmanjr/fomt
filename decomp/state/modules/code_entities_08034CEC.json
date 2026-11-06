@@ -19,8 +19,9 @@
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 586,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc"
  },
  "func_08035940": {
   "addr": 134437184,
@@ -30,8 +31,9 @@
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 586,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc"
  },
  "func_08035978": {
   "addr": 134437240,

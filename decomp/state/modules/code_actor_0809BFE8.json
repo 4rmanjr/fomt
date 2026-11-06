@@ -620,8 +620,9 @@
   "ref_len": 199,
   "sanitize_v": 4,
   "size": 1944,
-  "status": "failed",
-  "thumb": true
+  "status": "promoted",
+  "thumb": true,
+  "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc"
  },
  "func_0809E174": {
   "addr": 134865268,

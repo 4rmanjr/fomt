@@ -1,4 +1,4 @@
-void *GetMapData(i32);                              /* extern */
+void *GetMapData(s32);                              /* extern */
 
 typedef struct GenObj { u8 _pad4[4]; u8 *unk4; } GenObj;
 s32 func_08017C00(GenObj *arg0) {
