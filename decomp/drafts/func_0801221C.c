@@ -1,16 +1,19 @@
-s32 SetMap__7AEntityUi(s32, s32);                     /* extern */
+s32 SetMap__7AEntityUi(s32, s32);                   /* extern */
 
 typedef struct GenObj {
-    u8 _pad0[4];
-    void *unk4;
-    u8 _pad8[160];
-    s32 unkA8;
+    void *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x64];
+    struct GenObj *unkA8;
 } GenObj;
 void func_0801221C(GenObj *arg0) {
-    s32 temp_r0;
-
-    temp_r0 = (*arg0->unk4->unkA8)->unk40();
-    if (temp_r0 != 0) {
-        SetMap__7AEntityUi(temp_r0, 0x234);
+    GenObj *t;
+    GenObj *x;
+    t = arg0->unk4->unkA8;
+    x = ((GenObj *(*)(GenObj *)) (((GenObj *) *(void **) t)->unk40))(t);
+    if (x != 0) {
+        SetMap__7AEntityUi((s32) x, 0x234);
     }
 }

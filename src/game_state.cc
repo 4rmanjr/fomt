@@ -1203,6 +1203,50 @@ typedef struct GenObj__func_080167AC {
 } GenObj__func_080167AC;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08017C00 { u8 _pad4[4]; u8 *unk4; } GenObj__func_08017C00;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08014D5C {
+    void *unk0;
+    struct GenObj__func_08014D5C *unk4;
+    u8 _pad8[12];
+    struct GenObj__func_08014D5C *unk14;
+    u8 _pad18[0x28];
+    void *unk40;
+    u8 _pad44[0x34];
+    void *unk78;
+    u8 _pad7C[0x2C];
+    struct GenObj__func_08014D5C *unkA8;
+} GenObj__func_08014D5C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080120A4 {
+    void *unk0;
+    struct GenObj__func_080120A4 *unk4;
+    i32 unk8;
+    u8 _padC[0x34];
+    void *unk40;
+    u8 _pad44[0x64];
+    struct GenObj__func_080120A4 *unkA8;
+} GenObj__func_080120A4;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080120C4 {
+    void *unk0;
+    struct GenObj__func_080120C4 *unk4;
+    i32 unk8;
+    i32 unkC;
+    u8 _pad10[0x30];
+    void *unk40;
+    u8 _pad44[0x64];
+    struct GenObj__func_080120C4 *unkA8;
+} GenObj__func_080120C4;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -1599,6 +1643,43 @@ void func_08012064(GenObj__func_08012064 *arg0, i32 arg1, i32 arg2, i32 arg3, i3
     func_080D7F9C(temp_r4, arg1, w(), arg2, arg3, arg4);
 }
 }
+// DECOMP-MATCHED func_080120A4 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.game_state.080120A4")))
+i32 func_080120A4(GenObj__func_080120A4 *arg0, i32 arg1) {
+    GenObj__func_080120A4 *t;
+    GenObj__func_080120A4 *x;
+    i32 a;
+
+    t = arg0->unk4->unkA8;
+    x = ((GenObj__func_080120A4 *(*)(GenObj__func_080120A4 *, i32)) (((GenObj__func_080120A4 *) *(void **) t)->unk40))(t, arg1);
+    a = 0;
+    if (x != 0) {
+        a = x->unk8;
+    }
+    return a >> 0x10;
+}
+}
+// DECOMP-MATCHED func_080120C4 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.game_state.080120C4")))
+i32 func_080120C4(GenObj__func_080120C4 *arg0, i32 arg1) {
+    GenObj__func_080120C4 *t;
+    GenObj__func_080120C4 *x;
+    i32 a;
+
+    t = arg0->unk4->unkA8;
+    x = ((GenObj__func_080120C4 *(*)(GenObj__func_080120C4 *, i32)) (((GenObj__func_080120C4 *) *(void **) t)->unk40))(t, arg1);
+    a = 0;
+    if (x != 0) {
+        a = x->unkC;
+    }
+    return a >> 0x10;
+}
+}
+
 
 // DECOMP-MATCHED func_08012134 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -2161,6 +2242,21 @@ extern "C" {
 extern const u8 gData_game_state_08016758[44] __attribute__((section(".text.game_state.08016758"))) = {0x10, 0xB5, 0x40, 0x68, 0x04, 0x1C, 0xBC, 0x34, 0xA8, 0x30, 0x00, 0x68, 0x01, 0x68, 0xA4, 0x22, 0x52, 0x00, 0x89, 0x18, 0x09, 0x68, 0xBD, 0xF0, 0xCF, 0xF8, 0x01, 0x1C, 0x09, 0x04, 0x09, 0x0C, 0x20, 0x1C, 0xF2, 0xF7, 0x05, 0xFA, 0x10, 0xBC, 0x01, 0xBC, 0x00, 0x47};
 }
 
+// DECOMP-MATCHED func_08014D5C (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.game_state.08014D5C")))
+i32 func_08014D5C(GenObj__func_08014D5C *arg0) {
+    GenObj__func_08014D5C *t;
+    GenObj__func_08014D5C *m;
+    GenObj__func_08014D5C *x;
+    t = arg0->unk4->unkA8;
+    m = (GenObj__func_08014D5C *)(t->unk0);
+    x = ((GenObj__func_08014D5C *(*)(GenObj__func_08014D5C *, i32))(m->unk40))(t, 0);
+    return ((i32 (*)(GenObj__func_08014D5C *)) (x->unk14->unk78))(x);
+}
+}
+
 // DECOMP-MATCHED func_08014D7C (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -2521,6 +2617,22 @@ void func_08016EF0(GenObj08016EF0 *arg0) {
     __asm__ volatile("" : "+r"(off));
     fn = *(void (**)(void))((u8 *)vt + off);
     fn();
+}
+}
+
+// DECOMP-MATCHED func_08017C00 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+void *GetMapData(i32);                              /* extern */
+
+__attribute__((section(".text.game_state.08017C00")))
+i32 func_08017C00(GenObj__func_08017C00 *arg0) {
+    if (*(u8 *) ((u8 *) arg0 + 0x103C) != 0) {
+        return 1;
+    }
+    if (*(u8 *) ((u8 *) GetMapData(*(i32 *) (arg0->unk4 + 4)) + 0x24) != 0) {
+        return 1;
+    }
+    return 0;
 }
 }
 

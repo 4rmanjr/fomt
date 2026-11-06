@@ -1631,3 +1631,89 @@ s32 func_080167AC(GenObj *arg0) {
     x = ((GenObj *(*)(GenObj *, s32))(m->unk40))(t, 0);
     return ((s32 (*)(GenObj *)) *(void **) ((u8 *) x->unk14 + 0x90))(x);
 }
+
+// DECOMP-MATCHED func_08017C00 (dari game_state.s; cek manusia sebelum ke src/)
+void *GetMapData(i32);                              /* extern */
+
+typedef struct GenObj { u8 _pad4[4]; u8 *unk4; } GenObj;
+s32 func_08017C00(GenObj *arg0) {
+    if (*(u8 *) ((u8 *) arg0 + 0x103C) != 0) {
+        return 1;
+    }
+    if (*(u8 *) ((u8 *) GetMapData(*(s32 *) (arg0->unk4 + 4)) + 0x24) != 0) {
+        return 1;
+    }
+    return 0;
+}
+
+// DECOMP-MATCHED func_08014D5C (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    void *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[12];
+    struct GenObj *unk14;
+    u8 _pad18[0x28];
+    void *unk40;
+    u8 _pad44[0x34];
+    void *unk78;
+    u8 _pad7C[0x2C];
+    struct GenObj *unkA8;
+} GenObj;
+s32 func_08014D5C(GenObj *arg0) {
+    GenObj *t;
+    GenObj *m;
+    GenObj *x;
+    t = arg0->unk4->unkA8;
+    m = (GenObj *)(t->unk0);
+    x = ((GenObj *(*)(GenObj *, s32))(m->unk40))(t, 0);
+    return ((s32 (*)(GenObj *)) (x->unk14->unk78))(x);
+}
+
+// DECOMP-MATCHED func_080120A4 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    void *unk0;
+    struct GenObj *unk4;
+    s32 unk8;
+    u8 _padC[0x34];
+    void *unk40;
+    u8 _pad44[0x64];
+    struct GenObj *unkA8;
+} GenObj;
+s32 func_080120A4(GenObj *arg0, s32 arg1) {
+    GenObj *t;
+    GenObj *x;
+    s32 a;
+
+    t = arg0->unk4->unkA8;
+    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) t)->unk40))(t, arg1);
+    a = 0;
+    if (x != 0) {
+        a = x->unk8;
+    }
+    return a >> 0x10;
+}
+
+// DECOMP-MATCHED func_080120C4 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    void *unk0;
+    struct GenObj *unk4;
+    s32 unk8;
+    s32 unkC;
+    u8 _pad10[0x30];
+    void *unk40;
+    u8 _pad44[0x64];
+    struct GenObj *unkA8;
+} GenObj;
+s32 func_080120C4(GenObj *arg0, s32 arg1) {
+    GenObj *t;
+    GenObj *x;
+    s32 a;
+
+    t = arg0->unk4->unkA8;
+    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) t)->unk40))(t, arg1);
+    a = 0;
+    if (x != 0) {
+        a = x->unkC;
+    }
+    return a >> 0x10;
+}
