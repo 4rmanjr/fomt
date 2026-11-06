@@ -158,48 +158,23 @@ dikompilasi agbcc apa adanya. Buka `decomp/drafts/<nama>.c` + log di
 `fomt` lagi (draf yang mtime-nya lebih baru dari `judged_mtime` otomatis
 ikut antre judge ulang):
 
-1. **`request for member 'unk*' in something not a structure or union`**
-   (paling sering; fungsi C++ `intro_scene.s`/`new_game.s`): argumen masih
-   `void *` tapi dipakai `arg->unkX`. Sanitizer biasanya sudah membuatkan
-   `typedef struct GenObj` — kalau draf belum memilikinya, jalankan `fomt`
-   sekali lagi (resanitasi otomatis menulis ulang draf mentah). Kalau masih
-   gagal: ganti nama `GenObj` menjadi tipe bersama dari fungsi MATCH
-   (`Vtbl`/`Obj` di `decomp/promoted/code_linkonce.cc`), atau tulis struct
-   sendiri dari offset akses + lebar (`ldrb`=u8, `ldrh`=u16, `ldr`=s32/ptr).
-   Virtual-call `t->unkA->unkB(...)`: cast eksplisit
-   `((void (*)(void *,...))(t->unkA->unkB))(t, ...)`.
-2. **`extern s32 .Lxxxxxx` / `syntax error before '.'`**: label literal-pool
-   bocor ke C. Sanitizer `_label_addrs` menggantinya dengan nilai heksa dari
-   blok asm — kalau draf masih memilikinya, jalankan `fomt` lagi untuk
-   resanitasi; kalau nilai tak ketemu (label lompatan), ganti manual dengan
-   konstanta dari ekor blok asm.
-3. **`unksp0 undeclared` / `sp +` di badan**: m2c salah merekonstruksi stack
-   (umum di fungsi dekompresi `Unpack`). Tulis ulang rangka stack manual
-   dari asm, betulkan tipe parameter.
-4. **Byte-DIFF (`byte +0xN: 0xAA vs ref 0xBB`)**: sudah kompilasi, tinggal
-   codegen. Pecah kondisi `||`/`&&` satu baris jadi `if` bertingkat sesuai
-   urutan asm; samakan urutan/tipe local stack.
-5. **`M2C_ERROR` di draf**: kontrol aliran m2c gagal total — regenerasi
-   tidak membantu. Tulis ulang fungsi dari asm.
-6. **`byte +0x1a: 0x1 vs ref 0x2 [regalloc @r pop {r1} | pop {r0}]`**
-   (beda HANYA di epilog): ref berakhir `pop {r1}; bx r1` ⇒ fungsinya
-   MENGEMBALIKAN nilai (`s32`), bukan `void`. Draf m2c menulis
-   `void f(...) { call(...); }`. Perbaikan: `s32 f(...) { return
-   call(...); }` — terbukti func_08014234/func_08014D7C/func_08015950/
-   func_080ADB78/func_080AAF3C. Varian ekor `ldr r1,[r0,#N]; asrs
-   r0,r1,#0x10` ⇒ `return a >> 16;` dengan `s32 a = 0;` ditulis SETELAH
-   call (kalau sebelum, gcc menyimpannya di r4 + `push {r4}` = 2 byte
-   beda).
-7. **Target indirect call di `r2` walau `r1` bebas** (residual tetap
-   `byte +0x8: 0x1 vs ref 0x2`): fungsi punya ARGUMEN KE-2 yang
-   diteruskan apa adanya ke call; m2c membuangnya karena tak dipakai di
-   badan. Tambahkan `s32 arg1` lalu teruskan (`fn(t, arg1)`) — zero
-   codegen untuk passthrough, target pindah ke r2, dan `movs r1,#0` di
-   ref = inisialisasi variabel hasil. Terbukti func_080120A4/080120C4
-   (dua-duanya MATCH hanya karena ini).
-8. **`byte +0x4/+0x8: 0x8x vs ref 0xa8`**: offset field struct salah →
-   hitung ulang padding (`_padN` sebelum field berikutnya) dari offset
-   asm; jangan tambal di ekspresi pemakaian.
+Ringkas 4 yang paling sering (detail + pembukti: `docs/decomp/POLA-DIFF.md`):
+
+1. **`request for member 'unk*' ...`** — argumen masih `void *`. Tulis
+   struct dari operand asm (`ldrb`=u8, `ldrh`=u16, `ldr`=s32/ptr) dan
+   cast virtual-call eksplisit.
+2. **`[regalloc @r pop {r1} | pop {r0}]`** — ref berakhir
+   `pop {r1}; bx r1` ⇒ fungsi **mengembalikan** `s32`, bukan `void`
+   (`s32 f(){ return g(); }`). Bukan wall.
+3. **`byte +0x8: 0x1 vs ref 0x2`, `_call_via_r1` vs `_call_via_r2`** —
+   fungsi punya **argumen ke-2** yang m2c buang; tambahkan + teruskan
+   (`fn(t, arg1)`), zero-codegen.
+4. **`M2C_ERROR`** — m2c gagal total, tulis ulang fungsi dari asm.
+
+> **ATURAN ANTI-MENUMPUK:** pola/temuan BARU **JANGAN** ditulis di
+> AGENTS.md. Tulis ke `docs/decomp/POLA-DIFF.md` (pola codegen) atau
+> `docs/decomp/MIGRATE.md` (jebakan migrate). AGENTS.md hanya aturan
+> operasional + pointer.
 
 Aturan berhenti: jangan mengulang fungsi yang sama tanpa perubahan draf
 (`_queueable` juga tidak akan mengantrekannya lagi). Tulis catatan spesifik
@@ -221,43 +196,27 @@ kompilasi saat `verify` menilainya tanpa konteks — dan tetap kompilasi bila
 konteks berubah (tipe dihapus/konflik di kemudian hari). Jangan mengandalkan
 tipe dari blok fungsi lain.
 
-## Migrasi ke src (`migrate.py`) — jebakan yang terbukti
+## Migrasi ke src (`migrate.py`) — ringkas
 
-- **Tanda tangan extern di blok harus SAMA dengan yang sudah ada di
-  `src/<stem>.cc`.** Guard membandingkan string tanda tangan (translasi
-  `s32`→`i32` otomatis; `u32` vs `s32` TIDAK ditranslasi). Contoh nyata:
-  src punya `void *GetMapData(i32)`, draf menulis `MapData *GetMapData()`
-  → `[SKIP] extern GetMapData beda tanda tangan`. Solusi codegen-netral:
-  pakai tanda tangan src, simpan nilai balik call sebelumnya ke satu
-  variabel sekali-pakai lalu lewatkan sebagai argumen (`t = func_0803A8A4(...);
-  return ((MapData *) GetMapData(t))->unk20 << 3;`) — r0 sudah berisi `t`
-  sehingga tak ada `mov` tambahan dan judge tetap byte-identik.
+Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
+
+- **Tanda tangan extern di blok wajib sama dengan `src/<stem>.cc`**
+  (guard membandingkan string; `s32`→`i32` auto, `u32` vs `s32` tidak).
+  Samakan ke src, lewatkan nilai balik call lewat satu variabel
+  sekali-pakai (r0 sudah berisi).
 - **`fomt --migratable` bisa “MATCH” fungsi yang SUDAH ada di src**
-  (state shard basi; judge melihat “no ref symbol” lalu promote). Akibatnya
-  blok DUPLIKAT ditambahkan ke `decomp/promoted/<stem>.cc`. Selalu periksa
-  `git diff decomp/promoted/` sesudah batch; buang blok dobel
-  (`git checkout` file promoted) dan JANGAN hitung sebagai migrasi baru —
-  `migrate.py` akan menjawab `sudah ada di src/... (dilewati)`.
-- **Insert ke `src/*.cc` yang punya blok `extern "C" {` bisa MERAH**
-  (`syntax error before 0x5F0`) karena titik sisip jatuh di dalam blok itu
-  (terbukti func_080AAF3C di `code_809E804.cc`). migrate sudah revert
-  otomatis; solusinya sisip manual pada batas `extern "C"` yang benar
-  lalu `make compare`.
-- **SKIP permanen — jangan diulang:** `data asing NB menempel ekor` (blok
-  berakhir `.byte`/pool; ref_len > ukuran kode), `grup gabungan/tak-split`,
-  `bukan fungsi terakhir` (modul tail-only: `hardware.s`,
-  `code_actor_0809BFE8.s`, `code_linkonce.s`), `butuh tulis manual callee`
-  (callee tak-MATCH & beda tanda tangan).
-- **Modul split boleh pindah di TENGAH** (`game_state`, `code_809E804`,
-  `code_entities*`, `code_0803EE94`); batasan “fungsi terakhir” hanya
-  berlaku untuk modul tail-only legacy.
-- **Mengulang judge setelah draf diedit padahal state `promoted`:**
-  `fomt` tak mengantrekannya lagi. Reset `status`→`failed` +
-  `judged_mtime`=0 di `decomp/state/modules/<stem>.json` DAN buang dulu
-  blok promoted lamanya, kalau tidak `promote()` menambah blok kedua.
-- Kunci MATCH yang sudah terbukti transfer antar-saudara: lihat bagian
-  “Kalau DIFF” butir 6–8 (return-type epilog, argumen ke-2 untuk target
-  call r2, padding struct).
+  (state basi) dan menambah blok DUPLIKAT di `decomp/promoted/`. Cek
+  `git diff decomp/promoted/` sesudah batch, revert, dan jangan hitung
+  sebagai migrasi (`migrate.py` → `sudah ada di src/...`).
+- **`[GAGAL] ... syntax error before 0x...`** = titik sisip jatuh di
+  dalam blok `extern "C" {`; sisip manual di batas blok lalu compare.
+- **SKIP permanen jangan diulang:** `data asing ... ekor`, grup
+  gabungan/tak-split, `bukan fungsi terakhir` (modul tail-only:
+  `hardware.s`/`code_actor_0809BFE8.s`/`code_linkonce.s`), `butuh tulis
+  manual callee`. Modul split (`game_state`, `code_809E804`,
+  `code_entities*`, `code_0803EE94`) boleh pindah di tengah.
+- **Re-judge draf yang state-nya `promoted`:** buang blok promoted lama,
+  lalu `status`→`failed` + `judged_mtime`=0 di state shard.
 
 ## Batasan build
 
