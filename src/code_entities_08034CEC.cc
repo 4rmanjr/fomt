@@ -640,6 +640,16 @@ struct Params_func_0803669C { i32 a; i32 b; i32 c; };
 struct Params_func_080369E0 { i32 a; i32 b; i32 c; };
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08038300 {
+    u8 _pad0[4];
+    struct GenObj__func_08038300 *unk4;
+    u8 _pad8[4];
+    struct GenObj__func_08038300 *unkC;
+    i32 unk10;
+} GenObj__func_08038300;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035908 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 SetAnim__12AActorEntityUi(void *, i32);           /* extern */
@@ -1544,7 +1554,6 @@ i32 func_080369E0(i32 arg0) {
 }
 }
 
-
 // DECOMP-MATCHED func_08036A10 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __10ANpcEntityP10GameObjectP3NpcUiPCvUiUiUi(void *, void *, void *, u32, i32 *, i32, i32, i32); /* extern */
@@ -2190,6 +2199,22 @@ u8 func_08038108(GenObj__func_08038108 *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: member+return u8 (ldrb, tanpa lsls/lsrs). */
+}
+
+// DECOMP-MATCHED func_08038300 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08038110(i32);                            /* extern */
+
+__attribute__((section(".text.code_entities_08034CEC.08038300")))
+void func_08038300(GenObj__func_08038300 *arg0) {
+    GenObj__func_08038300 *temp_r2;
+
+    temp_r2 = (GenObj__func_08038300 *)(arg0->unk10);
+    if (temp_r2 != 0) {
+        ((void (*)(void *,...))(temp_r2->unk4->unkC))(temp_r2);
+    }
+    func_08038110((i32)(arg0));
+}
 }
 
 // DECOMP-MATCHED func_08038320 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)

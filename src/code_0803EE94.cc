@@ -1640,6 +1640,34 @@ typedef struct GenObj__func_0809495C {
 } GenObj__func_0809495C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08092CD0 {
+    u8 _pad0[8];
+    i32 unk8;
+    u8 _padC[112];
+    i32 unk7C;
+    u8 _pad80[128];
+    i32 unk100;
+    i32 unk104;
+} GenObj__func_08092CD0;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0808A4C0 {
+    u8 _pad0[120];
+    i32 unk78;
+    i32 unk7C;
+    u8 _pad80[20];
+    i32 unk94;
+    u8 _pad98[36];
+    i32 unkBC;
+    u8 _padC0[60];
+    i32 unkFC;
+    i32 unk100;
+    i32 unk104;
+} GenObj__func_0808A4C0;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -4313,6 +4341,49 @@ void func_08088590(GenObj__func_08088590 *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_0808A4C0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 ExtractItemAt__8RucksackUi(i32 *, i32, i32);      /* extern */
+i32 *GetFoodStackAt__6FridgeUi(i32, i32);            /* extern */
+i32 __9FoodStack(i32 *);                              /* extern */
+i32 func_0800F390(i32);                               /* extern */
+i32 func_080CBA60(i32, i32);                          /* extern */
+i32 func_080CC0B4(i32);                               /* extern */
+i32 func_080CCDEC(i32, u32);                          /* extern */
+i32 func_080CE184(void *, i32, i32);                /* extern */
+
+__attribute__((section(".text.code_0803EE94.0808A4C0")))
+void func_0808A4C0(GenObj__func_0808A4C0 *arg0, i32 arg1) {
+    i32 sp0;
+    i32 *temp_r4_3;
+    i32 temp_r4;
+    i32 temp_r4_2;
+    i32 temp_r4_4;
+    i32 temp_ce;
+
+    if (arg1 == 0) {
+        func_0800F390((i32)(arg0->unkFC));
+        func_080CC0B4((i32)(arg0->unk78));
+        return;
+    }
+    if (arg1 <= 8) {
+        temp_r4 = arg0->unk100;
+        ExtractItemAt__8RucksackUi(&sp0, temp_r4, func_080CE184(arg0, arg1, 0));
+        temp_r4_2 = arg0->unk78;
+        func_080CBA60(temp_r4_2, func_080CE184(arg0, arg1, 0));
+        return;
+    }
+    temp_ce = func_080CE184(arg0, arg1, *(i32 *) (arg0->unk94 + 0xBC));
+    temp_r4_3 = GetFoodStackAt__6FridgeUi((i32)(arg0->unk104), temp_ce);
+    __9FoodStack(&sp0);
+    *temp_r4_3 = sp0;
+    temp_r4_4 = arg0->unk7C;
+    func_080CCDEC(temp_r4_4, func_080CE184(arg0, arg1, 0));
+}
+
+/* ATTEMPT-NOTE pi: len 156 vs ref 154 (+2); dekat; bandingkan tail: kandidat bl func_0800F390 pakai ldr langsung? cek objdump. */
+}
+
 // DECOMP-MATCHED func_0808AB38 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __builtin_new(i32);                             /* extern */
@@ -4868,6 +4939,38 @@ void func_08092690(GenObj__func_08092690 *arg0, i32 arg1) {
     func_080E3504(arg0, arg1);
 }
 /* ATTEMPT-NOTE cline: forward (arg0,arg1) ke func_080E3504 agar literal memakai r2 spt ref. */
+}
+
+// DECOMP-MATCHED func_08092CD0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 GetItemAt__8RucksackUi(i32, i32);                 /* extern */
+i32 TryWrap__12RucksackItem();                        /* extern */
+i32 func_0800F528(i32);                               /* extern */
+i32 func_0809ACC0(i32, i32);                          /* extern */
+i32 func_080A0A54(i32, i32);                          /* extern */
+i32 func_080CC728(i32, u32, i32 *, u16, i32);           /* extern */
+i32 func_080CCE58(i32, i32 *, i32, i32);                /* extern */
+i32 func_080CE184(void *, i32, i32);                /* extern */
+extern i32 gUnk_086678A0;
+
+__attribute__((section(".text.code_0803EE94.08092CD0")))
+void func_08092CD0(GenObj__func_08092CD0 *arg0, i32 arg1) {
+    i32 temp_r4;
+    i32 temp_r4_2;
+
+    if (arg1 == 9) {
+        func_0800F528((i32)(arg0->unk100));
+        func_080CCE58((i32)(arg0->unk7C), &gUnk_086678A0, 0x160, 1);
+    } else {
+        temp_r4 = arg0->unk104;
+        GetItemAt__8RucksackUi(temp_r4, func_080CE184(arg0, arg1, 0));
+        TryWrap__12RucksackItem();
+        temp_r4_2 = arg0->unk7C;
+        func_080CC728(temp_r4_2, func_080CE184(arg0, arg1, 0), &gUnk_086678A0, 0x160, 1);
+    }
+    func_0809ACC0((i32)(arg0->unk8 + 0x1AA8), 0x64);
+    func_080A0A54((i32)(arg0->unk8 + 0x1CD4), 1);
+}
 }
 
 // DECOMP-MATCHED func_080931B0 (dari code_0803EE94.s; cek manusia sebelum ke src/)

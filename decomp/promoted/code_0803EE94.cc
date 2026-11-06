@@ -1168,7 +1168,7 @@ s32 TryWrap__12RucksackItem();                        /* extern */
 s32 func_0800F528(s32);                               /* extern */
 s32 func_0809ACC0(s32, s32);                          /* extern */
 s32 func_080A0A54(s32, s32);                          /* extern */
-s32 func_080CC728(s32, s32, s32 *, s32, s32);           /* extern */
+s32 func_080CC728(s32, u32, s32 *, u16, s32);           /* extern */
 s32 func_080CCE58(s32, s32 *, s32, s32);                /* extern */
 s32 func_080CE184(void *, s32, s32);                /* extern */
 extern s32 gUnk_086678A0;
@@ -3074,7 +3074,7 @@ s32 __9FoodStack(s32 *);                              /* extern */
 s32 func_0800F390(s32);                               /* extern */
 s32 func_080CBA60(s32, s32);                          /* extern */
 s32 func_080CC0B4(s32);                               /* extern */
-s32 func_080CCDEC(s32, s32);                          /* extern */
+s32 func_080CCDEC(s32, u32);                          /* extern */
 s32 func_080CE184(void *, s32, s32);                /* extern */
 
 typedef struct GenObj {

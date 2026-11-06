@@ -140,7 +140,7 @@ void func_08037EB4(GenObj *arg0, u8 *arg1) {
 }
 
 // DECOMP-MATCHED func_08038300 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
-s32 func_08038110(void *);                            /* extern */
+s32 func_08038110(s32);                            /* extern */
 
 typedef struct GenObj {
     u8 _pad0[4];
