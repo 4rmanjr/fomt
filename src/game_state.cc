@@ -1482,6 +1482,19 @@ typedef struct GenObj__func_08014D30 {
 } GenObj__func_08014D30;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Vt114 { u8 _pad[0x40]; void *unk40; } Vt114;
+typedef struct H114 { Vt114 *vt; } H114;
+typedef struct GenObj114 {
+    void *unk0;
+    struct GenObj114 *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x64];
+    H114 *unkA8;
+} GenObj114;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -1932,6 +1945,24 @@ void func_080120E4(GenObj__func_080120E4 *arg0, i32 arg1, i32 arg2) {
             SetAnimFacing__12AActorEntityUi((i32) x, arg2);
         }
     }
+}
+}
+
+// DECOMP-MATCHED func_08012114 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.game_state.08012114")))
+i32 func_08012114(GenObj114 *arg0, i32 arg1) {
+    H114 *t;
+    GenObj114 *x;
+
+    t = arg0->unk4->unkA8;
+    x = ((GenObj114 *(*)(H114 *, i32))(t->vt->unk40))(t, arg1);
+    if (x == 0) {
+        return 0;
+    }
+    return *(u8 *)((u8 *)x + 0x20);
 }
 }
 

@@ -1676,6 +1676,10 @@ typedef struct GenObj__func_08050C2C {
 typedef struct Sub504 { u8 _pad20[0x20]; u16 unk20; } Sub504;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct S_E51C { u8 _pad2A8[0x2A8]; i32 unk2A8; } S_E51C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -2209,7 +2213,6 @@ void func_08050C2C(void *arg0, i32 arg1) {
     func_0805E860((i32 *) ((u8 *) arg0 + 0x534), arg1);
 }
 }
-
 
 // DECOMP-MATCHED gData_code_0803EE94_08050C70.data.08050C70
 extern "C" {
@@ -3470,6 +3473,25 @@ void func_0807E508(GenObj__func_0807E508 *arg0, i32 arg1) {
     func_080C8360(arg0, arg1);
 }
 }
+// DECOMP-MATCHED func_0807E51C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 GetDesc__C4Food(i32 *);                           /* extern */
+i32 __4FoodUi(i32 *, i32);                              /* extern */
+i32 func_080CABEC(i32, i32);                          /* extern */
+extern i32 gUnk_080FE050;
+
+__attribute__((section(".text.code_0803EE94.0807E51C")))
+void func_0807E51C(i32 arg0, i32 arg1) {
+    register i32 a0sv __asm__("r4") = arg0;
+    i32 sp0;
+    u8 *tbl;
+
+    tbl = (u8 *) &gUnk_080FE050;
+    __4FoodUi(&sp0, *(u32 *)(tbl + (*(i32 *)((u8 *)a0sv + arg1 * 4 + 0x2A8)) * 8));
+    func_080CABEC(a0sv, GetDesc__C4Food(&sp0));
+}
+}
+
 
 // DECOMP-MATCHED func_0807EE14 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
