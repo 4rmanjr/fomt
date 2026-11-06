@@ -87,7 +87,15 @@ Mineral Town, decomp GBA).
    - Transfer verbatim antar-saudara pola sama tanpa re-diagnosis (pin/
      offset sesuai asm ref masing-masing terbukti MATCH langsung).
    - Verify parsial dulu: 1 fungsi disentuh cukup `judge` + `make
-     compare`; `verify` penuh hanya di akhir sesi atau bila diminta.
+     compare`; `verify` penuh HANYA di akhir sesi (paling mahal —
+     ~991 fungsi; jangan pernah mid-sesi).
+   - `make compare` hanya setelah perubahan build (src/asm/lds via
+     migrate atau edit manual src): judge MATCH / regen / parkir draf
+     tak mengubah tree build → tak perlu compare. migrate.py sudah
+     compare otomatis 2x (baseline + target).
+   - Sesi pendek: maks 3 migrasi lalu TUTUP dengan log sesi + commit +
+     push. Sesi panjang menumpuk konteks kumulatif (penyebab #1 token
+     boros — output turn lama dibayar ulang tiap turn).
 
 ## Perintah
 
