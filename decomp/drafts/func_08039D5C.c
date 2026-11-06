@@ -1,4 +1,4 @@
-s32 func_08039D5C(u32 arg1) {
+s32 func_08039D5C(s32 arg0, u32 arg1) {
     switch (arg1) {
     case 1:
         return 0x8000;

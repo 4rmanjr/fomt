@@ -1247,6 +1247,28 @@ typedef struct GenObj__func_080120C4 {
 } GenObj__func_080120C4;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080122A0 {
+    u8 _pad4[4];
+    struct GenObj__func_080122A0 *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x64];
+    struct GenObj__func_080122A0 *unkA8;
+} GenObj__func_080122A0;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0801221C {
+    void *unk0;
+    struct GenObj__func_0801221C *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x64];
+    struct GenObj__func_0801221C *unkA8;
+} GenObj__func_0801221C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -1680,7 +1702,6 @@ i32 func_080120C4(GenObj__func_080120C4 *arg0, i32 arg1) {
 }
 }
 
-
 // DECOMP-MATCHED func_08012134 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -1708,6 +1729,38 @@ extern "C" {
 __attribute__((section(".text.game_state.08012218")))
 void func_08012218(void) {
 
+}
+}
+// DECOMP-MATCHED func_0801221C (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 SetMap__7AEntityUi(i32, i32);                   /* extern */
+
+__attribute__((section(".text.game_state.0801221C")))
+void func_0801221C(GenObj__func_0801221C *arg0, i32 arg1) {
+    GenObj__func_0801221C *t;
+    GenObj__func_0801221C *x;
+
+    t = arg0->unk4->unkA8;
+    x = ((GenObj__func_0801221C *(*)(GenObj__func_0801221C *, i32)) (((GenObj__func_0801221C *) *(void **) t)->unk40))(t, arg1);
+    if (x != 0) {
+        SetMap__7AEntityUi((i32) x, 0x234);
+    }
+}
+}
+
+
+// DECOMP-MATCHED func_080122A0 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080323C8();                                /* extern */
+
+__attribute__((section(".text.game_state.080122A0")))
+void func_080122A0(GenObj__func_080122A0 *arg0, i32 arg1) {
+    GenObj__func_080122A0 *t;
+
+    t = arg0->unk4->unkA8;
+    if (((GenObj__func_080122A0 *(*)(GenObj__func_080122A0 *, i32)) (((GenObj__func_080122A0 *) *(void **) t)->unk40))(t, arg1) != 0) {
+        func_080323C8();
+    }
 }
 }
 

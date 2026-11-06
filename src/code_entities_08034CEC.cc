@@ -2482,6 +2482,24 @@ u16 func_08039D4C(i32 arg0, i32 arg1) {
     return *(u16 *) (temp_r0 + arg1 * 2);
 }
 }
+// DECOMP-MATCHED func_08039D5C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities_08034CEC.08039D5C")))
+i32 func_08039D5C(i32 arg0, u32 arg1) {
+    switch (arg1) {
+    case 1:
+        return 0x8000;
+    case 2:
+        return 0x10000;
+    default:
+    case 0:
+    case 3:
+    case 4:
+        return 0;
+    }
+}
+}
+
 
 // DECOMP-MATCHED func_08039D98 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {

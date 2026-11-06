@@ -3,16 +3,16 @@ s32 func_080323C8();                                /* extern */
 typedef struct GenObj {
     u8 _pad4[4];
     struct GenObj *unk4;
-    u8 _pad8[0xA0];
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x64];
     struct GenObj *unkA8;
 } GenObj;
-void func_080122A0(GenObj *arg0) {
+void func_080122A0(GenObj *arg0, s32 arg1) {
     GenObj *t;
-    GenObj *(*fn)(GenObj *);
 
     t = arg0->unk4->unkA8;
-    fn = (GenObj *(*)(GenObj *)) *(void **) ((u8 *) *(void **) t + 0x40);
-    if (fn(t) != 0) {
+    if (((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) t)->unk40))(t, arg1) != 0) {
         func_080323C8();
     }
 }

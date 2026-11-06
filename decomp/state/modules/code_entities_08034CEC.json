@@ -2180,13 +2180,14 @@
  },
  "func_08039D5C": {
   "addr": 134454620,
-  "judged_mtime": 1793582714.0974073,
+  "judged_mtime": 1793944817.6817715,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x3: 0x28 vs ref 0x29 [2regalloc @r cmp r1, #4 | cmp r0, #4]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 662,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08039D98": {

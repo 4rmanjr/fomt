@@ -91,9 +91,9 @@
  },
  "func_08032A00": {
   "addr": 134425088,
-  "judged_mtime": 1793017285.5487812,
+  "judged_mtime": 1793944911.579905,
   "module": "code_entities_080320DC.s",
-  "note": ":13: (Each undeclared identifier is reported only once\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08032A00/opencode/func.c:13: for each function it appears in.)\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08032A00/opencode/func.c:13: `arg1' undeclared (first use in this function)\n",
+  "note": "byte +0x2: 0x83 vs ref 0x84 [2missing,4extra,2stack @s sub sp, #0x10 | sub sp, #0xc]",
   "ref_len": 44,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -241,12 +241,12 @@
   "judged_mtime": 1793017288.3194785,
   "module": "code_entities_080320DC.s",
   "note": "len 16 vs ref 1530",
+  "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
   "ref_len": 1532,
   "sanitize_v": 4,
   "size": 10155,
   "status": "promoted",
-  "thumb": true,
-  "promoted_to": "decomp/promoted/code_entities_080320DC.cc"
+  "thumb": true
  },
  "func_08034180": {
   "addr": 134431104,

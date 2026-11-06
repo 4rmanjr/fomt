@@ -2045,3 +2045,18 @@ void func_08037244(GenObj *arg0, GenObj *arg1) {
     arg0->unk34 = a;
     arg0->unk38 = b;
 }
+
+// DECOMP-MATCHED func_08039D5C (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 func_08039D5C(s32 arg0, u32 arg1) {
+    switch (arg1) {
+    case 1:
+        return 0x8000;
+    case 2:
+        return 0x10000;
+    default:
+    case 0:
+    case 3:
+    case 4:
+        return 0;
+    }
+}

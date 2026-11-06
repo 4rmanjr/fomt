@@ -8,11 +8,12 @@ typedef struct GenObj {
     u8 _pad44[0x64];
     struct GenObj *unkA8;
 } GenObj;
-void func_0801221C(GenObj *arg0) {
+void func_0801221C(GenObj *arg0, s32 arg1) {
     GenObj *t;
     GenObj *x;
+
     t = arg0->unk4->unkA8;
-    x = ((GenObj *(*)(GenObj *)) (((GenObj *) *(void **) t)->unk40))(t);
+    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) t)->unk40))(t, arg1);
     if (x != 0) {
         SetMap__7AEntityUi((s32) x, 0x234);
     }
