@@ -2021,3 +2021,73 @@ void func_08014C0C(GenObj *arg0, s32 arg1, s32 arg2) {
     x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) o)->unk40))(o, 0);
     ((s32 (*)(GenObj *, s32, s32)) *(void **) (*(s32 *) ((u8 *) x + 0x14) + 0x64))(x, arg1, arg2);
 }
+
+// DECOMP-MATCHED func_08014164 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    void *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x58];
+    s32 unk9C;
+    u8 _padA0[8];
+    struct GenObj *unkA8;
+} GenObj;
+s32 func_08014164(GenObj *arg0, s32 arg1, u8 arg2) {
+    GenObj *t;
+    GenObj *o;
+    GenObj *x;
+
+    t = arg0->unk4;
+    o = *(GenObj **) ((u8 *) t + 0xA8);
+    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) o)->unk40))(o, 0);
+    ((s32 (*)(GenObj *, s32, u8)) *(void **) (*(s32 *) ((u8 *) x + 0x14) + 0x5C))(x, arg1, arg2);
+    t->unk9C = 0x19;
+    return 1;
+}
+
+// DECOMP-MATCHED func_0801589C (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    void *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x58];
+    s32 unk9C;
+    u8 _padA0[8];
+    struct GenObj *unkA8;
+} GenObj;
+void func_0801589C(GenObj *arg0, u16 arg1) {
+    GenObj *t;
+    GenObj *o;
+    GenObj *x;
+
+    t = arg0->unk4;
+    o = *(GenObj **) ((u8 *) t + 0xA8);
+    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) o)->unk40))(o, 0);
+    ((s32 (*)(GenObj *, u16)) *(void **) (*(s32 *) ((u8 *) x + 0x14) + 0x68))(x, arg1);
+    t->unk9C = 0x19;
+}
+
+// DECOMP-MATCHED func_08016F34 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    void *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x58];
+    s32 unk9C;
+    u8 _padA0[8];
+    struct GenObj *unkA8;
+} GenObj;
+void func_08016F34(GenObj *arg0, s32 arg1) {
+    GenObj *t;
+    GenObj *o;
+    GenObj *x;
+
+    t = arg0->unk4;
+    o = *(GenObj **) ((u8 *) t + 0xA8);
+    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) o)->unk40))(o, 0);
+    ((s32 (*)(GenObj *, s32)) *(void **) (*(s32 *) ((u8 *) x + 0x14) + 0x74))(x, arg1);
+    t->unk9C = 0x19;
+}

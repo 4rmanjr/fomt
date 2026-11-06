@@ -1,21 +1,26 @@
-s32 func_08033B84(void *, u8, s32, s32);              /* extern */
+s32 func_08033B84(s32, s32, s32, s32);                  /* extern */
 
 typedef struct GenObj {
-    u8 _pad0[4];
-    void *unk4;
-    u8 _pad8[2];
-    s32 unkA;
-    s32 unkE;
-    u8 _pad12[30];
-    s32 unk30;
-    u8 _pad34[116];
-    s32 unkA8;
+    void *unk0;
+    struct GenObj *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x58];
+    s32 unk9C;
+    u8 _padA0[8];
+    struct GenObj *unkA8;
 } GenObj;
-void func_0801223C(GenObj *arg0, s32 arg2, s32 arg3) {
-    void *temp_r0;
+void func_0801223C(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    GenObj *t;
+    GenObj *o;
+    GenObj *x;
 
-    temp_r0 = (*arg0->unk4->unkA8)->unk40();
-    if (temp_r0 != 0) {
-        func_08033B84(temp_r0, temp_r0->unk30, temp_r0->unkA + arg2, temp_r0->unkE + arg3);
+    t = arg0->unk4;
+    o = *(GenObj **) ((u8 *) t + 0xA8);
+    x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) o)->unk40))(o, arg1);
+    if (x != 0) {
+        func_08033B84((s32) x, *(u8 *) ((u8 *) x + 0x30),
+                      *(s16 *) ((u8 *) x + 0xA) + arg2,
+                      *(s16 *) ((u8 *) x + 0xE) + arg3);
     }
 }

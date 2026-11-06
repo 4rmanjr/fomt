@@ -580,9 +580,9 @@
  },
  "func_0801223C": {
   "addr": 134292028,
-  "judged_mtime": 1793582714.0394168,
+  "judged_mtime": 1793948870.090381,
   "module": "game_state.s",
-  "note": "omething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0801223C/opencode/func.c:20: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0801223C/opencode/func.c:20: request for member `unkE' in something not a structure or union\n",
+  "note": "len 54 vs ref 56 [3missing,2extra,2operand,1regalloc,2different @i beq #0x32 | beq #0x30]",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 578,
@@ -1454,13 +1454,14 @@
  },
  "func_08014164": {
   "addr": 134300004,
-  "judged_mtime": 1793582714.0464156,
+  "judged_mtime": 1793948870.0901597,
   "module": "game_state.s",
-  "note": "*' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08014164/opencode/func.c:22: request for member `unk14' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08014164/opencode/func.c:23: warning: assignment makes pointer from integer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 533,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08014198": {
@@ -1744,9 +1745,9 @@
  },
  "func_08014BD8": {
   "addr": 134302680,
-  "judged_mtime": 1793582714.049415,
+  "judged_mtime": 1793948870.0902708,
   "module": "game_state.s",
-  "note": "mething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08014BD8/opencode/func.c:22: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08014BD8/opencode/func.c:22: request for member `unk14' in something not a structure or union\n",
+  "note": "byte +0x4: 0xa8 vs ref 0x1 [2missing,2extra,4regalloc,1different @< movs r4, #1 | ]",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 535,
@@ -1859,13 +1860,14 @@
  },
  "func_0801589C": {
   "addr": 134305948,
-  "judged_mtime": 1793582714.051415,
+  "judged_mtime": 1793948870.0900357,
   "module": "game_state.s",
-  "note": "*' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0801589C/opencode/func.c:22: request for member `unk14' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0801589C/opencode/func.c:23: warning: assignment makes pointer from integer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 485,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080158CC": {
@@ -2293,13 +2295,14 @@
  },
  "func_08016F34": {
   "addr": 134311732,
-  "judged_mtime": 1793582714.0554142,
+  "judged_mtime": 1793948870.089856,
   "module": "game_state.s",
-  "note": "*' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08016F34/opencode/func.c:22: request for member `unk14' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08016F34/opencode/func.c:23: warning: assignment makes pointer from integer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 443,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08016F60": {
