@@ -162,9 +162,11 @@ verify. Status yang benar untuk “selesai & ada di src” adalah `promoted`.
   promoted yang belum di src, dan status basi `failed` yang fungsinya
   sudah di src). Exit 1 = ada masalah struktural.
   Pelengkap: `python3 decomp/audit_sync.py` (khusus status basi).
-- **`fomt verify` penuh** hanya di akhir sesi (mahal); audit per modul:
-  `fomt verify --module <stem>`. Dua pengecualian yang sudah dibangun ke
-  dalam verify (2026-11-06):
+- **`fomt verify` JANGAN dijalankan rutin** — hanya bila user memintanya
+  (mahal, ~7 mnt untuk seluruh proyek). Penutup sesi cukup
+  `make compare` (HIJAU) + `audit_consistency.py`. Bila verify **diminta**,
+  pakai `fomt verify --module <stem>` dulu. Dua pengecualian yang sudah
+  dibangun ke dalam verify (2026-11-06):
   - cek `promoted != draft` melewati fungsi yang **sudah punya blok di
     src** (blok promoted boleh sudah dicabut);
   - pengadilan blok dilewati (dicatat `migrated to src (blok di src;

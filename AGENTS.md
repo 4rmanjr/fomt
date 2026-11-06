@@ -51,9 +51,11 @@ Mineral Town, decomp GBA).
    - `fomt ... > /tmp/fomt.log 2>&1; echo "exit:$?"; tail -5 /tmp/fomt.log`
    - `fomt verify > /tmp/verify.log 2>&1; echo "exit:$?"; grep -c MATCH
      /tmp/verify.log; grep DIFF /tmp/verify.log | head -20`
+     (pola redirect ini hanya berlaku **bila** verify diminta — lihat
+     aturan: verify tidak dijalankan rutin)
    - `make compare > /tmp/build.log 2>&1; echo "exit:$?";
      grep -iE "error|fail|diff" /tmp/build.log | head -20; tail -5 /tmp/build.log`
-   Untuk audit cepat pakai inkremental: `fomt verify --since HEAD~5`
+   Bila verify **diminta**, pakai inkremental: `fomt verify --since HEAD~5`
    atau `fomt verify --module <stem>` (bukan verify penuh >7 mnt).
 
    **Format laporan wajib ke chat (maks 5 baris):**
@@ -87,8 +89,8 @@ Mineral Town, decomp GBA).
    - Transfer verbatim antar-saudara pola sama tanpa re-diagnosis (pin/
      offset sesuai asm ref masing-masing terbukti MATCH langsung).
    - Verify parsial dulu: 1 fungsi disentuh cukup `judge` + `make
-     compare`; `verify` penuh HANYA di akhir sesi (paling mahal —
-     ~991 fungsi; jangan pernah mid-sesi).
+     compare`; `fomt verify` **tidak** dijalankan rutin — hanya bila
+     user memintanya (aturan di bagian verifikasi).
    - `make compare` hanya setelah perubahan build (src/asm/lds via
      migrate atau edit manual src): judge MATCH / regen / parkir draf
      tak mengubah tree build → tak perlu compare. migrate.py sudah
@@ -110,7 +112,7 @@ fomt 10 --migratable     # 10 fungsi migratable
 fomt 10                   # 10 fungsi berikutnya
 fomt 5 sram_proxy_1.s     # 5 fungsi dari modul itu
 fomt status               # progres saja (total/berhasil/sisa)
-fomt verify               # audit ulang semua promoted/matched (tanpa ubah state)
+fomt verify               # audit ulang promoted/matched — HANYA bila diminta
 fomt 10 --agent opencode  # identitas agent untuk klaim
 fomt --loop               # ulangi batch 20 sampai antrean habis (foreground)
 fomt --loop 10            # sama, batch 10 per putaran
@@ -240,9 +242,10 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
   state ↔ promoted ↔ src (blok duplikat, state yatim, status basi).
 - `fomt status` untuk memastikan state konsisten.
 - `fomt verify` HANYA bila diminta user — jangan dijalankan rutin di akhir
-  sesi (mahal; `make compare` + `audit_consistency.py` sudah cukup).
-- `fomt verify` untuk audit ulang semua fungsi promoted/matched dari nol
-  (tidak mengubah state; exit 0 = semua masih MATCH).
+  sesi (mahal, ~7 mnt). Penggantinya untuk tutup sesi: `make compare`
+  (HIJAU) + `python3 tools/scripts/audit_consistency.py`.
+- `fomt verify` manual (bila diminta) mengaudit ulang semua fungsi
+  promoted/matched dari nol (tanpa ubah state; exit 0 = semua masih MATCH).
 - Jangan pernah bilang "selesai" tanpa output perintah yang mendukung.
 - Tutup sesi decomp/migrasi dengan LAPORAN TOTAL ringkas (angka saja,
   tanpa rincian per fungsi). Format baku — `y` = yang dikerjakan sesi ini:
