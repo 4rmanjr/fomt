@@ -181,6 +181,25 @@ ikut antre judge ulang):
    urutan asm; samakan urutan/tipe local stack.
 5. **`M2C_ERROR` di draf**: kontrol aliran m2c gagal total — regenerasi
    tidak membantu. Tulis ulang fungsi dari asm.
+6. **`byte +0x1a: 0x1 vs ref 0x2 [regalloc @r pop {r1} | pop {r0}]`**
+   (beda HANYA di epilog): ref berakhir `pop {r1}; bx r1` ⇒ fungsinya
+   MENGEMBALIKAN nilai (`s32`), bukan `void`. Draf m2c menulis
+   `void f(...) { call(...); }`. Perbaikan: `s32 f(...) { return
+   call(...); }` — terbukti func_08014234/func_08014D7C/func_08015950/
+   func_080ADB78/func_080AAF3C. Varian ekor `ldr r1,[r0,#N]; asrs
+   r0,r1,#0x10` ⇒ `return a >> 16;` dengan `s32 a = 0;` ditulis SETELAH
+   call (kalau sebelum, gcc menyimpannya di r4 + `push {r4}` = 2 byte
+   beda).
+7. **Target indirect call di `r2` walau `r1` bebas** (residual tetap
+   `byte +0x8: 0x1 vs ref 0x2`): fungsi punya ARGUMEN KE-2 yang
+   diteruskan apa adanya ke call; m2c membuangnya karena tak dipakai di
+   badan. Tambahkan `s32 arg1` lalu teruskan (`fn(t, arg1)`) — zero
+   codegen untuk passthrough, target pindah ke r2, dan `movs r1,#0` di
+   ref = inisialisasi variabel hasil. Terbukti func_080120A4/080120C4
+   (dua-duanya MATCH hanya karena ini).
+8. **`byte +0x4/+0x8: 0x8x vs ref 0xa8`**: offset field struct salah →
+   hitung ulang padding (`_padN` sebelum field berikutnya) dari offset
+   asm; jangan tambal di ekspresi pemakaian.
 
 Aturan berhenti: jangan mengulang fungsi yang sama tanpa perubahan draf
 (`_queueable` juga tidak akan mengantrekannya lagi). Tulis catatan spesifik
@@ -201,6 +220,44 @@ tipe konteks (`Vtbl`/`Obj`/`S_*`) yang dipakai draf ke depan blok
 kompilasi saat `verify` menilainya tanpa konteks — dan tetap kompilasi bila
 konteks berubah (tipe dihapus/konflik di kemudian hari). Jangan mengandalkan
 tipe dari blok fungsi lain.
+
+## Migrasi ke src (`migrate.py`) — jebakan yang terbukti
+
+- **Tanda tangan extern di blok harus SAMA dengan yang sudah ada di
+  `src/<stem>.cc`.** Guard membandingkan string tanda tangan (translasi
+  `s32`→`i32` otomatis; `u32` vs `s32` TIDAK ditranslasi). Contoh nyata:
+  src punya `void *GetMapData(i32)`, draf menulis `MapData *GetMapData()`
+  → `[SKIP] extern GetMapData beda tanda tangan`. Solusi codegen-netral:
+  pakai tanda tangan src, simpan nilai balik call sebelumnya ke satu
+  variabel sekali-pakai lalu lewatkan sebagai argumen (`t = func_0803A8A4(...);
+  return ((MapData *) GetMapData(t))->unk20 << 3;`) — r0 sudah berisi `t`
+  sehingga tak ada `mov` tambahan dan judge tetap byte-identik.
+- **`fomt --migratable` bisa “MATCH” fungsi yang SUDAH ada di src**
+  (state shard basi; judge melihat “no ref symbol” lalu promote). Akibatnya
+  blok DUPLIKAT ditambahkan ke `decomp/promoted/<stem>.cc`. Selalu periksa
+  `git diff decomp/promoted/` sesudah batch; buang blok dobel
+  (`git checkout` file promoted) dan JANGAN hitung sebagai migrasi baru —
+  `migrate.py` akan menjawab `sudah ada di src/... (dilewati)`.
+- **Insert ke `src/*.cc` yang punya blok `extern "C" {` bisa MERAH**
+  (`syntax error before 0x5F0`) karena titik sisip jatuh di dalam blok itu
+  (terbukti func_080AAF3C di `code_809E804.cc`). migrate sudah revert
+  otomatis; solusinya sisip manual pada batas `extern "C"` yang benar
+  lalu `make compare`.
+- **SKIP permanen — jangan diulang:** `data asing NB menempel ekor` (blok
+  berakhir `.byte`/pool; ref_len > ukuran kode), `grup gabungan/tak-split`,
+  `bukan fungsi terakhir` (modul tail-only: `hardware.s`,
+  `code_actor_0809BFE8.s`, `code_linkonce.s`), `butuh tulis manual callee`
+  (callee tak-MATCH & beda tanda tangan).
+- **Modul split boleh pindah di TENGAH** (`game_state`, `code_809E804`,
+  `code_entities*`, `code_0803EE94`); batasan “fungsi terakhir” hanya
+  berlaku untuk modul tail-only legacy.
+- **Mengulang judge setelah draf diedit padahal state `promoted`:**
+  `fomt` tak mengantrekannya lagi. Reset `status`→`failed` +
+  `judged_mtime`=0 di `decomp/state/modules/<stem>.json` DAN buang dulu
+  blok promoted lamanya, kalau tidak `promote()` menambah blok kedua.
+- Kunci MATCH yang sudah terbukti transfer antar-saudara: lihat bagian
+  “Kalau DIFF” butir 6–8 (return-type epilog, argumen ke-2 untuk target
+  call r2, padding struct).
 
 ## Batasan build
 
