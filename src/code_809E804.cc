@@ -2278,6 +2278,32 @@ void func_080ABC14(GenObj__func_080ABC14 *arg0) {
 }
 
 
+// DECOMP-MATCHED func_080AAF3C (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+typedef struct GenObj__func_080AAF3C {
+    i32 unk0;
+    u8 _pad4[144];
+    i32 unk94;
+} GenObj__func_080AAF3C;
+i32 GetUpgradeLevel__C4Barn(i32);
+i32 GetUpgradeLevel__C4Coop(i32);
+i32 GetUpgradeLevel__C9FarmHouse(i32);
+i32 func_0800E324(i32);
+i32 func_0803A8A4(i32, i32, i32, i32, i32);
+
+__attribute__((section(".text.code_809E804.080AAF3C")))
+i32 func_080AAF3C(GenObj__func_080AAF3C *arg0) {
+    i32 temp_r5;
+    i32 temp_r8;
+    i32 temp_sb;
+
+    temp_sb = func_0800E324(arg0->unk94 + 0x10);
+    temp_r8 = GetUpgradeLevel__C9FarmHouse(arg0->unk94 + 0x1F4);
+    temp_r5 = GetUpgradeLevel__C4Coop(arg0->unk94 + 0x410);
+    return func_0803A8A4(arg0->unk0, temp_sb, temp_r8, temp_r5, GetUpgradeLevel__C4Barn(arg0->unk94 + 0x5F0));
+}
+}
+
 // DECOMP-MATCHED func_080AD938 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 void func_080CFFC0(i32);
