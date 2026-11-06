@@ -38,6 +38,25 @@ Cabang lain di guard: kalau callee-nya **belum** MATCH dan tanda
 tangannya beda, hasilnya `butuh tulis manual callee` = SKIP permanen →
 tulis dulu callee-nya, atau pilih fungsi lain.
 
+Dua resep penyamaan tanda tangan yang **codegen-netral** dan terbukti
+membersihkan SKIP (2026-11-06):
+
+1. **Return type pembawa pointer.** `src/` mendeklarasikan
+   `void* __builtin_new(i32)`; blok menulis `s32 __builtin_new(s32)` →
+   guard menolak (return type ikut dibandingkan). Samakan: blok jadi
+   `void *__builtin_new(s32);` — argumen/return tetap word, codegen sama.
+   Ini membuka belasan blok di `code_entities_08034CEC` sekaligus.
+2. **Callee punya parameter yang tak diset pemanggil.** Blok menulis
+   `s32 calleeX();` tapi `src/` punya `i32 calleeX(i32)` → guard menolak.
+   Kalau ref memang tak menyiapkan argumen (register sudah berisi nilai
+   yang diinginkan, mis. `adds r4,r0,#0; bl calleeX`), deklarasikan
+   `s32 calleeX(s32);` dan **teruskan nilai itu** (`calleeX(arg0);`) —
+   zero codegen karena r0 sudah berisi arg0. Bukti: `func_08035CD4`,
+   `func_08036154` (keduanya migrasi HIJAU setelah ini).
+   Kalau ref benar-benar tak menyiapkan apa pun dan nilainya tak penting,
+   tetap harus ada argumen konkret (mis. `0`) — cek dulu asm-nya, jangan
+   mengarang.
+
 ## 2. Blok DUPLIKAT di `promoted/` (state shard basi)
 
 `fomt --migratable` bisa menjawab **MATCH** untuk fungsi yang **sudah ada

@@ -3051,3 +3051,17 @@ s32 func_080AAF3C(GenObj *arg0) {
     temp_r5 = GetUpgradeLevel__C4Coop(arg0->unk94 + 0x410);
     return func_0803A8A4(arg0->unk0, temp_sb, temp_r8, temp_r5, GetUpgradeLevel__C4Barn(arg0->unk94 + 0x5F0));
 }
+
+// DECOMP-MATCHED func_080ABC14 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080AC388(void *, void *, void *, s32, s32, s32); /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+    u8 _pad10[20];
+    s32 unk24;
+} GenObj;
+void func_080ABC14(GenObj *arg0) {
+    arg0->unkC = arg0->unk24;
+    func_080AC388((u8 *) arg0 + 0x10, (u8 *) arg0 + 0x1C, 0, 0, 0, (s32) ((u8 *) arg0 + 0xC));
+}
