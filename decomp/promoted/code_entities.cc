@@ -973,3 +973,199 @@ void func_0802BE68(GenObj *arg0) {
     w += 0x54;
     *w = 1;
 }
+
+// DECOMP-MATCHED func_0802BFA0 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_0803260C();
+s32 func_0805E8F0(void *);
+
+typedef struct S38 {
+    u8 _pad0[0x38];
+    u8 unk38;
+} S38;
+typedef struct GenObj {
+    S38 *unk0;
+    u8 _pad4[0xC7];
+    u8 unkCB;
+} GenObj;
+
+/* NOTE crouton-alpha-3: deref chain S38 + byte pointer (u8) agar lebar
+   ldrb/strb pas; pointer artimetic via cast (u8*) bukan GenObj* agar
+   tak diskala sizeof. */
+void func_0802BFA0(GenObj *arg0) {
+    s32 var_r1;
+    s8 *var_r1_2;
+    s8 var_r0;
+    S38 *p;
+    u8 *b;
+
+    func_0803260C();
+    p = arg0->unk0;
+    b = (u8 *)p + 0x38;
+    var_r1 = 0;
+    if (*b == 1) {
+        var_r1 = 1;
+    }
+    if (var_r1 != 0) {
+        var_r1_2 = (s8 *)((u8 *)arg0 + 0xCB);
+        if (arg0->unkCB == 0) {
+            if ((s32) (func_0805E8F0((u8 *)arg0 + 0xB4) << 0x1E) < 0) {
+                var_r1_2 = (s8 *)((u8 *)arg0 + 0xC8);
+                var_r0 = 1;
+                goto block_7;
+            }
+        } else {
+            var_r0 = 0;
+block_7:
+            *var_r1_2 = var_r0;
+        }
+    }
+}
+
+// DECOMP-MATCHED func_0802C908 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_08008B6C(s32, s32);
+s32 func_08008CD0(s32);
+
+typedef struct VtC908 { u8 _pad[0x14C]; void *unk14C; } VtC908;
+typedef struct HC908 { VtC908 *vt; } HC908;
+typedef struct PairObj { s32 *beg; s32 *end; } PairObj;
+typedef struct GenObj {
+    HC908 *unk0;
+    u8 _pad4[0x3C];
+    u8 unk40;
+    u8 unk41;
+    u8 unk42;
+} GenObj;
+void func_0802C908(GenObj *arg0) {
+    register GenObj *a0 __asm__("r4");
+    register u8 *pa __asm__("r3");
+    register u8 *pb __asm__("r2");
+    register s32 t41 __asm__("r0");
+    s32 *p;
+    s32 *end;
+    s32 var_r0;
+    PairObj *obj;
+    HC908 *o;
+
+    a0 = arg0;
+    pa = (u8 *)a0 + 0x41;
+    t41 = *pa;
+    if (t41 != 0) {
+        pb = (u8 *)a0 + 0x40;
+        if ((s32) *pb < (s32) (t41 - 1)) {
+            register u8 *pc __asm__("r1");
+            s32 t42;
+            s32 t40;
+            pc = (u8 *)a0 + 0x42;
+            t42 = *pc + 1;
+            *pc = t42;
+            if ((u8)t42 != 0x14) {
+                goto rest;
+            }
+            *pc = 0;
+            t40 = *pb + 1;
+            *pb = t40;
+            if ((u8)t40 != 5) {
+                goto rest;
+            }
+            o = a0->unk0;
+            obj = ((PairObj *(*)(HC908 *))(o->vt->unk14C))(o);
+            p = obj->beg;
+            end = obj->end;
+            if (p == end) {
+                goto block_8;
+            }
+loop_5:
+            if ((func_08008CD0(*p) << 0x18) != 0) {
+                p += 1;
+                if (p != end) {
+                    goto loop_5;
+                }
+                goto block_8;
+            }
+            var_r0 = *p;
+            goto after;
+block_8:
+            var_r0 = *(end - 1);
+after:
+            func_08008B6C(var_r0, 0xB8);
+        }
+    }
+rest:;
+}
+
+// DECOMP-MATCHED func_0802C860 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 GetId__C4Tool(s32);
+s32 GetTool__C9ToolStack(s32);
+s32 func_08008B6C(s32, s32);
+s32 func_08008CD0(s32);
+s8 func_0800E550(s32, s32);
+s32 func_08025B10(void *);
+
+typedef struct VtC860 { u8 _pad[0x14C]; void *unk14C; } VtC860;
+typedef struct HC860 { VtC860 *vt; } HC860;
+struct GenObj__func_0802A510;
+void func_0802A510(struct GenObj__func_0802A510 *);
+typedef struct PairObj { s32 *beg; s32 *end; } PairObj;
+typedef struct GenObj {
+    HC860 *unk0;
+    u8 _pad4[0x10];
+    void *unk14;
+    u8 _pad18[0x24];
+    s32 unk38;
+} GenObj;
+void func_0802C860(GenObj *arg0) {
+    register GenObj *a0 __asm__("r6");
+    s8 sp0;
+    s32 *p;
+    s32 *end;
+    s32 var_r0;
+    s32 temp_r4;
+    PairObj *obj;
+    HC860 *o;
+    register void *idx __asm__("r4");
+    register s32 neg2 __asm__("r5");
+    s32 res;
+
+    a0 = arg0;
+    {
+        register u8 *b __asm__("r1");
+        b = (u8 *)a0;
+        b += 0x3C;
+        *b = 0xA;
+        b += 1;
+        __asm__ volatile("" : "+r"(b));
+        *b = 0x14;
+    }
+    func_0802A510((struct GenObj__func_0802A510 *)a0);
+    o = a0->unk0;
+    obj = ((PairObj *(*)(HC860 *))(o->vt->unk14C))(o);
+    p = obj->beg;
+    end = obj->end;
+    if (p == end) goto block_8;
+loop_1:
+    if ((func_08008CD0(*p) << 0x18) == 0) goto found;
+    p += 1;
+    if (p != end) goto loop_1;
+    goto block_8;
+block_8:
+    var_r0 = *(end - 1);
+    goto after;
+after:
+    ;
+    func_08008B6C(var_r0, 0xBC);
+    temp_r4 = *(s32 *)((u8 *)a0 + 0x38);
+    sp0 = func_0800E550(temp_r4, GetTool__C9ToolStack(temp_r4 + 0x5C));
+    if (GetId__C4Tool((s32)&sp0) != 0x4D) goto path_else;
+    idx = a0->unk14;
+    neg2 = -2;
+    res = func_08025B10(a0);
+    ((void (*)(void *, s32, s32))(*(void **)((u8 *)idx + 0x64)))(a0, neg2, res);
+    return;
+found:
+    var_r0 = *p;
+    goto after;
+path_else:
+    idx = a0->unk14;
+    res = func_08025B10(a0);
+    ((void (*)(void *, s32, s32))(*(void **)((u8 *)idx + 0x64)))(a0, 0, res);
+}
