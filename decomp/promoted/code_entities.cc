@@ -813,3 +813,163 @@ void func_0802A510(GenObj *arg0) {
         __asm__ volatile("" : "+r"(t0));
     }
 }
+
+// DECOMP-MATCHED func_0802B9C0 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_0802B944();
+s32 vfunc_10__7AEntity();
+extern s32 vtable_unk_080E65F4;
+
+typedef struct GenObj {
+    u8 _pad0[0x14];
+    void *unk14;
+    u8 _pad18[28];
+    u8 unk34;
+} GenObj;
+void *func_0802B9C0(GenObj *arg0, s32 arg1) {
+    register GenObj *a0 __asm__("r4") = arg0;
+    u8 *p;
+    s32 v0;
+
+    func_0802B944(a0, arg1);
+    a0->unk14 = &vtable_unk_080E65F4;
+    p = (u8 *)a0 + 0x34;
+    __asm__ volatile("" : "+r"(p));
+    v0 = 0;
+    *p = v0;
+    p += 1;
+    *p = v0;
+    p += 3;
+    *p = v0;
+    p[1] = v0;
+    *(s32 *)(p + 4) = v0;
+    *(s32 *)(p + 8) = v0;
+    *(s32 *)(p + 12) = v0;
+    *(s32 *)(p + 16) = v0;
+    *(s32 *)(p + 20) = v0;
+    *(s32 *)(p + 24) = v0;
+    p += 0x1C;
+    *p = v0;
+    p += 2;
+    *(u16 *)p = v0;
+    p += 2;
+    *p = v0;
+    p += 1;
+    *p = v0;
+    vfunc_10__7AEntity(a0);
+    return a0;
+}
+
+// DECOMP-MATCHED func_0802B944 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 __12AActorEntityP10GameObjectRC13ActorLocationUiUi(void *, s32, s32 *, s32, s32);
+s32 memcpy(s32 *, s32 *, s32);
+extern s32 vtable_unk_080E671C;
+
+typedef struct GenObj {
+    u8 _pad0[0x14];
+    void *unk14;
+} GenObj;
+
+void *func_0802B944(void *arg0, s32 arg1) {
+    register GenObj *a0 __asm__("r5");
+    register s32 a1 __asm__("r9");
+    register s32 z8 __asm__("r8");
+    register s32 MASK __asm__("r3");
+    register s32 v __asm__("r2");
+    u8 sp4[8];
+    u8 spC[8];
+    u8 *b;
+    u8 *p4;
+    s32 z6;
+    s32 K;
+
+    a0 = (GenObj *)arg0;
+    a1 = arg1;
+    b = spC;
+    K = 0x234;
+    z8 = 0;
+    v = *(u16 *)b;
+    MASK = 0xFFFFFC00;
+    *(u16 *)b = (u16)((v & MASK) | K);
+    z6 = 0;
+    *(b + 1) &= 3;
+    *(u16 *)(b + 2) &= MASK;
+    *(b + 3) &= 3;
+    *(u16 *)(b + 4) &= MASK;
+    p4 = sp4;
+    memcpy(p4, spC, 6);
+    p4[6] = z6;
+    __12AActorEntityP10GameObjectRC13ActorLocationUiUi(a0, a1, (s32 *)sp4, 2, z8);
+    a0->unk14 = &vtable_unk_080E671C;
+    return a0;
+}
+
+// DECOMP-MATCHED func_0802BE68 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 SetAnim__12AActorEntityUi(void *, u16);
+u16 func_0802BC48(void *);
+
+typedef struct S38 {
+    u8 _pad0[0xC];
+    s32 unkC;
+    s32 unk10;
+    u8 _pad14[4];
+    s32 unk18;
+} S38;
+typedef struct GenObj {
+    u8 _pad0[0x20];
+    u8 unk20;
+} GenObj;
+void func_0802BE68(GenObj *arg0) {
+    register GenObj *a0 __asm__("r5");
+    register s32 var_r2 __asm__("r2");
+    u8 *w;
+    s32 var_r1;
+    S38 *var_r0;
+
+    a0 = arg0;
+    var_r2 = arg0->unk20;
+    switch (var_r2) {
+    case 2:
+        var_r0 = (S38 *)((u8 *)a0 + 0x38);
+        var_r1 = 0xFFFE5556;
+        var_r2 = 0;
+        var_r0->unkC = var_r1;
+        var_r0->unk10 = var_r2;
+        var_r0->unk18 = var_r2;
+        break;
+    case 3:
+        var_r0 = (S38 *)((u8 *)a0 + 0x38);
+        var_r1 = 0x1AAAA;
+        var_r2 = 0;
+        var_r0->unkC = var_r1;
+        var_r0->unk10 = var_r2;
+        var_r0->unk18 = var_r2;
+        break;
+    case 1:
+        var_r0 = (S38 *)((u8 *)a0 + 0x38);
+        var_r2 = 0;
+        var_r1 = 0xFFFE5556;
+        var_r0->unkC = var_r2;
+        var_r0->unk10 = var_r1;
+        var_r0->unk18 = var_r2;
+        break;
+    case 0:
+        var_r0 = (S38 *)((u8 *)a0 + 0x38);
+        var_r1 = 0x1AAAA;
+        var_r0->unkC = var_r2;
+        var_r0->unk10 = var_r1;
+        var_r0->unk18 = var_r2;
+        break;
+    }
+    w = (u8 *)a0;
+    w += 0x34;
+    *w = 1;
+    w += 0x24;
+    *w = 1;
+    {
+        u16 icon = func_0802BC48(a0);
+        SetAnim__12AActorEntityUi(a0, icon);
+    }
+    w = (u8 *)a0;
+    w += 0x54;
+    *w = 1;
+}

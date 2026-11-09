@@ -1,4 +1,5 @@
 #include "prelude.h"
+#include <string.h> // memcpy
 
 // === MIGRATED TYPES (auto-managed by migrate.py) ===
 typedef struct GenObj {
@@ -153,6 +154,36 @@ typedef struct GenObj__func_0802A510 {
     i32 unk38;
     u8 _pad3C[76];
 } GenObj__func_0802A510;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0802B9C0 {
+    u8 _pad0[0x14];
+    void *unk14;
+    u8 _pad18[28];
+    u8 unk34;
+} GenObj__func_0802B9C0;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0802B944 {
+    u8 _pad0[0x14];
+    void *unk14;
+} GenObj__func_0802B944;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct S38 {
+    u8 _pad0[0xC];
+    i32 unkC;
+    i32 unk10;
+    u8 _pad14[4];
+    i32 unk18;
+} S38;
+typedef struct GenObj__func_0802BE68 {
+    u8 _pad0[0x20];
+    u8 unk20;
+} GenObj__func_0802BE68;
 // === END MIGRATED TYPES ===
 
 // DECOMP-MATCHED func_08020060 (dari code_entities.s; cek manusia sebelum ke src/)
@@ -740,7 +771,6 @@ void func_0802A510(GenObj__func_0802A510 *arg0) {
 }
 }
 
-
 // DECOMP-MATCHED func_0802A7D8 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -774,6 +804,151 @@ struct { i32 sp4; i32 _b; } fr;
     __12AActorEntityP10GameObjectRC13ActorLocationUiUi(arg0, arg1, &fr.sp4, 2, 0x192);
     arg0->unk14 = &vtable_unk_080E676C;
     return arg0;
+}
+}
+// DECOMP-MATCHED func_0802B944 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __12AActorEntityP10GameObjectRC13ActorLocationUiUi(void *, i32, i32 *, i32, i32);
+extern i32 vtable_unk_080E671C;
+
+__attribute__((section(".text.code_entities.0802B944")))
+void *func_0802B944(void *arg0, i32 arg1) {
+    register GenObj__func_0802B944 *a0 __asm__("r5");
+    register i32 a1 __asm__("r9");
+    register i32 z8 __asm__("r8");
+    register i32 MASK __asm__("r3");
+    register i32 v __asm__("r2");
+    u8 sp4[8];
+    u8 spC[8];
+    u8 *b;
+    u8 *p4;
+    i32 z6;
+    i32 K;
+
+    a0 = (GenObj__func_0802B944 *)arg0;
+    a1 = arg1;
+    b = (u8 *)(spC);
+    K = 0x234;
+    z8 = 0;
+    v = *(u16 *)b;
+    MASK = 0xFFFFFC00;
+    *(u16 *)b = (u16)((v & MASK) | K);
+    z6 = 0;
+    *(b + 1) &= 3;
+    *(u16 *)(b + 2) &= MASK;
+    *(b + 3) &= 3;
+    *(u16 *)(b + 4) &= MASK;
+    p4 = (u8 *)(sp4);
+    memcpy((void *)(p4), (const void *)(spC), 6);
+    p4[6] = z6;
+    __12AActorEntityP10GameObjectRC13ActorLocationUiUi(a0, a1, (i32 *)sp4, 2, z8);
+    a0->unk14 = &vtable_unk_080E671C;
+    return (void *)(a0);
+}
+}
+
+// DECOMP-MATCHED func_0802B9C0 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+void* func_0802B944(void *arg0, i32 arg1);                             /* extern */
+i32 vfunc_10__7AEntity();
+extern i32 vtable_unk_080E65F4;
+
+__attribute__((section(".text.code_entities.0802B9C0")))
+void *func_0802B9C0(GenObj__func_0802B9C0 *arg0, i32 arg1) {
+    register GenObj__func_0802B9C0 *a0 __asm__("r4") = arg0;
+    u8 *p;
+    i32 v0;
+
+    func_0802B944(a0, arg1);
+    a0->unk14 = &vtable_unk_080E65F4;
+    p = (u8 *)a0 + 0x34;
+    __asm__ volatile("" : "+r"(p));
+    v0 = 0;
+    *p = v0;
+    p += 1;
+    *p = v0;
+    p += 3;
+    *p = v0;
+    p[1] = v0;
+    *(i32 *)(p + 4) = v0;
+    *(i32 *)(p + 8) = v0;
+    *(i32 *)(p + 12) = v0;
+    *(i32 *)(p + 16) = v0;
+    *(i32 *)(p + 20) = v0;
+    *(i32 *)(p + 24) = v0;
+    p += 0x1C;
+    *p = v0;
+    p += 2;
+    *(u16 *)p = v0;
+    p += 2;
+    *p = v0;
+    p += 1;
+    *p = v0;
+    vfunc_10__7AEntity(a0);
+    return (void *)(a0);
+}
+}
+
+// DECOMP-MATCHED func_0802BE68 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 SetAnim__12AActorEntityUi(void *, u16);
+u16 func_0802BC48(void *);
+
+__attribute__((section(".text.code_entities.0802BE68")))
+void func_0802BE68(GenObj__func_0802BE68 *arg0) {
+    register GenObj__func_0802BE68 *a0 __asm__("r5");
+    register i32 var_r2 __asm__("r2");
+    u8 *w;
+    i32 var_r1;
+    S38 *var_r0;
+
+    a0 = arg0;
+    var_r2 = arg0->unk20;
+    switch (var_r2) {
+    case 2:
+        var_r0 = (S38 *)((u8 *)a0 + 0x38);
+        var_r1 = 0xFFFE5556;
+        var_r2 = 0;
+        var_r0->unkC = var_r1;
+        var_r0->unk10 = var_r2;
+        var_r0->unk18 = var_r2;
+        break;
+    case 3:
+        var_r0 = (S38 *)((u8 *)a0 + 0x38);
+        var_r1 = 0x1AAAA;
+        var_r2 = 0;
+        var_r0->unkC = var_r1;
+        var_r0->unk10 = var_r2;
+        var_r0->unk18 = var_r2;
+        break;
+    case 1:
+        var_r0 = (S38 *)((u8 *)a0 + 0x38);
+        var_r2 = 0;
+        var_r1 = 0xFFFE5556;
+        var_r0->unkC = var_r2;
+        var_r0->unk10 = var_r1;
+        var_r0->unk18 = var_r2;
+        break;
+    case 0:
+        var_r0 = (S38 *)((u8 *)a0 + 0x38);
+        var_r1 = 0x1AAAA;
+        var_r0->unkC = var_r2;
+        var_r0->unk10 = var_r1;
+        var_r0->unk18 = var_r2;
+        break;
+    }
+    w = (u8 *)a0;
+    w += 0x34;
+    *w = 1;
+    w += 0x24;
+    *w = 1;
+    {
+        u16 icon = func_0802BC48(a0);
+        SetAnim__12AActorEntityUi(a0, icon);
+    }
+    w = (u8 *)a0;
+    w += 0x54;
+    *w = 1;
 }
 }
 
