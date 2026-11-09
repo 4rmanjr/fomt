@@ -394,13 +394,14 @@
  },
  "func_08022950": {
   "addr": 134359376,
-  "judged_mtime": 1793582714.0664124,
+  "judged_mtime": 1794211598.2120583,
   "module": "code_entities.s",
-  "note": "akes integer from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08022950/lenovo_216379/func.c:19: warning: return makes integer from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08022950/lenovo_216379/func.c:22: invalid operands to binary &\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 526,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08022980": {

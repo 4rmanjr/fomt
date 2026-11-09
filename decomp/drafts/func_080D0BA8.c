@@ -1,32 +1,26 @@
-extern void *gUnk_03000420;
+extern i32 *gUnk_03000420;
+s32 __umodsi3(s32, s32);
 
+typedef struct CP8 { s32 w[8]; } CP8;
 typedef struct GenObj {
-    s32 unk0;
-    struct GenObj *unk4;
-    struct GenObj *unk8;
-    struct GenObj *unkC;
-    u8 _pad10[44];
-    s32 unk3C;
+    void *unk0;
+    void *unk4;
 } GenObj;
 void func_080D0BA8(GenObj *arg0) {
-    void *temp_r4;
-    GenObj *temp_r4_2;
-    void *temp_r4_3;
-    GenObj *temp_r5;
+    void *obj;
+    s32 x;
+    CP8 *dst;
 
-    gUnk_03000420->unk38 = (u32) ((u32) (gUnk_03000420->unk38 + 1) % 10U);
-    arg0->unk4 = 0;
-    arg0->unk8 = 0;
-    temp_r4 = gUnk_03000420 + (gUnk_03000420->unk38 << 5);
-    temp_r4_2 = (GenObj *)((u8 *)temp_r4 + 0x3C);
-    temp_r5 = (GenObj *)((u8 *)arg0 + 0xC);
-    temp_r4->unk3C = (s32) arg0->unk0;
-    temp_r4_2->unk4 = (s32) arg0->unk4;
-    temp_r4_2->unk8 = (s32) arg0->unk8;
-    temp_r4_3 = (GenObj *)((u8 *)temp_r4_2 + 0xC);
-    temp_r4_2->unkC = (s32) arg0->unkC;
-    temp_r4_3->unk4 = (s32) temp_r5->unk4;
-    temp_r4_3->unk8 = (s32) temp_r5->unk8;
-    temp_r4_3->unkC = (s32) temp_r5->unkC;
-    (temp_r4_3 + 0xC)->unk4 = (s32) ((GenObj *)((u8 *)temp_r5 + 0xC))->unk4;
+    obj = gUnk_03000420;
+    x = *(s32 *)((u8 *)obj + 0x38);
+    *(s32 *)((u8 *)obj + 0x38) = __umodsi3((u32)(x + 1), 10);
+    ((void **)(arg0))[1] = 0;
+    ((void **)(arg0))[2] = 0;
+    {
+        volatile s32 *xp;
+        xp = (volatile s32 *)((u8 *)obj + 0x38);
+        x = *xp;
+    }
+    dst = (CP8 *)((u8 *)obj + (x << 5) + 0x3C);
+    *dst = *(CP8 *)arg0;
 }
