@@ -1826,7 +1826,6 @@ i32 *func_080A3774(i32 *arg0, GenObj774 *arg1) {
 }
 }
 
-
 // DECOMP-MATCHED GetMapData (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 extern i32 gUnk_08105EDC;
@@ -2946,6 +2945,70 @@ void func_080C8550(GenObj__func_080C8550 *arg0) {
     func_08008EB8(0x03FF03FF, 0x0600FF8A, 0x28);
     func_08008EB8(0x03FF03FF, 0x0600FFCA, 0x28);
     func_0804EDB4(*(i32 *) ((u8 *) arg0->unk8 + 0x1AA8), 0x0600FFB2, 0xA0, 0, 0x20);
+}
+}
+
+// DECOMP-MATCHED func_080CBA60 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+struct GenObj__func_080CADA8;
+void func_080CADA8(GenObj__func_080CADA8 *arg0);                             /* extern */
+i32 func_080CAE60(i32, i32, i32, i32, i32, i32, i32);
+extern i32 gUnk_08117860;
+
+__attribute__((section(".text.code_809E804.080CBA60")))
+void func_080CBA60(i32 arg0, i32 arg1) {
+    i32 *base;
+    i32 tmp;
+    i32 t;
+    u8 *tp;
+
+    func_080CADA8((struct GenObj__func_080CADA8 *)((arg1 * 0xC) + arg0 + 0x218));
+    base = &gUnk_08117860 + arg1;
+    tmp = *base;
+    tp = (u8 *)&tmp;
+    {
+        register i32 b1 __asm__("r1");
+        b1 = ((i32)tp[1] << 6);
+        t = ((i32)*tp * 2) + 0x0600F000;
+        func_080CAE60(arg0, b1 + t, 0x54, 2, 2, 0, 0x20);
+    }
+    {
+        register i32 b1 __asm__("r1");
+        b1 = ((i32)tp[1] << 6);
+        t = ((i32)*tp * 2) + 0x0600F080;
+        func_080CAE60(arg0, b1 + t, 0x54, 2, 1, 0, 0x20);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080CC0B4 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+struct GenObj__func_080CADA8;
+void func_080CADA8(GenObj__func_080CADA8 *arg0);                             /* extern */
+i32 func_080CAE60(i32, i32, i32, i32, i32, i32, i32);
+extern i32 gUnk_0811785C;
+
+__attribute__((section(".text.code_809E804.080CC0B4")))
+void func_080CC0B4(i32 arg0) {
+    i32 tmp;
+    i32 t;
+    u8 *tp;
+
+    func_080CADA8((struct GenObj__func_080CADA8 *)(arg0 + 0x280));
+    tmp = gUnk_0811785C;
+    tp = (u8 *)&tmp;
+    {
+        register i32 b1 __asm__("r1");
+        b1 = ((i32)tp[1] << 6);
+        t = ((i32)*tp * 2) + 0x0600F000;
+        func_080CAE60(arg0, b1 + t, 0x54, 2, 2, 0, 0x20);
+    }
+    {
+        register i32 b1 __asm__("r1");
+        b1 = ((i32)tp[1] << 6);
+        t = ((i32)*tp * 2) + 0x0600F080;
+        func_080CAE60(arg0, b1 + t, 0x54, 2, 1, 0, 0x20);
+    }
 }
 }
 

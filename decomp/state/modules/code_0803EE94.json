@@ -5859,13 +5859,14 @@
  },
  "func_0809446C": {
   "addr": 134825068,
-  "judged_mtime": 1793582714.1603973,
+  "judged_mtime": 1794210543.8174653,
   "module": "code_0803EE94.s",
-  "note": "alue not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0809446C/opencode/func.c:18: void value not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0809446C/opencode/func.c:23: warning: assignment makes integer from pointer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 588,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080944A8": {
@@ -5882,13 +5883,14 @@
  },
  "func_080944E8": {
   "addr": 134825192,
-  "judged_mtime": 1793582714.1603973,
+  "judged_mtime": 1794210551.0856087,
   "module": "code_0803EE94.s",
-  "note": "alue not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080944E8/opencode/func.c:28: void value not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080944E8/opencode/func.c:38: warning: assignment makes integer from pointer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 120,
   "sanitize_v": 4,
   "size": 1150,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08094560": {
@@ -5917,13 +5919,14 @@
  },
  "func_080945B0": {
   "addr": 134825392,
-  "judged_mtime": 1793582714.1603973,
+  "judged_mtime": 1794210582.1953106,
   "module": "code_0803EE94.s",
-  "note": "alue not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080945B0/opencode/func.c:35: void value not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080945B0/opencode/func.c:41: warning: assignment makes integer from pointer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 152,
   "sanitize_v": 4,
   "size": 1409,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08094648": {

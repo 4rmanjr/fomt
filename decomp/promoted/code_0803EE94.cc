@@ -3758,3 +3758,113 @@ void func_08094110(GenObj *arg0, s32 arg1) {
         }
     }
 }
+
+// DECOMP-MATCHED func_0809446C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern s32 gUnk_0810093C;
+extern s32 gUnk_08100A04;
+
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[4];
+    s32 unk8;
+    u8 _padC[52];
+    s32 unk40;
+    u8 _pad44[4];
+    s32 unk48;
+} GenObj;
+void func_0809446C(GenObj *arg0) {
+    register s32 *var_r0 __asm__("r0");
+
+    if ((((s32 (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
+        if ((((s32 (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
+            var_r0 = &gUnk_08100A04;
+        } else {
+            var_r0 = &gUnk_0810093C;
+        }
+        arg0->unk8 = (s32)var_r0;
+    }
+}
+
+// DECOMP-MATCHED func_080944E8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern s32 gUnk_08100964;
+extern s32 gUnk_0810098C;
+extern s32 gUnk_081009DC;
+extern s32 gUnk_08100A04;
+
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[4];
+    s32 unk8;
+    u8 unkC;
+    u8 _padD[3];
+    s32 unk10;
+    u8 _pad14[44];
+    s32 unk40;
+    u8 _pad44[4];
+    s32 unk48;
+    u8 _pad4C[8];
+    s32 unk54;
+    s32 unk58;
+} GenObj;
+void func_080944E8(GenObj *arg0) {
+    s32 *var_r0;
+
+    if ((((s32 (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
+        if ((((s32 (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
+            var_r0 = &gUnk_08100A04;
+        } else if ((((s32 (*)(void *,...))(arg0->unk0->unk54))(arg0) << 0x18) != 0) {
+            if ((((s32 (*)(void *,...))(arg0->unk0->unk58))(arg0) << 0x18) != 0) {
+                var_r0 = &gUnk_08100964;
+            } else {
+                arg0->unkC = 1;
+                var_r0 = &gUnk_0810098C;
+            }
+        } else {
+            arg0->unk10 = 3;
+            var_r0 = &gUnk_081009DC;
+        }
+        arg0->unk8 = (s32)var_r0;
+    }
+}
+
+// DECOMP-MATCHED func_080945B0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern s32 gUnk_081009B4;
+extern s32 gUnk_081009DC;
+extern s32 gUnk_08100A04;
+
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[4];
+    s32 unk8;
+    u8 unkC;
+    u8 _padD[3];
+    s32 unk10;
+    u8 _pad14[40];
+    s32 unk3C;
+    s32 unk40;
+    s32 unk44;
+    s32 unk48;
+    u8 _pad4C[16];
+    s32 unk5C;
+} GenObj;
+void func_080945B0(GenObj *arg0, s32 arg1) {
+    if (arg1 == 1) {
+        ((void (*)(void *,...))(arg0->unk0->unk3C))(arg0);
+    }
+    if ((((s32 (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
+        if ((((s32 (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
+            arg0->unk8 = (s32)&gUnk_08100A04;
+        } else if ((((s32 (*)(void *,...))(arg0->unk0->unk44))(arg0) << 0x18) != 0) {
+            arg0->unk10 = 1;
+            arg0->unk8 = (s32)&gUnk_081009DC;
+        } else if (arg0->unkC == 0) {
+            arg0->unk10 = 1;
+            arg0->unk8 = (s32)&gUnk_081009DC;
+        } else if ((((s32 (*)(void *,...))(arg0->unk0->unk5C))(arg0) << 0x18) == 0) {
+            arg0->unk10 = 2;
+            arg0->unk8 = (s32)&gUnk_081009DC;
+        } else {
+            arg0->unk8 = (s32)&gUnk_081009B4;
+        }
+    }
+}
