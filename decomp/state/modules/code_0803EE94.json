@@ -3596,14 +3596,15 @@
  },
  "func_0807E51C": {
   "addr": 134735132,
-  "judged_mtime": 1793948071.5919895,
+  "judged_mtime": 1793969149.5151255,
   "module": "code_0803EE94.s",
-  "note": "byte +0xa: 0x61 vs ref 0x9 [3extra,1regalloc @r adds r1, r1, r4 | adds r1, r4, r1]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 60,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 483,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0807E558": {
@@ -6522,13 +6523,14 @@
  },
  "func_0809A558": {
   "addr": 134849880,
-  "judged_mtime": 1793686233.3374367,
+  "judged_mtime": 1794057035.143092,
   "module": "code_0803EE94.s",
-  "note": "c.c: In function `func_0809A558':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0809A558/opencode/func.c:15: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0809A558/opencode/func.c:15: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 430,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809A58C": {

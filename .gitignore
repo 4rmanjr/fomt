@@ -4,6 +4,7 @@
 *.dump
 *.elf
 *.gba
+!baserom.gba
 *.map
 *.sav
 

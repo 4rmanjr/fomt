@@ -185,6 +185,21 @@ kanan-ke-kiri — pecah sesuai urutan store ref.
   bisa MATCH** — deteksi dari dua instruksi pertama/terakhir asm, skip.
 - Varian vtable-call yang **nilai balik call-nya dipakai** setelah call
   (`bl; cmp r0; ldr r1,[r0,#N]`): pin tidak pernah menutup residual.
+- Poke multi-alamat dengan base hidup di register tinggi: ref menyalin
+  argumen ke saved reg (`adds r2,r0`) SEKALI di prolog lalu menurunkan
+  semua alamat dari sana; agbcc selalu `push {r2}`/`pop {r2}` (+2 byte)
+  untuk pin `register ... __asm__("r2")`, dan fence sebelum/sesudah tidak
+  bisa meniru prolog tanpa merusak ekor. Pembukti: `func_080CECD0`.
+- Bentuk akumulator + r8-save: argumen di-forward ke saved reg di prolog
+  (`ldr r4,[r0]; mov r8,r4`) SEBELUM komputasi, lalu register yang sama
+  dipakai ulang sebagai akumulator `mul` (`mul r4,r4,r5`). Kombinasi
+  prolog-save + reuse sebagai akumulator selalu 2 byte off. Pembukti:
+  `func_0803AE58`.
+- Double-load u8 dari satu kata stack: kompilator menaruh kata di stack
+  sekali (`str r0,[sp,#0xc]`), lalu dua `ldrb` terpisah; kalkulasi `(u8)x`
+  ganda di C memaksa slot stack ekstra (`sub sp,#0x10` vs `#0xc`). Satu
+  variabel `u8 b0, b1` + fence-after-use meniru urutan reload tapi tak
+  cukup bila digabung wall lain. Pembukti: `func_080CB9DC`.
 
 **Verifikasi blok vs draf:** bila `fomt verify` dijalankan (hanya atas
 permintaan) dan melaporkan `promoted != draft` untuk fungsi yang bloknya
@@ -194,9 +209,11 @@ kebenarannya dipegang `make compare`. Jangan “memperbaiki” dengan
 menambal draf; kalau blok promoted masih ada tapi berbeda, itu baru
 sinyal resync (lihat `MIGRATE.md` §7).
 
-Aturan berhenti: cap ~5 kali judge per fungsi. Di atas itu hampir selalu
-wall struktural → parkir, regenerasi draf mentah (`r.draft(name)`) supaya
-tidak mengantre ulang, catat wall di log sesi, pindah fungsi.
+Aturan berhenti (budget skala ukuran, adopsi decompdecomp STALL_BUDGET):
+ref_len ≤32 → 3 judge; ≤64 → 4; ≤128 → 6; ≤256 → 8; di atas → 10.
+Tanpa perbaikan note antar-judge = wall struktural → parkir, regenerasi
+draf mentah (`r.draft(name)`) supaya tidak mengantre ulang, catat wall di
+log sesi, pindah fungsi.
 
 ---
 

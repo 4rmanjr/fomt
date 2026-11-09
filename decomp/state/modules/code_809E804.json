@@ -1040,13 +1040,14 @@
  },
  "func_080A3774": {
   "addr": 134887284,
-  "judged_mtime": 1793582714.1823938,
+  "judged_mtime": 1794055265.9870927,
   "module": "code_809E804.s",
-  "note": "c.c: In function `func_080A3774':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080A3774/opencode/func.c:15: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080A3774/opencode/func.c:15: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 430,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080A37A8": {
