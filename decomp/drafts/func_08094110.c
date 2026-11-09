@@ -18,26 +18,23 @@ typedef struct GenObj {
     s32 unk5C;
 } GenObj;
 void func_08094110(GenObj *arg0, s32 arg1) {
-    s32 *var_r0;
-
     if (arg1 == 1) {
         ((void (*)(void *,...))(arg0->unk0->unk3C))(arg0);
     }
     if ((((s32 (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
         if ((((s32 (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
-            var_r0 = &gUnk_081008C4;
+            arg0->unk8 = (s32)&gUnk_081008C4;
         } else if ((((s32 (*)(void *,...))(arg0->unk0->unk44))(arg0) << 0x18) != 0) {
             arg0->unk10 = 1;
-            var_r0 = &gUnk_0810089C;
+            arg0->unk8 = (s32)&gUnk_0810089C;
         } else if (arg0->unkC == 0) {
             arg0->unk10 = 1;
-            var_r0 = &gUnk_0810089C;
+            arg0->unk8 = (s32)&gUnk_0810089C;
         } else if ((((s32 (*)(void *,...))(arg0->unk0->unk5C))(arg0) << 0x18) == 0) {
             arg0->unk10 = 2;
-            var_r0 = &gUnk_0810089C;
+            arg0->unk8 = (s32)&gUnk_0810089C;
         } else {
-            var_r0 = &gUnk_08100874;
+            arg0->unk8 = (s32)&gUnk_08100874;
         }
-        arg0->unk8 = var_r0;
     }
 }

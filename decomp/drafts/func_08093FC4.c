@@ -11,7 +11,7 @@ typedef struct GenObj {
     s32 unk48;
 } GenObj;
 void func_08093FC4(GenObj *arg0) {
-    s32 *var_r0;
+    register s32 *var_r0 __asm__("r0");
 
     if ((((s32 (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
         if ((((s32 (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
@@ -19,6 +19,6 @@ void func_08093FC4(GenObj *arg0) {
         } else {
             var_r0 = &gUnk_081007FC;
         }
-        arg0->unk8 = var_r0;
+        arg0->unk8 = (s32)var_r0;
     }
 }

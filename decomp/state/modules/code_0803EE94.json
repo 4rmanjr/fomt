@@ -24,7 +24,7 @@
  },
  "func_080455D8": {
   "addr": 134501848,
-  "judged_mtime": 1793700656.5885696,
+  "judged_mtime": 1793925737.3598313,
   "module": "code_0803EE94.s",
   "note": "len 100 vs ref 96 [1missing,3extra,8operand,3different @| adds r7, r3, #0 | ldr r2, [sp, #0x14]]",
   "ref_len": 96,
@@ -255,7 +255,7 @@
  },
  "func_0804EA58": {
   "addr": 134539864,
-  "judged_mtime": 1793582714.1104054,
+  "judged_mtime": 1793925737.3598313,
   "module": "code_0803EE94.s",
   "note": "len 44 vs ref 36 [6extra,2operand,6regalloc,2different @r ldr r5, [sp, #0x14] | ldr r6, [sp, #0x14]]",
   "ref_len": 36,
@@ -359,7 +359,7 @@
  },
  "func_0804EE64": {
   "addr": 134540900,
-  "judged_mtime": 1793582714.1104054,
+  "judged_mtime": 1793925737.3608313,
   "module": "code_0803EE94.s",
   "note": "len 40 vs ref 32 [6extra,2operand,2regalloc,2different @i ldr r4, [pc, #0x10] | ldr r4, [pc, #0x18]]",
   "ref_len": 32,
@@ -681,7 +681,7 @@
  },
  "func_08050AD8": {
   "addr": 134548184,
-  "judged_mtime": 1793582714.113405,
+  "judged_mtime": 1793925737.3608313,
   "module": "code_0803EE94.s",
   "note": "len 104 vs ref 100 [3missing,5extra,4operand,1regalloc,5different @< cmp r5, #0 | ]",
   "ref_len": 100,
@@ -1022,13 +1022,13 @@
  },
  "func_08050E98": {
   "addr": 134549144,
-  "judged_mtime": 1793844164.5907722,
+  "judged_mtime": 1793582714.1154046,
   "module": "code_0803EE94.s",
   "note": "len 26 vs ref 36 [7missing,2extra,5regalloc,1different @< push {r4, lr} | ]",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 326,
-  "status": "drafted",
+  "status": "failed",
   "thumb": true
  },
  "func_08050EBC": {
@@ -1512,13 +1512,13 @@
  },
  "func_0805A6E4": {
   "addr": 134588132,
-  "judged_mtime": 1793880179.1151595,
+  "judged_mtime": 1793925743.995182,
   "module": "code_0803EE94.s",
   "note": "byte +0x2: 0x4f vs ref 0x13 [15missing,16extra,5operand,11regalloc,4different @>  | push {r4, r5, r6, r7, lr}]",
   "ref_len": 96,
   "sanitize_v": 4,
   "size": 919,
-  "status": "drafted",
+  "status": "failed",
   "thumb": true
  },
  "func_0805A744": {
@@ -1725,13 +1725,13 @@
  },
  "func_0805DF68": {
   "addr": 134602600,
-  "judged_mtime": 1793844164.6547723,
+  "judged_mtime": 1793582714.1224034,
   "module": "code_0803EE94.s",
-  "note": "/fomt/decomp/logs/judge_func_0805DF68/alexams/func.c:8: incompatible types in assignment\n/root/gitproject/fomt/decomp/logs/judge_func_0805DF68/alexams/func.c:9: incompatible types in assignment\n/root/gitproject/fomt/decomp/logs/judge_func_0805DF68/alexams/func.c:10: incompatible types in assignment\n",
+  "note": "comp/logs/judge_func_0805DF68/buffy/func.c:8: incompatible types in assignment\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0805DF68/buffy/func.c:9: incompatible types in assignment\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0805DF68/buffy/func.c:10: incompatible types in assignment\n",
   "ref_len": 92,
   "sanitize_v": 4,
   "size": 792,
-  "status": "drafted",
+  "status": "failed",
   "thumb": true
  },
  "func_0805DFC4": {
@@ -1816,9 +1816,9 @@
  },
  "func_0805E824": {
   "addr": 134604836,
-  "judged_mtime": 1793686233.3354366,
+  "judged_mtime": 1793753300.9129837,
   "module": "code_0803EE94.s",
-  "note": "14: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0805E824/opencode/func.c:14: request for member `unkC' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0805E824/opencode/func.c:16: invalid type argument of `->'\n",
+  "note": "byte +0x2: 0x1d vs ref 0x4 [1operand,4regalloc @r adds r4, r0, #0 | adds r5, r3, #0]",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 407,
@@ -2241,9 +2241,9 @@
  },
  "func_0806D948": {
   "addr": 134666568,
-  "judged_mtime": 1793582714.1294024,
+  "judged_mtime": 1793925737.3768322,
   "module": "code_0803EE94.s",
-  "note": "c.c: In function `func_0806D948':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0806D948/opencode/func.c:19: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0806D948/opencode/func.c:19: request for member `unk8' in something not a structure or union\n",
+  "note": "fy/func.c: In function `func_0806D948':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0806D948/buffy/func.c:19: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0806D948/buffy/func.c:19: request for member `unk8' in something not a structure or union\n",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 569,
@@ -2885,13 +2885,13 @@
  },
  "func_08075DEC": {
   "addr": 134700524,
-  "judged_mtime": 1793844164.762772,
+  "judged_mtime": 1793582714.1344016,
   "module": "code_0803EE94.s",
   "note": "byte +0x3: 0x49 vs ref 0x4a [3extra,2regalloc @r ldr r2, [pc, #0xc] | ldr r1, [pc, #0xc]]",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 466,
-  "status": "drafted",
+  "status": "failed",
   "thumb": true
  },
  "func_08075E24": {
@@ -3467,14 +3467,14 @@
  },
  "func_0807D1DC": {
   "addr": 134730204,
-  "judged_mtime": 1793881860.7071588,
+  "judged_mtime": 1793925743.995182,
   "module": "code_0803EE94.s",
   "note": "byte +0xa: 0x60 vs ref 0x9 [3extra,1operand,6regalloc @r adds r1, r1, r4 | adds r0, r4, r1]",
   "ref_len": 60,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 483,
-  "status": "drafted",
+  "status": "failed",
   "thumb": true
  },
  "func_0807D218": {
@@ -5223,24 +5223,26 @@
  },
  "func_080913B0": {
   "addr": 134812592,
-  "judged_mtime": 1793844164.9907722,
+  "judged_mtime": 1794209837.0829456,
   "module": "code_0803EE94.s",
-  "note": "/root/gitproject/fomt/decomp/logs/judge_func_080913B0/alexams/func.c: In function `func_080913B0':\n/root/gitproject/fomt/decomp/logs/judge_func_080913B0/alexams/func.c:8: too few arguments to function `GetId__C4Tool'\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 350,
-  "status": "drafted",
+  "status": "promoted",
   "thumb": true
  },
  "func_080913DC": {
   "addr": 134812636,
-  "judged_mtime": 1793844164.9907722,
+  "judged_mtime": 1794209896.903077,
   "module": "code_0803EE94.s",
-  "note": "/root/gitproject/fomt/decomp/logs/judge_func_080913DC/alexams/func.c: In function `func_080913DC':\n/root/gitproject/fomt/decomp/logs/judge_func_080913DC/alexams/func.c:8: too few arguments to function `GetId__C7Article'\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 524,
-  "status": "drafted",
+  "status": "promoted",
   "thumb": true
  },
  "func_08091420": {
@@ -5315,13 +5317,14 @@
  },
  "func_08092640": {
   "addr": 134817344,
-  "judged_mtime": 1793582714.156398,
+  "judged_mtime": 1794209969.5939906,
   "module": "code_0803EE94.s",
-  "note": "byte +0x14: 0xa1 vs ref 0x22 [1missing,2extra @>  | ldr r1, [r4, #8]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 737,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08092690": {
@@ -5641,13 +5644,14 @@
  },
  "func_08093FC4": {
   "addr": 134823876,
-  "judged_mtime": 1793582714.1583977,
+  "judged_mtime": 1794209855.8871663,
   "module": "code_0803EE94.s",
-  "note": "alue not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08093FC4/opencode/func.c:18: void value not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08093FC4/opencode/func.c:23: warning: assignment makes integer from pointer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 588,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08094000": {
@@ -5664,13 +5668,14 @@
  },
  "func_08094048": {
   "addr": 134824008,
-  "judged_mtime": 1793582714.1593974,
+  "judged_mtime": 1794210042.2998781,
   "module": "code_0803EE94.s",
-  "note": "alue not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08094048/opencode/func.c:28: void value not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08094048/opencode/func.c:38: warning: assignment makes integer from pointer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 120,
   "sanitize_v": 4,
   "size": 1150,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080940C0": {
@@ -5699,13 +5704,14 @@
  },
  "func_08094110": {
   "addr": 134824208,
-  "judged_mtime": 1793582714.1603973,
+  "judged_mtime": 1794210323.2760837,
   "module": "code_0803EE94.s",
-  "note": "alue not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08094110/opencode/func.c:35: void value not ignored as it ought to be\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08094110/opencode/func.c:41: warning: assignment makes integer from pointer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 152,
   "sanitize_v": 4,
   "size": 1409,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080941A8": {

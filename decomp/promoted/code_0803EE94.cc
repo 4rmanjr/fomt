@@ -3586,3 +3586,175 @@ s32 *func_0809A558(s32 *arg0, GenObj9558 *arg1) {
     *dst = t;
     return dst;
 }
+
+// DECOMP-MATCHED func_080913B0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 GetId__C4Tool(s8 *);
+
+s32 func_080913B0(void *arg0, s8 arg1) {
+    s8 sp0;
+
+    (void)arg0;
+    sp0 = arg1;
+    if (GetId__C4Tool(&sp0) <= 0x2F) {
+        if ((7 & GetId__C4Tool(&sp0)) == 5) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// DECOMP-MATCHED func_08093FC4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern s32 gUnk_081007FC;
+extern s32 gUnk_081008C4;
+
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[4];
+    s32 unk8;
+    u8 _padC[52];
+    s32 unk40;
+    u8 _pad44[4];
+    s32 unk48;
+} GenObj;
+void func_08093FC4(GenObj *arg0) {
+    register s32 *var_r0 __asm__("r0");
+
+    if ((((s32 (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
+        if ((((s32 (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
+            var_r0 = &gUnk_081008C4;
+        } else {
+            var_r0 = &gUnk_081007FC;
+        }
+        arg0->unk8 = (s32)var_r0;
+    }
+}
+
+// DECOMP-MATCHED func_080913DC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 GetId__C7Article(s8 *);
+
+s32 func_080913DC(void *arg0, s8 arg1) {
+    s8 sp0;
+
+    (void)arg0;
+    sp0 = arg1;
+    if ((GetId__C7Article(&sp0) == 0x12) || (GetId__C7Article(&sp0) == 0x13) || (GetId__C7Article(&sp0) == 0x14) || (GetId__C7Article(&sp0) == 0x15) || (GetId__C7Article(&sp0) == 0x1C)) {
+        return 1;
+    }
+    return 0;
+}
+
+// DECOMP-MATCHED func_08092640 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080CE19C();
+extern s32 vtable_unk_080E7DD8;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    void *unk4;
+    s32 unk8;
+    u8 _padC[140];
+    u8 unk98;
+    u8 _pad99[99];
+    s32 unkFC;
+    s32 unk100;
+    s32 unk104;
+    s32 unk108;
+} GenObj;
+void *func_08092640(GenObj *arg0) {
+    s32 *pFC;
+    s32 temp_r1;
+
+    func_080CE19C();
+    arg0->unk4 = &vtable_unk_080E7DD8;
+    arg0->unk98 = 0;
+    pFC = &arg0->unkFC;
+    temp_r1 = arg0->unk8;
+    *pFC = temp_r1 + 0x1C34;
+    arg0->unk100 = temp_r1 + 0x1C2C;
+    arg0->unk104 = temp_r1 + 0x1C38;
+    arg0->unk108 = 0;
+    return arg0;
+}
+
+// DECOMP-MATCHED func_08094048 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern s32 gUnk_08100824;
+extern s32 gUnk_0810084C;
+extern s32 gUnk_0810089C;
+extern s32 gUnk_081008C4;
+
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[4];
+    s32 unk8;
+    u8 unkC;
+    u8 _padD[3];
+    s32 unk10;
+    u8 _pad14[44];
+    s32 unk40;
+    u8 _pad44[4];
+    s32 unk48;
+    u8 _pad4C[8];
+    s32 unk54;
+    s32 unk58;
+} GenObj;
+void func_08094048(GenObj *arg0) {
+    s32 *var_r0;
+
+    if ((((s32 (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
+        if ((((s32 (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
+            var_r0 = &gUnk_081008C4;
+        } else if ((((s32 (*)(void *,...))(arg0->unk0->unk54))(arg0) << 0x18) != 0) {
+            if ((((s32 (*)(void *,...))(arg0->unk0->unk58))(arg0) << 0x18) != 0) {
+                var_r0 = &gUnk_08100824;
+            } else {
+                arg0->unkC = 1;
+                var_r0 = &gUnk_0810084C;
+            }
+        } else {
+            arg0->unk10 = 3;
+            var_r0 = &gUnk_0810089C;
+        }
+        arg0->unk8 = var_r0;
+    }
+}
+
+// DECOMP-MATCHED func_08094110 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern s32 gUnk_08100874;
+extern s32 gUnk_0810089C;
+extern s32 gUnk_081008C4;
+
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[4];
+    s32 unk8;
+    u8 unkC;
+    u8 _padD[3];
+    s32 unk10;
+    u8 _pad14[40];
+    s32 unk3C;
+    s32 unk40;
+    s32 unk44;
+    s32 unk48;
+    u8 _pad4C[16];
+    s32 unk5C;
+} GenObj;
+void func_08094110(GenObj *arg0, s32 arg1) {
+    if (arg1 == 1) {
+        ((void (*)(void *,...))(arg0->unk0->unk3C))(arg0);
+    }
+    if ((((s32 (*)(void *,...))(arg0->unk0->unk40))(arg0) << 0x18) != 0) {
+        if ((((s32 (*)(void *,...))(arg0->unk0->unk48))(arg0) << 0x18) != 0) {
+            arg0->unk8 = (s32)&gUnk_081008C4;
+        } else if ((((s32 (*)(void *,...))(arg0->unk0->unk44))(arg0) << 0x18) != 0) {
+            arg0->unk10 = 1;
+            arg0->unk8 = (s32)&gUnk_0810089C;
+        } else if (arg0->unkC == 0) {
+            arg0->unk10 = 1;
+            arg0->unk8 = (s32)&gUnk_0810089C;
+        } else if ((((s32 (*)(void *,...))(arg0->unk0->unk5C))(arg0) << 0x18) == 0) {
+            arg0->unk10 = 2;
+            arg0->unk8 = (s32)&gUnk_0810089C;
+        } else {
+            arg0->unk8 = (s32)&gUnk_08100874;
+        }
+    }
+}

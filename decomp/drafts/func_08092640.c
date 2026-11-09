@@ -1,4 +1,4 @@
-s32 func_080CE19C();                                  /* extern */
+s32 func_080CE19C();
 extern s32 vtable_unk_080E7DD8;
 
 typedef struct GenObj {
@@ -14,15 +14,17 @@ typedef struct GenObj {
     s32 unk108;
 } GenObj;
 void *func_08092640(GenObj *arg0) {
+    s32 *pFC;
     s32 temp_r1;
 
     func_080CE19C();
     arg0->unk4 = &vtable_unk_080E7DD8;
     arg0->unk98 = 0;
+    pFC = &arg0->unkFC;
     temp_r1 = arg0->unk8;
-    arg0->unkFC = (s32) (temp_r1 + 0x1C34);
-    arg0->unk100 = (s32) (temp_r1 + 0x1C2C);
-    arg0->unk104 = (s32) (temp_r1 + 0x1C38);
+    *pFC = temp_r1 + 0x1C34;
+    arg0->unk100 = temp_r1 + 0x1C2C;
+    arg0->unk104 = temp_r1 + 0x1C38;
     arg0->unk108 = 0;
     return arg0;
 }
