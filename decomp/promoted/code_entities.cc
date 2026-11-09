@@ -692,3 +692,124 @@ s32 func_08020460(GenObj *arg0) {
     }
     return var_r1;
 }
+
+// DECOMP-MATCHED func_0802A4C0 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_0805E850(void *, s32, s32);                  /* extern */
+
+typedef struct VtA4 { u8 _pad[0x64]; void *unk64; } VtA4;
+typedef struct HA4 { VtA4 *vt; } HA4;
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[12];
+    s32 unk10;
+    u8 _pad14[116];
+    u8 unk88;
+    u8 _pad89[0x3F];
+    u8 unkC8;
+} GenObj;
+void func_0802A4C0(GenObj *arg0, s32 arg1, s32 arg2) {
+    register GenObj *a0 __asm__("r3") = arg0;
+    register s32 a1 __asm__("r5") = arg1;
+    register u8 *t0 __asm__("r0");
+    GenObj *temp_r4;
+    u8 *b;
+    void *obj;
+    s32 rv;
+
+    b = (u8 *)a0 + 0x88;
+    *b = 1;
+    if (arg2 != 1) {
+        if (arg2 != 0)
+            goto skip;
+    }
+    b[1] = arg2;
+skip:
+    temp_r4 = a0->unk10;
+    if (temp_r4 != 0) {
+        s32 v1;
+        s32 v0;
+        obj = *(void **)temp_r4->unk0;
+        rv = ((s32 (*)(void *))(((HA4 *)obj)->vt->unk64))(obj);
+        func_0805E850((void *)((u8 *)temp_r4 + 0xB4), rv, a1);
+        t0 = (u8 *)temp_r4 + 0xC8;
+        v0 = 0;
+        v1 = 1;
+        *t0 = v1;
+        t0 += 2;
+        *t0 = v0;
+        t0 += 1;
+        *t0 = v1;
+        __asm__ volatile("" : "+r"(t0));
+    }
+}
+
+// DECOMP-MATCHED func_0802A510 (dari code_entities.s; cek manusia sebelum ke src/)
+u16 GetIconId__C4Tool(s8 *);
+s32 GetTool__C9ToolStack(s32);
+s8 func_0800E550(s32, s32);
+s32 func_0805E850(void *, s32, s32);
+
+typedef struct Vt10 { u8 _pad[0x64]; void *unk64; } Vt10;
+typedef struct H10 { Vt10 *vt; } H10;
+typedef struct S88 {
+    u8 b0;
+    u8 b1;
+    u8 _pad2[2];
+    s32 w4;
+    s32 w8;
+    u8 _padC[8];
+    s32 w14;
+} S88;
+typedef struct GenObj {
+    struct GenObj *unk0;
+    u8 _pad4[12];
+    s32 unk10;
+    u8 _pad14[36];
+    s32 unk38;
+    u8 _pad3C[76];
+} GenObj;
+void func_0802A510(GenObj *arg0) {
+    register GenObj *a0 __asm__("r3") = arg0;
+    register u8 *b __asm__("r0");
+    s8 sp0;
+    s32 temp38;
+    u16 icon;
+    GenObj *temp_r5;
+    u8 *t0;
+    void *obj;
+    s32 rv;
+    s32 v0;
+    s32 v1;
+    s32 c1;
+    s32 c2;
+    S88 *bs;
+
+    b = (u8 *)arg0 + 0x88;
+    __asm__ volatile("" : "+r"(b));
+    v0 = 0;
+    v1 = 1;
+    bs = (S88 *)b;
+    bs->b0 = v1;
+    bs->b1 = v0;
+    c1 = 0xFFF80000;
+    c2 = 0x110000;
+    bs->w4 = c1;
+    bs->w8 = v0;
+    bs->w14 = c2;
+    temp_r5 = a0->unk10;
+    if (temp_r5 != 0) {
+        temp38 = a0->unk38;
+        sp0 = func_0800E550(temp38, GetTool__C9ToolStack(temp38 + 0x5C));
+        icon = GetIconId__C4Tool(&sp0);
+        obj = *(void **)temp_r5->unk0;
+        rv = ((s32 (*)(void *))(((H10 *)obj)->vt->unk64))(obj);
+        func_0805E850((void *)((u8 *)temp_r5 + 0xB4), rv, icon);
+        t0 = (u8 *)temp_r5 + 0xC8;
+        *t0 = v1;
+        t0 += 2;
+        *t0 = v0;
+        t0 += 1;
+        *t0 = v1;
+        __asm__ volatile("" : "+r"(t0));
+    }
+}
