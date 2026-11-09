@@ -223,6 +223,30 @@ typedef struct GenObj__func_0802C860 {
 } GenObj__func_0802C860;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct V8E8 { u8 _pad[0x140]; void *f140; } V8E8;
+typedef struct H8E8 { V8E8 *vt; } H8E8;
+typedef struct PS8 { i32 sp0; i32 sp4; } PS8;
+typedef struct GenObj__func_0802D8E8 {
+    u8 _pad0[4];
+    u16 unk4;
+} GenObj__func_0802D8E8;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj6 GenObj6;
+typedef struct GenObj__func_0802D844 {
+    u8 _pad0[4];
+    u16 unk4;
+    u8 _pad8[26];
+    u8 unk20;
+    u8 _pad18[27];
+    u8 unk3C;
+    u8 _pad40[134];
+    u8 unkC3;
+} GenObj__func_0802D844;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08020060 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -1184,6 +1208,125 @@ after:
         }
     }
 rest:;
+}
+}
+
+// DECOMP-MATCHED func_0802D844 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 SetAnimFacing__12AActorEntityUi(void *, i32);     /* extern */
+
+i32 func_080323C8(GenObj6 *);                            /* extern */
+
+__attribute__((section(".text.code_entities.0802D844")))
+void func_0802D844(GenObj__func_0802D844 *arg0, GenObj__func_0802D844 *arg1) {
+    u16 var_r5;
+
+    var_r5 = 0;
+    if (arg1 != 0) {
+        var_r5 = arg1->unk4;
+    }
+    if ((arg0->unkC3 != 0) || (0x3F3 & var_r5)) {
+        func_080323C8((GenObj6 *)arg0);
+        arg0->unk3C = 0x18;
+        if (0x20 & var_r5) {
+            if (arg0->unk20 != 2) {
+                SetAnimFacing__12AActorEntityUi(arg0, 2);
+            }
+        } else if (0x10 & var_r5) {
+            if (arg0->unk20 != 3) {
+                SetAnimFacing__12AActorEntityUi(arg0, 3);
+            }
+        } else if (0x40 & var_r5) {
+            if (arg0->unk20 != 1) {
+                SetAnimFacing__12AActorEntityUi(arg0, 1);
+            }
+        } else if ((var_r5 & 0x80) && (arg0->unk20 != 0)) {
+            SetAnimFacing__12AActorEntityUi(arg0, 0);
+        }
+    }
+}
+}
+
+// DECOMP-MATCHED func_0802D8E8 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08025A40(void *, i32);
+
+__attribute__((section(".text.code_entities.0802D8E8")))
+void func_0802D8E8(GenObj__func_0802D8E8 *arg0, GenObj__func_0802D8E8 *arg1) {
+    PS8 sp;
+    i32 sp8v;
+    i32 var_r2;
+    i32 var_r3;
+    i32 var_r4;
+    register GenObj__func_0802D8E8 *a5 __asm__("r5");
+    void *temp_r0;
+
+    a5 = arg0;
+    var_r3 = 0;
+    sp8v = var_r3;
+    var_r4 = 0;
+    if (arg1 != 0) {
+        var_r3 = *(u16 *)arg1;
+        sp8v = *(u16 *)((u8 *)arg1 + 4);
+        var_r4 = *(u16 *)((u8 *)arg1 + 8);
+    }
+    if (*(u8 *)((u8 *)a5 + 0xC3) != 0) {
+        {
+            register u8 *q __asm__("r1");
+            q = (u8 *)a5 + 0x3C;
+            *q = 0;
+        }
+        return;
+    }
+    var_r2 = ((u32)(var_r3 << 0x1E) >> 0x1F);
+    var_r2 = var_r2 | ((u32)(var_r3 << 0x16) >> 0x1F);
+    if (var_r2 != 0) {
+        if ((((u32)(var_r4 << 0x19) >> 0x1F) | ((u32)(var_r4 << 0x1A) >> 0x1F)) != 0) {
+            func_08025A40(a5, 1);
+            return;
+        }
+        var_r2 = ((u32)(var_r4 << 0x18) >> 0x1F) | ((u32)(var_r4 << 0x1B) >> 0x1F);
+        {
+            register i32 tmp0 __asm__("r0");
+            tmp0 = ((u32)(sp8v << 0x1E) >> 0x1F) | var_r2;
+            var_r4 = ((u32)(sp8v << 0x16) >> 0x1F) | tmp0;
+        }
+        if (var_r4 != 0) {
+            func_08025A40(a5, 0);
+            return;
+        }
+        var_r2 = 1 & *(u8 *)&sp8v;
+        if (var_r2 != 0) {
+            temp_r0 = *(void **)a5;
+            {
+                void **vtp;
+                void *fn;
+                vtp = (void **)((u8 *)(((H8E8 *)temp_r0)->vt) + 0x140);
+                sp.sp0 = 0x3CE;
+                sp.sp4 = var_r4;
+                fn = *vtp;
+                ((void (*)(void *, void *, i32))(fn))(temp_r0, &sp, 0);
+            }
+            {
+                register u8 *qq __asm__("r0");
+                qq = (u8 *)a5;
+                qq += 0x3C;
+                *qq = (u8)var_r4;
+            }
+            return;
+        }
+        if (1 & *((u8 *)&sp8v + 1)) {
+            goto block_12;
+        }
+    } else {
+block_12:
+        {
+            register u8 *qq __asm__("r0");
+            qq = (u8 *)a5;
+            qq += 0x3C;
+            *qq = (u8)var_r2;
+        }
+    }
 }
 }
 

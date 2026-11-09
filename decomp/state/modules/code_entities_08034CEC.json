@@ -48,13 +48,14 @@
  },
  "func_08035A48": {
   "addr": 134437448,
-  "judged_mtime": 1793582714.0864093,
+  "judged_mtime": 1794209542.7666109,
   "module": "code_entities_08034CEC.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08035A48/opencode/func.c: In function `func_08035A48':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08035A48/opencode/func.c:36: void value not ignored as it ought to be\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 152,
   "sanitize_v": 4,
   "size": 1529,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08035AE0": {
