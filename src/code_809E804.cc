@@ -710,6 +710,14 @@ typedef struct GenObj774 {
 } GenObj774;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct CP8 { i32 w[8]; } CP8;
+typedef struct GenObj__func_080D0BA8 {
+    void *unk0;
+    void *unk4;
+} GenObj__func_080D0BA8;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -3206,6 +3214,32 @@ void func_080D0B14(i32 arg0, i32 arg1) {
     *(volatile u16 *)dst = 0x80;
     hr = (volatile u16 *)0x04000208;
     *hr = saved;
+}
+}
+
+// DECOMP-MATCHED func_080D0BA8 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 *gUnk_03000420;
+i32 __umodsi3(i32, i32);
+
+__attribute__((section(".text.code_809E804.080D0BA8")))
+void func_080D0BA8(GenObj__func_080D0BA8 *arg0) {
+    u8 *obj;
+    i32 x;
+    CP8 *dst;
+
+    obj = (u8 *)gUnk_03000420;
+    x = *(i32 *)((u8 *)obj + 0x38);
+    *(i32 *)((u8 *)obj + 0x38) = __umodsi3((u32)(x + 1), 10);
+    ((void **)(arg0))[1] = 0;
+    ((void **)(arg0))[2] = 0;
+    {
+        volatile i32 *xp;
+        xp = (volatile i32 *)((const u8 *)obj + 0x38);
+        x = *xp;
+    }
+    dst = (CP8 *)((u8 *)obj + (x << 5) + 0x3C);
+    *dst = *(CP8 *)arg0;
 }
 }
 

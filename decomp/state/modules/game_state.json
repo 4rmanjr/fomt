@@ -414,9 +414,9 @@
  },
  "func_08012028": {
   "addr": 134291496,
-  "judged_mtime": 1793582714.0374172,
+  "judged_mtime": 1794213354.1472518,
   "module": "game_state.s",
-  "note": "c.c: In function `func_08012028':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08012028/opencode/func.c:19: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08012028/opencode/func.c:19: request for member `unk8' in something not a structure or union\n",
+  "note": "len 54 vs ref 58 [3missing,1extra,1operand,6regalloc @r ldr r2, [sp] | ldr r1, [sp]]",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 565,
@@ -1713,13 +1713,14 @@
  },
  "func_080146CC": {
   "addr": 134301388,
-  "judged_mtime": 1793582714.049415,
+  "judged_mtime": 1794211531.4756393,
   "module": "game_state.s",
-  "note": "t from incompatible pointer type\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080146CC/opencode/func.c:19: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080146CC/opencode/func.c:19: request for member `unkAC' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080146FC": {

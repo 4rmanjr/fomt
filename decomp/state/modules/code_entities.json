@@ -4,10 +4,11 @@
   "judged_mtime": 1793017222.33747,
   "module": "code_entities.s",
   "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020060/worker-2b8e/func.c: In function `func_08020060':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_08020060/worker-2b8e/func.c:10: invalid type argument of `unary *'\n [audit_sync: duplikat di src]",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 336,
-  "status": "migrated",
+  "status": "promoted",
   "thumb": true
  },
  "func_08020080": {
@@ -738,10 +739,11 @@
   "judged_mtime": 1793017258.2084558,
   "module": "code_entities.s",
   "note": "len 10 vs ref 16 [audit_sync: duplikat di src]",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 16,
   "sanitize_v": 4,
   "size": 203,
-  "status": "migrated",
+  "status": "promoted",
   "thumb": true
  },
  "func_08024C98": {

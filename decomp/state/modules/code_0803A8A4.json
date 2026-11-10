@@ -114,10 +114,11 @@
   "judged_mtime": 1793582714.100407,
   "module": "code_0803A8A4.s",
   "note": "len 48 vs ref 30 [9extra,2operand,4different @i push {r4, r5, r6, r7, lr} | push {r4, r5, lr}] [audit_sync: duplikat di src]",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 327,
-  "status": "migrated",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803B474": {

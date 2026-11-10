@@ -2267,17 +2267,17 @@ typedef struct GenObj {
     void *unk4;
 } GenObj;
 void func_080146CC(GenObj *arg0, s32 arg1) {
-    void *temp;
-    void *p8c;
+    u8 *temp;
+    u8 *p8c;
     void *a8;
-    void *vt;
+    u8 *vt;
     void *fn;
 
-    temp = *(void **)((u8 *)arg0 + 4);
-    p8c = *(void **)((u8 *)temp + 0x8C);
+    temp = *(u8 **)((u8 *)arg0 + 4);
+    p8c = *(u8 **)((u8 *)temp + 0x8C);
     BeginIncubation__4CoopUi((s32)((u8 *)p8c + 0x410), arg1);
     a8 = *(void **)((u8 *)temp + 0xA8);
-    vt = *(void **)a8;
+    vt = *(u8 **)a8;
     fn = *(void **)((u8 *)vt + 0xAC);
     ((void (*)(void *, s32))(fn))(a8, arg1);
 }

@@ -1,6 +1,6 @@
 
 // DECOMP-MATCHED func_0805E850 (dari code_0803EE94.s; cek manusia sebelum ke src/)
-s32 func_0805E860(s32 *, s32);                        /* extern */
+void func_0805E860(s32 *, s32);                       /* extern */
 
 void func_0805E850(s32 *arg0, s32 arg1, s32 arg2) {
     *arg0 = arg1;
@@ -3525,7 +3525,7 @@ void func_080908CC(GenObj *arg0, s32 arg1) {
 
 // DECOMP-MATCHED func_08050C2C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 s32 func_08050C64(void *);                            /* extern */
-s32 func_0805E860(s32 *, s32);                       /* extern */
+void func_0805E860(s32 *, s32);                      /* extern */
 
 typedef struct GenObj {
     u8 _pad0[1280];
@@ -3866,5 +3866,85 @@ void func_080945B0(GenObj *arg0, s32 arg1) {
         } else {
             arg0->unk8 = (s32)&gUnk_081009B4;
         }
+    }
+}
+
+// DECOMP-MATCHED func_0805E860 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct ObjE860 {
+    u8 _pad[2];
+    u16 unk2;
+} ObjE860;
+typedef struct PS860 {
+    void *sp0;
+    void *sp4;
+} PS860;
+typedef struct GenObj {
+    void *unk0;
+    void *unk4;
+    void *unk8;
+    u16 unkC;
+    u16 unkE;
+    u8 _p10[2];
+    u8 unk12;
+} GenObj;
+void func_0805E860(s32 *arg0, s32 arg1) {
+    PS860 sp;
+    void *obj0;
+    void *vt;
+    void *fn;
+    volatile void *vp;
+
+    obj0 = *(void **)arg0;
+    vt = *(u8 **)obj0;
+    {
+        register void *spp __asm__("r0");
+        spp = &sp;
+        fn = *(void **)((u8 *)vt + 0xC);
+        ((void (*)(void *, void *, s32))(fn))(spp, obj0, arg1);
+    }
+    __asm__ volatile("" : : : "memory");
+    {
+        void *v1;
+        void *v0;
+        v1 = sp.sp0;
+        v0 = sp.sp4;
+        ((GenObj *)arg0)->unk4 = v1;
+        ((GenObj *)arg0)->unk8 = v0;
+    }
+    ((GenObj *)arg0)->unkC = 0;
+    __asm__ volatile("" : : : "memory");
+    ((GenObj *)arg0)->unkE = (s16)(((ObjE860 *)((GenObj *)arg0)->unk4)->unk2 << 8);
+    ((GenObj *)arg0)->unk12 = 1;
+}
+
+// DECOMP-MATCHED func_08075DEC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_080098AC(void *, s32);                       /* extern */
+extern s32 vtable_unk_080E7B68;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+void func_08075DEC(GenObj *arg0, s32 arg1) {
+    arg0->unk8 = (s32) &vtable_unk_080E7B68;
+    func_080098AC(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_08075E24 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[4];
+    s16 unk4;
+    u8 _pad6[8];
+    s16 unkE;
+} GenObj;
+void func_08075E24(GenObj *arg0, u16 arg1) {
+    if ((s32) (s16) arg1 <= (s32) arg0->unk4) {
+        arg0->unkE = arg1;
+    } else {
+        arg0->unkE = (u16) arg0->unk4;
+    }
+    if ((s32) arg0->unkE <= 0x9F) {
+        arg0->unkE = 0xA0U;
     }
 }

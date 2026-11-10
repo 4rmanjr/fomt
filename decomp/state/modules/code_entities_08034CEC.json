@@ -132,9 +132,9 @@
  },
  "func_08035C04": {
   "addr": 134437892,
-  "judged_mtime": 1793666078.4796956,
+  "judged_mtime": 1793709911.4901078,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x31: 0x49 vs ref 0x4a [1extra,7regalloc @r ldr r2, [pc, #0x1c] | ldr r1, [pc, #0x1c]]",
+  "note": "byte +0x31: 0x49 vs ref 0x4a [1extra,1operand,7regalloc @r ldr r2, [pc, #0x1c] | ldr r1, [pc, #0x1c]]",
   "ref_len": 180,
   "sanitize_v": 4,
   "size": 1713,
@@ -370,9 +370,9 @@
  },
  "func_08036084": {
   "addr": 134439044,
-  "judged_mtime": 1793667958.657054,
+  "judged_mtime": 1793686233.3334367,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x31: 0x49 vs ref 0x4a [1extra,7regalloc @r ldr r2, [pc, #0x1c] | ldr r1, [pc, #0x1c]]",
+  "note": "ning: assignment makes integer from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08036084/crouton-alpha-5/func.c:29: invalid operands to binary <<\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08036084/crouton-alpha-5/func.c:31: invalid type argument of `unary *'\n",
   "ref_len": 180,
   "sanitize_v": 4,
   "size": 1715,
@@ -630,9 +630,9 @@
  },
  "func_080365CC": {
   "addr": 134440396,
-  "judged_mtime": 1793667376.5676215,
+  "judged_mtime": 1793686233.3334367,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x31: 0x49 vs ref 0x4a [1extra,7regalloc @r ldr r2, [pc, #0x1c] | ldr r1, [pc, #0x1c]]",
+  "note": "ning: assignment makes integer from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080365CC/crouton-alpha-5/func.c:29: invalid operands to binary <<\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080365CC/crouton-alpha-5/func.c:31: invalid type argument of `unary *'\n",
   "ref_len": 180,
   "sanitize_v": 4,
   "size": 1716,
@@ -1438,9 +1438,9 @@
  },
  "func_08037AD0": {
   "addr": 134445776,
-  "judged_mtime": 1793582714.093408,
+  "judged_mtime": 1793925737.3598313,
   "module": "code_entities_08034CEC.s",
-  "note": " or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08037AD0/opencode/func.c:27: request for member `unk4' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08037AD0/opencode/func.c:28: request for member `unk6' in something not a structure or union\n",
+  "note": "e/lenovo/gitproject/fomt/decomp/logs/judge_func_08037AD0/crouton-alpha-5/func.c:27: request for member `unk4' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08037AD0/crouton-alpha-5/func.c:28: request for member `unk6' in something not a structure or union\n",
   "ref_len": 120,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -1591,10 +1591,11 @@
   "judged_mtime": 1793582714.094408,
   "module": "code_entities_08034CEC.s",
   "note": "len 26 vs ref 20 [3extra,1operand,3different @| adds r1, #0x54 | ldr r0, [r1, #0x54]] [audit_sync: duplikat di src]",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 238,
-  "status": "migrated",
+  "status": "promoted",
   "thumb": true
  },
  "func_08037F74": {
@@ -1960,10 +1961,11 @@
   "judged_mtime": 1793582714.0964077,
   "module": "code_entities_08034CEC.s",
   "note": ".c: In function `func_08038EA0':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08038EA0/opencode/func.c:12: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08038EA0/opencode/func.c:12: request for member `unk50' in something not a structure or union\n [audit_sync: duplikat di src]",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 275,
-  "status": "migrated",
+  "status": "promoted",
   "thumb": true
  },
  "func_08038EB8": {

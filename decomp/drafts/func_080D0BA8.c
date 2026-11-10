@@ -1,4 +1,4 @@
-extern i32 *gUnk_03000420;
+extern void *gUnk_03000420;
 s32 __umodsi3(s32, s32);
 
 typedef struct CP8 { s32 w[8]; } CP8;

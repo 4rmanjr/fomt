@@ -4791,11 +4791,12 @@
   "judged_mtime": 1793150387.860151,
   "module": "code_linkonce.s",
   "note": "/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5898/Prodesk_64840/func.c:53: warning: passing arg 2 of `func_08007C28' makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5898/Prodesk_64840/func.c:62: `arg1' undeclared (first use in this function)\n [audit_sync: sudah di src, asm hilang]",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 212,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 1709,
-  "status": "migrated",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E596C": {
