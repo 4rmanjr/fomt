@@ -372,3 +372,19 @@ diparameterkan lewat register, sedangkan ref hanya berbagi blok
 `ldr r2,=offset` (bukan `r0`) dan dua cabang ke blok bersama. Selama
 bentuk AST pemicu cross-jump belum ketemu, parkir — jangan tambah
 percobaan acak.
+### 6.5 Rematerialisasi alamat stack (`mov r1, sp` vs `adds r1, r0, #0`)
+
+`func_08012028` tinggal satu instruksi beda: ref `adds r1, r0, #0; movs
+r0, #0; str r0, [r1]`, kita `mov r1, sp; movs r0, #0; str r0, [r1]`.
+Artinya di ref alamat `&sp.sp0` disalin dari register yang sudah
+memegangnya (r0, sisa `str r0, [sp, #4]`), sedangkan agbcc kita
+me-rematerialisasi `sp` untuk salinan itu. Semantik dan panjang sama
+(2 byte), tapi bytes berbeda.
+
+Yang sudah dicoba dan TIDAK memicu salinan: field `volatile` per
+anggota, pointer `slot`/`q` ke `&sp.sp0`, cast `(u32)`/`(u8 *)+0`,
+`register` tanpa pin, rantai `sp.sp4 = q = &sp.sp0`. Yang berhasil
+menghapus sisa regalloc lain (tmp r2, p r1, urutan store sp4→sp8→nol,
+`*arg0 = tmp`, reload `p` lewat cast volatile) tetap tidak bisa
+memaksa salinan r0→r1. Parkir di 1 instruksi; jangan ulang variasi
+pointer ke `&sp` tanpa ide baru.
