@@ -1,3 +1,8 @@
+typedef struct Vt {
+    u8 _pad0[0x40];
+    void *fn40;
+} Vt;
+
 typedef struct GenObj {
     void *unk0;
     struct GenObj *unk4;
@@ -10,17 +15,18 @@ typedef struct GenObj {
 } GenObj;
 
 void func_08016F60(GenObj *arg0) {
-    GenObj *t;
-    GenObj *o;
+    GenObj **slot;
+    GenObj *base;
     GenObj *x;
-    s32 i;
+    u32 i;
 
+    base = arg0->unk4;
     i = 0x2E;
-    o = *(GenObj **) ((u8 *) arg0->unk4 + 0xA8);
+    slot = (GenObj **) ((u8 *) base + 0xA8);
     while (i <= 0x45) {
-        x = ((GenObj *(*)(GenObj *, s32)) (((GenObj *) *(void **) o)->unk40))(o, i);
+        x = ((GenObj *(*)(GenObj *, s32)) ((Vt *) *(void **) *slot)->fn40)(*slot, i);
         if (x != 0) {
-            if (((u8) ((s32 (*)(GenObj *)) *(void **) (*(s32 *) ((u8 *) x + 0x14) + 0x5C))(x)) != 0) {
+            if ((((s32 (*)(GenObj *)) *(void **) (*(s32 *) ((u8 *) x + 0x14) + 0x5C))(x) << 0x18) != 0) {
                 ((s32 (*)(GenObj *)) *(void **) (*(s32 *) ((u8 *) x + 0x14) + 0x7C))(x);
             }
         }

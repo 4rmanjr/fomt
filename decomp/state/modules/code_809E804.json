@@ -4944,9 +4944,9 @@
  },
  "func_080CD4D4": {
   "addr": 135058644,
-  "judged_mtime": 1793582714.218388,
+  "judged_mtime": 1794288975.9651475,
   "module": "code_809E804.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080CD4D4/lenovo_199143/func.c:11: request for member `unk1' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080CD4D4/lenovo_199143/func.c:11: request for member `unk0' in something not a structure or union\n",
+  "note": "byte +0x14: 0x10 vs ref 0x8 [1missing,1extra,2regalloc @>  | ldr r2, [pc, #0x40]]",
   "ref_len": 96,
   "sanitize_v": 4,
   "size": 837,
@@ -5283,9 +5283,9 @@
  },
  "func_080CECD0": {
   "addr": 135064784,
-  "judged_mtime": 1793944927.9793108,
+  "judged_mtime": 1794288978.3591316,
   "module": "code_809E804.s",
-  "note": "byte +0x2: 0x0 vs ref 0x84 [1missing,1extra,1operand @< adds r2, r0, #0 | ]",
+  "note": "len 26 vs ref 24 [1extra,1operand,7regalloc,1different @>  | adds r2, r0, #0]",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 244,

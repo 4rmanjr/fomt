@@ -2010,9 +2010,9 @@
  },
  "func_08063E04": {
   "addr": 134626820,
-  "judged_mtime": 1793582714.124403,
+  "judged_mtime": 1794289163.486889,
   "module": "code_0803EE94.s",
-  "note": " or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08063E04/opencode/func.c:17: request for member `unk0' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08063E04/opencode/func.c:18: request for member `unk2' in something not a structure or union\n",
+  "note": "len 126 vs ref 84 [7missing,28extra,2operand,5regalloc,2stack,7different @>  | push {r4, r5, r6, r7, lr}]",
   "ref_len": 84,
   "sanitize_v": 4,
   "size": 726,
