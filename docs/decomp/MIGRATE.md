@@ -179,3 +179,43 @@ verify. Status yang benar untuk “selesai & ada di src” adalah `promoted`.
   `decomp/drafts/*` yang diedit, `decomp/state/modules/<stem>.json`.
   JANGAN `git add -A`; jangan commit `promoted/*.cc` milik batch lain.
 - Jangan klaim “migrasi” untuk MATCH yang SKIP atau yang cuma promote.
+
+## 9. Menyamakan signature callee yang sudah ada di `src/`
+
+Gejala saat migrate:
+
+- `passing 'i32' to argument N of 'callee(GenObj *, GenObj *)' lacks a cast`
+- `type 'X' is not a base type for type 'Y'`
+- `ANSI C++ forbids implicit conversion from 'void *' in argument passing`
+
+Resep (terbukti pada 6 migrasi tail `hardware.s`, 2026-11-10):
+
+1. Ambil nama typedef **persis** dari `src/` (mis.
+   `GenObj__func_080099B0`) beserta definisi field-nya.
+2. Salin typedef identik ke dalam blok promoted (blok harus mandiri).
+3. Deklarasikan callee dengan signature `src/`:
+   `void callee(GenObj__func_080099B0 *, GenObj__func_080099B0 *);`
+4. Cast argumen eksplisit ke tipe itu:
+   `callee((GenObj__func_080099B0 *) arg0, (GenObj__func_080099B0 *) a1);`
+
+Jangan hanya `(void *)`: guard akan menulis ulang extern ke tipe struct
+`src/`, sehingga cast `void *` menjadi implicit conversion error. Kalau
+callee **belum** ada di `src/`, pilih tipe yang nanti dipakai definisinya
+(mis. `void *`) dan samakan saat callee migrasi.
+
+Untuk diagnosis cepat, pakai `python3 decomp/migrate.py --module <mod>.s
+--func <fn> --explain`: ia mencetak signature blok vs **semua** deklarasi
+`src/` (sama/BEDA) plus verdict gate, tanpa menulis apa pun.
+
+## 10. Blok promoted ≠ draf hasil judge (drift)
+
+Blok promoted hanya boleh diedit **codegen-netral** setelah MATCH, dan
+drafnya wajib disinkronkan. Kasus nyata: `func_0805E860` blok promoted
+diedit manual (`s32`/`i32*`) sehingga bukan blok yang diadili judge —
+`make compare` MERAH dan bentuk `i32` di posisi return akan menggagalkan
+verify.
+
+Deteksi: `python3 tools/scripts/audit_consistency.py` (drift = info;
+`--strict` menjadikannya masalah) atau `--explain` saat migrate. Audit
+juga menolak `i32` di draf/promoted dan status di luar enum
+`pending/drafted/failed/promoted/matched`.

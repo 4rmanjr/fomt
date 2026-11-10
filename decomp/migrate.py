@@ -3258,6 +3258,68 @@ def autopush_migrate(moved):
             fcntl.flock(fh, fcntl.LOCK_UN)
 
 
+_DECL_RE = re.compile(
+    r"^\s*(?:extern\s+)?([A-Za-z_][\w \t\*]*?)\b([A-Za-z_]\w*)\s*"
+    r"\(([^;{}]*)\)\s*[;{]")
+
+
+def _decl_map(text):
+    """Peta nama -> baris deklarasi/definisi fungsi (signature ringkas)."""
+    out = {}
+    for line in text.splitlines():
+        clean = re.sub(r"/\*.*?\*/|//.*$", "", line).strip()
+        m = _DECL_RE.match(clean)
+        if not m:
+            continue
+        out.setdefault(m.group(2), " ".join(clean.split()))
+    return out
+
+
+def explain_one(module, func):
+    """Cetak beda signature blok promoted vs deklarasi di src/ (dry-run).
+
+    Dipakai saat gate menjawab `beda tanda tangan`: menunjukkan deklarasi
+    lengkap kedua sisi + typedef yang dipakai, supaya penyamaan dilakukan
+    sekali (codegen-netral), bukan trial-and-error build.
+    """
+    stem = module[:-2] if module.endswith(".s") else module
+    pp = REPO / "decomp" / "promoted" / f"{stem}.cc"
+    print(f"\n== {func} ({module})")
+    print(f"   promoted: {pp.relative_to(REPO)}")
+    try:
+        block = extract_block(pp, func)
+    except Exception as e:                      # noqa: BLE001 - pesan saja
+        print(f"   [blok] tidak ditemukan: {e}")
+        return
+    body = split_marker_body(block)[1]
+    blk = _decl_map(body)
+
+    src_decls = {}
+    for suf in ("", "_c", "_v", "_migrated"):
+        for ext in ("cc", "c"):
+            p = REPO / "src" / f"{stem}{suf}.{ext}"
+            if p.exists():
+                src_decls[p] = _decl_map(p.read_text(errors="ignore"))
+
+    def _key(sig):
+        return _norm_sig(sig).replace("i32", "s32")
+
+    for name, sig in blk.items():
+        hits = [(p, dm[name]) for p, dm in src_decls.items() if name in dm]
+        if not hits:
+            print(f"   [src-] {name}: belum ada | blok: {sig}")
+            continue
+        for p, s2 in hits:
+            tag = "sama" if _key(sig) == _key(s2) else "BEDA"
+            print(f"   [{tag}] {name}")
+            print(f"       blok: {sig}")
+            print(f"       src : {p.relative_to(REPO)}: {s2}")
+
+    r = migrate_one(module, func, dry_run=True)
+    status = "OK" if r["ok"] else ("SKIP" if r.get("skipped") else "GAGAL")
+    print(f"   [gate {status}] {r.get('detail', '')}")
+
+
 def main():
     ap = argparse.ArgumentParser(description="Migrasi aman 1 fungsi MATCH "
                                  "asm -> src per compare.")
@@ -3268,6 +3330,8 @@ def main():
     ap.add_argument("--limit", type=int, default=None,
                     help="maks fungsi diproses")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--explain", action="store_true",
+                    help="cetak beda signature blok vs src/ lalu berhenti")
     ap.add_argument("--no-baseline", action="store_true",
                     help="lewati cek compare baseline")
     args = ap.parse_args()
@@ -3284,6 +3348,11 @@ def main():
     if not plan:
         print("tidak ada kandidat (cek status promoted / nama fungsi).")
         return 2
+
+    if args.explain:
+        for mod, name in plan:
+            explain_one(mod, name)
+        return 0
 
     if not args.dry_run and not args.no_baseline:
         green, tail = run_compare()

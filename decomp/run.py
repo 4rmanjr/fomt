@@ -2025,10 +2025,18 @@ def run_batch(n: int, modules: list[str] | None, retry_all: bool,
     return done["MATCH"], done["DIFF"], bool(todo), stopped
 
 
+USAGE = """pakai: fomt [N] [module ...] [--agent nama] [--retry] [--migratable]
+       fomt status              progres saja (baca-saja)
+       fomt decomp [N] [module ...]   alias untuk fomt [N]
+       fomt verify [--module stem] [--since REV] [--jobs N]
+Script ini entry point `fomt`; lihat AGENTS.md untuk alur lengkap."""
+
+
 def main(argv: list[str]) -> int:
     global AGENT, SAFE_AGENT
     retry_all = False
     loop = False
+    status_only = False
     migratable_only = False
     wait_s = 5.0
     until = ""
@@ -2036,6 +2044,9 @@ def main(argv: list[str]) -> int:
     args: list[str] = []
     it = iter(argv)
     for a in it:
+        if a in ("-h", "--help"):
+            print(USAGE)
+            return 0
         if a == "--agent":
             AGENT = ((next(it, "") or "agent").strip() or "agent")[:40]
         elif a.startswith("--agent="):
@@ -2074,7 +2085,18 @@ def main(argv: list[str]) -> int:
                 print("format --jobs harus angka, mis. --jobs=4", file=sys.stderr)
                 return 2
         else:
-            args.append(a)
+            if a == "status":
+                # `fomt status` = progres saja. Jangan diperlakukan sebagai
+                # nama modul (dulu: modules=['status'] -> antrean kosong +
+                # resanitasi ikut jalan karena n default 20).
+                status_only = True
+            elif a == "decomp":
+                # `fomt decomp [N]` = alias no-op untuk `fomt [N]`; token ini
+                # tidak boleh jadi filter modul (modul bernama "decomp" tidak
+                # ada, jadi dulu antrean selalu kosong).
+                pass
+            else:
+                args.append(a)
     SAFE_AGENT = re.sub(r"[^A-Za-z0-9_.-]", "_", AGENT)[:40] or "agent"
     if args and args[0] == "verify":
         _vargs = args[1:]
@@ -2111,7 +2133,9 @@ def main(argv: list[str]) -> int:
         if deadline <= time.time():
             print(f"--until {until} sudah lewat; pakai jam yang akan datang", file=sys.stderr)
             return 2
-    n = int(args[0]) if args and args[0].isdigit() else 20
+    if status_only:
+        args = []
+    n = 0 if status_only else (int(args[0]) if args and args[0].isdigit() else 20)
     raw_modules = [a for a in args if not a.isdigit()] or None
     target_funcs: set[str] = set()
     modules = None

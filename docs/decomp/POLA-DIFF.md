@@ -228,3 +228,57 @@ verbatim** ke saudaranya dengan hanya mengganti pin/offset. Contoh nyata:
 Cara cepat membangun daftar keluarga: grep asm modul untuk baris khas
 pola (`_call_via_r`, dsb), iris dengan daftar `--migratable` dan status
 belum-di-src, lalu buang fragmen (lihat bagian 3).
+
+---
+
+## 5. Pola stack-local & bit-count (2026-11-10)
+
+### 5.1 `sp0` lokal + alamat stack dihoist (hardware.s)
+
+Gejala ref: `push {r4,r5,r6,lr}; mov r6,r8; push {r6}; sub sp,#4;
+adds r6,r0; mov r8,r1; mov r5,sp; movs r4,#1; bl ...; ands r4,r0;
+strh r4,[r5]`, lalu `adds r0,r6; mov r1,r8; bl ...; mov r1,sp;
+ldrh r0,[r1]`.
+
+Resep (5 MATCH, 6 migrasi):
+
+- `volatile u16 sp0;` + `volatile u16 *p = &sp0;`, store lewat `*p` supaya
+  alamat stack dihoist ke `r5` SEBELUM call pertama.
+- Flag dibuat variabel lebih dulu: `s32 t = 1; t &= f(1); *p = (u16) t;`
+  (konstanta `1` harus dialokasikan ke `r4` sebelum `bl`; menulis
+  `1 & f(1)` membuat konstanta dievaluasi sesudah call).
+- Reload lewat pointer yang di-pin: `register volatile u16 *q
+  __asm__("r1"); ... q = &sp0; if (*q != 0) ...`. Tanpa pin, gcc memakai
+  `r0` untuk alamat dan sisa diff `mov r0,sp` vs `mov r1,sp` (1 byte).
+- `arg1` di `r8`: `register s32 a1 __asm__("r8"); a1 = arg1;` lalu
+  diteruskan ke call.
+
+Pembukti: `func_08009638`, `func_08009674`, `func_080095FC`,
+`func_080095C0`, `func_0800956C`.
+
+### 5.2 Bit-count byte berderet (code_actor_0809BFE8.s)
+
+Gejala ref: `push {lr}` saja, `adds r3,r0`, `ldr r1,=0x624;
+adds r0,r3,r1; ldrb r2,[r0]`, lalu deret `lsls r0,r2,#N;
+lsrs r1,r0,#0x1f` dan `cmp r0,#0; bge`.
+
+Resep (2 MATCH):
+
+- Field adalah `u8` (ref `ldrb`). m2c menebak `s32` sehingga muncul
+  `ldr`+`lsl/lsr` DAN `push` saved-reg yang tidak ada di ref.
+- Simpan byte di temp `u32` (bukan `u8`): `b = arg0->unk624;` — tetap di
+  `r2` dan fungsi menjadi `push {lr}`.
+- Bentuk per bit: bit pertama `(b << 0x1E) >> 0x1F`; bit berikut
+  `if ((s32) (b << N) < 0) count += 1;`; bit-7 `if ((b >> 7) != 0)`.
+- Increment pertama tanpa cast `(u8)`, increment berikut dengan `(u8)`
+  (ref memakai `lsls/lsrs` zero-extend setelah increment).
+
+Pembukti: `func_0809E02C`, `func_0809DFAC` (transfer, offset 0x625/0x626).
+
+### 5.3 Tipe balik: baca ekor asm sebelum memilih
+
+`pop {r0}; bx r0` = **void**; `pop {r1}; bx r1` = mengembalikan nilai.
+Blok promoted hasil edit manual belum tervalidasi oleh judge — cocokkan
+tipe balik dengan ekor asm lalu buktikan lewat `make compare`, jangan
+memilih `s32` hanya karena extern `src` menulis `i32` (kasus
+`func_0805E860`: `s32` membuat SHA1 beda, `void` hijau).
