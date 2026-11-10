@@ -11,6 +11,7 @@ Replicate the judge's compile pipeline locally to test codegen variants without 
 ## Compare correctly
 
 - Slice the TRUE reference from the assembled module; never hand-cut the asm. Assemble once (`arm-none-eabi-as -mcpu=arm7tdmi -I. -Iasm -Iinclude asm/<mod>.s -o /tmp/mod.o`), list code symbols (`arm-none-eabi-nm /tmp/mod.o | grep " T " | sort`), and cut `.text` from the target symbol to the NEXT symbol — that range is exactly what the judge compares, pools included. Hand-extracted chunks silently misalign and the resulting phantom diff masquerades as a prologue problem.
+- Quick wrapper: `tools/scripts/try.sh <draft.c>` runs preprocess → agbcc → as with the flags above and prints the shaped asm in one shot. Its built-in `common.h` is a MINIMAL stub (u8..s32), so use it for shape/order only; for the byte-exact harness drop a kept judge `common.h` into `$WORK` first (the script reuses an existing one) or paste variants after that header.
 - Seed variants from kept judge artifacts: with `FOMT_KEEP_ARTIFACTS=1` (or the tool's keep-artifacts flag) copy `common.h` out of the judge log dir into /tmp and paste each variant body after it — no context rebuild needed, and the harness stays byte-identical to what the judge used.
 
 - Disassemble both objects fully (e.g. `objdump -d`) and compare whole sequences, not the single differing line: the cause is usually ORDER (which load happens first, when a spill is emitted, how call arguments are sequenced), and single-line diffs misattribute it to a register choice.
