@@ -93,13 +93,14 @@
  },
  "func_08020310": {
   "addr": 134349584,
-  "judged_mtime": 1793582714.063413,
+  "judged_mtime": 1794291342.2702641,
   "module": "code_entities.s",
-  "note": "ot a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08020310/lenovo_222139/func.c:39: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08020310/lenovo_222139/func.c:39: request for member `unk4' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 256,
   "sanitize_v": 4,
   "size": 2174,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08020410": {
@@ -182,9 +183,9 @@
  },
  "func_080212C0": {
   "addr": 134353600,
-  "judged_mtime": 1793582714.0644128,
+  "judged_mtime": 1794291944.906219,
   "module": "code_entities.s",
-  "note": "t a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080212C0/lenovo_216379/func.c:70: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080212C0/lenovo_216379/func.c:70: request for member `unk14' in something not a structure or union\n",
+  "note": "byte +0xc: 0x7 vs ref 0x6 [15missing,15extra,14operand,32regalloc,2different @r adds r6, r0, #0 | adds r7, r0, #0]",
   "ref_len": 388,
   "sanitize_v": 4,
   "size": 3260,
@@ -238,13 +239,14 @@
  },
  "func_080216BC": {
   "addr": 134354620,
-  "judged_mtime": 1793582714.0654125,
+  "judged_mtime": 1794291540.1779358,
   "module": "code_entities.s",
-  "note": "t a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080216BC/lenovo_216379/func.c:33: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080216BC/lenovo_216379/func.c:33: request for member `unk14' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 2084,
   "sanitize_v": 4,
   "size": 14095,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08021EE0": {

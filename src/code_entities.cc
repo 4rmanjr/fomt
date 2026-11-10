@@ -260,6 +260,24 @@ typedef struct GenObj__func_08022950 {
 } GenObj__func_08022950;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Vt40 {
+    u8 _pad0[0x40];
+    void *fn40;
+} Vt40;
+typedef struct GenObj__func_080216BC {
+    u8 _pad0[0x14];
+    void *unk14;
+    u8 _pad18[8];
+    u8 unk20;
+    u8 _pad21[0x13];
+    i32 unk34;
+    u8 _pad38[5];
+    u8 unk3D;
+    u8 unk3E;
+} GenObj__func_080216BC;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08020060 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -392,6 +410,42 @@ i32 func_08021620(i32 arg0) {
     }
 }
 }
+// DECOMP-MATCHED func_080216BC (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __5ActorRC5Actor(i32 *, i32);                       /* extern */
+i32 func_08020038(void *, void **, i32 *, i32);         /* extern */
+i32 func_08022048(void *, i32, u8);                   /* extern */
+i32 func_080220D4(void *);                          /* extern */
+extern i32 vtable_unk_080E6428;
+
+__attribute__((section(".text.code_entities.080216BC")))
+void *func_080216BC(GenObj__func_080216BC *arg0, void **arg1, i32 arg2) {
+    i32 sp0[2];
+    u32 var_r0;
+    GenObj__func_080216BC *temp_r0;
+
+    __5ActorRC5Actor((i32 *)(sp0), arg2);
+    func_08020038(arg0, arg1, (i32 *)(sp0), 0x782);
+    arg0->unk14 = &vtable_unk_080E6428;
+    arg0->unk34 = arg2;
+    arg0->unk3D = 0;
+    temp_r0 = (GenObj__func_080216BC *) ((void *(*)(void **, i32)) ((Vt40 *) *arg1)->fn40)(arg1, 0);
+    var_r0 = 0;
+    if (temp_r0 != 0) {
+        var_r0 = (u32) (0 - (i32) (u8) ((i32 (*)(void *)) ((Vt40 *) temp_r0->unk14)->fn40)(temp_r0)) >> 0x1F;
+    }
+    arg0->unk3E = (u8) var_r0;
+    func_08022048(arg0, func_080220D4(arg0), (u8)(arg0->unk20));
+    return arg0;
+}
+}
+
+// DECOMP-MATCHED gData_code_entities_08021634.data.08021634
+extern "C" {
+// data tak-dirujuk di 0x08021634 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+extern const u8 gData_code_entities_08021634[136] __attribute__((section(".text.code_entities.08021634"))) = {0x70, 0xB5, 0x46, 0x46, 0x40, 0xB4, 0x84, 0xB0, 0x05, 0x1C, 0x68, 0x6B, 0x7A, 0xF0, 0x78, 0xFA, 0x06, 0x1C, 0x8C, 0x20, 0xDE, 0xF7, 0xC4, 0xFF, 0x80, 0x46, 0x30, 0x1C, 0xFF, 0xF7, 0xE4, 0xFF, 0x04, 0x1C, 0x30, 0x1C, 0xFF, 0xF7, 0xE2, 0xFF, 0x00, 0x94, 0x01, 0x90, 0x00, 0x26, 0x02, 0x96, 0x03, 0xA8, 0x06, 0x70, 0x40, 0x46, 0x29, 0x1C, 0x02, 0x22, 0x06, 0x23, 0x10, 0xF0, 0x24, 0xFF, 0x04, 0x1C, 0xA0, 0x46, 0x41, 0x35, 0x28, 0x78, 0x08, 0x28, 0x15, 0xD1, 0x20, 0x1C, 0x70, 0x30, 0x08, 0x21, 0x3D, 0xF0, 0xEB, 0xF8, 0x20, 0x1C, 0x84, 0x30, 0x01, 0x21, 0x01, 0x70, 0x02, 0x30, 0x06, 0x70, 0x01, 0x30, 0x01, 0x70, 0x22, 0x1C, 0x8A, 0x32, 0x02, 0x23, 0x11, 0x78, 0x04, 0x20, 0x40, 0x42, 0x08, 0x40, 0x18, 0x43, 0x10, 0x70, 0x40, 0x46, 0x04, 0xB0, 0x08, 0xBC, 0x98, 0x46, 0x70, 0xBC, 0x02, 0xBC, 0x08, 0x47, 0x00, 0x00};
+}
+
 
 // DECOMP-MATCHED gData_code_entities_080222F4.data.080222F4
 extern "C" {
@@ -441,7 +495,6 @@ i32 func_08022334(i32 arg0) {
 
 // DECOMP-MATCHED func_08022950 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
-
 
 __attribute__((section(".text.code_entities.08022950")))
 u8 func_08022950(GenObj__func_08022950 *arg0) {

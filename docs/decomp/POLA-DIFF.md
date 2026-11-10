@@ -304,6 +304,14 @@ structure or union`; kalau offset salah, muncul satu `ldr` ekstra dan
 geser 1 instruksi. Cast argumen ke tipe struct hasil typedef, bukan
 `void *`.
 
+Argumen berbeda bisa memakai layout berbeda di offset yang sama: objek
+parameter kedua punya `s32` di +0x20 sementara objek utama punya `u8` di
++0x20 (pembukti `func_08020310`). Jangan memaksa satu typedef untuk semua
+parameter — buat struct per peran lalu cast di call site. Salinan lokal
+ctor (`__5ActorRC5Actor(&sp, ...)`) juga menentukan frame: objek 8 byte
+memberi `sub sp,#8`, objek 12 byte + 8 byte memberi `sub sp,#0x14`
+(`func_08020310`, `func_080212C0`).
+
 ### 6.2 Cleanup: dua compare + slot pointer
 
 Ref blok bersih-bersih field:
