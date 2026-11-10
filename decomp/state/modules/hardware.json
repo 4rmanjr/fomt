@@ -1154,21 +1154,22 @@
   "judged_mtime": 1793582714.0304182,
   "module": "hardware.s",
   "note": "len 6 vs ref 88 [37missing,1regalloc @< pop {r1} | ]",
-  "ref_len": 88,
+  "ref_len": 87,
   "sanitize_v": 4,
-  "size": 679,
+  "size": 680,
   "status": "failed",
   "thumb": true
  },
  "func_0800956C": {
   "addr": 134255980,
-  "judged_mtime": 1793582714.031418,
+  "judged_mtime": 1794282546.0755377,
   "module": "hardware.s",
-  "note": "len 36 vs ref 46 [7missing,2extra,3operand,3regalloc @i push {r4, r5, r6, lr} | push {r4, r5, lr}]",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 443,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0800959C": {
@@ -1185,50 +1186,54 @@
  },
  "func_080095C0": {
   "addr": 134256064,
-  "judged_mtime": 1793582714.031418,
+  "judged_mtime": 1794282546.0745378,
   "module": "hardware.s",
-  "note": ".c:10: (Each undeclared identifier is reported only once\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080095C0/opencode/func.c:10: for each function it appears in.)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080095C0/opencode/func.c:10: `arg1' undeclared (first use in this function)\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 60,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 530,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080095FC": {
   "addr": 134256124,
-  "judged_mtime": 1793582714.031418,
+  "judged_mtime": 1794282546.0605378,
   "module": "hardware.s",
-  "note": ".c:10: (Each undeclared identifier is reported only once\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080095FC/opencode/func.c:10: for each function it appears in.)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080095FC/opencode/func.c:10: `arg1' undeclared (first use in this function)\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 60,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 530,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08009638": {
   "addr": 134256184,
-  "judged_mtime": 1793582714.031418,
+  "judged_mtime": 1794282475.0121126,
   "module": "hardware.s",
-  "note": ".c:10: (Each undeclared identifier is reported only once\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08009638/opencode/func.c:10: for each function it appears in.)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08009638/opencode/func.c:10: `arg1' undeclared (first use in this function)\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 60,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 530,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08009674": {
   "addr": 134256244,
-  "judged_mtime": 1793582714.031418,
+  "judged_mtime": 1794282546.058538,
   "module": "hardware.s",
-  "note": ".c:10: (Each undeclared identifier is reported only once\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08009674/opencode/func.c:10: for each function it appears in.)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08009674/opencode/func.c:10: `arg1' undeclared (first use in this function)\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 59,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 531,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080096B0": {
@@ -1248,24 +1253,24 @@
   "judged_mtime": 1793582714.031418,
   "module": "hardware.s",
   "note": "byte +0x10: 0x60 vs ref 0x54 [1missing,1extra,1different @| adds r4, #0x54 | ldr r0, [r4, #0x54]]",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 84,
   "sanitize_v": 4,
   "size": 718,
   "status": "promoted",
-  "thumb": true,
-  "promoted_to": "decomp/promoted/hardware.cc"
+  "thumb": true
  },
  "func_08009744": {
   "addr": 134256452,
   "judged_mtime": 1793582714.031418,
   "module": "hardware.s",
   "note": "len 58 vs ref 54 [4missing,7extra,6operand,4regalloc,5different @i push {lr} | push {r4, lr}]",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 610,
   "status": "promoted",
-  "thumb": true,
-  "promoted_to": "decomp/promoted/hardware.cc"
+  "thumb": true
  },
  "func_0800977C": {
   "addr": 134256508,
@@ -1284,24 +1289,24 @@
   "judged_mtime": 1793582714.031418,
   "module": "hardware.s",
   "note": "omething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080097A4/opencode/func.c:39: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080097A4/opencode/func.c:39: request for member `unk6' in something not a structure or union\n",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 144,
   "sanitize_v": 4,
   "size": 1436,
   "status": "promoted",
-  "thumb": true,
-  "promoted_to": "decomp/promoted/hardware.cc"
+  "thumb": true
  },
  "func_08009834": {
   "addr": 134256692,
   "judged_mtime": 1793582714.031418,
   "module": "hardware.s",
   "note": "c.c: In function `func_08009834':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08009834/opencode/func.c:18: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08009834/opencode/func.c:18: request for member `unk1' in something not a structure or union\n",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 514,
   "status": "promoted",
-  "thumb": true,
-  "promoted_to": "decomp/promoted/hardware.cc"
+  "thumb": true
  },
  "func_08009864": {
   "addr": 134256740,
@@ -1320,12 +1325,12 @@
   "judged_mtime": 1793582714.031418,
   "module": "hardware.s",
   "note": "akes pointer from integer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080098AC/opencode/func.c:16: warning: assignment makes pointer from integer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080098AC/opencode/func.c:17: invalid type argument of `unary *'\n",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 47,
   "sanitize_v": 4,
   "size": 550,
   "status": "promoted",
-  "thumb": true,
-  "promoted_to": "decomp/promoted/hardware.cc"
+  "thumb": true
  },
  "func_080098DC": {
   "addr": 134256860,

@@ -241,18 +241,27 @@ void *func_08008F0C(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 
 // DECOMP-MATCHED func_0800959C (dari hardware.s; cek manusia sebelum ke src/)
-s32 func_0800956C(void *);                            /* extern */
-s32 func_080098DC(void *, s32);                       /* extern */
-extern s32 vtable_unk_080E5B90;
-
 typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+    s32 unk10;
+} GenObj;
+typedef struct S959C {
     u8 _pad0[8];
     void *unk8;
-} GenObj;
-void func_0800959C(GenObj *arg0, s32 arg1) {
-    arg0->unk8 = &vtable_unk_080E5B90;
+} S959C;
+typedef struct GenObj__func_080098DC {
+    u8 _pad0[8];
+    void *unk8;
+} GenObj__func_080098DC;
+void func_0800956C(void *);                            /* extern */
+void func_080098DC(GenObj__func_080098DC *, s32);      /* extern */
+extern s32 vtable_unk_080E5B90;
+
+void func_0800959C(void *arg0, s32 arg1) {
+    ((S959C *) arg0)->unk8 = &vtable_unk_080E5B90;
     func_0800956C(arg0);
-    func_080098DC(arg0, arg1);
+    func_080098DC((GenObj__func_080098DC *) arg0, arg1);
 }
 
 // DECOMP-MATCHED func_08008920 (dari hardware.s; cek manusia sebelum ke src/)
@@ -1072,4 +1081,147 @@ s32 func_080088DC(s32 *arg0) {
 typedef struct Inner094A4 { u8 _pad0[4]; s16 unk4; } Inner094A4;
 s16 func_080094A4(Inner094A4 **arg0) {
     return (*arg0)->unk4;
+}
+
+// DECOMP-MATCHED func_08009638 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct GenObj__func_080099B0 {
+    u8 _pad0[12];
+    void *unkC;
+    void *unk10;
+} GenObj__func_080099B0;
+s32 func_080004F4();                                  /* extern */
+s32 func_08000528(s32);                             /* extern */
+void func_080099B0(GenObj__func_080099B0 *, GenObj__func_080099B0 *);
+
+void func_08009638(s32 arg0, s32 arg1) {
+    register s32 a1 __asm__("r8");
+    register volatile u16 *q __asm__("r1");
+    s32 t;
+    volatile u16 sp0;
+    volatile u16 *p;
+
+    a1 = arg1;
+    p = &sp0;
+    t = 1;
+    t &= func_08000528(1);
+    *p = (u16) t;
+    func_080099B0((GenObj__func_080099B0 *) arg0, (GenObj__func_080099B0 *) a1);
+    q = &sp0;
+    if (*q != 0) {
+        func_080004F4();
+    }
+}
+
+// DECOMP-MATCHED func_0800956C (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+    s32 unk10;
+} GenObj;
+s32 func_080004F4();                                  /* extern */
+s32 func_08000528(s32);                             /* extern */
+void func_08009984(GenObj *);
+
+void func_0800956C(void *arg0) {
+    register volatile u16 *q __asm__("r1");
+    s32 t;
+    volatile u16 sp0;
+    volatile u16 *p;
+
+    p = &sp0;
+    t = 1;
+    t &= func_08000528(1);
+    *p = (u16) t;
+    func_08009984((GenObj *) arg0);
+    q = &sp0;
+    if (*q != 0) {
+        func_080004F4();
+    }
+}
+
+// DECOMP-MATCHED func_080095C0 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct GenObj__func_08009940 {
+    void *unk0;
+    void *unk4;
+    u8 _pad8[8];
+    void *unk10;
+} GenObj__func_08009940;
+s32 func_080004F4();                                  /* extern */
+s32 func_08000528(s32);                             /* extern */
+void func_08009940(GenObj__func_08009940 *, GenObj__func_08009940 *);
+
+void func_080095C0(s32 arg0, s32 arg1) {
+    register s32 a1 __asm__("r8");
+    register volatile u16 *q __asm__("r1");
+    s32 t;
+    volatile u16 sp0;
+    volatile u16 *p;
+
+    a1 = arg1;
+    p = &sp0;
+    t = 1;
+    t &= func_08000528(1);
+    *p = (u16) t;
+    func_08009940((GenObj__func_08009940 *) arg0, (GenObj__func_08009940 *) a1);
+    q = &sp0;
+    if (*q != 0) {
+        func_080004F4();
+    }
+}
+
+// DECOMP-MATCHED func_080095FC (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct GenObj__func_08009968 {
+    void *unk0;
+    void *unk4;
+} GenObj__func_08009968;
+s32 func_080004F4();                                  /* extern */
+s32 func_08000528(s32);                             /* extern */
+void func_08009968(GenObj__func_08009968 *, GenObj__func_08009968 *);
+
+void func_080095FC(s32 arg0, s32 arg1) {
+    register s32 a1 __asm__("r8");
+    register volatile u16 *q __asm__("r1");
+    s32 t;
+    volatile u16 sp0;
+    volatile u16 *p;
+
+    a1 = arg1;
+    p = &sp0;
+    t = 1;
+    t &= func_08000528(1);
+    *p = (u16) t;
+    func_08009968((GenObj__func_08009968 *) arg0, (GenObj__func_08009968 *) a1);
+    q = &sp0;
+    if (*q != 0) {
+        func_080004F4();
+    }
+}
+
+// DECOMP-MATCHED func_08009674 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[12];
+    s32 unkC;
+    s32 unk10;
+} GenObj;
+s32 func_080004F4();                                  /* extern */
+s32 func_08000528(s32);                             /* extern */
+void func_080099D4(GenObj *, GenObj *);
+
+void func_08009674(s32 arg0, s32 arg1) {
+    register s32 a1 __asm__("r8");
+    register volatile u16 *q __asm__("r1");
+    s32 t;
+    volatile u16 sp0;
+    volatile u16 *p;
+
+    a1 = arg1;
+    p = &sp0;
+    t = 1;
+    t &= func_08000528(1);
+    *p = (u16) t;
+    func_080099D4((GenObj *) arg0, (GenObj *) a1);
+    q = &sp0;
+    if (*q != 0) {
+        func_080004F4();
+    }
 }
