@@ -10,14 +10,14 @@ s32 func_0809ED04(s32);                             /* extern */
 
 typedef struct GenObj {
     u8 _pad0[16];
-    s32 unk10;
-    u8 _pad14[1552];
+    u8 unk10;
+    u8 _pad11[1555];
     u8 unk624;
     u8 unk625;
     u8 unk626;
 } GenObj;
 s32 func_0809DA00(GenObj *arg0, s32 arg1, GenObj *arg2) {
-    u16 sp0;
+    u32 sp0[2];
     u32 sp8;
     u32 spC;
     s32 temp_r0_4;
@@ -47,8 +47,8 @@ s32 func_0809DA00(GenObj *arg0, s32 arg1, GenObj *arg2) {
     temp_r0 = var_r8 - 3;
     switch (temp_r0) {                              /* switch 1; irregular */
     case 0:                                         /* switch 1 */
-        func_0800E924(&sp0, arg2 + 0x1BD8);
-        if ((s32) (sp0 << 0x16) <= 0x4CC00000) {
+        func_0800E924((u16 *) sp0, arg2 + 0x1BD8);
+        if ((s32) (*(u16 *) sp0 << 0x16) <= 0x4CC00000) {
             var_r2 = arg0 + 0x625;
             var_r1 = arg0->unk625;
             if (4 & var_r1) {
@@ -86,7 +86,10 @@ block_9:
         if ((func_0809DF2C(arg0, var_r8, arg2) << 0x18) != 0) {
             var_r4 = 1;
         }
-        if (var_r4 != 1) {
+        if (var_r4 == 1) {
+            goto block_47;
+        }
+        {
             var_r1_2 = 0x51;
             temp_r0_2 = var_r8 - 4;
             switch (temp_r0_2) {                    /* switch 2 */
@@ -109,20 +112,18 @@ block_9:
                 var_r1_2 = 0x2D;
                 break;
             }
-            if (var_r1_2 == 0x51) {
-
-            } else {
+            if (var_r1_2 != 0x51) {
                 func_0809C3BC(arg2 + 0x3480);
             }
-        } else {
-            goto block_47;
         }
         break;
     case 7:                                         /* switch 1 */
         var_r7 = 0;
         sp8 = 0xC8;
         temp_r0_3 = arg2->unk10;
-        temp_r1 = ((temp_r0_3 >> 3) * 7) + ((u32) (temp_r0_3 << 0x1D) >> 0x1D);
+        temp_r1 = temp_r0_3 >> 3;
+        temp_r1 = (temp_r1 << 3) - temp_r1;
+        temp_r1 += (u32) (temp_r0_3 << 0x1D) >> 0x1D;
         spC = temp_r1;
         var_r0_2 = &sp8;
         if (temp_r1 < 0xC8U) {
@@ -172,8 +173,8 @@ block_9:
         if (var_r4_3 != 0) {
 
         } else {
-            func_0800E924(&sp0, arg2 + 0x1BD8);
-            temp_r0_4 = ((u32) (sp0 << 0x16) >> 0x16) - 0x34;
+            func_0800E924((u16 *) sp0, arg2 + 0x1BD8);
+            temp_r0_4 = ((u32) (*(u16 *) sp0 << 0x16) >> 0x16) - 0x34;
             switch (temp_r0_4) {                    /* switch 3; irregular */
             case 0x3C:                              /* switch 3 */
                 var_r1_3 = arg0 + 0x625;
@@ -272,8 +273,8 @@ block_140:
             var_r4_3 = 1;
         }
         if (var_r4_3 == 0) {
-            func_0800E924(&sp0, arg2 + 0x1BD8);
-            temp_r0_5 = ((u32) (sp0 << 0x16) >> 0x16) + 0xFFFFFECC;
+            func_0800E924((u16 *) sp0, arg2 + 0x1BD8);
+            temp_r0_5 = ((u32) (*(u16 *) sp0 << 0x16) >> 0x16) + 0xFFFFFECC;
             switch (temp_r0_5) {                    /* switch 4; irregular */
             case 0x0:                               /* switch 4 */
                 var_r1_3 = arg0 + 0x624;

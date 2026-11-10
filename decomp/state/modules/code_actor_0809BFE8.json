@@ -570,9 +570,9 @@
  },
  "func_0809DA00": {
   "addr": 134863360,
-  "judged_mtime": 1794284893.771491,
+  "judged_mtime": 1794290358.1238701,
   "module": "code_actor_0809BFE8.s",
-  "note": "len 1342 vs ref 1322 [125missing,136extra,118operand,50regalloc,7stack,30different @s sub sp, #0x10 | sub sp, #0xc]",
+  "note": "len 1338 vs ref 1322 [125missing,134extra,113operand,60regalloc,4stack,29different @>  | adds r6, r2, #0]",
   "ref_len": 1323,
   "sanitize_v": 4,
   "size": 13039,
