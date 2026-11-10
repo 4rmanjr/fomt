@@ -399,3 +399,18 @@ blok 0xB4/0xB8 langsung cocok, tetapi blok 0xAC punya alokasi
 r7 dan menumpahkan `o` ke stack; pin `new __asm__("r4")` justru
 menghilangkan r7 dari prolog (292 byte). Jangan ulang pin itu tanpa
 mengubah bentuk alokasinya.
+
+Catatan akhir (2026-11-10): func_080124D0 cleanup 6.2
+Hasil terbaik: 280 byte vs ref 282 byte (sisa 2 byte).
+- Blok 0xB4/0xB8: pola slot/z/p diterapkan, cocok dengan ref.
+- Blok 0xAC: __builtin_new menghasilkan 5extra/1operand/23regalloc/3different
+  karena ref menaruh return value langsung ke r5/add r0 lalu kami harus
+  assign ke variabel `new` dan handle p2 (existing slot). Pin new __asm__("r4")
+  justru membengkak ke 292 byte (prolog kehilangan r7).
+- 6missing adalah operand/alokasi yang tidak bisa kitaeliminasi tanpa
+  merusak struktur fungsi.
+- Kesimpulan: 2 byte terlalu kecil untuk dijanjikan MATCH; fungsi diparkir
+  dengan draf yang telah memanfaatkan pola 6.2 sebesar mungkin.
+- func_08015E30 dan func_0801A13C: BUKAN kandidat tiga-blok; offset 0xb4/0xb8/
+  0xac hanya kebetulan muncul; draf gagal kompilasi karena struct GenObj::unk14
+  di asm hanyalah offset 0x14 (s32 unk6), bukan function pointer.
