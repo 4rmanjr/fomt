@@ -328,6 +328,12 @@ Resep:
   lewat `z` supaya memakai register nol yang sama (`str r6`).
 - Urutan ref: base, `movs z,#0`, lalu load slot. Menaruh inisialisasi `z`
   setelah akses field menggeser alokasi seluruh blok.
+- Urutan per blok: hitung slot dulu, baru `z = 0`, baru `p = *slot`.
+  `z = 0` sebelum slot menggeser alamat 4 byte (note `byte +0x4`).
+- Blok yang memanggil fungsi langsung dengan `p` sebagai argumen pertama
+  (`func(p, 3)`) memakai `p` di r0 tanpa copy; blok cleanup vtable memakai
+  r1 + `adds r0,r1`. Deklarasikan `register GenObj *p3 __asm__("r0")`
+  khusus blok itu (pembukti: `func_080125EC` MATCH, sisa 1 `ldr`/`adds`).
 - Pin register adalah langkah **terakhir**: mem-pin `o`/`slot`/`z`
   sebelum bentuk statement benar justru menambah `add`/`mov` (kasus
   `func_080125EC`, 4 judge).

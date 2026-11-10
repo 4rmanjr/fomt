@@ -1575,6 +1575,24 @@ typedef struct GenObj__func_0801223C {
 } GenObj__func_0801223C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Vt__func_080125EC {
+    u8 _pad0[8];
+    void *fn8;
+} Vt__func_080125EC;
+typedef struct GenObj__func_080125EC {
+    u8 _pad0[4];
+    struct GenObj__func_080125EC *unk4;
+    u8 _pad8[8];
+    u16 unk10;
+    u8 _pad12[0x9A];
+    struct GenObj__func_080125EC *unkAC;
+    u8 _padB0[4];
+    struct GenObj__func_080125EC *unkB4;
+    struct GenObj__func_080125EC *unkB8;
+} GenObj__func_080125EC;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -2203,7 +2221,6 @@ void func_0801223C(GenObj__func_0801223C *arg0, i32 arg1, i32 arg2, i32 arg3) {
 }
 }
 
-
 // DECOMP-MATCHED func_08012274 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08032384(i32, i32, i32);                     /* extern */
@@ -2285,6 +2302,47 @@ i32 func_08008DE8();                                  /* extern */
 __attribute__((section(".text.game_state.080124C4")))
 void func_080124C4(void) {
     func_08008DE8();
+}
+}
+
+// DECOMP-MATCHED func_080125EC (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08050D0C(i32, i32);                          /* extern */
+
+__attribute__((section(".text.game_state.080125EC")))
+void func_080125EC(GenObj__func_080125EC *arg0) {
+    register GenObj__func_080125EC *o __asm__("r4");
+    register i32 z __asm__("r6");
+    register GenObj__func_080125EC **slot __asm__("r5");
+    register GenObj__func_080125EC *p3 __asm__("r0");
+    GenObj__func_080125EC *p;
+
+    o = arg0->unk4;
+    slot = (GenObj__func_080125EC **) ((u8 *) o + 0xB4);
+    z = 0;
+    p = *slot;
+    if ((z != (i32) p) && (p != 0)) {
+        ((void (*)(GenObj__func_080125EC *, i32)) ((Vt__func_080125EC *) p->unk4)->fn8)(p, 3);
+    }
+    *slot = (GenObj__func_080125EC *) z;
+
+    slot = (GenObj__func_080125EC **) ((u8 *) o + 0xB8);
+    z = 0;
+    p = *slot;
+    if ((z != (i32) p) && (p != 0)) {
+        ((void (*)(GenObj__func_080125EC *, i32)) ((Vt__func_080125EC *) p->unk4)->fn8)(p, 3);
+    }
+    *slot = (GenObj__func_080125EC *) z;
+
+    slot = (GenObj__func_080125EC **) ((u8 *) o + 0xAC);
+    z = 0;
+    p3 = *slot;
+    if ((z != (i32) p3) && (p3 != 0)) {
+        func_08050D0C((i32) p3, 3);
+    }
+    *slot = (GenObj__func_080125EC *) z;
+
+    o->unk10 = (u16) (0xFEFF & o->unk10);
 }
 }
 

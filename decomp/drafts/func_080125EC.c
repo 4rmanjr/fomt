@@ -21,25 +21,33 @@ void func_080125EC(GenObj *arg0) {
     register GenObj *o __asm__("r4");
     register s32 z __asm__("r6");
     register GenObj **slot __asm__("r5");
+    register GenObj *p3 __asm__("r0");
     GenObj *p;
 
     o = arg0->unk4;
-    z = 0;
     slot = (GenObj **) ((u8 *) o + 0xB4);
+    z = 0;
     p = *slot;
     if ((z != (s32) p) && (p != 0)) {
         ((void (*)(GenObj *, s32)) ((Vt *) p->unk4)->fn8)(p, 3);
     }
     *slot = (GenObj *) z;
+
     slot = (GenObj **) ((u8 *) o + 0xB8);
+    z = 0;
     p = *slot;
     if ((z != (s32) p) && (p != 0)) {
         ((void (*)(GenObj *, s32)) ((Vt *) p->unk4)->fn8)(p, 3);
     }
     *slot = (GenObj *) z;
-    if (o->unkAC != 0) {
-        func_08050D0C((s32) o->unkAC, 3);
+
+    slot = (GenObj **) ((u8 *) o + 0xAC);
+    z = 0;
+    p3 = *slot;
+    if ((z != (s32) p3) && (p3 != 0)) {
+        func_08050D0C((s32) p3, 3);
     }
-    o->unkAC = 0;
+    *slot = (GenObj *) z;
+
     o->unk10 = (u16) (0xFEFF & o->unk10);
 }

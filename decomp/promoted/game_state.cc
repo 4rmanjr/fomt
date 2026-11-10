@@ -2416,3 +2416,58 @@ void func_0801223C(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3) {
         func_08033B84((s32) x, c, a, b);
     }
 }
+
+// DECOMP-MATCHED func_080125EC (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_08050D0C(s32, s32);                          /* extern */
+
+typedef struct Vt {
+    u8 _pad0[8];
+    void *fn8;
+} Vt;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    struct GenObj *unk4;
+    u8 _pad8[8];
+    u16 unk10;
+    u8 _pad12[0x9A];
+    struct GenObj *unkAC;
+    u8 _padB0[4];
+    struct GenObj *unkB4;
+    struct GenObj *unkB8;
+} GenObj;
+
+void func_080125EC(GenObj *arg0) {
+    register GenObj *o __asm__("r4");
+    register s32 z __asm__("r6");
+    register GenObj **slot __asm__("r5");
+    register GenObj *p3 __asm__("r0");
+    GenObj *p;
+
+    o = arg0->unk4;
+    slot = (GenObj **) ((u8 *) o + 0xB4);
+    z = 0;
+    p = *slot;
+    if ((z != (s32) p) && (p != 0)) {
+        ((void (*)(GenObj *, s32)) ((Vt *) p->unk4)->fn8)(p, 3);
+    }
+    *slot = (GenObj *) z;
+
+    slot = (GenObj **) ((u8 *) o + 0xB8);
+    z = 0;
+    p = *slot;
+    if ((z != (s32) p) && (p != 0)) {
+        ((void (*)(GenObj *, s32)) ((Vt *) p->unk4)->fn8)(p, 3);
+    }
+    *slot = (GenObj *) z;
+
+    slot = (GenObj **) ((u8 *) o + 0xAC);
+    z = 0;
+    p3 = *slot;
+    if ((z != (s32) p3) && (p3 != 0)) {
+        func_08050D0C((s32) p3, 3);
+    }
+    *slot = (GenObj *) z;
+
+    o->unk10 = (u16) (0xFEFF & o->unk10);
+}
