@@ -282,3 +282,70 @@ Blok promoted hasil edit manual belum tervalidasi oleh judge — cocokkan
 tipe balik dengan ekor asm lalu buktikan lewat `make compare`, jangan
 memilih `s32` hanya karena extern `src` menulis `i32` (kasus
 `func_0805E860`: `s32` membuat SHA1 beda, `void` hijau).
+
+---
+
+## 6. Vtable call & cleanup (2026-11-10)
+
+### 6.1 Tiga bentuk akses fn — jangan dicampur
+
+Bentuk ditentukan oleh dua load berantai di ref, bukan oleh tebakan tipe:
+
+| Ref | Sumber | Contoh |
+|---|---|---|
+| `ldr r0,[obj]; ldr r2,[r0,#0x40]` | `((Vt *) *(void **) obj)->fn40` | `func_08014BD8`, `func_08016F60`, `func_0801223C` |
+| `ldr r0,[p,#4]; ldr r2,[r0,#8]` | `((Vt *) p->unk4)->fn8` (p bertipe `GenObj *`) | `func_080125EC`, `func_080124D0` |
+| `ldr r1,[o]; ldr r2,[r1,#8]` | `((Vt *) *(void **) o)->fn8` | `func_08012028` |
+
+`Vt` cukup `{ u8 _pad0[N]; void *fnN; }` dengan nama unik per fungsi
+(konflik dengan `common.h` = `syntax error before`). Kalau operand masih
+`void *`, m2c menghasilkan `request for member 'unk4' in something not a
+structure or union`; kalau offset salah, muncul satu `ldr` ekstra dan
+geser 1 instruksi. Cast argumen ke tipe struct hasil typedef, bukan
+`void *`.
+
+### 6.2 Cleanup: dua compare + slot pointer
+
+Ref blok bersih-bersih field:
+
+```asm
+movs r6, #0
+ldr  r1, [r5]
+cmp  r6, r1        @ 0 != p
+beq  skip
+cmp  r1, #0        @ p != 0
+beq  skip
+... bl _call_via_r2 ...
+str  r6, [r5]      @ *slot = 0
+```
+
+Resep:
+
+- `z` **variabel** (bukan literal `0`): `if ((z != (s32) p) && (p != 0))`.
+  Dua compare literal yang sama akan di-CSE jadi satu oleh agbcc.
+- Slot dihitung sekali dari base: `base = arg->unk4; slot = (T **)
+  ((u8 *) base + OFF);` lalu `p = *slot; ... *slot = (T *) z;` — store
+  lewat `z` supaya memakai register nol yang sama (`str r6`).
+- Urutan ref: base, `movs z,#0`, lalu load slot. Menaruh inisialisasi `z`
+  setelah akses field menggeser alokasi seluruh blok.
+- Pin register adalah langkah **terakhir**: mem-pin `o`/`slot`/`z`
+  sebelum bentuk statement benar justru menambah `add`/`mov` (kasus
+  `func_080125EC`, 4 judge).
+
+### 6.3 Cabang mati hanya bertahan dengan `volatile`
+
+`func_08012028`: setelah `sp0 = 0`, ref tetap `ldr [sp]` lalu `cmp #0`
+(cabang tak pernah diambil). Dengan field biasa agbcc membuktikan nilai
+0 dan menghapus store + cabang (len 38 vs ref 58). Field struct
+`void *volatile` mengembalikan store/load tersebut; sisa diff tinggal
+regalloc `sp0` (r0 vs r2).
+
+### 6.4 Metode: lokal vs struktural
+
+Jalankan `tools/asm-differ/diff.py -o -f <our.o> -F <ref.o> <fn>`, lalu
+hitung mismatch **setelah menormalkan target branch** (alamat relatif
+selalu beda; jangan dihitung). Jika mismatch tersebar merata (≥2 per 64
+byte sepanjang fungsi) itu masalah struktural — rewrite per blok, bukan
+patch lokal. Kasus `func_0809DA00` (1322 B, switch 32 kasus): 124 situs
+beda tersebar, regenerasi m2c murni menghasilkan diff identik → parkir,
+bukan wall regalloc.
