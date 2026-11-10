@@ -122,8 +122,15 @@ Mineral Town, decomp GBA).
 Skill `gba-decomp` ada **di dalam repo**: `skills/gba-decomp/` (`SKILL.md`,
 `PANDUAN.md`, `references/`, `templates/`, `scripts/`). Itu sumber
 kebenaran untuk agent; jangan menyimpan salinan di direktori global
-(`~/.claude`, dst). `.agents/skills/gba-decomp` hanya symlink lokal agar
-loader skill tetap menemukannya, dan `.agents/` di-ignore git.
+(`~/.claude`, dst).
+
+Loader skill (Freebuff/Codebuff/Claude Code) **hanya** memindai
+`.agents/skills/` dan `.claude/skills/` — `skills/` di root tidak
+ditemukan otomatis. Karena itu `.agents/skills/gba-decomp` adalah symlink
+ke `../../skills/gba-decomp` yang **ikut di-track** (lihat negasi di
+`.gitignore`): clone baru tetap menemukan skill tanpa menduplikasi isi.
+Jangan menggantinya dengan salinan file; jangan pula menganggap `skills/`
+root terbaca tanpa symlink itu.
 
 ## Perintah
 

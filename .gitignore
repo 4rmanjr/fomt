@@ -1,5 +1,13 @@
 .*
 !.clang-format
+# Loader skill (Freebuff/Codebuff/Claude) hanya memindai .agents/skills dan
+# .claude/skills. Sumber kebenaran skill ada di skills/gba-decomp/ (di-track);
+# symlink ini ikut repo supaya clone baru tetap menemukan skill-nya.
+!.agents/
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/gba-decomp
 
 *.dump
 *.elf
