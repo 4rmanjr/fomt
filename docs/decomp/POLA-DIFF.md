@@ -414,3 +414,15 @@ Hasil terbaik: 280 byte vs ref 282 byte (sisa 2 byte).
 - func_08015E30 dan func_0801A13C: BUKAN kandidat tiga-blok; offset 0xb4/0xb8/
   0xac hanya kebetulan muncul; draf gagal kompilasi karena struct GenObj::unk14
   di asm hanyalah offset 0x14 (s32 unk6), bukan function pointer.
+
+Catatan akhir (2026-11-10): func_08015E30 & func_0801A13C BUKAN kandidat
+- func_08015E30: Fungsi auth/room management dengan logik kompleks. Offset 0x14 di asm
+  seharusnya mengakses s32 tetapi m2c mencoba ->unk14 (tidak ada di struct kita).
+  Error: "request for member 'unk4' in something not a structure or union" + 
+  "called object is not a function". Bukan func teardown slot.
+- func_0801A13C: Fungsi auth/room management dengan struct GenObj _pad87[4017] dan
+  void *unk1038. Offset 0xB4/0xB8/0xAC muncul tanpa pola cleanup slot serupa.
+  Error: incompatible pointer type. Bukan func teardown slot.
+
+Kedua-duanya offset 0xb4/0xb8/0xac muncul secara kebetulan di asm, bukan karena
+memiliki pola cleanup tiga-blok seperti func_080124D0.
