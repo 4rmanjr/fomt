@@ -147,8 +147,11 @@ Wrapper `~/x86sys/wrap/*` (untuk `FOMT_AGBCC` dsb. di shim `fomt`) harus
 menunjuk ke binary `.x86` langsung, bukan ke script wrapper di
 `tools/agbcc/bin/` (qemu tidak bisa mengeksekusi script).
 
-Validasi: `make compare` → `fomt.gba: OK` (SHA1 cocok), dan
-`fomt verify` → 977/977 MATCH, `promoted != draft: 0`, exit 0.
+Validasi: `make compare` → `fomt.gba: OK` (SHA1 cocok), dan (hanya bila
+verifikasi penuh diminta) `fomt verify` exit 0 dengan semua fungsi
+MATCH, `promoted != draft: 0`. Jumlah MATCH mengikuti state saat itu —
+jangan pakai angka lama dari dokumen ini; ambil dari output `fomt status`
+dan baris ringkasan verify.
 
 ### Migrasi di proot-distro (riwayat — sudah tidak perlu)
 

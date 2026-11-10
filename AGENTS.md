@@ -99,6 +99,24 @@ Mineral Town, decomp GBA).
      push. Sesi panjang menumpuk konteks kumulatif (penyebab #1 token
      boros — output turn lama dibayar ulang tiap turn).
 
+8. **Pelajaran/pola baru WAJIB dicatat di dokumentasi yang sudah ada**,
+   bukan dibiarkan di chat atau log sesi:
+   - pola codegen / diff m2c→agbcc → `docs/decomp/POLA-DIFF.md`
+     (bagian bernomor + fungsi pembukti);
+   - jebakan gate migrate, SKIP, signature, drift →
+     `docs/decomp/MIGRATE.md`;
+   - perilaku CLI/state/tool baru → bagian operasional di AGENTS.md ini,
+     plus pointer singkat di `skills/gba-decomp/` (jangan duplikat isi
+     dokumen pola);
+   - angka progres/sesi → `docs/SESI-<tanggal>.md` (arsip bertanggal:
+     jangan diedit angkanya, cukup tulis log baru).
+   Dokumen hidup (`AGENTS.md`, `POLA-DIFF.md`, `MIGRATE.md`, `SKILL.md`,
+   `PANDUAN.md`, `INSTALL.md`) tidak boleh memuat angka MATCH/path
+   hardcode yang cepat basi — tulis perintah pengambilnya. Kalau perilaku
+   tool/CLI/state berubah, perbarui dokumen + skill di commit yang SAMA;
+   klaim usang (perintah yang sudah diganti, path lama, angka lama)
+   dianggap bug dokumentasi.
+
 ## Skill & panduan agent
 
 Skill `gba-decomp` ada **di dalam repo**: `skills/gba-decomp/` (`SKILL.md`,
@@ -247,7 +265,14 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
 
 - `python3 -m py_compile decomp/run.py` untuk perubahan skrip.
 - `python3 tools/scripts/audit_consistency.py` untuk audit cepat read-only
-  state ↔ promoted ↔ src (blok duplikat, state yatim, status basi).
+  state ↔ promoted ↔ src (blok duplikat, state yatim, status basi, status
+  di luar enum, `i32`, drift promoted vs draf). `--json` untuk agent,
+  `--strict` bila dipakai sebagai gate.
+- Tool diagnosa read-only lain: `tools/scripts/migrate_audit.py`
+  (klasifikasi semua blok promoted: bisa migrasi vs alasan SKIP; `--json`),
+  `tools/scripts/tail_chain.py --module <stem>.s` (urutan ekor + NEXT/blocker),
+  `decomp/migrate.py ... --explain` (beda signature blok vs `src/`, tanpa
+  menulis apa pun).
 - `fomt status` untuk memastikan state konsisten.
 - `fomt verify` HANYA bila diminta user — jangan dijalankan rutin di akhir
   sesi (mahal, ~7 mnt). Penggantinya untuk tutup sesi: `make compare`
@@ -258,11 +283,11 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
 - Tutup sesi decomp/migrasi dengan LAPORAN TOTAL ringkas (angka saja,
   tanpa rincian per fungsi). Format baku — `y` = yang dikerjakan sesi ini:
   ```text
-  decomp total 2626 fungsi
-  berhasil 904+4 (34.6%)
-  failed 1722-4
-  pending 0+0
-  src 689+4
+  decomp total <T> fungsi
+  berhasil <B>+<y> (<persen>%)
+  failed <F>-<y>
+  pending <P>+0
+  src <S>+<y>
   ```
   Angka harus dari data segar sesi itu (baca ulang state + hitung marker
   `DECOMP-MATCHED` di `src/`), bukan dari ingatan atau output batch lama.

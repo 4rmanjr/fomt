@@ -5,18 +5,23 @@ description: Decompile Harvest Moon FoMT GBA assembly (asm/*.s) to readable C, o
 
 # FoMT Decompile
 
-Satu perintah, idempoten, tanpa ROM. Kerja di `/home/armanjr/gitproject/fomt`.
+Satu perintah, idempoten, tanpa ROM. Jalankan dari root repo ini (yang
+memuat `AGENTS.md`). Sumber kebenaran: `AGENTS.md` (aturan operasional),
+`docs/decomp/POLA-DIFF.md` (pola codegen), `docs/decomp/MIGRATE.md`
+(gerbang migrate), dan `skills/gba-decomp/` (skill workflow lengkap).
 
 ## Perintah
 
 ```bash
-fomt            # kerjakan 20 fungsi berikutnya (default)
-fomt 10         # kerjakan 10 fungsi berikutnya
-fomt 5 sram_proxy_2.s   # 5 fungsi dari modul itu
-fomt status     # lihat progres saja
-fomt 10 --agent opencode   # multi-agent: pakai identitas agent ini
-fomt --loop     # ulangi batch sampai antrean habis (foreground, Ctrl-C berhenti)
-fomt --loop 10 --wait 2    # batch 10 per putaran, jeda 2 detik antar batch
+fomt                      # kerjakan 20 fungsi berikutnya (default)
+fomt 10                   # kerjakan 10 fungsi berikutnya
+fomt 5 sram_proxy_2.s     # 5 fungsi dari modul itu
+fomt --migratable         # hanya fungsi yang bisa dipindah ke src/
+fomt status               # progres saja (baca-saja)
+fomt 10 --agent opencode  # multi-agent: identitas agent ini
+fomt --loop               # ulangi batch sampai antrean habis (foreground)
+fomt --loop 10 --wait 2   # batch 10 per putaran, jeda 2 detik
+fomt --help               # usage saja, tanpa menjalankan batch
 ```
 
 Butuh jalan panjang yang berkesinambungan (mis. puluhan batch tanpa
@@ -27,8 +32,10 @@ saat antrean kosong. `failed` yang drafnya tidak diubah tidak ikut antre lagi
 (hanya draf yang diperbaiki manual yang di-judge ulang); `--retry` memaksa
 semua failed diulang — gabungkan dengan `--loop` hanya bersama filter modul.
 
-Jangan pakai `python3 decomp/run.py` langsung — selalu lewat `fomt`.
-Jangan pakai perintah lama (`workflow.py scan/draft/judge/promote`) — sudah diganti `run.py`.
+Jangan pakai `python3 decomp/run.py` langsung — selalu lewat `fomt`
+(di lingkungan tanpa wrapper: `FOMT_AGENT=<nama> python3 decomp/run.py`).
+Jangan pakai perintah lama (`workflow.py scan/draft/judge/promote`) — sudah
+diganti `run.py`.
 
 ## Perintah agen (`/decomp`, `/decomp n`)
 
@@ -55,9 +62,11 @@ fomt 20 --agent opencode    # terminal A
 fomt 20 --agent vscode      # terminal B (atau $FOMT_AGENT / $DECOMP_AGENT_NAME)
 ```
 
-Tiap fungsi **diklam** dulu di `decomp/state/progress.json` (`claimed_by`,
-`claimed_at`), jadi tidak ada fungsi yang digarap dua kali. State ditulis di
-bawah `flock` (`decomp/state/progress.lock`); kerja m2c/agbcc di luar lock.
+Tiap fungsi **diklam** dulu di shard `decomp/state/modules/<stem>.json`
+(`claimed_by`, `claimed_at`), jadi tidak ada fungsi yang digarap dua kali.
+State ditulis di bawah `flock` (`decomp/state/progress.lock`);
+`decomp/state/index.json` memetakan nama fungsi → modul. `progress.json`
+lama hanya arsip (`.bak`), jangan dipakai. Kerja m2c/agbcc di luar lock.
 Log judge dipisah per agent: `decomp/logs/judge_<nama>/<agent>/`.
 Klaim yang tertinggal (proses mati) diambil alih setelah `FOMT_CLAIM_TTL`
 detik (default 1800). Ctrl-C melepas klaim fungsi yang sedang dikerjakan.
@@ -77,7 +86,26 @@ sampai byte-identik, jalankan `fomt` lagi — fungsi itu otomatis di-judge ulang
 Fungsi yang baca `gUnk_*`/panggil modul lain biasanya butuh perbaikan manual.
 `code_lib_syscall.s` (svc), `code_iwram.s`, `vtables.s`, `.incbin` = lewati.
 
-## Pindah ke src (manual, jarang)
+## Pindah ke src
 
-Hanya untuk fungsi `promoted`: salin C dari `decomp/promoted/` ke `src/`,
-hapus blok asm terkait, lalu `make compare` (butuh `baserom.gba` + agbcc di `tools/`).
+MATCH baru bisa dipindah lewat `python3 decomp/migrate.py --module <mod>.s
+--func <nama>` (atau batch `fomt --migratable`). Gate-nya: tanda tangan extern
+harus sama dengan `src/`, dan pada modul **tail-only** hanya fungsi terakhir
+yang boleh dicabut (`bukan fungsi terakhir` = tunggu penerusnya pindah).
+Detail + SKIP permanen: `docs/decomp/MIGRATE.md`. Diagnosa cepat tanpa
+menulis: `python3 decomp/migrate.py --module <mod>.s --func <nama> --explain`.
+
+Sebelum memperbaiki draf “failed”, cek dulu `grep "DECOMP-MATCHED <fn>"
+src/*.c*` dan `python3 tools/scripts/migrate_audit.py` — fungsi yang sudah
+di src tidak boleh dikerjakan ulang (akan menambah blok duplikat).
+
+## Verifikasi & tutup sesi
+
+- `make compare` HIJAU setelah tiap migrate/edit `src/`; jangan klaim
+  migrasi tanpa output `[OK] sha1sum -c fomt.sha1`.
+- `python3 tools/scripts/audit_consistency.py` (read-only) untuk state ↔
+promoted ↔ src; `--json` untuk agent, `--strict` untuk gate.
+- `fomt verify` HANYA bila user memintanya (mahal); validasi per fungsi =
+  judge + `make compare`.
+- Tutup dengan LAPORAN TOTAL format baku (angka fresh dari state + marker
+  `DECOMP-MATCHED`), commit hanya file pekerjaan, lalu push.

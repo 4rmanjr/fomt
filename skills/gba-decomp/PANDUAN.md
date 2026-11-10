@@ -36,8 +36,9 @@ line make (merusak override compiler per-target → compare merah palsu).
 
 1. **Status dulu** — angka fresh total/berhasil/sisa dari entry point status
    proyek, catat sebagai baseline sesi (OLD). Jangan kutip angka dari ingatan.
-2. **Antrean migrasi** — `LIMIT=<n> python3 scripts/list_migratable_failed.py`
-   (atau versi repo `tools/scripts/migratable_failed.py`) dari root repo.
+2. **Antrean migrasi** — `LIMIT=<n> python3 tools/scripts/migratable_failed.py`
+   dari root repo (salinan bundled: `skills/gba-decomp/scripts/
+   list_migratable_failed.py`).
    Hanya modul di `decomp.migrate.MIGRATABLE_MODULES`. Coret yang sudah di
    `src/` (`grep "DECOMP-MATCHED <func>" src/*.cc`) dan fragmen epilog
    (draf ≤6 baris, ref tanpa prolog/tanpa return normal).
@@ -52,8 +53,8 @@ line make (merusak override compiler per-target → compare merah palsu).
    contoh `_call_via_r` untuk keluarga vtable-call), pakai template verbatim,
    hanya pin/offset diganti per fungsi (baca dari asm ref masing-masing).
 4. **Gate** — `make compare` HARUS hijau setelah tiap migrasi/edit src manual.
-   Jangan klaim migrasi tanpa output HIJAU/OK tool-nya. `verify` penuh hanya di
-   akhir sesi (paling mahal); validasi per fungsi = judge + compare.
+   Jangan klaim migrasi tanpa output HIJAU/OK tool-nya. `verify` penuh HANYA
+   bila user memintanya; validasi per fungsi = judge + compare.
 5. **Tutup bersih** — revert edit src yang tak perlu; commit hanya file kerja
    sendiri (src + state shard + draf; JANGAN `git add -A`, jangan
    `promoted/*.cc` borongan). Lapor OLD+DELTA (DELTA = migrasi sesi ini saja,
