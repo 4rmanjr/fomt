@@ -708,9 +708,9 @@
  },
  "func_080124D0": {
   "addr": 134292688,
-  "judged_mtime": 1794289520.708491,
+  "judged_mtime": 1794296438.907608,
   "module": "game_state.s",
-  "note": "len 270 vs ref 282 [9missing,3extra,10operand,19regalloc,3different @< movs r5, #0 | ]",
+  "note": "len 280 vs ref 282 [6missing,5extra,1operand,23regalloc,3different]; pola cleanup 6.2 diterapkan: slot/z/p untuk 0xB4 & 0xB8, slot2/0xAC dengan p2 dibaca dari alamat eksplisit. Blok 0xB4/0xB8 cocok; sisa: alokasi __builtin_new ref di r4 vs kita r7 (o tertumpah), pin new=r4 malah 292 byte tanpa r7 di prolog -> parkir.",
   "ref_len": 284,
   "sanitize_v": 4,
   "size": 2471,

@@ -388,3 +388,14 @@ menghapus sisa regalloc lain (tmp r2, p r1, urutan store sp4→sp8→nol,
 `*arg0 = tmp`, reload `p` lewat cast volatile) tetap tidak bisa
 memaksa salinan r0→r1. Parkir di 1 instruksi; jangan ulang variasi
 pointer ke `&sp` tanpa ide baru.
+
+Catatan sapuan (2026-11-10): trio 0xB4/0xB8/0xAC di `game_state`
+hanya dimiliki `func_080124D0` (dua kandidat lain, `func_08015E30`/
+`func_0801A13C`, menyentuh offset itu tanpa pola cleanup dan drafnya
+masih gagal kompilasi karena sebab lain). Pola §6.2 memangkas
+`func_080124D0` dari 270 ke 280 byte (ref 282, sisa 23 regalloc):
+blok 0xB4/0xB8 langsung cocok, tetapi blok 0xAC punya alokasi
+`__builtin_new` yang di ref menempati r4 sementara agbcc kita memakai
+r7 dan menumpahkan `o` ke stack; pin `new __asm__("r4")` justru
+menghilangkan r7 dari prolog (292 byte). Jangan ulang pin itu tanpa
+mengubah bentuk alokasinya.
