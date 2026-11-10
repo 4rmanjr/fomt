@@ -45,8 +45,10 @@ line make (merusak override compiler per-target → compare merah palsu).
    Tool bantu read-only: `tools/scripts/migrate_audit.py` (klasifikasi
    bisa-migrasi vs SKIP + `--json`), `tools/scripts/tail_chain.py --module
    <stem>.s` (urutan ekor + NEXT/blocker), `tools/scripts/audit_consistency.py
-   --json` (status liar, `i32`, drift promoted vs draf), dan
-   `decomp/migrate.py --explain` (beda signature blok vs `src/`).
+   --json` (status liar, `i32`, drift promoted vs draf),
+   `tools/scripts/diff_mismatch.py <func>` (hitung mismatch `diff.py` dengan
+   target branch dinormalkan), dan `decomp/migrate.py --explain` (beda
+   signature blok vs `src/`).
 3. **Satu fungsi satu waktu** — baca judge note + draf + asm LENGKAP kedua sisi,
    edit tersempit, judge ulang modul itu saja. Kalau pola sama pindah ke
    saudara: sapu satu keluarga sekaligus (grep bentuk khas di asm modul,

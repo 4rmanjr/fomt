@@ -25,7 +25,7 @@ Realita state sekarang: progres ada di shard `decomp/state/modules/<stem>.json` 
 angka progres/MATCH ke dokumen hidup — ambil fresh dari `fomt status` /
 `git grep DECOMP-MATCHED src` setiap sesi.
 
-Tool bantu read-only (repo `tools/scripts/`): `migrate_audit.py` (klasifikasi semua blok promoted: bisa migrasi vs alasan SKIP; `--json`), `tail_chain.py --module <stem>.s` (urutan ekor tail-only + NEXT/blocker), `audit_consistency.py` (kini juga cek status di luar enum, `i32`, dan drift promoted vs draf; `--json`/`--strict`), `migrate.py --explain` (beda signature blok vs `src/`).
+Tool bantu read-only (repo `tools/scripts/`): `migrate_audit.py` (klasifikasi semua blok promoted: bisa migrasi vs alasan SKIP; `--json`), `tail_chain.py --module <stem>.s` (urutan ekor tail-only + NEXT/blocker), `audit_consistency.py` (kini juga cek status di luar enum, `i32`, dan drift promoted vs draf; `--json`/`--strict`), `diff_mismatch.py <func>` (hitung mismatch `diff.py` setelah target branch dinormalkan; `--json`/`--strict`), `migrate.py --explain` (beda signature blok vs `src/`).
 
 ## Procedure
 

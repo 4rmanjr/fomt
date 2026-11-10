@@ -278,6 +278,9 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
 - Tool diagnosa read-only lain: `tools/scripts/migrate_audit.py`
   (klasifikasi semua blok promoted: bisa migrasi vs alasan SKIP; `--json`),
   `tools/scripts/tail_chain.py --module <stem>.s` (urutan ekor + NEXT/blocker),
+  `tools/scripts/diff_mismatch.py <func>` (hitung mismatch `diff.py`;
+  target branch dinormalkan, `--json`/`--strict`, `--diff-json` untuk
+  output yang sudah ada),
   `decomp/migrate.py ... --explain` (beda signature blok vs `src/`, tanpa
   menulis apa pun).
 - `fomt status` untuk memastikan state konsisten.
