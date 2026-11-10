@@ -360,6 +360,15 @@ Jalankan `tools/asm-differ/diff.py -o -f <our.o> -F <ref.o> <fn>`, lalu
 hitung mismatch **setelah menormalkan target branch** (alamat relatif
 selalu beda; jangan dihitung). Jika mismatch tersebar merata (≥2 per 64
 byte sepanjang fungsi) itu masalah struktural — rewrite per blok, bukan
-patch lokal. Kasus `func_0809DA00` (1322 B, switch 32 kasus): 124 situs
-beda tersebar, regenerasi m2c murni menghasilkan diff identik → parkir,
-bukan wall regalloc.
+patch lokal. Kasus `func_0809DA00` (1322 B, switch 32 kasus): draf m2c 124 situs
+beda; rewrite manual per case (frame `s32 sp[4]` 16 B, switch bernilai
+`s32` supaya `bgt` bukan `bhi`, cabang bit-set per case) memangkasnya
+ke 11 missing/5 extra/1 stack, sisa 12 byte. Sisa divergensi bukan
+logika: agbcc melakukan **cross-jump** — blok test+store dua case yang
+mirip (mask sama, offset beda) digabung dan konstanta offset
+diparameterkan lewat register, sedangkan ref hanya berbagi blok
+`orrs/strb` dan mempertahankan tes inline dengan `beq <store>; b
+<fail>`. Pola ini terlihat dari case pertama switch yang di ref memakai
+`ldr r2,=offset` (bukan `r0`) dan dua cabang ke blok bersama. Selama
+bentuk AST pemicu cross-jump belum ketemu, parkir — jangan tambah
+percobaan acak.

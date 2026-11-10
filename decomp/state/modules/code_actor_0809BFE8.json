@@ -570,9 +570,9 @@
  },
  "func_0809DA00": {
   "addr": 134863360,
-  "judged_mtime": 1794290358.1238701,
+  "judged_mtime": 1794293171.5809853,
   "module": "code_actor_0809BFE8.s",
-  "note": "len 1338 vs ref 1322 [125missing,134extra,113operand,60regalloc,4stack,29different @>  | adds r6, r2, #0]",
+  "note": "len 1310 vs ref 1322 [11missing,5extra,117operand,40regalloc,1stack,3different]; rewrite manual per case: frame s32 sp[4] (0x10), switch bernilai s32 (bgt), cabang bit-set per case, case 0 dibalik (<= vs >) dan case 0x3C/0x00/0xFF pakai kondisi terbalik. Sisa: cross-jump agbcc menyatukan blok test+store 0x3C/0xDE (ref hanya berbagi orrs/strb) + blok fail case 0 terpisah pakai r1; belum ketemu bentuk sumber pemicunya -> parkir.",
   "ref_len": 1323,
   "sanitize_v": 4,
   "size": 13039,
