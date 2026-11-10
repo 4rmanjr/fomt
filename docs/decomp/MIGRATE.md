@@ -219,3 +219,32 @@ Deteksi: `python3 tools/scripts/audit_consistency.py` (drift = info;
 `--strict` menjadikannya masalah) atau `--explain` saat migrate. Audit
 juga menolak `i32` di draf/promoted dan status di luar enum
 `pending/drafted/failed/promoted/matched`.
+
+## 11. Hanya fungsi MATCH yang boleh masuk `src/` (TU `.cc` = C++)
+
+Kasus nyata `func_080124D0` (2026-11-10, commit `5db762cc` → dibalik):
+fungsi **DIFF** (280 vs 282 byte) ditempel apa adanya ke `src/game_state.cc`
+dan state diubah `failed` → `promoted`. Akibatnya `make compare` MERAH:
+
+- `src/game_state.cc` dikompilasi `agbcp` (C++), sedangkan blok itu masih
+  C m2c mentah: `s32` (file ini pakai `i32`), typedef `GenObj`/`Vt` yang
+  tak ada di TU itu, `__builtin_new` (bukan C++), dan variabel bernama
+  `new` (keyword C++).
+- Selain itu, byte-nya sendiri tidak identik dengan ref, jadi sha1 compare
+  tetap MERAH walau sempat kompilasi.
+
+Dua syarat sebelum memindahkan blok ke `src/`:
+
+1. **Judge MATCH** (byte-identik). Status `failed`/`DIFF` → jangan pindah;
+   cukup catat di `note` state shard (lokasi catatan yang benar untuk
+   temuan/status per fungsi).
+2. **Blok harus kompilasi sebagai C++** pada TU tujuan: pakai `i32`
+   (bukan `s32`), typedef lokal yang memang ada di `src/<stem>.cc`,
+   `new`/`delete` (bukan `__builtin_new`), dan nama variabel bukan
+   keyword C++.
+
+Bila blok sudah terlanjur ditempel dan build merah: buang blok dari
+`src/<stem>.cc` (chunk asm-nya otomatis kembali di-emit karena
+splitter meng-omit chunk asm hanya bila `src/` punya section
+`.text.<stem>.<addr>` yang sama) + kembalikan status state shard ke
+`failed` dengan `judged_mtime` 0, lalu `make compare` untuk bukti hijau.
