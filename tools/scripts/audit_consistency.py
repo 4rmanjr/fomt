@@ -24,9 +24,14 @@ Cek yang dilakukan:
   8. Drift isi blok promoted vs draf (normalisasi komentar/whitespace).
      Ini INFO; dengan `--strict` dihitung sebagai masalah. Drift yang
      pernah nyata: blok diedit manual (tipe balik/arg) tanpa re-judge.
+  9. Symlink `.agents/skills/gba-decomp` harus ada, berupa symlink (bukan
+     salinan), menunjuk `skills/gba-decomp`, dan targetnya punya SKILL.md.
+     Loader skill (Freebuff/Codebuff/Claude) hanya memindai .agents/skills
+     dan .claude/skills, jadi tanpa symlink ini skill tidak pernah dimuat.
 
 Exit code: 0 = tidak ada masalah struktural; 1 = duplikat / blok rusak /
-state yatim / status liar / i32 (atau drift bila `--strict`).
+state yatim / status liar / i32 / symlink skill rusak (atau drift bila
+`--strict`).
 """
 import json
 import re
@@ -39,6 +44,8 @@ PROMOTED = REPO / "decomp" / "promoted"
 DRAFTS = REPO / "decomp" / "drafts"
 SRC = REPO / "src"
 MODULES = REPO / "decomp" / "state" / "modules"
+SKILL_LINK = REPO / ".agents" / "skills" / "gba-decomp"
+SKILL_DIR = REPO / "skills" / "gba-decomp"
 MARK = re.compile(r"^// DECOMP-MATCHED (\w+)", re.M)
 SRC_SUFFIX = ("", "_c", "_v", "_migrated")
 SRC_EXT = ("cc", "c")
@@ -54,6 +61,32 @@ def src_text(stem):
             if p.exists():
                 out[p] = p.read_text(errors="ignore")
     return out
+
+
+def check_skill_link():
+    """(ok, detail) untuk symlink loader -> skills/gba-decomp.
+
+    Dipisah dari audit state supaya bisa dipakai ulang di test. Loader hanya
+    memindai .agents/skills, jadi symlink ini satu-satunya jalur discovery.
+    """
+    if not SKILL_LINK.is_symlink():
+        if SKILL_LINK.exists():
+            return False, "ada tapi BUKAN symlink (salinan bisa drift)"
+        return False, "tidak ada (loader tidak akan menemukan skill)"
+    try:
+        resolved = SKILL_LINK.resolve(strict=True)
+    except OSError as exc:
+        return False, f"dangling: {exc}"
+    if resolved != SKILL_DIR.resolve():
+        return False, f"menunjuk {resolved} (harus {SKILL_DIR})"
+    if not (resolved / "SKILL.md").is_file():
+        return False, "target tidak punya SKILL.md"
+    def rel(p):
+        try:
+            return str(p.relative_to(REPO))
+        except ValueError:
+            return str(p)
+    return True, f"{rel(SKILL_LINK)} -> {rel(resolved)}"
 
 
 def _norm(s):
@@ -162,6 +195,11 @@ def main(argv):
                 i32_hits.append(str(p.relative_to(REPO)))
     problems += len(i32_hits)
 
+    # 9. symlink loader skill
+    skill_ok, skill_detail = check_skill_link()
+    if not skill_ok:
+        problems += 1
+
     total_blocks = sum(len(MARK.findall(p.read_text(errors="ignore")))
                        for p in PROMOTED.glob("*.cc"))
     total_src = 0
@@ -180,6 +218,7 @@ def main(argv):
             "stale_src_status": stale,
             "bad_status": bad_status,
             "i32": i32_hits,
+            "skill_symlink": {"ok": skill_ok, "detail": skill_detail},
             "promoted_draft_drift": drift,
             "total_promoted_blocks": total_blocks,
             "total_src_markers": total_src,
@@ -200,6 +239,8 @@ def main(argv):
         show("State promoted tapi blok & src hilang (MASALAH)", orphan_state)
         show("Status di luar enum (MASALAH)", bad_status)
         show("i32 di draf/promoted (MASALAH)", i32_hits)
+        show("Symlink skill .agents/skills/gba-decomp (MASALAH)",
+             [] if skill_ok else [skill_detail])
         show("Blok promoted belum di src (info)", unmigrated)
         show("Sudah di src tapi state failed/drafted (info)", stale)
         show("Drift promoted vs draf (info, --strict = masalah)", drift)

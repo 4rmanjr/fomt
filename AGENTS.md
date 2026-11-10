@@ -273,8 +273,8 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
 - `python3 -m py_compile decomp/run.py` untuk perubahan skrip.
 - `python3 tools/scripts/audit_consistency.py` untuk audit cepat read-only
   state ↔ promoted ↔ src (blok duplikat, state yatim, status basi, status
-  di luar enum, `i32`, drift promoted vs draf). `--json` untuk agent,
-  `--strict` bila dipakai sebagai gate.
+  di luar enum, `i32`, drift promoted vs draf, symlink skill). `--json`
+  untuk agent, `--strict` bila dipakai sebagai gate.
 - Tool diagnosa read-only lain: `tools/scripts/migrate_audit.py`
   (klasifikasi semua blok promoted: bisa migrasi vs alasan SKIP; `--json`),
   `tools/scripts/tail_chain.py --module <stem>.s` (urutan ekor + NEXT/blocker),
