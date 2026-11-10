@@ -659,13 +659,13 @@
  },
  "func_080A0A1C": {
   "addr": 134875676,
-  "judged_mtime": 1794277037.0545008,
+  "judged_mtime": 1794277065.5806599,
   "module": "code_809E804.s",
-  "note": "len 50 vs ref 54 [3missing,1extra,5operand,9regalloc,3different @i push {r4, lr} | push {r4, r5, lr}]",
+  "note": "len 50 vs ref 54 [3missing,1extra,3operand,11regalloc,2different @i push {r4, lr} | push {r4, r5, lr}]",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 482,
-  "status": "drafted",
+  "status": "failed",
   "thumb": true
  },
  "func_080A0A54": {

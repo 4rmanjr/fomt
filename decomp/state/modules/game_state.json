@@ -708,13 +708,13 @@
  },
  "func_080124D0": {
   "addr": 134292688,
-  "judged_mtime": 1794298182.9503763,
+  "judged_mtime": 1794298366.740541,
   "module": "game_state.s",
-  "note": "len 280 vs ref 282 [6missing,5extra,1operand,23regalloc,3different]; pola cleanup 6.2 diterapkan untuk 0xB4&0xB8 (slot/z/p). 0xAC masih 2 byte di atas ref karena __builtin_new + handle p2; pin new=r4 -> 292 byte, ditinggal.",
+  "note": "len 280 vs ref 282 [6missing,5extra,1operand,23regalloc,3different @r adds r0, r7, #0 | adds r6, r7, #0] | MIGRATED to src/game_state.cc (DIFF 280 vs 282, cleanup 6.2, 2 byte sisa due to __builtin_new)",
   "ref_len": 284,
   "sanitize_v": 4,
   "size": 2471,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080125EC": {

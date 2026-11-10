@@ -5,14 +5,13 @@ typedef struct GenObj {
     s32 unk3C;
 } GenObj;
 void func_08024C74(GenObj *arg0) {
-    u16 z;
-    u8 *p;
+    u8 *p = (u8 *)arg0;
 
-    p = (u8 *) arg0 + 0x3C;
-    z = 0;
-    *p = (u8) z;
+    p += 0x3C;
+    *p = 0;
     p += 2;
-    *p = (u8) z;
+    *p = 0;
+    p = (u8 *)arg0;
     p += 0x68;
-    *(u16 *) p = z;
+    *(u16 *)p = 0;
 }
