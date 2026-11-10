@@ -1562,6 +1562,19 @@ typedef struct GenObj__func_08016F60 {
 } GenObj__func_08016F60;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0801223C {
+    void *unk0;
+    struct GenObj__func_0801223C *unk4;
+    u8 _pad8[0x38];
+    void *unk40;
+    u8 _pad44[0x58];
+    i32 unk9C;
+    u8 _padA0[8];
+    struct GenObj__func_0801223C *unkA8;
+} GenObj__func_0801223C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -2165,6 +2178,31 @@ void func_0801221C(GenObj__func_0801221C *arg0, i32 arg1) {
     }
 }
 }
+// DECOMP-MATCHED func_0801223C (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08033B84(i32, i32, i32, i32);                  /* extern */
+
+__attribute__((section(".text.game_state.0801223C")))
+void func_0801223C(GenObj__func_0801223C *arg0, i32 arg1, i32 arg2, i32 arg3) {
+    GenObj__func_0801223C *o;
+    GenObj__func_0801223C *x;
+    i32 a;
+    i32 b;
+    u8 c;
+
+    o = *(GenObj__func_0801223C **) ((u8 *) arg0->unk4 + 0xA8);
+    x = ((GenObj__func_0801223C *(*)(GenObj__func_0801223C *, i32)) ((Vt *) *(void **) o)->fn40)(o, arg1);
+    if (x != 0) {
+        a = *(i16 *) ((u8 *) x + 0xA);
+        b = *(i16 *) ((u8 *) x + 0xE);
+        a += arg2;
+        b += arg3;
+        c = *(u8 *) ((u8 *) x + 0x30);
+        func_08033B84((i32) x, c, a, b);
+    }
+}
+}
+
 
 // DECOMP-MATCHED func_08012274 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -3352,7 +3390,6 @@ void func_08016F34(GenObj__func_08016F34 *arg0, i32 arg1) {
 // DECOMP-MATCHED func_08016F60 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 __attribute__((section(".text.game_state.08016F60")))
 void func_08016F60(GenObj__func_08016F60 *arg0) {
     GenObj__func_08016F60 **slot;
@@ -3374,7 +3411,6 @@ void func_08016F60(GenObj__func_08016F60 *arg0) {
     }
 }
 }
-
 
 // DECOMP-MATCHED func_08017C00 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {

@@ -414,9 +414,9 @@
  },
  "func_08012028": {
   "addr": 134291496,
-  "judged_mtime": 1794213354.1472518,
+  "judged_mtime": 1794289845.4113116,
   "module": "game_state.s",
-  "note": "len 54 vs ref 58 [3missing,1extra,1operand,6regalloc @r ldr r2, [sp] | ldr r1, [sp]]",
+  "note": "len 60 vs ref 58 [2missing,3extra,2operand,5regalloc,1different @>  | str r2, [sp, #8]]",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 565,
@@ -581,13 +581,14 @@
  },
  "func_0801223C": {
   "addr": 134292028,
-  "judged_mtime": 1793948969.3780994,
+  "judged_mtime": 1794289702.3732717,
   "module": "game_state.s",
-  "note": "byte +0x1e: 0x52 vs ref 0xe [1missing,1extra @>  | adds r2, r2, r5]",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 578,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08012274": {
@@ -707,9 +708,9 @@
  },
  "func_080124D0": {
   "addr": 134292688,
-  "judged_mtime": 1793582714.0394168,
+  "judged_mtime": 1794289520.708491,
   "module": "game_state.s",
-  "note": "novo/gitproject/fomt/decomp/logs/judge_func_080124D0/opencode/func.c:77: warning: passing arg 1 of `func_08050D5C' makes integer from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080124D0/opencode/func.c:78: warning: assignment makes pointer from integer without a cast\n",
+  "note": "len 270 vs ref 282 [9missing,3extra,10operand,19regalloc,3different @< movs r5, #0 | ]",
   "ref_len": 284,
   "sanitize_v": 4,
   "size": 2471,
@@ -718,9 +719,9 @@
  },
  "func_080125EC": {
   "addr": 134292972,
-  "judged_mtime": 1793582714.0394168,
+  "judged_mtime": 1794289627.8997715,
   "module": "game_state.s",
-  "note": "r `unk4' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080125EC/opencode/func.c:32: warning: assignment makes integer from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080125EC/opencode/func.c:37: invalid operands to binary &\n",
+  "note": "byte +0x4: 0x0 vs ref 0x25 [4missing,4extra,4operand,4regalloc,2different @>  | movs r6, #0]",
   "ref_len": 108,
   "sanitize_v": 4,
   "size": 1044,
