@@ -100,6 +100,23 @@ def extract_fields_from_draft(text):
     return offs
 
 
+def detect_pointer_fields(draft_text, offsets):
+    """Heuristic: field is pointer if dereferenced or cast to pointer in draft."""
+    ptrs = set()
+    for off in offsets:
+        hx = format(off, "x")
+        hx_up = format(off, "X")
+        for hxv in (hx, hx_up):
+            # dereference of field: unkXX->
+            if re.search(r"unk" + hxv + r"\s*->", draft_text):
+                ptrs.add(off)
+            # cast to pointer containing unkXX
+            if re.search(r"\(\s*(?:void|\w+)\s*\*\s*\)[^;]*unk" + hxv + r"\b", draft_text):
+                ptrs.add(off)
+            # assignment to pointer-typed local: = (..) unkXX ; (void*) already covered
+    return ptrs
+
+
 def infer_widths(offsets):
     """Infer field width from gap to next offset (power-of-2 capped at 4)."""
     so = sorted(offsets)
@@ -124,19 +141,26 @@ def infer_widths(offsets):
     return res
 
 
-def build_struct(offsets, suffix):
-    lines = ["typedef struct GenObj_" + suffix + " {"]
+def build_struct(offsets, suffix, ptrs):
+    lines = ["typedef struct GenObj_" + suffix + " GenObj_" + suffix + ";",
+             "typedef struct GenObj_" + suffix + " {"]
     cur = 0
     for off in sorted(offsets):
-        w = offsets[off]
-        size = {"u8": 1, "u16": 2, "u32": 4}[w]
+        if off in ptrs:
+            w = "ptr"
+        else:
+            w = offsets[off]
+        size = {"u8": 1, "u16": 2, "u32": 4, "ptr": 4}[w]
         if off > cur:
             pad = off - cur
             lines.append("    u8 _pad%d[%d];" % (cur, pad))
             cur = off
         if off < cur:
             continue
-        lines.append("    %s unk%X; /*0x%X*/" % (w, off, off))
+        if w == "ptr":
+            lines.append("    struct GenObj_%s *unk%X; /*0x%X*/" % (suffix, off, off))
+        else:
+            lines.append("    %s unk%X; /*0x%X*/" % (w, off, off))
         cur = off + size
     lines.append("} GenObj_" + suffix + ";")
     return "\n".join(lines) + "\n"
@@ -152,14 +176,13 @@ def synth_one(func, state):
     offsets = extract_offsets(body)
     # merge with field names already present in the draft (m2c unkXX)
     draft_path = DRAFTS / (func + ".c")
-    if draft_path.exists():
-        draft_text = draft_path.read_text()
+    draft_text = draft_path.read_text() if draft_path.exists() else ""
+    if draft_text:
         for off in extract_fields_from_draft(draft_text):
             if off not in offsets:
                 offsets[off] = None
     # drop None -> infer
     if any(v is None for v in offsets.values()):
-        known = {k: v for k, v in offsets.items() if v is not None}
         missing = [k for k, v in offsets.items() if v is None]
         inferred = infer_widths(set(offsets.keys()))
         for k in missing:
@@ -169,8 +192,12 @@ def synth_one(func, state):
     suffix = func[-4:]  # last 4 hex-ish
     # sanitize suffix to identifier-safe
     suffix = re.sub(r"[^A-Za-z0-9_]", "_", suffix)
-    struct = build_struct(offsets, suffix)
-    return mod, offsets, struct, suffix
+    ptrs = detect_pointer_fields(draft_text, set(offsets.keys())) if draft_text else set()
+    # pointer field overrides width
+    for off in ptrs:
+        offsets[off] = "ptr"
+    struct = build_struct(offsets, suffix, ptrs)
+    return mod, offsets, struct, suffix, ptrs
 
 
 def patch_draft(func, struct, suffix):
@@ -187,6 +214,13 @@ def patch_draft(func, struct, suffix):
     # patch extern void *gUnk_* -> GenObj_suffix *
     new = re.sub(r"extern\s+void\s*\*\s*(gUnk_[A-Za-z0-9_]+)", r"extern GenObj_%s *\1" % suffix, new)
     new = re.sub(r"\bvoid\s*\*\s*(gUnk_[A-Za-z0-9_]+)\b", lambda m: "GenObj_%s *%s" % (suffix, m.group(1)), new)
+    # v2: rewrite pointer arithmetic on gUnk to byte arithmetic (avoid scaling)
+    new = re.sub(r"(gUnk_[A-Za-z0-9_]+)\s*\+\s*\(", lambda m: "(u8 *) %s + (" % m.group(1), new)
+    new = re.sub(r"(gUnk_[A-Za-z0-9_]+)\s*\+\s*([A-Za-z_][A-Za-z0-9_]*)\s*\*", lambda m: "(u8 *) %s + %s *" % (m.group(1), m.group(2)), new)
+    # v2: drop the old GenObj/Obj typedef block (replaced by GenObj_suffix above)
+    new = re.sub(r"typedef\s+struct\s+GenObj(?:_\w+)?\s*\{.*?\}\s*GenObj(?:_\w+)?\s*;", "", new, count=1, flags=re.S)
+    # v2: rename remaining GenObj references to GenObj_suffix
+    new = re.sub(r"\bGenObj\b", "GenObj_%s" % suffix, new)
     path.write_text(new)
     return True, "patched"
 
@@ -226,8 +260,8 @@ def main():
         if not res:
             print(func, "-> skip (no offsets/mod)")
             continue
-        mod, offsets, struct, suffix = res
-        print("\n== %s (%s) offsets=%s" % (func, mod, sorted(offsets)))
+        mod, offsets, struct, suffix, ptrs = res
+        print("\n== %s (%s) offsets=%s ptrs=%s" % (func, mod, sorted(offsets), sorted(ptrs)))
         print(struct)
         if args.apply and not args.dry_run:
             ok, msg = patch_draft(func, struct, suffix)
