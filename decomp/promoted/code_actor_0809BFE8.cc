@@ -376,3 +376,126 @@ typedef struct GenObj {
 u32 func_0809E1A4(GenObj *arg0) {
     return (u32) (arg0->unk625 << 0x1B) >> 0x1F;
 }
+
+// DECOMP-MATCHED func_0809E02C (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[1572];
+    u8 unk624;
+    u8 unk625;
+} GenObj;
+u8 func_0809E02C(GenObj *arg0) {
+    u32 var_r1;
+    u32 b;
+
+    b = arg0->unk624;
+    var_r1 = (b << 0x1E) >> 0x1F;
+    if ((s32) (b << 0x1D) < 0) {
+        var_r1 += 1;
+    }
+    if ((s32) (b << 0x1C) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((s32) (b << 0x1B) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((s32) (b << 0x1A) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((s32) (b << 0x19) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((b >> 7) != 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    b = arg0->unk625;
+    if ((b << 0x1F) != 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((s32) (b << 0x1E) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    return (u8) var_r1;
+}
+
+// DECOMP-MATCHED func_0809DFAC (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[1573];
+    u8 unk625;
+    u8 unk626;
+} GenObj;
+u8 func_0809DFAC(GenObj *arg0) {
+    u32 var_r1;
+    u32 b;
+
+    b = arg0->unk625;
+    var_r1 = (b << 0x1A) >> 0x1F;
+    if ((s32) (b << 0x19) < 0) {
+        var_r1 += 1;
+    }
+    if ((b >> 7) != 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    b = arg0->unk626;
+    if ((b << 0x1F) != 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((s32) (b << 0x1E) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((s32) (b << 0x1D) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((s32) (b << 0x1C) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((s32) (b << 0x1B) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((s32) (b << 0x1A) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    return (u8) var_r1;
+}
+
+// DECOMP-MATCHED func_0809DF2C (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+s32 GetFirstSlotWithTool__C8RucksackUi(s32, s32);   /* extern */
+s32 GetFirstSlotWith__C9ToolChestUi(s32, s32);      /* extern */
+
+s32 func_0809DF2C(s32 arg0, s32 arg1, s32 arg2) {
+    s32 var_r4;
+    s32 var_r6;
+    u32 temp_r0;
+
+    var_r6 = 0;
+    var_r4 = 0x51;
+    temp_r0 = arg1 - 4;
+    switch (temp_r0) {
+    case 0:
+        var_r4 = 5;
+        break;
+    case 1:
+        var_r4 = 0xD;
+        break;
+    case 2:
+        var_r4 = 0x15;
+        break;
+    case 3:
+        var_r4 = 0x1D;
+        break;
+    case 4:
+        var_r4 = 0x25;
+        break;
+    case 5:
+        var_r4 = 0x2D;
+        break;
+    }
+    if (var_r4 <= 0x50) {
+        if (GetFirstSlotWithTool__C8RucksackUi(arg2 + 0x1C38, var_r4) != -1) {
+            var_r6 = 1;
+        }
+        if (GetFirstSlotWith__C9ToolChestUi(arg2 + 0x380, var_r4) != -1) {
+            var_r6 = 1;
+        }
+    }
+    return var_r6;
+}

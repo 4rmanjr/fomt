@@ -14,6 +14,143 @@ typedef struct GenObj__func_0809E174 {
 } GenObj__func_0809E174;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809E02C {
+    u8 _pad0[1572];
+    u8 unk624;
+    u8 unk625;
+} GenObj__func_0809E02C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809DFAC {
+    u8 _pad0[1573];
+    u8 unk625;
+    u8 unk626;
+} GenObj__func_0809DFAC;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_0809DF2C (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 GetFirstSlotWithTool__C8RucksackUi(i32, i32);   /* extern */
+i32 GetFirstSlotWith__C9ToolChestUi(i32, i32);      /* extern */
+
+i32 func_0809DF2C(i32 arg0, i32 arg1, i32 arg2) {
+    i32 var_r4;
+    i32 var_r6;
+    u32 temp_r0;
+
+    var_r6 = 0;
+    var_r4 = 0x51;
+    temp_r0 = arg1 - 4;
+    switch (temp_r0) {
+    case 0:
+        var_r4 = 5;
+        break;
+    case 1:
+        var_r4 = 0xD;
+        break;
+    case 2:
+        var_r4 = 0x15;
+        break;
+    case 3:
+        var_r4 = 0x1D;
+        break;
+    case 4:
+        var_r4 = 0x25;
+        break;
+    case 5:
+        var_r4 = 0x2D;
+        break;
+    }
+    if (var_r4 <= 0x50) {
+        if (GetFirstSlotWithTool__C8RucksackUi(arg2 + 0x1C38, var_r4) != -1) {
+            var_r6 = 1;
+        }
+        if (GetFirstSlotWith__C9ToolChestUi(arg2 + 0x380, var_r4) != -1) {
+            var_r6 = 1;
+        }
+    }
+    return var_r6;
+}
+}
+
+// DECOMP-MATCHED func_0809DFAC (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+extern "C" {
+
+u8 func_0809DFAC(GenObj__func_0809DFAC *arg0) {
+    u32 var_r1;
+    u32 b;
+
+    b = arg0->unk625;
+    var_r1 = (b << 0x1A) >> 0x1F;
+    if ((i32) (b << 0x19) < 0) {
+        var_r1 += 1;
+    }
+    if ((b >> 7) != 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    b = arg0->unk626;
+    if ((b << 0x1F) != 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((i32) (b << 0x1E) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((i32) (b << 0x1D) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((i32) (b << 0x1C) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((i32) (b << 0x1B) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((i32) (b << 0x1A) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    return (u8) var_r1;
+}
+}
+
+// DECOMP-MATCHED func_0809E02C (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+extern "C" {
+
+u8 func_0809E02C(GenObj__func_0809E02C *arg0) {
+    u32 var_r1;
+    u32 b;
+
+    b = arg0->unk624;
+    var_r1 = (b << 0x1E) >> 0x1F;
+    if ((i32) (b << 0x1D) < 0) {
+        var_r1 += 1;
+    }
+    if ((i32) (b << 0x1C) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((i32) (b << 0x1B) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((i32) (b << 0x1A) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((i32) (b << 0x19) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((b >> 7) != 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    b = arg0->unk625;
+    if ((b << 0x1F) != 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    if ((i32) (b << 0x1E) < 0) {
+        var_r1 = (u32) (u8) (var_r1 + 1);
+    }
+    return (u8) var_r1;
+}
+}
+
 // DECOMP-MATCHED func_0809E0AC (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
 extern "C" {
 extern i32 gUnk_086DC3C4;

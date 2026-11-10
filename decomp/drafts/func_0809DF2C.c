@@ -1,7 +1,7 @@
 s32 GetFirstSlotWithTool__C8RucksackUi(s32, s32);   /* extern */
 s32 GetFirstSlotWith__C9ToolChestUi(s32, s32);      /* extern */
 
-s32 func_0809DF2C(s32 arg1, s32 arg2) {
+s32 func_0809DF2C(s32 arg0, s32 arg1, s32 arg2) {
     s32 var_r4;
     s32 var_r6;
     u32 temp_r0;

@@ -12,9 +12,9 @@ typedef struct GenObj {
     u8 _pad0[16];
     s32 unk10;
     u8 _pad14[1552];
-    s32 unk624;
-    s32 unk625;
-    s32 unk626;
+    u8 unk624;
+    u8 unk625;
+    u8 unk626;
 } GenObj;
 s32 func_0809DA00(GenObj *arg0, s32 arg1, GenObj *arg2) {
     u16 sp0;

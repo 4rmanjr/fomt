@@ -1,38 +1,37 @@
 typedef struct GenObj {
     u8 _pad0[1572];
-    s32 unk624;
-    s32 unk625;
+    u8 unk624;
+    u8 unk625;
 } GenObj;
 u8 func_0809E02C(GenObj *arg0) {
     u32 var_r1;
-    u8 temp_r2;
-    u8 temp_r2_2;
+    u32 b;
 
-    temp_r2 = arg0->unk624;
-    var_r1 = (u32) (temp_r2 << 0x1E) >> 0x1F;
-    if ((s32) (temp_r2 << 0x1D) < 0) {
+    b = arg0->unk624;
+    var_r1 = (b << 0x1E) >> 0x1F;
+    if ((s32) (b << 0x1D) < 0) {
         var_r1 += 1;
     }
-    if ((s32) (temp_r2 << 0x1C) < 0) {
+    if ((s32) (b << 0x1C) < 0) {
         var_r1 = (u32) (u8) (var_r1 + 1);
     }
-    if ((s32) (temp_r2 << 0x1B) < 0) {
+    if ((s32) (b << 0x1B) < 0) {
         var_r1 = (u32) (u8) (var_r1 + 1);
     }
-    if ((s32) (temp_r2 << 0x1A) < 0) {
+    if ((s32) (b << 0x1A) < 0) {
         var_r1 = (u32) (u8) (var_r1 + 1);
     }
-    if ((s32) (temp_r2 << 0x19) < 0) {
+    if ((s32) (b << 0x19) < 0) {
         var_r1 = (u32) (u8) (var_r1 + 1);
     }
-    if ((temp_r2 >> 7) != 0) {
+    if ((b >> 7) != 0) {
         var_r1 = (u32) (u8) (var_r1 + 1);
     }
-    temp_r2_2 = arg0->unk625;
-    if ((temp_r2_2 << 0x1F) != 0) {
+    b = arg0->unk625;
+    if ((b << 0x1F) != 0) {
         var_r1 = (u32) (u8) (var_r1 + 1);
     }
-    if ((s32) (temp_r2_2 << 0x1E) < 0) {
+    if ((s32) (b << 0x1E) < 0) {
         var_r1 = (u32) (u8) (var_r1 + 1);
     }
     return (u8) var_r1;
