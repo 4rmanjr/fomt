@@ -1,25 +1,20 @@
-s32 func_080DC57C(void *, s32);                       /* extern */
+s32 func_080DC57C(void *, s32);
 
 typedef struct GenObj {
-    s32 unk0;
-    struct GenObj *unk4;
-    struct GenObj *unk8;
+    void *unk0;
+    void *unk4;
 } GenObj;
 void func_080AAE14(GenObj *arg0, s32 arg1, s32 arg2) {
-    void *temp_r0;
-    void *temp_r0_2;
-    GenObj *temp_r4;
+    register s32 *a8 __asm__("r4");
 
-    arg0->unk0 = arg1;
-    arg0->unk4 = arg2;
-    temp_r4 = (GenObj *)((u8 *)arg0 + 8);
-    if (temp_r4->unk8 != 0) {
-        func_080DC57C(temp_r4, temp_r4->unk4->unk4);
-        temp_r0 = temp_r4->unk4;
-        temp_r0->unk8 = temp_r0;
-        temp_r4->unk4->unk4 = 0;
-        temp_r0_2 = temp_r4->unk4;
-        temp_r0_2->unkC = temp_r0_2;
-        temp_r4->unk8 = 0;
+    arg0->unk0 = (void *)arg1;
+    arg0->unk4 = (void *)arg2;
+    a8 = (s32 *)((u8 *)arg0 + 8);
+    if (a8[2] != 0) {
+        func_080DC57C(a8, *(s32 *)((u8 *)(s32 *)(a8[1]) + 4));
+        *(void **)((u8 *)(s32 *)(a8[1]) + 8) = *(void **)(a8 + 1);
+        *(s32 *)((u8 *)(s32 *)(a8[1]) + 4) = 0;
+        *(void **)((u8 *)(s32 *)(a8[1]) + 0xC) = *(void **)(a8 + 1);
+        a8[2] = 0;
     }
 }

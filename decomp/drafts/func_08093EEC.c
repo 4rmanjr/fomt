@@ -1,22 +1,36 @@
+typedef struct ObjEEC {
+    u8 _pad[0x20];
+    s16 unk20;
+    s16 unk22;
+    void *unk24;
+} ObjEEC;
 typedef struct GenObj {
     u8 _pad0[4];
-    void *unk4;
-    u8 _pad8[24];
-    s32 unk20;
-    struct GenObj *unk22;
-    struct GenObj *unk24;
+    ObjEEC *unk4;
 } GenObj;
 void func_08093EEC(GenObj *arg0) {
-    ? (*var_r1)(void *);
-    s16 temp_r3;
-    GenObj *temp_r0;
+    ObjEEC *obj;
+    void *fn;
+    s16 off;
+    s32 count;
+    GenObj *a2;
 
-    temp_r0 = arg0->unk4;
-    temp_r3 = temp_r0->unk22;
-    if ((s32) temp_r3 > 0) {
-        var_r1 = *(((temp_r3 * 4) + *(arg0 + temp_r0->unk24)) - 4);
+    a2 = arg0;
+    obj = a2->unk4;
+    count = obj->unk22;
+    if (count > 0) {
+        s16 soff;
+        void **sp;
+        void *ptr;
+        void **slot2;
+        soff = *(s16 *)(&obj->unk24);
+        sp = (void **)((u8 *)a2 + soff);
+        ptr = *sp;
+        slot2 = (void **)((u8 *)ptr + (count * 4) - 4);
+        fn = *slot2;
     } else {
-        var_r1 = (s32 (*)(void *)) temp_r0->unk24;
+        fn = obj->unk24;
     }
-    var_r1(arg0 + arg0->unk4->unk20);
+    off = a2->unk4->unk20;
+    ((void (*)(void *))(fn))((u8 *)a2 + off);
 }
