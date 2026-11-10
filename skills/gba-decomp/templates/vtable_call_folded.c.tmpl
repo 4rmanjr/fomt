@@ -1,0 +1,35 @@
+# Folded vtable-call draft (NO offset constant in the ref — tail is a single
+# `ldr rN,[vt,#0xNN]` + `_call_via_rN`). Used when the family member reads the
+# target in one load instead of the movs/lsls/adds offset build.
+#
+# Fill V=address (unique typedef suffix), NN=tail offset, VR=vt pin register
+# (read from the REF asm of this specific function). Generate with python
+# str.replace — never .format.
+
+typedef struct Vt{V} {
+    u8 _pad0[0x{NN}];
+    void (*unk{NN})(void);
+} Vt{V};
+
+typedef struct H{V} {
+    Vt{V} *unk0;
+} H{V};
+
+typedef struct M{V} {
+    u8 _pad0[0xA8];
+    H{V} *unkA8;
+} M{V};
+
+typedef struct G{V} {
+    u8 _pad0[4];
+    M{V} *unk4;
+} G{V};
+
+void func_{V}(G{V} *arg0) {
+    register Vt{V} *vt __asm__("{VR}");
+    register void (*fn)(void) __asm__("{VR}");
+
+    vt = arg0->unk4->unkA8->unk0;
+    fn = vt->unk{NN};
+    fn();
+}

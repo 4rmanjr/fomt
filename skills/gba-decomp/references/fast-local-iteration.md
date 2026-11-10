@@ -1,0 +1,22 @@
+# Fast local iteration (seconds, not judge runs)
+
+Replicate the judge's compile pipeline locally to test codegen variants without paying a full judge run per idea. A local win is only a hypothesis — the real judge run still decides MATCH.
+
+## Rebuild the exact harness
+
+- `common.h` = harness COMMON typedefs + the project's shared context, MINUS any typedef your draft defines itself (the judge filters those out to avoid redefinition errors). Build it fresh from those two sources every time — never append context onto an already-built `common.h`, or duplicate definitions break every variant.
+- Match the sanitizer's declaration order: typedefs first, then extern prototypes. Old GCC rejects use-before-typedef, so a variant that compiles in isolation can fail if you keep the draft's original order.
+- Flags, in order: preprocessor with `-nostdinc -undef` plus the toolchain include and work dirs; compiler with `-mthumb-interwork -O2 -fhex-asm`; assembler with `-mcpu=arm7tdmi`.
+
+## Compare correctly
+
+- Slice the TRUE reference from the assembled module; never hand-cut the asm. Assemble once (`arm-none-eabi-as -mcpu=arm7tdmi -I. -Iasm -Iinclude asm/<mod>.s -o /tmp/mod.o`), list code symbols (`arm-none-eabi-nm /tmp/mod.o | grep " T " | sort`), and cut `.text` from the target symbol to the NEXT symbol — that range is exactly what the judge compares, pools included. Hand-extracted chunks silently misalign and the resulting phantom diff masquerades as a prologue problem.
+- Seed variants from kept judge artifacts: with `FOMT_KEEP_ARTIFACTS=1` (or the tool's keep-artifacts flag) copy `common.h` out of the judge log dir into /tmp and paste each variant body after it — no context rebuild needed, and the harness stays byte-identical to what the judge used.
+
+- Disassemble both objects fully (e.g. `objdump -d`) and compare whole sequences, not the single differing line: the cause is usually ORDER (which load happens first, when a spill is emitted, how call arguments are sequenced), and single-line diffs misattribute it to a register choice.
+- Byte-extract harnesses are fragile across object layouts (Thumb bit, symbol sizes, pool placement); prefer eyeballing full disassembly over scripting byte diffs until the sequences align, then confirm with one real judge run.
+- When the reference loads a field into a scratch register and then copies it, but yours fuses both into a base-overwrite load, delete the intermediate temp and load straight into the final variable: fewer live values leave the allocator nothing to coalesce, and the scratch+copy shape usually follows.
+- Park the function after a handful of failed variants and record what was tried in the draft: repeated lottery tickets on one register bit cost more than they teach. Name the wall before parking — a constant the reference reloads per use but yours pins in a saved register, spill sequencing around multi-argument calls, or a copy the compiler fuses back into one register are allocation lotteries, not logic bugs; two or three targeted variants is enough, then move on.
+- To read a value the caller left in a register on entry (e.g. sb/r9 instead of a stack slot or global), `register u32 name asm("sb")` compiles under agbcc where no plain declaration can express it. It only buys compilation — the bytes still have to match, so judge immediately and park on a structural diff.
+- Ignore LSP/clang diagnostics on decomp drafts: the language server cannot see the judge harness's typedefs or agbcc's register directives, so `unknown_typename` on `u32`/`u8` and `asm_unknown_register_name` on `__asm__("rN")` fire on every edit, including correct ones. Chasing them wastes time — the judge (and only the judge) is the gate.
+- A register pin can ADD instructions, not just move them: pinning a pointer into a saved register that the reference obtains through a plain adds/mov sequence can leave a persistent home initialization (a standing `mov rN, sp`-style extra) in your object that the ref never emits. The same holds for empty-volatile fences: the opacity extends live ranges, so a fence meant to force order can materialize extra moves instead. After each pin or fence, diff the full disassembly — if it added an instruction, try leaving that variable unpinned or pinned to the ref's actual home.

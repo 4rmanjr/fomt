@@ -99,6 +99,14 @@ Mineral Town, decomp GBA).
      push. Sesi panjang menumpuk konteks kumulatif (penyebab #1 token
      boros — output turn lama dibayar ulang tiap turn).
 
+## Skill & panduan agent
+
+Skill `gba-decomp` ada **di dalam repo**: `skills/gba-decomp/` (`SKILL.md`,
+`PANDUAN.md`, `references/`, `templates/`, `scripts/`). Itu sumber
+kebenaran untuk agent; jangan menyimpan salinan di direktori global
+(`~/.claude`, dst). `.agents/skills/gba-decomp` hanya symlink lokal agar
+loader skill tetap menemukannya, dan `.agents/` di-ignore git.
+
 ## Perintah
 
 ```bash

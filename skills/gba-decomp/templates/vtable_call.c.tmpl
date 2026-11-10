@@ -1,0 +1,47 @@
+# Virtual-call draft skeleton (fill V=address, O=vtable offset e.g. 0x154,
+# VR=vtable/fn pin register, OR=offset pin register — read all four from the
+# REF ASM of the specific function; siblings of one shape often differ, e.g.
+# r1/r2 in one and r2/r3 in the next).
+#
+# Generate with python str.replace on the markers — NEVER .format: {{ }}
+# escaping under .replace lands literally in the draft and dies with
+# `syntax error before ')'`. Read the written file back before judging.
+#
+# Callee takes args? Give fn AND the Vt field the real arity, e.g.
+#   void (*fn)(s32, s32)
+# Stack-arg variant (args 5/6 passed on [sp]/[sp+4]) is a KNOWN WALL:
+# agbcc will not add a pinned register to its prologue save-set, so the
+# push {...} mask cannot match the ref — see SKILL.md wall (g); park.
+
+typedef struct Vt{V} {
+    u8 _pad0[{O}];
+    void (*unk{O})(void);
+} Vt{V};
+
+typedef struct H{V} {
+    Vt{V} *unk0;
+} H{V};
+
+typedef struct M{V} {
+    u8 _pad0[0xA8];
+    H{V} *unkA8;
+} M{V};
+
+typedef struct GenObj{V} {
+    u8 _pad0[4];
+    M{V} *unk4;
+} GenObj{V};
+
+void func_{V}(GenObj{V} *arg0) {
+    register Vt{V} *vt __asm__("{VR}");
+    register u32 off __asm__("{OR}");
+    register void (*fn)(void) __asm__("{VR}");
+    H{V} *h;
+
+    h = *(H{V} **)((u8 *)arg0->unk4 + 0xA8);
+    vt = h->unk0;
+    off = {O};
+    __asm__ volatile("" : "+r"(off));
+    fn = *(void (**)(void))((u8 *)vt + off);
+    fn();
+}
