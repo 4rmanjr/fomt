@@ -25,6 +25,27 @@ LIMITATIONS (v1, measured 2026-11-10 on code_0803EE94: 0/5 hit rate):
   4. Only `gUnk_*` globals are patched; function args typed as structs are
      untouched, so their field accesses still fail if widths differ.
 v2 should address (1)-(4) before scaling beyond pilot.
+
+MEASURED 2026-11-11 (v2, pointer fields + byte arithmetic + typedef rename):
+0/10 MATCH — pilot 5 terkecil `code_0803EE94` (func_08045638, func_0804EF20,
+func_0804EFAC, func_0804F060, func_0804F0E0) + 5 pertama `code_809E804`
+(func_0809FE74, func_080A03B8, func_080A0B18, func_080A17A0, func_080A1890).
+Artinya v2 belum menggeser angka v1 (0/5). Hasil judge setelah patch masih
+DIFF, dan error yang tersisa menunjukkan sintesis struct ARGUMEN bukan
+penghalang utamanya:
+
+  a. lokal stack bertipe skalar lalu diakses ber-field: `s32 sp0;` +
+     `sp0.unk1 = ...` -> "request for member ... not a structure".
+     Butuh dekomposisi stack-local jadi struct/union, bukan typedef baru;
+  b. temporer hasil pointer-aritmetika tetap `void *temp_rX`, jadi
+     `temp_rX->unkY` gagal walau arg0 sudah bertipe struct benar;
+  c. offset field yang tidak muncul sebagai akses memori di asm (mis. 0xC)
+     tidak dipindai, sehingga `arg0->unkC` tetap "no member";
+  d. sisa kasus (`saved_reg_r10` undeclared, invalid lvalue in unary '&',
+     pointer/integer) bukan pekerjaan tool ini.
+
+Saran urutan v3: (b) lalu (a) — keduanya menyumbang mayoritas error yang
+tersisa pada pilot di atas — sebelum menyentuh (c)/(d).
 """
 import argparse
 import json
