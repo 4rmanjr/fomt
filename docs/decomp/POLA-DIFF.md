@@ -924,3 +924,26 @@ Probe: salinan itu muncul kalau store lewat pointer lokal (`p[0x3C]`,
 (`add r1, r2, #0`), bukan argumen seperti ref (`adds r0, #0x3C`).
 Kalau argumen dimajukan in-place, salinan mati dibuang agbcc. Kedua bentuk
 tidak bisa disatukan lewat C biasa -> diparkir (bandingkan §15).
+
+## 24. Keluarga libc: dua bentuk ekor di SATU file + ldm/stm
+
+`code_libc_string` membuktikan §22 tidak berlaku seragam:
+
+| fungsi | ekor byte | bentuk |
+|---|---|---|
+| `memset` | `add r0,r2,#0; sub r2,#1; cmp r0,#0` | salinan (`while (n-- > 0)`) |
+| `memcpy` | `sub r2,#1; mov #1; rsbs; cmp` | banding −1 (`while (n-- != 0)`) |
+| `memcmp` | `add r0,r4,#0; sub r4,#1; cmp r0,#0` | salinan (`while (cnt-- > 0)`) |
+
+Jadi jangan menormalkan semua loop ke satu bentuk; baca ekor ref per fungsi.
+
+Word-copy `ldm rX!, {r0}` / `stm rY!, {r0}` muncul kalau sisi sumber **dan**
+tujuan sama-sama dimajukan lewat pointer `u32`:
+`*(u32 *) p++ = *(const u32 *) s++;` (memcpy/strcpy). Kalau yang disimpan hanya
+nilai yang sudah dimuat (`*(u32 *) p++ = w;`), agbcc memakai `str` biasa.
+
+Batas yang tersisa di sektor ini: `memcpy` sudah **identik struktural** (12
+regalloc, 0 struktural) — pemetaan register (`dst→r5`, penunjuk→r4, `src→r3`,
+`n` tetap `r2`) tidak bisa dipaksa lewat C; `strcpy`/`strcat` sama, ditambah
+urutan salinan parameter. Dicatat sebagai dinding regalloc, bukan pola yang
+hilang.
