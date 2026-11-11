@@ -724,3 +724,12 @@ diff dan membuat kandidat terlihat lebih jauh dari kenyataan).
 Sebelum mengejar `add`/salinan: lihat mnemonik aksesnya. `str` vs `strb`
 (tipe field), `ldr` vs `ldrh`, dan `ldr` vs `ldrsh` hampir selalu berarti
 deklarasi field salah, dan itu perbaikan satu baris.
+
+## 13. Hasil call bertipe sempit: jangan deklarasikan `s8`
+
+Pembukti: `func_08021EE0` MATCH 92 vs 92.
+
+Tanda tangan callee `s8 GetGrowthStage(...)` lalu disimpan ke variabel `s8`
+membuat agbcc menambahkan `lsl rX, #0x18; asr rX, #0x18` setiap kali nilai
+dipakai, padahal ref hanya `add r5, r0, #0x0`. Deklarasikan extern-nya `s32`
+dan tampung di `s32`; penyempitan (bila ada) cukup di titik store `u8`.

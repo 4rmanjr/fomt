@@ -252,13 +252,15 @@
  },
  "func_08021EE0": {
   "addr": 134356704,
-  "judged_mtime": 1793582714.0654125,
+  "draft_src": "manual",
+  "judged_mtime": 1794382654.1604078,
   "module": "code_entities.s",
-  "note": "len 88 vs ref 92 [3missing,1extra,1operand,2stack,5different @| adds r5, r0, #0 | lsls r0, r0, #0x18]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 92,
   "sanitize_v": 4,
   "size": 908,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08021F3C": {

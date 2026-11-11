@@ -1,5 +1,5 @@
 {
- "base": 0.312,
+ "base": 0.316,
  "kinds": {
   "cabang": {
    "match": 0,
@@ -31,12 +31,27 @@
     0
    ]
   },
+  "instruksi": {
+   "match": 0,
+   "n": 2,
+   "ops": [
+    8,
+    8
+   ]
+  },
   "sign/width": {
    "match": 0,
    "n": 2,
    "ops": [
     25,
     11
+   ]
+  },
+  "width-offset": {
+   "match": 1,
+   "n": 1,
+   "ops": [
+    9
    ]
   },
   "zero-reload": {
@@ -48,7 +63,18 @@
    ]
   }
  },
- "recipes": {},
- "updated": "2026-11-11 14:30",
+ "recipes": {
+  "width-offset": [
+   {
+    "examples": [
+     "func_08021EE0"
+    ],
+    "hits": 1,
+    "misses": 0,
+    "text": "beda instruksi umum: baca diff di atas, cek lebar akses, urutan store, dan rantai pointer."
+   }
+  ]
+ },
+ "updated": "2026-11-11 14:38",
  "version": 1
 }
