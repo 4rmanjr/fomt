@@ -366,12 +366,23 @@ def cmd_learn(a):
         kind, ops = _features(fn, v)
         if kind is None:
             continue
-        for it in json.load(open(p)).get("attempts", []):
+        hist = json.load(open(p)).get("attempts", [])
+        first = hist[0] if hist else {}
+        first_kind = first.get("kind") or kind
+        first_ops = first.get("ops") if first.get("ops") is not None else ops
+        for it in hist:
             verdict = it.get("verdict", "DIFF")
-            k_it = it.get("kind") or kind
-            o_it = it.get("ops") if it.get("ops") is not None else ops
-            kb_record(kb, k_it, o_it, verdict, fn,
-                      HINTS.get(kind) if verdict == "MATCH" else None)
+            # Percobaan MATCH = kandidat selesai: label yang dipakai adalah pola
+            # saat kandidat diambil (percobaan pertama), bukan residual percobaan
+            # terakhir — kalau tidak, prior pola pemicu tidak pernah naik.
+            if verdict == "MATCH":
+                k_it, o_it = first_kind, first_ops
+                rec = HINTS.get(first_kind)
+            else:
+                k_it = it.get("kind") or kind
+                o_it = it.get("ops") if it.get("ops") is not None else ops
+                rec = None
+            kb_record(kb, k_it, o_it, verdict, fn, rec)
             tries += 1
             wins += 1 if verdict == "MATCH" else 0
     kb["base"] = round(wins / tries, 3) if tries else 0.30
@@ -578,7 +589,13 @@ def cmd_attempt(a):
     # dipakai adalah pola yang dikerjakan saat percobaan dimulai.
     _drop_cache(fn)
     kind_now, ops_now = _features(fn, v)
-    if not ok and kind_now:
+    if ok:
+        # MATCH: kandidat selesai — pola yang dipakai adalah pola saat kandidat
+        # diambil (percobaan pertama), bukan residual percobaan terakhir.
+        first = hist["attempts"][0] if hist.get("attempts") else None
+        if first and first.get("kind"):
+            kind, ops = first["kind"], first.get("ops", ops)
+    elif kind_now:
         kind, ops = kind_now, ops_now
     res = {"at": time.strftime("%Y-%m-%d %H:%M:%S"), "kind": kind,
            "ops": ops, "verdict": "MATCH" if ok else "DIFF",

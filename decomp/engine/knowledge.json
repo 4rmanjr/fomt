@@ -1,101 +1,32 @@
 {
- "base": 0.171,
+ "base": 0.2,
  "kinds": {
-  "cabang": {
-   "match": 0,
-   "n": 3,
-   "ops": [
-    7,
-    9,
-    7
-   ]
-  },
   "copy": {
-   "match": 0,
-   "n": 6,
-   "ops": [
-    2,
-    2,
-    2,
-    2,
-    2,
-    7
-   ]
-  },
-  "hanya-register": {
    "match": 0,
    "n": 2,
    "ops": [
-    8,
-    7
-   ]
-  },
-  "identik": {
-   "match": 5,
-   "n": 7,
-   "ops": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    10,
+    10
    ]
   },
   "instruksi": {
-   "match": 2,
-   "n": 19,
+   "match": 1,
+   "n": 6,
    "ops": [
-    10,
-    5,
-    10,
-    4,
-    15,
-    3,
-    5,
-    8,
-    8,
-    36,
-    14,
-    2,
-    15,
     12,
     12,
     11,
-    8,
     9,
-    9
-   ]
-  },
-  "sign/width": {
-   "match": 0,
-   "n": 2,
-   "ops": [
-    25,
-    11
+    9,
+    15
    ]
   },
   "width-offset": {
    "match": 1,
-   "n": 7,
+   "n": 2,
    "ops": [
-    11,
-    9,
-    26,
-    20,
-    20,
-    20,
+    23,
     23
-   ]
-  },
-  "zero-reload": {
-   "match": 1,
-   "n": 3,
-   "ops": [
-    12,
-    0,
-    0
    ]
   }
  },
@@ -103,15 +34,24 @@
   "instruksi": [
    {
     "examples": [
-     "func_08008020",
      "func_08050E98"
     ],
-    "hits": 2,
+    "hits": 1,
     "misses": 0,
     "text": "beda instruksi umum: baca diff di atas, cek lebar akses, urutan store, dan rantai pointer."
    }
+  ],
+  "width-offset": [
+   {
+    "examples": [
+     "func_08008020"
+    ],
+    "hits": 1,
+    "misses": 0,
+    "text": "akses sempit di offset besar: `add #imm` (>31) lalu ldrb/ldrh bukan salinan argumen \u2014 samakan lebar field (POLA-DIFF \u00a710.3, width_mismatch.py)."
+   }
   ]
  },
- "updated": "2026-11-11 19:00",
+ "updated": "2026-11-11 19:04",
  "version": 1
 }

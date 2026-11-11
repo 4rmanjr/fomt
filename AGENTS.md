@@ -297,7 +297,12 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
   berubah dengan bentuk terverifikasi probe); `learn` bangun ulang prior pola dari seluruh judge log
   + state; `hint <func>` resep historis yang pernah MATCH untuk pola itu.
   `queue` memeringkat pakai prior hasil `learn` (`p=rate`), `--kind` untuk
-  filter pola; klasifikasi di-cache di `decomp/engine/cache/`. Label pola
+  filter pola; klasifikasi di-cache di `decomp/engine/cache/`. Percobaan MATCH
+  diberi label pola **percobaan pertama** kandidat (pola pemicu), bukan
+  residual percobaan terakhir. `learn` **menimpa** `knowledge.json` dari
+  riwayat `decomp/engine/attempts/` yang ada di mesin itu — dan riwayat itu
+  tidak di-commit, jadi jangan jalankan `learn` bila riwayat lokal tidak
+  lengkap (basis prior lintas sesi akan menyusut). Label pola
   tiap `attempt` diambil dari diff **setelah** judge (note sebelum judge masih
   menggambarkan percobaan sebelumnya; percobaan MATCH tetap memakai pola yang
   dikerjakan saat dimulai, karena diff-nya sudah hilang = `identik`). `norm()`
