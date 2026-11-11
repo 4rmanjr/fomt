@@ -1848,6 +1848,41 @@ typedef struct GenObj__func_0804EE64 {
 } GenObj__func_0804EE64;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Sub {
+    u8 _pad0[2];
+    u16 unk2;
+} Sub;
+typedef struct VTab {
+    u8 _pad0[12];
+    void *unkC;
+} VTab;
+typedef struct GenObj__func_0805E824 {
+    void *unk0;
+    struct Sub *unk4;
+    u8 _pad8[4];
+    u16 unkC;
+    u16 unkE;
+    u16 unk10;
+    u8 unk12;
+    u8 _pad13[1];
+} GenObj__func_0805E824;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0804EA58 {
+    i32 unk0;
+    i32 unk4;
+    void *unk8;
+    i32 unkC;
+    u16 unk10;
+    u16 unk12;
+    i32 unk14;
+    i32 unk18;
+    i32 unk1C;
+} GenObj__func_0804EA58;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -2108,6 +2143,25 @@ extern "C" {
 __attribute__((section(".text.code_0803EE94.0804E9CC")))
 i32 func_0804E9CC(void) {
     return 0;
+}
+}
+
+// DECOMP-MATCHED func_0804EA58 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 vtable_unk_080E7868;
+
+__attribute__((section(".text.code_0803EE94.0804EA58")))
+void *func_0804EA58(GenObj__func_0804EA58 *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4, i32 arg5, i32 arg6) {
+    arg0->unk0 = 0;
+    arg0->unk4 = 0;
+    arg0->unk8 = &vtable_unk_080E7868;
+    arg0->unkC = arg1;
+    arg0->unk12 = (u16) arg2;
+    arg0->unk14 = arg3;
+    arg0->unk18 = arg4;
+    arg0->unk10 = (u16) arg5;
+    arg0->unk1C = arg6;
+    return arg0;
 }
 }
 
@@ -2960,6 +3014,24 @@ i32 *func_0805E698(i32 *arg0, GenObj__func_0805E698 *arg1) {
     arg1->unk8 = 0;
     *arg0 = temp_r1;
     return arg0;
+}
+}
+
+// DECOMP-MATCHED func_0805E824 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_0803EE94.0805E824")))
+void *func_0805E824(i32 *arg0, void **arg1, i32 arg2, i32 arg3) {
+    GenObj__func_0805E824 *a = (GenObj__func_0805E824 *)arg0;
+    i32 *p = arg0;
+
+    *p++ = (i32)arg1;
+    ((void (*)(void *, void *, i32))(*(VTab **)arg1)->unkC)(p, arg1, arg2);
+    a->unkC = 0;
+    a->unkE = (u16) (a->unk4->unk2 << 8);
+    a->unk10 = (u16) arg3;
+    a->unk12 = 1;
+    return a;
 }
 }
 

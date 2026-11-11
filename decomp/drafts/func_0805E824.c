@@ -19,12 +19,11 @@ typedef struct GenObj {
     u8 _pad13[1];
 } GenObj;
 void *func_0805E824(s32 *arg0, void **arg1, s32 arg2, s32 arg3) {
-    GenObj *a;
-    VTab *v;
-    a = (GenObj *)arg0;
-    *arg0++ = (s32)arg1;
-    v = (VTab *)(*arg1);
-    ((void (*)(GenObj *))(v->unkC))((GenObj *)arg0);
+    GenObj *a = (GenObj *)arg0;
+    s32 *p = arg0;
+
+    *p++ = (s32)arg1;
+    ((void (*)(void *, void *, s32))(*(VTab **)arg1)->unkC)(p, arg1, arg2);
     a->unkC = 0;
     a->unkE = (u16) (a->unk4->unk2 << 8);
     a->unk10 = (u16) arg3;

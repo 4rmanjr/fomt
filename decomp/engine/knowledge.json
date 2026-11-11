@@ -1,12 +1,29 @@
 {
  "base": 0.2,
  "kinds": {
+  "cabang": {
+   "match": 1,
+   "n": 1,
+   "ops": [
+    5
+   ]
+  },
   "copy": {
+   "match": 0,
+   "n": 4,
+   "ops": [
+    10,
+    10,
+    13,
+    13
+   ]
+  },
+  "hanya-register": {
    "match": 0,
    "n": 2,
    "ops": [
-    10,
-    10
+    2,
+    2
    ]
   },
   "identik": {
@@ -18,8 +35,8 @@
    ]
   },
   "instruksi": {
-   "match": 2,
-   "n": 8,
+   "match": 3,
+   "n": 9,
    "ops": [
     12,
     12,
@@ -28,7 +45,8 @@
     9,
     15,
     16,
-    22
+    22,
+    8
    ]
   },
   "width-offset": {
@@ -41,16 +59,36 @@
     5,
     5
    ]
+  },
+  "zero-reload": {
+   "match": 0,
+   "n": 3,
+   "ops": [
+    9,
+    9,
+    9
+   ]
   }
  },
  "recipes": {
+  "cabang": [
+   {
+    "examples": [
+     "func_0805E824"
+    ],
+    "hits": 1,
+    "misses": 0,
+    "text": "kondisi cabang terbalik (beq/bne): tulis `if (x == 0) return A; return B;` dengan A/B sesuai ref (POLA-DIFF \u00a77.2)."
+   }
+  ],
   "instruksi": [
    {
     "examples": [
      "func_08050E98",
-     "func_080E542C"
+     "func_080E542C",
+     "func_080B9828"
     ],
-    "hits": 2,
+    "hits": 3,
     "misses": 0,
     "text": "beda instruksi umum: baca diff di atas, cek lebar akses, urutan store, dan rantai pointer."
    }
@@ -69,6 +107,6 @@
    }
   ]
  },
- "updated": "2026-11-11 21:40",
+ "updated": "2026-11-11 22:01",
  "version": 1
 }

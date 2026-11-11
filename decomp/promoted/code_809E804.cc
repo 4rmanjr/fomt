@@ -3229,3 +3229,12 @@ void func_080A6640(u8 *arg0) {
     *q = 0;
     q[1] = 0;
 }
+
+// DECOMP-MATCHED func_080B9828 (dari code_809E804.s; cek manusia sebelum ke src/)
+void func_080B9828(s32 arg0, s32 arg1) {
+    if ((arg1 << 0x18) != 0) {
+        *(s32 *) (arg0 + 0xC0) = 1;
+    } else {
+        *(s32 *) (arg0 + 0x80) = 1;
+    }
+}

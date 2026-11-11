@@ -255,13 +255,15 @@
  },
  "func_0804EA58": {
   "addr": 134539864,
-  "judged_mtime": 1793925737.3598313,
+  "draft_src": "manual",
+  "judged_mtime": 1794409190.9949555,
   "module": "code_0803EE94.s",
-  "note": "len 44 vs ref 36 [6extra,2operand,6regalloc,2different @r ldr r5, [sp, #0x14] | ldr r6, [sp, #0x14]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 475,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0804EA80": {
@@ -1825,13 +1827,15 @@
  },
  "func_0805E824": {
   "addr": 134604836,
-  "judged_mtime": 1793753300.9129837,
+  "draft_src": "manual",
+  "judged_mtime": 1794408712.4178615,
   "module": "code_0803EE94.s",
-  "note": "byte +0x2: 0x1d vs ref 0x4 [1operand,4regalloc @r adds r4, r0, #0 | adds r5, r3, #0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 407,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0805E850": {

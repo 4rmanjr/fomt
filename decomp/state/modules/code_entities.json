@@ -59,9 +59,10 @@
  },
  "func_080202A0": {
   "addr": 134349472,
-  "judged_mtime": 1793582714.063413,
+  "draft_src": "manual",
+  "judged_mtime": 1794409222.5345392,
   "module": "code_entities.s",
-  "note": "len 56 vs ref 34 [1missing,12extra,3operand,3regalloc,6different @| movs r3, #0xa | ldrh r3, [r1, #0x14]]",
+  "note": "byte +0x1e: 0x1 vs ref 0x4 [2regalloc @r pop {r2} | pop {r0}] [parkir sesi: body identik, hanya epilog `pop {r2}` vs `pop {r0}`; wall regalloc]",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 388,

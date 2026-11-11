@@ -2840,6 +2840,18 @@ i32 func_080B9464(i32 arg0, i32 arg1, i32 arg2) {
 }
 }
 
+// DECOMP-MATCHED func_080B9828 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080B9828")))
+void func_080B9828(i32 arg0, i32 arg1) {
+    if ((arg1 << 0x18) != 0) {
+        *(i32 *) (arg0 + 0xC0) = 1;
+    } else {
+        *(i32 *) (arg0 + 0x80) = 1;
+    }
+}
+}
+
 // DECOMP-MATCHED func_080BC898 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __builtin_new(i32);                             /* extern */

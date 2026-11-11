@@ -3382,13 +3382,14 @@
  "func_080B9828": {
   "addr": 134977576,
   "draft_src": "manual",
-  "judged_mtime": 1794382564.8413434,
+  "judged_mtime": 1794408719.550393,
   "module": "code_809E804.s",
-  "note": "len 22 vs ref 26 [2missing,3regalloc,3different @< cmp r1, #0 | ]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 28,
   "sanitize_v": 4,
   "size": 281,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080B9844": {
