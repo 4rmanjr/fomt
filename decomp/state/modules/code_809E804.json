@@ -1980,6 +1980,7 @@
  },
  "func_080AB82C": {
   "addr": 134920236,
+  "draft_src": "manual",
   "judged_mtime": 1794378096.4187546,
   "module": "code_809E804.s",
   "note": "byte +0xf: 0x22 vs ref 0x21 [9regalloc @r movs r1, #0 | movs r2, #0]",

@@ -729,9 +729,9 @@
  },
  "func_08024C74": {
   "addr": 134368372,
-  "judged_mtime": 1794378146.5863748,
+  "judged_mtime": 1794378385.740312,
   "module": "code_entities.s",
-  "note": "byte +0x0: 0x3c vs ref 0x2 [1missing,1extra @< adds r2, r0, #0 | ]",
+  "note": "len 16 vs ref 18 [2missing,1extra,1operand @>  | movs r1, #0]",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 234,
