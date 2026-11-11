@@ -281,6 +281,9 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
   `tools/scripts/diff_mismatch.py <func>` (hitung mismatch `diff.py`;
   target branch dinormalkan, `--json`/`--strict`, `--diff-json` untuk
   output yang sudah ada),
+  `tools/scripts/width_mismatch.py` (lebar akses asm `ldrb/strb/ldrh/strh/ldr/str`
+  vs tipe field draf per offset; default hanya |len-ref| <= 4, `--func`/`--module`/
+  `--json`; offset dihitung per angka jadi wajib dikonfirmasi ke register argumen),
   `decomp/migrate.py ... --explain` (beda signature blok vs `src/`, tanpa
   menulis apa pun).
 - `fomt status` untuk memastikan state konsisten.

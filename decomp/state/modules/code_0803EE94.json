@@ -1795,9 +1795,9 @@
  },
  "func_0805E760": {
   "addr": 134604640,
-  "judged_mtime": 1794212326.564804,
+  "judged_mtime": 1794375982.0759332,
   "module": "code_0803EE94.s",
-  "note": "es pointer from integer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0805E760/crouton-alpha-8/func.c:15: invalid operands to binary *\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0805E760/crouton-alpha-8/func.c:16: warning: cast from pointer to integer of different size\n",
+  "note": "byte +0x2c: 0x2 vs ref 0x4 [2regalloc @r pop {r2} | pop {r1}]",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 462,

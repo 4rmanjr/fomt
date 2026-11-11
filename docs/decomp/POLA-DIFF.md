@@ -459,3 +459,58 @@ Hasil terbaik `func_080A03B8`: **98 vs ref 100 byte** (dari 110 byte versi
 Kesimpulan: untuk pola ini, m2c→C harus ditulis ulang jadi byte-buffer
 (bukan struct) **dan** byte-match tetap tergantung kebetulan regalloc
 agbcc; jangan buang budget >3 judge.
+
+## 7. Lebar akses, inversi cabang, dan register epilogue
+
+Tiga motif diff "kecil" yang terbukti dari gelombang kandidat |len-ref| <= 4.
+Pembukti: `func_08033800`, `func_080E38E0`, `func_0805E760`.
+
+### 7.1 `ldrh` vs `ldrsh` ditentukan oleh tipe variabel antara
+
+`s16 x = r->unkA;` yang nilainya hanya disimpan sebagai `u16`
+(`arg->unk0 = (u16)x;`) membuat agbcc memilih `ldrh` (zero-extend cukup).
+Ref memakai `ldrsh` -> deklarasikan variabel antaranya `s32`:
+
+```c
+s32 a = r->unkA;   /* -> ldrsh r0, [r1, r2] */
+...
+arg->unk0 = (u16)a;
+```
+
+### 7.2 Inversi `beq`/`bne` pada `if (x) return c; return d;`
+
+`func_080E38E0`: ref berbentuk
+
+```asm
+cmp r0, #0
+beq .Lret1      @ x == 0 -> return 1
+movs r0, #0
+b .Lend
+.Lret1: movs r0, #1
+```
+
+Draf `if (x != 0) return 0; return 1;` menghasilkan `bne` + blok terbalik
+(offset cabang bergeser 1 byte -> DIFF). Tulis kondisi kebalikannya:
+
+```c
+if (x == 0) return 1;
+return 0;
+```
+
+### 7.3 Register epilogue `pop {r1}; bx r1` vs `pop {r2}; bx r2`
+
+`func_0805E760` identik instruksi per instruksi kecuali epilogue:
+draf menghasilkan `pop {r1}; bx r1`, ref `pop {r2}; bx r2`
+(2 byte berbeda, dilaporkan sebagai `[2regalloc @r pop {r2}]`).
+Sudah dicoba return `void *`, pointer struct (`Out *`), dan `s32` —
+ketiganya tetap `r1`; ini wall regalloc, bukan salah tipe balik. Parkir.
+
+### 7.4 Catatan tool `width_mismatch.py`
+
+`tools/scripts/width_mismatch.py` membandingkan lebar akses asm vs lebar
+field draf per offset. Berguna untuk menemukan field yang salah tipe
+(pembukti: `func_08021F3C`, `func_08033800`), tetapi **offset dihitung per
+angka, bukan per register basis** — `ldrh [r6,#0xc]` dan `ldr [r1,#0xc]`
+pada objek berbeda akan tercampur. Diukur: 2398 field di 650 fungsi, dan
+dari 7 kandidat teratas hanya 3 yang mismatch-nya nyata. Selalu konfirmasi
+manual ke asm (akses harus memakai register argumen) sebelum menulis draf.

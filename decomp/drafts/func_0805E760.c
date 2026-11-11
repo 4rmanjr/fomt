@@ -1,21 +1,36 @@
-typedef struct GenObj {
-    struct GenObj *unk0;
-    struct GenObj *unk2;
-    s32 unk4;
-    u8 _pad8[20];
-    s32 unk1C;
-    s32 unk20;
-} GenObj;
-void *func_0805E760(GenObj *arg0, GenObj *arg1, u32 arg2) {
-    GenObj *temp_r0;
+typedef struct Item {
+    u16 unk0;
+    u16 unk2;
+} Item;
 
-    if (arg2 < (u32) arg1->unk20) {
-        temp_r0 = arg1->unk4 + (arg2 * 4);
-        arg0->unk0 = (s32) ((temp_r0->unk2 * 4) + arg1->unk1C);
-        arg0->unk4 = (u16) temp_r0->unk0;
+typedef struct Args {
+    u8 _pad0[4];
+    Item *unk4;
+    u8 _pad8[0x14];
+    u8 *unk1C;
+    u16 unk20;
+} Args;
+
+typedef struct Out {
+    s32 unk0;
+    u16 unk4;
+} Out;
+
+s32 func_0805E760(Out *arg0, Args *arg1, u32 arg2) {
+    Item *it;
+    u16 u0;
+    s32 v;
+
+    if (arg2 < arg1->unk20) {
+        it = &arg1->unk4[arg2];
+        v = it->unk2;
+        u0 = it->unk0;
+        v = v * 4 + (s32) arg1->unk1C;
+        arg0->unk0 = v;
+        arg0->unk4 = u0;
     } else {
         arg0->unk0 = 0;
-        arg0->unk4 = 0U;
+        arg0->unk4 = 0;
     }
-    return arg0;
+    return (s32) arg0;
 }

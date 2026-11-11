@@ -13,9 +13,9 @@
  },
  "func_080D3BE8": {
   "addr": 135085032,
-  "judged_mtime": 1793005021.0052364,
+  "judged_mtime": 1793582714.2273865,
   "module": "code_linkonce.s",
-  "note": "c: In function `func_080D3BE8':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3BE8/opencode/func.c:19: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3BE8/opencode/func.c:19: request for member `unk8' in something not a structure or union\n",
+  "note": "function `func_080D3BE8':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080D3BE8/lenovo_31745/func.c:19: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080D3BE8/lenovo_31745/func.c:19: request for member `unk8' in something not a structure or union\n",
   "ref_len": 60,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -25,9 +25,9 @@
  },
  "func_080D3C24": {
   "addr": 135085092,
-  "judged_mtime": 1793005021.294348,
+  "judged_mtime": 1793582714.2273865,
   "module": "code_linkonce.s",
-  "note": "c: In function `func_080D3C24':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3C24/opencode/func.c:19: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D3C24/opencode/func.c:19: request for member `unk8' in something not a structure or union\n",
+  "note": "function `func_080D3C24':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080D3C24/lenovo_31745/func.c:19: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080D3C24/lenovo_31745/func.c:19: request for member `unk8' in something not a structure or union\n",
   "ref_len": 60,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -59,9 +59,9 @@
  },
  "func_080D3C78": {
   "addr": 135085176,
-  "judged_mtime": 1793178216.436397,
+  "judged_mtime": 1793582714.2273865,
   "module": "code_linkonce.s",
-  "note": "len 598 vs ref 602 [1missing,2extra,2operand,9regalloc,1different @>  | ldr r2, [pc, #0x78]]",
+  "note": "byte +0x6: 0x7d vs ref 0x7c [3extra,29operand,38regalloc,2stack,2different @i ldr r0, [pc, #0x1f0] | ldr r0, [pc, #0x1f4]]",
   "ref_len": 604,
   "sanitize_v": 4,
   "size": 4703,
@@ -4156,13 +4156,14 @@
  },
  "func_080E38E0": {
   "addr": 135149792,
-  "judged_mtime": 1793018183.9379709,
+  "judged_mtime": 1794375633.9781737,
   "module": "code_linkonce.s",
-  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E38E0/opencode/func.c: In function `func_080E38E0':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E38E0/opencode/func.c:14: void value not ignored as it ought to be\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 431,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E3910": {
