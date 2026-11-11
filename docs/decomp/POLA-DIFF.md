@@ -949,3 +949,31 @@ regalloc, 0 struktural) — pemetaan register (`dst→r5`, penunjuk→r4, `src�
 `n` tetap `r2`) tidak bisa dipaksa lewat C; `strcpy`/`strcat` sama, ditambah
 urutan salinan parameter. Dicatat sebagai dinding regalloc, bukan pola yang
 hilang.
+
+## 25. Reg saved tertukar: pin temp yang di-load per iterasi (`func_08008020`)
+
+Pembukti: `func_08008020` (hardware.s, 128B) MATCH pada percobaan ke-5.
+Urutan kerja yang berhasil, dari termurah ke termahal:
+
+1. **Lebar field dulu** (pola `width-offset`). Asm mengakses byte di offset
+   0, 1, 4, 0x80 (`ldrb`/`strb`), sedangkan draf m2c mendeklarasikan
+   `s32 unk0/unk1/unk4/unk80` + `_pad8[120]` (yang menaruh `unk80` di 0x84).
+   Ganti ke `u8` dengan padding eksplisit (`_pad5[0x7B]`), dan pointer loop
+   jadi `(u8 *) arg0 + 4` — `arg0 + 4` pada pointer struct menskala
+   `sizeof(GenObj)`. Diff turun dari 12operand/11regalloc ke
+   2operand/10regalloc.
+2. **Sisanya reg saved tertukar + satu salinan.** Ref: `arg0`=r6, `arg1`=r7,
+   `p`=r4, `b`=r5, `i`=r3 (di-spill `str r3,[sp]` sebelum call). Draf: `arg0`
+   di r5 dan `b` di r6, sehingga muncul `ldrb r0,[r4]; add r6,r0,#0;
+   cmp r6,#0` (+1 instruksi). Pin `arg0` ke r6 **gagal** (`arg1` terdorong ke
+   r3, `i` merebut r7, frame `sub sp,#4` hilang → 120 vs 126B); pin `i` ke r3
+   juga merusak spill. Yang berhasil: **pin temp yang di-load per iterasi**
+   — `register u8 b __asm__("r5")` — `arg0` lalu otomatis menempati r6,
+   salinan hilang, 58 vs 58.
+3. Migrasi tetap SKIP (`bukan fungsi terakhir di hardware.s`, modul tail-only)
+   → promoted-only, bukan migrasi.
+
+Catatan engine: `negs r0, r0` (draf) vs `rsbs r0, r0, #0` (ref) adalah
+instruksi yang sama, tetapi `norm()` belum mengalias-kannya sehingga masih
+muncul sebagai diff palsu di laporan `diff` setelah MATCH. Byte compare
+(`judge`) yang memutuskan, bukan teks normalisasi.

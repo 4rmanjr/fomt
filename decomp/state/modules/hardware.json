@@ -262,13 +262,15 @@
  },
  "func_08008020": {
   "addr": 134250528,
-  "judged_mtime": 1793582714.0224195,
+  "draft_src": "manual",
+  "judged_mtime": 1794398064.6528697,
   "module": "hardware.s",
-  "note": "len 130 vs ref 126 [1missing,3extra,12operand,11regalloc,6different @r adds r6, r0, #0 | adds r4, r0, #0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 128,
   "sanitize_v": 4,
   "size": 1288,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080080A0": {

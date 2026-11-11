@@ -1,57 +1,53 @@
-s32 func_08007EA8(void *);                            /* extern */
-u32 func_080D7568(u8 *, u32);                       /* extern */
+s32 func_08007EA8(void *);
+u32 func_080D7568(u8 *, u32);
 
 typedef struct GenObj {
-    s32 unk0;
-    s32 unk1;
-    s32 unk4;
-    u8 _pad8[120];
-    s32 unk80;
+    u8 unk0;
+    u8 unk1;
+    u8 _pad2[2];
+    u8 unk4;
+    u8 _pad5[0x7B];
+    u8 unk80;
 } GenObj;
-s32 func_08008020(GenObj *arg0, u32 arg1) {
-    s32 sp0;
-    s32 var_r1;
-    s32 var_r3;
-    u32 temp_r0;
-    u32 var_r1_2;
-    u8 *var_r4;
-    u8 temp_r5;
+
+s32 func_08008020(GenObj *arg0, u32 arg1)
+{
+    register u8 b __asm__("r5");
+    s32 i;
+    u8 *p;
+    u32 r;
+    s32 flag;
+    u32 v;
 
     if (arg1 <= 9U) {
-        var_r3 = 0;
-        var_r4 = arg0 + 4;
-loop_2:
-        temp_r5 = *var_r4;
-        if (temp_r5 == 0) {
-            sp0 = var_r3;
-            temp_r0 = func_080D7568(var_r4, arg1);
-            var_r1 = 0;
-            if (temp_r0 <= 0x1FFU) {
-                var_r1 = 1;
-            }
-            if (var_r1 != 0) {
-                arg0->unk1 = temp_r5;
-                var_r1_2 = 0;
-                if (arg0->unk4 != 0) {
-                    var_r1_2 = (u32) (0 - arg0->unk80) >> 0x1F;
+        i = 0;
+        p = (u8 *) arg0 + 4;
+        do {
+            b = *p;
+            if (b == 0) {
+                r = func_080D7568(p, arg1);
+                flag = 0;
+                if (r <= 0x1FFU) {
+                    flag = 1;
                 }
-                arg0->unk0 = (s8) var_r1_2;
-                return (var_r3 << 9) | temp_r0;
+                if (flag != 0) {
+                    arg0->unk1 = b;
+                    v = 0;
+                    if (arg0->unk4 != 0) {
+                        v = (u32) (0 - arg0->unk80) >> 0x1F;
+                    }
+                    arg0->unk0 = (u8) v;
+                    return (i << 9) | r;
+                }
             }
-            goto block_9;
+            p += 0x7C;
+            i += 1;
+        } while (i <= 1);
+    } else if (arg1 == 0xA) {
+        if (arg0->unk1 != 0) {
+            func_08007EA8(arg0);
+            return 0;
         }
-block_9:
-        var_r4 += 0x7C;
-        var_r3 += 1;
-        if (var_r3 > 1) {
-            goto block_14;
-        }
-        goto loop_2;
     }
-    if ((arg1 == 0xA) && (arg0->unk1 != 0)) {
-        func_08007EA8(arg0);
-        return 0;
-    }
-block_14:
     return 0x400;
 }
