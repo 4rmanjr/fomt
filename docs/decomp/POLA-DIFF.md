@@ -592,8 +592,12 @@ salinan kedua (`add r1, r2, #0`). Keduanya DIFF -> parkir (4 judge).
 
 Ref memuat `movs r1, #0` **sekali** lalu memakai r1 untuk `strb`, `strb`,
 `strh`. Draf dengan literal `0` per statement memunculkan `mov r1, #0` dua
-kali. Kandidat perbaikan yang belum terbukti: satu variabel `u8 zero = 0;`
-yang dipakai ketiga store (belum diuji; cap judge habis).
+kali. **TERBUKTI**: satu variabel `u8 zero = 0;` yang dipakai ketiga store
+menghasilkan `mov r1, #0` **sekali** lalu dipakai ulang untuk `strb`/`strb`/
+`strh` — persis ref. Efek samping: `u8 *p = arg0;` yang tak dipakai
+tereliminasi, jadi `adds r2, r0, #0` (2 byte) hilang dan hasilnya 16 vs 18
+byte. Sampai sekarang belum ada varian C yang memunculkan salinan mati itu
+tanpa menambah salinan kedua; sisa 2 byte ini parkir.
 
 ### 9.5 Sisa diff "regalloc saja" = wall
 
