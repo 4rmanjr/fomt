@@ -263,13 +263,14 @@
  },
  "func_08021F3C": {
   "addr": 134356796,
-  "judged_mtime": 1793582714.0654125,
+  "judged_mtime": 1794374423.812018,
   "module": "code_entities.s",
-  "note": "len 72 vs ref 76 [2missing,4different @< adds r1, r4, #0 | ]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 740,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08021F88": {
@@ -1690,9 +1691,9 @@
  },
  "sub_0803192E": {
   "addr": 134420782,
-  "judged_mtime": 1793150387.86071,
+  "judged_mtime": 1793582714.2643805,
   "module": "code_entities.s",
-  "note": "ct/fomt/decomp/logs/judge_sub_0803192E/hermes26/func.c:2: syntax error before `?'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0803192E/hermes26/func.c: In function `sub_0803192E':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0803192E/hermes26/func.c:6: called object is not a function\n",
+  "note": "vo/gitproject/fomt/decomp/logs/judge_sub_0803192E/buffy/func.c:2: syntax error before `?'\n/home/lenovo/gitproject/fomt/decomp/logs/judge_sub_0803192E/buffy/func.c: In function `sub_0803192E':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_sub_0803192E/buffy/func.c:6: called object is not a function\n",
   "ref_len": 304,
   "sanitize_v": 4,
   "size": 2971,

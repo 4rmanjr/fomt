@@ -414,9 +414,9 @@
  },
  "func_08012028": {
   "addr": 134291496,
-  "judged_mtime": 1794295549.5744975,
+  "judged_mtime": 1794374423.8150182,
   "module": "game_state.s",
-  "note": "len 56 vs ref 58 [1different @| adds r1, r0, #0 | mov r1, sp]; sisa regalloc sp0 hilang via pola 080125EC: pin tmp=r2, p/q=r1, urutan sp4->sp8->nol, *arg0=tmp, reload p lewat cast volatile. Sisa 1 instruksi: agbcc merematerialisasi `mov r1,sp`, ref menyalin r0 (sama panjang/semantik). Variasi pointer/cast/volatile sudah dicoba, tidak memicu salinan -> parkir.",
+  "note": "len 56 vs ref 58 [1missing,1operand,1regalloc @< adds r1, r0, #0 | ]",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 565,
@@ -755,14 +755,15 @@
  },
  "func_080126BC": {
   "addr": 134293180,
-  "judged_mtime": 1793944911.5796795,
+  "judged_mtime": 1794374423.814018,
   "module": "game_state.s",
-  "note": "len 36 vs ref 40 [2missing,2operand,4regalloc @r adds r0, r4, #0 | adds r2, r4, #0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 40,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 409,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080126E4": {

@@ -13,8 +13,8 @@ typedef struct GenObj {
 void func_08021F3C(GenObj *arg0) {
     s32 sp0;
 
-    arg0->unk3E = 0;
+    ((u8 *) arg0)[0x3E] = 0;
     sp0 = ((sp0 & 0xFFFF0000) | 0x78) & 0xFF00FFFF;
     method_0809BC24__5HorsePC15UnkBarnAnimal2C(arg0->unk34, &sp0);
-    func_08022048(arg0, func_080220D4(arg0), arg0->unk20);
+    func_08022048(arg0, func_080220D4(arg0), ((u8 *) arg0)[0x20]);
 }

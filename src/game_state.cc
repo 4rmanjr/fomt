@@ -1593,6 +1593,30 @@ typedef struct GenObj__func_080125EC {
 } GenObj__func_080125EC;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Vt__func_080123A4 {
+    u8 _pad0[0x28];
+    i32 (*unk28)(void **);
+} Vt__func_080123A4;
+typedef struct GenObj__func_080123A4 {
+    void *unk0;
+    struct GenObj__func_080123A4 *unk4;
+    u8 _pad8[0x94];
+    i32 unk9C;
+    u8 _padA0[8];
+    struct GenObj__func_080123A4 *unkA8;
+} GenObj__func_080123A4;
+typedef struct GenObj__func_080126BC {
+    u8 _pad0[4];
+    i32 unk4;
+    u8 _pad8[0x94];
+    i32 unk9C;
+    u8 _padA0[0x0C];
+    i32 unkAC;
+    i32 unkB0;
+} GenObj__func_080126BC;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -2287,19 +2311,6 @@ void func_0801238C(G0801238C *arg0) {
 
 // DECOMP-MATCHED func_080123A4 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
-typedef struct Vt__func_080123A4 {
-    u8 _pad0[0x28];
-    i32 (*unk28)(void **);
-} Vt__func_080123A4;
-
-typedef struct GenObj__func_080123A4 {
-    void *unk0;
-    struct GenObj__func_080123A4 *unk4;
-    u8 _pad8[0x94];
-    i32 unk9C;
-    u8 _padA0[8];
-    struct GenObj__func_080123A4 *unkA8;
-} GenObj__func_080123A4;
 
 __attribute__((section(".text.game_state.080123A4")))
 void func_080123A4(GenObj__func_080123A4 *arg0) {
@@ -2393,6 +2404,24 @@ void func_08012658(GenObj__func_08012658 *arg0) {
         func_080D7F74(temp_r4);
         func_080D7F60(temp_r4);
         temp_r4->unk9C = (struct GenObj__func_08012658 *)0xF;
+    }
+}
+}
+
+// DECOMP-MATCHED func_080126BC (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08050DC8(i32, i32, i32, i32);                  /* extern */
+
+__attribute__((section(".text.game_state.080126BC")))
+void func_080126BC(GenObj__func_080126BC *arg0, i32 arg1) {
+    GenObj__func_080126BC *t;
+    i32 obj;
+
+    t = (GenObj__func_080126BC *)(arg0->unk4);
+    obj = t->unkAC;
+    if (obj != 0) {
+        func_08050DC8(obj, arg1, 0x40, (i32)(t->unkB0));
+        t->unk9C = 0x11;
     }
 }
 }
