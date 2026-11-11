@@ -1,0 +1,21 @@
+#!/bin/sh
+# pre-commit: jaga dokumen hidup tetap kecil & rujukannya utuh.
+# Dipasang lewat `git config core.hooksPath tools/hooks` (lihat docs/ops/VERIFIKASI.md).
+# Dilewati sadar: `git commit --no-verify` (hanya bila memang disengaja).
+set -e
+root=$(git rev-parse --show-toplevel)
+cd "$root"
+
+# hanya jalankan bila ada dokumen yang ikut di-stage
+staged=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.md$|^tools/scripts/check_docs\.py$' || true)
+if [ -z "$staged" ]; then
+    exit 0
+fi
+
+out=$(python3 tools/scripts/check_docs.py 2>&1) || {
+    echo "$out" >&2
+    echo "" >&2
+    echo "pre-commit: dokumen hidup melanggar aturan (lihat docs/ops/VERIFIKASI.md + R8 di AGENTS.md)." >&2
+    echo "pre-commit: pindahkan detail ke docs/ops/, perbaiki rujukan, atau pakai --no-verify bila memang disengaja." >&2
+    exit 1
+}

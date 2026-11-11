@@ -55,6 +55,22 @@ src <S>+<y>
 Angka `B/F/P/S` harus dari data segar sesi itu (state + marker `src/`), bukan
 dari ingatan atau output batch lama.
 
+## Guard dokumen (pre-commit)
+
+`tools/hooks/pre-commit` menjalankan `tools/scripts/check_docs.py` bila ada
+`.md` yang di-stage; commit ditolak kalau AGENTS.md melebihi batas baris,
+`AGENTS.md rule N` menunjuk aturan yang tidak ada, rujukan `.md` patah, atau
+dokumen hidup mematok angka progres. Hook ini ter-track, tapi `core.hooksPath`
+konfigurasi lokal — pasang sekali per clone:
+
+```bash
+git config core.hooksPath tools/hooks
+```
+
+`git commit --no-verify` tetap mungkin (untuk kasus yang memang disengaja),
+tapi jangan dipakai untuk melewati batas ukuran — pindahkan detailnya ke
+`docs/ops/` sesuai R8.
+
 ## Hemat token (dipakai di semua perintah)
 
 Perintah apa pun dengan output >20 baris atau durasi >30 detik diarahkan ke
