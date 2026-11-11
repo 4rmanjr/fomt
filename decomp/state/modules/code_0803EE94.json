@@ -1026,13 +1026,15 @@
  },
  "func_08050E98": {
   "addr": 134549144,
-  "judged_mtime": 1794276192.9117906,
+  "draft_src": "manual",
+  "judged_mtime": 1794398438.5676708,
   "module": "code_0803EE94.s",
-  "note": "len 32 vs ref 36 [4missing,2extra,9regalloc @r ldr r3, [r0] | ldr r0, [r0]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 326,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08050EBC": {

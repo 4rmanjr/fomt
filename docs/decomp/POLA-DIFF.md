@@ -174,8 +174,12 @@ kanan-ke-kiri — pecah sesuai urutan store ref.
 - Satu temp yang selalu di-home satu register lebih tinggi daripada semua
   varian (urutan assignment, temp ekstra, hoisting tak memindahkan).
 - Cek unsigned yang mati tapi tetap diemit ref (`cmp r5,#0; bcc`).
-- Mask `-0x80` yang di ref lewat `movs`+`rsbs` sementara agbcc melipat
-  `(x & -0x80)` ⇒ `(x & 0x80)`.
+- Mask negatif kecil di ref lewat `movs`+`rsbs` sementara agbcc melipat
+  `(x & -0x80)` ⇒ `(x & 0x80)` — **bukan wall lagi**: tahan konstanta di
+  temp ber-pin, beri fence, baru dinegasi:
+  `register s32 neg __asm__("rN"); neg = 0x40; __asm__ volatile("" : "+r"(neg));
+  neg = -neg;` lalu pakai compound (`neg &= x; neg |= y;`). Pembukti:
+  `func_080D3870` (0x80) dan `func_08050E98` (0x40).
 - Lottery scheduler: pool literal sebelum vs sesudah cabang; tail
   inline vs cross-jump; padding ekor (`movs r0,r0` vs `.byte 0xff,0xff`).
 - Konstanta offset besar yang di-home register scratch berbeda.

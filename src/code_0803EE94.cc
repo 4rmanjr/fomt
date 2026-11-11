@@ -2596,6 +2596,31 @@ void func_08050E8C(i32 *arg0) {
     func_08050C64((void *)*arg0);
 }
 }
+// DECOMP-MATCHED func_08050E98 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_0803EE94.08050E98")))
+i32 func_08050E98(void **arg0, i32 arg1)
+{
+    register u8 *p __asm__("r3");
+    register u8 b __asm__("r4");
+    register i32 mask __asm__("r1");
+    u32 lo;
+    u32 m;
+
+    p = (u8 *) *arg0 + 0x550;
+    b = *p;
+    lo = (u32) (b << 0x1A) >> 0x1A;
+    m = lo & ~((u32) arg1);
+    mask = 0x40;
+    __asm__ volatile("" : "+r"(mask));
+    mask = -mask;
+    mask &= b;
+    mask |= m;
+    *p = (u8) mask;
+    return (i32) lo;
+}
+}
+
 
 // DECOMP-MATCHED func_0805218C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -2920,7 +2945,6 @@ void func_0805E850(i32 *arg0, i32 arg1, i32 arg2) {
 // DECOMP-MATCHED func_0805E860 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 __attribute__((section(".text.code_0803EE94.0805E860")))
 void func_0805E860(i32 *arg0, i32 arg1) {
     PS860 sp;
@@ -2952,7 +2976,6 @@ void func_0805E860(i32 *arg0, i32 arg1) {
     ((GenObj__func_0805E860 *)arg0)->unk12 = 1;
 }
 }
-
 
 // DECOMP-MATCHED func_0805FCD0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {

@@ -1,14 +1,20 @@
-typedef struct GenObj {
-    u8 _pad0[1360];
-    u8 unk550;
-} GenObj;
-s32 func_08050E98(void **arg0, s32 arg1) {
-    u8 temp_r4;
-    GenObj *temp_r3;
+s32 func_08050E98(void **arg0, s32 arg1)
+{
+    register u8 *p __asm__("r3");
+    register u8 b __asm__("r4");
+    register s32 mask __asm__("r1");
+    u32 lo;
+    u32 m;
 
-    temp_r3 = *arg0;
-    temp_r4 = temp_r3->unk550;
-    temp_r3->unk550 = (u8) ((-0x40 & temp_r4) | (((u32) (temp_r4 << 0x1A) >> 0x1A) & ~arg1));
-    __asm__ volatile("" : "+r"(temp_r3));
-    return (s32) temp_r3;
+    p = (u8 *) *arg0 + 0x550;
+    b = *p;
+    lo = (u32) (b << 0x1A) >> 0x1A;
+    m = lo & ~((u32) arg1);
+    mask = 0x40;
+    __asm__ volatile("" : "+r"(mask));
+    mask = -mask;
+    mask &= b;
+    mask |= m;
+    *p = (u8) mask;
+    return (s32) lo;
 }
