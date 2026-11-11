@@ -659,9 +659,10 @@
  },
  "func_080A0A1C": {
   "addr": 134875676,
-  "judged_mtime": 1794277065.5806599,
+  "draft_src": "manual",
+  "judged_mtime": 1794384379.1317558,
   "module": "code_809E804.s",
-  "note": "len 50 vs ref 54 [3missing,1extra,3operand,11regalloc,2different @i push {r4, lr} | push {r4, r5, lr}]",
+  "note": "len 50 vs ref 54 (4 percobaan). Bitfield `(b<<0x1A)>>0x1A` dan `(b & ~0x3F) | (*p & 0x3F)` benar; ref memakai pointer ke slot stack (v ke [sp], 0x3F ke [sp+4]) memilih min(v,0x3F). Draf menyimpan 0x3F di r5 sehingga push {r4,r5,lr} vs ref {r4,lr}; 3 varian belum menggeser.",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 482,

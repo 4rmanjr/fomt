@@ -780,3 +780,20 @@ Cara cepat memakainya:
 python3 tools/scripts/cc_probe.py potongan.c --grep 'bcc|cmp.*#0x0' -C 1
 python3 tools/scripts/cc_probe.py potongan.c --compiler old_agbcc
 ```
+
+## 16. Resep width-offset: batasnya di regalloc, bukan lebar field
+
+Pembukti: `func_08020410` 78 vs ref 80 (belum MATCH).
+
+Dua hal yang TERBUKTI dari resep `func_08021EE0`:
+
+1. field yang diakses `ldrb`/`strb` lewat `add #imm` (>31) memang `u8`
+   (`arg0->unk20` s32 -> u8 langsung mengubah `ldr` menjadi `ldrb`);
+2. bila ref melakukan zero-extend di **titik pakai** (`lsl r1, r5, #0x10;
+   lsr r1, #0x10` di tengah fungsi), parameter fungsi harus 32-bit dengan cast
+   `(u16)` di ekspresi. Mendeklarasikan parameter `u16` memindahkan truncation
+   ke prolog (`lsl r1, #0x10; lsr r5, r1, #0x10`) dan menggeser seluruh blok.
+
+Sisanya regalloc murni (`orr r0, r1` vs `orr r1, r0`). Dua varian tambahan —
+mask dijadikan variabel lokal, dan urutan operand `|` dibalik — sama-sama
+memperburuk (2missing/2extra vs 4 regalloc), jadi keduanya bukan arah benar.

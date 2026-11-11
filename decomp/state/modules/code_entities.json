@@ -105,9 +105,10 @@
  },
  "func_08020410": {
   "addr": 134349840,
-  "judged_mtime": 1793948114.4410334,
+  "draft_src": "manual",
+  "judged_mtime": 1794384413.0005066,
   "module": "code_entities.s",
-  "note": "len 76 vs ref 80 [3missing,1extra,2operand,2regalloc,1stack,4different @| adds r5, r1, #0 | lsls r1, r1, #0x10]",
+  "note": "len 78 vs ref 80 (5 percobaan, cap). Resep width-offset TERBUKTI: arg0->unk20 s32 -> u8 (draf kini ldrb via `add #0x20`) dan param arg1 u16 -> u32 + cast (u16) di titik pakai (kalau param u16, truncation pindah ke entry: `lsl/lsr r5`). Sisa 4 regalloc: `orr r0,r1` vs `orr r1,r0`; varian mask-jadi-lokal & urutan operand sudah dicoba, lebih buruk.",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 810,
