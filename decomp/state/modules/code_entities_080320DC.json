@@ -280,9 +280,9 @@
  "func_08034260": {
   "addr": 134431328,
   "draft_src": "manual",
-  "judged_mtime": 1794384808.6753466,
+  "judged_mtime": 1794411351.8158662,
   "module": "code_entities_080320DC.s",
-  "note": "len 50 vs ref 52 (2 percobaan). unk41 s32 -> u8 TERBUKTI (ref ldrb lewat `add #0x41`). Sisa: kerangka stack ref 0x1C vs draf 0x14 (butuh lokal sp8/sp10/sp18 + satu slot lagi) dan urutan cabang.",
+  "note": "len 118 vs ref 120 [9missing,8extra,2operand,15regalloc,3different @r adds r6, r0, #0 | adds r5, r0, #0] [parkir sesi 3/5: width-offset sudah beres (unk41 u8, sp8[8], loc[12] -> stack 0x1C cocok); sisa beda orientasi cabang beq/bne, draf early-return maupun if(x==0){...}return 0 sama-sama menghasilkan bne]",
   "ref_len": 120,
   "sanitize_v": 4,
   "size": 1247,
