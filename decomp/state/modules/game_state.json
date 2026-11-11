@@ -652,13 +652,14 @@
  },
  "func_080123A4": {
   "addr": 134292388,
-  "judged_mtime": 1793950045.5113957,
+  "judged_mtime": 1794373090.7972746,
   "module": "game_state.s",
-  "note": "len 40 vs ref 38 [1extra,3operand,1regalloc,1stack @>  | ldr r0, [r0]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 416,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080123CC": {
@@ -708,9 +709,9 @@
  },
  "func_080124D0": {
   "addr": 134292688,
-  "judged_mtime": 0,
+  "judged_mtime": 1794298366.740541,
   "module": "game_state.s",
-  "note": "len 280 vs ref 282 [6missing,5extra,1operand,23regalloc,3different @r adds r0, r7, #0 | adds r6, r7, #0]; pola cleanup 6.2 diterapkan untuk 0xB4&0xB8 (slot/z/p), 0xAC masih 2 byte di atas ref karena __builtin_new + handle p2; pin new=r4 -> 292 byte, ditinggal. BLOKIR migrasi: draft masih C m2c mentah (s32/GenObj/Vt tak terdefinisi di TU .cc, __builtin_new bukan C++) -> build src/game_state.o MERAH (commit 5db762cc dibalik 2026-11-10). Perlu port C++ (new + typedef lokal) DAN byte-identik dulu sebelum pindah ke src/.",
+  "note": "len 280 vs ref 282 [6missing,5extra,1operand,23regalloc,3different @r adds r0, r7, #0 | adds r6, r7, #0]",
   "ref_len": 284,
   "sanitize_v": 4,
   "size": 2471,

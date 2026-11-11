@@ -2285,6 +2285,35 @@ void func_0801238C(G0801238C *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_080123A4 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+typedef struct Vt__func_080123A4 {
+    u8 _pad0[0x28];
+    i32 (*unk28)(void **);
+} Vt__func_080123A4;
+
+typedef struct GenObj__func_080123A4 {
+    void *unk0;
+    struct GenObj__func_080123A4 *unk4;
+    u8 _pad8[0x94];
+    i32 unk9C;
+    u8 _padA0[8];
+    struct GenObj__func_080123A4 *unkA8;
+} GenObj__func_080123A4;
+
+__attribute__((section(".text.game_state.080123A4")))
+void func_080123A4(GenObj__func_080123A4 *arg0) {
+    GenObj__func_080123A4 *t;
+    void **slot;
+
+    t = arg0->unk4;
+    slot = *(void ***) ((u8 *) t + 0xA8);
+    if (((u8) ((Vt__func_080123A4 *) *slot)->unk28(slot)) == 0) {
+        t->unk9C = 0x17;
+    }
+}
+}
+
 // DECOMP-MATCHED func_08012454 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08008BE0(i32);                               /* extern */

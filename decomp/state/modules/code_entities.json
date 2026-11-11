@@ -139,13 +139,14 @@
  },
  "func_0802110C": {
   "addr": 134353164,
-  "judged_mtime": 1793947978.3349898,
+  "judged_mtime": 1794373090.7992744,
   "module": "code_entities.s",
-  "note": "len 28 vs ref 30 [1missing,2extra,1operand,1regalloc @< adds r4, r1, #0 | ]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 411,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08021130": {
@@ -727,7 +728,7 @@
  },
  "func_08024C74": {
   "addr": 134368372,
-  "judged_mtime": 1794298934.0639958,
+  "judged_mtime": 1794299573.745231,
   "module": "code_entities.s",
   "note": "len 22 vs ref 18 [2extra,1operand,7regalloc @>  | adds r2, r0, #0]",
   "ref_len": 20,
@@ -1379,9 +1380,9 @@
  },
  "func_0802BC48": {
   "addr": 134397000,
-  "judged_mtime": 1793017276.2758892,
+  "judged_mtime": 1793925737.3448305,
   "module": "code_entities.s",
-  "note": "len 86 vs ref 542",
+  "note": "len 86 vs ref 542 [217missing,2extra,18operand,1stack,2different @| adds r0, #0x34 | ldr r0, [r2, #0x34]]",
   "ref_len": 544,
   "sanitize_v": 4,
   "size": 3944,
@@ -1665,9 +1666,9 @@
  },
  "sub_0802FBFC": {
   "addr": 134413308,
-  "judged_mtime": 1793150387.8605318,
+  "judged_mtime": 1793582714.2643805,
   "module": "code_entities.s",
-  "note": "C/hermes26/func.c:1370: syntax error before `void'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0802FBFC/hermes26/func.c:1376: warning: data definition has no type or storage class\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_0802FBFC/hermes26/func.c:1377: syntax error before `return'\n",
+  "note": "sub_0802FBFC/buffy/func.c:1370: syntax error before `void'\n/home/lenovo/gitproject/fomt/decomp/logs/judge_sub_0802FBFC/buffy/func.c:1376: warning: data definition has no type or storage class\n/home/lenovo/gitproject/fomt/decomp/logs/judge_sub_0802FBFC/buffy/func.c:1377: syntax error before `return'\n",
   "ref_len": 4622,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -1677,9 +1678,9 @@
  },
  "sub_08030E0A": {
   "addr": 134417930,
-  "judged_mtime": 1793150387.860634,
+  "judged_mtime": 1793582714.2643805,
   "module": "code_entities.s",
-  "note": "judge_sub_08030E0A/hermes26/func.c:559: called object is not a function\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08030E0A/hermes26/func.c:565: called object is not a function\n/home/armanjr/gitproject/fomt/decomp/logs/judge_sub_08030E0A/hermes26/func.c:567: called object is not a function\n",
+  "note": "ecomp/logs/judge_sub_08030E0A/buffy/func.c:559: called object is not a function\n/home/lenovo/gitproject/fomt/decomp/logs/judge_sub_08030E0A/buffy/func.c:565: called object is not a function\n/home/lenovo/gitproject/fomt/decomp/logs/judge_sub_08030E0A/buffy/func.c:567: called object is not a function\n",
   "ref_len": 2852,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,

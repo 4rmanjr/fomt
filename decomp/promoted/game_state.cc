@@ -2471,3 +2471,4 @@ void func_080125EC(GenObj *arg0) {
 
     o->unk10 = (u16) (0xFEFF & o->unk10);
 }
+

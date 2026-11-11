@@ -5283,9 +5283,9 @@
  },
  "func_080CECD0": {
   "addr": 135064784,
-  "judged_mtime": 1794288978.3591316,
+  "judged_mtime": 1794373354.96075,
   "module": "code_809E804.s",
-  "note": "len 26 vs ref 24 [1extra,1operand,7regalloc,1different @>  | adds r2, r0, #0]",
+  "note": "byte +0x2: 0x0 vs ref 0x84 [1missing,1extra,1operand @< adds r2, r0, #0 | ] || ANALISIS 2026-11-11: panjang sudah sama (24 vs 24), sisa 1 instruksi `adds r2, r0, #0` (ref menyimpan arg0 ke r2 sebelum p memakai r0). Var `o = arg0` / pin register tidak memicu copy itu; regalloc agbcc memilih reuse r0. 5 judge terpakai, diparkir.",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 244,

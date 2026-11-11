@@ -296,3 +296,33 @@ Resep yang terbukti byte-identik + `make compare` HIJAU:
 Jangan membuang argumen dari call-site: itu menghapus pemuatan r1 dan
 mengubah byte pemanggil. Jangan juga mengubah tipe return menjadi pointer
 di call-site tanpa cast — field tujuan bertipe `i32`.
+## 14. Gate [GAGAL] `slo' undeclared` di src/game_state.cc (workaround manual)
+
+Gejala (2026-11-11, `func_080123A4`):
+
+```text
+[GAGAL] src/game_state.cc: In function `void func_080123A4(struct GenObj__func_080123A4 *)':
+src/game_state.cc:2311: `slo' undeclared (first use this function)
+```
+
+`--explain` dan `--dry-run` bilang gate OK, blok di `promoted/` bersih (tidak
+ada token `slo`), dan `_already_in_src()`/`translate_types()` mengeluarkan
+teks yang benar — jadi mangle terjadi di tahap sisip/penamaan struct di
+dalam `migrate_one()`. Akar bug BELUM ditemukan; jangan buang waktu
+menebak, pakai workaround.
+
+Workaround yang terbukti (`func_080123A4`, `make compare` HIJAU):
+
+1. Sisip blok ke `src/<stem>.cc` manual, urut alamat: titik sisip = marker
+   `// DECOMP-MATCHED func_XXXXXXXX` pertama yang alamatnya > alamat fungsi.
+2. Blok manual harus C++-aman (MIGRATE §11) dan nama typedef di-deconflict
+   ke `<Tipe>__func_<addr>` (mis. `GenObj__func_080123A4`,
+   `Vt__func_080123A4`) karena `src/game_state.cc` sudah punya `GenObj`/`Vt`.
+3. `__attribute__((section(".text.<stem>.<addr>")))` di atas definisi.
+4. Hapus blok yang sama dari `decomp/promoted/<stem>.cc`; status state
+   dibiarkan `promoted`.
+5. `make compare` + `audit_consistency.py` sebagai bukti.
+
+Kalau nanti mau memperbaiki gate-nya: bandingkan teks blok hasil
+`wrap_block()`/`insert_ordered()` dengan yang benar-benar ditulis ke
+`src/`, cari token `slo` (bukan `slot`) di sana.

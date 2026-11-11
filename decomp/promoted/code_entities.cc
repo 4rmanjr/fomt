@@ -1441,3 +1441,24 @@ void *func_080216BC(GenObj *arg0, void **arg1, s32 arg2) {
     func_08022048(arg0, func_080220D4(arg0), arg0->unk20);
     return arg0;
 }
+
+// DECOMP-MATCHED func_0802110C (dari code_entities.s; cek manusia sebelum ke src/)
+s32 GetGrowthStage__C3Dog(s32);                     /* extern */
+extern s32 gUnk_080F0908;
+
+typedef struct GenObj {
+    u8 _pad0[0x34];
+    s32 unk34;
+} GenObj;
+u16 func_0802110C(GenObj *arg0, s32 arg1) {
+    s32 i;
+    u8 *tbl;
+
+    i = arg1;
+    tbl = (u8 *) &gUnk_080F0908;
+    i *= 2;
+    if (GetGrowthStage__C3Dog(arg0->unk34) == 1) {
+        i += 0x1A;
+    }
+    return *(u16 *) (tbl + i);
+}
