@@ -13,7 +13,9 @@ Work on pret-style decompilation projects: asm functions are drafted from machin
 
 ## Sumber kebenaran (urutan prioritas)
 
-1. `AGENTS.md` — aturan operasional repo (perintah, state, commit, hemat token).
+1. `AGENTS.md` — aturan invarian + peta rute (commit, hemat token, alur, DIFF triage).
+   Detail operasional dipindah ke `docs/ops/`: `COMMANDS.md` (perintah, state, draf/log),
+   `TOOLS.md` (tool + flag), `VERIFIKASI.md` (gate, tutup sesi, format laporan).
 2. `docs/decomp/POLA-DIFF.md` — katalog pola DIFF (codegen m2c→agbcc) + fungsi pembukti.
 3. `docs/decomp/MIGRATE.md` — gerbang `migrate.py` (guard signature, SKIP permanen, dll).
 4. Skill ini — urutan kerja & jebakan proses (jangan duplikat isi 2–3; cukup tunjuk).

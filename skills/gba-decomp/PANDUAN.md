@@ -13,6 +13,10 @@ Kalau konflik, `AGENTS.md` repo menang.
 - `references/fast-local-iteration.md` — iterasi varian lokal (detik, bukan judge run).
 - `references/permuter.md` — resep decomp-permuter-arm untuk residu regalloc 1–2 byte.
 - `scripts/list_migratable_failed.py` — antrean failed di modul migratable, terkecil dulu.
+
+Katalog tool repo (flag lengkap, engine, probe, checker dokumen) ada di
+`docs/ops/TOOLS.md`; perintah + letak state di `docs/ops/COMMANDS.md`;
+gate verifikasi + tutup sesi di `docs/ops/VERIFIKASI.md`.
 - `templates/vtable_call.c.tmpl` — skeleton draf virtual-call (offset build).
 - `templates/vtable_call_folded.c.tmpl` — skeleton draf virtual-call folded (satu ldr).
 
