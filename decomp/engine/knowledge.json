@@ -9,6 +9,14 @@
     10
    ]
   },
+  "identik": {
+   "match": 1,
+   "n": 2,
+   "ops": [
+    0,
+    0
+   ]
+  },
   "instruksi": {
    "match": 2,
    "n": 8,
@@ -24,11 +32,14 @@
    ]
   },
   "width-offset": {
-   "match": 1,
-   "n": 2,
+   "match": 4,
+   "n": 5,
    "ops": [
     23,
-    23
+    23,
+    5,
+    5,
+    5
    ]
   }
  },
@@ -47,14 +58,17 @@
   "width-offset": [
    {
     "examples": [
-     "func_08008020"
+     "func_08008020",
+     "func_080A6640",
+     "func_080A6640",
+     "func_080A6640"
     ],
-    "hits": 1,
+    "hits": 4,
     "misses": 0,
     "text": "akses sempit di offset besar: `add #imm` (>31) lalu ldrb/ldrh bukan salinan argumen \u2014 samakan lebar field (POLA-DIFF \u00a710.3, width_mismatch.py)."
    }
   ]
  },
- "updated": "2026-11-11 19:21",
+ "updated": "2026-11-11 21:40",
  "version": 1
 }

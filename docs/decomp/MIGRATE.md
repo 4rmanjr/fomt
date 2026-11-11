@@ -406,3 +406,16 @@ initialization` saat migrate. Draf `.c` memakai `u8 *d = dst;`, sedangkan
 `src/*.cc` dikompilasi sebagai C++. Perbaiki **di draf** dengan cast eksplisit
 (`u8 *d = (u8 *) dst;`, codegen tidak berubah), hapus blok promoted lama
 (promote tidak menimpa, lihat §17), judge ulang, lalu migrate lagi.
+
+## 19. Gate SKIP `argumen (tak ada argumen) ... parameter void`
+
+Gejala: blok mendeklarasikan callee tanpa parameter sebagai
+`void func_X(void);` lalu memanggil `func_X();`, dan migrate berhenti dengan
+`[SKIP] call-site func_X: argumen (tak ada argumen) (void) ... parameter void`
+(laporan `pindah: 0`). Penyebab: gate membaca `(void)` sebagai SATU parameter
+(`sig == ['void']`), sedangkan panggilan 0-arg dianggap arity-mismatch — jadi
+bukan soal tipe, murni bentuk deklarasi.
+
+Perbaikan: tulis deklarasi K&R kosong `void func_X();` di blok (hanya
+deklarasi, byte asm tidak berubah), cabut blok promoted lama (§17), judge ulang,
+lalu migrate. Bukti: `func_080A6640` (code_809E804, migrasi HIJAU).

@@ -2204,6 +2204,25 @@ void func_080A63B8(GenObj__func_080A63B8 *arg0, i32 arg1) {
 }
 }
 
+// DECOMP-MATCHED func_080A6640 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+void func_080A5760();
+
+__attribute__((section(".text.code_809E804.080A6640")))
+void func_080A6640(u8 *arg0) {
+    u8 *p;
+    u8 *q;
+
+    func_080A5760();
+    p = arg0 + 0xB4;
+    *p = 0;
+    p[1] = 0;
+    q = p + 4;
+    *q = 0;
+    q[1] = 0;
+}
+}
+
 // DECOMP-MATCHED func_080AA89C (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080A5BD8(void *, i32 *, i32, i32);             /* extern */

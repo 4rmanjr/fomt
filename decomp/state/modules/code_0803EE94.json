@@ -359,13 +359,15 @@
  },
  "func_0804EE64": {
   "addr": 134540900,
-  "judged_mtime": 1793925737.3608313,
+  "draft_src": "manual",
+  "judged_mtime": 1794407834.771565,
   "module": "code_0803EE94.s",
-  "note": "len 40 vs ref 32 [6extra,2operand,2regalloc,2different @i ldr r4, [pc, #0x10] | ldr r4, [pc, #0x18]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 425,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0804EE88": {
