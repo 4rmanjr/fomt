@@ -30,5 +30,6 @@ decomp/logs/
 
 # arsip migrasi sekali progress.json -> shard modules/ (penggantinya di-track)
 decomp/state/progress.json.bak
-# riwayat percobaan engine decomp
-decomp/engine/
+# riwayat percobaan engine decomp (basis pengetahuan ikut di-commit)
+decomp/engine/*
+!decomp/engine/knowledge.json

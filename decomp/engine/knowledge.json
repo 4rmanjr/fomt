@@ -1,0 +1,54 @@
+{
+ "base": 0.455,
+ "kinds": {
+  "copy": {
+   "match": 0,
+   "n": 2,
+   "ops": [
+    3,
+    3
+   ]
+  },
+  "identik": {
+   "match": 4,
+   "n": 6,
+   "ops": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "instruksi": {
+   "match": 1,
+   "n": 1,
+   "ops": [
+    1
+   ]
+  },
+  "zero-reload": {
+   "match": 0,
+   "n": 2,
+   "ops": [
+    0,
+    0
+   ]
+  }
+ },
+ "recipes": {
+  "instruksi": [
+   {
+    "examples": [
+     "func_08008A68"
+    ],
+    "hits": 1,
+    "misses": 0,
+    "text": "beda instruksi umum: baca diff di atas, cek lebar akses, urutan store, dan rantai pointer."
+   }
+  ]
+ },
+ "updated": "2026-11-11 14:20",
+ "version": 1
+}

@@ -10,16 +10,31 @@ Tiga peran (semua memakai tool resmi repo, tidak menggantikannya):
                      yang selisihnya bukan "hanya-register" dan paling sedikit
                      beda instruksinya didahulukan.
   attempt <func>     tulis draf dari file, reset state, jalankan `fomt <func>`,
-                     catat percobaan (cap 5), dan bila MATCH opsional langsung
-                     migrasi + `make compare`.
+                     catat percobaan (cap 5), rekam hasilnya ke basis
+                     pengetahuan, dan bila MATCH opsional langsung migrasi +
+                     `make compare`.
+  learn              bangun ulang basis pengetahuan dari seluruh judge log +
+                     state (pola -> berapa kali dicoba, berapa MATCH).
+  hint <func>        resep yang historis MATCH untuk pola fungsi itu,
+                     diurutkan dari yang paling sering berhasil.
+
+Belajar: setiap judge menambah bukti ke decomp/engine/knowledge.json
+(di-commit, jadi prior ikut antar sesi/agent). `queue` memeringkat kandidat
+berdasarkan prior itu, bukan urutan abjad/nama.
+
+Cepat: klasifikasi di-cache di decomp/engine/cache/<func>.json dan hanya
+dihitung ulang bila asm ref atau hasil judge berubah.
 
 Contoh:
-  python3 tools/scripts/decomp_engine.py queue --limit 12
+  python3 tools/scripts/decomp_engine.py queue --limit 12 --kind copy
+  python3 tools/scripts/decomp_engine.py learn
+  python3 tools/scripts/decomp_engine.py hint func_080167DC
   python3 tools/scripts/decomp_engine.py diff func_08024C74
   python3 tools/scripts/decomp_engine.py attempt func_08024C74 --draft /tmp/d.c --migrate
 
-Semua perintah kecuali `attempt` bersifat read-only. Riwayat percobaan
-disimpan di decomp/engine/attempts/<func>.json (tidak di-commit).
+Semua perintah kecuali `attempt` bersifat read-only terhadap state decomp.
+Riwayat percobaan disimpan di decomp/engine/attempts/<func>.json (tidak
+di-commit); basis pengetahuan dan cache juga di decomp/engine/.
 """
 import argparse
 import difflib
@@ -36,6 +51,8 @@ DRAFTS = ROOT / "decomp" / "drafts"
 ASM = ROOT / "asm"
 LOGS = ROOT / "decomp" / "logs"
 ATTEMPTS = ROOT / "decomp" / "engine" / "attempts"
+KB = ROOT / "decomp" / "engine" / "knowledge.json"
+CACHE = ROOT / "decomp" / "engine" / "cache"
 
 # kunci = sufiks kondisi (op[1:]), nilai = bentuk kanonik
 COND_ALIAS = {"lo": "cc", "hs": "cs", "cc": "cc", "cs": "cs",
@@ -58,6 +75,11 @@ HINTS = {
               "return B;` dengan A/B sesuai ref (POLA-DIFF §7.2).",
     "copy": "ada/tak ada `add rX, rY, #0` (salinan argumen atau pointer lokal): "
             "sesuaikan pemakaian variabel lokal (POLA-DIFF §9.3).",
+    "width-offset": "akses sempit di offset besar: `add #imm` (>31) lalu "
+                    "ldrb/ldrh bukan salinan argumen — samakan lebar field "
+                    "(POLA-DIFF §10.3, width_mismatch.py).",
+    "ptr-scale": "offset pada pointer bertipe menskala sizeof: ganti `p + off` "
+                 "dengan `(u8 *)p + off` (POLA-DIFF §11.2).",
     "instruksi": "beda instruksi umum: baca diff di atas, cek lebar akses, "
                  "urutan store, dan rantai pointer.",
 }
@@ -166,6 +188,26 @@ def classify(ref, got):
     if (any(is_zero(x) for x in got_side)
             and sum(1 for x in got_side if is_zero(x)) > sum(1 for x in ref_side if is_zero(x))):
         return "zero-reload"
+    # akses sempit di offset > 31 wajib lewat `add` (ldrb/ldrh imm5 maks 31):
+    # gejala ini sering salah dibaca sebagai "salinan" (POLA-DIFF §10.3)
+    narrow = {"ldrb", "ldrh", "ldrsb", "ldrsh", "strb", "strh"}
+
+    def big_off_then_narrow(seq):
+        for i, x in enumerate(seq[:-1]):
+            m = re.match(r"add (r\w+|sp|lr), #0x([0-9A-F]+)$", x)
+            if m and int(m.group(2), 16) > 31 and seq[i + 1].split()[0] in narrow:
+                return True
+        return False
+
+    if big_off_then_narrow(ref_side) != big_off_then_narrow(got_side):
+        return "width-offset"
+    # `mov #c; lsl #k; add` = offset pointer bertipe yang diskalakan sizeof
+    def scaled(seq):
+        txt = " | ".join(seq)
+        return re.search(r"mov r\w+, #0x[0-9A-F]+ \| lsl r\w+, #", txt) is not None
+
+    if scaled(got_side) and not scaled(ref_side):
+        return "ptr-scale"
     # salinan `add rX, rY, #0` ada di satu sisi saja
     if (any(is_copy(x) for x in ref_side) != any(is_copy(x) for x in got_side)):
         return "copy"
@@ -181,6 +223,166 @@ def classify(ref, got):
         if a.split()[0].startswith("b") and b.split()[0].startswith("b"):
             return "cabang"
     return "instruksi"
+
+
+def kb_load():
+    if KB.exists():
+        try:
+            return json.load(open(KB))
+        except Exception:
+            pass
+    return {"version": 1, "kinds": {}, "recipes": {}, "updated": ""}
+
+
+def kb_save(kb):
+    KB.parent.mkdir(parents=True, exist_ok=True)
+    json.dump(kb, open(KB, "w"), indent=1, sort_keys=True)
+
+
+def kb_prior(kb, kind):
+    """P(MATCH | pola): rata-rata percobaan nyata + 3 pseudo-count ke laju dasar.
+
+    Pseudo-count mencegah pola yang baru dicoba 1x melompat ke 0.0/1.0 dan
+    membuat peringkat antrean liar; laju dasar sendiri dihitung `learn` dari
+    seluruh riwayat percobaan.
+    """
+    k = kb.get("kinds", {}).get(kind) or {}
+    n = int(k.get("n", 0))
+    m = int(k.get("match", 0))
+    base = float(kb.get("base", 0.30))
+    k_pseudo = 3.0
+    return (m + k_pseudo * base) / (n + k_pseudo), n
+
+
+def kb_record(kb, kind, ops, verdict, fn=None, recipe=None):
+    ks = kb.setdefault("kinds", {}).setdefault(kind, {"n": 0, "match": 0, "ops": []})
+    ks["n"] += 1
+    if verdict == "MATCH":
+        ks["match"] += 1
+    ks.setdefault("ops", []).append(int(ops or 0))
+    ks["ops"] = ks["ops"][-200:]
+    if verdict == "MATCH" and recipe:
+        rs = kb.setdefault("recipes", {}).setdefault(kind, [])
+        for r in rs:
+            if r["text"] == recipe:
+                r["hits"] = int(r.get("hits", 0)) + 1
+                if fn:
+                    r["examples"] = (r.get("examples", []) + [fn])[-5:]
+                break
+        else:
+            rs.append({"text": recipe, "hits": 1, "misses": 0,
+                       "examples": [fn] if fn else []})
+    kb["updated"] = time.strftime("%Y-%m-%d %H:%M")
+    return kb
+
+
+def _cache_sig(fn, module):
+    p = ASM / module
+    parts = [str(p.stat().st_mtime) if p.exists() else "-"]
+    d = LOGS / f"judge_{fn}"
+    cands = sorted(d.glob("*/func.s"), key=lambda q: q.stat().st_mtime) if d.exists() else []
+    parts.append(str(cands[-1].stat().st_mtime) if cands else "-")
+    return "|".join(parts)
+
+
+def _cache_put(fn, sig, kind, ops):
+    CACHE.mkdir(parents=True, exist_ok=True)
+    json.dump({"sig": sig, "kind": kind, "ops": ops}, open(CACHE / f"{fn}.json", "w"))
+
+
+def _drop_cache(fn):
+    p = CACHE / f"{fn}.json"
+    if p.exists():
+        p.unlink()
+
+
+def _features(fn, v):
+    """(pola, jumlah op diff); memakai cache selama asm ref/hasil judge belum berubah."""
+    module = v.get("module", "")
+    sig = _cache_sig(fn, module)
+    p = CACHE / f"{fn}.json"
+    if p.exists():
+        try:
+            c = json.load(open(p))
+            if c.get("sig") == sig:
+                return c.get("kind"), c.get("ops")
+        except Exception:
+            pass
+    ref = ref_lines(fn, module)
+    got = produced_lines(fn)
+    if not ref or not got:
+        return None, None
+    kind = classify(ref, got)
+    sm = difflib.SequenceMatcher(a=ref, b=got, autojunk=False)
+    ops = sum(max(i2 - i1, j2 - j1) for tag, i1, i2, j1, j2
+              in sm.get_opcodes() if tag != "equal")
+    _cache_put(fn, sig, kind, ops)
+    return kind, ops
+
+
+def cmd_learn(a):
+    """Bangun ulang basis pengetahuan dari RIWAYAT PERCOBAAN (bukan status).
+
+    Status saat ini tidak dipakai sebagai label: fungsi `promoted` otomatis
+    berasm identik (label melingkar), dan draf `failed` bisa berasal dari judge
+    lama. Label yang sah hanya verdict yang tercatat saat judge berlangsung.
+    """
+    st = load_state()
+    kb = {"version": 1, "kinds": {}, "recipes": {}, "updated": ""}
+    tries = 0
+    wins = 0
+    for p in sorted(ATTEMPTS.glob("*.json")):
+        fn = p.stem
+        v = st.get(fn) or {}
+        kind, ops = _features(fn, v)
+        if kind is None:
+            continue
+        for it in json.load(open(p)).get("attempts", []):
+            verdict = it.get("verdict", "DIFF")
+            k_it = it.get("kind") or kind
+            o_it = it.get("ops") if it.get("ops") is not None else ops
+            kb_record(kb, k_it, o_it, verdict, fn,
+                      HINTS.get(kind) if verdict == "MATCH" else None)
+            tries += 1
+            wins += 1 if verdict == "MATCH" else 0
+    kb["base"] = round(wins / tries, 3) if tries else 0.30
+    kb_save(kb)
+    if a.json:
+        print(json.dumps(kb, indent=1))
+        return 0
+    print(f"belajar dari {tries} percobaan (laju dasar {kb['base']:.2f})"
+          + (" — belum ada riwayat, prior = laju dasar" if not tries else ""))
+    print(f"  {'pola':14s} {'n':>4s} {'match':>6s} {'rate':>6s} {'ops/rata':>9s}")
+    for kind, k in sorted(kb["kinds"].items(), key=lambda kv: -int(kv[1]["n"])):
+        p, _ = kb_prior(kb, kind)
+        ops = k.get("ops") or [0]
+        print(f"  {kind:14s} {k['n']:4d} {k['match']:6d} {p:6.2f} {sum(ops) / len(ops):9.1f}")
+    return 0
+
+
+def cmd_hint(a):
+    st = load_state()
+    kb = kb_load()
+    if a.func not in st:
+        print(f"tidak ada di state: {a.func}")
+        return 2
+    kind, ops = _features(a.func, st[a.func])
+    if kind is None:
+        print(f"data kurang untuk {a.func} (belum ada judge log?)")
+        return 2
+    p, n = kb_prior(kb, kind)
+    print(f"{a.func}: pola={kind} ops={ops} p(MATCH)={p:.2f} (n={n})")
+    if kind in HINTS:
+        print(f"  dasar: {HINTS[kind]}")
+    recs = sorted(kb.get("recipes", {}).get(kind, []),
+                  key=lambda r: -int(r.get("hits", 0)))[:5]
+    if recs:
+        print("  resep yang pernah MATCH:")
+        for r in recs:
+            ex = ", ".join(r.get("examples", [])[-3:])
+            print(f"    hits={r.get('hits', 0)} {r['text'][:100]}"
+                  + (f"  [{ex}]" if ex else ""))
+    return 0
 
 
 def cmd_diff(a):
@@ -218,6 +420,7 @@ def cmd_diff(a):
 
 def cmd_queue(a):
     st = load_state()
+    kb = kb_load()
     rows = []
     for fn, v in st.items():
         if v.get("status") != "failed":
@@ -228,25 +431,26 @@ def cmd_queue(a):
             continue
         if abs(int(m.group(1)) - int(m.group(2))) > a.max_delta:
             continue
-        ref = ref_lines(fn, v.get("module", ""))
-        got = produced_lines(fn)
-        if not ref or not got:
+        kind, ops = _features(fn, v)
+        if kind is None or (a.kind and kind != a.kind):
             continue
-        kind = classify(ref, got)
-        sm = difflib.SequenceMatcher(a=ref, b=got, autojunk=False)
-        ops = sum(max(i2 - i1, j2 - j1) for tag, i1, i2, j1, j2
-                  in sm.get_opcodes() if tag != "equal")
+        prior, n = kb_prior(kb, kind)
+        ref_len = v.get("ref_len", 0)
+        score = prior / (1 + ops) * (1 + 40.0 / max(ref_len, 40))
         rows.append({"func": fn, "module": v.get("module"), "kind": kind,
-                     "ops": ops, "ref_len": v.get("ref_len", 0),
+                     "ops": ops, "ref_len": ref_len, "prior": round(prior, 2),
+                     "n": n, "score": round(score, 3),
                      "note": note.replace("\n", " ")[:80]})
-    rows.sort(key=lambda r: (r["kind"] in ("identik", "hanya-register"), r["ops"], r["ref_len"]))
+    rows.sort(key=lambda r: (r["kind"] in ("identik", "hanya-register"),
+                             -r["score"], r["ops"]))
     if a.json:
         print(json.dumps(rows[:a.limit], indent=1))
         return 0
-    print(f"kandidat layak: {len(rows)} (dari failed |len-ref| <= {a.max_delta})")
+    print(f"kandidat layak: {len(rows)} (dari failed |len-ref| <= {a.max_delta}"
+          + (f", kind={a.kind}" if a.kind else "") + ")")
     for r in rows[:a.limit]:
-        print(f"  {r['kind']:14s} ops={r['ops']:2d} ref={r['ref_len']:4d} "
-              f"{r['module']}/{r['func']}")
+        print(f"  {r['kind']:14s} p={r['prior']:.2f} n={r['n']:2d} ops={r['ops']:2d} "
+              f"ref={r['ref_len']:4d} {r['module']}/{r['func']}")
     return 0
 
 
@@ -261,6 +465,7 @@ def cmd_attempt(a):
         print(f"tidak ada di state: {fn}")
         return 2
     v = st[fn]
+    kind, ops = _features(fn, v)
     ATTEMPTS.mkdir(parents=True, exist_ok=True)
     hist_p = ATTEMPTS / f"{fn}.json"
     hist = json.load(open(hist_p)) if hist_p.exists() else {"attempts": []}
@@ -291,10 +496,16 @@ def cmd_attempt(a):
         if f"{fn}:" in l and ("MATCH" in l or "DIFF" in l):
             line = l.strip()
             break
-    res = {"at": time.strftime("%Y-%m-%d %H:%M:%S"), "verdict": "MATCH" if ok else "DIFF",
+    res = {"at": time.strftime("%Y-%m-%d %H:%M:%S"), "kind": kind,
+           "ops": ops, "verdict": "MATCH" if ok else "DIFF",
            "detail": line[:300], "secs": round(time.time() - t0, 1)}
     hist["attempts"].append(res)
     json.dump(hist, open(hist_p, "w"), indent=1)
+    if kind:
+        kb = kb_record(kb_load(), kind, ops, res["verdict"], fn,
+                       HINTS.get(kind) if res["verdict"] == "MATCH" else None)
+        kb_save(kb)
+        _drop_cache(fn)
     print(f"percobaan {n + 1}/{a.cap}: {res['verdict']} ({res['secs']}s)")
     if line:
         print("  " + line[:200])
@@ -326,8 +537,15 @@ def main(argv):
     q = sub.add_parser("queue", help="antrean kandidat berperingkat")
     q.add_argument("--limit", type=int, default=12)
     q.add_argument("--max-delta", type=int, default=4)
+    q.add_argument("--kind", help="hanya satu pola (copy, zero-reload, ...)")
     q.add_argument("--json", action="store_true")
     q.set_defaults(fn=cmd_queue)
+    ln = sub.add_parser("learn", help="bangun ulang basis pengetahuan pola")
+    ln.add_argument("--json", action="store_true")
+    ln.set_defaults(fn=cmd_learn)
+    h = sub.add_parser("hint", help="resep historis untuk pola satu fungsi")
+    h.add_argument("func")
+    h.set_defaults(fn=cmd_hint)
     at = sub.add_parser("attempt", help="tulis draf + judge (+migrasi)")
     at.add_argument("func")
     at.add_argument("--draft", help="file draf yang ditulis ke decomp/drafts/<func>.c")
