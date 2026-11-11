@@ -301,6 +301,9 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
   `decomp/engine/knowledge.json` di-commit** supaya prior ikut antar sesi),
   `decomp/migrate.py ... --explain` (beda signature blok vs `src/`, tanpa
   menulis apa pun).
+  `tools/scripts/cc_probe.py` (form hunting: kompilasi cuplikan C dengan
+  agbcc/old_agbcc lalu cetak asm; `--grep` untuk mencari pola instruksi
+  sebelum menghabiskan kuota judge),
 - `fomt status` untuk memastikan state konsisten.
 - `fomt verify` HANYA bila diminta user — jangan dijalankan rutin di akhir
   sesi (mahal, ~7 mnt). Penggantinya untuk tutup sesi: `make compare`
