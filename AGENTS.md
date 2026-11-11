@@ -289,6 +289,11 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
   `tools/scripts/width_mismatch.py` (lebar akses asm `ldrb/strb/ldrh/strh/ldr/str`
   vs tipe field draf per offset; default hanya |len-ref| <= 4, `--func`/`--module`/
   `--json`; offset dihitung per angka jadi wajib dikonfirmasi ke register argumen),
+  `tools/scripts/decomp_engine.py` (engine kerja: `queue` antrean kandidat
+  `failed` |len-ref| <= 4 berperingkat + klasifikasi pola, `diff <func>`
+  diff hasil judge vs ref yang sudah dinormalisasi, `attempt <func> --draft f
+  [--migrate]` tulis draf + `fomt` + opsional migrasi/compare dengan cap 5
+  percobaan per fungsi; riwayat di `decomp/engine/`, tidak di-commit),
   `decomp/migrate.py ... --explain` (beda signature blok vs `src/`, tanpa
   menulis apa pun).
 - `fomt status` untuk memastikan state konsisten.
