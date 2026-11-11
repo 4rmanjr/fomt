@@ -614,13 +614,15 @@
  },
  "func_08050424": {
   "addr": 134546468,
-  "judged_mtime": 1793582714.112405,
+  "draft_src": "manual",
+  "judged_mtime": 1794380915.7035985,
   "module": "code_0803EE94.s",
-  "note": "len 88 vs ref 84 [2extra,5operand,2different @i blt #0x30 | blt #0x32]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 84,
   "sanitize_v": 4,
   "size": 681,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08050478": {

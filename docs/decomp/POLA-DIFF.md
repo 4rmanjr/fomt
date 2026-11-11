@@ -661,3 +661,39 @@ salinan: `ldrb` immediate maksimum 31, jadi akses byte di offset 0x68 wajib
 lewat `add`. Field `s32 unk68` yang diubah menjadi `u8 unk68` langsung MATCH
 (47 vs 47). Kalau diff menampilkan `add` + akses sempit, periksa dulu
 `width_mismatch.py` sebelum mengejar salinan.
+
+## 11. Alamat field vs nilainya, dan pointer aritmetika bertipe
+
+Pembukti: `func_080167DC` MATCH (88 vs 88), `func_08050424` MATCH (84 vs 84).
+
+### 11.1 Simpan alamat field, bukan nilainya
+
+Ref `func_080167DC` memuat alamat field sekali lalu memuat isinya dua kali:
+
+```asm
+add r4, #0xA8
+ldr r0, [r4]        @ a = *pa
+ldr r1, [r0]        @ vtable
+ldr r2, [r1, #0x38]
+...
+ldr r0, [r4]        @ muat ulang a
+```
+
+Draf yang menyimpan **nilai** (`a = *(GenObj **)((u8 *) t + 0xA8);` lalu
+`a->unk0`) menghasilkan `ldr r2, [r0, #0x38]` tanpa `ldr r1, [r0]` dan satu
+`add r0, rX, #0x0` berlebih. Yang benar: simpan **alamatnya** sebagai
+variabel pointer-ke-pointer, lalu deref dua kali di setiap pemakaian:
+
+```c
+GenObj **pa = (GenObj **) ((u8 *) t + 0xA8);
+((s32 (*)(GenObj *, s32)) ((GenObj *) (*pa)->unk0)->unk38)(*pa, 0x23);
+```
+
+### 11.2 `ptr + off` pada pointer struct menskala `sizeof`
+
+`func_08050424` draf aslinya `func_0804F0E0(arg0 + 0xD0)` dengan `arg0`
+bertipe `GenObj *`: offset jadi `0xD0 * sizeof(GenObj)`, sehingga keluar
+`mov r1, #0x9C; lsl r1, #4; add r0, r5, r1` (2 instruksi + konstanta), bukan
+`add r0, #0xD0` seperti ref. Selalu hitung offset byte eksplisit:
+`(u8 *) arg0 + 0xD0`. Gejalanya di diff: `mov`+`lsl`+`add` untuk sebuah
+offset kecil yang di ref hanya `add`.

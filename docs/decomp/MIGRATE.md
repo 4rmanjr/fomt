@@ -351,3 +351,22 @@ Resep (tanpa mengubah codegen sama sekali, keduanya nol-biaya):
 Kalau blok sudah terlanjur promoted: buang bloknya, set state
 `status=failed`, `judged_mtime=0`, lalu judge ulang sebelum migrate —
 jangan menyunting blok promoted langsung (verify menilainya apa adanya).
+
+## 16. Extern usang di src/ dengan tipe parameter pertama berbeda
+
+Gejala gate: `definisi <func> di body vs extern usang di src
+(['i32 (i32, i32, u16, i32)'])`, migrasi SKIP walau bloknya MATCH.
+
+Kasus pembukti: `func_08050424` — blok `void func_08050424(GenObj *, s32,
+u16, s32)`, sedangkan `src/code_0803EE94.cc` sudah mendeklarasikan
+`i32 func_08050424(i32, i32, u16, i32);` (dipakai call-site `func(*arg0,
+...)`). Guard membandingkan string tipe, jadi `GenObj *` vs `i32` tidak
+pernah cocok.
+
+Jangan "perbaiki" dengan memaksa signature blok ke `s32`/`i32` + cast di
+dalam badan: codegen berubah (`obj = (GenObj *) arg0` menambah `adds r5,
+r0, #0`; cast inline memindahkan `movs #4` ke register lain) dan MATCH
+hilang. Perbaikan yang benar adalah menyatukan signature + call-site secara
+manual (cast pointer di setiap call-site, atau ubah extern src ke tipe
+pointernya), lalu jalankan `migrate.py` lagi. Selama belum, biarkan
+promoted-only dan catat sebagai SKIP manual.

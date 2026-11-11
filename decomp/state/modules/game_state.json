@@ -2011,13 +2011,15 @@
  },
  "func_080167DC": {
   "addr": 134309852,
-  "judged_mtime": 1793950045.5116124,
+  "draft_src": "manual",
+  "judged_mtime": 1794380669.5828018,
   "module": "game_state.s",
-  "note": "len 90 vs ref 86 [3extra,4operand,3regalloc,1different @i ldr r2, [pc, #0x48] | ldr r2, [pc, #0x4c]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 88,
   "sanitize_v": 4,
   "size": 850,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08016834": {
