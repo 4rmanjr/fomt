@@ -731,6 +731,18 @@ typedef struct Blob {
 } Blob;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_0809E968 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080E3E9C(u8 *, u8 *, i32);
+
+__attribute__((section(".text.code_809E804.0809E968")))
+i32 func_0809E968(u8 *arg0, i32 arg1) {
+    u8 *p = arg0 + 0x38;
+
+    return (u32) func_080E3E9C(arg0, p, arg1) != (u32) p;
+}
+}
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))

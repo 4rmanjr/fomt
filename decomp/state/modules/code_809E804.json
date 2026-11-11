@@ -78,13 +78,15 @@
  },
  "func_0809E968": {
   "addr": 134867304,
-  "judged_mtime": 0,
+  "draft_src": "manual",
+  "judged_mtime": 1794410190.1449854,
   "module": "code_809E804.s",
-  "note": "no draft (m2c gagal; tulis manual)",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 281,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809E988": {

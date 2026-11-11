@@ -3257,3 +3257,12 @@ void *func_080ADD08(Blob *dst, Blob **src) {
     *d = *s;
     return dst;
 }
+
+// DECOMP-MATCHED func_0809E968 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080E3E9C(u8 *, u8 *, s32);
+
+s32 func_0809E968(u8 *arg0, s32 arg1) {
+    u8 *p = arg0 + 0x38;
+
+    return (u32) func_080E3E9C(arg0, p, arg1) != (u32) p;
+}
