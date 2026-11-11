@@ -77,6 +77,8 @@ parkir.
 ## Aturan hemat token (pengalaman sesi panjang)
 
 - Cap 5 judge per fungsi → parkir + regenerasi draf murni m2c, pindah fungsi.
+  `decomp_engine.py attempt <func> --force` melewati cap hanya untuk draf yang
+  sudah berubah dan bentuknya diverifikasi `cc_probe.py` — bukan iterasi buta.
 - Edit draf + judge dalam SATU command (syarat mtime resanitize).
 - Output berisik (>20 baris/30 dtk) selalu redirect ke `/tmp/<nama>.log`;
   chat hanya exit code + ringkasan grep.
