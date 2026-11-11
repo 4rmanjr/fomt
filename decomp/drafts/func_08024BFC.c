@@ -1,40 +1,42 @@
-s32 func_0803240C(s32 *, void *);                     /* extern */
+struct In;
+typedef struct Vt {
+    u8 _pad0[0x40];
+    s32 (*unk40)(struct In *);
+} Vt;
 
-typedef struct GenObj {
-    s32 unk0;
-    s32 unk2;
-    s32 unk4;
-    s32 unk6;
-    s32 unkA;
-    s32 unkE;
-    u8 _pad12[2];
-    struct GenObj *unk14;
-    u8 _pad18[40];
-    s32 unk40;
-} GenObj;
-void *func_08024BFC(GenObj *arg0, GenObj *arg1) {
-    s32 sp0;
-    s32 sp8;
-    s16 temp_r1;
-    s16 temp_r2;
-    s32 var_r0;
-    s32 var_r1;
+typedef struct In {
+    u8 _pad0[0xA];
+    s16 unkA;
+    u8 _padC[2];
+    s16 unkE;
+    u8 _pad10[4];
+    struct Vt *unk14;
+} In;
 
-    if ((((void (*)(void *,...))(arg1->unk14->unk40))(arg1) << 0x18) != 0) {
-        temp_r1 = arg1->unkA;
-        temp_r2 = arg1->unkE;
-        sp0 = (s16) (temp_r1 - 7);
-        sp0.unk2 = (s16) (temp_r2 - 9);
-        sp0.unk4 = (s16) (temp_r1 + 7);
-        sp0.unk6 = (s16) (temp_r2 + 5);
-        var_r0 = sp0;
-        var_r1 = sp4;
+typedef struct Out {
+    s16 unk0;
+    s16 unk2;
+    s16 unk4;
+    s16 unk6;
+} Out;
+
+Out func_0803240C(In *arg1);
+
+void *func_08024BFC(u32 *arg0, In *arg1) {
+    Out r;
+
+    if ((s8) arg1->unk14->unk40(arg1) != 0) {
+        s16 a = arg1->unkA;
+        s16 b = arg1->unkE;
+
+        ((s16 *) &r)[0] = a - 7;
+        ((s16 *) &r)[1] = b - 9;
+        ((s16 *) &r)[2] = a + 7;
+        ((s16 *) &r)[3] = b + 5;
     } else {
-        func_0803240C(&sp8, arg1);
-        var_r0 = sp8;
-        var_r1 = spC;
+        r = func_0803240C(arg1);
     }
-    arg0->unk0 = var_r0;
-    arg0->unk4 = var_r1;
+    arg0[0] = ((u32 *) &r)[0];
+    arg0[1] = ((u32 *) &r)[1];
     return arg0;
 }

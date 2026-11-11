@@ -698,9 +698,10 @@
  },
  "func_08024BFC": {
   "addr": 134368252,
-  "judged_mtime": 1793582714.068412,
+  "draft_src": "manual",
+  "judged_mtime": 1794411124.3783817,
   "module": "code_entities.s",
-  "note": "ach undeclared identifier is reported only once\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08024BFC/lenovo_216560/func.c:32: for each function it appears in.)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08024BFC/lenovo_216560/func.c:36: `spC' undeclared (first use in this function)\n",
+  "note": "len 106 vs ref 86 [3missing,12extra,2operand,10regalloc,5different @i beq #0x3c | beq #0x48] [parkir sesi: parkir 3/5: 88B copy struct-return; draf terdekat 46 vs 41 instr (stack 0x18 vs 0x10, ldrh vs ldrsh pada unkE). width_mismatch sudah membetulkan 4 field s32->s16, sisa beda alokasi slot]",
   "ref_len": 88,
   "sanitize_v": 4,
   "size": 888,
