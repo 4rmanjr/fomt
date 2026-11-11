@@ -529,9 +529,9 @@
  },
  "func_080A03B8": {
   "addr": 134874040,
-  "judged_mtime": 1794371547.8014145,
+  "judged_mtime": 1794372300.9476554,
   "module": "code_809E804.s",
-  "note": "len 98 vs ref 100 [6missing,5extra,1operand,16regalloc,2stack,3different @s sub sp, #8 | sub sp, #4] || synth_types.py v3 (typed locals) dicoba 2026-11-11: 0/10 MATCH, tetapi compile-error 8/10 -> 3/10 (7/10 patch kini lolos kompilasi sampai tahap DIFF byte: 08045638, 0804EF20, 0804EFAC, 0804F0E0, 080A03B8, 080A17A0, 080A1890). Sisa compile-error: 0804F060, 0809FE74 (saved_reg_r10 undeclared), 080A0B18 (invalid lvalue in unary &). Diff byte terdekat: func_080A03B8 len 98 vs ref 100. Patch dibatalkan; draf verbatim.",
+  "note": "len 98 vs ref 100 [4missing,3extra,2operand,22regalloc,1different @r adds r6, r0, #0 | adds r5, r0, #0] || ANALISIS 2026-11-11: sp0 di asm = buffer 6 byte akses tumpang-tindih (ldrh@0 + ldrb@1), bukan struct. Draf ditulis ulang jadi u8 sp0[8] + u8 *p + cast lebar per-akses: 110->98 byte (ref 100). Sisa diff: ref memuat 0xFFFFFC00 dari literal pool sedangkan agbcc memakai mov #0xFC;lsl #8 (operand ldrh terbukti 16-bit), plus regalloc arg0 r6/r5 vs nol r5/r6. Wall codegen, diparkir (3 judge). Pola: POLA-DIFF 6.6.",
   "ref_len": 100,
   "sanitize_v": 4,
   "size": 851,
@@ -1834,7 +1834,7 @@
  },
  "func_080AAE14": {
   "addr": 134917652,
-  "judged_mtime": 1794213768.8119812,
+  "judged_mtime": 1794299573.7462308,
   "module": "code_809E804.s",
   "note": "len 50 vs ref 48 [1missing,2extra,1operand,7regalloc @i beq #0x2a | beq #0x2c]",
   "ref_len": 48,

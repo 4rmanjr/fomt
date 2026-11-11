@@ -426,3 +426,36 @@ Catatan akhir (2026-11-10): func_08015E30 & func_0801A13C BUKAN kandidat
 
 Kedua-duanya offset 0xb4/0xb8/0xac muncul secara kebetulan di asm, bukan karena
 memiliki pola cleanup tiga-blok seperti func_080124D0.
+
+### 6.6 Buffer stack tumpang-tindih: `s32 sp0; sp0.unk1` (func_080A03B8)
+
+Asm membuktikan `sp0` bukan struct tapi **buffer mentah** yang diakses dengan
+lebar berbeda di offset yang bertumpuk (`ldrh [r1]` = 2 byte di 0, lalu
+`ldrb [r1,#1]` = byte di 1). m2c menulisnya sebagai `s32 sp0;` + `sp0.unk1`,
+yang mustahil dikompilasi.
+
+Pola penulisan yang dipakai: `u8 sp0[8];` + cast lebar per-akses, dan satu
+pointer lokal ke buffer (bukan `&sp0` berulang):
+
+```c
+u8 sp0[8];
+u8 *p = sp0;
+*(u16 *) p = (u16) ((0xFFFFFC00 & *(u16 *) p) | 2);
+*(p + 1) &= 3;
+memcpy(arg0, p, 6);
+```
+
+Hasil terbaik `func_080A03B8`: **98 vs ref 100 byte** (dari 110 byte versi
+`&sp0` per akses). Sisa diff BUKAN logika:
+
+- **konstanta**: ref memuat `0xFFFFFC00` dari literal pool
+  (`ldr r3, .L...`), sedangkan agbcc membuktikan operand `ldrh` hanya 16-bit
+  lalu memakai `mov #0xFC; lsl #8` — lebih pendek 2 byte. Membuat operand
+  tidak-terbukti-16-bit berarti mengubah lebar akses asli, jadi tidak boleh;
+- **regalloc**: ref menaruh `arg0` di r6 + konstanta nol di r5
+  (`movs r5,#0` di awal blok), hasil kami menaruh `arg0` di r5 dan
+  memakai-ulang r6 (bekas hasil call) sebagai nol — hemat 2 byte tetapi beda.
+
+Kesimpulan: untuk pola ini, m2c→C harus ditulis ulang jadi byte-buffer
+(bukan struct) **dan** byte-match tetap tergantung kebetulan regalloc
+agbcc; jangan buang budget >3 judge.
