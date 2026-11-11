@@ -46,6 +46,30 @@ penghalang utamanya:
 
 Saran urutan v3: (b) lalu (a) — keduanya menyumbang mayoritas error yang
 tersisa pada pilot di atas — sebelum menyentuh (c)/(d).
+
+MEASURED 2026-11-11 (v3, typed locals: temporer pointer + lokal stack):
+0/10 MATCH, tetapi compile-error 8/10 -> 3/10 pada pilot yang sama. Tujuh
+draf kini lolos kompilasi dan berhenti di tahap DIFF byte
+(func_08045638, func_0804EF20, func_0804EFAC, func_0804F0E0, func_080A03B8,
+func_080A17A0, func_080A1890); terdekat func_080A03B8 len 98 vs ref 100.
+
+Yang dikerjakan v3:
+  - `void *temp_rN;` yang dipakai `temp_rN->field` -> `GenObj_<suffix> *`,
+    plus cast eksplisit di tiap assignment (RHS-nya integer/offset);
+  - lokal stack bertipe skalar yang diakses `name.unkN` -> struct lokal
+    `STK_<name>_<suffix>`; lebar field dari cast assignment, fallback u32;
+    lokal yang juga punya assignment nilai utuh (`sp4 = 4;`) tetap skalar
+    dan akses field-nya jadi lvalue ber-offset byte
+    (`*(u16 *)((u8 *)&sp4 + 0x2)`);
+  - `(expr) + ptr` pada pointer struct -> `(GenObj_x *)((u8 *)ptr + (expr))`
+    (tanpa ini pointer arithmetic ter-scale sizeof(struct));
+  - typedef forward dihapus: agbcc menolak typedef berulang
+    (`redefinition of GenObj_<suffix>` di baris definisi).
+
+Sisa compile-error pada pilot: `saved_reg_r10 undeclared` (variabel m2c yang
+tidak pernah dideklarasikan) dan `invalid lvalue in unary '&'` — keduanya
+bukan pekerjaan typing struct. Untuk mengejar MATCH, langkah berikutnya
+adalah diff byte per fungsi (bukan memperluas heuristik typing).
 """
 import argparse
 import json
@@ -163,8 +187,10 @@ def infer_widths(offsets):
 
 
 def build_struct(offsets, suffix, ptrs):
-    lines = ["typedef struct GenObj_" + suffix + " GenObj_" + suffix + ";",
-             "typedef struct GenObj_" + suffix + " {"]
+    # Tanpa typedef forward: agbcc menolak typedef berulang (`redefinition of
+    # GenObj_<suffix>` @ baris definisi). Field pointer memakai `struct
+    # GenObj_<suffix> *`, jadi tag struct saja sudah cukup.
+    lines = ["typedef struct GenObj_" + suffix + " {"]
     cur = 0
     for off in sorted(offsets):
         if off in ptrs:
@@ -221,6 +247,163 @@ def synth_one(func, state):
     return mod, offsets, struct, suffix, ptrs
 
 
+# --- v3: pengetikan lokal (temporer pointer-aritmetika + stack struct) ---
+
+# lokal yang di-dereference sebagai struct (m2c sering meninggalkan `void *`)
+PTR_LOCAL_DECL = re.compile(r"^(\s*)void \*(\w+);\s*$", re.M)
+# lokal stack yang diakses ber-field (`sp0.unk1`)
+STACK_LOCAL_DECL = re.compile(
+    r"^(\s*)(?:s32|u32|s16|u16|s8|u8)\s+(\w+);\s*$", re.M)
+
+FIELD_CAST_WIDTH = {
+    "u8": "u8",
+    "s8": "s8",
+    "u16": "u16",
+    "s16": "s16",
+}
+
+
+def retype_ptr_locals(body, suffix, stats):
+    """`void *temp_rN;` yang dipakai `temp_rN->field` -> `GenObj_<suffix> *`.
+
+    Setiap assignment ke lokal itu diberi cast eksplisit: RHS-nya hasil
+    pointer-aritmetika dari field `s32`/`u32`, jadi tanpa cast assignment
+    integer->pointer ditolak C++. Cast tidak menghasilkan instruksi.
+    """
+    deref = set(re.findall(r"\b(\w+)\s*->", body))
+
+    def repl(m):
+        indent, name = m.group(1), m.group(2)
+        if name not in deref:
+            return m.group(0)
+        stats["ptr_locals"].append(name)
+        return f"{indent}GenObj_{suffix} *{name};"
+
+    body = PTR_LOCAL_DECL.sub(repl, body)
+    # cast eksplisit di setiap assignment ke lokal yang sudah diretype
+    cast = f"(GenObj_{suffix} *)"
+    for name in stats["ptr_locals"]:
+        body = re.sub(
+            rf"^(\s*){re.escape(name)} = (?!{re.escape(cast)})([^;\n]+);\s*$",
+            lambda mm, n=name: f"{mm.group(1)}{n} = {cast}({mm.group(2)});",
+            body, flags=re.M)
+    return body
+
+
+PTR_ARITH = re.compile(r"\(([^()]+)\)\s*\+\s*(\w+)\b")
+
+
+def fix_ptr_arith(body, suffix):
+    """`(expr) + ptr` pada pointer struct -> aritmetika byte.
+
+    m2c menghitung offset byte lalu menambahkannya ke pointer; kalau pointer
+    sudah bertipe struct*, `+` akan di-scale sizeof(struct) dan offset jadi
+    salah (andai lolos compile pun byte-nya beda). Bentuk aslinya dipulihkan
+    dengan `(GenObj_x *)((u8 *)ptr + (expr))`.
+    """
+    names = set(re.findall(rf"GenObj_{re.escape(suffix)}\s*\*\s*(\w+)", body))
+    if not names:
+        return body
+    cast = f"(GenObj_{suffix} *)"
+
+    def repl(m):
+        expr, name = m.group(1), m.group(2)
+        if name not in names:
+            return m.group(0)
+        return f"{cast}((u8 *){name} + ({expr}))"
+
+    return PTR_ARITH.sub(repl, body)
+
+
+def build_stack_struct(type_name, widths):
+    lines = [f"typedef struct {type_name} {{"]
+    cur = 0
+    for off in sorted(widths):
+        w = widths[off]
+        size = {"u8": 1, "s8": 1, "u16": 2, "s16": 2, "u32": 4}[w]
+        if off < cur:
+            continue
+        if off > cur:
+            lines.append("    u8 _pad%d[%d];" % (cur, off - cur))
+        lines.append("    %s unk%X; /*0x%X*/" % (w, off, off))
+        cur = off + size
+    lines.append(f"}} {type_name};")
+    return "\n".join(lines) + "\n"
+
+
+ALIGN_WIDTH = {0: "u32", 2: "u16"}
+
+
+def rewrite_mixed_stack_local(body, name, offs):
+    """`name.unkN` pada lokal skalar -> `*(w *)((u8 *)&name + 0xN)`.
+
+    Lebar diambil dari cast pada assignment (`(u8)`/`(u16)`) kalau ada,
+    kalau tidak dari alignment offset (0->u32, 2->u16, ganjil->u8).
+    """
+    for off in sorted(offs):
+        w = None
+        for hx in (format(off, "X"), format(off, "x")):
+            mm = re.search(
+                rf"\b{re.escape(name)}\.unk{hx}\s*=\s*\((\w+)\)", body)
+            if mm:
+                w = FIELD_CAST_WIDTH.get(mm.group(1), "u32")
+                break
+        if w is None:
+            w = ALIGN_WIDTH.get(off % 4, "u8")
+        for hx in (format(off, "X"), format(off, "x")):
+            body = re.sub(
+                rf"\b{re.escape(name)}\.unk{hx}\b",
+                f"*(%s *)((u8 *)&%s + 0x%X)" % (w, name, off),
+                body)
+    return body
+
+
+def retype_stack_locals(body, suffix, stats):
+    """Lokal stack bertipe skalar yang diakses `name.unkN` -> struct lokal.
+
+    Hanya lokal TANPA assignment nilai utuh (`sp0 = ...`) yang diubah: yang
+    punya assignment utuh butuh dekomposisi semantik (bitfield/union), jadi
+    dilaporkan sebagai stack_skipped, bukan ditebak. Alamat `&name` tetap sah.
+    """
+    defs = []
+    mixed = []
+
+    def repl(m):
+        indent, name = m.group(1), m.group(2)
+        offs = {int(h, 16) for h in re.findall(
+            rf"\b{re.escape(name)}\.unk([0-9A-Fa-f]+)", body)}
+        if not offs:
+            return m.group(0)
+        if re.search(rf"^\s*{re.escape(name)} = ", body, re.M):
+            # lokal campuran: nilai utuh (`sp4 = 4;`) + field (`sp4.unk2`).
+            # Tipe skalarnya dipertahankan supaya assignment utuh tetap sah;
+            # akses field diubah jadi lvalue ber-offset byte (di post-pass).
+            mixed.append(name)
+            return m.group(0)
+        widths = {}
+        for off in offs:
+            w = None
+            for hx in (format(off, "X"), format(off, "x")):
+                mm = re.search(
+                    rf"\b{re.escape(name)}\.unk{hx}\s*=\s*\((\w+)\)", body)
+                if mm:
+                    w = FIELD_CAST_WIDTH.get(mm.group(1), "u32")
+                    break
+            widths[off] = w or "u32"
+        type_name = f"STK_{name}_{suffix}"
+        defs.append(build_stack_struct(type_name, widths))
+        stats["stack_locals"].append(name)
+        return f"{indent}{type_name} {name};"
+
+    body = STACK_LOCAL_DECL.sub(repl, body)
+    for name in mixed:
+        offs = {int(h, 16) for h in re.findall(
+            rf"\b{re.escape(name)}\.unk([0-9A-Fa-f]+)", body)}
+        body = rewrite_mixed_stack_local(body, name, offs)
+        stats["stack_skipped"].append(name + "(byte-offset)")
+    return ("\n".join(defs) + "\n" if defs else ""), body
+
+
 def patch_draft(func, struct, suffix):
     path = DRAFTS / (func + ".c")
     if not path.exists():
@@ -231,7 +414,11 @@ def patch_draft(func, struct, suffix):
     if not bak.exists():
         bak.write_text(original)
     # insert struct at top
-    new = struct + "\n" + original
+    stats = {"ptr_locals": [], "stack_locals": [], "stack_skipped": []}
+    body = retype_ptr_locals(original, suffix, stats)
+    stack_defs, body = retype_stack_locals(body, suffix, stats)
+    # insert struct + typedef lokal stack di top
+    new = struct + "\n" + stack_defs + body
     # patch extern void *gUnk_* -> GenObj_suffix *
     new = re.sub(r"extern\s+void\s*\*\s*(gUnk_[A-Za-z0-9_]+)", r"extern GenObj_%s *\1" % suffix, new)
     new = re.sub(r"\bvoid\s*\*\s*(gUnk_[A-Za-z0-9_]+)\b", lambda m: "GenObj_%s *%s" % (suffix, m.group(1)), new)
@@ -242,8 +429,11 @@ def patch_draft(func, struct, suffix):
     new = re.sub(r"typedef\s+struct\s+GenObj(?:_\w+)?\s*\{.*?\}\s*GenObj(?:_\w+)?\s*;", "", new, count=1, flags=re.S)
     # v2: rename remaining GenObj references to GenObj_suffix
     new = re.sub(r"\bGenObj\b", "GenObj_%s" % suffix, new)
+    # v3: setelah semua pointer struct bernama sama, pulihkan aritmetika byte
+    new = fix_ptr_arith(new, suffix)
     path.write_text(new)
-    return True, "patched"
+    return True, "patched ptr=%s stack=%s skip_stack=%s" % (
+        stats["ptr_locals"], stats["stack_locals"], stats["stack_skipped"])
 
 
 def main():
