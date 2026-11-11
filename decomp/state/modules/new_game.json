@@ -343,9 +343,10 @@
  },
  "func_08005A58": {
   "addr": 134240856,
-  "judged_mtime": 1793844163.5547721,
+  "draft_src": "manual",
+  "judged_mtime": 1794399684.173549,
   "module": "new_game.s",
-  "note": "len 214 vs ref 218 [2missing,3extra,14operand,14regalloc,1stack @i ldr r0, [pc, #0xb0] | ldr r0, [pc, #0xac]]",
+  "note": "PARKIR (1 judge): 214 vs ref 218 [2missing,3extra,14operand,14regalloc,1stack]. Struktur sudah benar (ldm/stm copy 3 word + strb terbentuk, delay-loop 7, argumen stack func_08050CC0 lengkap). Sisa = alokasi register murni: konstanta offset 0x45F8/0x45FC/0x461C di-home scratch berbeda (POLA-DIFF 3) + pertukaran r3/r0/r2 pada temp offset. Jangan diiterasi tanpa ide baru.",
   "ref_len": 224,
   "sanitize_v": 4,
   "size": 2112,
@@ -481,12 +482,12 @@
   "judged_mtime": 1793582714.01942,
   "module": "new_game.s",
   "note": "len 50 vs ref 54 [3missing,2extra,5operand,5regalloc @r adds r4, r0, #0 | adds r3, r0, #0]",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 645,
   "status": "promoted",
-  "thumb": true,
-  "promoted_to": "decomp/promoted/new_game.cc"
+  "thumb": true
  },
  "func_08006C60": {
   "addr": 134245472,
