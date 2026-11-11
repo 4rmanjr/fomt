@@ -795,9 +795,10 @@
  },
  "func_08036900": {
   "addr": 134441216,
-  "judged_mtime": 1793665926.899556,
+  "draft_src": "manual",
+  "judged_mtime": 1794381782.113486,
   "module": "code_entities_08034CEC.s",
-  "note": "len 190 vs ref 194 [6missing,5extra,9operand,12regalloc,1different @i bne #0xa0 | bne #0x9c]",
+  "note": "len 190 vs ref 194. unk4 u16 -> ldrh sudah benar. Sisa: bentuk ekspresi mask ((x & 1) * 2 | (y >> 7)) menghasilkan and/lsl/orr di ref vs sub/ldrb/lsr di draf, plus urutan literal pool.",
   "ref_len": 196,
   "sanitize_v": 4,
   "size": 1863,

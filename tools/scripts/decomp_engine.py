@@ -113,6 +113,9 @@ def norm(line):
     op = _norm_op(parts[0])
     rest = parts[1] if len(parts) > 1 else ""
     rest = LABEL.sub("*", rest)
+    # `ldr rX, .Lpool+0x4`: offset ke literal pool bergantung urutan pool di
+    # hasil kompilasi, bukan perbedaan kode — jangan dihitung sebagai diff.
+    rest = re.sub(r"\*[+-]0x[0-9A-Fa-f]+", "*", rest)
     m_inplace = re.match(r"(r\d+|sp|lr), (r\d+|sp|lr), (.+)$", rest)
     if m_inplace and m_inplace.group(1) == m_inplace.group(2):
         rest = m_inplace.group(1) + ", " + m_inplace.group(3)

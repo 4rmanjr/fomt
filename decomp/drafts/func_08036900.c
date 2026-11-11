@@ -13,7 +13,8 @@ typedef struct Vtbl6900 {
 } Vtbl6900;
 typedef struct GenObj {
     Vtbl6900 **unk0;
-    s32 unk4;
+    u16 unk4;
+    u16 _pad6;
     u8 _pad8[44];
     u8 *unk34;
     u8 _pad38[8499];

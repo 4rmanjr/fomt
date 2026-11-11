@@ -697,3 +697,30 @@ bertipe `GenObj *`: offset jadi `0xD0 * sizeof(GenObj)`, sehingga keluar
 `add r0, #0xD0` seperti ref. Selalu hitung offset byte eksplisit:
 `(u8 *) arg0 + 0xD0`. Gejalanya di diff: `mov`+`lsl`+`add` untuk sebuah
 offset kecil yang di ref hanya `add`.
+
+## 12. Sapuan `sign/width`: lebar field, bukan salinan
+
+Dua kandidat terkecil antrean `sign/width` (ref 100B dan 196B) sama-sama
+membaik hanya dengan memperbaiki lebar field, tanpa MATCH:
+
+- `func_08050AD8`: `unk1DC` dideklarasikan `s32` -> draf `str`; setelah jadi
+  `u8` keluar `strb` sesuai ref. Cacat kedua: `func_080ADCA4(arg0 + 0x1E4, ...)`
+  dengan `arg0` pointer struct menskala `sizeof`, wajib `(u8 *)arg0 + 0x1E4`.
+  Sisa diff: ref punya `cmp r5, #0x0; bcc` ekstra (cek unsigned yang tidak
+  muncul dari varian C mana pun yang dicoba: `u32`/`s32`, if terpisah vs
+  gabungan, `< 0` vs `< 0U`) + tukar regalloc konstan `mov #1`. Parkir.
+- `func_08036900`: `unk4` `s32` -> `u16` membuat `ldr` menjadi `ldrh` sesuai
+  ref (190 vs 194 byte). Sisa diff murni bentuk ekspresi
+  `((x & 1) * 2) | (y >> 7)` dan urutan literal pool.
+
+### 12.1 Noise literal pool di engine
+
+`ldr rX, .Lpool+0x4` ternyata hanya urutan isi pool, bukan beda kode; engine
+sekarang menormalkan `*+0xN` menjadi `*` (sebelumnya ikut terhitung sebagai
+diff dan membuat kandidat terlihat lebih jauh dari kenyataan).
+
+### 12.2 Cek cepat lebar akses
+
+Sebelum mengejar `add`/salinan: lihat mnemonik aksesnya. `str` vs `strb`
+(tipe field), `ldr` vs `ldrh`, dan `ldr` vs `ldrsh` hampir selalu berarti
+deklarasi field salah, dan itu perbaikan satu baris.

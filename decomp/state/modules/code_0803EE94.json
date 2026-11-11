@@ -684,9 +684,10 @@
  },
  "func_08050AD8": {
   "addr": 134548184,
-  "judged_mtime": 1793925737.3608313,
+  "draft_src": "manual",
+  "judged_mtime": 1794382128.200754,
   "module": "code_0803EE94.s",
-  "note": "len 104 vs ref 100 [3missing,5extra,4operand,1regalloc,5different @< cmp r5, #0 | ]",
+  "note": "len 96 vs ref 100 (5 percobaan, cap). Lebar field TERBUKTI: unk1DC u8 -> strb, unk1E0 s32, dan argumen func_080ADCA4 wajib offset byte ((u8 *)arg0 + 0x1E4). Sisa: ref punya pasangan `cmp r5, #0x0; bcc` ekstra yang tak muncul dari varian dicoba (u32/s32, if tunggal/gabungan, `<0U`), plus tukar regalloc `mov r0,#1; orr r0,r1` vs `mov r1,#1`.",
   "ref_len": 100,
   "sanitize_v": 4,
   "size": 843,
