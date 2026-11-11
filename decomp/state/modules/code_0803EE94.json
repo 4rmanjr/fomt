@@ -1795,6 +1795,7 @@
  },
  "func_0805E760": {
   "addr": 134604640,
+  "draft_src": "manual",
   "judged_mtime": 1794375982.0759332,
   "module": "code_0803EE94.s",
   "note": "byte +0x2c: 0x2 vs ref 0x4 [2regalloc @r pop {r2} | pop {r1}]",

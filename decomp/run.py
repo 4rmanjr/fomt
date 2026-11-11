@@ -768,6 +768,31 @@ def _raw_on_disk(p: Path) -> bool:
         return False
 
 
+def _sha(text: str) -> str:
+    import hashlib
+    return hashlib.sha1(text.encode("utf-8", "replace")).hexdigest()
+
+
+def _regen_allowed(v: dict, old: str) -> bool:
+    """True bila isi draf di disk masih keluaran tool (m2c + sanitasi),
+    sehingga aman ditimpa hasil regenerasi.
+
+    Draf manual TIDAK PERNAH boleh diregenerasi. Dulu satu-satunya penjaga
+    adalah `mtime > judged_mtime`, padahal setelah judge `judged_mtime` = mtime
+    draf itu sendiri, jadi draf manual yg heuristik `_looks_sanitized`
+    menganggap mentah (mis. memakai `->unk` dgn struct sendiri tanpa GenObj)
+    tertimpa m2c pada run berikutnya (pembukti: func_08033800).
+    Provenance: `draft_src` ("m2c"/"manual") + `m2c_hash` (sha1 isi hasil
+    tool). Entri lama tanpa provenance memakai penanda struktur GenObj yg
+    selalu ditulis sanitasi."""
+    if v.get("draft_src") == "manual":
+        return False
+    h = v.get("m2c_hash")
+    if h:
+        return _sha(old) == h
+    return "typedef struct GenObj" in old
+
+
 def resanitize_stale() -> int:
     """Tulis ulang draf failed yg dibuat sanitasi lama agar memakai sanitasi
     kini, TANPA menyentuh draf yg pernah diedit manual.
@@ -783,6 +808,8 @@ def resanitize_stale() -> int:
     print(f"[{AGENT}] resanitasi: memindai draf lama (sanitasi v{SANITIZE_VERSION})...")
     n = done = 0
     checked_now: list[str] = []  # regen identik: fixpoint, jangan cek lagi
+    manual: list[str] = []       # draf manual: kunci permanen, jangan regen
+    regen: dict[str, str] = {}   # provenance hasil tool (sha1 isi draf)
     stale = [k for k in sorted(st)
              if st[k]["status"] == "failed" and (st[k].get("sanitize_v", 0) < SANITIZE_VERSION
                  or (st[k].get("sanitize_checked_v", 0) < SANITIZE_VERSION
@@ -822,10 +849,15 @@ def resanitize_stale() -> int:
             continue
         new = _sanitize_m2c(r.stdout, k)
         old = p.read_text()
+        if not _regen_allowed(v, old):
+            manual.append(k)  # edit manual: jangan ditimpa m2c
+            continue
         if new.rstrip() != old.rstrip():
             p.write_text(new if new.endswith("\n") else new + "\n")
+            regen[k] = _sha(new)
             n += 1
         else:
+            regen[k] = _sha(old)
             # fixpoint: regen identik, sanitizer kini tak bisa memperbaiki
             # draf ini (butuh tulis manual). Tandai agar tidak di-regen ulang
             # tiap jalan; dibuka lagi saat SANITIZE_VERSION naik.
@@ -838,6 +870,13 @@ def resanitize_stale() -> int:
         for k in checked_now:
             if k in s and s[k]["status"] == "failed":
                 s[k]["sanitize_checked_v"] = SANITIZE_VERSION
+        for k, h in regen.items():
+            if k in s:
+                s[k]["draft_src"] = "m2c"
+                s[k]["m2c_hash"] = h
+        for k in manual:
+            if k in s:
+                s[k]["draft_src"] = "manual"
 
     update(_mark, names=stale) if stale else None
     return n
@@ -872,6 +911,8 @@ def draft(name: str) -> bool:
     out.parent.mkdir(parents=True, exist_ok=True)
     if not out.exists():  # jangan timpa draf yang muncul dari agent lain
         out.write_text(text if text.endswith("\n") else text + "\n")
+        touch(name, status="drafted", draft_src="m2c", m2c_hash=_sha(text))
+        return True
     touch(name, status="drafted")
     return True
 

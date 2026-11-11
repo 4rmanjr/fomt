@@ -182,6 +182,11 @@ antrean kosong. Catatan loop:
   `flock`. File lama `decomp/state/progress.json` sudah dipecah otomatis
   (tersisa sebagai `.bak`), jangan dipakai lagi.
 - Draf: `decomp/drafts/<nama>.c`.
+- Provenance draf: state menyimpan `draft_src` (`m2c`/`manual`) + `m2c_hash`.
+  `resanitize_stale` hanya menimpa draf yang isinya masih keluaran tool (hash
+  cocok, atau penanda `typedef struct GenObj` untuk entri lama); draf manual
+  dikunci `draft_src=manual` dan tidak pernah diregenerasi. Jangan andalkan
+  mtime: setelah judge, `judged_mtime` = mtime draf itu sendiri.
 - Log judge: `decomp/logs/judge_<nama>/<agent>/` (ramping: hanya
   `func.c`/`func.s`; artefak `.o`/`.i`/`ref.o`/`common.h` dihapus otomatis
   tiap judge selesai — butuh lengkap? `FOMT_KEEP_ARTIFACTS=1`).
