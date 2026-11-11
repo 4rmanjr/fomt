@@ -248,3 +248,51 @@ Bila blok sudah terlanjur ditempel dan build merah: buang blok dari
 splitter meng-omit chunk asm hanya bila `src/` punya section
 `.text.<stem>.<addr>` yang sama) + kembalikan status state shard ke
 `failed` dengan `judged_mtime` 0, lalu `make compare` untuk bukti hijau.
+
+## 12. State basi `promoted` tanpa blok (dulu `[GAGAL]`, sekarang SKIP)
+
+Gejala: `python3 decomp/migrate.py --module <mod>.s` berhenti di fungsi
+pertama dengan
+`[GAGAL] blok DECOMP-MATCHED tidak ditemukan di decomp/promoted/<mod>.cc`,
+padahal fungsi itu **sudah** ada di `src/` (marker `DECOMP-MATCHED`).
+Dulu 166 entri state seperti ini memblokir seluruh batch modul.
+
+Sebab: setelah pindah, blok dicabut dari `decomp/promoted/` tetapi status
+state tetap `promoted`; `migrate_one()` dulu memanggil `extract_block()`
+sebelum cek "sudah ada di src", jadi keluar sebagai GAGAL.
+
+Perbaikan (2026-11-11, `decomp/migrate.py:_already_in_src`): cek
+marker di semua varian `src/<stem>{,_c,_v,_migrated}.{cc,c}` dijalankan
+**sebelum** `extract_block()`. Entri basi jadi SKIP yang tidak memblokir
+batch. Kalau audit masih bilang `tidak ditemukan (asm/promoted)`, jalankan
+`python3 tools/scripts/migrate_audit.py` untuk klasifikasi ulang.
+
+## 13. Definisi fungsi membawa tipe sendiri, pemanggil punya extern usang
+
+Kasus nyata `func_08092640` (`code_0803EE94`, 2026-11-11): blok definisi
+mendeklarasikan `void *func_08092640(GenObj *arg0)` (hanya baca r0),
+sedangkan blok pemanggilnya (`func_080931B0`, sudah di `src/`) memakai
+extern m2c `i32 func_08092640(i32, i32)` dan memanggil dengan 2 argumen
+(r1 = `arg2` dimuat di asm walau callee mengabaikannya). Gate menolak:
+`definisi ... vs extern usang di src ... butuh penyatuan manual`.
+
+Resep yang terbukti byte-identik + `make compare` HIJAU:
+
+1. Pindahkan blok definisi apa adanya ke `src/<stem>.cc` (dengan
+   `__attribute__((section(".text.<stem>.<addr>")))`), typedef-nya masuk
+   area `// === MIGRATED TYPES ===` dengan nama `GenObj__func_<addr>`.
+2. Tambahkan **parameter kedua yang tidak dipakai** pada definisi supaya
+   signature-nya sah untuk call-site yang mengirim r1:
+   `void *func_08092640(GenObj__func_08092640 *arg0, i32 unused_arg1)`.
+   Parameter tak terpakai tidak menghasilkan kode — layout prolog tetap.
+3. Samakan extern di blok pemanggil ke signature itu dan cast eksplisit
+   di call-site:
+   `arg0->unk4 = (i32)func_08092640((GenObj__func_08092640 *)__builtin_new(0x10C), arg2);`
+   Cast pointer/return tidak menghasilkan instruksi, jadi asm pemanggil
+   (termasuk pemuatan r1) tidak berubah.
+4. Buang blok definisi dari `decomp/promoted/`, biarkan status state
+   `promoted`, lalu `make compare` sebagai bukti.
+
+Jangan membuang argumen dari call-site: itu menghapus pemuatan r1 dan
+mengubah byte pemanggil. Jangan juga mengubah tipe return menjadi pointer
+di call-site tanpa cast — field tujuan bertipe `i32`.

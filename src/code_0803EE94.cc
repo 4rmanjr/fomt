@@ -810,6 +810,21 @@ typedef struct GenObj__func_080925C4 {
 // === END MIGRATED TYPES ===
 
 // === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08092640 {
+    u8 _pad0[4];
+    void *unk4;
+    i32 unk8;
+    u8 _padC[140];
+    u8 unk98;
+    u8 _pad99[99];
+    i32 unkFC;
+    i32 unk100;
+    i32 unk104;
+    i32 unk108;
+} GenObj__func_08092640;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
 typedef struct GenObj__func_08092690 {
     u8 _pad0[4];
     void *unk4;
@@ -5248,10 +5263,33 @@ void func_08092CD0(GenObj__func_08092CD0 *arg0, i32 arg1) {
 }
 }
 
+// DECOMP-MATCHED func_08092640 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080CE19C();                                /* extern */
+extern i32 vtable_unk_080E7DD8;
+
+__attribute__((section(".text.code_0803EE94.08092640")))
+void *func_08092640(GenObj__func_08092640 *arg0, i32 unused_arg1) {
+    i32 *pFC;
+    i32 temp_r1;
+
+    func_080CE19C();
+    arg0->unk4 = &vtable_unk_080E7DD8;
+    arg0->unk98 = 0;
+    pFC = &arg0->unkFC;
+    temp_r1 = arg0->unk8;
+    *pFC = temp_r1 + 0x1C34;
+    arg0->unk100 = temp_r1 + 0x1C2C;
+    arg0->unk104 = temp_r1 + 0x1C38;
+    arg0->unk108 = 0;
+    return arg0;
+}
+}
+
 // DECOMP-MATCHED func_080931B0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __builtin_new(i32);                             /* extern */
-i32 func_08092640(i32, i32);                        /* extern */
+void *func_08092640(GenObj__func_08092640 *, i32); /* extern */
 extern i32 vtable_unk_080E7DE4;
 
 __attribute__((section(".text.code_0803EE94.080931B0")))
@@ -5259,7 +5297,7 @@ void *func_080931B0(GenObj__func_080931B0 *arg0, i32 *arg1, i32 arg2) {
     i32 temp_r1;
 
     arg0->unk0 = &vtable_unk_080E7DE4;
-    arg0->unk4 = func_08092640(__builtin_new(0x10C), arg2);
+    arg0->unk4 = (i32)func_08092640((GenObj__func_08092640 *)__builtin_new(0x10C), arg2);
     temp_r1 = *arg1;
     *arg1 = 0;
     arg0->unk8 = temp_r1;

@@ -2192,6 +2192,27 @@ def compare_failed_byte_diff(compare_tail):
     return False
 
 
+def _already_in_src(stem, func):
+    """Path src/<varian> yang sudah punya marker DECOMP-MATCHED func, atau "".
+
+    Dipakai DUA kali: sebelum extract_block (state basi `promoted` yang bloknya
+    sudah dicabut dari decomp/promoted/ setelah pindah -> dulu berhenti sebagai
+    GAGAL dan memblokir seluruh batch modul) dan sebelum sisip blok.
+    """
+    for _suf in ("", "_c", "_v", "_migrated"):
+        for _ext in ("cc", "c"):
+            _p = REPO / "src" / f"{stem}{_suf}.{_ext}"
+            if not _p.exists():
+                continue
+            try:
+                _t = _p.read_text()
+            except OSError:
+                continue
+            if re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b", _t):
+                return str(_p)
+    return ""
+
+
 def migrate_one(module, func, dry_run=False):
     stem = module[: -len(".s")]
     state = load_state(stem)
@@ -2206,6 +2227,15 @@ def migrate_one(module, func, dry_run=False):
             "(bukan promoted, dilewati)",
         }
     addr = info["addr"]
+    # Sudah-pindah dicek SEBELUM extract_block: entri state basi (status masih
+    # `promoted` tapi blok sudah dicabut dari decomp/promoted/ karena sudah
+    # pindah ke src/) dulu keluar sebagai GAGAL dan menghentikan batch modul
+    # (166 entri per 2026-11-11). Sekarang jadi SKIP yang tidak memblokir.
+    _moved = _already_in_src(stem, func)
+    if _moved:
+        return {"func": func, "module": module, "ok": False,
+                "skipped": True,
+                "detail": f"{func} sudah ada di {_moved} (dilewati)"}
     promoted_path = REPO / "decomp" / "promoted" / f"{stem}.cc"
     src_path = REPO / "src" / f"{stem}.cc"
     lds_path = REPO / "fomt.lds"
@@ -2397,21 +2427,7 @@ def migrate_one(module, func, dry_run=False):
     # dicek, func_080D0644 lolos dry-run padahal sudah ada di _v.c ->
     # multiple definition saat link. Dry-run dan real-run melewati titik
     # ini — satu sumber kebenaran untuk keduanya.
-    _already_where = ""
-    for _suf in ("", "_c", "_v", "_migrated"):
-        for _ext in ("cc", "c"):
-            _p = REPO / "src" / f"{stem}{_suf}.{_ext}"
-            if not _p.exists():
-                continue
-            try:
-                _t = _p.read_text()
-            except OSError:
-                continue
-            if re.search(rf"// DECOMP-MATCHED {re.escape(func)}\b", _t):
-                _already_where = str(_p)
-                break
-        if _already_where:
-            break
+    _already_where = _already_in_src(stem, func)
     if _already_where:
         return {"func": func, "module": module, "ok": False,
                 "skipped": True,
