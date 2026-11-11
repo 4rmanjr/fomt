@@ -415,11 +415,14 @@ void *func_08032934(GenObj *arg0, s32 arg1, GenObj *arg2) {
     return arg0;
 }
 
+
+
 // DECOMP-MATCHED func_080342D8 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
 s32 GetCurrentTask__C13HarvestSprite(s32);            /* extern */
 s32 GetFriendship__C3Npc(s32);                        /* extern */
 s32 GetTaskExp__C13HarvestSpriteQ213HarvestSprite4Task(s32, s32); /* extern */
-s32 func_080338F0();                                  /* extern */
+s32 func_080338F0(s32);                                  /* extern */
+s32 func_08034180(void *, s32, s32, s32);              /* extern */
 s32 func_08034260(void *);                            /* extern */
 u32 func_080AB788(s32);                               /* extern */
 s32 method_0809E7D8__13HarvestSpritePC15UnkBarnAnimal2C(s32, s32 *); /* extern */
@@ -442,8 +445,8 @@ void func_080342D8(GenObj *arg0) {
     s32 task;
     s32 exp;
 
-    GetFriendship__C3Npc(arg0->unk34);
-    if (((func_080338F0() << 0x18) == 0) || ((func_08034260(arg0) << 0x18) == 0)) {
+    if (((func_080338F0(GetFriendship__C3Npc(arg0->unk34)) << 0x18) == 0) ||
+        ((func_08034260(arg0) << 0x18) == 0)) {
         sp0.lo = func_080AB788(0xB4);
         sp0.mid = 0;
         task = arg0->unk34;

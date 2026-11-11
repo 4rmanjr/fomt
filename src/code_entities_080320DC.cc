@@ -113,6 +113,20 @@ typedef struct GenObj__func_08032934 {
 } GenObj__func_08032934;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct {
+    u16 lo : 16;
+    u8 mid : 8;
+    u8 hi : 8;
+} SP0;
+typedef struct GenObj__func_080342D8 {
+    u8 _pad0[0x20];
+    u8 unk20;
+    u8 _pad21[19];
+    i32 unk34;
+} GenObj__func_080342D8;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_080324B8 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_entities_080320DC.080324B8")))
@@ -147,7 +161,6 @@ void *func_08032934(GenObj__func_08032934 *arg0, i32 arg1, GenObj__func_08032934
     return arg0;
 }
 }
-
 
 // DECOMP-MATCHED func_08033800 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -236,6 +249,37 @@ u16 func_08034248(GenObj *arg0, i32 arg1) {
 }
 
 /* ATTEMPT-NOTE opencode: unk30 u8; base (u8*) di var agar ldr-pc dulu + byte-arith (lsl#1) bukan i32-scale (lsl#3). */
+}
+
+// DECOMP-MATCHED func_080342D8 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 GetCurrentTask__C13HarvestSprite(i32);            /* extern */
+i32 GetFriendship__C3Npc(i32);                        /* extern */
+i32 GetTaskExp__C13HarvestSpriteQ213HarvestSprite4Task(i32, i32); /* extern */
+i32 func_080338F0(i32 arg0);                             /* extern */
+i32 func_08034180(void *, i32, i32, i32);              /* extern */
+i32 func_08034260(void *);                            /* extern */
+u32 func_080AB788(i32);                               /* extern */
+i32 method_0809E7D8__13HarvestSpritePC15UnkBarnAnimal2C(i32, i32 *); /* extern */
+
+__attribute__((section(".text.code_entities_080320DC.080342D8")))
+void func_080342D8(GenObj__func_080342D8 *arg0) {
+    SP0 sp0;
+    i32 task;
+    i32 exp;
+
+    if (((func_080338F0(GetFriendship__C3Npc((i32)(arg0->unk34))) << 0x18) == 0) ||
+        ((func_08034260(arg0) << 0x18) == 0)) {
+        sp0.lo = func_080AB788(0xB4);
+        sp0.mid = 0;
+        task = arg0->unk34;
+        exp = GetTaskExp__C13HarvestSpriteQ213HarvestSprite4Task(
+                  task, GetCurrentTask__C13HarvestSprite(task));
+        sp0.hi = (func_080AB788(0x100 - exp) >> 6) + 2;
+        method_0809E7D8__13HarvestSpritePC15UnkBarnAnimal2C((i32)(arg0->unk34), (i32 *) &sp0);
+        func_08034180(arg0, 0, (i32)(arg0->unk20), 0);
+    }
+}
 }
 
 // DECOMP-MATCHED func_08034940 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
