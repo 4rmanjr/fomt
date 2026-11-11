@@ -292,8 +292,9 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
   `tools/scripts/decomp_engine.py` (engine kerja: `queue` antrean kandidat
   `failed` |len-ref| <= 4 berperingkat + klasifikasi pola, `diff <func>`
   diff hasil judge vs ref yang sudah dinormalisasi,  `attempt <func> --draft f
-  [--migrate]` tulis draf + `fomt` + opsional migrasi/compare dengan cap 5 (`--force` melewati cap; hanya untuk draf yang sudah berubah dengan bentuk terverifikasi probe)
-  percobaan per fungsi; `learn` bangun ulang prior pola dari seluruh judge log
+  [--migrate]` tulis draf + `fomt` + opsional migrasi/compare dengan cap 5
+  percobaan per fungsi (`--force` melewati cap; hanya untuk draf yang sudah
+  berubah dengan bentuk terverifikasi probe); `learn` bangun ulang prior pola dari seluruh judge log
   + state; `hint <func>` resep historis yang pernah MATCH untuk pola itu.
   `queue` memeringkat pakai prior hasil `learn` (`p=rate`), `--kind` untuk
   filter pola; klasifikasi di-cache di `decomp/engine/cache/`. Riwayat
