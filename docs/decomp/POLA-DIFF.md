@@ -900,10 +900,12 @@ Bukti pendukung: `sp0.lo` menghasilkan pasangan `lsls #0x10; lsrs #0x10`
 8 bit. Kalau ketiga store ditulis sebagai field biasa, agbcc memakai
 `strh`/`strb` dan diff langsung terlihat.
 
-## 22. Post-decrement `n--`: salinan hanya bila counter signed
+## 22. Post-decrement `n--`: kapan agbcc menyalin nilai lama
 
 Bentuk `add rX, rY, #0 / sub rY, #1 / cmp rX, #0 / bne` (menyalin nilai LAMA,
-lalu decrement) hanya keluar bila counter-nya **signed**. Hasil probe agbcc:
+lalu decrement) keluar untuk counter **signed**, dan juga untuk `u32` bila
+perbandingannya ditulis `n-- > 0` (bukan `n--` / `n-- != 0`). Satu file bisa
+memakai dua bentuk sekaligus — bukti di §24. Hasil probe agbcc:
 
 | bentuk | asm |
 |---|---|

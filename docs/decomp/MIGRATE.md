@@ -384,7 +384,8 @@ modul, bukan hanya milik fungsi yang dimigrasi.
 Penanganan: samakan semua deklarasi callee di modul ke tanda tangan `src/`,
 buang blok duplikat (`promoted` hanya boleh punya satu blok per fungsi), lalu
 judge ulang fungsi yang bloknya ditulis ulang. Cek cepat:
-`grep -c "^void func_<nama>(" decomp/promoted/<modul>.cc` harus 1.
+`grep -cE "^(void|s32|i32) func_<nama>\\(" decomp/promoted/<modul>.cc` harus 1
+(jangan `^void` saja — blok duplikat bisa berbeda tipe kembali).
 
 SKIP lain yang mirip bentuknya: `call-site ... tak konversi implisit ke
 parameter i32` berarti deklarasi di blok masih `func_XXXX()` tanpa parameter
