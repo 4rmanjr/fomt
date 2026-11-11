@@ -391,10 +391,6 @@ SKIP lain yang mirip bentuknya: `call-site ... tak konversi implisit ke
 parameter i32` berarti deklarasi di blok masih `func_XXXX()` tanpa parameter
 sementara `src/` punya parameter — salin deklarasi `src/` apa adanya (termasuk
 `i32`; gate menerjemahkan `s32`↔`i32` otomatis).
-Sub-jebakan: blok duplikat bisa berbeda **tipe kembali** (`void` vs `s32`), jadi
-`grep -c "^void func_<nama>("` meleset. Pakai
-`grep -cE "^(void|s32|i32) func_<nama>\(" decomp/promoted/<modul>.cc`.
-
 `promote()` tidak menimpa blok yang sudah ada, jadi urutan yang benar untuk
 menulis ulang blok: **hapus dulu** semua blok + baris `// DECOMP-MATCHED` milik
 fungsi itu, baru judge ulang. Kalau tidak, blok lama tetap dipakai gate
