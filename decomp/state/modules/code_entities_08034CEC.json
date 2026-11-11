@@ -1764,9 +1764,10 @@
  },
  "func_080384FC": {
   "addr": 134448380,
-  "judged_mtime": 1793582714.094408,
+  "draft_src": "manual",
+  "judged_mtime": 1794385591.8562694,
   "module": "code_entities_08034CEC.s",
-  "note": "omething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080384FC/opencode/func.c:24: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080384FC/opencode/func.c:24: request for member `unk1' in something not a structure or union\n",
+  "note": "byte +0x1a: 0x22 vs ref 0x20 [1missing,1extra,1operand,7regalloc @r adds r0, r4, #0 | adds r2, r4, #0]",
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 659,
@@ -1786,13 +1787,15 @@
  },
  "func_08038580": {
   "addr": 134448512,
-  "judged_mtime": 1793582714.094408,
+  "draft_src": "manual",
+  "judged_mtime": 1794386064.4623628,
   "module": "code_entities_08034CEC.s",
-  "note": "len 58 vs ref 46 [1missing,7extra,6operand,3different @>  | ldr r0, [pc, #0x20]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 504,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080385B0": {

@@ -843,3 +843,27 @@ apa adanya sehingga **setiap fungsi ber-stack frame terlihat beda 2 instruksi**
 pada `add`/`sub` menjadi op yang berlawanan, sehingga `func_08021EE0`
 kembali `identik` dan jumlah op di antrean turun (mis. `func_08032A00`
 dari 8 ke 2).
+
+## 19. Cabang "skip" (bge ke epilog) vs cabang ke store
+
+`func_08038580` ref memuat byte 0x47 ke r1, memakai r1 untuk `ldrb` **dan**
+`strb` terakhir, dan cabang `bge` melompat ke **epilog**, bukan ke store.
+Draf yang ditulis sebagai dua store terpisah (`if (unk47 != 0) {...} else if
+(...) {...}`) menghasilkan dua `strb`; draf dengan variabel `v` yang di-set di
+awal menghasilkan `beq` lebih dulu. Bentuk yang MATCH:
+
+```c
+p = (u8 *) arg0 + 0x47;
+if (*p == 0) {
+    if ((f(...) << 0x1E) >= 0) return;   /* bge -> epilog */
+    p = (u8 *) arg0 + 0x44;
+    v = 1;
+} else {
+    v = 0;
+}
+*p = v;                                   /* satu strb, r1 dipakai ulang */
+```
+
+Aturan: kalau ref hanya punya **satu** `strb` dengan alamat di register yang
+sama dengan `ldrb` sebelumnya, sumbernya satu statement store sesudah
+if/else-if, dan test yang gagal harus `return` — bukan `goto store`.

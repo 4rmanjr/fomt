@@ -679,6 +679,15 @@ typedef struct GenObj__func_08035A48 {
 } GenObj__func_08035A48;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08038580 {
+    u8 _pad0[0x44];
+    u8 unk44;
+    u8 _pad45[2];
+    u8 unk47;
+} GenObj__func_08038580;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035908 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 SetAnim__12AActorEntityUi(void *, i32);           /* extern */
@@ -2342,6 +2351,29 @@ void func_08038374(GenObj__func_08038374 *arg0, i32 arg1, i32 arg2, i32 arg3, i3
     arg0->unk8 = arg1;
     arg0->unkC = arg2;
     func_08038398(arg0, arg3, arg4);
+}
+}
+
+// DECOMP-MATCHED func_08038580 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0805E8F0(void *);                            /* extern */
+
+__attribute__((section(".text.code_entities_08034CEC.08038580")))
+void func_08038580(GenObj__func_08038580 *arg0) {
+    u8 *p;
+    u8 v;
+
+    p = (u8 *) arg0 + 0x47;
+    if (*p == 0) {
+        if (((i32) (func_0805E8F0((u8 *) arg0 + 0x30) << 0x1E)) >= 0) {
+            return;
+        }
+        p = (u8 *) arg0 + 0x44;
+        v = 1;
+    } else {
+        v = 0;
+    }
+    *p = v;
 }
 }
 

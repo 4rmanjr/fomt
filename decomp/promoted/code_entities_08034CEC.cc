@@ -2146,3 +2146,30 @@ void func_08035A48(GenObj *arg0, GenObj *arg1) {
         }
     }
 }
+
+// DECOMP-MATCHED func_08038580 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+s32 func_0805E8F0(void *);                            /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[0x44];
+    u8 unk44;
+    u8 _pad45[2];
+    u8 unk47;
+} GenObj;
+
+void func_08038580(GenObj *arg0) {
+    u8 *p;
+    u8 v;
+
+    p = (u8 *) arg0 + 0x47;
+    if (*p == 0) {
+        if (((s32) (func_0805E8F0((u8 *) arg0 + 0x30) << 0x1E)) >= 0) {
+            return;
+        }
+        p = (u8 *) arg0 + 0x44;
+        v = 1;
+    } else {
+        v = 0;
+    }
+    *p = v;
+}
