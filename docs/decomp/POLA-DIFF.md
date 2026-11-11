@@ -748,3 +748,35 @@ Sektor `code_libc_string` (6 fungsi, 76–140B) gagal total di m2c
   sedikit (84 vs 86), `while (n-- != 0)` justru 92 vs 86.
 - **`strcpy` mentok di regalloc murni**: instruksi identik, hanya `dst` di r5
   vs r6. Reorder deklarasi `s`/`d` tidak menggeser; parkir.
+
+## 15. `cmp rX, #0x0; bcc` tidak bisa dihasilkan C (hasil probe)
+
+Pembukti negatif: `func_08050AD8` masih kurang `cmp r5, #0x0; bcc` (2 instruksi)
+setelah 5 varian. Daripada menebak lagi, bentuk C diuji langsung dengan
+`tools/scripts/cc_probe.py` (pipeline cpp -> agbcc, berhenti sebelum as).
+
+24 bentuk diuji, dua kompiler:
+
+```text
+x < 0U            x < 0             x < 0x0           x <= 0
+x >= 0U           x >= 0            (u32)x < 0U       x - 0 < 0U
+0U > x            x < (u32)0        x < ZERO(konst)   x < 0x80000000U
+x < 0ULL          (u64)x < 0ULL     x > 0xFFFFFFFEU  (s32)(x-1) < 0
+x < 4U            x < 0x80000001U   (x & 0xFFFFFFFFU) < 0U   x < y (y = x - x)
+```
+
+Hasil: **0 kemunculan** `cmp rX, #0x0` di agbcc maupun old_agbcc. Keduanya
+melipat semua perbandingan dengan nol (contoh: `if (x < 0U) return 1;`
+langsung jadi `mov r0, #0`).
+
+Kesimpulan: pasangan `cmp r5, #0x0; bcc` di ref bukan hasil perbandingan C
+dengan nol, jadi ia **tidak dapat direproduksi** dari C dengan rangkaian alat
+ini — bukan resep yang belum ketemu, melainkan perbedaan sumber/versi build.
+Untuk fungsi dengan sisa persis pola ini: parkir, jangan bakar kuota judge.
+
+Cara cepat memakainya:
+
+```bash
+python3 tools/scripts/cc_probe.py potongan.c --grep 'bcc|cmp.*#0x0' -C 1
+python3 tools/scripts/cc_probe.py potongan.c --compiler old_agbcc
+```
