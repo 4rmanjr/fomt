@@ -96,6 +96,9 @@ def _norm_op(op):
     """Samakan mnemonik agbcc (`adds`) dan gas (`adds`), plus alias kondisi."""
     if op in ("b", "bl", "bx", "blx", "push", "pop"):
         return op
+    # `stmia r1!, {...}` dan `stm r1!, {...}` adalah instruksi yang sama
+    if op in ("stmia", "ldmia"):
+        return op[:-2]
     if op in S_BASE:
         return op
     if op.endswith("s") and op[:-1] in S_BASE:
@@ -116,6 +119,10 @@ def norm(line):
     # `ldr rX, .Lpool+0x4`: offset ke literal pool bergantung urutan pool di
     # hasil kompilasi, bukan perbedaan kode — jangan dihitung sebagai diff.
     rest = re.sub(r"\*[+-]0x[0-9A-Fa-f]+", "*", rest)
+    # target cabang numerik (`bls #0x46`) = label relatif yang sudah dirakit;
+    # nomornya bergantung ukuran instruksi di sekitarnya, bukan beda kode.
+    if re.match(r"^#0x[0-9A-F]+$", rest):
+        rest = "*"
     m_inplace = re.match(r"(r\d+|sp|lr), (r\d+|sp|lr), (.+)$", rest)
     if m_inplace and m_inplace.group(1) == m_inplace.group(2):
         rest = m_inplace.group(1) + ", " + m_inplace.group(3)
@@ -388,6 +395,49 @@ def cmd_hint(a):
     return 0
 
 
+def cmd_sectors(a):
+    """Laporan per modul (sektor): total, selesai, sisa failed, pola dominan sisa."""
+    st = load_state()
+    agg = {}
+    for fn, v in st.items():
+        mod = (v.get("module") or "?").removesuffix(".s")
+        s = agg.setdefault(mod, {"total": 0, "done": 0, "failed": 0,
+                                 "pending": 0, "kinds": {}})
+        s["total"] += 1
+        status = v.get("status")
+        if status in ("matched", "promoted"):
+            s["done"] += 1
+        elif status == "failed":
+            s["failed"] += 1
+            kind, _ = _features(fn, v)
+            if kind:
+                s["kinds"][kind] = s["kinds"].get(kind, 0) + 1
+        else:
+            s["pending"] += 1
+    rows = []
+    for mod, s in agg.items():
+        kinds = sorted(s["kinds"].items(), key=lambda kv: -kv[1])
+        rows.append({"module": mod, **s, "kind": kinds[0][0] if kinds else "-",
+                     "kind_n": kinds[0][1] if kinds else 0,
+                     "pct": round(100.0 * s["done"] / max(s["total"], 1), 1)})
+    rows.sort(key=lambda r: (r["failed"], -r["total"]))
+    if a.json:
+        print(json.dumps(rows[:a.limit], indent=1))
+        return 0
+    print(f"sektor (modul) diurutkan dari sisa failed paling sedikit:")
+    print(f"  {'modul':22s} {'total':>5s} {'selesai':>7s} {'sisa':>5s} {'%':>6s}  pola sisa")
+    for r in rows[:a.limit]:
+        if r["total"] == 0 or (r["failed"] == 0 and r["pending"] == 0):
+            continue
+        print(f"  {r['module']:22s} {r['total']:5d} {r['done']:7d} {r['failed']:5d} "
+              f"{r['pct']:6.1f}  {r['kind']} ({r['kind_n']})")
+    tot = sum(r["total"] for r in rows)
+    done = sum(r["done"] for r in rows)
+    print(f"  TOTAL {tot} fungsi, selesai {done}, sisa failed {sum(r['failed'] for r in rows)},"
+          f" pending {sum(r['pending'] for r in rows)}")
+    return 0
+
+
 def cmd_diff(a):
     st = load_state()
     if a.func not in st:
@@ -436,6 +486,8 @@ def cmd_queue(a):
             continue
         kind, ops = _features(fn, v)
         if kind is None or (a.kind and kind != a.kind):
+            continue
+        if a.module and a.module.removesuffix(".s") not in (v.get("module") or ""):
             continue
         prior, n = kb_prior(kb, kind)
         ref_len = v.get("ref_len", 0)
@@ -541,11 +593,16 @@ def main(argv):
     q.add_argument("--limit", type=int, default=12)
     q.add_argument("--max-delta", type=int, default=4)
     q.add_argument("--kind", help="hanya satu pola (copy, zero-reload, ...)")
+    q.add_argument("--module", help="hanya satu modul/ sektor, mis. code_entities.s")
     q.add_argument("--json", action="store_true")
     q.set_defaults(fn=cmd_queue)
     ln = sub.add_parser("learn", help="bangun ulang basis pengetahuan pola")
     ln.add_argument("--json", action="store_true")
     ln.set_defaults(fn=cmd_learn)
+    sc = sub.add_parser("sectors", help="progres per modul + pola sisa")
+    sc.add_argument("--limit", type=int, default=16)
+    sc.add_argument("--json", action="store_true")
+    sc.set_defaults(fn=cmd_sectors)
     h = sub.add_parser("hint", help="resep historis untuk pola satu fungsi")
     h.add_argument("func")
     h.set_defaults(fn=cmd_hint)

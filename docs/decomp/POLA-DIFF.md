@@ -733,3 +733,18 @@ Tanda tangan callee `s8 GetGrowthStage(...)` lalu disimpan ke variabel `s8`
 membuat agbcc menambahkan `lsl rX, #0x18; asr rX, #0x18` setiap kali nilai
 dipakai, padahal ref hanya `add r5, r0, #0x0`. Deklarasikan extern-nya `s32`
 dan tampung di `s32`; penyempitan (bila ada) cukup di titik store `u8`.
+
+## 14. Fungsi libc SDK: load/store multiple dan jebakan regalloc
+
+Sektor `code_libc_string` (6 fungsi, 76–140B) gagal total di m2c
+(`invalid type argument of unary '*'`), jadi harus ditulis manual dari ref.
+
+- **`ldm rX!, {r0}` + `stm rY!, {r0}`** muncul hanya bila salinan ditulis
+  sebagai `*(u32 *) d = *(u32 *) s;` lalu `s += 4; d += 4;`. Kalau nilainya
+  disimpan dulu (`w = *(u32 *) s; *(u32 *) d = w;`), agbcc mengeluarkan
+  `ldr`/`str` + dua `add`.
+- **Loop byte gaya libc** (`strb; add; add n,#0; sub n,#1; cmp; bne`) memakai
+  salinan `n` di akhir iterasi. `while (n != 0)` menghasilkan 1 instruksi lebih
+  sedikit (84 vs 86), `while (n-- != 0)` justru 92 vs 86.
+- **`strcpy` mentok di regalloc murni**: instruksi identik, hanya `dst` di r5
+  vs r6. Reorder deklarasi `s`/`d` tidak menggeser; parkir.

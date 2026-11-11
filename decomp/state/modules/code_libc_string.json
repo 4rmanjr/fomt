@@ -1,9 +1,10 @@
 {
  "memcmp": {
   "addr": 135084360,
-  "judged_mtime": 1793015411.8841975,
+  "draft_src": "manual",
+  "judged_mtime": 1794383479.8191993,
   "module": "code_libc_string.s",
-  "note": "decomp/logs/judge_memcmp/opencode/func.c:15: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memcmp/opencode/func.c:32: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memcmp/opencode/func.c:33: invalid type argument of `unary *'\n",
+  "note": "len 74 vs ref 76 (2 percobaan). Urutan lokal p2-dulu memperbaiki regalloc (10 -> 4). Sisa: ref punya `b *` ke loop byte + `add r0, r4, #0` (salinan n).",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 644,
@@ -36,9 +37,10 @@
  },
  "memset": {
   "addr": 135084676,
-  "judged_mtime": 1793015412.9034216,
+  "draft_src": "manual",
+  "judged_mtime": 1794383514.026392,
   "module": "code_libc_string.s",
-  "note": "encode/func.c:29: warning: assignment makes integer from pointer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memset/opencode/func.c:35: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_memset/opencode/func.c:46: invalid type argument of `unary *'\n",
+  "note": "len 84 vs ref 86 (4 percobaan). Struktur word/16/4/byte sudah benar; ref punya `add r0, r2, #0; cmp r0, #0` (salinan n) di loop byte yang tak muncul dari `while (n != 0)` maupun `while (n-- != 0)` (yang justru 92). Sisa 1 instruksi.",
   "ref_len": 88,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -59,9 +61,10 @@
  },
  "strcpy": {
   "addr": 135084840,
-  "judged_mtime": 1793015413.8982491,
+  "draft_src": "manual",
+  "judged_mtime": 1794383479.8195002,
   "module": "code_libc_string.s",
-  "note": "decomp/logs/judge_strcpy/opencode/func.c:22: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_strcpy/opencode/func.c:28: invalid type argument of `unary *'\n/home/armanjr/gitproject/fomt/decomp/logs/judge_strcpy/opencode/func.c:29: invalid type argument of `unary *'\n",
+  "note": "identik kecuali regalloc (8): ref dst->r6, d->r3, s->r2; draf dst->r5. Word loop sudah `*(u32*)d = *(u32*)s` (ldm/stm dengan writeback). Wall regalloc.",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 724,
