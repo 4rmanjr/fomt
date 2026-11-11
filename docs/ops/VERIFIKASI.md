@@ -14,8 +14,12 @@ Tool: [`TOOLS.md`](./TOOLS.md).
 | `fomt verify` | **hanya bila user meminta** |
 
 `fomt verify` mengaudit ulang semua fungsi promoted/matched dari nol tanpa
-mengubah state (exit 0 = semua masih MATCH). Mahal (~7 mnt) — jangan dijalankan
-rutin di akhir sesi. Bila diminta, pakai `--module <stem>` atau `--since` dulu,
+mengubah state (exit 0 = semua masih MATCH). Blok yang dibaca dari `src/`
+(fungsi sudah dimigrasi) dinormalkan dulu ke bentuk C: typedef per-fungsi yang
+di-hoist `migrate.py` disertakan kembali, `i32` dipetakan ke `s32`, dan
+pembungkus `extern "C" { ... }` dilepas — byte hasil judge tidak berubah,
+hanya agar harness agbcc bisa mengompilasi potongan blok itu. Mahal (~7 mnt) —
+jangan dijalankan rutin di akhir sesi. Bila diminta, pakai `--module <stem>` atau `--since` dulu,
 dan baca baris per fungsi (`func_X: MATCH () | gagal 0`) — exit code modul
 gagal bila ADA fungsi lain di modul itu yang gagal.
 

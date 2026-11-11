@@ -1260,6 +1260,7 @@ def _judge(name: str, tag: str | None = None) -> tuple[bool, str]:
             if i >= 0:
                 j = text.find("// DECOMP-MATCHED ", i + len(marker))
                 promoted_src = text[i:j if j >= 0 else len(text)].strip() + "\n"
+                promoted_src = _src_block_c_form(promoted_src, text)
     if not d.exists():
         return False, "no draft (m2c gagal; tulis manual)"
     body = promoted_src or d.read_text()
@@ -1517,6 +1518,64 @@ def _promoted_block(name: str) -> str | None:
         return None
     j = text.find("// DECOMP-MATCHED ", i + len(marker))
     return text[i:j if j >= 0 else len(text)]
+
+
+def _with_local_typedefs(block: str, filetext: str) -> str:
+    """Sertakan typedef file sumber yang dipakai blok tapi berada di luar blok.
+
+    Blok hasil migrate di `src/` memakai typedef per-fungsi yang di-hoist
+    migrate.py ke bagian "MIGRATED TYPES" di atas blok, jadi potongan blok
+    saja tidak bisa dikompilasi (gejala: `syntax error before '}'`). Helper
+    ini menambahkan typedef yang dirujuk blok (beserta dependensinya, urut
+    posisi di file) tanpa menyentuh isi blok.
+    """
+    # typedef yg sudah ada DI DALAM blok (jangan disisipkan lagi). Badan
+    # struct memuat ';' per field, jadi pencocokan harus sadar kurung.
+    have = set(re.findall(
+        r"typedef\s+struct\s*\w*\s*\{(?:[^{}]|\{[^{}]*\})*\}\s*(\w+)\s*;",
+        block, re.S))
+    have |= set(re.findall(r"typedef\s+struct\s+(\w+)\s+\1\s*;", block))
+    defs: dict[str, str] = {}
+    for m in re.finditer(
+            r"(?m)^typedef\s+struct\s*\w*\s*\{.*?\}\s*(\w+)\s*;\n",
+            filetext, re.S):
+        defs.setdefault(m.group(1), m.group(0))
+    need: list[str] = []
+    changed = True
+    while changed:
+        changed = False
+        for t, d in defs.items():
+            if t in have or t in need:
+                continue
+            if re.search(rf"\b{re.escape(t)}\b", block) or any(
+                    re.search(rf"\b{re.escape(t)}\b", defs[u]) for u in need):
+                need.append(t)
+                changed = True
+    if not need:
+        return block
+    pos = {t: filetext.find(defs[t]) for t in need}
+    return "".join(defs[t] for t in sorted(need, key=lambda t: pos[t])) + block
+
+
+def _src_block_c_form(block: str, filetext: str) -> str:
+    """Siapkan blok promoted_to=src/ agar bisa diadili harness C.
+
+    Blok di `src/` ditulis untuk TU `.cc`: typedef per-fungsi di-hoist
+    migrate.py ke bagian "MIGRATED TYPES" (di luar blok), nama tipe C++
+    (`i32`) dipakai, dan badan dibungkus `extern "C" { ... }`. Potongan blok
+    apa adanya tidak kompilasi dengan agbcc (gejala: `syntax error before
+    '}'`). Helper ini mengembalikan bentuk C setara: typedef yang dirujuk
+    ikut disertakan, `i32` -> `s32`, pembungkus `extern "C"` dibuang.
+    """
+    block = _with_local_typedefs(block, filetext)
+    block = re.sub(r"\bi32\b", "s32", block)
+    if not re.search(r'(?m)^\s*extern\s+"C"\s*\{', block):
+        return block
+    block = re.sub(r'(?m)^\s*extern\s+"C"\s*\{\s*$', "", block)
+    lines = block.rstrip("\n").split("\n")
+    if lines and lines[-1].strip() == "}":
+        lines.pop()
+    return "\n".join(lines) + "\n"
 
 
 def _verify_one(payload: tuple[str, str]) -> tuple[str, bool, str]:
