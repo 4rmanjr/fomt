@@ -599,6 +599,17 @@ tereliminasi, jadi `adds r2, r0, #0` (2 byte) hilang dan hasilnya 16 vs 18
 byte. Sampai sekarang belum ada varian C yang memunculkan salinan mati itu
 tanpa menambah salinan kedua; sisa 2 byte ini parkir.
 
+**Syarat pakai (hasil uji luas, 2026-11-11).** Pola `zero` hanya menolong
+bila sisa diff-nya memang didominasi pemuatan nol berulang. Diuji
+penerapan otomatis ke 2 draf pertama dari 14 kandidat "zero-reload + punya
+>=2 store nol" (`func_08070B70` u8, `func_08075B00` s32): keduanya jadi
+LEBIH jauh (mis. 200 vs 200 -> 222 vs 198) dan draf dikembalikan. Sebabnya
+sisa diff kandidat itu struktural (prolog/stack/lebar akses lain), bukan
+nol. Setelah kriteria diperketat — `zero-reload`, sisa diff <= 4 operasi,
+semua store nol menuju field u8/s8/u16/s16, draf kompilasi — kandidat
+tersisa **0**. Jadi: pakai pola ini hanya untuk fungsi yang diff-nya tinggal
+"nol dimuat 2x", bukan sebagai sapuan massal.
+
 ### 9.5 Sisa diff "regalloc saja" = wall
 
 `func_080AB82C` 3 judge: instruksi identik, hanya `i`/`acc` bertukar r1/r2
