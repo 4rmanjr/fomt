@@ -297,7 +297,12 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
   berubah dengan bentuk terverifikasi probe); `learn` bangun ulang prior pola dari seluruh judge log
   + state; `hint <func>` resep historis yang pernah MATCH untuk pola itu.
   `queue` memeringkat pakai prior hasil `learn` (`p=rate`), `--kind` untuk
-  filter pola; klasifikasi di-cache di `decomp/engine/cache/`. Riwayat
+  filter pola; klasifikasi di-cache di `decomp/engine/cache/`. Label pola
+  tiap `attempt` diambil dari diff **setelah** judge (note sebelum judge masih
+  menggambarkan percobaan sebelumnya; percobaan MATCH tetap memakai pola yang
+  dikerjakan saat dimulai, karena diff-nya sudah hilang = `identik`). `norm()`
+  menormalkan `ldr .Lpool+N`, immediate negatif `add`/`sub`, target cabang
+  numerik, dan alias `negs rX, rY` = `rsbs rX, rY, #0`. Riwayat
   percobaan & cache tidak di-commit, **basis pengetahuan
   `decomp/engine/knowledge.json` di-commit** supaya prior ikut antar sesi),
   `decomp/migrate.py ... --explain` (beda signature blok vs `src/`, tanpa

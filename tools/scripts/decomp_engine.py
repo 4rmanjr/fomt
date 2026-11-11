@@ -127,6 +127,15 @@ def norm(line):
     if m_inplace and m_inplace.group(1) == m_inplace.group(2):
         rest = m_inplace.group(1) + ", " + m_inplace.group(3)
     rest = IMM.sub(lambda m: "#0x%X" % (int(m.group(1), 0) & 0xFFFFFFFF), rest)
+    # `negs rX, rY` (agbcc) == `rsbs rX, rY, #0x0` (gas repo): neg adalah alias
+    # RSB dengan #0. Tanpa ini, fungsi yang sudah MATCH tetap terlihat 1 diff
+    # (pembukti: func_08008020). Bentuk in-place ikut diciutkan seperti rsb.
+    if op == "neg":
+        m_neg_rsb = re.match(r"^(r\d+|sp|lr), (r\d+|sp|lr)$", rest)
+        if m_neg_rsb:
+            d, s = m_neg_rsb.group(1), m_neg_rsb.group(2)
+            op = "rsb"
+            rest = d + ", #0x0" if d == s else d + ", " + s + ", #0x0"
     # `add rX, sp, #0xFFFFFFF4` == `sub rX, sp, #0xC`: agbcc mencetak immediate
     # negatif sebagai add, gas di repo mencetaknya sebagai sub. Instruksinya
     # sama persis, jadi samakan bentuk kanoniknya (kalau tidak, setiap fungsi
@@ -561,6 +570,16 @@ def cmd_attempt(a):
         if f"{fn}:" in l and ("MATCH" in l or "DIFF" in l):
             line = l.strip()
             break
+    # Label pola diambil dari diff SETELAH judge: klasifikasi sebelum judge
+    # masih menggambarkan percobaan sebelumnya, jadi verdict ini bisa menempel
+    # ke pola yang salah (kasus func_08008020: MATCH tercatat `instruksi`
+    # padahal kandidatnya `width-offset`). Pengecualian MATCH: diff-nya sudah
+    # hilang sehingga klasifikasi otomatis `identik` (= wall), jadi label yang
+    # dipakai adalah pola yang dikerjakan saat percobaan dimulai.
+    _drop_cache(fn)
+    kind_now, ops_now = _features(fn, v)
+    if not ok and kind_now:
+        kind, ops = kind_now, ops_now
     res = {"at": time.strftime("%Y-%m-%d %H:%M:%S"), "kind": kind,
            "ops": ops, "verdict": "MATCH" if ok else "DIFF",
            "detail": line[:300], "secs": round(time.time() - t0, 1)}
