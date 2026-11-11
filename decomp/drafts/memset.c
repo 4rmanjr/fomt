@@ -1,5 +1,5 @@
 void *memset(void *dst, u32 c, u32 n) {
-    u8 *d = dst;
+    u8 *d = (u8 *) dst;
     u32 *dw;
     u32 fill;
 
@@ -26,9 +26,8 @@ void *memset(void *dst, u32 c, u32 n) {
     }
     d = (u8 *) dw;
 bytes:
-    while (n != 0) {
+    while (n-- > 0) {
         *d++ = (u8) c;
-        n--;
     }
     return dst;
 }

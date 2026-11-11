@@ -899,3 +899,28 @@ Bukti pendukung: `sp0.lo` menghasilkan pasangan `lsls #0x10; lsrs #0x10`
 `u32`; `sp0.hi` menghasilkan `lsls #0x18` tanpa masking karena lebarnya pas
 8 bit. Kalau ketiga store ditulis sebagai field biasa, agbcc memakai
 `strh`/`strb` dan diff langsung terlihat.
+
+## 22. Post-decrement `n--`: salinan hanya bila counter signed
+
+Bentuk `add rX, rY, #0 / sub rY, #1 / cmp rX, #0 / bne` (menyalin nilai LAMA,
+lalu decrement) hanya keluar bila counter-nya **signed**. Hasil probe agbcc:
+
+| bentuk | asm |
+|---|---|
+| `u32 n; while (n--) {}` | `sub r1,#1; mov r2,#1; neg r2,r2; cmp r1,r2; beq` (banding -1) |
+| `s32 n; while (n--) {}` | `add r0,r1,#0; sub r1,#1; cmp r0,#0; bne` (salinan) |
+| `u32 n; do {...} while (--n);` | `sub; cmp; bne` tanpa salinan |
+| `u32 n; for (; n; n--)` | test di atas body, tanpa salinan |
+| `u32 n; while (n-- > 0)` | salinan (dipakai `memset`) |
+
+Kalau ref punya salinan + decrement sebelum test, jangan mengejar `while (n--)`
+pada `u32`; pakai `while (n-- > 0)` atau counter `s32`.
+
+## 23. Salinan mati `add rX, rY, #0` (batas)
+
+`func_08024C74` diawali `adds r2, r0, #0` yang **tidak pernah dibaca**.
+Probe: salinan itu muncul kalau store lewat pointer lokal (`p[0x3C]`,
+`p[0x3E]`, `*(u16*)(p+0xA6)`) — tapi versi itu memajukan salinan
+(`add r1, r2, #0`), bukan argumen seperti ref (`adds r0, #0x3C`).
+Kalau argumen dimajukan in-place, salinan mati dibuang agbcc. Kedua bentuk
+tidak bisa disatukan lewat C biasa -> diparkir (bandingkan §15).

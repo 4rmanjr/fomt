@@ -401,3 +401,11 @@ fungsi itu, baru judge ulang. Kalau tidak, blok lama tetap dipakai gate
 bisa menyisakan fragmen badan tanpa pembuka -> audit melaporkan
 "blok kurung tidak seimbang". Setelah setiap pemotongan jalankan
 `audit_consistency.py` dan cek `depth akhir == 0`.
+
+## 18. GAGAL karena C++ menolak `void *` implisit
+
+Gejala: `src/<modul>.cc: ANSI C++ forbids implicit conversion from 'void *' in
+initialization` saat migrate. Draf `.c` memakai `u8 *d = dst;`, sedangkan
+`src/*.cc` dikompilasi sebagai C++. Perbaiki **di draf** dengan cast eksplisit
+(`u8 *d = (u8 *) dst;`, codegen tidak berubah), hapus blok promoted lama
+(promote tidak menimpa, lihat §17), judge ulang, lalu migrate lagi.

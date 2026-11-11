@@ -38,14 +38,15 @@
  "memset": {
   "addr": 135084676,
   "draft_src": "manual",
-  "judged_mtime": 1794383514.026392,
+  "judged_mtime": 1794388150.2965863,
   "module": "code_libc_string.s",
-  "note": "len 84 vs ref 86 (4 percobaan). Struktur word/16/4/byte sudah benar; ref punya `add r0, r2, #0; cmp r0, #0` (salinan n) di loop byte yang tak muncul dari `while (n != 0)` maupun `while (n-- != 0)` (yang justru 92). Sisa 1 instruksi.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_libc_string.cc",
   "ref_len": 88,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 752,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "strcat": {
