@@ -12,7 +12,7 @@ typedef struct GenObj {
     u8 _padC[36];
     struct GenObj *unk30;
     u8 _pad34[52];
-    s32 unk68;
+    u8 unk68;
 } GenObj;
 void func_08008A68(s32 *arg0, s32 arg1) {
     GenObj *temp_r5;

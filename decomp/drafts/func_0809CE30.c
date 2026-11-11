@@ -1,9 +1,8 @@
-s32 func_0809CE30(s32 arg1) {
-    u32 temp_r0;
-
-    temp_r0 = arg1 - 0x35;
-    switch (temp_r0) {
+s32 func_0809CE30(s32 arg0, s32 arg1) {
+    switch (arg1 - 0x35) {
     default:
+        return 0xFC;
+    case 0:
         return 0xFC;
     case 1:
         return 0xF9;

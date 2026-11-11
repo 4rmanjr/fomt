@@ -499,3 +499,23 @@ s32 func_0809DF2C(s32 arg0, s32 arg1, s32 arg2) {
     }
     return var_r6;
 }
+
+// DECOMP-MATCHED func_0809CE30 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+s32 func_0809CE30(s32 arg0, s32 arg1) {
+    switch (arg1 - 0x35) {
+    default:
+        return 0xFC;
+    case 0:
+        return 0xFC;
+    case 1:
+        return 0xF9;
+    case 2:
+        return 0xFE;
+    case 3:
+        return 0xFD;
+    case 4:
+        return 0xFA;
+    case 5:
+        return 0xFB;
+    }
+}

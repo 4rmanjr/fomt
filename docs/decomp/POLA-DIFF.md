@@ -616,3 +616,48 @@ tersisa **0**. Jadi: pakai pola ini hanya untuk fungsi yang diff-nya tinggal
 (`movs r1, #0` vs `movs r2, #0`). Urutan deklarasi (`i` dulu / `acc` dulu),
 inisialisasi di deklarasi, dan `u32` vs `u8` sudah dicoba — penempatan
 register tidak berubah. Parkir.
+
+## 10. Switch jump table: `default` + case bernilai sama, dan lebar akses palsu
+
+Pembukti: `func_0809CE30` MATCH, `func_08008A68` MATCH.
+
+### 10.1 Dua label dengan nilai balik sama tetap menghasilkan 6 bodi
+
+Ref `func_0809CE30`:
+
+```asm
+add r0, r1, #0x0
+sub r0, #0x35
+cmp r0, #0x5
+bhi *              @ range 0..5 -> jump table
+```
+
+Draf `switch (arg1 - 0x35)` dengan case 1..5 dan default saja menghasilkan
+`sub #0x36; cmp #0x4` (5 entri). Supaya jadi 6 entri, tulis `default` lebih
+dulu dengan nilai balik yang sama seperti `case 0:`, lalu `case 0:`:
+
+```c
+switch (arg1 - 0x35) {
+default: return 0xFC;   /* bodi pertama */
+case 0:  return 0xFC;   /* digabung (cross-jump), tabel[0] -> bodi pertama */
+case 1:  return 0xF9;
+...
+}
+```
+
+Hasilnya 6 bodi persis seperti ref (0xFC, 0xF9, 0xFE, 0xFD, 0xFA, 0xFB).
+
+### 10.2 Nilai switch dari r1 -> argumen pertama tak terpakai
+
+`add r0, r1, #0x0` sebelum `sub` berarti nilai switch diambil dari **argumen
+kedua**. Signature: `s32 f(s32 arg0, s32 arg1)` dengan arg0 tidak dipakai
+(pola sama seperti 9.1).
+
+### 10.3 Klasifikasi `copy` bisa gejala lebar akses
+
+`func_08008A68` terklasifikasi `copy` karena diff memuat
+`add r0, r5, #0x0; add r0, #0x68; ldrb r0, [r0]`, tetapi penyebabnya bukan
+salinan: `ldrb` immediate maksimum 31, jadi akses byte di offset 0x68 wajib
+lewat `add`. Field `s32 unk68` yang diubah menjadi `u8 unk68` langsung MATCH
+(47 vs 47). Kalau diff menampilkan `add` + akses sempit, periksa dulu
+`width_mismatch.py` sebelum mengejar salinan.

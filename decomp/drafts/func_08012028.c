@@ -22,11 +22,11 @@ void ***func_08012028(void ***arg0, GenObj *arg1) {
     void **p;
     void *q;
 
+    p = (void **) &sp.sp0;
     sub_080D8178((void **) &sp.sp0, arg1->unk4);
     tmp = sp.sp0;
     sp.sp4 = &sp.sp0;
     sp.sp8 = tmp;
-    p = (void **) &sp.sp0;
     *p = 0;
     *arg0 = tmp;
     q = *(void *volatile *) &sp.sp0;

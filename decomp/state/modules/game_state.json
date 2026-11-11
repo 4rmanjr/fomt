@@ -414,7 +414,8 @@
  },
  "func_08012028": {
   "addr": 134291496,
-  "judged_mtime": 1794374423.8150182,
+  "draft_src": "manual",
+  "judged_mtime": 1794379717.8644207,
   "module": "game_state.s",
   "note": "len 56 vs ref 58 [1missing,1operand,1regalloc @< adds r1, r0, #0 | ]",
   "ref_len": 60,
