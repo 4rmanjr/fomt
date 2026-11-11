@@ -867,3 +867,15 @@ if (*p == 0) {
 Aturan: kalau ref hanya punya **satu** `strb` dengan alamat di register yang
 sama dengan `ldrb` sebelumnya, sumbernya satu statement store sesudah
 if/else-if, dan test yang gagal harus `return` — bukan `goto store`.
+
+## 20. Dua store byte berurutan: jangan majukan pointer
+
+`func_080A6640` ref menyimpan dua byte berurutan sebagai
+`strb r0, [r1]` + `strb r0, [r1, #0x1]` — **tanpa** `add r1, #0x1` di antaranya.
+Draf yang memajukan pointer (`p[0] = 0; p[1] = 0;` dengan `p += 1` implisit)
+menghasilkan `add rX, #0x1; strb rX, [rX]`, satu instruksi lebih banyak.
+Bentuk yang benar: satu variabel pointer ke awal pasangan, lalu dua store
+pada indeks tetap (`p[0]`, `p[1]`) sehingga agbcc memakai immediate offset.
+Bila blok kedua harus dimulai dari base yang sudah bergeser, tulis
+`arg0 = (GenObj *)((u8 *) arg0 + 0xB8);` — agbcc memakai `add r4, r4, #0xB8`
+bukan register baru.
