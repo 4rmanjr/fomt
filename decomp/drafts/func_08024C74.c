@@ -1,17 +1,13 @@
-typedef struct GenObj {
-    u8 _pad0[2];
-    struct GenObj *unk2;
-    u8 _pad6[54];
-    s32 unk3C;
-} GenObj;
-void func_08024C74(GenObj *arg0) {
-    u8 *p = (u8 *)arg0;
+void func_08024C74(u8 *arg0) {
+    u8 *p = arg0;
 
-    p += 0x3C;
-    *p = 0;
-    p += 2;
-    *p = 0;
-    p = (u8 *)arg0;
-    p += 0x68;
-    *(u16 *)p = 0;
+    arg0 += 0x3C;
+    *arg0 = 0;
+    arg0 += 2;
+    *arg0 = 0;
+    arg0 += 0x68;
+    *(u16 *) arg0 = 0;
+    if (p == 0) {
+        return;
+    }
 }

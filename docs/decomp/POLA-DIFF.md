@@ -544,3 +544,60 @@ register yang sama tanpa `mov` — persis ref.
 
 Catatan lebar akses: `arg0->unk0 = (u16) p->unkA;` langsung menghasilkan
 `ldrh`; untuk `ldrsh` tetap butuh variabel antara `s32 a` (lihat 7.1).
+
+## 9. Argumen pertama tak terpakai, rantai pointer, dan reuse nol
+
+Pembukti: `func_080B9464` (MATCH), `func_08024C74` dan `func_080AB82C` (parkir).
+
+### 9.1 Fungsi pakai r1/r2 -> ada argumen pertama yang tak terpakai
+
+`func_080B9464` di asm mengakses `r1`/`r2` sebagai argumen dan menyimpan
+`lsls r1, r1, #0x10` / `lsls r2, r2, #0x10`: bukan tanda argumen kedua/ketiga,
+melainkan argumen **pertama yang tidak dipakai**. Draf dua-parameter memaksa
+nilai ke r0/r1 dan seluruh badan bergeser satu register. Deklarasikan dummy:
+
+```c
+s32 func_080B9464(s32 arg0, s32 arg1, s32 arg2) { /* arg0 tak dipakai */ }
+```
+
+Sekali signature dibetulkan, badan sisa langsung byte-identik (68 vs 68).
+
+### 9.2 Rantai pointer tidak dilipat melewati store
+
+`func_08024C74` ref memakai tiga delta berurutan pada pointer yang sama:
+
+```asm
+adds r0, #0x3c
+strb r1, [r0]
+adds r0, #2
+strb r1, [r0]
+adds r0, #0x68      @ bukan 0x2a (0x3e+0x68=0xa6)
+strh r1, [r0]
+```
+
+Menulis `p += 0x3C; *p = 0; p += 2; *p = 0; p += 0x68;` menghasilkan delta
+apa adanya karena store di antaranya menghalangi pelipatan konstanta. Versi
+yang me-reset pointer (`p = (u8 *)arg0; p += 0x68;`) justru dilipat jadi
+`+0x2a` -> DIFF.
+
+### 9.3 `adds r2, r0, #0` mati berasal dari variabel pointer yang tak dipakai
+
+Ref punya satu `adds r2, r0, #0` yang tidak pernah dibaca. Itu salinan argumen
+untuk variabel lokal (`u8 *p = arg0;`) yang kemudian tidak dipakai, sementara
+rantai tetap berjalan di r0. Menghapus variabel itu menghilangkan satu
+instruksi (2 byte kurang); memakai variabel itu untuk rantai memunculkan
+salinan kedua (`add r1, r2, #0`). Keduanya DIFF -> parkir (4 judge).
+
+### 9.4 Nol yang dipakai tiga kali
+
+Ref memuat `movs r1, #0` **sekali** lalu memakai r1 untuk `strb`, `strb`,
+`strh`. Draf dengan literal `0` per statement memunculkan `mov r1, #0` dua
+kali. Kandidat perbaikan yang belum terbukti: satu variabel `u8 zero = 0;`
+yang dipakai ketiga store (belum diuji; cap judge habis).
+
+### 9.5 Sisa diff "regalloc saja" = wall
+
+`func_080AB82C` 3 judge: instruksi identik, hanya `i`/`acc` bertukar r1/r2
+(`movs r1, #0` vs `movs r2, #0`). Urutan deklarasi (`i` dulu / `acc` dulu),
+inisialisasi di deklarasi, dan `u32` vs `u8` sudah dicoba — penempatan
+register tidak berubah. Parkir.
