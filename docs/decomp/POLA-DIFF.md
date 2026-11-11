@@ -797,3 +797,21 @@ Dua hal yang TERBUKTI dari resep `func_08021EE0`:
 Sisanya regalloc murni (`orr r0, r1` vs `orr r1, r0`). Dua varian tambahan —
 mask dijadikan variabel lokal, dan urutan operand `|` dibalik — sama-sama
 memperburuk (2missing/2extra vs 4 regalloc), jadi keduanya bukan arah benar.
+
+## 17. Argumen stack: prototipe 8 argumen, bukan struct-by-value
+
+Pembukti: `func_08032A00` 42 vs ref 44, `func_08032934` MATCH.
+
+Ref `func_08032A00` menyiapkan area argumen 16 byte berisi `1, 0, 0, 0`
+(`str` untuk tiga word, `strb` untuk byte terakhir). Dua pendekatan diuji:
+
+- struct 16-byte by value -> agbcc memakai temp lalu menyalin, plus guard
+  alignment: 56 byte (12 lebih) dan masih salah;
+- prototipe 8 argumen (`s32, s32, s32, u8` setelah 4 argumen register) -> 42
+  byte, sisa satu instruksi (`add r2, sp, #0xC; strb` vs `str r0, [sp, #0xC]`).
+
+Jadi kalau ref menaruh beberapa nilai berurutan di `[sp]`, `[sp+4]`, ...,
+tebak dulu **argumen skalar tambahan**, baru pertimbangkan struct.
+
+`func_08032934` menunjukkan pola yang sama dari sisi lain: field yang dibaca
+`ldrh` adalah `u16` (bukan `s32`), dan begitulah satu judge langsung MATCH.
