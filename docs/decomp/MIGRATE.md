@@ -326,3 +326,28 @@ Workaround yang terbukti (`func_080123A4`, `make compare` HIJAU):
 Kalau nanti mau memperbaiki gate-nya: bandingkan teks blok hasil
 `wrap_block()`/`insert_ordered()` dengan yang benar-benar ditulis ke
 `src/`, cari token `slo` (bukan `slot`) di sana.
+
+## 15. Blok MATCH dengan tipe lokal sendiri: nama unik + cast pointer
+
+Pembukti: `func_08033800` (code_entities_080320DC).
+
+Draf judge boleh memakai `typedef struct Vtbl/Obj/Res` dan memanggil fn-ptr
+`Res *(*unk44)(void **, s32)` dengan `arg1` bertipe `Vtbl **` (agbcc hanya
+memberi warning, asm identik). `src/` dibangun dengan tanda tangan ketat,
+jadi `migrate.py` gagal:
+
+```text
+src/code_entities_080320DC.cc:136: argument passing to `void **' from
+`Vtbl__func_08033800 **'  -> direvert, berhenti.
+```
+
+Resep (tanpa mengubah codegen sama sekali, keduanya nol-biaya):
+
+- beri akhiran nama fungsi pada tipe lokal (`Vtbl_08033800`, `Obj_08033800`)
+  supaya tidak bentrok dengan `Vtbl`/`Obj` konteks bersama;
+- ubah parameter fn-ptr jadi `void *` dan panggil dengan
+  `((void *) arg1)`.
+
+Kalau blok sudah terlanjur promoted: buang bloknya, set state
+`status=failed`, `judged_mtime=0`, lalu judge ulang sebelum migrate —
+jangan menyunting blok promoted langsung (verify menilainya apa adanya).

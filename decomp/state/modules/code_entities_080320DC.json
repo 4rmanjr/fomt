@@ -158,13 +158,15 @@
  },
  "func_08033800": {
   "addr": 134428672,
-  "judged_mtime": 1794375633.9778666,
+  "draft_src": "manual",
+  "judged_mtime": 1794377506.73556,
   "module": "code_entities_080320DC.s",
-  "note": "tructure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08033800/lenovo_32095/func.c:19: warning: cast from pointer to integer of different size\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08033800/lenovo_32095/func.c:21: warning: cast from pointer to integer of different size\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 510,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08033830": {

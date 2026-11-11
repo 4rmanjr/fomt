@@ -84,6 +84,23 @@ typedef struct GenObj__func_08033B84 {
 } GenObj__func_08033B84;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Res_08033800 {
+    u8 _pad0[0xA];
+    i16 unkA;
+    u8 _padC[2];
+    i16 unkE;
+} Res_08033800;
+typedef struct Vtbl_08033800 {
+    u8 _pad0[0x44];
+    Res_08033800 *(*unk44)(void *, i32);
+} Vtbl_08033800;
+typedef struct Obj_08033800 {
+    u16 unk0;
+    u16 unk2;
+} Obj_08033800;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_080324B8 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_entities_080320DC.080324B8")))
@@ -103,6 +120,30 @@ i32 func_08032900(i32 arg0, i32 arg1, i32 arg2) {
         return 2;
     }
     return 0;
+}
+}
+
+// DECOMP-MATCHED func_08033800 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.code_entities_080320DC.08033800")))
+Obj_08033800 *func_08033800(Obj_08033800 *arg0, Vtbl_08033800 **arg1, i32 arg2) {
+    Res_08033800 *p;
+    i32 v;
+    i32 a;
+
+    v = (i32) (*arg1)->unk44((void *) arg1, arg2);
+    if (v != 0) {
+        p = (Res_08033800 *) v;
+        a = p->unkA;
+        v = p->unkE;
+        arg0->unk0 = (u16) a;
+    } else {
+        arg0->unk0 = (u16) v;
+    }
+    arg0->unk2 = (u16) v;
+    return arg0;
 }
 }
 
@@ -151,7 +192,6 @@ void func_08033B84(GenObj__func_08033B84 *arg0) {
     }
 }
 }
-
 
 // DECOMP-MATCHED func_08034248 (dari code_entities_080320DC.s; cek manusia sebelum ke src/)
 extern "C" {

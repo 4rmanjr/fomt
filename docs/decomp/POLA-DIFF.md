@@ -514,3 +514,33 @@ angka, bukan per register basis** — `ldrh [r6,#0xc]` dan `ldr [r1,#0xc]`
 pada objek berbeda akan tercampur. Diukur: 2398 field di 650 fungsi, dan
 dari 7 kandidat teratas hanya 3 yang mismatch-nya nyata. Selalu konfirmasi
 manual ke asm (akses harus memakai register argumen) sebelum menulis draf.
+
+## 8. Satu variabel `s32` lintas cabang menyimpan nilai nol
+
+Pembukti: `func_08033800`.
+
+Dua draf sebelumnya menyisakan tepat satu instruksi berlebih:
+`mov r1, #0x0` sebelum `strh r1, [r4]` / `[r4, #2]` di cabang `else`.
+Sebabnya dua variabel (`Res *r` + `s32 b`): penugasan `b = (s32) r;`
+memaksa agbcc mematerialisasi ulang angka nol ke register.
+
+Ref memakai SATU variabel `s32` untuk pointer sekaligus nilai:
+
+```c
+s32 v = (s32) (*arg1)->unk44((void *) arg1, arg2);
+if (v != 0) {
+    p = (Res *) v;
+    a = p->unkA;      /* s32 -> ldrsh */
+    v = p->unkE;      /* register yang sama dgn hasil call */
+    arg0->unk0 = (u16) a;
+} else {
+    arg0->unk0 = (u16) v;   /* v == 0, tanpa mov */
+}
+arg0->unk2 = (u16) v;
+```
+
+Karena `v` adalah register hasil `cmp`, kedua `strh` di jalur nol memakai
+register yang sama tanpa `mov` — persis ref.
+
+Catatan lebar akses: `arg0->unk0 = (u16) p->unkA;` langsung menghasilkan
+`ldrh`; untuk `ldrsh` tetap butuh variabel antara `s32 a` (lihat 7.1).
