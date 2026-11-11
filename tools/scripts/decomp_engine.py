@@ -127,6 +127,16 @@ def norm(line):
     if m_inplace and m_inplace.group(1) == m_inplace.group(2):
         rest = m_inplace.group(1) + ", " + m_inplace.group(3)
     rest = IMM.sub(lambda m: "#0x%X" % (int(m.group(1), 0) & 0xFFFFFFFF), rest)
+    # `add rX, sp, #0xFFFFFFF4` == `sub rX, sp, #0xC`: agbcc mencetak immediate
+    # negatif sebagai add, gas di repo mencetaknya sebagai sub. Instruksinya
+    # sama persis, jadi samakan bentuk kanoniknya (kalau tidak, setiap fungsi
+    # ber-stack frame terlihat "beda 2 instruksi").
+    if op in ("add", "sub"):
+        m_neg = re.match(r"^(.*?)(#0x[89A-F][0-9A-F]{7})$", rest)
+        if m_neg:
+            v = (0x100000000 - int(m_neg.group(2)[1:], 16)) & 0xFFFFFFFF
+            rest = m_neg.group(1) + "#0x%X" % v
+            op = "sub" if op == "add" else "add"
     rest = re.sub(r"\[(\w+)(?:, )?(.*?)\]", lambda m: "[%s]" % m.group(1) if not m.group(2)
                   else "[%s, %s]" % (m.group(1), m.group(2)), rest)
     return (op + (" " + rest if rest else "")).strip()

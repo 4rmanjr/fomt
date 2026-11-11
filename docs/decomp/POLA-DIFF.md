@@ -815,3 +815,31 @@ tebak dulu **argumen skalar tambahan**, baru pertimbangkan struct.
 
 `func_08032934` menunjukkan pola yang sama dari sisi lain: field yang dibaca
 `ldrh` adalah `u16` (bukan `s32`), dan begitulah satu judge langsung MATCH.
+
+## 18. Hasil probe: pola mana yang benar-benar bisa dihasilkan C
+
+Semua diuji dengan `cc_probe.py` (agbcc -O2) pada potongan C kecil.
+
+| pola | bisa dihasilkan C? | bukti / catatan |
+|---|---|---|
+| `sub sp, #N` | ya, tapi agbcc mencetak `add sp, sp, #-0x10` | bentuk cetak berbeda, instruksi sama -> WAJIB dinormalkan (lihat §18.1) |
+| dua `mov rX, #0` untuk dua store nol | ya, satu register dipakai ulang | `p[0x3C]=0; p[0x3E]=0;` -> `mov r2, #0` + 2x `strb r2, [r1]` |
+| argumen stack ke-8 bertipe `u8` | ya, tapi jadi `str r0, [sp, #0xc]` | TIDAK pernah `add r2, sp, #0xC; strb` -> sisa diff `func_08032A00` bukan dari argumen skalar |
+| `cmp rX, #0x0` + `bcc` | **tidak** | 24 bentuk diuji (agbcc & old_agbcc), nol kemunculan (§15) |
+| `add rX, rY, #0x0` (salinan) | hanya pada bentuk tertentu | muncul saat nilai argumen harus tetap hidup melewati call/loop; bukan dari sekadar `x = a` |
+
+Kesimpulan praktis: sebelum mengejar sebuah instruksi, probe dulu bentuknya.
+Dua pola yang paling sering "hilang" (`cmp #0` + `bcc`, dan `add r2, sp, #off;
+strb`) sudah dipastikan **tidak** bisa muncul dari C biasa, jadi fungsi yang
+sisa diff-nya persis itu harus diparkir, bukan diiterasi.
+
+### 18.1 Immediate negatif: `add sp, #-0x10` == `sub sp, #0x10`
+
+agbcc mencetak frame sebagai `add sp, sp, #-0x10`, sementara asm repo memakai
+`sub sp, #0x10`. Instruksinya sama, tapi `norm()` lama membandingkan teks
+apa adanya sehingga **setiap fungsi ber-stack frame terlihat beda 2 instruksi**
+— termasuk fungsi yang sudah MATCH (`func_08021EE0` sempat berstatus
+`instruksi` padahal promoted). `norm()` sekarang membalik immediate negatif
+pada `add`/`sub` menjadi op yang berlawanan, sehingga `func_08021EE0`
+kembali `identik` dan jumlah op di antrean turun (mis. `func_08032A00`
+dari 8 ke 2).
