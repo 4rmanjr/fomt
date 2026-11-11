@@ -3238,3 +3238,22 @@ void func_080B9828(s32 arg0, s32 arg1) {
         *(s32 *) (arg0 + 0x80) = 1;
     }
 }
+
+// DECOMP-MATCHED func_080ADD08 (dari code_809E804.s; cek manusia sebelum ke src/)
+typedef struct Blob {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
+    s32 unk1C;
+} Blob;
+void *func_080ADD08(Blob *dst, Blob **src) {
+    Blob *s = *src;
+    Blob *d = dst;
+
+    *d = *s;
+    return dst;
+}

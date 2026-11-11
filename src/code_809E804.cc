@@ -718,6 +718,19 @@ typedef struct GenObj__func_080D0BA8 {
 } GenObj__func_080D0BA8;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Blob {
+    i32 unk0;
+    i32 unk4;
+    i32 unk8;
+    i32 unkC;
+    i32 unk10;
+    i32 unk14;
+    i32 unk18;
+    i32 unk1C;
+} Blob;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E988 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.0809E988")))
@@ -2571,6 +2584,19 @@ void func_080ADC84(i32 *arg0, i32 arg1) {
     if (1 & arg1) {
         __builtin_delete(arg0);
     }
+}
+}
+
+// DECOMP-MATCHED func_080ADD08 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_809E804.080ADD08")))
+void *func_080ADD08(Blob *dst, Blob **src) {
+    Blob *s = *src;
+    Blob *d = dst;
+
+    *d = *s;
+    return dst;
 }
 }
 

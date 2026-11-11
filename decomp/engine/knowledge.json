@@ -2,10 +2,12 @@
  "base": 0.2,
  "kinds": {
   "cabang": {
-   "match": 1,
-   "n": 1,
+   "match": 2,
+   "n": 3,
    "ops": [
-    5
+    5,
+    11,
+    11
    ]
   },
   "copy": {
@@ -74,9 +76,10 @@
   "cabang": [
    {
     "examples": [
-     "func_0805E824"
+     "func_0805E824",
+     "func_080ADD08"
     ],
-    "hits": 1,
+    "hits": 2,
     "misses": 0,
     "text": "kondisi cabang terbalik (beq/bne): tulis `if (x == 0) return A; return B;` dengan A/B sesuai ref (POLA-DIFF \u00a77.2)."
    }
@@ -107,6 +110,6 @@
    }
   ]
  },
- "updated": "2026-11-11 22:01",
+ "updated": "2026-11-11 22:09",
  "version": 1
 }

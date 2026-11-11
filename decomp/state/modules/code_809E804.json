@@ -2617,13 +2617,15 @@
  },
  "func_080ADD08": {
   "addr": 134929672,
-  "judged_mtime": 1793582714.1953917,
+  "draft_src": "manual",
+  "judged_mtime": 1794409739.1696463,
   "module": "code_809E804.s",
-  "note": "len 50 vs ref 24 [13extra,3operand,3regalloc,6different @i push {r4, r5, lr} | push {r4, lr}]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 272,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080ADD20": {
