@@ -305,6 +305,12 @@ Detail lengkap + tabel SKIP permanen: `docs/decomp/MIGRATE.md`. Minimum:
   `tools/scripts/cc_probe.py` (form hunting: kompilasi cuplikan C dengan
   agbcc/old_agbcc lalu cetak asm; `--grep` untuk mencari pola instruksi
   sebelum menghabiskan kuota judge),
+  `tools/scripts/gen_thunks.py` (generator draf "thunk": fungsi yang asm-nya
+  persis `push {lr}; bl X; pop {r0}; bx r0` ditulis `void f(void) { X(); }`.
+  `--module`/`--limit`/`--json` untuk melihat kandidat, `--write` menulis draf;
+  simbol bermangle C++ (`_._10ANpcEntity`) dideklarasikan lewat
+  `__asm__("...")` supaya nama ELF tetap sama. `pop {r0}` = epilog void
+  (POLA-DIFF §2.1). Tool ini hanya menulis draf — penilaian byte tetap `fomt`),
 - `fomt status` untuk memastikan state konsisten.
 - `fomt verify` HANYA bila diminta user — jangan dijalankan rutin di akhir
   sesi (mahal, ~7 mnt). Penggantinya untuk tutup sesi: `make compare`
