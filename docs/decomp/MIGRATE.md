@@ -370,3 +370,23 @@ hilang. Perbaikan yang benar adalah menyatukan signature + call-site secara
 manual (cast pointer di setiap call-site, atau ubah extern src ke tipe
 pointernya), lalu jalankan `migrate.py` lagi. Selama belum, biarkan
 promoted-only dan catat sebagai SKIP manual.
+
+## 17. Gate SKIP karena dua varian extern di promoted yang sama
+
+Gejala: `[SKIP] extern func_XXXX beda tanda tangan (['i32 (void *, i32, i32, i32)',
+'i32 (void *, i32, u8, i32)'] vs [...])` padahal draf cuma punya satu deklarasi.
+
+Sebab: `promote()` menambah blok baru tanpa membuang blok lama, jadi dua
+fungsi di modul yang sama bisa mendeklarasikan callee yang sama dengan tanda
+tangan berbeda (satu dari blok lama). Gate mengumpulkan SEMUA deklarasi di
+modul, bukan hanya milik fungsi yang dimigrasi.
+
+Penanganan: samakan semua deklarasi callee di modul ke tanda tangan `src/`,
+buang blok duplikat (`promoted` hanya boleh punya satu blok per fungsi), lalu
+judge ulang fungsi yang bloknya ditulis ulang. Cek cepat:
+`grep -c "^void func_<nama>(" decomp/promoted/<modul>.cc` harus 1.
+
+SKIP lain yang mirip bentuknya: `call-site ... tak konversi implisit ke
+parameter i32` berarti deklarasi di blok masih `func_XXXX()` tanpa parameter
+sementara `src/` punya parameter — salin deklarasi `src/` apa adanya (termasuk
+`i32`; gate menerjemahkan `s32`↔`i32` otomatis).

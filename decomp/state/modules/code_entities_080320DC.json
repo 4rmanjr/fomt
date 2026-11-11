@@ -1,9 +1,10 @@
 {
  "func_0803242C": {
   "addr": 134423596,
-  "judged_mtime": 1793582714.08141,
+  "draft_src": "manual",
+  "judged_mtime": 1794387074.9633605,
   "module": "code_entities_080320DC.s",
-  "note": "Each undeclared identifier is reported only once\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803242C/lenovo_31722/func.c:28: for each function it appears in.)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803242C/lenovo_31722/func.c:77: `arg1' undeclared (first use in this function)\n",
+  "note": "len 132 vs ref 140 [17missing,13extra,14operand,22regalloc,2different @< push {r4, r5, r6, r7, lr} | ]",
   "ref_len": 140,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -290,13 +291,15 @@
  },
  "func_080342D8": {
   "addr": 134431448,
-  "judged_mtime": 1793017289.163603,
+  "draft_src": "manual",
+  "judged_mtime": 1794387264.6079066,
   "module": "code_entities_080320DC.s",
-  "note": "byte +0x0: 0x70 vs ref 0x30",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
   "ref_len": 148,
   "sanitize_v": 4,
   "size": 1448,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803436C": {

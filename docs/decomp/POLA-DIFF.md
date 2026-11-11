@@ -879,3 +879,23 @@ pada indeks tetap (`p[0]`, `p[1]`) sehingga agbcc memakai immediate offset.
 Bila blok kedua harus dimulai dari base yang sudah bergeser, tulis
 `arg0 = (GenObj *)((u8 *) arg0 + 0xB8);` — agbcc memakai `add r4, r4, #0xB8`
 bukan register baru.
+
+## 21. Word read-modify-write = bitfield, bukan `strh`
+
+`func_080342D8` menyimpan tiga nilai ke satu word lokal, dan ref-nya
+melakukannya dengan `ldr r1,[sp] / ands / orrs / str` — bukan `strh`.
+Itu tanda medan **bitfield**, bukan field `u16`/`u8` biasa:
+
+```c
+typedef struct { u16 lo : 16; u8 mid : 8; u8 hi : 8; } SP0;
+SP0 sp0;                 /* tidak diinisialisasi: ref memang membaca [sp] dulu */
+sp0.lo = func_080AB788(0xB4);          /* lsls #16; lsrs #16; and #0xFFFF0000; or */
+sp0.mid = 0;                            /* and #0xFF00FFFF, tanpa or */
+sp0.hi = (func_080AB788(0x100 - exp) >> 6) + 2;  /* and #0x00FFFFFF; or (x<<24) */
+```
+
+Bukti pendukung: `sp0.lo` menghasilkan pasangan `lsls #0x10; lsrs #0x10`
+(truncation ke lebar medan 16 bit) meskipun fungsi kalinya dideklarasikan
+`u32`; `sp0.hi` menghasilkan `lsls #0x18` tanpa masking karena lebarnya pas
+8 bit. Kalau ketiga store ditulis sebagai field biasa, agbcc memakai
+`strh`/`strb` dan diff langsung terlihat.
