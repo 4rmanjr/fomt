@@ -114,8 +114,11 @@ penempatan yang menghalangi.
 `fomt` tidak mengantrekan fungsi berstatus `promoted`, walaupun draf baru
 diedit. Untuk mengulang judge (mis. setelah membetulkan tanda tangan):
 
-1. Pastikan blok promoted lamanya sudah dibuang (kalau tidak, `promote()`
-   menambah blok kedua).
+1. Buang blok promoted lama kalau drafnya berubah: `promote()` melewati
+   penulisan bila marker `// DECOMP-MATCHED <fn>` sudah ada di berkas
+   (`run.py:_promote_in_shard`), jadi blok LAMA yang tetap dipakai gate —
+   bukan blok kedua. Blok kedua hanya muncul kalau marker-nya berbeda
+   (mis. teks modul berubah).
 2. Di `decomp/state/modules/<stem>.json`: set `status` → `failed` dan
    `judged_mtime` → `0`.
 3. Jalankan `fomt <func>`.
@@ -385,8 +388,11 @@ modul, bukan hanya milik fungsi yang dimigrasi.
 Penanganan: samakan semua deklarasi callee di modul ke tanda tangan `src/`,
 buang blok duplikat (`promoted` hanya boleh punya satu blok per fungsi), lalu
 judge ulang fungsi yang bloknya ditulis ulang. Cek cepat:
-`grep -cE "^(void|s32|i32) func_<nama>\\(" decomp/promoted/<modul>.cc` harus 1
-(jangan `^void` saja — blok duplikat bisa berbeda tipe kembali).
+`grep -cE "^[a-z0-9]+ ?\\**? ?func_<nama>\\(.*\\) \\{" decomp/promoted/<modul>.cc` harus 1
+(pola itu hitung **definisi** saja: tipe balik apa pun — `void`, `s32`, juga
+`s16`/`u32` seperti `func_080094A4`. Tanpa akhiran `) {` deklarasi extern milik
+blok lain ikut terhitung, mis. `s32 func_080094A4(void *, s32);` -> angka 3
+padahal definisinya satu).
 
 SKIP lain yang mirip bentuknya: `call-site ... tak konversi implisit ke
 parameter i32` berarti deklarasi di blok masih `func_XXXX()` tanpa parameter

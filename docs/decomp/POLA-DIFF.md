@@ -104,6 +104,13 @@ Pembukti: `func_08014234`, `func_08014D7C`, `func_08015950`,
 
 > Ini **bukan** wall regalloc (sebelumnya salah tercatat begitu di skill).
 
+**Cerminnya jangan dilupakan:** `pop {r0}; bx r0` di ref = fungsi **void**
+(hasil `bl` dibuang), dan draf yang salah menulis `s32` justru menghasilkan
+`pop {r1}`. Jadi baca ekor ref dulu, jangan langsung menambah `return`:
+`pop {r1}; bx r1` ⇒ mengembalikan nilai, `pop {r0}; bx r0` ⇒ void
+(lihat juga §5.3 dan MIGRATE pembungkus mangled). Pembukti sesi 2026-11-12:
+`func_0800952C`/`func_0800951C` (hardware).
+
 ### 2.2 Target indirect call di `r2` walau `r1` bebas ⇒ ada argumen ke-2
 **Gejala:** `byte +0x8: 0x1 vs ref 0x2`, hanya `bl _call_via_r1` vs
 `_call_via_r2`.
@@ -842,7 +849,7 @@ Semua diuji dengan `cc_probe.py` (agbcc -O2) pada potongan C kecil.
 | dua `mov rX, #0` untuk dua store nol | ya, satu register dipakai ulang | `p[0x3C]=0; p[0x3E]=0;` -> `mov r2, #0` + 2x `strb r2, [r1]` |
 | argumen stack ke-8 bertipe `u8` | ya, tapi jadi `str r0, [sp, #0xc]` | TIDAK pernah `add r2, sp, #0xC; strb` -> sisa diff `func_08032A00` bukan dari argumen skalar |
 | `cmp rX, #0x0` + `bcc` | **tidak** | 24 bentuk diuji (agbcc & old_agbcc), nol kemunculan (§15) |
-| `add rX, rY, #0x0` (salinan) | hanya pada bentuk tertentu | muncul saat nilai argumen harus tetap hidup melewati call/loop; bukan dari sekadar `x = a` |
+| `add rX, rY, #0x0` (salinan) | hanya pada bentuk tertentu | bukan dari `x = a`; muncul (a) saat nilai argumen harus tetap hidup melewati call/loop, dan (b) saat cabang mengisi pointer turunan (`w = (u16 *)(q + 0x50)` di if/else) — salinan `q` lalu `add #0x50`, bukan satu `add` immediate. Pembukti: `func_080093AC` (POLA-DIFF §30) |
 
 Kesimpulan praktis: sebelum mengejar sebuah instruksi, probe dulu bentuknya.
 Dua pola yang paling sering "hilang" (`cmp #0` + `bcc`, dan `add r2, sp, #off;

@@ -20,21 +20,22 @@ gate verifikasi + tutup sesi di `docs/ops/VERIFIKASI.md`.
 - `templates/vtable_call.c.tmpl` — skeleton draf virtual-call (offset build).
 - `templates/vtable_call_folded.c.tmpl` — skeleton draf virtual-call folded (satu ldr).
 
-## Prasyarat lingkungan (wajib sebelum judge/migrate)
+## Prasyarat lingkungan
 
-```bash
-unset LD_PRELOAD
-export LIBCAPSTONE_PATH=/usr/lib/aarch64-linux-gnu
-export FOMT_AGENT=<nama-unik-agen>
-export FOMT_AGBCC=$HOME/x86sys/wrap/agbcc
-export FOMT_AS=$(command -v arm-none-eabi-as)
-export FOMT_CPP=$HOME/bin/clang-cpp-arm
-```
+Di host x86-64 **tidak perlu env apa pun**: `decomp/run.py` memakai tool yang
+di-vendor di repo (`tools/agbcc/bin/agbcc`, `tools/arm-gnu/bin/...`), dan
+`FOMT_AGBCC`/`FOMT_AS`/`FOMT_CPP` hanya **override**. Yang wajib: lewat entry
+point `fomt` (aturan repo R1 — jangan `python3 decomp/run.py` langsung);
+wrapper `fomt` cuma `cd <repo>` lalu memanggil `decomp/run.py`, jadi kalau
+belum ada, buat skrip kecil yang sama, bukan memanggil run.py manual.
 
-Tanpa ini judge gagal dengan error `libcapstone.so` palsu. `fomt` wrapper di
-PATH men-set ini otomatis; kalau tidak ada, pakai `python3 decomp/run.py`
-langsung dengan env di atas. Jangan pernah passing `CC1`/`OLD_CC1` di command
-line make (merusak override compiler per-target → compare merah palsu).
+Blok env qemu (`FOMT_AGBCC=$HOME/x86sys/wrap/agbcc`, `FOMT_AS`, `FOMT_CPP`,
+`unset LD_PRELOAD`, `LIBCAPSTONE_PATH`) hanya untuk host non-x86-64
+(Termux/proot) — resep lengkapnya di `INSTALL.md` §Termux. Jangan salin blok
+itu ke host x86-64; `LIBCAPSTONE_PATH` di sana bahkan menunjuk path yang tidak
+ada. `FOMT_AGENT=<nama-unik>` tetap disarankan untuk klaim per-batch.
+Jangan pernah passing `CC1`/`OLD_CC1` di command line make (merusak override
+compiler per-target → compare merah palsu).
 
 ## Alur kerja ringkas
 
