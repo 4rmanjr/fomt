@@ -38,7 +38,7 @@ dengan referensi.
 ## 2. Kondisi awal (cara mengukur, bukan angka statis)
 
 ```bash
-fomt status                              # total / berhasil / sisa / sebaran status
+fomt status                              # total / berhasil (src + promote-only) / sisa
 python3 tools/scripts/migratable_failed.py   # failed yang lolos gerbang migrasi
 python3 tools/scripts/audit_consistency.py   # konsistensi state vs src/ vs promoted/
 git log --oneline -20                    # laju commit sesi terakhir

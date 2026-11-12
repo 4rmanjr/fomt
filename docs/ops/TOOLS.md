@@ -19,8 +19,11 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   field draf per offset; default hanya |len-ref| <= 4, `--func`/`--module`/
   `--json`. Offset dihitung per angka, bukan per register basis → wajib
   dikonfirmasi ke asm (akses harus memakai register argumen).
-- `plan_stats.py` — tabel sisa pekerjaan per modul: jumlah `failed`/`match`
-  dan byte masing-masing, total, plus distribusi ukuran fungsi failed.
+- `plan_stats.py` — tabel sisa pekerjaan per modul: jumlah `failed`/`match`,
+  byte masing-masing, total, plus distribusi ukuran fungsi failed. Kolom
+  `match` dipecah `src` (blok sudah di `src/`, byte ROM berubah) dan `promo`
+  (promote-only di `decomp/promoted/`); `%byte-src` dihitung dari `src`, bukan
+  dari MATCH. Pembedanya dari `decomp/srcmarkers.py` (marker `DECOMP-MATCHED`).
   `--sort bytes|count|name`, `--module`, `--limit`, `--json`. Dipakai memilih
   target sesi (lihat `docs/RENCANA-TRANSLASI.md` §5 Fase 0).
 - `wall_registry.py` — rekap fungsi yang `note`-nya menyebut "parkir" beserta
@@ -28,6 +31,9 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   `--width`, `--json`. Cegah mencoba ulang wall tanpa ide baru.
 - `decomp/migrate.py ... --explain` — beda signature blok vs `src/`, tanpa
   menulis apa pun.
+- `decomp/srcmarkers.py` — daftar fungsi yang punya marker `DECOMP-MATCHED`
+  di `src/`; dipakai `fomt status` dan `plan_stats.py` untuk membedakan
+  migrasi `src/` dari promote-only.
 
 ## Engine kerja (`decomp_engine.py`)
 

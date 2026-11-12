@@ -134,7 +134,8 @@ lewat `make compare`), tetapi state-nya masih `failed`/`drafted`. Akibat:
 
 - `fomt`/`--migratable` mengantrekannya ulang → judge melihat
   “no ref symbol” → MATCH → `promote()` menambah blok **DUPLIKAT** ke
-  `promoted/<stem>.cc` (lihat §2), dan statistik “berhasil” ikut salah.
+  `promoted/<stem>.cc` (lihat §2), dan statistik `berhasil` (termasuk
+  `promote-only`) ikut salah.
 
 Penanganan:
 
@@ -430,10 +431,11 @@ gagal dengan alamat tertinggi, lalu berikutnya, dst.
 Konsekuensi praktis:
 
 - MATCH pada fungsi yang bukan kepala rantai tetap **dipromosikan** ke
-  `decomp/promoted/<stem>.cc` dan **dihitung** `fomt status`/`plan_stats`,
-  tetapi `src/` tidak bertambah (DELTA src = 0) dan `make compare` tetap HIJAU
-  karena berkas `.s` masih merakit byte-nya. Contoh: `func_080DC9C0` (12B,
-  tertahan 260 penerus).
+  `decomp/promoted/<stem>.cc`. Di `fomt status`/`plan_stats` ia masuk
+  `berhasil` tetapi dihitung sebagai **promote-only**, bukan `src`: `src/`
+  tidak bertambah (DELTA src = 0) dan `make compare` tetap HIJAU karena
+  berkas `.s` masih merakit byte-nya. Contoh: `func_080DC9C0` (12B, tertahan
+  260 penerus). Jangan laporkan promote-only sebagai kemajuan ROM.
 - Saat memilih target, urutkan kandidat per modul menurut alamat menurun dan
   kerjakan yang teratas; sisanya baru terbuka setelahnya.
 - Kepala rantai bisa saja **mustahil di C** (contoh `func_080D10F0`: membaca

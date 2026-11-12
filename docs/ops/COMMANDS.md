@@ -17,7 +17,7 @@ fomt --migratable         # hanya fungsi yg BISA migrate ke src:
 fomt 10 --migratable      # 10 fungsi migratable
 fomt 10                   # 10 fungsi berikutnya
 fomt 5 sram_proxy_1.s     # 5 fungsi dari modul itu
-fomt status               # progres saja (total/berhasil/sisa)
+fomt status               # progres (total/berhasil = src + promote-only/sisa)
 fomt verify               # audit ulang promoted/matched — HANYA bila diminta
 fomt 10 --agent opencode  # identitas agent untuk klaim
 fomt --loop               # ulangi batch 20 sampai antrean habis (foreground)
@@ -25,7 +25,8 @@ fomt --loop 10            # sama, batch 10 per putaran
 fomt --loop 20 --wait 2 code_linkonce.s --retry  # loop modul itu + ulangi failed
 ```
 
-Statistik (`total`, `berhasil`, `sisa`, sebaran status, `batch M/D`) dicetak
+Statistik (`total`, `berhasil` yang dipecah `src` + `promote-only`, `sisa`,
+sebaran status, `batch M/D`) dicetak
 setiap fungsi selesai dan di akhir tiap batch. Mode `--loop` mengulangi batch
 sampai pending/drafted habis — tetap foreground, tiap fungsi dan ringkasan
 `batch#N` dicetak langsung; berhenti dengan Ctrl-C atau saat antrean kosong.

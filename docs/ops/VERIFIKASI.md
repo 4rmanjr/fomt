@@ -57,7 +57,9 @@ src <S>+<y>
 ```
 
 Angka `B/F/P/S` harus dari data segar sesi itu (state + marker `src/`), bukan
-dari ingatan atau output batch lama.
+dari ingatan atau output batch lama. `B` boleh memuat promote-only, tetapi
+`S` hanya yang bermarker `DECOMP-MATCHED` di `src/`; selisih `B - S` adalah
+promote-only dan tidak boleh dilaporkan sebagai kemajuan ROM.
 
 ## Guard dokumen (pre-commit)
 

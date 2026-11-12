@@ -24,6 +24,12 @@ except Exception:
     pass
 
 ROOT = Path(__file__).resolve().parents[1]
+
+try:  # dijalankan sebagai skrip: sys.path[0] = decomp/
+    from srcmarkers import migrated_names
+except ImportError:  # diimpor sebagai paket (python3 -m decomp.run)
+    from decomp.srcmarkers import migrated_names
+
 TOOLS = ROOT / "tools"
 ASM = ROOT / "asm"
 STATE = ROOT / "decomp" / "state" / "progress.json"
@@ -1819,12 +1825,23 @@ def _shared_context() -> str:
 
 
 def progress(st: dict) -> str:
-    """Ringkasan progres: total, berhasil, sisa, dan sebaran status."""
+    """Ringkasan progres: total, berhasil (src vs promote-only), sisa, status.
+
+    `berhasil` menjumlahkan state matched+promoted, tetapi status `promoted`
+    dipakai DUA hal: blok yang sudah pindah ke `src/` dan blok yang baru
+    di-staging di `decomp/promoted/` (mis. modul tail-only yang masih punya
+    penerus). Karena itu angka dipecah: `src` = ada marker `DECOMP-MATCHED`
+    di `src/` (byte ROM benar-benar berubah), `promote-only` = sisanya.
+    """
     total = len(st)
     c = Counter(v["status"] for v in st.values())
     ok = c["matched"] + c["promoted"]
     pct = (ok / total * 100.0) if total else 0.0
-    return (f"total {total} | berhasil {ok} ({pct:.1f}%) | sisa {total - ok}"
+    done = {k for k, v in st.items() if v["status"] in ("matched", "promoted")}
+    src = len(migrated_names() & done)
+    promo_only = ok - src
+    return (f"total {total} | berhasil {ok} ({pct:.1f}%)"
+            f" = src {src} + promote-only {promo_only} | sisa {total - ok}"
             f" | pending {c['pending']}, drafted {c['drafted']}, failed {c['failed']},"
             f" promoted {c['promoted']}, matched {c['matched']}")
 
