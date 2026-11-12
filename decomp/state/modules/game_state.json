@@ -770,13 +770,15 @@
  },
  "func_080126E4": {
   "addr": 134293220,
-  "judged_mtime": 1793582714.0404167,
+  "draft_src": "manual",
+  "judged_mtime": 1794465214.8254015,
   "module": "game_state.s",
-  "note": "compatible types in assignment\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080126E4/opencode/func.c:22: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080126E4/opencode/func.c:22: request for member `unk2210' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 624,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08012720": {

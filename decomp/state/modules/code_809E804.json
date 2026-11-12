@@ -2692,9 +2692,9 @@
  "func_080ADF40": {
   "addr": 134930240,
   "draft_src": "manual",
-  "judged_mtime": 1794446819.6751354,
+  "judged_mtime": 0,
   "module": "code_809E804.s",
-  "note": "len 36 vs ref 44 [4missing,2operand,10regalloc @r adds r2, r0, #0 | adds r1, r0, #0]",
+  "note": "parkir 4/5: ref menyalin load/konstanta ke r0 sebelum add/asr (adds r5,r0; adds r0,r4; asr); pin r5/r1/r4/r3 tidak menutup. Draf diregenerasi m2c.",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 420,

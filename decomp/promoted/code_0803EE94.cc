@@ -4031,3 +4031,37 @@ void *func_0804EA58(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 ar
     arg0->unk1C = arg6;
     return arg0;
 }
+
+
+// DECOMP-MATCHED func_08094A00 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern s32 gUnk_08100A36;
+
+void func_08094A00(void *arg0, u8 *arg1, u8 *arg2) {
+    register s32 i __asm__("r3");
+    u32 idx;
+    u8 c;
+    u8 *tbl;
+
+    i = 0;
+    c = *arg2;
+    if (c != 0) {
+        idx = c - 1;
+        if (idx <= 0x60U) {
+            tbl = (u8 *) &gUnk_08100A36;
+            do {
+                *arg1 = *((u8 *) (idx + (u32) tbl));
+                arg1 += 1;
+                i += 1;
+                if (i > 0xB) {
+                    break;
+                }
+                c = arg2[i];
+                if (c == 0) {
+                    break;
+                }
+                idx = c - 1;
+            } while (idx <= 0x60U);
+        }
+    }
+    *arg1 = 0;
+}

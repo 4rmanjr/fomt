@@ -2,27 +2,32 @@ s32 func_0805E860(s32, s32);                          /* extern */
 
 typedef struct GenObj {
     u8 _pad0[16];
-    s32 unk10;
-    u8 _pad14[18];
-    s32 unk26;
-    s32 unk28;
-    u8 _pad2C[24];
-    struct GenObj *unk44;
+    struct GenObj *unk10;
+    u8 _pad14[0x12];
+    u8 unk26;
+    u8 _pad27;
+    u16 unk28;
 } GenObj;
+
 void func_080384FC(GenObj *arg0) {
-    void *temp_r0;
-    GenObj *temp_r4;
+    GenObj *t;
+    register u8 *p __asm__("r0");
+    register u8 zero __asm__("r2");
 
     if (arg0->unk28 != 0x31) {
-        temp_r4 = arg0->unk10;
-        if (temp_r4 != 0) {
-            func_0805E860((GenObj *)((u8 *)temp_r4 + 0x30), 0x31);
-            temp_r0 = (GenObj *)((u8 *)temp_r4 + 0x44);
-            temp_r4->unk44 = 1;
-            temp_r0->unk2 = 0;
-            (temp_r0 + 2)->unk1 = 1;
+        t = arg0->unk10;
+        if (t != 0) {
+            func_0805E860((s32) ((u8 *) t + 0x30), 0x31);
+            p = (u8 *) t + 0x44;
+            zero = 0;
+            p[0] = 1;
+            p += 2;
+            p[0] = zero;
+            p += 1;
+            __asm__ volatile("" : "+r"(p));
+            p[0] = 1;
         }
-        arg0->unk28 = 0x31U;
+        arg0->unk28 = 0x31;
     }
     arg0->unk26 = 0;
 }

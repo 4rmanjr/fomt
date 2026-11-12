@@ -484,9 +484,10 @@
  },
  "func_08023378": {
   "addr": 134361976,
-  "judged_mtime": 1793582714.0664124,
+  "draft_src": "manual",
+  "judged_mtime": 0,
   "module": "code_entities.s",
-  "note": "akes integer from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08023378/lenovo_216379/func.c:22: warning: return makes integer from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08023378/lenovo_216379/func.c:31: invalid operands to binary &\n",
+  "note": "parkir 4/5: sisa 2 byte padding ekor (len 58 vs ref 60); polaritas cabang/pad, bukan logika. Draf diregenerasi m2c.",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 664,

@@ -1,32 +1,31 @@
 extern s32 gUnk_08100A36;
 
-void func_08094A00(u8 *arg1, u8 *arg2) {
-    s32 var_r3;
-    u32 var_r0;
-    u8 *var_r1;
-    u8 temp_r0;
-    u8 temp_r0_2;
+void func_08094A00(void *arg0, u8 *arg1, u8 *arg2) {
+    register s32 i __asm__("r3");
+    u32 idx;
+    u8 c;
+    u8 *tbl;
 
-    var_r1 = arg1;
-    var_r3 = 0;
-    temp_r0 = *arg2;
-    if (temp_r0 != 0) {
-        var_r0 = temp_r0 - 1;
-        if (var_r0 <= 0x60U) {
-loop_3:
-            *var_r1 = *((u8 *)var_r0 + &gUnk_08100A36);
-            var_r1 += 1;
-            var_r3 += 1;
-            if (var_r3 <= 0xB) {
-                temp_r0_2 = *((u8 *)arg2 + var_r3);
-                if (temp_r0_2 != 0) {
-                    var_r0 = temp_r0_2 - 1;
-                    if (var_r0 <= 0x60U) {
-                        goto loop_3;
-                    }
+    i = 0;
+    c = *arg2;
+    if (c != 0) {
+        idx = c - 1;
+        if (idx <= 0x60U) {
+            tbl = (u8 *) &gUnk_08100A36;
+            do {
+                *arg1 = *((u8 *) (idx + (u32) tbl));
+                arg1 += 1;
+                i += 1;
+                if (i > 0xB) {
+                    break;
                 }
-            }
+                c = arg2[i];
+                if (c == 0) {
+                    break;
+                }
+                idx = c - 1;
+            } while (idx <= 0x60U);
         }
     }
-    *var_r1 = 0;
+    *arg1 = 0;
 }

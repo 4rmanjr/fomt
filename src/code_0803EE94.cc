@@ -6188,30 +6188,27 @@ extern const u8 gData_code_0803EE94_08094914[44] __attribute__((section(".text.c
 
 // DECOMP-MATCHED func_08094940 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08094A00(void *, i32, i32);                    /* extern */
-
+void func_08094A00(void *arg0, u8 *arg1, u8 *arg2);                             /* extern */
 __attribute__((section(".text.code_0803EE94.08094940")))
 void func_08094940(GenObj__func_08094940 *arg0, i32 arg1) {
-    func_08094A00(arg0, arg1, (i32)(arg0->unk8));
+    func_08094A00(arg0, (u8 *)arg1, (u8 *)(arg0->unk8));
 }
 }
 // DECOMP-MATCHED func_0809494C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08094A00(void *, i32, i32);                    /* extern */
-
+void func_08094A00(void *arg0, u8 *arg1, u8 *arg2);                             /* extern */
 __attribute__((section(".text.code_0803EE94.0809494C")))
 void func_0809494C(GenObj__func_0809494C *arg0, i32 arg1) {
-    func_08094A00(arg0, arg1, (i32)(arg0->unk8 + 0xD));
+    func_08094A00(arg0, (u8 *)arg1, (u8 *)(arg0->unk8 + 0xD));
 }
 }
 
 // DECOMP-MATCHED func_0809495C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08094A00(void *, i32, i32);                    /* extern */
-
+void func_08094A00(void *arg0, u8 *arg1, u8 *arg2);                             /* extern */
 __attribute__((section(".text.code_0803EE94.0809495C")))
 void func_0809495C(GenObj__func_0809495C *arg0, i32 arg1) {
-    func_08094A00(arg0, arg1, (i32)(arg0->unk8 + 0x1A));
+    func_08094A00(arg0, (u8 *)arg1, (u8 *)(arg0->unk8 + 0x1A));
 }
 }
 
@@ -6238,6 +6235,42 @@ void func_08094974(i32 arg0, i32 arg1, i32 arg2, u32 arg3) {
             var_r2 += 1;
         } while (var_r2 < arg3);
     }
+}
+}
+
+// DECOMP-MATCHED func_08094A00 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 gUnk_08100A36;
+
+__attribute__((section(".text.code_0803EE94.08094A00")))
+void func_08094A00(void *arg0, u8 *arg1, u8 *arg2) {
+    register i32 i __asm__("r3");
+    u32 idx;
+    u8 c;
+    u8 *tbl;
+
+    i = 0;
+    c = *arg2;
+    if (c != 0) {
+        idx = c - 1;
+        if (idx <= 0x60U) {
+            tbl = (u8 *) &gUnk_08100A36;
+            do {
+                *arg1 = *((u8 *) (idx + (u32) tbl));
+                arg1 += 1;
+                i += 1;
+                if (i > 0xB) {
+                    break;
+                }
+                c = (u8)(arg2[i]);
+                if (c == 0) {
+                    break;
+                }
+                idx = c - 1;
+            } while (idx <= 0x60U);
+        }
+    }
+    *arg1 = 0;
 }
 }
 

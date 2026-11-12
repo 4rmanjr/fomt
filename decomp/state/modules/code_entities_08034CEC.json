@@ -1767,13 +1767,14 @@
  "func_080384FC": {
   "addr": 134448380,
   "draft_src": "manual",
-  "judged_mtime": 1794385591.8562694,
+  "judged_mtime": 1794465801.3105674,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x1a: 0x22 vs ref 0x20 [1missing,1extra,1operand,7regalloc @r adds r0, r4, #0 | adds r2, r4, #0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 659,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803853C": {

@@ -3,7 +3,7 @@
  "kinds": {
   "cabang": {
    "match": 2,
-   "n": 11,
+   "n": 15,
    "ops": [
     5,
     11,
@@ -15,12 +15,16 @@
     30,
     30,
     30,
-    26
+    26,
+    11,
+    11,
+    11,
+    21
    ]
   },
   "copy": {
-   "match": 1,
-   "n": 12,
+   "match": 3,
+   "n": 18,
    "ops": [
     10,
     10,
@@ -33,12 +37,18 @@
     9,
     26,
     12,
-    26
+    26,
+    15,
+    11,
+    17,
+    14,
+    17,
+    17
    ]
   },
   "hanya-register": {
-   "match": 2,
-   "n": 9,
+   "match": 3,
+   "n": 16,
    "ops": [
     2,
     2,
@@ -48,7 +58,14 @@
     2,
     2,
     2,
-    2
+    2,
+    7,
+    4,
+    4,
+    2,
+    2,
+    7,
+    7
    ]
   },
   "identik": {
@@ -63,7 +80,7 @@
   },
   "instruksi": {
    "match": 6,
-   "n": 44,
+   "n": 49,
    "ops": [
     12,
     12,
@@ -108,7 +125,12 @@
     2,
     2,
     2,
-    2
+    2,
+    6,
+    2,
+    8,
+    1,
+    20
    ]
   },
   "sign/width": {
@@ -134,8 +156,8 @@
    ]
   },
   "zero-reload": {
-   "match": 0,
-   "n": 10,
+   "match": 1,
+   "n": 12,
    "ops": [
     9,
     9,
@@ -146,7 +168,9 @@
     23,
     17,
     7,
-    81
+    81,
+    9,
+    9
    ]
   }
  },
@@ -165,9 +189,11 @@
   "copy": [
    {
     "examples": [
-     "func_0803E780"
+     "func_0803E780",
+     "func_08094A00",
+     "func_08094A00"
     ],
-    "hits": 1,
+    "hits": 3,
     "misses": 0,
     "text": "ada/tak ada `add rX, rY, #0` (salinan argumen atau pointer lokal): sesuaikan pemakaian variabel lokal (POLA-DIFF \u00a79.3)."
    }
@@ -176,9 +202,10 @@
    {
     "examples": [
      "func_0800952C",
-     "func_0800951C"
+     "func_0800951C",
+     "func_080126E4"
     ],
-    "hits": 2,
+    "hits": 3,
     "misses": 0,
     "text": "wall regalloc: instruksi identik, hanya nomor register berbeda. Coba urutan deklarasi var, lalu parkir."
    }
@@ -210,8 +237,18 @@
     "misses": 0,
     "text": "akses sempit di offset besar: `add #imm` (>31) lalu ldrb/ldrh bukan salinan argumen \u2014 samakan lebar field (POLA-DIFF \u00a710.3, width_mismatch.py)."
    }
+  ],
+  "zero-reload": [
+   {
+    "examples": [
+     "func_080384FC"
+    ],
+    "hits": 1,
+    "misses": 0,
+    "text": "nol dimuat >1x: pakai satu variabel `u8 zero = 0;` untuk semua store (pola POLA-DIFF \u00a79.4)."
+   }
   ]
  },
- "updated": "2026-11-12 12:40",
+ "updated": "2026-11-12 13:54",
  "version": 1
 }

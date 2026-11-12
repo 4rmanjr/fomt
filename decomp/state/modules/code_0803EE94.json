@@ -6223,13 +6223,15 @@
  },
  "func_08094A00": {
   "addr": 134826496,
-  "judged_mtime": 1793582714.1613972,
+  "draft_src": "manual",
+  "judged_mtime": 1794466482.8809595,
   "module": "code_0803EE94.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08094A00/opencode/func.c: In function `func_08094A00':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08094A00/opencode/func.c:18: invalid operands to binary +\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 545,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08094A3C": {
