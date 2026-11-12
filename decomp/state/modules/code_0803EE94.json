@@ -434,9 +434,10 @@
  },
  "func_0804EF20": {
   "addr": 134541088,
-  "judged_mtime": 1794371546.7470143,
+  "draft_src": "manual",
+  "judged_mtime": 1794445536.565893,
   "module": "code_0803EE94.s",
-  "note": "/judge_func_0804EF20/buffy/func.c:64: invalid operands to binary &\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0804EF20/buffy/func.c:66: invalid operands to binary &\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0804EF20/buffy/func.c:68: warning: comparison between pointer and integer\n || synth_types.py v3 (typed locals) dicoba 2026-11-11: 0/10 MATCH, tetapi compile-error 8/10 -> 3/10 (7/10 patch kini lolos kompilasi sampai tahap DIFF byte: 08045638, 0804EF20, 0804EFAC, 0804F0E0, 080A03B8, 080A17A0, 080A1890). Sisa compile-error: 0804F060, 0809FE74 (saved_reg_r10 undeclared), 080A0B18 (invalid lvalue in unary &). Diff byte terdekat: func_080A03B8 len 98 vs ref 100. Patch dibatalkan; draf verbatim.",
+  "note": "len 134 vs ref 138 [4missing,2extra,5operand,3regalloc @i push {r4, r5, r6, r7, lr} | push {r4, r5, r6, lr}]",
   "ref_len": 140,
   "sanitize_v": 4,
   "size": 1197,

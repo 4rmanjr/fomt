@@ -1,70 +1,58 @@
 s32 CpuFastSet(void *, void *, u32);                  /* extern */
 
-typedef struct GenObj {
-    struct GenObj *unk0;
-    struct GenObj *unk4;
-    u8 _pad8[4];
-    s32 unkC;
-    s32 unk10;
-    s32 unk14;
-    s32 unk15;
-} GenObj;
-s32 func_0804EF20(GenObj *arg0) {
-    s32 temp_r1;
-    s32 temp_r1_2;
-    s32 temp_r2;
-    s32 temp_r7;
-    u8 temp_r6;
-    void *temp_r3;
-    void *temp_r3_2;
-    void *temp_r3_3;
-    void *temp_r3_4;
-    void *temp_r3_5;
-    void *temp_r3_6;
-    void *temp_r4;
-    void *temp_r4_2;
-    void *temp_r4_3;
-    void *temp_r4_4;
-    void *temp_r4_5;
-    void *temp_r4_6;
-    GenObj *var_r3;
-    GenObj *var_r4;
+typedef union F14 {
+    u16 u;
+    u8 b[2];
+} F14;
 
-    var_r4 = arg0->unkC;
-    var_r3 = arg0->unk10;
-    temp_r6 = arg0->unk15;
-    if (0x80 & temp_r6) {
-        temp_r7 = var_r3 + ((u32) (arg0->unk14 << 0x12) >> 0xD);
-        temp_r1 = 1 ^ ((u32) (temp_r6 << 0x19) >> 0x1F);
-        arg0->unk15 = (u8) ((-0x41 & temp_r6) | (temp_r1 << 6));
-        temp_r2 = 0x0F0F0F0F << (temp_r1 * 4);
-        temp_r1_2 = ~temp_r2;
+typedef struct GenObj {
+    u8 _pad0[0xC];
+    u8 *unkC;
+    u8 *unk10;
+    F14 f;
+} GenObj;
+
+s32 func_0804EF20(GenObj *arg0) {
+    register GenObj *p __asm__("r5");
+    register u8 f __asm__("r6");
+    register u8 *end __asm__("r7");
+    u8 *src;
+    u8 *dst;
+
+    p = arg0;
+    src = p->unkC;
+    dst = p->unk10;
+    f = p->f.b[1];
+    if (f & 0x80) {
+        u8 v;
+        u32 m0;
+        u32 m1;
+
+        end = dst + ((u32) (p->f.u << 0x12) >> 0xD);
+        v = (u8) (1 ^ ((u32) (f << 0x19) >> 0x1F));
+        p->f.b[1] = (u8) ((f & ~0x40) | (v << 6));
+        m0 = 0x0F0F0F0F << (v << 2);
+        m1 = ~m0;
         do {
-            temp_r4 = (GenObj *)((u8 *)var_r4 + 4);
-            var_r3->unk0 = (s32) (var_r4->unk0 & temp_r2);
-            temp_r3 = (GenObj *)((u8 *)var_r3 + 4);
-            temp_r4_2 = temp_r4 + 4;
-            var_r3->unk4 = (s32) (var_r4->unk4 & temp_r1_2);
-            temp_r3_2 = temp_r3 + 4;
-            temp_r4_3 = temp_r4_2 + 4;
-            temp_r3->unk4 = (s32) (temp_r4->unk4 & temp_r2);
-            temp_r3_3 = temp_r3_2 + 4;
-            temp_r4_4 = temp_r4_3 + 4;
-            temp_r3_2->unk4 = (s32) (temp_r4_2->unk4 & temp_r1_2);
-            temp_r3_4 = temp_r3_3 + 4;
-            temp_r4_5 = temp_r4_4 + 4;
-            temp_r3_3->unk4 = (s32) (temp_r4_3->unk4 & temp_r2);
-            temp_r3_5 = temp_r3_4 + 4;
-            temp_r4_6 = temp_r4_5 + 4;
-            temp_r3_4->unk4 = (s32) (temp_r4_4->unk4 & temp_r1_2);
-            temp_r3_6 = temp_r3_5 + 4;
-            temp_r3_5->unk4 = (s32) (temp_r4_5->unk4 & temp_r2);
-            var_r4 = temp_r4_6 + 4 + 4;
-            temp_r3_6->unk4 = (s32) (temp_r4_6->unk4 & temp_r1_2);
-            var_r3 = temp_r3_6 + 4 + 4;
-        } while (var_r3 != temp_r7);
+            *(u32 *) dst = *(u32 *) src & m0;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m1;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m0;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m1;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m0;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m1;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m0;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m1;
+            src += 4; dst += 4;
+        } while (dst != end);
         return 1;
     }
-    CpuFastSet(var_r4, var_r3, (u32) (arg0->unk14 << 0x12) >> 0xF);
+    CpuFastSet(src, dst, (u32) (p->f.u << 0x12) >> 0xF);
     return 0;
 }
