@@ -12,7 +12,7 @@ invarian + peta rute; detail per topik ada di berkas rujukan, baca yang relevan.
 | verifikasi, `make compare`, tutup sesi, format laporan | `docs/ops/VERIFIKASI.md` |
 | judge DIFF / gagal kompilasi (pola codegen + pembukti) | `docs/decomp/POLA-DIFF.md` |
 | migrate SKIP/GAGAL, signature, blok duplikat, drift | `docs/decomp/MIGRATE.md` |
-| urutan kerja, jebakan proses, cap judge, parkir | `skills/gba-decomp/SKILL.md` |
+| urutan kerja, jebakan proses, cap judge, parkir; rencana translasi | `skills/gba-decomp/SKILL.md`, `docs/RENCANA-TRANSLASI.md` |
 | angka progres per sesi (arsip, jangan diedit) | `docs/SESI-<tanggal>.md` |
 | build/instalasi toolchain, proot, qemu wrapper | `INSTALL.md` |
 
