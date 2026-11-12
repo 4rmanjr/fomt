@@ -511,6 +511,7 @@ semantik sama, layout beda 2 byte. Probe minimal
 (`if (p->f == 0) return ext(); return 0;`) memang `beq`, jadi yang menentukan
 adalah ukuran blok, bukan ejaan kondisinya. Parkir setelah satu bentuk
 terbukti; jangan sapu varian tanpa perubahan struktur.
+Pin rumah register (`__asm__("r6")` / `("r7")`) hanya memindahkan alamat, bukan orientasi cabang: pada `func_08034260` pin r6/r7 mereproduksi `add r6, r0, #0` + `add r7, r6, #0` + `add r7, r7, #0x41`, tetapi ref tetap `beq` dan draf tetap `bne`, dan `push` masih tanpa `r7` (wall (g) SKILL: pin tidak menambah save-set). Dua varian pin tanpa perubahan = berhenti.
 
 ### 7.3 Register epilogue `pop {r1}; bx r1` vs `pop {r2}; bx r2`
 

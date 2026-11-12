@@ -280,9 +280,9 @@
  "func_08034260": {
   "addr": 134431328,
   "draft_src": "manual",
-  "judged_mtime": 1794444453.723748,
+  "judged_mtime": 1794445142.7382855,
   "module": "code_entities_080320DC.s",
-  "note": "len 118 vs ref 120 [9missing,8extra,2operand,15regalloc,3different @r adds r6, r0, #0 | adds r5, r0, #0]",
+  "note": "byte +0x0: 0x70 vs ref 0xf0 [9missing,8extra,4operand,7regalloc,3different @i push {r4, r5, r6, r7, lr} | push {r4, r5, r6, lr}] [pin 2x: r6 (arg0) meniru add r6,r0,#0 dan ldr r4,[r6]; r6+r7 meniru add r7,r6,#0 + add r7,#0x41, tapi push tetap tanpa r7 (wall g SKILL) dan cabang tetap bne vs ref beq. Layout cabang TIDAK ikut berubah karena pin -> parkir]",
   "ref_len": 120,
   "sanitize_v": 4,
   "size": 1247,
