@@ -49,7 +49,9 @@ python3 tools/scripts/decomp_engine.py learn | hint <func> | sectors
   `hanya-register`) selalu di belakang.
 - `diff` — diff judge-vs-ref setelah `norm()`: alias `adds`/`add`, `stmia`→`stm`,
   alias kondisi, label, `.Lpool+N`, target cabang numerik, immediate negatif
-  pada `add`/`sub`, dan `negs rX, rY` = `rsbs rX, rY, #0`. Klasifikasi:
+  pada `add`/`sub`, `negs rX, rY` = `rsbs rX, rY, #0`, dan alias APCS
+  `sb`/`sl`/`fp`/`ip` = `r9`/`r10`/`r11`/`r12` (asm repo memakai nama APCS,
+  objdump mencetak `rN`). Klasifikasi:
   `identik`, `hanya-register`, `zero-reload`, `copy`, `sign/width`,
   `width-offset`, `ptr-scale`, `cabang`, `instruksi`.
 - `attempt` — tulis draf, reset state (`status=failed`, `judged_mtime=0`,

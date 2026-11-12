@@ -953,14 +953,16 @@
  },
  "func_0803E780": {
   "addr": 134473600,
-  "judged_mtime": 1793582714.106406,
+  "draft_src": "manual",
+  "judged_mtime": 1794459747.244282,
   "module": "code_0803A8A4.s",
-  "note": "entifier is reported only once\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803E780/opencode/func.c:37: for each function it appears in.)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803E780/opencode/func.c:40: warning: passing arg 1 of `func_0803D52C' from incompatible pointer type\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803A8A4.cc",
   "ref_len": 360,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 3058,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803E8E8": {

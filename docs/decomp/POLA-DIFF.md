@@ -1060,3 +1060,30 @@ Bentuk C yang sudah dicoba dan semuanya menghasilkan `str r2, [sp, #8]`
 Dugaan: nilai byte itu adalah objek memori yang kebetulan dialokasikan tepat di
 slot arg keluar (sp+8), bukan salinan argumen — sehingga ref hanya menulis satu
 byte. Belum ada bentuk C yang memaksa alokasi itu.
+
+## 29. Satu nilai, dua register: salinan `r4` -> `r8` + ekspresi dihitung ulang (func_0803E780)
+
+Gejala di ref: `rsb r1, r0, #0 / orr r1, r0 / lsr r4, r1, #0x1F / mov r8, r4`,
+lalu tes pertama `mov r0, r8 / cmp r0, #0` sementara dua tes berikutnya
+`cmp r4, #0`. Kalau C hanya punya satu variabel, gcc memakai satu register
+saja (draf: `lsr r4,...` tanpa `mov r8`) dan gate tetap DIFF.
+
+Penyebab: ref menyimpan nilai yang sama di DUA variabel. C yang cocok:
+
+```c
+u32 nz;   /* -> r4 */
+u32 nz2;  /* -> r8 */
+nz = (0 - u | u) >> 0x1F;
+nz2 = nz;
+... if (nz2 != 0) ...   /* tes pertama, baca r8 */
+... if (nz  != 0) ...   /* tes berikutnya, baca r4 */
+```
+
+Pola kedua di fungsi yang sama: ref **menghitung ulang** `arg0 + 0x1CD4`
+(`ldr r1, =0x1CD4; add r0, r5, r1`) untuk `func_080A0384`, padahal pointer
+itu sudah ada di `r4` dari `func_080A0490`. Artinya dua tapak C memakai
+ekspresi langsung (`func_080A0384(arg0 + 0x1CD4)`) dan satu memakai variabel
+(`p`). Ganti pemakaian variabel menjadi ekspresi (atau sebaliknya) per
+tapak — jangan seragamkan seluruh fungsi.
+
+Bukti: `func_0803E780` (code_0803A8A4, 360B) MATCH 3/5 setelah bentuk ini.

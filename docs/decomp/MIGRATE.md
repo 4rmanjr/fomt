@@ -421,6 +421,18 @@ Perbaikan: tulis deklarasi K&R kosong `void func_X();` di blok (hanya
 deklarasi, byte asm tidak berubah), cabut blok promoted lama (§17), judge ulang,
 lalu migrate. Bukti: `func_080A6640` (code_809E804, migrasi HIJAU).
 
+Kalau blok itu BELUM pernah masuk `src/`, cukup ubah deklarasinya di blok
+promoted lalu `migrate` lagi — tak perlu judge ulang, karena deklarasi tidak
+mengubah byte dan migrate tetap memverifikasi dengan `make compare`
+(bukti: `func_0803E780`).
+
+Gate kedua yang sering menyusul di blok yang sama: callee punya DUA varian
+extern di `src/` (mis. `u32 GetRivalEventCount__C12Bachelorette(i32)` dan
+`(void *)`). Seragamkan blok ke salah satu varian yang sudah ada (jangan
+menambah varian ketiga), lalu migrate lagi. Catatan: blok promoted wajib
+`s32`, bukan `i32` — audit melaporkan `i32 di draf/promoted` sebagai MASALAH
+(migrate yang mengubahnya jadi `i32` di `src/`).
+
 ## Gerbang urutan: hanya fungsi beralamat tertinggi yang bisa dipindah
 
 `migrate.py` menolak fungsi yang masih punya penerus di berkas `.s` ("bukan

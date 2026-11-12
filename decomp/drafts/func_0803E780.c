@@ -1,99 +1,89 @@
-u32 GetLove__C12Bachelorette();                     /* extern */
-u32 GetRivalEventCount__C12Bachelorette(void *);    /* extern */
-s32 func_0803D52C(s32 *, void *);                       /* extern */
+s32 func_0803D52C(s32 *, s32);                      /* extern */
 s32 func_0803D644(u8, u8);                          /* extern */
-s32 func_080A01F8(void *, s32);                     /* extern */
-s32 func_080A0384(void *);                          /* extern */
 s32 func_080A0490(void *);                          /* extern */
+u32 func_080A0384(void *);                          /* extern */
+s32 func_080A01F8(void *, s32);                     /* extern */
+u32 GetRivalEventCount__C12Bachelorette(void *);    /* extern */
+u32 GetLove__C12Bachelorette(void);                 /* extern */
 
-typedef struct GenObj {
-    u8 _pad0[1];
-    s32 unk1;
-    s32 unk2;
-    s32 unk3;
-    u8 _pad7[1];
-    s32 unk8;
-    u8 _padC[8544];
-    s32 unk216C;
-    u8 _pad2170[52];
-    s32 unk21A4;
-    u8 _pad21A8[34];
-    s32 unk21CA;
-} GenObj;
-s32 func_0803E780(GenObj *arg0, ? arg3) {
-GenObj sp0;
-    s32 temp_r0;
-    s32 temp_r0_2;
-    s32 temp_r0_3;
-    s32 temp_r0_4;
-    u32 temp_r4_2;
-    u32 temp_r8;
-    u8 temp_r6;
-    u8 temp_r7;
-    u8 temp_sb;
-    void *temp_r4;
+typedef struct {
+    u8 _pad0;
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+} Buf4;
 
-    if ((s32) (arg0->unk21CA << 0x1A) < 0) {
+s32 func_0803E780(u8 *arg0) {
+    Buf4 sp0;
+    u8 v1;
+    u8 v2;
+    u8 v3;
+    u8 *p;
+    s32 t;
+    s32 t2;
+    u32 u;
+    u32 nz;
+    u32 nz2;
+
+    if ((s32) (arg0[0x21CA] << 0x1A) < 0) {
         return 0;
     }
-    func_0803D52C(&sp0, arg0 + 0x10);
-    temp_r7 = sp0.unk1;
-    temp_r6 = sp0.unk2;
-    temp_sb = sp0.unk3;
-    temp_r4 = arg0 + 0x1CD4;
-    temp_r0 = func_080A0490(temp_r4);
-    if (temp_r0 == 0x15) {
-        if (temp_r7 == 2) {
-            if (temp_r6 == 9) {
+    func_0803D52C((s32 *) &sp0, (s32) (arg0 + 0x10));
+    v1 = sp0.unk1;
+    v2 = sp0.unk2;
+    v3 = sp0.unk3;
+    p = arg0 + 0x1CD4;
+    t = func_080A0490(p);
+    if (t == 0x15) {
+        if (v1 == 2) {
+            if (v2 == 9) {
                 return 0xE;
             }
-            if (temp_r6 == 0xD) {
+            if (v2 == 0xD) {
                 return 0xF;
             }
-            goto block_8;
         }
-block_8:
-        if (((u32) (arg0->unk216C << 0x1D) >> 0x1E) == 1) {
+        if (((u32) (arg0[0x216C] << 0x1D) >> 0x1E) == 1) {
             return 0x10;
         }
-        temp_r0_2 = func_080A0384(arg0 + 0x1CD4);
-        temp_r4_2 = (u32) ((0 - temp_r0_2) | temp_r0_2) >> 0x1F;
-        temp_r8 = temp_r4_2;
-        if (((func_0803D644(temp_r7, temp_r6) << 0x18) != 0) || (temp_r0_3 = arg0->unk8, (temp_r0_3 == 3)) || (temp_r0_3 == 4)) {
-            if (temp_r8 != 0) {
+        u = func_080A0384(arg0 + 0x1CD4);
+        nz = (0 - u | u) >> 0x1F;
+        nz2 = nz;
+        if (((func_0803D644(v1, v2) << 0x18) != 0) || (*(s32 *) (arg0 + 8) == 3) || (*(s32 *) (arg0 + 8) == 4)) {
+            if (nz2 != 0) {
                 return 0xC;
             }
             return 0xD;
         }
-        if (temp_sb == 3) {
-            if (temp_r4_2 != 0) {
+        if (v3 == 3) {
+            if (nz != 0) {
                 return 9;
             }
             return 0xB;
         }
-        if (temp_r4_2 != 0) {
+        if (nz != 0) {
             return 8;
         }
         return 0xA;
     }
-    if (GetRivalEventCount__C12Bachelorette(arg0 + 0x1EE4) > 4U) {
-        if ((func_0803D644(temp_r7, temp_r6) << 0x18) != 0) {
+    if (GetRivalEventCount__C12Bachelorette((void *) (arg0 + 0x1EE4)) > 4U) {
+        if ((func_0803D644(v1, v2) << 0x18) != 0) {
             return 7;
         }
-        if (temp_sb == 3) {
+        if (v3 == 3) {
             return 4;
         }
         return 3;
     }
-    temp_r0_4 = func_080A01F8(temp_r4, 0x15);
-    if ((temp_r7 == 3) && (temp_r6 == 0xE) && (temp_r0 == 0) && (temp_r0_4 != 0) && (GetLove__C12Bachelorette() > 0x270FU) && (((u32) (arg0->unk21A4 << 0x1C) >> 0x1E) != 2)) {
+    t2 = func_080A01F8(p, 0x15);
+    if ((v1 == 3) && (v2 == 0xE) && (t == 0) && (t2 != 0) && (GetLove__C12Bachelorette() > 0x270FU) && (((u32) (arg0[0x21A4] << 0x1C) >> 0x1E) != 2)) {
         return 6;
     }
-    if ((func_0803D644(temp_r7, temp_r6) << 0x18) != 0) {
+    if ((func_0803D644(v1, v2) << 0x18) != 0) {
         return 5;
     }
-    if (temp_sb != 3) {
-        return 1;
+    if (v3 == 3) {
+        return 2;
     }
-    return 2;
+    return 1;
 }

@@ -108,6 +108,10 @@ def _norm_op(op):
     return op
 
 
+REG_ALIAS = {"sb": "r9", "sl": "r10", "fp": "r11", "ip": "r12"}
+REG_ALIAS_RE = re.compile(r"\b(sb|sl|fp|ip)\b")
+
+
 def norm(line):
     line = line.split("@")[0].strip().rstrip(",")
     if not line:
@@ -115,6 +119,9 @@ def norm(line):
     parts = line.split(None, 1)
     op = _norm_op(parts[0])
     rest = parts[1] if len(parts) > 1 else ""
+    # `sb`/`sl`/`fp`/`ip` (nama APCS di asm repo) == `r9`/`r10`/`r11`/`r12`
+    # (nama yang dicetak objdump untuk draf). Register sama, instruksi sama.
+    rest = REG_ALIAS_RE.sub(lambda m: REG_ALIAS[m.group(1)], rest)
     rest = LABEL.sub("*", rest)
     # `ldr rX, .Lpool+0x4`: offset ke literal pool bergantung urutan pool di
     # hasil kompilasi, bukan perbedaan kode — jangan dihitung sebagai diff.

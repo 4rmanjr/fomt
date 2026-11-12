@@ -19,8 +19,8 @@
    ]
   },
   "copy": {
-   "match": 0,
-   "n": 9,
+   "match": 1,
+   "n": 12,
    "ops": [
     10,
     10,
@@ -30,7 +30,10 @@
     31,
     34,
     20,
-    9
+    9,
+    26,
+    12,
+    26
    ]
   },
   "hanya-register": {
@@ -156,6 +159,16 @@
     "text": "kondisi cabang terbalik (beq/bne): tulis `if (x == 0) return A; return B;` dengan A/B sesuai ref (POLA-DIFF \u00a77.2)."
    }
   ],
+  "copy": [
+   {
+    "examples": [
+     "func_0803E780"
+    ],
+    "hits": 1,
+    "misses": 0,
+    "text": "ada/tak ada `add rX, rY, #0` (salinan argumen atau pointer lokal): sesuaikan pemakaian variabel lokal (POLA-DIFF \u00a79.3)."
+   }
+  ],
   "hanya-register": [
    {
     "examples": [
@@ -195,6 +208,6 @@
    }
   ]
  },
- "updated": "2026-11-12 11:48",
+ "updated": "2026-11-12 12:02",
  "version": 1
 }
