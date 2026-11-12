@@ -1839,9 +1839,10 @@
  },
  "func_080AAE14": {
   "addr": 134917652,
-  "judged_mtime": 1794299573.7462308,
+  "draft_src": "manual",
+  "judged_mtime": 1794453855.95089,
   "module": "code_809E804.s",
-  "note": "len 50 vs ref 48 [1missing,2extra,1operand,7regalloc @i beq #0x2a | beq #0x2c]",
+  "note": "len 44 vs ref 48 [2missing,1operand @i beq #0x2a | beq #0x26]",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 435,
