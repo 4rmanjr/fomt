@@ -501,6 +501,17 @@ if (x == 0) return 1;
 return 0;
 ```
 
+Batas aturan ini: ia berlaku saat `then`/`else` masing-masing cuma satu
+`return`. Kalau badan fungsi panjang, agbcc tetap menginversi. Pembukti:
+`func_08034260` (ref `beq <badan>` dengan fallthrough `movs r0, #0`). Enam
+varian C — `if (x != 0) return 0;`, `if (x == 0) { ...; return 1; }`,
+`goto` ke label badan, `if (x)`, `else` eksplisit, dan ternary — semuanya
+menghasilkan `bne <jalur pulang-0>` dengan badan sebagai fallthrough:
+semantik sama, layout beda 2 byte. Probe minimal
+(`if (p->f == 0) return ext(); return 0;`) memang `beq`, jadi yang menentukan
+adalah ukuran blok, bukan ejaan kondisinya. Parkir setelah satu bentuk
+terbukti; jangan sapu varian tanpa perubahan struktur.
+
 ### 7.3 Register epilogue `pop {r1}; bx r1` vs `pop {r2}; bx r2`
 
 `func_0805E760` identik instruksi per instruksi kecuali epilogue:
