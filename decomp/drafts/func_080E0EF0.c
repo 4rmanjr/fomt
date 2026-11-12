@@ -1,5 +1,5 @@
-s32 _._13AScriptEngine();                             /* extern */
+u32 ScriptEngineDtor2(void) asm("_._13AScriptEngine");
 
 void func_080E0EF0(void) {
-    _._13AScriptEngine();
+    ScriptEngineDtor2();
 }

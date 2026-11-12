@@ -561,9 +561,10 @@
  },
  "func_0809D9B4": {
   "addr": 134863284,
-  "judged_mtime": 1793017762.3028038,
+  "draft_src": "manual",
+  "judged_mtime": 1794454480.5690234,
   "module": "code_actor_0809BFE8.s",
-  "note": "ething not a structure or union\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809D9B4/opencode/func.c:17: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809D9B4/opencode/func.c:17: request for member `unk4' in something not a structure or union\n",
+  "note": "byte +0x1a: 0xf vs ref 0x10 [1missing,2extra,2operand @i bne #0x3e | bne #0x3c]",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 815,

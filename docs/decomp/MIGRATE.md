@@ -419,3 +419,41 @@ bukan soal tipe, murni bentuk deklarasi.
 Perbaikan: tulis deklarasi K&R kosong `void func_X();` di blok (hanya
 deklarasi, byte asm tidak berubah), cabut blok promoted lama (§17), judge ulang,
 lalu migrate. Bukti: `func_080A6640` (code_809E804, migrasi HIJAU).
+
+## Gerbang urutan: hanya fungsi beralamat tertinggi yang bisa dipindah
+
+`migrate.py` menolak fungsi yang masih punya penerus di berkas `.s` ("bukan
+fungsi terakhir ... N penerus belum pindah"). Artinya kemajuan per modul
+berbentuk **rantai dari ekor**: fungsi pertama yang bisa masuk adalah fungsi
+gagal dengan alamat tertinggi, lalu berikutnya, dst.
+
+Konsekuensi praktis:
+
+- MATCH pada fungsi yang bukan kepala rantai tetap **dipromosikan** ke
+  `decomp/promoted/<stem>.cc` dan **dihitung** `fomt status`/`plan_stats`,
+  tetapi `src/` tidak bertambah (DELTA src = 0) dan `make compare` tetap HIJAU
+  karena berkas `.s` masih merakit byte-nya. Contoh: `func_080DC9C0` (12B,
+  tertahan 260 penerus).
+- Saat memilih target, urutkan kandidat per modul menurut alamat menurun dan
+  kerjakan yang teratas; sisanya baru terbuka setelahnya.
+- Kepala rantai bisa saja **mustahil di C** (contoh `func_080D10F0`: membaca
+  `r4`, `r7`, `r12` sebagai masukan, tampil sebagai `saved_reg_*` /
+  `M2C_ERROR` di draf). Modul seperti itu rantainya berhenti di gerbang —
+  deteksi dini lewat `saved_reg_`/`M2C_ERROR` di draf sebelum menjajal.
+
+### Pembungkus C++ mangled (`_._...`)
+
+Thunk 12B berbentuk `push {lr}; bl _._10ANpcEntity; pop {r0}; bx r0` tidak bisa
+ditulis m2c (nama `_._10ANpcEntity` bukan identifier C). Pola yang MATCH 1/5:
+
+```c
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DC9C0(void) {
+    NpcEntityDtor();
+}
+```
+
+Idiom `asm("<simbol>")` sama dengan `src/game_scene.cc` (`ScriptEngineDtor`).
+Kembalikan `u32` agar `pop {r0}` + `bx r0` terbentuk; `void` menghasilkan
+`pop {r1}`.

@@ -1,5 +1,5 @@
-s32 _._10ANpcEntity();                                /* extern */
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
 
 void func_080DCA20(void) {
-    _._10ANpcEntity();
+    NpcEntityDtor();
 }

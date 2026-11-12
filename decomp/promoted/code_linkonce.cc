@@ -1921,3 +1921,241 @@ void *func_080E542C(GenObj *arg0, s32 *arg1)
     func_0800050C(4);
     return arg0;
 }
+
+// DECOMP-MATCHED func_080DC9C0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DC9C0(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DC9CC (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DC9CC(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DC9D8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DC9D8(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DC9E4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DC9E4(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DC9F0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DC9F0(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DC9FC (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DC9FC(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA08 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA08(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA14 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA14(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA20 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA20(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA2C (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA2C(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA38 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA38(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA44 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA44(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA50 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA50(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA5C (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA5C(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA68 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA68(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA74 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA74(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA80 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA80(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA8C (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA8C(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCA98 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCA98(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCAA4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCAA4(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCAB0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCAB0(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCABC (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCABC(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCAC8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCAC8(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCAD4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCAD4(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCAE0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCAE0(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCAEC (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCAEC(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCAF8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCAF8(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCB04 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCB04(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCB10 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCB10(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCB1C (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCB1C(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCB28 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCB28(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCB34 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCB34(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080DCB40 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 NpcEntityDtor(void) asm("_._10ANpcEntity");
+
+void func_080DCB40(void) {
+    NpcEntityDtor();
+}
+
+// DECOMP-MATCHED func_080E0EF0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+u32 ScriptEngineDtor2(void) asm("_._13AScriptEngine");
+
+void func_080E0EF0(void) {
+    ScriptEngineDtor2();
+}

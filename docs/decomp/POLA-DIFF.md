@@ -993,3 +993,14 @@ Catatan engine: `negs r0, r0` (draf) vs `rsbs r0, r0, #0` (ref) adalah
 instruksi yang sama, tetapi `norm()` belum mengalias-kannya sehingga masih
 muncul sebagai diff palsu di laporan `diff` setelah MATCH. Byte compare
 (`judge`) yang memutuskan, bukan teks normalisasi.
+
+### 10.x Mask negatif vs promosi `u8`
+
+Ref kadang meng-AND byte dengan konstanta negatif sehingga muncul
+`mov r0, #0x10; rsb r0, r0, #0` alih-alih `mov r0, #0xF0`. Bentuk C yang
+sudah dicoba dan hasilnya: `p[4] &= 0xF0` -> `#0xF0`;
+`p[4] &= ~0x10` -> `#0xEF` (semantik beda); `p[4] = p[4] & -0x10` -> `#0xF0`;
+`s32 t = p[4]; p[4] = t & -0x10` -> `mov #0x10; rsb` **plus `add`**;
+`-0x10 & p[4]` -> `#0xF0`. Jadi `rsb` muncul hanya saat nilai byte berada di
+register sumber, dan agbcc lalu menyisipkan `add` untuk menyatukan mask —
+belum ada bentuk C yang menghasilkan urutan ref persis.
