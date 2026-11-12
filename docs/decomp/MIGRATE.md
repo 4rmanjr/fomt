@@ -443,6 +443,43 @@ Konsekuensi praktis:
   `M2C_ERROR` di draf). Modul seperti itu rantainya berhenti di gerbang —
   deteksi dini lewat `saved_reg_`/`M2C_ERROR` di draf sebelum menjajal.
 
+### Blok promote-only: dipertahankan sebagai staging (keputusan 2026-11-12)
+
+Blok MATCH yang tertahan penerus **tidak dibuang** dari
+`decomp/promoted/<stem>.cc`. Statusnya staging: nol byte ROM, bukan progres.
+Alasannya, untuk 34 thunk `_._10ANpcEntity`/`_._13AScriptEngine` di
+`code_linkonce`:
+
+1. **Rantainya hidup, bukan buntu.** `src/code_linkonce.cc` sudah berisi 6
+   fungsi beralamat tertinggi (`0x80E581C`..`0x80E59C0`); promote-only berhenti
+   di `0x80E54C4`, dan thunk 12B paling tinggi `0x80E4238`. Artinya blok itu
+   terserap sendiri begitu fungsi di antaranya pindah — bukan SKIP permanen.
+2. **Sudah byte-identik.** Judge MATCH 1/5; membuang lalu menulis ulang hanya
+   mengulang kerja.
+3. **Inflasi sudah dimitigasi.** `fomt status`/`plan_stats` memisahkan `src`
+   dari `promote-only` (`decomp/srcmarkers.py`), jadi angka tidak menyesatkan.
+4. **Konsisten dengan praktik repo.** `decomp/promoted/code_linkonce.cc` berisi
+   169 blok blocked, 0 duplikat, tak satu pun bentrok dengan `src/`; seluruh
+   thunk masih ada di `.s`.
+
+Guard rails:
+
+- Jangan laporkan promote-only sebagai migrasi/kemajuan ROM; yang dihitung
+  hanya `src`.
+- Jangan judge ulang fungsi yang sudah berblok (R2). Perlu mengubah blok?
+  Hapus blok + baris `DECOMP-MATCHED` dulu, baru judge ulang (§17).
+- Hapus blok bila: fungsinya tak lagi ada di `.s`, muncul blok duplikat,
+  signature melenceng (`migrate.py --explain`), atau modulnya diputuskan tidak
+  akan dimigrasi.
+
+Cek cepat:
+
+```bash
+python3 tools/scripts/plan_stats.py --module code_linkonce   # src vs promo
+grep -c 'DECOMP-MATCHED' decomp/promoted/code_linkonce.cc    # jumlah blok
+python3 decomp/srcmarkers.py                                 # yang sudah di src/
+```
+
 ### Pembungkus C++ mangled (`_._...`)
 
 Thunk 12B berbentuk `push {lr}; bl _._10ANpcEntity; pop {r0}; bx r0` tidak bisa
