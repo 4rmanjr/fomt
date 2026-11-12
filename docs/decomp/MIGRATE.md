@@ -443,6 +443,34 @@ Konsekuensi praktis:
   `M2C_ERROR` di draf). Modul seperti itu rantainya berhenti di gerbang —
   deteksi dini lewat `saved_reg_`/`M2C_ERROR` di draf sebelum menjajal.
 
+### Gerbang fragmen: `ref_len` yang membentang ke `.byte` mentah
+
+Sebagian gerbang rantai **tidak mungkin** MATCH karena yang dianggap satu
+fungsi sebenarnya fragmen + data asing di ekornya. Contoh: `func_08009514`
+(gerbang `hardware`, `ref_len` 87).
+
+```asm
+.L080094E0:
+    .byte 0x00, 0xB5, ...      # push {lr}; adds r0,#0xC; lsls/asrs; bl
+    thumb_func_start func_08009514
+func_08009514:
+    lsls r0, r0, #0x10          # 0x8009514: TANPA push
+    asrs r0, r0, #0x10
+    pop {r1}                    # epilog milik fragmen sebelumnya
+    bx r1
+```
+
+Ciri: fungsi diawali tanpa prolog tapi diakhiri `pop {r1}; bx r1`, dan
+`ref_len` melompati blok `.byte` berikutnya (di sini sampai `0x800956B`,
+termasuk thunk `bl`+0xC dan ctor `vtable_080E5B80` yang tak punya
+`thumb_func_start`).
+
+Tindakan: jangan judge (draf C apa pun akan kekurangan puluhan instruksi),
+parkir dengan `note`, dan laporkan modul itu rantainya buntu. Satu-satunya
+jalan keluar adalah **simbolisasi manual** `asm/<stem>.s` (memecah blob
+`.byte` menjadi `thumb_func_start` per fungsi; byte ROM tidak berubah) —
+keputusan manusia, bukan langkah otomatis.
+
 ### Blok promote-only: dipertahankan sebagai staging (keputusan 2026-11-12)
 
 Blok MATCH yang tertahan penerus **tidak dibuang** dari

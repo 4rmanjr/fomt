@@ -1157,7 +1157,7 @@
   "addr": 134255892,
   "judged_mtime": 1793582714.0304182,
   "module": "hardware.s",
-  "note": "len 6 vs ref 88 [37missing,1regalloc @< pop {r1} | ]",
+  "note": "len 6 vs ref 88 [37missing,1regalloc @< pop {r1} | ] [GERBANG FRAGMEN bukan C: 0x8009514 bukan awal fungsi. Byte 0x8009508..: `00 B5 (push lr); 0C 30 (adds r0,#0xc); 09 04; 09 14; FF F7 46 FF (bl)` lalu 0x8009514 `00 04; 00 14; 02 BC; 08 47` = lsls/asrs/pop{bx} TANPA push. ref_len 87 membentang sampai 0x800956B dan mencakup thunk .byte mentah (bl +0xc, ctor vtable_080E5B80) yang tidak punya thumb_func_start. Tidak bisa MATCH dari C; re-judge tanpa perubahan draf dilarang (R2) -> parkir. Unblock butuh simbolisasi manual asm/hardware.s (blob .byte -> thumb_func_start), keputusan manusia]",
   "ref_len": 87,
   "sanitize_v": 4,
   "size": 680,
