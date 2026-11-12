@@ -2979,13 +2979,15 @@
  },
  "func_0801F924": {
   "addr": 134347044,
-  "judged_mtime": 1793931352.81895,
+  "draft_src": "manual",
+  "judged_mtime": 1794456881.207023,
   "module": "game_state.s",
-  "note": "n\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0801F924/lenovo_136846/func.c:87: warning: assignment makes pointer from integer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0801F924/lenovo_136846/func.c:88: request for member `unk4' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 388,
   "sanitize_v": 4,
   "size": 4031,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801FAA8": {

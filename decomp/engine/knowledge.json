@@ -54,8 +54,8 @@
    ]
   },
   "instruksi": {
-   "match": 3,
-   "n": 35,
+   "match": 4,
+   "n": 40,
    "ops": [
     12,
     12,
@@ -91,7 +91,12 @@
     2,
     2,
     4,
-    2
+    2,
+    78,
+    64,
+    12,
+    2,
+    78
    ]
   },
   "width-offset": {
@@ -139,9 +144,10 @@
     "examples": [
      "func_08050E98",
      "func_080E542C",
-     "func_080B9828"
+     "func_080B9828",
+     "func_0801F924"
     ],
-    "hits": 3,
+    "hits": 4,
     "misses": 0,
     "text": "beda instruksi umum: baca diff di atas, cek lebar akses, urutan store, dan rantai pointer."
    }
@@ -160,6 +166,6 @@
    }
   ]
  },
- "updated": "2026-11-12 10:34",
+ "updated": "2026-11-12 11:14",
  "version": 1
 }

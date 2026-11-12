@@ -994,7 +994,7 @@ instruksi yang sama, tetapi `norm()` belum mengalias-kannya sehingga masih
 muncul sebagai diff palsu di laporan `diff` setelah MATCH. Byte compare
 (`judge`) yang memutuskan, bukan teks normalisasi.
 
-### 10.x Mask negatif vs promosi `u8`
+## 26. Mask negatif vs promosi `u8`
 
 Ref kadang meng-AND byte dengan konstanta negatif sehingga muncul
 `mov r0, #0x10; rsb r0, r0, #0` alih-alih `mov r0, #0xF0`. Bentuk C yang
@@ -1004,3 +1004,31 @@ sudah dicoba dan hasilnya: `p[4] &= 0xF0` -> `#0xF0`;
 `-0x10 & p[4]` -> `#0xF0`. Jadi `rsb` muncul hanya saat nilai byte berada di
 register sumber, dan agbcc lalu menyisipkan `add` untuk menyatukan mask —
 belum ada bentuk C yang menghasilkan urutan ref persis.
+
+## 27. Pin satu variabel menentukan homing variabel lain + `pm = &m` (func_0801F924)
+
+`func_0801F924` (`game_state`, 388B, gerbang rantai 113 fungsi) MATCH 5/5.
+Tiga pengungkit yang menentukan, semuanya soal *rumah register* dan *urutan
+store*, bukan logika:
+
+1. **Pin `id` -> r5 membuat `arg0` otomatis r4.** Tanpa pin: `add r5, r0`
+   (arg0) dan `add r4, r0` (id) — kebalikan ref, dan enam `add r1, r4/#0`
+   ikut salah. Dengan `register s32 id __asm__("r5");` prolog jadi
+   `add r4, r0` / `add r5, r0` persis ref. Jadi pin satu temp bisa memindah
+   homing variabel lain (bukan hanya dirinya).
+2. **Pointer pesan eksplisit menggeser `add r1, sp, #off`.** Bentuk
+   `Msg m; m.code = ...; m.arg = id; f(&m)` menaruh `add r1, sp, #off`
+   SETELAH store; ref menaruhnya SEBELUM (`add r1, sp, #8; ldr r0, =0x33D;
+   str r0, [sp, #8]`). Dengan `Msg *pm = &m;` lalu `pm->code`/`pm->arg`, urutan
+   ref tercapai. Diff-nya menipu: baris `- ref` dan `+ draf` tampak identik,
+   hanya posisinya bergeser.
+3. **Alamat dispatch dihitung per-case, bukan di-hoist.** `void *p =
+   arg0->unk0 + 0x140;` di dalam tiap `case` (sebelum isi pesan) menghasilkan
+   `ldr r2, [r4]; mov r0, #0xA0; lsl; add r2, r0` mendahului store — sama
+   seperti ref. Kalau `p` (atau `fn`) dinaikkan ke luar `switch`, `arg0`
+   terdorong ke r6 dan seluruh fungsi meleset.
+
+Jalur percobaan: 1) draf m2c-style DIFF (homes tertukar + urutan), 2) pin
+`id->r5` DIFF (sisa 7 baris urutan), 3) `p` per-case DIFF (6 baris), 4) `pm`
+untuk 6 case DIFF (1 baris: blok ekor), 5) `pm` juga di blok ekor -> MATCH.
+Bukti: `migrate` OK, marker di `src/game_state.cc`, `make compare` HIJAU.
