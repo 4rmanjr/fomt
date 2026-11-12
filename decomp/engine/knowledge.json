@@ -3,7 +3,7 @@
  "kinds": {
   "cabang": {
    "match": 2,
-   "n": 15,
+   "n": 17,
    "ops": [
     5,
     11,
@@ -19,12 +19,14 @@
     11,
     11,
     11,
-    21
+    21,
+    11,
+    14
    ]
   },
   "copy": {
-   "match": 3,
-   "n": 18,
+   "match": 6,
+   "n": 31,
    "ops": [
     10,
     10,
@@ -43,12 +45,25 @@
     17,
     14,
     17,
-    17
+    17,
+    25,
+    25,
+    25,
+    25,
+    4,
+    4,
+    20,
+    12,
+    13,
+    11,
+    4,
+    5,
+    9
    ]
   },
   "hanya-register": {
    "match": 3,
-   "n": 16,
+   "n": 19,
    "ops": [
     2,
     2,
@@ -65,7 +80,10 @@
     2,
     2,
     7,
-    7
+    7,
+    7,
+    4,
+    8
    ]
   },
   "identik": {
@@ -79,8 +97,8 @@
    ]
   },
   "instruksi": {
-   "match": 6,
-   "n": 49,
+   "match": 8,
+   "n": 66,
    "ops": [
     12,
     12,
@@ -130,15 +148,40 @@
     2,
     8,
     1,
-    20
+    20,
+    3,
+    3,
+    5,
+    5,
+    18,
+    8,
+    4,
+    5,
+    2,
+    18,
+    8,
+    8,
+    9,
+    12,
+    6,
+    2,
+    2
+   ]
+  },
+  "ptr-scale": {
+   "match": 0,
+   "n": 1,
+   "ops": [
+    6
    ]
   },
   "sign/width": {
    "match": 0,
-   "n": 2,
+   "n": 3,
    "ops": [
     34,
-    31
+    31,
+    10
    ]
   },
   "width-offset": {
@@ -189,11 +232,13 @@
   "copy": [
    {
     "examples": [
-     "func_0803E780",
      "func_08094A00",
-     "func_08094A00"
+     "func_08094A00",
+     "func_080B0934",
+     "func_080B0934",
+     "func_080AAE14"
     ],
-    "hits": 3,
+    "hits": 6,
     "misses": 0,
     "text": "ada/tak ada `add rX, rY, #0` (salinan argumen atau pointer lokal): sesuaikan pemakaian variabel lokal (POLA-DIFF \u00a79.3)."
    }
@@ -213,13 +258,13 @@
   "instruksi": [
    {
     "examples": [
-     "func_080E542C",
-     "func_080B9828",
      "func_0801F924",
      "func_080094F8",
-     "func_080094E0"
+     "func_080094E0",
+     "func_080B34DC",
+     "func_08037008"
     ],
-    "hits": 6,
+    "hits": 8,
     "misses": 0,
     "text": "beda instruksi umum: baca diff di atas, cek lebar akses, urutan store, dan rantai pointer."
    }
@@ -249,6 +294,6 @@
    }
   ]
  },
- "updated": "2026-11-12 13:54",
+ "updated": "2026-11-12 14:37",
  "version": 1
 }

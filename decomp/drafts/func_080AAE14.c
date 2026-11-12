@@ -9,13 +9,14 @@ typedef struct Node {
 
 typedef struct List {
     u8 _pad0[4];
-    Node *unk4;
+    Node *volatile unk4;
     u32 unk8;
 } List;
 
 void func_080AAE14(u32 *arg0, u32 arg1, u32 arg2) {
     List *l;
-    Node *n;
+    register Node *n __asm__("r0");
+    register s32 z __asm__("r1");
 
     arg0[0] = arg1;
     arg0[1] = arg2;
@@ -25,9 +26,10 @@ void func_080AAE14(u32 *arg0, u32 arg1, u32 arg2) {
         n = l->unk4;
         n->unk8 = n;
         n = l->unk4;
-        n->unk4 = 0;
+        z = 0;
+        n->unk4 = (Node *) z;
         n = l->unk4;
         n->unkC = n;
-        l->unk8 = 0;
+        l->unk8 = (u32) z;
     }
 }

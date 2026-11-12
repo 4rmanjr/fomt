@@ -925,9 +925,10 @@
  },
  "func_08036BB0": {
   "addr": 134441904,
-  "judged_mtime": 1793582714.0914085,
+  "draft_src": "manual",
+  "judged_mtime": 0,
   "module": "code_entities_08034CEC.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08036BB0/opencode/func.c: In function `func_08036BB0':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08036BB0/opencode/func.c:19: invalid type argument of `unary *'\n",
+  "note": "parkir 6/5: sisa 4 regalloc pada register offset 0xA/0xE (r1/r2 tertukar). Draf diregenerasi m2c.",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 733,
@@ -1078,14 +1079,16 @@
  },
  "func_08037008": {
   "addr": 134443016,
-  "judged_mtime": 1793582714.0924082,
+  "draft_src": "manual",
+  "judged_mtime": 1794468690.7513819,
   "module": "code_entities_08034CEC.s",
-  "note": "(first use in this function)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08037008/opencode/func.c:32: `arg4' undeclared (first use in this function)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08037008/opencode/func.c:34: warning: assignment makes pointer from integer without a cast\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 64,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 736,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08037048": {

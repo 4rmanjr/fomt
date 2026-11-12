@@ -4,21 +4,29 @@ typedef struct GenObj {
     u8 _pad0[2180];
     s32 unk884;
     u8 _pad888[88];
-    s32 unk8E0;
+    u8 unk8E0;
 } GenObj;
-void func_080B34DC(GenObj *arg0) {
-    s32 var_r2;
 
-    var_r2 = 0;
-loop_1:
-    if (arg0->unk8E0 == *((u8 *)var_r2 + &gUnk_0810787C)) {
-        arg0->unk884 = var_r2;
-        return;
-    }
-    var_r2 += 1;
-    if (var_r2 > 4) {
-        arg0->unk884 = 5;
-        return;
-    }
-    goto loop_1;
+void func_080B34DC(GenObj *arg0) {
+    register u8 *p __asm__("r3");
+    register u8 *ip __asm__("r5");
+    register s32 *op __asm__("r4");
+    register u8 *tbl __asm__("r6");
+    register s32 *q __asm__("r1");
+    s32 i;
+
+    p = (u8 *) arg0;
+    i = 0;
+    ip = p + 0x8E0;
+    tbl = (u8 *) &gUnk_0810787C;
+    op = (s32 *) (p + 0x884);
+    do {
+        if (*ip == *((u8 *) (i + (u32) tbl))) {
+            *op = i;
+            return;
+        }
+        i += 1;
+    } while (i <= 4);
+    q = (s32 *) (p + 0x884);
+    *q = 5;
 }

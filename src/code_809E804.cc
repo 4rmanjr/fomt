@@ -731,6 +731,58 @@ typedef struct Blob {
 } Blob;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Sub {
+    u8 _pad0[0x10];
+    u16 unk10;
+} Sub;
+typedef struct GenObj__func_080B0934 {
+    u8 _pad0[0x500];
+    Sub *unk500;
+    u8 _pad504[0x114];
+    Sub *unk618;
+    u8 _pad61C[0xD8];
+    Sub *unk6F4;
+} GenObj__func_080B0934;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080B34DC {
+    u8 _pad0[2180];
+    i32 unk884;
+    u8 _pad888[88];
+    u8 unk8E0;
+} GenObj__func_080B34DC;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Node {
+    u8 _pad0[4];
+    struct Node *unk4;
+    struct Node *unk8;
+    struct Node *unkC;
+} Node;
+typedef struct List {
+    u8 _pad0[4];
+    Node *volatile unk4;
+    u32 unk8;
+} List;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080B9428 {
+    u8 _pad0[0xAC];
+    u32 unkAC;
+    u8 _padB0[0x18];
+    u8 unkC8;
+    u8 _padC9[0x0F];
+    u8 unkD8;
+    u8 unkD9;
+    u8 _padDA[2];
+    u8 unkDC;
+} GenObj__func_080B9428;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E968 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080E3E9C(u8 *, u8 *, i32);
@@ -2287,6 +2339,33 @@ void func_080AA8DC(GenObj__func_080AA8DC *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_080AAE14 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080DC57C(void *, i32);                       /* extern */
+
+__attribute__((section(".text.code_809E804.080AAE14")))
+void func_080AAE14(u32 *arg0, u32 arg1, u32 arg2) {
+    List *l;
+    register Node *n __asm__("r0");
+    register i32 z __asm__("r1");
+
+    arg0[0] = arg1;
+    arg0[1] = arg2;
+    l = (List *) (arg0 + 2);
+    if (l->unk8 != 0) {
+        func_080DC57C(l, (i32)(l->unk4->unk4));
+        n = l->unk4;
+        n->unk8 = n;
+        n = l->unk4;
+        z = 0;
+        n->unk4 = (Node *) z;
+        n = l->unk4;
+        n->unkC = n;
+        l->unk8 = (u32) z;
+    }
+}
+}
+
 // DECOMP-MATCHED func_080AAF10 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.080AAF10")))
@@ -2684,6 +2763,62 @@ void func_080AE6C0(void) {
 }
 }
 
+// DECOMP-MATCHED func_080B0934 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_809E804.080B0934")))
+void func_080B0934(void *arg0v) {
+    GenObj__func_080B0934 *arg0 = (GenObj__func_080B0934 *) arg0v;
+    i32 i;
+    i32 off;
+    register u8 *p __asm__("r0");
+    register u8 *q __asm__("r1");
+
+    arg0->unk500->unk10 = 0;
+    i = 0;
+    do {
+        off = i * 4;
+        p = (u8 *) (off + (u32) arg0);
+        (*(Sub **) (p + 0x618))->unk10 = 0;
+        __asm__ volatile("" : "+r"(off));
+        q = (u8 *) (off + (u32) arg0);
+        (*(Sub **) (q + 0x6F4))->unk10 = 0;
+        i += 1;
+        __asm__ volatile("" : "+r"(i));
+    } while (i <= 4);
+}
+}
+
+// DECOMP-MATCHED func_080B34DC (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 gUnk_0810787C;
+
+__attribute__((section(".text.code_809E804.080B34DC")))
+void func_080B34DC(GenObj__func_080B34DC *arg0) {
+    register u8 *p __asm__("r3");
+    register u8 *ip __asm__("r5");
+    register i32 *op __asm__("r4");
+    register u8 *tbl __asm__("r6");
+    register i32 *q __asm__("r1");
+    i32 i;
+
+    p = (u8 *) arg0;
+    i = 0;
+    ip = p + 0x8E0;
+    tbl = (u8 *) &gUnk_0810787C;
+    op = (i32 *) (p + 0x884);
+    do {
+        if (*ip == *((u8 *) (i + (u32) tbl))) {
+            *op = i;
+            return;
+        }
+        i += 1;
+    } while (i <= 4);
+    q = (i32 *) (p + 0x884);
+    *q = 5;
+}
+}
+
 // DECOMP-MATCHED func_080B3990 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 extern i32 gUnk_08107882;
@@ -2776,7 +2911,7 @@ u16 func_080B3A10(GenObj__func_080B3A10 *arg0) {
 // DECOMP-MATCHED func_080B3BA8 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08008B6C(i32, i32);                          /* extern */
-i32 func_080B0934(void *);                            /* extern */
+void func_080B0934(void *arg0v);                             /* extern */
 i32 func_080B0970(void *);                            /* extern */
 
 __attribute__((section(".text.code_809E804.080B3BA8")))
@@ -2853,6 +2988,28 @@ void *func_080B3C90(GenObj__func_080B3C90 *arg0) {
     arg0->unk10 = 0;
     arg0->unk11 = 0;
     return arg0;
+}
+}
+
+// DECOMP-MATCHED func_080B9428 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08008B6C(i32, i32);                       /* extern */
+
+__attribute__((section(".text.code_809E804.080B9428")))
+void func_080B9428(GenObj__func_080B9428 *arg0) {
+    u8 *p;
+
+    arg0->unkD8 = 1;
+    if (arg0->unkAC <= 1U) {
+        p = (u8 *) arg0 + 0xDC;
+        *p = 0;
+        p -= 0x14;
+        *p = 0;
+        p += 0x11;
+        *p = 1;
+        arg0->unkAC = 5U;
+        func_08008B6C((i32) ((u8 *) arg0 + 0x70C), 0xCC);
+    }
 }
 }
 

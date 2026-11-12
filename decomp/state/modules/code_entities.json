@@ -564,9 +564,10 @@
  },
  "func_08024020": {
   "addr": 134365216,
-  "judged_mtime": 1793582714.068412,
+  "draft_src": "manual",
+  "judged_mtime": 0,
   "module": "code_entities.s",
-  "note": "akes integer from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08024020/lenovo_216560/func.c:22: warning: return makes integer from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08024020/lenovo_216560/func.c:31: invalid operands to binary &\n",
+  "note": "parkir 2/5: polaritas cabang `beq` vs `bne` dan home var r1/r2; bentuk C sudah dicoba. Draf diregenerasi m2c.",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 664,
