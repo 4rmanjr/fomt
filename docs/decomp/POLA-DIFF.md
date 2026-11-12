@@ -1032,3 +1032,31 @@ Jalur percobaan: 1) draf m2c-style DIFF (homes tertukar + urutan), 2) pin
 `id->r5` DIFF (sisa 7 baris urutan), 3) `p` per-case DIFF (6 baris), 4) `pm`
 untuk 6 case DIFF (1 baris: blok ekor), 5) `pm` juga di blok ekor -> MATCH.
 Bukti: `migrate` OK, marker di `src/game_state.cc`, `make compare` HIJAU.
+
+## 28. Argumen stack bertipe byte: `add rX, sp, #off; strb` (func_0801F77C)
+
+`func_0801F77C` (`game_state`, 424B) hampir MATCH: struktur, switch tree, dan
+pin register sudah persis, sisa dua keluarga. Yang pertama belum terpecahkan:
+
+```asm
+add r3, sp, #8
+movs r2, #0
+strb r2, [r3]        # arg ke-7 ditulis sebagai BYTE lewat alamat
+```
+
+Bentuk C yang sudah dicoba dan semuanya menghasilkan `str r2, [sp, #8]`
+(word store):
+
+| bentuk | hasil |
+|---|---|
+| param `u8` + literal `0` | word store |
+| variabel `u8 flag; flag = 0;` | word store (flag masuk register) |
+| param `s8` | word store |
+| `struct { u8 b; }` by value (variabel) | word store |
+| `struct { u8 b; }` compound literal `(Flag){0}` | word store |
+| `volatile u8` | `strb` pindah ke prolog, bukan slot arg |
+| `u8` yang alamatnya diambil (`u8 *p = &flag`) | `strb` di prolog |
+
+Dugaan: nilai byte itu adalah objek memori yang kebetulan dialokasikan tepat di
+slot arg keluar (sp+8), bukan salinan argumen — sehingga ref hanya menulis satu
+byte. Belum ada bentuk C yang memaksa alokasi itu.

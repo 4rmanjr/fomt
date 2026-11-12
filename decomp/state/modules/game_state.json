@@ -2968,9 +2968,10 @@
  },
  "func_0801F77C": {
   "addr": 134346620,
-  "judged_mtime": 1793582714.0614133,
+  "draft_src": "manual",
+  "judged_mtime": 1794458123.0603182,
   "module": "game_state.s",
-  "note": "teger from pointer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0801F77C/opencode/func.c:80: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0801F77C/opencode/func.c:80: request for member `unk3' in something not a structure or union\n",
+  "note": "len 418 vs ref 422 [9missing,8extra,22operand,13regalloc,3different @< movs r6, #0 | ]",
   "ref_len": 424,
   "sanitize_v": 4,
   "size": 4091,

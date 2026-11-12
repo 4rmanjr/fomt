@@ -1,94 +1,105 @@
-s32 IsFireplaceLighted__C9FarmHouse(void *);        /* extern */
-s32 __builtin_new(s32);                             /* extern */
-s32 func_0800E324(void *);                          /* extern */
-void *func_080A4A00(s32, void *, s32, void *, s32, s32); /* extern */
+void *__builtin_new(s32);                            /* extern */
+s32 func_0800E324(void *);                           /* extern */
+void *func_080A4A00(void *, void *, s32, void *, s32, s32, u8); /* extern */
+s32 IsFireplaceLighted__C9FarmHouse(void *);         /* extern */
 
-typedef struct GenObj {
-    struct GenObj *unk0;
-    s32 unk3;
-    s32 unk4;
-    struct GenObj *unk8;
-    u8 _padC[8];
-    s32 unk14;
-    u8 _pad18[12];
-    struct GenObj *unk24;
-    u8 _pad28[4112];
-    void *unk1038;
-    u8 _pad103C[56];
-    s32 unk1074;
-    s32 unk1078;
-} GenObj;
-void func_0801F77C(GenObj *arg0) {
-    s8 sp8;
-    s32 temp_r0;
-    s32 temp_r0_2;
-    s32 var_r0;
-    void *temp_r0_3;
-    void *temp_r0_4;
-    GenObj *temp_r1;
-    GenObj *temp_r1_2;
-    GenObj *temp_r1_3;
-    GenObj *temp_r1_4;
-    void *var_r1;
+typedef struct F77CChild {
+    u8 _pad0[8];
+    s32 (*unk8)(void *, s32);
+} F77CChild;
 
-    temp_r1 = arg0->unk1074;
-    if ((temp_r1 != 0) && (temp_r1 != 0)) {
-        ((void (*)(void *,...))(temp_r1->unk24->unk8))(temp_r1, 3);
+typedef struct F77CNode {
+    u8 _pad0[0x24];
+    F77CChild *unk24;
+} F77CNode;
+
+typedef struct F77CState {
+    u8 _pad0[0x14];
+    s32 (*unk14)(void *);
+} F77CState;
+
+typedef struct F77CObj {
+    F77CState *unk0;
+    u8 _pad4[0x1034];
+    u8 *unk1038;
+    u8 _pad103C[0x38];
+    F77CNode *unk1074;
+    F77CNode *unk1078;
+} F77CObj;
+
+void func_0801F77C(F77CObj *arg0) {
+    register s32 zero __asm__("r6");
+    register F77CNode **slot __asm__("r4");
+    F77CNode *p;
+
+    slot = &arg0->unk1074;
+    zero = 0;
+    p = *slot;
+    if ((F77CNode *) zero != p && p != 0) {
+        p->unk24->unk8(p, 3);
     }
-    arg0->unk1074 = 0;
-    temp_r1_2 = arg0->unk1078;
-    if ((temp_r1_2 != 0) && (temp_r1_2 != 0)) {
-        ((void (*)(void *,...))(temp_r1_2->unk24->unk8))(temp_r1_2, 3);
+    *slot = (F77CNode *) zero;
+    slot = &arg0->unk1078;
+    p = *slot;
+    if ((F77CNode *) zero != p && p != 0) {
+        p->unk24->unk8(p, 3);
     }
-    arg0->unk1078 = 0;
-    temp_r0 = ((void (*)(void *,...))(arg0->unk0->unk14))(arg0);
-    switch (temp_r0) {                              /* irregular */
-    case 7:
-        if ((arg0->unk1038->unk4 << 0x1F) != 0) {
-            temp_r0_2 = __builtin_new(0x40);
-            sp8 = 0;
-            temp_r0_3 = func_080A4A00(temp_r0_2, (GenObj *)((u8 *)arg0 + 0xF04), 2, arg0, 2, 0x1F);
-            temp_r1_3 = arg0->unk1078;
-            if ((temp_r0_3 != temp_r1_3) && (temp_r1_3 != 0)) {
-                ((void (*)(void *,...))(temp_r1_3->unk24->unk8))(temp_r1_3, 3);
+    *slot = (F77CNode *) zero;
+    switch (arg0->unk0->unk14(arg0)) {
+    case 7: {
+        void *fresh;
+
+        if ((arg0->unk1038[4] << 0x1F) != 0) {
+            fresh = func_080A4A00(__builtin_new(0x40), (u8 *) arg0 + 0xF04, 2, arg0, 2, 0x1F, 0);
+            if (fresh != arg0->unk1078 && arg0->unk1078 != 0) {
+                arg0->unk1078->unk24->unk8(arg0->unk1078, 3);
             }
-            arg0->unk1078 = temp_r0_3;
+            arg0->unk1078 = fresh;
         }
         if (func_0800E324(arg0->unk1038 + 0x10) == 3) {
-            var_r0 = __builtin_new(0x40);
-            var_r1 = (GenObj *)((u8 *)arg0 + 0xF04);
-block_26:
-            sp8 = 0;
-block_27:
-            temp_r0_4 = func_080A4A00(var_r0, var_r1, 2, arg0);
-            temp_r1_4 = arg0->unk1074;
-            if ((temp_r0_4 != temp_r1_4) && (temp_r1_4 != 0)) {
-                ((void (*)(void *,...))(temp_r1_4->unk24->unk8))(temp_r1_4, 3);
+            fresh = func_080A4A00(__builtin_new(0x40), (u8 *) arg0 + 0xF04, 2, arg0, 2, 0x1F, 0);
+            if (fresh != arg0->unk1074 && arg0->unk1074 != 0) {
+                arg0->unk1074->unk24->unk8(arg0->unk1074, 3);
             }
-            arg0->unk1074 = temp_r0_4;
+            arg0->unk1074 = fresh;
         }
         return;
-    case 3:
+    }
+    case 3: {
+        void *fresh;
+
         if (func_0800E324(arg0->unk1038 + 0x10) == 3) {
-            var_r0 = __builtin_new(0x40);
-            var_r1 = (GenObj *)((u8 *)arg0 + 0xF04);
-            goto block_26;
-        }
-        break;
-    case 0:
-        if (((u8) arg0->unk1038->unk3 >> 7) != 0) {
-            var_r0 = __builtin_new(0x40);
-            var_r1 = (GenObj *)((u8 *)arg0 + 0xF04);
-            sp8 = (s8) temp_r0;
-            goto block_27;
-        }
-        break;
-    case 2:
-        if ((IsFireplaceLighted__C9FarmHouse(arg0->unk1038 + 0x1F4) << 0x18) != 0) {
-            var_r0 = __builtin_new(0x40);
-            var_r1 = (GenObj *)((u8 *)arg0 + 0xF04);
-            goto block_26;
+            fresh = func_080A4A00(__builtin_new(0x40), (u8 *) arg0 + 0xF04, 2, arg0, 2, 0x1F, 0);
+            if (fresh != arg0->unk1074 && arg0->unk1074 != 0) {
+                arg0->unk1074->unk24->unk8(arg0->unk1074, 3);
+            }
+            arg0->unk1074 = fresh;
         }
         break;
     }
+    case 0: {
+        void *fresh;
+
+        if (arg0->unk1038[3] >> 7) {
+            fresh = func_080A4A00(__builtin_new(0x40), (u8 *) arg0 + 0xF04, 2, arg0, 2, 0x1F, 0);
+            if (fresh != arg0->unk1074 && arg0->unk1074 != 0) {
+                arg0->unk1074->unk24->unk8(arg0->unk1074, 3);
+            }
+            arg0->unk1074 = fresh;
+        }
+        break;
+    }
+    case 2: {
+        void *fresh;
+
+        if ((u8) IsFireplaceLighted__C9FarmHouse(arg0->unk1038 + 0x1F4) != 0) {
+            fresh = func_080A4A00(__builtin_new(0x40), (u8 *) arg0 + 0xF04, 2, arg0, 2, 0x1F, 0);
+            if (fresh != arg0->unk1074 && arg0->unk1074 != 0) {
+                arg0->unk1074->unk24->unk8(arg0->unk1074, 3);
+            }
+            arg0->unk1074 = fresh;
+        }
+        break;
+    }
+}
 }
