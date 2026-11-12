@@ -95,9 +95,9 @@
  "func_08032A00": {
   "addr": 134425088,
   "draft_src": "manual",
-  "judged_mtime": 1794384805.7877781,
+  "judged_mtime": 1794446687.5801277,
   "module": "code_entities_080320DC.s",
-  "note": "len 42 vs ref 44 (4 percobaan). Ref menaruh 4 argumen stack: 1, 0, 0, 0 -> prototipe 8 argumen (s32 x3 + u8), bukan struct-by-value (struct membuat salinan temp + guard, 52-56). Sisa 1 instruksi: ref `add r2, sp, #0xC; strb r0, [r2]` vs draf `str r0, [sp, #0xC]`.",
+  "note": "len 48 vs ref 44 [1missing,5extra,2stack,1different @s sub sp, #0x10 | sub sp, #0x14]",
   "ref_len": 44,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,

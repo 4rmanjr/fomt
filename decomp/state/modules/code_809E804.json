@@ -2690,9 +2690,10 @@
  },
  "func_080ADF40": {
   "addr": 134930240,
-  "judged_mtime": 1793582714.1953917,
+  "draft_src": "manual",
+  "judged_mtime": 1794446819.6751354,
   "module": "code_809E804.s",
-  "note": "len 36 vs ref 44 [4missing,3operand,10regalloc,1different @i push {r4, r5, lr} | push {r4, lr}]",
+  "note": "len 36 vs ref 44 [4missing,2operand,10regalloc @r adds r2, r0, #0 | adds r1, r0, #0]",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 420,

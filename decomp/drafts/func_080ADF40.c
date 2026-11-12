@@ -3,17 +3,20 @@ typedef struct GenObj {
     u16 unk4;
     u16 unk6;
 } GenObj;
-s32 func_080ADF40(GenObj *arg0) {
-    s32 temp_r0;
-    s32 temp_r1;
-    s32 var_r3;
 
-    temp_r0 = arg0->unk6;
-    temp_r1 = temp_r0 + arg0->unk4;
-    var_r3 = 0;
-    if (0xFF & temp_r1) {
-        var_r3 = temp_r1;
+s32 func_080ADF40(GenObj *arg0) {
+    register s32 old __asm__("r5");
+    register s32 sum __asm__("r4");
+    s32 v;
+
+    old = arg0->unk6;
+    sum = old + arg0->unk4;
+
+    if (sum & 0xFF) {
+        v = sum;
+    } else {
+        v = 0;
     }
-    arg0->unk6 = var_r3;
-    return (temp_r1 >> 8) - (temp_r0 >> 8);
+    arg0->unk6 = (u16) v;
+    return (sum >> 8) - (old >> 8);
 }
