@@ -103,6 +103,93 @@ typedef struct S959C {
 } S959C;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_080094B8 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08009324(void *, i32);                     /* extern */
+void func_080098AC(GenObj__func_080098AC *arg0, i32 arg1);                             /* extern */
+extern i32 vtable_unk_080E5B80;
+
+void func_080094B8(GenObj__func_080098AC *arg0, void *arg1) {
+    *(i32 *) ((u8 *) arg0 + 8) = (i32) &vtable_unk_080E5B80;
+    func_08009324((u8 *) arg0 + 0xC, 2);
+    func_080098AC(arg0, (i32) arg1);
+}
+}
+
+// DECOMP-MATCHED func_080094E0 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080094A4(void *, i32);                     /* extern */
+
+i32 func_080094E0(void *arg0, i32 arg1) {
+    i32 v;
+
+    v = (i16) func_080094A4((u8 *) arg0 + 0xC, arg1);
+    return (u32) (((u32) -v) | (u32) v) >> 0x1F;
+}
+}
+
+// DECOMP-MATCHED func_080094F8 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080094A4(void *, i32);                     /* extern */
+
+i32 func_080094F8(void *arg0, i32 arg1) {
+    return (i16) func_080094A4((u8 *) arg0 + 0xC, arg1);
+}
+}
+
+// DECOMP-MATCHED func_08009508 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080093A0(void *, i32);                     /* extern */
+
+i32 func_08009508(void *arg0, i32 arg1) {
+    return (i16) func_080093A0((u8 *) arg0 + 0xC, (i16) arg1);
+}
+}
+
+// DECOMP-MATCHED func_0800951C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+void func_08009378(void *, i32);                    /* extern */
+
+void func_0800951C(void *arg0, i32 arg1) {
+    func_08009378((u8 *) arg0 + 0xC, (i16) arg1);
+}
+}
+
+// DECOMP-MATCHED func_0800952C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+void func_0800934C(void *, i32);                    /* extern */
+
+void func_0800952C(void *arg0, i32 arg1) {
+    func_0800934C((u8 *) arg0 + 0xC, (i16) arg1);
+}
+}
+
+// DECOMP-MATCHED func_0800953C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08009344(void *);                          /* extern */
+
+i32 func_0800953C(void *arg0) {
+    return func_08009344((u8 *) arg0 + 0xC);
+}
+}
+
+// DECOMP-MATCHED func_08009548 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08009300(void *);                          /* extern */
+extern i32 vtable_unk_080E5B80;
+
+void *func_08009548(void *arg0) {
+    i32 zero;
+
+    zero = 0;
+    *(i32 *) arg0 = zero;
+    *(i32 *) ((u8 *) arg0 + 4) = zero;
+    *(i32 *) ((u8 *) arg0 + 8) = (i32) &vtable_unk_080E5B80;
+    func_08009300((u8 *) arg0 + 0xC);
+    return arg0;
+}
+}
+
 // DECOMP-MATCHED func_0800956C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 

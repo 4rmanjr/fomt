@@ -471,6 +471,14 @@ jalan keluar adalah **simbolisasi manual** `asm/<stem>.s` (memecah blob
 `.byte` menjadi `thumb_func_start` per fungsi; byte ROM tidak berubah) —
 keputusan manusia, bukan langkah otomatis.
 
+Sudah dilakukan untuk `hardware.s` (2026-11-12): blob `0x80094E0`..`0x800956B`
+dipecah menjadi 7 fungsi (`func_080094E0`, `094F8`, `09508`, `0951C`, `0952C`,
+`0953C`, `09548`). `func_08009514` (fragmen di tengah `func_08009508`) hilang
+sebagai simbol dan entri state-nya dihapus. Efek samping: `ref_len`
+`func_080094B8` turun 92 -> 36 karena ekor asingnya tidak lagi menempel.
+Verifikasi wajib setelah simbolisasi: `make compare` HIJAU, lalu rescan
+(`scan(['<stem>.s'])`) supaya `ref_len`/entri baru terdaftar.
+
 ### Blok promote-only: dipertahankan sebagai staging (keputusan 2026-11-12)
 
 Blok MATCH yang tertahan penerus **tidak dibuang** dari

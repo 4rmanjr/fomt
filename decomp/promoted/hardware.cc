@@ -1321,3 +1321,74 @@ s32 func_08008020(GenObj *arg0, u32 arg1)
     }
     return 0x400;
 }
+
+// DECOMP-MATCHED func_08009548 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08009300(void *);                          /* extern */
+extern s32 vtable_unk_080E5B80;
+
+void *func_08009548(void *arg0) {
+    s32 zero;
+
+    zero = 0;
+    *(s32 *) arg0 = zero;
+    *(s32 *) ((u8 *) arg0 + 4) = zero;
+    *(s32 *) ((u8 *) arg0 + 8) = (s32) &vtable_unk_080E5B80;
+    func_08009300((u8 *) arg0 + 0xC);
+    return arg0;
+}
+
+// DECOMP-MATCHED func_0800953C (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08009344(void *);                          /* extern */
+
+s32 func_0800953C(void *arg0) {
+    return func_08009344((u8 *) arg0 + 0xC);
+}
+
+// DECOMP-MATCHED func_0800952C (dari hardware.s; cek manusia sebelum ke src/)
+void func_0800934C(void *, s32);                    /* extern */
+
+void func_0800952C(void *arg0, s32 arg1) {
+    func_0800934C((u8 *) arg0 + 0xC, (s16) arg1);
+}
+
+// DECOMP-MATCHED func_0800951C (dari hardware.s; cek manusia sebelum ke src/)
+void func_08009378(void *, s32);                    /* extern */
+
+void func_0800951C(void *arg0, s32 arg1) {
+    func_08009378((u8 *) arg0 + 0xC, (s16) arg1);
+}
+
+// DECOMP-MATCHED func_08009508 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_080093A0(void *, s32);                     /* extern */
+
+s32 func_08009508(void *arg0, s32 arg1) {
+    return (s16) func_080093A0((u8 *) arg0 + 0xC, (s16) arg1);
+}
+
+// DECOMP-MATCHED func_080094F8 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_080094A4(void *, s32);                     /* extern */
+
+s32 func_080094F8(void *arg0, s32 arg1) {
+    return (s16) func_080094A4((u8 *) arg0 + 0xC, arg1);
+}
+
+// DECOMP-MATCHED func_080094E0 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_080094A4(void *, s32);                     /* extern */
+
+s32 func_080094E0(void *arg0, s32 arg1) {
+    s32 v;
+
+    v = (s16) func_080094A4((u8 *) arg0 + 0xC, arg1);
+    return (u32) (((u32) -v) | (u32) v) >> 0x1F;
+}
+
+// DECOMP-MATCHED func_080094B8 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08009324(void *, s32);                     /* extern */
+void func_080098AC(GenObj__func_080098AC *, s32);   /* extern */
+extern s32 vtable_unk_080E5B80;
+
+void func_080094B8(GenObj__func_080098AC *arg0, void *arg1) {
+    *(s32 *) ((u8 *) arg0 + 8) = (s32) &vtable_unk_080E5B80;
+    func_08009324((u8 *) arg0 + 0xC, 2);
+    func_080098AC(arg0, (s32) arg1);
+}
