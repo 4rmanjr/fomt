@@ -1089,3 +1089,38 @@ ekspresi langsung (`func_080A0384(arg0 + 0x1CD4)`) dan satu memakai variabel
 tapak — jangan seragamkan seluruh fungsi.
 
 Bukti: `func_0803E780` (code_0803A8A4, 360B) MATCH 3/5 setelah bentuk ini.
+
+## 30. Literal pool: store diduplikasi memaksa blok `else` out-of-line (func_080093AC)
+
+Gejala: ref memuat konstanta register HW **di dalam cabang**
+(`cmp r3,#0; beq .Llit; adds r2,r3,#0; adds r2,#0x50; b .Lmerge; .Llit:
+ldr r2,=0x04000050; .Lmerge: ldrh r1,[r2]`), sementara agbcc **menghoist**
+literal yang sama ke sebelum `cmp` dan membalik cabangnya.
+
+Penyebab: pada ref, badan store ditulis di KEDUA cabang lalu di-cross-jump
+gcc menjadi satu badan bersama. Bentuk C yang menghasilkan itu:
+
+```c
+if (q != 0) { w = (u16 *) (q + 0x50); *w = (*w & 0xFF3F) | m; }
+else        { w = (u16 *) 0x04000050; *w = (*w & 0xFF3F) | m; }
+```
+
+Varian satu-store (`if/else` hanya mengisi `w`, lalu satu `*w = ...`) SELALU
+menghoist literal. Kalau store-nya tidak bisa diduplikasi (mis. nilainya baru
+dihitung setelah pointer), kunci tujuannya dengan pin register:
+`register u16 *w2 asm("r1");` — pin itulah yang menghentikan hoist tanpa
+mengubah instruksi lain.
+
+Pola kedua di fungsi yang sama: jalur "set 0 lalu return 0" memakai
+`movs r0,#0; strh r0,[r5,#4]; b <epilog>` (b ke EPILOG, melewati blok
+`movs r0,#0` bersama), sedangkan `return 0` biasa berbelok ke blok bersama —
+bedanya persis 1 byte (`b #0x0e` vs `#0x0f`). Bentuk C yang menghasilkan
+lompatan ke epilog:
+
+```c
+n1 = 0;
+*(u16 *) (p + 4) = n1;
+return n1;          /* r0 sudah 0 -> gcc lompat ke epilog, bukan blok nol */
+```
+
+Bukti: `func_080093AC` (hardware.s, 248B) MATCH 3/5, byte-identik 248/248.

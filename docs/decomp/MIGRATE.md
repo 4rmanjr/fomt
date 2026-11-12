@@ -433,6 +433,21 @@ menambah varian ketiga), lalu migrate lagi. Catatan: blok promoted wajib
 `s32`, bukan `i32` — audit melaporkan `i32 di draf/promoted` sebagai MASALAH
 (migrate yang mengubahnya jadi `i32` di `src/`).
 
+### Gerbang urutan: penerus "promoted tapi tak pernah di src"
+
+Gejala: MATCH pada fungsi ekor-rantai tetap SKIP dengan
+`bukan fungsi terakhir di <mod>.s (N penerus belum pindah)`, padahal penerus
+itu berstatus `promoted`. Status `promoted` berarti blok sudah di
+`decomp/promoted/`, BUKAN sudah di `src/` — urutan migrasi melihat teks
+`asm/`, bukan status. Tindakan: pindahkan penerusnya dulu (dari yang
+tertinggi), baru fungsi target.
+
+Kalau penerus itu GAGAL compile saat dipindah karena definisinya memakai tipe
+sendiri (`InnerX **arg0`) sementara `src/` sudah punya extern `(void *, s32)`,
+seragamkan signature blok ke bentuk extern yang ada + cast di badan
+(codegen sama, `make compare` yang membuktikan). Bukti: rantai
+`func_080094AC` -> `func_080094A4` -> `func_080093AC` (hardware.s).
+
 ## Gerbang urutan: hanya fungsi beralamat tertinggi yang bisa dipindah
 
 `migrate.py` menolak fungsi yang masih punya penerus di berkas `.s` ("bukan
