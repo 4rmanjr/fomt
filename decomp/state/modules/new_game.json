@@ -12,9 +12,10 @@
  },
  "func_08003B40": {
   "addr": 134232896,
-  "judged_mtime": 1793844163.522772,
+  "draft_src": "manual",
+  "judged_mtime": 1794445956.8134964,
   "module": "new_game.s",
-  "note": "len 120 vs ref 116 [2missing,4extra,5operand,9regalloc,1different @i push {r4, r5, lr} | push {r4, r5, r6, lr}]",
+  "note": "byte +0x0: 0x70 vs ref 0x30 [3missing,3extra,4operand,13regalloc,2different @i push {r4, r5, lr} | push {r4, r5, r6, lr}]",
   "ref_len": 116,
   "sanitize_v": 4,
   "size": 1095,
