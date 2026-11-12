@@ -19,6 +19,13 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   field draf per offset; default hanya |len-ref| <= 4, `--func`/`--module`/
   `--json`. Offset dihitung per angka, bukan per register basis → wajib
   dikonfirmasi ke asm (akses harus memakai register argumen).
+- `plan_stats.py` — tabel sisa pekerjaan per modul: jumlah `failed`/`match`
+  dan byte masing-masing, total, plus distribusi ukuran fungsi failed.
+  `--sort bytes|count|name`, `--module`, `--limit`, `--json`. Dipakai memilih
+  target sesi (lihat `docs/RENCANA-TRANSLASI.md` §5 Fase 0).
+- `wall_registry.py` — rekap fungsi yang `note`-nya menyebut "parkir" beserta
+  alasan, attempt (`N/5`), dan modulnya; `--module`, `--grep`, `--full`,
+  `--width`, `--json`. Cegah mencoba ulang wall tanpa ide baru.
 - `decomp/migrate.py ... --explain` — beda signature blok vs `src/`, tanpa
   menulis apa pun.
 

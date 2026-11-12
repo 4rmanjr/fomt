@@ -87,11 +87,10 @@ dimaterialisasi di tempat berbeda. Hentikan lebih cepat; jangan sapu varian.
 
 ### Fase 0 — instrumentasi (1 sesi)
 
-- [ ] Skrip `tools/scripts/plan_stats.py`: tabel per modul (failed/match,
-      byte failed/byte match) supaya prioritas bisa dihitung ulang kapan saja.
-- [ ] Skrip `tools/scripts/wall_registry.py`: kumpulkan `note` berisi
-      "parkir" dari semua shard → daftar wall + alasannya, agar tidak ada
-      fungsi yang dicoba ulang tanpa ide baru.
+- [x] Skrip `tools/scripts/plan_stats.py`: tabel per modul (failed/match,
+      byte failed/byte match, total, distribusi ukuran) + `--json`.
+- [x] Skrip `tools/scripts/wall_registry.py`: kumpulkan `note` berisi
+      "parkir" dari semua shard → daftar wall + alasan + attempt + `--json`.
 - [ ] Pastikan `make compare`, `audit_consistency.py`, `check_docs.py` hijau
       sebagai baseline sesi.
 
