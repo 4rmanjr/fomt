@@ -990,8 +990,10 @@ Urutan kerja yang berhasil, dari termurah ke termahal:
    → promoted-only, bukan migrasi.
 
 Catatan engine: `negs r0, r0` (draf) vs `rsbs r0, r0, #0` (ref) adalah
-instruksi yang sama, tetapi `norm()` belum mengalias-kannya sehingga masih
-muncul sebagai diff palsu di laporan `diff` setelah MATCH. Byte compare
+instruksi yang sama, dan `norm()` sekarang mengalias-kannya (dulu dilaporkan
+sebagai diff palsu setelah MATCH). Daftar normalisasi yang berlaku ada di
+`docs/ops/TOOLS.md` — jangan menyimpulkan "wall" dari teks `diff` yang masih
+DIFF tanpa memeriksa apakah perbedaannya cuma bentuk cetak. Byte compare
 (`judge`) yang memutuskan, bukan teks normalisasi.
 
 ## 26. Mask negatif vs promosi `u8`

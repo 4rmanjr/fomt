@@ -458,8 +458,9 @@ Konsekuensi praktis:
 ### Gerbang fragmen: `ref_len` yang membentang ke `.byte` mentah
 
 Sebagian gerbang rantai **tidak mungkin** MATCH karena yang dianggap satu
-fungsi sebenarnya fragmen + data asing di ekornya. Contoh: `func_08009514`
-(gerbang `hardware`, `ref_len` 87).
+fungsi sebenarnya fragmen + data asing di ekornya. Contoh (sudah teratasi
+2026-11-12, lihat akhir bagian ini): `func_08009514` (gerbang `hardware`,
+`ref_len` 87).
 
 ```asm
 .L080094E0:
