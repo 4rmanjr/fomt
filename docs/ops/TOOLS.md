@@ -51,7 +51,11 @@ python3 tools/scripts/decomp_engine.py learn | hint <func> | sectors
   alias kondisi, label, `.Lpool+N`, target cabang numerik, immediate negatif
   pada `add`/`sub`, `negs rX, rY` = `rsbs rX, rY, #0`, dan alias APCS
   `sb`/`sl`/`fp`/`ip` = `r9`/`r10`/`r11`/`r12` (asm repo memakai nama APCS,
-  objdump mencetak `rN`). Klasifikasi:
+  objdump mencetak `rN`). Daftar itu sumber kebenarannya tabel
+  `NORMALIZATIONS` di `decomp_engine.py` (nama, contoh baris, hasil `norm()`,
+  kata kunci dokumen): menambah normalisasi baru wajib menambah entri di sana,
+  karena `check_docs.py` memakai tabel itu untuk menolak dokumen yang masih
+  menulis "belum dinormalkan". Klasifikasi:
   `identik`, `hanya-register`, `zero-reload`, `copy`, `sign/width`,
   `width-offset`, `ptr-scale`, `cabang`, `instruksi`.
 - `attempt` — tulis draf, reset state (`status=failed`, `judged_mtime=0`,

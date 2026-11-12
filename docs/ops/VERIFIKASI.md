@@ -65,8 +65,11 @@ promote-only dan tidak boleh dilaporkan sebagai kemajuan ROM.
 
 `tools/hooks/pre-commit` menjalankan `tools/scripts/check_docs.py` bila ada
 `.md` yang di-stage; commit ditolak kalau AGENTS.md melebihi batas baris,
-`AGENTS.md rule N` menunjuk aturan yang tidak ada, rujukan `.md` patah, atau
-dokumen hidup mematok angka progres. Hook ini ter-track, tapi `core.hooksPath`
+`AGENTS.md rule N` menunjuk aturan yang tidak ada, rujukan `.md` patah,
+dokumen hidup mematok angka progres, atau dokumen mengklaim sebuah normalisasi
+engine **belum** ada padahal `decomp_engine.NORMALIZATIONS` sudah
+menanganinya (tabel itu ikut diverifikasi terhadap `norm()` sungguhan, jadi
+engine yang berubah tanpa update tabel juga gagal di sini). Hook ini ter-track, tapi `core.hooksPath`
 konfigurasi lokal — pasang sekali per clone:
 
 ```bash

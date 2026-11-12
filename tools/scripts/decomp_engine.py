@@ -108,6 +108,28 @@ def _norm_op(op):
     return op
 
 
+# Sumber kebenaran daftar normalisasi `norm()` untuk dokumen: setiap entri
+# (nama, contoh baris, hasil norm yang harus dihasilkan, kata kunci dokumen).
+# `check_docs.py` memverifikasi entri ini benar-benar cocok dengan `norm()`
+# lalu memakai kata kuncinya untuk menandai dokumen yang masih mengklaim
+# "belum dinormalkan". Menambah normalisasi di `norm()` = tambah entri di sini
+# (kalau tidak, klaim dokumen soal normalisasi baru tak bisa dicek).
+NORMALIZATIONS = [
+    ("mnemonic", "movs r0, #0x10", "mov r0, #0x10", []),
+    ("mnemonic", "ands r0, r0, r1", "and r0, r1", []),
+    ("inplace", "adds r0, r0, r1", "add r0, r1", []),
+    ("stmia", "stmia r0!, {r1}", "stm r0!, {r1}", ["stmia", "ldmia"]),
+    ("cond_alias", "bhs 0x800", "bcs 0x800", ["alias kondisi", "bhs", "blo"]),
+    ("branch_number", "bls #0x46", "bls *", ["cabang numerik", "target cabang"]),
+    ("pool_offset", "ldr r0, .L5+0x4", "ldr r0, *", ["pool", ".lpool"]),
+    ("imm_neg", "add sp, sp, #0xFFFFFFF4", "sub sp, #0xC",
+     ["immediate negatif", "add sp", "sub sp"]),
+    ("neg_rsb", "negs r0, r0", "rsb r0, #0x0", ["negs", "rsbs"]),
+    ("apcs_alias", "mov r7, sb", "mov r7, r9", ["sb", "sl", "fp", "ip", "apcs"]),
+    ("apcs_alias", "ldr ip, [r0]", "ldr r12, [r0]", []),
+    ("label", "b .L080093DC", "b *", ["label"]),
+]
+
 REG_ALIAS = {"sb": "r9", "sl": "r10", "fp": "r11", "ip": "r12"}
 REG_ALIAS_RE = re.compile(r"\b(sb|sl|fp|ip)\b")
 

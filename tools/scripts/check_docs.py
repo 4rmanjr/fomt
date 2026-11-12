@@ -17,6 +17,11 @@ Yang diperiksa:
    `## RN.` di AGENTS.md (nomor aturan stabil, jangan direnomori).
 4. **Angka basi** di dokumen hidup: pola progres (`berhasil <n> (`, `total <n>
    fungsi`, `src <n>+`) dilarang — tulis perintah pengambil angkanya.
+5. **Klaim normalisasi basi**: kalimat "belum/tidak dinormalkan|mengalias ..."
+   untuk sebuah pola di dokumen hidup ditolak bila `decomp_engine.NORMALIZATIONS`
+   menyatakan `norm()` sudah menanganinya. Tabel itu juga diverifikasi
+   terhadap perilaku `norm()` sungguhan, jadi menambah normalisasi di engine
+   tanpa memperbarui tabel akan gagal di sini.
 
 Read-only; exit 1 bila ada masalah (`--json` untuk agent, `--strict` sama
 dengan default).
@@ -26,6 +31,7 @@ dengan default).
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
@@ -40,12 +46,45 @@ STALE = [re.compile(r"berhasil\s+\d+\s*\("),
          re.compile(r"total\s+\d+\s+fungsi"),
          re.compile(r"src\s+\d+\s*\+")]
 LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
+# klaim "normalisasi belum ada" — subjeknya dicocokkan lewat kata kunci tabel
+NEG_NORM = re.compile(
+    r"\b(belum|tidak)\b[^\n]{0,60}?\b(alias(?:kan|-kannya)?|dinormalkan"
+    r"|dinormalisasi|di-alias|mengalias\w*|normalisasi)\b", re.I)
 MD_TICK = re.compile(r"`([\w./-]+\.md)(?:#[^`]*)?`")
+
+
+
+def engine_normalizations():
+    """(problems, keyword -> nama pola) dari decomp_engine.NORMALIZATIONS.
+
+    Tabel itu sumber kebenaran dokumen, jadi ia sendiri diverifikasi: setiap
+    entri harus benar-benar dihasilkan `norm()`. Kalau engine berubah dan tabel
+    tidak diperbarui, cek ini gagal (bukan lolos diam-diam).
+    """
+    problems = []
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    try:
+        import decomp_engine
+    except Exception as exc:  # pragma: no cover - lingkungan rusak
+        return ([("decomp_engine.py", f"tak bisa dimuat: {exc}")], {})
+    kwmap = {}
+    for name, sample, want, keywords in decomp_engine.NORMALIZATIONS:
+        got = decomp_engine.norm(sample)
+        if got != want:
+            problems.append(("decomp_engine.py",
+                             f"tabel NORMALIZATIONS basi: {name} "
+                             f"{sample!r} -> {got!r}, tabel bilang {want!r}"))
+        for kw in keywords:
+            kwmap.setdefault(kw.lower(), set()).add(name)
+    return problems, kwmap
 
 
 def check(max_agents):
     problems = []
     notes = []
+    norm_problems, kwmap = engine_normalizations()
+    problems.extend(norm_problems)
+    notes.append(f"normalisasi engine terverifikasi: {len(kwmap)} kata kunci")
 
     agents = REPO / "AGENTS.md"
     if not agents.exists():
@@ -82,6 +121,17 @@ def check(max_agents):
             problems.append((rel, "dokumen hidup hilang"))
             continue
         for i, line in enumerate(p.read_text().splitlines(), 1):
+            if NEG_NORM.search(line):
+                low = line.lower()
+                hits = {name for kw, names in kwmap.items()
+                        if (kw in low if " " in kw
+                            else re.search(rf"\b{re.escape(kw)}\b", low))
+                        for name in names}
+                if hits:
+                    problems.append((f"{rel}:{i}",
+                                     f"klaim normalisasi basi untuk "
+                                     f"{', '.join(sorted(hits))}: norm() sudah "
+                                     f"melakukannya — {line.strip()[:70]}"))
             for rx in STALE:
                 if rx.search(line):
                     problems.append((f"{rel}:{i}",
@@ -101,6 +151,7 @@ def check(max_agents):
                 problems.append((f"{rel}:{i}", f"rujukan .md tidak ada: {m}"))
 
     return {"problems": problems, "stats": {"agents_lines": lines,
+                                            "norm_keywords": sorted(kwmap),
                                             "rules": sorted(rules, key=int),
                                             "notes": notes}}
 
