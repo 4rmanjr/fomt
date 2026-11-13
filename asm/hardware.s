@@ -3506,36 +3506,3 @@ func_0800934C: @ 0x0800934C
     .align 2, 0
 .L08009374: .4byte 0x0000FFFF
 
-    thumb_func_start func_08009378
-func_08009378: @ 0x08009378
-    push {r4, r5, lr}
-    adds r5, r2, #0
-    adds r4, r3, #0
-    ldr r3, [r0]
-    lsls r1, r1, #0x10
-    asrs r2, r1, #0x10
-    cmp r2, #0
-    bge .L0800938A
-    rsbs r2, r2, #0
-.L0800938A:
-    rsbs r0, r4, #0
-    orrs r0, r4
-    lsrs r0, r0, #0x1f
-    movs r1, #0
-    strh r2, [r3, #4]
-    str r5, [r3, #8]
-    strb r0, [r3, #0xc]
-    strh r1, [r3, #0xe]
-    pop {r4, r5}
-    pop {r0}
-    bx r0
-
-    thumb_func_start func_080093A0
-func_080093A0: @ 0x080093A0
-    ldr r2, [r0]
-    ldrh r0, [r2, #4]
-    strh r1, [r2, #4]
-    lsls r0, r0, #0x10
-    asrs r0, r0, #0x10
-    bx lr
-

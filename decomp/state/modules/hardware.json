@@ -1077,21 +1077,23 @@
   "judged_mtime": 1793582714.0294185,
   "module": "hardware.s",
   "note": "len 54 vs ref 42 [2missing,9extra,4operand,5regalloc,1different @i push {r4, lr} | push {r4, r5, lr}]",
-  "ref_len": 44,
+  "ref_len": 43,
   "sanitize_v": 4,
-  "size": 520,
+  "size": 521,
   "status": "failed",
   "thumb": true
  },
  "func_08009378": {
   "addr": 134255480,
-  "judged_mtime": 1793582714.0294185,
+  "draft_src": "manual",
+  "judged_mtime": 1794571565.2849767,
   "module": "hardware.s",
-  "note": "len 50 vs ref 40 [3missing,8extra,2operand,5regalloc @r ldr r3, [r0] | ldr r2, [r0]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 461,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080093A0": {

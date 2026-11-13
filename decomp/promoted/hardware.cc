@@ -440,11 +440,11 @@ typedef struct GenObj {
     u8 _pad0[4];
     u16 unk4;
 } GenObj;
-s16 func_080093A0(void **arg0, u16 arg1) {
+s16 func_080093A0(void *arg0, s32 arg1) {
     u16 temp_r0;
     GenObj *temp_r2;
 
-    temp_r2 = *arg0;
+    temp_r2 = *(GenObj **) arg0;
     temp_r0 = temp_r2->unk4;
     temp_r2->unk4 = arg1;
     return (s16) temp_r0;
@@ -1477,4 +1477,30 @@ s32 func_080093AC(s32 arg0) {
     return 1;
 zero:
     return 0;
+}
+
+// DECOMP-MATCHED func_08009378 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[4];
+    s16 unk4;
+    u8 _pad6[2];
+    s32 unk8;
+    u8 unkC;
+    u8 _padD;
+    u16 unkE;
+} GenObj;
+
+void func_08009378(void *arg0, s16 arg1, s32 arg2, s32 arg3) {
+    GenObj *t = *(GenObj **) arg0;
+    s32 n = arg1;
+    u8 flag;
+
+    if (n < 0) {
+        n = -n;
+    }
+    flag = ((u32) (0 - arg3) | (u32) arg3) >> 0x1F;
+    t->unk4 = n;
+    t->unk8 = arg2;
+    t->unkC = flag;
+    t->unkE = 0;
 }
