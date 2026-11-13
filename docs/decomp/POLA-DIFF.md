@@ -1131,3 +1131,56 @@ return n1;          /* r0 sudah 0 -> gcc lompat ke epilog, bukan blok nol */
 ```
 
 Bukti: `func_080093AC` (hardware.s, 248B) MATCH 3/5, byte-identik 248/248.
+
+## 31. Lokal `s16` yang dinegasi: ekstensi `lsl/lsr #0x10` muncul lagi (`func_08009378`)
+
+Gejala: fungsi berparameter `s16` yang nilainya di-`abs` lalu dinegasi tetap
+DIFF 1-2 instruksi; di draf muncul `lsl #0x10` + `lsr #0x10` (atau
+`lsls/asrs` berpasangan) **sesudah** `rsb`, padahal ref hanya punya satu
+ekstensi di pintu masuk.
+
+Sebab: variabel lokal bertipe `s16` disimpan sebagai short, jadi setiap
+pemakaian berikutnya (perbandingan, penugasan ke field) memaksa agbcc
+mengekstensi ulang nilainya. Menyimpan hasil hitungan di `s16` memindahkan
+biaya ekstensi ke dalam badan fungsi.
+
+Bentuk yang MATCH: parameter tetap `s16` (ekstensi `lsls/asrs` di pintu masuk
+tetap satu kali seperti ref), tetapi nilai kerja disimpan `s32`:
+
+```c
+void f(void *arg0, s16 arg1, ...) {
+    s32 n = arg1;          /* bukan s16 n = arg1 */
+    if (n < 0) n = -n;
+```
+
+Bukti: `func_08009378` (hardware.s, 40B) MATCH 3/5 — percobaan 1 memakai
+`s16 n` dan selalu kelebihan `lsl/lsr 0x10`.
+
+## 32. Nilai turunan harus masuk variabel sebelum store, bukan dihitung di dalam store terakhir (`func_08009378`, `func_0800934C`)
+
+Gejala: semua nilai benar tetapi urutan store bergeser dan salinan argumen
+(`add r5, r2, #0x0` / `add r4, r3, #0x0`) hilang, sehingga diff penuh
+`regalloc` padahal jumlah instruksi sudah sama.
+
+Sebab: kalau ekspresi turunan (mis. flag
+`((u32)(0 - arg3) | (u32)arg3) >> 0x1F`) ditulis langsung di dalam store
+terakhir, agbcc menundanya sampai setelah store-store sebelumnya. Ref
+menghitung nilai itu **lebih dulu**, baru menyimpan — dan justru rentang
+hidup itulah yang memaksa argumen disalin ke register callee-saved.
+
+Bentuk yang MATCH: hitung ke variabel lokal sebelum rangkaian store, lalu
+simpan variabelnya:
+
+```c
+flag = ((u32) (0 - arg3) | (u32) arg3) >> 0x1F;
+t->unk4 = n;
+t->unk8 = arg2;
+t->unkC = flag;        /* bukan t->unkC = <ekspresi panjang> */
+```
+
+Kalau ref juga membuang argumen pointer lebih dulu (`ldr r2, [r0]`) sehingga
+register arg0 bebas, nilai kerja bisa dipin ke situ:
+`register s32 n asm("r0")` — pola yang sama dengan §27/§30.
+
+Bukti: `func_08009378` MATCH 3/5 dan `func_0800934C` MATCH 3/5 (hardware.s);
+keduanya gagal di percobaan 1-2 hanya karena urutan ini.

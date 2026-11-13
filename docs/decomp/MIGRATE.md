@@ -454,15 +454,24 @@ seragamkan signature blok ke bentuk extern yang ada + cast di badan
 (codegen sama, `make compare` yang membuktikan). Bukti: rantai
 `func_080094AC` -> `func_080094A4` -> `func_080093AC` (hardware.s).
 
-Gerbang arity: pembungkus yatim dengan ekor `b`. Kalau callee ber-4 parameter
-tapi pemanggilnya (`func_0800951C`/`func_0800952C`, hardware.s) hanya mengisi
-r0/r1 dan di ref dieksekusi sebagai `b <callee>`, jangan tambah argumen dummy
-(nilai r2/r3 bukan milik pembungkus). Solusi: jadikan pembungkusnya
-pass-through 4 parameter yang meneruskan `arg2`/`arg3` apa adanya — agbcc
-tidak menyalin apa pun, jadi byte tetap `b`. Aman hanya karena tidak ada call
-site lain untuk pembungkus itu (cek dulu: `grep -rn '<nama>' src/ asm/*.s`).
+### Gerbang arity: callee 4 parameter vs pemanggil yatim 2 argumen
 
-Catatan cast: `(i16) arg1` pada argumen call-site BUKAN no-op. Ia yang
+Gejala: migrate berhenti `too few arguments to function '<callee>(void *, short
+int, int, int)'` karena blok pemanggil mendeklarasikan callee 2 argumen
+(`void func_X(void *, i32);`) sementara definisi yang baru pindah ber-4
+parameter. Kalau pemanggil itu yatim (tidak ada call site lain) dan di ref ia
+hanya `b <callee>` dengan r0/r1 terisi, r2/r3 adalah nilai pemanggilnya
+sendiri — bukan milik pembungkus.
+
+Jangan tambah argumen dummy (`0, 0` menambah `movs`), dan jangan cast ke
+function pointer 2-arg (butuh deklarasi tambahan, arity tetap bohong). Solusi:
+jadikan pembungkusnya pass-through 4 parameter yang meneruskan `arg2`/`arg3`
+apa adanya — agbcc tidak menyalin apa pun, jadi byte tetap `b`. Aman hanya
+setelah dipastikan tidak ada call site lain:
+`grep -rn '<nama>' src/ asm/*.s`. Bukti: `func_0800951C` -> `func_08009378`
+dan `func_0800952C` -> `func_0800934C` (hardware.s).
+
+Catatan cast (dalam blok yang sama): `(i16) arg1` pada argumen call-site BUKAN no-op. Ia yang
 menghasilkan `lsls r1,#0x10; asrs r1,#0x10` sebelum `bl` (terlihat di
 `func_08009508`); menghapusnya membuat compare merah. Kebalikannya, cast pada
 nilai balik (`return (i16) func_X(...)` saat fungsi mengembalikan `i32`) memang
