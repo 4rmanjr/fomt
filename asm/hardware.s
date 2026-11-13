@@ -3480,29 +3480,3 @@ func_08009344: @ 0x08009344
     str r1, [r2]
     bx lr
 
-    thumb_func_start func_0800934C
-func_0800934C: @ 0x0800934C
-    push {r4, lr}
-    adds r4, r2, #0
-    ldr r2, [r0]
-    lsls r1, r1, #0x10
-    asrs r0, r1, #0x10
-    cmp r0, #0
-    bge .L0800935C
-    rsbs r0, r0, #0
-.L0800935C:
-    rsbs r0, r0, #0
-    rsbs r1, r3, #0
-    orrs r1, r3
-    lsrs r1, r1, #0x1f
-    strh r0, [r2, #4]
-    str r4, [r2, #8]
-    strb r1, [r2, #0xc]
-    ldr r0, .L08009374 @ =0x0000FFFF
-    strh r0, [r2, #0xe]
-    pop {r4}
-    pop {r0}
-    bx r0
-    .align 2, 0
-.L08009374: .4byte 0x0000FFFF
-
