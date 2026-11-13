@@ -454,6 +454,20 @@ seragamkan signature blok ke bentuk extern yang ada + cast di badan
 (codegen sama, `make compare` yang membuktikan). Bukti: rantai
 `func_080094AC` -> `func_080094A4` -> `func_080093AC` (hardware.s).
 
+Gerbang arity: pembungkus yatim dengan ekor `b`. Kalau callee ber-4 parameter
+tapi pemanggilnya (`func_0800951C`/`func_0800952C`, hardware.s) hanya mengisi
+r0/r1 dan di ref dieksekusi sebagai `b <callee>`, jangan tambah argumen dummy
+(nilai r2/r3 bukan milik pembungkus). Solusi: jadikan pembungkusnya
+pass-through 4 parameter yang meneruskan `arg2`/`arg3` apa adanya — agbcc
+tidak menyalin apa pun, jadi byte tetap `b`. Aman hanya karena tidak ada call
+site lain untuk pembungkus itu (cek dulu: `grep -rn '<nama>' src/ asm/*.s`).
+
+Catatan cast: `(i16) arg1` pada argumen call-site BUKAN no-op. Ia yang
+menghasilkan `lsls r1,#0x10; asrs r1,#0x10` sebelum `bl` (terlihat di
+`func_08009508`); menghapusnya membuat compare merah. Kebalikannya, cast pada
+nilai balik (`return (i16) func_X(...)` saat fungsi mengembalikan `i32`) memang
+mubazir — konversi implisit menghasilkan byte yang sama.
+
 ## Gerbang urutan: hanya fungsi beralamat tertinggi yang bisa dipindah
 
 `migrate.py` menolak fungsi yang masih punya penerus di berkas `.s` ("bukan
