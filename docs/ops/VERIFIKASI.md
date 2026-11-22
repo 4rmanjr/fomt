@@ -33,8 +33,10 @@ symlink). Pelengkap khusus status basi: `python3 decomp/audit_sync.py`.
 - `make compare` HIJAU = sha1 cocok dengan `fomt.sha1`; jangan klaim build ROM
   berhasil tanpa itu.
 - MATCH yang dijawab SKIP migrator bukan migrasi: `sudah ada di src/`,
-  `data asing ... ekor`, `bukan fungsi terakhir`, grup gabungan → kontribusi
-  DELTA = 0. Sebut "promoted, bukan migrasi".
+  `data asing ... ekor` yang tak-diselamatkan, `bukan fungsi terakhir`, grup
+  gabungan → kontribusi DELTA = 0. Sebut "promoted, bukan migrasi". Ekor
+  `.byte` yang disalin verbatim (modul tail-only) atau dibawa data-chunk tetap
+  `pindah: 1` — jangan dihitung nol.
 - Jangan menyebut angka dari ingatan/log lama; ambil segar dari `fomt status`
   dan hitungan marker `DECOMP-MATCHED` di `src/`.
 

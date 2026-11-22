@@ -93,7 +93,7 @@ penempatan yang menghalangi.
 
 | Pesan | Arti |
 |---|---|
-| `data asing NB menempel ekor` | blok diakhiri `.byte`/pool; `ref_len > ukuran kode`. Byte itu milik fungsi lain → tak bisa dibawa. Contoh: `func_0802C210` (180B), `func_080A6420` (56B), `func_080390D0`, `func_080202C8`, `func_08023400` |
+| `data asing NB menempel ekor` | blok diakhiri `.byte`/pool dan `ref_len > ukuran kode`. **Bukan otomatis permanen**: modul tail-only menyalin ekor itu verbatim ke blok C (§28a, §34) dan modul split membawanya bila ada data-chunk pemiliknya (data-join). SKIP-permanen hanya bila tak ada yang mengklaim byte itu (grup solo tanpa data-chunk berikutnya). Contoh yang benar-benar tak terselamatkan: `func_0802C210` (180B), `func_080A6420` (56B), `func_080390D0` (88B), `func_080202C8` (68B) |
 | `grup gabungan/tak-split` | hasil splitter bukan grup 1-fungsi (`migratable` tak memuatnya) |
 | `bukan fungsi terakhir di <mod>.s (N penerus belum pindah)` | modul **tail-only legacy** (`hardware.s`, `code_actor_0809BFE8.s`, `code_linkonce.s`) → wajib pindah dari ekor |
 | `butuh tulis manual callee` | callee belum MATCH & tanda tangan beda |
@@ -380,10 +380,11 @@ promoted-only dan catat sebagai SKIP manual.
 Gejala: `[SKIP] extern func_XXXX beda tanda tangan (['i32 (void *, i32, i32, i32)',
 'i32 (void *, i32, u8, i32)'] vs [...])` padahal draf cuma punya satu deklarasi.
 
-Sebab: `promote()` menambah blok baru tanpa membuang blok lama, jadi dua
+Sebab: `promote()` menambah blok baru tanpa membuang blok lama (§27), jadi dua
 fungsi di modul yang sama bisa mendeklarasikan callee yang sama dengan tanda
 tangan berbeda (satu dari blok lama). Gate mengumpulkan SEMUA deklarasi di
-modul, bukan hanya milik fungsi yang dimigrasi.
+modul, bukan hanya milik fungsi yang dimigrasi. Blok basi yang membuat satu
+fungsi berhenti di cek tanda tangannya dibahas di §35.
 
 Penanganan: samakan semua deklarasi callee di modul ke tanda tangan `src/`,
 buang blok duplikat (`promoted` hanya boleh punya satu blok per fungsi), lalu
@@ -716,8 +717,8 @@ Konsekuensi gate:
 marker `// DECOMP-MATCHED <func>` belum ada di `decomp/promoted/<modul>.cc`. Konsekuensinya:
 
 - Draf diperbaiki lalu `promote` dijalankan ulang → **tidak ada** yang berubah; blok lama tetap dipakai
-  oleh `migrate.py`. Ini yang membuat migrasi berulang kali SKIP karena tanda tangan extern lama
-  (`u8 *(void *)`) masih menempel di blok promoted.
+  oleh `migrate.py`. Akibatnya tanda tangan extern lama (`u8 *(void *)`) tetap menempel dan gate SKIP
+  walau draf sudah benar — gejala serta penyatuannya di §17, audit blok basi di §35.
 - Menghapus blok promoted tanpa mengubah status → `migrate.py` berhenti dengan
   `[GAGAL] blok DECOMP-MATCHED tidak ditemukan`.
 
@@ -922,7 +923,7 @@ berakhir di blob `.byte` 44B milik fungsi sebelumnya (`0x08008FB8`).
 
 ## 35. Blok promoted basi: tanda tangannya bisa menyembunyikan fungsi yang sudah MATCH
 
-`promote()` tidak menimpa blok yang sudah ada (§17), jadi blok hasil judge lama (tanda tangan m2c
+`promote()` tidak menimpa blok yang sudah ada (§17, mekanismenya §27), jadi blok hasil judge lama (tanda tangan m2c
 usang) tetap tinggal walau draf sudah di-judge ulang. Selama fungsinya belum pindah, gate membandingkan
 blok **basi** itu dengan `src/`, bukan draf terbaru — fungsi yang sebenarnya sudah MATCH bisa berhenti
 permanen di `promoted` tanpa pernah dicoba migrate.

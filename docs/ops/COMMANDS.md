@@ -13,7 +13,7 @@ fomt --migratable         # hanya fungsi yg BISA migrate ke src:
                           # modul migratable dulu (0803EE94/809E804/
                           # entities/34CEC/0803A8A4/new_game/game_state/
                           # main), SKIP-permanen dilewati (grup gabungan,
-                          # data-asing ekor, modul tail-only/linkonce)
+                          # data-asing ekor tak-diselamat, modul tail-only/linkonce)
 fomt 10 --migratable      # 10 fungsi migratable
 fomt 10                   # 10 fungsi berikutnya
 fomt 5 sram_proxy_1.s     # 5 fungsi dari modul itu

@@ -73,7 +73,7 @@ kepercayaan pola.
 | **A. Straight-line** | tanpa panggilan/cabang, store/load berurutan | target utama; perbaiki lebar akses (`width_mismatch.py`) lalu judge |
 | **B. Pola berulang** | konstruktor vtable, loop `ldm/stm` + mask, salinan blok | buat resep di `POLA-DIFF.md`, transfer ke fungsi bersaudara tanpa judge berulang |
 | **C. Wall agbcc** | sisa diff hanya regalloc/scheduling: rumah register, `push` save-set, hoist konstanta, layout `beq/bne` | coba 2–3 varian struktur; bila tetap, pin `__asm__("rN")`; bila pin tidak menutup, parkir |
-| **D. SKIP permanen** | `data asing ... ekor`, grup gabungan, modul tail-only (`hardware.s`, `code_linkonce.s`, `code_actor_0809BFE8.s`), `butuh tulis manual callee` | tidak dikejar. Untuk tail-only: pindahkan **berurutan dari ekor**. Untuk data asing: tunggu pemilik datanya dipindah |
+| **D. SKIP permanen** | `data asing ... ekor` yang **tak-diselamatkan** (tak ada data-chunk pemiliknya; ekor yang diklaim dibawa otomatis, modul tail-only menyalinnya verbatim — MIGRATE §28a/§34), grup gabungan, modul tail-only (`hardware.s`, `code_linkonce.s`, `code_actor_0809BFE8.s`), `butuh tulis manual callee` | tidak dikejar. Untuk tail-only: pindahkan **berurutan dari ekor**. Untuk data asing: tunggu pemilik datanya dipindah |
 | **E. Data/rodata** | tabel, string, jump table di `asm/data/*.s` | fase terpisah; ubah ke C (`const` array/struct) dengan gate byte-hash, bukan judge fungsi |
 
 Catatan penting dari sesi-sesi sebelumnya: kelas C adalah **penyebab paling
