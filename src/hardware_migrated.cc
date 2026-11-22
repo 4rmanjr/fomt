@@ -315,13 +315,10 @@ i16 *func_08009140(i16 *arg0) {
 
 // DECOMP-MATCHED func_08009154 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-// Pemanggil di src/ memanggil K&R `func_08009154()` (r0/r1 = sisa register
-// pemanggil), jadi definisi memakai daftar parameter kosong + register var.
-void func_08009154() {
-    register i16 *p asm("r0");
-    register i16 v asm("r1");
-
-    *p = v;
+// Setter 4B: pemanggil (func_0800917C) sudah meneruskan argumen kedua di r1,
+// jadi tanda tangannya dua parameter — tanpa K&R + register var.
+void func_08009154(i16 *arg0, i32 arg1) {
+    *arg0 = arg1;
 }
 }
 
@@ -348,10 +345,10 @@ i32 func_08009168(i32 arg0) {
 
 // DECOMP-MATCHED func_0800917C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-void func_08009154();                                  /* extern */
+void func_08009154(i16 *, i32);                        /* extern */
 
-i32 func_0800917C(i32 arg0) {
-    func_08009154();
+i32 func_0800917C(i32 arg0, i32 arg1) {
+    func_08009154((i16 *) arg0, arg1);
     ((GenObj__func_0800917C *)arg0)->unk4 = ((GenObj__func_0800917C *)arg0)->unk0;
     return arg0;
 }
@@ -398,13 +395,13 @@ void *func_080091A4(GenObj__func_080091A4 *arg0, u16 arg1, u16 arg2) {
 
 // DECOMP-MATCHED func_080091E8 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0800917C(i32 arg0);                             /* extern */
-H *func_080091E8(H *arg0) {
+i32 func_0800917C(i32 arg0, i32 arg1);                   /* extern */
+H *func_080091E8(H *arg0, i32 arg1) {
     volatile u32 z;
     u16 *p;
     u16 *end;
 
-    func_0800917C((i32) arg0);
+    func_0800917C((i32) arg0, arg1);
     arg0->unk8 = arg0->unk4;
     arg0->unkA = 0x1E;
     arg0->unkC = 4;

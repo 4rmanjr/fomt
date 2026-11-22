@@ -955,3 +955,25 @@ Klasifikasi hasil (audit 2026-11-22 atas seluruh blok promoted — angka di `SES
 
 Jangan menyunting blok promoted langsung: `verify` menilainya apa adanya, dan blok itu yang akan
 dibandingkan gate (bukan draf). Satu-satunya jalan adalah draf → judge → hapus blok → promote.
+
+## 36. Hack K&R + register var dicabut dengan menaikkan parameter ke rantai pemanggil
+
+Kasus `func_08009154` (`hardware.s`, 4B: `strh r1,[r0]; bx lr`). Migrasi pertamanya memakai
+`void f()` + `register s16 *p asm("r0"); register s16 v asm("r1");` karena pemanggil terdekat
+(`func_0800917C`) tidak menyiapkan r1 — nilainya warisan register dari pemanggil 917C. Byte-nya benar,
+tapi kontrak fungsinya tersembunyi dan gate/audit tanda tangan membacanya sebagai K&R.
+
+Resep (tanpa mengubah byte):
+
+1. Definisi jadi dua parameter: `void f(i16 *arg0, i32 arg1) { *arg0 = arg1; }`.
+   Parameter kedua **`i32`**, bukan `i16`: cast `(i16)` di call-site membuat agbcc menyisipkan
+   `lsl r1,#0x10; asr r1,#0x10` dan byte berubah.
+2. Pemanggil langsung: `i32 g(i32 arg0, i32 arg1)` + `f((i16 *) arg0, arg1)` — r0/r1 sudah berisi,
+   jadi nol instruksi pada `g`.
+3. Naikkan terus sampai call-site yang memang sudah mengisi r1. Kalau ujungnya masih di `asm/`,
+   berhenti di situ: call-site asm tidak perlu diubah (r1 sudah disetel olehnya).
+
+Pembukti: `func_08009154` → `func_0800917C` → `func_080091E8` (`src/hardware_migrated.cc`),
+`make compare` HIJAU (`fomt.gba: OK`). Hanya fungsi yang benar-benar membaca/meneruskan r1 yang perlu
+parameter tambahan — `func_08009168` kembarannya tidak (memanggil `func_08009140` satu argumen),
+jadi tanda tangannya tetap satu parameter.

@@ -1,8 +1,5 @@
-// Pemanggil di src/ memanggil K&R `func_08009154()` (r0/r1 = sisa register
-// pemanggil), jadi definisi memakai daftar parameter kosong + register var.
-void func_08009154() {
-    register s16 *p asm("r0");
-    register s16 v asm("r1");
-
-    *p = v;
+// Setter 4B: argumen kedua sudah diteruskan di r1 oleh pemanggil
+// (func_0800917C), jadi definisi memakai dua parameter.
+void func_08009154(s16 *arg0, s32 arg1) {
+    *arg0 = arg1;
 }
