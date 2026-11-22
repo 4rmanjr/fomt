@@ -52,12 +52,13 @@ s32 sp10;
     func_08007714(&sp10, 2);
     func_08008364(&spC, 2);
     arg0->unk45FC = arg1;
-    temp_r2 = (S461C *)((u8 *)arg0 + 0x461C);
     {
-        W3 *s = (W3 *)&gUnk_080E8BE4;
-        W3 *d = (W3 *)temp_r2;
+        u8 *d = (u8 *)arg0 + 0x461C;
+        u8 *s = (u8 *)&gUnk_080E8BE4;
+        *(W3 *)d = *(W3 *)s;
+        d += 12;
+        s += 12;
         *d = *s;
-        temp_r2->unkC = ((u8 *)&gUnk_080E8BE4)[12];
     }
     if (arg2 != 0) {
         var_r3 = 0;

@@ -1569,6 +1569,9 @@ memakai pointer yang sudah naik 12 (post-increment dari blok kata). Varian C dan
 Jadi salinan 13 byte yang di-inline butuh pointer post-increment yang sama dipakai untuk byte terakhir,
 tanpa menambah variabel yang memperpanjang live range. Wall ini masih parkir.
 
+Tindak lanjut (22 Nov): bentuk post-increment sudah dicoba dan **tetap** gagal — bukan soal bentuk C,
+melainkan agbcc tidak bisa menghasilkan block move non-kelipatan-4 (tabel probe di §58).
+
 ## 46. Slot stack mati: `volatile u32 z; z = 0;` (`func_080091E8`)
 
 Ref `func_080091E8` membuka dengan `push {r4, lr}` + `sub sp, #4` dan menyimpan nol ke slot itu
@@ -1791,3 +1794,34 @@ Resep §43 (temp `s32` + hoist field ke preheader) diterapkan ke `func_0804EDB4`
 Hasil: badan 68B == 68B ref, `3missing/3extra/1operand/2regalloc`; sisa beda hanya **urutan dua instruksi
 prolog** (`adds r4,r0` vs `lsls r2,#0x10`, dan `adds r5,r1` vs `lsrs r6,#4`). Varian deklarasi berinisial
 dan variabel pemisah `t3 = arg3 << 0x10` tidak menggeser keduanya, jadi belum MATCH.
+
+## 58. Block move ukuran bukan kelipatan 4 tidak bisa diproduksi agbcc (`func_08005A58`)
+
+Hipotesis §45 ("cukup pointer post-increment tanpa lokal tambahan") diuji ulang di `func_08005A58`
+(`new_game.s`): salinan 12 byte tertulis benar (`ldm r0!,{r3,r4,r6}` / `stm r1!,{r3,r4,r6}`), tetapi
+byte ke-13 tetap dihitung ulang dari `arg0` (`ldr rX, =0x4628; add rY, r5, rX; strb r0, [rY]`),
+sedangkan ref memakai pointer yang sudah naik 12 (`ldrb r0,[r0]; strb r0,[r1]`). Jadi ref adalah
+**satu block move 13 byte**, bukan 12 byte + 1 byte terpisah.
+
+Batasnya ada di compiler, bukan di bentuk C (semua diukur dengan `tools/scripts/cc_probe.py` dan
+`tools/scripts/try.sh`, bukan dugaan):
+
+| probe | hasil |
+|---|---|
+| `sizeof(struct {u8 a[3];})`, `a[5]`, `a[13]` | `4`, `8`, `16` — ukuran struct selalu dibulatkan ke kelipatan 4 |
+| salinan `struct {u8 a[2/5/9/13];}` | 1/2/3/4 kata (`ldm/stm`), tanpa ekor byte |
+| `memcpy`/`__builtin_memcpy` ukuran 4/6/8/12/13/16 | selalu `bl memcpy`; tidak pernah inline |
+| `struct __attribute__((packed))` 13 byte | `bl memcpy` |
+| frontend C++ (`agbcp`) untuk 13 byte yang sama | sama: sizeof 16, salinan 4 kata |
+| `*(u8 (*)[13])d = *(u8 (*)[13])s` | ditolak ("incompatible types") — larik tak bisa di-assign |
+
+Konsekuensinya: di agbcc tidak ada blok 13 byte yang bisa di-assign (struct dibulatkan, larik tak bisa
+di-assign, `memcpy` tak di-inline), sehingga backend tak pernah menerima block move non-kelipatan-4.
+Pemindaian seluruh `asm/*.s` (3.129 pasangan `ldm …!`/`stm …!`) menemukan pola ekor byte ini **tepat
+satu kali**, yaitu `func_08005A58` sendiri — indikasi fungsi/TU ini berasal dari toolchain lain
+(mis. compiler yang meng-inline `memcpy` konstan dan tidak membulatkan ukuran struct).
+
+Hasil percobaan sesi ini: 89 instruksi vs ref 88; judge `len 226 vs ref 218
+[2missing,7extra,7operand,14regalloc]`. Bentuk V1 lama (dua statement `temp->unkC`) tetap terbaik
+secara len (214). Kesimpulan: `func_08005A58` adalah **wall codegen** — jangan ulangi dengan variasi C
+lain kecuali tersedia compiler lain; gate `migrate` tidak dijalankan.
