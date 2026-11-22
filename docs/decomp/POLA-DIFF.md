@@ -1313,3 +1313,60 @@ dan konstanta `0xC` dipakai bersama store `[1] = 0xC` seperti ref (`mov r3, sl`)
 Bukti: `func_08003C80` varian A (342 vs ref 366) vs varian B dengan `off`
 (370 vs ref 366); keduanya DIFF, tapi A tidak lagi menumpahkan `off`.
 
+## 38. Field `s16` + temp `s32` = `ldrsh` tanpa ekstensi; store `(short)` tetap `add/sub + strh` (`func_080202A0`, `func_08037470`)
+
+Gejala: ref memuat dua field 16-bit dengan `ldrsh` di offset `0xA`/`0xE`, lalu
+menyimpan hasil aritmetikanya dengan `subs/adds` + `strh` **tanpa** instruksi
+ekstensi (`lsls ...; lsrs/asrs ...`). Draf m2c yang memakai `u16`/`unsigned`
+sebagai tipe antara menghasilkan `ldrh` dan/atau sepasang `lsls/asr`.
+
+Bentuk C yang menghasilkan ref (terbukti lewat `cc_probe.py`):
+
+```c
+typedef struct { s32 unk0; u16 unk4; s16 unkA; s16 unkE; } In;
+typedef struct { s16 unk0, unk2, unk4, unk6; } Out;
+
+void f(In *in, Out *out) {
+    s32 a = in->unkA;                  /* -> ldrsh r2, [r0, r3] */
+    s32 b = in->unkE;                  /* -> ldrsh r3, [r0, r4] */
+    out->unk0 = (s16) (a - 7);         /* -> sub r0, r2, #0x7; strh r0, [r1] */
+    out->unk2 = (s16) (b - 9);         /* -> add r0, r3, #0; sub r0, #0x9; strh */
+    out->unk4 = (s16) (a + 7);         /* -> add r2, r2, #0x7; strh r2, [r1, #0x4] */
+    out->unk6 = (s16) (b + 5);         /* -> add r3, r3, #0x5; strh r3, [r1, #0x6] */
+}
+```
+
+Dua kontras yang sudah diukur (jangan dipakai bila ref memakai `ldrsh`):
+
+| Tipe field | Tipe temp | Hasil probe |
+|---|---|---|
+| `u16` | `u32` | `ldrh r2, [r0, #0x6]` (tanpa ekstensi) |
+| `s16` | `s16` | `ldrh r2, [r0, #0x8]` lalu `lsls r2, #0x10; asrs r2, #0x10` |
+
+Jadi: `ldrsh` muncul hanya bila **field bertipe `s16`** dan **temp antara `s32`**
+(promosi integer), dan cast `(s16)` di store tidak menambah instruksi apa pun —
+bentuk `add/sub + strh` dipertahankan. Ini pelengkap §7.1 (di sana variabel
+antaranya `s32`, di sini ditegaskan bahwa tipenya `s16` *dan* store-nya `s16`).
+
+Pembukti: `func_080202A0` (code_entities.s) dan kembarnya `func_08037470`
+(code_entities_08034CEC.s) — badan 36B identik:
+
+```asm
+movs r3, #0xa
+ldrsh r2, [r1, r3]
+movs r4, #0xe
+ldrsh r3, [r1, r4]
+subs r1, r2, #7
+strh r1, [r0]
+adds r1, r3, #0
+subs r1, #9
+strh r1, [r0, #2]
+adds r2, #7
+strh r2, [r0, #4]
+adds r3, #5
+strh r3, [r0, #6]
+```
+
+Keduanya masih parkir dan **bukan** karena pola ini: sisa diff-nya hanya epilog
+`pop {r2}` vs `pop {r0}` (wall regalloc).
+
