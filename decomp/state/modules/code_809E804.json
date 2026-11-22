@@ -1148,7 +1148,7 @@
   "addr": 134889104,
   "judged_mtime": 1793582714.1843934,
   "module": "code_809E804.s",
-  "note": "byte +0x0: 0xf0 vs ref 0x30 [13missing,15extra,12operand,17regalloc,5different @i push {r4, r5, lr} | push {r4, r5, r6, r7, lr}]",
+  "note": "[KELUARGA pop {r2} \u2014 dua register hidup saat epilog] Epilog `pop {r2}; bx r2` muncul karena r1 ikut nilai balik (tipe 64-bit/struct dua word), sehingga gcc tak boleh memakai `pop {r1}` sebagai scratch PC. Prasyarat MATCH: tipe balik `long long` + tanpa `return` (bentuk ini hanya diproduksi old_agbcc, jadi jalurnya TU C terpisah dengan CC1 := OLD_CC1, lihat MIGRATE.md 29). Sub-bentuk A: `ldr r0,[sp]; ldr r1,[sp,#4]; str r0,[r5]; str r1,[r5,#4]; adds r0,r5,#0; add sp,#8; pop {r4,r5}; pop {r2}` \u2014 pasangan 2 word, r1 hidup. Ref 188B.",
   "ref_len": 188,
   "sanitize_v": 4,
   "size": 1617,

@@ -1589,3 +1589,29 @@ mencegah dead-store elimination, dan penempatan store mengikuti urutan statement
 
 Pembukti: `func_080091E8` (MATCH 28/28 instruksi, dimigrasikan dengan `pindah: 1`).
 
+## 47. Keluarga `pop {r2}`: pemetaan 7 fungsi (bukan satu bentuk)
+
+`pop {r2}; bx r2` dipakai gcc saat **r1 ikut nilai balik** (tipe 64-bit / struct dua word), karena
+epilog normal memakai `pop {r1}` sebagai scratch PC. Pemeriksaan 7 fungsi berepilog itu:
+
+| fungsi | ref | epilog (r1 hidup?) | sub-bentuk |
+|---|---|---|---|
+| `func_08024BFC` | 88B | `ldr r0,[sp,#8]; ldr r1,[sp,#0xc]; str r0,[r5]; str r1,[r5,#4]; adds r0,r5,#0; pop {r4,r5}; pop {r2}` | A: pasangan 2 word |
+| `func_080A3E90` | 188B | `ldr r0,[sp]; ldr r1,[sp,#4]; … adds r0,r5,#0; pop {r4,r5}; pop {r2}` | A |
+| `func_0804EA94` | 496B | `ldr r1,[sp]; ldr r2,[sp,#4]; str r1,[r0]; str r2,[r0,#4]; pop {r4..r7}; pop {r2}` | A |
+| `func_0802AB98` | 148B | `adds r0,r3,#0; pop {r4}; pop {r2}` (r1 = nilai `strh r1,[r3,#4]`) | B: kembar `func_080202A0` |
+| `func_0805E760` | 48B | `adds r0,r4,#0; pop {r4}; pop {r2}` (r1 = `str r1,[r4]`) | B |
+| `func_08037ED0` | 32B | 17 instruksi, `pop {r4}; pop {r2}`; r0=arg0, r1=arg1 | B: kembar `func_08037470` |
+| `func_0803834C` | 32B | idem `func_08037ED0`, hanya `adds r3,#4` (bukan #5) | B |
+
+Semua **7 memang keluarga yang sama** dalam hal mekanisme epilog (r1 tidak boleh ditimpa), tetapi ada
+dua sub-bentuk: **A** mengembalikan pasangan nilai nyata (struct/`long long` dua word), **B** hanya
+mengembalikan arg0 di r0 sementara r1 menyimpan nilai sisa — sub-bentuk B identik dengan pasangan
+`func_080202A0`/`func_08037470` yang sudah pindah lewat jalur `CC1 := OLD_CC1` (`MIGRATE.md` §29).
+
+Dua catatan operasional:
+- `func_0804EA94` (ref 496B) punya ekor 288B `.byte` setelah pool, labelnya (`.L0804EB64`) tidak
+  dirujuk siapa pun → data ekor, tetap bisa dimigrasikan (`MIGRATE.md` §28a).
+- `func_0805E760` paling dekat: sisa bedanya hanya `[2regalloc @r pop {r2} | pop {r1}]`, yaitu persis
+  gejala "tipe balik belum 64-bit".
+
