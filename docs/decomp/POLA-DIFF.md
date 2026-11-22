@@ -1754,3 +1754,20 @@ pertahankan pointer yang bergerak — jangan diganti indeks meski jumlah instruk
 
 Sebaliknya, mengganti *nama* dua nilai hidup (`mask` → `st`, satu akumulator) tidak mengubah satu byte
 pun: yang menentukan codegen adalah **bentuk ekspresi**, bukan jumlah/jenis variabel lokal.
+
+## 56. `register ... __asm__` diabaikan saat tekanan register tinggi
+
+`func_080E5664` (438B, `code_linkonce.s`) ditulis ulang 1:1 dari asm memakai `goto` per label. Hasilnya
+210 vs 211 instruksi dengan urutan cabang identik, jadi masalahnya bukan lagi struktur melainkan
+alokasi: agbcc menyimpan `arg0` ke stack (`str r0,[sp,#16]`, frame 0x14 bukan 0x18) dan memakai **tiga**
+high register (`r8`, `r9`, `sl`) sedangkan ref hanya dua (`r8` = arg2, `r9` = flag).
+
+Pemaksaan lewat `register T x __asm__("rN")` **tidak menolong di fungsi ini**: pada fungsi kecil
+(bandingkan §52) pin dihormati, tetapi di sini agbcc diam-diam menugaskan ulang — hasilnya `mov r7,sl`
+lalu `adds r7,r3,#0` yang mengklobek nilai arg0 sehingga kode menjadi salah. Pin tunggal (`arg0`→r7),
+pin sebagian (`arg2`→r8 + `fl`→r9), dan pin kelima-limanya memberi efek sama: diabaikan atau merusak.
+
+Yang tetap aman dan berpengaruh hanya **bentuk ekspresi**: menyusun ulang blok supaya dua pointer tidak
+hidup bersamaan (mis. `p` vs `n` di blok `L571E`) atau memakai satu variabel flag untuk `fl`/`ip`.
+Angka pembukti: draf m2c 394B (50missing/28extra/61regalloc) → translasi 1:1 440B
+(15missing/15extra/36operand/97regalloc). Semua sisa beda ada di nomor register, bukan di instruksi.

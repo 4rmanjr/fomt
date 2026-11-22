@@ -1,180 +1,193 @@
 void *func_080E2354(void *);                          /* extern */
 void *func_080E2B28(void *);                          /* extern */
-void **func_080E54F0(void **, void *, s32, void *, void *, s32); /* extern */
-s32 func_080E55B0(u32 **, void *, u32 *);             /* extern */
 
-typedef struct GenObj {
+typedef struct Node {
+    u32 unk0;
+    struct Node *unk4;
+    struct Node *unk8;
+    struct Node *unkC;
+    u32 unk10;
+} Node;
+
+typedef struct Tree {
     u8 _pad0[4];
-    s32 unk4;
-    struct GenObj *unk8;
-    struct GenObj *unkC;
-    s32 unk10;
-} GenObj;
-u32 **func_080E5664(u32 **arg0, GenObj *arg1, GenObj **arg2, u32 *arg3) {
-    u32 *sp8;
-    u32 *spC;
-    u32 *sp10;
-    s32 var_ip;
-    s32 var_ip_2;
-    s32 var_r0_2;
-    s32 var_r0_3;
-    s32 var_r1;
-    s32 var_r3_2;
-    s32 var_r5_2;
-    s32 var_r5_3;
-    s32 var_r5_4;
-    GenObj *temp_r0;
-    GenObj *temp_r0_2;
-    u32 *temp_r0_3;
-    GenObj *temp_r0_4;
-    GenObj *temp_r2;
-    u32 *var_r2;
-    GenObj *var_r3;
-    GenObj *var_r5;
-    u32 temp_r1_2;
-    u32 temp_r1_3;
-    u32 temp_r2_2;
-    u32 temp_r2_3;
-    GenObj *temp_r1;
+    Node *unk4;
+    u32 unk8;
+} Tree;
 
-    temp_r1 = arg1->unk4;
-    temp_r2 = *arg2;
-    if (temp_r2 == temp_r1->unk8) {
-        if (arg1->unk8 == 0) {
-            func_080E55B0(&sp8, arg1, arg3);
-            *arg0 = sp8;
-            goto block_50;
+void **func_080E54F0(void **, Tree *, Node *, Node *, u32 *, Node *);
+void func_080E55B0(Node **, Tree *, u32 *);
+
+u32 **func_080E5664(u32 **arg0, Tree *arg1, Node **arg2, u32 *arg3) {
+    Node *slot[3];
+    register u32 **a0 __asm__("r7");
+    s32 fl;
+    s32 ip;
+    s32 t;
+    Node *hdr;
+    Node *n;
+    Node *p;
+    Node *q;
+    u32 k;
+    u32 kv;
+
+    hdr = arg1->unk4;
+    a0 = arg0;
+    n = *arg2;
+    if (n != hdr->unk8) {
+        goto L56F4;
+    }
+    if (arg1->unk8 != 0) {
+        goto L5694;
+    }
+    func_080E55B0(&slot[0], arg1, arg3);
+    *a0 = (u32 *) slot[0];
+    goto L580A;
+L5694:
+    t = 0;
+    k = n->unk10;
+    p = n;
+    kv = *arg3;
+    if (kv < k) {
+        t = 1;
+    }
+    fl = t;
+    if (t != 0) {
+        goto L5768;
+    }
+    t = 0;
+    if (k < kv) {
+        t = 1;
+    }
+    if (t == 0) {
+        *a0 = (u32 *) p;
+        goto L580A;
+    }
+    slot[0] = p;
+    n = func_080E2B28(p);
+    slot[0] = n;
+    if (n != arg1->unk4) {
+        goto L56D0;
+    }
+    p = *arg2;
+    goto L57CE;
+L56D0:
+    t = 0;
+    kv = *arg3;
+    k = n->unk10;
+    q = n;
+    if (kv < k) {
+        t = 1;
+    }
+    if (t == 0) {
+        goto L57FC;
+    }
+    p = *arg2;
+    if (p->unkC == 0) {
+        goto L57CE;
+    }
+    func_080E54F0(a0, arg1, q, q, arg3, 0);
+    goto L580A;
+L56F4:
+    if (n != hdr) {
+        goto L571E;
+    }
+    p = n->unkC;
+    t = 0;
+    k = p->unk10;
+    kv = *arg3;
+    if (k < kv) {
+        t = 1;
+    }
+    q = t;
+    if (q == 0) {
+        goto L5710;
+    }
+    func_080E54F0(a0, arg1, 0, n, arg3, n);
+    goto L580A;
+L5710:
+    func_080E55B0(&slot[0], arg1, arg3);
+    *a0 = (u32 *) slot[0];
+    goto L580A;
+L571E:
+    slot[0] = n;
+    n = func_080E2354(n);
+    slot[0] = n;
+    p = *arg2;
+    q = 0;
+    kv = *arg3;
+    k = p->unk10;
+    if (kv < k) {
+        q = 1;
+    }
+    fl = q;
+    if (q == 0) {
+        goto L577A;
+    }
+    ip = 0;
+    k = n->unk10;
+    q = n;
+    if (k < kv) {
+        ip = 1;
+    }
+    if (ip == 0) {
+        goto L577A;
+    }
+    if (q->unkC != 0) {
+        goto L5768;
+    }
+    func_080E54F0(a0, arg1, 0, q, arg3, q);
+    goto L580A;
+L5768:
+    func_080E54F0(a0, arg1, p, p, arg3, 0);
+    goto L580A;
+L577A:
+    slot[1] = *arg2;
+    ip = func_080E2B28(slot[1]);
+    slot[1] = ip;
+    k = 1 ^ fl;
+    if (fl != 0) {
+        goto L57F2;
+    }
+    p = *arg2;
+    q = 0;
+    k = p->unk10;
+    kv = *arg3;
+    if (k < kv) {
+        q = 1;
+    }
+    k = q;
+    if (k == 0) {
+        goto L57F2;
+    }
+    q = ip;
+    if (q != arg1->unk4) {
+        ip = 0;
+        if (kv < q->unk10) {
+            ip = 1;
         }
-        var_r0_2 = 0;
-        temp_r1_2 = temp_r2->unk10;
-        var_r3 = temp_r2;
-        temp_r2_2 = *arg3;
-        if (temp_r2_2 < temp_r1_2) {
-            var_r0_2 = 1;
-        }
-        if (var_r0_2 == 0) {
-            var_r0_3 = 0;
-            if (temp_r1_2 < temp_r2_2) {
-                var_r0_3 = 1;
-            }
-            if (var_r0_3 == 0) {
-                *arg0 = var_r3;
-            } else {
-                sp8 = var_r3;
-                temp_r0 = func_080E2B28(var_r3);
-                sp8 = temp_r0;
-                if (temp_r0 == arg1->unk4) {
-                    goto block_42;
-                }
-                var_r3_2 = 0;
-                var_r5 = temp_r0;
-                if ((u32) *arg3 < (u32) temp_r0->unk10) {
-                    var_r3_2 = 1;
-                }
-                if (var_r3_2 == 0) {
-                    goto block_49;
-                }
-                if ((*arg2)->unkC != 0) {
-                    goto block_45;
-                }
-                goto block_42;
-            }
-        } else {
-            goto block_32;
-        }
-    } else {
-        if (temp_r2 == temp_r1) {
-            var_r5_2 = 0;
-            if ((u32) temp_r2->unkC->unk10 < (u32) *arg3) {
-                var_r5_2 = 1;
-            }
-            if (var_r5_2 != 0) {
-                goto block_43;
-            }
-            func_080E55B0(&sp8, arg1, arg3);
-            *arg0 = sp8;
-            goto block_50;
-        }
-        sp8 = temp_r2;
-        temp_r0_2 = func_080E2354(temp_r2);
-        sp8 = temp_r0_2;
-        var_r3 = *arg2;
-        var_r5_3 = 0;
-        temp_r1_3 = *arg3;
-        if (temp_r1_3 < (u32) var_r3->unk10) {
-            var_r5_3 = 1;
-        }
-        if (var_r5_3 != 0) {
-            var_ip = 0;
-            var_r5 = temp_r0_2;
-            if ((u32) temp_r0_2->unk10 < temp_r1_3) {
-                var_ip = 1;
-            }
-            if (var_ip != 0) {
-                if (var_r5->unkC == 0) {
-                    var_r2 = 0;
-                    goto block_46;
-                }
-block_32:
-                func_080E54F0(arg0, arg1, var_r3, var_r3, arg3, 0);
-                goto block_50;
-            } else {
-                goto block_33;
-            }
-        } else {
-block_33:
-            spC = *arg2;
-            temp_r0_3 = func_080E2B28(*arg2);
-            spC = temp_r0_3;
-            var_r1 = var_r5_3 ^ 1;
-            if (var_r5_3 == 0) {
-                temp_r0_4 = *arg2;
-                var_r5_4 = 0;
-                temp_r2_3 = *arg3;
-                if ((u32) temp_r0_4->unk10 < temp_r2_3) {
-                    var_r5_4 = 1;
-                }
-                var_r1 = var_r5_4;
-                if (var_r1 != 0) {
-                    var_r5 = temp_r0_3;
-                    if (var_r5 != arg1->unk4) {
-                        var_ip_2 = 0;
-                        if (temp_r2_3 < (u32) var_r5->unk10) {
-                            var_ip_2 = 1;
-                        }
-                        if (var_ip_2 != 0) {
-                            goto block_41;
-                        }
-                        goto block_47;
-                    }
-block_41:
-                    if (temp_r0_4->unkC == 0) {
-block_42:
-block_43:
-                        func_080E54F0(arg0, arg1, 0, temp_r0_4, arg3, temp_r0_4);
-                        goto block_50;
-                    } else {
-block_45:
-                        var_r2 = var_r5;
-block_46:
-                        func_080E54F0(arg0, arg1, var_r2, var_r5, arg3, 0);
-                        goto block_50;
-                    }
-                } else {
-                    goto block_47;
-                }
-            } else {
-block_47:
-                if (var_r5_3 == var_r1) {
-                    *arg0 = *arg2;
-                } else {
-block_49:
-                    func_080E55B0(&sp10, arg1, arg3);
-                    *arg0 = sp10;
-                }
-block_50:
-            }
+        if (ip == 0) {
+            goto L57F2;
         }
     }
-    return arg0;
+    if (p->unkC != 0) {
+        goto L57DE;
+    }
+L57CE:
+    func_080E54F0(a0, arg1, 0, p, arg3, p);
+    goto L580A;
+L57DE:
+    func_080E54F0(a0, arg1, q, q, arg3, 0);
+    goto L580A;
+L57F2:
+    if (fl != k) {
+        goto L57FC;
+    }
+    *a0 = (u32 *) *arg2;
+    goto L580A;
+L57FC:
+    func_080E55B0(&slot[2], arg1, arg3);
+    *a0 = (u32 *) slot[2];
+L580A:
+    return a0;
 }

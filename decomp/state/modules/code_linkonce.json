@@ -4812,9 +4812,9 @@
  },
  "func_080E5664": {
   "addr": 135157348,
-  "judged_mtime": 1795350505.3653402,
+  "judged_mtime": 1795363401.7692387,
   "module": "code_linkonce.s",
-  "note": "[parkir: butuh rekonstruksi penuh. Ekor modul (idx 427, tak ada penerus) -> fungsi pertama yang wajib MATCH sebelum blok promoted 421/422/424 bisa pindah. Draf m2c 180 baris vs ref 210 instruksi: judge 394B vs ref 438B [50missing,28extra,33operand,61regalloc,4stack,3different] -> 22 instruksi hilang, artinya cabang besar belum terbentuk (bukan sekadar tipe). Gate migrate menjawab 'tidak ada kandidat' karena status failed. Butuh tulis ulang dari asm (prolog `mov r7,sb; mov r6,r8; push {r6,r7}; sub sp,#0x18`, r6=arg1, r8=arg2, r4=arg3) sebelum ada blok yang bisa dicabut]",
+  "note": "[PARKIR ulang 2026-11-22: draf ditulis ulang 1:1 dari asm (goto per label), 210 vs 211 instruksi -> struktur/cabang sudah identik; judge 440B vs ref 438B [15missing,15extra,36operand,97regalloc,2stack,6different] (draf m2c lama: 394B [50missing,28extra,61regalloc]). Sisa murni alokasi register: gcc 2.9 menyimpan arg0 ke stack (`str r0,[sp,#16]`, frame 0x14 vs ref 0x18) dan memakai tiga high reg (r8, r9, sl) sedangkan ref hanya r8 (arg2) + r9 (flag fl). Pemaksaan `register ... __asm__(\"r7\"/\"r8\"/\"r9\")` TIDAK dipakai: agbcc diam-diam mengabaikannya/mengklobek r7 (`mov r7,sl`, `adds r7,r3,#0`) sehingga kode jadi salah. Varian lain (hapus hdr, hapus kv, slot jadi 3 skalar terpisah) hasilnya 444-456B dan tetap spill. Butuh penurunan tekanan register tanpa mengubah ekspresi: kandidat berikutnya menggabungkan `fl`/`ip` jadi satu saja atau memecah blok L571E agar `p` tidak hidup bersama `n`.",
   "ref_len": 439,
   "sanitize_v": 4,
   "size": 3573,
