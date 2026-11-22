@@ -49,9 +49,9 @@
  "func_08003C80": {
   "addr": 134233216,
   "draft_src": "manual",
-  "judged_mtime": 1795353070.3014903,
+  "judged_mtime": 1795355401.0208366,
   "module": "new_game.s",
-  "note": "PARKIR (10 judge, cap): 342 vs ref 366 [26missing,15extra,30operand,31regalloc,3stack]. Layout data PERSIS ref (frame 0x2D28; pb=buf di sp+8 via agregat ber-kepala; s0 0x2D08; s1..s3 0x2D0C..0x2D14; slot p1..p3 0x2D18..0x2D20) \u2014 lihat POLA-DIFF.md \u00a735-\u00a737. Sisa wall regalloc: pb/off bertukar slot spill, &s2/&s3 di-hoist (ref hitung ulang dari literal), p0 di r4 bukan r5.",
+  "note": "[parkir: 11 judge, cap. Layout data tetap PERSIS ref (POLA-DIFF 35-37). Tiga perubahan struktural dicoba sekaligus (pb dibungkus agregat 1-anggota, p0 dipin r5, g[k] dibaca sebelum store): 342B [23missing,12extra,27operand,35regalloc,7different] vs parkiran sebelumnya 342B [26missing,15extra,30operand,31regalloc,11different] -> bentuk kode makin dekat, tapi tidak menambah 12 instruksi yang kurang dan regalloc naik. Agregat tanpa volatile TIDAK menahan pb di slot (agbcc tetap `add r6,sp,#8`); dengan member `volatile` (pbw.p + p1..p3 volatile) meledak jadi 394B [19missing,34extra,39operand,38regalloc] karena tiap store reload slot. Wall tetap: ref punya slot pb (sp+0x2D24) + &s2/&s3 dihitung ulang tiap iterasi, draf selalu menyimpan satu reg callee-saved lebih banyak]",
   "ref_len": 368,
   "sanitize_v": 4,
   "size": 3608,

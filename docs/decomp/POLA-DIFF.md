@@ -1430,3 +1430,27 @@ memberi `adds r0, r7, r1; adds r0, r0, r6` seperti ref, sedangkan
 
 Pembukti: `decomp/drafts/func_08006C60.c` (MATCH, dimigrasi ke `src/new_game.cc`).
 
+## 40. Memaksa spill lokal: agregat 1-anggota TIDAK cukup, `volatile` kelebihan (`func_08003C80`)
+
+Diukur pada `func_08003C80` (ref 366B, slot `pb` di sp+0x2D24, `&s2`/`&s3` dihitung ulang tiap
+iterasi). Tiga percobaan pada draf 342B yang sama:
+
+| bentuk | panjang | residual |
+|---|---|---|
+| parkiran awal (baseline) | 342B | `[26missing,15extra,30operand,31regalloc,11different]` |
+| `struct { u8 *p; } pbw;` + `register s16 *p0 __asm__("r5")` + `g[k]` dibaca sebelum store | 342B | `[23missing,12extra,27operand,35regalloc,7different]` |
+| sama, tapi `struct { u8 * volatile p; }` + `s16 * volatile p1..p3` | 394B | `[19missing,34extra,39operand,38regalloc,1stack]` |
+
+Kesimpulan terukur:
+
+- Agregat satu anggota **tidak** memaksa variabel anggotanya hidup di stack: agbcc tetap
+  mempromosikan `pbw.p` ke register (`add r6, sp, #0x8` muncul, bukan `str/ldr` slot), jadi
+  perubahan ini hanya menyusun ulang operand — tidak menambah instruksi spill yang dicari.
+- Menambah `volatile` pada anggota/holder benar-benar memaksa setiap akses melewati memori,
+  tetapi hasilnya melewati target (+52B): ref hanya menyimpan `pb` sekali ke slot dan
+  me-reload `p1..p3` di tempat tertentu, bukan di setiap store.
+
+Artinya "paksa spill lebih awal" bukan tombol biner di agbcc: tidak ada bentuk C yang
+menyisipkan tepat satu slot tambahan. Sampai ada ide yang mengubah **tekanan register**
+(mis. jumlah variabel hidup lintas-loop), fungsi ini tetap parkir.
+
