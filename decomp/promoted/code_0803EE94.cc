@@ -3120,13 +3120,6 @@ void func_0808A4C0(GenObj *arg0, s32 arg1) {
 
 /* ATTEMPT-NOTE pi: len 156 vs ref 154 (+2); dekat; bandingkan tail: kandidat bl func_0800F390 pakai ldr langsung? cek objdump. */
 
-// DECOMP-MATCHED func_08050D8C (dari code_0803EE94.s; cek manusia sebelum ke src/)
-s32 func_08050424(s32, s32, s32, s32);                  /* extern */
-
-void func_08050D8C(s32 *arg0, s32 arg1) {
-    func_08050424(*arg0, arg1, 0x100, 0);
-}
-
 // DECOMP-MATCHED func_0805039C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 s32 func_08009940(void *, void *);                    /* extern */
 s32 func_0804F0E0(void *);                            /* extern */
@@ -4062,4 +4055,13 @@ void func_08050424(GenObj *arg0, s32 arg1, u16 arg2, s32 arg3) {
     func_080ADD5C(temp_r4, arg1, arg3);
     func_080ADD74(temp_r4, arg2);
     arg0->unk8 = 4;
+}
+
+// DECOMP-MATCHED func_08050D8C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct GenObj GenObj;
+
+void func_08050424(GenObj *, s32, u16, s32);                 /* extern */
+
+void func_08050D8C(s32 *arg0, s32 arg1) {
+    func_08050424((GenObj *)(*arg0), arg1, 0x100, 0);
 }

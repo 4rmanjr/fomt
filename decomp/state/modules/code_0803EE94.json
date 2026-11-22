@@ -853,9 +853,9 @@
  },
  "func_08050D8C": {
   "addr": 134548876,
-  "judged_mtime": 1793665926.899556,
+  "judged_mtime": 1795361616.3210757,
   "module": "code_0803EE94.s",
-  "note": "",
+  "note": "[MATCH ulang + satukan tanda tangan callee] Extern `func_08050424` yang usang (`s32 (s32, s32, s32, s32)`) disamakan dengan definisi di src (`void (GenObj *, s32, u16, s32)`) + cast `(GenObj *)(*arg0)` di call-site; draf pakai forward `typedef struct GenObj GenObj;` agar tak menyalin struct src (audit: i32 di draf). Byte-netral: judge ulang MATCH (blok promoted ditulis ulang dari draf), `make compare` HIJAU. Kelas MIGRATE \u00a723.",
   "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 20,
   "sanitize_checked_v": 4,

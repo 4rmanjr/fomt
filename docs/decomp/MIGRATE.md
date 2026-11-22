@@ -895,3 +895,11 @@ tidak punya entri itu — jadi gate selalu melihat "beda".
 Tindakan: ganti `goto`-nya dengan alur tanpa label (`if (k) continue;` + satu panggilan bersama di
 luar `if`), judge ulang, baru migrate. Terbukti `func_08009094` (150B): MATCH → `pindah: 1` HIJAU.
 Jangan "menambal" dengan mengubah deklarasi callee; tanda tangannya sudah benar.
+
+Bukti kedua (2026-11-22, `func_08050D8C`): blok staging-nya mendeklarasikan callee
+`func_08050424` dengan tanda tangan m2c lama `s32 (s32, s32, s32, s32)` padahal definisi di
+`src/code_0803EE94.cc` sudah `void (GenObj *, i32, u16, i32)`. Disamakan + cast
+`(GenObj *)(*arg0)` di call-site; draf memakai forward `typedef struct GenObj GenObj;` (jangan
+menyalin struct src — `i32` di draf ditolak `audit_consistency.py`). Judge ulang MATCH, jadi
+`func_08050D8C` tidak lagi menabrak gate kelas ini saat giliran migrate-nya. Gate menormalkan
+`s32`→`i32`, jadi blok promoted tetap ditulis `s32` seperti blok lain di berkas itu.
