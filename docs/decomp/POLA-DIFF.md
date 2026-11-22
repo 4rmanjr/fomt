@@ -1569,3 +1569,23 @@ memakai pointer yang sudah naik 12 (post-increment dari blok kata). Varian C dan
 Jadi salinan 13 byte yang di-inline butuh pointer post-increment yang sama dipakai untuk byte terakhir,
 tanpa menambah variabel yang memperpanjang live range. Wall ini masih parkir.
 
+## 46. Slot stack mati: `volatile u32 z; z = 0;` (`func_080091E8`)
+
+Ref `func_080091E8` membuka dengan `push {r4, lr}` + `sub sp, #4` dan menyimpan nol ke slot itu
+(`movs r1, #0` … `str r1, [sp]`), lalu `add sp, #4` di epilog. Tidak ada yang membacanya.
+
+Percobaan:
+
+| bentuk C | hasil |
+|---|---|
+| tanpa variabel apa pun | 24 instruksi, tidak ada `sub sp`/`str [sp]` |
+| `u32 z; z = 0;` | tetap 24 instruksi — store mati dibuang gcc |
+| `volatile u32 z; z = 0;` | **28 instruksi, identik** — slot stack dialokasikan dan store dipertahankan |
+
+Jadi bila ref punya slot stack yang hanya ditulis nol sekali dan tak pernah dibaca, itu tanda variabel
+`volatile` di sumber aslinya (atau alamatnya pernah diambil). `volatile` memaksa home memori dan
+mencegah dead-store elimination, dan penempatan store mengikuti urutan statement — di sini setelah
+`arg0->unkC = 4`, persis seperti ref.
+
+Pembukti: `func_080091E8` (MATCH 28/28 instruksi, dimigrasikan dengan `pindah: 1`).
+

@@ -452,28 +452,6 @@ s16 func_080093A0(void *arg0, s32 arg1) {
 
 /* ATTEMPT-NOTE opencode: unk4 u16 + s16 return (ldrh + lsls/asrs). */
 
-// DECOMP-MATCHED func_08009190 (dari hardware.s; cek manusia sebelum ke src/)
-s32 func_08009158();                                /* extern */
-
-typedef struct GenObj {
-    u16 unk0;
-    u16 _pad2;
-    u16 unk4;
-} GenObj;
-s32 func_08009190(GenObj *arg0) {
-    register s32 temp_r5 asm("r5");
-    s32 res;
-
-    temp_r5 = arg0->unk0;
-    res = func_08009158() & ~temp_r5;
-    arg0->unk4 = res;
-    return res;
-}
-
-/* ATTEMPT-NOTE opencode: unk u16; bic via & ~. */
-
-/* ATTEMPT-NOTE opencode: unk u16; sisa alokasi arg-copy (r4 vs r5). */
-
 // DECOMP-MATCHED func_08007714 (dari hardware.s; cek manusia sebelum ke src/)
 s32 __builtin_delete(s32 *);                            /* extern */
 s32 free();                                           /* extern */
@@ -618,34 +596,6 @@ block_BE:
     var_r0 = func_0800736C(arg0);
 block_CA:
     arg0->unk4 = var_r0;
-    return arg0;
-}
-
-// DECOMP-MATCHED func_08009168 (dari hardware.s; cek manusia sebelum ke src/)
-s32 func_08009140();                                  /* extern */
-
-typedef struct GenObj {
-    u16 unk0;
-    u8 _pad2[2];
-    u16 unk4;
-} GenObj;
-void *func_08009168(GenObj *arg0) {
-    func_08009140();
-    arg0->unk4 = arg0->unk0;
-    return arg0;
-}
-
-// DECOMP-MATCHED func_0800917C (dari hardware.s; cek manusia sebelum ke src/)
-s32 func_08009154();                                  /* extern */
-
-typedef struct GenObj {
-    u16 unk0;
-    u8 _pad2[2];
-    u16 unk4;
-} GenObj;
-void *func_0800917C(GenObj *arg0) {
-    func_08009154();
-    arg0->unk4 = arg0->unk0;
     return arg0;
 }
 
@@ -1583,4 +1533,87 @@ s32 func_08009268(GenObj *arg0) {
     } while (bit != 0);
     arg0->unk8 = mask;
     return mask;
+}
+
+// DECOMP-MATCHED func_080091E8 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_0800917C(void *);                          /* extern */
+
+typedef struct H {
+    u8 _pad0[4];
+    u16 unk4;
+    u16 unk6;
+    u16 unk8;
+    u16 unkA;
+    u16 unkC;
+    u16 arr[10];
+} H;
+
+H *func_080091E8(H *arg0) {
+    volatile u32 z;
+    u16 *p;
+    u16 *end;
+
+    func_0800917C(arg0);
+    arg0->unk8 = arg0->unk4;
+    arg0->unkA = 0x1E;
+    arg0->unkC = 4;
+    z = 0;
+    p = &arg0->arr[0];
+    end = &arg0->arr[10];
+    if (p != end) {
+        do {
+            *p = 0;
+            p++;
+        } while (p != end);
+    }
+    return arg0;
+}
+
+// DECOMP-MATCHED func_08009190 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08009158();                                /* extern */
+
+typedef struct GenObj {
+    u16 unk0;
+    u16 _pad2;
+    u16 unk4;
+} GenObj;
+
+s32 func_08009190(s32 arg0) {
+    register s32 temp_r5 asm("r5");
+    s32 res;
+
+    temp_r5 = ((GenObj *)arg0)->unk0;
+    res = func_08009158() & ~temp_r5;
+    ((GenObj *)arg0)->unk4 = res;
+    return res;
+}
+
+// DECOMP-MATCHED func_0800917C (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08009154();                                  /* extern */
+
+typedef struct GenObj {
+    u16 unk0;
+    u8 _pad2[2];
+    u16 unk4;
+} GenObj;
+
+s32 func_0800917C(s32 arg0) {
+    func_08009154();
+    ((GenObj *)arg0)->unk4 = ((GenObj *)arg0)->unk0;
+    return arg0;
+}
+
+// DECOMP-MATCHED func_08009168 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08009140();                                  /* extern */
+
+typedef struct GenObj {
+    u16 unk0;
+    u8 _pad2[2];
+    u16 unk4;
+} GenObj;
+
+s32 func_08009168(s32 arg0) {
+    func_08009140();
+    ((GenObj *)arg0)->unk4 = ((GenObj *)arg0)->unk0;
+    return arg0;
 }

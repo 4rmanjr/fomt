@@ -5,8 +5,9 @@ typedef struct GenObj {
     u8 _pad2[2];
     u16 unk4;
 } GenObj;
-void *func_08009168(GenObj *arg0) {
+
+s32 func_08009168(s32 arg0) {
     func_08009140();
-    arg0->unk4 = arg0->unk0;
+    ((GenObj *)arg0)->unk4 = ((GenObj *)arg0)->unk0;
     return arg0;
 }

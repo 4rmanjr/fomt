@@ -1,27 +1,32 @@
-s32 func_0800917C();                                  /* extern */
+s32 func_0800917C(void *);                          /* extern */
 
-typedef struct GenObj {
+typedef struct H {
     u8 _pad0[4];
-    s32 unk4;
-    s32 unk8;
-    s32 unkA;
-    s32 unkC;
-} GenObj;
-void *func_080091E8(GenObj *arg0) {
-    s16 *var_r0;
-    void *temp_r1;
+    u16 unk4;
+    u16 unk6;
+    u16 unk8;
+    u16 unkA;
+    u16 unkC;
+    u16 arr[10];
+} H;
 
-    func_0800917C();
-    arg0->unk8 = (u16) arg0->unk4;
+H *func_080091E8(H *arg0) {
+    volatile u32 z;
+    u16 *p;
+    u16 *end;
+
+    func_0800917C(arg0);
+    arg0->unk8 = arg0->unk4;
     arg0->unkA = 0x1E;
     arg0->unkC = 4;
-    var_r0 = arg0 + 0xE;
-    temp_r1 = arg0 + 0x22;
-    if (var_r0 != temp_r1) {
+    z = 0;
+    p = &arg0->arr[0];
+    end = &arg0->arr[10];
+    if (p != end) {
         do {
-            *var_r0 = 0;
-            var_r0 += 2;
-        } while (var_r0 != temp_r1);
+            *p = 0;
+            p++;
+        } while (p != end);
     }
     return arg0;
 }

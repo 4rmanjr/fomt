@@ -725,3 +725,30 @@ Catatan `new_game.s`: modul ini ada di daftar `migrate.py` yang blok asm-nya **t
 (`# 3 sisa (grup + extern manual)`), jadi `asm/new_game.s` tetap utuh setelah `pindah: 1` dan
 `git status` tidak menampilkannya — bukan tanda migrasi gagal; cek `pindah: N` + `make compare`.
 
+## 28. Ekor `.byte` bukan penghalang; tanda tangan usang harus disatukan
+
+Dua koreksi terhadap vonis lama di rantai ekor `hardware.s`.
+
+**a. Data `.byte` di ekor blok tetap bisa dimigrasikan.** `func_080091E8` punya 68 byte `.byte`
+(fungsi tanpa label di 0x08009224) setelah badannya. `trailing_data_len` membuang data itu dari
+perbandingan instruksi (28 vs 28 → identik), dan saat memotong blok, `migrate.py` menyalinnya
+**verbatim** ke blok C sebagai string inline asm (`.L08009224:` + `.byte …`). Hasilnya `pindah: 1`
+dengan `make compare` HIJAU. Jadi catatan "SKIP permanen — data asing ekor" untuk fungsi ini salah:
+yang benar adalah "ekor data disalin apa adanya, badan fungsi tetap MATCH".
+
+**b. Extern usang di `src/` memblokir dengan pesan yang membingungkan.** Gejalanya
+`[SKIP] definisi X di body vs extern usang di src (['i32 ()'])` — daftar itu dicetak dari deklarasi
+lama, bukan dari definisi baru, sehingga kedua sisi terlihat sama. Prosedur yang terbukti:
+
+1. ubah draf jadi bentuk skalar yang setara byte: `s32 f(s32 arg0)` + cast `((GenObj *)arg0)` di badan
+   (menggantikan `void *f(GenObj *)`);
+2. judge ulang sampai MATCH (biasanya tetap MATCH karena cast tidak menghasilkan instruksi);
+3. samakan `src/<stem>.cc`: extern `i32 f(i32);` dan call-site `f((i32) arg0);` — argumen pertama
+   hampir selalu sudah ada di r0 saat `bl`, jadi byte tidak berubah (diverifikasi `make compare`);
+4. potong blok `DECOMP-MATCHED f`, set `status=matched` + hapus `promoted_to`, promote, migrate.
+
+Bila definisi membawa parameter yang **dipakai** (mis. `void g(s16 *p, s16 v)`), call-site wajib
+meneruskan argumen kedua; sering nilainya sudah berada di r1 dari pemanggil sehingga penerusan itu
+gratis. Rantai seperti ini harus dikerjakan berurutan dari pemanggil terluar — `func_08009154`
+masih tertahan karena alasan ini.
+
