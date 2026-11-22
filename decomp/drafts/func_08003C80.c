@@ -15,7 +15,8 @@ void func_08003C80(void) {
     s16 s1[2];
     s16 s2[2];
     s16 s3[2];
-    register s16 *p0 __asm__("r5");
+    s16 *p0;
+    s16 **pp0;
     s16 *p1;
     s16 *p2;
     s16 *p3;
@@ -38,6 +39,7 @@ void func_08003C80(void) {
     n = 0;
     row = 0;
     p0 = s0;
+    pp0 = &p0;
     pbw.p = work.data;
     p1 = s1;
     p2 = s2;
@@ -53,8 +55,8 @@ void func_08003C80(void) {
             col += 1;
         } while (col <= 0x1DU);
     } while (row <= 0xBU);
-    p0[0] = 0x1E;
-    p0[1] = 0xC;
+    s0[0] = 0x1E;
+    (*pp0)[1] = 0xC;
     func_0804E7A0(*(s32 *) s0, pbw.p, 0);
     i = 0;
     do {

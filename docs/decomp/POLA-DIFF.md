@@ -1647,3 +1647,29 @@ punya entri `tail:` itu. Menyisipkan `;` sesudah label tidak menolong.
 
 Perbaikan yang byte-identik: `if (a == 0) continue;` lalu satu `CpuSet(...)` di luar `if` —
 tanpa label, alur (dan byte) tetap sama, `pindah: 1` langsung HIJAU.
+
+## 51. Pointer ke slot: alamat-di-ambil menolong, tetapi `escape` mengubah cara reload
+
+`func_08003C80` (368B, `new_game.s`) memarkir `p0..p3`, pointer buffer `pb`, dan alamat `&s0..&s3`
+di slot stack. Bentuk agregat 1-anggota (`struct { u8 *p; }`) TIDAK memaksa slot; yang memaksa
+adalah **alamat pointer diambil**:
+
+```c
+u8 *pb; u8 **ppb = &pb;          /* pb kini di memori, tanpa volatile */
+s16 *p0; s16 **pp0 = &p0;
+...
+s0[0] = 0x1E;                    /* tulis lewat nama asli -> alamat langsung */
+(*pp0)[1] = 0xC;                 /* tulis lewat pointer  -> slot + load    */
+```
+
+Hasil: 344B -> 360B, sepuluh instruksi slot/reload yang hilang muncul kembali, dan regalloc
+`(26)` jauh lebih dekat ke ref daripada parkiran sebelumnya `(35)`.
+
+Batasannya: karena `&pb` **escape** ke pointer lain, agbcc harus menganggap isinya bisa berubah
+setiap call, jadi `pb` di-reload di setiap pemanggilan (4x). Ref justru **spill sekali**: `pb`
+disimpan ke slot, dimuat satu kali ke `r6` sebelum loop, dipakai tiga call, lalu dimuat ulang di
+ekor. Artinya sumber aslinya pointer biasa yang kehabisan register (spill), bukan pointer
+alamat-di-ambil. Untuk menirunya: tekanan register harus naik tanpa membuat alamat pointer escape.
+
+Ide "tambahkan variabel hidup lintas-loop" (mis. `u32 sz = 0x2D00;` dipakai setelah loop) sudah
+diuji di fungsi ini: **tidak berpengaruh** (tetap 344B) karena agbcc melipat konstanta itu.

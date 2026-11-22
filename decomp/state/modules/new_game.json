@@ -49,9 +49,9 @@
  "func_08003C80": {
   "addr": 134233216,
   "draft_src": "manual",
-  "judged_mtime": 1795355401.0208366,
+  "judged_mtime": 1795361926.464535,
   "module": "new_game.s",
-  "note": "[parkir: 11 judge, cap. Layout data tetap PERSIS ref (POLA-DIFF 35-37). Tiga perubahan struktural dicoba sekaligus (pb dibungkus agregat 1-anggota, p0 dipin r5, g[k] dibaca sebelum store): 342B [23missing,12extra,27operand,35regalloc,7different] vs parkiran sebelumnya 342B [26missing,15extra,30operand,31regalloc,11different] -> bentuk kode makin dekat, tapi tidak menambah 12 instruksi yang kurang dan regalloc naik. Agregat tanpa volatile TIDAK menahan pb di slot (agbcc tetap `add r6,sp,#8`); dengan member `volatile` (pbw.p + p1..p3 volatile) meledak jadi 394B [19missing,34extra,39operand,38regalloc] karena tiap store reload slot. Wall tetap: ref punya slot pb (sp+0x2D24) + &s2/&s3 dihitung ulang tiap iterasi, draf selalu menyimpan satu reg callee-saved lebih banyak]",
+  "note": "[parkir: 12 judge, cap terlampaui] Layout data tetap PERSIS ref (POLA-DIFF 35-37, 51). Ide 'variabel hidup lintas-loop' (u32 sz=0x2D00 dipakai setelah loop) DIUJI: TIDAK berpengaruh (344B, sama seperti parkiran) karena agbcc melipat konstanta. Yang menolong: pointer yang ALAMATNYA DIAMBIL, tanpa volatile - `u8 **ppb=&pb` + `s16 **pp0=&p0`, tulis s0[0] langsung lewat `s0` tapi p0[1] lewat `(*pp0)` (meniru ref: slot p0 dipakai hanya untuk argumen call). Hasil 360B (harness 358 vs ref 366): [20missing,17extra,25operand,26regalloc,6different] vs parkiran lama 342B [23missing,12extra,27operand,35regalloc,7different] -> regalloc turun, tapi `extra` naik. Sisa beda: ref menyimpan pb sekali ke r6 sebelum loop lalu reload 1x di ekor (spill), sedangkan alamat-di-ambil memaksa reload di SETIAP call (escape). Jadi arah 'paksa spill' benar, tapi harus tanpa escape - belum ketemu bentuknya.",
   "ref_len": 368,
   "sanitize_v": 4,
   "size": 3608,
