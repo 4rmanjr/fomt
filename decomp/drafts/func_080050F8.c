@@ -32,6 +32,8 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     s32 temp_r1_3;
     s32 var_r4;
     s32 var_r5;
+    register s32 sv __asm__("r0");
+    register s32 c3f __asm__("r2");
     GenObj *temp_r0;
     GenObj *temp_r0_2;
     GenObj *temp_r0_3;
@@ -43,8 +45,9 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     func_08005260(arg1);
     func_08005278(arg1);
     temp_r0 = func_08008918(arg1);
-    *(volatile s16 *)&fr.sp0 = 0x3F;
-    temp_r0->unk50 = 0x3F;
+    c3f = 0x3F;
+    *(s16 *)&fr.sp0 = (s16) c3f;
+    temp_r0->unk50 = (u16) c3f;
     temp_r4 = __builtin_new(0x10);
     temp_r1 = func_08008918(arg1);
     temp_r4->unk0 = 0;
@@ -64,7 +67,8 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
         func_080087C8(arg1);
         func_080088B8(arg1);
         func_080088D4(arg1);
-        switch (var_r4) {                           /* irregular */
+        sv = var_r4;
+        switch (sv) {                               /* irregular */
         case 0:
             temp_r1_2 = fr.sp4->unk0;
             if ((s32) ((0 - temp_r1_2) | temp_r1_2) >= 0) {

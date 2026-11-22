@@ -1454,3 +1454,29 @@ Artinya "paksa spill lebih awal" bukan tombol biner di agbcc: tidak ada bentuk C
 menyisipkan tepat satu slot tambahan. Sampai ada ide yang mengubah **tekanan register**
 (mis. jumlah variabel hidup lintas-loop), fungsi ini tetap parkir.
 
+## 41. Nilai `switch` di dalam loop: pin ke r0 memunculkan salinan yang dipakai ref (`func_080050F8`)
+
+Ref (`func_080050F8`, 346B) menyusun dispatch 4-case sebagai pohon perbandingan yang
+menguji **r0**, dengan satu `adds r0, r4, #0` di kepala loop; draf awal menguji r4
+langsung (`cmp r4, #0x1`), jadi hilang satu instruksi dan seluruh pohon bergeser.
+
+Sebabnya: variabel switch (`var_r4`) juga ditulis di badan case, sehingga ref
+menyalin nilainya sekali per iterasi. Di agbcc, menyalin lewat variabel biasa
+dikoalesikan (tidak ada instruksi); yang memaksa salinan itu adalah pin:
+
+```c
+register s32 sv __asm__("r0");
+...
+    sv = var_r4;        /* -> adds r0, r4, #0 */
+    switch (sv) { ... }
+```
+
+Hasil terukur pada satu fungsi: `regalloc 13 -> 8`, `different 1`, panjang tetap
+348B vs ref 346B. Menambah pin konstanta (`register s32 c3f __asm__("r2")` untuk
+nilai `0x3F` yang dipakai dua store) menurunkan lagi `regalloc 8 -> 4` dan
+`operand 6 -> 4`.
+
+Yang tersisa setelah kedua pin bukan lagi soal salinan: posisi `mov r2, #0x3F`,
+nol slot (`mov r0,#0; str r0,[r4]` di ref vs `mov r5,#0` di draf), dan reload
+`fr.sp4` dari `[sp, #4]` (ref menyimpannya di r1). Fungsi diparkir di titik itu.
+
