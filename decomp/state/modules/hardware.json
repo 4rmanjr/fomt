@@ -1056,8 +1056,8 @@
   "module": "hardware.s",
   "note": "",
   "promoted_to": "decomp/promoted/hardware.cc",
-  "ref_len": 32,
-  "size": 329,
+  "ref_len": 31,
+  "size": 330,
   "status": "promoted",
   "thumb": true
  },

@@ -1338,10 +1338,10 @@ void *func_08009548(void *arg0) {
 }
 
 // DECOMP-MATCHED func_0800953C (dari hardware.s; cek manusia sebelum ke src/)
-s32 func_08009344(void *);                          /* extern */
+s32 func_08009344(s32 **, s32);                     /* extern */
 
-s32 func_0800953C(void *arg0) {
-    return func_08009344((u8 *) arg0 + 0xC);
+s32 func_0800953C(void *arg0, s32 arg1) {
+    return func_08009344((s32 **) ((u8 *) arg0 + 0xC), arg1);
 }
 
 // DECOMP-MATCHED func_0800952C (dari hardware.s; cek manusia sebelum ke src/)

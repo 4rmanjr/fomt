@@ -127,6 +127,19 @@ typedef struct GenObj__hw093x {
 } GenObj__hw093x;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_08009344 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08009344(i32 **arg0, i32 arg1) {
+    i32 *temp_r2;
+    i32 temp_r0;
+
+    temp_r2 = *arg0;
+    temp_r0 = *temp_r2;
+    *temp_r2 = arg1;
+    return temp_r0;
+}
+}
+
 // DECOMP-MATCHED func_0800934C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 void func_0800934C(void *arg0, i16 arg1, i32 arg2, i32 arg3) {
@@ -341,10 +354,9 @@ void func_0800952C(void *arg0, i32 arg1, i32 arg2, i32 arg3) {
 
 // DECOMP-MATCHED func_0800953C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08009344(void *);                          /* extern */
-
-i32 func_0800953C(void *arg0) {
-    return func_08009344((u8 *) arg0 + 0xC);
+i32 func_08009344(i32 **arg0, i32 arg1);                             /* extern */
+i32 func_0800953C(void *arg0, i32 arg1) {
+    return func_08009344((i32 **) ((u8 *) arg0 + 0xC), arg1);
 }
 }
 

@@ -24,9 +24,9 @@
  },
  "func_08003BB4": {
   "addr": 134233012,
-  "judged_mtime": 1795350505.1813402,
+  "judged_mtime": 1795351428.017443,
   "module": "new_game.s",
-  "note": "ucture or union\n/workspace/chats/8e431e267938c019828ff924/decomp/logs/judge_func_08003BB4/buffy/func.c:40: invalid operands to binary -\n/workspace/chats/8e431e267938c019828ff924/decomp/logs/judge_func_08003BB4/buffy/func.c:44: warning: passing arg 1 of `func_080094B8' from incompatible pointer type\n",
+  "note": "len 122 vs ref 116 [1missing,4extra,8operand,12regalloc,1different @i push {r4, r5, lr} | push {r4, r5, r6, lr}]",
   "ref_len": 116,
   "sanitize_v": 4,
   "size": 1095,
