@@ -27,8 +27,15 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   `--sort bytes|count|name`, `--module`, `--limit`, `--json`. Dipakai memilih
   target sesi (lihat `docs/RENCANA-TRANSLASI.md` §5 Fase 0).
 - `wall_registry.py` — rekap fungsi yang `note`-nya menyebut "parkir" beserta
-  alasan, attempt (`N/5`), dan modulnya; `--module`, `--grep`, `--full`,
-  `--width`, `--json`. Cegah mencoba ulang wall tanpa ide baru.
+  alasan, attempt (`N/5`), dan modulnya. Keluarannya **dipisah dua kelas**:
+  `== WALL AKTIF ==` (masih bisa dikejar dengan ide baru) di atas, lalu
+  `== SKIP PERMANEN ==` (note menyebut "SKIP permanen": ekor data asing, grup
+  gabungan, fragmen epilog bersama) — kelas permanen berasal dari deteksi string
+  `skip permanen` di note, bukan dari daftar nama manual. Ringkasan akhir
+  menyebut `(aktif N, permanen M)`. Flag: `--module`, `--kind aktif|permanen`,
+  `--grep`, `--full`, `--width`, `--json` (kunci `walls` + `total` + `aktif` +
+  `permanen`, dan `kind` per baris). Cegah mencoba ulang wall tanpa ide baru,
+  dan jangan sampai blok SKIP permanen terlihat setara dengan target hidup.
 - `decomp/migrate.py ... --explain` — beda signature blok vs `src/`, tanpa
   menulis apa pun.
 - `decomp/srcmarkers.py` — daftar fungsi yang punya marker `DECOMP-MATCHED`
