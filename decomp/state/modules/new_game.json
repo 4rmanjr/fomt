@@ -1,9 +1,9 @@
 {
  "func_08003788": {
   "addr": 134231944,
-  "judged_mtime": 1793844163.522772,
+  "judged_mtime": 1795350505.1813402,
   "module": "new_game.s",
-  "note": "r union\n/root/gitproject/fomt/decomp/logs/judge_func_08003788/localhost_28330/func.c:261: request for member `unk0' in something not a structure or union\n/root/gitproject/fomt/decomp/logs/judge_func_08003788/localhost_28330/func.c:262: request for member `unk1' in something not a structure or union\n",
+  "note": "hats/8e431e267938c019828ff924/decomp/logs/judge_func_08003788/buffy/func.c:261: request for member `unk0' in something not a structure or union\n/workspace/chats/8e431e267938c019828ff924/decomp/logs/judge_func_08003788/buffy/func.c:262: request for member `unk1' in something not a structure or union\n",
   "ref_len": 952,
   "sanitize_v": 4,
   "size": 8312,
@@ -13,7 +13,7 @@
  "func_08003B40": {
   "addr": 134232896,
   "draft_src": "manual",
-  "judged_mtime": 1794445956.8134964,
+  "judged_mtime": 1795350505.1813402,
   "module": "new_game.s",
   "note": "byte +0x0: 0x70 vs ref 0x30 [3missing,3extra,4operand,13regalloc,2different @i push {r4, r5, lr} | push {r4, r5, r6, lr}]",
   "ref_len": 116,
@@ -24,9 +24,9 @@
  },
  "func_08003BB4": {
   "addr": 134233012,
-  "judged_mtime": 1793844163.522772,
+  "judged_mtime": 1795350505.1813402,
   "module": "new_game.s",
-  "note": " something not a structure or union\n/root/gitproject/fomt/decomp/logs/judge_func_08003BB4/localhost_28330/func.c:40: invalid operands to binary -\n/root/gitproject/fomt/decomp/logs/judge_func_08003BB4/localhost_28330/func.c:44: warning: passing arg 1 of `func_080094B8' from incompatible pointer type\n",
+  "note": "ucture or union\n/workspace/chats/8e431e267938c019828ff924/decomp/logs/judge_func_08003BB4/buffy/func.c:40: invalid operands to binary -\n/workspace/chats/8e431e267938c019828ff924/decomp/logs/judge_func_08003BB4/buffy/func.c:44: warning: passing arg 1 of `func_080094B8' from incompatible pointer type\n",
   "ref_len": 116,
   "sanitize_v": 4,
   "size": 1095,
@@ -47,9 +47,9 @@
  },
  "func_08003C80": {
   "addr": 134233216,
-  "judged_mtime": 1793844163.5267723,
+  "judged_mtime": 1795350505.1813402,
   "module": "new_game.s",
-  "note": "omething not a structure or union\n/root/gitproject/fomt/decomp/logs/judge_func_08003C80/localhost_28330/func.c:67: warning: dereferencing `void *' pointer\n/root/gitproject/fomt/decomp/logs/judge_func_08003C80/localhost_28330/func.c:67: request for member `unk8' in something not a structure or union\n",
+  "note": "ture or union\n/workspace/chats/8e431e267938c019828ff924/decomp/logs/judge_func_08003C80/buffy/func.c:67: warning: dereferencing `void *' pointer\n/workspace/chats/8e431e267938c019828ff924/decomp/logs/judge_func_08003C80/buffy/func.c:67: request for member `unk8' in something not a structure or union\n",
   "ref_len": 368,
   "sanitize_v": 4,
   "size": 3608,
@@ -58,7 +58,7 @@
  },
  "func_08003DF0": {
   "addr": 134233584,
-  "judged_mtime": 1793844163.5267723,
+  "judged_mtime": 1795350505.1813402,
   "module": "new_game.s",
   "note": "byte +0x1f: 0x4b vs ref 0x48 [3missing,3extra,8operand,17regalloc @r ldr r0, [pc, #0x68] | ldr r3, [pc, #0x68]]",
   "ref_len": 152,
@@ -69,18 +69,19 @@
  },
  "func_08003E88": {
   "addr": 134233736,
-  "judged_mtime": 1793844163.5307722,
+  "judged_mtime": 1795350825.6391454,
   "module": "new_game.s",
-  "note": "hout a cast\n/root/gitproject/fomt/decomp/logs/judge_func_08003E88/localhost_28330/func.c:27: warning: assignment makes integer from pointer without a cast\n/root/gitproject/fomt/decomp/logs/judge_func_08003E88/localhost_28330/func.c:28: request for member `unk4' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 100,
   "sanitize_v": 4,
   "size": 1027,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08003EEC": {
   "addr": 134233836,
-  "judged_mtime": 1793844163.5307722,
+  "judged_mtime": 1795350505.1813402,
   "module": "new_game.s",
   "note": "byte +0x2: 0x3 vs ref 0x2 [10missing,13extra,10operand,6regalloc,1stack,2different @r adds r2, r0, #0 | adds r3, r0, #0]",
   "ref_len": 176,
@@ -91,7 +92,7 @@
  },
  "func_08003F9C": {
   "addr": 134234012,
-  "judged_mtime": 1793844163.5307722,
+  "judged_mtime": 1795350505.1813402,
   "module": "new_game.s",
   "note": "byte +0xa: 0x85 vs ref 0x86 [11missing,14extra,8operand,16regalloc,8stack,4different @s sub sp, #0x18 | sub sp, #0x14]",
   "ref_len": 260,
@@ -102,7 +103,7 @@
  },
  "func_080040A0": {
   "addr": 134234272,
-  "judged_mtime": 1793844163.5307722,
+  "judged_mtime": 1795350505.1813402,
   "module": "new_game.s",
   "note": "byte +0xa: 0x83 vs ref 0x84 [20missing,24extra,25operand,20regalloc,5stack,12different @s sub sp, #0x10 | sub sp, #0xc]",
   "ref_len": 316,
@@ -113,7 +114,7 @@
  },
  "func_080041DC": {
   "addr": 134234588,
-  "judged_mtime": 1793844163.5347722,
+  "judged_mtime": 1795350505.1813402,
   "module": "new_game.s",
   "note": "len 918 vs ref 914 [47missing,50extra,49operand,67regalloc,20stack,18different @s sub sp, #0x70 | sub sp, #0x48]",
   "ref_len": 916,
@@ -124,9 +125,9 @@
  },
  "func_08004570": {
   "addr": 134235504,
-  "judged_mtime": 1793844163.5347722,
+  "judged_mtime": 1795350505.1813402,
   "module": "new_game.s",
-  "note": "cast\n/root/gitproject/fomt/decomp/logs/judge_func_08004570/localhost_28330/func.c:147: `sp20' undeclared (first use in this function)\n/root/gitproject/fomt/decomp/logs/judge_func_08004570/localhost_28330/func.c:147: warning: passing arg 2 of `func_080074C0' makes integer from pointer without a cast\n",
+  "note": "s/8e431e267938c019828ff924/decomp/logs/judge_func_08004570/buffy/func.c:147: `sp20' undeclared (first use in this function)\n/workspace/chats/8e431e267938c019828ff924/decomp/logs/judge_func_08004570/buffy/func.c:147: warning: passing arg 2 of `func_080074C0' makes integer from pointer without a cast\n",
   "ref_len": 1512,
   "sanitize_v": 4,
   "size": 14178,

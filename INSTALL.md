@@ -186,3 +186,34 @@ To build **hmfomt.gba** and confirm it matches the official ROM image:
 	make compare
 
 If an OK is returned, then the installation went smoothly.
+
+## Host x86-64 headless tanpa root (cloud VM)
+
+Toolchain yang di-vendor (`tools/VENDORED.md`) sengaja hanya membawa
+`arm-none-eabi-as`, `arm-none-eabi-cpp`, dan `cc1` — cukup untuk `fomt`
+(judge), **tidak** cukup untuk `make compare`: C++ di-preprocess lewat
+`cc1plus` yang tidak ada, dan `arm-none-eabi-ld`/`objcopy` juga tidak
+di-vendor. Di mesin tanpa `sudo` (paket sistem tidak bisa dipasang), dua
+langkah berikut memulihkan gate build tanpa menyentuh repo:
+
+```bash
+# 1. cpp: host gcc memilih bahasa dari ekstensi (.c -> cc1, .cc -> cc1plus)
+mkdir -p ~/shim
+printf '#!/bin/sh\nexec gcc -E "$@"\n' > ~/shim/arm-none-eabi-cpp
+chmod +x ~/shim/arm-none-eabi-cpp
+
+# 2. binutils arm: ekstrak .deb ke home (tanpa root), versi mengikuti arsip Ubuntu
+cd /tmp
+curl -sO http://archive.ubuntu.com/ubuntu/pool/universe/b/binutils-arm-none-eabi/binutils-arm-none-eabi_2.42-1ubuntu1+23_amd64.deb
+dpkg-deb -x binutils-arm-none-eabi_2.42-1ubuntu1+23_amd64.deb ~/armbin
+
+export PATH=$HOME/shim:$PWD/tools/arm-gnu/bin:$PWD/tools/agbcc/bin:$HOME/armbin/usr/bin:$PATH
+make compare -j4 CPP="gcc -E"      # -> fomt.gba: OK
+```
+
+Penting: `Makefile` mengekspor `CPP := arm-none-eabi-cpp`, jadi override
+`CPP=` di command line **hanya** berlaku untuk `make` yang dipanggil manual —
+tool yang menjalankan `make` sendiri (`decomp/migrate.py`) mengambil `CPP`
+dari PATH, karena itu `~/shim` harus ada di depan `tools/arm-gnu/bin`.
+Nama versi `.deb` berubah antar rilis; ambil dari daftar
+`http://archive.ubuntu.com/ubuntu/pool/universe/b/binutils-arm-none-eabi/`.

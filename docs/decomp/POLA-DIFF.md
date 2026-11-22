@@ -1184,3 +1184,40 @@ register arg0 bebas, nilai kerja bisa dipin ke situ:
 
 Bukti: `func_08009378` MATCH 3/5 dan `func_0800934C` MATCH 3/5 (hardware.s);
 keduanya gagal di percobaan 1-2 hanya karena urutan ini.
+
+## 33. Reload slot stack + urutan load konstanta: fence `"+m"` dan pin konstanta (`func_08003E88`)
+
+Gejala: seluruh instruksi sudah identik kecuali ref memuat ulang slot stack
+(`ldr r2, [sp]`) sebelum `and` pertama, sedangkan draf memakai register yang
+masih hidup dari `str r2, [sp]` sebelumnya — dan begitu reload dipaksa, urutan
+load bergeser (draf memuat nilai dulu, ref memuat `ldr r0, =mask` dulu).
+
+Sebab: gcc mempertahankan nilai yang baru disimpan di register selama tidak
+ada yang bisa mengubahnya; ref berperilaku seolah nilainya "hilang". Untuk
+`masked &= 0xFFFFFF00` urutan load mengikuti urutan tulis sumber (konstanta
+dulu baru nilai), dan agbcc tidak menukarnya sendiri.
+
+Bentuk yang MATCH:
+
+```c
+register u32 maskA asm("r0");
+register u32 masked asm("r2");
+...
+maskA = 0xFFFFFF00;
+__asm__ volatile("" : "+m" (st[0]));   /* paksa reload slot stack */
+masked = st[0];                        /* ldr r2, [sp] */
+masked &= maskA;                       /* ldr r0, =mask ; and r2, r2, r0 */
+```
+
+Pin pendukung yang dipakai bersama pola ini: temp rantai byte `asm("r1")`,
+temp shift `asm("r0")` (tanpa pin, `((var_r4*2)+1)*8` dihitung in-place di
+register sumber sehingga `lsls r4, r4, #1` muncul alih-alih `lsls r0, r4, #1`),
+dan pointer stack dipin ke **base** `sp`, bukan `sp+4`, supaya keluar
+`mov r2, sp ; ldrh r1, [r2, #4]` (memin ke `(u8*)st+4` menghasilkan
+`add r2, sp, #4 ; ldrh r1, [r2]`, beda 1 instruksi).
+
+Catatan: fence `"+m"` mencetak direktif `.code 16` di asm tanpa menambah byte.
+
+Bukti: `func_08003E88` (new_game.s, 100B) MATCH setelah 11 percobaan (22
+residual regalloc → 9 → 5 → 2 operand → 0), lalu migrasi `src/` dengan
+`make compare` HIJAU (baseline + target).

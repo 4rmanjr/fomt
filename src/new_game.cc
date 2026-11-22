@@ -123,6 +123,14 @@ typedef struct GenObj__func_08006C28 {
 } GenObj__func_08006C28;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Obj3E88 {
+    u8 _pad0[0x34];
+    u32 unk34;
+    u16 unk38;
+} Obj3E88;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08003C28 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080088DC();                                /* extern */
@@ -150,6 +158,50 @@ void func_08003C28(i32 arg0) {
     temp_r1 = arg0 + 0x10;
     temp_r4b = arg0 + 0x14;
     func_08050D3C(temp_r1, temp_sb, temp_r8, temp_r6, temp_r5, temp_r0, temp_r4b);
+}
+}
+
+// DECOMP-MATCHED func_08003E88 (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08008920(i32);                             /* extern */
+
+__attribute__((section(".text.new_game.08003E88")))
+void func_08003E88(i32 arg0, i32 arg1, i32 arg2, i32 arg3) {
+    register i32 var_r4 __asm__("r4");
+    register i32 t1 __asm__("r1");
+    register i32 t2 __asm__("r0");
+    register u32 masked __asm__("r2");
+    register u32 maskA __asm__("r0");
+    u32 st[2];
+    u16 *p1;
+    Obj3E88 *temp_r0;
+
+    var_r4 = arg1;
+    if (var_r4 == 1) {
+        var_r4 = 0;
+    }
+    st[0] = arg2;
+    st[1] = arg3;
+    t1 = *(u8 *) st;
+    t1 += 8;
+    t2 = ((var_r4 * 2) + 1) * 8;
+    t1 += t2;
+    t1 = (u8) t1;
+    maskA = 0xFFFFFF00;
+    __asm__ volatile("" : "+m" (st[0]));
+    masked = st[0];
+    masked &= maskA;
+    masked |= t1;
+    t1 = (masked << 7) >> 0x17;
+    t1 += 0x10;
+    t1 &= 0x1FF;
+    t1 <<= 0x10;
+    st[0] = (masked & 0xFE00FFFF) | t1;
+    temp_r0 = (Obj3E88 *) func_08008920(arg0);
+    p1 = (u16 *) st;
+    __asm__ volatile("" : "+r" (p1));
+    temp_r0->unk34 = st[0];
+    temp_r0->unk38 = (u16)(p1[2]);
 }
 }
 
