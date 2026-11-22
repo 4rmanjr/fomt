@@ -525,8 +525,30 @@ Pin rumah register (`__asm__("r6")` / `("r7")`) hanya memindahkan alamat, bukan 
 `func_0805E760` identik instruksi per instruksi kecuali epilogue:
 draf menghasilkan `pop {r1}; bx r1`, ref `pop {r2}; bx r2`
 (2 byte berbeda, dilaporkan sebagai `[2regalloc @r pop {r2}]`).
-Sudah dicoba return `void *`, pointer struct (`Out *`), dan `s32` —
-ketiganya tetap `r1`; ini wall regalloc, bukan salah tipe balik. Parkir.
+Return `void *`, pointer struct (`Out *`), dan `s32` semuanya memberi `r1`,
+jadi bukan salah tipe balik 32-bit. **Konvensinya 64-bit**: scratch epilog
+menggeser satu register setiap kali register nilai balik bertambah lebar —
+`void` -> `pop {r0}`, `s32`/lintasan -> `pop {r1}`, nilai balik dua register
+(`long long`) -> `pop {r2}`.
+
+Bukti probe `tools/scripts/cc_probe.py` (tubuh identik, `Out`/`In` sama):
+
+| bentuk | agbcc/agbcp (build) | old_agbcc |
+|---|---|---|
+| `void f(...)` | `pop {r0}` | `pop {r0}` |
+| `s32 f(...) { ...; return 0; }` | `pop {r1}` | `pop {r1}` |
+| `long long f(...)` (tanpa `return`) | `push {r4,r5,r6,lr}` — r0:r1 dipesan sejak awal, argumen bergeser | **persis ref**: `push {r4,lr}` + `pop {r2}` |
+| `long long f(...) { ...; return 0; }` | `movs r0,#0; mov r1,#0` (+4B) lalu `pop {r2}` | sama, `+4B` |
+
+Artinya `pop {r2}` tanpa instruksi penyiapan hanya muncul bila fungsi
+**mendeklarasikan nilai balik dua register dan tidak pernah menyiapkannya**
+(jatuh dari ujung badan). Compiler build (`agbcc`, dan `agbcp` untuk `src/*.cc`)
+justru memesan r0:r1 sejak awal pada bentuk itu sehingga seluruh badan bergeser —
+karena itu `func_080202A0`/`func_08037470` (dan 7 fungsi lain ber-epilog
+`pop {r2}`) tidak bisa MATCH lewat judge default. Terukur: `func_08037470`
+MATCH byte-identik dengan `FOMT_AGBCC=tools/agbcc/bin/old_agbcc`, dan DIFF
+`[2extra,2operand,13regalloc]` dengan agbcc default. Rincian jalan keluarnya
+(migrasi) di `MIGRATE.md` §26.
 
 ### 7.4 Catatan tool `width_mismatch.py`
 

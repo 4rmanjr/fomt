@@ -682,3 +682,27 @@ Bukti sesi: `func_08006C60` -> `promote` -> `migrate.py --module new_game.s
 --func func_08006C60` -> `pindah: 1`, baseline HIJAU + pasca-insert
 `fomt.gba: OK`.
 
+## 26. `pop {r2}` yang hanya bisa diproduksi `old_agbcc`: jangan paksa compare
+
+Gejala: badan fungsi sudah byte-identik, sisa diff cuma `pop {r2}; bx r2` vs
+`pop {r0}`/`pop {r1}`, dan semua tipe balik 32-bit gagal menggesernya.
+
+Penyebabnya tipe balik **dua register** (`long long`) tanpa `return`
+(`POLA-DIFF.md` §7.3). `old_agbcc` mengompilasi bentuk itu persis seperti ref
+(terukur: `func_08037470` MATCH dengan `FOMT_AGBCC=tools/agbcc/bin/old_agbcc`),
+sedangkan `agbcc` dan `agbcp` memesan r0:r1 sejak awal sehingga `push`/badan
+bergeser (`[2extra,2operand,13regalloc]`), dan bentuk ber-`return 0;` menambah
+`movs r0,#0; mov r1,#0`.
+
+Konsekuensi gate:
+
+- Jangan paksa migrasi: `src/*.cc` dikompilasi `agbcp` (`CC1PLUS`), jadi blok
+  dengan tipe balik 64-bit akan MERAH di `make compare` walau judge-nya MATCH
+  di `old_agbcc`. Itu bukan kandidat `migrate.py`.
+- Status judge default tetap `failed`; catat di `note` shard sebagai parkir
+  (alasan: compiler, bukan regalloc) supaya `wall_registry.py` menampilkannya.
+- Satu-satunya jalur bila user memutuskan mengejar: objek `src` terpisah
+  ber-`.c` + override `CC1 := $(OLD_CC1)` untuk objek itu (preseden
+  `$(BUILD_DIR)/src/m4a.o` di Makefile). Ini perubahan build-system, bukan
+  migrasi standar, jadi butuh keputusan eksplisit.
+

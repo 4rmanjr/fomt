@@ -1,6 +1,6 @@
 typedef struct Out { s16 unk0; s16 unk2; s16 unk4; s16 unk6; } Out;
 typedef struct In { u8 _pad0[0xA]; s16 unkA; u8 _padC[2]; s16 unkE; } In;
-void func_080202A0(Out *arg0, In *arg1) {
+long long func_080202A0(Out *arg0, In *arg1) {
     s32 a = arg1->unkA;
     s32 b = arg1->unkE;
 

@@ -60,9 +60,9 @@
  "func_080202A0": {
   "addr": 134349472,
   "draft_src": "manual",
-  "judged_mtime": 1794409222.5345392,
+  "judged_mtime": 1795355149.69407,
   "module": "code_entities.s",
-  "note": "byte +0x1e: 0x1 vs ref 0x4 [2regalloc @r pop {r2} | pop {r0}] [parkir: epilog `pop {r2}` vs `pop {r0}` (wall regalloc), badan 36B identik. Sekaligus pembukti POLA-DIFF.md \u00a738: field s16 + temp s32 -> `ldrsh`, store `(s16)` -> `add/sub + strh`; kembar func_08037470]",
+  "note": "[parkir: epilog `pop {r2}` = nilai balik dua register (`long long`) tanpa `return`; hanya `old_agbcc` yang menghasilkan bentuk itu (PROBE: MATCH di old_agbcc, DIFF 2extra/2operand/13regalloc di agbcc). agbcc/agbcp memesan r0:r1 sejak awal -> badan bergeser; `src/*.cc` dikompilasi agbcp jadi TIDAK bisa dimigrasi. Lihat POLA-DIFF.md 7.3 dan MIGRATE.md 26]",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 388,
