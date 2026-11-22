@@ -706,3 +706,22 @@ Konsekuensi gate:
   `$(BUILD_DIR)/src/m4a.o` di Makefile). Ini perubahan build-system, bukan
   migrasi standar, jadi butuh keputusan eksplisit.
 
+## 27. `promote` idempoten per marker; menghapus blok membuat gate GAGAL
+
+`_promote_in_shard` langsung `return` bila `status == "promoted"`, dan menambah blok hanya bila
+marker `// DECOMP-MATCHED <func>` belum ada di `decomp/promoted/<modul>.cc`. Konsekuensinya:
+
+- Draf diperbaiki lalu `promote` dijalankan ulang → **tidak ada** yang berubah; blok lama tetap dipakai
+  oleh `migrate.py`. Ini yang membuat migrasi berulang kali SKIP karena tanda tangan extern lama
+  (`u8 *(void *)`) masih menempel di blok promoted.
+- Menghapus blok promoted tanpa mengubah status → `migrate.py` berhenti dengan
+  `[GAGAL] blok DECOMP-MATCHED tidak ditemukan`.
+
+Prosedur mengulang promote dengan badan baru: potong blok `DECOMP-MATCHED <func>` (sampai akhir file
+bila di ekor), set `status` shard kembali ke `matched` dan hapus `promoted_to`, baru jalankan
+`python3 -c "import decomp.run as r; r.promote('X')"` lalu `migrate.py`.
+
+Catatan `new_game.s`: modul ini ada di daftar `migrate.py` yang blok asm-nya **tidak** dipotong
+(`# 3 sisa (grup + extern manual)`), jadi `asm/new_game.s` tetap utuh setelah `pindah: 1` dan
+`git status` tidak menampilkannya — bukan tanda migrasi gagal; cek `pindah: N` + `make compare`.
+

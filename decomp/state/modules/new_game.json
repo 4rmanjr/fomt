@@ -348,9 +348,9 @@
  "func_08005A58": {
   "addr": 134240856,
   "draft_src": "manual",
-  "judged_mtime": 1795350505.1853402,
+  "judged_mtime": 1795356514.8960488,
   "module": "new_game.s",
-  "note": "len 214 vs ref 218 [2missing,3extra,14operand,14regalloc,1stack @i ldr r0, [pc, #0xb0] | ldr r0, [pc, #0xac]]",
+  "note": "[parkir: 5 judge, terbaik V1 214B vs ref 218B (87 vs 88 instr, [2missing,3extra,14operand,14regalloc,1stack])] Bukan regalloc acak: ref menyalin 13 byte terakhir sebagai `ldm r0!,{r3,r4,r6}; stm r1!,{r3,r4,r6}; ldrb r0,[r0]; strb r0,[r1]` (pointer post-increment dipakai untuk byte terakhir). Draf memecah jadi dua statement (`*(W3*)d = *s;` + `temp->unkC = ...`) sehingga gcc membuat salinan base kedua \u2192 `strb r0,[r3,#0xC]`. Percobaan yang GAGAL: satu assignment `S461C` (unpacked) \u2192 16B word copy (`ldr/str`), `__attribute__((packed))` 13B \u2192 `bl memcpy`, pointer `src/dst` lokal \u2192 91 instr + r9, pin `arg2`\u2192r7 \u2192 seluruh fungsi bergeser (81 instr). Langkah berikut: paksa salinan 13B memakai pointer post-increment TANPA variabel lokal tambahan (mis. `memcpy`-inline via `W3` + `u8` store pada variabel yang sama), lalu pin home arg0\u2192r5/arg1\u2192r8.",
   "ref_len": 224,
   "sanitize_v": 4,
   "size": 2112,
@@ -439,13 +439,14 @@
  },
  "func_08006858": {
   "addr": 134244440,
-  "judged_mtime": 1795350505.1853402,
+  "judged_mtime": 1795356961.8783777,
   "module": "new_game.s",
-  "note": "len 106 vs ref 114 [7missing,4extra,3operand,20regalloc,1stack @r adds r4, r0, #0 | adds r5, r0, #0]",
+  "note": "[MATCH 96B + migrasi src/new_game.cc] Kunci: home register ref dipaksa dengan tiga pin \u2014 `register u8 *p __asm__(\"r3\")`, `register Entry *e __asm__(\"r0\")`, `register s32 *s __asm__(\"r1\")`, counter dibiarkan tak dipin (jatuh ke r2). Draf tanpa pin: op-multiset sudah 48=48 tapi dest/src tertukar (r1/r0) dan blok sumber dihitung setelah cabang. Signature callee WAJIB `s32 func_08008920(s32)` (bukan `u8 *(void *)`) agar gate tidak SKIP. Lihat POLA-DIFF.md 44. Migrasi: `pindah: 1`, baseline + target `fomt.gba: OK`, `fomt status` 1293/2632",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 116,
   "sanitize_v": 4,
   "size": 1189,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080068CC": {

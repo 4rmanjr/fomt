@@ -156,6 +156,23 @@ typedef struct St3BB4 {
 } St3BB4;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08006858 {
+    u8 _pad0[0x4608];
+    i32 unk4608;
+    u16 unk460C;
+    u8 _pad460E[6];
+    i32 unk4614;
+    u16 unk4618;
+    u8 _pad461A[34];
+    i32 unk463C;
+} GenObj__func_08006858;
+typedef struct Entry {
+    i32 unk0;
+    u16 unk4;
+} Entry;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08003BB4 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080087C8(i32);                             /* extern */
@@ -516,6 +533,43 @@ void func_08006334(GenObj__func_08006334 *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_08006858 (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08008920(i32);                             /* extern */
+
+__attribute__((section(".text.new_game.08006858")))
+void func_08006858(GenObj__func_08006858 *arg0) {
+    register u8 *p __asm__("r3");
+    register Entry *e __asm__("r0");
+    register i32 *s __asm__("r1");
+    u32 i;
+    i32 r;
+
+    if (arg0->unk463C == 0) {
+        r = func_08008920((i32)arg0);
+        p = (u8 *)r;
+        s = (i32 *)((u8 *)arg0 + 0x4608);
+        i = *p;
+        if (i <= 0x7FU) {
+            e = (Entry *)(p + (i * 8 + 4));
+            e->unk0 = *s;
+            e->unk4 = arg0->unk460C;
+            *p = i + 1;
+        }
+    }
+    r = func_08008920((i32)arg0);
+    p = (u8 *)r;
+    s = (i32 *)((u8 *)arg0 + 0x4614);
+    i = *p;
+    if (i <= 0x7FU) {
+        e = (Entry *)(p + (i * 8 + 4));
+        e->unk0 = *s;
+        e->unk4 = arg0->unk4618;
+        *p = i + 1;
+    }
+}
+}
+
 // DECOMP-MATCHED func_08006C28 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -590,7 +644,6 @@ u32 func_08006C60(i32 arg0) {
     return (u32) ((0 - rp6) | rp6) >> 0x1F;
 }
 }
-
 
 // DECOMP-MATCHED func_08007078 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {

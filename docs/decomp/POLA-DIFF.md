@@ -1527,3 +1527,45 @@ Sisa 12 byte barulah soal hoist: ref memuat `unk0`, `unkC`, `unkA` di preheader 
 Pembukti: `func_08009268` (MATCH, dimigrasikan ke `src/hardware_migrated.cc` dengan `pindah: 1`,
 baseline + target `fomt.gba: OK`).
 
+## 44. Tiga pin untuk mereproduksi home register ref (`func_08006858`)
+
+Setelah op-multiset sama (48 instruksi = ref) tapi register tertukar siklik, pin eksplisit lebih cepat
+daripada menebak urutan deklarasi:
+
+| pseudo | ref | draf tanpa pin | solusi |
+|---|---|---|---|
+| `p` (hasil call) | r3 | r2 | `register u8 *p __asm__("r3")` |
+| dest entry | r0 | r1 | `register Entry *e __asm__("r0")` |
+| alamat sumber | r1 | r0 | `register s32 *s __asm__("r1")` |
+| counter | r2 | r1 | biarkan tak dipin (tersisa r2) |
+
+Pin **satu** pseudo saja (`p→r3`) menghasilkan pergeseran siklik: `p` benar, dest/src masih tertukar.
+Pin berlebih juga merusak: dengan `i→r2` ditambah `p→r3`, gcc menginkremen counter di tempat
+(`add r2, r2, #1`) padahal ref memakai temp (`adds r0, r2, #1`). Kombinasi `p→r3` + `e→r0` + `s→r1`
+dengan counter bebas menghasilkan MATCH, karena setelah itu konstanta `0x4608` tetap hidup di r5
+sehingga anggota berikutnya dipakai ulang sebagai `adds r5, #4` (bukan literal `0x460C` baru).
+
+Dua detail pendukung:
+- `p + (i * 8 + 4)` **harus** dalam tanda kurung; tanpa itu gcc melipat `+4` menjadi displacement
+  (`str [r1,#4]`) dan menghemat satu instruksi sehingga hitungan meleset.
+- urutan evaluasi: alamat sumber dihitung sebelum `i = *p` (`ldr r5,=0x4608` + `adds r1,r4,r5` berada
+  sebelum `ldrb r2,[r3]`), jadi pointer sumber ditulis di blok luar sebelum pembacaan counter.
+
+Pembukti: `func_08006858` (MATCH, `pindah: 1`, baseline + target `fomt.gba: OK`, status 1293/2632).
+
+## 45. Salinan agregat 13 byte: jangan dijadikan satu assignment
+
+Ref `func_08005A58` menyalin 12 byte + 1 byte sebagai
+`ldm r0!, {r3, r4, r6}` / `stm r1!, {r3, r4, r6}` / `ldrb r0, [r0]` / `strb r0, [r1]` — byte terakhir
+memakai pointer yang sudah naik 12 (post-increment dari blok kata). Varian C dan hasilnya:
+
+| bentuk C | hasil |
+|---|---|
+| `*(W3 *)d = *s; d2->unkC = ...` (dua statement, base berbeda) | ldm/stm benar, tetapi `strb [r3,#0xC]` — gcc membuat salinan base kedua |
+| `*(S461C *)dst = *(S461C *)&src` (unpacked, sizeof 16) | 4 kata: `ldr/str` kata terakhir, bukan `ldrb/strb` |
+| `struct PACKED` 13 byte | `bl memcpy` (agregate tak sejajar tidak di-inline) |
+| pointer lokal `src`/`dst` | 91 instruksi, `r9` ikut terpakai (tekanan register naik) |
+
+Jadi salinan 13 byte yang di-inline butuh pointer post-increment yang sama dipakai untuk byte terakhir,
+tanpa menambah variabel yang memperpanjang live range. Wall ini masih parkir.
+
