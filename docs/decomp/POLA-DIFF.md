@@ -1673,3 +1673,26 @@ alamat-di-ambil. Untuk menirunya: tekanan register harus naik tanpa membuat alam
 
 Ide "tambahkan variabel hidup lintas-loop" (mis. `u32 sz = 0x2D00;` dipakai setelah loop) sudah
 diuji di fungsi ini: **tidak berpengaruh** (tetap 344B) karena agbcc melipat konstanta itu.
+
+## 52. Urutan `strh` konstan, nol yang ter-hoist, dan `volatile` yang di-reload
+
+`func_080050F8` (348B, `new_game.s`) MATCH setelah empat koreksi kecil yang semuanya soal
+*penempatan* instruksi, bukan semantik:
+
+1. **Store konstan ke slot:** `*(s16 *)&fr.sp0 = 0x3F;` menghasilkan `movs r1,#63; strh r1,[r2]`
+   (pointer di r2, konstanta materialisasi ganda). Dengan pointer tujuan dipin
+   (`register s16 *psp __asm__("r1")`) **dan** konstanta dipin (`register s32 c3f __asm__("r2")`)
+   barulah muncul urutan ref: `mov r1,sp; movs r2,#63; strh r2,[r1]; adds r0,#0x50; strh r2,[r0]`
+   (konstanta dipakai ulang untuk field `unk50`).
+2. **Nol yang di-hoist:** `temp_r4->unk0 = 0; temp_r4->unk4 = 0;` membuat agbcc memilih
+   `movs r5,#0` jauh di depan dan memakai r5 yang sama untuk `var_r5 = 0`. Temporer yang dipin ke
+   r0 (`register s32 zero __asm__("r0")`) memaksa `movs r0,#0` tepat di titik pakai seperti ref.
+3. **Urutan statement = urutan `movs`:** `var_r4 = 0; var_r5 = 0;` harus ditulis **sebelum**
+   `p7`/`p8`, kalau tidak kedua `movs` bergeser sesudah `add r7,sp,#8`.
+4. **`volatile` di-reload, salinan lokal tidak:** anggota `GenObj *volatile sp4` dibaca tiga kali
+   (cmp + `->unk8` + argumen) sehingga muncul tiga `ldr rX,[sp,#4]`. Menyalinnya ke lokal biasa
+   (`GenObj *obj = fr.sp4;`) memberi satu `ldr r1,[sp,#4]; cmp r1,#0` dan `obj` dipakai dari
+   register — persis ref. Ini cara menghindari reload **tanpa** menghapus `volatile` dari struct.
+
+Sisa terakhir sebelum MATCH: pembersihan `fr.slot[0]` memakai field offset 0
+(`((GenObj *)fr.slot[0]->unk0)->unk8`), bukan `unk4` seperti draf lama.

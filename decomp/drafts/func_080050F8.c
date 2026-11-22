@@ -33,25 +33,30 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     s32 var_r4;
     s32 var_r5;
     register s32 sv __asm__("r0");
-    register s32 c3f __asm__("r2");
     GenObj *temp_r0;
     GenObj *temp_r0_2;
     GenObj *temp_r0_3;
     void *temp_r1;
     GenObj *temp_r4;
     void *temp_r5;
+    GenObj *obj;
+    register s32 zero __asm__("r0");
+    register s16 *psp __asm__("r1");
+    register s32 c3f __asm__("r2");
 
     func_08005254(arg1);
     func_08005260(arg1);
     func_08005278(arg1);
     temp_r0 = func_08008918(arg1);
+    psp = (s16 *) &fr.sp0;
     c3f = 0x3F;
-    *(s16 *)&fr.sp0 = (s16) c3f;
+    *psp = (s16) c3f;
     temp_r0->unk50 = (u16) c3f;
     temp_r4 = __builtin_new(0x10);
     temp_r1 = func_08008918(arg1);
-    temp_r4->unk0 = 0;
-    temp_r4->unk4 = 0;
+    zero = 0;
+    temp_r4->unk0 = zero;
+    temp_r4->unk4 = zero;
     temp_r4->unk8 = &vtable_unk_080E5B80;
     temp_r5 = (GenObj *)((u8 *)temp_r4 + 0xC);
     func_08009300(temp_r5, temp_r1);
@@ -59,10 +64,10 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     func_0800934C(temp_r5, 0x889, 1, 1);
     temp_r0_2 = func_08008940(arg1);
     ((void (*)(void *,...))(temp_r0_2->unk8->unk10))(temp_r0_2, fr.sp4);
-    p7 = &fr.slot[0];
-    p8 = &fr.slot[1];
     var_r4 = 0;
     var_r5 = 0;
+    p7 = &fr.slot[0];
+    p8 = &fr.slot[1];
     do {
         func_080087C8(arg1);
         func_080088B8(arg1);
@@ -102,11 +107,11 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
     *arg0 = 0;
     if (fr.slot[0] == 0) {
     } else {
-        ((void (*)(void *,...))(fr.slot[0]->unk4->unk8))(fr.slot[0], 3);
+        ((void (*)(void *,...))(((GenObj *)(fr.slot[0]->unk0))->unk8))(fr.slot[0], 3);
     }
-    if (fr.sp4 == 0) {
-    } else {
-        ((void (*)(void *,...))(fr.sp4->unk8->unkC))(fr.sp4, 3);
+    obj = fr.sp4;
+    if (obj != 0) {
+        ((void (*)(void *,...))(obj->unk8->unkC))(obj, 3);
     }
     return arg0;
 }

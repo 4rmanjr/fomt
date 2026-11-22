@@ -243,13 +243,14 @@
  },
  "func_080050F8": {
   "addr": 134238456,
-  "judged_mtime": 1795355577.5456257,
+  "judged_mtime": 1795362221.55771,
   "module": "new_game.s",
-  "note": "[parkir: cap 5 judge sesi ini. Kandidat teratas queue (copy, ref 348). Tiga varian: V1 pin `register s32 sv __asm__(\"r0\")` untuk nilai switch -> salinan `adds r0, r4, #0` muncul, regalloc 13->8; V2 (c3f + temp `o` untuk fr.sp4) jauh lebih buruk 24regalloc/9missing/10extra; V3 = V1 + pin konstanta `register s32 c3f __asm__(\"r2\")` -> best 348B [4missing,5extra,4operand,4regalloc,1different]. Sisa: posisi `mov r2,#0x3F`, nol slot (`mov r0,#0; str r0,[r4]` vs draf `mov r5,#0`) dan reload fr.sp4 dari [sp,#4] vs ref menyimpannya di r1. Lihat POLA-DIFF 41]",
+  "note": "[MATCH 348B, judge ke-2 setelah revisi. POLA-DIFF 52] Kunci: (1) pointer tujuan `fr.sp0` dipin ke r1 (`register s16 *psp asm(\"r1\")`) + konstanta 0x3F dipin ke r2 -> urutan ref `mov r1,sp; movs r2,#63; strh r2,[r1]; adds r0,#0x50; strh r2,[r0]` (literal biasa memberi urutan terbalik + materialisasi ganda); (2) nol objek lewat temporer dipin r0 -> `movs r0,#0; str r0,[r4]; str r0,[r4,#4]` di titik pakai (tanpa pin, agbcc meng-hoist ke r5 dan memakainya juga utk var_r5); (3) var_r4/var_r5 diinisialisasi SEBELUM p7/p8 (urutan statement menentukan posisi `movs r4/r5,#0`); (4) `volatile` sp4 disalin ke lokal `GenObj *obj` -> satu `ldr r1,[sp,#4]` + cmp, bukan 3 reload; (5) pembersihan slot[0] memakai field offset 0 (`((GenObj*)fr.slot[0]->unk0)->unk8`), bukan unk4.",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 348,
   "sanitize_v": 4,
   "size": 3110,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08005254": {
