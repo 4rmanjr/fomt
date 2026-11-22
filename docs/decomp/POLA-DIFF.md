@@ -1480,3 +1480,22 @@ Yang tersisa setelah kedua pin bukan lagi soal salinan: posisi `mov r2, #0x3F`,
 nol slot (`mov r0,#0; str r0,[r4]` di ref vs `mov r5,#0` di draf), dan reload
 `fr.sp4` dari `[sp, #4]` (ref menyimpannya di r1). Fungsi diparkir di titik itu.
 
+## 42. Hoist field ke lokal: melebihi save-set, bukan memperbaikinya (`func_08009268`)
+
+Ref 94B memakai `r4`=arg0, `r5`=`unkA`, `r6`=`unkC`, `r7`=0, `r8`=`unk0`, `ip`=nilai balik
+`func_08009190()`. Draf yang membaca ketiga field langsung di badan loop menghasilkan
+88B (`[8missing,5extra,8operand,19regalloc,3different]`) — tiga instruksi lebih pendek,
+karena tidak ada tiga `ldrh` di preheader.
+
+Ketika field-field itu dihoist ke lokal `u16 o0, a, c` (urutan baca unk0, unkC, unkA seperti
+ref), hasilnya justru **108B** dengan 26 regalloc: agbcc menyimpan salinan pointer argumen
+tambahan (`r5` = copy arg0, `r8` = arg0 asli) sehingga push-nya `{r4,r5,r6,r7,lr}` +
+`{r6,r7}`. Pin argumen ke r4 (`register GenObj *a0 __asm__("r4")`) dan mengganti cast
+`(s16 *)((u8 *)arg0 + 0x20)` dengan field `s16 arr[1]` di offset 0x20 **tidak** memperbaiki
+(108B, 26–28 regalloc): salinan pointer tetap muncul.
+
+Pelajaran: hoist sumber tidak sama dengan hoist register. Bila ref meng-hoist field karena
+tekanan register, menulis lokal `u16` justru menambah satu nilai hidup dan mendorong
+save-set naik. Tanpa ide yang mengubah jumlah nilai hidup (bukan hanya letak deklarasinya),
+pola ini berhenti.
+
