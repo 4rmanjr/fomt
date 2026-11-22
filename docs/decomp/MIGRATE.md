@@ -919,3 +919,39 @@ Yang perlu diperiksa hanya apakah sisanya benar-benar data/tak-terpanggil-langsu
 
 Bukti: MATCH 56B lalu `pindah: 1`, baseline + target `fomt.gba: OK`; setelah migrasi, `asm/hardware.s`
 berakhir di blob `.byte` 44B milik fungsi sebelumnya (`0x08008FB8`).
+
+## 35. Blok promoted basi: tanda tangannya bisa menyembunyikan fungsi yang sudah MATCH
+
+`promote()` tidak menimpa blok yang sudah ada (§17), jadi blok hasil judge lama (tanda tangan m2c
+usang) tetap tinggal walau draf sudah di-judge ulang. Selama fungsinya belum pindah, gate membandingkan
+blok **basi** itu dengan `src/`, bukan draf terbaru — fungsi yang sebenarnya sudah MATCH bisa berhenti
+permanen di `promoted` tanpa pernah dicoba migrate.
+
+Cara memeriksa (murah, tanpa kompilasi) — jangan menebak dari `--explain` satu fungsi:
+
+1. Kumpulkan semua marker `// DECOMP-MATCHED func_...` di `decomp/promoted/*.cc`.
+2. Untuk tiap fungsi panggil `migrate_one(<stem>.s, func, dry_run=True)` (jalankan dari `decomp/`,
+   `sys.path`-nya sudah memuat `run.py`); kumpulkan `detail` yang memuat `tanda tangan`, `usang`,
+   atau `penyatuan`.
+3. `python3 decomp/migrate.py --module <mod>.s --func <fn> --explain` hanya untuk kandidat itu
+   (mencetak blok vs **semua** deklarasi di TU tujuan).
+
+Klasifikasi hasil (audit 2026-11-22 atas seluruh blok promoted — angka di `SESI-2026-11-22.md`):
+
+- **Konflik di TU tujuan** (`src/<stem>.cc`; modul tail-only berlayout `before` →
+  `src/<stem>_migrated.cc`) — inilah yang memblokir migrate. Perbaiki tanda tangan di draf
+  (codegen-netral: cast pointer, parameter tak terpakai, `s32`↔`i32` via gate), judge ulang, lalu
+  buang blok + baris marker (§15/§17) dan promote lagi. Contoh yang masih terbuka: `new_game.s
+  func_080050F8` (blok `s32 *(s32 *, GenObj *)` vs src `void (void *, i32)`, plus lima extern callee
+  usang); `func_080390D0` (blok `u32 (GenObj *)` vs src `s32 ()`) tetap parkir karena data asing 88B.
+- **Konflik lintas TU** (extern pemanggil di `src/<lain>.cc`) — gate hanya membaca TU tujuan, jadi ini
+  **tidak** memblokir migrate dan tak perlu re-promote; yang usang adalah extern di sisi pemanggil.
+  Kelas `func_08008920`: blok `hardware.s` menulis `s32 (s32 *)`, pemanggil `src/new_game.cc`
+  `i32 (i32)`, `src/intro_scene.cc` `i32 (void *)` — ABI sama-sama satu kata, tapi draf pemanggil baru
+  wajib memakai tanda tangan kanonik `src/` + cast (lihat §13).
+- **Blok yang fungsinya sudah pindah** — boleh beda tanda tangan (typedef di-rename
+  `GenObj__func_<addr>`, §15); `_already_in_src()` melompatinya lebih dulu, jadi tak menghalangi
+  apa pun. Hapus saja bila mengganggu pembacaan.
+
+Jangan menyunting blok promoted langsung: `verify` menilainya apa adanya, dan blok itu yang akan
+dibandingkan gate (bukan draf). Satu-satunya jalan adalah draf → judge → hapus blok → promote.
