@@ -24,13 +24,14 @@
  },
  "func_08003BB4": {
   "addr": 134233012,
-  "judged_mtime": 1795351428.017443,
+  "judged_mtime": 1795351803.0921001,
   "module": "new_game.s",
-  "note": "len 122 vs ref 116 [1missing,4extra,8operand,12regalloc,1different @i push {r4, r5, lr} | push {r4, r5, r6, lr}]",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 116,
   "sanitize_v": 4,
   "size": 1095,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08003C28": {
@@ -172,7 +173,7 @@
  },
  "func_08004C0C": {
   "addr": 134237196,
-  "judged_mtime": 1793844163.538772,
+  "judged_mtime": 1795350505.1813402,
   "module": "new_game.s",
   "note": "len 32 vs ref 58 [12missing,3regalloc,2stack @s sub sp, #0xc | sub sp, #4]",
   "ref_len": 60,

@@ -1221,3 +1221,38 @@ Catatan: fence `"+m"` mencetak direktif `.code 16` di asm tanpa menambah byte.
 Bukti: `func_08003E88` (new_game.s, 100B) MATCH setelah 11 percobaan (22
 residual regalloc → 9 → 5 → 2 operand → 0), lalu migrasi `src/` dengan
 `make compare` HIJAU (baseline + target).
+
+## 34. Alamat slot stack yang di-CSE: paksa rematerialisasi dengan asm (`func_08003BB4`)
+
+Gejala: draf `push {r4, r5, r6, lr}` vs ref `push {r4, r5, lr}` — satu register
+callee-saved ekstra. Sebabnya `&st.unk10` dipakai sebagai argumen dua `bl`
+berurutan, agbcc menyimpan alamatnya sekali di register, sedangkan ref
+membangun ulang alamat itu dua kali (`add r0, sp, #0x10`).
+
+Bentuk yang MATCH — bangun alamatnya di blok asm per call supaya tidak ada
+nilai yang hidup melintasi `bl`:
+
+```c
+register s32 zero __asm__("r0");
+register s32 c889 __asm__("r1");
+s32 *buf;
+...
+c889 = 0x889;                                  /* ldr r1, =0x889 datang lebih dulu */
+__asm__ volatile ("add %0, sp, #0x10" : "=r" (buf));
+func_08009378(buf, (s16) c889, 1, 1);
+```
+
+Tiga hal yang mengunci bentuk ini:
+
+1. `arg0` dipin ke callee-saved home ref (`register s32 a5 __asm__("r5"); a5 = arg0;`)
+   supaya salinan argumen mendarat di register yang benar.
+2. Konstanta nol dipin ke `r0`. Tanpa pin, agbcc menjadwalkan `mov r6, #0` lebih
+   awal (sebelum `strh`) dan memakan satu callee-saved register lagi.
+3. Konstanta literal dipin ke `r1` dan ditulis **sebelum** blok asm alamat,
+   karena ref memuat literal itu sebelum `add r0, sp, #0x10`.
+
+`__asm__` berisi instruksi nyata sudah punya preseden di `src/`
+(`func_080D3870`, `code_0803A8A4.cc`), jadi bentuk ini sah masuk `src/`.
+
+Bukti: `func_08003BB4` (new_game.s, 116B) MATCH setelah 6 percobaan, lalu
+migrasi `src/` dengan `make compare` HIJAU (baseline + target).

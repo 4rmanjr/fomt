@@ -131,6 +131,79 @@ typedef struct Obj3E88 {
 } Obj3E88;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080098AC GenObj__func_080098AC;
+typedef struct Obj3BB4 {
+    u8 _pad0[0x50];
+    u16 unk50;
+} Obj3BB4;
+typedef struct Vt3BB4 {
+    u8 _pad0[0x10];
+    void (*unk10)(void *, void *);
+} Vt3BB4;
+typedef struct Obj8_3BB4 {
+    u8 _pad0[8];
+    Vt3BB4 *unk8;
+} Obj8_3BB4;
+typedef struct St3BB4 {
+    i16 unk0;
+    i16 _pad2;
+    i32 unk4;
+    i32 unk8;
+    i32 *unkC;
+    i32 unk10;
+} St3BB4;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08003BB4 (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080087C8(i32);                             /* extern */
+i32 func_08008918(i32);                             /* extern */
+i32 func_08008940(i32);                             /* extern */
+i32 func_08009300(void *, ...);                     /* extern */
+void func_08009378(void *, i16, i32, i32);          /* extern */
+
+void func_080094B8(GenObj__func_080098AC *, void *); /* extern */
+extern i32 vtable_unk_080E5B80;
+
+__attribute__((section(".text.new_game.08003BB4")))
+void func_08003BB4(i32 arg0) {
+    St3BB4 st;
+    register i32 *p __asm__("r4");
+    register i32 a5 __asm__("r5");
+    i32 *buf;
+    register i32 zero __asm__("r0");
+    register i32 c889 __asm__("r1");
+    Obj3BB4 *temp_r0;
+    void *temp_r1;
+    Obj8_3BB4 *temp_r0_2;
+    void (*fn)(void *, void *);
+
+    a5 = arg0;
+    temp_r0 = (Obj3BB4 *) func_08008918(arg0);
+    st.unk0 = 0x3F;
+    temp_r0->unk50 = 0x3F;
+    temp_r1 = (void *) func_08008918(a5);
+    p = &st.unk4;
+    zero = 0;
+    st.unk4 = zero;
+    p[1] = zero;
+    st.unkC = &vtable_unk_080E5B80;
+    __asm__ volatile ("add %0, sp, #0x10" : "=r" (buf));
+    func_08009300(buf, temp_r1);
+    c889 = 0x889;
+    __asm__ volatile ("add %0, sp, #0x10" : "=r" (buf));
+    func_08009378(buf, (i16) c889, 1, 1);
+    temp_r0_2 = (Obj8_3BB4 *) func_08008940(a5);
+    fn = temp_r0_2->unk8->unk10;
+    fn(temp_r0_2, p);
+    while (((0 - st.unk4) | st.unk4) < 0) {
+        func_080087C8(a5);
+    }
+    func_080094B8((GenObj__func_080098AC *) p, (void *) 2);
+}
+}
+
 // DECOMP-MATCHED func_08003C28 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080088DC();                                /* extern */

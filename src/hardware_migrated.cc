@@ -362,7 +362,7 @@ i32 func_0800953C(void *arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_08009548 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08009300(void *);                          /* extern */
+i32 func_08009300(void *, ...);                     /* extern */
 extern i32 vtable_unk_080E5B80;
 
 void *func_08009548(void *arg0) {

@@ -589,3 +589,21 @@ void func_080DC9C0(void) {
 Idiom `asm("<simbol>")` sama dengan `src/game_scene.cc` (`ScriptEngineDtor`).
 Kembalikan `u32` agar `pop {r0}` + `bx r0` terbentuk; `void` menghasilkan
 `pop {r1}`.
+
+## 20. Arity beda antar call-site: deklarasi variadik
+
+Gejala: `[SKIP] extern X beda tanda tangan` saat callee dipanggil **1 argumen**
+di blok `src/` yang sudah ada dan **2 argumen** di blok baru, padahal ref
+memang meneruskan register kedua (`r1`) apa adanya — dua bentuk call-site itu
+sama-sama sah menurut byte ROM.
+
+Perbaikan byte-netral: deklarasikan callee variadik di `src/`
+(`i32 func_08009300(void *, ...);`). Deklarasi varargs menerima call 1 argumen
+maupun 2 argumen tanpa mengubah urutan register, jadi blok lama dan baru
+sama-sama kompilasi dan tetap byte-identik. Blok baru memakai deklarasi yang
+sama persis supaya lolos gerbang signature (gate membandingkan string, jadi
+variadik harus ada di KEDUA sisi). Jalankan `make compare` setelah mengubah
+deklarasi di `src/` — bukti bahwa edit deklarasi tidak menggeser byte.
+
+Bukti: `func_08003BB4` (new_game.s) migrasi HIJAU 2026-11-22 dengan
+`func_08009300` dideklarasikan variadik di `src/hardware_migrated.cc`.
