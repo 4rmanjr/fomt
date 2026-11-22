@@ -179,19 +179,6 @@ s32 func_0800912C(void) {
     return 0x3FF & ~*(u16 *)0x04000130;
 }
 
-// DECOMP-MATCHED func_08009140 (dari hardware.s; cek manusia sebelum ke src/)
-s16 func_0800912C();                                /* extern */
-
-s16 *func_08009140(s16 *arg0) {
-    *arg0 = func_0800912C();
-    return arg0;
-}
-
-// DECOMP-MATCHED func_08009154 (dari hardware.s; cek manusia sebelum ke src/)
-void func_08009154(s16 *arg0, s16 arg1) {
-    *arg0 = arg1;
-}
-
 // DECOMP-MATCHED func_08009324 (dari hardware.s; cek manusia sebelum ke src/)
 void __builtin_delete(void *);                          /* extern */
 
@@ -1615,5 +1602,24 @@ typedef struct GenObj {
 s32 func_08009168(s32 arg0) {
     func_08009140();
     ((GenObj *)arg0)->unk4 = ((GenObj *)arg0)->unk0;
+    return arg0;
+}
+
+// DECOMP-MATCHED func_08009154 (dari hardware.s; cek manusia sebelum ke src/)
+// Pemanggil di src/ memanggil K&R `func_08009154()` (r0/r1 = sisa register
+// pemanggil), jadi definisi memakai daftar parameter kosong + register var.
+void func_08009154() {
+    register s16 *p asm("r0");
+    register s16 v asm("r1");
+
+    *p = v;
+}
+
+
+// DECOMP-MATCHED func_08009140 (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_0800912C();                                /* extern */
+
+s16 *func_08009140(s16 *arg0) {
+    *arg0 = func_0800912C();
     return arg0;
 }

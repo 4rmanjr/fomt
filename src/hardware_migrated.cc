@@ -209,10 +209,37 @@ typedef struct GenObj__func_08009168 {
 } GenObj__func_08009168;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_0800912C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800912C(void) {
+    return 0x3FF & ~*(u16 *)0x04000130;
+}
+}
+
+// DECOMP-MATCHED func_08009140 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800912C(void);                             /* extern */
+i16 *func_08009140(i16 *arg0) {
+    *arg0 = func_0800912C();
+    return arg0;
+}
+}
+
+// DECOMP-MATCHED func_08009154 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+// Pemanggil di src/ memanggil K&R `func_08009154()` (r0/r1 = sisa register
+// pemanggil), jadi definisi memakai daftar parameter kosong + register var.
+void func_08009154() {
+    register i16 *p asm("r0");
+    register i16 v asm("r1");
+
+    *p = v;
+}
+}
+
 // DECOMP-MATCHED func_08009158 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0800912C();                                /* extern */
-
+i32 func_0800912C(void);                             /* extern */
 i32 func_08009158(i16 *arg0) {
     i32 v = func_0800912C();
     *arg0 = v;
@@ -222,10 +249,10 @@ i32 func_08009158(i16 *arg0) {
 
 // DECOMP-MATCHED func_08009168 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08009140();                                  /* extern */
+i16 *func_08009140(i16 *arg0);                        /* extern */
 
 i32 func_08009168(i32 arg0) {
-    func_08009140();
+    func_08009140((i16 *) (void *) arg0);
     ((GenObj__func_08009168 *)arg0)->unk4 = ((GenObj__func_08009168 *)arg0)->unk0;
     return arg0;
 }
@@ -233,7 +260,7 @@ i32 func_08009168(i32 arg0) {
 
 // DECOMP-MATCHED func_0800917C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08009154();                                  /* extern */
+void func_08009154();                                  /* extern */
 
 i32 func_0800917C(i32 arg0) {
     func_08009154();

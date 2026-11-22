@@ -829,3 +829,34 @@ baris `typedef i32 s32;` di TU src itu (bukan di `types.h`, supaya tak mengubah 
 Tanpa alias, TU gagal kompilasi (`type specifier omitted for parameter`) dan migrate melaporkan
 MERAH.
 
+## 31. Rantai ekor K&R: register-var + seragamkan extern callee
+
+Blocker ekor `hardware.s` yang tersisa (`func_08009154`, 4 byte) bukan soal cocokkan instruksi:
+badannya cuma `strh r1, [r0]; bx lr`, tapi **pemanggilnya di `src/` memanggil K&R** —
+`func_08009154()` tanpa argumen, mengandalkan r0/r1 sisa register pemanggil. Memberi parameter
+biasa membuat pemanggil gagal kompilasi (atau butuh instruksi tambahan untuk mengisi r1) → MERAH.
+
+Pola yang MATCH (dibuktikan sesi ini): daftar parameter **kosong** + register var.
+
+```c
+void func_08009154() {
+    register s16 *p asm("r0");
+    register s16 v asm("r1");
+    *p = v;
+}
+```
+
+Dua hal yang menyertainya:
+
+- **Extern di `src/` ikut diseragamkan** (`i32 f()` → `void f()`); call-site K&R yang sudah ada
+  tetap sah, jadi tidak ada perubahan byte.
+- **Callee bersama harus satu tanda tangan di seluruh `src/`.** `func_08009140` tertahan karena
+  `func_0800912C` punya dua extern berbeda (`i16 ()` dan `i32 ()`); gate menolak selama daftar itu
+  tidak konsisten. Seragamkan ke `i32`/`s32` di semua blok (lebarnya tak mengubah byte: nilainya
+  0..0x3FF), lalu beri pemanggil argumen eksplisit bila r0 memang sudah berisi nilai itu
+  (`func_08009140((i16 *) (void *) arg0)` — byte-netral, dibuktikan `make compare` HIJAU).
+
+Sesudah tiga link pindah (`func_08009154`, `func_08009140`, `func_0800912C`), rantai berhenti di
+`func_08009094` yang masih `failed` (DIFF regalloc) — jadi sisa blok promote-only di atasnya masih
+butuh MATCH baru, bukan migrasi.
+

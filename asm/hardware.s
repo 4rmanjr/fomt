@@ -3192,31 +3192,3 @@ func_08009094: @ 0x08009094
     bx r0
     .align 2, 0
 
-    thumb_func_start func_0800912C
-func_0800912C: @ 0x0800912C
-    ldr r0, .L08009138 @ =0x04000130
-    ldrh r1, [r0]
-    ldr r0, .L0800913C @ =0x000003FF
-    bics r0, r1
-    bx lr
-    .align 2, 0
-.L08009138: .4byte 0x04000130
-.L0800913C: .4byte 0x000003FF
-
-    thumb_func_start func_08009140
-func_08009140: @ 0x08009140
-    push {r4, lr}
-    adds r4, r0, #0
-    bl func_0800912C
-    strh r0, [r4]
-    adds r0, r4, #0
-    pop {r4}
-    pop {r1}
-    bx r1
-    .align 2, 0
-
-    thumb_func_start func_08009154
-func_08009154: @ 0x08009154
-    strh r1, [r0]
-    bx lr
-

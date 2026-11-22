@@ -1627,3 +1627,11 @@ bukan cuma tipe.
 Kasus yang sama sekali berbeda tapi berdekatan: tipe balik `i32` pada fungsi void membuat agbcc
 memilih epilog keluarga 64-bit (`pop {r1}; bx r1`); `void` memberi `pop {r0}; bx r0` seperti ref.
 
+## 49. K&R call: fungsi 4 byte dengan argumen dari sisa register
+
+`func_08009154` (`strh r1, [r0]; bx lr`) dipanggil sebagai `func_08009154()` — tanpa argumen.
+Bila draf ditulis `void f(s16 *p, s16 v)`, pemanggil harus mengisi r1 dan itu menambah instruksi.
+Bentuk yang menghasilkan byte ref: parameter kosong + `register` var terikat register
+(`asm("r0")`, `asm("r1")`). Ini satu-satunya keluarga di mana "tanda tangan benar" bukan yang
+terlihat dari badan fungsi, melainkan yang dipakai pemanggil (K&R).
+
