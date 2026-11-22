@@ -7,7 +7,7 @@ typedef struct GenObj {
     u8 unkC;
     u16 unkE;
 } GenObj;
-void **func_08009300(void **arg0, s32 arg1) {
+void *func_08009300(void *arg0, s32 arg1) {
     GenObj *temp_r0;
 
     temp_r0 = __builtin_new(0x10);
@@ -16,7 +16,7 @@ void **func_08009300(void **arg0, s32 arg1) {
     temp_r0->unk8 = 0;
     temp_r0->unkC = 0;
     temp_r0->unkE = 0;
-    *arg0 = temp_r0;
+    *(void **) arg0 = temp_r0;
     return arg0;
 }
 

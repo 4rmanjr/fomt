@@ -607,3 +607,64 @@ deklarasi di `src/` — bukti bahwa edit deklarasi tidak menggeser byte.
 
 Bukti: `func_08003BB4` (new_game.s) migrasi HIJAU 2026-11-22 dengan
 `func_08009300` dideklarasikan variadik di `src/hardware_migrated.cc`.
+
+## 21. MATCH di judge (agbcc/C) tapi MERAH setelah masuk `src/` (agbcp/C++)
+
+Gejala: `pindah: 0` dengan `[GAGAL] fomt.gba: FAILED` — build-nya sendiri sukses
+(tidak ada error compiler), jadi bedanya murni codegen front-end C++ (`agbcp`)
+vs C (`agbcc`) yang dipakai judge.
+
+Contoh nyata (`func_08009324`, hardware.s): `if (1 & arg1)` menghasilkan
+`movs r0, #1; ands r0, r4` di ref/agbcc, tetapi `movs r1, #1; ands r1, r4` di
+agbcp, dengan epilog `pop {r1}; bx r1` — akibat definisi ber-`return i32`
+membuat agbcp mempertahankan `r0` untuk nilai balik.
+
+Perbaikan: samakan tipe hasil definisi dengan yang dipakai `src/`. Di kasus itu
+deklarasi `src/` diubah jadi `void func_X(void *, i32);` (pemanggilnya tidak
+memakai nilai balik) dan blok didefinisikan `void` → agbcp kembali memilih
+`r0`.
+
+Cara cepat memastikan sebelum satu siklus migrate penuh:
+
+```
+make build/src/<stem>.o
+arm-none-eabi-objdump -d build/src/<stem>.o | sed -n '/<func_X>:/,/^$/p'
+```
+
+Bandingkan urutan instruksinya dengan `asm/<modul>.s`. Ingat `s32` hanya ada di
+draf (C); sisipan `src/` wajib `i32`, kalau tidak muncul `syntax error before
+')'`.
+
+## 22. Extern variadik di `src/` vs definisi fixed-arity
+
+Lanjutan §20: variadik (`i32 func_X(void *, ...);`) memang meloloskan call-site
+1 argumen dan 2 argumen, tetapi sebuah **definisi** 2 parameter tidak bisa
+berdampingan dengan deklarasi variadik di TU yang sama (`conflicting
+declaration`).
+
+Perbaikan byte-netral (TERBUKTI `func_08009300`, hardware.s):
+
+1. Ganti deklarasi `src/` jadi fixed-arity: `void *func_X(void *, i32);`.
+2. Call-site yang hanya mengirim 1 argumen diubah menjadi cast pointer-fungsi:
+   `((void *(*)(void *)) func_X)((u8 *) arg0 + 0xC);` — tetap satu `bl`, tidak
+   menambah instruksi.
+3. Buktikan dengan `make compare` **sebelum** migrate (di kasus itu HIJAU), baru
+   migrasi.
+
+## 23. Signature callee runtime harus sama dengan `src/` target, bukan dengan src lain
+
+`__builtin_delete` dideklarasikan `void (void *)` di `src/hardware_migrated.cc`
+tetapi `i32 (i32 *)` di beberapa `src/` lain. Gate membandingkan **string**
+terhadap tanda tangan yang terlihat di file target, jadi blok hardware harus
+memakai `void __builtin_delete(void *);` + cast `(void *)` di call-site
+(byte-netral) walaupun draf m2c lama memakai `s32 *`.
+
+## 24. Migrasi modul tail-only: urut dari ekor, satu per satu
+
+`tools/scripts/tail_chain.py --module <stem>.s` mencetak `NEXT` = fungsi yang
+boleh dicabut sekarang; fungsi sebelumnya akan menjawab `[SKIP] bukan fungsi
+terakhir di <modul> (N penerus belum pindah)`. Setelah satu migrasi ekor,
+`asm/<modul>.s` terpotong (baris fungsi hilang) — itu memang mekanismenya,
+bukan drift. Bukti sesi: `func_08009324` → `func_08009300` → `func_080092FC` →
+`func_080092C8`, semuanya `pindah: 1` + `HIJAU ... fomt.gba: OK`.
+

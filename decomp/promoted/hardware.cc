@@ -193,10 +193,10 @@ void func_08009154(s16 *arg0, s16 arg1) {
 }
 
 // DECOMP-MATCHED func_08009324 (dari hardware.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(s32 *);                            /* extern */
+void __builtin_delete(void *);                          /* extern */
 
-void func_08009324(s32 *arg0, s32 arg1) {
-    __builtin_delete(*arg0);
+void func_08009324(void *arg0, s32 arg1) {
+    __builtin_delete((void *) *(s32 *) arg0);
     if (1 & arg1) {
         __builtin_delete(arg0);
     }
@@ -377,7 +377,7 @@ typedef struct GenObj {
     u8 unkC;
     u16 unkE;
 } GenObj;
-void **func_08009300(void **arg0, s32 arg1) {
+void *func_08009300(void *arg0, s32 arg1) {
     GenObj *temp_r0;
 
     temp_r0 = __builtin_new(0x10);
@@ -386,7 +386,7 @@ void **func_08009300(void **arg0, s32 arg1) {
     temp_r0->unk8 = 0;
     temp_r0->unkC = 0;
     temp_r0->unkE = 0;
-    *arg0 = temp_r0;
+    *(void **) arg0 = temp_r0;
     return arg0;
 }
 

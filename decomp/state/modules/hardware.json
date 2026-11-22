@@ -1008,9 +1008,9 @@
   "judged_mtime": 1793582714.0294185,
   "module": "hardware.s",
   "note": "len 98 vs ref 94 [8missing,10extra,11operand,14regalloc,6different @< push {r4, r5, r6, r7, lr} | ]",
-  "ref_len": 96,
+  "ref_len": 95,
   "sanitize_v": 4,
-  "size": 957,
+  "size": 958,
   "status": "failed",
   "thumb": true
  },
