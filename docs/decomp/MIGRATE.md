@@ -785,7 +785,9 @@ Dua jebakan yang muncul:
   (`u8`/`i16`/`i32`) ditulis lokal di TU tersebut, bukan `#include`.
 
 Pembukti: `func_080202A0` + `func_08037470` di `src/pop_r2.c` (dua stem berbeda, satu objek),
-`make compare` HIJAU. Catatan: fungsi seperti ini **tidak** lewat `promote`/`migrate.py`, jadi state
+`make compare` HIJAU. Susulan 2026-11-22: `func_08037ED0` + `func_0803834C` (32B, stem
+`code_entities_08034CEC`) masuk TU yang sama dengan section attribute masing-masing — blok asm
+dicabut, `make compare` HIJAU. Catatan: fungsi seperti ini **tidak** lewat `promote`/`migrate.py`, jadi state
 diisi manual (`status: promoted`, `promoted_to: src/pop_r2.c`) dan kemajuan dihitung dari marker
 `// DECOMP-MATCHED` yang wajib ditulis sendiri.
 
@@ -885,8 +887,14 @@ Hasil:
 
 Kesimpulan: `OLD_CC1` hanya menolong **keluarga codegen**-nya (epilog `pop {r2}` + nilai balik
 r0:r1 yang tak dipakai), bukan semua fungsi berepilog itu. Batch 9 fungsi dibatalkan; yang boleh
-masuk jalur ini hanya fungsi yang sudah terbukti byte-identik di TU kecil (`func_08037ED0`,
-`func_0803834C`).
+masuk jalur ini hanya fungsi yang sudah terbukti byte-identik di TU kecil.
+
+Tindak lanjut 2026-11-22: dua yang terbukti (`func_08037ED0`, `func_0803834C`, 32B) sudah masuk
+`src/pop_r2.c` + blok asm-nya dicabut, `make compare` HIJAU. Sisa lima anggota keluarga tetap
+failed — `func_08024BFC` (88B), `func_0802AB98` (148B), `func_0804EA94` (496B), `func_0805E760`
+(48B), `func_080A3E90` (188B): masalahnya bentuk C-nya (mis. `adds r0,r4,#0` tanpa sign-extend
+pada fungsi balik 64-bit, urutan load `ldrh` yang tak tereproduksi), bukan jalur build, jadi
+jangan diulang lewat `OLD_CC1` tanpa bentuk C baru yang terbukti byte-identik di TU kecil.
 
 
 ## 33. Draf berlabel (`goto`): bersihkan label sebelum migrate

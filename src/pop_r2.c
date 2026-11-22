@@ -45,3 +45,27 @@ long long func_08037470(Out *arg0, In *arg1) {
     arg0->unk4 = a + 7;
     arg0->unk6 = b + 5;
 }
+
+// DECOMP-MATCHED func_08037ED0 (dari code_entities_08034CEC.s; jalur build kedua CC1=OLD_CC1)
+__attribute__((section(".text.code_entities_08034CEC.08037ED0")))
+long long func_08037ED0(Out *arg0, In *arg1) {
+    i32 a = arg1->unkA;
+    i32 b = arg1->unkE;
+
+    arg0->unk0 = a - 7;
+    arg0->unk2 = b - 4;
+    arg0->unk4 = a + 7;
+    arg0->unk6 = b + 5;
+}
+
+// DECOMP-MATCHED func_0803834C (dari code_entities_08034CEC.s; jalur build kedua CC1=OLD_CC1)
+__attribute__((section(".text.code_entities_08034CEC.0803834C")))
+long long func_0803834C(Out *arg0, In *arg1) {
+    i32 a = arg1->unkA;
+    i32 b = arg1->unkE;
+
+    arg0->unk0 = a - 4;
+    arg0->unk2 = b - 4;
+    arg0->unk4 = a + 4;
+    arg0->unk6 = b + 4;
+}
