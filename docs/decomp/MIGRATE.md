@@ -665,7 +665,11 @@ memakai `void __builtin_delete(void *);` + cast `(void *)` di call-site
 boleh dicabut sekarang; fungsi sebelumnya akan menjawab `[SKIP] bukan fungsi
 terakhir di <modul> (N penerus belum pindah)`. Setelah satu migrasi ekor,
 `asm/<modul>.s` terpotong (baris fungsi hilang) — itu memang mekanismenya,
-bukan drift. Bukti sesi: `func_08009324` → `func_08009300` → `func_080092FC` →
+bukan drift.
+
+Daftar target per modul (fungsi ekor yang masih `failed`, ukurannya, residual
+terakhir, dan mana yang `promoted` menunggu cabut) ada di
+`docs/decomp/EKOR-BACKLOG.md` — pakai itu untuk memilih target, bukan menebak. Bukti sesi: `func_08009324` → `func_08009300` → `func_080092FC` →
 `func_080092C8`, semuanya `pindah: 1` + `HIJAU ... fomt.gba: OK`.
 
 ## 25. Dua jebakan CLI saat memindahkan satu fungsi hasil `promote`

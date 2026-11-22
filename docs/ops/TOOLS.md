@@ -13,6 +13,8 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   SKIP (`--json`).
 - `tail_chain.py --module <stem>.s` — urutan ekor + NEXT/blocker untuk modul
   tail-only.
+  Peta semua blocker ekor (fungsi failed, ukuran, residual terakhir) ada di
+  `docs/decomp/EKOR-BACKLOG.md`.
 - `diff_mismatch.py <func>` — hitung mismatch `diff.py` setelah target branch
   dinormalkan (`--json`/`--strict`, `--diff-json` untuk output yang sudah ada).
 - `width_mismatch.py` — lebar akses asm (`ldrb/strb/ldrh/strh/ldr/str`) vs tipe
