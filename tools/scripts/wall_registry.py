@@ -7,9 +7,18 @@ ada fungsi yang dicoba ulang tanpa ide baru. Lihat
 `docs/RENCANA-TRANSLASI.md` Fase 0.
 
 Dua kelas keluaran: `aktif` (wall yang masih bisa dikejar dengan ide baru)
-dan `PERMANEN` (note menyebut "SKIP permanen": ekor data asing, grup
+dan `PERMANEN` (note menyatakan parkirnya permanen: ekor data asing, grup
 gabungan, fragmen epilog bersama). Yang permanen dipisah supaya tidak terlihat
 setara dengan target yang masih hidup.
+
+Kelas `permanen` hanya diambil dari **bukti di note** (frasa `SKIP permanen`,
+`SKIP-permanen`, `SKIP-migrasi permanen`, atau sinonim `tidak bisa dimigrasi`).
+Note yang cuma *menyebut* gejala permanen (`data asing`, `grup gabungan`,
+`epilog bersama`) **tidak** dipindah kelas — note seperti itu hanya ditandai
+`tanda` dan dilaporkan sebagai peringatan "bertanda permanen" supaya tidak ada
+parkir permanen yang lolos tanpa frasa baku. Peringatan tambahan muncul bila
+`--kind permanen` kosong padahal `migrate_audit.py` masih melaporkan blok SKIP
+permanen.
 
 Usage:
   python3 tools/scripts/wall_registry.py
@@ -22,6 +31,8 @@ import argparse
 import json
 import pathlib
 import re
+import subprocess
+import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 STATE = ROOT / "decomp" / "state" / "modules"
@@ -31,7 +42,15 @@ ATTEMPT = re.compile(r"(\d)\s*/\s*5|(\d+)\s+percobaan|cap\s*5", re.I)
 BRACKET = re.compile(r"\[([^\]]*parkir[^\]]*)\]", re.I | re.S)
 PREFIX = re.compile(r"^(?:parkir(?:\s+sesi)?\s*[:\-]?\s*)+", re.I)
 ATT_PREFIX = re.compile(r"^\d\s*/\s*5\s*[:\-]?\s*")
-PERMANEN = re.compile(r"skip\s+permanen", re.I)
+# Bukti permanen (boleh mengubah kelas). "SKIP-migrasi permanen: ..." adalah
+# bentuk yang dipakai note migrasi, dan tidak tertangkap pola lama.
+PERMANEN = re.compile(r"skip[\s\-]*(?:migrasi[\s\-]+)?permanen", re.I)
+PERMANEN_SINONIM = re.compile(
+    r"(?:tidak|tak|tdk)\s+(?:bisa|dapat)\s+dimigrasi"
+    r"|tidak\s+mungkin\s+dimigrasi", re.I)
+# Gejala permanen: TIDAK boleh mengubah kelas, hanya memicu peringatan.
+PERMANEN_LEMAH = re.compile(
+    r"ekor data asing|data asing|grup gabungan|tak-split|epilog\s+bersama", re.I)
 
 
 def reason(note: str) -> str:
@@ -40,6 +59,45 @@ def reason(note: str) -> str:
     text = hits[-1] if hits else note
     text = re.sub(r"\s+", " ", text).strip()
     return ATT_PREFIX.sub("", PREFIX.sub("", text)).strip()
+
+
+def kind_of(note: str) -> str:
+    """Kelas permanen hanya bila note menyatakannya (bukan sekadar gejala)."""
+    if PERMANEN.search(note) or PERMANEN_SINONIM.search(note):
+        return "permanen"
+    return "aktif"
+
+
+def gejala(note: str) -> str:
+    """Frasa gejala permanen di note (kosong bila tidak ada)."""
+    m = PERMANEN_LEMAH.search(note)
+    return m.group(0).lower() if m else ""
+
+
+def audit_skip_permanen():
+    """Jumlah blok SKIP permanen menurut `migrate_audit.py` (best-effort)."""
+    try:
+        run = subprocess.run(
+            [sys.executable, str(ROOT / "tools" / "scripts" / "migrate_audit.py"),
+             "--json"], capture_output=True, text=True, timeout=180)
+        counts = (json.loads(run.stdout).get("counts") or {})
+    except (OSError, ValueError, subprocess.SubprocessError):
+        return None
+    return sum(n for k, n in counts.items() if "permanen" in k.lower())
+
+
+def permanen_state() -> int:
+    """Jumlah note di semua shard yang menyatakan permanen (tanpa filter)."""
+    total = 0
+    for path in sorted(STATE.glob("*.json")):
+        try:
+            shard = json.loads(path.read_text())
+        except (OSError, ValueError):
+            continue
+        for v in shard.values():
+            if isinstance(v, dict) and kind_of(v.get("note") or "") == "permanen":
+                total += 1
+    return total
 
 
 def main() -> int:
@@ -68,10 +126,13 @@ def main() -> int:
             if not isinstance(v, dict):
                 continue
             note = v.get("note") or ""
-            if not PARKIR.search(note):
+            kind = kind_of(note)
+            # Parkir aktif dikenali dari kata "parkir"; parkir permanen boleh
+            # tidak memakai kata itu (mis. "SKIP-migrasi permanen: ...").
+            if not (PARKIR.search(note) or kind == "permanen"):
                 continue
             text = reason(note)
-            kind = "permanen" if PERMANEN.search(text) else "aktif"
+            tanda = gejala(note)
             if args.kind and kind != args.kind:
                 continue
             if needle and needle not in text.lower():
@@ -90,6 +151,7 @@ def main() -> int:
                 "ref_len": v.get("ref_len") or 0,
                 "attempts": f"{min(max(found), 5)}/5" if found else "",
                 "kind": kind,
+                "tanda": tanda,
                 "reason": text,
             })
 
@@ -98,10 +160,34 @@ def main() -> int:
     shown = rows[:args.limit] if args.limit else rows
     aktif = [r for r in rows if r["kind"] == "aktif"]
     permanen = [r for r in rows if r["kind"] == "permanen"]
+    # Aktif yang note-nya menyebut gejala permanen: jangan dipindah kelas
+    # (tanpa bukti eksplisit), tapi jangan juga didiamkan.
+    suspek = [r for r in aktif if r["tanda"]]
+
+    if args.kind == "permanen" and not rows:
+        print("[PERINGATAN] --kind permanen kosong"
+              + (f" (filter: module={args.module!r}, grep={args.grep!r})" if (args.module or args.grep) else "")
+              + ".", file=sys.stderr)
+        n_state = permanen_state()
+        if n_state:
+            print(f"  state shard punya {n_state} note bertanda permanen — "
+                  "cek filter/--grep, mungkin hanya tersaring.", file=sys.stderr)
+        n_audit = audit_skip_permanen()
+        if n_audit:
+            print(f"  migrate_audit.py masih melaporkan {n_audit} blok SKIP permanen "
+                  "(grup gabungan / data asing ekor).", file=sys.stderr)
+        if not n_state and not n_audit:
+            print("  tidak ada bukti permanen di state maupun audit; "
+                  "periksa apakah note parkir memakai frasa lain.", file=sys.stderr)
+    if suspek:
+        print(f"[PERINGATAN] {len(suspek)} wall 'aktif' menyebut gejala permanen "
+              "(data asing/grup gabungan/epilog bersama) tanpa frasa baku; "
+              "cek note-nya sebelum dijadikan target.", file=sys.stderr)
 
     if args.json:
         print(json.dumps({"walls": shown, "total": len(rows),
-                          "aktif": len(aktif), "permanen": len(permanen)},
+                          "aktif": len(aktif), "permanen": len(permanen),
+                          "suspek": len(suspek)},
                          indent=1))
         return 0
 
@@ -118,10 +204,13 @@ def main() -> int:
     emit([r for r in shown if r["kind"] == "aktif"],
          "== WALL AKTIF (masih bisa dikejar dengan ide baru) ==")
     emit([r for r in shown if r["kind"] == "permanen"],
-         "== SKIP PERMANEN (note menyebut 'SKIP permanen'; jangan dicoba ulang) ==")
+         "== SKIP PERMANEN (note menyatakan permanen; jangan dicoba ulang) ==")
+    emit([r for r in shown if r["kind"] == "aktif" and r["tanda"]],
+         "== AKTIF TAPI BERTANDA PERMANEN (kelas tidak diubah; cek note dulu) ==")
     modules = len({r["module"] for r in rows})
+    tail = f", bertanda permanen {len(suspek)}" if suspek else ""
     print(f"total: {len(rows)} fungsi parkir di {modules} modul "
-          f"(aktif {len(aktif)}, permanen {len(permanen)})")
+          f"(aktif {len(aktif)}, permanen {len(permanen)}{tail})")
     return 0
 
 

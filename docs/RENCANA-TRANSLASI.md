@@ -91,6 +91,11 @@ dimaterialisasi di tempat berbeda. Hentikan lebih cepat; jangan sapu varian.
       byte failed/byte match, total, distribusi ukuran) + `--json`.
 - [x] Skrip `tools/scripts/wall_registry.py`: kumpulkan `note` berisi
       "parkir" dari semua shard → daftar wall + alasan + attempt + `--json`.
+      Kelas permanen mengenali `SKIP permanen`, `SKIP-permanen`,
+      `SKIP-migrasi permanen`, dan sinonim "tak bisa dimigrasi"; note yang cuma
+      menyebut gejala (data asing/grup gabungan/epilog) tetap `aktif` tapi
+      ditandai, dan `--kind permanen` kosong memicu peringatan silang dengan
+      `migrate_audit.py`.
 - [ ] Pastikan `make compare`, `audit_consistency.py`, `check_docs.py` hijau
       sebagai baseline sesi.
 

@@ -31,13 +31,28 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
 - `wall_registry.py` — rekap fungsi yang `note`-nya menyebut "parkir" beserta
   alasan, attempt (`N/5`), dan modulnya. Keluarannya **dipisah dua kelas**:
   `== WALL AKTIF ==` (masih bisa dikejar dengan ide baru) di atas, lalu
-  `== SKIP PERMANEN ==` (note menyebut "SKIP permanen": ekor data asing, grup
-  gabungan, fragmen epilog bersama) — kelas permanen berasal dari deteksi string
-  `skip permanen` di note, bukan dari daftar nama manual. Ringkasan akhir
-  menyebut `(aktif N, permanen M)`. Flag: `--module`, `--kind aktif|permanen`,
-  `--grep`, `--full`, `--width`, `--json` (kunci `walls` + `total` + `aktif` +
-  `permanen`, dan `kind` per baris). Cegah mencoba ulang wall tanpa ide baru,
-  dan jangan sampai blok SKIP permanen terlihat setara dengan target hidup.
+  `== SKIP PERMANEN ==` (note menyatakan parkirnya permanen: ekor data asing,
+  grup gabungan, fragmen epilog bersama). Kelas permanen berasal dari deteksi
+  frasa di note, bukan daftar nama manual: `SKIP permanen`, `SKIP-permanen`,
+  `SKIP-migrasi permanen` (bentuk yang dipakai note migrasi; pola lama
+  `skip\s+permanen` tidak menangkapnya), dan sinonim `tidak/tak bisa
+  dimigrasi`, `tidak mungkin dimigrasi`. Baris permanen boleh tidak memakai
+  kata "parkir" — note `SKIP-migrasi permanen: ...` tetap masuk registry.
+  Ringkasan menyebut `(aktif N, permanen M)`.
+
+  **Pengaman gejala permanen:** note yang hanya *menyebut* gejala (`data asing`,
+  `ekor data asing`, `grup gabungan`, `tak-split`, `epilog bersama`) tanpa frasa
+  baku **tidak dipindah kelas** (tetap `aktif`), tapi ditandai `tanda`, muncul di
+  bagian `== AKTIF TAPI BERTANDA PERMANEN ==`, menambah `bertanda permanen S` di
+  ringkasan dan kunci `suspek` di `--json`, serta memicu peringatan di stderr.
+  Bila `--kind permanen` kosong, tool mencetak `[PERINGATAN]` berisi jumlah note
+  permanen di state dan jumlah blok SKIP permanen menurut `migrate_audit.py`
+  (best-effort, gagal audit tidak menggagalkan tool) — jadi permanen yang lolos
+  frasa baku tetap ketahuan. Flag: `--module`, `--kind aktif|permanen`,
+  `--grep`, `--full`, `--width`, `--json` (`walls` + `total` + `aktif` +
+  `permanen` + `suspek`, dan `kind`/`tanda` per baris). Cegah mencoba ulang wall
+  tanpa ide baru, dan jangan sampai blok SKIP permanen terlihat setara dengan
+  target hidup.
 - `decomp/migrate.py ... --explain` — beda signature blok vs `src/`, tanpa
   menulis apa pun.
 - `decomp/srcmarkers.py` — daftar fungsi yang punya marker `DECOMP-MATCHED`
