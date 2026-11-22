@@ -1743,3 +1743,14 @@ Varian `s32 *dma = (s32 *)0x040000D4;` + `(s32) dma` menghasilkan byte yang sama
 asal nilainya sampai ke argumen sebagai `s32`. Catatan tambahan: slot `s32 sp0` yang alamatnya diambil
 (`&sp0`) tidak perlu `volatile` — alamat-escape sudah cukup memaksa `sub sp,#4` + `str`/`mov` seperti
 ref (bandingkan POLA-DIFF §46 yang butuh `volatile` karena slotnya tak pernah diambil alamatnya).
+
+## 55. Larik yang berjalan mundur: pointer `p -= 1` bukan indeks
+
+`func_08009268` (94B, `hardware.s`, sudah MATCH) berjalan dari `arg0+0x20` ke bawah: ref memakai
+`adds r4,r0,#0x20` sekali lalu `subs r4,#2` tiap iterasi. Bentuk indeks
+(`((s16 *)((u8 *)arg0 + 0x20))[-i]`, atau `bit = 0x200 >> i`) memaksa alamat dihitung ulang dari
+`arg0` setiap kali: 120B (dari 94B), 82 byte berbeda. Jadi untuk larik yang berjalan mundur,
+pertahankan pointer yang bergerak — jangan diganti indeks meski jumlah instruksinya terlihat setara.
+
+Sebaliknya, mengganti *nama* dua nilai hidup (`mask` → `st`, satu akumulator) tidak mengubah satu byte
+pun: yang menentukan codegen adalah **bentuk ekspresi**, bukan jumlah/jenis variabel lokal.
