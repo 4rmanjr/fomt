@@ -754,8 +754,9 @@ lama, bukan dari definisi baru, sehingga kedua sisi terlihat sama. Prosedur yang
 
 Bila definisi membawa parameter yang **dipakai** (mis. `void g(s16 *p, s16 v)`), call-site wajib
 meneruskan argumen kedua; sering nilainya sudah berada di r1 dari pemanggil sehingga penerusan itu
-gratis. Rantai seperti ini harus dikerjakan berurutan dari pemanggil terluar — `func_08009154`
-masih tertahan karena alasan ini.
+gratis. Rantai seperti ini dikerjakan berurutan dari pemanggil terluar; untuk `func_08009154`
+rantai itu sudah tuntas (9154 → 917C → 91E8, §36) — kalimat lama di sini yang menyebutnya "masih
+tertahan" sudah usang.
 
 ## 29. Jalur build kedua untuk keluarga `pop {r2}` (CC1 := OLD_CC1)
 
@@ -986,3 +987,28 @@ Pembukti: `func_08009154` → `func_0800917C` → `func_080091E8` (`src/hardware
 `make compare` HIJAU (`fomt.gba: OK`). Hanya fungsi yang benar-benar membaca/meneruskan r1 yang perlu
 parameter tambahan — `func_08009168` kembarannya tidak (memanggil `func_08009140` satu argumen),
 jadi tanda tangannya tetap satu parameter.
+
+## 37. MATCH di judge (`agbcc`/C) belum tentu MATCH di `src/` (`agbcp`/C++)
+
+`func_08008E64` (`hardware.s`, 84B) MATCH di judge dengan bentuk m2c apa adanya, tetapi `make compare`
+MERAH setelah migrate: badan yang sama dikompilasi `agbcp` menghasilkan instruksi berbeda —
+`push {r4, r5, lr}` + `adds r4, r1, #0` di awal (arg1 di-spill) dan `eors r0, r1; ands r0, r1` untuk
+uji `!(t & 1)`, karena front end C++ menurunkan `!` pada mask dan comma-expression secara lain.
+
+Bentuk yang terbukti byte-identik di **kedua** front end:
+
+1. jangan memakai `!` pada uji mask: tulis `(t & 1) == 0`, bukan `!(t & 1)`;
+2. jangan menaruh penugasan `t` di dalam kondisi (comma-expression); hitung `t` sebagai statement
+   di cabang `if (arg2 != 0)`, lalu uji `(t & 1) == 0` di dalamnya;
+3. dua early-return `if (arg0 == 0) return;` / `if (arg1 == 0) return;`, baru `a = arg0;` — itulah
+   yang menaruh `adds r4, r0, #0` tepat setelah kedua cek null seperti ref;
+4. blok `v = 0` dipakai bersama oleh cabang `arg2 == 0` dan `t & 1` (satu `movs r2, #0` + `b`).
+
+Sebelum migrate, probe cepat harus memakai jalur C++ (preprocess lalu `agbcp -O2 -fhex-asm`), bukan
+`agbcc`: `tools/scripts/try.sh` memakai `agbcc` (C), jadi hasilnya tidak menjamin `src/*.cc`.
+
+**Prototipe pemanggil ikut menjadi bagian gate.** Dua blok pemanggil di `src/hardware_migrated.cc`
+mendeklarasikan `i32 func_08008E64(i32, i32, i32);`; definisi baru `void` membuat `agbcp` gagal
+compile ("conflicts with previous declaration"). Build tidak diperbarui, `compare` MERAH, dan pesan
+yang tercetak hanya baris assembler yang menyesatkan. Samakan prototipe pemanggil ke `void` (nilai
+balik tidak dipakai; byte call-site tidak berubah).
