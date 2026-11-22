@@ -1696,3 +1696,25 @@ diuji di fungsi ini: **tidak berpengaruh** (tetap 344B) karena agbcc melipat kon
 
 Sisa terakhir sebelum MATCH: pembersihan `fr.slot[0]` memakai field offset 0
 (`((GenObj *)fr.slot[0]->unk0)->unk8`), bukan `unk4` seperti draf lama.
+
+## 53. `ldrsb` vs `ldrb`+shift, literal offset terpisah, dan `lsls` yang tertunda
+
+`func_08006B90` (150B, `new_game.s`, pola `copy`) belum MATCH (2 judge, berhenti di parkir), tetapi
+tiga beda strukturalnya sudah terjelaskan dan semuanya soal **tipe lokal + urutan statement**:
+
+1. **`ldrsb` menuntut lokal `s32` + cast eksplisit.** Dengan `s8 a; a = *(s8 *)(p+0x4604);` agbcc
+   menghasilkan `ldrb r2,[r2]; lsls r2,#24; asrs r2,#24` (muat tak bertanda lalu tanda diperluas
+   lewat dua shift). Menulis `s32 a; a = (s32)*(s8 *)(p+0x4604);` memunculkan `ldrsb` seperti ref,
+   sekaligus membuat offset `0x4605` dimuat dari **literal terpisah** (`ldr r2,[pc]` + `adds r0,r5,r2`)
+   alih-alih dilipat menjadi `adds r1,#1` dari literal `0x4604`. Dua-duanya hilang bersama bila
+   tipenya `s8`.
+2. **`lsls r1,r1,#1` muncul hanya bila shift ditulis sebagai statement sendiri sebelum baca
+   berikutnya.** `idx = (a<<1) + (b*0x20-b) + ...` satu ekspresi → `lsls` baru muncul sesudah load
+   kedua (`0x1a`); `idx = a << 1;` lalu `b = ...;` lalu `idx = idx + ...` → `lsls` persis di `0x12`
+   seperti ref.
+3. **Store-forwarding memotong byte.** Setelah `strb` ke `unk4610`, agbcc memakai ulang nilai di
+   register untuk `if (unk4610 > 0xB)` dan memotongnya dengan `lsls #24; lsrs #24`, sedangkan ref
+   **me-reload** `ldrb r0,[r2]` dari alamat yang dihitung ulang (literal `0x4610` dimuat lagi).
+   Mencoba store lewat anggota struct + baca lewat cast (atau sebaliknya) berhasil memaksa reload
+   tetapi merusak urutan literal/penjumlahan alamat (`q`), jadi varian itu lebih jauh dari ref
+   (156B). Ini yang masih terbuka.

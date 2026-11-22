@@ -474,9 +474,9 @@
  },
  "func_08006B90": {
   "addr": 134245264,
-  "judged_mtime": 1795350505.1853402,
+  "judged_mtime": 1795362558.5371542,
   "module": "new_game.s",
-  "note": "len 146 vs ref 150 [8missing,7extra,9operand,19regalloc,6different @< sub sp, #4 | ]",
+  "note": "parkir 2 judge: 152B vs ref 150 [1missing,2extra,3operand,13regalloc,2different]. prolog+baca tabel sudah identik (ldrsb utk 0x4604 & 0x4605 dgn literal terpisah hanya muncul bila lokal s32 + cast eksplisit; lsls r1,#1 muncul hanya bila `idx = a << 1;` ditulis sbg statement sebelum baca b). sisa: store-forwarding agbcc memakai ulang nilai yang baru di-strb ke unk4610 lalu memotongnya (lsls/lsrs #24) sementara ref me-reload `ldrb` dari alamat yang dihitung ulang; plus permutasi reg (v di r1 vs r2, cnt di r4 vs r1).",
   "ref_len": 152,
   "sanitize_v": 4,
   "size": 1598,
