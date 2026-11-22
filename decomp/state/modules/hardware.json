@@ -879,24 +879,25 @@
  },
  "func_08008FE4": {
   "addr": 134254564,
-  "judged_mtime": 1793582714.0274186,
+  "judged_mtime": 1795350505.1933403,
   "module": "hardware.s",
-  "note": "byte +0x0: 0x30 vs ref 0x70 [3missing,3extra,6operand,1different @i push {r4, r5, r6, lr} | push {r4, r5, lr}]",
-  "ref_len": 176,
+  "note": "PARKIR (blob): ref 176B = DUA fungsi (0x8008FE4 56B + 0x800901C ~120B) dalam satu blok .byte; C satu fungsi mustahil mencapai 176B. Butuh simbolisasi manual asm (keputusan manusia, MIGRATE \u00a75).",
+  "ref_len": 175,
   "sanitize_v": 4,
-  "size": 1432,
+  "size": 1433,
   "status": "failed",
   "thumb": true
  },
  "func_08009094": {
   "addr": 134254740,
-  "judged_mtime": 1793582714.0284185,
+  "judged_mtime": 1795360872.451368,
   "module": "hardware.s",
-  "note": "len 154 vs ref 150 [2extra,2operand,24regalloc @r adds r7, r0, #0 | adds r6, r0, #0]",
+  "note": "MATCH judge-1 (150B). Kunci: param TERTIPE GenObj* (bukan void*) -> p r7, end sb, flags r6, src r4, dst r3, a r8 persis ref; label `goto tail:` di draf bikin extern_decls palsu 'tail: (...)' -> migrate SKIP walau tanda tangan CpuSet sudah sama; ganti dgn `if (a == 0) continue;` + satu call CpuSet bersama. CpuSet di src diseragamkan ke i32(i32*,i32*,i32) (byte-netral).",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 151,
   "sanitize_v": 4,
   "size": 1492,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0800912C": {

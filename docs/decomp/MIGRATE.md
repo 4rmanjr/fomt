@@ -883,3 +883,15 @@ r0:r1 yang tak dipakai), bukan semua fungsi berepilog itu. Batch 9 fungsi dibata
 masuk jalur ini hanya fungsi yang sudah terbukti byte-identik di TU kecil (`func_08037ED0`,
 `func_0803834C`).
 
+
+## 33. Draf berlabel (`goto`): bersihkan label sebelum migrate
+
+Gejala: `fomt <f>` MATCH, tetapi `migrate.py` menjawab
+`extern <callee> beda tanda tangan (['i32 (...)', 'tail: (a, b, c)'] vs ['i32 (...)'])`
+walaupun deklarasi di blok dan di `src` sudah disamakan. Penyebab: `extern_decls()` membaca
+`label:` + panggilan sesudahnya sebagai deklarasi (entri `tail: (...)`), sedangkan teks `src`
+tidak punya entri itu — jadi gate selalu melihat "beda".
+
+Tindakan: ganti `goto`-nya dengan alur tanpa label (`if (k) continue;` + satu panggilan bersama di
+luar `if`), judge ulang, baru migrate. Terbukti `func_08009094` (150B): MATCH → `pindah: 1` HIJAU.
+Jangan "menambal" dengan mengubah deklarasi callee; tanda tangannya sudah benar.

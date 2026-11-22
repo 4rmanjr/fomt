@@ -209,6 +209,55 @@ typedef struct GenObj__func_08009168 {
 } GenObj__func_08009168;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08009094 { i32 unk0; i32 *unk4; i32 *unk8; i32 unkC; } GenObj__func_08009094;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08009094 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+i32 CpuFastSet(i32 *, i32 *, i32);
+i32 CpuSet(i32 *, i32 *, i32);
+
+void func_08009094(GenObj__func_08009094 *arg0, GenObj__func_08009094 *arg1) {
+    GenObj__func_08009094 *p;
+    i32 *src;
+    i32 *dst;
+    i32 ctrl;
+    i32 a;
+    i32 n;
+    i32 sp0;
+    i32 sp4;
+
+    for (p = arg0; p != arg1; p++) {
+        src = (i32 *)(p->unk4);
+        if (p->unk0 == 1) {
+            sp0 = (i32) src;
+            src = &sp0;
+        }
+        ctrl = p->unkC;
+        dst = (i32 *)(p->unk8);
+        if (ctrl & 0x04000000) {
+            n = ctrl & 0xFFFF;
+            a = n & 7;
+            n -= a;
+            if ((n != 0) || (a == 0)) {
+                sp4 = (i32) dst;
+                CpuFastSet(src, dst, ctrl - a);
+                dst = (i32 *) ((i32) dst + n * 4);
+                if (!(ctrl & 0x01000000)) {
+                    src = (i32 *) ((i32) src + n * 4);
+                }
+                if (a == 0) continue;
+            }
+            CpuSet(src, dst, ctrl - n);
+        } else {
+            CpuSet(src, dst, ctrl);
+        }
+    }
+}
+}
+
 // DECOMP-MATCHED func_0800912C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0800912C(void) {
@@ -852,14 +901,14 @@ void func_08009674(i32 arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_080096B0 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 CpuSet(i16 *, void *, i32);                       /* extern */
+i32 CpuSet(i32 *, i32 *, i32);                        /* extern */
 
 void *func_080096B0(GenObj__func_080096B0 *arg0) {
     i16 sp0;
     i16 *p = &sp0;
 
     sp0 = 0;
-    CpuSet(p, arg0, 0x0100002B);
+    CpuSet((i32 *) (void *) p, (i32 *) arg0, 0x0100002B);
     arg0->unk0 = 0x80;
     arg0->unk20 = 0x100;
     arg0->unk22 = 0;

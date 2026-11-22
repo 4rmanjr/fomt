@@ -1635,3 +1635,15 @@ Bentuk yang menghasilkan byte ref: parameter kosong + `register` var terikat reg
 (`asm("r0")`, `asm("r1")`). Ini satu-satunya keluarga di mana "tanda tangan benar" bukan yang
 terlihat dari badan fungsi, melainkan yang dipakai pemanggil (K&R).
 
+
+## 50. `goto` + label di draf MATCH = extern palsu, migrate SKIP walau tanda tangan sama
+
+`func_08009094` (150B) butuh satu call `CpuSet` yang dipakai bersama dua cabang. Draf MATCH
+memakainya lewat `if (a != 0) goto tail; ... tail: CpuSet(src, dst, ctrl - n);`. `extern_decls()`
+di `migrate.py` membaca baris sesudah label sebagai **deklarasi** sehingga masuk himpunan tanda
+tangan sebagai entri palsu `'tail: (src, dst, ctrl - n)'`. Akibatnya gate melaporkan
+`extern CpuSet beda tanda tangan` padahal kedua himpunan **tercetak identik** — sisi `src` tak
+punya entri `tail:` itu. Menyisipkan `;` sesudah label tidak menolong.
+
+Perbaikan yang byte-identik: `if (a == 0) continue;` lalu satu `CpuSet(...)` di luar `if` —
+tanpa label, alur (dan byte) tetap sama, `pindah: 1` langsung HIJAU.
