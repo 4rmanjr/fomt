@@ -213,6 +213,111 @@ typedef struct GenObj__func_08009168 {
 typedef struct GenObj__func_08009094 { i32 unk0; i32 *unk4; i32 *unk8; i32 unkC; } GenObj__func_08009094;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08008F60 {
+    i32 unk0;
+    i32 unk4;
+    i32 unk8;
+    i32 unkC;
+} GenObj__func_08008F60;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08008F0C {
+    i32 unk0;
+    i32 unk4;
+    i32 unk8;
+    i32 unkC;
+} GenObj__func_08008F0C;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08008EB8 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080D0EBC(i32 *, i32, i32, i32);              /* extern */
+
+void func_08008EB8(i32 arg0, i32 arg1, i32 arg2) {
+    i32 sp0;
+    i32 temp_r3;
+    i32 var_r2;
+
+    sp0 = arg0;
+    if (arg1 != 0) {
+        if ((arg2 != 0) && (temp_r3 = arg1 | arg2, ((1 & temp_r3) == 0))) {
+            if (!(temp_r3 & 3)) {
+                var_r2 = ((u32) (arg2 << 0xE) >> 0x10) | 0x84000000;
+            } else {
+                var_r2 = ((u32) (arg2 << 0xF) >> 0x10) | 0x80000000;
+            }
+        } else {
+            var_r2 = 0;
+        }
+        func_080D0EBC(&sp0, arg1, var_r2 | 0x01000000, 0x040000D4);
+    }
+}
+}
+
+// DECOMP-MATCHED func_08008F0C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+void *func_08008F0C(GenObj__func_08008F0C *arg0, i32 arg1, i32 arg2, i32 arg3) {
+    i32 temp_r1;
+    i32 var_r3;
+
+    if ((arg1 != 0) && (arg2 != 0) && (arg3 != 0) && (temp_r1 = arg1 | arg2 | arg3, ((1 & temp_r1) == 0))) {
+        if (!(temp_r1 & 3)) {
+            var_r3 = ((u32) (arg3 << 0xE) >> 0x10) | 0x84000000;
+        } else {
+            var_r3 = ((u32) (arg3 << 0xF) >> 0x10) | 0x80000000;
+        }
+    } else {
+        var_r3 = 0;
+    }
+    arg0->unk0 = 0;
+    arg0->unk4 = arg1;
+    arg0->unk8 = arg2;
+    arg0->unkC = var_r3;
+    return arg0;
+}
+}
+
+// DECOMP-MATCHED func_08008F60 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+void *func_08008F60(GenObj__func_08008F60 *arg0, i32 arg1, i32 arg2, i32 arg3) {
+    i32 temp_r1;
+    i32 var_r1;
+    i32 var_r3;
+
+    if (arg2 != 0) {
+        if ((arg3 != 0) && (temp_r1 = arg2 | arg3, ((1 & temp_r1) == 0))) {
+            if (!(temp_r1 & 3)) {
+                var_r3 = ((u32) (arg3 << 0xE) >> 0x10) | 0x84000000;
+            } else {
+                var_r3 = ((u32) (arg3 << 0xF) >> 0x10) | 0x80000000;
+            }
+        } else {
+            var_r3 = 0;
+        }
+        var_r1 = 0x01000000 | var_r3;
+    } else {
+        var_r1 = 0;
+    }
+    arg0->unk0 = 1;
+    arg0->unk4 = arg1;
+    arg0->unk8 = arg2;
+    arg0->unkC = var_r1;
+    return arg0;
+}
+}
+// ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
+asm(
+".L08008FB8:\n"
+"    .byte 0x10, 0xB5, 0x81, 0xB0, 0x02, 0x1C, 0x54, 0x68\n"
+"    .byte 0x10, 0x68, 0x01, 0x28, 0x01, 0xD1, 0x00, 0x94, 0x6C, 0x46, 0x91, 0x68, 0xD2, 0x68, 0x04, 0x4B\n"
+"    .byte 0x20, 0x1C, 0xC7, 0xF0, 0x73, 0xFF, 0x01, 0xB0, 0x10, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00\n"
+"    .byte 0xD4, 0x00, 0x00, 0x04\n"
+);
+
 // DECOMP-MATCHED func_08008FE4 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080D0EBC(i32 *, i32, i32, i32);
