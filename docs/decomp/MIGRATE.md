@@ -668,3 +668,17 @@ terakhir di <modul> (N penerus belum pindah)`. Setelah satu migrasi ekor,
 bukan drift. Bukti sesi: `func_08009324` → `func_08009300` → `func_080092FC` →
 `func_080092C8`, semuanya `pindah: 1` + `HIJAU ... fomt.gba: OK`.
 
+## 25. Dua jebakan CLI saat memindahkan satu fungsi hasil `promote`
+
+- `migrate.py --func X` tanpa `--module` hanya memindai `PILOT_MODULES`, jadi
+  fungsi modul lain (mis. `new_game.s`) dilaporkan `tidak ada kandidat` walau
+  statusnya `promoted` dan `promoted_to` sudah terisi. Pakai
+  `--module <modul>.s --func X`.
+- `python3 -m decomp.workflow promote X` melempar `KeyError` untuk modul yang
+  state-nya ber-shard; jalur yang bekerja `python3 -c "import decomp.run as r;
+  r.promote('X')"`, yang mengembalikan path `decomp/promoted/<stem>.cc`.
+
+Bukti sesi: `func_08006C60` -> `promote` -> `migrate.py --module new_game.s
+--func func_08006C60` -> `pindah: 1`, baseline HIJAU + pasca-insert
+`fomt.gba: OK`.
+

@@ -1370,3 +1370,41 @@ strh r3, [r0, #6]
 Keduanya masih parkir dan **bukan** karena pola ini: sisa diff-nya hanya epilog
 `pop {r2}` vs `pop {r0}` (wall regalloc).
 
+## 39. Rotasi siklik register: pin `__asm__("rN")` sebelum menuduh allocator (`func_08006C60`)
+
+`func_08006C60` (124B) MATCH setelah 8 varian. Sisa diff turun dari 18 ke 4 lalu
+ke 0 karena tiga hal yang terpisah, bukan karena satu ekspresi ajaib.
+
+1. **Rotasi siklik.** Ref: `r4` = pointer buffer tulis, `r5` = penghitung, `r6` =
+   indeks. Draf: tepat satu langkah bergeser (`r6`, `r4`, `r5`), sehingga hampir
+   setiap baris dilaporkan sebagai `regalloc` walau bentuk kodenya identik.
+   Mengubah tipe variabel (`u8 *` vs `s32`) dan urutan deklarasi tidak menggeser
+   apa pun; yang menggeser adalah pin eksplisit:
+
+   ```c
+   register u8 *rp4 __asm__("r4");
+   register s32 rp5 __asm__("r5");
+   register s32 rp6 __asm__("r6");
+   ```
+
+   hasil terukur: `[3missing,4extra,3operand,18regalloc,1different]` ->
+   `[3missing,4extra,3operand,4regalloc,1different]` tanpa perubahan bentuk source.
+
+2. **`for` vs `if (n > 0) do..while`.** Ref menguji `cmp r2, r6; bge` (variabel
+   loop dibandingkan batas), jadi bentuk aslinya `for (i = 0; i < n; i++)`.
+   Do-while bergerbang menghasilkan `cmp r6, #0` + `ble` — operand yang berbeda,
+   bukan regalloc.
+
+3. **Letak assignment base pointer.** Ref: `ldr r1, =0x4629; adds r3, r7, r1`
+   muncul SESUDAH `cmp/bge`, yaitu di dalam badan loop. Menulis
+   `base = (u8 *) (arg0 + 0x4629);` sebagai baris pertama badan `for`
+   menghasilkan urutan itu; menaruhnya sebelum `for` membuat gcc menghoist ke
+   preheader (satu `ldr`/`adds` pindah ke atas test).
+
+Asosiasi penjumlahan ikut menentukan: `endp = (u8 *) (arg0 + 0x4629); endp[rp6] = 0;`
+memberi `adds r0, r7, r1; adds r0, r0, r6` seperti ref, sedangkan
+`*((u8 *) arg0 + 0x4629 + rp6) = 0;` memberi `adds r0, r6, r7; adds r0, r0, r1`
+(gcc bebas menukar operand `add` komutatif).
+
+Pembukti: `decomp/drafts/func_08006C60.c` (MATCH, dimigrasi ke `src/new_game.cc`).
+

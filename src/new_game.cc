@@ -1,4 +1,5 @@
 #include "prelude.h"
+#include <string.h> // memcpy
 
 typedef struct GenObj {
     struct GenObj *unk0;
@@ -539,6 +540,57 @@ void func_08006C28(GenObj__func_08006C28 *arg0, u32 arg1) {
 
 /* ATTEMPT-NOTE manual: geser byte; var pin r1; mask eksplisit pasca-store. */
 }
+// DECOMP-MATCHED func_08006C60 (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.new_game.08006C60")))
+u32 func_08006C60(i32 arg0) {
+    register u8 *rp4 __asm__("r4");
+    i32 var_r0;
+    i32 var_r1;
+    i32 var_r2;
+    register i32 rp5 __asm__("r5");
+    register i32 rp6 __asm__("r6");
+    u8 *temp_r1;
+    u8 temp_r0;
+    u8 *base;
+    u8 *endp;
+
+    rp6 = 0;
+    rp5 = 0;
+    rp4 = (u8 *) (arg0 + 0x4629);
+    strcpy((char *)((i32) rp4), (const char *)(arg0 + 0x461C));
+    var_r1 = 0;
+    do {
+        temp_r0 = rp4[var_r1];
+        if (temp_r0 == 0x5F) {
+            rp5 += 1;
+            var_r0 = var_r1 + 1;
+        } else {
+            if (temp_r0 == 0x20) {
+                rp5 += 1;
+            }
+            rp6 = var_r1 + 1;
+            var_r0 = rp6;
+        }
+        var_r1 = var_r0;
+    } while (var_r1 <= 0xB);
+    if (rp5 == 0xC) {
+        rp6 = 0;
+    } else {
+        for (var_r2 = 0; var_r2 < rp6; var_r2 += 1) {
+            base = (u8 *) (arg0 + 0x4629);
+            temp_r1 = base + var_r2;
+            if (*temp_r1 == 0x5F) {
+                *temp_r1 = 0x20;
+            }
+        }
+    }
+    endp = (u8 *) (arg0 + 0x4629);
+    endp[rp6] = 0;
+    return (u32) ((0 - rp6) | rp6) >> 0x1F;
+}
+}
+
 
 // DECOMP-MATCHED func_08007078 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
