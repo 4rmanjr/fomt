@@ -1771,3 +1771,23 @@ Yang tetap aman dan berpengaruh hanya **bentuk ekspresi**: menyusun ulang blok s
 hidup bersamaan (mis. `p` vs `n` di blok `L571E`) atau memakai satu variabel flag untuk `fl`/`ip`.
 Angka pembukti: draf m2c 394B (50missing/28extra/61regalloc) → translasi 1:1 440B
 (15missing/15extra/36operand/97regalloc). Semua sisa beda ada di nomor register, bukan di instruksi.
+
+## 57. Resep §43 di fungsi lain: truncation argumen di-hoist, pointer `s16` jangan pakai aritmetika byte
+
+Resep §43 (temp `s32` + hoist field ke preheader) diterapkan ke `func_0804EDB4` (104B incl. ekor data,
+`code_0803EE94.s`). Temp-nya sudah `s32`, jadi yang relevan justru dua hal lain yang muncul bersamaan:
+
+1. **Truncation argumen harus di-hoist, bukan dibiarkan di loop.** `arg2` bertipe `u16`, dan memakainya
+   langsung di badan loop membuat `lsls r2,#0x10; lsrs r7,r2,#0x10` muncul **di dalam** loop. Menambah
+   lokal `u16 a2 = arg2;` di preheader memindahkannya ke prolog seperti ref.
+2. **Pointer `s16 *` tidak boleh diberi aritmetika byte ala m2c.** Draf memakai `*((arg4 * 2) + var_r5)`
+   dan `var_r5 -= 4`. Karena `var_r5` bertipe `s16 *`, itu berarti offset 4× dan 8 byte — gcc menghasilkan
+   `lsls #2` + `subs #4`, sedangkan ref `lsls #1` + `subs #2`. Bentuk yang benar: `*(var_r5 + arg4)` dan
+   `var_r5 -= 1`. Ini juga penyebab "7missing/6extra" pada catatan lama.
+3. **Divmod dibagi bersama.** `var_r4 % 10` lalu `var_r4 / 10U` membuat gcc memilih lowering lain; menulis
+   eksplisit `q = var_r4 / 10U; rem = var_r4 - (q * 10);` menghasilkan urutan ref (`lsls #2`, `adds`,
+   `lsls #1`, `subs`) dengan satu panggilan `__udivsi3`.
+
+Hasil: badan 68B == 68B ref, `3missing/3extra/1operand/2regalloc`; sisa beda hanya **urutan dua instruksi
+prolog** (`adds r4,r0` vs `lsls r2,#0x10`, dan `adds r5,r1` vs `lsrs r6,#4`). Varian deklarasi berinisial
+dan variabel pemisah `t3 = arg3 << 0x10` tidak menggeser keduanya, jadi belum MATCH.

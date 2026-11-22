@@ -303,7 +303,7 @@
  },
  "func_0804ED28": {
   "addr": 134540584,
-  "judged_mtime": 1793582714.1104054,
+  "judged_mtime": 1795350505.2573402,
   "module": "code_0803EE94.s",
   "note": "byte +0x2: 0x12 vs ref 0x4 [7missing,6extra,5operand,21regalloc @>  | lsls r2, r2, #0x10]",
   "ref_len": 120,
@@ -326,9 +326,9 @@
  },
  "func_0804EDB4": {
   "addr": 134540724,
-  "judged_mtime": 1793582714.1104054,
+  "judged_mtime": 1795364264.3758063,
   "module": "code_0803EE94.s",
-  "note": "byte +0x2: 0x12 vs ref 0x4 [7missing,6extra,3operand,13regalloc @>  | lsls r2, r2, #0x10]",
+  "note": "[parkir: resep POLA-DIFF 43 diterapkan setengah jalan] Judge 3missing/3extra/1operand/2regalloc (sebelumnya 7/6/3/13). Badan 68B == 68B ref; sisa HANYA urutan dua instruksi prolog: ref `adds r4,r0` sebelum `lsls r2,#0x10` (truncation arg2) dan `adds r5,r1` sebelum `lsrs r6,#4`. Tiga koreksi yang terbukti menurunkan diff: (a) hoist truncation argumen ke preheader `u16 a2 = arg2;` (bagian \"hoist\" resep 43); (b) pointer `s16 *` ala m2c yang memakai aritmetika BYTE (`var_r5 + arg4*2`, `var_r5 -= 4`) salah \u2014 harus `var_r5 + arg4`, `var_r5 -= 1`; (c) divmod dibagi bersama lewat `q = n/10; rem = n - q*10`. Percobaan urutan lain (deklarasi berinisial, t3 pemisah shift) tidak menggeser dua instruksi itu.",
   "ref_len": 104,
   "sanitize_v": 4,
   "size": 856,
