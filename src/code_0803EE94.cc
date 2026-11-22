@@ -1,6 +1,8 @@
 #include "prelude.h"
 #include <string.h> // memcpy
 
+typedef i32 s32; // include/types.h hanya punya i32; s32 dipakai blok hasil promote
+
 typedef struct GenObj {
     u8 _pad0[4];
     struct GenObj *unk4;
@@ -2393,6 +2395,33 @@ void func_08050410(GenObj__func_08050410 *arg0) {
     }
 }
 }
+// DECOMP-MATCHED func_08050424 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0804F0E0(void *);                            /* extern */
+void func_080503E4(GenObj__func_080503E4 *arg0);                             /* extern */
+i32 func_080ADD5C(void *, i32, i32);                  /* extern */
+i32 func_080ADD74(void *, u16);                       /* extern */
+
+__attribute__((section(".text.code_0803EE94.08050424")))
+void func_08050424(GenObj *arg0, s32 arg1, u16 arg2, s32 arg3) {
+    i32 temp_r0;
+    void *temp_r4;
+
+    temp_r0 = arg0->unk8;
+    if (temp_r0 >= 0) {
+        if (temp_r0 <= 2) {
+            func_080503E4((GenObj__func_080503E4 *)(arg0));
+        } else if (temp_r0 <= 6) {
+            func_0804F0E0((u8 *) arg0 + 0xD0);
+        }
+    }
+    temp_r4 = (u8 *) arg0 + 0xEC;
+    func_080ADD5C(temp_r4, arg1, arg3);
+    func_080ADD74(temp_r4, arg2);
+    arg0->unk8 = 4;
+}
+}
+
 
 // DECOMP-MATCHED func_080507D0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -2524,39 +2553,39 @@ void func_08050D80(i32 *arg0) {
 }
 // DECOMP-MATCHED func_08050D8C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08050424(i32, i32, u16, i32);                  /* extern */
+void func_08050424(GenObj *arg0, s32 arg1, u16 arg2, s32 arg3);                  /* extern */
 
 __attribute__((section(".text.code_0803EE94.08050D8C")))
 void func_08050D8C(i32 *arg0, i32 arg1) {
-    func_08050424(*arg0, arg1, 0x100, 0);
+    func_08050424((GenObj *)(*arg0), arg1, 0x100, 0);
 }
 }
 // DECOMP-MATCHED func_08050DA0 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08050424(i32, i32, u16, i32);                  /* extern */
+void func_08050424(GenObj *arg0, s32 arg1, u16 arg2, s32 arg3);                  /* extern */
 
 __attribute__((section(".text.code_0803EE94.08050DA0")))
 void func_08050DA0(i32 *arg0, i32 arg1, i32 arg2) {
-    func_08050424(*arg0, arg1, 0x100, arg2);
+    func_08050424((GenObj *)(*arg0), arg1, 0x100, arg2);
 }
 }
 // DECOMP-MATCHED func_08050DB4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08050424(i32, i32, u16, i32);                  /* extern */
+void func_08050424(GenObj *arg0, s32 arg1, u16 arg2, s32 arg3);                  /* extern */
 
 __attribute__((section(".text.code_0803EE94.08050DB4")))
 void func_08050DB4(i32 *arg0, i32 arg1, u16 arg2) {
-    func_08050424(*arg0, arg1, arg2, 0);
+    func_08050424((GenObj *)(*arg0), arg1, arg2, 0);
 }
 }
 
 // DECOMP-MATCHED func_08050DC8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08050424(i32, i32, u16, i32);                       /* extern */
+void func_08050424(GenObj *arg0, s32 arg1, u16 arg2, s32 arg3);                       /* extern */
 
 __attribute__((section(".text.code_0803EE94.08050DC8")))
 void func_08050DC8(i32 *arg0, i32 arg1, u16 arg2, i32 arg3) {
-    func_08050424(*arg0, arg1, arg2, arg3);
+    func_08050424((GenObj *)(*arg0), arg1, arg2, arg3);
 }
 }
 

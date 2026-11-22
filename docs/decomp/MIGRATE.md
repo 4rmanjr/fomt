@@ -784,3 +784,48 @@ Pembukti: `func_080202A0` + `func_08037470` di `src/pop_r2.c` (dua stem berbeda,
 diisi manual (`status: promoted`, `promoted_to: src/pop_r2.c`) dan kemajuan dihitung dari marker
 `// DECOMP-MATCHED` yang wajib ditulis sendiri.
 
+## 30. Signature: tiga batas sekaligus (gate, rename tipe blok, codegen)
+
+`func_08050424` (code_0803EE94) tampak seperti kasus MIGRATE §23 biasa — definisi `void (...)`
+vs extern usang `i32 (i32, i32, u16, i32)` — tetapi penyatuannya dibatasi tiga hal sekaligus,
+dan salah satunya bukan soal tanda tangan:
+
+1. **Arah penyatuan ditentukan ref.** Epilog ref `pop {r0}; bx r0` = fungsi void; `pop {r1}`
+   hanya muncul pada nilai balik 64-bit. Jadi extern `i32` di `src/` yang usang, bukan definisinya.
+   Memaksa definisi jadi `i32` bukan sekadar gagal gate: agbcc lalu memilih epilog `pop {r1}` dan
+   menata ulang prolog → MERAH.
+2. **Tipe param bukan kosmetik.** `void (GenObj *, s32, u16, s32)` MATCH; `void (s32, ...)` maupun
+   `void (void *, ...)` (dengan cast di badan) menghasilkan prolog berbeda: ref menyalin arg0 ke
+   register callee-saved lebih dulu (`adds r5, r0, #0` di instruksi ke-3), versi skalar
+   menundanya sampai pemakaian pertama. MATCH hanya dengan pointer bertipe struct.
+3. **Rename tipe lokal blok menabrak gate.** Gate membandingkan sig definisi (setelah tipe lokal
+   blok di-rename `GenObj` → `GenObj__func_08050424`) dengan extern di `src/`. Blok yang membawa
+   `typedef struct GenObj {...}` sendiri karena itu selalu `[gate SKIP] ... butuh penyatuan
+   manual` walau teks sig-nya identik. Solusi: buang typedef lokal dari **blok promoted** dan
+   pakai `GenObj` file-scope `src/` (draft tetap boleh punya typedef agar judge bisa berdiri
+   sendiri — `_shared_context()` memang mengecualikan `GenObj`).
+
+Bukti sesi: `--explain` berubah dari `[gate SKIP]` ke `[gate OK]` setelah typedef lokal dibuang,
+lalu `migrate.py --module code_0803EE94.s --func func_08050424` → `pindah: 1`,
+`[baseline] compare HIJAU` + target `fomt.gba: OK`.
+
+### 30b. MERAH palsu dari cpp host (shim `-P`)
+
+Migrasi pertama dilaporkan `MERAH ... fomt.gba: FAILED` padahal tidak ada beda byte: build
+sebenarnya **gagal** di TU lain. Modul split punya TU pendamping `src/<stem>_c.c`; begitu `make`
+memutuskan membangunnya ulang, `agbcc 2.9 + -Werror` menolak marker `#line` yang disisipkan cpp
+host untuk `<stdc-predef.h>` (`unrecognized text at end of #line`). Perbaikan yang benar: shim cpp
+memakai `gcc -E -P` (tanpa line marker) — byte-identik, dibuktikan `make compare` HIJAU setelah TU
+itu dikompilasi ulang. Tanpa `-P`, setiap TU C yang perlu rebuild di lingkungan ini gagal dan
+`migrate.py` melaporkannya sebagai MERAH.
+
+### 30c. `s32` vs `i32`: blok promote butuh `s32`, TU src butuh alias
+
+`include/types.h` hanya mendefinisikan `i32`; `s32` cuma ada di harness judge dan di draf m2c.
+Padahal audit melarang `i32` di `drafts/`/`promoted/` (harness judge tak punya `i32`), dan gate
+membandingkan teks tanda tangan apa adanya. Jadi untuk blok yang pindah ke TU `src/*.cc`:
+tulis tanda tangannya dengan `s32` di draf/blok promoted **dan** di `src/`, lalu tambahkan satu
+baris `typedef i32 s32;` di TU src itu (bukan di `types.h`, supaya tak mengubah header bersama).
+Tanpa alias, TU gagal kompilasi (`type specifier omitted for parameter`) dan migrate melaporkan
+MERAH.
+

@@ -199,7 +199,9 @@ langkah berikut memulihkan gate build tanpa menyentuh repo:
 ```bash
 # 1. cpp: host gcc memilih bahasa dari ekstensi (.c -> cc1, .cc -> cc1plus)
 mkdir -p ~/shim
-printf '#!/bin/sh\nexec gcc -E "$@"\n' > ~/shim/arm-none-eabi-cpp
+# -P membuang line marker: cpp host menyisipkan <stdc-predef.h> dgn flag `#line` yang
+# ditolak agbcc 2.9 di bawah -Werror (TU yg perlu rebuild jadi gagal -> migrate MERAH palsu).
+printf '#!/bin/sh\nexec gcc -E -P "$@"\n' > ~/shim/arm-none-eabi-cpp
 chmod +x ~/shim/arm-none-eabi-cpp
 
 # 2. binutils arm: ekstrak .deb ke home (tanpa root), versi mengikuti arsip Ubuntu

@@ -1615,3 +1615,15 @@ Dua catatan operasional:
 - `func_0805E760` paling dekat: sisa bedanya hanya `[2regalloc @r pop {r2} | pop {r1}]`, yaitu persis
   gejala "tipe balik belum 64-bit".
 
+## 48. Parameter pointer bertipe struct disalin ke callee-saved lebih awal
+
+`func_08050424(GenObj *arg0, i32 arg1, u16 arg2, i32 arg3)` — ref menyalin arg0 ke `r5` sebagai
+instruksi ke-3 (`adds r5, r0, #0`), sebelum `r7 = arg1`, `r6 = arg3`, dan zero-extend arg2 ke
+`r8`. Kalau param pertama ditulis skalar (`s32`/`void *`) lalu di-cast di badan, agbcc menunda
+salinan itu sampai pemakaian pertama (`ldr r0, [r5, #8]`), jadi urutan prolog berbeda walau
+semantiknya sama. Tipe pointer bertipe (bukan skalar + cast) mengubah **penjadwalan prolog**,
+bukan cuma tipe.
+
+Kasus yang sama sekali berbeda tapi berdekatan: tipe balik `i32` pada fungsi void membuat agbcc
+memilih epilog keluarga 64-bit (`pop {r1}; bx r1`); `void` memberi `pop {r0}; bx r0` seperti ref.
+

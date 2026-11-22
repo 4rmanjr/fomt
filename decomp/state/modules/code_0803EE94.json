@@ -620,9 +620,9 @@
  "func_08050424": {
   "addr": 134546468,
   "draft_src": "manual",
-  "judged_mtime": 1794380915.7035985,
+  "judged_mtime": 1795359347.547109,
   "module": "code_0803EE94.s",
-  "note": "",
+  "note": "[MATCH + migrasi] Signature disatukan (MIGRATE 30): definisi `void func_08050424(GenObj *arg0, s32 arg1, u16 arg2, s32 arg3)`, extern src di 4 blok pemanggil jadi tanda sama + call-site `(GenObj *)(*arg0)` (byte-netral). Extern lama `i32 (i32, i32, u16, i32)` usang: ref void (`pop {r0}; bx r0`). Tipe param WAJIB `GenObj *` (i32/void* mengubah prolog) dan tipe balik WAJIB void (i32 memicu epilog `pop {r1}`). Blok promoted memakai `GenObj` file-scope src (typedef lokal dibuang) agar gate tak me-rename ke `GenObj__func_08050424`. `migrate.py --module code_0803EE94.s --func func_08050424` -> `pindah: 1`, baseline + target `fomt.gba: OK`.",
   "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 84,
   "sanitize_v": 4,
