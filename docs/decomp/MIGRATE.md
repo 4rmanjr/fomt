@@ -752,3 +752,35 @@ meneruskan argumen kedua; sering nilainya sudah berada di r1 dari pemanggil sehi
 gratis. Rantai seperti ini harus dikerjakan berurutan dari pemanggil terluar — `func_08009154`
 masih tertahan karena alasan ini.
 
+## 29. Jalur build kedua untuk keluarga `pop {r2}` (CC1 := OLD_CC1)
+
+Fungsi yang epilognya `pop {r2}; bx r2` mengembalikan nilai 64-bit lewat r0/r1, dan bentuk itu hanya
+diproduksi **old_agbcc**; `src/*.cc` dikompilasi `agbcp`, jadi migrasi normal mustahil (gate menolak,
+judge baru MATCH di old_agbcc). Jalur yang terbukti HIJAU:
+
+1. satu TU **C** (bukan C++) berisi fungsi-fungsi itu, mis. `src/pop_r2.c`;
+2. override Makefile di samping preseden `src/m4a.o`:
+
+   ```make
+   $(BUILD_DIR)/src/pop_r2.o: CC1 := $(OLD_CC1)
+   $(BUILD_DIR)/src/pop_r2.o: CFLAGS += -w
+   ```
+
+3. setiap fungsi diberi `__attribute__((section(".text.<stem>.<hex8>")))` sehingga linker script
+   `*(SORT_BY_NAME(.text.<stem>.*))` menempatkannya tepat di posisi asm yang dicabut — tanpa baris
+   lds baru;
+4. blok `thumb_func_start` di asm dihapus (pemecah section tidak lagi memancarkannya);
+5. `make compare` HIJAU sebagai bukti tunggal.
+
+Dua jebakan yang muncul:
+- **`-Werror` + cpp host.** `arm-none-eabi-cpp` di lingkungan ini `gcc -E`, yang menyisipkan
+  `<stdc-predef.h>` dan marker `#line`; old_agbcc 2.9 menganggapnya warning, dan `-Werror` membuatnya
+  jadi error (`old_agbcc.x86: warnings being treated as errors`). Untuk TU ini tambahkan `-w`.
+- **Header modern.** `prelude.h` menarik `<stdint.h>` yang tak bisa diparse old_agbcc; tipe dasar
+  (`u8`/`i16`/`i32`) ditulis lokal di TU tersebut, bukan `#include`.
+
+Pembukti: `func_080202A0` + `func_08037470` di `src/pop_r2.c` (dua stem berbeda, satu objek),
+`make compare` HIJAU. Catatan: fungsi seperti ini **tidak** lewat `promote`/`migrate.py`, jadi state
+diisi manual (`status: promoted`, `promoted_to: src/pop_r2.c`) dan kemajuan dihitung dari marker
+`// DECOMP-MATCHED` yang wajib ditulis sendiri.
+

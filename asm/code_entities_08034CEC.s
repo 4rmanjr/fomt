@@ -4233,27 +4233,6 @@ func_0803745C: @ 0x0803745C
     pop {r0}
     bx r0
 
-    thumb_func_start func_08037470
-func_08037470: @ 0x08037470
-    push {r4, lr}
-    movs r3, #0xa
-    ldrsh r2, [r1, r3]
-    movs r4, #0xe
-    ldrsh r3, [r1, r4]
-    subs r1, r2, #7
-    strh r1, [r0]
-    adds r1, r3, #0
-    subs r1, #9
-    strh r1, [r0, #2]
-    adds r2, #7
-    strh r2, [r0, #4]
-    adds r3, #5
-    strh r3, [r0, #6]
-    pop {r4}
-    pop {r2}
-    bx r2
-    .align 2, 0
-
     thumb_func_start func_08037494
 func_08037494: @ 0x08037494
     push {r4, r5, r6, r7, lr}

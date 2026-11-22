@@ -141,6 +141,12 @@ $(BUILD_DIR)/%.o: %.s tools/scripts/split_asm_sections.py $(CXX_SRCS) $(C_SRCS) 
 
 # overrides for matching
 $(BUILD_DIR)/src/m4a.o: CC1 := $(OLD_CC1)
+# Keluarga `pop {r2}` (nilai balik 64-bit) hanya diproduksi old_agbcc; TU C
+# pendamping ini dikompilasi dgn CC1 lama, sama seperti preseden src/m4a.o.
+$(BUILD_DIR)/src/pop_r2.o: CC1 := $(OLD_CC1)
+# cpp host menyisipkan <stdc-predef.h> + marker #line yg memicu warning di
+# old_agbcc; bunyinya kosmetik, jadi warning dimatikan hanya untuk TU ini.
+$(BUILD_DIR)/src/pop_r2.o: CFLAGS += -w
 
 clean:
 	@echo "RM $(ROM) $(ELF) $(MAP) $(BUILD_DIR)"
