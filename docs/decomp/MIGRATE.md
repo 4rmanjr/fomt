@@ -903,3 +903,15 @@ Bukti kedua (2026-11-22, `func_08050D8C`): blok staging-nya mendeklarasikan call
 menyalin struct src — `i32` di draf ditolak `audit_consistency.py`). Judge ulang MATCH, jadi
 `func_08050D8C` tidak lagi menabrak gate kelas ini saat giliran migrate-nya. Gate menormalkan
 `s32`→`i32`, jadi blok promoted tetap ditulis `s32` seperti blok lain di berkas itu.
+
+## 34. Parkir "blob dua fungsi" bisa dibuka: `ref_len` terakhir termasuk data ekor
+
+Catatan parkir lama untuk `func_08008FE4` (`hardware.s`) menyebut "ref 176B = dua fungsi dalam satu
+blok `.byte`, C satu fungsi mustahil mencapainya". Itu keliru: 56B pertama adalah fungsi asm biasa dan
+120B sisanya adalah **data ekor** (fungsi tanpa label di `0x0800901C`) yang tetap di `ref_len`.
+Gate memotong data ekor dari perbandingan instruksi dan menyalinnya verbatim ke blok C, jadi fungsi
+terakhir sebuah modul tetap bisa MATCH + `migrate` selama badan fungsinya sendiri bisa ditulis di C.
+Yang perlu diperiksa hanya apakah sisanya benar-benar data/tak-terpanggil-langsung, bukan panjangnya.
+
+Bukti: MATCH 56B lalu `pindah: 1`, baseline + target `fomt.gba: OK`; setelah migrasi, `asm/hardware.s`
+berakhir di blob `.byte` 44B milik fungsi sebelumnya (`0x08008FB8`).

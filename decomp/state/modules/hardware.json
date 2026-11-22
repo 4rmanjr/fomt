@@ -879,13 +879,14 @@
  },
  "func_08008FE4": {
   "addr": 134254564,
-  "judged_mtime": 1795350505.1933403,
+  "judged_mtime": 1795362747.1573496,
   "module": "hardware.s",
-  "note": "PARKIR (blob): ref 176B = DUA fungsi (0x8008FE4 56B + 0x800901C ~120B) dalam satu blok .byte; C satu fungsi mustahil mencapai 176B. Butuh simbolisasi manual asm (keputusan manusia, MIGRATE \u00a75).",
+  "note": "[MATCH 56B + migrasi src/hardware_migrated.cc] ref_len 175 termasuk ekor `.byte` 120B (fungsi tanpa label di 0x0800901C) \u2014 data ekor dipotong gate & disalin verbatim, jadi bukan alasan parkir. Kunci MATCH: literal 0x040000D4 disimpan ke lokal `s32 dma` SEBELUM loop; dengan literal langsung di argumen, agbcc memuatnya di dalam loop (`ldr r3,[pc]`) dan tidak memakai r6 seperti ref. Slot `s32 sp0` cukup alamat-di-ambil (`&sp0`), tanpa `volatile`. `pindah: 1`, baseline + target `fomt.gba: OK`. Lihat POLA-DIFF.md 54 / MIGRATE.md 34.",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 175,
   "sanitize_v": 4,
   "size": 1433,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08009094": {

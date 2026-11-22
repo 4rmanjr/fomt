@@ -1718,3 +1718,28 @@ tiga beda strukturalnya sudah terjelaskan dan semuanya soal **tipe lokal + uruta
    Mencoba store lewat anggota struct + baca lewat cast (atau sebaliknya) berhasil memaksa reload
    tetapi merusak urutan literal/penjumlahan alamat (`q`), jadi varian itu lebih jauh dari ref
    (156B). Ini yang masih terbuka.
+
+## 54. Literal konstan di argumen loop tidak di-hoist ke register
+
+`func_08008FE4` (56B, `hardware.s`) memakai `0x040000D4` (basis register DMA) sebagai argumen keempat
+`func_080D0EBC` **di dalam** loop. Menulisnya sebagai literal langsung:
+
+```c
+func_080D0EBC(temp_r3, var_r4[2], var_r4[3], 0x040000D4);
+```
+
+membuat agbcc memuat literal itu tiap iterasi (`ldr r3,[pc]` di badan loop, `1missing/1extra`), dan
+prolog menyusut jadi `push {r4,r5,lr}`. Ref menyimpannya sekali di prolog ke r6
+(`push {r4,r5,r6,lr}` … `ldr r6,[pc]` … `adds r3,r6,#0`). Bentuk yang MATCH: satu lokal sebelum loop.
+
+```c
+s32 dma;
+dma = 0x040000D4;          /* hoist manual: gcc 2.9 tidak melakukannya sendiri */
+...
+func_080D0EBC(temp_r3, var_r4[2], var_r4[3], dma);
+```
+
+Varian `s32 *dma = (s32 *)0x040000D4;` + `(s32) dma` menghasilkan byte yang sama, jadi tipenya bebas
+asal nilainya sampai ke argumen sebagai `s32`. Catatan tambahan: slot `s32 sp0` yang alamatnya diambil
+(`&sp0`) tidak perlu `volatile` — alamat-escape sudah cukup memaksa `sub sp,#4` + `str`/`mov` seperti
+ref (bandingkan POLA-DIFF §46 yang butuh `volatile` karena slotnya tak pernah diambil alamatnya).
