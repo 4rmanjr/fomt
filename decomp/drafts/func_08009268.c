@@ -13,21 +13,27 @@ s32 func_08009268(GenObj *arg0) {
     s32 ret;
     u32 bit;
     u32 mask;
-    s16 v;
+    s32 v;
+    u16 o0;
+    u16 a;
+    u16 c;
 
     ret = func_08009190();
+    o0 = arg0->unk0;
+    c = arg0->unkC;
+    a = arg0->unkA;
     mask = 0;
     bit = 0x200;
     p = (s16 *) ((u8 *) arg0 + 0x20);
     do {
-        if (arg0->unk0 & bit) {
+        if (o0 & bit) {
             if (!(ret & bit)) {
                 v = *p;
-                if (v != arg0->unkA) {
+                if (v != a) {
                     v += 1;
                 } else {
                     mask |= bit;
-                    v -= arg0->unkC;
+                    v -= c;
                 }
             } else {
                 mask |= bit;

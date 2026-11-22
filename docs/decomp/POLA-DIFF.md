@@ -1499,3 +1499,31 @@ tekanan register, menulis lokal `u16` justru menambah satu nilai hidup dan mendo
 save-set naik. Tanpa ide yang mengubah jumlah nilai hidup (bukan hanya letak deklarasinya),
 pola ini berhenti.
 
+## 43. Temp `s16` memaksa truncation + load ganda; `s32` menghapusnya (`func_08009268`)
+
+Ref `func_08009268` (94B) memuat `ldrsh r0, [r1, r7]` sekali lalu `cmp`/`subs`/`strh` pada nilai
+32-bit. Draf dengan `s16 v` menghasilkan 88B yang **salah arah**:
+
+```
+ldrh r1, [r2]          ; load kedua dari alamat yang sama
+movs r7, #0
+ldrsh r0, [r2, r7]
+...
+sub r0, r1, r0
+lsls r0, r0, #0x10     ; truncation ke s16
+lsrs r1, r0, #0x10
+```
+
+Sebabnya: `v -= c` dengan `v` bertipe `s16` memaksa cast balik ke 16-bit setiap penugasan, dan
+karena `v` juga dipakai sebagai operand `u16`, gcc memuat ulang alamat yang sama. Mengubah
+deklarasi menjadi `s32 v` (store `*p = v` tetap `strh`) langsung menghapus `lsls/lsrs` dan load
+ganda: 88B → **82B** dengan `extra 5 -> 2`.
+
+Sisa 12 byte barulah soal hoist: ref memuat `unk0`, `unkC`, `unkA` di preheader (`ldrh` ke
+`r8/r6/r5`). Menambahkan lokal `u16 o0, a, c` dengan urutan baca unk0 → unkC → unkA menghasilkan
+**MATCH**. Catatan penting: hoist ini hanya berhasil setelah `v` menjadi `s32`; dengan `v` masih
+`s16`, varian hoist yang sama membengkak ke 108B karena truncation menambah nilai hidup.
+
+Pembukti: `func_08009268` (MATCH, dimigrasikan ke `src/hardware_migrated.cc` dengan `pindah: 1`,
+baseline + target `fomt.gba: OK`).
+
