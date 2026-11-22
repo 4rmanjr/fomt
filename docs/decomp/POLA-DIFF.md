@@ -1256,3 +1256,60 @@ Tiga hal yang mengunci bentuk ini:
 
 Bukti: `func_08003BB4` (new_game.s, 116B) MATCH setelah 6 percobaan, lalu
 migrasi `src/` dengan `make compare` HIJAU (baseline + target).
+
+## 35. Lubang 4 byte di bawah buffer besar: buffer sebagai anggota agregat (`func_08003C80`)
+
+Gejala: ref berframe 0x2D28 dengan `pb = sp+8`, padahal area argumen keluar cuma
+4 byte (satu `str r1, [sp]` untuk argumen ke-5) — jadi ada 4 byte mati di
+sp+4..sp+7 yang tidak pernah dibaca/ditulis kode mana pun. Dengan `u8 buf[0x2D00]`
+biasa, buffer selalu mendarat tepat di sp+4 (probe `probe_big`: frame 0x2D04).
+
+Sebab: buffernya bukan lokal berdiri sendiri, melainkan anggota agregat yang
+punya kepala 4 byte:
+
+```c
+typedef struct { s32 head; u8 data[0x2D00]; } Buf3C80;
+...
+    Buf3C80 work;
+    pb = work.data;              /* -> mov r0, sp; adds r0, #8 */
+```
+
+gcc menaruh objek terbesar tepat di atas area argumen keluar (sp+4), sehingga
+`work.data` = sp+8 dan frame total 4 + 0x2D04 + 0x20 = 0x2D28 — persis ref.
+Kepala `head` tidak disentuh kode mana pun (dead space, bukan padding compiler).
+
+Bukti: `func_08003C80` — offset hasil judge sama dengan ref: `pb` sp+8, `s0`
+0x2D08, `s1..s3` 0x2D0C/0x2D10/0x2D14, slot `p1..p3` 0x2D18/0x2D1C/0x2D20,
+frame 0x2D28. Pembanding probe: buffer polos 0x2D00 + call 5 argumen → sp+4.
+
+## 36. Urutan slot stack: array/agregat di alamat rendah, skalar di atasnya (`func_08003C80`)
+
+Gejala: empat objek 4 byte (`{s16 w; s16 h;}`) + tiga pointer + satu pointer
+buffer. Kalau keempatnya ditulis sebagai tipe `struct`, agbcc menaruhnya di
+ATAS pointer (0x2D18..) — kebalikan ref (struct di 0x2D08.., pointer di
+0x2D18..). Mengubah urutan deklarasi tidak mengubah satu byte pun.
+
+Yang cocok: agbcc mengalokasikan objek array/agregat lebih rendah daripada
+skalar 4 byte. Menulis keempatnya sebagai `s16 s0[2]`, `s1[2]`, `s2[2]`,
+`s3[2]` membuatnya mendarat di 0x2D08..0x2D14, dan pointer (skalar) di atasnya
+0x2D18.. — sama dengan ref. Pola store-nya ikut identik: `[0]` lewat alamat
+langsung (`strh r0, [r3]`), `[1]` lewat pointer yang di-reload
+(`ldr r2, [slot]; strh r3, [r2, #2]`).
+
+Bukti: `func_08003C80`; probe `p8` (struct + pointer → pointer di alamat
+rendah), `p10` (array pointer di alamat rendah), `p12` (array `s16[2]` di
+bawah, skalar pointer di atas).
+
+## 37. Induksi offset: `base + i*0xC` mengalahkan variabel `off` (`func_08003C80`)
+
+Gejala: dengan `s32 off; ... g = (s32 *) ((u8 *) &gUnk + off); ... off += 0xC;`
+agbcc menumpahkan `off` ke slot stack — satu `ldr` ekstra per iterasi, frame
+0x2D28 tapi `off` menempati slot milik `pb` di ref (370 byte vs ref 366).
+
+Menulis `g = (s32 *) ((u8 *) &gUnk_080E8704 + i * 0xC)` (tanpa variabel `off`)
+menghasilkan 342 byte: induksi byte tetap dibentuk agbcc (strength reduction),
+dan konstanta `0xC` dipakai bersama store `[1] = 0xC` seperti ref (`mov r3, sl`).
+
+Bukti: `func_08003C80` varian A (342 vs ref 366) vs varian B dengan `off`
+(370 vs ref 366); keduanya DIFF, tapi A tidak lagi menumpahkan `off`.
+
