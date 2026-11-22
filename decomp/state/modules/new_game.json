@@ -26,7 +26,7 @@
   "addr": 134233012,
   "judged_mtime": 1795351803.0921001,
   "module": "new_game.s",
-  "note": "",
+  "note": "MATCH + migrasi ke src/new_game.cc. Pola yang menembuskannya: alamat slot stack di-CSE lintas dua `bl` sehingga memakan register callee-saved; dipecah dengan __asm__ volatile(\"add %0, sp, #0x10\") per call + pin arg0->r5, nol->r0, literal 0x889->r1 (POLA-DIFF.md \u00a734). Gate signature dilalui dengan deklarasi variadik func_08009300 (MIGRATE.md \u00a720).",
   "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 116,
   "sanitize_v": 4,

@@ -62,7 +62,7 @@
   "draft_src": "manual",
   "judged_mtime": 1794409222.5345392,
   "module": "code_entities.s",
-  "note": "byte +0x1e: 0x1 vs ref 0x4 [2regalloc @r pop {r2} | pop {r0}] [parkir sesi: body identik, hanya epilog `pop {r2}` vs `pop {r0}`; wall regalloc]",
+  "note": "byte +0x1e: 0x1 vs ref 0x4 [2regalloc @r pop {r2} | pop {r0}] [parkir: epilog `pop {r2}` vs `pop {r0}` (wall regalloc), badan 36B identik. Sekaligus pembukti POLA-DIFF.md \u00a738: field s16 + temp s32 -> `ldrsh`, store `(s16)` -> `add/sub + strh`; kembar func_08037470]",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 388,
