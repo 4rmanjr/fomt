@@ -4812,9 +4812,9 @@
  },
  "func_080E5664": {
   "addr": 135157348,
-  "judged_mtime": 1793150387.8600168,
+  "judged_mtime": 1795350505.3653402,
   "module": "code_linkonce.s",
-  "note": "type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5664/Prodesk_64840/func.c:160: warning: passing arg 4 of `func_080E54F0' from incompatible pointer type\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E5664/Prodesk_64840/func.c:160: too few arguments to function `func_080E54F0'\n",
+  "note": "[parkir: butuh rekonstruksi penuh. Ekor modul (idx 427, tak ada penerus) -> fungsi pertama yang wajib MATCH sebelum blok promoted 421/422/424 bisa pindah. Draf m2c 180 baris vs ref 210 instruksi: judge 394B vs ref 438B [50missing,28extra,33operand,61regalloc,4stack,3different] -> 22 instruksi hilang, artinya cabang besar belum terbentuk (bukan sekadar tipe). Gate migrate menjawab 'tidak ada kandidat' karena status failed. Butuh tulis ulang dari asm (prolog `mov r7,sb; mov r6,r8; push {r6,r7}; sub sp,#0x18`, r6=arg1, r8=arg2, r4=arg3) sebelum ada blok yang bisa dicabut]",
   "ref_len": 439,
   "sanitize_v": 4,
   "size": 3573,
