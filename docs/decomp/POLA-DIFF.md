@@ -2067,6 +2067,17 @@ linker/`extern` (pool berisi alamat simbol) - pool yang isinya angka kecil bisa
 berarti `.equ`, bukan literal. Tanda pembeda praktis: literal selalu dilipat
 `movs` oleh ketiga compiler, simbol absolut selalu `ldr` dari pool.
 
+Jalur build sudah dicek per objek (2026-11-23), bukan cuma lewat judge:
+`0x08008D10` ada di `build/src/hardware_migrated.o` (simbol `T`, 0x1c byte) yang
+lahir dari `src/hardware_migrated.cc` lewat `arm-none-eabi-cpp | agbcp -O2
+-mthumb-interwork -fhex-asm` + `align_sections.sh` + `arm-none-eabi-as`.
+Override `CC1 := $(OLD_CC1)` hanya berlaku untuk `src/m4a.o` dan `src/pop_r2.o`,
+jadi TU ini **tidak** memakai `old_agbcc` dan tidak ada objek asm langsung.
+Ketiga jalur menghasilkan idiom pool yang sama untuk sumber bersimbol: `agbcc`
+(judge, MATCH), `agbcp` (build; objek + ROM ter-link identik, `ldr r1,[pc,#16];
+lsls #24; lsrs #24; .word 0x5`), dan `old_agbcc` (uji lokal). Tidak ada jalur
+build di repo ini yang mengeluarkan pool untuk literal.
+
 ## 65. Pin register di agbcc: nama NUMERIK (`"r9"`), bukan alias (`"sb"`), dan wajib di-fence
 
 Kasus `func_080E5664` (439B) di `code_linkonce.s`: ref menyimpan `fl` (flag
