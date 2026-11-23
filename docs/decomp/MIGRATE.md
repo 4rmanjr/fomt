@@ -990,14 +990,15 @@ menyalin struct src — `i32` di draf ditolak `audit_consistency.py`). Judge ula
 ## 34. Parkir "blob dua fungsi" bisa dibuka: `ref_len` terakhir termasuk data ekor
 
 Catatan parkir lama untuk `func_08008FE4` (`hardware.s`) menyebut "ref 176B = dua fungsi dalam satu
-blok `.byte`, C satu fungsi mustahil mencapainya". Itu keliru: 56B pertama adalah fungsi asm biasa dan
-120B sisanya adalah **data ekor** (fungsi tanpa label di `0x0800901C`) yang tetap di `ref_len`.
-Gate memotong data ekor dari perbandingan instruksi dan menyalinnya verbatim ke blok C, jadi fungsi
-terakhir sebuah modul tetap bisa MATCH + `migrate` selama badan fungsinya sendiri bisa ditulis di C.
-Yang perlu diperiksa hanya apakah sisanya benar-benar data/tak-terpanggil-langsung, bukan panjangnya.
+blok `.byte`, C satu fungsi mustahil mencapainya". Itu keliru: 56B pertama adalah fungsi asm biasa,
+dan 120B sisanya **bukan data** melainkan fungsi lain tanpa label yang mulai di `0x0800901C`
+(`push {r4,r5,r6,r7,lr}; sub sp,#8; …`). Gate memotong ekor itu dari perbandingan instruksi dan
+menyalinnya verbatim ke blok C, jadi fungsi terakhir sebuah modul tetap bisa MATCH + `migrate` selama
+badan fungsinya sendiri bisa ditulis di C — tetapi MATCH "56B" itu **hanya** untuk fungsi pertama;
+fungsi di ekor tetap tak diterjemahkan (lihat §40, kasus yang sama di `0x08008FB8`).
 
-Bukti: MATCH 56B lalu `pindah: 1`, baseline + target `fomt.gba: OK`; setelah migrasi, `asm/hardware.s`
-berakhir di blob `.byte` 44B milik fungsi sebelumnya (`0x08008FB8`).
+Bukti: MATCH 56B lalu `pindah: 1`, baseline + target `fomt.gba: OK`; setelah migrasi, sisa
+`asm/hardware.s` berakhir di ekor yang ternyata juga fungsi (`0x08008FB8`, §40).
 
 ## 35. Blok promoted basi: tanda tangannya bisa menyembunyikan fungsi yang sudah MATCH
 
@@ -1156,3 +1157,12 @@ Untuk menyimbolkannya seperti `func_08008FE4`: tambahkan `thumb_func_start func_
 modul asm pemilik rentang `0x08008E00`, buang string `asm(".L08008FB8: …")` dari blok C pemiliknya,
 lalu jalur biasa (scan -> draft -> judge -> migrate). Karena rentang ini sudah tidak ada di
 `asm/hardware.s`, symbol-nya perlu ditempel di modul yang sekarang menutup `0x08008FB8`.
+
+**Aturan harness verifikasi (supaya tidak ada "diff 0" palsu):** ekstrak byte ROM dengan
+`offset = alamat - 0x08000000` (bukan alamatnya langsung); jangan bandingkan draf terhadap ROM
+ter-link untuk klaim MATCH — `bl` di ROM sudah berdisplacement, sedangkan `.o` masih `f7ff feff`, jadi
+selalu bandingkan dengan ref hasil rakit asm (dua sisi sama-sama placeholder) atau kecualikan operand
+`bl`. Dan jangan pernah menyimpulkan dari `min(len)`: itu memotong ekor, sehingga fungsi yang barunya
+diterjemahkan separuh tetap melaporkan 0 byte beda. Periksa dulu `ref_len` vs panjang badan: kalau
+`ref_len` lebih besar, ekor itu harus di-disasm sebelum disebut "data" (`func_08008FE4` 175B = 56B +
+fungsi di `0x0800901C`; `func_0804EDB4` 104B = 68B + fungsi di `0x0804EDF8`).

@@ -957,7 +957,7 @@
   "addr": 134254564,
   "judged_mtime": 1795362747.1573496,
   "module": "hardware.s",
-  "note": "[MATCH 56B + migrasi src/hardware_migrated.cc] ref_len 175 termasuk ekor `.byte` 120B (fungsi tanpa label di 0x0800901C) \u2014 data ekor dipotong gate & disalin verbatim, jadi bukan alasan parkir. Kunci MATCH: literal 0x040000D4 disimpan ke lokal `s32 dma` SEBELUM loop; dengan literal langsung di argumen, agbcc memuatnya di dalam loop (`ldr r3,[pc]`) dan tidak memakai r6 seperti ref. Slot `s32 sp0` cukup alamat-di-ambil (`&sp0`), tanpa `volatile`. `pindah: 1`, baseline + target `fomt.gba: OK`. Lihat POLA-DIFF.md 54 / MIGRATE.md 34.",
+  "note": "[MATCH 56B + migrasi src/hardware_migrated.cc] ref_len 175 = badan 56B + 119B FUNGSI lain tanpa label di 0x0800901C (ekor itu kode, bukan data; disalin verbatim ke blok C); MATCH hanya untuk badan 56B, verifikasi 2026-11-23 pakai offset = alamat - 0x08000000: badan draf 56B identik kecuali 3 byte displacement bl. Kunci MATCH: literal 0x040000D4 disimpan ke lokal `s32 dma` SEBELUM loop; dengan literal langsung di argumen, agbcc memuatnya di dalam loop (`ldr r3,[pc]`) dan tidak memakai r6 seperti ref. Slot `s32 sp0` cukup alamat-di-ambil (`&sp0`), tanpa `volatile`. `pindah: 1`, baseline + target `fomt.gba: OK`. Lihat POLA-DIFF.md 54 / MIGRATE.md 34.",
   "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 175,
   "sanitize_v": 4,

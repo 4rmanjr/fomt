@@ -1817,8 +1817,10 @@ dan tidak bisa digeser lewat pin selama `sl` masih dipakai allocator.
 
 ## 57. Resep §43 di fungsi lain: truncation argumen di-hoist, pointer `s16` jangan pakai aritmetika byte
 
-Resep §43 (temp `s32` + hoist field ke preheader) diterapkan ke `func_0804EDB4` (104B incl. ekor data,
-`code_0803EE94.s`). Temp-nya sudah `s32`, jadi yang relevan justru dua hal lain yang muncul bersamaan:
+Resep §43 (temp `s32` + hoist field ke preheader) diterapkan ke `func_0804EDB4` (`code_0803EE94.s`;
+`ref_len` 104B = **68B badan + 36B fungsi berikut tanpa label** di `0x0804EDF8` — ekor itu kode, bukan
+data; verifikasi ulang 2026-11-23: badan draf 66B setelah `depad`, 9 byte beda di `0x2`–`0x5` = urutan
+prolog, sesuai catatan parkir). Temp-nya sudah `s32`, jadi yang relevan justru dua hal lain yang muncul bersamaan:
 
 1. **Truncation argumen harus di-hoist, bukan dibiarkan di loop.** `arg2` bertipe `u16`, dan memakainya
    langsung di badan loop membuat `lsls r2,#0x10; lsrs r7,r2,#0x10` muncul **di dalam** loop. Menambah
