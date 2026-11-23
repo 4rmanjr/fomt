@@ -45,6 +45,66 @@ RAW_WIDTHS = (64, 32, 30, 60, 46, 40, 36, 28, 24, 20, 16, 56, 48,
               80, 96, 128, 8, 12, 14, 18, 22, 26, 34, 38, 42, 44,
               50, 52, 54, 58, 62, 66, 68, 70, 72, 76)
 
+# Blob yang lolos uji tile secara statistik, tetapi call site membuktikan
+# bahwa isinya bukan tile 4bpp datar. Kunci ini berasal dari penelusuran asm:
+# `container` = wadah font/objek (header count + tabel, atau record glyph);
+# `tilemap` = array u16 yang ditulis ke peta. Jangan menambah entri hanya dari
+# nama symbol; setiap entri harus punya bukti call site di komentar nilainya.
+VERIFIED_LAYOUT = {
+    "gUnk_084F90CC": (
+        "sprite/OBJ", "container",
+        "glyph 12 B; func_080D0D28 indeks r5*12 -> func_0300085C",
+    ),
+    "gUnk_084FA9A0": (
+        "sprite/OBJ", "container",
+        "glyph 24 B; func_080D0D28 indeks r5*24 -> func_03000714",
+    ),
+    "gUnk_0852D984": (
+        "sprite/OBJ", "container",
+        "count 184 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+    ),
+    "gUnk_0858BA28": (
+        "sprite/OBJ", "container",
+        "count 2551 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+    ),
+    "gUnk_086F2FAC": (
+        "sprite/OBJ", "container",
+        "count 4 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+    ),
+    "gUnk_0871D51C": (
+        "sprite/OBJ", "container",
+        "count 11 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+    ),
+    "gUnk_08728320": (
+        "sprite/OBJ", "container",
+        "count 7 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+    ),
+    "gUnk_08729460": (
+        "sprite/OBJ", "container",
+        "count 1 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+    ),
+    "gUnk_0872DE44": (
+        "sprite/OBJ", "container",
+        "count 27 + tabel; func_080522F8 -> func_0805E6CC, bukan tile datar",
+    ),
+    "gUnk_08731B40": (
+        "sprite/OBJ", "container",
+        "count 20 + tabel; @ChickenPortraits, func_0805E6CC, bukan tile datar",
+    ),
+    "gUnk_087409E4": (
+        "sprite/OBJ", "container",
+        "count 1 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+    ),
+    "gUnk_0874F34C": (
+        "sprite/OBJ", "container",
+        "count 22 + tabel; func_080A220C -> func_0805E6CC, bukan tile datar",
+    ),
+    "gUnk_086DE7F4": (
+        "tilemap", None,
+        "25204 entri u16; func_080AA9C8 memilihnya sebagai layer peta",
+    ),
+}
+
 
 def u16s(data):
     return [int.from_bytes(data[i:i + 2], "little")
@@ -104,8 +164,15 @@ def tile_prefix(data):
     return None
 
 
-def classify(data):
-    """-> (kelompok, catatan, (start, ekor) atau None)."""
+def classify(data, name=None):
+    """-> (kelompok, catatan, (start, ekor) atau None).
+
+    `name` hanya dipakai untuk override hasil verifikasi call site; tanpa nama,
+    classifier tetap murni berbasis isi agar fixture kecil tetap deterministik.
+    """
+    if name in VERIFIED_LAYOUT:
+        group, _layout, note = VERIFIED_LAYOUT[name]
+        return group, note, None
     n = len(data)
     u = u16s(data)
     if n and n <= 1024 and n % 32 == 0 and u and all(v < 0x8000 for v in u):
@@ -147,6 +214,8 @@ def render(entry, data, out, group, note):
         fx.render_palette(data, out / png)
         return f"assets/raw/{png}"
     if group == "sprite/OBJ":
+        if entry.get("layout") == "container":
+            return None
         start = entry.get("tile_offset", 0)
         tail = entry.get("tile_trim", 0)
         body = data[start:len(data) - tail] if tail else data[start:]
@@ -171,9 +240,12 @@ def build(rom, entries):
         if entry.kind == "lzss-0x70":
             continue
         data = rom[entry.offset:entry.offset + entry.size]
-        group, note, window = classify(data)
+        group, note, window = classify(data, entry.name)
+        layout = VERIFIED_LAYOUT.get(entry.name, (None, None, None))[1]
         row = {"symbol": entry.name, "offset": f"0x{entry.offset:06X}",
                "size": entry.size, "group": group, "note": note}
+        if layout:
+            row["layout"] = layout
         if window:
             row["tile_offset"], row["tile_trim"] = window
         row["data"] = data
@@ -219,8 +291,11 @@ def render_doc(manifest):
                "menyisakan tile dengan >= 13% nibble nol dan <= 12 indeks/tile; "
                "tilemap = entri 16-bit dengan bit 10-15 konsisten; sisanya "
                "tabel/struct dan tidak dirender. Offset/ekor yang dipotong "
-               "dicatat di manifest (`tile_offset`/`tile_trim`). Batas ini "
-               "heuristik, bukan bukti format.")
+               "dicatat di manifest (`tile_offset`/`tile_trim`). Override "
+               "`layout: container` menandai wadah font/objek yang sudah "
+               "diverifikasi dari call site; isinya bukan tile 4bpp datar dan "
+               "tidak dirender sebagai lembar tile. Batas ini heuristik, bukan "
+               "bukti format; override call-site adalah bukti terpisah.")
     out.append("")
     for g in ("palet", "sprite/OBJ", "tilemap", "tabel"):
         sel = [r for r in rows if r["group"] == g]
@@ -233,7 +308,9 @@ def render_doc(manifest):
                        "warna GBA 5-5-5.")
         elif g == "sprite/OBJ":
             out.append("Dirender sebagai lembar tile 4bpp abu-abu indeks "
-                       "(tanpa palet; warna asli butuh palet OBJ terpisah).")
+                       "(tanpa palet; warna asli butuh palet OBJ terpisah). "
+                       "Entri `layout: container` adalah wadah font/objek "
+                       "terverifikasi call-site dan sengaja tidak dirender.")
         elif g == "tilemap":
             out.append("Dirender sebagai grid indeks; lebar ditebak dari "
                        "jumlah entri dan dicantumkan di nama berkas.")

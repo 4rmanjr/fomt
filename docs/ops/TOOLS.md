@@ -177,8 +177,13 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   isi, bukan nama simbol. Blob non-32 B diuji dengan memotong sisa 1-31 B di
   depan (header kecil) atau belakang (ekor kecil); bila sisa tile lolos ambang
   di atas, blob dirender sebagai `sprite/OBJ` dan `tile_offset`/`tile_trim`
-  dicatat di manifest. Ambang ini heuristik, bukan bukti format. Tidak
-  menjalankan build dan tidak menulis ROM.
+  dicatat di manifest. Ambang ini heuristik, bukan bukti format. `VERIFIED_LAYOUT`
+  adalah override kecil yang berasal dari call site, bukan dari nama: entri
+  `layout: container` (glyph/font/objek dengan count+tabel) tetap di kelompok
+  `sprite/OBJ` tetapi tidak punya `tile_offset` dan tidak dirender sebagai
+  lembar tile; entri seperti `gUnk_086DE7F4` dikoreksi menjadi `tilemap` karena
+  call site menulis entri u16-nya ke peta. Setiap entri override harus punya
+  bukti fungsi/alamat di komentar. Tidak menjalankan build dan tidak menulis ROM.
 
 ## Engine kerja (`decomp_engine.py`)
 

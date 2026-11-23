@@ -4,8 +4,10 @@
 Fixture kecil dan deterministik; tujuannya mengunci kelas yang sudah
 dibuktikan di inventaris, bukan menguji ulang isi ROM:
 
-  * font 4148 B: 20 B header + 129 tile tetap sprite;
-  * font 4100 B: 128 tile + 4 B ekor tetap sprite;
+  * flat tile 4148 B: 20 B header + 129 tile tetap sprite;
+  * gClockFont 4100 B: 128 tile + 4 B ekor tetap sprite;
+  * symbol yang terverifikasi call-site sebagai container/tilemap tetap
+    memakai override walau data sintetisnya lolos uji tile;
   * sprite 128 B: empat tile tetap sprite;
   * tilemap 780 B: 390 entri tetap tilemap;
   * tabel besar non-32 B tetap tabel.
@@ -64,20 +66,43 @@ def large_table():
 
 
 class RawAssetClassifier(unittest.TestCase):
-    def check(self, data, group, window=None):
-        got, note, probe = raw_assets.classify(data)
+    def check(self, data, group, window=None, name=None):
+        got, note, probe = raw_assets.classify(data, name)
         self.assertEqual(got, group, note)
         self.assertEqual(probe, window)
 
-    def test_font_4148_header_stays_sprite(self):
+    def test_tile_sheet_4148_header_stays_sprite(self):
         data = font_4148()
         self.assertEqual(len(data), 4148)
         self.check(data, "sprite/OBJ", (20, 0))
+        self.check(data, "sprite/OBJ", None, "gUnk_0872DE44")
 
-    def test_font_4100_tail_stays_sprite(self):
+    def test_gclock_font_4100_tail_stays_sprite(self):
         data = font_4100()
         self.assertEqual(len(data), 4100)
         self.check(data, "sprite/OBJ", (0, 4))
+        self.check(data, "sprite/OBJ", (0, 4), "gUnk_0875A440")
+
+    def test_verified_font_container_is_not_flat_tile(self):
+        data = font_4148()
+        got, note, probe = raw_assets.classify(data, "gUnk_0872DE44")
+        self.assertEqual(got, "sprite/OBJ", note)
+        self.assertIsNone(probe)
+        self.assertIn("count 27", note)
+
+    def test_verified_glyph_containers_are_not_flat_tile(self):
+        for name, stride in (("gUnk_084F90CC", 12),
+                             ("gUnk_084FA9A0", 24)):
+            got, note, probe = raw_assets.classify(font_4148(), name)
+            self.assertEqual(got, "sprite/OBJ", note)
+            self.assertIsNone(probe)
+            self.assertIn(f"glyph {stride} B", note)
+
+    def test_verified_map_layer_is_tilemap(self):
+        got, note, probe = raw_assets.classify(tilemap_780(), "gUnk_086DE7F4")
+        self.assertEqual(got, "tilemap", note)
+        self.assertIsNone(probe)
+        self.assertIn("layer peta", note)
 
     def test_sprite_128_stays_sprite(self):
         data = sprite_128()

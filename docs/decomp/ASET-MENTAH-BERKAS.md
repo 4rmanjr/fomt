@@ -14,12 +14,12 @@ python3 tools/scripts/raw_assets.py --check   # exit 1 bila dokumen basi
 | kelompok | blob | bisa dirender |
 |---|---|---|
 | palet | 70 | 70 |
-| sprite/OBJ | 75 | 75 |
-| tilemap | 14 | 14 |
+| sprite/OBJ | 74 | 62 |
+| tilemap | 15 | 15 |
 | tabel | 72 | 0 |
-| **total** | **231** | **159** |
+| **total** | **231** | **147** |
 
-Kelompok ditentukan dari isi, bukan nama simbol: palet = semua u16 < 0x8000 dan <= 1 KB; sprite/OBJ = kelipatan 32 B (tile 4bpp), ditambah blob non-32 B yang setelah header/ekor <= 31 B menyisakan tile dengan >= 13% nibble nol dan <= 12 indeks/tile; tilemap = entri 16-bit dengan bit 10-15 konsisten; sisanya tabel/struct dan tidak dirender. Offset/ekor yang dipotong dicatat di manifest (`tile_offset`/`tile_trim`). Batas ini heuristik, bukan bukti format.
+Kelompok ditentukan dari isi, bukan nama simbol: palet = semua u16 < 0x8000 dan <= 1 KB; sprite/OBJ = kelipatan 32 B (tile 4bpp), ditambah blob non-32 B yang setelah header/ekor <= 31 B menyisakan tile dengan >= 13% nibble nol dan <= 12 indeks/tile; tilemap = entri 16-bit dengan bit 10-15 konsisten; sisanya tabel/struct dan tidak dirender. Offset/ekor yang dipotong dicatat di manifest (`tile_offset`/`tile_trim`). Override `layout: container` menandai wadah font/objek yang sudah diverifikasi dari call site; isinya bukan tile 4bpp datar dan tidak dirender sebagai lembar tile. Batas ini heuristik, bukan bukti format; override call-site adalah bukti terpisah.
 
 ## palet (70 blob)
 
@@ -98,31 +98,30 @@ Dirender sebagai kartu swatch 16 warna per baris, warna GBA 5-5-5.
 | `gUnk_08757BAC` | `0x757BAC` | 32 | 16 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_08757BAC_32_palet.png) |
 | `gUnk_08757BD8` | `0x757BD8` | 32 | 16 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_08757BD8_32_palet.png) |
 
-## sprite/OBJ (75 blob)
+## sprite/OBJ (74 blob)
 
-Dirender sebagai lembar tile 4bpp abu-abu indeks (tanpa palet; warna asli butuh palet OBJ terpisah).
+Dirender sebagai lembar tile 4bpp abu-abu indeks (tanpa palet; warna asli butuh palet OBJ terpisah). Entri `layout: container` adalah wadah font/objek terverifikasi call-site dan sengaja tidak dirender.
 
 | simbol | offset | ukuran | catatan | bisa dirender | PNG |
 |---|---|---|---|---|---|
-| `gUnk_0858BA28` | `0x58BA28` | 898616 | 28081 tile 4bpp setelah 24 B header; 62% nibble nol, 6.7 indeks/tile | ya | [png](../../assets/raw/png/gUnk_0858BA28_898616_sprite.png) |
-| `gUnk_0852D984` | `0x52D984` | 385188 | 12037 tile 4bpp setelah 4 B header; 30% nibble nol, 6.7 indeks/tile | ya | [png](../../assets/raw/png/gUnk_0852D984_385188_sprite.png) |
+| `gUnk_0858BA28` | `0x58BA28` | 898616 | count 2551 + tabel; func_0805E6CC (font/objek), bukan tile datar | tidak | - |
+| `gUnk_0852D984` | `0x52D984` | 385188 | count 184 + tabel; func_0805E6CC (font/objek), bukan tile datar | tidak | - |
 | `gUnk_086678A0` | `0x6678A0` | 196736 | 6148 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_086678A0_196736_sprite.png) |
-| `gUnk_084FA9A0` | `0x4FA9A0` | 166128 | 5191 tile 4bpp setelah 16 B header; 42% nibble nol, 11.2 indeks/tile | ya | [png](../../assets/raw/png/gUnk_084FA9A0_166128_sprite.png) |
-| `gUnk_086DE7F4` | `0x6DE7F4` | 50408 | 1575 tile 4bpp setelah 8 B header; 14% nibble nol, 7.9 indeks/tile | ya | [png](../../assets/raw/png/gUnk_086DE7F4_50408_sprite.png) |
+| `gUnk_084FA9A0` | `0x4FA9A0` | 166128 | glyph 24 B; func_080D0D28 indeks r5*24 -> func_03000714 | tidak | - |
 | `gUnk_086EAD8C` | `0x6EAD8C` | 33312 | 1041 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_086EAD8C_33312_sprite.png) |
-| `gUnk_086F2FAC` | `0x6F2FAC` | 31444 | 982 tile 4bpp setelah 20 B header; 23% nibble nol, 7.3 indeks/tile | ya | [png](../../assets/raw/png/gUnk_086F2FAC_31444_sprite.png) |
+| `gUnk_086F2FAC` | `0x6F2FAC` | 31444 | count 4 + tabel; func_0805E6CC (font/objek), bukan tile datar | tidak | - |
 | `gUnk_0871EF00` | `0x71EF00` | 28320 | 885 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_0871EF00_28320_sprite.png) |
-| `gUnk_08731B40` | `0x731B40` | 26116 | 816 tile 4bpp setelah 4 B header; 19% nibble nol, 6.5 indeks/tile | ya | [png](../../assets/raw/png/gUnk_08731B40_26116_sprite.png) |
-| `gUnk_08729460` | `0x729460` | 10756 | 336 tile 4bpp setelah 4 B header; 24% nibble nol, 4.3 indeks/tile | ya | [png](../../assets/raw/png/gUnk_08729460_10756_sprite.png) |
-| `gUnk_087409E4` | `0x7409E4` | 9844 | 307 tile 4bpp setelah 20 B header; 42% nibble nol, 10.5 indeks/tile | ya | [png](../../assets/raw/png/gUnk_087409E4_9844_sprite.png) |
-| `gUnk_084F90CC` | `0x4F90CC` | 5844 | 182 tile 4bpp setelah 20 B header; 42% nibble nol, 7.4 indeks/tile | ya | [png](../../assets/raw/png/gUnk_084F90CC_5844_sprite.png) |
-| `gUnk_0874F34C` | `0x74F34C` | 5012 | 156 tile 4bpp setelah 20 B header; 58% nibble nol, 5.3 indeks/tile | ya | [png](../../assets/raw/png/gUnk_0874F34C_5012_sprite.png) |
-| `gUnk_0871D51C` | `0x71D51C` | 4748 | 148 tile 4bpp setelah 12 B header; 23% nibble nol, 6.0 indeks/tile | ya | [png](../../assets/raw/png/gUnk_0871D51C_4748_sprite.png) |
+| `gUnk_08731B40` | `0x731B40` | 26116 | count 20 + tabel; @ChickenPortraits, func_0805E6CC, bukan tile datar | tidak | - |
+| `gUnk_08729460` | `0x729460` | 10756 | count 1 + tabel; func_0805E6CC (font/objek), bukan tile datar | tidak | - |
+| `gUnk_087409E4` | `0x7409E4` | 9844 | count 1 + tabel; func_0805E6CC (font/objek), bukan tile datar | tidak | - |
+| `gUnk_084F90CC` | `0x4F90CC` | 5844 | glyph 12 B; func_080D0D28 indeks r5*12 -> func_0300085C | tidak | - |
+| `gUnk_0874F34C` | `0x74F34C` | 5012 | count 22 + tabel; func_080A220C -> func_0805E6CC, bukan tile datar | tidak | - |
+| `gUnk_0871D51C` | `0x71D51C` | 4748 | count 11 + tabel; func_0805E6CC (font/objek), bukan tile datar | tidak | - |
 | `gUnk_08697920` | `0x697920` | 4576 | 143 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_08697920_4576_sprite.png) |
 | `gUnk_08698E14` | `0x698E14` | 4576 | 143 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_08698E14_4576_sprite.png) |
 | `gUnk_0869A0A4` | `0x69A0A4` | 4576 | 143 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_0869A0A4_4576_sprite.png) |
-| `gUnk_08728320` | `0x728320` | 4188 | 130 tile 4bpp setelah 28 B header; 53% nibble nol, 3.9 indeks/tile | ya | [png](../../assets/raw/png/gUnk_08728320_4188_sprite.png) |
-| `gUnk_0872DE44` | `0x72DE44` | 4148 | 129 tile 4bpp setelah 20 B header; 57% nibble nol, 4.5 indeks/tile | ya | [png](../../assets/raw/png/gUnk_0872DE44_4148_sprite.png) |
+| `gUnk_08728320` | `0x728320` | 4188 | count 7 + tabel; func_0805E6CC (font/objek), bukan tile datar | tidak | - |
+| `gUnk_0872DE44` | `0x72DE44` | 4148 | count 27 + tabel; func_080522F8 -> func_0805E6CC, bukan tile datar | tidak | - |
 | `gUnk_0875A440` | `0x75A440` | 4100 | 128 tile 4bpp dipotong 4 B ekor; 62% nibble nol, 2.7 indeks/tile | ya | [png](../../assets/raw/png/gUnk_0875A440_4100_sprite.png) |
 | `gUnk_086D5508` | `0x6D5508` | 3680 | 115 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_086D5508_3680_sprite.png) |
 | `gUnk_086D6698` | `0x6D6698` | 3680 | 115 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_086D6698_3680_sprite.png) |
@@ -180,12 +179,13 @@ Dirender sebagai lembar tile 4bpp abu-abu indeks (tanpa palet; warna asli butuh 
 | `gUnk_087533EC` | `0x7533EC` | 128 | 4 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_087533EC_128_sprite.png) |
 | `gUnk_0875348C` | `0x75348C` | 128 | 4 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_0875348C_128_sprite.png) |
 
-## tilemap (14 blob)
+## tilemap (15 blob)
 
 Dirender sebagai grid indeks; lebar ditebak dari jumlah entri dan dicantumkan di nama berkas.
 
 | simbol | offset | ukuran | catatan | bisa dirender | PNG |
 |---|---|---|---|---|---|
+| `gUnk_086DE7F4` | `0x6DE7F4` | 50408 | 25204 entri u16; func_080AA9C8 memilihnya sebagai layer peta | ya | [png](../../assets/raw/png/gUnk_086DE7F4_50408_tilemap_32.png) |
 | `gUnk_08755230` | `0x755230` | 780 | 390 entri 16-bit; bit 10-15 modal 88% | ya | [png](../../assets/raw/png/gUnk_08755230_780_tilemap_30.png) |
 | `gUnk_0875553C` | `0x75553C` | 780 | 390 entri 16-bit; bit 10-15 modal 69% | ya | [png](../../assets/raw/png/gUnk_0875553C_780_tilemap_30.png) |
 | `gUnk_08757C14` | `0x757C14` | 780 | 390 entri 16-bit; bit 10-15 modal 88% | ya | [png](../../assets/raw/png/gUnk_08757C14_780_tilemap_30.png) |

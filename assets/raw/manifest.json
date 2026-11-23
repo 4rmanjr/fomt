@@ -5,11 +5,9 @@
    "offset": "0x4F90CC",
    "size": 5844,
    "group": "sprite/OBJ",
-   "note": "182 tile 4bpp setelah 20 B header; 42% nibble nol, 7.4 indeks/tile",
-   "tile_offset": 20,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_084F90CC_5844_sprite.png"
+   "note": "glyph 12 B; func_080D0D28 indeks r5*12 -> func_0300085C",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_084FA7A0",
@@ -25,11 +23,9 @@
    "offset": "0x4FA9A0",
    "size": 166128,
    "group": "sprite/OBJ",
-   "note": "5191 tile 4bpp setelah 16 B header; 42% nibble nol, 11.2 indeks/tile",
-   "tile_offset": 16,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_084FA9A0_166128_sprite.png"
+   "note": "glyph 24 B; func_080D0D28 indeks r5*24 -> func_03000714",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_08523290",
@@ -118,22 +114,18 @@
    "offset": "0x52D984",
    "size": 385188,
    "group": "sprite/OBJ",
-   "note": "12037 tile 4bpp setelah 4 B header; 30% nibble nol, 6.7 indeks/tile",
-   "tile_offset": 4,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_0852D984_385188_sprite.png"
+   "note": "count 184 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_0858BA28",
    "offset": "0x58BA28",
    "size": 898616,
    "group": "sprite/OBJ",
-   "note": "28081 tile 4bpp setelah 24 B header; 62% nibble nol, 6.7 indeks/tile",
-   "tile_offset": 24,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_0858BA28_898616_sprite.png"
+   "note": "count 2551 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_08667060",
@@ -394,12 +386,10 @@
    "symbol": "gUnk_086DE7F4",
    "offset": "0x6DE7F4",
    "size": 50408,
-   "group": "sprite/OBJ",
-   "note": "1575 tile 4bpp setelah 8 B header; 14% nibble nol, 7.9 indeks/tile",
-   "tile_offset": 8,
-   "tile_trim": 0,
+   "group": "tilemap",
+   "note": "25204 entri u16; func_080AA9C8 memilihnya sebagai layer peta",
    "renderable": true,
-   "png": "assets/raw/png/gUnk_086DE7F4_50408_sprite.png"
+   "png": "assets/raw/png/gUnk_086DE7F4_50408_tilemap_32.png"
   },
   {
    "symbol": "gUnk_086EACDC",
@@ -476,11 +466,9 @@
    "offset": "0x6F2FAC",
    "size": 31444,
    "group": "sprite/OBJ",
-   "note": "982 tile 4bpp setelah 20 B header; 23% nibble nol, 7.3 indeks/tile",
-   "tile_offset": 20,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_086F2FAC_31444_sprite.png"
+   "note": "count 4 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_086FAA80",
@@ -495,11 +483,9 @@
    "offset": "0x71D51C",
    "size": 4748,
    "group": "sprite/OBJ",
-   "note": "148 tile 4bpp setelah 12 B header; 23% nibble nol, 6.0 indeks/tile",
-   "tile_offset": 12,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_0871D51C_4748_sprite.png"
+   "note": "count 11 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_0871E7A8",
@@ -579,11 +565,9 @@
    "offset": "0x728320",
    "size": 4188,
    "group": "sprite/OBJ",
-   "note": "130 tile 4bpp setelah 28 B header; 53% nibble nol, 3.9 indeks/tile",
-   "tile_offset": 28,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_08728320_4188_sprite.png"
+   "note": "count 7 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_0872937C",
@@ -598,11 +582,9 @@
    "offset": "0x729460",
    "size": 10756,
    "group": "sprite/OBJ",
-   "note": "336 tile 4bpp setelah 4 B header; 24% nibble nol, 4.3 indeks/tile",
-   "tile_offset": 4,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_08729460_10756_sprite.png"
+   "note": "count 1 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_0872BE64",
@@ -635,11 +617,9 @@
    "offset": "0x72DE44",
    "size": 4148,
    "group": "sprite/OBJ",
-   "note": "129 tile 4bpp setelah 20 B header; 57% nibble nol, 4.5 indeks/tile",
-   "tile_offset": 20,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_0872DE44_4148_sprite.png"
+   "note": "count 27 + tabel; func_080522F8 -> func_0805E6CC, bukan tile datar",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_0872EE78",
@@ -672,11 +652,9 @@
    "offset": "0x731B40",
    "size": 26116,
    "group": "sprite/OBJ",
-   "note": "816 tile 4bpp setelah 4 B header; 19% nibble nol, 6.5 indeks/tile",
-   "tile_offset": 4,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_08731B40_26116_sprite.png"
+   "note": "count 20 + tabel; @ChickenPortraits, func_0805E6CC, bukan tile datar",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_08738144",
@@ -846,11 +824,9 @@
    "offset": "0x7409E4",
    "size": 9844,
    "group": "sprite/OBJ",
-   "note": "307 tile 4bpp setelah 20 B header; 42% nibble nol, 10.5 indeks/tile",
-   "tile_offset": 20,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_087409E4_9844_sprite.png"
+   "note": "count 1 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_08747A14",
@@ -909,11 +885,9 @@
    "offset": "0x74F34C",
    "size": 5012,
    "group": "sprite/OBJ",
-   "note": "156 tile 4bpp setelah 20 B header; 58% nibble nol, 5.3 indeks/tile",
-   "tile_offset": 20,
-   "tile_trim": 0,
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_0874F34C_5012_sprite.png"
+   "note": "count 22 + tabel; func_080A220C -> func_0805E6CC, bukan tile datar",
+   "layout": "container",
+   "renderable": false
   },
   {
    "symbol": "gUnk_087506E0",
