@@ -937,13 +937,14 @@
  },
  "func_08036BF8": {
   "addr": 134441976,
-  "judged_mtime": 1795434356.4325693,
+  "judged_mtime": 1795435422.9029083,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x29: 0x21 vs ref 0x22 [3missing,3extra,1operand,9regalloc @r movs r2, #0xa | movs r1, #0xa]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 815,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08036C48": {
@@ -1093,9 +1094,9 @@
  },
  "func_08037048": {
   "addr": 134443080,
-  "judged_mtime": 1795434356.4325693,
+  "judged_mtime": 1795435162.9260097,
   "module": "code_entities_08034CEC.s",
-  "note": "len 74 vs ref 72 [6extra,5operand,6regalloc,3different @i ldr r0, [pc, #0x3c] | ldr r0, [pc, #0x40]]",
+  "note": "len 76 vs ref 72 [5extra,4operand,8regalloc,2different @i ldr r0, [pc, #0x3c] | ldr r0, [pc, #0x40]]",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 870,

@@ -662,9 +662,9 @@
  "func_080A0A1C": {
   "addr": 134875676,
   "draft_src": "manual",
-  "judged_mtime": 1795434715.7331715,
+  "judged_mtime": 1795435638.0338032,
   "module": "code_809E804.s",
-  "note": "len 52 vs ref 54 [4missing,3extra,2operand,13regalloc,3different @i push {r4, lr} | push {r4, r5, lr}]",
+  "note": "len 50 vs ref 54 [2missing,1operand,13regalloc,4different @r adds r4, r0, #0 | adds r2, r0, #0]",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 482,
@@ -673,9 +673,9 @@
  },
  "func_080A0A54": {
   "addr": 134875732,
-  "judged_mtime": 1795434057.076701,
+  "judged_mtime": 1795435638.0338032,
   "module": "code_809E804.s",
-  "note": "byte +0x0: 0x30 vs ref 0x10 [3missing,4extra,4operand,10regalloc,4different @i push {r4, lr} | push {r4, r5, lr}]",
+  "note": "byte +0x4: 0x2 vs ref 0x4 [3missing,4extra,1operand,12regalloc,3different @r adds r4, r0, #0 | adds r2, r0, #0]",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 530,
@@ -2698,9 +2698,9 @@
  "func_080ADF40": {
   "addr": 134930240,
   "draft_src": "manual",
-  "judged_mtime": 1795434528.578807,
+  "judged_mtime": 1795435561.012676,
   "module": "code_809E804.s",
-  "note": "len 36 vs ref 44 [4missing,3operand,10regalloc,1different @i push {r4, r5, lr} | push {r4, lr}]",
+  "note": "len 38 vs ref 44 [3missing,3operand,10regalloc,2different @i push {r4, r5, lr} | push {r4, lr}]",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 420,
@@ -5404,13 +5404,14 @@
  },
  "func_080CFB5C": {
   "addr": 135068508,
-  "judged_mtime": 1795433670.4964316,
+  "judged_mtime": 1795435494.5991268,
   "module": "code_809E804.s",
-  "note": "len 68 vs ref 72 [4missing,6extra,3operand,5regalloc @>  | adds r4, r0, #0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 698,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080CFBAC": {

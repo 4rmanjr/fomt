@@ -497,9 +497,9 @@
  },
  "func_080233B4": {
   "addr": 134362036,
-  "judged_mtime": 1795434356.4365692,
+  "judged_mtime": 1795435251.4348838,
   "module": "code_entities.s",
-  "note": "len 80 vs ref 76 [6missing,8extra,2operand,1regalloc,4different @i beq #0x20 | beq #0x22]",
+  "note": "len 74 vs ref 76 [2missing,1extra,4operand,8regalloc @r adds r4, r0, #0 | adds r5, r0, #0]",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 839,

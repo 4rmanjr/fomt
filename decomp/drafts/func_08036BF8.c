@@ -1,20 +1,28 @@
-s32 func_08034F00(void *, s32);                       /* extern */
+s32 func_08034F00();                                   /* extern */
 
-typedef struct GenObj {
-    s32 unk0;
-    s32 unk4;
-    u8 _pad8[2];
-    s32 unkA;
-    s32 unkE;
-} GenObj;
-void func_08036BF8(GenObj *arg0, s32 arg1) {
-    s16 temp_r6;
-    s16 temp_r7;
+void func_08036BF8(u8 *arg0, s32 arg1) {
+    s32 x;
+    s32 y;
+    s32 v0;
+    s32 v1;
+    s32 *o;
 
-    temp_r6 = arg0->unkA;
-    temp_r7 = arg0->unkE;
+    x = *(s16 *) (arg0 + 0xA);
+    y = *(s16 *) (arg0 + 0xE);
     func_08034F00(arg0, arg1);
-    if ((arg1 > 1) && (arg0->unk4 == 2) && ((temp_r6 != 0xF4) || (temp_r7 != 0xAB)) && (arg0->unkA == 0xF4) && (arg0->unkE == 0xAB)) {
-        (*arg0->unk0)->unk114();
+    if (arg1 <= 1) {
+        return;
+    }
+    if (*(u16 *) (arg0 + 4) != 2) {
+        return;
+    }
+    if (x == 0xF4 && y == 0xAB) {
+        return;
+    }
+    v0 = *(s16 *) (arg0 + 0xA);
+    v1 = *(s16 *) (arg0 + 0xE);
+    if (v0 == 0xF4 && v1 == 0xAB) {
+        o = (s32 *) *(s32 *) arg0;
+        ((void (*)(s32 *)) ((s32 *) o[0])[0x45])(o);
     }
 }

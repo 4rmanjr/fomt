@@ -1526,3 +1526,10 @@ menghasilkan `[SKIP] extern ... beda tanda tangan` walau byte-nya sudah MATCH.
 Perbaiki draf → `judge` ulang (tetap True) → hapus blok `// DECOMP-MATCHED
 <fn>` di `decomp/promoted/<stem>.cc` + set `status='matched'` di shard →
 `promote` → `migrate`. Tanpa reset itu `promote` menulis blok lama.
+
+### 19. Callee di src tanpa prototipe: tulis `s32 f();`
+
+Sebagian callee lama dideklarasikan K&R di `src/` (`i32 func_08034F00();`,
+daftar parameter kosong). Draf yang menulis `void func_08034F00(u8 *, s32);`
+kena `[SKIP] extern ... beda tanda tangan` walau byte sudah MATCH. Samakan
+bentuknya (`s32 func_08034F00();`), judge ulang, lalu promote/migrate.

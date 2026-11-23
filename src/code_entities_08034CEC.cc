@@ -1826,6 +1826,39 @@ i32 func_08036B80(i32 arg0) {
 }
 }
 
+// DECOMP-MATCHED func_08036BF8 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08034F00();                                   /* extern */
+
+__attribute__((section(".text.code_entities_08034CEC.08036BF8")))
+void func_08036BF8(u8 *arg0, i32 arg1) {
+    i32 x;
+    i32 y;
+    i32 v0;
+    i32 v1;
+    i32 *o;
+
+    x = *(i16 *) (arg0 + 0xA);
+    y = *(i16 *) (arg0 + 0xE);
+    func_08034F00(arg0, arg1);
+    if (arg1 <= 1) {
+        return;
+    }
+    if (*(u16 *) (arg0 + 4) != 2) {
+        return;
+    }
+    if (x == 0xF4 && y == 0xAB) {
+        return;
+    }
+    v0 = *(i16 *) (arg0 + 0xA);
+    v1 = *(i16 *) (arg0 + 0xE);
+    if (v0 == 0xF4 && v1 == 0xAB) {
+        o = (i32 *) *(i32 *) arg0;
+        ((void (*)(i32 *)) ((i32 *) o[0])[0x45])(o);
+    }
+}
+}
+
 // DECOMP-MATCHED func_08036C48 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __10ANpcEntityP10GameObjectP3NpcUiPCvUiUiUi(void *, void *, void *, u32, i32 *, i32, i32, i32); /* extern */
@@ -2845,7 +2878,6 @@ done:
     func_08008B6C(v, (u16) arg1);
 }
 }
-
 
 // DECOMP-MATCHED func_0803A798 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {

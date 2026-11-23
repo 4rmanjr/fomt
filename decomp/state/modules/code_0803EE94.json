@@ -2247,9 +2247,9 @@
  },
  "func_0806D8C8": {
   "addr": 134666440,
-  "judged_mtime": 1795434156.9730783,
+  "judged_mtime": 1795435561.012676,
   "module": "code_0803EE94.s",
-  "note": "byte +0xc: 0x20 vs ref 0xe [1missing,2extra,2operand,2regalloc @i ldr r0, [pc, #0x38] | ldr r0, [r4]]",
+  "note": "byte +0x10: 0x20 vs ref 0x21 [1missing,2extra,2regalloc @r ldr r1, [r4] | ldr r0, [r4]]",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 697,

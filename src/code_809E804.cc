@@ -3575,6 +3575,35 @@ void *func_080CFB28(GenObj__func_080CFB28 *arg0) {
     return arg0;
 }
 }
+// DECOMP-MATCHED func_080CFB5C (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+void* GetMapData(i32 arg0);                             /* extern */
+i32 Unpack(i32, i32);                                  /* extern */
+void func_08008E64(i32, i32, i32);                     /* extern */
+extern i32 gUnk_086D6368;
+extern i32 gUnk_08699FF4;
+
+__attribute__((section(".text.code_809E804.080CFB5C")))
+void func_080CFB5C(u8 *arg0, i32 arg1, u32 arg2) {
+    i32 map;
+    i32 m;
+    u32 off;
+    u8 *base;
+    i32 *p;
+
+    map = (i32) GetMapData(*(i32 *) (arg0 + 4));
+    m = *(i32 *) (map + 4);
+    off = arg2 * 4;
+    base = arg0 + 0x1C;
+    p = (i32 *) (base + off);
+    Unpack(m, *p);
+    if (*(i32 *) (arg0 + 4) == 0x3E) {
+        func_08008E64((i32) &gUnk_086D6368, *p + 0x100, 0x60);
+        func_08008E64((i32) &gUnk_08699FF4, *p + 0x160, 0x80);
+    }
+}
+}
+
 
 // DECOMP-MATCHED func_080D06D0 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {

@@ -2623,3 +2623,31 @@ parameter yang di ref baru dipotong di ujung.
    membuangnya (38-56B vs 60B). `*(volatile s32 *) s.self = 0;` memulihkan
    blok destruktor maya dan urutan, tetapi `&s` masih dilipat sehingga
    `adds r1, r0, #0` hilang — sisa 4B. Kategori parkir.
+
+### 80. Penerima virtual call adalah objek yang DIMUAT, bukan argumennya
+
+`func_08036BF8`: ref `ldr r0,[r5]` (= `*(s32 *) arg0`), `ldr r1,[r0]` (vtable ke r1
+supaya r0 tetap objek untuk `bl`), `movs r2,#0x8a; lsls r2,#1; adds r1,r1,r2;
+ldr r1,[r1]; bl _call_via_r1`. Menulis `((s32 *) *(s32 *) arg0)[0x45])(arg0)`
+membuat gcc memakai r0 untuk vtable lalu menambah `adds r0, r5, #0` (4B lebih,
+80B vs 76B). Yang cocok: muat objeknya dulu ke variabel lalu panggil dengan
+objek itu —
+`s32 *o; o = (s32 *) *(s32 *) arg0; ((void (*)(s32 *)) ((s32 *) o[0])[0x45])(o);`
+Pola sama dipakai `func_0806D8C8`/`func_08037048` (penerima = field yang dimuat).
+
+Bila field dibaca dua kali dengan satu `bl` di antaranya, simpan ke variabel
+terpisah (`v0`,`v1`) supaya kedua `ldrsh` dikeluarkan sebelum `cmp`
+(`func_08036BF8`).
+
+### 81. Hitung indeks lebih dulu, baru base pointer
+
+`func_080CFB5C`: ref `lsls r4,r4,#2` (indeks) → `adds r1,r5,#0; adds r1,#0x1c`
+(base) → `adds r4,r1,r4`. Menulis `p = (s32 *) (arg0 + 0x1C + arg2 * 4);`
+membuat gcc melipat base ke `adds r4,r4,#0x1c; adds r4,r5,r4` (2 instruksi,
+urutan beda, 31 diff). Yang cocok: indeks dan base dipisah ke variabel, indeks
+DULU —
+`off = arg2 * 4; base = arg0 + 0x1C; p = (s32 *) (base + off);`
+
+Hal yang sama berlaku untuk urutan muat: `m = *(s32 *) (map + 4);` ditulis
+sebagai pernyataan sebelum perhitungan `p`, kalau tidak gcc menaikkan
+perhitungan `p` ke atas muat itu.
