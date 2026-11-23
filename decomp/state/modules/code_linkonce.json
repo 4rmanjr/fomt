@@ -4816,7 +4816,7 @@
   "draft_src": "manual",
   "judged_mtime": 1795408433.6704895,
   "module": "code_linkonce.s",
-  "note": "PARKIR ulang: draf 1:1 dari asm (goto per label) tetap terbaik. Uji 2026-11-23: pecah blok L571E (p tidak hidup bersama n; ambil (*arg2)->unk10 langsung, p baru dimuat di L5768) + satu variabel flag q untuk fl/ip -> cc_probe 420B/201 instr (dari 440B/210), high register r8+r9 saja (sl hilang, sama seperti ref), tapi judge len 420 vs ref 438 [64missing,55extra,24operand,63regalloc,2stack,7different] -> lebih jauh secara struktur, jadi draf dikembalikan ke versi parkir. Catatan lama 'arg0 di-spill (str r0,[sp,#16])' tidak tereproduksi pada draf ini: frame 0x14 vs ref 0x18 tanpa spill arg0. Rincian: POLA-DIFF 56.",
+  "note": "PARKIR: draf 1:1 dari asm (440B/210 instr) tetap yang terbaik. Uji 2026-11-23 (tiga varian, ukur cc_probe dulu): (A) pecah L571E + satu flag -> 420B/201, high reg turun ke r8+r9 (sl hilang) tapi judge 64missing/55extra/63regalloc; (B) satu flag saja (ip->t, p tetap) -> 440B/210, judge 61missing/61extra/66regalloc; (C) pecah L571E saja -> 444B/213 instr. Semua lebih jauh dari ref 438B daripada draf parkir (15missing/15extra/97regalloc). Tidak ada spill arg0 di ketiga varian maupun draf: arg0 hidup di r7 persis ref, dan str r0,[sp,#4] yang terlihat itu argumen ke-6 untuk func_080E54F0 (sama seperti ref). Rincian: POLA-DIFF 56.",
   "ref_len": 439,
   "sanitize_v": 4,
   "size": 3573,

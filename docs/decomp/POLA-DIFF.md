@@ -1799,8 +1799,13 @@ hilang persis seperti ref. Tetapi judge menolak lebih jauh: `len 420 vs ref 438`
 `[64missing,55extra,24operand,63regalloc,2stack,7different]` (sebelumnya 15missing/15extra/97regalloc) — memotong
 dua pointer yang hidup bersamaan justru menggeser urutan blok relatif ke ref. Frame tetap `0x14` vs ref `0x18`,
 dan catatan lama "arg0 di-spill (`str r0,[sp,#16]`)" **tidak tereproduksi** pada draf ini, jadi tebusan spill tidak
-bisa dipakai sebagai patokan. Kesimpulan: jalur penyusutan live-range bukan jalan ke MATCH di fungsi ini; draf
-parkir dipertahankan.
+bisa dipakai sebagai patokan. Dua varian lain diukur dengan cara sama: **hanya menyatukan flag** (`ip` → `t`, `p` tetap) tetap 440B/210 dan
+judge-nya malah `61missing/61extra/66regalloc`; **hanya memecah `L571E`** jadi 444B/213 instruksi. Jadi kedua
+resep itu saling menutupi: efek bersihnya hanya menghapus `sl`, bukan mendekatkan urutan blok ke ref.
+Kesimpulan: jalur penyusutan live-range bukan jalan ke MATCH di fungsi ini; draf parkir dipertahankan.
+Catatan tambahan: tidak ada spill `arg0` di varian mana pun — `arg0` hidup di `r7` persis seperti ref, dan
+`str r0,[sp,#4]` yang tampak di prolog-sekitar-call adalah argumen ke-6 `func_080E54F0` (`movs r0,#0`), pola
+yang sama dengan ref.
 
 ## 57. Resep §43 di fungsi lain: truncation argumen di-hoist, pointer `s16` jangan pakai aritmetika byte
 
