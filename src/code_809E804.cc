@@ -2689,7 +2689,6 @@ i32 func_080ADBB4(u8 *arg0) {
 }
 }
 
-
 // DECOMP-MATCHED gData_code_809E804_080ADC30.data.080ADC30
 extern "C" {
 // data tak-dirujuk di 0x080ADC30 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -3342,6 +3341,30 @@ void func_080CD534(i32 *arg0, i32 arg1, i32 arg2) {
     t += 0x78;
     b = (u8) t;
     *arg0 = (temp_r2 & 0xFFFFFF00) | b;
+}
+}
+
+// DECOMP-MATCHED func_080CECD0 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080CECD0")))
+void func_080CECD0(void *arg0) {
+    register void *o __asm__("r2");
+    register u8 *p __asm__("r0");
+    register i32 zz __asm__("r1");
+
+    o = arg0;
+    __asm__ volatile("" : "+r"(o));
+    p = (u8 *) arg0;
+    __asm__ volatile("" : "+r"(p));
+    p += 0x84;
+    zz = 0;
+    *p = (u8) zz;
+    p -= 0x1C;
+    *p = (u8) zz;
+    *(i32 *) ((u8 *) o + 0x7C) = 0x12;
+    p = (u8 *) o;
+    p += 0x80;
+    *(i32 *) p = zz;
 }
 }
 

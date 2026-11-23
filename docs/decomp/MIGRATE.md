@@ -1225,3 +1225,17 @@ Jebakan:
   pencarian pada `".L0800901C:` lalu `rfind` ke komentar `// ekor …` sebelumnya.
 - Callee di sini bernama `CpuFastSet` (`0x080D374C`) dan `CpuSet` (`0x080D3750`), bukan `func_…` —
   memakai nama yang salah membuat pool/displacement beda.
+
+## 43. Nama lokal `zero` bikin migrator menulis cast palsu `(zer)(arg0)`
+
+Bukti: `func_080CECD0` (code_809E804, 24B). Blok MATCH-nya memakai
+`register s32 zero __asm__("r1");` dan `o = arg0;`. Saat migrasi, baris itu
+keluar sebagai `o = (zer)(arg0);` di `src/` sehingga compile gagal dengan
+`stdin:NNNN: 'zer' undeclared` — pesannya menunjuk nama yang tidak pernah ada
+di draf, jadi jangan buang waktu mencari di draf.
+
+Transformasi migrator memotong/menafsirkan identifier `zero` sebagai nama tipe
+(lihat juga daftar reserved di `migrate.py`); mengubah urutan deklarasi pin
+tidak menolong, tapi **mengganti nama variabel** (mis. `zero` -> `zz`) langsung
+bersih dan codegen tidak berubah (rename murni). Aturan praktis: jangan pakai
+`zero` sebagai nama variabel lokal di blok MATCH yang akan dimigrasikan.

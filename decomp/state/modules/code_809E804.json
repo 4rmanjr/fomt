@@ -5306,13 +5306,14 @@
  },
  "func_080CECD0": {
   "addr": 135064784,
-  "judged_mtime": 1794373354.96075,
+  "judged_mtime": 1795415141.2440116,
   "module": "code_809E804.s",
-  "note": "byte +0x2: 0x0 vs ref 0x84 [1missing,1extra,1operand @< adds r2, r0, #0 | ] || ANALISIS 2026-11-11: panjang sudah sama (24 vs 24), sisa 1 instruksi `adds r2, r0, #0` (ref menyimpan arg0 ke r2 sebelum p memakai r0). Var `o = arg0` / pin register tidak memicu copy itu; regalloc agbcc memilih reuse r0. 5 judge terpakai, diparkir.",
+  "note": "MATCH 24B (12 instr) + migrasi ke src/code_809E804.cc. Kunci: `o` (arg0) harus tinggal di r2 karena dipakai lagi SESUDAH pointer r0 maju - `adds r2,r0,#0` lalu `str r0,[r2,#0x7c]` dan `adds r0,r2,#0`. Tiga pin wajib (nama numerik + fence): o->r2, p->r0, zero->r1; zero dimaterialisasi SETELAH `p += 0x84` supaya `movs r1,#0` muncul di urutan ref, dan blok penutup ditulis `p = (u8 *) o; p += 0x80;` agar keluar `adds r0,r2,#0; adds r0,#0x80` (bukan `add r2,r2,#0x80`). Bentuk `void *` + cast byte dipakai supaya tidak bentrok dengan `GenObj` milik TU. Variabel zero->zz: nama `zero` memicu migrator menulis `(zer)(arg0)` (MIGRATE 43).",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 244,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080CECE8": {
