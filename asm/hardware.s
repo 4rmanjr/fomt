@@ -2751,11 +2751,3 @@ func_08008CA8: @ 0x08008CA8
     bx r0
     .align 2, 0
 
-    thumb_func_start func_08008CC4
-func_08008CC4: @ 0x08008CC4
-    push {lr}
-    ldr r0, [r0]
-    bl m4aMPlayImmInit
-    pop {r0}
-    bx r0
-

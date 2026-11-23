@@ -283,9 +283,17 @@ typedef struct S_08CD0 {
 } S_08CD0;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_08008CC4 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayImmInit(i32);                             /* extern */
+
+void func_08008CC4(i32 *arg0) {
+    m4aMPlayImmInit(*arg0);
+}
+}
+
 // DECOMP-MATCHED func_08008CD0 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-
 
 i32 func_08008CD0(S_08CD0 **arg0) {
     return ((*arg0)->unk4 >> 0x1F) ^ 1;
