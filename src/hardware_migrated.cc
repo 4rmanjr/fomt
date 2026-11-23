@@ -456,14 +456,20 @@ void *func_08008F60(GenObj__func_08008F60 *arg0, i32 arg1, i32 arg2, i32 arg3) {
     return arg0;
 }
 }
-// ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
-asm(
-".L08008FB8:\n"
-"    .byte 0x10, 0xB5, 0x81, 0xB0, 0x02, 0x1C, 0x54, 0x68\n"
-"    .byte 0x10, 0x68, 0x01, 0x28, 0x01, 0xD1, 0x00, 0x94, 0x6C, 0x46, 0x91, 0x68, 0xD2, 0x68, 0x04, 0x4B\n"
-"    .byte 0x20, 0x1C, 0xC7, 0xF0, 0x73, 0xFF, 0x01, 0xB0, 0x10, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00\n"
-"    .byte 0xD4, 0x00, 0x00, 0x04\n"
-);
+// DECOMP-MATCHED func_08008FB8 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+void func_08008FB8(i32 *arg0) {
+    i32 sp0;
+    i32 *t;
+
+    t = (i32 *) arg0[1];
+    if (arg0[0] == 1) {
+        sp0 = (i32) t;
+        t = &sp0;
+    }
+    func_080D0EBC(t, arg0[2], arg0[3], 0x040000D4);
+}
+}
 
 // DECOMP-MATCHED func_08008FE4 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
