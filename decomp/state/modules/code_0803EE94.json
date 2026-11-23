@@ -2247,9 +2247,9 @@
  },
  "func_0806D8C8": {
   "addr": 134666440,
-  "judged_mtime": 1793582714.1294024,
+  "judged_mtime": 1795434156.9730783,
   "module": "code_0803EE94.s",
-  "note": "c.c: In function `func_0806D8C8':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0806D8C8/opencode/func.c:22: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0806D8C8/opencode/func.c:22: request for member `unk8' in something not a structure or union\n",
+  "note": "byte +0xc: 0x20 vs ref 0xe [1missing,2extra,2operand,2regalloc @i ldr r0, [pc, #0x38] | ldr r0, [r4]]",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 697,
@@ -2986,9 +2986,9 @@
  },
  "func_08076B94": {
   "addr": 134704020,
-  "judged_mtime": 1795432747.4816294,
+  "judged_mtime": 1795434528.578807,
   "module": "code_0803EE94.s",
-  "note": "byte +0x2: 0x6 vs ref 0xc [2missing,3extra,5operand,4regalloc @< adds r4, r1, #0 | ]",
+  "note": "byte +0x8: 0x25 vs ref 0x22 [1missing,2extra,3operand,1regalloc @r ldr r2, [r4] | ldr r5, [r4]]",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 681,
@@ -3377,9 +3377,9 @@
  },
  "func_0807AFF4": {
   "addr": 134721524,
-  "judged_mtime": 1795432627.4494534,
+  "judged_mtime": 1795434528.578807,
   "module": "code_0803EE94.s",
-  "note": "len 74 vs ref 68 [4extra,3operand @>  | ldr r3, [pc, #0x38]]",
+  "note": "len 72 vs ref 68 [1missing,3extra,3operand,2regalloc @r ldr r2, [r1] | ldr r3, [r1]]",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 560,
@@ -3985,13 +3985,14 @@
  },
  "func_08081108": {
   "addr": 134746376,
-  "judged_mtime": 1795432672.6679373,
+  "judged_mtime": 1795434991.0268104,
   "module": "code_0803EE94.s",
-  "note": "byte +0x6: 0xa vs ref 0x8 [3missing,5extra,4operand,1regalloc,1stack @< adds r0, r1, #0 | ]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 594,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0808114C": {

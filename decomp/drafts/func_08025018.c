@@ -1,23 +1,18 @@
-s32 SetAnim__12AActorEntityUi(void *);                /* extern */
-u16 func_0802D158(void *);                          /* extern */
-s32 func_0802F0EC(void *, s32, s32);                  /* extern */
-s32 func_0803242C(void *, s32);                       /* extern */
+void func_0802F0EC(u8 *, s32, s32);                    /* extern */
+u16 func_0802D158(u8 *);                               /* extern */
+s32 SetAnim__12AActorEntityUi(void *, u16);               /* extern */
+void func_0803242C(u8 *, s32);                         /* extern */
 
-typedef struct GenObj {
-    u8 _pad0[34];
-    s32 unk22;
-    u8 _pad26[154];
-    s32 unkC0;
-    s32 unkC1;
-    s32 unkC2;
-} GenObj;
-void func_08025018(GenObj *arg0, s32 arg1) {
-    arg0->unkC1 = 0;
-    if (arg0->unkC2 == 0) {
-        if (arg0->unkC0 != 0) {
+void func_08025018(u8 *arg0, s32 arg1) {
+    u16 v;
+
+    *(u8 *) (arg0 + 0xC1) = 0;
+    if (*(u8 *) (arg0 + 0xC2) == 0) {
+        if (*(u8 *) (arg0 + 0xC0) != 0) {
             func_0802F0EC(arg0, 0, 0);
-            if (arg0->unk22 != func_0802D158(arg0)) {
-                SetAnim__12AActorEntityUi(arg0);
+            v = func_0802D158(arg0);
+            if (*(u16 *) (arg0 + 0x22) != v) {
+                SetAnim__12AActorEntityUi((void *) arg0, v);
             }
         }
         func_0803242C(arg0, arg1);

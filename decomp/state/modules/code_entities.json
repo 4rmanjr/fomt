@@ -497,9 +497,9 @@
  },
  "func_080233B4": {
   "addr": 134362036,
-  "judged_mtime": 1795432924.5671198,
+  "judged_mtime": 1795434356.4365692,
   "module": "code_entities.s",
-  "note": "len 74 vs ref 76 [8missing,10extra,5operand,7regalloc,1different @i push {r4, r5, r6, r7, lr} | push {r4, r5, r6, lr}]",
+  "note": "len 80 vs ref 76 [6missing,8extra,2operand,1regalloc,4different @i beq #0x20 | beq #0x22]",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 839,
@@ -794,13 +794,14 @@
  },
  "func_08025018": {
   "addr": 134369304,
-  "judged_mtime": 1793582714.069412,
+  "judged_mtime": 1795434979.9731598,
   "module": "code_entities.s",
-  "note": "byte +0x8: 0xc8 vs ref 0xc1 [2operand,2regalloc,1stack,4different @s adds r1, #0xc1 | adds r1, #0xc8]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 778,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08025068": {
@@ -816,9 +817,9 @@
  },
  "func_080251FC": {
   "addr": 134369788,
-  "judged_mtime": 1795433937.1284406,
+  "judged_mtime": 1795434731.1313112,
   "module": "code_entities.s",
-  "note": "len 110 vs ref 76 [3missing,20extra,1operand,4regalloc,3stack,3different @s sub sp, #8 | sub sp, #0xc]",
+  "note": "len 100 vs ref 76 [12extra,5operand,3regalloc,1stack,1different @>  | mov r7, sb]",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 751,

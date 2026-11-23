@@ -1,16 +1,21 @@
-s32 *GetDesc__C7Article(s32 *);                         /* extern */
-s32 __7ArticleUi(s32 *, s32);                           /* extern */
-s32 func_080CABEC(s32, s32 *);                          /* extern */
-extern s32 gUnk_080FE8FC;
-extern s32 gUnk_080FE974;
+typedef struct Art_81108 {
+    s32 f0;
+    s32 f1;
+} Art_81108;
 
-void func_08081108(s32 arg0, s32 arg1) {
-s32 sp0;
+extern Art_81108 gUnk_080FE8FC[];
+extern s32 gUnk_080FE974;
+void __7ArticleUi(void *, s32);                        /* extern */
+s32 GetDesc__C7Article(void *);                        /* extern */
+s32 func_080CABEC(s32, s32);                            /* extern */
+
+void func_08081108(s32 arg0, u32 arg1) {
+    u8 sp[4];
 
     if (arg1 != 0xA) {
-        __7ArticleUi(&sp0, *((arg1 * 8) + &gUnk_080FE8FC));
-        func_080CABEC(arg0, GetDesc__C7Article(&sp0));
-        return;
+        __7ArticleUi(sp, gUnk_080FE8FC[arg1].f0);
+        func_080CABEC((s32) arg0, (s32) GetDesc__C7Article(sp));
+    } else {
+        func_080CABEC((s32) arg0, (s32) &gUnk_080FE974);
     }
-    func_080CABEC(arg0, &gUnk_080FE974);
 }

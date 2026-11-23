@@ -1942,6 +1942,13 @@ typedef struct Obj0809AB8C {
 } Obj0809AB8C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Art_81108 {
+    i32 f0;
+    i32 f1;
+} Art_81108;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -4402,6 +4409,29 @@ __attribute__((section(".text.code_0803EE94.08080E54")))
 void func_08080E54(GenObj__func_08080E54 *arg0, i32 arg1) {
     arg0->unk4 = &vtable_unk_080E7CB0;
     func_080C8360(arg0, arg1);
+}
+}
+
+// DECOMP-MATCHED func_08081108 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+extern Art_81108 gUnk_080FE8FC[];
+extern i32 gUnk_080FE974;
+void __7ArticleUi(void *, i32);                        /* extern */
+i32 GetDesc__C7Article(void *);                        /* extern */
+i32 func_080CABEC(i32, i32);                            /* extern */
+
+__attribute__((section(".text.code_0803EE94.08081108")))
+void func_08081108(i32 arg0, u32 arg1) {
+    u8 sp[4];
+
+    if (arg1 != 0xA) {
+        __7ArticleUi((void *)(sp), gUnk_080FE8FC[arg1].f0);
+        func_080CABEC((i32) arg0, GetDesc__C7Article((void *)(sp)));
+    } else {
+        func_080CABEC((i32) arg0, (i32) &gUnk_080FE974);
+    }
 }
 }
 

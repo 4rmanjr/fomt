@@ -1515,3 +1515,14 @@ python3 decomp/migrate.py --module hardware.s --func <fungsi>   # baca alasan se
 
 Kalau kegagalannya berupa cast/tanda tangan (bukan "SKIP ... ekor/data asing"),
 itu bukan buntu - perbaiki deklarasinya seperti MIGRATE §45.
+
+### 18. SKIP-permanen karena tanda tangan di src yang sudah ada
+
+`migrate.py` membandingkan prototipe callee di draf dengan `src/<stem>.cc`
+LEBIH DULU, sebelum menyentuh blok promoted. `SetAnim__12AActorEntityUi`
+harus `i32 (void *, u16)` dan `func_080CABEC` harus `i32 (i32, i32)` persis
+seperti di src; draf yang memakai `void (u8 *, i32)` / `void (i32, i32)`
+menghasilkan `[SKIP] extern ... beda tanda tangan` walau byte-nya sudah MATCH.
+Perbaiki draf → `judge` ulang (tetap True) → hapus blok `// DECOMP-MATCHED
+<fn>` di `decomp/promoted/<stem>.cc` + set `status='matched'` di shard →
+`promote` → `migrate`. Tanpa reset itu `promote` menulis blok lama.

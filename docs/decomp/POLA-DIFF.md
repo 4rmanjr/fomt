@@ -2602,3 +2602,24 @@ parameter yang di ref baru dipotong di ujung.
    `v = *(s32 *) arg0;` sebagai pernyataan sendiri membuat `ldr r1,[r5]`
    dieksekusi sebelum `mov r4, sp`; menulisnya inline di argumen call
    membalik urutan itu.
+
+### 79. Polaritas cabang menentukan tata letak blok if/else
+
+1. **Tulis `if (x != K) { B } else { A }` bila ref menaruh blok `A` di ujung.**
+   `func_08081108`: ref `cmp r0,#0xa; beq .L(akhir)` lalu badan `B`, `b` ke
+   akhir, baru `A`. Bentuk alami `if (x == K) { A } else { B }` menghasilkan
+   `bne` yang melompat ke `B` lebih dulu (kandidat 17 diff). Membalik
+   polaritas (`!=` dengan `A` sebagai `else`) menghasilkan susunan byte ref.
+   Cabang yang sama-sama sah sering hanya beda polaritas, bukan isi.
+2. **Panggilan ekor ikut masuk ke blok if terluar.** `func_08025018`: ref
+   memakai `ldrb [arg0+0xc2]; bne akhir` (if terluar positif) dan
+   `func_0803242C(arg0, arg1)` berada DI DALAM blok itu, bukan sesudahnya —
+   jadi tulis `if (*(u8 *)(arg0 + 0xC2) == 0) { ...; func_0803242C(arg0, arg1); }`
+   dan bukan early-return sebelum blok.
+3. **Dinding: penyimpanan mati ke field lokal dihapus compiler sekarang.**
+   Tiga fungsi kembar `func_080BC8FC` / `func_080C0D90` / `func_080C7F1C`
+   menyimpan `s.self = &s; s.c = v;` yang tidak pernah dibaca; ref tetap
+   menyimpannya (`str r0,[sp,#4]`, `str r2,[sp,#8]`) sedangkan kandidat
+   membuangnya (38-56B vs 60B). `*(volatile s32 *) s.self = 0;` memulihkan
+   blok destruktor maya dan urutan, tetapi `&s` masih dilipat sehingga
+   `adds r1, r0, #0` hilang — sisa 4B. Kategori parkir.
