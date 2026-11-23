@@ -127,7 +127,12 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   tile (selain 0x03FF = kosong) harus di dalam jumlah tile tileset; kalau tidak
   ada bukti, bukti ganda berbeda, atau aset pasangan tidak masuk akal, stream
   jadi grid indeks dan
-  `manifest.json` mencatat `pair_status: unproven` + alasannya. Pasangan bukan
+  `manifest.json` mencatat `pair_status: unproven` + alasannya. Pasangan yang
+  hanya punya entri header ditandai `pair_status: header-only`, bukan
+  `verified`; loader lapis `func_080A5CC0` menulis field +0x0C/+0x10/+0x14 ke
+  buffer objek, bukan ke `0x0600xxxx`, dan tileset `func_080A5EA0` menulis
+  field +0x00 ke `0x06000000`. Jejak lengkapnya ada di `map_loader` manifest
+  dan bagian "Bukti loader" dokumen generate. Pasangan bukan
   "palet/tileset terdekat di blob". Tileset/palet yang bukan bagian dari
   53 simbol tetap dibuka dari `baserom.gba` (keduanya stream 0x70 juga) dan
   hanya dipakai saat render, tidak ditulis ulang. `manifest.json` mencatat
@@ -142,7 +147,8 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   untuk mencocokkan hash (exit 1 bila beda). `--check-map` exit 1 bila
   dokumen itu basi terhadap manifest, dan `check_docs.py` memanggil renderer
   yang sama sebagai gate (dokumen basi menggagalkan tutup sesi, bukan lolos
-  diam-diam). `pair_evidence.source` mencatat `callsite` atau `header`. Seluruh stream dirender dalam hitungan
+  diam-diam). `pair_evidence.source` mencatat `callsite` atau `header-only`;
+  `header-only` tidak boleh disebut terbukti dari call site. Seluruh stream dirender dalam hitungan
   puluhan detik; tidak menjalankan build dan tidak menulis ROM.
 - `raw_assets.py` — inventaris sisa 231 blob **mentah** (bukan `0x70`) dari
   `asset_inventory.analyze()`, kelompokkan dari isi: `palet` (<=1 KB, semua u16

@@ -55,6 +55,29 @@ MAP_WIDTHS = (64, 32, 30, 60, 46, 40, 36, 28, 24, 20, 16, 56, 48)
 MAP_HEADER_SYMBOL = "gUnk_08105EDC"
 MAP_HEADER_BYTES = 40       # 10 word: tileset, palet, palet2, 3 peta, ...
 MAP_LAYER_WORDS = (3, 4, 5)  # +0x0C, +0x10, +0x14
+# Jejak loader untuk 59 peta ber-header. Tidak ada call site `Unpack` yang
+# menulis field lapis header langsung ke 0x0600xxxx: loader lapis menulis ke
+# buffer milik objek. Bukti ini dicatat di manifest dan dokumen, bukan
+# dinaikkan menjadi "callsite".
+MAP_LOADER = {
+    "header_table": MAP_HEADER_SYMBOL,
+    "header_getter": "GetMapData",
+    "header_getter_address": "0x080A4698",
+    "header_stride": MAP_HEADER_BYTES,
+    "layer_loader": "func_080A5CC0",
+    "layer_loader_address": "0x080A5CC0",
+    "layer_loader_callers": ["func_080A6660", "func_080CFBAC"],
+    "layer_fields": ["+0x0C", "+0x10", "+0x14"],
+    "layer_destinations": "arg0+0x10/+0x14/+0x18",
+    "layer_dest_kind": "buffer objek (dialokasikan func_080A4A94), bukan 0x0600xxxx",
+    "tileset_loader": "func_080A5EA0",
+    "tileset_loader_address": "0x080A5EA0",
+    "tileset_source": "+0x00",
+    "tileset_dest": "0x06000000",
+    "vram_layer_callsite": None,
+    "conclusion": "header-only: tidak ada call site Unpack field lapis peta "
+                  "ke 0x0600xxxx; loader lapis memakai buffer objek",
+}
 GBA_BASE = 0x08000000
 PALETTE_RAM = (0x05000000, 0x05000200)
 TILE_RAM = (0x06000000, 0x0600C000)
@@ -540,17 +563,16 @@ def pair_from_evidence(key, calls, evidence, rom, index, records, cache):
                             == (b.get("blob"), b.get("stream"))
                             or a.get("address") == b.get("address"))
 
-                if hdr[0] == "verified" and (not same(hdr[3]["palette"],
-                                                       ev["palette"])
-                                             or not same(hdr[3]["tiles"],
-                                                         ev["tiles"])):
+                if hdr[0] in ("verified", "header-only") and (
+                        not same(hdr[3]["palette"], ev["palette"])
+                        or not same(hdr[3]["tiles"], ev["tiles"])):
                     ev["conflict"] = "header dan call site berbeda"
                 return "verified", pdata, tdata, ev
             reason = ev
         else:
             reason = "call site berbeda antar fungsi"
         hdr = _header_pair(key, evidence, rom, index, records, cache)
-        if hdr[0] == "verified":
+        if hdr[0] in ("verified", "header-only"):
             return hdr
         return "unproven", None, None, {"reason": reason}
     return _header_pair(key, evidence, rom, index, records, cache)
@@ -569,12 +591,13 @@ def _header_pair(key, evidence, rom, index, records, cache):
         return "unproven", None, None, {"reason": "palet pasangan tidak valid"}
     if tdata is None or len(tdata) % 32 or len(tdata) < 32 * 8:
         return "unproven", None, None, {"reason": "tileset pasangan tidak valid"}
-    return "verified", pdata, tdata, {
-        "source": "header", "entry": ev["entry"], "field": ev["field"],
-        "layer": ev["layer"], "layers": ev["layers"],
-        "interior": ev["interior"],
+    return "header-only", pdata, tdata, {
+        "source": "header-only", "entry": ev["entry"],
+        "field": ev["field"], "layer": ev["layer"],
+        "layers": ev["layers"], "interior": ev["interior"],
         "width": ev["width"], "height": ev["height"],
-        "palette2": ev["palette2"],
+        "palette2": ev["palette2"], "loader": MAP_LOADER["layer_loader"],
+        "dest": MAP_LOADER["layer_destinations"],
         "palette": pref, "tiles": tref}
 
 
@@ -598,14 +621,15 @@ def render_map_doc(manifest):
     for key in ("palet", "tile", "peta", "lain"):
         out.append(f"| {key} | {groups[key]} |")
     out.append("")
-    verified = sum(1 for b in blobs for s in b["streams"]
-                   if s.get("pair_status") == "verified")
+    valid = sum(1 for b in blobs for s in b["streams"]
+                if s.get("pair_status") in ("verified", "header-only"))
     calls = sum(1 for b in blobs for s in b["streams"]
                 if s.get("pair_status") == "verified"
                 and s["pair_evidence"].get("source") == "callsite")
+    header_only = sum(1 for b in blobs for s in b["streams"]
+                      if s.get("pair_status") == "header-only")
     inner = sum(1 for b in blobs for s in b["streams"]
-                if s.get("pair_status") == "verified"
-                and s["pair_evidence"].get("source") == "header"
+                if s.get("pair_status") == "header-only"
                 and s["pair_evidence"].get("interior"))
     unproven = sum(1 for b in blobs for s in b["streams"]
                    if s.get("pair_status") == "unproven")
@@ -619,11 +643,46 @@ def render_map_doc(manifest):
                + f". Total {stream_count} stream dari {len(blobs)} simbol "
                "yang punya stream 0x70.")
     out.append("")
-    header = verified - calls
-    out.append(f"Pasangan peta: {verified} terbukti ({calls} dari call site "
-               f"`Unpack`, {header} dari entri header: {inner} interior, "
-               f"{header - inner} eksterior), "
+    out.append(f"Pasangan peta: {valid} pasangan byte-valid: {calls} call site "
+               f"`Unpack`, {header_only} header-only (bukan call site; "
+               f"{inner} interior, {header_only - inner} eksterior), "
                f"{unproven} tidak terbukti (jadi grid indeks).")
+    out.append("")
+    out.append("## Bukti loader 59 peta header-only")
+    out.append("")
+    out.append("Tidak ada call site `Unpack` yang menulis field lapis peta dari "
+               "header langsung ke `0x0600xxxx`. Penelusuran jalur yang ada:")
+    out.append("")
+    out.append("1. [`GetMapData`](../../asm/code_809E804.s#L11699) "
+               "(`0x080A4698`) menghitung entri `gUnk_08105EDC` dengan stride "
+               "40 B; field `+0x0C`, `+0x10`, `+0x14` adalah tiga lapis peta.")
+    out.append("2. [`func_080A5CC0`](../../asm/code_809E804.s#L14504) "
+               "(`0x080A5CC0`) membaca ketiga field itu lalu memanggil "
+               "[`Unpack`](../../asm/code_809E804.s#L14522) dengan tujuan "
+               "`arg0+0x10`, `+0x14`, `+0x18` — buffer milik objek, bukan "
+               "`0x0600xxxx`. Pemanggilnya `func_080A6660` dan "
+               "`func_080CFBAC`; tidak ada tabel tujuan statis, tujuan berasal "
+               "dari field objek.")
+    out.append("3. Buffer itu dialokasikan "
+               "[`func_080A4A94`](../../asm/code_809E804.s#L12283) lewat "
+               "`__builtin_vec_new`, jadi tujuannya heap/RAM; tidak ada "
+               "konstanta VRAM pada call site ini.")
+    out.append("4. [`func_080A5EA0`](../../asm/code_809E804.s#L14751) "
+               "(`0x080A5EA0`) memang menulis ke `0x06000000`, tetapi sumbernya "
+               "field `+0x00` (tileset), bukan salah satu field lapis peta.")
+    out.append("")
+    out.append("| field header | loader | tujuan |")
+    out.append("|---|---|---|")
+    out.append("| `+0x0C`, `+0x10`, `+0x14` | `func_080A5CC0` (`0x080A5CC0`) | "
+               "`arg0+0x10/+0x14/+0x18` (buffer objek) |")
+    out.append("| `+0x00` | `func_080A5EA0` (`0x080A5EA0`) | "
+               "`0x06000000` (tileset) |")
+    out.append("")
+    out.append(f"Karena itu {header_only} pasangan ber-header ditandai "
+               "`pair_status: header-only`; bukti header tetap dipakai untuk "
+               "memilih palet/tileset, tetapi tidak diklaim sebagai bukti call "
+               "site ke VRAM. Angka 41/59 adalah distribusi interior/eksterior, "
+               "bukan tingkat bukti.")
     out.append("")
     out.append("## Simbol -> stream -> berkas")
     out.append("")
@@ -635,18 +694,18 @@ def render_map_doc(manifest):
                "yang sama; (2) untuk stream container yang dialamatkan lewat "
                "pointer (tidak ada simbol statis), entri `gUnk_08105EDC` yang "
                "memuatnya sebagai lapis peta: +0x00 tileset, +0x04 palet, "
-               "+0x0C/+0x10/+0x14 peta, +0x08 palet kedua. Flag +0x24 hanya "
-               "menandal interior/eksterior; bentuk header kedua jenis sama. "
-               "Angka 41/59 yang sering muncul adalah 41 peta interior dari 59 "
-               "peta ber-header, bukan 41 terbukti dan 18 tidak: semua 59 lolos "
+               "+0x08 palet kedua, +0x0C/+0x10/+0x14 peta, +0x20 lebar/tinggi, "
+               "+0x24 flag interior/eksterior. Flag +0x24 hanya jenis peta, "
+               "bukan tingkat bukti. Pasangan header-only tetap harus lolos "
                "pemeriksaan palet 480 B, tileset 32768 B, dimensi header, dan "
-               "indeks tile di dalam tileset. Peta eksterior punya palet kedua "
-               "di +0x08 (varian musim; render memakai +0x04), interior memakai "
-               "+0x08 sebagai palet kedua biasa. Kolom bukti menyebut fungsi call "
-               "site atau nomor entri header. Pasangan berupa "
-               "alamat `0x08xxxxxx` adalah stream 0x70 di luar 53 simbol yang "
-               "dibuka dari ROM saat render, bukan berkas hasil ekstraksi. "
-               "Aset eksternal itu dicatat di `external_assets` manifest dengan "
+               "indeks tile di dalam tileset sebelum dirender. Eksterior "
+               "memakai +0x08 sebagai varian palet musim (render memakai "
+               "+0x04), interior memakai +0x08 sebagai palet kedua biasa. "
+               "Kolom status menyebut `header-only` dan nama loader, bukan "
+               "\"terbukti call site\". Pasangan berupa alamat `0x08xxxxxx` "
+               "adalah stream 0x70 di luar 53 simbol yang dibuka dari ROM saat "
+               "render, bukan berkas hasil ekstraksi. Aset eksternal itu "
+               "dicatat di `external_assets` manifest dengan "
                "`unpacked`/`raw_bytes` dan `sha256`, sehingga bisa diverifikasi "
                "ulang lewat `--check-external` tanpa menebak alamat.")
     out.append("")
@@ -667,16 +726,17 @@ def render_map_doc(manifest):
             png = s.get("png")
             png_link = f"[png](../../{png})" if png else "-"
             status = s.get("pair_status")
-            if status == "verified":
+            if status in ("verified", "header-only"):
                 ev = s["pair_evidence"]
                 if ev.get("source") == "callsite":
                     status_cell = (f"terbukti call site `{ev['function']}` "
                                    f"0x{ev['dest']:08X}")
                 else:
-                    status_cell = (f"terbukti peta#{ev['entry']} "
+                    status_cell = (f"header-only peta#{ev['entry']} "
                                    f"+0x{ev['field']:02X} "
                                    f"({'interior' if ev['interior'] else 'eksterior'}"
-                                   f" {ev['layer']}/{ev['layers']})")
+                                   f" {ev['layer']}/{ev['layers']}; "
+                                   f"loader `{ev.get('loader', 'func_080A5CC0')}`)")
                 pair = s["pair"]
                 pair_cell = (f"palet {ref(pair['palette'])}, "
                              f"tile {ref(pair['tiles'])}")
@@ -822,14 +882,14 @@ def main(argv):
                 used = [c & 0x3FF for c in cells if (c & 0x3FF) != 0x3FF]
                 tiles_ok = (tdata is not None
                             and (not used or max(used) < len(tdata) // 32))
-                fits = (status == "verified" and height > 0
+                fits = (status in ("verified", "header-only") and height > 0
                         and width * height * 2 == len(data) and tiles_ok)
                 if fits:
                     png = (f"png/{name}_{i:02d}_peta_{width}x"
                            f"{height}.png")
                     render_map(data, args.out / png, width, pdata, tdata)
                     info["png_kind"] = "peta berwarna"
-                    info["pair_status"] = "verified"
+                    info["pair_status"] = status
                     info["pair"] = {"palette": ev["palette"],
                                     "tiles": ev["tiles"]}
                     info["pair_evidence"] = ev
@@ -863,7 +923,7 @@ def main(argv):
                     if key in ref:
                         item[key] = ref[key]
                 external[ref["address"]] = item
-    manifest_doc = {"streams": manifest,
+    manifest_doc = {"map_loader": MAP_LOADER, "streams": manifest,
                     "external_assets": [external[a] for a in sorted(external)]}
     (args.out / "manifest.json").write_text(
         json.dumps(manifest_doc, indent=1) + "\n")
