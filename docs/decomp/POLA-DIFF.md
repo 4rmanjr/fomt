@@ -1762,6 +1762,16 @@ ref (bandingkan POLA-DIFF §46 yang butuh `volatile` karena slotnya tak pernah d
 `arg0` setiap kali: 120B (dari 94B), 82 byte berbeda. Jadi untuk larik yang berjalan mundur,
 pertahankan pointer yang bergerak — jangan diganti indeks meski jumlah instruksinya terlihat setara.
 
+**Cara membaca angka "96B, 0 byte beda" (tabel varian sesi):** angka itu bukan bukti byte-identik
+sama panjang, dan bukan keluaran judge. Dua aturan ukurnya: (a) *panjang* = `.text` mentah `.o` hasil
+agbcc **sebelum** `depad()`, jadi 2B nop alignment (`c0 46`) ikut terhitung — pada `func_08009268`
+itulah satu-satunya selisih 96B vs 94B, dan `depad()` membuangnya sehingga panjang efektifnya
+94B == ref; (b) *byte beda* dihitung atas prefiks sepanjang `min(len)` dengan byte displacement `bl`
+dikecualikan — saat dibandingkan asm-vs-asm keduanya masih `f7ff feff` (belum di-relokasi), sedangkan
+terhadap ROM ter-link byte itu justru berbeda. MATCH sesungguhnya = panjang sama **sesudah** `depad()`
++ byte termask sama + daftar reloc sama; kalau panjang masih berbeda setelah `depad()`/pemotongan
+pool/ekor, judge menulis `len A vs ref B`, bukan 0.
+
 Sebaliknya, mengganti *nama* dua nilai hidup (`mask` → `st`, satu akumulator) tidak mengubah satu byte
 pun: yang menentukan codegen adalah **bentuk ekspresi**, bukan jumlah/jenis variabel lokal.
 
