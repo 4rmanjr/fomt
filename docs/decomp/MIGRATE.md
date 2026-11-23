@@ -1393,3 +1393,49 @@ Sesudah fungsi itu pindah, perintah `migrate.py` yang sama menjawab SKIP
 
 Kalau `pindah: 1` tetapi `make compare` MERAH, berarti cast/penyalinan typedef
 menggeser sesuatu: batalkan, jangan "perbaiki" gate.
+
+## 46. Gate call-site: `void f(void)` dibaca sebagai satu parameter `void` (diperbaiki)
+
+**Gejala.** Migrasi berhenti dengan SKIP walau draf hanya memanggil fungsi tanpa
+argumen:
+
+```
+[SKIP] call-site func_08008D90: argumen `(tak ada argumen)` (`void`) tak
+konversi implisit ke parameter `void` (multi-pointer butuh cast/penyatuan manual)
+```
+
+Mengganti deklarasi menjadi K&R `void func_08008D90();` **tidak** menolong -
+SKIP-nya sama, karena sumber masalahnya bukan deklarasi di draf.
+
+**Sebab.** `_callsite_ptr_mismatch()` menyusun daftar parameter dari teks
+(`_split_top_commas`), sehingga `void f(void)` menjadi `['void']` = satu
+parameter bernama `void`. Call `f()` (0 argumen) lalu selalu terhitung
+arity-mismatch.
+
+**Perbaikan.** `_norm_void_params()` memetakan `['void']`/`['']` -> `[]`
+(semantik C: daftar parameter `void` = tanpa parameter). Dipakai di kedua
+pengumpul deklarasi di `_callsite_ptr_mismatch()` (`EXTERN_RE` dan
+`FUNC_DEF_RE`), jadi deklarasi `void f(void)` dan K&R `void f()` diperlakukan
+sama.
+
+**Pembukti.** `func_08008A68` (112B, `promoted`): sebelum perbaikan selalu SKIP
+di call `func_08008D90()`; sesudahnya `migrate.py` melaporkan `pindah: 1` dengan
+baseline + target `make compare` HIJAU, dan bloknya sekarang ada di
+`src/hardware_migrated.cc` (commit `3e39911b`). Sesudah pindah, perintah
+`migrate.py` yang sama menjawab SKIP "sudah ada di src" - itu normal.
+
+**Batas yang tersisa.** Normalisasi ini hanya untuk parameter tunggal `void`
+(`void f(void *)` tetap satu parameter bertipe `void *`), dan gate tetap tidak
+memeriksa kedalaman pointer: argumen multi-pointer masih SKIP dan harus
+diselesaikan dengan cast/penyatuan tipe seperti di §45.
+
+**Perintah cek.**
+
+```sh
+python3 -m py_compile decomp/migrate.py
+python3 -c "from decomp.migrate import _norm_void_params as n; print(n(['void']), n(['']))"   # [] []
+python3 -c "from decomp.migrate import _callsite_ptr_mismatch as f; print(f('void g(void);\nvoid k(s32 **);\nvoid h(void) { g(); }\n',''))"   # None
+grep -n "DECOMP-MATCHED func_08008A68" src/hardware_migrated.cc
+grep -c "func_08008A68" asm/hardware.s   # 1 = tinggal call-site `bl`, bukan definisi
+make compare
+```
