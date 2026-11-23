@@ -1990,3 +1990,30 @@ seluruh blok `spbuf[0]` diwarnai permutasi register. Enam perubahan berikut memb
    `ldrh r1,[r2,#4]` di tail. Menggabung call+aritmetika dalam satu ekspresi malah menambah
    `adds r1,r0,#0` (156B); memakai ulang variabel pointer lama membuat argumen pindah ke r6
    (`push {r6}`).
+
+## 63. Pointer global `s32 *` + offset byte, dan urutan dua ekstraksi bit
+
+`func_080ADBB4` (76B, `code_809E804.s`) punya kembaran yang sudah di `src/`:
+`func_0803D644` (`src/code_0803A8A4.cc`, pola `func_080E0E80(p, temp_r4, &sp4, 0, 0)`).
+Tiga hal yang menentukan MATCH-nya (residual awal 2missing/4extra/1operand/2regalloc):
+
+1. **Offset byte pada global `s32` wajib lewat cast `u8 *`.** Draf awal menulis
+   `temp_r4 = &gUnk_081074F6 + 0x1B;` — karena `gUnk_081074F6` bertipe `s32`, itu
+   menambah 27×4 = 0x6C byte (`subs r0, #0x6c`) dan pool berisi `0x6C`. Ref:
+   `ldr r0, =gUnk; adds r4, r0, #0; adds r4, #0x1B`. Bentuk benar (ikut kembarannya):
+   `s32 *p = &gUnk_081074F6; temp_r4 = (u8 *) p + 0x1B;` lalu teruskan `p` sebagai
+   argumen pertama (signature callee tetap `s32 *`).
+2. **Dua ekstraksi bit harus jadi temp terpisah, `lo` dulu baru `hi`.** Ref:
+   `lsls r1,r2,#0x1e; lsrs r1,r1,#0x1e` (lo) **lalu** `lsls r2,r2,#0x19; lsrs r2,r2,#0x1b`
+   (hi), baru `lsls r0,r1,#4; subs r0,r0,r1; lsls r0,r0,#1; adds r0,r0,r2`. Kalau
+   keduanya ditulis dalam satu ekspresi (`(lo * 0x1E) + hi`), agbcc menyisipkan
+   `lsls r0,r1,#4` di antara kedua pasangan. Menulis `lo = …; hi = …; sp4 =
+   (((lo << 4) - lo) << 1) + hi;` menghasilkan urutan ref (sama seperti `func_0803D644`).
+3. **`*0x1E` bukan `mul`.** Perkalian 30 dilower jadi `((lo << 4) - lo) << 1`; menulis
+   literalnya sendiri sudah cukup, tapi bentuk eksplisit di atas yang terbukti.
+
+Sisa beda di `.o` cuma displacement `bl` (`f7ff feff`) dan word pool (`00000000`
+sebelum relokasi) — keduanya artifact, bukan DIFF.
+
+**Hasil 2026-11-23:** judge MATCH 76B (1 percobaan), `pindah: 1`, baseline + target
+`fomt.gba: OK`.

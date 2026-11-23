@@ -2576,13 +2576,14 @@
  },
  "func_080ADBB4": {
   "addr": 134929332,
-  "judged_mtime": 1793582714.1943917,
+  "judged_mtime": 1795410978.8969676,
   "module": "code_809E804.s",
-  "note": "byte +0xa: 0x8 vs ref 0x52 [2missing,4extra,1operand,2regalloc,1different @i lsls r2, r2, #0x19 | lsls r0, r1, #4]",
+  "note": "migrated to src (blok di src/code_809E804.cc; diawasi make compare). MATCH 76B judge 1x. Kunci: offset 0x1B pada global s32 lewat `s32 *p = &gUnk_081074F6; temp_r4 = (u8 *) p + 0x1B;` (tanpa cast jadi +0x6C); dua ekstraksi bit dijadikan temp terpisah lo lalu hi sebelum digabung `(((lo << 4) - lo) << 1) + hi` supaya urutannya sama ref; kembaran yang sudah di src: func_0803D644. pindah: 1, baseline + target fomt.gba: OK. Lihat POLA-DIFF 63.",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 676,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080ADC00": {
