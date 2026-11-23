@@ -13,13 +13,14 @@
  "func_08003B40": {
   "addr": 134232896,
   "draft_src": "manual",
-  "judged_mtime": 1795350505.1813402,
+  "judged_mtime": 1795406760.469651,
   "module": "new_game.s",
-  "note": "byte +0x0: 0x70 vs ref 0x30 [3missing,3extra,4operand,13regalloc,2different @i push {r4, r5, lr} | push {r4, r5, r6, lr}]",
+  "note": "MATCH 116B. Kunci: alamat slot stack dipakai dua call -> agbcc CSE ke r6 (push {r6} + adds r0,r6,#0); dipecah dengan fence `+r` pada temp pointer sebelum tiap call; urutan argumen call kedua (konstanta 0x889 diikat ke variabel DULU, baru alamat); pin zero->r0, pointer slot->r4, arg0->r5; virtual-call meneruskan objek (bukan (void*)0); kondisi loop pakai ((0-x)|x)<0. Rincian: POLA-DIFF 61.",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 116,
   "sanitize_v": 4,
   "size": 1095,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08003BB4": {

@@ -27,30 +27,39 @@ typedef struct Sp4 {
 
 void func_08003B40(s32 arg0) {
     register s32 a __asm__("r5");
+    register s32 z __asm__("r0");
+    register s32 *p4 __asm__("r4");
     Sp4 sp4;
-    s32 *p4;
     void *t1;
     void *t2;
-    s32 zero;
+    Obj *o;
+    s32 *tp;
+    s32 c;
 
     a = arg0;
-    t1 = func_08008918();
+    t1 = func_08008918(a);
     sp4.f0 = 0x3F;
     *(u16 *) ((u8 *) t1 + 0x50) = 0x3F;
     t2 = func_08008918(a);
     p4 = &sp4.unk0;
-    zero = 0;
-    p4[0] = zero;
-    p4[1] = zero;
+    z = 0;
+    sp4.unk0 = z;
+    p4[1] = z;
     sp4.unk8 = &vtable_unk_080E5B80;
-    func_08009300(&sp4.tail, t2);
-    func_0800934C(&sp4.tail, 0x889, 1, 1);
-    ((Obj *) func_08008940(a))->unk8->unk10((void *) 0, p4);
+    tp = &sp4.tail;
+    __asm__ volatile("" : "+r"(tp) : : "memory");
+    func_08009300(tp, t2);
+    c = 0x889;
+    tp = &sp4.tail;
+    __asm__ volatile("" : "+r"(tp) : : "memory");
+    func_0800934C(tp, c, 1, 1);
+    o = (Obj *) func_08008940(a);
+    o->unk8->unk10((void *) o, p4);
     goto check;
 loop:
     func_080087C8(a);
 check:
-    if (sp4.unk0 != 0) {
+    if (((s32) ((0 - sp4.unk0) | sp4.unk0)) < 0) {
         goto loop;
     }
     func_080094B8(p4, 2);

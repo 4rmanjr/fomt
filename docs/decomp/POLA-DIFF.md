@@ -1865,3 +1865,41 @@ Resep yang membawa draft ke **1 instruksi** dari ref (judge: `byte +0x16: 0x69 v
   (`i32 *` → pointer struct), `fr.slot[1] = (GenObj *) p7;` (`GenObj **` → `GenObj *`).
   Literal `= 0;` pada pointer tetap boleh tanpa cast.
 - sesudah itu `migrate.py --func ...` langsung `pindah: 1` (compare HIJAU) — `func_080050F8`.
+
+## 61. Alamat slot stack dipakai dua call: agbcc meng-CSE ke register tersimpan
+
+Pembukti: `func_08003B40` (116B, MATCH) dan `func_08003BB4` (sibling dengan bentuk sama).
+
+Ref mematerialisasi ulang alamat slot stack untuk tiap call
+(`add r0, sp, #0x10` dua kali, satu sebelum `bl` pertama dan satu lagi sebelum `bl`
+kedua). Draf C naif (`f(&st.tail, ...); ...; g(&st.tail, ...);`) membuat agbcc
+meng-CSE alamat itu ke register callee-saved: `add r6, sp, #0x10` sekali, lalu
+`adds r0, r6, #0` di kedua call — hasilnya `push {r6}` + satu instruksi ekstra
+(120B vs 116B) dan arg0 ikut tergeser ke r6.
+
+Dua spelling yang lolos (keduanya byte-identik dengan ref):
+
+- inline asm materialisasi alamat per call (dipakai `func_08003BB4`):
+  `__asm__ volatile ("add %0, sp, #0x10" : "=r" (buf));` lalu `f(buf, ...)`.
+- fence `+r` pada temp pointer (dipakai `func_08003B40`):
+  `tp = &st.tail; __asm__ volatile("" : "+r"(tp) : : "memory"); f(tp, ...)` —
+  diulang sebelum call kedua, sehingga CSE lintas `bl` gagal dan alamat
+  dirematerialisasi ke r0.
+
+Detail lain yang ikut menentukan di fungsi kecil ini:
+
+- urutan argumen call kedua: ref `ldr r1, =0x889; add r0, sp, #16` (konstanta
+  dulu, alamat kemudian). Menulis konstanta langsung sebagai argumen membuat
+  agbcc membalik urutannya (selisih 4 byte). Ikat dulu ke variabel
+  (`c = 0x889;`) **sebelum** menghitung alamat, lalu teruskan `c`.
+- pin `zero` ke r0 menahan `movs r0, #0` sampai titik store; tanpa pin agbcc
+  meng-hoist nol ke r4 dan mendorong pointer slot ke r5/r6. Pin pendamping:
+  argumen ke r5, pointer slot (`&st.unk4`) ke r4.
+- store nol pertama lewat field struct (`st.unk0 = zero;`) memberi
+  `str r0, [sp, #4]`, store kedua lewat pointer (`p[1] = zero;`) memberi
+  `str r0, [r4, #4]`; kalau keduanya lewat pointer, agbcc memakai `[r4, #0]`.
+- m2c menulis argumen pertama virtual-call sebagai `(void *) 0` padahal r0 masih
+  berisi hasil `func_08008940`: teruskan objeknya sendiri (`fn(obj, p)`); versi
+  `0` menambah `movs r0, #0` dan membuat load field lewat r0 (ref lewat r1).
+- kondisi loop `((0 - st.unk0) | st.unk0) < 0` menghasilkan `negs/orrs/cmp/blt`;
+  `st.unk0 != 0` menghasilkan `cmp/bne` (beda 4 byte).
