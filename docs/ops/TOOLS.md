@@ -109,6 +109,17 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   pemecahan `data_0813B288.s` tanpa regenerasi menggagalkan tutup sesi; kalau
   `baserom.gba` atau berkas `.s` sumbernya tidak ada, gate dilewati dengan
   catatan. Tidak menjalankan build dan tidak menyentuh `fomt.gba`.
+- `extract_assets.py` — buka semua stream format `0x70` (daftar dari
+  `asset_inventory.analyze()`) ke `assets/0x70/bin/`, kelompokkan dari ukuran +
+  isi (`palet` 480 B/15 bank, `tile` 4bpp kelipatan 32 B, `peta` 16-bit,
+  `lain`), lalu render PNG: swatch palet, lembar tile indeks, dan peta
+  berwarna bila palet+tileset ada di blob yang sama (selain itu grid indeks).
+  `manifest.json` mencatat grup, catatan, pasangan, dan lebar peta. Label
+  `peta` diputuskan per ukuran (mayoritas stream seukuran itu), bukan per
+  stream, supaya lapisan peta yang bank/flip-nya beragam tidak pecah kelas.
+  `--out DIR` untuk lokasi lain, `--quiet` untuk ringkasan saja. Seluruh
+  stream dirender dalam hitungan puluhan detik; tidak menjalankan build dan
+  tidak menulis ROM.
 
 ## Engine kerja (`decomp_engine.py`)
 

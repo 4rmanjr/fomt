@@ -1,0 +1,3158 @@
+{
+ "streams": [
+  {
+   "blob": "gUnk_084F90CC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_084FA7A0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_084FA9A0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08523290",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08527094",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08527238",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 272,
+     "unpacked": 5632,
+     "format": "130",
+     "group": "peta",
+     "note": "2816 entri 16-bit; entri terbanyak 0x10F2 (10%)",
+     "bin": "bin/gUnk_08527238_00_5632_0x130.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 64,
+     "png": "png/gUnk_08527238_00_peta_indeks_64.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08527348",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 472,
+     "unpacked": 5632,
+     "format": "130",
+     "group": "peta",
+     "note": "2816 entri 16-bit; entri terbanyak 0x03FF (81%)",
+     "bin": "bin/gUnk_08527348_00_5632_0x130.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 64,
+     "png": "png/gUnk_08527348_00_peta_indeks_64.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08527520",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 176,
+     "unpacked": 5632,
+     "format": "130",
+     "group": "peta",
+     "note": "2816 entri 16-bit; entri terbanyak 0x03FF (98%)",
+     "bin": "bin/gUnk_08527520_00_5632_0x130.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 64,
+     "png": "png/gUnk_08527520_00_peta_indeks_64.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_085275D0",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 8644,
+     "unpacked": 18432,
+     "format": "230",
+     "group": "tile",
+     "note": "576 tile 4bpp",
+     "bin": "bin/gUnk_085275D0_00_18432_0x230.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_085275D0_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08529794",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08529994",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08529BA8",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08529DA4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0852A6D8",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 276,
+     "unpacked": 5632,
+     "format": "130",
+     "group": "peta",
+     "note": "2816 entri 16-bit; entri terbanyak 0x10F2 (10%)",
+     "bin": "bin/gUnk_0852A6D8_00_5632_0x130.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 64,
+     "png": "png/gUnk_0852A6D8_00_peta_indeks_64.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0852A7EC",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 464,
+     "unpacked": 5632,
+     "format": "130",
+     "group": "peta",
+     "note": "2816 entri 16-bit; entri terbanyak 0x03FF (81%)",
+     "bin": "bin/gUnk_0852A7EC_00_5632_0x130.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 64,
+     "png": "png/gUnk_0852A7EC_00_peta_indeks_64.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0852A9BC",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 176,
+     "unpacked": 5632,
+     "format": "130",
+     "group": "peta",
+     "note": "2816 entri 16-bit; entri terbanyak 0x03FF (98%)",
+     "bin": "bin/gUnk_0852A9BC_00_5632_0x130.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 64,
+     "png": "png/gUnk_0852A9BC_00_peta_indeks_64.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0852AA6C",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 8148,
+     "unpacked": 18432,
+     "format": "220",
+     "group": "tile",
+     "note": "576 tile 4bpp",
+     "bin": "bin/gUnk_0852AA6C_00_18432_0x220.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_0852AA6C_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0852CA40",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0852CC40",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0852CE54",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0852D050",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0852D984",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0858BA28",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08667060",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086678A0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08697920",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08698B00",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08698E14",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08699FF4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0869A0A4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0869B284",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086D5508",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086D6368",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086D6458",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086D6518",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086D6520",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086D6528",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086D6548",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086D6608",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086D6698",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086D74F8",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DC3C4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DC3D0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DC3DC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DC3E8",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DC3F4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DC54C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DC57C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DCC88",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DD690",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DD6B0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DD6E0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DDDEC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086DE7F4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086EACDC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086EACE4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086EAD04",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086EAD24",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086EAD44",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086EAD64",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086EAD84",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086EAD8C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086F2FAC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086FAA80",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_086FB004",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 8600,
+     "unpacked": 32768,
+     "format": "230",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_086FB004_00_32768_0x230.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_086FB004_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_086FD19C",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 164,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_086FD19C_00_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_086FD19C_00_palet.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_086FD240",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 1424,
+     "unpacked": 6720,
+     "format": "134",
+     "group": "peta",
+     "note": "3360 entri 16-bit; entri terbanyak 0x03FF (4%)",
+     "bin": "bin/gUnk_086FD240_00_6720_0x134.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 3,
+      "tiles": 4
+     },
+     "map_width": 60,
+     "png": "png/gUnk_086FD240_00_peta_60x56.png"
+    },
+    {
+     "index": 1,
+     "offset": 1424,
+     "packed": 548,
+     "unpacked": 6720,
+     "format": "130",
+     "group": "peta",
+     "note": "3360 entri 16-bit; entri terbanyak 0x03FF (79%)",
+     "bin": "bin/gUnk_086FD240_01_6720_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 3,
+      "tiles": 4
+     },
+     "map_width": 60,
+     "png": "png/gUnk_086FD240_01_peta_60x56.png"
+    },
+    {
+     "index": 2,
+     "offset": 1972,
+     "packed": 152,
+     "unpacked": 6720,
+     "format": "030",
+     "group": "peta",
+     "note": "3360 entri 16-bit; entri terbanyak 0x03FF (96%)",
+     "bin": "bin/gUnk_086FD240_02_6720_0x030.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 3,
+      "tiles": 4
+     },
+     "map_width": 60,
+     "png": "png/gUnk_086FD240_02_peta_60x56.png"
+    },
+    {
+     "index": 3,
+     "offset": 2124,
+     "packed": 160,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_086FD240_03_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_086FD240_03_palet.png"
+    },
+    {
+     "index": 4,
+     "offset": 2284,
+     "packed": 8024,
+     "unpacked": 32768,
+     "format": "230",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_086FD240_04_32768_0x230.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_086FD240_04_tile.png"
+    },
+    {
+     "index": 5,
+     "offset": 10308,
+     "packed": 160,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_086FD240_05_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_086FD240_05_palet.png"
+    },
+    {
+     "index": 6,
+     "offset": 10468,
+     "packed": 1420,
+     "unpacked": 6720,
+     "format": "133",
+     "group": "peta",
+     "note": "3360 entri 16-bit; entri terbanyak 0x03FF (4%)",
+     "bin": "bin/gUnk_086FD240_06_6720_0x133.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 5,
+      "tiles": 4
+     },
+     "map_width": 60,
+     "png": "png/gUnk_086FD240_06_peta_60x56.png"
+    },
+    {
+     "index": 7,
+     "offset": 11888,
+     "packed": 540,
+     "unpacked": 6720,
+     "format": "130",
+     "group": "peta",
+     "note": "3360 entri 16-bit; entri terbanyak 0x03FF (79%)",
+     "bin": "bin/gUnk_086FD240_07_6720_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 5,
+      "tiles": 4
+     },
+     "map_width": 60,
+     "png": "png/gUnk_086FD240_07_peta_60x56.png"
+    },
+    {
+     "index": 8,
+     "offset": 12428,
+     "packed": 168,
+     "unpacked": 6720,
+     "format": "130",
+     "group": "peta",
+     "note": "3360 entri 16-bit; entri terbanyak 0x03FF (96%)",
+     "bin": "bin/gUnk_086FD240_08_6720_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 5,
+      "tiles": 4
+     },
+     "map_width": 60,
+     "png": "png/gUnk_086FD240_08_peta_60x56.png"
+    },
+    {
+     "index": 9,
+     "offset": 12596,
+     "packed": 148,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_086FD240_09_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_086FD240_09_palet.png"
+    },
+    {
+     "index": 10,
+     "offset": 12744,
+     "packed": 472,
+     "unpacked": 1680,
+     "format": "124",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (22%)",
+     "bin": "bin/gUnk_086FD240_10_1680_0x124.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 9,
+      "tiles": 4
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_10_peta_30x28.png"
+    },
+    {
+     "index": 11,
+     "offset": 13216,
+     "packed": 260,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (79%)",
+     "bin": "bin/gUnk_086FD240_11_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 9,
+      "tiles": 4
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_11_peta_30x28.png"
+    },
+    {
+     "index": 12,
+     "offset": 13476,
+     "packed": 208,
+     "unpacked": 1680,
+     "format": "130",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (71%)",
+     "bin": "bin/gUnk_086FD240_12_1680_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 9,
+      "tiles": 4
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_12_peta_30x28.png"
+    },
+    {
+     "index": 13,
+     "offset": 13684,
+     "packed": 512,
+     "unpacked": 1680,
+     "format": "024",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (25%)",
+     "bin": "bin/gUnk_086FD240_13_1680_0x024.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 9,
+      "tiles": 4
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_13_peta_30x28.png"
+    },
+    {
+     "index": 14,
+     "offset": 14196,
+     "packed": 184,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (87%)",
+     "bin": "bin/gUnk_086FD240_14_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 9,
+      "tiles": 4
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_14_peta_30x28.png"
+    },
+    {
+     "index": 15,
+     "offset": 14380,
+     "packed": 116,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (69%)",
+     "bin": "bin/gUnk_086FD240_15_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 9,
+      "tiles": 4
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_15_peta_30x28.png"
+    },
+    {
+     "index": 16,
+     "offset": 14496,
+     "packed": 396,
+     "unpacked": 1680,
+     "format": "130",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (22%)",
+     "bin": "bin/gUnk_086FD240_16_1680_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 9,
+      "tiles": 4
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_16_peta_30x28.png"
+    },
+    {
+     "index": 17,
+     "offset": 14892,
+     "packed": 280,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (83%)",
+     "bin": "bin/gUnk_086FD240_17_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 9,
+      "tiles": 4
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_17_peta_30x28.png"
+    },
+    {
+     "index": 18,
+     "offset": 15172,
+     "packed": 140,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (73%)",
+     "bin": "bin/gUnk_086FD240_18_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 9,
+      "tiles": 4
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_18_peta_30x28.png"
+    },
+    {
+     "index": 19,
+     "offset": 15312,
+     "packed": 10948,
+     "unpacked": 32768,
+     "format": "231",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_086FD240_19_32768_0x231.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_086FD240_19_tile.png"
+    },
+    {
+     "index": 20,
+     "offset": 26260,
+     "packed": 320,
+     "unpacked": 480,
+     "format": "133",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_086FD240_20_480_0x133.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_086FD240_20_palet.png"
+    },
+    {
+     "index": 21,
+     "offset": 26580,
+     "packed": 332,
+     "unpacked": 1680,
+     "format": "134",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (22%)",
+     "bin": "bin/gUnk_086FD240_21_1680_0x134.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_21_peta_30x28.png"
+    },
+    {
+     "index": 22,
+     "offset": 26912,
+     "packed": 272,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (73%)",
+     "bin": "bin/gUnk_086FD240_22_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_22_peta_30x28.png"
+    },
+    {
+     "index": 23,
+     "offset": 27184,
+     "packed": 216,
+     "unpacked": 1680,
+     "format": "024",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (67%)",
+     "bin": "bin/gUnk_086FD240_23_1680_0x024.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_23_peta_30x28.png"
+    },
+    {
+     "index": 24,
+     "offset": 27400,
+     "packed": 1220,
+     "unpacked": 5472,
+     "format": "230",
+     "group": "peta",
+     "note": "2736 entri 16-bit; entri terbanyak 0x03FF (17%)",
+     "bin": "bin/gUnk_086FD240_24_5472_0x230.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 48,
+     "png": "png/gUnk_086FD240_24_peta_48x57.png"
+    },
+    {
+     "index": 25,
+     "offset": 28620,
+     "packed": 284,
+     "unpacked": 5472,
+     "format": "130",
+     "group": "peta",
+     "note": "2736 entri 16-bit; entri terbanyak 0x03FF (87%)",
+     "bin": "bin/gUnk_086FD240_25_5472_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 48,
+     "png": "png/gUnk_086FD240_25_peta_48x57.png"
+    },
+    {
+     "index": 26,
+     "offset": 28904,
+     "packed": 252,
+     "unpacked": 5472,
+     "format": "130",
+     "group": "peta",
+     "note": "2736 entri 16-bit; entri terbanyak 0x03FF (80%)",
+     "bin": "bin/gUnk_086FD240_26_5472_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 48,
+     "png": "png/gUnk_086FD240_26_peta_48x57.png"
+    },
+    {
+     "index": 27,
+     "offset": 29156,
+     "packed": 920,
+     "unpacked": 3312,
+     "format": "230",
+     "group": "peta",
+     "note": "1656 entri 16-bit; entri terbanyak 0x03FF (16%)",
+     "bin": "bin/gUnk_086FD240_27_3312_0x230.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 46,
+     "png": "png/gUnk_086FD240_27_peta_46x36.png"
+    },
+    {
+     "index": 28,
+     "offset": 30076,
+     "packed": 220,
+     "unpacked": 3312,
+     "format": "030",
+     "group": "peta",
+     "note": "1656 entri 16-bit; entri terbanyak 0x03FF (89%)",
+     "bin": "bin/gUnk_086FD240_28_3312_0x030.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 46,
+     "png": "png/gUnk_086FD240_28_peta_46x36.png"
+    },
+    {
+     "index": 29,
+     "offset": 30296,
+     "packed": 224,
+     "unpacked": 3312,
+     "format": "130",
+     "group": "peta",
+     "note": "1656 entri 16-bit; entri terbanyak 0x03FF (80%)",
+     "bin": "bin/gUnk_086FD240_29_3312_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 46,
+     "png": "png/gUnk_086FD240_29_peta_46x36.png"
+    },
+    {
+     "index": 30,
+     "offset": 30520,
+     "packed": 500,
+     "unpacked": 1680,
+     "format": "123",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (22%)",
+     "bin": "bin/gUnk_086FD240_30_1680_0x123.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_30_peta_30x28.png"
+    },
+    {
+     "index": 31,
+     "offset": 31020,
+     "packed": 232,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (85%)",
+     "bin": "bin/gUnk_086FD240_31_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_31_peta_30x28.png"
+    },
+    {
+     "index": 32,
+     "offset": 31252,
+     "packed": 220,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (68%)",
+     "bin": "bin/gUnk_086FD240_32_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 20,
+      "tiles": 19
+     },
+     "map_width": 30,
+     "png": "png/gUnk_086FD240_32_peta_30x28.png"
+    },
+    {
+     "index": 33,
+     "offset": 31472,
+     "packed": 20088,
+     "unpacked": 32768,
+     "format": "231",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_086FD240_33_32768_0x231.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_086FD240_33_tile.png"
+    },
+    {
+     "index": 34,
+     "offset": 51560,
+     "packed": 396,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_086FD240_34_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_086FD240_34_palet.png"
+    },
+    {
+     "index": 35,
+     "offset": 51956,
+     "packed": 2932,
+     "unpacked": 22144,
+     "format": "230",
+     "group": "peta",
+     "note": "11072 entri 16-bit; entri terbanyak 0x43A0 (6%)",
+     "bin": "bin/gUnk_086FD240_35_22144_0x230.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 34,
+      "tiles": 33
+     },
+     "map_width": 64,
+     "png": "png/gUnk_086FD240_35_peta_64x173.png"
+    },
+    {
+     "index": 36,
+     "offset": 54888,
+     "packed": 2424,
+     "unpacked": 22144,
+     "format": "134",
+     "group": "peta",
+     "note": "11072 entri 16-bit; entri terbanyak 0x03FF (71%)",
+     "bin": "bin/gUnk_086FD240_36_22144_0x134.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 34,
+      "tiles": 33
+     },
+     "map_width": 64,
+     "png": "png/gUnk_086FD240_36_peta_64x173.png"
+    },
+    {
+     "index": 37,
+     "offset": 57312,
+     "packed": 1160,
+     "unpacked": 22144,
+     "format": "033",
+     "group": "peta",
+     "note": "11072 entri 16-bit; entri terbanyak 0x03FF (87%)",
+     "bin": "bin/gUnk_086FD240_37_22144_0x033.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 34,
+      "tiles": 33
+     },
+     "map_width": 64,
+     "png": "png/gUnk_086FD240_37_peta_64x173.png"
+    },
+    {
+     "index": 38,
+     "offset": 58472,
+     "packed": 372,
+     "unpacked": 480,
+     "format": "130",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_086FD240_38_480_0x130.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_086FD240_38_palet.png"
+    },
+    {
+     "index": 39,
+     "offset": 58844,
+     "packed": 19608,
+     "unpacked": 32768,
+     "format": "231",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_086FD240_39_32768_0x231.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_086FD240_39_tile.png"
+    },
+    {
+     "index": 40,
+     "offset": 78452,
+     "packed": 296,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_086FD240_40_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_086FD240_40_palet.png"
+    },
+    {
+     "index": 41,
+     "offset": 78748,
+     "packed": 2260,
+     "unpacked": 22144,
+     "format": "130",
+     "group": "peta",
+     "note": "11072 entri 16-bit; entri terbanyak 0x639F (6%)",
+     "bin": "bin/gUnk_086FD240_41_22144_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 40,
+      "tiles": 39
+     },
+     "map_width": 64,
+     "png": "png/gUnk_086FD240_41_peta_64x173.png"
+    },
+    {
+     "index": 42,
+     "offset": 81008,
+     "packed": 2408,
+     "unpacked": 22144,
+     "format": "133",
+     "group": "peta",
+     "note": "11072 entri 16-bit; entri terbanyak 0x03FF (72%)",
+     "bin": "bin/gUnk_086FD240_42_22144_0x133.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 40,
+      "tiles": 39
+     },
+     "map_width": 64,
+     "png": "png/gUnk_086FD240_42_peta_64x173.png"
+    },
+    {
+     "index": 43,
+     "offset": 83416,
+     "packed": 1144,
+     "unpacked": 22144,
+     "format": "134",
+     "group": "peta",
+     "note": "11072 entri 16-bit; entri terbanyak 0x03FF (88%)",
+     "bin": "bin/gUnk_086FD240_43_22144_0x134.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 40,
+      "tiles": 39
+     },
+     "map_width": 64,
+     "png": "png/gUnk_086FD240_43_peta_64x173.png"
+    },
+    {
+     "index": 44,
+     "offset": 84560,
+     "packed": 272,
+     "unpacked": 480,
+     "format": "130",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_086FD240_44_480_0x130.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_086FD240_44_palet.png"
+    },
+    {
+     "index": 45,
+     "offset": 84832,
+     "packed": 10208,
+     "unpacked": 32768,
+     "format": "231",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_086FD240_45_32768_0x231.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_086FD240_45_tile.png"
+    },
+    {
+     "index": 46,
+     "offset": 95040,
+     "packed": 144,
+     "unpacked": 480,
+     "format": "000",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_086FD240_46_480_0x000.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_086FD240_46_palet.png"
+    },
+    {
+     "index": 47,
+     "offset": 95184,
+     "packed": 448,
+     "unpacked": 7200,
+     "format": "033",
+     "group": "peta",
+     "note": "3600 entri 16-bit; entri terbanyak 0x220B (13%)",
+     "bin": "bin/gUnk_086FD240_47_7200_0x033.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 46,
+      "tiles": 45
+     },
+     "map_width": 60,
+     "png": "png/gUnk_086FD240_47_peta_60x60.png"
+    },
+    {
+     "index": 48,
+     "offset": 95632,
+     "packed": 432,
+     "unpacked": 7200,
+     "format": "133",
+     "group": "peta",
+     "note": "3600 entri 16-bit; entri terbanyak 0x03FF (68%)",
+     "bin": "bin/gUnk_086FD240_48_7200_0x133.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 46,
+      "tiles": 45
+     },
+     "map_width": 60,
+     "png": "png/gUnk_086FD240_48_peta_60x60.png"
+    },
+    {
+     "index": 49,
+     "offset": 96064,
+     "packed": 176,
+     "unpacked": 7200,
+     "format": "133",
+     "group": "peta",
+     "note": "3600 entri 16-bit; entri terbanyak 0x03FF (92%)",
+     "bin": "bin/gUnk_086FD240_49_7200_0x133.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 46,
+      "tiles": 45
+     },
+     "map_width": 60,
+     "png": "png/gUnk_086FD240_49_peta_60x60.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08714A30",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 160,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_08714A30_00_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_08714A30_00_palet.png"
+    },
+    {
+     "index": 1,
+     "offset": 160,
+     "packed": 144,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_08714A30_01_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_08714A30_01_palet.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08714B60",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 140,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_08714B60_00_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_08714B60_00_palet.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08714BEC",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 152,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_08714BEC_00_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_08714BEC_00_palet.png"
+    },
+    {
+     "index": 1,
+     "offset": 152,
+     "packed": 7860,
+     "unpacked": 32768,
+     "format": "231",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_08714BEC_01_32768_0x231.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_08714BEC_01_tile.png"
+    },
+    {
+     "index": 2,
+     "offset": 8012,
+     "packed": 136,
+     "unpacked": 480,
+     "format": "000",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_08714BEC_02_480_0x000.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_08714BEC_02_palet.png"
+    },
+    {
+     "index": 3,
+     "offset": 8148,
+     "packed": 356,
+     "unpacked": 7200,
+     "format": "133",
+     "group": "peta",
+     "note": "3600 entri 16-bit; entri terbanyak 0x21ED (29%)",
+     "bin": "bin/gUnk_08714BEC_03_7200_0x133.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 2,
+      "tiles": 1
+     },
+     "map_width": 60,
+     "png": "png/gUnk_08714BEC_03_peta_60x60.png"
+    },
+    {
+     "index": 4,
+     "offset": 8504,
+     "packed": 424,
+     "unpacked": 7200,
+     "format": "133",
+     "group": "peta",
+     "note": "3600 entri 16-bit; entri terbanyak 0x03FF (68%)",
+     "bin": "bin/gUnk_08714BEC_04_7200_0x133.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 2,
+      "tiles": 1
+     },
+     "map_width": 60,
+     "png": "png/gUnk_08714BEC_04_peta_60x60.png"
+    },
+    {
+     "index": 5,
+     "offset": 8928,
+     "packed": 184,
+     "unpacked": 7200,
+     "format": "023",
+     "group": "peta",
+     "note": "3600 entri 16-bit; entri terbanyak 0x03FF (91%)",
+     "bin": "bin/gUnk_08714BEC_05_7200_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 2,
+      "tiles": 1
+     },
+     "map_width": 60,
+     "png": "png/gUnk_08714BEC_05_peta_60x60.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08716F84",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 148,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_08716F84_00_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_08716F84_00_palet.png"
+    },
+    {
+     "index": 1,
+     "offset": 148,
+     "packed": 160,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_08716F84_01_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_08716F84_01_palet.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_087170B8",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 148,
+     "unpacked": 480,
+     "format": "030",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_087170B8_00_480_0x030.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_087170B8_00_palet.png"
+    },
+    {
+     "index": 1,
+     "offset": 148,
+     "packed": 440,
+     "unpacked": 1680,
+     "format": "130",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (22%)",
+     "bin": "bin/gUnk_087170B8_01_1680_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_01_peta_30x28.png"
+    },
+    {
+     "index": 2,
+     "offset": 588,
+     "packed": 304,
+     "unpacked": 1680,
+     "format": "024",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (82%)",
+     "bin": "bin/gUnk_087170B8_02_1680_0x024.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_02_peta_30x28.png"
+    },
+    {
+     "index": 3,
+     "offset": 892,
+     "packed": 160,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (72%)",
+     "bin": "bin/gUnk_087170B8_03_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_03_peta_30x28.png"
+    },
+    {
+     "index": 4,
+     "offset": 1052,
+     "packed": 148,
+     "unpacked": 1200,
+     "format": "130",
+     "group": "peta",
+     "note": "600 entri 16-bit; entri terbanyak 0x12E9 (14%)",
+     "bin": "bin/gUnk_087170B8_04_1200_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_04_peta_30x20.png"
+    },
+    {
+     "index": 5,
+     "offset": 1200,
+     "packed": 72,
+     "unpacked": 1200,
+     "format": "030",
+     "group": "peta",
+     "note": "600 entri 16-bit; entri terbanyak 0x03FF (95%)",
+     "bin": "bin/gUnk_087170B8_05_1200_0x030.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_05_peta_30x20.png"
+    },
+    {
+     "index": 6,
+     "offset": 1272,
+     "packed": 268,
+     "unpacked": 1200,
+     "format": "230",
+     "group": "peta",
+     "note": "600 entri 16-bit; entri terbanyak 0x12E9 (16%)",
+     "bin": "bin/gUnk_087170B8_06_1200_0x230.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_06_peta_30x20.png"
+    },
+    {
+     "index": 7,
+     "offset": 1540,
+     "packed": 116,
+     "unpacked": 1200,
+     "format": "024",
+     "group": "peta",
+     "note": "600 entri 16-bit; entri terbanyak 0x03FF (88%)",
+     "bin": "bin/gUnk_087170B8_07_1200_0x024.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_07_peta_30x20.png"
+    },
+    {
+     "index": 8,
+     "offset": 1656,
+     "packed": 548,
+     "unpacked": 1200,
+     "format": "130",
+     "group": "peta",
+     "note": "600 entri 16-bit; entri terbanyak 0x03FF (9%)",
+     "bin": "bin/gUnk_087170B8_08_1200_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_08_peta_30x20.png"
+    },
+    {
+     "index": 9,
+     "offset": 2204,
+     "packed": 236,
+     "unpacked": 1200,
+     "format": "130",
+     "group": "peta",
+     "note": "600 entri 16-bit; entri terbanyak 0x03FF (70%)",
+     "bin": "bin/gUnk_087170B8_09_1200_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_09_peta_30x20.png"
+    },
+    {
+     "index": 10,
+     "offset": 2440,
+     "packed": 484,
+     "unpacked": 1200,
+     "format": "130",
+     "group": "peta",
+     "note": "600 entri 16-bit; entri terbanyak 0x03FF (11%)",
+     "bin": "bin/gUnk_087170B8_10_1200_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_10_peta_30x20.png"
+    },
+    {
+     "index": 11,
+     "offset": 2924,
+     "packed": 204,
+     "unpacked": 1200,
+     "format": "130",
+     "group": "peta",
+     "note": "600 entri 16-bit; entri terbanyak 0x03FF (74%)",
+     "bin": "bin/gUnk_087170B8_11_1200_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_11_peta_30x20.png"
+    },
+    {
+     "index": 12,
+     "offset": 3128,
+     "packed": 372,
+     "unpacked": 1680,
+     "format": "130",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (19%)",
+     "bin": "bin/gUnk_087170B8_12_1680_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_12_peta_30x28.png"
+    },
+    {
+     "index": 13,
+     "offset": 3500,
+     "packed": 420,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (68%)",
+     "bin": "bin/gUnk_087170B8_13_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_13_peta_30x28.png"
+    },
+    {
+     "index": 14,
+     "offset": 3920,
+     "packed": 216,
+     "unpacked": 1680,
+     "format": "024",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (71%)",
+     "bin": "bin/gUnk_087170B8_14_1680_0x024.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 0,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_14_peta_30x28.png"
+    },
+    {
+     "index": 15,
+     "offset": 4136,
+     "packed": 10744,
+     "unpacked": 32768,
+     "format": "231",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_087170B8_15_32768_0x231.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_087170B8_15_tile.png"
+    },
+    {
+     "index": 16,
+     "offset": 14880,
+     "packed": 240,
+     "unpacked": 480,
+     "format": "133",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_087170B8_16_480_0x133.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_087170B8_16_palet.png"
+    },
+    {
+     "index": 17,
+     "offset": 15120,
+     "packed": 612,
+     "unpacked": 1680,
+     "format": "130",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (18%)",
+     "bin": "bin/gUnk_087170B8_17_1680_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 16,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_17_peta_30x28.png"
+    },
+    {
+     "index": 18,
+     "offset": 15732,
+     "packed": 344,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (75%)",
+     "bin": "bin/gUnk_087170B8_18_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 16,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_18_peta_30x28.png"
+    },
+    {
+     "index": 19,
+     "offset": 16076,
+     "packed": 260,
+     "unpacked": 1680,
+     "format": "133",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (65%)",
+     "bin": "bin/gUnk_087170B8_19_1680_0x133.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 16,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_19_peta_30x28.png"
+    },
+    {
+     "index": 20,
+     "offset": 16336,
+     "packed": 548,
+     "unpacked": 1680,
+     "format": "130",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (25%)",
+     "bin": "bin/gUnk_087170B8_20_1680_0x130.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 16,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_20_peta_30x28.png"
+    },
+    {
+     "index": 21,
+     "offset": 16884,
+     "packed": 296,
+     "unpacked": 1680,
+     "format": "023",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (80%)",
+     "bin": "bin/gUnk_087170B8_21_1680_0x023.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 16,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_21_peta_30x28.png"
+    },
+    {
+     "index": 22,
+     "offset": 17180,
+     "packed": 160,
+     "unpacked": 1680,
+     "format": "033",
+     "group": "peta",
+     "note": "840 entri 16-bit; entri terbanyak 0x03FF (65%)",
+     "bin": "bin/gUnk_087170B8_22_1680_0x033.bin",
+     "png_kind": "peta berwarna",
+     "pair": {
+      "palette": 16,
+      "tiles": 15
+     },
+     "map_width": 30,
+     "png": "png/gUnk_087170B8_22_peta_30x28.png"
+    },
+    {
+     "index": 23,
+     "offset": 17340,
+     "packed": 8064,
+     "unpacked": 32768,
+     "format": "231",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_087170B8_23_32768_0x231.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_087170B8_23_tile.png"
+    },
+    {
+     "index": 24,
+     "offset": 25404,
+     "packed": 296,
+     "unpacked": 480,
+     "format": "133",
+     "group": "palet",
+     "note": "15 bank x 16 warna (0x1E0)",
+     "bin": "bin/gUnk_087170B8_24_480_0x133.bin",
+     "png_kind": "swatch palet",
+     "png": "png/gUnk_087170B8_24_palet.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0871D51C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0871E7A8",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0871ECAC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0871EDD4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0871EF00",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08725DA0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08726CCC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08727368",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08727A74",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08728208",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08728320",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0872937C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08729460",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0872BE64",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0872C5D0",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 364,
+     "unpacked": 2048,
+     "format": "030",
+     "group": "peta",
+     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (85%)",
+     "bin": "bin/gUnk_0872C5D0_00_2048_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0872C5D0_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872C73C",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 272,
+     "unpacked": 2048,
+     "format": "030",
+     "group": "peta",
+     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (88%)",
+     "bin": "bin/gUnk_0872C73C_00_2048_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0872C73C_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872C84C",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 3424,
+     "unpacked": 4480,
+     "format": "020",
+     "group": "tile",
+     "note": "140 tile 4bpp",
+     "bin": "bin/gUnk_0872C84C_00_4480_0x020.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_0872C84C_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872D5AC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0872D5CC",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 100,
+     "unpacked": 2048,
+     "format": "030",
+     "group": "peta",
+     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (41%)",
+     "bin": "bin/gUnk_0872D5CC_00_2048_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0872D5CC_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872D630",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 168,
+     "unpacked": 2048,
+     "format": "030",
+     "group": "peta",
+     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (82%)",
+     "bin": "bin/gUnk_0872D630_00_2048_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0872D630_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872D6D8",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 1804,
+     "unpacked": 3776,
+     "format": "020",
+     "group": "tile",
+     "note": "118 tile 4bpp",
+     "bin": "bin/gUnk_0872D6D8_00_3776_0x020.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_0872D6D8_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872DDE4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0872DE44",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0872EE78",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0872F11C",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 160,
+     "unpacked": 384,
+     "format": "030",
+     "group": "peta",
+     "note": "192 entri 16-bit; entri terbanyak 0x03FF (38%)",
+     "bin": "bin/gUnk_0872F11C_00_384_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 16,
+     "png": "png/gUnk_0872F11C_00_peta_indeks_16.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872F1BC",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 48,
+     "unpacked": 384,
+     "format": "020",
+     "group": "peta",
+     "note": "192 entri 16-bit; entri terbanyak 0x03FF (94%)",
+     "bin": "bin/gUnk_0872F1BC_00_384_0x020.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 16,
+     "png": "png/gUnk_0872F1BC_00_peta_indeks_16.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872F1EC",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 48,
+     "unpacked": 384,
+     "format": "030",
+     "group": "peta",
+     "note": "192 entri 16-bit; entri terbanyak 0x03FF (93%)",
+     "bin": "bin/gUnk_0872F1EC_00_384_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 16,
+     "png": "png/gUnk_0872F1EC_00_peta_indeks_16.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872F21C",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 2176,
+     "unpacked": 11456,
+     "format": "020",
+     "group": "tile",
+     "note": "358 tile 4bpp",
+     "bin": "bin/gUnk_0872F21C_00_11456_0x020.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_0872F21C_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872FA9C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0872FBFC",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 56,
+     "unpacked": 384,
+     "format": "030",
+     "group": "peta",
+     "note": "192 entri 16-bit; entri terbanyak 0x03FF (81%)",
+     "bin": "bin/gUnk_0872FBFC_00_384_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 16,
+     "png": "png/gUnk_0872FBFC_00_peta_indeks_16.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872FC34",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 568,
+     "unpacked": 2048,
+     "format": "020",
+     "group": "peta",
+     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (41%)",
+     "bin": "bin/gUnk_0872FC34_00_2048_0x020.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0872FC34_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872FE6C",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 140,
+     "unpacked": 2048,
+     "format": "030",
+     "group": "peta",
+     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (94%)",
+     "bin": "bin/gUnk_0872FE6C_00_2048_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0872FE6C_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0872FEF8",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 6728,
+     "unpacked": 29696,
+     "format": "020",
+     "group": "tile",
+     "note": "928 tile 4bpp",
+     "bin": "bin/gUnk_0872FEF8_00_29696_0x020.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_0872FEF8_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08731940",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08731B40",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08738144",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08738AD8",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 496,
+     "unpacked": 1280,
+     "format": "000",
+     "group": "peta",
+     "note": "640 entri 16-bit; entri terbanyak 0x03FF (1%)",
+     "bin": "bin/gUnk_08738AD8_00_1280_0x000.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_08738AD8_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08738CC8",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 40,
+     "unpacked": 1280,
+     "format": "030",
+     "group": "peta",
+     "note": "640 entri 16-bit; entri terbanyak 0x03FF (96%)",
+     "bin": "bin/gUnk_08738CC8_00_1280_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_08738CC8_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08738CF0",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 44,
+     "unpacked": 320,
+     "format": "030",
+     "group": "peta",
+     "note": "160 entri 16-bit; entri terbanyak 0x03FF (45%)",
+     "bin": "bin/gUnk_08738CF0_00_320_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 20,
+     "png": "png/gUnk_08738CF0_00_peta_indeks_20.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08738D1C",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 3240,
+     "unpacked": 10496,
+     "format": "020",
+     "group": "tile",
+     "note": "328 tile 4bpp",
+     "bin": "bin/gUnk_08738D1C_00_10496_0x020.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_08738D1C_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_087399C4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08739A64",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 3204,
+     "unpacked": 6144,
+     "format": "020",
+     "group": "tile",
+     "note": "192 tile 4bpp",
+     "bin": "bin/gUnk_08739A64_00_6144_0x020.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_08739A64_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0873A6E8",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873AE54",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873AFC8",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873BE24",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 292,
+     "unpacked": 2048,
+     "format": "030",
+     "group": "peta",
+     "note": "1024 entri 16-bit; entri terbanyak 0x0000 (41%)",
+     "bin": "bin/gUnk_0873BE24_00_2048_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0873BE24_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0873BF48",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 168,
+     "unpacked": 2048,
+     "format": "030",
+     "group": "peta",
+     "note": "1024 entri 16-bit; entri terbanyak 0x0000 (84%)",
+     "bin": "bin/gUnk_0873BF48_00_2048_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0873BF48_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0873BFF0",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 3076,
+     "unpacked": 31714,
+     "format": "020",
+     "group": "lain",
+     "note": "31714 B, bukan kelipatan tile dan bukan peta 16-bit",
+     "bin": "bin/gUnk_0873BFF0_00_31714_0x020.bin"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0873CBF4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873CCB4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873CEAC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873CF90",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873D234",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873D5FC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873D6D8",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873DE44",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873E5B0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873ED1C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0873F3C8",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 524,
+     "unpacked": 2048,
+     "format": "020",
+     "group": "peta",
+     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (41%)",
+     "bin": "bin/gUnk_0873F3C8_00_2048_0x020.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0873F3C8_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0873F5D4",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 216,
+     "unpacked": 2048,
+     "format": "030",
+     "group": "peta",
+     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (90%)",
+     "bin": "bin/gUnk_0873F5D4_00_2048_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0873F5D4_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0873F6AC",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 2616,
+     "unpacked": 3712,
+     "format": "020",
+     "group": "tile",
+     "note": "116 tile 4bpp",
+     "bin": "bin/gUnk_0873F6AC_00_3712_0x020.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_0873F6AC_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_087400E4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087401A4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08740454",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087405A0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08740908",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087409E4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08743058",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 18876,
+     "unpacked": 28160,
+     "format": "020",
+     "group": "tile",
+     "note": "880 tile 4bpp",
+     "bin": "bin/gUnk_08743058_00_28160_0x020.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_08743058_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08747A14",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08747A74",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 10084,
+     "unpacked": 19468,
+     "format": "220",
+     "group": "lain",
+     "note": "19468 B, bukan kelipatan tile dan bukan peta 16-bit",
+     "bin": "bin/gUnk_08747A74_00_19468_0x220.bin"
+    },
+    {
+     "index": 1,
+     "offset": 10084,
+     "packed": 988,
+     "unpacked": 4096,
+     "format": "130",
+     "group": "peta",
+     "note": "2048 entri 16-bit; entri terbanyak 0x03FF (41%)",
+     "bin": "bin/gUnk_08747A74_01_4096_0x130.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 64,
+     "png": "png/gUnk_08747A74_01_peta_indeks_64.png"
+    },
+    {
+     "index": 2,
+     "offset": 11072,
+     "packed": 540,
+     "unpacked": 4096,
+     "format": "130",
+     "group": "peta",
+     "note": "2048 entri 16-bit; entri terbanyak 0x03FF (82%)",
+     "bin": "bin/gUnk_08747A74_02_4096_0x130.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 64,
+     "png": "png/gUnk_08747A74_02_peta_indeks_64.png"
+    },
+    {
+     "index": 3,
+     "offset": 11612,
+     "packed": 244,
+     "unpacked": 4096,
+     "format": "130",
+     "group": "peta",
+     "note": "2048 entri 16-bit; entri terbanyak 0x03FF (93%)",
+     "bin": "bin/gUnk_08747A74_03_4096_0x130.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 64,
+     "png": "png/gUnk_08747A74_03_peta_indeks_64.png"
+    },
+    {
+     "index": 4,
+     "offset": 11856,
+     "packed": 252,
+     "unpacked": 4096,
+     "format": "130",
+     "group": "peta",
+     "note": "2048 entri 16-bit; entri terbanyak 0x03FF (95%)",
+     "bin": "bin/gUnk_08747A74_04_4096_0x130.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 64,
+     "png": "png/gUnk_08747A74_04_peta_indeks_64.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0874A9C0",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 14704,
+     "unpacked": 32768,
+     "format": "230",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_0874A9C0_00_32768_0x230.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_0874A9C0_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0874E330",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0874E530",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0874E648",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 1272,
+     "unpacked": 11234,
+     "format": "230",
+     "group": "lain",
+     "note": "11234 B, bukan kelipatan tile dan bukan peta 16-bit",
+     "bin": "bin/gUnk_0874E648_00_11234_0x230.bin"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0874EB40",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0874EB60",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 364,
+     "unpacked": 1280,
+     "format": "100",
+     "group": "peta",
+     "note": "640 entri 16-bit; entri terbanyak 0x0140 (67%)",
+     "bin": "bin/gUnk_0874EB60_00_1280_0x100.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0874EB60_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0874ECCC",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 364,
+     "unpacked": 4096,
+     "format": "130",
+     "group": "peta",
+     "note": "2048 entri 16-bit; entri terbanyak 0x0140 (90%)",
+     "bin": "bin/gUnk_0874ECCC_00_4096_0x130.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 64,
+     "png": "png/gUnk_0874ECCC_00_peta_indeks_64.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0874EE38",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0874EF14",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 40,
+     "unpacked": 1280,
+     "format": "030",
+     "group": "peta",
+     "note": "640 entri 16-bit; entri terbanyak 0x0003 (79%)",
+     "bin": "bin/gUnk_0874EF14_00_1280_0x030.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0874EF14_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0874EF3C",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 176,
+     "unpacked": 1280,
+     "format": "020",
+     "group": "peta",
+     "note": "640 entri 16-bit; entri terbanyak 0x03FF (30%)",
+     "bin": "bin/gUnk_0874EF3C_00_1280_0x020.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0874EF3C_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0874EFEC",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 100,
+     "unpacked": 1280,
+     "format": "020",
+     "group": "peta",
+     "note": "640 entri 16-bit; entri terbanyak 0x03FF (50%)",
+     "bin": "bin/gUnk_0874EFEC_00_1280_0x020.bin",
+     "png_kind": "grid indeks (pasangan tidak ada)",
+     "map_width": 32,
+     "png": "png/gUnk_0874EFEC_00_peta_indeks_32.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0874F050",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 668,
+     "unpacked": 5120,
+     "format": "020",
+     "group": "tile",
+     "note": "160 tile 4bpp",
+     "bin": "bin/gUnk_0874F050_00_5120_0x020.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_0874F050_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0874F2EC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0874F34C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087506E0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08750C4C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08750C6C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08750C8C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08750E4C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08750F6C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08750F8C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087510AC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087511CC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087512EC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875130C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875142C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875154C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875166C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875178C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087517AC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087518CC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875194C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875196C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087519EC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751A0C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751A8C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751AAC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751B2C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751B4C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751BCC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751BEC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751C6C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751C8C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751D0C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751D2C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751DAC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751DCC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751E4C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751E6C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751EEC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751F0C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751F8C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08751FAC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875202C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875204C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087520CC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087520EC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875216C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875218C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875220C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875222C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087522AC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087522CC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875234C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875236C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087523EC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875240C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875248C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087524AC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875252C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875254C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087525CC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087525EC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875266C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875268C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875270C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875272C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087527AC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087527CC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875284C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875286C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087528EC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875290C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875298C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087529AC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752A2C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752AAC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752ACC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752B4C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752BCC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752C4C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752CCC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752D4C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752DCC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752E4C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752ECC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752EEC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752F6C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08752F8C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875300C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875302C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087530AC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087530CC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875314C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875316C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087531EC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875320C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875328C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087532AC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875332C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875334C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087533CC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087533EC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875346C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875348C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875350C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875352C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08753608",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087536E4",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_087537D0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08754674",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08754C0C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08755154",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08755230",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875553C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08755848",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 8856,
+     "unpacked": 32768,
+     "format": "220",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_08755848_00_32768_0x220.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_08755848_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_08757AE0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08757BA0",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08757BAC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08757BCC",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08757BD8",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08757BF8",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08757C0C",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08757C14",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_08757F20",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875822C",
+   "streams": [
+    {
+     "index": 0,
+     "offset": 0,
+     "packed": 8492,
+     "unpacked": 32768,
+     "format": "230",
+     "group": "tile",
+     "note": "1024 tile 4bpp",
+     "bin": "bin/gUnk_0875822C_00_32768_0x230.bin",
+     "png_kind": "lembar tile 4bpp (abu-abu indeks)",
+     "png": "png/gUnk_0875822C_00_tile.png"
+    }
+   ]
+  },
+  {
+   "blob": "gUnk_0875A358",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875A418",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875A424",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875A438",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875A440",
+   "streams": []
+  },
+  {
+   "blob": "gUnk_0875B444",
+   "streams": []
+  }
+ ]
+}
