@@ -2307,3 +2307,26 @@ Akibatnya untuk `func_080087C8` tersisa dua jalan yang sama-sama tidak murah:
 meniru penjadwalan agbcc (load diangkat, store ditenggelamkan) atau mengakui
 fungsi ini parkir. Draf terbaik tetap varian member-langsung (240B, 89
 instruksi beda, judge 48 selisih).
+
+### 70d. Alias `char *` hanya menahan store bila pointernya buram
+
+Uji terpisah (fungsi tiruan, pointer parameter):
+
+```c
+void g(S *p, void *x) { char *q = (char *) p + 0x18; *(void **) q = x;
+                        p->d = 0; p->e = 0; p->c = 0; }
+```
+
+-> `str r1, [r0, #0x18]` **bertahan** (agbcc tidak membuang store lewat
+`char *` yang bisa mengalias apa pun). Tapi di `func_080087C8` trik yang sama
+gagal: `pd` adalah `register Cont *pd __asm__("r4")` yang menunjuk lokal
+`&d`, sehingga `(char *) pd + 0x18` terlipat ke alamat yang sama dan store
+tetap dihapus (objek 236B/232B). Dengan basis diikat di awal (bentuk v6)
+objek jadi 240B tetapi jumlah instruksi beda tetap 89 - tidak ada perbaikan
+yang membenarkan judge tambahan.
+
+Kesimpulan: untuk store ganda ke slot yang sama, agbcc hanya "lupa" alamatnya
+kalau pointernya berasal dari parameter/`void *` buram; pada alamat lokal yang
+diketahui, DSE tetap jalan. Ini yang membuat ref (yang mempertahankan ketiga
+store: `0x40`, `0x44`, `0x48` masing-masing dua kali) tidak bisa ditiru dari
+C biasa tanpa barrier.
