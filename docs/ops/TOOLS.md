@@ -116,8 +116,9 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
 - `extract_assets.py` — buka semua stream format `0x70` (daftar dari
   `asset_inventory.analyze()`) ke `assets/0x70/bin/`, kelompokkan dari ukuran +
   isi (`palet` 480 B/15 bank, `tile` 4bpp kelipatan 32 B, `peta` 16-bit,
-  `lain`), lalu render PNG: swatch palet, lembar tile indeks, dan peta
-  berwarna hanya kalau pasangannya terbukti. Bukti pertama adalah call site
+  `layar` tilemap scene statis, `lain`), lalu render PNG: swatch palet, lembar
+  tile indeks, peta berwarna, dan layar berwarna hanya kalau pasangannya
+  terbukti. Bukti pertama adalah call site
   `Unpack`/salin di `asm/`: tujuan ditulis peta ke `0x0600C000-0x0600FFFF`,
   palet ke `0x05000000-0x050001FF`, tileset ke `0x06000000-0x0600BFFF` dalam
   fungsi yang sama (register tujuan dilacak lewat `ldr`/`mov`/`adds`, tulisan
@@ -131,7 +132,11 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   tile (selain 0x03FF = kosong) harus di dalam jumlah tile tileset; kalau tidak
   ada bukti, bukti ganda berbeda, atau aset pasangan tidak masuk akal, stream
   jadi grid indeks dan
-  `manifest.json` mencatat `pair_status: unproven` + alasannya. Pasangan yang
+  `manifest.json` mencatat `pair_status: unproven` + alasannya. Tilemap yang
+  dimuat scene logo/HUD (`func_08000F5C`, `func_08077810`, `func_080A2BA4`)
+  dikelompokkan `layar`, bukan `peta`; manifest mencatat `screen` (jenis,
+  fungsi, baris), PNG-nya `layar berwarna`, dan stream itu tidak dihitung di
+  pasangan/peta berwarna. Pasangan yang
   hanya punya entri header ditandai `pair_status: header-only`, bukan
   `verified`; loader lapis `func_080A5CC0` menulis field +0x0C/+0x10/+0x14 ke
   buffer objek, bukan ke `0x0600xxxx`, dan tileset `func_080A5EA0` menulis

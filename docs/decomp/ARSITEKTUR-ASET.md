@@ -240,8 +240,9 @@ Untuk container `0x70`, tambahkan:
 |---|---|---|---|
 | palet | PNG indexed / `.pal` JASC | `pal2gba` | 16/256 warna, urutan bank, BGR555 |
 | tile/font/UI 4bpp | PNG indexed | `png2gba` | 8×8 tile, urutan tile, `tile_offset`/`tile_trim` |
-| tilemap | `.bin` + `map.json` | `map2bin` | lebar/tinggi, 0x03FF kosong, indeks tile |
+| tilemap peta | `.bin` + `map.json` | `map2bin` | lebar/tinggi, 0x03FF kosong, indeks tile |
 | map/tileset | source tileset + metatile + atribut + layout | editor/compiler khusus FOMT | pasangan palet/tileset, header 40 B, sha256 |
+| layar statis (logo/HUD) | PNG tilemap + palet/tileset | renderer layar | kelas `layar`, bukan peta; bukti fungsi scene |
 | sprite/OBJ | PNG + frame/OAM/anim JSON | `sprite2gba` | urutan tile, palet, metadata frame |
 | tabel/struct | JSON/C dengan schema | generator C/asm | layout struct, `static_assert`, hash byte |
 | container 0x70 | manifest stream + source decoded | `lz70` + encoder stream | decoded hash **dan** compressed hash |

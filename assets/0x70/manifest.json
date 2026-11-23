@@ -24,6 +24,29 @@
   "vram_layer_callsite": null,
   "conclusion": "header-only: tidak ada call site Unpack field lapis peta ke 0x0600xxxx; loader lapis memakai buffer objek"
  },
+ "screen_scenes": [
+  {
+   "file": "intro_scene.s",
+   "function": "func_08000F5C",
+   "kind": "logo",
+   "label": "logo Natsume (intro)",
+   "reason": "scene intro memuat latar logo, bukan lapis peta"
+  },
+  {
+   "file": "code_0803EE94.s",
+   "function": "func_08077810",
+   "kind": "logo",
+   "label": "logo Natsume (boot)",
+   "reason": "scene boot memuat latar logo, bukan lapis peta"
+  },
+  {
+   "file": "code_809E804.s",
+   "function": "func_080A2BA4",
+   "kind": "hud",
+   "label": "HUD/panel tetap",
+   "reason": "tiga lapis panel layar, bukan lapis peta"
+  }
+ ],
  "streams": [
   {
    "blob": "gUnk_08527238",
@@ -4497,10 +4520,18 @@
      "packed": 364,
      "unpacked": 1280,
      "format": "100",
-     "group": "peta",
-     "note": "640 entri 16-bit; entri terbanyak 0x0140 (67%)",
+     "group": "layar",
+     "note": "layar logo: scene intro memuat latar logo, bukan lapis peta",
      "bin": "bin/gUnk_0874EB60_00_1280_0x100.bin",
-     "png_kind": "peta berwarna",
+     "screen": {
+      "kind": "logo",
+      "label": "logo Natsume (intro)",
+      "reason": "scene intro memuat latar logo, bukan lapis peta",
+      "file": "intro_scene.s",
+      "function": "func_08000F5C",
+      "line": 715
+     },
+     "png_kind": "layar berwarna",
      "pair_status": "verified",
      "pair": {
       "palette": {
@@ -4533,7 +4564,7 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0874EB60_00_peta_32x20.png"
+     "png": "assets/0x70/png/gUnk_0874EB60_00_layar_32x20.png"
     }
    ]
   },
@@ -4547,10 +4578,18 @@
      "packed": 364,
      "unpacked": 4096,
      "format": "130",
-     "group": "peta",
-     "note": "2048 entri 16-bit; entri terbanyak 0x0140 (90%)",
+     "group": "layar",
+     "note": "layar logo: scene boot memuat latar logo, bukan lapis peta",
      "bin": "bin/gUnk_0874ECCC_00_4096_0x130.bin",
-     "png_kind": "peta berwarna",
+     "screen": {
+      "kind": "logo",
+      "label": "logo Natsume (boot)",
+      "reason": "scene boot memuat latar logo, bukan lapis peta",
+      "file": "code_0803EE94.s",
+      "function": "func_08077810",
+      "line": 112032
+     },
+     "png_kind": "layar berwarna",
      "pair_status": "verified",
      "pair": {
       "palette": {
@@ -4583,7 +4622,7 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0874ECCC_00_peta_32x64.png"
+     "png": "assets/0x70/png/gUnk_0874ECCC_00_layar_32x64.png"
     }
    ]
   },
@@ -4597,10 +4636,18 @@
      "packed": 40,
      "unpacked": 1280,
      "format": "030",
-     "group": "peta",
-     "note": "640 entri 16-bit; entri terbanyak 0x0003 (79%)",
+     "group": "layar",
+     "note": "layar hud: tiga lapis panel layar, bukan lapis peta",
      "bin": "bin/gUnk_0874EF14_00_1280_0x030.bin",
-     "png_kind": "peta berwarna",
+     "screen": {
+      "kind": "hud",
+      "label": "HUD/panel tetap",
+      "reason": "tiga lapis panel layar, bukan lapis peta",
+      "file": "code_809E804.s",
+      "function": "func_080A2BA4",
+      "line": 8436
+     },
+     "png_kind": "layar berwarna",
      "pair_status": "verified",
      "pair": {
       "palette": {
@@ -4633,7 +4680,7 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0874EF14_00_peta_32x20.png"
+     "png": "assets/0x70/png/gUnk_0874EF14_00_layar_32x20.png"
     }
    ]
   },
@@ -4647,10 +4694,18 @@
      "packed": 176,
      "unpacked": 1280,
      "format": "020",
-     "group": "peta",
-     "note": "640 entri 16-bit; entri terbanyak 0x03FF (30%)",
+     "group": "layar",
+     "note": "layar hud: tiga lapis panel layar, bukan lapis peta",
      "bin": "bin/gUnk_0874EF3C_00_1280_0x020.bin",
-     "png_kind": "peta berwarna",
+     "screen": {
+      "kind": "hud",
+      "label": "HUD/panel tetap",
+      "reason": "tiga lapis panel layar, bukan lapis peta",
+      "file": "code_809E804.s",
+      "function": "func_080A2BA4",
+      "line": 8439
+     },
+     "png_kind": "layar berwarna",
      "pair_status": "verified",
      "pair": {
       "palette": {
@@ -4683,7 +4738,7 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0874EF3C_00_peta_32x20.png"
+     "png": "assets/0x70/png/gUnk_0874EF3C_00_layar_32x20.png"
     }
    ]
   },
@@ -4697,10 +4752,18 @@
      "packed": 100,
      "unpacked": 1280,
      "format": "020",
-     "group": "peta",
-     "note": "640 entri 16-bit; entri terbanyak 0x03FF (50%)",
+     "group": "layar",
+     "note": "layar hud: tiga lapis panel layar, bukan lapis peta",
      "bin": "bin/gUnk_0874EFEC_00_1280_0x020.bin",
-     "png_kind": "peta berwarna",
+     "screen": {
+      "kind": "hud",
+      "label": "HUD/panel tetap",
+      "reason": "tiga lapis panel layar, bukan lapis peta",
+      "file": "code_809E804.s",
+      "function": "func_080A2BA4",
+      "line": 8442
+     },
+     "png_kind": "layar berwarna",
      "pair_status": "verified",
      "pair": {
       "palette": {
@@ -4733,7 +4796,7 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0874EFEC_00_peta_32x20.png"
+     "png": "assets/0x70/png/gUnk_0874EFEC_00_layar_32x20.png"
     }
    ]
   },

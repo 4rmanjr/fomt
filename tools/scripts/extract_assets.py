@@ -10,6 +10,8 @@ sebagai `.bin`, lalu dikelompokkan dari ukuran + isi:
 - `tile`   — kelipatan 32 B, bukan peta: 4bpp 8x8 (satu tile 32 B).
 - `peta`   — 16-bit tilemap: entri didominasi satu nilai (tile kosong/fill),
              mis. 0x03FF; lebar ditebak dari jumlah entri.
+- `layar`  — tilemap layar statis (logo/HUD) yang dimuat scene tetap; bukan
+             lapis peta dan tidak masuk hitungan peta berwarna.
 - `lain`   — tidak kelipatan tile/peta (mis. data intro): tidak dirender.
 
 PNG yang dihasilkan:
@@ -17,7 +19,9 @@ PNG yang dihasilkan:
 - palet  -> kartu swatch 16 warna/baris;
 - tile   -> lembar tile 4bpp 16 kolom, abu-abu indeks (tanpa palet);
 - peta   -> render berwarna kalau pasangannya terbukti; kalau tidak, grid.
-             Bukti pertama: call site `Unpack`/salin di `asm/` yang menulis
+- layar  -> render berwarna untuk tilemap scene logo/HUD, terpisah dari peta.
+             Keduanya memakai bukti pertama: call site `Unpack`/salin di `asm/`
+             yang menulis
              peta ke 0x0600C000-0x0600FFFF, palet ke 0x05000000-0x050001FF,
              dan tileset ke 0x06000000-0x0600BFFF dalam fungsi yang sama.
              Stream container tidak punya simbol statis (dialamatkan lewat
@@ -79,6 +83,26 @@ MAP_LOADER = {
                   "ke 0x0600xxxx; loader lapis memakai buffer objek",
 }
 GBA_BASE = 0x08000000
+# Tilemap layar statis: bukan lapis peta dan tidak boleh masuk hitungan peta.
+# Buktinya fungsi pemuat scene, bukan tebakan dari gambar: logo Natsume dimuat
+# scene intro/boot, panel HUD dimuat fungsi panel tiga-lapis.
+SCREEN_SCENES = {
+    ("intro_scene.s", "func_08000F5C"): {
+        "kind": "logo",
+        "label": "logo Natsume (intro)",
+        "reason": "scene intro memuat latar logo, bukan lapis peta",
+    },
+    ("code_0803EE94.s", "func_08077810"): {
+        "kind": "logo",
+        "label": "logo Natsume (boot)",
+        "reason": "scene boot memuat latar logo, bukan lapis peta",
+    },
+    ("code_809E804.s", "func_080A2BA4"): {
+        "kind": "hud",
+        "label": "HUD/panel tetap",
+        "reason": "tiga lapis panel layar, bukan lapis peta",
+    },
+}
 PALETTE_RAM = (0x05000000, 0x05000200)
 TILE_RAM = (0x06000000, 0x0600C000)
 MAP_RAM = (0x0600C000, 0x06010000)
@@ -543,6 +567,26 @@ def callsite_pair(ev, rom, index, records):
                           "tiles": {"blob": tkey[0], "stream": tkey[1]}}
 
 
+def screen_scene(key, calls):
+    """-> metadata layar statis bila semua call site stream ini scene layar.
+
+    Hanya scene yang punya bukti pemuat tetap (logo/HUD) yang dipisahkan dari
+    peta; call site biasa ke 0x0600C000 tetap dianggap lapis peta.
+    """
+    hits = calls.get(key, [])
+    scenes = {(c.get("file"), c.get("function")) for c in hits}
+    if len(scenes) != 1:
+        return None
+    file, fn = next(iter(scenes))
+    meta = SCREEN_SCENES.get((file, fn))
+    if not meta:
+        return None
+    c = hits[0]
+    return {"kind": meta["kind"], "label": meta["label"],
+            "reason": meta["reason"], "file": file, "function": fn,
+            "line": c.get("line")}
+
+
 def pair_from_evidence(key, calls, evidence, rom, index, records, cache):
     """(status, palet, tileset, bukti) untuk satu stream peta.
 
@@ -618,23 +662,30 @@ def render_map_doc(manifest):
            "```", "",
            "## Ringkasan", "",
            "| kelas | stream |", "|---|---|"]
-    for key in ("palet", "tile", "peta", "lain"):
+    for key in ("palet", "tile", "peta", "layar", "lain"):
         out.append(f"| {key} | {groups[key]} |")
     out.append("")
-    valid = sum(1 for b in blobs for s in b["streams"]
+    maps = [s for b in blobs for s in b["streams"]
+            if s.get("group") == "peta"]
+    screens = [(b["blob"], s) for b in blobs for s in b["streams"]
+               if s.get("group") == "layar"]
+    valid = sum(1 for s in maps
                 if s.get("pair_status") in ("verified", "header-only"))
-    calls = sum(1 for b in blobs for s in b["streams"]
+    calls = sum(1 for s in maps
                 if s.get("pair_status") == "verified"
                 and s["pair_evidence"].get("source") == "callsite")
-    header_only = sum(1 for b in blobs for s in b["streams"]
+    header_only = sum(1 for s in maps
                       if s.get("pair_status") == "header-only")
-    inner = sum(1 for b in blobs for s in b["streams"]
+    inner = sum(1 for s in maps
                 if s.get("pair_status") == "header-only"
                 and s["pair_evidence"].get("interior"))
-    unproven = sum(1 for b in blobs for s in b["streams"]
+    unproven = sum(1 for s in maps
                    if s.get("pair_status") == "unproven")
+    screen_valid = sum(1 for _, s in screens
+                       if s.get("pair_status") in ("verified", "header-only"))
     order = ["swatch palet", "lembar tile 4bpp (abu-abu indeks)",
-             "peta berwarna", "grid indeks (pasangan tidak ada)",
+             "peta berwarna", "layar berwarna",
+             "grid indeks (pasangan tidak ada)",
              "grid indeks (pasangan tidak terbukti)"]
     parts = [f"{k} {kinds[k]}" for k in order if kinds.get(k)]
     if kinds.get("-"):
@@ -647,6 +698,11 @@ def render_map_doc(manifest):
                f"`Unpack`, {header_only} header-only (bukan call site; "
                f"{inner} interior, {header_only - inner} eksterior), "
                f"{unproven} tidak terbukti (jadi grid indeks).")
+    out.append("")
+    out.append(f"Layar statis: {len(screens)} tilemap kelas `layar` "
+               f"({screen_valid} berpasangan) — bukan peta dan tidak dihitung "
+               "di `peta berwarna`; call site-nya juga tidak masuk angka call "
+               "site peta di atas.")
     out.append("")
     out.append("## Bukti loader 59 peta header-only")
     out.append("")
@@ -683,6 +739,23 @@ def render_map_doc(manifest):
                "memilih palet/tileset, tetapi tidak diklaim sebagai bukti call "
                "site ke VRAM. Angka 41/59 adalah distribusi interior/eksterior, "
                "bukan tingkat bukti.")
+    out.append("")
+    out.append("## Layar statis (bukan peta)")
+    out.append("")
+    out.append("Kelas `layar` memisahkan tilemap layar tetap dari peta. "
+               "Pemisahnya fungsi pemuat scene, bukan kemiripan gambar: "
+               "scene intro/boot memuat logo, dan panel HUD dimuat sebagai "
+               "tiga lapis layar. Tilemap ini tetap punya palet/tileset, tetapi "
+               "tidak masuk hitungan peta berwarna.")
+    out.append("")
+    out.append("| simbol | jenis | pemuat | PNG |")
+    out.append("|---|---|---|---|")
+    for symbol, s in screens:
+        sc = s.get("screen", {})
+        png = f"[png](../../{s['png']})" if s.get("png") else "-"
+        out.append(f"| `{symbol}` | {sc.get('label', sc.get('kind', '?'))} | "
+                   f"`{sc.get('function', '?')}` "
+                   f"({sc.get('file', '?')}:{sc.get('line', '?')}) | {png} |")
     out.append("")
     out.append("## Simbol -> stream -> berkas")
     out.append("")
@@ -728,7 +801,11 @@ def render_map_doc(manifest):
             status = s.get("pair_status")
             if status in ("verified", "header-only"):
                 ev = s["pair_evidence"]
-                if ev.get("source") == "callsite":
+                if s.get("group") == "layar":
+                    sc = s.get("screen", {})
+                    status_cell = (f"layar {sc.get('kind', '?')} "
+                                   f"`{sc.get('function', '?')}` (bukan peta)")
+                elif ev.get("source") == "callsite":
                     status_cell = (f"terbukti call site `{ev['function']}` "
                                    f"0x{ev['dest']:08X}")
                 else:
@@ -843,16 +920,24 @@ def main(argv):
         for rec in recs:
             data = rec["data"]
             group, note = classify(data, labels)
+            screen = (screen_scene((name, rec["index"]), calls)
+                      if group == "peta" else None)
+            if screen:
+                group = "layar"
+                note = f"layar {screen['kind']}: {screen['reason']}"
             groups[group] += 1
             base = f"{name}_{rec['index']:02d}_{rec['unpacked']}_0x{rec['format']}"
             (bindir / f"{base}.bin").write_bytes(data)
             datas.append(data)
-            infos.append({"index": rec["index"], "offset": rec["at"],
-                          "packed": rec["packed"],
-                          "unpacked": rec["unpacked"],
-                          "format": rec["format"],
-                          "group": group, "note": note,
-                          "bin": f"bin/{base}.bin"})
+            info = {"index": rec["index"], "offset": rec["at"],
+                    "packed": rec["packed"],
+                    "unpacked": rec["unpacked"],
+                    "format": rec["format"],
+                    "group": group, "note": note,
+                    "bin": f"bin/{base}.bin"}
+            if screen:
+                info["screen"] = screen
+            infos.append(info)
         for i, info in enumerate(infos):
             data = datas[i]
             png = None
@@ -864,7 +949,8 @@ def main(argv):
                 png = f"png/{name}_{i:02d}_tile.png"
                 render_tiles(data, args.out / png)
                 info["png_kind"] = "lembar tile 4bpp (abu-abu indeks)"
-            elif info["group"] == "peta":
+            elif info["group"] in ("peta", "layar"):
+                is_screen = info["group"] == "layar"
                 status, pdata, tdata, ev = pair_from_evidence(
                     (name, i), calls, evidence, rom, index, by_key, external)
                 entries = len(data) // 2
@@ -885,10 +971,12 @@ def main(argv):
                 fits = (status in ("verified", "header-only") and height > 0
                         and width * height * 2 == len(data) and tiles_ok)
                 if fits:
-                    png = (f"png/{name}_{i:02d}_peta_{width}x"
+                    prefix = "layar" if is_screen else "peta"
+                    png = (f"png/{name}_{i:02d}_{prefix}_{width}x"
                            f"{height}.png")
                     render_map(data, args.out / png, width, pdata, tdata)
-                    info["png_kind"] = "peta berwarna"
+                    info["png_kind"] = ("layar berwarna" if is_screen
+                                        else "peta berwarna")
                     info["pair_status"] = status
                     info["pair"] = {"palette": ev["palette"],
                                     "tiles": ev["tiles"]}
@@ -899,10 +987,12 @@ def main(argv):
                     reason = (ev.get("reason") if status == "unproven"
                               else ("indeks tile di luar tileset" if not tiles_ok
                                     else "dimensi pasangan tidak cocok"))
-                    png = f"png/{name}_{i:02d}_peta_indeks_{width}.png"
+                    prefix = "layar" if is_screen else "peta"
+                    png = f"png/{name}_{i:02d}_{prefix}_indeks_{width}.png"
                     render_map(data, args.out / png, width)
                     info["png_kind"] = (
-                        "grid indeks (pasangan tidak terbukti)")
+                        "grid indeks (layar tanpa pasangan)" if is_screen
+                        else "grid indeks (pasangan tidak terbukti)")
                     info["pair_status"] = "unproven"
                     info["pair_reason"] = reason
                 info["map_width"] = width
@@ -923,7 +1013,11 @@ def main(argv):
                     if key in ref:
                         item[key] = ref[key]
                 external[ref["address"]] = item
-    manifest_doc = {"map_loader": MAP_LOADER, "streams": manifest,
+    manifest_doc = {"map_loader": MAP_LOADER,
+                    "screen_scenes": [
+                        {"file": file, "function": fn, **meta}
+                        for (file, fn), meta in SCREEN_SCENES.items()],
+                    "streams": manifest,
                     "external_assets": [external[a] for a in sorted(external)]}
     (args.out / "manifest.json").write_text(
         json.dumps(manifest_doc, indent=1) + "\n")
@@ -931,11 +1025,14 @@ def main(argv):
     MAP_DOC.write_text(render_map_doc(manifest_doc))
     if not args.quiet:
         print(f"output: {args.out.relative_to(REPO)}")
-        for key in ("palet", "tile", "peta", "lain"):
+        for key in ("palet", "tile", "peta", "layar", "lain"):
             print(f"  {key:6s} {groups[key]:3d}")
         rendered = sum(1 for b in manifest for s in b["streams"]
                        if s.get("png_kind") == "peta berwarna")
+        screens = sum(1 for b in manifest for s in b["streams"]
+                      if s.get("png_kind") == "layar berwarna")
         print(f"  png peta berwarna: {rendered}")
+        print(f"  png layar berwarna: {screens}")
         print(f"  dokumen: {MAP_DOC.relative_to(REPO)}")
     return 0
 

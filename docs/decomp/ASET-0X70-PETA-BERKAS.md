@@ -16,12 +16,15 @@ python3 tools/scripts/extract_assets.py --check-external  # hash aset luar
 |---|---|
 | palet | 20 |
 | tile | 23 |
-| peta | 91 |
+| peta | 86 |
+| layar | 5 |
 | lain | 3 |
 
-PNG: swatch palet 20, lembar tile 4bpp (abu-abu indeks) 23, peta berwarna 74, grid indeks (pasangan tidak terbukti) 17, tanpa PNG 3. Total 137 stream dari 53 simbol yang punya stream 0x70.
+PNG: swatch palet 20, lembar tile 4bpp (abu-abu indeks) 23, peta berwarna 69, layar berwarna 5, grid indeks (pasangan tidak terbukti) 17, tanpa PNG 3. Total 137 stream dari 53 simbol yang punya stream 0x70.
 
-Pasangan peta: 74 pasangan byte-valid: 15 call site `Unpack`, 59 header-only (bukan call site; 41 interior, 18 eksterior), 17 tidak terbukti (jadi grid indeks).
+Pasangan peta: 69 pasangan byte-valid: 10 call site `Unpack`, 59 header-only (bukan call site; 41 interior, 18 eksterior), 17 tidak terbukti (jadi grid indeks).
+
+Layar statis: 5 tilemap kelas `layar` (5 berpasangan) — bukan peta dan tidak dihitung di `peta berwarna`; call site-nya juga tidak masuk angka call site peta di atas.
 
 ## Bukti loader 59 peta header-only
 
@@ -38,6 +41,18 @@ Tidak ada call site `Unpack` yang menulis field lapis peta dari header langsung 
 | `+0x00` | `func_080A5EA0` (`0x080A5EA0`) | `0x06000000` (tileset) |
 
 Karena itu 59 pasangan ber-header ditandai `pair_status: header-only`; bukti header tetap dipakai untuk memilih palet/tileset, tetapi tidak diklaim sebagai bukti call site ke VRAM. Angka 41/59 adalah distribusi interior/eksterior, bukan tingkat bukti.
+
+## Layar statis (bukan peta)
+
+Kelas `layar` memisahkan tilemap layar tetap dari peta. Pemisahnya fungsi pemuat scene, bukan kemiripan gambar: scene intro/boot memuat logo, dan panel HUD dimuat sebagai tiga lapis layar. Tilemap ini tetap punya palet/tileset, tetapi tidak masuk hitungan peta berwarna.
+
+| simbol | jenis | pemuat | PNG |
+|---|---|---|---|
+| `gUnk_0874EB60` | logo Natsume (intro) | `func_08000F5C` (intro_scene.s:715) | [png](../../assets/0x70/png/gUnk_0874EB60_00_layar_32x20.png) |
+| `gUnk_0874ECCC` | logo Natsume (boot) | `func_08077810` (code_0803EE94.s:112032) | [png](../../assets/0x70/png/gUnk_0874ECCC_00_layar_32x64.png) |
+| `gUnk_0874EF14` | HUD/panel tetap | `func_080A2BA4` (code_809E804.s:8436) | [png](../../assets/0x70/png/gUnk_0874EF14_00_layar_32x20.png) |
+| `gUnk_0874EF3C` | HUD/panel tetap | `func_080A2BA4` (code_809E804.s:8439) | [png](../../assets/0x70/png/gUnk_0874EF3C_00_layar_32x20.png) |
+| `gUnk_0874EFEC` | HUD/panel tetap | `func_080A2BA4` (code_809E804.s:8442) | [png](../../assets/0x70/png/gUnk_0874EFEC_00_layar_32x20.png) |
 
 ## Simbol -> stream -> berkas
 
@@ -174,11 +189,11 @@ Path berkas relatif terhadap root repo. `stream` = urutan stream di dalam simbol
 | `gUnk_08747A74` | 12108 | 4 | 0x2E50 | 252 | 4096 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_08747A74_04_4096_0x130.bin) | [png](../../assets/0x70/png/gUnk_08747A74_04_peta_indeks_64.png) | tak terbukti: tidak ada call site atau header | - |
 | `gUnk_0874A9C0` | 14704 | 0 | 0x0000 | 14704 | 32768 | `0x230` | tile | [bin](../../assets/0x70/bin/gUnk_0874A9C0_00_32768_0x230.bin) | [png](../../assets/0x70/png/gUnk_0874A9C0_00_tile.png) | - | - |
 | `gUnk_0874E648` | 1272 | 0 | 0x0000 | 1272 | 11234 | `0x230` | lain | [bin](../../assets/0x70/bin/gUnk_0874E648_00_11234_0x230.bin) | - | - | - |
-| `gUnk_0874EB60` | 364 | 0 | 0x0000 | 364 | 1280 | `0x100` | peta | [bin](../../assets/0x70/bin/gUnk_0874EB60_00_1280_0x100.bin) | [png](../../assets/0x70/png/gUnk_0874EB60_00_peta_32x20.png) | terbukti call site `func_08000F5C` 0x0600F800 | palet 0x0874EB40, tile gUnk_0874E648#0 |
-| `gUnk_0874ECCC` | 364 | 0 | 0x0000 | 364 | 4096 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_0874ECCC_00_4096_0x130.bin) | [png](../../assets/0x70/png/gUnk_0874ECCC_00_peta_32x64.png) | terbukti call site `func_08077810` 0x0600C800 | palet 0x0874EB40, tile gUnk_0874E648#0 |
-| `gUnk_0874EF14` | 40 | 0 | 0x0000 | 40 | 1280 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0874EF14_00_1280_0x030.bin) | [png](../../assets/0x70/png/gUnk_0874EF14_00_peta_32x20.png) | terbukti call site `func_080A2BA4` 0x0600E000 | palet 0x0874F2EC, tile gUnk_0874F050#0 |
-| `gUnk_0874EF3C` | 176 | 0 | 0x0000 | 176 | 1280 | `0x020` | peta | [bin](../../assets/0x70/bin/gUnk_0874EF3C_00_1280_0x020.bin) | [png](../../assets/0x70/png/gUnk_0874EF3C_00_peta_32x20.png) | terbukti call site `func_080A2BA4` 0x0600E800 | palet 0x0874F2EC, tile gUnk_0874F050#0 |
-| `gUnk_0874EFEC` | 100 | 0 | 0x0000 | 100 | 1280 | `0x020` | peta | [bin](../../assets/0x70/bin/gUnk_0874EFEC_00_1280_0x020.bin) | [png](../../assets/0x70/png/gUnk_0874EFEC_00_peta_32x20.png) | terbukti call site `func_080A2BA4` 0x0600F000 | palet 0x0874F2EC, tile gUnk_0874F050#0 |
+| `gUnk_0874EB60` | 364 | 0 | 0x0000 | 364 | 1280 | `0x100` | layar | [bin](../../assets/0x70/bin/gUnk_0874EB60_00_1280_0x100.bin) | [png](../../assets/0x70/png/gUnk_0874EB60_00_layar_32x20.png) | layar logo `func_08000F5C` (bukan peta) | palet 0x0874EB40, tile gUnk_0874E648#0 |
+| `gUnk_0874ECCC` | 364 | 0 | 0x0000 | 364 | 4096 | `0x130` | layar | [bin](../../assets/0x70/bin/gUnk_0874ECCC_00_4096_0x130.bin) | [png](../../assets/0x70/png/gUnk_0874ECCC_00_layar_32x64.png) | layar logo `func_08077810` (bukan peta) | palet 0x0874EB40, tile gUnk_0874E648#0 |
+| `gUnk_0874EF14` | 40 | 0 | 0x0000 | 40 | 1280 | `0x030` | layar | [bin](../../assets/0x70/bin/gUnk_0874EF14_00_1280_0x030.bin) | [png](../../assets/0x70/png/gUnk_0874EF14_00_layar_32x20.png) | layar hud `func_080A2BA4` (bukan peta) | palet 0x0874F2EC, tile gUnk_0874F050#0 |
+| `gUnk_0874EF3C` | 176 | 0 | 0x0000 | 176 | 1280 | `0x020` | layar | [bin](../../assets/0x70/bin/gUnk_0874EF3C_00_1280_0x020.bin) | [png](../../assets/0x70/png/gUnk_0874EF3C_00_layar_32x20.png) | layar hud `func_080A2BA4` (bukan peta) | palet 0x0874F2EC, tile gUnk_0874F050#0 |
+| `gUnk_0874EFEC` | 100 | 0 | 0x0000 | 100 | 1280 | `0x020` | layar | [bin](../../assets/0x70/bin/gUnk_0874EFEC_00_1280_0x020.bin) | [png](../../assets/0x70/png/gUnk_0874EFEC_00_layar_32x20.png) | layar hud `func_080A2BA4` (bukan peta) | palet 0x0874F2EC, tile gUnk_0874F050#0 |
 | `gUnk_0874F050` | 668 | 0 | 0x0000 | 668 | 5120 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_0874F050_00_5120_0x020.bin) | [png](../../assets/0x70/png/gUnk_0874F050_00_tile.png) | - | - |
 | `gUnk_08755848` | 8856 | 0 | 0x0000 | 8856 | 32768 | `0x220` | tile | [bin](../../assets/0x70/bin/gUnk_08755848_00_32768_0x220.bin) | [png](../../assets/0x70/png/gUnk_08755848_00_tile.png) | - | - |
 | `gUnk_0875822C` | 8492 | 0 | 0x0000 | 8492 | 32768 | `0x230` | tile | [bin](../../assets/0x70/bin/gUnk_0875822C_00_32768_0x230.bin) | [png](../../assets/0x70/png/gUnk_0875822C_00_tile.png) | - | - |
