@@ -2191,3 +2191,37 @@ void func_080E5478(GenObj *arg0, s32 arg1) {
         __builtin_delete(arg0);
     }
 }
+
+// DECOMP-MATCHED func_080D6F3C (dari code_linkonce.s; cek manusia sebelum ke src/)
+void func_080D6F1C(u8 *);                              /* extern */
+
+void func_080D6F3C(u8 *arg0) {
+    func_080D6F1C(arg0 + 0x20);
+    func_080D6F1C(arg0 + 4);
+    arg0[0] = 0;
+    arg0[1] = 1;
+}
+
+// DECOMP-MATCHED func_080D6F5C (dari code_linkonce.s; cek manusia sebelum ke src/)
+void func_080D6F3C(u8 *);                              /* extern */
+
+void func_080D6F5C(u8 *arg0) {
+    func_080D6F3C(arg0 + 0x40);
+    func_080D6F3C(arg0 + 4);
+    arg0[0] = 0;
+    arg0[1] = 1;
+}
+
+// DECOMP-MATCHED func_080E3774 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 gUnk_081005D8;                                     /* extern */
+
+void func_08050D8C(u8 *, s32 *);                       /* extern */
+void func_08050E50(u8 *, s32);                         /* extern */
+
+void func_080E3774(u8 *arg0) {
+    u8 *p;
+
+    p = arg0 + 0x1C8;
+    func_08050D8C(p, &gUnk_081005D8);
+    func_08050E50(p, 0x38);
+}

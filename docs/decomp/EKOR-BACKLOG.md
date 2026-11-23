@@ -21,7 +21,7 @@ python3 tools/scripts/tail_chain.py --module <stem>.s [--json]
 
 | modul | tersisa di asm | promoted terkunci | blocker terakhir | status rantai |
 |---|---|---|---|---|
-| `code_linkonce.s` | 428 | 165 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
+| `code_linkonce.s` | 428 | 168 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
 | `code_actor_0809BFE8.s` | 51 | 26 | `func_0809DA00` (1323B, `failed`) | terbuka, ujung belum MATCH |
 | `hardware.s` | 34 | 10 | `func_080087C8` (240B, `failed`) | terbuka, ujung belum MATCH |
 
@@ -29,7 +29,7 @@ Modul tail-only lain sudah kosong di `asm/` (tidak punya blocker ekor lagi): `co
 
 ## `code_linkonce.s`
 
-Sisa **428** fungsi (165 `promoted`, 263 `failed`). Tabel = 12 entri terakhir; 416 fungsi lain di bawahnya juga belum di `src/`.
+Sisa **428** fungsi (168 `promoted`, 260 `failed`). Tabel = 12 entri terakhir; 416 fungsi lain di bawahnya juga belum di `src/`.
 
 | idx | fungsi | ukuran | status | residual terakhir |
 |---|---|---|---|---|
@@ -82,8 +82,7 @@ Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungs
 | 53 | `func_080E38B0` | 48B | - |
 | 54 | `func_080E3874` | 60B | `func_080E3868`, `func_080E385C`, `func_080E3858` |
 | 58 | `func_080E37DC` | 124B | - |
-| 59 | `func_080E379C` | 64B | - |
-| 60 | `func_080E3774` | 40B | `func_080E375C`, `func_080E3734`, `func_080E3730` |
+| 59 | `func_080E379C` | 64B | `func_080E3774`, `func_080E375C`, `func_080E3734`, `func_080E3730` |
 | 64 | `func_080E36B4` | 124B | `func_080E3678`, `func_080E3650`, `func_080E3628`, `func_080E3610`, `func_080E35E8`, `func_080E35DC` |
 | 71 | `func_080E3504` | 212B | - |
 | 72 | `func_080E34DC` | 40B | - |
@@ -286,9 +285,7 @@ Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungs
 | 385 | `func_080D7118` | 148B | - |
 | 386 | `func_080D7094` | 132B | - |
 | 387 | `func_080D7014` | 128B | - |
-| 388 | `func_080D6F7C` | 152B | - |
-| 389 | `func_080D6F5C` | 32B | - |
-| 390 | `func_080D6F3C` | 32B | `func_080D6F1C`, `func_080D6F0C`, `func_080D6EEC`, `func_080D6ECC`, `func_080D6EAC`, `func_080D6E98` |
+| 388 | `func_080D6F7C` | 152B | `func_080D6F5C`, `func_080D6F3C`, `func_080D6F1C`, `func_080D6F0C`, `func_080D6EEC`, `func_080D6ECC`, `func_080D6EAC`, `func_080D6E98` |
 | 397 | `func_080D6DB8` | 224B | `func_080D6D98`, `func_080D6D8C` |
 | 400 | `func_080D6C58` | 304B | - |
 | 401 | `func_080D6C08` | 80B | - |

@@ -154,6 +154,21 @@
     "status": "OK",
     "when": "2026-11-23T10:09:44"
   },
+  "code_linkonce.s:func_080D6F3C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (390 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-23T12:21:50"
+  },
+  "code_linkonce.s:func_080D6F5C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (389 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-23T12:21:50"
+  },
+  "code_linkonce.s:func_080E3774": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (60 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-23T12:21:50"
+  },
   "game_state.s:func_0801268C": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75498: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
     "status": "OK",
