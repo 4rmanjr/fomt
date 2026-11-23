@@ -2275,3 +2275,21 @@ Pelajaran dari `func_080087C8`: urutan prolog yang "aneh" di ref (mis.
 penjadwalan agbcc, bukan bukti struktur lain; dan store yang tampak mati
 (`f18` ditulis dua kali) hilang di draf karena gcc menghapusnya — itu yang
 membuat panjang objek 236B/228B, bukan 240B.
+
+### 70b. Store ganda ke slot yang sama tidak bisa ditahan lewat alias
+
+`func_080087C8` menulis `sp+0x48` dua kali (`&vtable_unk_080E5BE8` lalu
+`&vtable_unk_080E5BD8`, store pertama mati). agbcc menghapus store pertama
+pada semua varian yang dicoba:
+
+| cara menulis | hasil |
+|---|---|
+| `d.f18 = A; ... d.f18 = B;` (member langsung) | store A hilang, objek 236B |
+| `((void **) pd)[6] = A;` (tipe lain, alamat sama) | tetap hilang, 236B |
+| `*(void * volatile *) &pd->f18 = A;` | store bertahan tapi 244B |
+| `volatile Cont *vd = &d; vd->f18 = A;` | store bertahan, 248B, `ldr` tetap tidak diangkat ke +0xe |
+
+Kesimpulan praktis: byte-identik di sini butuh `ldr` alamat vtable diangkat
+ke awal prolog **dan** store-nya dipertahankan; volatile memenuhi syarat kedua
+tanpa yang pertama, jadi jumlah instruksi malah bertambah. Parkir fungsi ini
+lebih murah daripada terus mengejar regalloc.
