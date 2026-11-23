@@ -2218,3 +2218,34 @@ menyimpang jauh. Pakai perbandingan byte: assemble draf, ambil `.text` fungsi
 dari objek, bandingkan dengan irisan ROM (`fomt.gba` di alamat fungsi); selisih
 `bl` dan word literal pool adalah relokasi (di-mask judge), sisanya diff nyata.
 Dengan cara itu draf final hanya menyisakan 7 `bl` + 7 word pool.
+
+## 69. Total mismatch dif4 lokal bukan proksi total judge (aturan pemilihan varian)
+
+`dif4` (`/tmp/dif4.py`) menghitung LCS **teks** per instruksi lalu melaporkan
+`missing+extra+operand`. Angka itu tidak sebanding dengan total judge (yang
+dihitung dari byte objek vs ref). Tiga pengukuran pada `func_080E5664`
+(232B, regalloc-bound) menunjukkan arah yang berlawanan:
+
+| varian | total dif4 lokal | total judge (m+e+o) |
+|---|---|---|
+| baseline (arg ke-6 `0`, tanpa pin tambahan) | 95 | **34** (7m/7e/20o, 55r) |
+| arg ke-6 = `fl` | 76 | 43 (5m/7e/31o) |
+| node dipin `r3` | 78 | 45 (6m/7e/32o) |
+
+Dua varian yang tampak jauh lebih baik di lokal justru **kalah** di judge:
+missing/extra lokal turun karena instruksi yang sama hanya berpindah register
+atau berubah notasi (`add r5, #12` vs `add r5, r5, #12`), sementara regalloc/
+operand judge ikut naik. Pada fungsi lain (lihat §66) justru kebalikannya:
+notasi yang berbeda di teks tidak menghasilkan byte berbeda sama sekali.
+
+**Aturan praktis.**
+
+1. Pakai `dif4` hanya untuk **menyaring** kandidat: buang yang total lokalnya
+   >= baseline. Cepat, tanpa menyentuh state, tidak butuh toolchain.
+2. Pilih varian akhir dari **angka judge**, bukan dari total lokal.
+3. Lokal membaik tanpa judge bukan bukti: simpan kandidat di `/tmp` dan catat
+   angkanya di `note` shard, jangan klaim lebih baik.
+4. Bila butuh angka setara judge tanpa mengubah state:
+   `python3 -c "import decomp.run as r; print(r._judge('<fungsi>', tag='probe'))"`.
+
+Rincian per varian (termasuk varian D: lokal 80 -> judge 43) ada di §67.
