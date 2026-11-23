@@ -245,7 +245,7 @@
   "addr": 134238456,
   "judged_mtime": 1795362221.55771,
   "module": "new_game.s",
-  "note": "[MATCH 348B, judge ke-2 setelah revisi. POLA-DIFF 52] Kunci: (1) pointer tujuan `fr.sp0` dipin ke r1 (`register s16 *psp asm(\"r1\")`) + konstanta 0x3F dipin ke r2 -> urutan ref `mov r1,sp; movs r2,#63; strh r2,[r1]; adds r0,#0x50; strh r2,[r0]` (literal biasa memberi urutan terbalik + materialisasi ganda); (2) nol objek lewat temporer dipin r0 -> `movs r0,#0; str r0,[r4]; str r0,[r4,#4]` di titik pakai (tanpa pin, agbcc meng-hoist ke r5 dan memakainya juga utk var_r5); (3) var_r4/var_r5 diinisialisasi SEBELUM p7/p8 (urutan statement menentukan posisi `movs r4/r5,#0`); (4) `volatile` sp4 disalin ke lokal `GenObj *obj` -> satu `ldr r1,[sp,#4]` + cmp, bukan 3 reload; (5) pembersihan slot[0] memakai field offset 0 (`((GenObj*)fr.slot[0]->unk0)->unk8`), bukan unk4.",
+  "note": "`func_080050F8` MATCH 348B, dimigrasi ke src/new_game.cc (compare HIJAU). Rincian resep MATCH di POLA-DIFF 52; proses pindah ke TU C++ (typedef s32/s16, forward typedef struct rename, cast int/&vtable/GenObj** ) di POLA-DIFF 60.",
   "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 348,
   "sanitize_v": 4,

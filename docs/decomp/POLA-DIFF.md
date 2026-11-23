@@ -1848,3 +1848,20 @@ Resep yang membawa draft ke **1 instruksi** dari ref (judge: `byte +0x16: 0x69 v
   pin `p` ke `r0`, pin keduanya, urutan assignment, ternary, cast `u8 *`, `volatile` per field,
   dan `old_agbcc` semuanya tetap menghasilkan `mov r1, sp` (atau bentuk yang lebih jauh).
   Diparkir setelah 3 judge.
+
+## 60. Migrasi blok agbcc (C) ke TU C++ (`new_game.cc`): typedef + cast pointer
+
+`src/new_game.cc` dikompilasi `agbcp` (C++), jadi blok draft C yang MATCH tidak langsung lolos:
+
+- TU C++ ini tidak punya `s32`/`s16`; tambahkan `typedef i32 s32;` + `typedef i16 s16;` di atas
+  file (byte-netral) sebelum menyalin typedef blok apa adanya.
+- gate me-rename typedef `GenObj` blok jadi `GenObj__func_XXXX`, sehingga extern di src butuh tipe
+  itu **sebelum** blok masuk. Cukup forward typedef
+  `typedef struct GenObj__func_XXXX GenObj__func_XXXX;` — definisi lengkapnya nanti dihoist gate.
+  Menyalin typedef lengkap lebih dulu justru memicu
+  `[SKIP] struct ... beda isi antar blok` (indentasi hasil hoist beda).
+- agbcp menolak konversi implisit yang diterima agbcc; cast yang perlu ditambahkan (netral):
+  `p->field = (GenObj *) zero;` (int var → pointer), `p->field = (GenObj *) &vt;`
+  (`i32 *` → pointer struct), `fr.slot[1] = (GenObj *) p7;` (`GenObj **` → `GenObj *`).
+  Literal `= 0;` pada pointer tetap boleh tanpa cast.
+- sesudah itu `migrate.py --func ...` langsung `pindah: 1` (compare HIJAU) — `func_080050F8`.
