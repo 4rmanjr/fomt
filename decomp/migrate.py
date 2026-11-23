@@ -2286,7 +2286,9 @@ def record_verdict(module, func, status, detail):
 
 def migrate_one(module, func, dry_run=False):
     r = _migrate_one_impl(module, func, dry_run=dry_run)
-    if isinstance(r, dict):
+    # Dry-run tidak dicatat: `migrate_audit.py` memakainya untuk menyapu semua
+    # fungsi sekaligus, dan verdict "DRY-*" tidak mewakili percobaan nyata.
+    if isinstance(r, dict) and not dry_run:
         if r.get("ok"):
             status = "OK"
         elif r.get("skipped"):

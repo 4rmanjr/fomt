@@ -2391,3 +2391,28 @@ selisih, sedikit di atas varian struct Node/Cont (48).
 Kesimpulan: idiom 08980 layak dipakai sebagai titik mulai (missing+extra
 turun), tetapi MATCH tetap tertahan pada pemilihan register penghela prolog
 dan DSE alamat lokal - bukan pada bentuk struktur.
+
+### 70g. Permutasi urutan blok tidak memindahkan wall `func_080087C8`
+
+Enam permutasi sumber diuji sistematis (blok container/sentinel dipindah ke
+depan, urutan store di dalamnya ditukar, alamat vtBE8 disimpan di variabel
+`vtb` lalu dipakai di store), semuanya diukur byte objek vs ROM:
+
+| varian | objek | instruksi beda | catatan |
+|---|---|---|---|
+| baseline (bentuk 08980) | 240B | 95 | prolog `push {r4,r5,r6,r7,lr}` |
+| blok container di depan | 240B | 94 | `q` tidak dihitung lebih dulu |
+| idem + store vt ditukar | 240B | 94 | - |
+| `vtb` dimuat setelah pointer disiapkan | 248B | 88 | 3 instruksi ekstra |
+| `vtb` dimuat tepat setelah `q` | 248B | 88 | `ldr r3` tetap tidak diangkat |
+
+Dua sifat yang dituntut ref tidak bisa dipenuhi bersama oleh agbcc kita:
+(1) store `sp+0x48` bertahan padahal ditimpa - hanya terjadi kalau ditulis
+lewat pointer variabel, dan jalur itu menambah satu pointer hidup sehingga
+prolog memakai `r7` sebagai penghela `r8`; (2) `ldr` alamat vtBE8 diangkat ke
+`+0xe` - tidak pernah terjadi, bahkan ketika nilainya disimpan ke variabel
+`vtb` paling awal. Menaruh `vtb` lebih awal justru mendorong gcc menghitung
+semua basis lebih dulu (`add r0/r6/r4, sp, ...`), bukan memuat konstanta.
+
+Kesimpulan: wall-nya penjadwalan + regalloc agbcc, bukan urutan sumber.
+Parkir fungsi ini; bukti lengkap ada di 70b-70g.

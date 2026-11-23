@@ -33,7 +33,9 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   `tail_chain.py --json` + shard state. Kolom residual per fungsi = ringkasan
   note shard, **kecuali fungsi ujung**: sel itu diambil dari verdict
   `decomp/state/migrate_last.json` (ditulis `migrate.record_verdict()` pada
-  setiap percobaan migrate, termasuk `TOLAK` saat fungsi belum MATCH). Note
+  setiap percobaan migrate, termasuk `TOLAK` saat fungsi belum MATCH). Dry-run tidak dicatat: `migrate_audit.py`
+  menyapu semua fungsi sekaligus dan verdict "DRY-*" bukan percobaan nyata
+  (tanpa aturan ini berkas verdict membengkak ribuan baris). Note
   ujung yang masih memuat klaim lama (`penerus`, `MULTI-FUNGSI`, `blob`,
   `bukan fungsi terakhir`) tidak dipakai sebagai residual: verdict migrate
   yang menang, dan klaim itu dilaporkan sebagai peringatan di dokumen +
@@ -74,7 +76,6 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   dimigrasi`, `tidak mungkin dimigrasi`. Baris permanen boleh tidak memakai
   kata "parkir" — note `SKIP-migrasi permanen: ...` tetap masuk registry.
   Ringkasan menyebut `(aktif N, permanen M)`.
-
   **Pengaman gejala permanen:** note yang hanya *menyebut* gejala (`data asing`,
   `ekor data asing`, `grup gabungan`, `tak-split`, `epilog bersama`) tanpa frasa
   baku **tidak dipindah kelas** (tetap `aktif`), tapi ditandai `tanda`, muncul di
