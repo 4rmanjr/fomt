@@ -827,15 +827,20 @@ memakai `gcc -E -P` (tanpa line marker) — byte-identik, dibuktikan `make compa
 itu dikompilasi ulang. Tanpa `-P`, setiap TU C yang perlu rebuild di lingkungan ini gagal dan
 `migrate.py` melaporkannya sebagai MERAH.
 
-### 30c. `s32` vs `i32`: blok promote butuh `s32`, TU src butuh alias
+### 30c. `s32` vs `i32`: tulis `i32` di `src/`, jangan tambah alias
 
 `include/types.h` hanya mendefinisikan `i32`; `s32` cuma ada di harness judge dan di draf m2c.
-Padahal audit melarang `i32` di `drafts/`/`promoted/` (harness judge tak punya `i32`), dan gate
-membandingkan teks tanda tangan apa adanya. Jadi untuk blok yang pindah ke TU `src/*.cc`:
-tulis tanda tangannya dengan `s32` di draf/blok promoted **dan** di `src/`, lalu tambahkan satu
-baris `typedef i32 s32;` di TU src itu (bukan di `types.h`, supaya tak mengubah header bersama).
-Tanpa alias, TU gagal kompilasi (`type specifier omitted for parameter`) dan migrate melaporkan
-MERAH.
+Draf/blok promoted tetap memakai `s32` (harness judge tak punya `i32`), tetapi saat blok masuk
+`src/*.cc` isinya sudah lewat `translate_types()` (`s32`→`i32`), jadi definisi di src otomatis
+`i32`. Yang bisa menyisakan `s32` hanyalah baris `/* extern */` hasil rewrite tanda tangan (teks
+mentah, tak lewat translate). Perbaikan yang benar: tulis baris extern itu dengan `i32` —
+**jangan** menambah `typedef i32 s32;` di TU src. Alias itu dulu dipakai `func_08050424` lalu
+dicabut: `make compare` tetap HIJAU setelah keempat baris extern-nya jadi `i32`.
+
+Baris extern untuk callee yang **definisinya sudah muncul lebih awal** di TU yang sama juga
+redundan (compiler memakai definisi itu; gate membaca decl dari blok yang sedang dimigrasi, bukan
+dari blok pemanggil), jadi ikut dihapus saat merapikan. Yang wajib tetap ada hanya extern untuk
+callee yang definisinya belum terlihat (mis. didefinisikan di TU lain).
 
 ## 31. Rantai ekor K&R: register-var + seragamkan extern callee
 
