@@ -248,6 +248,67 @@ typedef struct {
 } T0901C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct S_08CF4 {
+    u8 _pad0[0xC];
+    i32 unkC;
+} S_08CF4;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct S_08CEC {
+    u8 _pad0[9];
+    u8 unk9;
+} S_08CEC;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct S_08CE4 {
+    u8 _pad0[8];
+    u8 unk8;
+} S_08CE4;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct S_08CDC {
+    u8 _pad0[4];
+    u16 unk4;
+} S_08CDC;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08008CDC (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+i32 func_08008CDC(S_08CDC **arg0) {
+    return (*arg0)->unk4;
+}
+}
+
+// DECOMP-MATCHED func_08008CE4 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+i32 func_08008CE4(S_08CE4 **arg0) {
+    return (*arg0)->unk8;
+}
+}
+
+// DECOMP-MATCHED func_08008CEC (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+i32 func_08008CEC(S_08CEC **arg0) {
+    return (*arg0)->unk9;
+}
+}
+
+// DECOMP-MATCHED func_08008CF4 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+i32 func_08008CF4(S_08CF4 **arg0) {
+    return (*arg0)->unkC;
+}
+}
+
 // DECOMP-MATCHED func_08008CFC (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 /* Wrapper 20B: satu-satunya pemanggil func_08008B54 dengan indeks 0.

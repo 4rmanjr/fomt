@@ -755,34 +755,46 @@
  },
  "func_08008CDC": {
   "addr": 134253788,
+  "judged_mtime": 1795419639.5909066,
   "module": "hardware.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 8,
   "size": 131,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008CE4": {
   "addr": 134253796,
+  "judged_mtime": 1795419639.5909066,
   "module": "hardware.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 8,
   "size": 131,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008CEC": {
   "addr": 134253804,
+  "judged_mtime": 1795419639.5949066,
   "module": "hardware.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 8,
   "size": 131,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008CF4": {
   "addr": 134253812,
+  "judged_mtime": 1795419639.5949066,
   "module": "hardware.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 8,
   "size": 130,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008CFC": {

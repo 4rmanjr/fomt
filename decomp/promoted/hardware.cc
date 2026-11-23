@@ -1867,3 +1867,43 @@ s32 func_08008CFC(void) {
     func_08008B54(&sp0, 0);
     return sp0;
 }
+
+// DECOMP-MATCHED func_08008CF4 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct S_08CF4 {
+    u8 _pad0[0xC];
+    s32 unkC;
+} S_08CF4;
+
+s32 func_08008CF4(S_08CF4 **arg0) {
+    return (*arg0)->unkC;
+}
+
+// DECOMP-MATCHED func_08008CEC (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct S_08CEC {
+    u8 _pad0[9];
+    u8 unk9;
+} S_08CEC;
+
+s32 func_08008CEC(S_08CEC **arg0) {
+    return (*arg0)->unk9;
+}
+
+// DECOMP-MATCHED func_08008CE4 (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct S_08CE4 {
+    u8 _pad0[8];
+    u8 unk8;
+} S_08CE4;
+
+s32 func_08008CE4(S_08CE4 **arg0) {
+    return (*arg0)->unk8;
+}
+
+// DECOMP-MATCHED func_08008CDC (dari hardware.s; cek manusia sebelum ke src/)
+typedef struct S_08CDC {
+    u8 _pad0[4];
+    u16 unk4;
+} S_08CDC;
+
+s32 func_08008CDC(S_08CDC **arg0) {
+    return (*arg0)->unk4;
+}

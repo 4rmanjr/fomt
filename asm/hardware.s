@@ -2769,31 +2769,3 @@ func_08008CD0: @ 0x08008CD0
     bx lr
     .align 2, 0
 
-    thumb_func_start func_08008CDC
-func_08008CDC: @ 0x08008CDC
-    ldr r0, [r0]
-    ldrh r0, [r0, #0x4]
-    bx lr
-    .align 2, 0
-
-    thumb_func_start func_08008CE4
-func_08008CE4: @ 0x08008CE4
-    ldr r0, [r0]
-    ldrb r0, [r0, #0x8]
-    bx lr
-    .align 2, 0
-
-    thumb_func_start func_08008CEC
-func_08008CEC: @ 0x08008CEC
-    ldr r0, [r0]
-    ldrb r0, [r0, #0x9]
-    bx lr
-    .align 2, 0
-
-    thumb_func_start func_08008CF4
-func_08008CF4: @ 0x08008CF4
-    ldr r0, [r0]
-    ldr r0, [r0, #0xc]
-    bx lr
-    .align 2, 0
-
