@@ -26,8 +26,10 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   `push {…, lr}`).
   Peta semua blocker ekor (fungsi failed, ukuran, residual terakhir) ada di
   `docs/decomp/EKOR-BACKLOG.md`.
-- `ekor_snapshot.py` — **regenerasi** `docs/decomp/EKOR-BACKLOG.md`: ringkasan
-  per modul tail-only, tabel 12 entri ekor, dan kelas S/M/L, semuanya dari
+- `ekor_snapshot.py` — **regenerasi**   `docs/decomp/EKOR-BACKLOG.md`: ringkasan
+  per modul tail-only, tabel 12 entri ekor, kelas S/M/L, dan **peta gerbang**
+  (tiap fungsi non-`promoted` + daftar `promoted` yang baru terbuka setelah
+  fungsi itu MATCH dan dicabut — urutan kerja wajib dari ujung), semuanya dari
   `tail_chain.py --json` + shard state. Kolom residual per fungsi = ringkasan
   note shard, **kecuali fungsi ujung**: sel itu diambil dari verdict
   `decomp/state/migrate_last.json` (ditulis `migrate.record_verdict()` pada

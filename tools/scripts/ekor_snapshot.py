@@ -165,6 +165,34 @@ def tail_residual(stem, func, note, status, vd, warn):
     return cell
 
 
+def gate_rows(names, state):
+    """Peta gerbang: tiap fungsi non-`promoted` + promoted yang terbuka setelahnya.
+
+    `names` berurutan alamat menaik (urut berkas asm), jadi ekor = elemen
+    terakhir. Satu fungsi `failed` di ujung memblokir SEMUA `promoted` di
+    atasnya; baris di sini membaca rantai itu apa adanya, bukan tebakan.
+    """
+    out = []
+    run = []
+    for i, name in enumerate(reversed(names)):
+        st = (state.get(name) or {}).get("status")
+        if st == "promoted":
+            run.append(name)
+            continue
+        ln = (state.get(name) or {}).get("ref_len")
+        out.append([i, name, ln, []])
+        if run:
+            # promoted di atas fungsi ini baru terbuka setelah fungsi ini
+            # MATCH + dicabut, jadi tempelkan ke gerbang DI BAWAHNYA
+            # (baris sebelumnya); kalau belum ada baris, gerbangnya ujung itu
+            # sendiri.
+            (out[-2] if len(out) >= 2 else out[-1])[3].extend(run)
+        run = []
+    if run:
+        out[-1][3].extend(run)   # promoted paling atas di berkas
+    return [tuple(r) for r in out]
+
+
 def status_chain(info, state):
     nxt = info.get("next")
     if not nxt:
@@ -358,6 +386,18 @@ def build(tail_len, manual):
                 residual = condense(n.get("note"), row.get("status"))
             add(f"| {row.get('index')} | `{fname}` | {ukuran} | {st} | {residual} |")
         add("")
+        gates = gate_rows(r["names"], state)
+        if gates:
+            add("Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris "
+                "menyebut satu fungsi non-`promoted` dan `promoted` yang baru "
+                "bisa dicabut setelah fungsi itu MATCH + dicabut.")
+            add("")
+            add("| dari ujung | fungsi gerbang | ukuran | membuka |")
+            add("|---|---|---|---|")
+            for far, fname, ln, opens in gates:
+                buka = ", ".join(f"`{o}`" for o in opens) if opens else "-"
+                add(f"| {far} | `{fname}` | {ln if ln else '-'}B | {buka} |")
+            add("")
     if warn:
         add("## Peringatan note ujung")
         add("")
