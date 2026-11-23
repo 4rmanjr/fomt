@@ -239,6 +239,40 @@ typedef struct {
 } SongEntry;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct {
+    i32 unk0;
+    i32 *unk4;
+    i32 *unk8;
+    u32 unkC;
+} T0901C;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08008D10 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+/* Ref mengemas konstanta 5 lewat literal pool lalu memotongnya ke 8 bit
+   (`ldr r1,=5; lsls #0x18; lsrs #0x18`) sebelum meneruskannya ke
+   func_08008B54 sebagai argumen u8. Literal `5` selalu dilipat agbcc jadi
+   `movs r1,#5`, jadi konstantanya diambil dari simbol absolut linker
+   `_M4aNumMusicPlayers` (fomt.lds = 5) persis seperti func_08008B24 di modul
+   yang sama; cast u8 memaksa potongan 8 bit yang terlihat di ref. */
+__asm__(".equ _M4aNumMusicPlayers, 5");
+extern char _M4aNumMusicPlayers[];
+#define NUM_MUSIC_PLAYERS ((u8)_M4aNumMusicPlayers)
+
+/* Tanda tangan mengikuti konvensi `src/hardware_migrated.cc` (kalinya sudah
+   dimigrasi sebagai `i32 func_08008B54(i32 *, u8)`); nilai baliknya dibuang
+   ref (`bl` lalu `ldr r0,[sp]`), jadi pointer vs i32 tidak mengubah byte. */
+i32 func_08008B54(i32 *, u8);
+
+i32 func_08008D10(void) {
+    i32 sp0;
+
+    func_08008B54(&sp0, NUM_MUSIC_PLAYERS);
+    return sp0;
+}
+}
+
 // DECOMP-MATCHED func_08008D2C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 void func_08008D2C(i32 *arg0) {
@@ -498,12 +532,6 @@ void func_08008FE4(i32 *arg0, i32 *arg1) {
 }
 // DECOMP-MATCHED func_0800901C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-typedef struct {
-    i32 unk0;
-    i32 *unk4;
-    i32 *unk8;
-    u32 unkC;
-} T0901C;
 
 i32 CpuFastSet(i32 *, i32 *, i32);
 i32 CpuSet(i32 *, i32 *, i32);

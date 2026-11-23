@@ -2018,58 +2018,54 @@ sebelum relokasi) — keduanya artifact, bukan DIFF.
 **Hasil 2026-11-23:** judge MATCH 76B (1 percobaan), `pindah: 1`, baseline + target
 `fomt.gba: OK`.
 
-## 64. Konstanta sempit dari literal pool: artefak toolchain lama, bukan bentuk C (dinding)
+## 64. Konstanta sempit dari literal pool: bukan literal, tapi simbol absolut linker (terpecahkan)
 
 Gejala: ref memuat konstanta kecil yang seharusnya `movs` lewat literal pool lalu
-memotongnya dengan shift — bentuk `u8`: `ldr r1,=5; lsls r1,#0x18; lsrs r1,#0x18`
-(28B), bentuk `u16`: `ldr r0,=5; lsls r0,#0x10; lsrs r1,r0,#0x10` (40B). Draf C
-yang paling wajar untuk keduanya keluar 2 instruksi lebih pendek (`movs r1,#5`).
+memotongnya dengan shift - bentuk `u8`: `ldr r1,=5; lsls r1,#0x18; lsrs r1,#0x18`
+(28B), bentuk `u16`: `ldr r0,=5; lsls r0,#0x10; lsrs r1,r0,#0x10` (40B).
 
-Pembukti: `func_08008D10` (28B, ujung `hardware.s`) dan `func_08008B24` (40B,
-callee-nya). `08008D10` = `func_08008B54(&sp0, 5)`; `08008B24` membandingkan
-argumennya dengan konstanta `5` lalu `% 5` sebelum mengindeks
-`gMusicPlayerTable`. Untuk `08008B24`, draf C natural
+**Jangan tulis `5` sebagai literal.** agbcc melipat setiap literal yang muat
+immediate, dan tidak ada cast/bitfield/enum/`static const` yang mengubahnya:
+~3100 bentuk (16 penulisan literal x 11 cast x 6 tipe parameter callee, plus
+lokal `u8`, bitfield `u32 : 8`, `enum`, `static inline`, kombinasi biner) di tiga
+compiler (`agbcc`, `old_agbcc`, `agbcp`) menghasilkan `movs` - bukan pool.
+
+Jalan keluarnya: konstanta aslinya **bukan literal**, melainkan simbol absolut
+linker `_M4aNumMusicPlayers` (`fomt.lds` = 5). Cast sempit atas *alamat* simbol
+itu tidak bisa dilipat, jadi keluarannya tepat seperti ref:
 
 ```c
-s32 func_08008B24(u16 arg0) { if (arg0 >= 5) arg0 %= 5; return gMusicPlayerTable[arg0]; }
+__asm__(".equ _M4aNumMusicPlayers, 5");   /* judge merakit tanpa link */
+extern char _M4aNumMusicPlayers[];
+#define NUM_MUSIC_PLAYERS ((u16)_M4aNumMusicPlayers)   /* atau (u8) */
+
+s32 func_08008B24(u32 arg0) {
+    if (arg0 >= NUM_MUSIC_PLAYERS) arg0 %= NUM_MUSIC_PLAYERS;
+    return gMusicPlayerTable[arg0].music_player;
+}
 ```
 
-menghasilkan `lsls r0,#0x10; lsr r1,r0,#0x10; cmp r1,#0x4; bls ...` — mask
-dikenakan ke **argumen**, dan pembandingnya dilipat jadi `cmp #0x4`. Ref
-melakukannya terbalik: konstanta dimuat dari pool lalu di-mask, `cmp r2,r1;
-blo`. Jadi bukan cuma `08008D10`: fungsi tetangganya pun tidak direproduksi
-agbcc, tanda bagian sound `hardware.s` ini datang dari asm tangan atau
-toolchain lama, bukan dari C yang dikompilasi agbcc.
+Cast yang dipilih menentukan lebar shift, dan itu yang membedakan kedua ref:
+`(u16)` -> `lsls #0x10` (mask 16 bit, `func_08008B24`), `(u8)` -> `lsls #0x18`
+(`func_08008D10`, argumen `u8` untuk `func_08008B54`). Pool-nya berisi
+`.word _M4aNumMusicPlayers` yang dirakit jadi `0x00000005`, jadi byte-nya sama
+dengan ref walau sumbernya simbol.
 
-Yang sudah diuji dan semuanya gagal memancing pool (`movs r1,#5` terus): 322
-ekspresi di posisi argumen (literal `5`/`5u`/`5l`, cast `u8`/`u16`/`s16`/`u32`/
-`s32`/`s8` termasuk cast berlapis, aritmetika `& | ^ + - * %` antar konstanta
-dan variabel `u8`/`u16`, konstanta `static const`), plus lokal `u8` (inisialisasi
-dan assignment terpisah), bitfield `u32 : 8`, `enum`, `static inline` pengembali
-`u8`, dan bentuk `cmp` dengan `(u8)5`/`(u16)5`; dijalankan dengan `agbcc` dan
-`old_agbcc`. Yang bisa dipancing hanya mask **dari register**
-(`add r1,r0,#0; lsls; lsrs`) atau `ldrb` dari alamat — tidak pernah pool untuk
-nilai 5.
+Pembukti (keduanya tanpa pin/`__asm__` register, C natural):
 
-Pencarian lanjutan (2026-11-23) memperluas ruang uji secara sistematis:
-2784 fungsi dibangkitkan dari 16 literal (`5`, `0x5`, `05`, `5U`, `5L`,
-`~0xFA`, `-(-5)`, `0x1F5>>4`, `sizeof(int)+1`, …) x 11 cast (`u8`, `s8`, `u16`,
-`s16`, `u32`, `s32`, `char`, `short`, `unsigned char`, `unsigned`, tanpa cast) x
-6 tipe parameter callee (`u8`, `s8`, `u16`, `u32`, `s32`, variadic), plus
-kombinasi biner antar konstanta. Total dengan percobaan sebelumnya ~3100 bentuk;
-nol menghasilkan `ldr` dari pool + `lsls #0x18`/`#0x10`. Yang muncul hanya
-`movs`, `ldr`+`ldrb` (alamat global), atau mask-dari-register.
+- `func_08008B24` (40B + 8B pool, `hardware.s`) - sudah `promoted`; judge ulang
+  2026-11-23 `True` (byte-identik, ref_len 48).
+- `func_08008D10` (24B kode + 4B pool, ujung `hardware.s`) - dulu dicatat sebagai
+  dinding karena 322+ bentuk literal semuanya keluar `movs r1,#5` (20B). Dengan
+  simbol absolut: judge `True`, lalu dimigrasi (`pindah: 1`, `make compare`
+  HIJAU). Ujung `hardware.s` pindah ke `func_08008CFC`, jadi rantai ekor yang
+  tadinya terkunci sekarang terbuka.
 
-Frontend C++ build (`agbcp`/libagbc++, yang dipakai `src/*.cc`) juga diuji
-2026-11-23 dengan flags build asli: baik `5` maupun `(u8)5` ke parameter `u8`
-tetap `movs r1,#5`. Jadi tiga compiler (`agbcc`, `old_agbcc`, `agbcp`) sama-sama
-melipat; tidak ada jalur build di repo ini yang menghasilkan pool untuk 5.
-
-Kesimpulan: agbcc melipat konversi sempit dari konstanta, sedangkan pool+mask
-hanya keluar untuk konstanta yang tidak bisa jadi immediate. Untuk `5` itu
-mustahil, jadi tidak ada bentuk C yang MATCH; jangan buang kuota judge untuk
-kelas ini. Catat sebagai dinding dan lewati. Karena `hardware.s` tail-only,
-`func_08008D10` sebagai ujung berkas mengunci semua `pending` di atasnya.
+Pelajaran: klaim dinding itu **per-fungsi, bukan per-section**. Sebelum menembak
+"toolchain tidak bisa", cek apakah konstanta di ref berasal dari simbol
+linker/`extern` (pool berisi alamat simbol) - pool yang isinya angka kecil bisa
+berarti `.equ`, bukan literal. Tanda pembeda praktis: literal selalu dilipat
+`movs` oleh ketiga compiler, simbol absolut selalu `ldr` dari pool.
 
 ## 65. Pin register di agbcc: nama NUMERIK (`"r9"`), bukan alias (`"sb"`), dan wajib di-fence
 

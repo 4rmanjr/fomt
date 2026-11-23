@@ -795,11 +795,13 @@
  },
  "func_08008D10": {
   "addr": 134253840,
+  "judged_mtime": 1795416813.6162014,
   "module": "hardware.s",
-  "note": "DINDING toolchain (terverifikasi ulang): ref memuat konstanta 5 lewat literal pool lalu mask u8 (ldr r1,=5; lsls #0x18; lsrs #0x18) = 28B, salinan agbcc selalu 20B dengan movs r1,#5. Sekitar 3100 bentuk diukur via cc_probe (literal x cast x tipe parameter callee, aritmetika, lokal, bitfield, enum, inline, variadic; agbcc + old_agbcc): nol menghasilkan pool. Tetangganya func_08008B24 memakai idiom pool yang sama untuk u16 dan draf C naturalnya tidak mereproduksi ROM, jadi bagian sound hardware.s ini berasal dari asm tangan sound driver. Jangan judge ulang; ujung berkas = rantai terkunci. Detail: POLA-DIFF 64.",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 27,
   "size": 314,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008D2C": {
