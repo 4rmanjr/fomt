@@ -4,9 +4,12 @@
    "symbol": "gUnk_084F90CC",
    "offset": "0x4F90CC",
    "size": 5844,
-   "group": "tabel",
-   "note": "5844 B, bukan kelipatan 32 B; 56/1461 word menunjuk ROM",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "182 tile 4bpp setelah 20 B header; 42% nibble nol, 7.4 indeks/tile",
+   "tile_offset": 20,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_084F90CC_5844_sprite.png"
   },
   {
    "symbol": "gUnk_084FA7A0",
@@ -21,9 +24,12 @@
    "symbol": "gUnk_084FA9A0",
    "offset": "0x4FA9A0",
    "size": 166128,
-   "group": "tabel",
-   "note": "166128 B, bukan kelipatan 32 B",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "5191 tile 4bpp setelah 16 B header; 42% nibble nol, 11.2 indeks/tile",
+   "tile_offset": 16,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_084FA9A0_166128_sprite.png"
   },
   {
    "symbol": "gUnk_08523290",
@@ -111,17 +117,23 @@
    "symbol": "gUnk_0852D984",
    "offset": "0x52D984",
    "size": 385188,
-   "group": "tabel",
-   "note": "385188 B, bukan kelipatan 32 B; 87/96297 word menunjuk ROM",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "12037 tile 4bpp setelah 4 B header; 30% nibble nol, 6.7 indeks/tile",
+   "tile_offset": 4,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0852D984_385188_sprite.png"
   },
   {
    "symbol": "gUnk_0858BA28",
    "offset": "0x58BA28",
    "size": 898616,
-   "group": "tabel",
-   "note": "898616 B, bukan kelipatan 32 B; 1482/224654 word menunjuk ROM",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "28081 tile 4bpp setelah 24 B header; 62% nibble nol, 6.7 indeks/tile",
+   "tile_offset": 24,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0858BA28_898616_sprite.png"
   },
   {
    "symbol": "gUnk_08667060",
@@ -382,9 +394,12 @@
    "symbol": "gUnk_086DE7F4",
    "offset": "0x6DE7F4",
    "size": 50408,
-   "group": "tabel",
-   "note": "50408 B, bukan kelipatan 32 B; 42/12602 word menunjuk ROM",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "1575 tile 4bpp setelah 8 B header; 14% nibble nol, 7.9 indeks/tile",
+   "tile_offset": 8,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086DE7F4_50408_sprite.png"
   },
   {
    "symbol": "gUnk_086EACDC",
@@ -460,9 +475,12 @@
    "symbol": "gUnk_086F2FAC",
    "offset": "0x6F2FAC",
    "size": 31444,
-   "group": "tabel",
-   "note": "31444 B, bukan kelipatan 32 B; 29/7861 word menunjuk ROM",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "982 tile 4bpp setelah 20 B header; 23% nibble nol, 7.3 indeks/tile",
+   "tile_offset": 20,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086F2FAC_31444_sprite.png"
   },
   {
    "symbol": "gUnk_086FAA80",
@@ -476,9 +494,12 @@
    "symbol": "gUnk_0871D51C",
    "offset": "0x71D51C",
    "size": 4748,
-   "group": "tabel",
-   "note": "4748 B, bukan kelipatan 32 B",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "148 tile 4bpp setelah 12 B header; 23% nibble nol, 6.0 indeks/tile",
+   "tile_offset": 12,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0871D51C_4748_sprite.png"
   },
   {
    "symbol": "gUnk_0871E7A8",
@@ -557,9 +578,12 @@
    "symbol": "gUnk_08728320",
    "offset": "0x728320",
    "size": 4188,
-   "group": "tabel",
-   "note": "4188 B, bukan kelipatan 32 B; 8/1047 word menunjuk ROM",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "130 tile 4bpp setelah 28 B header; 53% nibble nol, 3.9 indeks/tile",
+   "tile_offset": 28,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08728320_4188_sprite.png"
   },
   {
    "symbol": "gUnk_0872937C",
@@ -573,9 +597,12 @@
    "symbol": "gUnk_08729460",
    "offset": "0x729460",
    "size": 10756,
-   "group": "tabel",
-   "note": "10756 B, bukan kelipatan 32 B",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "336 tile 4bpp setelah 4 B header; 24% nibble nol, 4.3 indeks/tile",
+   "tile_offset": 4,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08729460_10756_sprite.png"
   },
   {
    "symbol": "gUnk_0872BE64",
@@ -607,9 +634,12 @@
    "symbol": "gUnk_0872DE44",
    "offset": "0x72DE44",
    "size": 4148,
-   "group": "tabel",
-   "note": "4148 B, bukan kelipatan 32 B; 9/1037 word menunjuk ROM",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "129 tile 4bpp setelah 20 B header; 57% nibble nol, 4.5 indeks/tile",
+   "tile_offset": 20,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0872DE44_4148_sprite.png"
   },
   {
    "symbol": "gUnk_0872EE78",
@@ -641,9 +671,12 @@
    "symbol": "gUnk_08731B40",
    "offset": "0x731B40",
    "size": 26116,
-   "group": "tabel",
-   "note": "26116 B, bukan kelipatan 32 B",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "816 tile 4bpp setelah 4 B header; 19% nibble nol, 6.5 indeks/tile",
+   "tile_offset": 4,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08731B40_26116_sprite.png"
   },
   {
    "symbol": "gUnk_08738144",
@@ -812,9 +845,12 @@
    "symbol": "gUnk_087409E4",
    "offset": "0x7409E4",
    "size": 9844,
-   "group": "tabel",
-   "note": "9844 B, bukan kelipatan 32 B; 10/2461 word menunjuk ROM",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "307 tile 4bpp setelah 20 B header; 42% nibble nol, 10.5 indeks/tile",
+   "tile_offset": 20,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087409E4_9844_sprite.png"
   },
   {
    "symbol": "gUnk_08747A14",
@@ -872,9 +908,12 @@
    "symbol": "gUnk_0874F34C",
    "offset": "0x74F34C",
    "size": 5012,
-   "group": "tabel",
-   "note": "5012 B, bukan kelipatan 32 B; 20/1253 word menunjuk ROM",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "156 tile 4bpp setelah 20 B header; 58% nibble nol, 5.3 indeks/tile",
+   "tile_offset": 20,
+   "tile_trim": 0,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0874F34C_5012_sprite.png"
   },
   {
    "symbol": "gUnk_087506E0",
@@ -1981,9 +2020,12 @@
    "symbol": "gUnk_0875A440",
    "offset": "0x75A440",
    "size": 4100,
-   "group": "tabel",
-   "note": "4100 B, bukan kelipatan 32 B",
-   "renderable": false
+   "group": "sprite/OBJ",
+   "note": "128 tile 4bpp dipotong 4 B ekor; 62% nibble nol, 2.7 indeks/tile",
+   "tile_offset": 0,
+   "tile_trim": 4,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875A440_4100_sprite.png"
   },
   {
    "symbol": "gUnk_0875B444",

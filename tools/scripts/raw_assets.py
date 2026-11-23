@@ -10,12 +10,14 @@ Kelompok (heuristik isi, bukan nama simbol):
 - `palet`     — <= 1024 B, kelipatan 32 B, semua u16 < 0x8000 (bit 15 kosong).
                 Dirender sebagai kartu swatch.
 - `sprite/OBJ`— kelipatan 32 B (satu tile 4bpp = 32 B), bukan palet/tilemap.
+                Blob non-32 B yang menyisakan 1-31 B header/ekor juga masuk
+                sini bila sisa tile-nya padat indeks 0 dan sedikit warna.
                 Dirender sebagai lembar tile abu-abu indeks.
 - `tilemap`   — entri 16-bit dengan bit 10-15 konsisten (>= 40% modal) dan
                 jumlah entri masuk akal untuk lebar tilemap. Dirender sebagai
                 grid indeks.
-- `tabel`     — sisanya: tabel angka/struct, termasuk data besar yang tidak
-                kelipatan 32 B. Tidak dirender.
+- `tabel`     — sisanya: tabel angka/struct, termasuk data non-32 B yang
+                tidak lolos uji tile. Tidak dirender.
 
 PNG ditulis ke `assets/raw/png/`, metadata ke `assets/raw/manifest.json`, dan
 laporan ke `docs/decomp/ASET-MENTAH-BERKAS.md` (hasil generate).
@@ -68,12 +70,46 @@ def plausible_tilemap(count):
                for w in RAW_WIDTHS)
 
 
+def tile_prefix(data):
+    """-> (start, ekor, stats) bila blob non-32 B berisi tile 4bpp.
+
+    Header/ekor paling banyak 31 B. Header kecil (u32 awal < 0x10000)
+    dilewati di depan; bila justru u32 akhir yang kecil, sisanya dipotong
+    di belakang. Sisa harus didominasi nibble nol dan hanya memakai sedikit
+    indeks per tile; tabel angka/pointer tidak lolos.
+    """
+    n = len(data)
+    if n < 4096 or n % 32 == 0:
+        return None
+    cut = n % 32
+    head = int.from_bytes(data[:4], "little")
+    tail = int.from_bytes(data[-4:], "little")
+    if head >= 0x10000 and tail < 0x10000:
+        start, tail_cut = 0, cut
+    else:
+        start, tail_cut = cut, 0
+    body = data[start:n - tail_cut]
+    tiles = [body[i:i + 32] for i in range(0, len(body) // 32 * 32, 32)]
+    if not tiles:
+        return None
+    zero = 0.0
+    colors = 0.0
+    for tile in tiles:
+        ns = [v for b in tile for v in (b & 15, b >> 4)]
+        zero += sum(1 for v in ns if v == 0) / 64
+        colors += len(set(ns))
+    zero, colors = zero / len(tiles), colors / len(tiles)
+    if zero >= 0.13 and colors <= 12:
+        return start, tail_cut, (zero, colors)
+    return None
+
+
 def classify(data):
-    """-> (kelompok, catatan) dari isi blob mentah."""
+    """-> (kelompok, catatan, (start, ekor) atau None)."""
     n = len(data)
     u = u16s(data)
     if n and n <= 1024 and n % 32 == 0 and u and all(v < 0x8000 for v in u):
-        return "palet", f"{len(u)} warna (semua u16 < 0x8000)"
+        return "palet", f"{len(u)} warna (semua u16 < 0x8000)", None
     nz = [v for v in u if v]
     if n >= 32 and n % 2 == 0 and nz:
         top = collections.Counter(v >> 10 for v in nz).most_common(1)[0][1]
@@ -81,17 +117,26 @@ def classify(data):
         if (top / len(nz) >= 0.4 and len(nz) / len(u) >= 0.8
                 and modal / len(u) < 0.9 and plausible_tilemap(len(u))):
             width = tilemap_width(len(u))
-            return "tilemap", (f"{len(u)} entri 16-bit; "
-                               f"bit 10-15 modal {top / len(nz):.0%}")
+            return ("tilemap", f"{len(u)} entri 16-bit; "
+                    f"bit 10-15 modal {top / len(nz):.0%}", None)
     if n % 32 == 0:
-        return "sprite/OBJ", f"{n // 32} tile 4bpp (32 B/tile)"
+        return "sprite/OBJ", f"{n // 32} tile 4bpp (32 B/tile)", None
+    window = tile_prefix(data)
+    if window:
+        start, tail_cut, (zero, colors) = window
+        tiles = (n - start - tail_cut) // 32
+        part = (f"setelah {start} B header" if start
+                else f"dipotong {tail_cut} B ekor")
+        return ("sprite/OBJ", f"{tiles} tile 4bpp {part}; "
+                f"{zero:.0%} nibble nol, {colors:.1f} indeks/tile",
+                (start, tail_cut))
     words = [int.from_bytes(data[i:i + 4], "little")
              for i in range(0, n - 3, 4)]
     ptr = sum(1 for w in words if 0x08000000 <= w < 0x09000000)
     note = f"{n} B, bukan kelipatan 32 B"
     if ptr:
         note += f"; {ptr}/{max(1, len(words))} word menunjuk ROM"
-    return "tabel", note
+    return "tabel", note, None
 
 
 def render(entry, data, out, group, note):
@@ -102,9 +147,13 @@ def render(entry, data, out, group, note):
         fx.render_palette(data, out / png)
         return f"assets/raw/{png}"
     if group == "sprite/OBJ":
-        tiles = len(data) // 32
+        start = entry.get("tile_offset", 0)
+        tail = entry.get("tile_trim", 0)
+        body = data[start:len(data) - tail] if tail else data[start:]
+        tiles = len(body) // 32
         png = f"png/{name}_{entry['size']}_sprite.png"
-        fx.render_tiles(data, out / png, tiles_wide=16 if tiles <= 512 else 32,
+        fx.render_tiles(body, out / png,
+                        tiles_wide=16 if tiles <= 512 else 32,
                         scale=3 if tiles <= 64 else (2 if tiles <= 512 else 1))
         return f"assets/raw/{png}"
     if group == "tilemap":
@@ -122,10 +171,13 @@ def build(rom, entries):
         if entry.kind == "lzss-0x70":
             continue
         data = rom[entry.offset:entry.offset + entry.size]
-        group, note = classify(data)
-        rows.append({"symbol": entry.name, "offset": f"0x{entry.offset:06X}",
-                     "size": entry.size, "group": group, "note": note,
-                     "data": data})
+        group, note, window = classify(data)
+        row = {"symbol": entry.name, "offset": f"0x{entry.offset:06X}",
+               "size": entry.size, "group": group, "note": note}
+        if window:
+            row["tile_offset"], row["tile_trim"] = window
+        row["data"] = data
+        rows.append(row)
     return rows
 
 
@@ -163,9 +215,12 @@ def render_doc(manifest):
     out.append("")
     out.append("Kelompok ditentukan dari isi, bukan nama simbol: palet = semua "
                "u16 < 0x8000 dan <= 1 KB; sprite/OBJ = kelipatan 32 B (tile "
-               "4bpp); tilemap = entri 16-bit dengan bit 10-15 konsisten; "
-               "sisanya tabel/struct dan tidak dirender. Batas ini heuristik: "
-               "blob yang tidak kelipatan 32 B tidak dipaksakan jadi tile.")
+               "4bpp), ditambah blob non-32 B yang setelah header/ekor <= 31 B "
+               "menyisakan tile dengan >= 13% nibble nol dan <= 12 indeks/tile; "
+               "tilemap = entri 16-bit dengan bit 10-15 konsisten; sisanya "
+               "tabel/struct dan tidak dirender. Offset/ekor yang dipotong "
+               "dicatat di manifest (`tile_offset`/`tile_trim`). Batas ini "
+               "heuristik, bukan bukti format.")
     out.append("")
     for g in ("palet", "sprite/OBJ", "tilemap", "tabel"):
         sel = [r for r in rows if r["group"] == g]

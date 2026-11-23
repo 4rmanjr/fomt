@@ -146,15 +146,20 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   puluhan detik; tidak menjalankan build dan tidak menulis ROM.
 - `raw_assets.py` — inventaris sisa 231 blob **mentah** (bukan `0x70`) dari
   `asset_inventory.analyze()`, kelompokkan dari isi: `palet` (<=1 KB, semua u16
-  < 0x8000), `sprite/OBJ` (kelipatan 32 B = tile 4bpp), `tilemap` (entri
-  16-bit, bit 10-15 konsisten), `tabel` (sisanya, tidak dirender). Menulis
+  < 0x8000), `sprite/OBJ` (kelipatan 32 B = tile 4bpp, atau non-32 B dengan
+  header/ekor <=31 B yang menyisakan tile >=13% nibble nol dan <=12
+  indeks/tile), `tilemap` (entri 16-bit, bit 10-15 konsisten), `tabel`
+  (sisanya, tidak dirender). Menulis
   `assets/raw/png/` + `assets/raw/manifest.json` + dokumen generate
   `docs/decomp/ASET-MENTAH-BERKAS.md`; `--check` exit 1 bila dokumen basi,
   dan `check_docs.py` memanggil renderer yang sama sebagai gate (dokumen basi
   menggagalkan tutup sesi, bukan lolos diam-diam). `--out DIR`/`--quiet`
   seperti `extract_assets.py`. Kelompok ditentukan dari
-  isi, bukan nama simbol; blob yang tidak kelipatan 32 B tidak dipaksakan jadi
-  tile. Tidak menjalankan build dan tidak menulis ROM.
+  isi, bukan nama simbol. Blob non-32 B diuji dengan memotong sisa 1-31 B di
+  depan (header kecil) atau belakang (ekor kecil); bila sisa tile lolos ambang
+  di atas, blob dirender sebagai `sprite/OBJ` dan `tile_offset`/`tile_trim`
+  dicatat di manifest. Ambang ini heuristik, bukan bukti format. Tidak
+  menjalankan build dan tidak menulis ROM.
 
 ## Engine kerja (`decomp_engine.py`)
 
