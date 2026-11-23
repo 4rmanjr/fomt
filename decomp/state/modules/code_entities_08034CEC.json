@@ -1599,7 +1599,7 @@
   "addr": 134446944,
   "judged_mtime": 1793582714.094408,
   "module": "code_entities_08034CEC.s",
-  "note": "len 26 vs ref 20 [3extra,1operand,3different @| adds r1, #0x54 | ldr r0, [r1, #0x54]] [audit_sync: duplikat di src]",
+  "note": "[SELESAI - MATCH + sudah di src/code_entities_08034CEC.cc; sisa note = riwayat] len 26 vs ref 20 [3extra,1operand,3different @| adds r1, #0x54 | ldr r0, [r1, #0x54]] [audit_sync: duplikat di src]",
   "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 20,
   "sanitize_v": 4,

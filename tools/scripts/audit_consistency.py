@@ -28,10 +28,16 @@ Cek yang dilakukan:
      salinan), menunjuk `skills/gba-decomp`, dan targetnya punya SKILL.md.
      Loader skill (Freebuff/Codebuff/Claude) hanya memindai .agents/skills
      dan .claude/skills, jadi tanpa symlink ini skill tidak pernah dimuat.
+ 10. Note basi: fungsi SUDAH punya blok `DECOMP-MATCHED` di src/, tapi
+     note-nya masih berbunyi seperti pekerjaan tertunda (`Nmissing/Nextra`,
+     `vs ref`, `promote-only`, `menunggu`, `belum`, `parkir`) tanpa penanda
+     selesai. Note seperti itu membuat sesi berikutnya mengejar fungsi yang
+     sudah beres. `--fix` menambahkan prefix `[SELESAI - MATCH + sudah di
+     src/…]` dan menyisakan teks lama sebagai riwayat.
 
 Exit code: 0 = tidak ada masalah struktural; 1 = duplikat / blok rusak /
-state yatim / status liar / i32 / symlink skill rusak (atau drift bila
-`--strict`).
+state yatim / status liar / i32 / symlink skill rusak / note basi (atau
+drift bila `--strict`).
 """
 import json
 import re
@@ -51,6 +57,18 @@ SRC_SUFFIX = ("", "_c", "_v", "_migrated")
 SRC_EXT = ("cc", "c")
 ALLOWED_STATUS = ("pending", "drafted", "failed", "promoted", "matched")
 I32_RE = re.compile(r"\bi32\b")
+# Note yang masih berbunyi "kerjaan belum beres". Dipakai untuk cek 10:
+# fungsi sudah di src tapi note-nya belum diakui selesai.
+NOTE_RESIDUAL_RE = re.compile(
+    r"\b\d+missing\b|\b\d+extra\b|vs ref|\bDIFF\b|parkir|promote-only|"
+    r"promoted-only|menunggu|belum\b",
+    re.I)
+NOTE_DONE_RE = re.compile(
+    r"SELESAI|MATCH|migrasi|pindah|sudah di src|-> src", re.I)
+# Note yang mengklaim promosi belum terjadi, padahal status sudah `promoted`.
+NOTE_NOT_PROMOTED_RE = re.compile(
+    r"belum bisa dipromosikan|belum dipromosikan|tidak bisa dipromosikan", re.I)
+NOTE_PROMOTED_MARK = "[SUDAH promoted"
 
 
 def src_text(stem):
@@ -118,6 +136,7 @@ def main(argv):
     problems = 0
     dup_report, orphan_state, unmigrated, stale = [], [], [], []
     broken_blocks, bad_status, i32_hits, drift = [], [], [], []
+    stale_notes = []
 
     for pf in sorted(PROMOTED.glob("*.cc")):
         stem = pf.stem
@@ -179,6 +198,30 @@ def main(argv):
             if st in ("failed", "drafted", "pending"):
                 stale.append((stem, n, st))
 
+        # 10. note basi: sudah di src tapi note masih berbunyi tertunda
+        for n in sorted(in_src):
+            v = state.get(n) or {}
+            note = v.get("note") or ""
+            if not note or "SELESAI" in note:
+                continue
+            if NOTE_RESIDUAL_RE.search(note) and not NOTE_DONE_RE.search(note):
+                stale_notes.append((stem, n, v.get("status"), note, "src"))
+
+        # 10b. note mengklaim "belum bisa dipromosikan" padahal sudah promoted
+        seen = {n for _s, n, _st, _n, _k in stale_notes if _s == stem}
+        for n, v in state.items():
+            if not isinstance(v, dict) or v.get("status") not in ("promoted", "matched"):
+                continue
+            if n in seen:
+                continue
+            note = v.get("note") or ""
+            if (note and NOTE_NOT_PROMOTED_RE.search(note)
+                    and "SELESAI" not in note
+                    and not note.startswith(NOTE_PROMOTED_MARK)):
+                stale_notes.append((stem, n, v.get("status"), note, "promoted"))
+
+    problems += len(stale_notes)
+
     # 6b. status liar ikut dihitung masalah
     problems += len(bad_status)
 
@@ -216,6 +259,7 @@ def main(argv):
             "orphan_state": orphan_state,
             "unmigrated_blocks": unmigrated,
             "stale_src_status": stale,
+            "stale_notes": [(s, n, st) for s, n, st, _note, _kind in stale_notes],
             "bad_status": bad_status,
             "i32": i32_hits,
             "skill_symlink": {"ok": skill_ok, "detail": skill_detail},
@@ -243,6 +287,9 @@ def main(argv):
              [] if skill_ok else [skill_detail])
         show("Blok promoted belum di src (info)", unmigrated)
         show("Sudah di src tapi state failed/drafted (info)", stale)
+        show("Note basi: sudah selesai tapi note masih mengejar (MASALAH)",
+             stale_notes,
+             lambda r: f"{r[0]}: {r[1]} [{r[2]}, {r[4]}] -> {r[3][:60]}")
         show("Drift promoted vs draf (info, --strict = masalah)", drift)
         print(f"\nTotal blok promoted: {total_blocks} | marker di src/: {total_src}")
         print("MASALAH struktural:", problems)
@@ -265,6 +312,36 @@ def main(argv):
                 changed += 1
             mp.write_text(json.dumps(st, indent=1))
         print(f"[fix] {changed} status basi -> promoted di {len(per)} shard")
+
+        # Note basi: prefix penanda selesai, teks lama disimpan sebagai riwayat.
+        fmap = {}
+        for p in SRC.iterdir():
+            if p.suffix in (".cc", ".c") and not p.name.startswith("rt"):
+                for n in MARK.findall(p.read_text(errors="ignore")):
+                    fmap.setdefault(n, p.name)
+        per_note = {}
+        for stem, n, _st, _note, kind in stale_notes:
+            per_note.setdefault(stem, []).append((n, kind))
+        notes_fixed = 0
+        for stem, items in per_note.items():
+            mp = MODULES / f"{stem}.json"
+            st = json.loads(mp.read_text())
+            for n, kind in items:
+                v = st.get(n)
+                if not isinstance(v, dict) or not v.get("note"):
+                    continue
+                if "SELESAI" in v["note"] or v["note"].startswith(NOTE_PROMOTED_MARK):
+                    continue
+                if kind == "src":
+                    pre = (f"[SELESAI - MATCH + sudah di src/{fmap.get(n, '?')}; "
+                           "sisa note = riwayat] ")
+                else:
+                    pre = (f"{NOTE_PROMOTED_MARK} (blok di decomp/promoted/{stem}.cc); "
+                           "migrasi ke src belum; sisa note = riwayat] ")
+                v["note"] = pre + v["note"]
+                notes_fixed += 1
+            mp.write_text(json.dumps(st, indent=1))
+        print(f"[fix] {notes_fixed} note basi ditandai SELESAI di {len(per_note)} shard")
 
     return 1 if problems else 0
 

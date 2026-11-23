@@ -1845,7 +1845,7 @@
   "draft_src": "manual",
   "judged_mtime": 1794454198.0545754,
   "module": "code_linkonce.s",
-  "note": "[MATCH 1/5 dengan `u32 NpcEntityDtor(void) asm(\"_._10ANpcEntity\");` tapi BELUM bisa dipromosikan: migrate menolak karena 260 penerus di code_linkonce.s belum pindah. Pola sama untuk 34 pembungkus 12B lain di modul ini (semua `bl _._10ANpcEntity`), jadi semuanya menunggu rantai ekor]",
+  "note": "[SUDAH promoted (blok di decomp/promoted/code_linkonce.cc); migrasi ke src belum; sisa note = riwayat] [MATCH 1/5 dengan `u32 NpcEntityDtor(void) asm(\"_._10ANpcEntity\");` tapi BELUM bisa dipromosikan: migrate menolak karena 260 penerus di code_linkonce.s belum pindah. Pola sama untuk 34 pembungkus 12B lain di modul ini (semua `bl _._10ANpcEntity`), jadi semuanya menunggu rantai ekor]",
   "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 12,
   "sanitize_v": 4,

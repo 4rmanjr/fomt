@@ -7,8 +7,13 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
 
 - `audit_consistency.py` — audit cepat state ↔ promoted ↔ src: blok duplikat,
   blok kurung rusak, state yatim, status basi, status di luar enum, `i32`,
-  drift promoted vs draf, symlink skill. `--json` untuk agent, `--strict`
-  sebagai gate, `--fix` hanya untuk entri yang marker-nya benar ada di src.
+  drift promoted vs draf, symlink skill, dan **note basi** (fungsi sudah di
+  src tapi note masih berbunyi `Nmissing/Nextra`, `vs ref`, `promote-only`,
+  `menunggu`, `belum`, atau `parkir` tanpa penanda selesai; juga status
+  `promoted` dengan note "belum bisa dipromosikan"). `--json` untuk agent,
+  `--strict` sebagai gate, `--fix` hanya untuk entri yang marker-nya benar ada
+  di src — note basi diberi prefix `[SELESAI …]`/`[SUDAH promoted …]` dan teks
+  lama disimpan sebagai riwayat (idempoten).
 - `migrate_audit.py` — klasifikasi semua blok promoted: bisa migrasi vs alasan
   SKIP (`--json`).
 - `tail_chain.py --module <stem>.s` — urutan ekor + NEXT/blocker untuk modul

@@ -246,7 +246,7 @@
   "addr": 134429572,
   "judged_mtime": 1793017288.3194785,
   "module": "code_entities_080320DC.s",
-  "note": "len 16 vs ref 1530",
+  "note": "[SELESAI - MATCH + sudah di src/code_entities_080320DC.cc; sisa note = riwayat] len 16 vs ref 1530",
   "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
   "ref_len": 1532,
   "sanitize_v": 4,

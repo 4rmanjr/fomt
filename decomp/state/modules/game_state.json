@@ -1538,7 +1538,7 @@
   "addr": 134300236,
   "judged_mtime": 1793936559.2245772,
   "module": "game_state.s",
-  "note": "byte +0x8: 0x1 vs ref 0x2 [1operand,3regalloc @r ldr r2, [r0] | ldr r1, [r0]]",
+  "note": "[SELESAI - MATCH + sudah di src/game_state.cc; sisa note = riwayat] byte +0x8: 0x1 vs ref 0x2 [1operand,3regalloc @r ldr r2, [r0] | ldr r1, [r0]]",
   "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 24,
   "sanitize_v": 4,
