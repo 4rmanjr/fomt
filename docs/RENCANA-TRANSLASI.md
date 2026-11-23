@@ -149,6 +149,9 @@ target hari itu.
 - [ ] Inventaris `asm/data/*.s`: mana yang sudah dirujuk C, mana yang belum.
 - [ ] Ubah tabel ke C (`const` array/struct) bila pemiliknya sudah ada di
       `src/`; gate-nya hash byte, bukan judge.
+- [ ] Untuk aset grafis/container/data yang punya encoder, ikuti
+      [`decomp/ARSITEKTUR-ASET.md`](decomp/ARSITEKTUR-ASET.md); fase ini hanya
+      mengonversi tabel yang sudah punya schema dan pemilik C.
 - [ ] Jangan menyentuh data yang belum jelas pemiliknya (risiko drift).
 
 **Exit:** hanya `asm/data/*.s` yang belum punya pemilik C yang tersisa.
@@ -188,6 +191,9 @@ target hari itu.
 
 Semua alat baru wajib: keluarannya ringkas (R7), tidak menulis di dalam repo
 selain state/draf, dan didokumentasikan di `ops/TOOLS.md` pada commit yang sama.
+Arah source asset + encoder + gate byte ada di
+[`decomp/ARSITEKTUR-ASET.md`](decomp/ARSITEKTUR-ASET.md); alat inventaris yang
+sudah ada belum menjadi source build.
 
 ---
 

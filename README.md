@@ -12,6 +12,13 @@ It builds the following ROM:
 
 See [INSTALL.md](./INSTALL.md).
 
+## Asset pipeline
+
+Rencana source asset, encoder, dan gate byte-identik ada di
+[docs/decomp/ARSITEKTUR-ASET.md](./docs/decomp/ARSITEKTUR-ASET.md). Aset di
+`assets/raw/` dan `assets/0x70/` saat ini adalah inventaris/preview, bukan
+source build.
+
 ## Contributing
 
 Please do. Feel free to yell at me if you need naming/style/formatting guidelines.

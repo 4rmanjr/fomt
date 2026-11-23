@@ -3,6 +3,10 @@
 Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
 `AGENTS.md`) dan rujuk dari sana. Aturan invarian: [`AGENTS.md`](../../AGENTS.md).
 
+Tool aset di bawah masih **inventaris/export**, bukan source build. Arah
+source asset, encoder, profil `match`/`mod`, dan gate byte ada di
+[`ARSITEKTUR-ASET.md`](../decomp/ARSITEKTUR-ASET.md).
+
 ## Read-only (audit/diagnosa)
 
 - `audit_consistency.py` — audit cepat state ↔ promoted ↔ src: blok duplikat,
