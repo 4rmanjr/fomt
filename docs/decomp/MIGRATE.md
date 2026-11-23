@@ -875,32 +875,42 @@ butuh MATCH baru, bukan migrasi.
 
 ## 32. Jalur `CC1 := OLD_CC1` tidak menggeneralisasi ke semua `pop {r2}`
 
-Percobaan sesi ini: 7 fungsi `pop {r2}` sisa (08024BFC, 0802AB98, 0804EA94, 0805E760, 080A3E90,
-08037ED0, 0803834C) dicoba lewat jalur build kedua (`src/pop_r2.c` + `CC1 := $(OLD_CC1)`,
-preseden `src/m4a.c`/`m4a.o`), satu per satu di TU kecil dengan `old_agbcc` lalu dibandingkan
-byte-per-byte ke ROM.
+Percobaan sesi ini memakai jalur build kedua (`src/pop_r2.c` + `CC1 := $(OLD_CC1)`, preseden
+`src/m4a.c`/`m4a.o`): fungsi ditulis di TU kecil dengan `old_agbcc` lalu dibandingkan
+byte-per-byte ke ROM. Yang **benar-benar diuji** di jalur ini hanya tiga fungsi:
+`func_08037ED0`, `func_0803834C`, `func_0805E760`. Empat anggota lain (`func_08024BFC`,
+`func_0802AB98`, `func_0804EA94`, `func_080A3E90`) **tidak diuji** di jalur ini; status `failed`
+mereka bukan hasil pengukuran jalur `OLD_CC1`.
 
-Hasil:
+Hasil pengukuran:
 
-- **Berhasil (byte-identik):** `func_08037ED0` dan `func_0803834C` (32B) — keluarga "tulis 4 field
-  `Out` ke arg0, tanpa `return`", persis seperti dua fungsi yang sudah ada di `src/pop_r2.c`.
-- **Gagal:** `func_0805E760` (48B) dan varian besar lain. Penyebabnya bukan sekadar tipe balik:
-  ref berakhir `adds r0, r4, #0` (r0 = arg0) **tanpa** ekstensi tanda, sedangkan C apa pun yang
-  menghasilkan `adds r0,…` lewat `return arg0;` pada fungsi bertipe balik 64-bit menambah
-  `asrs r1, r4, #31` (+2B, panjang jadi 52); tanpa `return`, `adds r0,…` hilang (48B tapi beda).
-  Selain itu urutan load ref (`ldrh r1,[r0,#2]` lalu `ldrh r2,[r0]`) tidak tereproduksi dari
-  bentuk C langsung — gcc selalu memuat `unk0` lebih dulu.
+| fungsi | diukur lewat `OLD_CC1`? | hasil |
+|---|---|---|
+| `func_08037ED0`, `func_0803834C` (32B) | ya | byte-identik — keluarga "tulis 4 field `Out` ke arg0, tanpa `return`" |
+| `func_0805E760` (48B) | ya (matriks bentuk C di bawah) | tidak byte-identik |
+| `func_08024BFC` (88B) | belum; ada draf judge lama 106B `[3missing,12extra,10regalloc]` | belum MATCH, sebab belum dipastikan |
+| `func_0802AB98` (148B) | belum; ada draf judge lama 192B `[39missing,60extra]` | belum MATCH, sebab belum dipastikan |
+| `func_0804EA94` (496B) | **belum** | belum ada draf terukur |
+| `func_080A3E90` (188B) | **belum** | belum ada draf terukur |
+
+Untuk `func_0805E760`, penyebabnya bukan sekadar tipe balik: ref berakhir `adds r0, r4, #0`
+(r0 = arg0) **tanpa** ekstensi tanda, sedangkan C apa pun yang menghasilkan `adds r0,…` lewat
+`return arg0;` pada fungsi bertipe balik 64-bit menambah `asrs r1, r4, #31` (+2B, panjang jadi 52);
+tanpa `return`, `adds r0,…` hilang (48B tapi beda). Selain itu urutan load ref
+(`ldrh r1,[r0,#2]` lalu `ldrh r2,[r0]`) tidak tereproduksi dari bentuk C langsung — gcc selalu
+memuat `unk0` lebih dulu.
 
 Kesimpulan: `OLD_CC1` hanya menolong **keluarga codegen**-nya (epilog `pop {r2}` + nilai balik
 r0:r1 yang tak dipakai), bukan semua fungsi berepilog itu. Batch 9 fungsi dibatalkan; yang boleh
 masuk jalur ini hanya fungsi yang sudah terbukti byte-identik di TU kecil.
 
 Tindak lanjut 2026-11-22: dua yang terbukti (`func_08037ED0`, `func_0803834C`, 32B) sudah masuk
-`src/pop_r2.c` + blok asm-nya dicabut, `make compare` HIJAU. Sisa lima anggota keluarga tetap
-failed — `func_08024BFC` (88B), `func_0802AB98` (148B), `func_0804EA94` (496B), `func_0805E760`
-(48B), `func_080A3E90` (188B): masalahnya bentuk C-nya (mis. `adds r0,r4,#0` tanpa sign-extend
-pada fungsi balik 64-bit, urutan load `ldrh` yang tak tereproduksi), bukan jalur build, jadi
-jangan diulang lewat `OLD_CC1` tanpa bentuk C baru yang terbukti byte-identik di TU kecil.
+`src/pop_r2.c` + blok asm-nya dicabut, `make compare` HIJAU. Sisa lima anggota keluarga masih
+`failed`, tetapi **hanya `func_0805E760` yang punya diagnosis terukur** (`adds r0,r4,#0` tanpa
+sign-extend pada fungsi balik 64-bit, urutan load `ldrh` yang tak tereproduksi). `func_08024BFC`
+dan `func_0802AB98` baru sebatas draf judge yang masih jauh, `func_0804EA94` dan `func_080A3E90`
+belum pernah diukur — jangan mengutip kelimanya sebagai "gagal karena bentuk C". Jangan ulang
+`OLD_CC1` tanpa bentuk C baru yang terbukti byte-identik di TU kecil.
 
 **Percobaan ulang 2026-11-22 (matriks bentuk C, `old_agbcc` langsung).** Bentuk terdekat:
 `Out *f(Out *, Args *, u32)` + `return arg0;` menghasilkan **48B dengan badan persis ref**, hanya
@@ -937,7 +947,8 @@ sebagai teks. Cara yang benar: pola byte `04 BC 10 47` (`pop {r2}; bx r2`) disca
 
 Hasil (13 titik): 9 anggota keluarga yang sudah tercatat — 4 pindah lewat `src/pop_r2.c`
 (`func_080202A0`, `func_08037470`, `func_08037ED0`, `func_0803834C`) dan 5 masih `failed`
-(`func_08024BFC`, `func_0802AB98`, `func_0804EA94`, `func_0805E760`, `func_080A3E90`); 3 kembaran
+(`func_08024BFC`, `func_0802AB98`, `func_0804EA94`, `func_0805E760`, `func_080A3E90` — status
+administratif, bukan hasil ukur seragam; lihat tabel di atas); 3 kembaran
 yang tertelan blok lebih besar dan sudah ikut tereproduksi (`0x08022B38` di blok
 `func_080229A4`, `0x080329DC` di blok `func_08032934`, keduanya promoted; `0x080215FC` di blok
 `func_0802151C` yang masih failed); dan 1 (`0x0803240C`) sudah ada sebagai fungsi C++
