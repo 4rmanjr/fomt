@@ -1166,3 +1166,27 @@ selalu bandingkan dengan ref hasil rakit asm (dua sisi sama-sama placeholder) at
 diterjemahkan separuh tetap melaporkan 0 byte beda. Periksa dulu `ref_len` vs panjang badan: kalau
 `ref_len` lebih besar, ekor itu harus di-disasm sebelum disebut "data" (`func_08008FE4` 175B = 56B +
 fungsi di `0x0800901C`; `func_0804EDB4` 104B = 68B + fungsi di `0x0804EDF8`).
+
+## 41. Ekor `.byte` yang sebenarnya fungsi: promosikan jadi fungsi, jangan cuma diberi label
+
+`func_0804EDB4` (`code_0803EE94.s`) MATCH 68B tetapi migrate menolak:
+
+    [SKIP] data asing 36B menempel ekor (ref 104B, kode saja MATCH)
+
+`run.trailing_data_len` menghitung 36B sesudah `bx` sebagai data asing, dan gate SKIP-permanen
+menganggapnya milik pihak lain. Padahal 36B itu fungsi nyata di `0x0804EDF8`
+(`push {r4,r5,r6,lr}; ldr r5,[sp,#0x10]; …`). Resep yang terbukti:
+
+1. Di asm pemilik, ganti label lokal `.L0804EDF8:` menjadi
+   `\tthumb_func_start func_0804EDF8` + `func_0804EDF8: @ 0x0804EDF8` (cek dulu tak ada
+   `.4byte .L…`/`bl .L…` yang menunjuk label itu — kalau ada, ikut ganti).
+2. **Wajib** ubah isi `.byte` menjadi instruksi asli. Kalau dibiarkan `.byte`, splitter meng-emit
+   section `".text.code_0803EE94.0804EDF8"` **kosong** dan ROM kehilangan 36B (semua pointer sesudahnya
+   bergeser; `make compare` merah dengan `ndiff` jutaan). Tulis literal pool-nya sebagai label + `.4byte`
+   (di sini `.L0804EE18: .4byte vtable_unk_080E7848`).
+3. Cocokkan byte per byte sebelum lanjut: contoh jebakan di fungsi ini `str r1, [r0, #0xc]` (bukan
+   `str r4, [r1, #0xc]`) dan `pop {r1}; bx r1` (bukan `pop {r0}; bx r0`). `make compare` hijau dulu
+   (baseline) sebelum migrasi.
+4. Rescan metadata: `python3 -c "import run; run.scan(['code_0803EE94.s'])"` → `ref_len` fungsi induk
+   turun ke 68B, `func_0804EDF8` masuk state sebagai `pending` (36B), `trailing_data_len` = 0.
+5. Migrasi jalan (`pindah: 1`); jangan lupa fungsi baru itu kini kandidat antrean sendiri.

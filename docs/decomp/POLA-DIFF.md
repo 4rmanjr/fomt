@@ -1819,8 +1819,7 @@ dan tidak bisa digeser lewat pin selama `sl` masih dipakai allocator.
 
 Resep §43 (temp `s32` + hoist field ke preheader) diterapkan ke `func_0804EDB4` (`code_0803EE94.s`;
 `ref_len` 104B = **68B badan + 36B fungsi berikut tanpa label** di `0x0804EDF8` — ekor itu kode, bukan
-data; verifikasi ulang 2026-11-23: badan draf 66B setelah `depad`, 9 byte beda di `0x2`–`0x5` = urutan
-prolog, sesuai catatan parkir). Temp-nya sudah `s32`, jadi yang relevan justru dua hal lain yang muncul bersamaan:
+data). Bedanya bukan truncation (temp sudah `s32`) melainkan tiga hal lain:
 
 1. **Truncation argumen harus di-hoist, bukan dibiarkan di loop.** `arg2` bertipe `u16`, dan memakainya
    langsung di badan loop membuat `lsls r2,#0x10; lsrs r7,r2,#0x10` muncul **di dalam** loop. Menambah
@@ -1832,6 +1831,27 @@ prolog, sesuai catatan parkir). Temp-nya sudah `s32`, jadi yang relevan justru d
 3. **Divmod dibagi bersama.** `var_r4 % 10` lalu `var_r4 / 10U` membuat gcc memilih lowering lain; menulis
    eksplisit `q = var_r4 / 10U; rem = var_r4 - (q * 10);` menghasilkan urutan ref (`lsls #2`, `adds`,
    `lsls #1`, `subs`) dengan satu panggilan `__udivsi3`.
+
+4. **Urutan prolog dipaksa lewat conversion yang "nyata".** Ref: `adds r4,r0` **sebelum**
+   `lsls r2,#16`/`lsrs r7,#16`. Dengan `a2 = arg2;` biasa, agbcc menaruh truncation lebih dulu (dan
+   `adds r4,r0` menyelip di antaranya). Yang memaksa copy `arg0` keluar dulu: buat assignment-nya
+   punya conversion yang tak bisa dilipat — `a2 = (u16) (arg2 << 0);` (atau `arg2 + 0`, atau param
+   dideklarasikan `s16` lalu `a2 = (u16) arg2`). Kalau `arg2` di signature diubah jadi `s16`/`i16`,
+   **caller ikut berubah** (`ldrh r2,[r1,#0x14]` → `movs r3,#0x14; ldrsh r2,[r0,r3]`, +4B, ROM
+   meleset), jadi pilih jalur `<< 0` dan biarkan signature tetap `u16`.
+5. **Jangan pin `var_r4`/`var_r5` ke `r4`/`r5`.** Dengan `register ... __asm__("r4")` alokator
+   mengoalesensi hasil `sub` ke r4 (`subs r4,r4,r1`) sedangkan ref `subs r1,r4,r1`; melepas kedua pin
+   membuat penomoran cocok tanpa mengubah urutan prolog. Nama temp juga jangan dipakai ganda: `temp_r1`
+   untuk `arg3 << 16` membuat nilai digit jatuh ke `r3`; pisahkan jadi `t3`.
+6. **Signature migrasi harus sama dengan prototipe `src/`.** `func_0804EEBC`/`func_080C8550` sudah
+   mendeklarasikan `func_0804EDB4(i32, i32, u16, u16, i32)`; blok promoted memakai `(s32 arg0, s32 arg1,
+   u16 arg2, u16 arg3, s32 arg4)` + cast `(s16 *) arg1` di badan, dan hanya return type yang diubah
+   `i32`→`void` (tidak mengubah codegen caller). Versi `s16 *`/`s16` di signature ditolak build
+   (`lacks a cast`) lalu memaksa cast yang menggeser ROM 4B.
+
+**Hasil 2026-11-23:** MATCH (68B, judge 1x setelah dua varian prolog gagal), `pindah: 1`, baseline +
+target `fomt.gba: OK`. Ekor 36B di `0x0804EDF8` dipromosikan jadi fungsi `func_0804EDF8` (lihat
+MIGRATE §41) supaya gate `data asing ekor` tidak parkir.
 
 Hasil: badan 68B == 68B ref, `3missing/3extra/1operand/2regalloc`; sisa beda hanya **urutan dua instruksi
 prolog** (`adds r4,r0` vs `lsls r2,#0x10`, dan `adds r5,r1` vs `lsrs r6,#4`). Varian deklarasi berinisial

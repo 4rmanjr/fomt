@@ -328,11 +328,19 @@
   "addr": 134540724,
   "judged_mtime": 1795364264.3758063,
   "module": "code_0803EE94.s",
-  "note": "[parkir: resep POLA-DIFF 43 diterapkan setengah jalan] Judge 3missing/3extra/1operand/2regalloc (sebelumnya 7/6/3/13). ref_len 104 = 68B badan + 36B fungsi tanpa label di 0x0804EDF8 (ekor itu kode, bukan data). Badan draf 66B setelah depad == 66B ref (68B mentah); sisa HANYA urutan dua instruksi prolog: ref `adds r4,r0` sebelum `lsls r2,#0x10` (truncation arg2) dan `adds r5,r1` sebelum `lsrs r6,#4`. Tiga koreksi yang terbukti menurunkan diff: (a) hoist truncation argumen ke preheader `u16 a2 = arg2;` (bagian \"hoist\" resep 43); (b) pointer `s16 *` ala m2c yang memakai aritmetika BYTE (`var_r5 + arg4*2`, `var_r5 -= 4`) salah \u2014 harus `var_r5 + arg4`, `var_r5 -= 1`; (c) divmod dibagi bersama lewat `q = n/10; rem = n - q*10`. Percobaan urutan lain (deklarasi berinisial, t3 pemisah shift) tidak menggeser dua instruksi itu.",
-  "ref_len": 104,
+  "note": "migrated to src (blok di src/code_0803EE94.cc; diawasi make compare). MATCH 68B - kunci: a2 = (u16) (arg2 << 0) memaksa urutan prolog ref (adds r4,r0 sebelum lsls/lsrs arg2); tanpa pin register __asm__ pada var_r4/var_r5; temp arg3<<16 dipisah (t3) supaya digit tetap di r1; signature sama dengan prototipe src (i32,i32,u16,u16,i32) + cast (s16*) arg1 dan return void. Ekor 36B di 0x0804EDF8 dipromosikan jadi func_0804EDF8 (MIGRATE 41) supaya gate data-asing-ekor lolos. pindah: 1, baseline + target fomt.gba: OK.",
+  "ref_len": 68,
   "sanitize_v": 4,
-  "size": 856,
-  "status": "failed",
+  "size": 610,
+  "status": "promoted",
+  "thumb": true
+ },
+ "func_0804EDF8": {
+  "addr": 134540792,
+  "module": "code_0803EE94.s",
+  "ref_len": 32,
+  "size": 412,
+  "status": "pending",
   "thumb": true
  },
  "func_0804EE1C": {

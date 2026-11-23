@@ -3194,7 +3194,7 @@ i32 func_080C7F0C(GenObj__func_080C7F0C *arg0) {
 // DECOMP-MATCHED func_080C8550 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08008EB8(i32, i32, i32);                     /* extern */
-i32 func_0804EDB4(i32, i32, i32, i32, i32);           /* extern */
+void func_0804EDB4(i32, i32, i32, i32, i32);           /* extern */
 
 __attribute__((section(".text.code_809E804.080C8550")))
 void func_080C8550(GenObj__func_080C8550 *arg0) {
