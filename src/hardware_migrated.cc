@@ -276,9 +276,24 @@ typedef struct S_08CDC {
 } S_08CDC;
 // === END MIGRATED TYPES ===
 
-// DECOMP-MATCHED func_08008CDC (dari hardware.s; cek manusia sebelum ke src/)
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct S_08CD0 {
+    u8 _pad0[4];
+    u32 unk4;
+} S_08CD0;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08008CD0 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 
+
+i32 func_08008CD0(S_08CD0 **arg0) {
+    return ((*arg0)->unk4 >> 0x1F) ^ 1;
+}
+}
+
+// DECOMP-MATCHED func_08008CDC (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
 
 i32 func_08008CDC(S_08CDC **arg0) {
     return (*arg0)->unk4;

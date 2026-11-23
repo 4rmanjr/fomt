@@ -2759,13 +2759,3 @@ func_08008CC4: @ 0x08008CC4
     pop {r0}
     bx r0
 
-    thumb_func_start func_08008CD0
-func_08008CD0: @ 0x08008CD0
-    ldr r0, [r0]
-    ldr r0, [r0, #4]
-    lsrs r0, r0, #0x1f
-    movs r1, #1
-    eors r0, r1
-    bx lr
-    .align 2, 0
-
