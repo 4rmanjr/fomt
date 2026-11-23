@@ -117,9 +117,11 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   `manifest.json` mencatat grup, catatan, pasangan, dan lebar peta. Label
   `peta` diputuskan per ukuran (mayoritas stream seukuran itu), bukan per
   stream, supaya lapisan peta yang bank/flip-nya beragam tidak pecah kelas.
-  `--out DIR` untuk lokasi lain, `--quiet` untuk ringkasan saja. Seluruh
-  stream dirender dalam hitungan puluhan detik; tidak menjalankan build dan
-  tidak menulis ROM.
+  `--out DIR` untuk lokasi lain, `--quiet` untuk ringkasan saja. Selain
+  `manifest.json`, tool menulis `docs/decomp/ASET-0X70-PETA-BERKAS.md` (peta
+  simbol -> stream -> bin/PNG, hasil generate); `--check-map` exit 1 bila
+  dokumen itu basi terhadap manifest. Seluruh stream dirender dalam hitungan
+  puluhan detik; tidak menjalankan build dan tidak menulis ROM.
 
 ## Engine kerja (`decomp_engine.py`)
 

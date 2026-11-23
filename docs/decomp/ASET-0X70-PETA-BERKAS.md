@@ -1,0 +1,166 @@
+# Peta simbol aset `0x70` ke berkas
+
+**Dihasilkan otomatis**, jangan disunting tangan: `python3 tools/scripts/extract_assets.py`. Sumbernya manifest `assets/0x70/manifest.json` dari ekstraksi stream 0x70.
+
+## Cara memperbarui
+
+```sh
+python3 tools/scripts/extract_assets.py              # ekstrak + dokumen ini
+python3 tools/scripts/extract_assets.py --check-map  # exit 1 bila dokumen basi
+```
+
+## Ringkasan
+
+| kelas | stream |
+|---|---|
+| palet | 20 |
+| tile | 23 |
+| peta | 91 |
+| lain | 3 |
+
+PNG: swatch palet 20, lembar tile 4bpp (abu-abu indeks) 23, peta berwarna 59, grid indeks (pasangan tidak ada) 32, tanpa PNG 3. Total 137 stream dari 53 simbol yang punya stream 0x70.
+
+## Simbol -> stream -> berkas
+
+Path berkas relatif terhadap root repo. `stream` = urutan stream di dalam simbol (0 = paling awal). Peta berwarna memakai pasangan palet/tileset dari indeks yang dicatat di kolom pasangan.
+
+| simbol | ukuran | # | offset | packed | buka | format | kelas | berkas | PNG | pasangan |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `gUnk_08527238` | 272 | 0 | 0x0000 | 272 | 5632 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_08527238_00_5632_0x130.bin) | [png](../../assets/0x70/png/gUnk_08527238_00_peta_indeks_64.png) | - |
+| `gUnk_08527348` | 472 | 0 | 0x0000 | 472 | 5632 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_08527348_00_5632_0x130.bin) | [png](../../assets/0x70/png/gUnk_08527348_00_peta_indeks_64.png) | - |
+| `gUnk_08527520` | 176 | 0 | 0x0000 | 176 | 5632 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_08527520_00_5632_0x130.bin) | [png](../../assets/0x70/png/gUnk_08527520_00_peta_indeks_64.png) | - |
+| `gUnk_085275D0` | 8644 | 0 | 0x0000 | 8644 | 18432 | `0x230` | tile | [bin](../../assets/0x70/bin/gUnk_085275D0_00_18432_0x230.bin) | [png](../../assets/0x70/png/gUnk_085275D0_00_tile.png) | - |
+| `gUnk_0852A6D8` | 276 | 0 | 0x0000 | 276 | 5632 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_0852A6D8_00_5632_0x130.bin) | [png](../../assets/0x70/png/gUnk_0852A6D8_00_peta_indeks_64.png) | - |
+| `gUnk_0852A7EC` | 464 | 0 | 0x0000 | 464 | 5632 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_0852A7EC_00_5632_0x130.bin) | [png](../../assets/0x70/png/gUnk_0852A7EC_00_peta_indeks_64.png) | - |
+| `gUnk_0852A9BC` | 176 | 0 | 0x0000 | 176 | 5632 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_0852A9BC_00_5632_0x130.bin) | [png](../../assets/0x70/png/gUnk_0852A9BC_00_peta_indeks_64.png) | - |
+| `gUnk_0852AA6C` | 8148 | 0 | 0x0000 | 8148 | 18432 | `0x220` | tile | [bin](../../assets/0x70/bin/gUnk_0852AA6C_00_18432_0x220.bin) | [png](../../assets/0x70/png/gUnk_0852AA6C_00_tile.png) | - |
+| `gUnk_086FB004` | 8600 | 0 | 0x0000 | 8600 | 32768 | `0x230` | tile | [bin](../../assets/0x70/bin/gUnk_086FB004_00_32768_0x230.bin) | [png](../../assets/0x70/png/gUnk_086FB004_00_tile.png) | - |
+| `gUnk_086FD19C` | 164 | 0 | 0x0000 | 164 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_086FD19C_00_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_086FD19C_00_palet.png) | - |
+| `gUnk_086FD240` | 96240 | 0 | 0x0000 | 1424 | 6720 | `0x134` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_00_6720_0x134.bin) | [png](../../assets/0x70/png/gUnk_086FD240_00_peta_60x56.png) | palet#3, tile#4 |
+| `gUnk_086FD240` | 96240 | 1 | 0x0590 | 548 | 6720 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_01_6720_0x130.bin) | [png](../../assets/0x70/png/gUnk_086FD240_01_peta_60x56.png) | palet#3, tile#4 |
+| `gUnk_086FD240` | 96240 | 2 | 0x07B4 | 152 | 6720 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_02_6720_0x030.bin) | [png](../../assets/0x70/png/gUnk_086FD240_02_peta_60x56.png) | palet#3, tile#4 |
+| `gUnk_086FD240` | 96240 | 3 | 0x084C | 160 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_086FD240_03_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_086FD240_03_palet.png) | - |
+| `gUnk_086FD240` | 96240 | 4 | 0x08EC | 8024 | 32768 | `0x230` | tile | [bin](../../assets/0x70/bin/gUnk_086FD240_04_32768_0x230.bin) | [png](../../assets/0x70/png/gUnk_086FD240_04_tile.png) | - |
+| `gUnk_086FD240` | 96240 | 5 | 0x2844 | 160 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_086FD240_05_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_086FD240_05_palet.png) | - |
+| `gUnk_086FD240` | 96240 | 6 | 0x28E4 | 1420 | 6720 | `0x133` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_06_6720_0x133.bin) | [png](../../assets/0x70/png/gUnk_086FD240_06_peta_60x56.png) | palet#5, tile#4 |
+| `gUnk_086FD240` | 96240 | 7 | 0x2E70 | 540 | 6720 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_07_6720_0x130.bin) | [png](../../assets/0x70/png/gUnk_086FD240_07_peta_60x56.png) | palet#5, tile#4 |
+| `gUnk_086FD240` | 96240 | 8 | 0x308C | 168 | 6720 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_08_6720_0x130.bin) | [png](../../assets/0x70/png/gUnk_086FD240_08_peta_60x56.png) | palet#5, tile#4 |
+| `gUnk_086FD240` | 96240 | 9 | 0x3134 | 148 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_086FD240_09_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_086FD240_09_palet.png) | - |
+| `gUnk_086FD240` | 96240 | 10 | 0x31C8 | 472 | 1680 | `0x124` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_10_1680_0x124.bin) | [png](../../assets/0x70/png/gUnk_086FD240_10_peta_30x28.png) | palet#9, tile#4 |
+| `gUnk_086FD240` | 96240 | 11 | 0x33A0 | 260 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_11_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_086FD240_11_peta_30x28.png) | palet#9, tile#4 |
+| `gUnk_086FD240` | 96240 | 12 | 0x34A4 | 208 | 1680 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_12_1680_0x130.bin) | [png](../../assets/0x70/png/gUnk_086FD240_12_peta_30x28.png) | palet#9, tile#4 |
+| `gUnk_086FD240` | 96240 | 13 | 0x3574 | 512 | 1680 | `0x024` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_13_1680_0x024.bin) | [png](../../assets/0x70/png/gUnk_086FD240_13_peta_30x28.png) | palet#9, tile#4 |
+| `gUnk_086FD240` | 96240 | 14 | 0x3774 | 184 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_14_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_086FD240_14_peta_30x28.png) | palet#9, tile#4 |
+| `gUnk_086FD240` | 96240 | 15 | 0x382C | 116 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_15_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_086FD240_15_peta_30x28.png) | palet#9, tile#4 |
+| `gUnk_086FD240` | 96240 | 16 | 0x38A0 | 396 | 1680 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_16_1680_0x130.bin) | [png](../../assets/0x70/png/gUnk_086FD240_16_peta_30x28.png) | palet#9, tile#4 |
+| `gUnk_086FD240` | 96240 | 17 | 0x3A2C | 280 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_17_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_086FD240_17_peta_30x28.png) | palet#9, tile#4 |
+| `gUnk_086FD240` | 96240 | 18 | 0x3B44 | 140 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_18_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_086FD240_18_peta_30x28.png) | palet#9, tile#4 |
+| `gUnk_086FD240` | 96240 | 19 | 0x3BD0 | 10948 | 32768 | `0x231` | tile | [bin](../../assets/0x70/bin/gUnk_086FD240_19_32768_0x231.bin) | [png](../../assets/0x70/png/gUnk_086FD240_19_tile.png) | - |
+| `gUnk_086FD240` | 96240 | 20 | 0x6694 | 320 | 480 | `0x133` | palet | [bin](../../assets/0x70/bin/gUnk_086FD240_20_480_0x133.bin) | [png](../../assets/0x70/png/gUnk_086FD240_20_palet.png) | - |
+| `gUnk_086FD240` | 96240 | 21 | 0x67D4 | 332 | 1680 | `0x134` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_21_1680_0x134.bin) | [png](../../assets/0x70/png/gUnk_086FD240_21_peta_30x28.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 22 | 0x6920 | 272 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_22_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_086FD240_22_peta_30x28.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 23 | 0x6A30 | 216 | 1680 | `0x024` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_23_1680_0x024.bin) | [png](../../assets/0x70/png/gUnk_086FD240_23_peta_30x28.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 24 | 0x6B08 | 1220 | 5472 | `0x230` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_24_5472_0x230.bin) | [png](../../assets/0x70/png/gUnk_086FD240_24_peta_48x57.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 25 | 0x6FCC | 284 | 5472 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_25_5472_0x130.bin) | [png](../../assets/0x70/png/gUnk_086FD240_25_peta_48x57.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 26 | 0x70E8 | 252 | 5472 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_26_5472_0x130.bin) | [png](../../assets/0x70/png/gUnk_086FD240_26_peta_48x57.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 27 | 0x71E4 | 920 | 3312 | `0x230` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_27_3312_0x230.bin) | [png](../../assets/0x70/png/gUnk_086FD240_27_peta_46x36.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 28 | 0x757C | 220 | 3312 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_28_3312_0x030.bin) | [png](../../assets/0x70/png/gUnk_086FD240_28_peta_46x36.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 29 | 0x7658 | 224 | 3312 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_29_3312_0x130.bin) | [png](../../assets/0x70/png/gUnk_086FD240_29_peta_46x36.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 30 | 0x7738 | 500 | 1680 | `0x123` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_30_1680_0x123.bin) | [png](../../assets/0x70/png/gUnk_086FD240_30_peta_30x28.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 31 | 0x792C | 232 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_31_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_086FD240_31_peta_30x28.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 32 | 0x7A14 | 220 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_32_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_086FD240_32_peta_30x28.png) | palet#20, tile#19 |
+| `gUnk_086FD240` | 96240 | 33 | 0x7AF0 | 20088 | 32768 | `0x231` | tile | [bin](../../assets/0x70/bin/gUnk_086FD240_33_32768_0x231.bin) | [png](../../assets/0x70/png/gUnk_086FD240_33_tile.png) | - |
+| `gUnk_086FD240` | 96240 | 34 | 0xC968 | 396 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_086FD240_34_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_086FD240_34_palet.png) | - |
+| `gUnk_086FD240` | 96240 | 35 | 0xCAF4 | 2932 | 22144 | `0x230` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_35_22144_0x230.bin) | [png](../../assets/0x70/png/gUnk_086FD240_35_peta_64x173.png) | palet#34, tile#33 |
+| `gUnk_086FD240` | 96240 | 36 | 0xD668 | 2424 | 22144 | `0x134` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_36_22144_0x134.bin) | [png](../../assets/0x70/png/gUnk_086FD240_36_peta_64x173.png) | palet#34, tile#33 |
+| `gUnk_086FD240` | 96240 | 37 | 0xDFE0 | 1160 | 22144 | `0x033` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_37_22144_0x033.bin) | [png](../../assets/0x70/png/gUnk_086FD240_37_peta_64x173.png) | palet#34, tile#33 |
+| `gUnk_086FD240` | 96240 | 38 | 0xE468 | 372 | 480 | `0x130` | palet | [bin](../../assets/0x70/bin/gUnk_086FD240_38_480_0x130.bin) | [png](../../assets/0x70/png/gUnk_086FD240_38_palet.png) | - |
+| `gUnk_086FD240` | 96240 | 39 | 0xE5DC | 19608 | 32768 | `0x231` | tile | [bin](../../assets/0x70/bin/gUnk_086FD240_39_32768_0x231.bin) | [png](../../assets/0x70/png/gUnk_086FD240_39_tile.png) | - |
+| `gUnk_086FD240` | 96240 | 40 | 0x13274 | 296 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_086FD240_40_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_086FD240_40_palet.png) | - |
+| `gUnk_086FD240` | 96240 | 41 | 0x1339C | 2260 | 22144 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_41_22144_0x130.bin) | [png](../../assets/0x70/png/gUnk_086FD240_41_peta_64x173.png) | palet#40, tile#39 |
+| `gUnk_086FD240` | 96240 | 42 | 0x13C70 | 2408 | 22144 | `0x133` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_42_22144_0x133.bin) | [png](../../assets/0x70/png/gUnk_086FD240_42_peta_64x173.png) | palet#40, tile#39 |
+| `gUnk_086FD240` | 96240 | 43 | 0x145D8 | 1144 | 22144 | `0x134` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_43_22144_0x134.bin) | [png](../../assets/0x70/png/gUnk_086FD240_43_peta_64x173.png) | palet#40, tile#39 |
+| `gUnk_086FD240` | 96240 | 44 | 0x14A50 | 272 | 480 | `0x130` | palet | [bin](../../assets/0x70/bin/gUnk_086FD240_44_480_0x130.bin) | [png](../../assets/0x70/png/gUnk_086FD240_44_palet.png) | - |
+| `gUnk_086FD240` | 96240 | 45 | 0x14B60 | 10208 | 32768 | `0x231` | tile | [bin](../../assets/0x70/bin/gUnk_086FD240_45_32768_0x231.bin) | [png](../../assets/0x70/png/gUnk_086FD240_45_tile.png) | - |
+| `gUnk_086FD240` | 96240 | 46 | 0x17340 | 144 | 480 | `0x000` | palet | [bin](../../assets/0x70/bin/gUnk_086FD240_46_480_0x000.bin) | [png](../../assets/0x70/png/gUnk_086FD240_46_palet.png) | - |
+| `gUnk_086FD240` | 96240 | 47 | 0x173D0 | 448 | 7200 | `0x033` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_47_7200_0x033.bin) | [png](../../assets/0x70/png/gUnk_086FD240_47_peta_60x60.png) | palet#46, tile#45 |
+| `gUnk_086FD240` | 96240 | 48 | 0x17590 | 432 | 7200 | `0x133` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_48_7200_0x133.bin) | [png](../../assets/0x70/png/gUnk_086FD240_48_peta_60x60.png) | palet#46, tile#45 |
+| `gUnk_086FD240` | 96240 | 49 | 0x17740 | 176 | 7200 | `0x133` | peta | [bin](../../assets/0x70/bin/gUnk_086FD240_49_7200_0x133.bin) | [png](../../assets/0x70/png/gUnk_086FD240_49_peta_60x60.png) | palet#46, tile#45 |
+| `gUnk_08714A30` | 304 | 0 | 0x0000 | 160 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_08714A30_00_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_08714A30_00_palet.png) | - |
+| `gUnk_08714A30` | 304 | 1 | 0x00A0 | 144 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_08714A30_01_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_08714A30_01_palet.png) | - |
+| `gUnk_08714B60` | 140 | 0 | 0x0000 | 140 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_08714B60_00_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_08714B60_00_palet.png) | - |
+| `gUnk_08714BEC` | 9112 | 0 | 0x0000 | 152 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_08714BEC_00_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_08714BEC_00_palet.png) | - |
+| `gUnk_08714BEC` | 9112 | 1 | 0x0098 | 7860 | 32768 | `0x231` | tile | [bin](../../assets/0x70/bin/gUnk_08714BEC_01_32768_0x231.bin) | [png](../../assets/0x70/png/gUnk_08714BEC_01_tile.png) | - |
+| `gUnk_08714BEC` | 9112 | 2 | 0x1F4C | 136 | 480 | `0x000` | palet | [bin](../../assets/0x70/bin/gUnk_08714BEC_02_480_0x000.bin) | [png](../../assets/0x70/png/gUnk_08714BEC_02_palet.png) | - |
+| `gUnk_08714BEC` | 9112 | 3 | 0x1FD4 | 356 | 7200 | `0x133` | peta | [bin](../../assets/0x70/bin/gUnk_08714BEC_03_7200_0x133.bin) | [png](../../assets/0x70/png/gUnk_08714BEC_03_peta_60x60.png) | palet#2, tile#1 |
+| `gUnk_08714BEC` | 9112 | 4 | 0x2138 | 424 | 7200 | `0x133` | peta | [bin](../../assets/0x70/bin/gUnk_08714BEC_04_7200_0x133.bin) | [png](../../assets/0x70/png/gUnk_08714BEC_04_peta_60x60.png) | palet#2, tile#1 |
+| `gUnk_08714BEC` | 9112 | 5 | 0x22E0 | 184 | 7200 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_08714BEC_05_7200_0x023.bin) | [png](../../assets/0x70/png/gUnk_08714BEC_05_peta_60x60.png) | palet#2, tile#1 |
+| `gUnk_08716F84` | 308 | 0 | 0x0000 | 148 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_08716F84_00_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_08716F84_00_palet.png) | - |
+| `gUnk_08716F84` | 308 | 1 | 0x0094 | 160 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_08716F84_01_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_08716F84_01_palet.png) | - |
+| `gUnk_087170B8` | 25700 | 0 | 0x0000 | 148 | 480 | `0x030` | palet | [bin](../../assets/0x70/bin/gUnk_087170B8_00_480_0x030.bin) | [png](../../assets/0x70/png/gUnk_087170B8_00_palet.png) | - |
+| `gUnk_087170B8` | 25700 | 1 | 0x0094 | 440 | 1680 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_01_1680_0x130.bin) | [png](../../assets/0x70/png/gUnk_087170B8_01_peta_30x28.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 2 | 0x024C | 304 | 1680 | `0x024` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_02_1680_0x024.bin) | [png](../../assets/0x70/png/gUnk_087170B8_02_peta_30x28.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 3 | 0x037C | 160 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_03_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_087170B8_03_peta_30x28.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 4 | 0x041C | 148 | 1200 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_04_1200_0x130.bin) | [png](../../assets/0x70/png/gUnk_087170B8_04_peta_30x20.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 5 | 0x04B0 | 72 | 1200 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_05_1200_0x030.bin) | [png](../../assets/0x70/png/gUnk_087170B8_05_peta_30x20.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 6 | 0x04F8 | 268 | 1200 | `0x230` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_06_1200_0x230.bin) | [png](../../assets/0x70/png/gUnk_087170B8_06_peta_30x20.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 7 | 0x0604 | 116 | 1200 | `0x024` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_07_1200_0x024.bin) | [png](../../assets/0x70/png/gUnk_087170B8_07_peta_30x20.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 8 | 0x0678 | 548 | 1200 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_08_1200_0x130.bin) | [png](../../assets/0x70/png/gUnk_087170B8_08_peta_30x20.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 9 | 0x089C | 236 | 1200 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_09_1200_0x130.bin) | [png](../../assets/0x70/png/gUnk_087170B8_09_peta_30x20.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 10 | 0x0988 | 484 | 1200 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_10_1200_0x130.bin) | [png](../../assets/0x70/png/gUnk_087170B8_10_peta_30x20.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 11 | 0x0B6C | 204 | 1200 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_11_1200_0x130.bin) | [png](../../assets/0x70/png/gUnk_087170B8_11_peta_30x20.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 12 | 0x0C38 | 372 | 1680 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_12_1680_0x130.bin) | [png](../../assets/0x70/png/gUnk_087170B8_12_peta_30x28.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 13 | 0x0DAC | 420 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_13_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_087170B8_13_peta_30x28.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 14 | 0x0F50 | 216 | 1680 | `0x024` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_14_1680_0x024.bin) | [png](../../assets/0x70/png/gUnk_087170B8_14_peta_30x28.png) | palet#0, tile#15 |
+| `gUnk_087170B8` | 25700 | 15 | 0x1028 | 10744 | 32768 | `0x231` | tile | [bin](../../assets/0x70/bin/gUnk_087170B8_15_32768_0x231.bin) | [png](../../assets/0x70/png/gUnk_087170B8_15_tile.png) | - |
+| `gUnk_087170B8` | 25700 | 16 | 0x3A20 | 240 | 480 | `0x133` | palet | [bin](../../assets/0x70/bin/gUnk_087170B8_16_480_0x133.bin) | [png](../../assets/0x70/png/gUnk_087170B8_16_palet.png) | - |
+| `gUnk_087170B8` | 25700 | 17 | 0x3B10 | 612 | 1680 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_17_1680_0x130.bin) | [png](../../assets/0x70/png/gUnk_087170B8_17_peta_30x28.png) | palet#16, tile#15 |
+| `gUnk_087170B8` | 25700 | 18 | 0x3D74 | 344 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_18_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_087170B8_18_peta_30x28.png) | palet#16, tile#15 |
+| `gUnk_087170B8` | 25700 | 19 | 0x3ECC | 260 | 1680 | `0x133` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_19_1680_0x133.bin) | [png](../../assets/0x70/png/gUnk_087170B8_19_peta_30x28.png) | palet#16, tile#15 |
+| `gUnk_087170B8` | 25700 | 20 | 0x3FD0 | 548 | 1680 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_20_1680_0x130.bin) | [png](../../assets/0x70/png/gUnk_087170B8_20_peta_30x28.png) | palet#16, tile#15 |
+| `gUnk_087170B8` | 25700 | 21 | 0x41F4 | 296 | 1680 | `0x023` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_21_1680_0x023.bin) | [png](../../assets/0x70/png/gUnk_087170B8_21_peta_30x28.png) | palet#16, tile#15 |
+| `gUnk_087170B8` | 25700 | 22 | 0x431C | 160 | 1680 | `0x033` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_22_1680_0x033.bin) | [png](../../assets/0x70/png/gUnk_087170B8_22_peta_30x28.png) | palet#16, tile#15 |
+| `gUnk_087170B8` | 25700 | 23 | 0x43BC | 8064 | 32768 | `0x231` | tile | [bin](../../assets/0x70/bin/gUnk_087170B8_23_32768_0x231.bin) | [png](../../assets/0x70/png/gUnk_087170B8_23_tile.png) | - |
+| `gUnk_087170B8` | 25700 | 24 | 0x633C | 296 | 480 | `0x133` | palet | [bin](../../assets/0x70/bin/gUnk_087170B8_24_480_0x133.bin) | [png](../../assets/0x70/png/gUnk_087170B8_24_palet.png) | - |
+| `gUnk_0872C5D0` | 364 | 0 | 0x0000 | 364 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872C5D0_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872C5D0_00_peta_indeks_32.png) | - |
+| `gUnk_0872C73C` | 272 | 0 | 0x0000 | 272 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872C73C_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872C73C_00_peta_indeks_32.png) | - |
+| `gUnk_0872C84C` | 3424 | 0 | 0x0000 | 3424 | 4480 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_0872C84C_00_4480_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872C84C_00_tile.png) | - |
+| `gUnk_0872D5CC` | 100 | 0 | 0x0000 | 100 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872D5CC_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872D5CC_00_peta_indeks_32.png) | - |
+| `gUnk_0872D630` | 168 | 0 | 0x0000 | 168 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872D630_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872D630_00_peta_indeks_32.png) | - |
+| `gUnk_0872D6D8` | 1804 | 0 | 0x0000 | 1804 | 3776 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_0872D6D8_00_3776_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872D6D8_00_tile.png) | - |
+| `gUnk_0872F11C` | 160 | 0 | 0x0000 | 160 | 384 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872F11C_00_384_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872F11C_00_peta_indeks_16.png) | - |
+| `gUnk_0872F1BC` | 48 | 0 | 0x0000 | 48 | 384 | `0x020` | peta | [bin](../../assets/0x70/bin/gUnk_0872F1BC_00_384_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872F1BC_00_peta_indeks_16.png) | - |
+| `gUnk_0872F1EC` | 48 | 0 | 0x0000 | 48 | 384 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872F1EC_00_384_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872F1EC_00_peta_indeks_16.png) | - |
+| `gUnk_0872F21C` | 2176 | 0 | 0x0000 | 2176 | 11456 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_0872F21C_00_11456_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872F21C_00_tile.png) | - |
+| `gUnk_0872FBFC` | 56 | 0 | 0x0000 | 56 | 384 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872FBFC_00_384_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872FBFC_00_peta_indeks_16.png) | - |
+| `gUnk_0872FC34` | 568 | 0 | 0x0000 | 568 | 2048 | `0x020` | peta | [bin](../../assets/0x70/bin/gUnk_0872FC34_00_2048_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872FC34_00_peta_indeks_32.png) | - |
+| `gUnk_0872FE6C` | 140 | 0 | 0x0000 | 140 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872FE6C_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872FE6C_00_peta_indeks_32.png) | - |
+| `gUnk_0872FEF8` | 6728 | 0 | 0x0000 | 6728 | 29696 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_0872FEF8_00_29696_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872FEF8_00_tile.png) | - |
+| `gUnk_08738AD8` | 496 | 0 | 0x0000 | 496 | 1280 | `0x000` | peta | [bin](../../assets/0x70/bin/gUnk_08738AD8_00_1280_0x000.bin) | [png](../../assets/0x70/png/gUnk_08738AD8_00_peta_indeks_32.png) | - |
+| `gUnk_08738CC8` | 40 | 0 | 0x0000 | 40 | 1280 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_08738CC8_00_1280_0x030.bin) | [png](../../assets/0x70/png/gUnk_08738CC8_00_peta_indeks_32.png) | - |
+| `gUnk_08738CF0` | 44 | 0 | 0x0000 | 44 | 320 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_08738CF0_00_320_0x030.bin) | [png](../../assets/0x70/png/gUnk_08738CF0_00_peta_indeks_20.png) | - |
+| `gUnk_08738D1C` | 3240 | 0 | 0x0000 | 3240 | 10496 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_08738D1C_00_10496_0x020.bin) | [png](../../assets/0x70/png/gUnk_08738D1C_00_tile.png) | - |
+| `gUnk_08739A64` | 3204 | 0 | 0x0000 | 3204 | 6144 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_08739A64_00_6144_0x020.bin) | [png](../../assets/0x70/png/gUnk_08739A64_00_tile.png) | - |
+| `gUnk_0873BE24` | 292 | 0 | 0x0000 | 292 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0873BE24_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0873BE24_00_peta_indeks_32.png) | - |
+| `gUnk_0873BF48` | 168 | 0 | 0x0000 | 168 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0873BF48_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0873BF48_00_peta_indeks_32.png) | - |
+| `gUnk_0873BFF0` | 3076 | 0 | 0x0000 | 3076 | 31714 | `0x020` | lain | [bin](../../assets/0x70/bin/gUnk_0873BFF0_00_31714_0x020.bin) | - | - |
+| `gUnk_0873F3C8` | 524 | 0 | 0x0000 | 524 | 2048 | `0x020` | peta | [bin](../../assets/0x70/bin/gUnk_0873F3C8_00_2048_0x020.bin) | [png](../../assets/0x70/png/gUnk_0873F3C8_00_peta_indeks_32.png) | - |
+| `gUnk_0873F5D4` | 216 | 0 | 0x0000 | 216 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0873F5D4_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0873F5D4_00_peta_indeks_32.png) | - |
+| `gUnk_0873F6AC` | 2616 | 0 | 0x0000 | 2616 | 3712 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_0873F6AC_00_3712_0x020.bin) | [png](../../assets/0x70/png/gUnk_0873F6AC_00_tile.png) | - |
+| `gUnk_08743058` | 18876 | 0 | 0x0000 | 18876 | 28160 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_08743058_00_28160_0x020.bin) | [png](../../assets/0x70/png/gUnk_08743058_00_tile.png) | - |
+| `gUnk_08747A74` | 12108 | 0 | 0x0000 | 10084 | 19468 | `0x220` | lain | [bin](../../assets/0x70/bin/gUnk_08747A74_00_19468_0x220.bin) | - | - |
+| `gUnk_08747A74` | 12108 | 1 | 0x2764 | 988 | 4096 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_08747A74_01_4096_0x130.bin) | [png](../../assets/0x70/png/gUnk_08747A74_01_peta_indeks_64.png) | - |
+| `gUnk_08747A74` | 12108 | 2 | 0x2B40 | 540 | 4096 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_08747A74_02_4096_0x130.bin) | [png](../../assets/0x70/png/gUnk_08747A74_02_peta_indeks_64.png) | - |
+| `gUnk_08747A74` | 12108 | 3 | 0x2D5C | 244 | 4096 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_08747A74_03_4096_0x130.bin) | [png](../../assets/0x70/png/gUnk_08747A74_03_peta_indeks_64.png) | - |
+| `gUnk_08747A74` | 12108 | 4 | 0x2E50 | 252 | 4096 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_08747A74_04_4096_0x130.bin) | [png](../../assets/0x70/png/gUnk_08747A74_04_peta_indeks_64.png) | - |
+| `gUnk_0874A9C0` | 14704 | 0 | 0x0000 | 14704 | 32768 | `0x230` | tile | [bin](../../assets/0x70/bin/gUnk_0874A9C0_00_32768_0x230.bin) | [png](../../assets/0x70/png/gUnk_0874A9C0_00_tile.png) | - |
+| `gUnk_0874E648` | 1272 | 0 | 0x0000 | 1272 | 11234 | `0x230` | lain | [bin](../../assets/0x70/bin/gUnk_0874E648_00_11234_0x230.bin) | - | - |
+| `gUnk_0874EB60` | 364 | 0 | 0x0000 | 364 | 1280 | `0x100` | peta | [bin](../../assets/0x70/bin/gUnk_0874EB60_00_1280_0x100.bin) | [png](../../assets/0x70/png/gUnk_0874EB60_00_peta_indeks_32.png) | - |
+| `gUnk_0874ECCC` | 364 | 0 | 0x0000 | 364 | 4096 | `0x130` | peta | [bin](../../assets/0x70/bin/gUnk_0874ECCC_00_4096_0x130.bin) | [png](../../assets/0x70/png/gUnk_0874ECCC_00_peta_indeks_64.png) | - |
+| `gUnk_0874EF14` | 40 | 0 | 0x0000 | 40 | 1280 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0874EF14_00_1280_0x030.bin) | [png](../../assets/0x70/png/gUnk_0874EF14_00_peta_indeks_32.png) | - |
+| `gUnk_0874EF3C` | 176 | 0 | 0x0000 | 176 | 1280 | `0x020` | peta | [bin](../../assets/0x70/bin/gUnk_0874EF3C_00_1280_0x020.bin) | [png](../../assets/0x70/png/gUnk_0874EF3C_00_peta_indeks_32.png) | - |
+| `gUnk_0874EFEC` | 100 | 0 | 0x0000 | 100 | 1280 | `0x020` | peta | [bin](../../assets/0x70/bin/gUnk_0874EFEC_00_1280_0x020.bin) | [png](../../assets/0x70/png/gUnk_0874EFEC_00_peta_indeks_32.png) | - |
+| `gUnk_0874F050` | 668 | 0 | 0x0000 | 668 | 5120 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_0874F050_00_5120_0x020.bin) | [png](../../assets/0x70/png/gUnk_0874F050_00_tile.png) | - |
+| `gUnk_08755848` | 8856 | 0 | 0x0000 | 8856 | 32768 | `0x220` | tile | [bin](../../assets/0x70/bin/gUnk_08755848_00_32768_0x220.bin) | [png](../../assets/0x70/png/gUnk_08755848_00_tile.png) | - |
+| `gUnk_0875822C` | 8492 | 0 | 0x0000 | 8492 | 32768 | `0x230` | tile | [bin](../../assets/0x70/bin/gUnk_0875822C_00_32768_0x230.bin) | [png](../../assets/0x70/png/gUnk_0875822C_00_tile.png) | - |
+

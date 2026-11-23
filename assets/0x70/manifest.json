@@ -1,27 +1,8 @@
 {
  "streams": [
   {
-   "blob": "gUnk_084F90CC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_084FA7A0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_084FA9A0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08523290",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08527094",
-   "streams": []
-  },
-  {
    "blob": "gUnk_08527238",
+   "size": 272,
    "streams": [
     {
      "index": 0,
@@ -34,12 +15,13 @@
      "bin": "bin/gUnk_08527238_00_5632_0x130.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 64,
-     "png": "png/gUnk_08527238_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08527238_00_peta_indeks_64.png"
     }
    ]
   },
   {
    "blob": "gUnk_08527348",
+   "size": 472,
    "streams": [
     {
      "index": 0,
@@ -52,12 +34,13 @@
      "bin": "bin/gUnk_08527348_00_5632_0x130.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 64,
-     "png": "png/gUnk_08527348_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08527348_00_peta_indeks_64.png"
     }
    ]
   },
   {
    "blob": "gUnk_08527520",
+   "size": 176,
    "streams": [
     {
      "index": 0,
@@ -70,12 +53,13 @@
      "bin": "bin/gUnk_08527520_00_5632_0x130.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 64,
-     "png": "png/gUnk_08527520_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08527520_00_peta_indeks_64.png"
     }
    ]
   },
   {
    "blob": "gUnk_085275D0",
+   "size": 8644,
    "streams": [
     {
      "index": 0,
@@ -87,28 +71,13 @@
      "note": "576 tile 4bpp",
      "bin": "bin/gUnk_085275D0_00_18432_0x230.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_085275D0_00_tile.png"
+     "png": "assets/0x70/png/gUnk_085275D0_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_08529794",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08529994",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08529BA8",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08529DA4",
-   "streams": []
-  },
-  {
    "blob": "gUnk_0852A6D8",
+   "size": 276,
    "streams": [
     {
      "index": 0,
@@ -121,12 +90,13 @@
      "bin": "bin/gUnk_0852A6D8_00_5632_0x130.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 64,
-     "png": "png/gUnk_0852A6D8_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_0852A6D8_00_peta_indeks_64.png"
     }
    ]
   },
   {
    "blob": "gUnk_0852A7EC",
+   "size": 464,
    "streams": [
     {
      "index": 0,
@@ -139,12 +109,13 @@
      "bin": "bin/gUnk_0852A7EC_00_5632_0x130.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 64,
-     "png": "png/gUnk_0852A7EC_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_0852A7EC_00_peta_indeks_64.png"
     }
    ]
   },
   {
    "blob": "gUnk_0852A9BC",
+   "size": 176,
    "streams": [
     {
      "index": 0,
@@ -157,12 +128,13 @@
      "bin": "bin/gUnk_0852A9BC_00_5632_0x130.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 64,
-     "png": "png/gUnk_0852A9BC_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_0852A9BC_00_peta_indeks_64.png"
     }
    ]
   },
   {
    "blob": "gUnk_0852AA6C",
+   "size": 8148,
    "streams": [
     {
      "index": 0,
@@ -174,200 +146,13 @@
      "note": "576 tile 4bpp",
      "bin": "bin/gUnk_0852AA6C_00_18432_0x220.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_0852AA6C_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0852AA6C_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_0852CA40",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0852CC40",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0852CE54",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0852D050",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0852D984",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0858BA28",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08667060",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086678A0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08697920",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08698B00",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08698E14",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08699FF4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0869A0A4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0869B284",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086D5508",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086D6368",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086D6458",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086D6518",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086D6520",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086D6528",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086D6548",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086D6608",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086D6698",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086D74F8",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DC3C4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DC3D0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DC3DC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DC3E8",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DC3F4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DC54C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DC57C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DCC88",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DD690",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DD6B0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DD6E0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DDDEC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086DE7F4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086EACDC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086EACE4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086EAD04",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086EAD24",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086EAD44",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086EAD64",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086EAD84",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086EAD8C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086F2FAC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_086FAA80",
-   "streams": []
-  },
-  {
    "blob": "gUnk_086FB004",
+   "size": 8600,
    "streams": [
     {
      "index": 0,
@@ -379,12 +164,13 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FB004_00_32768_0x230.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_086FB004_00_tile.png"
+     "png": "assets/0x70/png/gUnk_086FB004_00_tile.png"
     }
    ]
   },
   {
    "blob": "gUnk_086FD19C",
+   "size": 164,
    "streams": [
     {
      "index": 0,
@@ -396,12 +182,13 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD19C_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_086FD19C_00_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD19C_00_palet.png"
     }
    ]
   },
   {
    "blob": "gUnk_086FD240",
+   "size": 96240,
    "streams": [
     {
      "index": 0,
@@ -418,7 +205,7 @@
       "tiles": 4
      },
      "map_width": 60,
-     "png": "png/gUnk_086FD240_00_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_00_peta_60x56.png"
     },
     {
      "index": 1,
@@ -435,7 +222,7 @@
       "tiles": 4
      },
      "map_width": 60,
-     "png": "png/gUnk_086FD240_01_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_01_peta_60x56.png"
     },
     {
      "index": 2,
@@ -452,7 +239,7 @@
       "tiles": 4
      },
      "map_width": 60,
-     "png": "png/gUnk_086FD240_02_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_02_peta_60x56.png"
     },
     {
      "index": 3,
@@ -464,7 +251,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_03_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_086FD240_03_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_03_palet.png"
     },
     {
      "index": 4,
@@ -476,7 +263,7 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FD240_04_32768_0x230.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_086FD240_04_tile.png"
+     "png": "assets/0x70/png/gUnk_086FD240_04_tile.png"
     },
     {
      "index": 5,
@@ -488,7 +275,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_05_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_086FD240_05_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_05_palet.png"
     },
     {
      "index": 6,
@@ -505,7 +292,7 @@
       "tiles": 4
      },
      "map_width": 60,
-     "png": "png/gUnk_086FD240_06_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_06_peta_60x56.png"
     },
     {
      "index": 7,
@@ -522,7 +309,7 @@
       "tiles": 4
      },
      "map_width": 60,
-     "png": "png/gUnk_086FD240_07_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_07_peta_60x56.png"
     },
     {
      "index": 8,
@@ -539,7 +326,7 @@
       "tiles": 4
      },
      "map_width": 60,
-     "png": "png/gUnk_086FD240_08_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_08_peta_60x56.png"
     },
     {
      "index": 9,
@@ -551,7 +338,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_09_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_086FD240_09_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_09_palet.png"
     },
     {
      "index": 10,
@@ -568,7 +355,7 @@
       "tiles": 4
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_10_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_10_peta_30x28.png"
     },
     {
      "index": 11,
@@ -585,7 +372,7 @@
       "tiles": 4
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_11_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_11_peta_30x28.png"
     },
     {
      "index": 12,
@@ -602,7 +389,7 @@
       "tiles": 4
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_12_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_12_peta_30x28.png"
     },
     {
      "index": 13,
@@ -619,7 +406,7 @@
       "tiles": 4
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_13_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_13_peta_30x28.png"
     },
     {
      "index": 14,
@@ -636,7 +423,7 @@
       "tiles": 4
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_14_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_14_peta_30x28.png"
     },
     {
      "index": 15,
@@ -653,7 +440,7 @@
       "tiles": 4
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_15_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_15_peta_30x28.png"
     },
     {
      "index": 16,
@@ -670,7 +457,7 @@
       "tiles": 4
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_16_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_16_peta_30x28.png"
     },
     {
      "index": 17,
@@ -687,7 +474,7 @@
       "tiles": 4
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_17_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_17_peta_30x28.png"
     },
     {
      "index": 18,
@@ -704,7 +491,7 @@
       "tiles": 4
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_18_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_18_peta_30x28.png"
     },
     {
      "index": 19,
@@ -716,7 +503,7 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FD240_19_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_086FD240_19_tile.png"
+     "png": "assets/0x70/png/gUnk_086FD240_19_tile.png"
     },
     {
      "index": 20,
@@ -728,7 +515,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_20_480_0x133.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_086FD240_20_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_20_palet.png"
     },
     {
      "index": 21,
@@ -745,7 +532,7 @@
       "tiles": 19
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_21_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_21_peta_30x28.png"
     },
     {
      "index": 22,
@@ -762,7 +549,7 @@
       "tiles": 19
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_22_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_22_peta_30x28.png"
     },
     {
      "index": 23,
@@ -779,7 +566,7 @@
       "tiles": 19
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_23_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_23_peta_30x28.png"
     },
     {
      "index": 24,
@@ -796,7 +583,7 @@
       "tiles": 19
      },
      "map_width": 48,
-     "png": "png/gUnk_086FD240_24_peta_48x57.png"
+     "png": "assets/0x70/png/gUnk_086FD240_24_peta_48x57.png"
     },
     {
      "index": 25,
@@ -813,7 +600,7 @@
       "tiles": 19
      },
      "map_width": 48,
-     "png": "png/gUnk_086FD240_25_peta_48x57.png"
+     "png": "assets/0x70/png/gUnk_086FD240_25_peta_48x57.png"
     },
     {
      "index": 26,
@@ -830,7 +617,7 @@
       "tiles": 19
      },
      "map_width": 48,
-     "png": "png/gUnk_086FD240_26_peta_48x57.png"
+     "png": "assets/0x70/png/gUnk_086FD240_26_peta_48x57.png"
     },
     {
      "index": 27,
@@ -847,7 +634,7 @@
       "tiles": 19
      },
      "map_width": 46,
-     "png": "png/gUnk_086FD240_27_peta_46x36.png"
+     "png": "assets/0x70/png/gUnk_086FD240_27_peta_46x36.png"
     },
     {
      "index": 28,
@@ -864,7 +651,7 @@
       "tiles": 19
      },
      "map_width": 46,
-     "png": "png/gUnk_086FD240_28_peta_46x36.png"
+     "png": "assets/0x70/png/gUnk_086FD240_28_peta_46x36.png"
     },
     {
      "index": 29,
@@ -881,7 +668,7 @@
       "tiles": 19
      },
      "map_width": 46,
-     "png": "png/gUnk_086FD240_29_peta_46x36.png"
+     "png": "assets/0x70/png/gUnk_086FD240_29_peta_46x36.png"
     },
     {
      "index": 30,
@@ -898,7 +685,7 @@
       "tiles": 19
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_30_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_30_peta_30x28.png"
     },
     {
      "index": 31,
@@ -915,7 +702,7 @@
       "tiles": 19
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_31_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_31_peta_30x28.png"
     },
     {
      "index": 32,
@@ -932,7 +719,7 @@
       "tiles": 19
      },
      "map_width": 30,
-     "png": "png/gUnk_086FD240_32_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_32_peta_30x28.png"
     },
     {
      "index": 33,
@@ -944,7 +731,7 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FD240_33_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_086FD240_33_tile.png"
+     "png": "assets/0x70/png/gUnk_086FD240_33_tile.png"
     },
     {
      "index": 34,
@@ -956,7 +743,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_34_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_086FD240_34_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_34_palet.png"
     },
     {
      "index": 35,
@@ -973,7 +760,7 @@
       "tiles": 33
      },
      "map_width": 64,
-     "png": "png/gUnk_086FD240_35_peta_64x173.png"
+     "png": "assets/0x70/png/gUnk_086FD240_35_peta_64x173.png"
     },
     {
      "index": 36,
@@ -990,7 +777,7 @@
       "tiles": 33
      },
      "map_width": 64,
-     "png": "png/gUnk_086FD240_36_peta_64x173.png"
+     "png": "assets/0x70/png/gUnk_086FD240_36_peta_64x173.png"
     },
     {
      "index": 37,
@@ -1007,7 +794,7 @@
       "tiles": 33
      },
      "map_width": 64,
-     "png": "png/gUnk_086FD240_37_peta_64x173.png"
+     "png": "assets/0x70/png/gUnk_086FD240_37_peta_64x173.png"
     },
     {
      "index": 38,
@@ -1019,7 +806,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_38_480_0x130.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_086FD240_38_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_38_palet.png"
     },
     {
      "index": 39,
@@ -1031,7 +818,7 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FD240_39_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_086FD240_39_tile.png"
+     "png": "assets/0x70/png/gUnk_086FD240_39_tile.png"
     },
     {
      "index": 40,
@@ -1043,7 +830,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_40_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_086FD240_40_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_40_palet.png"
     },
     {
      "index": 41,
@@ -1060,7 +847,7 @@
       "tiles": 39
      },
      "map_width": 64,
-     "png": "png/gUnk_086FD240_41_peta_64x173.png"
+     "png": "assets/0x70/png/gUnk_086FD240_41_peta_64x173.png"
     },
     {
      "index": 42,
@@ -1077,7 +864,7 @@
       "tiles": 39
      },
      "map_width": 64,
-     "png": "png/gUnk_086FD240_42_peta_64x173.png"
+     "png": "assets/0x70/png/gUnk_086FD240_42_peta_64x173.png"
     },
     {
      "index": 43,
@@ -1094,7 +881,7 @@
       "tiles": 39
      },
      "map_width": 64,
-     "png": "png/gUnk_086FD240_43_peta_64x173.png"
+     "png": "assets/0x70/png/gUnk_086FD240_43_peta_64x173.png"
     },
     {
      "index": 44,
@@ -1106,7 +893,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_44_480_0x130.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_086FD240_44_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_44_palet.png"
     },
     {
      "index": 45,
@@ -1118,7 +905,7 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FD240_45_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_086FD240_45_tile.png"
+     "png": "assets/0x70/png/gUnk_086FD240_45_tile.png"
     },
     {
      "index": 46,
@@ -1130,7 +917,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_46_480_0x000.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_086FD240_46_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_46_palet.png"
     },
     {
      "index": 47,
@@ -1147,7 +934,7 @@
       "tiles": 45
      },
      "map_width": 60,
-     "png": "png/gUnk_086FD240_47_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_086FD240_47_peta_60x60.png"
     },
     {
      "index": 48,
@@ -1164,7 +951,7 @@
       "tiles": 45
      },
      "map_width": 60,
-     "png": "png/gUnk_086FD240_48_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_086FD240_48_peta_60x60.png"
     },
     {
      "index": 49,
@@ -1181,12 +968,13 @@
       "tiles": 45
      },
      "map_width": 60,
-     "png": "png/gUnk_086FD240_49_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_086FD240_49_peta_60x60.png"
     }
    ]
   },
   {
    "blob": "gUnk_08714A30",
+   "size": 304,
    "streams": [
     {
      "index": 0,
@@ -1198,7 +986,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08714A30_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_08714A30_00_palet.png"
+     "png": "assets/0x70/png/gUnk_08714A30_00_palet.png"
     },
     {
      "index": 1,
@@ -1210,12 +998,13 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08714A30_01_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_08714A30_01_palet.png"
+     "png": "assets/0x70/png/gUnk_08714A30_01_palet.png"
     }
    ]
   },
   {
    "blob": "gUnk_08714B60",
+   "size": 140,
    "streams": [
     {
      "index": 0,
@@ -1227,12 +1016,13 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08714B60_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_08714B60_00_palet.png"
+     "png": "assets/0x70/png/gUnk_08714B60_00_palet.png"
     }
    ]
   },
   {
    "blob": "gUnk_08714BEC",
+   "size": 9112,
    "streams": [
     {
      "index": 0,
@@ -1244,7 +1034,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08714BEC_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_08714BEC_00_palet.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_00_palet.png"
     },
     {
      "index": 1,
@@ -1256,7 +1046,7 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_08714BEC_01_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_08714BEC_01_tile.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_01_tile.png"
     },
     {
      "index": 2,
@@ -1268,7 +1058,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08714BEC_02_480_0x000.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_08714BEC_02_palet.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_02_palet.png"
     },
     {
      "index": 3,
@@ -1285,7 +1075,7 @@
       "tiles": 1
      },
      "map_width": 60,
-     "png": "png/gUnk_08714BEC_03_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_03_peta_60x60.png"
     },
     {
      "index": 4,
@@ -1302,7 +1092,7 @@
       "tiles": 1
      },
      "map_width": 60,
-     "png": "png/gUnk_08714BEC_04_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_04_peta_60x60.png"
     },
     {
      "index": 5,
@@ -1319,12 +1109,13 @@
       "tiles": 1
      },
      "map_width": 60,
-     "png": "png/gUnk_08714BEC_05_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_05_peta_60x60.png"
     }
    ]
   },
   {
    "blob": "gUnk_08716F84",
+   "size": 308,
    "streams": [
     {
      "index": 0,
@@ -1336,7 +1127,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08716F84_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_08716F84_00_palet.png"
+     "png": "assets/0x70/png/gUnk_08716F84_00_palet.png"
     },
     {
      "index": 1,
@@ -1348,12 +1139,13 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08716F84_01_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_08716F84_01_palet.png"
+     "png": "assets/0x70/png/gUnk_08716F84_01_palet.png"
     }
    ]
   },
   {
    "blob": "gUnk_087170B8",
+   "size": 25700,
    "streams": [
     {
      "index": 0,
@@ -1365,7 +1157,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_087170B8_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_087170B8_00_palet.png"
+     "png": "assets/0x70/png/gUnk_087170B8_00_palet.png"
     },
     {
      "index": 1,
@@ -1382,7 +1174,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_01_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_01_peta_30x28.png"
     },
     {
      "index": 2,
@@ -1399,7 +1191,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_02_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_02_peta_30x28.png"
     },
     {
      "index": 3,
@@ -1416,7 +1208,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_03_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_03_peta_30x28.png"
     },
     {
      "index": 4,
@@ -1433,7 +1225,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_04_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_04_peta_30x20.png"
     },
     {
      "index": 5,
@@ -1450,7 +1242,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_05_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_05_peta_30x20.png"
     },
     {
      "index": 6,
@@ -1467,7 +1259,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_06_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_06_peta_30x20.png"
     },
     {
      "index": 7,
@@ -1484,7 +1276,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_07_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_07_peta_30x20.png"
     },
     {
      "index": 8,
@@ -1501,7 +1293,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_08_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_08_peta_30x20.png"
     },
     {
      "index": 9,
@@ -1518,7 +1310,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_09_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_09_peta_30x20.png"
     },
     {
      "index": 10,
@@ -1535,7 +1327,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_10_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_10_peta_30x20.png"
     },
     {
      "index": 11,
@@ -1552,7 +1344,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_11_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_11_peta_30x20.png"
     },
     {
      "index": 12,
@@ -1569,7 +1361,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_12_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_12_peta_30x28.png"
     },
     {
      "index": 13,
@@ -1586,7 +1378,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_13_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_13_peta_30x28.png"
     },
     {
      "index": 14,
@@ -1603,7 +1395,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_14_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_14_peta_30x28.png"
     },
     {
      "index": 15,
@@ -1615,7 +1407,7 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_087170B8_15_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_087170B8_15_tile.png"
+     "png": "assets/0x70/png/gUnk_087170B8_15_tile.png"
     },
     {
      "index": 16,
@@ -1627,7 +1419,7 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_087170B8_16_480_0x133.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_087170B8_16_palet.png"
+     "png": "assets/0x70/png/gUnk_087170B8_16_palet.png"
     },
     {
      "index": 17,
@@ -1644,7 +1436,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_17_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_17_peta_30x28.png"
     },
     {
      "index": 18,
@@ -1661,7 +1453,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_18_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_18_peta_30x28.png"
     },
     {
      "index": 19,
@@ -1678,7 +1470,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_19_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_19_peta_30x28.png"
     },
     {
      "index": 20,
@@ -1695,7 +1487,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_20_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_20_peta_30x28.png"
     },
     {
      "index": 21,
@@ -1712,7 +1504,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_21_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_21_peta_30x28.png"
     },
     {
      "index": 22,
@@ -1729,7 +1521,7 @@
       "tiles": 15
      },
      "map_width": 30,
-     "png": "png/gUnk_087170B8_22_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_22_peta_30x28.png"
     },
     {
      "index": 23,
@@ -1741,7 +1533,7 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_087170B8_23_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_087170B8_23_tile.png"
+     "png": "assets/0x70/png/gUnk_087170B8_23_tile.png"
     },
     {
      "index": 24,
@@ -1753,68 +1545,13 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_087170B8_24_480_0x133.bin",
      "png_kind": "swatch palet",
-     "png": "png/gUnk_087170B8_24_palet.png"
+     "png": "assets/0x70/png/gUnk_087170B8_24_palet.png"
     }
    ]
   },
   {
-   "blob": "gUnk_0871D51C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0871E7A8",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0871ECAC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0871EDD4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0871EF00",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08725DA0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08726CCC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08727368",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08727A74",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08728208",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08728320",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0872937C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08729460",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0872BE64",
-   "streams": []
-  },
-  {
    "blob": "gUnk_0872C5D0",
+   "size": 364,
    "streams": [
     {
      "index": 0,
@@ -1827,12 +1564,13 @@
      "bin": "bin/gUnk_0872C5D0_00_2048_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0872C5D0_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0872C5D0_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0872C73C",
+   "size": 272,
    "streams": [
     {
      "index": 0,
@@ -1845,12 +1583,13 @@
      "bin": "bin/gUnk_0872C73C_00_2048_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0872C73C_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0872C73C_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0872C84C",
+   "size": 3424,
    "streams": [
     {
      "index": 0,
@@ -1862,16 +1601,13 @@
      "note": "140 tile 4bpp",
      "bin": "bin/gUnk_0872C84C_00_4480_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_0872C84C_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0872C84C_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_0872D5AC",
-   "streams": []
-  },
-  {
    "blob": "gUnk_0872D5CC",
+   "size": 100,
    "streams": [
     {
      "index": 0,
@@ -1884,12 +1620,13 @@
      "bin": "bin/gUnk_0872D5CC_00_2048_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0872D5CC_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0872D5CC_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0872D630",
+   "size": 168,
    "streams": [
     {
      "index": 0,
@@ -1902,12 +1639,13 @@
      "bin": "bin/gUnk_0872D630_00_2048_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0872D630_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0872D630_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0872D6D8",
+   "size": 1804,
    "streams": [
     {
      "index": 0,
@@ -1919,24 +1657,13 @@
      "note": "118 tile 4bpp",
      "bin": "bin/gUnk_0872D6D8_00_3776_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_0872D6D8_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0872D6D8_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_0872DDE4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0872DE44",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0872EE78",
-   "streams": []
-  },
-  {
    "blob": "gUnk_0872F11C",
+   "size": 160,
    "streams": [
     {
      "index": 0,
@@ -1949,12 +1676,13 @@
      "bin": "bin/gUnk_0872F11C_00_384_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 16,
-     "png": "png/gUnk_0872F11C_00_peta_indeks_16.png"
+     "png": "assets/0x70/png/gUnk_0872F11C_00_peta_indeks_16.png"
     }
    ]
   },
   {
    "blob": "gUnk_0872F1BC",
+   "size": 48,
    "streams": [
     {
      "index": 0,
@@ -1967,12 +1695,13 @@
      "bin": "bin/gUnk_0872F1BC_00_384_0x020.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 16,
-     "png": "png/gUnk_0872F1BC_00_peta_indeks_16.png"
+     "png": "assets/0x70/png/gUnk_0872F1BC_00_peta_indeks_16.png"
     }
    ]
   },
   {
    "blob": "gUnk_0872F1EC",
+   "size": 48,
    "streams": [
     {
      "index": 0,
@@ -1985,12 +1714,13 @@
      "bin": "bin/gUnk_0872F1EC_00_384_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 16,
-     "png": "png/gUnk_0872F1EC_00_peta_indeks_16.png"
+     "png": "assets/0x70/png/gUnk_0872F1EC_00_peta_indeks_16.png"
     }
    ]
   },
   {
    "blob": "gUnk_0872F21C",
+   "size": 2176,
    "streams": [
     {
      "index": 0,
@@ -2002,16 +1732,13 @@
      "note": "358 tile 4bpp",
      "bin": "bin/gUnk_0872F21C_00_11456_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_0872F21C_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0872F21C_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_0872FA9C",
-   "streams": []
-  },
-  {
    "blob": "gUnk_0872FBFC",
+   "size": 56,
    "streams": [
     {
      "index": 0,
@@ -2024,12 +1751,13 @@
      "bin": "bin/gUnk_0872FBFC_00_384_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 16,
-     "png": "png/gUnk_0872FBFC_00_peta_indeks_16.png"
+     "png": "assets/0x70/png/gUnk_0872FBFC_00_peta_indeks_16.png"
     }
    ]
   },
   {
    "blob": "gUnk_0872FC34",
+   "size": 568,
    "streams": [
     {
      "index": 0,
@@ -2042,12 +1770,13 @@
      "bin": "bin/gUnk_0872FC34_00_2048_0x020.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0872FC34_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0872FC34_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0872FE6C",
+   "size": 140,
    "streams": [
     {
      "index": 0,
@@ -2060,12 +1789,13 @@
      "bin": "bin/gUnk_0872FE6C_00_2048_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0872FE6C_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0872FE6C_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0872FEF8",
+   "size": 6728,
    "streams": [
     {
      "index": 0,
@@ -2077,24 +1807,13 @@
      "note": "928 tile 4bpp",
      "bin": "bin/gUnk_0872FEF8_00_29696_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_0872FEF8_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0872FEF8_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_08731940",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08731B40",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08738144",
-   "streams": []
-  },
-  {
    "blob": "gUnk_08738AD8",
+   "size": 496,
    "streams": [
     {
      "index": 0,
@@ -2107,12 +1826,13 @@
      "bin": "bin/gUnk_08738AD8_00_1280_0x000.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_08738AD8_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_08738AD8_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_08738CC8",
+   "size": 40,
    "streams": [
     {
      "index": 0,
@@ -2125,12 +1845,13 @@
      "bin": "bin/gUnk_08738CC8_00_1280_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_08738CC8_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_08738CC8_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_08738CF0",
+   "size": 44,
    "streams": [
     {
      "index": 0,
@@ -2143,12 +1864,13 @@
      "bin": "bin/gUnk_08738CF0_00_320_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 20,
-     "png": "png/gUnk_08738CF0_00_peta_indeks_20.png"
+     "png": "assets/0x70/png/gUnk_08738CF0_00_peta_indeks_20.png"
     }
    ]
   },
   {
    "blob": "gUnk_08738D1C",
+   "size": 3240,
    "streams": [
     {
      "index": 0,
@@ -2160,16 +1882,13 @@
      "note": "328 tile 4bpp",
      "bin": "bin/gUnk_08738D1C_00_10496_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_08738D1C_00_tile.png"
+     "png": "assets/0x70/png/gUnk_08738D1C_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_087399C4",
-   "streams": []
-  },
-  {
    "blob": "gUnk_08739A64",
+   "size": 3204,
    "streams": [
     {
      "index": 0,
@@ -2181,24 +1900,13 @@
      "note": "192 tile 4bpp",
      "bin": "bin/gUnk_08739A64_00_6144_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_08739A64_00_tile.png"
+     "png": "assets/0x70/png/gUnk_08739A64_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_0873A6E8",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0873AE54",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0873AFC8",
-   "streams": []
-  },
-  {
    "blob": "gUnk_0873BE24",
+   "size": 292,
    "streams": [
     {
      "index": 0,
@@ -2211,12 +1919,13 @@
      "bin": "bin/gUnk_0873BE24_00_2048_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0873BE24_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0873BE24_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0873BF48",
+   "size": 168,
    "streams": [
     {
      "index": 0,
@@ -2229,12 +1938,13 @@
      "bin": "bin/gUnk_0873BF48_00_2048_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0873BF48_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0873BF48_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0873BFF0",
+   "size": 3076,
    "streams": [
     {
      "index": 0,
@@ -2249,47 +1959,8 @@
    ]
   },
   {
-   "blob": "gUnk_0873CBF4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0873CCB4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0873CEAC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0873CF90",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0873D234",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0873D5FC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0873D6D8",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0873DE44",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0873E5B0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0873ED1C",
-   "streams": []
-  },
-  {
    "blob": "gUnk_0873F3C8",
+   "size": 524,
    "streams": [
     {
      "index": 0,
@@ -2302,12 +1973,13 @@
      "bin": "bin/gUnk_0873F3C8_00_2048_0x020.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0873F3C8_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0873F3C8_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0873F5D4",
+   "size": 216,
    "streams": [
     {
      "index": 0,
@@ -2320,12 +1992,13 @@
      "bin": "bin/gUnk_0873F5D4_00_2048_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0873F5D4_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0873F5D4_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0873F6AC",
+   "size": 2616,
    "streams": [
     {
      "index": 0,
@@ -2337,36 +2010,13 @@
      "note": "116 tile 4bpp",
      "bin": "bin/gUnk_0873F6AC_00_3712_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_0873F6AC_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0873F6AC_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_087400E4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087401A4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08740454",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087405A0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08740908",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087409E4",
-   "streams": []
-  },
-  {
    "blob": "gUnk_08743058",
+   "size": 18876,
    "streams": [
     {
      "index": 0,
@@ -2378,16 +2028,13 @@
      "note": "880 tile 4bpp",
      "bin": "bin/gUnk_08743058_00_28160_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_08743058_00_tile.png"
+     "png": "assets/0x70/png/gUnk_08743058_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_08747A14",
-   "streams": []
-  },
-  {
    "blob": "gUnk_08747A74",
+   "size": 12108,
    "streams": [
     {
      "index": 0,
@@ -2410,7 +2057,7 @@
      "bin": "bin/gUnk_08747A74_01_4096_0x130.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 64,
-     "png": "png/gUnk_08747A74_01_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08747A74_01_peta_indeks_64.png"
     },
     {
      "index": 2,
@@ -2423,7 +2070,7 @@
      "bin": "bin/gUnk_08747A74_02_4096_0x130.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 64,
-     "png": "png/gUnk_08747A74_02_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08747A74_02_peta_indeks_64.png"
     },
     {
      "index": 3,
@@ -2436,7 +2083,7 @@
      "bin": "bin/gUnk_08747A74_03_4096_0x130.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 64,
-     "png": "png/gUnk_08747A74_03_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08747A74_03_peta_indeks_64.png"
     },
     {
      "index": 4,
@@ -2449,12 +2096,13 @@
      "bin": "bin/gUnk_08747A74_04_4096_0x130.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 64,
-     "png": "png/gUnk_08747A74_04_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08747A74_04_peta_indeks_64.png"
     }
    ]
   },
   {
    "blob": "gUnk_0874A9C0",
+   "size": 14704,
    "streams": [
     {
      "index": 0,
@@ -2466,20 +2114,13 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_0874A9C0_00_32768_0x230.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_0874A9C0_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0874A9C0_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_0874E330",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0874E530",
-   "streams": []
-  },
-  {
    "blob": "gUnk_0874E648",
+   "size": 1272,
    "streams": [
     {
      "index": 0,
@@ -2494,11 +2135,8 @@
    ]
   },
   {
-   "blob": "gUnk_0874EB40",
-   "streams": []
-  },
-  {
    "blob": "gUnk_0874EB60",
+   "size": 364,
    "streams": [
     {
      "index": 0,
@@ -2511,12 +2149,13 @@
      "bin": "bin/gUnk_0874EB60_00_1280_0x100.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0874EB60_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0874EB60_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0874ECCC",
+   "size": 364,
    "streams": [
     {
      "index": 0,
@@ -2529,16 +2168,13 @@
      "bin": "bin/gUnk_0874ECCC_00_4096_0x130.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 64,
-     "png": "png/gUnk_0874ECCC_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_0874ECCC_00_peta_indeks_64.png"
     }
    ]
   },
   {
-   "blob": "gUnk_0874EE38",
-   "streams": []
-  },
-  {
    "blob": "gUnk_0874EF14",
+   "size": 40,
    "streams": [
     {
      "index": 0,
@@ -2551,12 +2187,13 @@
      "bin": "bin/gUnk_0874EF14_00_1280_0x030.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0874EF14_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0874EF14_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0874EF3C",
+   "size": 176,
    "streams": [
     {
      "index": 0,
@@ -2569,12 +2206,13 @@
      "bin": "bin/gUnk_0874EF3C_00_1280_0x020.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0874EF3C_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0874EF3C_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0874EFEC",
+   "size": 100,
    "streams": [
     {
      "index": 0,
@@ -2587,12 +2225,13 @@
      "bin": "bin/gUnk_0874EFEC_00_1280_0x020.bin",
      "png_kind": "grid indeks (pasangan tidak ada)",
      "map_width": 32,
-     "png": "png/gUnk_0874EFEC_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_0874EFEC_00_peta_indeks_32.png"
     }
    ]
   },
   {
    "blob": "gUnk_0874F050",
+   "size": 668,
    "streams": [
     {
      "index": 0,
@@ -2604,464 +2243,13 @@
      "note": "160 tile 4bpp",
      "bin": "bin/gUnk_0874F050_00_5120_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_0874F050_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0874F050_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_0874F2EC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0874F34C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087506E0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08750C4C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08750C6C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08750C8C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08750E4C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08750F6C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08750F8C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087510AC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087511CC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087512EC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875130C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875142C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875154C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875166C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875178C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087517AC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087518CC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875194C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875196C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087519EC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751A0C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751A8C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751AAC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751B2C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751B4C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751BCC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751BEC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751C6C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751C8C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751D0C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751D2C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751DAC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751DCC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751E4C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751E6C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751EEC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751F0C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751F8C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08751FAC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875202C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875204C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087520CC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087520EC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875216C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875218C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875220C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875222C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087522AC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087522CC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875234C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875236C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087523EC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875240C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875248C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087524AC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875252C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875254C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087525CC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087525EC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875266C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875268C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875270C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875272C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087527AC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087527CC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875284C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875286C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087528EC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875290C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875298C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087529AC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752A2C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752AAC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752ACC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752B4C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752BCC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752C4C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752CCC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752D4C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752DCC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752E4C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752ECC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752EEC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752F6C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08752F8C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875300C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875302C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087530AC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087530CC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875314C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875316C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087531EC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875320C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875328C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087532AC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875332C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875334C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087533CC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087533EC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875346C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875348C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875350C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875352C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08753608",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087536E4",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_087537D0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08754674",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08754C0C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08755154",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08755230",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875553C",
-   "streams": []
-  },
-  {
    "blob": "gUnk_08755848",
+   "size": 8856,
    "streams": [
     {
      "index": 0,
@@ -3073,48 +2261,13 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_08755848_00_32768_0x220.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_08755848_00_tile.png"
+     "png": "assets/0x70/png/gUnk_08755848_00_tile.png"
     }
    ]
   },
   {
-   "blob": "gUnk_08757AE0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08757BA0",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08757BAC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08757BCC",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08757BD8",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08757BF8",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08757C0C",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08757C14",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_08757F20",
-   "streams": []
-  },
-  {
    "blob": "gUnk_0875822C",
+   "size": 8492,
    "streams": [
     {
      "index": 0,
@@ -3126,33 +2279,9 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_0875822C_00_32768_0x230.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "png/gUnk_0875822C_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0875822C_00_tile.png"
     }
    ]
-  },
-  {
-   "blob": "gUnk_0875A358",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875A418",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875A424",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875A438",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875A440",
-   "streams": []
-  },
-  {
-   "blob": "gUnk_0875B444",
-   "streams": []
   }
  ]
 }

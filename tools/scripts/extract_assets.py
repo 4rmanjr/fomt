@@ -40,6 +40,7 @@ import asset_inventory as inv  # noqa: E402
 import decompress  # noqa: E402
 
 DEFAULT_OUT = REPO / "assets" / "0x70"
+MAP_DOC = REPO / "docs" / "decomp" / "ASET-0X70-PETA-BERKAS.md"
 PALETTE_SIZE = 480          # 15 bank x 16 warna
 MAP_WIDTHS = (64, 32, 30, 60, 46, 40, 36, 28, 24, 20, 16, 56, 48)
 
@@ -230,11 +231,82 @@ def pair_for(entries, index):
     return palette, tiles
 
 
+def render_map_doc(manifest):
+    """Markdown simbol -> stream -> berkas, dari isi manifest."""
+    blobs = manifest["streams"]
+    stream_count = sum(len(b["streams"]) for b in blobs)
+    groups = Counter(s["group"] for b in blobs for s in b["streams"])
+    kinds = Counter(s.get("png_kind", "-") for b in blobs for s in b["streams"])
+    out = ["# Peta simbol aset `0x70` ke berkas", "",
+           "**Dihasilkan otomatis**, jangan disunting tangan: "
+           "`python3 tools/scripts/extract_assets.py`. Sumbernya manifest "
+           "`assets/0x70/manifest.json` dari ekstraksi stream 0x70.", "",
+           "## Cara memperbarui", "", "```sh",
+           "python3 tools/scripts/extract_assets.py              # ekstrak + dokumen ini",
+           "python3 tools/scripts/extract_assets.py --check-map  # exit 1 bila dokumen basi",
+           "```", "",
+           "## Ringkasan", "",
+           "| kelas | stream |", "|---|---|"]
+    for key in ("palet", "tile", "peta", "lain"):
+        out.append(f"| {key} | {groups[key]} |")
+    out.append("")
+    order = ["swatch palet", "lembar tile 4bpp (abu-abu indeks)",
+             "peta berwarna", "grid indeks (pasangan tidak ada)"]
+    parts = [f"{k} {kinds[k]}" for k in order if kinds.get(k)]
+    if kinds.get("-"):
+        parts.append(f"tanpa PNG {kinds['-']}")
+    out.append("PNG: " + ", ".join(parts)
+               + f". Total {stream_count} stream dari {len(blobs)} simbol "
+               "yang punya stream 0x70.")
+    out.append("")
+    out.append("## Simbol -> stream -> berkas")
+    out.append("")
+    out.append("Path berkas relatif terhadap root repo. `stream` = urutan stream "
+               "di dalam simbol (0 = paling awal). "
+               "Peta berwarna memakai pasangan palet/tileset dari indeks yang "
+               "dicatat di kolom pasangan.")
+    out.append("")
+    out.append("| simbol | ukuran | # | offset | packed | buka | format | "
+               "kelas | berkas | PNG | pasangan |")
+    out.append("|---|---|---|---|---|---|---|---|---|---|---|")
+    for blob in blobs:
+        for s in blob["streams"]:
+            bin_link = (f"[bin](../../assets/0x70/{s['bin']})")
+            png = s.get("png")
+            png_link = f"[png](../../{png})" if png else "-"
+            pair = s.get("pair")
+            pair_cell = (f"palet#{pair['palette']}, tile#{pair['tiles']}"
+                         if pair else "-")
+            out.append(
+                f"| `{blob['blob']}` | {blob['size']} | {s['index']} | "
+                f"0x{s['offset']:04X} | {s['packed']} | {s['unpacked']} | "
+                f"`0x{s['format']}` | {s['group']} | {bin_link} | {png_link} | "
+                f"{pair_cell} |")
+    out.append("")
+    return "\n".join(out) + "\n"
+
+
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--out", type=Path, default=DEFAULT_OUT)
     ap.add_argument("--quiet", action="store_true")
+    ap.add_argument("--check-map", action="store_true",
+                    help="exit 1 bila dokumen peta berkas basi terhadap manifest")
     args = ap.parse_args(argv)
+
+    if args.check_map:
+        manifest_path = args.out / "manifest.json"
+        if not manifest_path.exists() or not MAP_DOC.exists():
+            print("MASALAH: manifest atau dokumen peta berkas tidak ada",
+                  file=sys.stderr)
+            return 1
+        text = render_map_doc(json.loads(manifest_path.read_text()))
+        if MAP_DOC.read_text() != text:
+            print(f"BASI: {MAP_DOC.relative_to(REPO)} — jalankan "
+                  f"python3 tools/scripts/extract_assets.py", file=sys.stderr)
+            return 1
+        print("dokumen peta berkas sinkron")
+        return 0
 
     rom = inv.DEFAULT_ROM.read_bytes()
     _, inventory, _ = inv.analyze()
@@ -258,6 +330,8 @@ def main(argv):
 
     manifest, groups = [], Counter()
     for entry in inventory:
+        if not entry.streams:
+            continue
         name = entry.name
         recs = [r for r in records if r["blob"] == name]
         infos, datas = [], []
@@ -301,13 +375,14 @@ def main(argv):
                     info["png_kind"] = "grid indeks (pasangan tidak ada)"
                 info["map_width"] = width
             if png:
-                info["png"] = png
-                png = str(args.out.relative_to(REPO) / png)
-        manifest.append({"blob": name, "streams": infos})
+                info["png"] = str(args.out.relative_to(REPO) / png)
+        manifest.append({"blob": name, "size": entry.size, "streams": infos})
 
+    manifest_doc = {"streams": manifest}
     (args.out / "manifest.json").write_text(
-        json.dumps({"streams": manifest}, indent=1) + "\n")
-
+        json.dumps(manifest_doc, indent=1) + "\n")
+    MAP_DOC.parent.mkdir(parents=True, exist_ok=True)
+    MAP_DOC.write_text(render_map_doc(manifest_doc))
     if not args.quiet:
         print(f"output: {args.out.relative_to(REPO)}")
         for key in ("palet", "tile", "peta", "lain"):
@@ -315,6 +390,7 @@ def main(argv):
         rendered = sum(1 for b in manifest for s in b["streams"]
                        if s.get("png_kind") == "peta berwarna")
         print(f"  png peta berwarna: {rendered}")
+        print(f"  dokumen: {MAP_DOC.relative_to(REPO)}")
     return 0
 
 
