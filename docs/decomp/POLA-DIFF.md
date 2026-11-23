@@ -2368,3 +2368,26 @@ Angka semua varian yang sudah dicoba (pembanding byte objek vs ROM):
 
 Karena bingkai, urutan tulis, dan pointer berjalan sudah cocok, sisa selisih
 bukan lagi soal struktur: semuanya regalloc + penjadwalan + DSE (70b-70d).
+
+### 70f. Bentuk sumber `func_08008980` tidak langsung menular ke `func_080087C8`
+
+`func_08008980` (MATCH, `src/hardware_migrated.cc`) memakai idiom yang sama:
+container dengan `unk8 = &vtable_unk_080E5BB4`, `unkC = sentinel`, sentinel
+`unk8 = &vtable_unk_080E5BD8`, lalu vt container ditimpa vt lain
+(`vtable_unk_080E5B90`). Penting: di sana store vt yang ditimpa **bertahan**
+karena objeknya berasal dari `__builtin_new()` (pointer buram), sedangkan di
+`func_080087C8` bingkainya lokal di stack sehingga alamatnya diketahui gcc dan
+DSE membuang store pertama (POLA-DIFF 70b-70d).
+
+Draf yang meniru bentuk 08980 (pointer variabel `pd`/`pe` + `(u8 *) x + N`)
+memberi hasil terukur: 240B, 95 instruksi beda, dif4 65% dengan sebaran
+13 missing / 13 extra / 20 operand - missing+extra jauh lebih baik daripada
+bingkai datar (29/26), tetapi regalloc memburuk karena gcc menyimpan satu
+register kaloper tambahan (`push {r4,r5,r6,r7,lr}` vs ref `push {r4,r5,r6,lr}`
++ `mov r6, r8` + `push {r6}`): ref memakai r6 sebagai penghela r8, build kita
+memakai r7. Judge varian itu: 7missing/8extra/25operand/11regalloc = 52
+selisih, sedikit di atas varian struct Node/Cont (48).
+
+Kesimpulan: idiom 08980 layak dipakai sebagai titik mulai (missing+extra
+turun), tetapi MATCH tetap tertahan pada pemilihan register penghela prolog
+dan DSE alamat lokal - bukan pada bentuk struktur.
