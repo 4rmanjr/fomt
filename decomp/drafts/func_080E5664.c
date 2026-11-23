@@ -1,13 +1,15 @@
-/* VARIAN ALTERNATIF (temuan, bukan baseline). Ref jalur `.L080E56E4`
-   mengirim argumen ke-6 = `sb` (fl): `str r4,[sp]; mov r0,sb; b .L080E57E2`
-   lalu `.L080E57E2: str r0,[sp,#4]`, sedangkan jalur `.L080E57DE` mengirim 0
-   (`movs r0,#0`). Menerapkannya = ubah call tepat setelah
-   `p = *a2; if (p->unkC == 0) goto L57CE;` dari `func_080E54F0(a0, a1, q, q,
-   a3, 0)` menjadi `func_080E54F0(a0, a1, q, q, a3, (u32) fl)`.
-   Angka judge: varian fl len 442 / 5missing,7extra,31operand,55regalloc
-   (total 43); baseline ini len 439 / 7missing,7extra,20operand,55regalloc
-   (total 34) -> baseline dipilih. dif4 lokal: varian fl 149/212 (70%),
-   baseline 143/212 (67%). */
+/* VARIAN YANG SUDAH DICOBA DAN DITOLAK (disimpan supaya tidak diulang):
+   1) arg ke-6 = fl: call setelah `p = *a2; if (p->unkC == 0) goto L57CE;`
+      argumen ke-6 `0` -> `(u32) fl` (ref memang mengirim `sb` di jalur
+      .L080E56E4). Judge: len 442, 5m/7e/31o/55r (total 43) vs baseline
+      7m/7e/20o/55r (total 34). Salinan: /tmp/varian_fl_080E5664.c.
+   2) node dipin r3 (`register Node *p __asm__("r3")`) untuk memaksa pemuatan
+      *a2: judge len 442, 6m/7e/32o/59r (total 45), regalloc 55 -> 59.
+      Salinan: /tmp/varian_p_r3_080E5664.c.
+   Catatan: dif4 lokal TURUN pada keduanya (baseline 143/212, fl 149, p->r3
+   144; total missing+extra+operand 95 -> 76/78) tetapi total judge NAIK, jadi
+   total dif4 lokal bukan proksi yang sahih untuk memilih varian. Baseline di
+   bawah = yang terbaik menurut judge. */
 void *func_080E2354(void *);                          /* extern */
 void *func_080E2B28(void *);                          /* extern */
 
