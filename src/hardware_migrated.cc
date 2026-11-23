@@ -239,6 +239,13 @@ typedef struct {
 } SongEntry;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_08008D2C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+void func_08008D2C(i32 *arg0) {
+    *arg0 += 0x40;
+}
+}
+
 // DECOMP-MATCHED func_08008D34 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 void func_08008D34(i32 *arg0) {

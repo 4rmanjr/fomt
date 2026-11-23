@@ -1742,3 +1742,8 @@ s32 func_08008D3C(u16 arg0) {
 void func_08008D34(s32 *arg0) {
     arg0[0] -= 0x40;
 }
+
+// DECOMP-MATCHED func_08008D2C (dari hardware.s; cek manusia sebelum ke src/)
+void func_08008D2C(s32 *arg0) {
+    *arg0 += 0x40;
+}

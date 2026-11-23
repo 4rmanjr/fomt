@@ -23,9 +23,9 @@
  },
  "func_0800745C": {
   "addr": 134247516,
-  "judged_mtime": 1793582714.01942,
+  "judged_mtime": 1795350505.0,
   "module": "hardware.s",
-  "note": "omething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0800745C/opencode/func.c:37: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0800745C/opencode/func.c:37: request for member `unk0' in something not a structure or union\n",
+  "note": "hats/8e431e267938c019828ff924/decomp/logs/judge_func_0800745C/freestyle-vm_85995/func.c:37: warning: dereferencing `void *' pointer\n/workspace/chats/8e431e267938c019828ff924/decomp/logs/judge_func_0800745C/freestyle-vm_85995/func.c:37: request for member `unk0' in something not a structure or union\n",
   "ref_len": 100,
   "sanitize_v": 4,
   "size": 1044,
@@ -801,10 +801,15 @@
  },
  "func_08008D2C": {
   "addr": 134253868,
+  "draft_src": "manual",
+  "judged_mtime": 1795407453.7659364,
   "module": "hardware.s",
-  "ref_len": 8,
-  "size": 127,
-  "status": "pending",
+  "note": "MATCH 8B + migrasi ke src/hardware_migrated.cc; rantai ekor hardware.s maju ke func_08008D10. Draf tulis-tangan `*arg0 += 0x40;`, judge in-process (run.judge/run.promote) karena wrapper fomt tak ada di VM. Rincian: MIGRATE 39.",
+  "promoted_to": "decomp/promoted/hardware.cc",
+  "ref_len": 7,
+  "sanitize_v": 4,
+  "size": 128,
+  "status": "promoted",
   "thumb": true
  },
  "func_08008D34": {

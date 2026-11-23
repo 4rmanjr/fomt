@@ -1092,3 +1092,20 @@ cast di call-site (`rcall = func_08008920((s32) arg0);`). Cast itu codegen-netra
 byte-identik; setelah itu `migrate.py` melaporkan `pindah: 1` dengan baseline + target compare HIJAU.
 Kalau callee punya definisi di `src/`, arahnya tetap sebaliknya (extern + call-site src yang
 disesuaikan), seperti pada `func_080050F8`.
+
+## 39. Mengejar satu fungsi ekor tanpa wrapper `fomt` di VM
+
+`tools/scripts/decomp_engine.py attempt <fungsi> --migrate` menulis draf lalu **memanggil `fomt`**
+(binary wrapper), yang tidak ada di VM cloud ini -> `FileNotFoundError: 'fomt'` dan draf sudah
+terlanjur ditulis. Dua hal yang dipakai sebagai gantinya:
+
+- `python3 decomp/run.py 1 <modul>` **bukan** cara menargetkan satu fungsi: antreannya memilih
+  kandidat sendiri (size-first, `failed` ikut diambil ulang), jadi fungsi ekor yang baru didraf bisa
+  terlewat dan malah menghabiskan jatah judge pada fungsi `failed` lain yang drafnya masih error
+  compile.
+- Judge per fungsi tersedia in-process: `import run; run.judge("<fungsi>")` (menulis status + note
+  seperti batch), lalu `run.promote("<fungsi>")` untuk menggabungkan blok ke
+  `decomp/promoted/<modul>.cc`. Setelah itu migrasi tetap lewat `decomp/migrate.py`.
+
+Syaratnya draf sudah ada di `decomp/drafts/<fungsi>.c`; draf tulis-tangan sah selama judge lulus
+(m2c tidak wajib untuk fungsi 1-baris seperti `func_08008D2C`: `*arg0 += 0x40;`).
