@@ -41,6 +41,11 @@ Yang diperiksa:
    `extract_assets.render_map_doc(manifest)` yang sama dengan `--check-map`,
    jadi manifest berubah (pasangan/status/berkas) tanpa regenerasi dokumen
    langsung menggagalkan pemeriksaan, bukan lolos diam-diam.
+9. **Aset mentah basi** (`docs/decomp/ASET-MENTAH-BERKAS.md`): dokumen itu
+   dihasilkan `tools/scripts/raw_assets.py` dari `assets/raw/manifest.json`.
+   Gate memanggil `raw_assets.render_doc(manifest)` yang sama dengan
+   `--check`, jadi kelompok/ukuran/PNG berubah tanpa regenerasi dokumen
+   langsung terlihat.
 
 Read-only; exit 1 bila ada masalah (`--json` untuk agent, `--strict` sama
 dengan default).
@@ -83,6 +88,10 @@ ASET_INPUTS = [REPO / "asm" / "data" / "data_0813B288.s", REPO / "baserom.gba"]
 MAP_DOC = "docs/decomp/ASET-0X70-PETA-BERKAS.md"
 MAP_TOOL = REPO / "tools/scripts/extract_assets.py"
 MAP_MANIFEST = REPO / "assets" / "0x70" / "manifest.json"
+
+RAW_DOC = "docs/decomp/ASET-MENTAH-BERKAS.md"
+RAW_TOOL = REPO / "tools/scripts/raw_assets.py"
+RAW_MANIFEST = REPO / "assets" / "raw" / "manifest.json"
 
 
 def aset_inventaris():
@@ -149,6 +158,37 @@ def aset_0x70():
         return (MAP_DOC, "BASI terhadap manifest — jalankan "
                 "python3 tools/scripts/extract_assets.py"), None
     return None, "peta berkas 0x70 sinkron"
+
+
+def aset_mentah():
+    """-> (masalah|None, catatan|None) untuk dokumen aset mentah.
+
+    `raw_assets.py --check` membandingkan dokumen dengan renderer yang sama;
+    gate ini memanggilnya langsung supaya manifest yang berubah tanpa
+    regenerasi dokumen menggagalkan tutup sesi, bukan lolos diam-diam.
+    """
+    import importlib.util
+    import json
+
+    out = REPO / RAW_DOC
+    if not out.exists():
+        return (RAW_DOC, "dokumen aset mentah hilang — jalankan "
+                "tools/scripts/raw_assets.py"), None
+    if not RAW_MANIFEST.exists():
+        return (RAW_DOC, "manifest aset mentah hilang — jalankan "
+                "tools/scripts/raw_assets.py"), None
+    try:
+        spec = importlib.util.spec_from_file_location("raw_assets", RAW_TOOL)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        text = mod.render_doc(json.loads(RAW_MANIFEST.read_text()))
+    except Exception as e:  # gate tidak boleh lolos diam-diam saat tool rusak
+        return (RAW_DOC,
+                f"gate aset mentah gagal dijalankan: {type(e).__name__}: {e}"), None
+    if out.read_text() != text:
+        return (RAW_DOC, "BASI terhadap manifest — jalankan "
+                "python3 tools/scripts/raw_assets.py"), None
+    return None, "aset mentah sinkron"
 
 
 def ekor_backlog():
@@ -289,6 +329,12 @@ def check(max_agents):
         notes.append(note)
 
     prob, note = aset_0x70()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = aset_mentah()
     if prob:
         problems.append(prob)
     elif note:

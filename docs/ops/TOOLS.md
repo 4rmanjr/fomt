@@ -150,7 +150,9 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   16-bit, bit 10-15 konsisten), `tabel` (sisanya, tidak dirender). Menulis
   `assets/raw/png/` + `assets/raw/manifest.json` + dokumen generate
   `docs/decomp/ASET-MENTAH-BERKAS.md`; `--check` exit 1 bila dokumen basi,
-  `--out DIR`/`--quiet` seperti `extract_assets.py`. Kelompok ditentukan dari
+  dan `check_docs.py` memanggil renderer yang sama sebagai gate (dokumen basi
+  menggagalkan tutup sesi, bukan lolos diam-diam). `--out DIR`/`--quiet`
+  seperti `extract_assets.py`. Kelompok ditentukan dari
   isi, bukan nama simbol; blob yang tidak kelipatan 32 B tidak dipaksakan jadi
   tile. Tidak menjalankan build dan tidak menulis ROM.
 
