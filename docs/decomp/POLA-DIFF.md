@@ -2017,3 +2017,42 @@ sebelum relokasi) — keduanya artifact, bukan DIFF.
 
 **Hasil 2026-11-23:** judge MATCH 76B (1 percobaan), `pindah: 1`, baseline + target
 `fomt.gba: OK`.
+
+## 64. Konstanta sempit dari literal pool: artefak toolchain lama, bukan bentuk C (dinding)
+
+Gejala: ref memuat konstanta kecil yang seharusnya `movs` lewat literal pool lalu
+memotongnya dengan shift — bentuk `u8`: `ldr r1,=5; lsls r1,#0x18; lsrs r1,#0x18`
+(28B), bentuk `u16`: `ldr r0,=5; lsls r0,#0x10; lsrs r1,r0,#0x10` (40B). Draf C
+yang paling wajar untuk keduanya keluar 2 instruksi lebih pendek (`movs r1,#5`).
+
+Pembukti: `func_08008D10` (28B, ujung `hardware.s`) dan `func_08008B24` (40B,
+callee-nya). `08008D10` = `func_08008B54(&sp0, 5)`; `08008B24` membandingkan
+argumennya dengan konstanta `5` lalu `% 5` sebelum mengindeks
+`gMusicPlayerTable`. Untuk `08008B24`, draf C natural
+
+```c
+s32 func_08008B24(u16 arg0) { if (arg0 >= 5) arg0 %= 5; return gMusicPlayerTable[arg0]; }
+```
+
+menghasilkan `lsls r0,#0x10; lsr r1,r0,#0x10; cmp r1,#0x4; bls ...` — mask
+dikenakan ke **argumen**, dan pembandingnya dilipat jadi `cmp #0x4`. Ref
+melakukannya terbalik: konstanta dimuat dari pool lalu di-mask, `cmp r2,r1;
+blo`. Jadi bukan cuma `08008D10`: fungsi tetangganya pun tidak direproduksi
+agbcc, tanda bagian sound `hardware.s` ini datang dari asm tangan atau
+toolchain lama, bukan dari C yang dikompilasi agbcc.
+
+Yang sudah diuji dan semuanya gagal memancing pool (`movs r1,#5` terus): 322
+ekspresi di posisi argumen (literal `5`/`5u`/`5l`, cast `u8`/`u16`/`s16`/`u32`/
+`s32`/`s8` termasuk cast berlapis, aritmetika `& | ^ + - * %` antar konstanta
+dan variabel `u8`/`u16`, konstanta `static const`), plus lokal `u8` (inisialisasi
+dan assignment terpisah), bitfield `u32 : 8`, `enum`, `static inline` pengembali
+`u8`, dan bentuk `cmp` dengan `(u8)5`/`(u16)5`; dijalankan dengan `agbcc` dan
+`old_agbcc`. Yang bisa dipancing hanya mask **dari register**
+(`add r1,r0,#0; lsls; lsrs`) atau `ldrb` dari alamat — tidak pernah pool untuk
+nilai 5.
+
+Kesimpulan: agbcc melipat konversi sempit dari konstanta, sedangkan pool+mask
+hanya keluar untuk konstanta yang tidak bisa jadi immediate. Untuk `5` itu
+mustahil, jadi tidak ada bentuk C yang MATCH; jangan buang kuota judge untuk
+kelas ini. Catat sebagai dinding dan lewati. Karena `hardware.s` tail-only,
+`func_08008D10` sebagai ujung berkas mengunci semua `pending` di atasnya.

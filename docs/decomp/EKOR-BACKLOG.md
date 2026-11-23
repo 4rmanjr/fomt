@@ -22,7 +22,7 @@ python3 tools/scripts/tail_chain.py --module <stem>.s [--json]
 | modul | tersisa di asm | promoted terkunci | blocker terakhir | status rantai |
 |---|---|---|---|---|
 | `code_linkonce.s` | 428 | 165 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
-| `hardware.s` | 72 | 40 | `func_08008D10` (28B, `pending`) | terbuka, ujung belum MATCH |
+| `hardware.s` | 72 | 40 | `func_08008D10` (28B, `pending`) | terkunci: ujung dinding (lihat note) |
 | `code_actor_0809BFE8.s` | 51 | 26 | `func_0809DA00` (1323B, `failed`) | terbuka, ujung belum MATCH |
 
 Modul tail-only lain sudah kosong di `asm/` (tidak punya blocker ekor lagi): `code_iwram`, `game_scene`, `interrupt`, `main`, `more_items`, `scene`, `sram_proxy_1`, `vtables`.
@@ -63,7 +63,7 @@ Sisa **72** fungsi (40 `promoted`, 26 `failed`, 6 `pending`). Tabel = 12 entri t
 | 68 | `func_08008CEC` | 8B | pending | - |
 | 69 | `func_08008CF4` | 8B | pending | - |
 | 70 | `func_08008CFC` | 20B | pending | - |
-| 71 | `func_08008D10` | 28B | pending | - |
+| 71 | `func_08008D10` | 28B | pending | DINDING toolchain: ref memuat konstanta 5 lewat literal pool la… |
 
 ## `code_actor_0809BFE8.s`
 
@@ -105,9 +105,12 @@ Angka kelas dihitung dari fungsi yang masih punya label di `asm/` dan punya `ref
 
 Blob `.L08008CDC` (96B) sudah lama dipecah jadi 8 entri `thumb_func_start`; `func_08008D34` (8B) dan
 `func_08008D2C` (8B, `p[0] += 0x40`) sudah MATCH + pindah ke `src/hardware_migrated.cc`, sehingga ujung
-berkas kini `func_08008D10`. Residual ujung: ref memuat konstanta lewat pool (`ldr r1,=5; lsls #0x18;
-lsrs #0x18`) sementara draf C biasa menghasilkan `movs r1,#5` (20B vs 28B) — bentuk ekspresinya yang perlu
-dicari, bukan logikanya. `func_08008E64`/`08008F0C`/`08008EB8`/`08008F60` sudah lebih dulu pindah.
+berkas kini `func_08008D10` (28B) — **dinding**, lihat `POLA-DIFF.md` §64: ref memuat konstanta 5 lewat pool
+(`ldr r1,=5; lsls #0x18; lsrs #0x18`) sedangkan agbcc selalu melipat jadi `movs r1,#5` (20B), dan 322 bentuk
+C sudah diuji tanpa hasil. Tetangganya `func_08008B24` memakai pola pool yang sama untuk `u16` dan draf C
+naturalnya pun tidak mereproduksi ROM, jadi bagian sound modul ini berasal dari asm tangan atau toolchain
+lama. Karena `hardware.s` tail-only, ujung ini mengunci seluruh `pending` di atasnya sampai ada keputusan
+kebijakan (mis. blok asm verbatim diizinkan bertahan untuk fungsi asm-tangan). `func_08008E64`/`08008F0C`/`08008EB8`/`08008F60` sudah lebih dulu pindah.
 
 ### `code_linkonce.s` — blocker 439B
 

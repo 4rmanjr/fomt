@@ -122,12 +122,15 @@ def condense(note, status):
     return _clip(text)
 
 
-def status_chain(info):
+def status_chain(info, state):
     nxt = info.get("next")
     if not nxt:
         return "kosong (semua sudah di `src/`)"
     if not info.get("next_ok", True):
         return "buntu: " + (info.get("next_reason") or "blob multi-fungsi")
+    note = ((state.get(nxt.get("func")) or {}).get("note") or "").lower()
+    if "dinding" in note or note.startswith("wall:"):
+        return "terkunci: ujung dinding (lihat note)"
     status = nxt.get("status")
     if status == "promoted":
         return "siap dicabut (`migrate.py` saja, tanpa judge)"
@@ -225,7 +228,7 @@ def build(tail_len, manual):
         blocker = ("`%s` (%sB, `%s`)" % (nxt.get("func"), nxt.get("ref_len"),
                                         nxt.get("status")))
         add(f"| `{r['stem']}.s` | {info['asm_count']} | "
-            f"{r['counts']['promoted']} | {blocker} | {status_chain(info)} |")
+            f"{r['counts']['promoted']} | {blocker} | {status_chain(info, r['state'])} |")
     add("")
     if empty:
         add("Modul tail-only lain sudah kosong di `asm/` (tidak punya blocker ekor lagi): "
