@@ -1896,6 +1896,19 @@ typedef struct Obj_0804EDF8 {
 } Obj_0804EDF8;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef union F14 {
+    u16 u;
+    u8 b[2];
+} F14;
+typedef struct GenObj__func_0804EF20 {
+    u8 _pad0[0xC];
+    u8 *unkC;
+    u8 *unk10;
+    F14 f;
+} GenObj__func_0804EF20;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -2232,7 +2245,6 @@ void func_0804EDB4(i32 arg0, i32 arg1, u16 arg2, u16 arg3, i32 arg4) {
 // DECOMP-MATCHED func_0804EDF8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 extern i32 vtable_unk_080E7848;                        /* extern */
 
 __attribute__((section(".text.code_0803EE94.0804EDF8")))
@@ -2357,6 +2369,70 @@ i32 func_0804EEFC(GenObj__func_0804EEFC *arg0) {
     return 0;
 }
 }
+// DECOMP-MATCHED func_0804EF20 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 CpuFastSet(i32 *, i32, i32);                      /* extern */
+
+__attribute__((section(".text.code_0803EE94.0804EF20")))
+i32 func_0804EF20(GenObj__func_0804EF20 *arg0) {
+    register GenObj__func_0804EF20 *p __asm__("r5");
+    register u8 f __asm__("r6");
+    u8 *end;
+    u8 *src;
+    u8 *dst;
+
+    p = arg0;
+    src = (u8 *)(p->unkC);
+    dst = (u8 *)(p->unk10);
+    f = p->f.b[1];
+    if (f & 0x80) {
+        register i32 neg __asm__("r0");
+        register u32 bit __asm__("r0");
+        register u32 v __asm__("r1");
+        u32 v6;
+        u32 m0;
+        u32 m1;
+
+        end = dst + ((u32) (p->f.u << 0x12) >> 0xD);
+        bit = (u32) (f << 0x19) >> 0x1F;
+        __asm__ volatile("" : "+r"(bit));
+        v = 1;
+        __asm__ volatile("" : "+r"(v));
+        v = v ^ bit;
+        v6 = v << 6;
+        neg = 0x41;
+        __asm__ volatile("" : "+r"(neg));
+        neg = -neg;
+        neg = neg & f;
+        neg = neg | v6;
+        p->f.b[1] = (u8) neg;
+        m0 = 0x0F0F0F0F << (v << 2);
+        m1 = ~m0;
+        do {
+            *(u32 *) dst = *(u32 *) src & m0;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m1;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m0;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m1;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m0;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m1;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m0;
+            src += 4; dst += 4;
+            *(u32 *) dst = *(u32 *) src & m1;
+            src += 4; dst += 4;
+        } while (dst != end);
+        return 1;
+    }
+    CpuFastSet((i32 *) src, (i32) dst, (i32) ((u32) (p->f.u << 0x12) >> 0xF));
+    return 0;
+}
+}
+
 
 // DECOMP-MATCHED func_0804F15C (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {

@@ -2138,3 +2138,33 @@ Membalik urutan (pakai `nn` untuk `cmp`, `n = nn` setelah cabang) justru
 menaruh salinan r2->r5 di jalur yang salah dan menjatuhkan kecocokan 67% ->
 47%; jangan ulangi. Pelajaran: pin hasil load hanya menolong kalau titik
 salinnya memang ada di jalur yang sama dengan ref.
+
+## 66. `func_0804EF20`: mask `neg`/`rsbs` + notasi 2-operand bukan diff, dan gate extern `CpuFastSet`
+
+**Pola MATCH.** Jalur bit `0x80` di byte flag butuh tiga pin berurutan pada
+`r0`/`r1`: `bit` (`(f << 0x19) >> 0x1F`, pin `r0` + fence), `v = 1` (pin `r1`,
+`v ^= bit`), lalu `neg = 0x41` → fence → `neg = -neg` → `neg & f` → `neg | (v << 6)`
+→ `p->f.b[1] = (u8) neg`. Menulis `-0x41` langsung, atau `~0x40`, tidak
+menghasilkan `rsbs r0,r0,#0` + `and` di tempat yang sama. `end` **tidak** dipin:
+`end = dst + ((u32)(p->f.u << 0x12) >> 0xD)` dan loop `do { ... } while (dst != end)`
+dengan 8 salinan `*(u32 *)dst = *(u32 *)src & m` (mask `m0 = 0x0F0F0F0F << (v << 2)`,
+`m1 = ~m0`, selang-seling) menghasilkan `push {r4,r5,r6,r7,lr}` + `cmp r3,r7` persis.
+Pelajaran: pin hanya untuk nilai yang di ref memang hidup di `r0`/`r1`; meminjamkan
+`end` ke `r7` justru menghapus `r7` dari `push`.
+
+**Notasi dif4 bukan diff.** Dif4 lokal melaporkan 78% (missing 2/extra 1/operand 13)
+untuk draf yang ternyata byte-identik. Penyebabnya hanya pencetakan: ref memakai
+bentuk 2-operand Thumb (`and r0,r6`, `lsl r2,r1`, `neg r0,r0`) sementara draf
+dicetak 3-operand (`and r0,r0,r6`, `lsl r2,r2,r1`, `rsbs r0,r0,#0`). Ketiganya
+encoding yang sama. Jangan turunkan draf lagi sebelum normalisasi ini; ukur byte
+lewat `judge`, bukan LCS operand.
+
+**Gate extern saat migrasi (SKIP-palsu).** `migrate.py` membandingkan tanda tangan
+extern sebagai **teks** (`s32`≡`i32`, tetapi pointer vs skalar dan tipe pointee
+harus sama) dan menuntut argumen call-site terkonversi implisit. `src` sudah punya
+`i32 CpuFastSet(i32 *, i32, i32);` (dari `func_0804E7A0`), jadi blok baru wajib
+` s32 CpuFastSet(s32 *, s32, s32);` dan call-nya diberi cast eksplisit:
+`CpuFastSet((s32 *) src, (s32) dst, (s32) ((u32)(p->f.u << 0x12) >> 0xF));`.
+Cast ini tidak mengubah byte (`pindah: 1`, sha1 target HIJAU). Catatan: `promote()`
+tidak menulis ulang blok yang sudah ada — perbaikan tanda tangan harus diedit
+langsung di `decomp/promoted/code_0803EE94.cc`.

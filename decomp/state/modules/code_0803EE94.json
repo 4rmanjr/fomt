@@ -446,13 +446,14 @@
  "func_0804EF20": {
   "addr": 134541088,
   "draft_src": "manual",
-  "judged_mtime": 1794445536.565893,
+  "judged_mtime": 1795418550.2154377,
   "module": "code_0803EE94.s",
-  "note": "len 134 vs ref 138 [4missing,2extra,5operand,3regalloc @i push {r4, r5, r6, r7, lr} | push {r4, r5, r6, lr}]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 140,
   "sanitize_v": 4,
   "size": 1197,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0804EFAC": {
