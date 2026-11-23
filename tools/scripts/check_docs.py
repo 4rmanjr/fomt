@@ -28,6 +28,13 @@ Yang diperiksa:
    akan menggagalkan gate ini, bukan lewat diam-diam. Baris `Snapshot **tanggal**`
    tidak ikut dibandingkan (ditangani `ekor_snapshot.is_stale`), jadi dokumen
    tidak dianggap basi hanya karena pergantian hari.
+7. **Inventaris aset basi** (`docs/decomp/ASET-INVENTARIS.md`): dokumen itu
+   dihasilkan `tools/scripts/asset_inventory.py`, jadi isinya dibandingkan
+   dengan `asset_inventory.document()` saat ini. Pemecahan
+   `asm/data/data_0813B288.s` (blob baru atau ukuran berubah) mengubah tabel
+   tanpa perlu ada yang ingat meregenerasinya. Kalau `baserom.gba` atau berkas
+   `.s` sumbernya tidak ada, gate dilewati dengan catatan (bukan masalah),
+   karena tanpa keduanya dokumen tidak bisa dihitung ulang.
 
 Read-only; exit 1 bila ada masalah (`--json` untuk agent, `--strict` sama
 dengan default).
@@ -61,6 +68,44 @@ MD_TICK = re.compile(r"`([\w./-]+\.md)(?:#[^`]*)?`")
 EKOR_DOC = "docs/decomp/EKOR-BACKLOG.md"
 EKOR_TOOL = REPO / "tools/scripts/ekor_snapshot.py"
 EKOR_TAIL = 12  # default --tail ekor_snapshot.py
+
+
+ASET_DOC = "docs/decomp/ASET-INVENTARIS.md"
+ASET_TOOL = REPO / "tools/scripts/asset_inventory.py"
+ASET_INPUTS = [REPO / "asm" / "data" / "data_0813B288.s", REPO / "baserom.gba"]
+
+
+def aset_inventaris():
+    """-> (masalah|None, catatan|None) untuk dokumen inventaris aset.
+
+    Sama seperti backlog ekor: dokumen itu hasil generate, jadi satu-satunya
+    sumber kebenaran isinya adalah `asset_inventory.document()`. Gate ini
+    membuat pemecahan `data_0813B288.s` yang tidak disertai regenerasi
+    terlihat, bukan lewat diam-diam.
+    """
+    import importlib.util
+
+    out = REPO / ASET_DOC
+    if not out.exists():
+        return (ASET_DOC, "dokumen inventaris aset hilang — jalankan "
+                "tools/scripts/asset_inventory.py"), None
+    missing = [str(p.relative_to(REPO)) for p in ASET_INPUTS if not p.exists()]
+    if missing:
+        return None, ("gate aset dilewati: input tidak ada ("
+                      + ", ".join(missing) + ")")
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "asset_inventory", ASET_TOOL)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        text = mod.document()
+    except Exception as e:  # gate tidak boleh lolos diam-diam saat tool rusak
+        return (ASET_DOC,
+                f"gate aset gagal dijalankan: {type(e).__name__}: {e}"), None
+    if out.read_text() != text:
+        return (ASET_DOC, "BASI terhadap hasil generate — jalankan "
+                "python3 tools/scripts/asset_inventory.py"), None
+    return None, "inventaris aset sinkron"
 
 
 def ekor_backlog():
@@ -189,6 +234,12 @@ def check(max_agents):
                 problems.append((f"{rel}:{i}", f"rujukan .md tidak ada: {m}"))
 
     prob, note = ekor_backlog()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = aset_inventaris()
     if prob:
         problems.append(prob)
     elif note:

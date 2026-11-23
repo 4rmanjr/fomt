@@ -28,6 +28,10 @@ Pemakaian:
   python3 tools/scripts/asset_inventory.py --stdout   # cetak saja
   python3 tools/scripts/asset_inventory.py --check    # exit 1 bila basi
   python3 tools/scripts/asset_inventory.py --json     # data mentah
+
+`--check` juga dipanggil `tools/scripts/check_docs.py`, jadi dokumen yang
+tertinggal dari isi `asm/data/data_0813B288.s` menggagalkan gate dokumen, bukan
+lolos diam-diam.
 """
 import argparse
 import bisect
@@ -489,6 +493,23 @@ def as_json(entries, rejected):
     }
 
 
+def analyze(asm=DEFAULT_ASM, rom=DEFAULT_ROM):
+    """-> (teks dokumen, entries, kandidat header BIOS yang gugur)."""
+    entries, preamble = parse_entries(asm)
+    rejected, have_syms = build(entries, rom.read_bytes())
+    return render(entries, rejected, have_syms,
+                  preamble or "(tanpa pembuka)"), entries, rejected
+
+
+def document(asm=DEFAULT_ASM, rom=DEFAULT_ROM):
+    """Teks `docs/decomp/ASET-INVENTARIS.md` untuk isi saat ini.
+
+    Dipakai `--check` dan gate `check_docs.py`, supaya keduanya membandingkan
+    dokumen terhadap hasil generate yang sama.
+    """
+    return analyze(asm, rom)[0]
+
+
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--asm", type=Path, default=DEFAULT_ASM)
@@ -506,14 +527,11 @@ def main(argv):
         print(f"MASALAH ROM tidak ada: {args.rom}", file=sys.stderr)
         return 1
 
-    entries, preamble = parse_entries(args.asm)
-    rom = args.rom.read_bytes()
-    rejected, have_syms = build(entries, rom)
+    text, entries, rejected = analyze(args.asm, args.rom)
     if args.json:
         print(json.dumps(as_json(entries, rejected), indent=1))
         return 0
 
-    text = render(entries, rejected, have_syms, preamble or "(tanpa pembuka)")
     if args.stdout:
         sys.stdout.write(text)
         return 0

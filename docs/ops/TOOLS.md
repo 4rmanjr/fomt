@@ -104,7 +104,11 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   pemiliknya simbol terdekat dari `asm/` (tanpa ELF). Menulis
   `docs/decomp/ASET-INVENTARIS.md` (hasil generate, jangan disunting tangan);
   `--stdout` untuk melihat, `--check` exit 1 bila dokumen basi, `--json` untuk
-  data mentah. Tidak menjalankan build dan tidak menyentuh `fomt.gba`.
+  data mentah. `check_docs.py` membandingkan dokumen itu dengan
+  `asset_inventory.document()` (gate otomatis seperti `EKOR-BACKLOG.md`), jadi
+  pemecahan `data_0813B288.s` tanpa regenerasi menggagalkan tutup sesi; kalau
+  `baserom.gba` atau berkas `.s` sumbernya tidak ada, gate dilewati dengan
+  catatan. Tidak menjalankan build dan tidak menyentuh `fomt.gba`.
 
 ## Engine kerja (`decomp_engine.py`)
 
