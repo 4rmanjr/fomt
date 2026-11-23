@@ -787,10 +787,13 @@
  },
  "func_08008CFC": {
   "addr": 134253820,
+  "judged_mtime": 1795417830.0285199,
   "module": "hardware.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 20,
   "size": 200,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008D10": {

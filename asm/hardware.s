@@ -2797,15 +2797,3 @@ func_08008CF4: @ 0x08008CF4
     bx lr
     .align 2, 0
 
-    thumb_func_start func_08008CFC
-func_08008CFC: @ 0x08008CFC
-    push {lr}
-    sub sp, #4
-    mov r0, sp
-    movs r1, #0
-    bl func_08008B54
-    ldr r0, [sp]
-    add sp, #4
-    pop {r1}
-    bx r1
-

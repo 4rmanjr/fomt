@@ -248,6 +248,23 @@ typedef struct {
 } T0901C;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_08008CFC (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+/* Wrapper 20B: satu-satunya pemanggil func_08008B54 dengan indeks 0.
+   Ref: `mov r0, sp; movs r1, #0; bl func_08008B54; ldr r0, [sp]` - argumen
+   konstanta 0 keluar sebagai `movs`, jadi tidak ada urusan literal pool di sini.
+   Tanda tangan callee mengikuti konvensi src (tipe balik int, parameter tanpa
+   nama) supaya gate migrasi tidak menolak; nilai baliknya dibuang ref. */
+i32 func_08008B54(i32 *, u8);
+
+i32 func_08008CFC(void) {
+    i32 sp0;
+
+    func_08008B54(&sp0, 0);
+    return sp0;
+}
+}
+
 // DECOMP-MATCHED func_08008D10 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 /* Ref mengemas konstanta 5 lewat literal pool lalu memotongnya ke 8 bit
