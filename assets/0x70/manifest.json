@@ -13,7 +13,9 @@
      "group": "peta",
      "note": "2816 entri 16-bit; entri terbanyak 0x10F2 (10%)",
      "bin": "bin/gUnk_08527238_00_5632_0x130.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 64,
      "png": "assets/0x70/png/gUnk_08527238_00_peta_indeks_64.png"
     }
@@ -32,7 +34,9 @@
      "group": "peta",
      "note": "2816 entri 16-bit; entri terbanyak 0x03FF (81%)",
      "bin": "bin/gUnk_08527348_00_5632_0x130.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 64,
      "png": "assets/0x70/png/gUnk_08527348_00_peta_indeks_64.png"
     }
@@ -51,7 +55,9 @@
      "group": "peta",
      "note": "2816 entri 16-bit; entri terbanyak 0x03FF (98%)",
      "bin": "bin/gUnk_08527520_00_5632_0x130.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 64,
      "png": "assets/0x70/png/gUnk_08527520_00_peta_indeks_64.png"
     }
@@ -88,7 +94,9 @@
      "group": "peta",
      "note": "2816 entri 16-bit; entri terbanyak 0x10F2 (10%)",
      "bin": "bin/gUnk_0852A6D8_00_5632_0x130.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 64,
      "png": "assets/0x70/png/gUnk_0852A6D8_00_peta_indeks_64.png"
     }
@@ -107,7 +115,9 @@
      "group": "peta",
      "note": "2816 entri 16-bit; entri terbanyak 0x03FF (81%)",
      "bin": "bin/gUnk_0852A7EC_00_5632_0x130.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 64,
      "png": "assets/0x70/png/gUnk_0852A7EC_00_peta_indeks_64.png"
     }
@@ -126,7 +136,9 @@
      "group": "peta",
      "note": "2816 entri 16-bit; entri terbanyak 0x03FF (98%)",
      "bin": "bin/gUnk_0852A9BC_00_5632_0x130.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 64,
      "png": "assets/0x70/png/gUnk_0852A9BC_00_peta_indeks_64.png"
     }
@@ -200,9 +212,22 @@
      "note": "3360 entri 16-bit; entri terbanyak 0x03FF (4%)",
      "bin": "bin/gUnk_086FD240_00_6720_0x134.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 3,
-      "tiles": 4
+      "palette": {
+       "blob": "gUnk_086FD19C",
+       "stream": 0,
+       "address": "0x086FD19C"
+      },
+      "tiles": {
+       "blob": "gUnk_086FB004",
+       "stream": 0,
+       "address": "0x086FB004"
+      }
+     },
+     "pair_evidence": {
+      "entry": 2,
+      "field": 12
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_086FD240_00_peta_60x56.png"
@@ -217,9 +242,22 @@
      "note": "3360 entri 16-bit; entri terbanyak 0x03FF (79%)",
      "bin": "bin/gUnk_086FD240_01_6720_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 3,
-      "tiles": 4
+      "palette": {
+       "blob": "gUnk_086FD19C",
+       "stream": 0,
+       "address": "0x086FD19C"
+      },
+      "tiles": {
+       "blob": "gUnk_086FB004",
+       "stream": 0,
+       "address": "0x086FB004"
+      }
+     },
+     "pair_evidence": {
+      "entry": 2,
+      "field": 16
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_086FD240_01_peta_60x56.png"
@@ -234,9 +272,22 @@
      "note": "3360 entri 16-bit; entri terbanyak 0x03FF (96%)",
      "bin": "bin/gUnk_086FD240_02_6720_0x030.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 3,
-      "tiles": 4
+      "palette": {
+       "blob": "gUnk_086FD19C",
+       "stream": 0,
+       "address": "0x086FD19C"
+      },
+      "tiles": {
+       "blob": "gUnk_086FB004",
+       "stream": 0,
+       "address": "0x086FB004"
+      }
+     },
+     "pair_evidence": {
+      "entry": 2,
+      "field": 20
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_086FD240_02_peta_60x56.png"
@@ -287,9 +338,22 @@
      "note": "3360 entri 16-bit; entri terbanyak 0x03FF (4%)",
      "bin": "bin/gUnk_086FD240_06_6720_0x133.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 5,
-      "tiles": 4
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 5,
+       "address": "0x086FFA84"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 4,
+       "address": "0x086FDB2C"
+      }
+     },
+     "pair_evidence": {
+      "entry": 3,
+      "field": 12
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_086FD240_06_peta_60x56.png"
@@ -304,9 +368,22 @@
      "note": "3360 entri 16-bit; entri terbanyak 0x03FF (79%)",
      "bin": "bin/gUnk_086FD240_07_6720_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 5,
-      "tiles": 4
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 5,
+       "address": "0x086FFA84"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 4,
+       "address": "0x086FDB2C"
+      }
+     },
+     "pair_evidence": {
+      "entry": 3,
+      "field": 16
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_086FD240_07_peta_60x56.png"
@@ -321,9 +398,22 @@
      "note": "3360 entri 16-bit; entri terbanyak 0x03FF (96%)",
      "bin": "bin/gUnk_086FD240_08_6720_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 5,
-      "tiles": 4
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 5,
+       "address": "0x086FFA84"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 4,
+       "address": "0x086FDB2C"
+      }
+     },
+     "pair_evidence": {
+      "entry": 3,
+      "field": 20
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_086FD240_08_peta_60x56.png"
@@ -350,9 +440,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (22%)",
      "bin": "bin/gUnk_086FD240_10_1680_0x124.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 9,
-      "tiles": 4
+      "palette": {
+       "address": "0x086DAEA8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086D7D88",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 20,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_10_peta_30x28.png"
@@ -367,9 +470,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (79%)",
      "bin": "bin/gUnk_086FD240_11_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 9,
-      "tiles": 4
+      "palette": {
+       "address": "0x086DAEA8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086D7D88",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 20,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_11_peta_30x28.png"
@@ -384,9 +500,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (71%)",
      "bin": "bin/gUnk_086FD240_12_1680_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 9,
-      "tiles": 4
+      "palette": {
+       "address": "0x086DAEA8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086D7D88",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 20,
+      "field": 20
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_12_peta_30x28.png"
@@ -401,9 +530,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (25%)",
      "bin": "bin/gUnk_086FD240_13_1680_0x024.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 9,
-      "tiles": 4
+      "palette": {
+       "address": "0x086DAEA8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086D7D88",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 21,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_13_peta_30x28.png"
@@ -418,9 +560,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (87%)",
      "bin": "bin/gUnk_086FD240_14_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 9,
-      "tiles": 4
+      "palette": {
+       "address": "0x086DAEA8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086D7D88",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 21,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_14_peta_30x28.png"
@@ -435,9 +590,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (69%)",
      "bin": "bin/gUnk_086FD240_15_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 9,
-      "tiles": 4
+      "palette": {
+       "address": "0x086DAEA8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086D7D88",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 21,
+      "field": 20
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_15_peta_30x28.png"
@@ -452,9 +620,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (22%)",
      "bin": "bin/gUnk_086FD240_16_1680_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 9,
-      "tiles": 4
+      "palette": {
+       "address": "0x086977C8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086961C0",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 54,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_16_peta_30x28.png"
@@ -469,9 +650,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (83%)",
      "bin": "bin/gUnk_086FD240_17_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 9,
-      "tiles": 4
+      "palette": {
+       "address": "0x086977C8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086961C0",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 54,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_17_peta_30x28.png"
@@ -486,9 +680,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (73%)",
      "bin": "bin/gUnk_086FD240_18_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 9,
-      "tiles": 4
+      "palette": {
+       "address": "0x086977C8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086961C0",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 54,
+      "field": 20
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_18_peta_30x28.png"
@@ -527,9 +734,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (22%)",
      "bin": "bin/gUnk_086FD240_21_1680_0x134.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 20,
+       "address": "0x087038D4"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 19,
+       "address": "0x08700E10"
+      }
+     },
+     "pair_evidence": {
+      "entry": 27,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_21_peta_30x28.png"
@@ -544,9 +764,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (73%)",
      "bin": "bin/gUnk_086FD240_22_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 20,
+       "address": "0x087038D4"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 19,
+       "address": "0x08700E10"
+      }
+     },
+     "pair_evidence": {
+      "entry": 27,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_22_peta_30x28.png"
@@ -561,9 +794,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (67%)",
      "bin": "bin/gUnk_086FD240_23_1680_0x024.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 20,
+       "address": "0x087038D4"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 19,
+       "address": "0x08700E10"
+      }
+     },
+     "pair_evidence": {
+      "entry": 27,
+      "field": 20
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_23_peta_30x28.png"
@@ -578,12 +824,25 @@
      "note": "2736 entri 16-bit; entri terbanyak 0x03FF (17%)",
      "bin": "bin/gUnk_086FD240_24_5472_0x230.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "address": "0x08692C8C",
+       "unpacked": 480,
+       "format": "000"
+      },
+      "tiles": {
+       "address": "0x086913D4",
+       "unpacked": 32768,
+       "format": "230"
+      }
      },
-     "map_width": 48,
-     "png": "assets/0x70/png/gUnk_086FD240_24_peta_48x57.png"
+     "pair_evidence": {
+      "entry": 39,
+      "field": 12
+     },
+     "map_width": 76,
+     "png": "assets/0x70/png/gUnk_086FD240_24_peta_76x36.png"
     },
     {
      "index": 25,
@@ -595,12 +854,25 @@
      "note": "2736 entri 16-bit; entri terbanyak 0x03FF (87%)",
      "bin": "bin/gUnk_086FD240_25_5472_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "address": "0x08692C8C",
+       "unpacked": 480,
+       "format": "000"
+      },
+      "tiles": {
+       "address": "0x086913D4",
+       "unpacked": 32768,
+       "format": "230"
+      }
      },
-     "map_width": 48,
-     "png": "assets/0x70/png/gUnk_086FD240_25_peta_48x57.png"
+     "pair_evidence": {
+      "entry": 39,
+      "field": 16
+     },
+     "map_width": 76,
+     "png": "assets/0x70/png/gUnk_086FD240_25_peta_76x36.png"
     },
     {
      "index": 26,
@@ -612,12 +884,25 @@
      "note": "2736 entri 16-bit; entri terbanyak 0x03FF (80%)",
      "bin": "bin/gUnk_086FD240_26_5472_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "address": "0x08692C8C",
+       "unpacked": 480,
+       "format": "000"
+      },
+      "tiles": {
+       "address": "0x086913D4",
+       "unpacked": 32768,
+       "format": "230"
+      }
      },
-     "map_width": 48,
-     "png": "assets/0x70/png/gUnk_086FD240_26_peta_48x57.png"
+     "pair_evidence": {
+      "entry": 39,
+      "field": 20
+     },
+     "map_width": 76,
+     "png": "assets/0x70/png/gUnk_086FD240_26_peta_76x36.png"
     },
     {
      "index": 27,
@@ -629,9 +914,22 @@
      "note": "1656 entri 16-bit; entri terbanyak 0x03FF (16%)",
      "bin": "bin/gUnk_086FD240_27_3312_0x230.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "address": "0x08692C8C",
+       "unpacked": 480,
+       "format": "000"
+      },
+      "tiles": {
+       "address": "0x086913D4",
+       "unpacked": 32768,
+       "format": "230"
+      }
+     },
+     "pair_evidence": {
+      "entry": 38,
+      "field": 12
      },
      "map_width": 46,
      "png": "assets/0x70/png/gUnk_086FD240_27_peta_46x36.png"
@@ -646,9 +944,22 @@
      "note": "1656 entri 16-bit; entri terbanyak 0x03FF (89%)",
      "bin": "bin/gUnk_086FD240_28_3312_0x030.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "address": "0x08692C8C",
+       "unpacked": 480,
+       "format": "000"
+      },
+      "tiles": {
+       "address": "0x086913D4",
+       "unpacked": 32768,
+       "format": "230"
+      }
+     },
+     "pair_evidence": {
+      "entry": 38,
+      "field": 16
      },
      "map_width": 46,
      "png": "assets/0x70/png/gUnk_086FD240_28_peta_46x36.png"
@@ -663,9 +974,22 @@
      "note": "1656 entri 16-bit; entri terbanyak 0x03FF (80%)",
      "bin": "bin/gUnk_086FD240_29_3312_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "address": "0x08692C8C",
+       "unpacked": 480,
+       "format": "000"
+      },
+      "tiles": {
+       "address": "0x086913D4",
+       "unpacked": 32768,
+       "format": "230"
+      }
+     },
+     "pair_evidence": {
+      "entry": 38,
+      "field": 20
      },
      "map_width": 46,
      "png": "assets/0x70/png/gUnk_086FD240_29_peta_46x36.png"
@@ -680,9 +1004,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (22%)",
      "bin": "bin/gUnk_086FD240_30_1680_0x123.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 16,
+       "address": "0x0871AAD8"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 15,
+       "address": "0x087180E0"
+      }
+     },
+     "pair_evidence": {
+      "entry": 48,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_30_peta_30x28.png"
@@ -697,9 +1034,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (85%)",
      "bin": "bin/gUnk_086FD240_31_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 16,
+       "address": "0x0871AAD8"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 15,
+       "address": "0x087180E0"
+      }
+     },
+     "pair_evidence": {
+      "entry": 48,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_31_peta_30x28.png"
@@ -714,9 +1064,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (68%)",
      "bin": "bin/gUnk_086FD240_32_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 20,
-      "tiles": 19
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 16,
+       "address": "0x0871AAD8"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 15,
+       "address": "0x087180E0"
+      }
+     },
+     "pair_evidence": {
+      "entry": 48,
+      "field": 20
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_086FD240_32_peta_30x28.png"
@@ -755,12 +1118,25 @@
      "note": "11072 entri 16-bit; entri terbanyak 0x43A0 (6%)",
      "bin": "bin/gUnk_086FD240_35_22144_0x230.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 34,
-      "tiles": 33
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 34,
+       "address": "0x08709BA8"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 33,
+       "address": "0x08704D30"
+      }
      },
-     "map_width": 64,
-     "png": "assets/0x70/png/gUnk_086FD240_35_peta_64x173.png"
+     "pair_evidence": {
+      "entry": 6,
+      "field": 12
+     },
+     "map_width": 173,
+     "png": "assets/0x70/png/gUnk_086FD240_35_peta_173x64.png"
     },
     {
      "index": 36,
@@ -772,12 +1148,25 @@
      "note": "11072 entri 16-bit; entri terbanyak 0x03FF (71%)",
      "bin": "bin/gUnk_086FD240_36_22144_0x134.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 34,
-      "tiles": 33
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 34,
+       "address": "0x08709BA8"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 33,
+       "address": "0x08704D30"
+      }
      },
-     "map_width": 64,
-     "png": "assets/0x70/png/gUnk_086FD240_36_peta_64x173.png"
+     "pair_evidence": {
+      "entry": 6,
+      "field": 16
+     },
+     "map_width": 173,
+     "png": "assets/0x70/png/gUnk_086FD240_36_peta_173x64.png"
     },
     {
      "index": 37,
@@ -789,12 +1178,25 @@
      "note": "11072 entri 16-bit; entri terbanyak 0x03FF (87%)",
      "bin": "bin/gUnk_086FD240_37_22144_0x033.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 34,
-      "tiles": 33
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 34,
+       "address": "0x08709BA8"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 33,
+       "address": "0x08704D30"
+      }
      },
-     "map_width": 64,
-     "png": "assets/0x70/png/gUnk_086FD240_37_peta_64x173.png"
+     "pair_evidence": {
+      "entry": 6,
+      "field": 20
+     },
+     "map_width": 173,
+     "png": "assets/0x70/png/gUnk_086FD240_37_peta_173x64.png"
     },
     {
      "index": 38,
@@ -842,12 +1244,25 @@
      "note": "11072 entri 16-bit; entri terbanyak 0x639F (6%)",
      "bin": "bin/gUnk_086FD240_41_22144_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 40,
-      "tiles": 39
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 40,
+       "address": "0x087104B4"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 39,
+       "address": "0x0870B81C"
+      }
      },
-     "map_width": 64,
-     "png": "assets/0x70/png/gUnk_086FD240_41_peta_64x173.png"
+     "pair_evidence": {
+      "entry": 7,
+      "field": 12
+     },
+     "map_width": 173,
+     "png": "assets/0x70/png/gUnk_086FD240_41_peta_173x64.png"
     },
     {
      "index": 42,
@@ -859,12 +1274,25 @@
      "note": "11072 entri 16-bit; entri terbanyak 0x03FF (72%)",
      "bin": "bin/gUnk_086FD240_42_22144_0x133.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 40,
-      "tiles": 39
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 40,
+       "address": "0x087104B4"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 39,
+       "address": "0x0870B81C"
+      }
      },
-     "map_width": 64,
-     "png": "assets/0x70/png/gUnk_086FD240_42_peta_64x173.png"
+     "pair_evidence": {
+      "entry": 7,
+      "field": 16
+     },
+     "map_width": 173,
+     "png": "assets/0x70/png/gUnk_086FD240_42_peta_173x64.png"
     },
     {
      "index": 43,
@@ -876,12 +1304,25 @@
      "note": "11072 entri 16-bit; entri terbanyak 0x03FF (88%)",
      "bin": "bin/gUnk_086FD240_43_22144_0x134.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 40,
-      "tiles": 39
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 40,
+       "address": "0x087104B4"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 39,
+       "address": "0x0870B81C"
+      }
      },
-     "map_width": 64,
-     "png": "assets/0x70/png/gUnk_086FD240_43_peta_64x173.png"
+     "pair_evidence": {
+      "entry": 7,
+      "field": 20
+     },
+     "map_width": 173,
+     "png": "assets/0x70/png/gUnk_086FD240_43_peta_173x64.png"
     },
     {
      "index": 44,
@@ -929,9 +1370,22 @@
      "note": "3600 entri 16-bit; entri terbanyak 0x220B (13%)",
      "bin": "bin/gUnk_086FD240_47_7200_0x033.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 46,
-      "tiles": 45
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 46,
+       "address": "0x08714580"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 45,
+       "address": "0x08711DA0"
+      }
+     },
+     "pair_evidence": {
+      "entry": 16,
+      "field": 12
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_086FD240_47_peta_60x60.png"
@@ -946,9 +1400,22 @@
      "note": "3600 entri 16-bit; entri terbanyak 0x03FF (68%)",
      "bin": "bin/gUnk_086FD240_48_7200_0x133.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 46,
-      "tiles": 45
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 46,
+       "address": "0x08714580"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 45,
+       "address": "0x08711DA0"
+      }
+     },
+     "pair_evidence": {
+      "entry": 16,
+      "field": 16
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_086FD240_48_peta_60x60.png"
@@ -963,9 +1430,22 @@
      "note": "3600 entri 16-bit; entri terbanyak 0x03FF (92%)",
      "bin": "bin/gUnk_086FD240_49_7200_0x133.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 46,
-      "tiles": 45
+      "palette": {
+       "blob": "gUnk_086FD240",
+       "stream": 46,
+       "address": "0x08714580"
+      },
+      "tiles": {
+       "blob": "gUnk_086FD240",
+       "stream": 45,
+       "address": "0x08711DA0"
+      }
+     },
+     "pair_evidence": {
+      "entry": 16,
+      "field": 20
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_086FD240_49_peta_60x60.png"
@@ -1070,9 +1550,22 @@
      "note": "3600 entri 16-bit; entri terbanyak 0x21ED (29%)",
      "bin": "bin/gUnk_08714BEC_03_7200_0x133.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 2,
-      "tiles": 1
+      "palette": {
+       "blob": "gUnk_08714BEC",
+       "stream": 2,
+       "address": "0x08716B38"
+      },
+      "tiles": {
+       "blob": "gUnk_08714BEC",
+       "stream": 1,
+       "address": "0x08714C84"
+      }
+     },
+     "pair_evidence": {
+      "entry": 17,
+      "field": 12
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_08714BEC_03_peta_60x60.png"
@@ -1087,9 +1580,22 @@
      "note": "3600 entri 16-bit; entri terbanyak 0x03FF (68%)",
      "bin": "bin/gUnk_08714BEC_04_7200_0x133.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 2,
-      "tiles": 1
+      "palette": {
+       "blob": "gUnk_08714BEC",
+       "stream": 2,
+       "address": "0x08716B38"
+      },
+      "tiles": {
+       "blob": "gUnk_08714BEC",
+       "stream": 1,
+       "address": "0x08714C84"
+      }
+     },
+     "pair_evidence": {
+      "entry": 17,
+      "field": 16
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_08714BEC_04_peta_60x60.png"
@@ -1104,9 +1610,22 @@
      "note": "3600 entri 16-bit; entri terbanyak 0x03FF (91%)",
      "bin": "bin/gUnk_08714BEC_05_7200_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 2,
-      "tiles": 1
+      "palette": {
+       "blob": "gUnk_08714BEC",
+       "stream": 2,
+       "address": "0x08716B38"
+      },
+      "tiles": {
+       "blob": "gUnk_08714BEC",
+       "stream": 1,
+       "address": "0x08714C84"
+      }
+     },
+     "pair_evidence": {
+      "entry": 17,
+      "field": 20
      },
      "map_width": 60,
      "png": "assets/0x70/png/gUnk_08714BEC_05_peta_60x60.png"
@@ -1169,9 +1688,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (22%)",
      "bin": "bin/gUnk_087170B8_01_1680_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "address": "0x086977C8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086961C0",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 55,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_01_peta_30x28.png"
@@ -1186,9 +1718,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (82%)",
      "bin": "bin/gUnk_087170B8_02_1680_0x024.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "address": "0x086977C8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086961C0",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 55,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_02_peta_30x28.png"
@@ -1203,9 +1748,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (72%)",
      "bin": "bin/gUnk_087170B8_03_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "address": "0x086977C8",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x086961C0",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 55,
+      "field": 20
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_03_peta_30x28.png"
@@ -1220,9 +1778,22 @@
      "note": "600 entri 16-bit; entri terbanyak 0x12E9 (14%)",
      "bin": "bin/gUnk_087170B8_04_1200_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "address": "0x0869F2E0",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x0869B730",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 62,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_04_peta_30x20.png"
@@ -1237,9 +1808,22 @@
      "note": "600 entri 16-bit; entri terbanyak 0x03FF (95%)",
      "bin": "bin/gUnk_087170B8_05_1200_0x030.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "address": "0x0869F2E0",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x0869B730",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 62,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_05_peta_30x20.png"
@@ -1254,9 +1838,22 @@
      "note": "600 entri 16-bit; entri terbanyak 0x12E9 (16%)",
      "bin": "bin/gUnk_087170B8_06_1200_0x230.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "address": "0x0869F2E0",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x0869B730",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 63,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_06_peta_30x20.png"
@@ -1271,9 +1868,22 @@
      "note": "600 entri 16-bit; entri terbanyak 0x03FF (88%)",
      "bin": "bin/gUnk_087170B8_07_1200_0x024.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "address": "0x0869F2E0",
+       "unpacked": 480,
+       "format": "133"
+      },
+      "tiles": {
+       "address": "0x0869B730",
+       "unpacked": 32768,
+       "format": "231"
+      }
+     },
+     "pair_evidence": {
+      "entry": 63,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_07_peta_30x20.png"
@@ -1288,9 +1898,22 @@
      "note": "600 entri 16-bit; entri terbanyak 0x03FF (9%)",
      "bin": "bin/gUnk_087170B8_08_1200_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "address": "0x08692C8C",
+       "unpacked": 480,
+       "format": "000"
+      },
+      "tiles": {
+       "address": "0x086913D4",
+       "unpacked": 32768,
+       "format": "230"
+      }
+     },
+     "pair_evidence": {
+      "entry": 64,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_08_peta_30x20.png"
@@ -1305,9 +1928,22 @@
      "note": "600 entri 16-bit; entri terbanyak 0x03FF (70%)",
      "bin": "bin/gUnk_087170B8_09_1200_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "address": "0x08692C8C",
+       "unpacked": 480,
+       "format": "000"
+      },
+      "tiles": {
+       "address": "0x086913D4",
+       "unpacked": 32768,
+       "format": "230"
+      }
+     },
+     "pair_evidence": {
+      "entry": 64,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_09_peta_30x20.png"
@@ -1322,9 +1958,22 @@
      "note": "600 entri 16-bit; entri terbanyak 0x03FF (11%)",
      "bin": "bin/gUnk_087170B8_10_1200_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "address": "0x08692C8C",
+       "unpacked": 480,
+       "format": "000"
+      },
+      "tiles": {
+       "address": "0x086913D4",
+       "unpacked": 32768,
+       "format": "230"
+      }
+     },
+     "pair_evidence": {
+      "entry": 65,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_10_peta_30x20.png"
@@ -1339,9 +1988,22 @@
      "note": "600 entri 16-bit; entri terbanyak 0x03FF (74%)",
      "bin": "bin/gUnk_087170B8_11_1200_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "address": "0x08692C8C",
+       "unpacked": 480,
+       "format": "000"
+      },
+      "tiles": {
+       "address": "0x086913D4",
+       "unpacked": 32768,
+       "format": "230"
+      }
+     },
+     "pair_evidence": {
+      "entry": 65,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_11_peta_30x20.png"
@@ -1356,9 +2018,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (19%)",
      "bin": "bin/gUnk_087170B8_12_1680_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 16,
+       "address": "0x0871AAD8"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 15,
+       "address": "0x087180E0"
+      }
+     },
+     "pair_evidence": {
+      "entry": 49,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_12_peta_30x28.png"
@@ -1373,9 +2048,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (68%)",
      "bin": "bin/gUnk_087170B8_13_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 16,
+       "address": "0x0871AAD8"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 15,
+       "address": "0x087180E0"
+      }
+     },
+     "pair_evidence": {
+      "entry": 49,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_13_peta_30x28.png"
@@ -1390,9 +2078,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (71%)",
      "bin": "bin/gUnk_087170B8_14_1680_0x024.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 0,
-      "tiles": 15
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 16,
+       "address": "0x0871AAD8"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 15,
+       "address": "0x087180E0"
+      }
+     },
+     "pair_evidence": {
+      "entry": 49,
+      "field": 20
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_14_peta_30x28.png"
@@ -1431,9 +2132,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (18%)",
      "bin": "bin/gUnk_087170B8_17_1680_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 16,
-      "tiles": 15
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 24,
+       "address": "0x0871D3F4"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 23,
+       "address": "0x0871B474"
+      }
+     },
+     "pair_evidence": {
+      "entry": 46,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_17_peta_30x28.png"
@@ -1448,9 +2162,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (75%)",
      "bin": "bin/gUnk_087170B8_18_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 16,
-      "tiles": 15
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 24,
+       "address": "0x0871D3F4"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 23,
+       "address": "0x0871B474"
+      }
+     },
+     "pair_evidence": {
+      "entry": 46,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_18_peta_30x28.png"
@@ -1465,9 +2192,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (65%)",
      "bin": "bin/gUnk_087170B8_19_1680_0x133.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 16,
-      "tiles": 15
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 24,
+       "address": "0x0871D3F4"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 23,
+       "address": "0x0871B474"
+      }
+     },
+     "pair_evidence": {
+      "entry": 46,
+      "field": 20
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_19_peta_30x28.png"
@@ -1482,9 +2222,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (25%)",
      "bin": "bin/gUnk_087170B8_20_1680_0x130.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 16,
-      "tiles": 15
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 24,
+       "address": "0x0871D3F4"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 23,
+       "address": "0x0871B474"
+      }
+     },
+     "pair_evidence": {
+      "entry": 47,
+      "field": 12
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_20_peta_30x28.png"
@@ -1499,9 +2252,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (80%)",
      "bin": "bin/gUnk_087170B8_21_1680_0x023.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 16,
-      "tiles": 15
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 24,
+       "address": "0x0871D3F4"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 23,
+       "address": "0x0871B474"
+      }
+     },
+     "pair_evidence": {
+      "entry": 47,
+      "field": 16
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_21_peta_30x28.png"
@@ -1516,9 +2282,22 @@
      "note": "840 entri 16-bit; entri terbanyak 0x03FF (65%)",
      "bin": "bin/gUnk_087170B8_22_1680_0x033.bin",
      "png_kind": "peta berwarna",
+     "pair_status": "verified",
      "pair": {
-      "palette": 16,
-      "tiles": 15
+      "palette": {
+       "blob": "gUnk_087170B8",
+       "stream": 24,
+       "address": "0x0871D3F4"
+      },
+      "tiles": {
+       "blob": "gUnk_087170B8",
+       "stream": 23,
+       "address": "0x0871B474"
+      }
+     },
+     "pair_evidence": {
+      "entry": 47,
+      "field": 20
      },
      "map_width": 30,
      "png": "assets/0x70/png/gUnk_087170B8_22_peta_30x28.png"
@@ -1562,7 +2341,9 @@
      "group": "peta",
      "note": "1024 entri 16-bit; entri terbanyak 0x03FF (85%)",
      "bin": "bin/gUnk_0872C5D0_00_2048_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0872C5D0_00_peta_indeks_32.png"
     }
@@ -1581,7 +2362,9 @@
      "group": "peta",
      "note": "1024 entri 16-bit; entri terbanyak 0x03FF (88%)",
      "bin": "bin/gUnk_0872C73C_00_2048_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0872C73C_00_peta_indeks_32.png"
     }
@@ -1618,7 +2401,9 @@
      "group": "peta",
      "note": "1024 entri 16-bit; entri terbanyak 0x03FF (41%)",
      "bin": "bin/gUnk_0872D5CC_00_2048_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0872D5CC_00_peta_indeks_32.png"
     }
@@ -1637,7 +2422,9 @@
      "group": "peta",
      "note": "1024 entri 16-bit; entri terbanyak 0x03FF (82%)",
      "bin": "bin/gUnk_0872D630_00_2048_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0872D630_00_peta_indeks_32.png"
     }
@@ -1674,7 +2461,9 @@
      "group": "peta",
      "note": "192 entri 16-bit; entri terbanyak 0x03FF (38%)",
      "bin": "bin/gUnk_0872F11C_00_384_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 16,
      "png": "assets/0x70/png/gUnk_0872F11C_00_peta_indeks_16.png"
     }
@@ -1693,7 +2482,9 @@
      "group": "peta",
      "note": "192 entri 16-bit; entri terbanyak 0x03FF (94%)",
      "bin": "bin/gUnk_0872F1BC_00_384_0x020.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 16,
      "png": "assets/0x70/png/gUnk_0872F1BC_00_peta_indeks_16.png"
     }
@@ -1712,7 +2503,9 @@
      "group": "peta",
      "note": "192 entri 16-bit; entri terbanyak 0x03FF (93%)",
      "bin": "bin/gUnk_0872F1EC_00_384_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 16,
      "png": "assets/0x70/png/gUnk_0872F1EC_00_peta_indeks_16.png"
     }
@@ -1749,7 +2542,9 @@
      "group": "peta",
      "note": "192 entri 16-bit; entri terbanyak 0x03FF (81%)",
      "bin": "bin/gUnk_0872FBFC_00_384_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 16,
      "png": "assets/0x70/png/gUnk_0872FBFC_00_peta_indeks_16.png"
     }
@@ -1768,7 +2563,9 @@
      "group": "peta",
      "note": "1024 entri 16-bit; entri terbanyak 0x03FF (41%)",
      "bin": "bin/gUnk_0872FC34_00_2048_0x020.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0872FC34_00_peta_indeks_32.png"
     }
@@ -1787,7 +2584,9 @@
      "group": "peta",
      "note": "1024 entri 16-bit; entri terbanyak 0x03FF (94%)",
      "bin": "bin/gUnk_0872FE6C_00_2048_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0872FE6C_00_peta_indeks_32.png"
     }
@@ -1824,7 +2623,9 @@
      "group": "peta",
      "note": "640 entri 16-bit; entri terbanyak 0x03FF (1%)",
      "bin": "bin/gUnk_08738AD8_00_1280_0x000.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_08738AD8_00_peta_indeks_32.png"
     }
@@ -1843,7 +2644,9 @@
      "group": "peta",
      "note": "640 entri 16-bit; entri terbanyak 0x03FF (96%)",
      "bin": "bin/gUnk_08738CC8_00_1280_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_08738CC8_00_peta_indeks_32.png"
     }
@@ -1862,7 +2665,9 @@
      "group": "peta",
      "note": "160 entri 16-bit; entri terbanyak 0x03FF (45%)",
      "bin": "bin/gUnk_08738CF0_00_320_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 20,
      "png": "assets/0x70/png/gUnk_08738CF0_00_peta_indeks_20.png"
     }
@@ -1917,7 +2722,9 @@
      "group": "peta",
      "note": "1024 entri 16-bit; entri terbanyak 0x0000 (41%)",
      "bin": "bin/gUnk_0873BE24_00_2048_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0873BE24_00_peta_indeks_32.png"
     }
@@ -1936,7 +2743,9 @@
      "group": "peta",
      "note": "1024 entri 16-bit; entri terbanyak 0x0000 (84%)",
      "bin": "bin/gUnk_0873BF48_00_2048_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0873BF48_00_peta_indeks_32.png"
     }
@@ -1971,7 +2780,9 @@
      "group": "peta",
      "note": "1024 entri 16-bit; entri terbanyak 0x03FF (41%)",
      "bin": "bin/gUnk_0873F3C8_00_2048_0x020.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0873F3C8_00_peta_indeks_32.png"
     }
@@ -1990,7 +2801,9 @@
      "group": "peta",
      "note": "1024 entri 16-bit; entri terbanyak 0x03FF (90%)",
      "bin": "bin/gUnk_0873F5D4_00_2048_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0873F5D4_00_peta_indeks_32.png"
     }
@@ -2055,7 +2868,9 @@
      "group": "peta",
      "note": "2048 entri 16-bit; entri terbanyak 0x03FF (41%)",
      "bin": "bin/gUnk_08747A74_01_4096_0x130.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 64,
      "png": "assets/0x70/png/gUnk_08747A74_01_peta_indeks_64.png"
     },
@@ -2068,7 +2883,9 @@
      "group": "peta",
      "note": "2048 entri 16-bit; entri terbanyak 0x03FF (82%)",
      "bin": "bin/gUnk_08747A74_02_4096_0x130.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 64,
      "png": "assets/0x70/png/gUnk_08747A74_02_peta_indeks_64.png"
     },
@@ -2081,7 +2898,9 @@
      "group": "peta",
      "note": "2048 entri 16-bit; entri terbanyak 0x03FF (93%)",
      "bin": "bin/gUnk_08747A74_03_4096_0x130.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 64,
      "png": "assets/0x70/png/gUnk_08747A74_03_peta_indeks_64.png"
     },
@@ -2094,7 +2913,9 @@
      "group": "peta",
      "note": "2048 entri 16-bit; entri terbanyak 0x03FF (95%)",
      "bin": "bin/gUnk_08747A74_04_4096_0x130.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 64,
      "png": "assets/0x70/png/gUnk_08747A74_04_peta_indeks_64.png"
     }
@@ -2147,7 +2968,9 @@
      "group": "peta",
      "note": "640 entri 16-bit; entri terbanyak 0x0140 (67%)",
      "bin": "bin/gUnk_0874EB60_00_1280_0x100.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0874EB60_00_peta_indeks_32.png"
     }
@@ -2166,7 +2989,9 @@
      "group": "peta",
      "note": "2048 entri 16-bit; entri terbanyak 0x0140 (90%)",
      "bin": "bin/gUnk_0874ECCC_00_4096_0x130.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 64,
      "png": "assets/0x70/png/gUnk_0874ECCC_00_peta_indeks_64.png"
     }
@@ -2185,7 +3010,9 @@
      "group": "peta",
      "note": "640 entri 16-bit; entri terbanyak 0x0003 (79%)",
      "bin": "bin/gUnk_0874EF14_00_1280_0x030.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0874EF14_00_peta_indeks_32.png"
     }
@@ -2204,7 +3031,9 @@
      "group": "peta",
      "note": "640 entri 16-bit; entri terbanyak 0x03FF (30%)",
      "bin": "bin/gUnk_0874EF3C_00_1280_0x020.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0874EF3C_00_peta_indeks_32.png"
     }
@@ -2223,7 +3052,9 @@
      "group": "peta",
      "note": "640 entri 16-bit; entri terbanyak 0x03FF (50%)",
      "bin": "bin/gUnk_0874EFEC_00_1280_0x020.bin",
-     "png_kind": "grid indeks (pasangan tidak ada)",
+     "png_kind": "grid indeks (pasangan tidak terbukti)",
+     "pair_status": "unproven",
+     "pair_reason": "tidak ada entri header",
      "map_width": 32,
      "png": "assets/0x70/png/gUnk_0874EFEC_00_peta_indeks_32.png"
     }

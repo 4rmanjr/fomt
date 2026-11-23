@@ -16,8 +16,12 @@ PNG yang dihasilkan:
 
 - palet  -> kartu swatch 16 warna/baris;
 - tile   -> lembar tile 4bpp 16 kolom, abu-abu indeks (tanpa palet);
-- peta   -> render berwarna kalau di blob yang sama ada palet + tileset
-             (pasangan terdekat sebelum peta), kalau tidak grid indeks.
+- peta   -> render berwarna kalau header peta (tabel `gUnk_08105EDC`)
+             menyebut tileset + palet untuk stream itu; kalau tidak, grid indeks.
+             Pasangan diambil dari pointer header (bukan stream terdekat):
+             +0x00 tileset, +0x04 palet, +0x0C/+0x10/+0x14 tiga lapis peta.
+             Tileset/palet yang bukan bagian dari 53 simbol tetap dibuka dari
+             ROM (keduanya juga stream 0x70) selama ukurannya masuk akal.
 
 Output default `assets/0x70/` (bin/, png/, manifest.json; bisa dibuat ulang):
 
@@ -27,6 +31,7 @@ Tidak menjalankan build dan tidak menulis ke `baserom.gba`/`fomt.gba`.
 """
 import argparse
 import json
+import re
 import struct
 import sys
 import zlib
@@ -43,6 +48,10 @@ DEFAULT_OUT = REPO / "assets" / "0x70"
 MAP_DOC = REPO / "docs" / "decomp" / "ASET-0X70-PETA-BERKAS.md"
 PALETTE_SIZE = 480          # 15 bank x 16 warna
 MAP_WIDTHS = (64, 32, 30, 60, 46, 40, 36, 28, 24, 20, 16, 56, 48)
+MAP_HEADER_SYMBOL = "gUnk_08105EDC"
+MAP_HEADER_BYTES = 40       # 10 word: tileset, palet, palet2, 3 peta, ...
+MAP_LAYER_WORDS = (3, 4, 5)  # +0x0C, +0x10, +0x14
+GBA_BASE = 0x08000000
 
 
 def gba_rgb(v):
@@ -216,19 +225,93 @@ def render_map(data, path, width, palette=None, tiles=None, scale=2):
     write_png(path, w, h, rgb)
 
 
-def pair_for(entries, index):
-    """Palet + tileset terdekat sebelum stream ini di blob yang sama."""
-    palette = tiles = None
-    for e in entries[:index]:
-        if e["group"] == "palet":
-            palette = e
-        elif e["group"] == "tile" and e["unpacked"] >= 32 * 8:
-            tiles = e
-    if palette is None:
-        palette = next((e for e in entries if e["group"] == "palet"), None)
-    if tiles is None:
-        tiles = next((e for e in entries if e["group"] == "tile"), None)
-    return palette, tiles
+def rom_region(symbol):
+    """(offset, ukuran) dari `.incbin` milik simbol di `asm/data/*.s`."""
+    pattern = re.compile(
+        rf"^{symbol}:\s*(?:@[^\n]*)?\n\s*\.incbin\s+\"baserom\.gba\",\s*"
+        r"0x([0-9A-Fa-f]+),\s*0x([0-9A-Fa-f]+)", re.M)
+    for path in sorted((REPO / "asm" / "data").glob("*.s")):
+        m = pattern.search(path.read_text())
+        if m:
+            return int(m.group(1), 16), int(m.group(2), 16)
+    raise SystemExit(f"{symbol}: .incbin tidak ditemukan di asm/data/")
+
+
+def map_headers(rom):
+    """Entri header peta: tileset, palet, palet kedua, tiga lapis peta, dimensi."""
+    base, size = rom_region(MAP_HEADER_SYMBOL)
+    headers = []
+    for k in range(size // MAP_HEADER_BYTES):
+        w = struct.unpack_from("<10I", rom, base + k * MAP_HEADER_BYTES)
+        headers.append({"entry": k, "tileset": w[0], "palette": w[1],
+                        "palette2": w[2],
+                        "maps": [w[i] for i in MAP_LAYER_WORDS],
+                        "width": w[8] & 0xFFFF, "height": w[8] >> 16})
+    return headers
+
+
+def stream_index(inventory):
+    """alamat ROM -> (simbol, indeks stream) untuk stream 0x70 yang diekstrak."""
+    idx = {}
+    for entry in inventory:
+        for j, (at, _packed, _size, _fmt) in enumerate(entry.streams):
+            idx[GBA_BASE + entry.offset + at] = (entry.name, j)
+    return idx
+
+
+def header_evidence(headers, index):
+    """(simbol, stream) -> entri header yang memuatnya sebagai lapis peta."""
+    ev = {}
+    for h in headers:
+        for word in MAP_LAYER_WORDS:
+            key = index.get(h["maps"][word - MAP_LAYER_WORDS[0]])
+            if key:
+                ev.setdefault(key, []).append({
+                    "entry": h["entry"], "field": word * 4,
+                    "width": h["width"], "height": h["height"],
+                    "tileset": h["tileset"], "palette": h["palette"]})
+    return ev
+
+
+def read_asset(addr, rom, index, records, cache):
+    """Byte aset pasangan: stream inventaris, atau stream 0x70 lain di ROM."""
+    if not addr:
+        return None, None
+    if addr in index:
+        name, j = index[addr]
+        return records[(name, j)]["data"], {"blob": name, "stream": j,
+                                           "address": f"0x{addr:08X}"}
+    if addr not in cache:
+        try:
+            data, fmt, _ = decompress.unpack(rom, addr - GBA_BASE)
+        except decompress.UnpackException:
+            cache[addr] = None
+        else:
+            cache[addr] = (data, {"address": f"0x{addr:08X}",
+                                  "unpacked": len(data), "format": fmt})
+    if cache[addr] is None:
+        return None, None
+    return cache[addr]
+
+
+def pair_from_header(key, evidence, rom, index, records, cache):
+    """(status, palet, tileset, bukti) untuk satu stream peta."""
+    evs = evidence.get(key, [])
+    if not evs:
+        return "unproven", None, None, {"reason": "tidak ada entri header"}
+    if len({(e["tileset"], e["palette"]) for e in evs}) > 1:
+        return "unproven", None, None, {"reason": "entri header berbeda"}
+    ev = evs[0]
+    pdata, pref = read_asset(ev["palette"], rom, index, records, cache)
+    tdata, tref = read_asset(ev["tileset"], rom, index, records, cache)
+    if pdata is None or len(pdata) != PALETTE_SIZE:
+        return "unproven", None, None, {"reason": "palet pasangan tidak valid"}
+    if tdata is None or len(tdata) % 32 or len(tdata) < 32 * 8:
+        return "unproven", None, None, {"reason": "tileset pasangan tidak valid"}
+    return "verified", pdata, tdata, {
+        "entry": ev["entry"], "field": ev["field"],
+        "width": ev["width"], "height": ev["height"],
+        "palette": pref, "tiles": tref}
 
 
 def render_map_doc(manifest):
@@ -250,8 +333,13 @@ def render_map_doc(manifest):
     for key in ("palet", "tile", "peta", "lain"):
         out.append(f"| {key} | {groups[key]} |")
     out.append("")
+    verified = sum(1 for b in blobs for s in b["streams"]
+                   if s.get("pair_status") == "verified")
+    unproven = sum(1 for b in blobs for s in b["streams"]
+                   if s.get("pair_status") == "unproven")
     order = ["swatch palet", "lembar tile 4bpp (abu-abu indeks)",
-             "peta berwarna", "grid indeks (pasangan tidak ada)"]
+             "peta berwarna", "grid indeks (pasangan tidak ada)",
+             "grid indeks (pasangan tidak terbukti)"]
     parts = [f"{k} {kinds[k]}" for k in order if kinds.get(k)]
     if kinds.get("-"):
         parts.append(f"tanpa PNG {kinds['-']}")
@@ -259,29 +347,52 @@ def render_map_doc(manifest):
                + f". Total {stream_count} stream dari {len(blobs)} simbol "
                "yang punya stream 0x70.")
     out.append("")
+    out.append(f"Pasangan peta: {verified} terbukti dari header peta, "
+               f"{unproven} tidak terbukti (jadi grid indeks).")
+    out.append("")
     out.append("## Simbol -> stream -> berkas")
     out.append("")
     out.append("Path berkas relatif terhadap root repo. `stream` = urutan stream "
-               "di dalam simbol (0 = paling awal). "
-               "Peta berwarna memakai pasangan palet/tileset dari indeks yang "
-               "dicatat di kolom pasangan.")
+               "di dalam simbol (0 = paling awal). Pasangan palet/tileset "
+               "diambil dari entri `gUnk_08105EDC` yang memuat stream itu sebagai "
+               "lapis peta: +0x00 tileset, +0x04 palet, +0x0C/+0x10/+0x14 peta. "
+               "Kolom bukti menyebut nomor entri dan fieldnya. Pasangan berupa "
+               "alamat `0x08xxxxxx` adalah stream 0x70 di luar 53 simbol yang "
+               "dibuka dari ROM saat render, bukan berkas hasil ekstraksi.")
     out.append("")
     out.append("| simbol | ukuran | # | offset | packed | buka | format | "
-               "kelas | berkas | PNG | pasangan |")
-    out.append("|---|---|---|---|---|---|---|---|---|---|---|")
+               "kelas | berkas | PNG | status | pasangan |")
+    out.append("|---|---|---|---|---|---|---|---|---|---|---|---|")
+
+    def ref(r):
+        if not r:
+            return "-"
+        if "blob" in r:
+            return f"{r['blob']}#{r['stream']}"
+        return r["address"]
+
     for blob in blobs:
         for s in blob["streams"]:
             bin_link = (f"[bin](../../assets/0x70/{s['bin']})")
             png = s.get("png")
             png_link = f"[png](../../{png})" if png else "-"
-            pair = s.get("pair")
-            pair_cell = (f"palet#{pair['palette']}, tile#{pair['tiles']}"
-                         if pair else "-")
+            status = s.get("pair_status")
+            if status == "verified":
+                ev = s["pair_evidence"]
+                status_cell = f"terbukti peta#{ev['entry']} +0x{ev['field']:02X}"
+                pair = s["pair"]
+                pair_cell = (f"palet {ref(pair['palette'])}, "
+                             f"tile {ref(pair['tiles'])}")
+            elif status == "unproven":
+                status_cell = f"tak terbukti: {s.get('pair_reason', '?')}"
+                pair_cell = "-"
+            else:
+                status_cell = pair_cell = "-"
             out.append(
                 f"| `{blob['blob']}` | {blob['size']} | {s['index']} | "
                 f"0x{s['offset']:04X} | {s['packed']} | {s['unpacked']} | "
                 f"`0x{s['format']}` | {s['group']} | {bin_link} | {png_link} | "
-                f"{pair_cell} |")
+                f"{status_cell} | {pair_cell} |")
     out.append("")
     return "\n".join(out) + "\n"
 
@@ -310,6 +421,9 @@ def main(argv):
 
     rom = inv.DEFAULT_ROM.read_bytes()
     _, inventory, _ = inv.analyze()
+    index = stream_index(inventory)
+    evidence = header_evidence(map_headers(rom), index)
+    external = {}
 
     bindir = args.out / "bin"
     pngdir = args.out / "png"
@@ -327,6 +441,7 @@ def main(argv):
                             "packed": packed, "unpacked": unpacked,
                             "format": fmt, "data": data, "nz": nz, "hi": hi})
     labels = decide_labels(records)
+    by_key = {(r["blob"], r["index"]): r for r in records}
 
     manifest, groups = [], Counter()
     for entry in inventory:
@@ -360,19 +475,29 @@ def main(argv):
                 render_tiles(data, args.out / png)
                 info["png_kind"] = "lembar tile 4bpp (abu-abu indeks)"
             elif info["group"] == "peta":
-                pal, tiles = pair_for(infos, i)
-                width = map_width(len(data) // 2)
-                if pal and tiles:
-                    pdata = datas[pal["index"]]
-                    tdata = datas[tiles["index"]]
-                    png = f"png/{name}_{i:02d}_peta_{width}x{len(data)//2//width}.png"
+                status, pdata, tdata, ev = pair_from_header(
+                    (name, i), evidence, rom, index, by_key, external)
+                width = ev.get("width") or map_width(len(data) // 2)
+                if (status == "verified"
+                        and ev["width"] * ev["height"] * 2 == len(data)):
+                    png = (f"png/{name}_{i:02d}_peta_{width}x"
+                           f"{ev['height']}.png")
                     render_map(data, args.out / png, width, pdata, tdata)
                     info["png_kind"] = "peta berwarna"
-                    info["pair"] = {"palette": pal["index"], "tiles": tiles["index"]}
+                    info["pair_status"] = "verified"
+                    info["pair"] = {"palette": ev["palette"],
+                                    "tiles": ev["tiles"]}
+                    info["pair_evidence"] = {"entry": ev["entry"],
+                                             "field": ev["field"]}
                 else:
+                    reason = (ev.get("reason") if status == "unproven"
+                              else "dimensi header tidak cocok")
                     png = f"png/{name}_{i:02d}_peta_indeks_{width}.png"
                     render_map(data, args.out / png, width)
-                    info["png_kind"] = "grid indeks (pasangan tidak ada)"
+                    info["png_kind"] = (
+                        "grid indeks (pasangan tidak terbukti)")
+                    info["pair_status"] = "unproven"
+                    info["pair_reason"] = reason
                 info["map_width"] = width
             if png:
                 info["png"] = str(args.out.relative_to(REPO) / png)
