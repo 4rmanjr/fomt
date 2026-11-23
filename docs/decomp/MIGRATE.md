@@ -1469,3 +1469,30 @@ HIJAU. Pembukti: `func_08008980` (commit yang menyertakan §68).
 Jadi satu-satunya fungsi yang keputusan migrasinya benar-benar berubah adalah
 `func_08008A68` (SKIP -> `pindah: 1`); sisanya blok yang sudah lama ada di
 `src/` dan hanya tidak lagi akan tertahan bila dimigrasi ulang.
+
+## 47. Blok ref dengan `.byte` di ekor bukan buntu: blob dipertahankan migrator
+
+Note lama `func_0800894C` menyebut "blok ref_len 52B memuat 2 prolog fungsi
+(blob multi-fungsi)" dan "28 penerus belum pindah". Keduanya **basi**: yang
+dilihat note itu adalah `.byte` 32 byte setelah `bx r1`, berisi salinan kode
+fungsi + getter `+0x494`. Isinya kebetulan diawali `push {lr}` (`0x00 0xB5`),
+jadi terbaca seperti prolog kedua.
+
+Faktanya:
+
+- `func_0800894C` adalah `thumb_func_start` TERAKHIR di modul, jadi cek tail
+  lolos; percobaan `migrate.py` berhenti hanya karena cast pointer di
+  call-site (`s32 func_08008AE0(s32)` vs `i32 func_08008AE0(i32 *)` di src).
+- Setelah extern disamakan + cast, `pindah: 1` dengan target compare HIJAU.
+- `.byte` blob TETAP ada di `asm/hardware.s` (migrator hanya menghapus blok
+  fungsinya, label data dipertahankan), jadi tidak ada byte yang hilang.
+
+Cara cek cepat sebelum menuduh "blob multi-fungsi" sebagai buntu:
+
+```sh
+grep -n -A 20 "thumb_func_start <fungsi>" asm/hardware.s | grep -E "\.byte|push|bx"
+python3 decomp/migrate.py --module hardware.s --func <fungsi>   # baca alasan sebenarnya
+```
+
+Kalau kegagalannya berupa cast/tanda tangan (bukan "SKIP ... ekor/data asing"),
+itu bukan buntu - perbaiki deklarasinya seperti MIGRATE §45.

@@ -23,7 +23,7 @@ python3 tools/scripts/tail_chain.py --module <stem>.s [--json]
 |---|---|---|---|---|
 | `code_linkonce.s` | 428 | 165 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
 | `code_actor_0809BFE8.s` | 51 | 26 | `func_0809DA00` (1323B, `failed`) | terbuka, ujung belum MATCH |
-| `hardware.s` | 43 | 19 | `func_08008940` (12B, `promoted`) | siap dicabut (`migrate.py` saja, tanpa judge) |
+| `hardware.s` | 34 | 10 | `func_080087C8` (240B, `failed`) | terbuka, ujung belum MATCH |
 
 Modul tail-only lain sudah kosong di `asm/` (tidak punya blocker ekor lagi): `code_iwram`, `game_scene`, `interrupt`, `main`, `more_items`, `scene`, `sram_proxy_1`, `vtables`.
 
@@ -67,28 +67,28 @@ Sisa **51** fungsi (26 `promoted`, 25 `failed`). Tabel = 12 entri terakhir; 39 f
 
 ## `hardware.s`
 
-Sisa **43** fungsi (19 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 31 fungsi lain di bawahnya juga belum di `src/`.
+Sisa **34** fungsi (10 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 22 fungsi lain di bawahnya juga belum di `src/`.
 
 | idx | fungsi | ukuran | status | residual terakhir |
 |---|---|---|---|---|
+| 22 | `func_08007F84` | 156B | failed | kompilasi: assignment makes pointer from integer without a cast |
+| 23 | `func_08008020` | 128B | promoted | - |
+| 24 | `func_080080A0` | 700B | failed (byte ekor) (MULTI-FUNGSI 3 prolog) | kompilasi: assignment makes pointer from integer without a cast |
+| 25 | `func_0800835C` | 8B | promoted | - |
+| 26 | `func_08008364` | 108B | failed | kompilasi: dereferencing `void *' pointer |
+| 27 | `func_080083D0` | 116B | failed | kompilasi: passing arg 2 of `func_08007CD8' makes integer from… |
+| 28 | `func_08008444` | 152B | failed | byte +0x2: 0x6 vs ref 0x81 |
+| 29 | `func_080084DC` | 152B | failed | len 160 vs ref 152 |
+| 30 | `func_08008574` | 328B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x6: 0x6 vs ref 0x81 |
 | 31 | `func_080086BC` | 104B | failed | byte +0x6: 0x14 vs ref 0x16 |
 | 32 | `func_08008724` | 164B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x2: 0x81 vs ref 0x84 |
 | 33 | `func_080087C8` | 240B | failed | kompilasi: passing arg 1 of `func_080098AC' from incompatible p… |
-| 34 | `func_080088B8` | 12B | promoted | - |
-| 35 | `func_080088C4` | 8B | promoted | - |
-| 36 | `func_080088CC` | 8B | promoted | - |
-| 37 | `func_080088D4` | 8B | promoted | - |
-| 38 | `func_080088DC` | 52B | promoted (byte ekor) (MULTI-FUNGSI 2 prolog) | - |
-| 39 | `func_08008910` | 8B | promoted | - |
-| 40 | `func_08008918` | 8B | promoted | - |
-| 41 | `func_08008920` | 32B | promoted (byte ekor) | - |
-| 42 | `func_08008940` | 12B | promoted | - |
 
 ## Penjadwalan
 
 | kelas | ukuran | arti | sisa / linkonce / actor_0809BFE8 / hardware |
 |---|---|---|---|
-| S | ≤100B | satu judge biasanya cukup; residual umumnya regalloc kecil | 316 / 38 / 18 |
+| S | ≤100B | satu judge biasanya cukup; residual umumnya regalloc kecil | 316 / 38 / 9 |
 | M | 101–300B | perlu 2–3 varian; perhatikan tekanan register | 77 / 8 / 21 |
 | L | >300B | **pekerjaan tersendiri**, bukan sela-sela | 35 / 5 / 4 |
 
