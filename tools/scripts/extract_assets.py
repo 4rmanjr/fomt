@@ -16,9 +16,12 @@ PNG yang dihasilkan:
 
 - palet  -> kartu swatch 16 warna/baris;
 - tile   -> lembar tile 4bpp 16 kolom, abu-abu indeks (tanpa palet);
-- peta   -> render berwarna kalau header peta (tabel `gUnk_08105EDC`)
-             menyebut tileset + palet untuk stream itu; kalau tidak, grid indeks.
-             Pasangan diambil dari pointer header (bukan stream terdekat):
+- peta   -> render berwarna kalau pasangannya terbukti; kalau tidak, grid.
+             Bukti pertama: call site `Unpack`/salin di `asm/` yang menulis
+             peta ke 0x0600C000-0x0600FFFF, palet ke 0x05000000-0x050001FF,
+             dan tileset ke 0x06000000-0x0600BFFF dalam fungsi yang sama.
+             Stream container tidak punya simbol statis (dialamatkan lewat
+             pointer header), jadi untuk itu dipakai entri `gUnk_08105EDC`:
              +0x00 tileset, +0x04 palet, +0x0C/+0x10/+0x14 tiga lapis peta.
              Tileset/palet yang bukan bagian dari 53 simbol tetap dibuka dari
              ROM (keduanya juga stream 0x70) selama ukurannya masuk akal.
@@ -52,6 +55,9 @@ MAP_HEADER_SYMBOL = "gUnk_08105EDC"
 MAP_HEADER_BYTES = 40       # 10 word: tileset, palet, palet2, 3 peta, ...
 MAP_LAYER_WORDS = (3, 4, 5)  # +0x0C, +0x10, +0x14
 GBA_BASE = 0x08000000
+PALETTE_RAM = (0x05000000, 0x05000200)
+TILE_RAM = (0x06000000, 0x0600C000)
+MAP_RAM = (0x0600C000, 0x06010000)
 
 
 def gba_rgb(v):
@@ -294,11 +300,254 @@ def read_asset(addr, rom, index, records, cache):
     return cache[addr]
 
 
-def pair_from_header(key, evidence, rom, index, records, cache):
-    """(status, palet, tileset, bukti) untuk satu stream peta."""
+ASM = REPO / "asm"
+_CONST = re.compile(r"ldr r(\d+), \.\w+ @ =0x([0-9A-Fa-f]+)")
+_MOVS = re.compile(r"movs r(\d+), #(0x[0-9A-Fa-f]+|\d+)")
+_LSL = re.compile(r"lsls r(\d+), r\1, #(0x[0-9A-Fa-f]+|\d+)")
+_MOV = re.compile(r"mov (r\d+|sb|sl|fp|ip), (r\d+|sb|sl|fp|ip)")
+_ADD3 = re.compile(r"adds? (r\d+|sb|sl|fp|ip), (r\d+|sb|sl|fp|ip), "
+                   r"#(0x[0-9A-Fa-f]+|\d+)")
+_ADD2 = re.compile(r"adds? (r\d+|sb|sl|fp|ip), #(0x[0-9A-Fa-f]+|\d+)")
+_LD0 = re.compile(r"ldr r0, \.\w+ @ =([A-Za-z_]\w*)")
+_LD0NUM = re.compile(r"ldr r0, \.\w+ @ =0x[0-9A-Fa-f]+")
+_WRITE = re.compile(r"\s*(?:ldr|ldrb|ldrh|ldrsb|ldrsh|mov|movs|adds|adcs|subs|"
+                    r"sbcs|lsls|lsrs|asrs|ands|orrs|eors|muls|bics|mvn|"
+                    r"rors)\s+(r\d+|sb|sl|fp|ip)\b")
+_ALIAS = {"sb": 9, "sl": 10, "fp": 11, "ip": 12}
+
+
+def _reg(tok):
+    return _ALIAS.get(tok, int(tok[1:]) if tok.startswith("r") else tok)
+
+
+def _num(tok):
+    return int(tok, 16) if tok.startswith("0x") else int(tok)
+
+
+def unpack_sites():
+    """Call site `Unpack`/salin palet: simbol sumber, offset, dan RAM tujuan.
+
+    Register tujuan dilacak sepanjang fungsi (`ldr r1,=0x0600E800`,
+    `mov r1,r8`, `adds r1,r4,#0`). Tulisan yang tidak dikenali mengosongkan
+    konstanta register itu, supaya tujuan tidak diambil dari nilai basi.
+    """
+    sites, fn = [], None
+    for path in sorted(ASM.glob("*.s")):
+        const, symbol, off = {}, None, 0
+        for line_no, line in enumerate(path.read_text().splitlines(), 1):
+            m = re.match(r"\s*thumb_func_start\s+(\w+)", line)
+            if m:
+                fn, const, symbol, off = m.group(1), {}, None, 0
+                continue
+            explicit = set()
+            m = _CONST.search(line)
+            if m:
+                const[int(m.group(1))] = int(m.group(2), 16)
+                explicit.add(int(m.group(1)))
+            m = _MOVS.search(line)
+            if m:
+                const[int(m.group(1))] = _num(m.group(2))
+                explicit.add(int(m.group(1)))
+            m = _LSL.search(line)
+            if m:
+                r = int(m.group(1))
+                const[r] = const.get(r, 0) << _num(m.group(2))
+                explicit.add(r)
+            m = _MOV.search(line)
+            if m:
+                d = _reg(m.group(1))
+                if _reg(m.group(2)) in const:
+                    const[d] = const[_reg(m.group(2))]
+                else:
+                    const.pop(d, None)
+                explicit.add(d)
+            m = _ADD3.search(line)
+            if m:
+                d, s = _reg(m.group(1)), _reg(m.group(2))
+                if s in const:
+                    const[d] = const[s] + _num(m.group(3))
+                else:
+                    const.pop(d, None)
+                explicit.add(d)
+            m = _ADD2.search(line)
+            if m:
+                d = _reg(m.group(1))
+                const[d] = const.get(d, 0) + _num(m.group(2))
+                explicit.add(d)
+            for w in _WRITE.findall(line):
+                if _reg(w) not in explicit:
+                    const.pop(_reg(w), None)
+
+            m = _LD0.search(line)
+            if m:
+                symbol, off = m.group(1), 0
+            elif _LD0NUM.search(line):
+                symbol = None
+            elif _ADD2.search(line) and _reg(_ADD2.search(line).group(1)) == 0:
+                off += _num(_ADD2.search(line).group(2))
+            elif 0 in {_reg(w) for w in _WRITE.findall(line)}:
+                symbol = None
+
+            if not symbol:
+                continue
+            if "bl Unpack" in line:
+                sites.append({"kind": "unpack", "file": path.name,
+                              "function": fn, "line": line_no,
+                              "symbol": symbol, "offset": off,
+                              "dest": const.get(1)})
+            elif "bl func_08008E64" in line:
+                sites.append({"kind": "copy", "file": path.name,
+                              "function": fn, "line": line_no,
+                              "symbol": symbol, "offset": off,
+                              "dest": const.get(1), "size": const.get(2)})
+    return sites
+
+
+def _ram(dest):
+    if dest is None:
+        return None
+    if PALETTE_RAM[0] <= dest < PALETTE_RAM[1]:
+        return "palet"
+    if TILE_RAM[0] <= dest < TILE_RAM[1]:
+        return "tile"
+    if MAP_RAM[0] <= dest < MAP_RAM[1]:
+        return "peta"
+    return None
+
+
+def callsite_evidence(sites, index):
+    """(simbol, stream) -> pasangan dari fungsi yang memuat peta ke layar.
+
+    Hanya berlaku bila call site menunjuk tepat stream itu (alamat simbol +
+    offset). Stream container yang dialamatkan lewat pointer header tidak
+    punya call site statis dan tetap memakai bukti header.
+    """
+    by_fn = {}
+    for s in sites:
+        by_fn.setdefault((s["file"], s["function"]), []).append(s)
+    evidence = {}
+    for (path, fn), group in by_fn.items():
+        group.sort(key=lambda s: s["line"])
+        for i, s in enumerate(group):
+            if s["kind"] != "unpack" or _ram(s["dest"]) != "peta":
+                continue
+            pal = next((p for p in reversed(group[:i])
+                        if _ram(p["dest"]) == "palet"), None)
+            tiles = next((p for p in reversed(group[:i])
+                          if p["kind"] == "unpack"
+                          and _ram(p["dest"]) == "tile"), None)
+            if pal is None:
+                pal = next((p for p in group if _ram(p["dest"]) == "palet"),
+                           None)
+            if tiles is None:
+                tiles = next((p for p in group if p["kind"] == "unpack"
+                              and _ram(p["dest"]) == "tile"), None)
+            if pal is None or tiles is None:
+                continue
+            try:
+                at = rom_region(s["symbol"])[0] + s["offset"]
+            except SystemExit:
+                continue
+            key = index.get(GBA_BASE + at)
+            if not key:
+                continue
+            evidence.setdefault(key, []).append({
+                "source": "callsite", "file": path, "function": fn,
+                "line": s["line"], "dest": s["dest"],
+                "palette": {"symbol": pal["symbol"], "line": pal["line"],
+                            "dest": pal["dest"], "kind": pal["kind"],
+                            "size": pal.get("size")},
+                "tiles": {"symbol": tiles["symbol"],
+                          "line": tiles["line"], "dest": tiles["dest"]},
+                "order": ("peta dimuat setelah palet dan tile"
+                          if pal["line"] < s["line"]
+                          and tiles["line"] < s["line"]
+                          else "peta dimuat lebih dulu")})
+    return evidence
+
+
+def callsite_pair(ev, rom, index, records):
+    """Byte palet/tileset dari call site; palet mentah dibaca sesuai ukuran salin."""
+    pal, til = ev["palette"], ev["tiles"]
+    shift = pal["dest"] - PALETTE_RAM[0]
+    if shift < 0 or shift % 32 or shift >= PALETTE_SIZE:
+        return None, None, ("tujuan palet call site di luar palette RAM "
+                            f"(0x{pal['dest']:08X})")
+    key = index.get(GBA_BASE + rom_region(pal["symbol"])[0])
+    pref = None
+    if key and (key[0], key[1]) in records:
+        pdata = records[(key[0], key[1])]["data"]
+        pref = {"blob": key[0], "stream": key[1]}
+    else:
+        try:
+            base, _ = rom_region(pal["symbol"])
+        except SystemExit:
+            return None, None, "simbol palet call site tidak ada"
+        n = min(pal.get("size") or PALETTE_SIZE, PALETTE_SIZE - shift)
+        if n < 32 or n % 32:
+            return None, None, "ukuran salin palet call site tidak jelas"
+        pdata = (b"\x00" * shift + rom[base:base + n]
+                 + b"\x00" * (PALETTE_SIZE - shift - n))
+        pref = {"address": f"0x{GBA_BASE + base:08X}",
+                "dest": f"0x{pal['dest']:08X}"}
+    if len(pdata) != PALETTE_SIZE:
+        return None, None, "palet call site tidak valid"
+
+    tkey = index.get(GBA_BASE + rom_region(til["symbol"])[0])
+    if not tkey or (tkey[0], tkey[1]) not in records:
+        return None, None, "tileset call site bukan stream 0x70"
+    tdata = records[(tkey[0], tkey[1])]["data"]
+    # beberapa stream membawa 2 byte penutup setelah tile terakhir
+    if len(tdata) % 32 not in (0, 2) or len(tdata) < 32 * 8:
+        return None, None, "tileset call site tidak valid"
+    tdata = tdata[:len(tdata) // 32 * 32]
+    return pdata, tdata, {"source": "callsite", "file": ev["file"],
+                          "function": ev["function"], "line": ev["line"],
+                          "dest": ev["dest"], "order": ev["order"],
+                          "palette": pref,
+                          "tiles": {"blob": tkey[0], "stream": tkey[1]}}
+
+
+def pair_from_evidence(key, calls, evidence, rom, index, records, cache):
+    """(status, palet, tileset, bukti) untuk satu stream peta.
+
+    Call site `Unpack` ke 0x0600xxxx adalah bukti pertama; entri header
+    `gUnk_08105EDC` dipakai untuk stream container yang dialamatkan lewat
+    pointer header (tidak ada simbol statis di asm).
+    """
+    cs = calls.get(key)
+    if cs:
+        pairs = {(c["palette"]["symbol"], c["tiles"]["symbol"]) for c in cs}
+        if len(pairs) == 1:
+            pdata, tdata, ev = callsite_pair(cs[0], rom, index, records)
+            if pdata is not None:
+                hdr = _header_pair(key, evidence, rom, index, records, cache)
+
+                def same(a, b):
+                    return ((a.get("blob"), a.get("stream"))
+                            == (b.get("blob"), b.get("stream"))
+                            or a.get("address") == b.get("address"))
+
+                if hdr[0] == "verified" and (not same(hdr[3]["palette"],
+                                                       ev["palette"])
+                                             or not same(hdr[3]["tiles"],
+                                                         ev["tiles"])):
+                    ev["conflict"] = "header dan call site berbeda"
+                return "verified", pdata, tdata, ev
+            reason = ev
+        else:
+            reason = "call site berbeda antar fungsi"
+        hdr = _header_pair(key, evidence, rom, index, records, cache)
+        if hdr[0] == "verified":
+            return hdr
+        return "unproven", None, None, {"reason": reason}
+    return _header_pair(key, evidence, rom, index, records, cache)
+
+
+def _header_pair(key, evidence, rom, index, records, cache):
     evs = evidence.get(key, [])
     if not evs:
-        return "unproven", None, None, {"reason": "tidak ada entri header"}
+        return "unproven", None, None, {"reason": "tidak ada call site atau header"}
     if len({(e["tileset"], e["palette"]) for e in evs}) > 1:
         return "unproven", None, None, {"reason": "entri header berbeda"}
     ev = evs[0]
@@ -309,7 +558,7 @@ def pair_from_header(key, evidence, rom, index, records, cache):
     if tdata is None or len(tdata) % 32 or len(tdata) < 32 * 8:
         return "unproven", None, None, {"reason": "tileset pasangan tidak valid"}
     return "verified", pdata, tdata, {
-        "entry": ev["entry"], "field": ev["field"],
+        "source": "header", "entry": ev["entry"], "field": ev["field"],
         "width": ev["width"], "height": ev["height"],
         "palette": pref, "tiles": tref}
 
@@ -335,6 +584,9 @@ def render_map_doc(manifest):
     out.append("")
     verified = sum(1 for b in blobs for s in b["streams"]
                    if s.get("pair_status") == "verified")
+    calls = sum(1 for b in blobs for s in b["streams"]
+                if s.get("pair_status") == "verified"
+                and s["pair_evidence"].get("source") == "callsite")
     unproven = sum(1 for b in blobs for s in b["streams"]
                    if s.get("pair_status") == "unproven")
     order = ["swatch palet", "lembar tile 4bpp (abu-abu indeks)",
@@ -347,16 +599,22 @@ def render_map_doc(manifest):
                + f". Total {stream_count} stream dari {len(blobs)} simbol "
                "yang punya stream 0x70.")
     out.append("")
-    out.append(f"Pasangan peta: {verified} terbukti dari header peta, "
+    out.append(f"Pasangan peta: {verified} terbukti ({calls} dari call site "
+               f"`Unpack`, {verified - calls} dari entri header), "
                f"{unproven} tidak terbukti (jadi grid indeks).")
     out.append("")
     out.append("## Simbol -> stream -> berkas")
     out.append("")
     out.append("Path berkas relatif terhadap root repo. `stream` = urutan stream "
                "di dalam simbol (0 = paling awal). Pasangan palet/tileset "
-               "diambil dari entri `gUnk_08105EDC` yang memuat stream itu sebagai "
-               "lapis peta: +0x00 tileset, +0x04 palet, +0x0C/+0x10/+0x14 peta. "
-               "Kolom bukti menyebut nomor entri dan fieldnya. Pasangan berupa "
+               "diambil berurutan: (1) call site `Unpack`/salin di `asm/` yang "
+               "menulis peta ke 0x0600C000-0x0600FFFF, dengan palet di "
+               "0x05000000 dan tileset di 0x06000000-0x0600BFFF dalam fungsi "
+               "yang sama; (2) untuk stream container yang dialamatkan lewat "
+               "pointer (tidak ada simbol statis), entri `gUnk_08105EDC` yang "
+               "memuatnya sebagai lapis peta: +0x00 tileset, +0x04 palet, "
+               "+0x0C/+0x10/+0x14 peta. Kolom bukti menyebut fungsi call site "
+               "atau nomor entri header. Pasangan berupa "
                "alamat `0x08xxxxxx` adalah stream 0x70 di luar 53 simbol yang "
                "dibuka dari ROM saat render, bukan berkas hasil ekstraksi.")
     out.append("")
@@ -379,7 +637,11 @@ def render_map_doc(manifest):
             status = s.get("pair_status")
             if status == "verified":
                 ev = s["pair_evidence"]
-                status_cell = f"terbukti peta#{ev['entry']} +0x{ev['field']:02X}"
+                if ev.get("source") == "callsite":
+                    status_cell = (f"terbukti call site `{ev['function']}` "
+                                   f"0x{ev['dest']:08X}")
+                else:
+                    status_cell = f"terbukti peta#{ev['entry']} +0x{ev['field']:02X}"
                 pair = s["pair"]
                 pair_cell = (f"palet {ref(pair['palette'])}, "
                              f"tile {ref(pair['tiles'])}")
@@ -423,12 +685,15 @@ def main(argv):
     _, inventory, _ = inv.analyze()
     index = stream_index(inventory)
     evidence = header_evidence(map_headers(rom), index)
+    calls = callsite_evidence(unpack_sites(), index)
     external = {}
 
     bindir = args.out / "bin"
     pngdir = args.out / "png"
     bindir.mkdir(parents=True, exist_ok=True)
     pngdir.mkdir(parents=True, exist_ok=True)
+    for stale in pngdir.glob("*.png"):
+        stale.unlink()
 
     records = []
     for entry in inventory:
@@ -475,23 +740,34 @@ def main(argv):
                 render_tiles(data, args.out / png)
                 info["png_kind"] = "lembar tile 4bpp (abu-abu indeks)"
             elif info["group"] == "peta":
-                status, pdata, tdata, ev = pair_from_header(
-                    (name, i), evidence, rom, index, by_key, external)
-                width = ev.get("width") or map_width(len(data) // 2)
-                if (status == "verified"
-                        and ev["width"] * ev["height"] * 2 == len(data)):
+                status, pdata, tdata, ev = pair_from_evidence(
+                    (name, i), calls, evidence, rom, index, by_key, external)
+                entries = len(data) // 2
+                if ev.get("width"):
+                    width, height = ev["width"], ev["height"]
+                elif ev.get("source") == "callsite":
+                    # peta call site menempati screenblock 32 tile per baris
+                    width = 32 if entries % 32 == 0 else map_width(entries)
+                    height = entries // width
+                else:
+                    width = map_width(entries)
+                    height = entries // width
+                fits = (status == "verified" and height > 0
+                        and width * height * 2 == len(data))
+                if fits:
                     png = (f"png/{name}_{i:02d}_peta_{width}x"
-                           f"{ev['height']}.png")
+                           f"{height}.png")
                     render_map(data, args.out / png, width, pdata, tdata)
                     info["png_kind"] = "peta berwarna"
                     info["pair_status"] = "verified"
                     info["pair"] = {"palette": ev["palette"],
                                     "tiles": ev["tiles"]}
-                    info["pair_evidence"] = {"entry": ev["entry"],
-                                             "field": ev["field"]}
+                    info["pair_evidence"] = ev
+                    if ev.get("conflict"):
+                        info["pair_conflict"] = ev["conflict"]
                 else:
                     reason = (ev.get("reason") if status == "unproven"
-                              else "dimensi header tidak cocok")
+                              else "dimensi pasangan tidak cocok")
                     png = f"png/{name}_{i:02d}_peta_indeks_{width}.png"
                     render_map(data, args.out / png, width)
                     info["png_kind"] = (

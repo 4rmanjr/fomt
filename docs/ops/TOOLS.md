@@ -113,13 +113,18 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   `asset_inventory.analyze()`) ke `assets/0x70/bin/`, kelompokkan dari ukuran +
   isi (`palet` 480 B/15 bank, `tile` 4bpp kelipatan 32 B, `peta` 16-bit,
   `lain`), lalu render PNG: swatch palet, lembar tile indeks, dan peta
-  berwarna hanya kalau tabel header peta `gUnk_08105EDC` (40 B/entri, dipakai
-  `GetMapData`) menyebut stream itu sebagai lapis peta: +0x00 tileset, +0x04
-  palet, +0x0C/+0x10/+0x14 tiga lapis peta, +0x20 lebar/tinggi. Dimensi header
-  harus cocok dengan ukuran stream; kalau tidak ada entri, entri ganda berbeda,
-  atau aset pasangan tidak masuk akal, stream jadi grid indeks dan
+  berwarna hanya kalau pasangannya terbukti. Bukti pertama adalah call site
+  `Unpack`/salin di `asm/`: tujuan ditulis peta ke `0x0600C000-0x0600FFFF`,
+  palet ke `0x05000000-0x050001FF`, tileset ke `0x06000000-0x0600BFFF` dalam
+  fungsi yang sama (register tujuan dilacak lewat `ldr`/`mov`/`adds`, tulisan
+  tak dikenal mengosongkan nilai basi). Stream container tidak punya simbol
+  statis karena dialamatkan lewat pointer, jadi untuk itu dipakai entri header
+  `gUnk_08105EDC` (40 B, dipakai `GetMapData`): +0x00 tileset, +0x04 palet,
+  +0x0C/+0x10/+0x14 tiga lapis peta, +0x20 lebar/tinggi. Dimensi header atau
+  layar harus cocok dengan ukuran stream; kalau tidak ada bukti, bukti ganda
+  berbeda, atau aset pasangan tidak masuk akal, stream jadi grid indeks dan
   `manifest.json` mencatat `pair_status: unproven` + alasannya. Pasangan bukan
-  lagi "palet/tileset terdekat di blob". Tileset/palet yang bukan bagian dari
+  "palet/tileset terdekat di blob". Tileset/palet yang bukan bagian dari
   53 simbol tetap dibuka dari `baserom.gba` (keduanya stream 0x70 juga) dan
   hanya dipakai saat render, tidak ditulis ulang. `manifest.json` mencatat
   grup, catatan, pasangan + bukti entri, status, dan lebar peta. Label `peta`
@@ -127,10 +132,10 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   supaya lapisan peta yang bank/flip-nya beragam tidak pecah kelas.
   `--out DIR` untuk lokasi lain, `--quiet` untuk ringkasan saja. Selain
   `manifest.json`, tool menulis `docs/decomp/ASET-0X70-PETA-BERKAS.md` (peta
-  simbol -> stream -> bin/PNG, hasil generate); `--check-map` exit 1 bila
+  simbol -> stream -> bin/PNG, hasil generate);   `--check-map` exit 1 bila
   dokumen itu basi terhadap manifest, dan `check_docs.py` memanggil renderer
   yang sama sebagai gate (dokumen basi menggagalkan tutup sesi, bukan lolos
-  diam-diam). Seluruh stream dirender dalam hitungan
+  diam-diam). `pair_evidence.source` mencatat `callsite` atau `header`. Seluruh stream dirender dalam hitungan
   puluhan detik; tidak menjalankan build dan tidak menulis ROM.
 - `raw_assets.py` — inventaris sisa 231 blob **mentah** (bukan `0x70`) dari
   `asset_inventory.analyze()`, kelompokkan dari isi: `palet` (<=1 KB, semua u16
