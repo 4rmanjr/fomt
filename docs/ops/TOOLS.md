@@ -187,6 +187,16 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   menjadi `gambar terkompresi` karena berisi stream `0x70` yang terverifikasi.
   Setiap entri override harus punya bukti fungsi/alamat/stream di komentar.
   Tidak menjalankan build dan tidak menulis ROM.
+- `tools/assets/tile4bpp.py` — codec minimal tile/font 4bpp untuk pilot aset.
+  `decode` mengubah slice ROM menjadi PNG truecolor 8-bit (16 warna indeks
+  grayscale) + JSON berisi `tile_offset`/`tile_trim`, hex header/ekor, symbol,
+  offset/ukuran, dan SHA-256 ROM. `encode` membalik PNG indeks dan menyalin
+  header/ekor apa adanya; nibble rendah untuk piksel x genap. `verify`
+  membandingkan byte dan SHA-256 hasil encode dengan slice ROM dan exit 1 bila
+  beda. Tool ini **tidak** menyunting `asm/data/*.s`; penggantian `.incbin`
+  hanya boleh dilakukan setelah gate ini HIJAU (dan `make compare` HIJAU).
+  Contoh: `python3 tools/assets/tile4bpp.py verify --json
+  assets/gfx/fonts/clock.json`. Source pilot ada di `assets/gfx/fonts/`.
 
 ## Engine kerja (`decomp_engine.py`)
 

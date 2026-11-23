@@ -1,0 +1,26 @@
+{
+ "kind": "tiles4bpp",
+ "source": {
+  "png": "clock.png",
+  "tiles_wide": 16,
+  "tile_count": 128,
+  "header_hex": "",
+  "tail_hex": "b0000000",
+  "tile_offset": 0,
+  "tile_trim": 4
+ },
+ "encoder": {
+  "tool": "tile4bpp.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first"
+ },
+ "id": "gfx/fonts/clock",
+ "symbol": "gUnk_0875A440",
+ "rom": {
+  "offset": "0x75A440",
+  "size": 4100,
+  "sha256": "c5ae19339aeaedfcb4715e284f0ddc125d10b30c9c5b4eb27509bbf0225357cd"
+ },
+ "note": "128 tile 4bpp + 4 B ekor; preview grayscale indeks"
+}

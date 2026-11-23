@@ -1,0 +1,26 @@
+{
+ "kind": "tiles4bpp",
+ "source": {
+  "png": "unk_0872de44.png",
+  "tiles_wide": 16,
+  "tile_count": 129,
+  "header_hex": "1b00000001000000010001000100020001000300",
+  "tail_hex": "",
+  "tile_offset": 20,
+  "tile_trim": 0
+ },
+ "encoder": {
+  "tool": "tile4bpp.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first"
+ },
+ "id": "gfx/fonts/unk_0872de44",
+ "symbol": "gUnk_0872DE44",
+ "rom": {
+  "offset": "0x72DE44",
+  "size": 4148,
+  "sha256": "fb7e5be52ccd941e7330f86a984b93f2dbec6a694a8bcbbe9e7806bc7d9087ea"
+ },
+ "note": "20 B header + 129 tile; preview lossless; klasifikasi raw masih container"
+}
