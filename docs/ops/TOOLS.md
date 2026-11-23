@@ -28,8 +28,14 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   `docs/decomp/EKOR-BACKLOG.md`.
 - `ekor_snapshot.py` — **regenerasi** `docs/decomp/EKOR-BACKLOG.md`: ringkasan
   per modul tail-only, tabel 12 entri ekor, dan kelas S/M/L, semuanya dari
-  `tail_chain.py --json` + shard state (kolom residual = ringkasan note, bukan
-  angka karangan). Bagian naratif setelah penanda
+  `tail_chain.py --json` + shard state. Kolom residual per fungsi = ringkasan
+  note shard, **kecuali fungsi ujung**: sel itu diambil dari verdict
+  `decomp/state/migrate_last.json` (ditulis `migrate.record_verdict()` pada
+  setiap percobaan migrate, termasuk `TOLAK` saat fungsi belum MATCH). Note
+  ujung yang masih memuat klaim lama (`penerus`, `MULTI-FUNGSI`, `blob`,
+  `bukan fungsi terakhir`) tidak dipakai sebagai residual: verdict migrate
+  yang menang, dan klaim itu dilaporkan sebagai peringatan di dokumen +
+  stderr. Bagian naratif setelah penanda
   `<!-- manual:catatan-per-modul -->` disalin apa adanya. `--check` exit 1 kalau
   dokumen di disk basi, `--stdout` untuk melihat hasil tanpa menulis. Baris
   `Snapshot **tanggal**` **tidak** ikut dibandingkan (pergantian hari bukan

@@ -1,0 +1,7 @@
+{
+  "hardware.s:func_080087C8": {
+    "detail": "tidak ada kandidat: status di shard bukan promoted (butuh MATCH dulu)",
+    "status": "TOLAK",
+    "when": "2026-11-23T09:30:59"
+  }
+}

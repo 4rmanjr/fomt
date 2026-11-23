@@ -44,7 +44,7 @@ Sisa **428** fungsi (165 `promoted`, 263 `failed`). Tabel = 12 entri terakhir; 4
 | 424 | `func_080E54C4` | 44B | promoted | - |
 | 425 | `func_080E54F0` | 192B | failed | byte +0x6: 0x1d vs ref 0x5 |
 | 426 | `func_080E55B0` | 180B | failed | len 172 vs ref 178 |
-| 427 | `func_080E5664` | 439B | failed | BASELINE judge 7m/7e/20o/55r (m+e+o 34), lokal dif4 27m/26e/42o |
+| 427 | `func_080E5664` | 439B | failed | BASELINE judge 7m/7e/20o/55r (m+e+o 34), lokal dif4 27m/26e/42o (dari note, belum ada catatan migrate) |
 
 ## `code_actor_0809BFE8.s`
 
@@ -63,7 +63,7 @@ Sisa **51** fungsi (26 `promoted`, 25 `failed`). Tabel = 12 entri terakhir; 39 f
 | 47 | `func_0809D8D4` | 20B | failed | In function `func_0809D8D4': invalid type argument of `->' |
 | 48 | `func_0809D8E8` | 204B | failed | kompilasi: dereferencing `void *' pointer |
 | 49 | `func_0809D9B4` | 76B | failed | byte +0x1a: 0xf vs ref 0x10 |
-| 50 | `func_0809DA00` | 1323B | failed | len 1310 vs ref 1322 [11missing,5extra,117operand,40regalloc,1s… |
+| 50 | `func_0809DA00` | 1323B | failed | len 1310 vs ref 1322 [11missing,5extra,117operand,40regalloc,1s… (dari note, belum ada catatan migrate) |
 
 ## `hardware.s`
 
@@ -82,7 +82,7 @@ Sisa **34** fungsi (10 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 22 f
 | 30 | `func_08008574` | 328B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x6: 0x6 vs ref 0x81 |
 | 31 | `func_080086BC` | 104B | failed | byte +0x6: 0x14 vs ref 0x16 |
 | 32 | `func_08008724` | 164B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x2: 0x81 vs ref 0x84 |
-| 33 | `func_080087C8` | 240B | failed | 2026-11-23: draf v6 (Node 16B x3 + Cont 28B, basis dipaksa r8/r… |
+| 33 | `func_080087C8` | 240B | failed | migrate TOLAK: tidak ada kandidat: status di shard bukan promoted (butuh MATCH… |
 
 ## Penjadwalan
 

@@ -22,6 +22,12 @@ Pemakaian:
 Ringkasan "residual terakhir" diambil dari kalimat pertama note state setelah
 prefix `[...]`. Ini heuristik: untuk status `promoted` yang note-nya diawali
 `[MATCH`, sel ditulis "MATCH, menunggu giliran cabut"; tanpa note -> "-".
+
+Pekecualian penting: **fungsi ujung** memakai verdict migrate terakhir dari
+`decomp/state/migrate_last.json` (ditulis `migrate.record_verdict()`), bukan
+note lama. Note ujung yang masih menyebut `penerus`/`MULTI-FUNGSI`/`blob`
+terbukti basi (lihat MIGRATE 45-47), jadi klaim itu diganti verdict dan
+dilaporkan sebagai peringatan di dokumen + stderr.
 """
 import argparse
 import datetime
@@ -120,6 +126,43 @@ def condense(note, status):
             text = text[:i]
             break
     return _clip(text)
+
+
+MIGRATE_LAST = REPO / "decomp" / "state" / "migrate_last.json"
+STALE_CLAIM = re.compile(r"penerus|multi-fungsi|blob|bukan fungsi terakhir", re.I)
+
+
+def verdicts():
+    """Verdict `migrate.py` terakhir per fungsi (ditulis oleh migrate.record_verdict)."""
+    try:
+        data = json.loads(MIGRATE_LAST.read_text())
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def tail_residual(stem, func, note, status, vd, warn):
+    """Sel "residual terakhir" untuk fungsi ujung: pakai verdict migrate, bukan note.
+
+    Note shard pernah basi (menyebut "blob multi-fungsi" dan "28 penerus"
+    padahal penghalangnya hanya cast pointer), jadi klaim semacam itu tidak
+    dipakai sebagai residual ujung: verdict migrate terakhir yang menang, dan
+    note yang bertentangan dilaporkan lewat `warn` (dicetak ke stderr + doc).
+    """
+    v = vd.get(f"{stem}.s:{func}")
+    stale = STALE_CLAIM.search(note or "")
+    if not v:
+        if stale:
+            warn.append(f"`{stem}.s`: note ujung `{func}` memuat klaim lama "
+                        f"(\"{_clip(stale.group(0))}\") tanpa catatan migrate; "
+                        "jalankan `migrate.py` di ujung itu agar residualnya nyata")
+        return condense(note, status) + " (dari note, belum ada catatan migrate)"
+    cell = "migrate %s: %s" % (v.get("status") or "?", _clip(v.get("detail") or "-"))
+    if stale:
+        warn.append(f"`{stem}.s`: note ujung `{func}` memuat klaim lama "
+                    f"(\"{_clip(stale.group(0))}\") - diabaikan, dipakai verdict migrate")
+        cell += " (note lama diabaikan)"
+    return cell
 
 
 def status_chain(info, state):
@@ -231,6 +274,7 @@ def build(tail_len, manual):
              or datetime.date.today().isoformat())
     out = []
     add = out.append
+    warn = []
     add("# Backlog blocker rantai ekor (modul tail-only)")
     add("")
     add(f"Snapshot **{today}** — **dihasilkan otomatis**, jangan disunting tangan: "
@@ -293,6 +337,8 @@ def build(tail_len, manual):
         add("")
         add("| idx | fungsi | ukuran | status | residual terakhir |")
         add("|---|---|---|---|---|")
+        tail_fn = (info.get("next") or {}).get("func")
+        vd = verdicts()
         for row in tail:
             fname = row.get("func")
             n = (state.get(fname) or {})
@@ -301,10 +347,25 @@ def build(tail_len, manual):
             if row.get("byte_tail"):
                 st += " (byte ekor)"
             if row.get("multi_func"):
-                st += f" (MULTI-FUNGSI {row.get('prologues')} prolog)"
-            add(f"| {row.get('index')} | `{fname}` | {ukuran} | {st} | "
-                f"{condense(n.get('note'), row.get('status'))} |")
+                if fname == tail_fn and vd.get(f"{r['stem']}.s:{fname}"):
+                    st += " (label lama: cek verdict migrate)"
+                else:
+                    st += f" (MULTI-FUNGSI {row.get('prologues')} prolog)"
+            if fname == tail_fn:
+                residual = tail_residual(r["stem"], fname, n.get("note"),
+                                        row.get("status"), vd, warn)
+            else:
+                residual = condense(n.get("note"), row.get("status"))
+            add(f"| {row.get('index')} | `{fname}` | {ukuran} | {st} | {residual} |")
         add("")
+    if warn:
+        add("## Peringatan note ujung")
+        add("")
+        for w in warn:
+            add(f"- {w}")
+        add("")
+    for w in warn:
+        print(f"WARN {w}", file=sys.stderr)
     add("## Penjadwalan")
     add("")
     head = "| kelas | ukuran | arti | sisa"

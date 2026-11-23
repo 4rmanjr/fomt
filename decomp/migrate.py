@@ -21,6 +21,7 @@ Tidak menyentuh state JSON / draf.
 """
 
 import argparse
+import datetime
 import fcntl
 import functools
 import json
@@ -2254,7 +2255,51 @@ def _already_in_src(stem, func):
     return ""
 
 
+VERDICT_FILE = REPO / "decomp" / "state" / "migrate_last.json"
+
+
+def record_verdict(module, func, status, detail):
+    """Catat hasil percobaan migrate TERAKHIR untuk satu fungsi.
+
+    Note shard bisa basi (mis. menyebut "blob multi-fungsi" padahal yang gagal
+    hanya cast pointer), jadi verdict disimpan terpisah dan tooling (mis.
+    `ekor_snapshot.py`) membaca yang terbaru ini, bukan teks note lama.
+    """
+    if isinstance(module, (list, tuple)):
+        module = module[0] if module else ""
+    data = {}
+    if VERDICT_FILE.exists():
+        try:
+            data = json.loads(VERDICT_FILE.read_text())
+        except json.JSONDecodeError:
+            data = {}
+    if not isinstance(data, dict):
+        data = {}
+    data[f"{module}:{func}"] = {
+        "when": datetime.datetime.now().isoformat(timespec="seconds"),
+        "status": status,
+        "detail": re.sub(r"\s+", " ", str(detail or "")).strip()[:200],
+    }
+    VERDICT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    VERDICT_FILE.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n")
+
+
 def migrate_one(module, func, dry_run=False):
+    r = _migrate_one_impl(module, func, dry_run=dry_run)
+    if isinstance(r, dict):
+        if r.get("ok"):
+            status = "OK"
+        elif r.get("skipped"):
+            status = "SKIP"
+        else:
+            status = "GAGAL"
+        if r.get("dry"):
+            status = "DRY-" + status
+        record_verdict(module, func, status, r.get("detail"))
+    return r
+
+
+def _migrate_one_impl(module, func, dry_run=False):
     stem = module[: -len(".s")]
     state = load_state(stem)
     info = state.get(func)
@@ -3404,6 +3449,10 @@ def main():
         plan = plan[: args.limit]
     if not plan:
         print("tidak ada kandidat (cek status promoted / nama fungsi).")
+        if args.func and args.module:
+            record_verdict(args.module, args.func, "TOLAK",
+                           "tidak ada kandidat: status di shard bukan "
+                           "promoted (butuh MATCH dulu)")
         return 2
 
     if args.explain:
