@@ -83,7 +83,7 @@
   "draft_src": "manual",
   "judged_mtime": 1794384577.5001106,
   "module": "code_entities_080320DC.s",
-  "note": "",
+  "note": " | [KELUARGA pop {r2} - kembaran tertelan blok] Blok 204B ini memuat kembaran 0x080329DC (Out: unk0=unkA-7, unk2=unkE-10, unk4=+7, unk6=+4; epilog pop {r2}; bx r2). Blok sudah promoted, jadi byte kembaran ikut tereproduksi - tak perlu entri sendiri.",
   "promoted_to": "decomp/promoted/code_entities_080320DC.cc",
   "ref_len": 204,
   "sanitize_checked_v": 4,

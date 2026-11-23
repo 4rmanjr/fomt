@@ -912,6 +912,20 @@ parameter di r0/r1/r2. Dari ~15 bentuk C yang dicoba di kedua front end (`agbcc`
 tidak ada yang memenuhi ketiganya. `func_0805E760` tetap `failed`; jangan ulangi tanpa ide baru
 (varian flag/compiler yang belum dicoba), dan jangan "menambal" dengan inline asm.
 
+**Sisir penuh keluarga `pop {r2}` (2026-11-23).** `grep "pop {r2}" asm/*.s` **tidak** cukup: banyak
+fungsi kecil di `asm/` masih berupa blob `.byte`/komentar disassembly, jadi epilognya tak terlihat
+sebagai teks. Cara yang benar: pola byte `04 BC 10 47` (`pop {r2}; bx r2`) discan langsung ke
+`fomt.gba`, lalu tiap alamat dipetakan ke entri shard lewat `addr`+`ref_len`.
+
+Hasil (13 titik): 9 anggota keluarga yang sudah tercatat — 4 pindah lewat `src/pop_r2.c`
+(`func_080202A0`, `func_08037470`, `func_08037ED0`, `func_0803834C`) dan 5 masih `failed`
+(`func_08024BFC`, `func_0802AB98`, `func_0804EA94`, `func_0805E760`, `func_080A3E90`); 3 kembaran
+yang tertelan blok lebih besar dan sudah ikut tereproduksi (`0x08022B38` di blok
+`func_080229A4`, `0x080329DC` di blok `func_08032934`, keduanya promoted; `0x080215FC` di blok
+`func_0802151C` yang masih failed); dan 1 (`0x0803240C`) sudah ada sebagai fungsi C++
+`EC Box func_0803240C(AActorEntity &)` di `src/entity_actor.cc` — bukan bagian jalur `pop_r2.c`,
+jangan dimigrasikan ulang.
+
 
 ## 33. Draf berlabel (`goto`): bersihkan label sebelum migrate
 
