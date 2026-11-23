@@ -339,6 +339,21 @@ typedef struct GenObj__func_08008980 {
 } GenObj__func_08008980;
 // === END MIGRATED TYPES ===
 
+// DECOMP-MATCHED func_0800894C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08008AE0(i32 *arg0);                             /* extern */
+i32 func_0800894C(i32 *arg0) {
+    return func_08008AE0((i32 *) (*arg0 + 0x490));
+}
+}
+// ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
+asm(
+"    .align 2, 0\n"
+".L08008960:\n"
+"    .byte 0x00, 0x68, 0x01, 0x49, 0x40, 0x18, 0x70, 0x47, 0x94, 0x04, 0x00, 0x00, 0x00, 0xB5, 0x00, 0x68\n"
+"    .byte 0x92, 0x21, 0xC9, 0x00, 0x40, 0x18, 0x00, 0xF0, 0xB3, 0xF8, 0x02, 0xBC, 0x08, 0x47, 0x00, 0x00\n"
+);
+
 // DECOMP-MATCHED func_08008980 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 void *__builtin_new(i32);                           /* extern */

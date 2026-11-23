@@ -23,7 +23,7 @@ python3 tools/scripts/tail_chain.py --module <stem>.s [--json]
 |---|---|---|---|---|
 | `code_linkonce.s` | 428 | 165 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
 | `code_actor_0809BFE8.s` | 51 | 26 | `func_0809DA00` (1323B, `failed`) | terbuka, ujung belum MATCH |
-| `hardware.s` | 44 | 20 | `func_0800894C` (52B, `promoted`) | buntu: blok ref_len 52B memuat 2 prolog fungsi (blob multi-fungsi) |
+| `hardware.s` | 43 | 19 | `func_08008940` (12B, `promoted`) | siap dicabut (`migrate.py` saja, tanpa judge) |
 
 Modul tail-only lain sudah kosong di `asm/` (tidak punya blocker ekor lagi): `code_iwram`, `game_scene`, `interrupt`, `main`, `more_items`, `scene`, `sram_proxy_1`, `vtables`.
 
@@ -67,10 +67,11 @@ Sisa **51** fungsi (26 `promoted`, 25 `failed`). Tabel = 12 entri terakhir; 39 f
 
 ## `hardware.s`
 
-Sisa **44** fungsi (20 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 32 fungsi lain di bawahnya juga belum di `src/`.
+Sisa **43** fungsi (19 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 31 fungsi lain di bawahnya juga belum di `src/`.
 
 | idx | fungsi | ukuran | status | residual terakhir |
 |---|---|---|---|---|
+| 31 | `func_080086BC` | 104B | failed | byte +0x6: 0x14 vs ref 0x16 |
 | 32 | `func_08008724` | 164B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x2: 0x81 vs ref 0x84 |
 | 33 | `func_080087C8` | 240B | failed | kompilasi: passing arg 1 of `func_080098AC' from incompatible p… |
 | 34 | `func_080088B8` | 12B | promoted | - |
@@ -82,13 +83,12 @@ Sisa **44** fungsi (20 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 32 f
 | 40 | `func_08008918` | 8B | promoted | - |
 | 41 | `func_08008920` | 32B | promoted (byte ekor) | - |
 | 42 | `func_08008940` | 12B | promoted | - |
-| 43 | `func_0800894C` | 52B | promoted (byte ekor) (MULTI-FUNGSI 2 prolog) | MATCH, menunggu giliran cabut |
 
 ## Penjadwalan
 
 | kelas | ukuran | arti | sisa / linkonce / actor_0809BFE8 / hardware |
 |---|---|---|---|
-| S | ≤100B | satu judge biasanya cukup; residual umumnya regalloc kecil | 316 / 38 / 19 |
+| S | ≤100B | satu judge biasanya cukup; residual umumnya regalloc kecil | 316 / 38 / 18 |
 | M | 101–300B | perlu 2–3 varian; perhatikan tekanan register | 77 / 8 / 21 |
 | L | >300B | **pekerjaan tersendiri**, bukan sela-sela | 35 / 5 / 4 |
 
