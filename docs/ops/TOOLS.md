@@ -151,12 +151,13 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   `--out DIR` untuk lokasi lain, `--quiet` untuk ringkasan saja. Selain
   `manifest.json`, tool menulis `docs/decomp/ASET-0X70-PETA-BERKAS.md` (peta
   simbol -> stream -> bin/PNG, hasil generate). Pasangan di luar inventaris
-  dibuka dari `baserom.gba`; hash SHA-256-nya dicatat per rujukan dan di
-  daftar `external_assets`, dan `--check-external` membuka ulang alamat itu
-  untuk mencocokkan hash (exit 1 bila beda). Setiap PNG menyimpan
-  `png_sha256`; `--check-png` merender ulang seluruh PNG ke direktori
-  sementara, membandingkan hash hasil render dengan manifest, lalu memeriksa
-  file PNG di repo (exit 1 bila beda/hilang). `--check-map` exit 1 bila
+  disalin ke `assets/0x70/extern/*.bin`; rujukan pasangan dan
+  `external_assets` menyimpan `bin` + `sha256` (alamat hanya provenance),
+  dan `--check-external` memeriksa berkas itu, bukan membuka ROM
+  (exit 1 bila hilang/beda). Setiap PNG menyimpan `png_sha256`;
+  `--check-png` merender ulang PNG dari `bin` + `extern` **tanpa ROM** ke
+  direktori sementara, membandingkan hash render dengan manifest, lalu
+  memeriksa file PNG di repo (exit 1 bila beda/hilang). `--check-map` exit 1 bila
   dokumen itu basi terhadap manifest, dan `check_docs.py` memanggil renderer
   yang sama sebagai gate (dokumen basi menggagalkan tutup sesi, bukan lolos
   diam-diam). `pair_evidence.source` mencatat `callsite` atau `header-only`;

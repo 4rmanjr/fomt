@@ -336,8 +336,23 @@ def header_evidence(headers, index):
     return ev
 
 
-def read_asset(addr, rom, index, records, cache):
-    """Byte aset pasangan: stream inventaris, atau stream 0x70 lain di ROM."""
+def extern_ref(addr, data, extdir, **meta):
+    """Simpan byte pasangan eksternal dan kembalikan referensi file-nya."""
+    digest = hashlib.sha256(data).hexdigest()
+    name = f"extern_{addr:08X}_{len(data)}_{digest[:8]}.bin"
+    (extdir / name).write_bytes(data)
+    ref = {"address": f"0x{addr:08X}", "bin": f"extern/{name}",
+           "unpacked": len(data), "sha256": digest}
+    ref.update(meta)
+    return ref
+
+
+def read_asset(addr, rom, index, records, cache, extdir):
+    """Byte aset pasangan: stream inventaris, atau stream 0x70 lain di ROM.
+
+    Pasangan di luar inventaris disalin ke `extern/` supaya render berikutnya
+    memakai berkas, bukan alamat ROM yang harus dibuka ulang.
+    """
     if not addr:
         return None, None
     if addr in index:
@@ -350,9 +365,8 @@ def read_asset(addr, rom, index, records, cache):
         except decompress.UnpackException:
             cache[addr] = None
         else:
-            cache[addr] = (data, {"address": f"0x{addr:08X}",
-                                  "unpacked": len(data), "format": fmt,
-                                  "sha256": hashlib.sha256(data).hexdigest()})
+            cache[addr] = (data, extern_ref(addr, data, extdir,
+                                            format=fmt))
     if cache[addr] is None:
         return None, None
     return cache[addr]
@@ -524,7 +538,7 @@ def callsite_evidence(sites, index):
     return evidence
 
 
-def callsite_pair(ev, rom, index, records):
+def callsite_pair(ev, rom, index, records, extdir):
     """Byte palet/tileset dari call site; palet mentah dibaca sesuai ukuran salin."""
     pal, til = ev["palette"], ev["tiles"]
     shift = pal["dest"] - PALETTE_RAM[0]
@@ -547,9 +561,9 @@ def callsite_pair(ev, rom, index, records):
         raw = rom[base:base + n]
         pdata = (b"\x00" * shift + raw
                  + b"\x00" * (PALETTE_SIZE - shift - n))
-        pref = {"address": f"0x{GBA_BASE + base:08X}",
-                "dest": f"0x{pal['dest']:08X}", "raw_bytes": n,
-                "sha256": hashlib.sha256(raw).hexdigest()}
+        pref = extern_ref(GBA_BASE + base, pdata, extdir,
+                          dest=f"0x{pal['dest']:08X}", raw_bytes=n,
+                          raw_sha256=hashlib.sha256(raw).hexdigest())
     if len(pdata) != PALETTE_SIZE:
         return None, None, "palet call site tidak valid"
 
@@ -588,7 +602,7 @@ def screen_scene(key, calls):
             "line": c.get("line")}
 
 
-def pair_from_evidence(key, calls, evidence, rom, index, records, cache):
+def pair_from_evidence(key, calls, evidence, rom, index, records, cache, extdir):
     """(status, palet, tileset, bukti) untuk satu stream peta.
 
     Call site `Unpack` ke 0x0600xxxx adalah bukti pertama; entri header
@@ -599,9 +613,9 @@ def pair_from_evidence(key, calls, evidence, rom, index, records, cache):
     if cs:
         pairs = {(c["palette"]["symbol"], c["tiles"]["symbol"]) for c in cs}
         if len(pairs) == 1:
-            pdata, tdata, ev = callsite_pair(cs[0], rom, index, records)
+            pdata, tdata, ev = callsite_pair(cs[0], rom, index, records, extdir)
             if pdata is not None:
-                hdr = _header_pair(key, evidence, rom, index, records, cache)
+                hdr = _header_pair(key, evidence, rom, index, records, cache, extdir)
 
                 def same(a, b):
                     return ((a.get("blob"), a.get("stream"))
@@ -616,22 +630,22 @@ def pair_from_evidence(key, calls, evidence, rom, index, records, cache):
             reason = ev
         else:
             reason = "call site berbeda antar fungsi"
-        hdr = _header_pair(key, evidence, rom, index, records, cache)
+        hdr = _header_pair(key, evidence, rom, index, records, cache, extdir)
         if hdr[0] in ("verified", "header-only"):
             return hdr
         return "unproven", None, None, {"reason": reason}
-    return _header_pair(key, evidence, rom, index, records, cache)
+    return _header_pair(key, evidence, rom, index, records, cache, extdir)
 
 
-def _header_pair(key, evidence, rom, index, records, cache):
+def _header_pair(key, evidence, rom, index, records, cache, extdir):
     evs = evidence.get(key, [])
     if not evs:
         return "unproven", None, None, {"reason": "tidak ada call site atau header"}
     if len({(e["tileset"], e["palette"]) for e in evs}) > 1:
         return "unproven", None, None, {"reason": "entri header berbeda"}
     ev = evs[0]
-    pdata, pref = read_asset(ev["palette"], rom, index, records, cache)
-    tdata, tref = read_asset(ev["tileset"], rom, index, records, cache)
+    pdata, pref = read_asset(ev["palette"], rom, index, records, cache, extdir)
+    tdata, tref = read_asset(ev["tileset"], rom, index, records, cache, extdir)
     if pdata is None or len(pdata) != PALETTE_SIZE:
         return "unproven", None, None, {"reason": "palet pasangan tidak valid"}
     if tdata is None or len(tdata) % 32 or len(tdata) < 32 * 8:
@@ -659,15 +673,16 @@ def render_map_doc(manifest):
            "## Cara memperbarui", "", "```sh",
            "python3 tools/scripts/extract_assets.py              # ekstrak + dokumen ini",
            "python3 tools/scripts/extract_assets.py --check-map  # exit 1 bila dokumen basi",
-           "python3 tools/scripts/extract_assets.py --check-png  # render ulang + hash PNG",
-           "python3 tools/scripts/extract_assets.py --check-external  # hash aset luar",
+           "python3 tools/scripts/extract_assets.py --check-png  # render ulang dari manifest (tanpa ROM)",
+           "python3 tools/scripts/extract_assets.py --check-external  # hash berkas extern",
            "```", "",
            "## Validitas PNG", "",
            "Setiap entri PNG menyimpan `png_sha256` di manifest. "
-           "`--check-png` merender ulang seluruh PNG ke direktori sementara, "
-           "membandingkan hash hasil render dengan `png_sha256`, lalu memeriksa "
-           "file PNG di repo terhadap hash yang sama. Ini menguji PNG langsung, "
-           "bukan hanya hash palet/tileset pasangannya.", "",
+           "`--check-png` merender ulang seluruh PNG dari `bin` stream dan "
+           "`extern/*.bin` (tanpa membaca ROM), membandingkan hash hasil render "
+           "dengan `png_sha256`, lalu memeriksa file PNG di repo terhadap hash "
+           "yang sama. Ini menguji PNG langsung, bukan hanya hash palet/tileset "
+           "pasangannya.", "",
            "## Ringkasan", "",
            "| kelas | stream |", "|---|---|"]
     for key in ("palet", "tile", "peta", "layar", "lain"):
@@ -784,11 +799,12 @@ def render_map_doc(manifest):
                "+0x04), interior memakai +0x08 sebagai palet kedua biasa. "
                "Kolom status menyebut `header-only` dan nama loader, bukan "
                "\"terbukti call site\". Pasangan berupa alamat `0x08xxxxxx` "
-               "adalah stream 0x70 di luar 53 simbol yang dibuka dari ROM saat "
-               "render, bukan berkas hasil ekstraksi. Aset eksternal itu "
-               "dicatat di `external_assets` manifest dengan "
-               "`unpacked`/`raw_bytes` dan `sha256`, sehingga bisa diverifikasi "
-               "ulang lewat `--check-external` tanpa menebak alamat.")
+               "adalah stream 0x70 di luar 53 simbol; byte-nya disalin ke "
+               "`assets/0x70/extern/` dan direferensikan lewat `bin` + `sha256`, "
+               "bukan dibuka ulang dari ROM saat render. Aset eksternal itu "
+               "juga dicatat di `external_assets` manifest dengan "
+               "`unpacked`/`raw_bytes` dan `sha256`, sehingga "
+               "`--check-external` cukup memeriksa berkas tanpa menebak alamat.")
     out.append("")
     out.append("| simbol | ukuran | # | offset | packed | buka | format | "
                "kelas | berkas | PNG | status | pasangan |")
@@ -799,6 +815,8 @@ def render_map_doc(manifest):
             return "-"
         if "blob" in r:
             return f"{r['blob']}#{r['stream']}"
+        if "bin" in r:
+            return f"[extern](../../assets/0x70/{r['bin']})"
         return r["address"]
 
     for blob in blobs:
@@ -846,19 +864,76 @@ def _png_entries(manifest):
             if s.get("png")}
 
 
-def check_png(out):
-    """Render ulang semua PNG ke direktori sementara, lalu bandingkan hash.
+def _ref_bytes(ref, out, bins):
+    """Byte pasangan dari `extern/*.bin` atau bin stream inventaris."""
+    if not ref:
+        raise ValueError("referensi pasangan kosong")
+    if ref.get("bin"):
+        path = Path(ref["bin"])
+        if not path.is_absolute():
+            path = out / path
+        return path.read_bytes()
+    key = (ref.get("blob"), ref.get("stream"))
+    path = bins.get(key)
+    if path is None:
+        raise ValueError(f"pasangan tidak punya bin: {ref}")
+    return path.read_bytes()
 
-    Hash manifest sahih hanya bila hasil render ulang sama; membandingkan file
-    lama saja tidak membuktikan renderer masih menghasilkan gambar yang sama.
-    File PNG di `out` juga diperiksa terhadap manifest supaya korupsi file
-    tidak lolos saat renderer kebetulan masih benar.
+
+def render_manifest_png(out, manifest, dest):
+    """Render ulang PNG dari bin + extern manifest, tanpa membaca ROM."""
+    bins = {}
+    for b in manifest.get("streams", []):
+        for s in b.get("streams", []):
+            if s.get("bin"):
+                bins[(b["blob"], s["index"])] = out / s["bin"]
+    fresh = {}
+    for b in manifest.get("streams", []):
+        for s in b.get("streams", []):
+            if not s.get("png"):
+                continue
+            key = (b["blob"], s["index"])
+            data = (out / s["bin"]).read_bytes()
+            path = dest / f"{b['blob']}_{s['index']:02d}.png"
+            group = s.get("group")
+            kind = s.get("png_kind", "")
+            if group == "palet":
+                render_palette(data, path)
+            elif group == "tile":
+                render_tiles(data, path)
+            elif group in ("peta", "layar"):
+                entries = len(data) // 2
+                width = s.get("map_width") or map_width(entries)
+                height = s.get("map_height") or entries // width
+                if not width or not height:
+                    raise ValueError(f"dimensi {b['blob']}#{s['index']} tidak jelas")
+                if "berwarna" in kind and s.get("pair"):
+                    pdata = _ref_bytes(s["pair"].get("palette"), out, bins)
+                    tdata = _ref_bytes(s["pair"].get("tiles"), out, bins)
+                    render_map(data, path, width, pdata, tdata)
+                else:
+                    render_map(data, path, width)
+            else:
+                continue
+            fresh[key] = {"png": str(path),
+                          "png_sha256": hashlib.sha256(
+                              path.read_bytes()).hexdigest()}
+    return fresh
+
+
+def check_png(out):
+    """Render ulang PNG dari manifest + bin, lalu bandingkan hash.
+
+    Tidak membaca `baserom.gba`: pasangan internal memakai bin stream, dan
+    pasangan eksternal memakai `extern/*.bin`. File PNG di repo juga diperiksa
+    terhadap manifest supaya korupsi file tidak lolos.
     """
     manifest_path = out / "manifest.json"
     if not manifest_path.exists():
         print("MASALAH: manifest tidak ada", file=sys.stderr)
         return 1
-    ref = _png_entries(json.loads(manifest_path.read_text()))
+    manifest = json.loads(manifest_path.read_text())
+    ref = _png_entries(manifest)
     if not ref:
         print("MASALAH: manifest tidak punya entri PNG", file=sys.stderr)
         return 1
@@ -870,10 +945,11 @@ def check_png(out):
         return 1
 
     with tempfile.TemporaryDirectory(prefix="fomt-png-") as tmp:
-        rc = main(["--out", tmp, "--quiet", "--no-doc"])
-        if rc:
-            return rc
-        fresh = _png_entries(json.loads((Path(tmp) / "manifest.json").read_text()))
+        try:
+            fresh = render_manifest_png(out, manifest, Path(tmp))
+        except (OSError, ValueError) as e:
+            print(f"MASALAH: render ulang gagal: {e}", file=sys.stderr)
+            return 1
 
     bad = []
     for key, old in ref.items():
@@ -890,9 +966,6 @@ def check_png(out):
             bad.append((key, "file PNG tidak ada"))
         elif hashlib.sha256(path.read_bytes()).hexdigest() != old["png_sha256"]:
             bad.append((key, "file PNG beda dari manifest"))
-    extra = sorted(set(fresh) - set(ref))
-    for key in extra:
-        bad.append((key, "PNG baru tidak tercatat di manifest"))
 
     for key, why in bad[:10]:
         print(f"MASALAH {key[0]}#{key[1]}: {why}", file=sys.stderr)
@@ -909,9 +982,10 @@ def main(argv):
     ap.add_argument("--check-map", action="store_true",
                     help="exit 1 bila dokumen peta berkas basi terhadap manifest")
     ap.add_argument("--check-external", action="store_true",
-                    help="exit 1 bila hash aset pasangan eksternal tidak cocok")
+                    help="exit 1 bila berkas aset pasangan eksternal/hash beda")
     ap.add_argument("--check-png", action="store_true",
-                    help="render ulang PNG, lalu bandingkan png_sha256 manifest")
+                    help="render ulang PNG dari manifest (tanpa ROM), "
+                         "lalu bandingkan png_sha256")
     ap.add_argument("--no-doc", action="store_true",
                     help="jangan menulis dokumen peta (dipakai render sementara)")
     args = ap.parse_args(argv)
@@ -942,20 +1016,18 @@ def main(argv):
         if not ext:
             print("tidak ada aset pasangan eksternal")
             return 0
-        rom = inv.DEFAULT_ROM.read_bytes()
         bad = []
         for e in ext:
-            addr = int(e["address"], 16) - GBA_BASE
-            if "raw_bytes" in e:
-                data = rom[addr:addr + e["raw_bytes"]]
-            else:
-                try:
-                    data, _, _ = decompress.unpack(rom, addr)
-                except decompress.UnpackException:
-                    bad.append((e["address"], "gagal dibuka"))
-                    continue
-            if hashlib.sha256(data).hexdigest() != e.get("sha256"):
-                bad.append((e["address"], "sha256 beda"))
+            addr = e.get("address", "?")
+            if not e.get("bin"):
+                bad.append((addr, "tidak punya bin extern"))
+                continue
+            path = args.out / e["bin"]
+            if not path.exists():
+                bad.append((addr, f"berkas hilang: {e['bin']}"))
+                continue
+            if hashlib.sha256(path.read_bytes()).hexdigest() != e.get("sha256"):
+                bad.append((addr, "sha256 beda"))
         for addr, why in bad:
             print(f"MASALAH {addr}: {why}", file=sys.stderr)
         print(f"aset pasangan eksternal: {len(ext) - len(bad)}/{len(ext)} cocok")
@@ -970,9 +1042,13 @@ def main(argv):
 
     bindir = args.out / "bin"
     pngdir = args.out / "png"
+    extdir = args.out / "extern"
     bindir.mkdir(parents=True, exist_ok=True)
     pngdir.mkdir(parents=True, exist_ok=True)
+    extdir.mkdir(parents=True, exist_ok=True)
     for stale in pngdir.glob("*.png"):
+        stale.unlink()
+    for stale in extdir.glob("*.bin"):
         stale.unlink()
 
     records = []
@@ -1030,7 +1106,8 @@ def main(argv):
             elif info["group"] in ("peta", "layar"):
                 is_screen = info["group"] == "layar"
                 status, pdata, tdata, ev = pair_from_evidence(
-                    (name, i), calls, evidence, rom, index, by_key, external)
+                    (name, i), calls, evidence, rom, index, by_key, external,
+                    extdir)
                 entries = len(data) // 2
                 if ev.get("width"):
                     width, height = ev["width"], ev["height"]
@@ -1074,6 +1151,7 @@ def main(argv):
                     info["pair_status"] = "unproven"
                     info["pair_reason"] = reason
                 info["map_width"] = width
+                info["map_height"] = height
             if png:
                 try:
                     rel = args.out.relative_to(REPO)
@@ -1092,17 +1170,19 @@ def main(argv):
                 if not ref or "address" not in ref or "blob" in ref:
                     continue
                 item = {"address": ref["address"]}
-                for key in ("unpacked", "raw_bytes", "format", "dest",
-                            "sha256"):
+                for key in ("bin", "unpacked", "raw_bytes", "raw_sha256",
+                            "format", "dest", "sha256"):
                     if key in ref:
                         item[key] = ref[key]
-                external[ref["address"]] = item
+                # Kunci per berkas, bukan per alamat: alamat yang sama bisa
+                # dipakai dengan padding palette berbeda.
+                external[ref.get("bin") or ref["address"]] = item
     manifest_doc = {"map_loader": MAP_LOADER,
                     "screen_scenes": [
                         {"file": file, "function": fn, **meta}
                         for (file, fn), meta in SCREEN_SCENES.items()],
                     "streams": manifest,
-                    "external_assets": [external[a] for a in sorted(external)]}
+                    "external_assets": [external[k] for k in sorted(external)]}
     (args.out / "manifest.json").write_text(
         json.dumps(manifest_doc, indent=1) + "\n")
     if not args.no_doc:
