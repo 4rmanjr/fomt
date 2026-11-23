@@ -16,10 +16,11 @@ python3 tools/scripts/raw_assets.py --check   # exit 1 bila dokumen basi
 | palet | 70 | 70 |
 | sprite/OBJ | 74 | 62 |
 | tilemap | 15 | 15 |
-| tabel | 72 | 0 |
+| gambar terkompresi | 2 | 0 |
+| tabel | 70 | 0 |
 | **total** | **231** | **147** |
 
-Kelompok ditentukan dari isi, bukan nama simbol: palet = semua u16 < 0x8000 dan <= 1 KB; sprite/OBJ = kelipatan 32 B (tile 4bpp), ditambah blob non-32 B yang setelah header/ekor <= 31 B menyisakan tile dengan >= 13% nibble nol dan <= 12 indeks/tile; tilemap = entri 16-bit dengan bit 10-15 konsisten; sisanya tabel/struct dan tidak dirender. Offset/ekor yang dipotong dicatat di manifest (`tile_offset`/`tile_trim`). Override `layout: container` menandai wadah font/objek yang sudah diverifikasi dari call site; isinya bukan tile 4bpp datar dan tidak dirender sebagai lembar tile. Batas ini heuristik, bukan bukti format; override call-site adalah bukti terpisah.
+Kelompok ditentukan dari isi, bukan nama simbol: palet = semua u16 < 0x8000 dan <= 1 KB; sprite/OBJ = kelipatan 32 B (tile 4bpp), ditambah blob non-32 B yang setelah header/ekor <= 31 B menyisakan tile dengan >= 13% nibble nol dan <= 12 indeks/tile; tilemap = entri 16-bit dengan bit 10-15 konsisten; gambar terkompresi = blob dengan stream 0x70 valid; sisanya tabel/struct dan tidak dirender. Offset/ekor yang dipotong dicatat di manifest (`tile_offset`/`tile_trim`). Override `layout: container` menandai wadah font/objek yang sudah diverifikasi dari call site; isinya bukan tile 4bpp datar dan tidak dirender sebagai lembar tile. Batas ini heuristik, bukan bukti format; override call-site adalah bukti terpisah.
 
 ## palet (70 blob)
 
@@ -201,15 +202,22 @@ Dirender sebagai grid indeks; lebar ditebak dari jumlah entri dan dicantumkan di
 | `gUnk_086DD690` | `0x6DD690` | 32 | 16 entri 16-bit; bit 10-15 modal 100% | ya | [png](../../assets/raw/png/gUnk_086DD690_32_tilemap_8.png) |
 | `gUnk_086EAD64` | `0x6EAD64` | 32 | 16 entri 16-bit; bit 10-15 modal 100% | ya | [png](../../assets/raw/png/gUnk_086EAD64_32_tilemap_8.png) |
 
-## tabel (72 blob)
+## gambar terkompresi (2 blob)
+
+Tidak dirender mentah: berisi stream `0x70`; dekompresi/ekstraksi ada di `assets/0x70`.
+
+| simbol | offset | ukuran | catatan | bisa dirender | PNG |
+|---|---|---|---|---|---|
+| `gUnk_0869B284` | `0x69B284` | 238212 | palet 0x00-0x7f; bank 37 stream 0x70 valid (mulai 0x4ac); contoh decode menghasilkan gambar UI | tidak | - |
+| `gUnk_086D74F8` | `0x6D74F8` | 20172 | 2 stream 0x70 valid (0x890, 0x3ad4); palet di 0x20 | tidak | - |
+
+## tabel (70 blob)
 
 Tidak dirender: data angka/struct, bukan piksel atau tilemap 16-bit.
 
 | simbol | offset | ukuran | catatan | bisa dirender | PNG |
 |---|---|---|---|---|---|
-| `gUnk_0869B284` | `0x69B284` | 238212 | 238212 B, bukan kelipatan 32 B; 306/59553 word menunjuk ROM | tidak | - |
-| `gUnk_086D74F8` | `0x6D74F8` | 20172 | 20172 B, bukan kelipatan 32 B; 39/5043 word menunjuk ROM | tidak | - |
-| `gUnk_08523290` | `0x523290` | 15876 | 15876 B, bukan kelipatan 32 B; 127/3969 word menunjuk ROM | tidak | - |
+| `gUnk_08523290` | `0x523290` | 15876 | tabel glyph int16; func_080D0D28 memakai ldrsh, 0xffff = sentinel | tidak | - |
 | `gUnk_08725DA0` | `0x725DA0` | 3884 | 3884 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_087537D0` | `0x7537D0` | 3748 | 3748 B, bukan kelipatan 32 B; 1/937 word menunjuk ROM | tidak | - |
 | `gUnk_0873AFC8` | `0x73AFC8` | 3676 | 3676 B, bukan kelipatan 32 B | tidak | - |

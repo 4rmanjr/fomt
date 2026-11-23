@@ -6,8 +6,9 @@ dibuktikan di inventaris, bukan menguji ulang isi ROM:
 
   * flat tile 4148 B: 20 B header + 129 tile tetap sprite;
   * gClockFont 4100 B: 128 tile + 4 B ekor tetap sprite;
-  * symbol yang terverifikasi call-site sebagai container/tilemap tetap
-    memakai override walau data sintetisnya lolos uji tile;
+  * symbol yang terverifikasi call-site/stream sebagai container/tilemap/
+    gambar terkompresi tetap memakai override walau data sintetisnya lolos
+    uji tile;
   * sprite 128 B: empat tile tetap sprite;
   * tilemap 780 B: 390 entri tetap tilemap;
   * tabel besar non-32 B tetap tabel.
@@ -103,6 +104,19 @@ class RawAssetClassifier(unittest.TestCase):
         self.assertEqual(got, "tilemap", note)
         self.assertIsNone(probe)
         self.assertIn("layer peta", note)
+
+    def test_verified_glyph_table_stays_table(self):
+        got, note, probe = raw_assets.classify(large_table(), "gUnk_08523290")
+        self.assertEqual(got, "tabel", note)
+        self.assertIsNone(probe)
+        self.assertIn("ldrsh", note)
+
+    def test_verified_embedded_streams_are_compressed(self):
+        for name in ("gUnk_0869B284", "gUnk_086D74F8"):
+            got, note, probe = raw_assets.classify(large_table(), name)
+            self.assertEqual(got, "gambar terkompresi", note)
+            self.assertIsNone(probe)
+            self.assertIn("0x70", note)
 
     def test_sprite_128_stays_sprite(self):
         data = sprite_128()

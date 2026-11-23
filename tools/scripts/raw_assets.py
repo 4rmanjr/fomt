@@ -16,6 +16,9 @@ Kelompok (heuristik isi, bukan nama simbol):
 - `tilemap`   — entri 16-bit dengan bit 10-15 konsisten (>= 40% modal) dan
                 jumlah entri masuk akal untuk lebar tilemap. Dirender sebagai
                 grid indeks.
+- `gambar terkompresi` — blob berisi satu atau beberapa stream `0x70` yang
+                terverifikasi; tidak dirender mentah (dekompresi ada di
+                `assets/0x70`).
 - `tabel`     — sisanya: tabel angka/struct, termasuk data non-32 B yang
                 tidak lolos uji tile. Tidak dirender.
 
@@ -48,9 +51,22 @@ RAW_WIDTHS = (64, 32, 30, 60, 46, 40, 36, 28, 24, 20, 16, 56, 48,
 # Blob yang lolos uji tile secara statistik, tetapi call site membuktikan
 # bahwa isinya bukan tile 4bpp datar. Kunci ini berasal dari penelusuran asm:
 # `container` = wadah font/objek (header count + tabel, atau record glyph);
-# `tilemap` = array u16 yang ditulis ke peta. Jangan menambah entri hanya dari
-# nama symbol; setiap entri harus punya bukti call site di komentar nilainya.
+# `tilemap` = array u16 yang ditulis ke peta; `gambar terkompresi` = blob with
+# valid embedded `0x70` streams. Jangan menambah entri hanya dari nama symbol;
+# setiap entri harus punya bukti call site/stream di komentar nilainya.
 VERIFIED_LAYOUT = {
+    "gUnk_08523290": (
+        "tabel", None,
+        "tabel glyph int16; func_080D0D28 memakai ldrsh, 0xffff = sentinel",
+    ),
+    "gUnk_0869B284": (
+        "gambar terkompresi", None,
+        "palet 0x00-0x7f; bank 37 stream 0x70 valid (mulai 0x4ac); contoh decode menghasilkan gambar UI",
+    ),
+    "gUnk_086D74F8": (
+        "gambar terkompresi", None,
+        "2 stream 0x70 valid (0x890, 0x3ad4); palet di 0x20",
+    ),
     "gUnk_084F90CC": (
         "sprite/OBJ", "container",
         "glyph 12 B; func_080D0D28 indeks r5*12 -> func_0300085C",
@@ -280,7 +296,7 @@ def render_doc(manifest):
            "python3 tools/scripts/raw_assets.py --check   # exit 1 bila dokumen basi",
            "```", "", "## Ringkasan", "",
            "| kelompok | blob | bisa dirender |", "|---|---|---|"]
-    for g in ("palet", "sprite/OBJ", "tilemap", "tabel"):
+    for g in ("palet", "sprite/OBJ", "tilemap", "gambar terkompresi", "tabel"):
         out.append(f"| {g} | {groups[g]} | "
                    f"{sum(1 for r in rows if r['group'] == g and r['renderable'])} |")
     out.append(f"| **total** | **{len(rows)}** | **{rendered}** |")
@@ -289,7 +305,8 @@ def render_doc(manifest):
                "u16 < 0x8000 dan <= 1 KB; sprite/OBJ = kelipatan 32 B (tile "
                "4bpp), ditambah blob non-32 B yang setelah header/ekor <= 31 B "
                "menyisakan tile dengan >= 13% nibble nol dan <= 12 indeks/tile; "
-               "tilemap = entri 16-bit dengan bit 10-15 konsisten; sisanya "
+               "tilemap = entri 16-bit dengan bit 10-15 konsisten; "
+               "gambar terkompresi = blob dengan stream 0x70 valid; sisanya "
                "tabel/struct dan tidak dirender. Offset/ekor yang dipotong "
                "dicatat di manifest (`tile_offset`/`tile_trim`). Override "
                "`layout: container` menandai wadah font/objek yang sudah "
@@ -297,7 +314,7 @@ def render_doc(manifest):
                "tidak dirender sebagai lembar tile. Batas ini heuristik, bukan "
                "bukti format; override call-site adalah bukti terpisah.")
     out.append("")
-    for g in ("palet", "sprite/OBJ", "tilemap", "tabel"):
+    for g in ("palet", "sprite/OBJ", "tilemap", "gambar terkompresi", "tabel"):
         sel = [r for r in rows if r["group"] == g]
         if not sel:
             continue
@@ -314,6 +331,9 @@ def render_doc(manifest):
         elif g == "tilemap":
             out.append("Dirender sebagai grid indeks; lebar ditebak dari "
                        "jumlah entri dan dicantumkan di nama berkas.")
+        elif g == "gambar terkompresi":
+            out.append("Tidak dirender mentah: berisi stream `0x70`; "
+                       "dekompresi/ekstraksi ada di `assets/0x70`.")
         else:
             out.append("Tidak dirender: data angka/struct, bukan piksel atau "
                        "tilemap 16-bit.")
@@ -360,8 +380,8 @@ def main(argv):
     if not args.quiet:
         groups = collections.Counter(r["group"] for r in manifest["blobs"])
         print(f"output: {args.out.relative_to(REPO)}")
-        for g in ("palet", "sprite/OBJ", "tilemap", "tabel"):
-            print(f"  {g:11s} {groups[g]:3d}")
+        for g in ("palet", "sprite/OBJ", "tilemap", "gambar terkompresi", "tabel"):
+            print(f"  {g:17s} {groups[g]:3d}")
         print(f"  dirender    "
               f"{sum(1 for r in manifest['blobs'] if r['renderable']):3d}")
         print(f"  dokumen: {DOC.relative_to(REPO)}")

@@ -32,7 +32,7 @@
    "offset": "0x523290",
    "size": 15876,
    "group": "tabel",
-   "note": "15876 B, bukan kelipatan 32 B; 127/3969 word menunjuk ROM",
+   "note": "tabel glyph int16; func_080D0D28 memakai ldrsh, 0xffff = sentinel",
    "renderable": false
   },
   {
@@ -192,8 +192,8 @@
    "symbol": "gUnk_0869B284",
    "offset": "0x69B284",
    "size": 238212,
-   "group": "tabel",
-   "note": "238212 B, bukan kelipatan 32 B; 306/59553 word menunjuk ROM",
+   "group": "gambar terkompresi",
+   "note": "palet 0x00-0x7f; bank 37 stream 0x70 valid (mulai 0x4ac); contoh decode menghasilkan gambar UI",
    "renderable": false
   },
   {
@@ -279,8 +279,8 @@
    "symbol": "gUnk_086D74F8",
    "offset": "0x6D74F8",
    "size": 20172,
-   "group": "tabel",
-   "note": "20172 B, bukan kelipatan 32 B; 39/5043 word menunjuk ROM",
+   "group": "gambar terkompresi",
+   "note": "2 stream 0x70 valid (0x890, 0x3ad4); palet di 0x20",
    "renderable": false
   },
   {

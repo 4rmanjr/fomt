@@ -167,8 +167,9 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   `asset_inventory.analyze()`, kelompokkan dari isi: `palet` (<=1 KB, semua u16
   < 0x8000), `sprite/OBJ` (kelipatan 32 B = tile 4bpp, atau non-32 B dengan
   header/ekor <=31 B yang menyisakan tile >=13% nibble nol dan <=12
-  indeks/tile), `tilemap` (entri 16-bit, bit 10-15 konsisten), `tabel`
-  (sisanya, tidak dirender). Menulis
+  indeks/tile), `tilemap` (entri 16-bit, bit 10-15 konsisten), `gambar
+  terkompresi` (blob dengan stream `0x70` valid), `tabel` (sisanya, tidak
+  dirender). Menulis
   `assets/raw/png/` + `assets/raw/manifest.json` + dokumen generate
   `docs/decomp/ASET-MENTAH-BERKAS.md`; `--check` exit 1 bila dokumen basi,
   dan `check_docs.py` memanggil renderer yang sama sebagai gate (dokumen basi
@@ -182,8 +183,10 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   `layout: container` (glyph/font/objek dengan count+tabel) tetap di kelompok
   `sprite/OBJ` tetapi tidak punya `tile_offset` dan tidak dirender sebagai
   lembar tile; entri seperti `gUnk_086DE7F4` dikoreksi menjadi `tilemap` karena
-  call site menulis entri u16-nya ke peta. Setiap entri override harus punya
-  bukti fungsi/alamat di komentar. Tidak menjalankan build dan tidak menulis ROM.
+  call site menulis entri u16-nya ke peta; `gUnk_0869B284`/`gUnk_086D74F8`
+  menjadi `gambar terkompresi` karena berisi stream `0x70` yang terverifikasi.
+  Setiap entri override harus punya bukti fungsi/alamat/stream di komentar.
+  Tidak menjalankan build dan tidak menulis ROM.
 
 ## Engine kerja (`decomp_engine.py`)
 
