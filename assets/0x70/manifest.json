@@ -65,7 +65,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 64,
-     "png": "assets/0x70/png/gUnk_08527238_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08527238_00_peta_indeks_64.png",
+     "png_sha256": "71242d0858d9c28df4a311ac700a556dd54d6b73a95fecc6753f5eda2b56a7ef"
     }
    ]
   },
@@ -86,7 +87,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 64,
-     "png": "assets/0x70/png/gUnk_08527348_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08527348_00_peta_indeks_64.png",
+     "png_sha256": "fe82034289f5dc93b1859b985ce330d3fd5f8381788b356b63d8e9269ab305ed"
     }
    ]
   },
@@ -107,7 +109,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 64,
-     "png": "assets/0x70/png/gUnk_08527520_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08527520_00_peta_indeks_64.png",
+     "png_sha256": "c1d1ba0faaebea27505d9d73b4f5f2b614fd456ffeae8165be0a69003ffa031e"
     }
    ]
   },
@@ -125,7 +128,8 @@
      "note": "576 tile 4bpp",
      "bin": "bin/gUnk_085275D0_00_18432_0x230.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_085275D0_00_tile.png"
+     "png": "assets/0x70/png/gUnk_085275D0_00_tile.png",
+     "png_sha256": "5fe12655c8425ef222723377effcc1a0aaa39246a5aa27738fde81ba7b52b1e5"
     }
    ]
   },
@@ -146,7 +150,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 64,
-     "png": "assets/0x70/png/gUnk_0852A6D8_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_0852A6D8_00_peta_indeks_64.png",
+     "png_sha256": "4c8843da06fa5f8b6123434d2f1de9d5d14f7f4cdf7bbd636861754c74fc5105"
     }
    ]
   },
@@ -167,7 +172,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 64,
-     "png": "assets/0x70/png/gUnk_0852A7EC_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_0852A7EC_00_peta_indeks_64.png",
+     "png_sha256": "577d4cdcbe56572631b2540714addadf2ad09e6ca972e6429c0d377fed19181c"
     }
    ]
   },
@@ -188,7 +194,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 64,
-     "png": "assets/0x70/png/gUnk_0852A9BC_00_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_0852A9BC_00_peta_indeks_64.png",
+     "png_sha256": "c1d1ba0faaebea27505d9d73b4f5f2b614fd456ffeae8165be0a69003ffa031e"
     }
    ]
   },
@@ -206,7 +213,8 @@
      "note": "576 tile 4bpp",
      "bin": "bin/gUnk_0852AA6C_00_18432_0x220.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_0852AA6C_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0852AA6C_00_tile.png",
+     "png_sha256": "7832917c0e79f2a81f3a7c44d74f25e3966835f571c6f4a2ae0d46f9cb1bc39f"
     }
    ]
   },
@@ -224,7 +232,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FB004_00_32768_0x230.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_086FB004_00_tile.png"
+     "png": "assets/0x70/png/gUnk_086FB004_00_tile.png",
+     "png_sha256": "c27fbd60b8667c581a02a3011d1234bc557d8eae56ce0a04d76a4f06a7e849b9"
     }
    ]
   },
@@ -242,7 +251,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD19C_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_086FD19C_00_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD19C_00_palet.png",
+     "png_sha256": "d5eb5ad4335c9a35929558d611dc49a746286f10aa0e8119958c3523c2e87af7"
     }
    ]
   },
@@ -297,7 +307,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_086FD240_00_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_00_peta_60x56.png",
+     "png_sha256": "714ced1e23d0d3ea69972605cbef99e826ccdb219374c431add594424fc4771b"
     },
     {
      "index": 1,
@@ -346,7 +357,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_086FD240_01_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_01_peta_60x56.png",
+     "png_sha256": "421c0555ff5a2f72499f2a234eb07985a2784542c3cb7bbd98be3d73c81fa3f9"
     },
     {
      "index": 2,
@@ -395,7 +407,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_086FD240_02_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_02_peta_60x56.png",
+     "png_sha256": "b3578e72c3de17ddd577218559d810f36ff52024e1d609ca5f7956596e8f465b"
     },
     {
      "index": 3,
@@ -407,7 +420,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_03_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_086FD240_03_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_03_palet.png",
+     "png_sha256": "83d2ccdbfb0e998925fbe3c7059eb46829c98be063dddd0ebc91fbb9de8e14da"
     },
     {
      "index": 4,
@@ -419,7 +433,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FD240_04_32768_0x230.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_086FD240_04_tile.png"
+     "png": "assets/0x70/png/gUnk_086FD240_04_tile.png",
+     "png_sha256": "52dedbc1804ba5654280651b1f638acde113d0a6307e25ed3d0622f35035463c"
     },
     {
      "index": 5,
@@ -431,7 +446,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_05_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_086FD240_05_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_05_palet.png",
+     "png_sha256": "0be169fa251a0566a99024a259a8e5f5015ed18568d57c7493acc362eeb8bb1c"
     },
     {
      "index": 6,
@@ -480,7 +496,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_086FD240_06_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_06_peta_60x56.png",
+     "png_sha256": "389dc3882aef883960a020170cef0b94cf0831986fc7e02e45b1da6303b6b7db"
     },
     {
      "index": 7,
@@ -529,7 +546,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_086FD240_07_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_07_peta_60x56.png",
+     "png_sha256": "ea04eef6ae5f9f82366ae8991f6e9f038a1a632d4d52b1856df5f054bd0a439a"
     },
     {
      "index": 8,
@@ -578,7 +596,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_086FD240_08_peta_60x56.png"
+     "png": "assets/0x70/png/gUnk_086FD240_08_peta_60x56.png",
+     "png_sha256": "e9611745f8550ec89504b6d57c6826ee056d2bf6dc24833511667ab4a07f8ae6"
     },
     {
      "index": 9,
@@ -590,7 +609,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_09_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_086FD240_09_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_09_palet.png",
+     "png_sha256": "172df0636967729a59bf77a6e0da589440c8356005d18f25865176b1bc5006d1"
     },
     {
      "index": 10,
@@ -643,7 +663,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_10_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_10_peta_30x28.png",
+     "png_sha256": "ea390ee979e00388adc45767d92bf0edf24cd3ca58dd1ee845215941dd1b690b"
     },
     {
      "index": 11,
@@ -696,7 +717,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_11_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_11_peta_30x28.png",
+     "png_sha256": "02f18ed05572261fc56b93945534ca9d41edf0a37f17547151b2e8bc839bad5e"
     },
     {
      "index": 12,
@@ -749,7 +771,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_12_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_12_peta_30x28.png",
+     "png_sha256": "0081cf9f1a0fe29d90f2b37244f83bb05d5dbbdcb7b26d81209b035932a872f3"
     },
     {
      "index": 13,
@@ -802,7 +825,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_13_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_13_peta_30x28.png",
+     "png_sha256": "f9f0d4bc72bae69f8d5ff219cf521718cb4c79e8f8837422c803275bed0528c6"
     },
     {
      "index": 14,
@@ -855,7 +879,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_14_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_14_peta_30x28.png",
+     "png_sha256": "3df4b76784d24b71a385208f15d5017f8da5a732f1555371656350b758012e0d"
     },
     {
      "index": 15,
@@ -908,7 +933,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_15_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_15_peta_30x28.png",
+     "png_sha256": "c843221dcf619cf3abb75486e397bd99c13861fcb0d4573e75fd30af685b7426"
     },
     {
      "index": 16,
@@ -961,7 +987,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_16_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_16_peta_30x28.png",
+     "png_sha256": "9351d5889e787d366d8967ef31cb2c1138b44cffefb977a9b43bbec34211e375"
     },
     {
      "index": 17,
@@ -1014,7 +1041,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_17_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_17_peta_30x28.png",
+     "png_sha256": "5ac4dbe55a7906eb3e0d92c17b0950118e164a1c99efc2dc156506d45cadcaa4"
     },
     {
      "index": 18,
@@ -1067,7 +1095,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_18_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_18_peta_30x28.png",
+     "png_sha256": "5e219664c4c3f2fb7f6fc0d84bff7434aa7d75034876e39fcc5ff1abc176d40a"
     },
     {
      "index": 19,
@@ -1079,7 +1108,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FD240_19_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_086FD240_19_tile.png"
+     "png": "assets/0x70/png/gUnk_086FD240_19_tile.png",
+     "png_sha256": "e16ae7bcc6ad789fbeb634de2d78d9e7db6c6b39c24346d81c3996fa4f19ee5b"
     },
     {
      "index": 20,
@@ -1091,7 +1121,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_20_480_0x133.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_086FD240_20_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_20_palet.png",
+     "png_sha256": "86a82088a1a4db1b2c26d7b7d2fefeabfb5803155165cbe9303df81b1fef6bdf"
     },
     {
      "index": 21,
@@ -1140,7 +1171,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_21_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_21_peta_30x28.png",
+     "png_sha256": "edb2c1a300d08728196c54e0a25dbc186cdec8d258f8e55b13414b71274adc51"
     },
     {
      "index": 22,
@@ -1189,7 +1221,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_22_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_22_peta_30x28.png",
+     "png_sha256": "e6050c5cd0a19dbe5b88742d7515f95c05059cb80d408ae5091992d1c3dfa8b2"
     },
     {
      "index": 23,
@@ -1238,7 +1271,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_23_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_23_peta_30x28.png",
+     "png_sha256": "1b196f2ad63e58423bc015bc546034e4e4b9f5dc39134c2c5afb39b8e95b8308"
     },
     {
      "index": 24,
@@ -1291,7 +1325,8 @@
       }
      },
      "map_width": 76,
-     "png": "assets/0x70/png/gUnk_086FD240_24_peta_76x36.png"
+     "png": "assets/0x70/png/gUnk_086FD240_24_peta_76x36.png",
+     "png_sha256": "ff7bc52677f22aab71286f39143782d33996037da6ce75351d00d58e895c4aff"
     },
     {
      "index": 25,
@@ -1344,7 +1379,8 @@
       }
      },
      "map_width": 76,
-     "png": "assets/0x70/png/gUnk_086FD240_25_peta_76x36.png"
+     "png": "assets/0x70/png/gUnk_086FD240_25_peta_76x36.png",
+     "png_sha256": "8433365c2bef6568ff3a1be90b84c45e72f01bf034c281f41ea33725640dce48"
     },
     {
      "index": 26,
@@ -1397,7 +1433,8 @@
       }
      },
      "map_width": 76,
-     "png": "assets/0x70/png/gUnk_086FD240_26_peta_76x36.png"
+     "png": "assets/0x70/png/gUnk_086FD240_26_peta_76x36.png",
+     "png_sha256": "84ab680231e2b106c4c337a96b96056d1a95388d10c88e00a3b7037e5311b7c6"
     },
     {
      "index": 27,
@@ -1450,7 +1487,8 @@
       }
      },
      "map_width": 46,
-     "png": "assets/0x70/png/gUnk_086FD240_27_peta_46x36.png"
+     "png": "assets/0x70/png/gUnk_086FD240_27_peta_46x36.png",
+     "png_sha256": "cf0036fbc3869f1d462f9a09593cd0b45cdc6a031e425e86544fd392f73a78da"
     },
     {
      "index": 28,
@@ -1503,7 +1541,8 @@
       }
      },
      "map_width": 46,
-     "png": "assets/0x70/png/gUnk_086FD240_28_peta_46x36.png"
+     "png": "assets/0x70/png/gUnk_086FD240_28_peta_46x36.png",
+     "png_sha256": "21d6df4af4889f5452b7d2f2a55754a06ca0e47de7bf475e00fb2008205a69c1"
     },
     {
      "index": 29,
@@ -1556,7 +1595,8 @@
       }
      },
      "map_width": 46,
-     "png": "assets/0x70/png/gUnk_086FD240_29_peta_46x36.png"
+     "png": "assets/0x70/png/gUnk_086FD240_29_peta_46x36.png",
+     "png_sha256": "40fda1508d362f35557ad55b093ed6427f886465669a72503b498709361575f1"
     },
     {
      "index": 30,
@@ -1605,7 +1645,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_30_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_30_peta_30x28.png",
+     "png_sha256": "d1004e8d26ed4a312cc69f3daea8d73e8fed4c59ed2b9b5c679cd1e30ed9c78f"
     },
     {
      "index": 31,
@@ -1654,7 +1695,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_31_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_31_peta_30x28.png",
+     "png_sha256": "fb736a0da6b0418de33df359388467b02500cd6f0793105e21e33c88b044fe3c"
     },
     {
      "index": 32,
@@ -1703,7 +1745,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_086FD240_32_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_086FD240_32_peta_30x28.png",
+     "png_sha256": "9766b258814da81b1fa3c5b609831f9539bfd3ae6282bb02b8c12d0699b3b7ad"
     },
     {
      "index": 33,
@@ -1715,7 +1758,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FD240_33_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_086FD240_33_tile.png"
+     "png": "assets/0x70/png/gUnk_086FD240_33_tile.png",
+     "png_sha256": "1c4c4a189b03db64f7c3d05447d736655798f0ec10d6da8987030b18beeae27d"
     },
     {
      "index": 34,
@@ -1727,7 +1771,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_34_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_086FD240_34_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_34_palet.png",
+     "png_sha256": "8ab588b81b9c1522b1f349aa361b0021ea0c52068c9f4485eb2697eee6702581"
     },
     {
      "index": 35,
@@ -1776,7 +1821,8 @@
       }
      },
      "map_width": 173,
-     "png": "assets/0x70/png/gUnk_086FD240_35_peta_173x64.png"
+     "png": "assets/0x70/png/gUnk_086FD240_35_peta_173x64.png",
+     "png_sha256": "1c688d40b7f03cbd58a1a2c280328c2e7c42d9750f6f8816a1e1eafcce9edf5e"
     },
     {
      "index": 36,
@@ -1825,7 +1871,8 @@
       }
      },
      "map_width": 173,
-     "png": "assets/0x70/png/gUnk_086FD240_36_peta_173x64.png"
+     "png": "assets/0x70/png/gUnk_086FD240_36_peta_173x64.png",
+     "png_sha256": "e0d6a2b05eac7efce31aeae288b2acf4f85572fb2b6253559afd5e40dca5c375"
     },
     {
      "index": 37,
@@ -1874,7 +1921,8 @@
       }
      },
      "map_width": 173,
-     "png": "assets/0x70/png/gUnk_086FD240_37_peta_173x64.png"
+     "png": "assets/0x70/png/gUnk_086FD240_37_peta_173x64.png",
+     "png_sha256": "671b3c3e9b899591a11ef1015387de80b5ca90f88ed816cd19c5cff3a965d5e4"
     },
     {
      "index": 38,
@@ -1886,7 +1934,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_38_480_0x130.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_086FD240_38_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_38_palet.png",
+     "png_sha256": "f41721dba2d4fc586671dcc755a398a716eb8c4e47f0378bae47c4eb59233bb9"
     },
     {
      "index": 39,
@@ -1898,7 +1947,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FD240_39_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_086FD240_39_tile.png"
+     "png": "assets/0x70/png/gUnk_086FD240_39_tile.png",
+     "png_sha256": "c751b8f697bbb112e7d8f1735f43351fe478a11a724542302ca0f6c0db505341"
     },
     {
      "index": 40,
@@ -1910,7 +1960,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_40_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_086FD240_40_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_40_palet.png",
+     "png_sha256": "37b3b1fb4f7d7aade54241fe1403e6840aa13e2bd84ecd98a86ddf2f6219db5d"
     },
     {
      "index": 41,
@@ -1959,7 +2010,8 @@
       }
      },
      "map_width": 173,
-     "png": "assets/0x70/png/gUnk_086FD240_41_peta_173x64.png"
+     "png": "assets/0x70/png/gUnk_086FD240_41_peta_173x64.png",
+     "png_sha256": "a49e67f6bc1ea0e6052461e299f4eb58b0cc560bd637b3d3bb2908e4b7ec15d8"
     },
     {
      "index": 42,
@@ -2008,7 +2060,8 @@
       }
      },
      "map_width": 173,
-     "png": "assets/0x70/png/gUnk_086FD240_42_peta_173x64.png"
+     "png": "assets/0x70/png/gUnk_086FD240_42_peta_173x64.png",
+     "png_sha256": "f12b5ac3f3c59f581aab6bd7d28f3218409efe2330429a42825a7626485dc21c"
     },
     {
      "index": 43,
@@ -2057,7 +2110,8 @@
       }
      },
      "map_width": 173,
-     "png": "assets/0x70/png/gUnk_086FD240_43_peta_173x64.png"
+     "png": "assets/0x70/png/gUnk_086FD240_43_peta_173x64.png",
+     "png_sha256": "5145e6c19fd056d0626f15375a2a6b494d46f6e8a4f6be818c5180b9684a7731"
     },
     {
      "index": 44,
@@ -2069,7 +2123,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_44_480_0x130.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_086FD240_44_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_44_palet.png",
+     "png_sha256": "b774c03c397b6f8196a099b8f6e4410229c472bdb5b1fa9c9c965998bfef3002"
     },
     {
      "index": 45,
@@ -2081,7 +2136,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_086FD240_45_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_086FD240_45_tile.png"
+     "png": "assets/0x70/png/gUnk_086FD240_45_tile.png",
+     "png_sha256": "4bde9de454f5f9986884b56634b00b7670de9f8b0d3c08398e27cc1a3c1b398c"
     },
     {
      "index": 46,
@@ -2093,7 +2149,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_086FD240_46_480_0x000.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_086FD240_46_palet.png"
+     "png": "assets/0x70/png/gUnk_086FD240_46_palet.png",
+     "png_sha256": "e4138214939b860aea03faa506cc8963ad199d4a68d83c4e54c69355a0c22cb1"
     },
     {
      "index": 47,
@@ -2142,7 +2199,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_086FD240_47_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_086FD240_47_peta_60x60.png",
+     "png_sha256": "1775964319fb1186948dee75857aaf45f1bc32cb2da4705c7adbaffcc7190942"
     },
     {
      "index": 48,
@@ -2191,7 +2249,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_086FD240_48_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_086FD240_48_peta_60x60.png",
+     "png_sha256": "7cad54e4e50ee3ebb3e9da0f23b59bafbd265b5ee3e380334599a253e36c7073"
     },
     {
      "index": 49,
@@ -2240,7 +2299,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_086FD240_49_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_086FD240_49_peta_60x60.png",
+     "png_sha256": "3250e5743244fadfde708e67c15ffc9f3e988f915d01d03b30e639f8460a4325"
     }
    ]
   },
@@ -2258,7 +2318,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08714A30_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_08714A30_00_palet.png"
+     "png": "assets/0x70/png/gUnk_08714A30_00_palet.png",
+     "png_sha256": "e84c0028dd1cf9a29c52f19b4262ac78faf7280920f8e0d9a972adc7e03e7097"
     },
     {
      "index": 1,
@@ -2270,7 +2331,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08714A30_01_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_08714A30_01_palet.png"
+     "png": "assets/0x70/png/gUnk_08714A30_01_palet.png",
+     "png_sha256": "85884a748c98acbcc37f76ff5552185e9bc518fa396d6c32e75406bebeb0deda"
     }
    ]
   },
@@ -2288,7 +2350,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08714B60_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_08714B60_00_palet.png"
+     "png": "assets/0x70/png/gUnk_08714B60_00_palet.png",
+     "png_sha256": "6f295cbcfa6bfdb1fc57e555c7c89ae14f735c21a460c0c476c331ada65b71a5"
     }
    ]
   },
@@ -2306,7 +2369,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08714BEC_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_08714BEC_00_palet.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_00_palet.png",
+     "png_sha256": "838d2eb403783e49bd2cb41ed5758b54e77e311a8e8a38037680f8ef44cd939c"
     },
     {
      "index": 1,
@@ -2318,7 +2382,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_08714BEC_01_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_08714BEC_01_tile.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_01_tile.png",
+     "png_sha256": "4f72af1d69a4a9fdaf403216b47a1b9e050e22177431482a9a4e545e8e789a13"
     },
     {
      "index": 2,
@@ -2330,7 +2395,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08714BEC_02_480_0x000.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_08714BEC_02_palet.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_02_palet.png",
+     "png_sha256": "dea6300f7b56028c3b6349d0f7626354f753620cbd4505fa82b5fa10dbaea1ae"
     },
     {
      "index": 3,
@@ -2379,7 +2445,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_08714BEC_03_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_03_peta_60x60.png",
+     "png_sha256": "ad28def947683b587f5691ef11f31a6548d6b91ee7c32ea3d6463ff8314ec167"
     },
     {
      "index": 4,
@@ -2428,7 +2495,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_08714BEC_04_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_04_peta_60x60.png",
+     "png_sha256": "5794936bbefd4985844776ae6c4966dc4c1c24559b972e3df5493e9d929493c0"
     },
     {
      "index": 5,
@@ -2477,7 +2545,8 @@
       }
      },
      "map_width": 60,
-     "png": "assets/0x70/png/gUnk_08714BEC_05_peta_60x60.png"
+     "png": "assets/0x70/png/gUnk_08714BEC_05_peta_60x60.png",
+     "png_sha256": "b20c1a0635ad0c74c026e104af790d359d60f7bf7dc2b24c200befb9968b36a8"
     }
    ]
   },
@@ -2495,7 +2564,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08716F84_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_08716F84_00_palet.png"
+     "png": "assets/0x70/png/gUnk_08716F84_00_palet.png",
+     "png_sha256": "2663ea723a03a80de3f418fb5dde5dbb60511a24db4b03d6fdb9592d18b54acf"
     },
     {
      "index": 1,
@@ -2507,7 +2577,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_08716F84_01_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_08716F84_01_palet.png"
+     "png": "assets/0x70/png/gUnk_08716F84_01_palet.png",
+     "png_sha256": "c1c9f8c7ad7b8b1ef227ae06eb8a17af56179f0c86f776c3d09f096992f78170"
     }
    ]
   },
@@ -2525,7 +2596,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_087170B8_00_480_0x030.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_087170B8_00_palet.png"
+     "png": "assets/0x70/png/gUnk_087170B8_00_palet.png",
+     "png_sha256": "a1d17c17ea3b3af5289dc228931aa6063271e8f1e835652d186c464512725ef8"
     },
     {
      "index": 1,
@@ -2578,7 +2650,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_01_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_01_peta_30x28.png",
+     "png_sha256": "fc55a87ae0ba06f8ce31e8af5ed8ff2c8ec80d36621f29ee79f984cfe7ce7dce"
     },
     {
      "index": 2,
@@ -2631,7 +2704,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_02_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_02_peta_30x28.png",
+     "png_sha256": "a62ff303a19bb8de82dcf3aa71d45c7671abf38cf8ed37cc3cec061802757623"
     },
     {
      "index": 3,
@@ -2684,7 +2758,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_03_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_03_peta_30x28.png",
+     "png_sha256": "dae7fc51b594adf6caecedb4318710cdd4ecdc7d4909da33d1670a884daaab29"
     },
     {
      "index": 4,
@@ -2737,7 +2812,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_04_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_04_peta_30x20.png",
+     "png_sha256": "47051ab96f400c8aa684f0082e7a183d812c484718c010fb8e335ca9527d0801"
     },
     {
      "index": 5,
@@ -2790,7 +2866,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_05_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_05_peta_30x20.png",
+     "png_sha256": "b4d2a70ef28cee1681a46d66904330b4154964a72380f7ac2f3a16e1d5ee9303"
     },
     {
      "index": 6,
@@ -2843,7 +2920,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_06_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_06_peta_30x20.png",
+     "png_sha256": "720b54560bbc98ceb226f77e04bb2b6fe35f7ee44f15db9a5c6946a29645b6a6"
     },
     {
      "index": 7,
@@ -2896,7 +2974,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_07_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_07_peta_30x20.png",
+     "png_sha256": "010022ca7214d2ad17e1076e0808afc71e78d76d878b040c674b23a5fe8e3f3f"
     },
     {
      "index": 8,
@@ -2949,7 +3028,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_08_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_08_peta_30x20.png",
+     "png_sha256": "857f86a70d4a8e1cbdb621bd60696db55ac4e443c95013860d43f3a01a0b302f"
     },
     {
      "index": 9,
@@ -3002,7 +3082,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_09_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_09_peta_30x20.png",
+     "png_sha256": "5878cef5afc750765d09c93792808125fd962361109b31d1284f4e65204259fc"
     },
     {
      "index": 10,
@@ -3055,7 +3136,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_10_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_10_peta_30x20.png",
+     "png_sha256": "fb79b55bd670e31f84adb0e119d479a85916edc1bdc3b5624b5ff6837c4288b6"
     },
     {
      "index": 11,
@@ -3108,7 +3190,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_11_peta_30x20.png"
+     "png": "assets/0x70/png/gUnk_087170B8_11_peta_30x20.png",
+     "png_sha256": "a873c1e32a1c56f10068ad54747a2cf659d66bb079b1d31021f842833848a973"
     },
     {
      "index": 12,
@@ -3157,7 +3240,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_12_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_12_peta_30x28.png",
+     "png_sha256": "bbd8937cb63a564c3428d74e9f1c1de4ac072a4e18007e5a477f6afccb3c1a58"
     },
     {
      "index": 13,
@@ -3206,7 +3290,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_13_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_13_peta_30x28.png",
+     "png_sha256": "2f21e27d93bcd97aa59618d5843c79593a1d66d8cbadc37e6ebd8b717f5e763d"
     },
     {
      "index": 14,
@@ -3255,7 +3340,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_14_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_14_peta_30x28.png",
+     "png_sha256": "44b6c7a8c1967a94af3328529a94a016b0e5b86d2bba9313909f25ca5cecf57f"
     },
     {
      "index": 15,
@@ -3267,7 +3353,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_087170B8_15_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_087170B8_15_tile.png"
+     "png": "assets/0x70/png/gUnk_087170B8_15_tile.png",
+     "png_sha256": "96ffca8c77d1d9aeb646dc15ade7b41df4c9d536c78973597ca018163fc520b2"
     },
     {
      "index": 16,
@@ -3279,7 +3366,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_087170B8_16_480_0x133.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_087170B8_16_palet.png"
+     "png": "assets/0x70/png/gUnk_087170B8_16_palet.png",
+     "png_sha256": "b8fa7cf6799fb073957513b8f273b53de8f04a800c4da6b6eae4ff3616f2850b"
     },
     {
      "index": 17,
@@ -3328,7 +3416,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_17_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_17_peta_30x28.png",
+     "png_sha256": "176ecf0bd94df2ff4d2e2212990616009e314a2f59d207a6d605e55ad4ef404f"
     },
     {
      "index": 18,
@@ -3377,7 +3466,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_18_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_18_peta_30x28.png",
+     "png_sha256": "a71cbeba5264cf6382e212e508592eac26c4a9ddd477bdf015182b0d553bf24d"
     },
     {
      "index": 19,
@@ -3426,7 +3516,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_19_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_19_peta_30x28.png",
+     "png_sha256": "d81ed2c769e86171ad14c65b6d7c6bdca5c77dd353911938dadca99547cc0170"
     },
     {
      "index": 20,
@@ -3475,7 +3566,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_20_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_20_peta_30x28.png",
+     "png_sha256": "886ebafab7940c0d58ae0785bd2915c6d367c82a8ba54f609b39735e7a658cff"
     },
     {
      "index": 21,
@@ -3524,7 +3616,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_21_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_21_peta_30x28.png",
+     "png_sha256": "705487e48722699d3f6594f0ae708609185b072786f9fe6e67fc3e272a5da9e6"
     },
     {
      "index": 22,
@@ -3573,7 +3666,8 @@
       }
      },
      "map_width": 30,
-     "png": "assets/0x70/png/gUnk_087170B8_22_peta_30x28.png"
+     "png": "assets/0x70/png/gUnk_087170B8_22_peta_30x28.png",
+     "png_sha256": "8260cd50bc1b5cad1f8ba578ab0c25039bd4794b3352fc6c60caad4b5ca6c045"
     },
     {
      "index": 23,
@@ -3585,7 +3679,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_087170B8_23_32768_0x231.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_087170B8_23_tile.png"
+     "png": "assets/0x70/png/gUnk_087170B8_23_tile.png",
+     "png_sha256": "09d8c0c8e63f18a85f3eda506e59e6d5a4e6403cdd260601cb64913fa1f2285d"
     },
     {
      "index": 24,
@@ -3597,7 +3692,8 @@
      "note": "15 bank x 16 warna (0x1E0)",
      "bin": "bin/gUnk_087170B8_24_480_0x133.bin",
      "png_kind": "swatch palet",
-     "png": "assets/0x70/png/gUnk_087170B8_24_palet.png"
+     "png": "assets/0x70/png/gUnk_087170B8_24_palet.png",
+     "png_sha256": "c5f82b39dcf6abc67f9dccb5dcbea3d9944e86e885de2f32070f2600619d1b3f"
     }
    ]
   },
@@ -3643,7 +3739,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0872C5D0_00_peta_32x32.png"
+     "png": "assets/0x70/png/gUnk_0872C5D0_00_peta_32x32.png",
+     "png_sha256": "9e64434491d93e30bc9891ea92b415c64db540e5909d9e814bdeb9121e9eb07c"
     }
    ]
   },
@@ -3689,7 +3786,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0872C73C_00_peta_32x32.png"
+     "png": "assets/0x70/png/gUnk_0872C73C_00_peta_32x32.png",
+     "png_sha256": "ab3128dfa88c2d5930654fa0d8cd8b16b9eeffcf7327d41630f153b21fa8c1f0"
     }
    ]
   },
@@ -3707,7 +3805,8 @@
      "note": "140 tile 4bpp",
      "bin": "bin/gUnk_0872C84C_00_4480_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_0872C84C_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0872C84C_00_tile.png",
+     "png_sha256": "f19c14c942e0bc2e5b34d895fa4bf61be73b7ac892c545fc2c60d62eedc34b8b"
     }
    ]
   },
@@ -3757,7 +3856,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0872D5CC_00_peta_32x32.png"
+     "png": "assets/0x70/png/gUnk_0872D5CC_00_peta_32x32.png",
+     "png_sha256": "0fd75571ac1455a88bfb722227166b3c23d113e7db76d0d47defb4be2069a988"
     }
    ]
   },
@@ -3807,7 +3907,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0872D630_00_peta_32x32.png"
+     "png": "assets/0x70/png/gUnk_0872D630_00_peta_32x32.png",
+     "png_sha256": "b1577b8e29a66d89185d4ec968bdf0c45a27b32b9caccb27d44141b9d3aca278"
     }
    ]
   },
@@ -3825,7 +3926,8 @@
      "note": "118 tile 4bpp",
      "bin": "bin/gUnk_0872D6D8_00_3776_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_0872D6D8_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0872D6D8_00_tile.png",
+     "png_sha256": "caf17ff7c70ce23d1d2cf86af95acb0c2c8cd73ecb9c635077f11fcbbf4668fc"
     }
    ]
   },
@@ -3846,7 +3948,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 16,
-     "png": "assets/0x70/png/gUnk_0872F11C_00_peta_indeks_16.png"
+     "png": "assets/0x70/png/gUnk_0872F11C_00_peta_indeks_16.png",
+     "png_sha256": "5c3f37c5c9775fd10384c7b6d921134699994832aeefe7c6ef0d92d9cae20083"
     }
    ]
   },
@@ -3867,7 +3970,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 16,
-     "png": "assets/0x70/png/gUnk_0872F1BC_00_peta_indeks_16.png"
+     "png": "assets/0x70/png/gUnk_0872F1BC_00_peta_indeks_16.png",
+     "png_sha256": "92a476f474ddebafee692f6361753701f9d2ded827e1509cb7b4608cb7093c72"
     }
    ]
   },
@@ -3888,7 +3992,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 16,
-     "png": "assets/0x70/png/gUnk_0872F1EC_00_peta_indeks_16.png"
+     "png": "assets/0x70/png/gUnk_0872F1EC_00_peta_indeks_16.png",
+     "png_sha256": "438e526d96a09bddffcc07f8f00db3aa5d28384d9f4083df9935d945257e1cc4"
     }
    ]
   },
@@ -3906,7 +4011,8 @@
      "note": "358 tile 4bpp",
      "bin": "bin/gUnk_0872F21C_00_11456_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_0872F21C_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0872F21C_00_tile.png",
+     "png_sha256": "d34d2e00ae21644768971cdf8fb1403ee5249269379cbf6bda9fa000787e0c5b"
     }
    ]
   },
@@ -3927,7 +4033,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 16,
-     "png": "assets/0x70/png/gUnk_0872FBFC_00_peta_indeks_16.png"
+     "png": "assets/0x70/png/gUnk_0872FBFC_00_peta_indeks_16.png",
+     "png_sha256": "5368766e2fb47daf5f324d64aa05559e12129272274961ec83351e2e2d5c4e9a"
     }
    ]
   },
@@ -3977,7 +4084,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0872FC34_00_peta_32x32.png"
+     "png": "assets/0x70/png/gUnk_0872FC34_00_peta_32x32.png",
+     "png_sha256": "bac9621287034ee3e477eeb5b403932968746194acdc6946af5adeb945d401dc"
     }
    ]
   },
@@ -4027,7 +4135,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0872FE6C_00_peta_32x32.png"
+     "png": "assets/0x70/png/gUnk_0872FE6C_00_peta_32x32.png",
+     "png_sha256": "3caf653e955a46c9e926aba120ce670868c749321e1ed23ea13ef3e2d4c962dc"
     }
    ]
   },
@@ -4045,7 +4154,8 @@
      "note": "928 tile 4bpp",
      "bin": "bin/gUnk_0872FEF8_00_29696_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_0872FEF8_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0872FEF8_00_tile.png",
+     "png_sha256": "68a512a8d858e1636bdc93bc7fa15b5083c8f6f5a5efe49629d42b016521f348"
     }
    ]
   },
@@ -4066,7 +4176,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_08738AD8_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_08738AD8_00_peta_indeks_32.png",
+     "png_sha256": "b141a9ae888d47e06bcc56bb6eea69d4d343e62b78c52d7fda06e19287479ff0"
     }
    ]
   },
@@ -4087,7 +4198,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_08738CC8_00_peta_indeks_32.png"
+     "png": "assets/0x70/png/gUnk_08738CC8_00_peta_indeks_32.png",
+     "png_sha256": "6762324aee726bd2a368f1f8f778503903ee8de64417cd8e659277a38f2bcfbe"
     }
    ]
   },
@@ -4108,7 +4220,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 20,
-     "png": "assets/0x70/png/gUnk_08738CF0_00_peta_indeks_20.png"
+     "png": "assets/0x70/png/gUnk_08738CF0_00_peta_indeks_20.png",
+     "png_sha256": "c5bda07b5de57540477395ed9bca556e7172c6f9dc87752dc147ad9ed18a50e0"
     }
    ]
   },
@@ -4126,7 +4239,8 @@
      "note": "328 tile 4bpp",
      "bin": "bin/gUnk_08738D1C_00_10496_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_08738D1C_00_tile.png"
+     "png": "assets/0x70/png/gUnk_08738D1C_00_tile.png",
+     "png_sha256": "0a6b3854b23e713f1f29e5a46933a703f4f0f8ee7b4d19b55db3a15ad806356c"
     }
    ]
   },
@@ -4144,7 +4258,8 @@
      "note": "192 tile 4bpp",
      "bin": "bin/gUnk_08739A64_00_6144_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_08739A64_00_tile.png"
+     "png": "assets/0x70/png/gUnk_08739A64_00_tile.png",
+     "png_sha256": "bfe07aac360cb6e90b50e4f4a8a55dca0dedd874678718a2ea5fc78b6bd6e6d0"
     }
    ]
   },
@@ -4194,7 +4309,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0873BE24_00_peta_32x32.png"
+     "png": "assets/0x70/png/gUnk_0873BE24_00_peta_32x32.png",
+     "png_sha256": "5bf7c4541be2c5daccb17d25be447af9642206d4701fc4f42554064febd5f104"
     }
    ]
   },
@@ -4244,7 +4360,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0873BF48_00_peta_32x32.png"
+     "png": "assets/0x70/png/gUnk_0873BF48_00_peta_32x32.png",
+     "png_sha256": "aaa170fd6b7055fa07472d287b41ad1d1438b76b7a536479b9a3e4282f08d284"
     }
    ]
   },
@@ -4310,7 +4427,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0873F3C8_00_peta_32x32.png"
+     "png": "assets/0x70/png/gUnk_0873F3C8_00_peta_32x32.png",
+     "png_sha256": "b51cea60bf0acb719a349254fbcf0b5378465b7114ce6288d7feb345c71b8eee"
     }
    ]
   },
@@ -4360,7 +4478,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0873F5D4_00_peta_32x32.png"
+     "png": "assets/0x70/png/gUnk_0873F5D4_00_peta_32x32.png",
+     "png_sha256": "c140b8596326a7746954deacb5cea34a8582590cf4175c155edc7bc57e4a88d9"
     }
    ]
   },
@@ -4378,7 +4497,8 @@
      "note": "116 tile 4bpp",
      "bin": "bin/gUnk_0873F6AC_00_3712_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_0873F6AC_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0873F6AC_00_tile.png",
+     "png_sha256": "d745e824ea5a97562419d49c549a83c862f47f4dd40cecac300bac612f3d0048"
     }
    ]
   },
@@ -4396,7 +4516,8 @@
      "note": "880 tile 4bpp",
      "bin": "bin/gUnk_08743058_00_28160_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_08743058_00_tile.png"
+     "png": "assets/0x70/png/gUnk_08743058_00_tile.png",
+     "png_sha256": "8457bee0edc21fa8cde0bd08ec87000efbaf74737fd94b52354ab2d894973e6b"
     }
    ]
   },
@@ -4427,7 +4548,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 64,
-     "png": "assets/0x70/png/gUnk_08747A74_01_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08747A74_01_peta_indeks_64.png",
+     "png_sha256": "b28d349d55651eb314988d9c5749f37acf33e0604e0e0fd4e8d12ebfe6485fe9"
     },
     {
      "index": 2,
@@ -4442,7 +4564,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 64,
-     "png": "assets/0x70/png/gUnk_08747A74_02_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08747A74_02_peta_indeks_64.png",
+     "png_sha256": "bb0f2fab9009a4f0d7f78e29ef207b80cc80cbb414aa26dd95a09e5f7f14504f"
     },
     {
      "index": 3,
@@ -4457,7 +4580,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 64,
-     "png": "assets/0x70/png/gUnk_08747A74_03_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08747A74_03_peta_indeks_64.png",
+     "png_sha256": "9d4c382c6613a2451937782ca6fbf2cfd79f332063adb892ddee0d4e238d2f6b"
     },
     {
      "index": 4,
@@ -4472,7 +4596,8 @@
      "pair_status": "unproven",
      "pair_reason": "tidak ada call site atau header",
      "map_width": 64,
-     "png": "assets/0x70/png/gUnk_08747A74_04_peta_indeks_64.png"
+     "png": "assets/0x70/png/gUnk_08747A74_04_peta_indeks_64.png",
+     "png_sha256": "16580adea62d7d56e5391e0d872ce20cbe1868d467d0e694cc7b05a2799e475e"
     }
    ]
   },
@@ -4490,7 +4615,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_0874A9C0_00_32768_0x230.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_0874A9C0_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0874A9C0_00_tile.png",
+     "png_sha256": "10a336c790f80ca78d72ad996b25847d4620aa115815ffdcb840bf096f876b1b"
     }
    ]
   },
@@ -4564,7 +4690,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0874EB60_00_layar_32x20.png"
+     "png": "assets/0x70/png/gUnk_0874EB60_00_layar_32x20.png",
+     "png_sha256": "6e65558e91cec5488ade1310b5f33c1128db443cd5e7a7a9857e4ccc8b97a44a"
     }
    ]
   },
@@ -4622,7 +4749,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0874ECCC_00_layar_32x64.png"
+     "png": "assets/0x70/png/gUnk_0874ECCC_00_layar_32x64.png",
+     "png_sha256": "4165c810717f0c745dbb70d4cad67f029072d4ccaeddc42033a00c717f1bb7fc"
     }
    ]
   },
@@ -4680,7 +4808,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0874EF14_00_layar_32x20.png"
+     "png": "assets/0x70/png/gUnk_0874EF14_00_layar_32x20.png",
+     "png_sha256": "96eadb80448de024e3667bf28a63a9976fcbd7d6ac173deb7b149526a66516f3"
     }
    ]
   },
@@ -4738,7 +4867,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0874EF3C_00_layar_32x20.png"
+     "png": "assets/0x70/png/gUnk_0874EF3C_00_layar_32x20.png",
+     "png_sha256": "ee795d5c2c4370fd5cb423e084a00d4349ba11f91587c7db7990ca830aae948b"
     }
    ]
   },
@@ -4796,7 +4926,8 @@
       }
      },
      "map_width": 32,
-     "png": "assets/0x70/png/gUnk_0874EFEC_00_layar_32x20.png"
+     "png": "assets/0x70/png/gUnk_0874EFEC_00_layar_32x20.png",
+     "png_sha256": "7cadffe64f650d45143426ad68fc64e542a79861ac5592d744327fbfa717d40d"
     }
    ]
   },
@@ -4814,7 +4945,8 @@
      "note": "160 tile 4bpp",
      "bin": "bin/gUnk_0874F050_00_5120_0x020.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_0874F050_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0874F050_00_tile.png",
+     "png_sha256": "3edc9850327c46be122c4f350f3b6849e3ae4e26248f59426249fa9cde121627"
     }
    ]
   },
@@ -4832,7 +4964,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_08755848_00_32768_0x220.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_08755848_00_tile.png"
+     "png": "assets/0x70/png/gUnk_08755848_00_tile.png",
+     "png_sha256": "ecd8ed9689d588ecb4bf1e56928bc2dd76138547717b7eb284796a68c2b82743"
     }
    ]
   },
@@ -4850,7 +4983,8 @@
      "note": "1024 tile 4bpp",
      "bin": "bin/gUnk_0875822C_00_32768_0x230.bin",
      "png_kind": "lembar tile 4bpp (abu-abu indeks)",
-     "png": "assets/0x70/png/gUnk_0875822C_00_tile.png"
+     "png": "assets/0x70/png/gUnk_0875822C_00_tile.png",
+     "png_sha256": "000f8d949fe2903b5d45528f57cf63197026e02b189bda1158223d72e79ddb49"
     }
    ]
   }

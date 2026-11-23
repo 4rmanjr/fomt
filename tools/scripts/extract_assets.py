@@ -42,6 +42,7 @@ import json
 import re
 import struct
 import sys
+import tempfile
 import zlib
 from collections import Counter
 from pathlib import Path
@@ -658,8 +659,15 @@ def render_map_doc(manifest):
            "## Cara memperbarui", "", "```sh",
            "python3 tools/scripts/extract_assets.py              # ekstrak + dokumen ini",
            "python3 tools/scripts/extract_assets.py --check-map  # exit 1 bila dokumen basi",
+           "python3 tools/scripts/extract_assets.py --check-png  # render ulang + hash PNG",
            "python3 tools/scripts/extract_assets.py --check-external  # hash aset luar",
            "```", "",
+           "## Validitas PNG", "",
+           "Setiap entri PNG menyimpan `png_sha256` di manifest. "
+           "`--check-png` merender ulang seluruh PNG ke direktori sementara, "
+           "membandingkan hash hasil render dengan `png_sha256`, lalu memeriksa "
+           "file PNG di repo terhadap hash yang sama. Ini menguji PNG langsung, "
+           "bukan hanya hash palet/tileset pasangannya.", "",
            "## Ringkasan", "",
            "| kelas | stream |", "|---|---|"]
     for key in ("palet", "tile", "peta", "layar", "lain"):
@@ -831,6 +839,69 @@ def render_map_doc(manifest):
     return "\n".join(out) + "\n"
 
 
+def _png_entries(manifest):
+    """(blob, index) -> stream untuk semua entri yang punya PNG."""
+    return {(b["blob"], s["index"]): s
+            for b in manifest.get("streams", []) for s in b.get("streams", [])
+            if s.get("png")}
+
+
+def check_png(out):
+    """Render ulang semua PNG ke direktori sementara, lalu bandingkan hash.
+
+    Hash manifest sahih hanya bila hasil render ulang sama; membandingkan file
+    lama saja tidak membuktikan renderer masih menghasilkan gambar yang sama.
+    File PNG di `out` juga diperiksa terhadap manifest supaya korupsi file
+    tidak lolos saat renderer kebetulan masih benar.
+    """
+    manifest_path = out / "manifest.json"
+    if not manifest_path.exists():
+        print("MASALAH: manifest tidak ada", file=sys.stderr)
+        return 1
+    ref = _png_entries(json.loads(manifest_path.read_text()))
+    if not ref:
+        print("MASALAH: manifest tidak punya entri PNG", file=sys.stderr)
+        return 1
+    missing_hash = [f"{b}#{i}" for (b, i), s in ref.items()
+                    if not s.get("png_sha256")]
+    if missing_hash:
+        print(f"MASALAH: {len(missing_hash)} PNG tanpa png_sha256 — "
+              "jalankan extract_assets.py", file=sys.stderr)
+        return 1
+
+    with tempfile.TemporaryDirectory(prefix="fomt-png-") as tmp:
+        rc = main(["--out", tmp, "--quiet", "--no-doc"])
+        if rc:
+            return rc
+        fresh = _png_entries(json.loads((Path(tmp) / "manifest.json").read_text()))
+
+    bad = []
+    for key, old in ref.items():
+        new = fresh.get(key)
+        if not new or not new.get("png_sha256"):
+            bad.append((key, "PNG hasil render ulang tidak ada"))
+            continue
+        if new["png_sha256"] != old["png_sha256"]:
+            bad.append((key, "hash render ulang beda"))
+        path = Path(old["png"])
+        if not path.is_absolute():
+            path = REPO / path
+        if not path.exists():
+            bad.append((key, "file PNG tidak ada"))
+        elif hashlib.sha256(path.read_bytes()).hexdigest() != old["png_sha256"]:
+            bad.append((key, "file PNG beda dari manifest"))
+    extra = sorted(set(fresh) - set(ref))
+    for key in extra:
+        bad.append((key, "PNG baru tidak tercatat di manifest"))
+
+    for key, why in bad[:10]:
+        print(f"MASALAH {key[0]}#{key[1]}: {why}", file=sys.stderr)
+    if len(bad) > 10:
+        print(f"... {len(bad) - 10} masalah lain", file=sys.stderr)
+    print(f"PNG: {len(ref)} diperiksa, {len(bad)} masalah")
+    return 1 if bad else 0
+
+
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--out", type=Path, default=DEFAULT_OUT)
@@ -839,7 +910,14 @@ def main(argv):
                     help="exit 1 bila dokumen peta berkas basi terhadap manifest")
     ap.add_argument("--check-external", action="store_true",
                     help="exit 1 bila hash aset pasangan eksternal tidak cocok")
+    ap.add_argument("--check-png", action="store_true",
+                    help="render ulang PNG, lalu bandingkan png_sha256 manifest")
+    ap.add_argument("--no-doc", action="store_true",
+                    help="jangan menulis dokumen peta (dipakai render sementara)")
     args = ap.parse_args(argv)
+
+    if args.check_png:
+        return check_png(args.out)
 
     if args.check_map:
         manifest_path = args.out / "manifest.json"
@@ -997,7 +1075,13 @@ def main(argv):
                     info["pair_reason"] = reason
                 info["map_width"] = width
             if png:
-                info["png"] = str(args.out.relative_to(REPO) / png)
+                try:
+                    rel = args.out.relative_to(REPO)
+                except ValueError:
+                    rel = args.out
+                info["png"] = str(rel / png)
+                info["png_sha256"] = hashlib.sha256(
+                    (args.out / png).read_bytes()).hexdigest()
         manifest.append({"blob": name, "size": entry.size, "streams": infos})
 
     external = {}
@@ -1021,8 +1105,9 @@ def main(argv):
                     "external_assets": [external[a] for a in sorted(external)]}
     (args.out / "manifest.json").write_text(
         json.dumps(manifest_doc, indent=1) + "\n")
-    MAP_DOC.parent.mkdir(parents=True, exist_ok=True)
-    MAP_DOC.write_text(render_map_doc(manifest_doc))
+    if not args.no_doc:
+        MAP_DOC.parent.mkdir(parents=True, exist_ok=True)
+        MAP_DOC.write_text(render_map_doc(manifest_doc))
     if not args.quiet:
         print(f"output: {args.out.relative_to(REPO)}")
         for key in ("palet", "tile", "peta", "layar", "lain"):

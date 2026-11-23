@@ -7,8 +7,13 @@
 ```sh
 python3 tools/scripts/extract_assets.py              # ekstrak + dokumen ini
 python3 tools/scripts/extract_assets.py --check-map  # exit 1 bila dokumen basi
+python3 tools/scripts/extract_assets.py --check-png  # render ulang + hash PNG
 python3 tools/scripts/extract_assets.py --check-external  # hash aset luar
 ```
+
+## Validitas PNG
+
+Setiap entri PNG menyimpan `png_sha256` di manifest. `--check-png` merender ulang seluruh PNG ke direktori sementara, membandingkan hash hasil render dengan `png_sha256`, lalu memeriksa file PNG di repo terhadap hash yang sama. Ini menguji PNG langsung, bukan hanya hash palet/tileset pasangannya.
 
 ## Ringkasan
 
