@@ -136,7 +136,10 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   supaya lapisan peta yang bank/flip-nya beragam tidak pecah kelas.
   `--out DIR` untuk lokasi lain, `--quiet` untuk ringkasan saja. Selain
   `manifest.json`, tool menulis `docs/decomp/ASET-0X70-PETA-BERKAS.md` (peta
-  simbol -> stream -> bin/PNG, hasil generate);   `--check-map` exit 1 bila
+  simbol -> stream -> bin/PNG, hasil generate). Pasangan di luar inventaris
+  dibuka dari `baserom.gba`; hash SHA-256-nya dicatat per rujukan dan di
+  daftar `external_assets`, dan `--check-external` membuka ulang alamat itu
+  untuk mencocokkan hash (exit 1 bila beda). `--check-map` exit 1 bila
   dokumen itu basi terhadap manifest, dan `check_docs.py` memanggil renderer
   yang sama sebagai gate (dokumen basi menggagalkan tutup sesi, bukan lolos
   diam-diam). `pair_evidence.source` mencatat `callsite` atau `header`. Seluruh stream dirender dalam hitungan

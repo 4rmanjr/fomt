@@ -7,6 +7,7 @@
 ```sh
 python3 tools/scripts/extract_assets.py              # ekstrak + dokumen ini
 python3 tools/scripts/extract_assets.py --check-map  # exit 1 bila dokumen basi
+python3 tools/scripts/extract_assets.py --check-external  # hash aset luar
 ```
 
 ## Ringkasan
@@ -24,7 +25,7 @@ Pasangan peta: 74 terbukti (15 dari call site `Unpack`, 59 dari entri header: 41
 
 ## Simbol -> stream -> berkas
 
-Path berkas relatif terhadap root repo. `stream` = urutan stream di dalam simbol (0 = paling awal). Pasangan palet/tileset diambil berurutan: (1) call site `Unpack`/salin di `asm/` yang menulis peta ke 0x0600C000-0x0600FFFF, dengan palet di 0x05000000 dan tileset di 0x06000000-0x0600BFFF dalam fungsi yang sama; (2) untuk stream container yang dialamatkan lewat pointer (tidak ada simbol statis), entri `gUnk_08105EDC` yang memuatnya sebagai lapis peta: +0x00 tileset, +0x04 palet, +0x0C/+0x10/+0x14 peta, +0x08 palet kedua. Flag +0x24 hanya menandal interior/eksterior; bentuk header kedua jenis sama. Angka 41/59 yang sering muncul adalah 41 peta interior dari 59 peta ber-header, bukan 41 terbukti dan 18 tidak: semua 59 lolos pemeriksaan palet 480 B, tileset 32768 B, dimensi header, dan indeks tile di dalam tileset. Peta eksterior punya palet kedua di +0x08 (varian musim; render memakai +0x04), interior memakai +0x08 sebagai palet kedua biasa. Kolom bukti menyebut fungsi call site atau nomor entri header. Pasangan berupa alamat `0x08xxxxxx` adalah stream 0x70 di luar 53 simbol yang dibuka dari ROM saat render, bukan berkas hasil ekstraksi.
+Path berkas relatif terhadap root repo. `stream` = urutan stream di dalam simbol (0 = paling awal). Pasangan palet/tileset diambil berurutan: (1) call site `Unpack`/salin di `asm/` yang menulis peta ke 0x0600C000-0x0600FFFF, dengan palet di 0x05000000 dan tileset di 0x06000000-0x0600BFFF dalam fungsi yang sama; (2) untuk stream container yang dialamatkan lewat pointer (tidak ada simbol statis), entri `gUnk_08105EDC` yang memuatnya sebagai lapis peta: +0x00 tileset, +0x04 palet, +0x0C/+0x10/+0x14 peta, +0x08 palet kedua. Flag +0x24 hanya menandal interior/eksterior; bentuk header kedua jenis sama. Angka 41/59 yang sering muncul adalah 41 peta interior dari 59 peta ber-header, bukan 41 terbukti dan 18 tidak: semua 59 lolos pemeriksaan palet 480 B, tileset 32768 B, dimensi header, dan indeks tile di dalam tileset. Peta eksterior punya palet kedua di +0x08 (varian musim; render memakai +0x04), interior memakai +0x08 sebagai palet kedua biasa. Kolom bukti menyebut fungsi call site atau nomor entri header. Pasangan berupa alamat `0x08xxxxxx` adalah stream 0x70 di luar 53 simbol yang dibuka dari ROM saat render, bukan berkas hasil ekstraksi. Aset eksternal itu dicatat di `external_assets` manifest dengan `unpacked`/`raw_bytes` dan `sha256`, sehingga bisa diverifikasi ulang lewat `--check-external` tanpa menebak alamat.
 
 | simbol | ukuran | # | offset | packed | buka | format | kelas | berkas | PNG | status | pasangan |
 |---|---|---|---|---|---|---|---|---|---|---|---|

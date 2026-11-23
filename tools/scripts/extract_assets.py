@@ -33,6 +33,7 @@ Output default `assets/0x70/` (bin/, png/, manifest.json; bisa dibuat ulang):
 Tidak menjalankan build dan tidak menulis ke `baserom.gba`/`fomt.gba`.
 """
 import argparse
+import hashlib
 import json
 import re
 import struct
@@ -302,7 +303,8 @@ def read_asset(addr, rom, index, records, cache):
             cache[addr] = None
         else:
             cache[addr] = (data, {"address": f"0x{addr:08X}",
-                                  "unpacked": len(data), "format": fmt})
+                                  "unpacked": len(data), "format": fmt,
+                                  "sha256": hashlib.sha256(data).hexdigest()})
     if cache[addr] is None:
         return None, None
     return cache[addr]
@@ -494,10 +496,12 @@ def callsite_pair(ev, rom, index, records):
         n = min(pal.get("size") or PALETTE_SIZE, PALETTE_SIZE - shift)
         if n < 32 or n % 32:
             return None, None, "ukuran salin palet call site tidak jelas"
-        pdata = (b"\x00" * shift + rom[base:base + n]
+        raw = rom[base:base + n]
+        pdata = (b"\x00" * shift + raw
                  + b"\x00" * (PALETTE_SIZE - shift - n))
         pref = {"address": f"0x{GBA_BASE + base:08X}",
-                "dest": f"0x{pal['dest']:08X}"}
+                "dest": f"0x{pal['dest']:08X}", "raw_bytes": n,
+                "sha256": hashlib.sha256(raw).hexdigest()}
     if len(pdata) != PALETTE_SIZE:
         return None, None, "palet call site tidak valid"
 
@@ -587,6 +591,7 @@ def render_map_doc(manifest):
            "## Cara memperbarui", "", "```sh",
            "python3 tools/scripts/extract_assets.py              # ekstrak + dokumen ini",
            "python3 tools/scripts/extract_assets.py --check-map  # exit 1 bila dokumen basi",
+           "python3 tools/scripts/extract_assets.py --check-external  # hash aset luar",
            "```", "",
            "## Ringkasan", "",
            "| kelas | stream |", "|---|---|"]
@@ -640,7 +645,10 @@ def render_map_doc(manifest):
                "+0x08 sebagai palet kedua biasa. Kolom bukti menyebut fungsi call "
                "site atau nomor entri header. Pasangan berupa "
                "alamat `0x08xxxxxx` adalah stream 0x70 di luar 53 simbol yang "
-               "dibuka dari ROM saat render, bukan berkas hasil ekstraksi.")
+               "dibuka dari ROM saat render, bukan berkas hasil ekstraksi. "
+               "Aset eksternal itu dicatat di `external_assets` manifest dengan "
+               "`unpacked`/`raw_bytes` dan `sha256`, sehingga bisa diverifikasi "
+               "ulang lewat `--check-external` tanpa menebak alamat.")
     out.append("")
     out.append("| simbol | ukuran | # | offset | packed | buka | format | "
                "kelas | berkas | PNG | status | pasangan |")
@@ -692,6 +700,8 @@ def main(argv):
     ap.add_argument("--quiet", action="store_true")
     ap.add_argument("--check-map", action="store_true",
                     help="exit 1 bila dokumen peta berkas basi terhadap manifest")
+    ap.add_argument("--check-external", action="store_true",
+                    help="exit 1 bila hash aset pasangan eksternal tidak cocok")
     args = ap.parse_args(argv)
 
     if args.check_map:
@@ -707,6 +717,34 @@ def main(argv):
             return 1
         print("dokumen peta berkas sinkron")
         return 0
+
+    if args.check_external:
+        manifest_path = args.out / "manifest.json"
+        if not manifest_path.exists():
+            print("MASALAH: manifest tidak ada", file=sys.stderr)
+            return 1
+        ext = json.loads(manifest_path.read_text()).get("external_assets", [])
+        if not ext:
+            print("tidak ada aset pasangan eksternal")
+            return 0
+        rom = inv.DEFAULT_ROM.read_bytes()
+        bad = []
+        for e in ext:
+            addr = int(e["address"], 16) - GBA_BASE
+            if "raw_bytes" in e:
+                data = rom[addr:addr + e["raw_bytes"]]
+            else:
+                try:
+                    data, _, _ = decompress.unpack(rom, addr)
+                except decompress.UnpackException:
+                    bad.append((e["address"], "gagal dibuka"))
+                    continue
+            if hashlib.sha256(data).hexdigest() != e.get("sha256"):
+                bad.append((e["address"], "sha256 beda"))
+        for addr, why in bad:
+            print(f"MASALAH {addr}: {why}", file=sys.stderr)
+        print(f"aset pasangan eksternal: {len(ext) - len(bad)}/{len(ext)} cocok")
+        return 1 if bad else 0
 
     rom = inv.DEFAULT_ROM.read_bytes()
     _, inventory, _ = inv.analyze()
@@ -812,7 +850,21 @@ def main(argv):
                 info["png"] = str(args.out.relative_to(REPO) / png)
         manifest.append({"blob": name, "size": entry.size, "streams": infos})
 
-    manifest_doc = {"streams": manifest}
+    external = {}
+    for blob in manifest:
+        for s in blob["streams"]:
+            for ref in (s.get("pair", {}).get("palette"),
+                        s.get("pair", {}).get("tiles")):
+                if not ref or "address" not in ref or "blob" in ref:
+                    continue
+                item = {"address": ref["address"]}
+                for key in ("unpacked", "raw_bytes", "format", "dest",
+                            "sha256"):
+                    if key in ref:
+                        item[key] = ref[key]
+                external[ref["address"]] = item
+    manifest_doc = {"streams": manifest,
+                    "external_assets": [external[a] for a in sorted(external)]}
     (args.out / "manifest.json").write_text(
         json.dumps(manifest_doc, indent=1) + "\n")
     MAP_DOC.parent.mkdir(parents=True, exist_ok=True)
