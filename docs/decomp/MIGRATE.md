@@ -1316,3 +1316,24 @@ permanen (saat ini note shard + `wall_registry.py`).
 
 Status: **proposal, belum ada perubahan kode** - `migrate.py` masih menolak
 blok yang tidak MATCH, dan `EKOR-BACKLOG.md` belum punya kolom `carried`.
+
+### Kasus pemicu §44 sudah selesai - jangan tawarkan carry asm lagi
+
+`func_08008D10` (27B, bukan 28B: 24B kode + literal pool `0x5` + padding) dan
+`func_08008CFC` (20B) **sudah MATCH dan sudah ada di
+`src/hardware_migrated.cc` sebagai blok C** ber-marker `DECOMP-MATCHED`; kedua
+simbol itu sudah tidak ada di `asm/hardware.s`. Byte di 0x08008D10 dan
+0x08008CFC pada `fomt.gba` dihasilkan oleh C di `src/`, bukan oleh asm.
+
+Jadi rencana lama "bawa 28B `func_08008D10` verbatim ke `src/` (prepend sebelum
+`func_08008D2C`)" sudah tidak berlaku: menurunkannya kembali ke asm membuang
+MATCH (AGENTS R2) tanpa menambah DELTA, dan `migrate.py` akan menolaknya dengan
+SKIP "sudah ada di src/". O1 di atas tetap proposal untuk dinding yang belum
+punya bentuk C - kedua fungsi ini bukan contohnya.
+
+Cek dulu sebelum mengusulkan carry (jangan andalkan ingatan sesi lama):
+
+```sh
+grep -n "DECOMP-MATCHED func_08008D10\|DECOMP-MATCHED func_08008CFC" src/hardware_migrated.cc
+grep -c "08008D10\|08008CFC" asm/hardware.s   # harus 0
+```
