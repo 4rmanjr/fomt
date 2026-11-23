@@ -1,4 +1,19 @@
 {
+  "code_0803EE94.s:func_08093EEC": {
+    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75498: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
+    "status": "OK",
+    "when": "2026-11-23T10:47:59"
+  },
+  "code_0803EE94.s:func_08094388": {
+    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75498: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
+    "status": "OK",
+    "when": "2026-11-23T10:48:18"
+  },
+  "code_0803EE94.s:func_0809AA28": {
+    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75498: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
+    "status": "OK",
+    "when": "2026-11-23T10:39:33"
+  },
   "code_809E804.s:func_0809EED0": {
     "detail": "func_0809EED0 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
     "status": "SKIP",
@@ -13,6 +28,11 @@
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75498: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
     "status": "OK",
     "when": "2026-11-23T10:22:42"
+  },
+  "code_809E804.s:func_080CFB28": {
+    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75498: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
+    "status": "OK",
+    "when": "2026-11-23T10:47:04"
   },
   "code_809E804.s:func_080D116A": {
     "detail": "func_080D116A grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",

@@ -783,6 +783,13 @@ typedef struct GenObj__func_080B9428 {
 } GenObj__func_080B9428;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080CFB28 {
+    u8 _pad0[0x90];
+    void *unk90;
+} GenObj__func_080CFB28;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E968 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080E3E9C(u8 *, u8 *, i32);
@@ -3404,6 +3411,30 @@ void func_080CECD0(void *arg0) {
     p = (u8 *) o;
     p += 0x80;
     *(i32 *) p = zz;
+}
+}
+
+// DECOMP-MATCHED func_080CFB28 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __9FieldPlot(void *);                             /* extern */
+i32 func_080A4A94(void);                              /* extern */
+extern u8 vtable_unk_080E85E8;
+
+__attribute__((section(".text.code_809E804.080CFB28")))
+void *func_080CFB28(GenObj__func_080CFB28 *arg0) {
+    u8 *p;
+    i32 i;
+
+    func_080A4A94();
+    arg0->unk90 = (void *) &vtable_unk_080E85E8;
+    p = (u8 *) arg0 + 0x94;
+    i = 0x53;
+    do {
+        __9FieldPlot(p);
+        p += 4;
+        i -= 1;
+    } while (i != -1);
+    return arg0;
 }
 }
 

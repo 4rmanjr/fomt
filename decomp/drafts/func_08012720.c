@@ -20,4 +20,5 @@ void func_08012720(GenObj *arg0, s32 arg1) {
             func_08050E68(x);
         }
     }
+    asm("" : : "r"(arg1));
 }

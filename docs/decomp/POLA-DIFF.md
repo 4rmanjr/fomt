@@ -2454,3 +2454,27 @@ Sisa yang tetap wall walau cuma beda 1-2 instruksi: `func_08012720`/
 `func_08012760` (konstanta `0x2210` selalu dimuat ke `r1`, ref `r2`),
 `func_0805E760` (`pop {r1}; bx r1` vs ref `pop {r2}; bx r2`), `func_08024CA0`
 (gcc mengkanonikkan `c < 0x24` jadi `cmp #0x23; ble`, ref `cmp #0x24; blt`).
+
+### 73. Tiga tuas penutup diff struktural (CFB28, 93EEC/94388, 9AA28)
+
+1. **Aritmetika pointer bertipe men-skala offset.** Draf m2c menulis
+   `p = arg0 + 0x94` padahal `arg0` bertipe `GenObj *`; gcc mengalikan offset
+   dengan `sizeof(GenObj)` sehingga muncul konstanta pool tambahan dan
+   `add r4, r6, r0`. Ref hanya `adds r4, r6, #0; adds r4, #0x94`. Perbaikan:
+   `p = (u8 *)arg0 + 0x94;`. Pembukti: `func_080CFB28` (52B, MATCH).
+2. **Salinan `a2 = arg0` + re-deref di argumen terakhir.** Ref memuat
+   `ldr r2, [r0, #4]` sekali, menyimpan `arg0` di `r2`, lalu **memuat ulang**
+   `arg0->unk4` sebelum call. Bentuk itu muncul kalau sumber menyimpan
+   `GenObj *a2 = arg0;` dan argumen call ditulis `(u8 *)a2 + a2->unk4->unk20`
+   (bukan lewat variabel `o` yang sudah dipegang). Pembukti: `func_08093EEC`
+   dan `func_08094388` (52B, keduanya MATCH dari sumber yang sama).
+3. **Penghitung loop yang dilebarkan.** Draf `u8 n` yang di-`--` menghasilkan
+   `lsl #0x18; lsr #0x18` setelah `sub`. Ref memakai `subs r1, #1` polos:
+   deklarasikan `s32 i = n;` sebagai penghitung terpisah dari `u8 n` (nilai
+   field), dengan `u8 *p = arg0;` dideklarasikan lebih dulu supaya `p` tetap di
+   `r2`. Pembukti: `func_0809AA28` (48B, MATCH).
+
+Catatan alat: diff teks `asm/*.s` vs `decomp/logs/judge_*/.../func.s`
+**melebih-lebihkan** selisih (`add` vs `adds`, `#4` vs `#0x4`, label berbeda).
+Untuk memutuskan wall pakai perbandingan byte objek vs ROM
+(`/tmp/cmpC8.py` ala §70), bukan hitungan baris teks.

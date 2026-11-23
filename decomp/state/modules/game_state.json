@@ -785,9 +785,9 @@
  "func_08012720": {
   "addr": 134293280,
   "draft_src": "manual",
-  "judged_mtime": 1795429227.1942155,
+  "judged_mtime": 1795430626.5687535,
   "module": "game_state.s",
-  "note": "byte +0x2: 0x41 vs ref 0x42 [1extra,7regalloc @r ldr r2, [r0, #4] | ldr r1, [r0, #4]]",
+  "note": "len 46 vs ref 42 [3extra,3operand,8regalloc @i push {lr} | push {r4, lr}]",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 479,

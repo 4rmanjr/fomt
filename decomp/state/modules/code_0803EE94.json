@@ -5607,13 +5607,14 @@
  },
  "func_08093EEC": {
   "addr": 134823660,
-  "judged_mtime": 1795350505.0,
+  "judged_mtime": 1795430856.4122255,
   "module": "code_0803EE94.s",
-  "note": "byte +0x7: 0x23 vs ref 0x21 [7regalloc @r movs r1, #0x22 | movs r3, #0x22]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 476,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08093F20": {
@@ -5822,13 +5823,14 @@
  },
  "func_08094388": {
   "addr": 134824840,
-  "judged_mtime": 1795350505.0,
+  "judged_mtime": 1795430870.366904,
   "module": "code_0803EE94.s",
-  "note": "byte +0x7: 0x23 vs ref 0x21 [7regalloc @r movs r1, #0x22 | movs r3, #0x22]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 476,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080943BC": {
@@ -6625,13 +6627,14 @@
  },
  "func_0809AA28": {
   "addr": 134851112,
-  "judged_mtime": 1795429391.4551191,
+  "judged_mtime": 1795430314.7184813,
   "module": "code_0803EE94.s",
-  "note": "byte +0x2: 0x2 vs ref 0x1 [2missing,3extra,3operand,5regalloc @r adds r1, r0, #0 | adds r2, r0, #0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 483,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809AA58": {

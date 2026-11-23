@@ -4189,3 +4189,92 @@ s32 func_0804EF20(GenObj *arg0) {
     CpuFastSet((s32 *) src, (s32) dst, (s32) ((u32) (p->f.u << 0x12) >> 0xF));
     return 0;
 }
+
+// DECOMP-MATCHED func_0809AA28 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_0809AA28(u8 *arg0) {
+    s32 count;
+    u8 n;
+
+    count = 0;
+    n = *(u8 *) ((u8 *) arg0 + 0xA06);
+    if (count < n) {
+        u8 *p = arg0;
+        s32 i = n;
+
+        do {
+            if ((p[0x13] << 0x1B) < 0) {
+                count += 1;
+            }
+            p += 0x14;
+        } while (--i);
+    }
+    return count;
+}
+
+// DECOMP-MATCHED func_08093EEC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct Obj {
+    u8 _pad[0x20];
+    s16 unk20;
+    s16 unk22;
+} Obj;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    Obj *unk4;
+} GenObj;
+
+void func_08093EEC(GenObj *arg0) {
+    GenObj *a2;
+    Obj *o;
+    void *fn;
+    s16 count;
+
+    a2 = arg0;
+    o = a2->unk4;
+    count = o->unk22;
+    if (count > 0) {
+        s16 off;
+        u8 *tbl;
+
+        off = *(s16 *) ((u8 *) o + 0x24);
+        tbl = *(u8 **) ((u8 *) a2 + off);
+        fn = *(void **) (tbl + count * 4 - 4);
+    } else {
+        fn = *(void **) ((u8 *) o + 0x24);
+    }
+    ((void (*)(u8 *)) fn)((u8 *) a2 + a2->unk4->unk20);
+}
+
+// DECOMP-MATCHED func_08094388 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct Obj {
+    u8 _pad[0x20];
+    s16 unk20;
+    s16 unk22;
+} Obj;
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    Obj *unk4;
+} GenObj;
+
+void func_08094388(GenObj *arg0) {
+    GenObj *a2;
+    Obj *o;
+    void *fn;
+    s16 count;
+
+    a2 = arg0;
+    o = a2->unk4;
+    count = o->unk22;
+    if (count > 0) {
+        s16 off;
+        u8 *tbl;
+
+        off = *(s16 *) ((u8 *) o + 0x24);
+        tbl = *(u8 **) ((u8 *) a2 + off);
+        fn = *(void **) (tbl + count * 4 - 4);
+    } else {
+        fn = *(void **) ((u8 *) o + 0x24);
+    }
+    ((void (*)(u8 *)) fn)((u8 *) a2 + a2->unk4->unk20);
+}

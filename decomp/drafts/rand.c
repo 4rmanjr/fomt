@@ -1,6 +1,9 @@
-extern s32 gRandState;
+extern u32 gRandState;
 
-s32 rand(void) {
-    gRandState = gRandState * 1103515245 + 12345;
-    return gRandState & 0x7fffffff;
+u32 rand(void) {
+    u32 v;
+
+    gRandState = gRandState * 1103515245U + 12345U;
+    v = gRandState;
+    return (v << 1) >> 1;
 }
