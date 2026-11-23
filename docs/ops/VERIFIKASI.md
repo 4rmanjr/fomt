@@ -10,7 +10,8 @@ Tool: [`TOOLS.md`](./TOOLS.md).
 | skrip Python | `python3 -m py_compile <skrip>` |
 | edit src manual / `migrate.py` | `make compare` HIJAU (`fomt.gba: OK`) |
 | judge, regen draf, parkir draf | tidak mengubah tree build → **tidak** perlu compare |
-| tutup sesi | `make compare` + `python3 tools/scripts/audit_consistency.py` |
+| MATCH/migrasi yang mengubah ujung rantai (fungsi di ujung berkas asm pindah atau promosi ekor baru) | `python3 tools/scripts/ekor_snapshot.py` lalu `--check` (exit 1 = `EKOR-BACKLOG.md` basi) |
+| tutup sesi | `make compare` + `python3 tools/scripts/audit_consistency.py` (+ `ekor_snapshot.py` bila ujung rantai berubah) |
 | `fomt verify` | **hanya bila user meminta** |
 
 `fomt verify` mengaudit ulang semua fungsi promoted/matched dari nol tanpa
@@ -44,11 +45,18 @@ symlink). Pelengkap khusus status basi: `python3 decomp/audit_sync.py`.
 
 1. `make compare` HIJAU.
 2. `python3 tools/scripts/audit_consistency.py` → masalah struktural 0.
-3. Tulis log sesi **baru** `docs/SESI-<tanggal>.md` (arsip bertanggal: jangan
+3. `python3 tools/scripts/ekor_snapshot.py` → tulis ulang
+   `docs/decomp/EKOR-BACKLOG.md` **bila sesi ini mengubah ujung rantai**: fungsi
+   terakhir sebuah modul tail-only pindah/promosi, ekor dipromosikan jadi fungsi,
+   atau daftar blocker berubah. Gerbangnya
+   `python3 tools/scripts/ekor_snapshot.py --check` (exit 1 = dokumen basi).
+   Kalau tidak ada ujung yang berubah, `--check` cukup (read-only) untuk
+   memastikan dokumen tetap sinkron.
+4. Tulis log sesi **baru** `docs/SESI-<tanggal>.md` (arsip bertanggal: jangan
    mengedit angka sesi lama). Isi: gejala, akar masalah, perbaikan, bukti
    (output tool), sisa/next.
-4. Commit hanya file milik pekerjaan (lihat AGENTS.md R3) dan push.
-5. Laporan total ringkas ke chat (angka saja, `y` = dikerjakan sesi ini):
+5. Commit hanya file milik pekerjaan (lihat AGENTS.md R3) dan push.
+6. Laporan total ringkas ke chat (angka saja, `y` = dikerjakan sesi ini):
 
 ```text
 decomp total <T> fungsi

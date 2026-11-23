@@ -22,7 +22,7 @@ python3 tools/scripts/tail_chain.py --module <stem>.s [--json]
 | modul | tersisa di asm | promoted terkunci | blocker terakhir | status rantai |
 |---|---|---|---|---|
 | `code_linkonce.s` | 428 | 165 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
-| `hardware.s` | 72 | 40 | `func_08008D10` (28B, `pending`) | terkunci: ujung dinding (lihat note) |
+| `hardware.s` | 72 | 40 | `func_08008D10` (27B, `pending`) | terkunci: ujung dinding (lihat note) |
 | `code_actor_0809BFE8.s` | 51 | 26 | `func_0809DA00` (1323B, `failed`) | terbuka, ujung belum MATCH |
 
 Modul tail-only lain sudah kosong di `asm/` (tidak punya blocker ekor lagi): `code_iwram`, `game_scene`, `interrupt`, `main`, `more_items`, `scene`, `sram_proxy_1`, `vtables`.
@@ -63,7 +63,7 @@ Sisa **72** fungsi (40 `promoted`, 26 `failed`, 6 `pending`). Tabel = 12 entri t
 | 68 | `func_08008CEC` | 8B | pending | - |
 | 69 | `func_08008CF4` | 8B | pending | - |
 | 70 | `func_08008CFC` | 20B | pending | - |
-| 71 | `func_08008D10` | 28B | pending | DINDING toolchain (terverifikasi ulang): ref memuat konstanta 5… |
+| 71 | `func_08008D10` | 27B | pending | DINDING toolchain (terverifikasi ulang): ref memuat konstanta 5… |
 
 ## `code_actor_0809BFE8.s`
 
