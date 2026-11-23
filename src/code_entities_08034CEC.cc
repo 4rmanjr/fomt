@@ -23,7 +23,9 @@ typedef struct GenObj__func_08035940 {
     u16 unk46;
 } GenObj__func_08035940;
 typedef struct GenObj {
-    u8 _pad0[20];
+    u8 _pad0[12];
+    i32 unkC;
+    u8 _pad10[4];
     void *unk14;
     i32 unk18;
     u8 unk1C;
@@ -2509,12 +2511,12 @@ i32 func_080387D8(GenObj__func_080387D8 *arg0) {
 }
 // DECOMP-MATCHED func_080387EC (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08038EB8();                                  /* extern */
+void func_08038EB8(GenObj *arg0);                     /* extern */
 
 __attribute__((section(".text.code_entities_08034CEC.080387EC")))
 void func_080387EC(GenObj__func_080387EC *arg0) {
     if (arg0->unk10 != 0) {
-        func_08038EB8();
+        func_08038EB8((GenObj *) arg0->unk10);
     }
 }
 }
@@ -2562,6 +2564,33 @@ i32 func_08038EA0(GenObj__func_08038EA0 *arg0) {
 
 /* ATTEMPT-NOTE manual: byte +0x50 via struct dalam. */
 }
+// DECOMP-MATCHED func_08038EB8 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+/* Kunci MATCH: `zero` harus VARIABEL (bukan literal) dan dibandingkan sebagai
+   `zero != v` di if bersarang. Dengan literal `v != 0 && v != zero` agbcc
+   melipat kedua tes jadi satu `cmp r4,#0` (16 instruksi, 34B vs ref 40B);
+   sebagai variabel, ref mempertahankan `movs r6,#0` + `cmp r6,r4` (register)
+   lalu `cmp r4,#0` (immediate), dan 0 yang sama dipakai ulang untuk
+   `str r6,[r5]`. Pointer `slot` tetap memberi `adds r5,r0,#0; adds r5,#0xc`. */
+i32 func_080A47B4(void *, i32);
+void __builtin_delete(void *);
+
+__attribute__((section(".text.code_entities_08034CEC.08038EB8")))
+void func_08038EB8(GenObj *arg0) {
+    i32 *slot = &arg0->unkC;
+    i32 zero = 0;
+    i32 v = arg0->unkC;
+
+    if (zero != v) {
+        if (v != 0) {
+            func_080A47B4((void *) v, 2);
+            __builtin_delete((void *) v);
+        }
+    }
+    *slot = zero;
+}
+}
+
 
 // DECOMP-MATCHED func_080391C0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {

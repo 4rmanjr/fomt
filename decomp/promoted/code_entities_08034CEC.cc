@@ -2244,3 +2244,27 @@ void *func_08037008(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     *(u8 *) p = 1;
     return arg0;
 }
+
+// DECOMP-MATCHED func_08038EB8 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+/* Kunci MATCH: `zero` harus VARIABEL (bukan literal) dan dibandingkan sebagai
+   `zero != v` di if bersarang. Dengan literal `v != 0 && v != zero` agbcc
+   melipat kedua tes jadi satu `cmp r4,#0` (16 instruksi, 34B vs ref 40B);
+   sebagai variabel, ref mempertahankan `movs r6,#0` + `cmp r6,r4` (register)
+   lalu `cmp r4,#0` (immediate), dan 0 yang sama dipakai ulang untuk
+   `str r6,[r5]`. Pointer `slot` tetap memberi `adds r5,r0,#0; adds r5,#0xc`. */
+s32 func_080A47B4(void *, s32);
+void __builtin_delete(void *);
+
+void func_08038EB8(GenObj *arg0) {
+    s32 *slot = &arg0->unkC;
+    s32 zero = 0;
+    s32 v = arg0->unkC;
+
+    if (zero != v) {
+        if (v != 0) {
+            func_080A47B4((void *) v, 2);
+            __builtin_delete((void *) v);
+        }
+    }
+    *slot = zero;
+}

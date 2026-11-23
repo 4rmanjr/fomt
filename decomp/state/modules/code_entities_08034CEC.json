@@ -1986,13 +1986,14 @@
  "func_08038EB8": {
   "addr": 134450872,
   "draft_src": "manual",
-  "judged_mtime": 1794409279.5973997,
+  "judged_mtime": 1795413888.0139747,
   "module": "code_entities_08034CEC.s",
-  "note": "len 34 vs ref 40 [4missing,1extra,4operand,1regalloc @i push {r4, r5, r6, lr} | push {r4, r5, lr}] [parkir sesi 3/5: ref punya cmp ganda (r6=0 vs v, lalu v vs 0) + base r5=arg0+0xC; draf agbcc melipat jadi satu cmp dan memakai r0]",
+  "note": "MATCH 40B (18 instruksi) + migrasi ke src/code_entities_08034CEC.cc. Kunci bentuk: `zero` harus VARIABEL dan tesnya ditulis `if (zero != v) { if (v != 0) {...} }` bersarang; literal atau `&&` membuat agbcc melipat dua tes jadi satu `cmp r4,#0` (34B vs 40B). `s32 *slot = &arg0->unkC` memberi `adds r5,r0,#0; adds r5,#0xc`, dan `zero` dipakai ulang untuk `str r6,[r5]`. Penyatuan manual yang diperlukan: extern disatukan jadi `void func_08038EB8(GenObj *)` dengan call-site `func_08038EB8((GenObj *)arg0->unk10)` (sebelumnya `i32 func_08038EB8()` tanpa argumen), `GenObj` di src diperluas dengan `unkC` di 0xC tanpa menggeser unk14/unk18/unk1C, dan extern callee di blok mengikuti tanda tangan src: `s32 func_080A47B4(void *, s32)`, `void __builtin_delete(void *)`.",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 409,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08038EE0": {
