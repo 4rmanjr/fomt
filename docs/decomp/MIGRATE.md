@@ -940,6 +940,17 @@ untuk `return (long long)(u32)arg0;` → `adds r0, r4; mov r1, #0` (50B) lawan `
 di toolchain ini; `pop {r2}` semata penanda nilai balik 64-bit, dan setiap bentuk 64-bit menambah
 satu instruksi ekstensi. Jangan diulang tanpa toolchain/front end baru.
 
+**Percobaan 2026-11-23: register var ala `func_08009154`.** Bentuk
+`long long f(Out *, Args *, u32)` + `register Out *ret asm("r0")` di ujung + `ret = arg0;`
+memang memperbaiki dua hal sekaligus: epilog jadi `pop {r4}; pop {r2}` dan urutan load jadi
+`ldrh r1,[r0,#2]` lalu `ldrh r2,[r0]` (kuncinya menulis `arg0->unk4` lebih dulu, hitung `unk0`
+sesudahnya). Yang tetap tidak bisa: assignment ke register var **dieliminasi** gcc sebagai dead
+store (`volatile register` tidak menolong, menulis dua kali juga dibuang), sehingga `adds r0, r4`
+hilang → isi 46B (48B hanya karena pad). Membuatnya hidup kembali menambah satu instruksi:
+`asr r1`/`mov r1,#0` (50B) atau sret dengan salinan pointer di r5 (`push {r4, r5, lr}`, 50B).
+Kesimpulan: `adds r0,r4` + `pop {r2}` sekaligus tetap tak tercapai; jangan ulang tanpa cara
+memaksa live-store yang tidak menambah instruksi.
+
 **Sisir penuh keluarga `pop {r2}` (2026-11-23).** `grep "pop {r2}" asm/*.s` **tidak** cukup: banyak
 fungsi kecil di `asm/` masih berupa blob `.byte`/komentar disassembly, jadi epilognya tak terlihat
 sebagai teks. Cara yang benar: pola byte `04 BC 10 47` (`pop {r2}; bx r2`) discan langsung ke
