@@ -377,7 +377,7 @@
   "addr": 134252488,
   "judged_mtime": 1793582714.0244193,
   "module": "hardware.s",
-  "note": "novo/gitproject/fomt/decomp/logs/judge_func_080087C8/opencode/func.c:81: warning: passing arg 1 of `func_080098AC' from incompatible pointer type\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080087C8/opencode/func.c:82: warning: passing arg 1 of `func_080098AC' from incompatible pointer type\n",
+  "note": "uji 2026-11-23: draf 3 varian (bingkai 76B, sentinel-list) -> len 246 vs ref 238, 19missing/24extra/15operand/7regalloc/4stack/2different. Belum MATCH; 10 promoted di atasnya masih terkunci.",
   "ref_len": 240,
   "sanitize_v": 4,
   "size": 2357,
