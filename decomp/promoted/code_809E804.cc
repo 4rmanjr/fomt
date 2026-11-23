@@ -3570,3 +3570,72 @@ void *func_080A6474(u8 *arg0, s32 arg1) {
     p[2] = 0;
     return arg0;
 }
+
+// DECOMP-MATCHED func_080CEC84 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_0805E8F0(void *);                             /* extern */
+s32 func_080CE120(s32 *, s32, s32);                    /* extern */
+
+void func_080CEC84(u8 *arg0, s32 arg1, s32 arg2) {
+    s32 buf[1];
+    s32 v;
+    s32 t;
+
+    *(u8 *) (arg0 + 0x84) = 1;
+    *(u8 *) (arg0 + 0x68) = 1;
+    do {
+        t = func_0805E8F0(arg0 + 0x38) << 0x1D;
+    } while (t >= 0);
+    v = *(s32 *) arg0;
+    func_080CE120(buf, v, arg1);
+    *(u16 *) (arg0 + 0x34) = *(u8 *) buf + 8;
+    *(u16 *) (arg0 + 0x36) = *((u8 *) buf + 1);
+    *(s32 *) (arg0 + 0x7C) = arg1;
+    *(s32 *) (arg0 + 0x80) = arg2;
+}
+
+// DECOMP-MATCHED func_080BA1A4 (dari code_809E804.s; cek manusia sebelum ke src/)
+void func_080BA1A4(u8 *arg0) {
+    s32 st;
+
+    st = *(s32 *) (arg0 + 8);
+    if (st == 0) {
+        *(u16 *) (arg0 + 0x20) -= *(u8 *) (arg0 + 0x23);
+    } else if (st == 1) {
+        *(u16 *) (arg0 + 0x1E) += *(u8 *) (arg0 + 0x23);
+    } else if (st == 2) {
+        *(u16 *) (arg0 + 0x20) += *(u8 *) (arg0 + 0x23);
+    } else if (st == 3) {
+        *(u16 *) (arg0 + 0x1E) -= *(u8 *) (arg0 + 0x23);
+    }
+}
+
+// DECOMP-MATCHED func_080A4650 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern s32 gUnk_08105708;
+
+s32 func_080A4650(u8 arg0, u8 arg1, s32 arg2, s32 arg3) {
+    u8 *base;
+    u8 *e;
+    s32 idx;
+    u32 key;
+    s32 res;
+    u16 cur;
+
+    base = (u8 *) &gUnk_08105708;
+    idx = arg3 << 2;
+    idx += arg2 << 4;
+    e = *(u8 **) (base + idx);
+    key = (u16) ((((arg0 << 4) - arg0) << 2) + arg1);
+    res = 0;
+    cur = *(u16 *) e;
+    while (1) {
+        if (cur == 0xFFFF) {
+            return res;
+        }
+        if (cur > key) {
+            return res;
+        }
+        res = e[2];
+        e += 4;
+        cur = *(u16 *) e;
+    }
+}

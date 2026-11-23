@@ -2572,3 +2572,33 @@ parameter yang di ref baru dipotong di ujung.
    `src/code_0803EE94.cc`; draf yang memakai `(void *)`/`(s32, s32 *)`
    ditolak gate SKIP walau byte-nya identik. Cast di call-site
    (`func_080A4A94();`, `(s32) GetDesc__C4Tool(&sp0)`) tidak mengubah kode.
+
+### 78. Bentuk loop menentukan rotasi, bukan urutan pernyataan
+
+1. **`while (1) { if (kond) return v; ... }` menjaga uji di atas loop.**
+   `func_080A4650`: bentuk `for (;;)`/`while (kond) { ... }` dirotasi agbcc
+   (badan dulu, uji di bawah, `b` ke uji) sehingga `cmp; bhi` jadi `bls` ke
+   badan. Menulis `while (1)` dengan `if (cur == 0xFFFF) return res;` lalu
+   `if (cur > key) return res;` menghasilkan persis `beq` + `bhi` di atas
+   badan seperti ref.
+2. **Pra-uji eksplisit + `do..while` untuk loop `i = 1; i <= n` yang tidak
+   dirotasi.** `func_08025248`: ref menguji `cmp r5,r7; bhi end` SEBELUM badan.
+   Bentuk `for (i = 1; i <= n; i++)` dirotasi; bentuk
+   `i = 1; if (i > n) goto done; do { ...; i++; } while (i <= n); done:` menghasilkan
+   layout ref.
+3. **Argumen ke-5 disalin ke variabel sebelum salinan struct.** Ref memuat
+   argumen stack ke `r7` lebih dulu (`ldr r7,[sp,#0x20]`), baru menyalin
+   `*arg2`; menaruh `n = arg4;` di atas `v = *arg2;` memaksa itu dan membuat
+   `arg1` dapat `r8` (bukan `r9`). Tipe `u32 n` juga menghindari salinan
+   tambahan pada `cmp` unsigned.
+4. **Salinan struct utuh, bukan dua tulis terpisah.** `v = *arg2;` (arg2
+   bertipe struct) menghasilkan `ldr/ldr/str/str` seperti ref; dua
+   `*(s32 *) &v.a = ...` menghasilkan `ldr/str/ldr/str`.
+5. **Offset langsung mengalahkan variabel pointer saat ref memakai `r0`
+   untuk alamat.** `func_080BA1A4`: `*(u16 *)(arg0 + 0x20) -=
+   *(u8 *)(arg0 + 0x23)` memberi `adds r0,r2,#0; adds r0,#0x23; ldrb r1,[r0]`
+   sesuai ref, sedangkan `p = arg0 + 0x23` menaruh alamat di `r1`.
+6. **Pernyataan pemisah sebelum penyiapan argumen call.** `func_080CEC84`:
+   `v = *(s32 *) arg0;` sebagai pernyataan sendiri membuat `ldr r1,[r5]`
+   dieksekusi sebelum `mov r4, sp`; menulisnya inline di argumen call
+   membalik urutan itu.

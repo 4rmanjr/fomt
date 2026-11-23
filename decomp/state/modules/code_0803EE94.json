@@ -2347,7 +2347,7 @@
  },
  "func_0806E1E8": {
   "addr": 134668776,
-  "judged_mtime": 1795433173.3650591,
+  "judged_mtime": 1795433790.6086752,
   "module": "code_0803EE94.s",
   "note": "len 76 vs ref 74 [1extra,4operand,7regalloc @r ands r0, r1 | ands r1, r0]",
   "ref_len": 76,
@@ -3490,9 +3490,9 @@
  },
  "func_0807D194": {
   "addr": 134730132,
-  "judged_mtime": 1795433219.6835413,
+  "judged_mtime": 1795433450.6380837,
   "module": "code_0803EE94.s",
-  "note": "byte +0xd: 0x48 vs ref 0x49 [1missing,2extra,2operand,8regalloc @r ldr r1, [pc, #0x20] | ldr r0, [pc, #0x20]]",
+  "note": "byte +0x0: 0x30 vs ref 0x10 [2missing,3extra,5operand,6regalloc,1stack,1different @i push {r4, lr} | push {r4, r5, lr}]",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 630,
@@ -6606,9 +6606,9 @@
  },
  "func_0809A970": {
   "addr": 134850928,
-  "judged_mtime": 1793582714.167396,
+  "judged_mtime": 1795433803.0023792,
   "module": "code_0803EE94.s",
-  "note": "cing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0809A970/opencode/func.c:17: request for member `unk13' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0809A970/opencode/func.c:19: warning: assignment from incompatible pointer type\n",
+  "note": "byte +0x16: 0xf0 vs ref 0xd [1missing,1extra,1operand,4regalloc,1different @| ldr r2, [pc, #0x34] | movs r2, #0xf0]",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 716,

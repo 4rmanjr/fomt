@@ -2002,6 +2002,40 @@ extern "C" {
 extern const u8 gData_code_809E804_080A3C24[28] __attribute__((section(".text.code_809E804.080A3C24"))) = {0x30, 0xB5, 0x05, 0x4C, 0x04, 0x60, 0x0D, 0x68, 0x00, 0x24, 0x0C, 0x60, 0x45, 0x60, 0x82, 0x60, 0xC3, 0x60, 0x30, 0xBC, 0x02, 0xBC, 0x08, 0x47, 0x88, 0x82, 0x0E, 0x08};
 }
 
+// DECOMP-MATCHED func_080A4650 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+extern i32 gUnk_08105708;
+
+__attribute__((section(".text.code_809E804.080A4650")))
+i32 func_080A4650(u8 arg0, u8 arg1, i32 arg2, i32 arg3) {
+    u8 *base;
+    u8 *e;
+    i32 idx;
+    u32 key;
+    i32 res;
+    u16 cur;
+
+    base = (u8 *) &gUnk_08105708;
+    idx = arg3 << 2;
+    idx += arg2 << 4;
+    e = *(u8 **) (base + idx);
+    key = (u16) ((((arg0 << 4) - arg0) << 2) + arg1);
+    res = 0;
+    cur = *(u16 *) e;
+    while (1) {
+        if (cur == 0xFFFF) {
+            return res;
+        }
+        if (cur > key) {
+            return res;
+        }
+        res = (i32)(e[2]);
+        e += 4;
+        cur = *(u16 *) e;
+    }
+}
+}
+
 // DECOMP-MATCHED func_080A5A9C (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -3183,6 +3217,25 @@ void func_080B9828(i32 arg0, i32 arg1) {
 }
 }
 
+// DECOMP-MATCHED func_080BA1A4 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080BA1A4")))
+void func_080BA1A4(u8 *arg0) {
+    i32 st;
+
+    st = *(i32 *) (arg0 + 8);
+    if (st == 0) {
+        *(u16 *) (arg0 + 0x20) -= *(u8 *) (arg0 + 0x23);
+    } else if (st == 1) {
+        *(u16 *) (arg0 + 0x1E) += *(u8 *) (arg0 + 0x23);
+    } else if (st == 2) {
+        *(u16 *) (arg0 + 0x20) += *(u8 *) (arg0 + 0x23);
+    } else if (st == 3) {
+        *(u16 *) (arg0 + 0x1E) -= *(u8 *) (arg0 + 0x23);
+    }
+}
+}
+
 // DECOMP-MATCHED func_080BC898 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __builtin_new(i32);                             /* extern */
@@ -3447,6 +3500,31 @@ void func_080CD534(i32 *arg0, i32 arg1, i32 arg2) {
     t += 0x78;
     b = (u8) t;
     *arg0 = (temp_r2 & 0xFFFFFF00) | b;
+}
+}
+
+// DECOMP-MATCHED func_080CEC84 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0805E8F0(void *);                             /* extern */
+i32 func_080CE120(i32 *, i32, i32);                    /* extern */
+
+__attribute__((section(".text.code_809E804.080CEC84")))
+void func_080CEC84(u8 *arg0, i32 arg1, i32 arg2) {
+    i32 buf[1];
+    i32 v;
+    i32 t;
+
+    *(u8 *) (arg0 + 0x84) = 1;
+    *(u8 *) (arg0 + 0x68) = 1;
+    do {
+        t = func_0805E8F0(arg0 + 0x38) << 0x1D;
+    } while (t >= 0);
+    v = *(i32 *) arg0;
+    func_080CE120((i32 *)(buf), v, arg1);
+    *(u16 *) (arg0 + 0x34) = *(u8 *) buf + 8;
+    *(u16 *) (arg0 + 0x36) = *((u8 *) buf + 1);
+    *(i32 *) (arg0 + 0x7C) = arg1;
+    *(i32 *) (arg0 + 0x80) = arg2;
 }
 }
 

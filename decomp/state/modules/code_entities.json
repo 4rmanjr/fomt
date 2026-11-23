@@ -679,7 +679,7 @@
  },
  "func_08024B9C": {
   "addr": 134368156,
-  "judged_mtime": 1795433050.4052012,
+  "judged_mtime": 1795433450.6380837,
   "module": "code_entities.s",
   "note": "len 78 vs ref 74 [3extra,1different @| subs r2, #0x25 | ldr r2, [pc, #0x2c]]",
   "ref_len": 76,
@@ -816,9 +816,9 @@
  },
  "func_080251FC": {
   "addr": 134369788,
-  "judged_mtime": 1795433090.2589283,
+  "judged_mtime": 1795433937.1284406,
   "module": "code_entities.s",
-  "note": "len 108 vs ref 76 [16extra,6operand,9regalloc,2different @>  | mov r7, sb]",
+  "note": "len 110 vs ref 76 [3missing,20extra,1operand,4regalloc,3stack,3different @s sub sp, #8 | sub sp, #0xc]",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 751,
@@ -827,13 +827,14 @@
  },
  "func_08025248": {
   "addr": 134369864,
-  "judged_mtime": 1795433090.2549284,
+  "judged_mtime": 1795433926.3514977,
   "module": "code_entities.s",
-  "note": "len 106 vs ref 76 [1missing,17extra,7operand,10regalloc,3different @>  | mov r7, sb]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 759,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08025294": {
