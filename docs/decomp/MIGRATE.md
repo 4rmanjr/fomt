@@ -1109,3 +1109,50 @@ terlanjur ditulis. Dua hal yang dipakai sebagai gantinya:
 
 Syaratnya draf sudah ada di `decomp/drafts/<fungsi>.c`; draf tulis-tangan sah selama judge lulus
 (m2c tidak wajib untuk fungsi 1-baris seperti `func_08008D2C`: `*arg0 += 0x40;`).
+
+## 40. "Ekor `.byte` 44B" di `0x08008FB8` ternyata fungsi tanpa simbol, bukan data
+
+Setelah `func_08008FE4` pindah, sisa `hardware.s` berakhir di blob verbatim 44B di `0x08008FB8`
+(§34 menyebutnya "milik fungsi sebelumnya" — itu tidak tepat). Isinya bukan data:
+
+| Bagian | Alamat | Isi |
+|---|---|---|
+| badan fungsi | `0x08008FB8`-`0x08008FDE` | `push {r4,lr}` … `bx r0` (38B, 19 instruksi) |
+| padding align | `0x08008FDE`-`0x08008FE0` | `00 00` |
+| literal pool | `0x08008FE0` | `0x040000D4` (DMA3SAD) |
+
+Alasannya lolos sebagai "data": tidak ada label/simbol untuk `0x08008FB8` (pemecah blok hanya membuat
+simbol dari label yang ada), jadi `trailing_data_len()` menempelkannya ke blok fungsi sebelumnya dan
+migrator menyalinnya apa adanya. Di `src/hardware_migrated.cc` ia hidup sebagai
+`asm(".L08008FB8: .byte …")` berlabel "ekor tak-bermarker" — jadi `make compare` tetap hijau, tetapi
+fungsinya tak pernah masuk state, tak pernah dihitung progres, dan tak bisa di-judge.
+
+Bukti ini fungsi biasa (dan bisa diterjemahkan): probe `agbcc -O2 -mthumb-interwork` untuk badan di
+bawah menghasilkan 44B yang **identik** dengan ROM kecuali 3 byte displacement `bl` (relokasi belum
+diselesaikan di `.o`):
+
+```c
+typedef struct { s32 unk0; i32 *unk4; s32 unk8; s32 unkC; } T;
+
+void func_08008FB8(T *arg0) {
+    i32 *p;
+    i32 tmp;
+
+    p = arg0->unk4;
+    if (arg0->unk0 == 1) {
+        tmp = (s32) p;
+        p = &tmp;
+    }
+    func_080D0EBC(p, arg0->unk8, arg0->unkC, 0x040000D4);
+}
+```
+
+Epilog ref `add sp,#4; pop {r4}; pop {r0}; bx r0` menandakan fungsi **void** (nilai balik
+`func_080D0EBC` dibuang); menulisnya `return func_080D0EBC(...)` menghasilkan `pop {r1}; bx r1`
+(POLA-DIFF triage #2). Fungsi ini juga tampak **mati**: tidak ada word `0x08008FB8`/`0x08008FB9` di
+seluruh ROM dan tidak ada `bl`/`b` yang menargetkannya.
+
+Untuk menyimbolkannya seperti `func_08008FE4`: tambahkan `thumb_func_start func_08008FB8` + label di
+modul asm pemilik rentang `0x08008E00`, buang string `asm(".L08008FB8: …")` dari blok C pemiliknya,
+lalu jalur biasa (scan -> draft -> judge -> migrate). Karena rentang ini sudah tidak ada di
+`asm/hardware.s`, symbol-nya perlu ditempel di modul yang sekarang menutup `0x08008FB8`.
