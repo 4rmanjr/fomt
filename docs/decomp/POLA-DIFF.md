@@ -1792,6 +1792,16 @@ hidup bersamaan (mis. `p` vs `n` di blok `L571E`) atau memakai satu variabel fla
 Angka pembukti: draf m2c 394B (50missing/28extra/61regalloc) → translasi 1:1 440B
 (15missing/15extra/36operand/97regalloc). Semua sisa beda ada di nomor register, bukan di instruksi.
 
+**Uji lanjutan (2026-11-23), gagal:** resep "pecah blok supaya dua pointer tidak hidup bersamaan + satu variabel
+flag" diterapkan pada `L571E` (ambil `(*arg2)->unk10` langsung, `p` baru dimuat di `L5768`, flag kedua memakai `q`)
+dan diukur dengan `cc_probe`: **420B/201 instruksi** (dari 440B/210), high register tinggal `r8`+`r9` sehingga `sl`
+hilang persis seperti ref. Tetapi judge menolak lebih jauh: `len 420 vs ref 438`
+`[64missing,55extra,24operand,63regalloc,2stack,7different]` (sebelumnya 15missing/15extra/97regalloc) — memotong
+dua pointer yang hidup bersamaan justru menggeser urutan blok relatif ke ref. Frame tetap `0x14` vs ref `0x18`,
+dan catatan lama "arg0 di-spill (`str r0,[sp,#16]`)" **tidak tereproduksi** pada draf ini, jadi tebusan spill tidak
+bisa dipakai sebagai patokan. Kesimpulan: jalur penyusutan live-range bukan jalan ke MATCH di fungsi ini; draf
+parkir dipertahankan.
+
 ## 57. Resep §43 di fungsi lain: truncation argumen di-hoist, pointer `s16` jangan pakai aritmetika byte
 
 Resep §43 (temp `s32` + hoist field ke preheader) diterapkan ke `func_0804EDB4` (104B incl. ekor data,
