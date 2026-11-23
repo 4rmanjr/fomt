@@ -231,6 +231,37 @@ typedef struct GenObj__func_08008F0C {
 } GenObj__func_08008F0C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct {
+    u8 _pad0[4];
+    u8 unk4;
+    u8 _pad5[3];
+} SongEntry;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08008D3C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+i32 func_08008B54(i32 *, u8);                         /* extern */
+extern SongEntry gSongTable[];
+
+i32 func_08008D3C(u16 arg0) {
+    i32 sp0;
+
+    func_08008B54(&sp0, gSongTable[arg0].unk4);
+    return sp0;
+}
+}
+// ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
+asm(
+".L08008D5C:\n"
+"    .byte 0x00, 0x04, 0x03, 0x49\n"
+"    .byte 0x40, 0x0B, 0x40, 0x18, 0x00, 0x68, 0x00, 0x78, 0x70, 0x47, 0x00, 0x00, 0xF0, 0xAB, 0x13, 0x08\n"
+"    .byte 0x00, 0x04, 0x03, 0x49, 0x40, 0x0B, 0x40, 0x18, 0x00, 0x68, 0x80, 0x78, 0x70, 0x47, 0x00, 0x00\n"
+"    .byte 0xF0, 0xAB, 0x13, 0x08\n"
+);
+
 // DECOMP-MATCHED func_08008D84 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 m4aSoundVSyncOn();                                /* extern */

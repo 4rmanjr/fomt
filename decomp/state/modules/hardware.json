@@ -753,14 +753,15 @@
  },
  "func_08008D3C": {
   "addr": 134253884,
-  "judged_mtime": 1793582714.0274186,
+  "judged_mtime": 1795398497.4455385,
   "module": "hardware.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08008D3C/opencode/func.c: In function `func_08008D3C':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08008D3C/opencode/func.c:8: request for member `unk4' in something not a structure or union\n",
-  "ref_len": 72,
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
+  "ref_len": 71,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
-  "size": 642,
-  "status": "failed",
+  "size": 643,
+  "status": "promoted",
   "thumb": true
  },
  "func_08008D84": {
