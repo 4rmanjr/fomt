@@ -12,7 +12,13 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
 - `migrate_audit.py` — klasifikasi semua blok promoted: bisa migrasi vs alasan
   SKIP (`--json`).
 - `tail_chain.py --module <stem>.s` — urutan ekor + NEXT/blocker untuk modul
-  tail-only.
+  tail-only. Blok yang `ref_len`-nya memuat lebih dari satu prolog
+  `push {…, lr}` (blob `.byte` berisi beberapa fungsi) ditandai MULTI-FUNGSI:
+  barisnya diberi catatan, dan kalau blok itu jatuh di ekor, output berhenti
+  dengan `BUNTU` alih-alih merekomendasikan NEXT (satu fungsi C tak mungkin
+  menutup beberapa fungsi). Deteksi butuh `fomt.gba`; tanpa ROM, kolom prolog
+  kosong. Heuristik ini tidak menangkap blob yang fungsi keduanya leaf (tanpa
+  `push {…, lr}`).
   Peta semua blocker ekor (fungsi failed, ukuran, residual terakhir) ada di
   `docs/decomp/EKOR-BACKLOG.md`.
 - `diff_mismatch.py <func>` — hitung mismatch `diff.py` setelah target branch
