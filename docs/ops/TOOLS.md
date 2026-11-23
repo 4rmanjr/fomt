@@ -33,6 +33,10 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   `<!-- manual:catatan-per-modul -->` disalin apa adanya. `--check` exit 1 kalau
   dokumen di disk basi, `--stdout` untuk melihat hasil tanpa menulis. Jalankan
   setiap habis MATCH/migrasi yang mengubah ujung rantai.
+  **Gate-nya otomatis**: `check_docs.py` membandingkan dokumen dengan hasil
+  generate `ekor_snapshot.build()` dan menjadikannya masalah (exit 1) bila basi,
+  jadi lupa meregenerasi tidak bisa lewat diam-diam di tutup sesi; `--check`
+  manual hanya untuk gerbang cepat tanpa memuat seluruh pemeriksaan dokumen.
 - `diff_mismatch.py <func>` — hitung mismatch `diff.py` setelah target branch
   dinormalkan (`--json`/`--strict`, `--diff-json` untuk output yang sudah ada).
 - `width_mismatch.py` — lebar akses asm (`ldrb/strb/ldrh/strh/ldr/str`) vs tipe

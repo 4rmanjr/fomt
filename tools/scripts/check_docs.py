@@ -22,6 +22,10 @@ Yang diperiksa:
    menyatakan `norm()` sudah menanganinya. Tabel itu juga diverifikasi
    terhadap perilaku `norm()` sungguhan, jadi menambah normalisasi di engine
    tanpa memperbarui tabel akan gagal di sini.
+6. **Backlog ekor basi** (`docs/decomp/EKOR-BACKLOG.md`): dokumen itu dihasilkan
+   `tools/scripts/ekor_snapshot.py`, jadi isinya dibandingkan dengan hasil
+   generate saat ini. MATCH/migrasi yang mengubah ujung rantai tanpa regenerasi
+   akan menggagalkan gate ini, bukan lewat diam-diam.
 
 Read-only; exit 1 bila ada masalah (`--json` untuk agent, `--strict` sama
 dengan default).
@@ -51,6 +55,38 @@ NEG_NORM = re.compile(
     r"\b(belum|tidak)\b[^\n]{0,60}?\b(alias(?:kan|-kannya)?|dinormalkan"
     r"|dinormalisasi|di-alias|mengalias\w*|normalisasi)\b", re.I)
 MD_TICK = re.compile(r"`([\w./-]+\.md)(?:#[^`]*)?`")
+
+EKOR_DOC = "docs/decomp/EKOR-BACKLOG.md"
+EKOR_TOOL = REPO / "tools/scripts/ekor_snapshot.py"
+EKOR_TAIL = 12  # default --tail ekor_snapshot.py
+
+
+def ekor_backlog():
+    """-> (masalah|None, catatan|None) untuk dokumen backlog ekor.
+
+    Dokumen itu hasil generate, jadi satu-satunya sumber kebenaran isinya
+    adalah `ekor_snapshot.build()`. Regenerasi manual hanya terjadi kalau
+    seseorang ingat; gate ini membuat kelalaian itu terlihat.
+    """
+    import importlib.util
+
+    out = REPO / EKOR_DOC
+    if not out.exists():
+        return (EKOR_DOC, "dokumen backlog ekor hilang — jalankan "
+                "tools/scripts/ekor_snapshot.py"), None
+    try:
+        spec = importlib.util.spec_from_file_location("ekor_snapshot", EKOR_TOOL)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        existing = out.read_text()
+        manual, _ = mod.split_manual(existing)
+        text = mod.build(EKOR_TAIL, manual) + "\n"
+    except Exception as e:  # gate tidak boleh lolos diam-diam saat tool rusak
+        return (EKOR_DOC, f"gate ekor gagal dijalankan: {type(e).__name__}: {e}"), None
+    if existing != text:
+        return (EKOR_DOC, "BASI terhadap hasil generate — jalankan "
+                "python3 tools/scripts/ekor_snapshot.py"), None
+    return None, "backlog ekor sinkron"
 
 
 
@@ -149,6 +185,12 @@ def check(max_agents):
                                      f"({len(hits)} kandidat)"))
                     continue
                 problems.append((f"{rel}:{i}", f"rujukan .md tidak ada: {m}"))
+
+    prob, note = ekor_backlog()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
 
     return {"problems": problems, "stats": {"agents_lines": lines,
                                             "norm_keywords": sorted(kwmap),

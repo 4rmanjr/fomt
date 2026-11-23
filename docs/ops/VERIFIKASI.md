@@ -10,8 +10,8 @@ Tool: [`TOOLS.md`](./TOOLS.md).
 | skrip Python | `python3 -m py_compile <skrip>` |
 | edit src manual / `migrate.py` | `make compare` HIJAU (`fomt.gba: OK`) |
 | judge, regen draf, parkir draf | tidak mengubah tree build → **tidak** perlu compare |
-| MATCH/migrasi yang mengubah ujung rantai (fungsi di ujung berkas asm pindah atau promosi ekor baru) | `python3 tools/scripts/ekor_snapshot.py` lalu `--check` (exit 1 = `EKOR-BACKLOG.md` basi) |
-| tutup sesi | `make compare` + `python3 tools/scripts/audit_consistency.py` (+ `ekor_snapshot.py` bila ujung rantai berubah) |
+| MATCH/migrasi yang mengubah ujung rantai (fungsi di ujung berkas asm pindah atau promosi ekor baru) | `python3 tools/scripts/ekor_snapshot.py` lalu `check_docs.py` (basi = masalah, exit 1) |
+| tutup sesi | `make compare` + `python3 tools/scripts/audit_consistency.py` + `check_docs.py` (+ regenerasi `ekor_snapshot.py` bila ujung rantai berubah) |
 | `fomt verify` | **hanya bila user meminta** |
 
 `fomt verify` mengaudit ulang semua fungsi promoted/matched dari nol tanpa
@@ -45,13 +45,16 @@ symlink). Pelengkap khusus status basi: `python3 decomp/audit_sync.py`.
 
 1. `make compare` HIJAU.
 2. `python3 tools/scripts/audit_consistency.py` → masalah struktural 0.
+2b. `python3 tools/scripts/check_docs.py` → masalah dokumen 0 (termasuk gate
+   backlog ekor: `EKOR-BACKLOG.md` basi = masalah).
 3. `python3 tools/scripts/ekor_snapshot.py` → tulis ulang
    `docs/decomp/EKOR-BACKLOG.md` **bila sesi ini mengubah ujung rantai**: fungsi
    terakhir sebuah modul tail-only pindah/promosi, ekor dipromosikan jadi fungsi,
-   atau daftar blocker berubah. Gerbangnya
-   `python3 tools/scripts/ekor_snapshot.py --check` (exit 1 = dokumen basi).
-   Kalau tidak ada ujung yang berubah, `--check` cukup (read-only) untuk
-   memastikan dokumen tetap sinkron.
+   atau daftar blocker berubah. Gerbangnya sudah otomatis di
+   `check_docs.py` (langkah 2b): dokumen yang tidak sama dengan hasil generate
+   dihitung sebagai masalah, jadi lupa meregenerasi menggagalkan tutup sesi
+   alih-alih menyisakan backlog basi; `ekor_snapshot.py --check` tetap ada
+   sebagai gerbang cepat satu perintah.
 4. Tulis log sesi **baru** `docs/SESI-<tanggal>.md` (arsip bertanggal: jangan
    mengedit angka sesi lama). Isi: gejala, akar masalah, perbaikan, bukti
    (output tool), sisa/next.
