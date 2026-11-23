@@ -1807,6 +1807,14 @@ Catatan tambahan: tidak ada spill `arg0` di varian mana pun — `arg0` hidup di 
 `str r0,[sp,#4]` yang tampak di prolog-sekitar-call adalah argumen ke-6 `func_080E54F0` (`movs r0,#0`), pola
 yang sama dengan ref.
 
+**Uji pin (2026-11-23, semua diukur `cc_probe`):** menghapus pin `a0 __asm__("r7")` justru **membuat** spill
+arg0 (`448B/215 instr`, `str r0,[sp,#0x14]`, frame `0x18`) — jadi pin itulah yang menahan arg0 di register,
+bukan sumber tekanan. Arah sebaliknya yang lebih masuk akal juga diuji: memindahkan flag ke `sb` ala ref
+(`register s32 fl __asm__("r9")`) memberi **432B/206 instr** dan judge `18missing/14extra/35operand/95regalloc`
+— masih DIFF dan `sl` tetap terpakai; pin `n` ke `r2` (444B), kedua pin (436B), dan mengganti `slot[3]` jadi tiga
+skalar (452B) semuanya lebih jauh dari ref 438B. Kesimpulan tetap: residual fungsi ini murni penomoran register
+dan tidak bisa digeser lewat pin selama `sl` masih dipakai allocator.
+
 ## 57. Resep §43 di fungsi lain: truncation argumen di-hoist, pointer `s16` jangan pakai aritmetika byte
 
 Resep §43 (temp `s32` + hoist field ke preheader) diterapkan ke `func_0804EDB4` (104B incl. ekor data,
