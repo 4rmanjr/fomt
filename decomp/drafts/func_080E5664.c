@@ -19,7 +19,7 @@ void **func_080E54F0(void **, Tree *, Node *, Node *, u32 *, Node *);
 void func_080E55B0(Node **, Tree *, u32 *);
 
 u32 **func_080E5664(u32 **arg0, Tree *arg1, Node **arg2, u32 *arg3) {
-    Node *slot[3];
+    Node *slot[4];  /* slot[3] tak pernah disentuh: ia hanya membuat frame 0x18 seperti ref */
     register u32 ** a0 __asm__("r7");
     register Tree * a1 __asm__("r6");
     register Node ** a2 __asm__("r8");

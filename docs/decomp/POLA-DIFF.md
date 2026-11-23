@@ -2113,3 +2113,16 @@ ekstra di area argumen keluar/slot) dan urutan di sekitar L56D0/L5710.
 Aturan praktis: pin register selalu (a) nama numerik, (b) berpasangan dengan
 fence `"+r"`, (c) satu pin per home ref, lalu ukur dulu dengan kompilasi lokal
 sebelum judge.
+
+**Frame kurang satu kata bukan slot yang terpakai, tapi padding.** Sisa
+`sub sp,#0x18` (ref) vs `#0x14` (draf) di fungsi yang sama bukan tanda ada
+variabel yang belum ditulis: ref tidak pernah menyentuh `[sp,#0x14]` sama
+sekali (slot yang dipakai cuma `[sp]`, `[sp,#4]` untuk argumen keluar dan
+`[sp,#8]`, `[sp,#0xC]`, `[sp,#0x10]` untuk tiga lokal). Menambah "slot keempat
+terpakai" akan menambah dua instruksi yang tidak ada di ref. Yang bekerja:
+perbesar deklarasi array-nya satu elemen (`Node *slot[3]` -> `Node *slot[4]`,
+elemen ke-4 tak pernah diakses). Hasil ukur lokal: satu-satunya beda di seluruh
+211 instruksi adalah dua baris frame (`add sp,sp,#-0x18` / `#0x18`), dan judge
+kehilangan diff stack (7missing/7extra/20operand/56regalloc, tanpa `2stack`).
+Jadi urutan diagnosis yang benar: cek dulu apakah offset frame yang hilang
+pernah disentuh ref; kalau tidak, itu padding, dan array+1 adalah obat termurah.
