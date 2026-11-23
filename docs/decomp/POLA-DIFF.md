@@ -1909,3 +1909,28 @@ Detail lain yang ikut menentukan di fungsi kecil ini:
   `0` menambah `movs r0, #0` dan membuat load field lewat r0 (ref lewat r1).
 - kondisi loop `((0 - st.unk0) | st.unk0) < 0` menghasilkan `negs/orrs/cmp/blt`;
   `st.unk0 != 0` menghasilkan `cmp/bne` (beda 4 byte).
+
+## 62. Buffer stack 2-kata: reload `volatile`, urutan konstanta-mask, dan pin temp AND
+
+Pembukti: `func_08003DF0` (152B, MATCH, `new_game.s`). Draf lama parkir di 3missing/3extra karena
+seluruh blok `spbuf[0]` diwarnai permutasi register. Enam perubahan berikut membawanya ke byte-identik
+(semua netral kecuali pin):
+
+1. **Reload kata dari buffer stack**: ref menulis byte ke `spbuf[0]` lalu `ldr r2,[sp]` lagi sebelum
+   `ands`. Menulis `temp = mask & *(volatile s32 *)spbuf;` memaksa reload itu, tanpa mengubah tail.
+2. **Konstanta mask diikat ke variabel lebih dulu**: `mask = 0xFFFFFF00; temp = mask & ...;` memberi
+   urutan ref (`ldr r0,=<mask>` lalu `ldr r2,[sp]`); menulis mask sebagai literal di ekspresi membuat
+   agbcc memuat temp lebih dulu.
+3. **Pecah shift dari penjumlahan**: `sh = (u32)(temp << 7) >> 0x17;` sebelum load tabel, lalu
+   `var = sh + 0x80;` sesudahnya. Satu ekspresi `((temp<<7)>>23) + 0x80` menaruh `adds #0x80` sebelum
+   alamat/`ldrb` tabel; ref menaruhnya sesudah.
+4. **Nilai gabungan pakai variabel baru** (`out`), bukan menimpa `temp`: menimpa `temp` membuat
+   agbcc memakai register `temp` sebagai tujuan `ands`, ref memakai register mask yang baru dimuat.
+5. **Pin temp AND akhir ke r0 + compound `|=`**: `sh2 = 0xFFFFFCFF & out; sh2 |= 0x200; spbuf[0] = sh2;`
+   dengan `register u32 sh2 __asm__("r0")` menghasilkan `ands r0,r1; movs r1,#0x80; lsls r1,#2;
+   orrs r0,r1` seperti ref; tanpa pin agbcc membalik tujuan `ands`/`orrs`.
+6. **Pointer buffer stack sesudah call**: `rcall = (s32) func_08008920(arg0); sp2 = (u8 *)spbuf;
+   p = (GenObj *)((u8 *)rcall + ...);` memunculkan `mov r2, sp` tepat setelah `bl` dan
+   `ldrh r1,[r2,#4]` di tail. Menggabung call+aritmetika dalam satu ekspresi malah menambah
+   `adds r1,r0,#0` (156B); memakai ulang variabel pointer lama membuat argumen pindah ke r6
+   (`push {r6}`).

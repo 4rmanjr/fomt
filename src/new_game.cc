@@ -193,6 +193,15 @@ typedef struct GenObj__func_080050F8 {
 } GenObj__func_080050F8;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08003DF0 {
+    i32 unk0;
+    u16 unk4;
+    u8 _pad8[120];
+    i32 unk80;
+} GenObj__func_08003DF0;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08003BB4 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080087C8(i32);                             /* extern */
@@ -269,6 +278,67 @@ void func_08003C28(i32 arg0) {
     temp_r1 = arg0 + 0x10;
     temp_r4b = arg0 + 0x14;
     func_08050D3C(temp_r1, temp_sb, temp_r8, temp_r6, temp_r5, temp_r0, temp_r4b);
+}
+}
+
+// DECOMP-MATCHED func_08003DF0 (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08008920(i32);                          /* extern */
+
+__attribute__((section(".text.new_game.08003DF0")))
+void func_08003DF0(GenObj__func_08003DF0 *arg0, i32 arg1, i32 arg2, i32 arg3) {
+    i32 temp;
+    u32 var;
+    u8 *t;
+    GenObj__func_08003DF0 *p;
+    i32 spbuf[2];
+    i32 mask;
+    u8 ch;
+    u32 sh;
+    u32 out;
+    register u32 sh2 __asm__("r0");
+    u8 *sp2;
+    i32 rcall;
+
+    spbuf[0] = arg2;
+    spbuf[1] = arg3;
+    var = *(u8 *)spbuf;
+    var += 8;
+    var += (((arg1 * 2) + 1) * 8);
+    var <<= 0x18;
+    var >>= 0x18;
+    mask = 0xFFFFFF00;
+    temp = mask & *(volatile i32 *)spbuf;
+    temp |= var;
+    spbuf[0] = temp;
+    sh = (u32) (temp << 7) >> 0x17;
+    t = (u8 *)arg0 + 0x84;
+    ch = *(t + arg1);
+    var = sh + 0x80;
+    if (ch == 0) {
+        goto skip_add;
+    }
+    var += 0x40;
+skip_add:
+    var &= 0x1FF;
+    sh2 = var << 0x10;
+    out = sh2 | (0xFE00FFFF & temp);
+    spbuf[0] = out;
+    if (arg1 != 1) {
+        goto skip_set;
+    }
+    if (arg0->unk80 == 1) {
+        goto skip_set;
+    }
+    sh2 = 0xFFFFFCFF & out;
+    sh2 |= 0x200;
+    spbuf[0] = sh2;
+skip_set:
+    rcall = func_08008920((i32) arg0);
+    sp2 = (u8 *) spbuf;
+    p = (GenObj__func_08003DF0 *) ((u8 *) rcall + (((0x7F & arg1) * 8) + 4));
+    *(i32 *)p = *(i32 *)sp2;
+    *(u16 *)((u8 *)p + 4) = *(u16 *)(sp2 + 4);
 }
 }
 
@@ -447,7 +517,6 @@ void func_08009378(void *, i16, i32, i32);
              /* extern */
 extern i32 vtable_unk_080E5B80;
 
-
 __attribute__((section(".text.new_game.080050F8")))
 i32 *func_080050F8(i32 *arg0, GenObj__func_080050F8 *arg1) {
 
@@ -491,7 +560,6 @@ i32 *func_080050F8(i32 *arg0, GenObj__func_080050F8 *arg1) {
     register i16 *psp __asm__("r1");
 
     register i32 c3f __asm__("r2");
-
 
     func_08005254((void *) arg1);
 
@@ -633,7 +701,6 @@ i32 *func_080050F8(i32 *arg0, GenObj__func_080050F8 *arg1) {
 
 }
 }
-
 
 // DECOMP-MATCHED func_08005254 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {

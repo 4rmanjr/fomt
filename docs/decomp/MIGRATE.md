@@ -1081,3 +1081,14 @@ mendeklarasikan `i32 func_08008E64(i32, i32, i32);`; definisi baru `void` membua
 compile ("conflicts with previous declaration"). Build tidak diperbarui, `compare` MERAH, dan pesan
 yang tercetak hanya baris assembler yang menyesatkan. Samakan prototipe pemanggil ke `void` (nilai
 balik tidak dipakai; byte call-site tidak berubah).
+
+## 38. SKIP-PERMANEN "callee tak-MATCH" bisa dibuka bila callee-nya cuma extern
+
+`migrate.py` menandai `SKIP-permanen` untuk `func_08003DF0` karena blok mendeklarasikan
+`void *func_08008920(void *)` sementara `src/new_game.cc` sudah memakai `i32 func_08008920(i32)`.
+Kalau callee itu **tidak punya definisi** di `src/` (hanya extern + pemanggil), ini bukan jalan buntu:
+samakan blok promoted (dan draf) ke ejaan `src/`, bukan sebaliknya — `s32 func_08008920(s32);` plus
+cast di call-site (`rcall = func_08008920((s32) arg0);`). Cast itu codegen-netral, jadi blok tetap
+byte-identik; setelah itu `migrate.py` melaporkan `pindah: 1` dengan baseline + target compare HIJAU.
+Kalau callee punya definisi di `src/`, arahnya tetap sebaliknya (extern + call-site src yang
+disesuaikan), seperti pada `func_080050F8`.

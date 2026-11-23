@@ -61,13 +61,14 @@
  },
  "func_08003DF0": {
   "addr": 134233584,
-  "judged_mtime": 1795350505.1813402,
+  "judged_mtime": 1795407260.1781456,
   "module": "new_game.s",
-  "note": "byte +0x1f: 0x4b vs ref 0x48 [3missing,3extra,8operand,17regalloc @r ldr r0, [pc, #0x68] | ldr r3, [pc, #0x68]]",
+  "note": "MATCH 152B + migrasi ke src/new_game.cc (compare HIJAU). Kunci: reload kata spbuf lewat cast volatile, mask diikat ke variabel sebelum AND, shift dipecah (sh) sebelum load tabel, nilai gabungan pakai variabel baru (out), temp AND akhir dipin ke r0 + compound |=, dan pointer spbuf (sp2) dihitung sesudah call dengan hasil call disimpan ke s32 dulu. Migrasi sempat SKIP-PERMANEN karena extern func_08008920 beda ejaan; disatukan ke ejaan src (cast netral) -> pindah 1. Rincian: POLA-DIFF 62, MIGRATE 38.",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 152,
   "sanitize_v": 4,
   "size": 1516,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08003E88": {
