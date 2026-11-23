@@ -1439,3 +1439,14 @@ grep -n "DECOMP-MATCHED func_08008A68" src/hardware_migrated.cc
 grep -c "func_08008A68" asm/hardware.s   # 1 = tinggal call-site `bl`, bukan definisi
 make compare
 ```
+
+### 45c. Field pointer bertipe struct di blok baru (C++ menolak, C membolehkan)
+
+Blok hasil m2c sering menulis `obj->unk8 = &vtable_unk_080E5B90;` dengan
+`unk8` bertipe `struct GenObj *` dan `vtable_...` bertipe `s32`. Di C itu
+sekadar warning; TU `.cc` menolaknya (`assignment to 'GenObj *' from 's32 *'`),
+juga `__builtin_new` (`void *`) dan `void *` lokal yang diisi pointer struct.
+Penyelesaian: tambah cast eksplisit di sisi kanan / pada variabelnya
+(`= (GenObj *) &vtable_unk_080E5B90;`, `(GenObj *) __builtin_new(0x6C)`,
+`GenObj *temp_r0_2;`) — semuanya no-op codegen, dibuktikan target compare
+HIJAU. Pembukti: `func_08008980` (commit yang menyertakan §68).

@@ -503,13 +503,14 @@
  },
  "func_08008980": {
   "addr": 134252928,
-  "judged_mtime": 1793582714.0244193,
+  "judged_mtime": 1795423384.8699975,
   "module": "hardware.s",
-  "note": "len 202 vs ref 204 [10missing,24extra,9operand,8regalloc,3different @r mov ip, r0 | mov r8, r0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 232,
   "sanitize_v": 4,
   "size": 2400,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008A68": {

@@ -2193,3 +2193,28 @@ memotong missing+extra lokal 53 -> 25 (total 95 -> 80) tetapi judge total m+e+o 
 yang sama muncul di dua varian sebelumnya (arg-6 `fl`, `p` dipin r3). Aturan praktis:
 pilih varian hanya bila total m+e+o lokal turun **dan** operand tidak melonjak;
 kalau ragu, cap judge 1x lalu kembalikan baseline.
+
+## 68. `func_08008980`: penyimpanan byte tanpa `lsr`, dan urutan `add` vs `str [sp]`
+
+Konstruktor 232B ini MATCH setelah dua trik non-obvious; keduanya terbukti lewat
+perbandingan byte objek vs ROM, bukan lewat LCS teks.
+
+**a. Flag boolean: simpan `s32`, jangan `s8`/`u8` lokal.** Ref menyimpan flag
+dengan `eor r0,r1; strb r0,[r4]` (tanpa masking), lalu `lsls r0,r0,#0x18`.
+Kalau nilainya ditampung di lokal `s8`/`u8`, agbcc menambah `lsls`+`lsr` (atau
+`asr`) untuk konversi sebelum `strb` -> draf 2 byte lebih panjang dan seluruh
+ekor bergeser. Yang menghasilkan byte ref: nilai tetap `s32`, simpan lewat
+`u8 *` dengan cast di sisi store (`*b68 = (u8) v68;`), uji dengan `v68 << 0x18`.
+
+**b. Urutan dua instruksi lepas.** Ref menghitung argumen call (`adds r0,#0x10`)
+SEBELUM menyiapkan slot stack (`str r7,[sp]`); draf selalu membalik urutannya
+karena keduanya tidak saling bergantung. Menyimpan/memindahkan variabel tidak
+menolong. Yang memaksa urutan ref: argumen dialirkan lewat slot stack yang
+dibaca kembali (`s32 *p50 = ...; s32 **pp = &p50; ... func(*pp, &sp0);`).
+
+**Cara ukur yang benar.** `dif4` (LCS teks) melaporkan 3missing/2extra padahal
+byte masih beda di satu titik; sebaliknya varian yang "hampir sama" bisa
+menyimpang jauh. Pakai perbandingan byte: assemble draf, ambil `.text` fungsi
+dari objek, bandingkan dengan irisan ROM (`fomt.gba` di alamat fungsi); selisih
+`bl` dan word literal pool adalah relokasi (di-mask judge), sisanya diff nyata.
+Dengan cara itu draf final hanya menyisakan 7 `bl` + 7 word pool.

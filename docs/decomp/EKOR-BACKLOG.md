@@ -23,7 +23,7 @@ python3 tools/scripts/tail_chain.py --module <stem>.s [--json]
 |---|---|---|---|---|
 | `code_linkonce.s` | 428 | 165 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
 | `code_actor_0809BFE8.s` | 51 | 26 | `func_0809DA00` (1323B, `failed`) | terbuka, ujung belum MATCH |
-| `hardware.s` | 45 | 20 | `func_08008980` (232B, `failed`) | terbuka, ujung belum MATCH |
+| `hardware.s` | 44 | 20 | `func_0800894C` (52B, `promoted`) | buntu: blok ref_len 52B memuat 2 prolog fungsi (blob multi-fungsi) |
 
 Modul tail-only lain sudah kosong di `asm/` (tidak punya blocker ekor lagi): `code_iwram`, `game_scene`, `interrupt`, `main`, `more_items`, `scene`, `sram_proxy_1`, `vtables`.
 
@@ -67,10 +67,11 @@ Sisa **51** fungsi (26 `promoted`, 25 `failed`). Tabel = 12 entri terakhir; 39 f
 
 ## `hardware.s`
 
-Sisa **45** fungsi (20 `promoted`, 25 `failed`). Tabel = 12 entri terakhir; 33 fungsi lain di bawahnya juga belum di `src/`.
+Sisa **44** fungsi (20 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 32 fungsi lain di bawahnya juga belum di `src/`.
 
 | idx | fungsi | ukuran | status | residual terakhir |
 |---|---|---|---|---|
+| 32 | `func_08008724` | 164B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x2: 0x81 vs ref 0x84 |
 | 33 | `func_080087C8` | 240B | failed | kompilasi: passing arg 1 of `func_080098AC' from incompatible p… |
 | 34 | `func_080088B8` | 12B | promoted | - |
 | 35 | `func_080088C4` | 8B | promoted | - |
@@ -82,14 +83,13 @@ Sisa **45** fungsi (20 `promoted`, 25 `failed`). Tabel = 12 entri terakhir; 33 f
 | 41 | `func_08008920` | 32B | promoted (byte ekor) | - |
 | 42 | `func_08008940` | 12B | promoted | - |
 | 43 | `func_0800894C` | 52B | promoted (byte ekor) (MULTI-FUNGSI 2 prolog) | MATCH, menunggu giliran cabut |
-| 44 | `func_08008980` | 232B | failed | len 202 vs ref 204 |
 
 ## Penjadwalan
 
 | kelas | ukuran | arti | sisa / linkonce / actor_0809BFE8 / hardware |
 |---|---|---|---|
 | S | ≤100B | satu judge biasanya cukup; residual umumnya regalloc kecil | 316 / 38 / 19 |
-| M | 101–300B | perlu 2–3 varian; perhatikan tekanan register | 77 / 8 / 22 |
+| M | 101–300B | perlu 2–3 varian; perhatikan tekanan register | 77 / 8 / 21 |
 | L | >300B | **pekerjaan tersendiri**, bukan sela-sela | 35 / 5 / 4 |
 
 Angka kelas dihitung dari fungsi yang masih punya label di `asm/` dan punya `ref_len` di shard (label tanpa entri state tidak ikut kelas, tetapi tetap dihitung di kolom "tersisa di asm").

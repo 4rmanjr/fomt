@@ -317,6 +317,117 @@ typedef struct GenObj__func_08008A68 {
 } GenObj__func_08008A68;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08008980 {
+    i32 unk0;
+    struct GenObj__func_08008980 *unk4;
+    struct GenObj__func_08008980 *unk8;
+    struct GenObj__func_08008980 *unkC;
+    struct GenObj__func_08008980 *unk10;
+    struct GenObj__func_08008980 *unk14;
+    u8 _pad18[4];
+    i32 unk1C;
+    u8 _pad20[8];
+    i32 unk28;
+    u8 _pad2C[4];
+    struct GenObj__func_08008980 *unk30;
+    i32 unk34;
+    u8 _pad38[12];
+    i32 unk44;
+    u8 _pad48[32];
+    i32 unk68;
+} GenObj__func_08008980;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08008980 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                           /* extern */
+void func_08008D84(void);                             /* extern */
+u32 func_08008D9C(void);                             /* extern */
+void func_080095C0(i32 arg0, i32 arg1);                             /* extern */
+i32 func_080D78F8(void *, void **);                   /* extern */
+extern i32 vtable_unk_080E5B0C;
+extern i32 vtable_unk_080E5B18;
+extern i32 vtable_unk_080E5B60;
+extern i32 vtable_unk_080E5B70;
+extern i32 vtable_unk_080E5B90;
+extern i32 vtable_unk_080E5BB4;
+extern i32 vtable_unk_080E5BD8;
+
+void **func_08008980(void **arg0) {
+    void *sp0;
+    i8 temp_r0_3;
+    GenObj__func_08008980 *temp_r0;
+    GenObj__func_08008980 *temp_r0_2;
+    GenObj__func_08008980 *temp_r1;
+    GenObj__func_08008980 *temp_r1_2;
+    GenObj__func_08008980 *temp_r1_3;
+    GenObj__func_08008980 *temp_r5;
+    GenObj__func_08008980 *temp_r7;
+
+    temp_r0 = (GenObj__func_08008980 *) __builtin_new(0x6C);
+    temp_r0->unk0 = 0;
+    temp_r0->unk4 = 0;
+    temp_r0->unk8 = (GenObj__func_08008980 *) &vtable_unk_080E5B70;
+    temp_r5 = (GenObj__func_08008980 *)((u8 *)temp_r0 + 0xC);
+    temp_r0->unkC = 0;
+    temp_r5->unk4 = 0;
+    temp_r5->unk8 = (GenObj__func_08008980 *) &vtable_unk_080E5BB4;
+    temp_r1 = (GenObj__func_08008980 *)((u8 *)temp_r0 + 0x1C);
+    temp_r5->unkC = temp_r1;
+    temp_r0->unk1C = 0;
+    temp_r1->unk4 = 0;
+    temp_r1->unk8 = (GenObj__func_08008980 *) &vtable_unk_080E5BD8;
+    temp_r5->unk10 = (GenObj__func_08008980 *) ((GenObj__func_08008980 *)((u8 *)temp_r0 + 0x18));
+    temp_r5->unk14 = temp_r1;
+    temp_r5->unk8 = (GenObj__func_08008980 *) &vtable_unk_080E5B90;
+    temp_r1_2 = (GenObj__func_08008980 *)((u8 *)temp_r0 + 0x28);
+    temp_r0->unk28 = 0;
+    temp_r1_2->unk4 = 0;
+    temp_r1_2->unk8 = (GenObj__func_08008980 *) &vtable_unk_080E5B60;
+    temp_r7 = (GenObj__func_08008980 *)((u8 *)temp_r0 + 0x34);
+    temp_r0->unk34 = 0;
+    temp_r7->unk4 = 0;
+    temp_r7->unk8 = (GenObj__func_08008980 *) &vtable_unk_080E5BB4;
+    temp_r1_3 = (GenObj__func_08008980 *)((u8 *)temp_r0 + 0x44);
+    temp_r7->unkC = temp_r1_3;
+    temp_r0->unk44 = 0;
+    temp_r1_3->unk4 = 0;
+    temp_r1_3->unk8 = (GenObj__func_08008980 *) &vtable_unk_080E5BD8;
+    temp_r0_2 = (GenObj__func_08008980 *)((u8 *)temp_r0 + 0x40);
+    temp_r7->unk10 = temp_r0_2;
+    temp_r7->unk14 = temp_r1_3;
+    temp_r7->unk8 = (GenObj__func_08008980 *) &vtable_unk_080E5B90;
+    sp0 = temp_r7;
+    /* Indireksi lewat `pp` memaksa agbcc menghitung alamat argumen (`adds r0,
+       #0x10`) SEBELUM `sp0 = temp_r7`; tanpa itu dua instruksi ini tertukar
+       dan seluruh ekor fungsi bergeser 2 byte. */
+    {
+        i32 *p50 = (i32 *)((u8 *) temp_r0_2 + 0x10);
+        i32 **pp = &p50;
+
+        sp0 = temp_r7;
+        func_080D78F8(*pp, &sp0);
+    }
+    temp_r7->unk30 = (GenObj__func_08008980 *) &vtable_unk_080E5B0C;
+    temp_r7->unk8 = (GenObj__func_08008980 *) &vtable_unk_080E5B18;
+    {
+        u8 *b68 = (u8 *) ((u8 *) temp_r0 + 0x68);
+        i32 v68 = func_08008D9C() ^ 1;
+
+        *b68 = (u8) v68;
+        if ((v68 << 0x18) != 0) {
+            func_08008D84();
+        }
+    }
+    func_080095C0((i32)(temp_r7), (i32)(temp_r0));
+    func_080095C0((i32)(temp_r7), (i32)(temp_r5));
+    func_080095C0((i32)(temp_r7), (i32)(temp_r1_2));
+    *arg0 = temp_r0;
+    return arg0;
+}
+}
+
 // DECOMP-MATCHED func_08008A68 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 void __builtin_delete(void *);                          /* extern */

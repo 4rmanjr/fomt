@@ -34,14 +34,14 @@ void **func_08008980(void **arg0) {
     void *sp0;
     s8 temp_r0_3;
     GenObj *temp_r0;
-    void *temp_r0_2;
+    GenObj *temp_r0_2;
     GenObj *temp_r1;
     GenObj *temp_r1_2;
     GenObj *temp_r1_3;
     GenObj *temp_r5;
     GenObj *temp_r7;
 
-    temp_r0 = __builtin_new(0x6C);
+    temp_r0 = (GenObj *) __builtin_new(0x6C);
     temp_r0->unk0 = 0;
     temp_r0->unk4 = 0;
     temp_r0->unk8 = &vtable_unk_080E5B70;
@@ -54,7 +54,7 @@ void **func_08008980(void **arg0) {
     temp_r0->unk1C = 0;
     temp_r1->unk4 = 0;
     temp_r1->unk8 = &vtable_unk_080E5BD8;
-    temp_r5->unk10 = (void *) ((GenObj *)((u8 *)temp_r0 + 0x18));
+    temp_r5->unk10 = (GenObj *) ((GenObj *)((u8 *)temp_r0 + 0x18));
     temp_r5->unk14 = temp_r1;
     temp_r5->unk8 = &vtable_unk_080E5B90;
     temp_r1_2 = (GenObj *)((u8 *)temp_r0 + 0x28);
@@ -75,13 +75,26 @@ void **func_08008980(void **arg0) {
     temp_r7->unk14 = temp_r1_3;
     temp_r7->unk8 = &vtable_unk_080E5B90;
     sp0 = temp_r7;
-    func_080D78F8(temp_r0_2 + 0x10, &sp0);
+    /* Indireksi lewat `pp` memaksa agbcc menghitung alamat argumen (`adds r0,
+       #0x10`) SEBELUM `sp0 = temp_r7`; tanpa itu dua instruksi ini tertukar
+       dan seluruh ekor fungsi bergeser 2 byte. */
+    {
+        s32 *p50 = (s32 *)((u8 *) temp_r0_2 + 0x10);
+        s32 **pp = &p50;
+
+        sp0 = temp_r7;
+        func_080D78F8(*pp, &sp0);
+    }
     temp_r7->unk30 = &vtable_unk_080E5B0C;
     temp_r7->unk8 = &vtable_unk_080E5B18;
-    temp_r0_3 = func_08008D9C() ^ 1;
-    temp_r0->unk68 = temp_r0_3;
-    if ((temp_r0_3 << 0x18) != 0) {
-        func_08008D84();
+    {
+        u8 *b68 = (u8 *) ((u8 *) temp_r0 + 0x68);
+        s32 v68 = func_08008D9C() ^ 1;
+
+        *b68 = (u8) v68;
+        if ((v68 << 0x18) != 0) {
+            func_08008D84();
+        }
     }
     func_080095C0(temp_r7, temp_r0);
     func_080095C0(temp_r7, temp_r5);
