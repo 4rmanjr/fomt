@@ -1190,3 +1190,36 @@ menganggapnya milik pihak lain. Padahal 36B itu fungsi nyata di `0x0804EDF8`
 4. Rescan metadata: `python3 -c "import run; run.scan(['code_0803EE94.s'])"` → `ref_len` fungsi induk
    turun ke 68B, `func_0804EDF8` masuk state sebagai `pending` (36B), `trailing_data_len` = 0.
 5. Migrasi jalan (`pindah: 1`); jangan lupa fungsi baru itu kini kandidat antrean sendiri.
+
+## 42. Fungsi yang hidup di src (bukan asm): judge lewat simbol sementara, pasang manual
+
+`func_08008FE4` meninggalkan ekor 118B di `0x0800901C` yang hanya ada sebagai
+`asm(".L0800901C: .byte …")` di `src/hardware_migrated.cc`. Untuk fungsi seperti ini "jalur biasa"
+tetap bisa dipakai, tapi simbol permanen **tidak boleh** ditaruh di `asm/hardware.s`:
+`fomt.lds` menaruh `asm/hardware.o(.text)` lalu `src/hardware_migrated.o(.text)`, dan `hardware.s`
+sudah berakhir di `0x08008D2C` — menambah simbol di sana menaruh byte di alamat yang salah
+(rentang `0x08008D2C`-`0x0800901C` milik `hardware_migrated.o`).
+
+Resep yang terbukti (`func_0800901C`, MATCH 118B, 2026-11-23):
+
+1. Tulis blok asm fungsi (instruksi asli, pool `.4byte`) lalu **tempel sementara** di akhir
+   `asm/hardware.s` (backup dulu). `scan` mengambil alamat dari komentar label (`func_X: @ 0x…`),
+   jadi posisi di berkas tidak memengaruhi `addr`; `ref_len` dihitung dari blok.
+2. `run._judge(<nama>)` lalu `run.promote(<nama>)` seperti biasa — ref dirakit dari asm, bukan dari
+   alamat, sehingga hasil judge sah.
+3. Pulihkan `asm/hardware.s` (`git checkout --`), lalu tempel blok promoted ke
+   `src/hardware_migrated.cc` **menggantikan** string `asm(...)` verbatim, dengan marker
+   `// DECOMP-MATCHED <nama>` dan `extern "C" { … }`.
+4. `make compare`. Entri state tetap ada (status `promoted`) meski simbol asm-nya sudah tidak ada —
+   sama seperti fungsi hasil `migrate` lain.
+
+Jebakan:
+
+- `thumb_func_start` adalah makro `asm/macro.inc`; untuk menguji blok di berkas `.s` lepas pakai
+  `.global <nama>` + `.thumb_func`, kalau tidak assembler menolak ("bad instruction").
+- Jangan mencari blok target dengan pencarian longgar seperti `find('// ekor tak-bermarker')`:
+  blok 44B di `0x08008FB8` muncul lebih dulu, dan salah blok membuat ROM membengkak (44B hilang,
+  118B C masuk di posisi awal `.text` → `make compare` merah dengan `ndiff` jutaan). Tambatkan
+  pencarian pada `".L0800901C:` lalu `rfind` ke komentar `// ekor …` sebelumnya.
+- Callee di sini bernama `CpuFastSet` (`0x080D374C`) dan `CpuSet` (`0x080D3750`), bukan `func_…` —
+  memakai nama yang salah membuat pool/displacement beda.

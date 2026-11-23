@@ -965,6 +965,17 @@
   "status": "promoted",
   "thumb": true
  },
+ "func_0800901C": {
+  "addr": 134254620,
+  "judged_mtime": 1795411253.3216143,
+  "module": "hardware.s",
+  "note": "migrated to src/hardware_migrated.cc (blok C menggantikan string asm verbatim .L0800901C; dipasang manual karena gate hardware.s tail-only, lihat MIGRATE 42). MATCH 118B via judge standar dengan simbol sementara di hardware.s. Semantik: salin dari arg0->unk4 ke arg0->unk8 lewat CpuFastSet/CpuSet; bit 0x04000000 = panjang ada di 16 bit bawah (dibulatkan ke kelipatan 8, sisa dikerjakan CpuSet), bit 0x01000000 = sumber tidak ikut bergeser. make compare hijau.",
+  "promoted_to": "decomp/promoted/hardware.cc",
+  "ref_len": 119,
+  "size": 1194,
+  "status": "promoted",
+  "thumb": true
+ },
  "func_08009094": {
   "addr": 134254740,
   "judged_mtime": 1795360872.451368,
