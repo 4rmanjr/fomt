@@ -337,10 +337,13 @@
  },
  "func_0804EDF8": {
   "addr": 134540792,
+  "judged_mtime": 1795414836.3938541,
   "module": "code_0803EE94.s",
+  "note": "MATCH 32B (16 instr) + migrasi ke src/code_0803EE94.cc. Kunci: konstruktor ini MENGEMBALIKAN arg0 - ref `pop {r1}; bx r1` bukan `pop {r0}` karena r0 masih hidup sebagai nilai balik. Tanpa `return (s32) arg0;` (return void) hasilnya 2extra + 2regalloc. Isi: unk0=unk4=0, unk8=&vtable_unk_080E7848, unkC=arg1, unk10=arg2, unk14/unk16 (strh), unk18=arg5 (arg4/arg5 lewat stack, ldr r5,[sp,#0x10] / r6,[sp,#0x14]). Tidak ada call-site di src, jadi tanda tangan bebas dipilih s32.",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 32,
   "size": 412,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_0804EE1C": {
