@@ -2293,3 +2293,17 @@ Kesimpulan praktis: byte-identik di sini butuh `ldr` alamat vtable diangkat
 ke awal prolog **dan** store-nya dipertahankan; volatile memenuhi syarat kedua
 tanpa yang pertama, jadi jumlah instruksi malah bertambah. Parkir fungsi ini
 lebih murah daripada terus mengejar regalloc.
+
+### 70c. Initializer agregat memunculkan `ldm`/`stm`, bukan `str` per field
+
+Dugaan bahwa store mati `vtBE8` berasal dari initializer agregat diuji dengan
+`Sent e = {0, 0, (void *) &vtable_unk_080E5BE8};` (Sent = 3 pointer):
+objek jadi 240B **tetapi** agbcc mengangkat penyalinan ke prolog sebagai
+`ldm r1!, {r4, r5, r6}` + `stm r2!, {r4, r5, r6}` dari data statis, dan
+store-nya tetap tidak muncul di posisi ref (`str` per field di sekitar
+`+0x4c`). Ref memakai `str` tunggal, jadi initializer agregat bukan asalnya.
+
+Akibatnya untuk `func_080087C8` tersisa dua jalan yang sama-sama tidak murah:
+meniru penjadwalan agbcc (load diangkat, store ditenggelamkan) atau mengakui
+fungsi ini parkir. Draf terbaik tetap varian member-langsung (240B, 89
+instruksi beda, judge 48 selisih).
