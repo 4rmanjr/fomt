@@ -1229,19 +1229,36 @@ Jebakan:
 - Callee di sini bernama `CpuFastSet` (`0x080D374C`) dan `CpuSet` (`0x080D3750`), bukan `func_…` —
   memakai nama yang salah membuat pool/displacement beda.
 
-## 43. Nama lokal `zero` bikin migrator menulis cast palsu `(zer)(arg0)`
+## 43. STATEMENT assignment terbaca sebagai deklarasi (`zero = 0;`) — DIPERBAIKI
 
-Bukti: `func_080CECD0` (code_809E804, 24B). Blok MATCH-nya memakai
-`register s32 zero __asm__("r1");` dan `o = arg0;`. Saat migrasi, baris itu
-keluar sebagai `o = (zer)(arg0);` di `src/` sehingga compile gagal dengan
-`stdin:NNNN: 'zer' undeclared` — pesannya menunjuk nama yang tidak pernah ada
-di draf, jadi jangan buang waktu mencari di draf.
+Gejala: blok MATCH keluar di `src/` sebagai `o = (zer)(arg0);` dan compile
+gagal `'zer' undeclared` — pesannya menunjuk nama tipe yang tidak pernah ada di
+draf. Bukti asli `func_080CECD0` (code_809E804, 24B) dengan `register s32 zero
+__asm__("r1");` + `o = arg0;`; dulu disimpulkan "jangan beri nama lokal `zero`".
 
-Transformasi migrator memotong/menafsirkan identifier `zero` sebagai nama tipe
-(lihat juga daftar reserved di `migrate.py`); mengubah urutan deklarasi pin
-tidak menolong, tapi **mengganti nama variabel** (mis. `zero` -> `zz`) langsung
-bersih dan codegen tidak berubah (rename murni). Aturan praktis: jangan pakai
-`zero` sebagai nama variabel lokal di blok MATCH yang akan dimigrasikan.
+Pemicu sebenarnya bukan nama `zero` dan bukan pin `__asm__`: `_LOCAL_DECL_RE`
+memakai `\s*` antara tipe dan nama, jadi SATU identifier bisa terbelah dua.
+Baris assignment `zero = 0;` terbaca deklarasi `zer o;` -> variabel `o` bertipe
+palsu `zer` (sementara `zero` sendiri tidak pernah terdaftar). Siapa pun yang
+huruf terakhirnya nama variabel hidup ikut teracuni: `count = 0;` -> `t`,
+`info = ...` -> `o`, `temp = ...` -> `p`. Repro minimal tanpa pin asm:
+`s32 zero; s32 o; zero = 0; o = arg0;` -> `o = (zer)(arg0)` (sebelum),
+`o = (s32)(arg0)` (sesudah).
+
+Perbaikan: `_decl_match()` menolak match yang tipe dan nama menempel —
+deklarasi asli selalu terpisah spasi, atau memakai bintang yang ikut group(1).
+Dipakai untuk deklarasi lokal, array lokal (`u8 sp0[52];`), dan himpunan
+`scalars`. Efek terukur: `_local_var_types` berubah di 1744/2642 draf+promoted,
+semuanya penghapusan key palsu satu huruf (tidak ada tipe variabel bernama >1
+huruf yang berubah); `_ptr_scalar_cast_fix` berubah di 12 berkas — cast sampah
+hilang (`(clam)(&v)` -> `&v`, `(ds(*)[i])(...)` -> `(s32)(...)`, `(n)(...)` ->
+`(Node *)(...)`) dan cast pointer yang dibutuhkan C++ muncul
+(`t = (GenObj *)(arg0->unk4);`). Semua cast itu no-op codegen, dan di 12
+keluaran baru tidak ada lagi cast bertipe tak-terdeklarasi.
+
+Aturan "jangan pakai `zero` sebagai nama lokal" tidak diperlukan lagi. Kalau
+cast aneh muncul kembali (`'clam'`/`'zer'`/`'ds'` undeclared), curigai jalur
+ini sebelum menyalahkan draf.
 
 ## 44. Kebijakan fungsi ujung yang asm-tangan (proposal; kode belum diubah)
 

@@ -776,9 +776,35 @@ _CALLSITE_KW = set(
     "float double".split())
 _NUMERIC_RE = re.compile(
     r"^[+-]?(?:0[xX][0-9a-fA-F]+|\d[\d']*(?:\.\d*)?|\.\d+)[uUlLfF]*$")
+# Pemisah tipe-nama TIDAK dipaksakan di regex ini (bintang harus tetap
+# ikut group(1) supaya tipe pointer utuh): regex greedy bisa membelah SATU
+# identifier jadi TYPE+NAME, sehingga STATEMENT assignment terbaca sebagai
+# deklarasi (`zero = 0;` -> TYPE `zer`, NAME `o`). Akibatnya variabel `o`
+# bertipe palsu `zer` dan assignment berikutnya keluar `(zer)(arg0)` ->
+# compile src gagal `'zer' undeclared` (MIGRATE §43). Semua pemakaian
+# lewat `_decl_match()` di bawah, yang menolak tipe-nama menempel.
 _LOCAL_DECL_RE = re.compile(
     r"\s*(?!(?:extern|return|typedef|static|register|const)\b)"
     r"([\w:]+(?:\s*\*+)?)\s*(\w+)\s*(?:[=;]|$)")
+_LOCAL_ARRAY_RE = re.compile(
+    r"^\s*(?!(?:extern|return|typedef|static|register|const)\b)"
+    r"([\w:]+(?:\s*\*+)?)\s*(\w+)\s*(\[[^\]]*\])\s*(?:[=;]|$)")
+
+
+def _decl_match(rx, ln):
+    r"""Match deklarasi lokal, tapi tolak bila tipe dan nama MENEMPEL.
+
+    Tanpa cek ini `zero = 0;` lolos sebagai deklarasi `zer o;` (group(1)
+    `zer`, group(2) `o`) karena `\s*` boleh kosong. Deklarasi asli selalu
+    terpisah spasi, atau memakai bintang (`u8 *sp0`) yang ikut group(1)."""
+    m = rx.match(ln)
+    if not m:
+        return None
+    if m.start(2) > m.end(1) or m.group(1).rstrip().endswith("*"):
+        return m
+    return None
+
+
 _CALL_RE = re.compile(r"\b([A-Za-z_]\w*)\s*\(")
 
 
@@ -859,7 +885,7 @@ def _local_var_types(body):
             if t and nm and nm not in _CALLSITE_KW:
                 vars[nm] = t
     for ln in body.splitlines():
-        m = _LOCAL_DECL_RE.match(ln)
+        m = _decl_match(_LOCAL_DECL_RE, ln)
         if (m and m.group(1) not in _CALLSITE_KW
                 and m.group(2) not in _CALLSITE_KW):
             vars[m.group(2)] = m.group(1).strip()
@@ -867,9 +893,7 @@ def _local_var_types(body):
     # dikenali pointer-to-array (butuh cast ke pointer-elemen; alamat
     # sama -> no-op codegen, kasus func_08012AA4 &sp0 -> i32 *).
     for ln in body.splitlines():
-        m = re.match(r"^\s*(?!(?:extern|return|typedef|static|register|"
-                     r"const)\b)([\w:]+(?:\s*\*+)?)\s*(\w+)\s*"
-                     r"(\[[^\]]*\])\s*(?:[=;]|$)", ln)
+        m = _decl_match(_LOCAL_ARRAY_RE, ln)
         if (m and m.group(1) not in _CALLSITE_KW
                 and m.group(2) not in _CALLSITE_KW):
             vars[m.group(2)] = f"{m.group(1).strip()}(*){m.group(3)}"
@@ -1086,7 +1110,7 @@ def _ptr_scalar_cast_fix(body, struct_blocks=None):
         scalars.add(gm.group(2))
     scalars = set()
     for ln in body.splitlines():
-        m = _LOCAL_DECL_RE.match(ln)
+        m = _decl_match(_LOCAL_DECL_RE, ln)
         if m and "*" not in (m.group(1) or ""):
             scalars.add(m.group(2))
     # field struct bertipe skalar di body
