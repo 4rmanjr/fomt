@@ -197,9 +197,9 @@
  },
  "func_0804E8F0": {
   "addr": 134539504,
-  "judged_mtime": 1793582714.1104054,
+  "judged_mtime": 1795431588.1493416,
   "module": "code_0803EE94.s",
-  "note": " (first use in this function)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0804E8F0/crouton-alpha-7/func.c:21: `arg1' undeclared (first use in this function)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0804E8F0/crouton-alpha-7/func.c:21: `arg3' undeclared (first use in this function)\n",
+  "note": "len 96 vs ref 102 [8missing,5extra,7operand,17regalloc,1stack,8different @< mov r7, sl | ]",
   "ref_len": 104,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -1820,9 +1820,9 @@
  "func_0805E760": {
   "addr": 134604640,
   "draft_src": "manual",
-  "judged_mtime": 1795429391.483119,
+  "judged_mtime": 1795431523.483116,
   "module": "code_0803EE94.s",
-  "note": "byte +0x2c: 0x2 vs ref 0x4 [2regalloc @r pop {r2} | pop {r1}]",
+  "note": "len 42 vs ref 48 [4missing,1extra,3operand,14regalloc,1different @i push {r4, lr} | push {lr}]",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 462,

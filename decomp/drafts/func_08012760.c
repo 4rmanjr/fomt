@@ -6,12 +6,15 @@ typedef struct GenObj {
 } GenObj;
 
 void func_08012760(GenObj *arg0, s32 arg1) {
-    u8 *base;
     s32 *p;
-    s32 x;
+    register s32 x __asm__("r3");
 
-    base = arg0->unk4;
-    p = (s32 *) (base + 0xAC);
+    {
+        register u8 *base __asm__("r2");
+
+        base = arg0->unk4;
+        p = (s32 *) (base + 0xAC);
+    }
     x = p[0];
     if (x != 0) {
         s32 y = *(s32 *) ((u8 *) p - 0x20);

@@ -176,9 +176,9 @@
  },
  "func_08004C0C": {
   "addr": 134237196,
-  "judged_mtime": 1795403723.4034748,
+  "judged_mtime": 1795431869.1468248,
   "module": "new_game.s",
-  "note": "[parkir: 3 judge, sisa 1 instruksi] Frame agregat + barrier memori menghidupkan lagi dead store p/b dan null-check mati milik ref; tersisa `adds r1, r0, #0` (ref) vs `mov r1, sp` (agbcc, rematerialisasi alamat). Pin q/p ke r1/r0, urutan assignment, ternary, cast u8*, volatile per field, dan old_agbcc semuanya tetap `mov r1, sp`. Resep + pembukti di POLA-DIFF.md 59. Judge: byte +0x16: 0x69 vs 0x01, sisanya identik. byte +0x16: 0x69 vs ref 0x1 [1different @| adds r1, r0, #0 | mov r1, sp]",
+  "note": "len 54 vs ref 58 [2missing,1operand,8regalloc @r ldr r2, [sp] | ldr r3, [sp]]",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 566,

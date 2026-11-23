@@ -662,7 +662,7 @@
  "func_080A0A1C": {
   "addr": 134875676,
   "draft_src": "manual",
-  "judged_mtime": 1795350505.0,
+  "judged_mtime": 1795431691.4297323,
   "module": "code_809E804.s",
   "note": "len 50 vs ref 54 [3missing,1extra,3operand,11regalloc,2different @i push {r4, lr} | push {r4, r5, lr}]",
   "ref_len": 56,
@@ -1758,13 +1758,14 @@
  },
  "func_080AA850": {
   "addr": 134916176,
-  "judged_mtime": 1793582714.1893926,
+  "judged_mtime": 1795431673.0083923,
   "module": "code_809E804.s",
-  "note": "c.c:21: (Each undeclared identifier is reported only once\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080AA850/opencode/func.c:21: for each function it appears in.)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080AA850/opencode/func.c:21: `sp8' undeclared (first use in this function)\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 629,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080AA89C": {

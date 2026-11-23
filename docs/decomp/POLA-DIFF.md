@@ -2478,3 +2478,25 @@ Catatan alat: diff teks `asm/*.s` vs `decomp/logs/judge_*/.../func.s`
 **melebih-lebihkan** selisih (`add` vs `adds`, `#4` vs `#0x4`, label berbeda).
 Untuk memutuskan wall pakai perbandingan byte objek vs ROM
 (`/tmp/cmpC8.py` ala §70), bukan hitungan baris teks.
+
+### 74. Urutan pernyataan menentukan penjadwalan (`func_080AA850`)
+
+Ref menghitung argumen ke-4 (flag `f(x) == 3`) **sesudah** argumen ke-2
+(`obj->unk94 + 0x34D8`) dimuat. Bentuk m2c yang menaruh `flag = 0` di depan
+membuat agbcc menyimpan flag di `r7` (push tambahan) dan menaruh `cmp` terlalu
+awal. Yang menutup:
+
+    p = &arg0->unk94;
+    a = func_0800E324(*p + 0x10);     /* call dulu */
+    addr = *p + 0x34D8;               /* baru pointer arg-2 */
+    flag = (a == 3) ? 1 : 0;          /* flag dari hasil call */
+
+Pembukti: `func_080AA850` (76B, MATCH). Pola umum: kalau ref memuat sesuatu
+di antara call dan `cmp`, tulis ekspresi itu sebagai pernyataan tersendiri
+dengan urutan yang sama, jangan digabung dalam satu ekspresi.
+
+Gate migrate juga menolak blok lama: `promote()` tidak menimpa blok, jadi
+setelah menulis ulang draf, **hapus blok + `// DECOMP-MATCHED`** milik fungsi
+itu dulu, reset `status` shard ke `matched`, baru `promote()` (lihat MIGRATE
+§17). Tanpa itu `migrate.py` melaporkan `blok DECOMP-MATCHED tidak ditemukan`
+walau `promote()` mencetak path.

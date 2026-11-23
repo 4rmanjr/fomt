@@ -1,6 +1,6 @@
-u32 func_0804E4AC(s32, s32, u32, s32, s32);             /* extern */
+u32 func_0804E4AC(s32, s32, u32, s32, s32);
 
-void func_0804E8F0(s32 arg0, ? arg1, u32 arg2, ? arg3, u8 *arg4) {
+void func_0804E8F0(s32 arg0, s32 arg1, u32 arg2, s32 arg3, u8 *arg4) {
     s32 var_r5;
     s32 var_r5_2;
     u32 temp_r0;
