@@ -51,7 +51,11 @@ OLD_CC1  := tools/agbcc/bin/old_agbcc$(EXE)
 
 INCFLAGS     := $(foreach dir, $(INCLUDE_DIRS), -I "$(dir)")
 
-CPPFLAGS := $(INCFLAGS) -iquote . -iquote include -Wno-trigraphs -fno-exceptions
+# -P: buang line marker. cpp host (gcc -E) menyisipkan <stdc-predef.h> dengan marker `#line`
+# yang ditolak agbcc 2.9 di bawah -Werror; tanpa -P, TU apa pun yang perlu rebuild gagal di
+# lingkungan yang memakai cpp host. -P didukung arm-none-eabi-cpp maupun gcc, jadi perilaku
+# build sama di semua mesin dan tidak perlu shim pribadi (lihat INSTALL.md).
+CPPFLAGS := $(INCFLAGS) -iquote . -iquote include -Wno-trigraphs -fno-exceptions -P
 CFLAGS   := -g -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
 CXXFLAGS := -quiet -fno-exceptions -fno-rtti -fvtable-thunks $(CFLAGS)
 ASFLAGS  := $(INCFLAGS) -I . -I include -mcpu=arm7tdmi
@@ -144,9 +148,6 @@ $(BUILD_DIR)/src/m4a.o: CC1 := $(OLD_CC1)
 # Keluarga `pop {r2}` (nilai balik 64-bit) hanya diproduksi old_agbcc; TU C
 # pendamping ini dikompilasi dgn CC1 lama, sama seperti preseden src/m4a.o.
 $(BUILD_DIR)/src/pop_r2.o: CC1 := $(OLD_CC1)
-# cpp host menyisipkan <stdc-predef.h> + marker #line yg memicu warning di
-# old_agbcc; bunyinya kosmetik, jadi warning dimatikan hanya untuk TU ini.
-$(BUILD_DIR)/src/pop_r2.o: CFLAGS += -w
 
 clean:
 	@echo "RM $(ROM) $(ELF) $(MAP) $(BUILD_DIR)"

@@ -197,11 +197,11 @@ di-vendor. Di mesin tanpa `sudo` (paket sistem tidak bisa dipasang), dua
 langkah berikut memulihkan gate build tanpa menyentuh repo:
 
 ```bash
-# 1. cpp: host gcc memilih bahasa dari ekstensi (.c -> cc1, .cc -> cc1plus)
+# 1. cpp: host gcc memilih bahasa dari ekstensi (.c -> cc1, .cc -> cc1plus).
+#    Shim ini hanya MENGGANTI binary cpp; flag -P (pembuang line marker) sudah
+#    dipasang di CPPFLAGS Makefile, jadi shim tidak perlu menambah flag.
 mkdir -p ~/shim
-# -P membuang line marker: cpp host menyisipkan <stdc-predef.h> dgn flag `#line` yang
-# ditolak agbcc 2.9 di bawah -Werror (TU yg perlu rebuild jadi gagal -> migrate MERAH palsu).
-printf '#!/bin/sh\nexec gcc -E -P "$@"\n' > ~/shim/arm-none-eabi-cpp
+printf '#!/bin/sh\nexec gcc -E "$@"\n' > ~/shim/arm-none-eabi-cpp
 chmod +x ~/shim/arm-none-eabi-cpp
 
 # 2. binutils arm: ekstrak .deb ke home (tanpa root), versi mengikuti arsip Ubuntu
@@ -212,6 +212,16 @@ dpkg-deb -x binutils-arm-none-eabi_2.42-1ubuntu1+23_amd64.deb ~/armbin
 export PATH=$HOME/shim:$PWD/tools/arm-gnu/bin:$PWD/tools/agbcc/bin:$HOME/armbin/usr/bin:$PATH
 make compare -j4 CPP="gcc -E"      # -> fomt.gba: OK
 ```
+
+Kenapa `-P` ada di repo, bukan di shim: cpp host menyisipkan
+`/usr/include/stdc-predef.h` dengan marker `#line` yang ditolak agbcc 2.9
+sebagai `warning: unrecognized text at end of #line`; karena `CFLAGS` memakai
+`-Werror`, TU apa pun yang perlu rebuild (termasuk `src/<stem>_c.c`) gagal dan
+`migrate` melaporkan MERAH palsu. `CPPFLAGS` sekarang memuat `-P` (didukung
+`arm-none-eabi-cpp` maupun `gcc`), jadi hasil preprocess sama di semua mesin
+dan tidak ada flag pribadi yang harus diingat. Alternatif `-w` per-TU memang
+bisa menutupi warning itu, tapi ikut menyembunyikan warning codegen asli —
+jangan dipakai sebagai pengganti `-P`.
 
 Penting: `Makefile` mengekspor `CPP := arm-none-eabi-cpp`, jadi override
 `CPP=` di command line **hanya** berlaku untuk `make` yang dipanggil manual —
