@@ -250,7 +250,7 @@ def map_headers(rom):
     for k in range(size // MAP_HEADER_BYTES):
         w = struct.unpack_from("<10I", rom, base + k * MAP_HEADER_BYTES)
         headers.append({"entry": k, "tileset": w[0], "palette": w[1],
-                        "palette2": w[2],
+                        "palette2": w[2], "interior": bool(w[9] & 1),
                         "maps": [w[i] for i in MAP_LAYER_WORDS],
                         "width": w[8] & 0xFFFF, "height": w[8] >> 16})
     return headers
@@ -266,16 +266,24 @@ def stream_index(inventory):
 
 
 def header_evidence(headers, index):
-    """(simbol, stream) -> entri header yang memuatnya sebagai lapis peta."""
+    """(simbol, stream) -> entri header yang memuatnya sebagai lapis peta.
+
+    +0x08 selalu palet kedua (480 B); tiga lapis peta ada di
+    +0x0C/+0x10/+0x14. Flag interior/eksterior (+0x24) tidak mengubah bentuk
+    header, hanya menandai jenis peta.
+    """
     ev = {}
     for h in headers:
-        for word in MAP_LAYER_WORDS:
-            key = index.get(h["maps"][word - MAP_LAYER_WORDS[0]])
+        for pos, word in enumerate(MAP_LAYER_WORDS, 1):
+            key = index.get(h["maps"][pos - 1])
             if key:
                 ev.setdefault(key, []).append({
                     "entry": h["entry"], "field": word * 4,
+                    "layer": pos, "layers": len(MAP_LAYER_WORDS),
+                    "interior": h["interior"],
                     "width": h["width"], "height": h["height"],
-                    "tileset": h["tileset"], "palette": h["palette"]})
+                    "tileset": h["tileset"], "palette": h["palette"],
+                    "palette2": h["palette2"]})
     return ev
 
 
@@ -559,7 +567,10 @@ def _header_pair(key, evidence, rom, index, records, cache):
         return "unproven", None, None, {"reason": "tileset pasangan tidak valid"}
     return "verified", pdata, tdata, {
         "source": "header", "entry": ev["entry"], "field": ev["field"],
+        "layer": ev["layer"], "layers": ev["layers"],
+        "interior": ev["interior"],
         "width": ev["width"], "height": ev["height"],
+        "palette2": ev["palette2"],
         "palette": pref, "tiles": tref}
 
 
@@ -587,6 +598,10 @@ def render_map_doc(manifest):
     calls = sum(1 for b in blobs for s in b["streams"]
                 if s.get("pair_status") == "verified"
                 and s["pair_evidence"].get("source") == "callsite")
+    inner = sum(1 for b in blobs for s in b["streams"]
+                if s.get("pair_status") == "verified"
+                and s["pair_evidence"].get("source") == "header"
+                and s["pair_evidence"].get("interior"))
     unproven = sum(1 for b in blobs for s in b["streams"]
                    if s.get("pair_status") == "unproven")
     order = ["swatch palet", "lembar tile 4bpp (abu-abu indeks)",
@@ -599,8 +614,10 @@ def render_map_doc(manifest):
                + f". Total {stream_count} stream dari {len(blobs)} simbol "
                "yang punya stream 0x70.")
     out.append("")
+    header = verified - calls
     out.append(f"Pasangan peta: {verified} terbukti ({calls} dari call site "
-               f"`Unpack`, {verified - calls} dari entri header), "
+               f"`Unpack`, {header} dari entri header: {inner} interior, "
+               f"{header - inner} eksterior), "
                f"{unproven} tidak terbukti (jadi grid indeks).")
     out.append("")
     out.append("## Simbol -> stream -> berkas")
@@ -613,8 +630,15 @@ def render_map_doc(manifest):
                "yang sama; (2) untuk stream container yang dialamatkan lewat "
                "pointer (tidak ada simbol statis), entri `gUnk_08105EDC` yang "
                "memuatnya sebagai lapis peta: +0x00 tileset, +0x04 palet, "
-               "+0x0C/+0x10/+0x14 peta. Kolom bukti menyebut fungsi call site "
-               "atau nomor entri header. Pasangan berupa "
+               "+0x0C/+0x10/+0x14 peta, +0x08 palet kedua. Flag +0x24 hanya "
+               "menandal interior/eksterior; bentuk header kedua jenis sama. "
+               "Angka 41/59 yang sering muncul adalah 41 peta interior dari 59 "
+               "peta ber-header, bukan 41 terbukti dan 18 tidak: semua 59 lolos "
+               "pemeriksaan palet 480 B, tileset 32768 B, dimensi header, dan "
+               "indeks tile di dalam tileset. Peta eksterior punya palet kedua "
+               "di +0x08 (varian musim; render memakai +0x04), interior memakai "
+               "+0x08 sebagai palet kedua biasa. Kolom bukti menyebut fungsi call "
+               "site atau nomor entri header. Pasangan berupa "
                "alamat `0x08xxxxxx` adalah stream 0x70 di luar 53 simbol yang "
                "dibuka dari ROM saat render, bukan berkas hasil ekstraksi.")
     out.append("")
@@ -641,7 +665,10 @@ def render_map_doc(manifest):
                     status_cell = (f"terbukti call site `{ev['function']}` "
                                    f"0x{ev['dest']:08X}")
                 else:
-                    status_cell = f"terbukti peta#{ev['entry']} +0x{ev['field']:02X}"
+                    status_cell = (f"terbukti peta#{ev['entry']} "
+                                   f"+0x{ev['field']:02X} "
+                                   f"({'interior' if ev['interior'] else 'eksterior'}"
+                                   f" {ev['layer']}/{ev['layers']})")
                 pair = s["pair"]
                 pair_cell = (f"palet {ref(pair['palette'])}, "
                              f"tile {ref(pair['tiles'])}")
@@ -752,8 +779,13 @@ def main(argv):
                 else:
                     width = map_width(entries)
                     height = entries // width
+                cells = struct.unpack(f"<{len(data) // 2}H", data)
+                # 0x03FF adalah tile kosong/transparan, bukan indeks tileset
+                used = [c & 0x3FF for c in cells if (c & 0x3FF) != 0x3FF]
+                tiles_ok = (tdata is not None
+                            and (not used or max(used) < len(tdata) // 32))
                 fits = (status == "verified" and height > 0
-                        and width * height * 2 == len(data))
+                        and width * height * 2 == len(data) and tiles_ok)
                 if fits:
                     png = (f"png/{name}_{i:02d}_peta_{width}x"
                            f"{height}.png")
@@ -767,7 +799,8 @@ def main(argv):
                         info["pair_conflict"] = ev["conflict"]
                 else:
                     reason = (ev.get("reason") if status == "unproven"
-                              else "dimensi pasangan tidak cocok")
+                              else ("indeks tile di luar tileset" if not tiles_ok
+                                    else "dimensi pasangan tidak cocok"))
                     png = f"png/{name}_{i:02d}_peta_indeks_{width}.png"
                     render_map(data, args.out / png, width)
                     info["png_kind"] = (

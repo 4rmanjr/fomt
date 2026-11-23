@@ -120,9 +120,13 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   tak dikenal mengosongkan nilai basi). Stream container tidak punya simbol
   statis karena dialamatkan lewat pointer, jadi untuk itu dipakai entri header
   `gUnk_08105EDC` (40 B, dipakai `GetMapData`): +0x00 tileset, +0x04 palet,
-  +0x0C/+0x10/+0x14 tiga lapis peta, +0x20 lebar/tinggi. Dimensi header atau
-  layar harus cocok dengan ukuran stream; kalau tidak ada bukti, bukti ganda
-  berbeda, atau aset pasangan tidak masuk akal, stream jadi grid indeks dan
+  +0x08 palet kedua, +0x0C/+0x10/+0x14 tiga lapis peta, +0x20 lebar/tinggi,
+  +0x24 flag interior/eksterior. Flag itu hanya jenis peta, bukan tingkat
+  bukti; eksterior memakai +0x08 sebagai varian palet musim, render memakai
+  +0x04. Dimensi header atau layar harus cocok dengan ukuran stream dan indeks
+  tile (selain 0x03FF = kosong) harus di dalam jumlah tile tileset; kalau tidak
+  ada bukti, bukti ganda berbeda, atau aset pasangan tidak masuk akal, stream
+  jadi grid indeks dan
   `manifest.json` mencatat `pair_status: unproven` + alasannya. Pasangan bukan
   "palet/tileset terdekat di blob". Tileset/palet yang bukan bagian dari
   53 simbol tetap dibuka dari `baserom.gba` (keduanya stream 0x70 juga) dan
