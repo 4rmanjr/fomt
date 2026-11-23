@@ -897,6 +897,21 @@ failed — `func_08024BFC` (88B), `func_0802AB98` (148B), `func_0804EA94` (496B)
 pada fungsi balik 64-bit, urutan load `ldrh` yang tak tereproduksi), bukan jalur build, jadi
 jangan diulang lewat `OLD_CC1` tanpa bentuk C baru yang terbukti byte-identik di TU kecil.
 
+**Percobaan ulang 2026-11-22 (matriks bentuk C, `old_agbcc` langsung).** Bentuk terdekat:
+`Out *f(Out *, Args *, u32)` + `return arg0;` menghasilkan **48B dengan badan persis ref**, hanya
+epilognya `pop {r1}; bx r1` (ref `pop {r2}; bx r2`) — inilah sisa `2regalloc` di diff. Begitu tipe
+balik dibuat 64-bit supaya epilog jadi r2 (`long long` + `return (long long)(void *)arg0;`, atau
+`return arg0;` implisit), gcc menambah tepat satu instruksi ekstensi: `asr r1, r4, #0x1f` (atau
+`mov r1, #0` bila lewat `u32`) → 50B. Satu-satunya bentuk yang memberi `pop {r2}` **dan**
+`adds r0, r4` tanpa instruksi tambahan adalah **sret** (tipe balik struct 8 byte), tetapi sret
+menggeser parameter (hidden pointer di r0 → `arg0` jadi r1, `arg1` jadi r2, indeks r3) dan gcc
+membangun struct lewat stack/mask, bukan `strh` langsung.
+
+Ref memakai `str r1,[r4]` + `strh r2,[r4,#4]` (tulis lewat pointer, bukan salin struct) dengan
+parameter di r0/r1/r2. Dari ~15 bentuk C yang dicoba di kedua front end (`agbcc` dan `old_agbcc`),
+tidak ada yang memenuhi ketiganya. `func_0805E760` tetap `failed`; jangan ulangi tanpa ide baru
+(varian flag/compiler yang belum dicoba), dan jangan "menambal" dengan inline asm.
+
 
 ## 33. Draf berlabel (`goto`): bersihkan label sebelum migrate
 
