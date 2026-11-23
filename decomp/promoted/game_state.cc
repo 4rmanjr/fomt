@@ -2714,3 +2714,23 @@ void func_08016EC4(G08016EC4 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 
     vt = *(u8 **) h;
     ((void (*)(void *, s32, s32, s32, s32, u16)) *(void **) (vt + 0x160))(h, arg1, arg2, arg3, arg4, arg5);
 }
+
+
+// DECOMP-MATCHED func_0801DCD4 (dari game_state.s; cek manusia sebelum ke src/)
+typedef struct GenObj__func_0801140C GenObj__func_0801140C;
+
+s32 GetValueShipped__C11ShippingBin(s32);             /* extern */
+u32 func_0801140C(GenObj__func_0801140C *);           /* extern */
+
+void func_0801DCD4(void **arg0) {
+    s32 args[2];
+    s32 a;
+    void **slot;
+
+    a = GetValueShipped__C11ShippingBin((s32) ((u8 *) *(void **) ((u8 *) arg0 + 0x1038) + 0x54));
+    func_0801140C((GenObj__func_0801140C *) *(void **) ((u8 *) arg0 + 0x1038));
+    slot = (void **) ((u8 *) *arg0 + 0x140);
+    args[0] = 0x3DB;
+    args[1] = a;
+    ((void (*)(void **, s32 *, s32)) *slot)(arg0, args, 1);
+}

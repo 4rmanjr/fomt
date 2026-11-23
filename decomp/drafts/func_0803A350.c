@@ -1,33 +1,37 @@
 s32 func_08008B6C(s32, u16);                          /* extern */
-s32 func_08008CD0(s32);                             /* extern */
+s32 func_08008CD0(s32);                              /* extern */
 
-typedef struct GenObj {
-    s32 unk0;
-    s32 unk4;
-} GenObj;
-void func_0803A350(void ***arg0, u16 arg1) {
-    s32 *var_r4;
-    s32 temp_r5;
-    s32 var_r0;
-    void *temp_r0;
+typedef struct Iter0803A350 {
+    s32 *unk0;
+    s32 *unk4;
+} Iter0803A350;
 
-    temp_r0 = (**arg0)->unk14C();
-    var_r4 = temp_r0->unk0;
-    temp_r5 = temp_r0->unk4;
-    if (var_r4 != temp_r5) {
-loop_1:
-        if ((func_08008CD0(*var_r4) << 0x18) == 0) {
-            var_r0 = *var_r4;
-        } else {
-            var_r4 += 4;
-            if (var_r4 == temp_r5) {
-                goto block_4;
+typedef struct Vt0803A350 {
+    u8 _pad0[0x14C];
+    Iter0803A350 *(*unk14C)(void *);
+} Vt0803A350;
+
+void func_0803A350(void **arg0, s32 arg1) {
+    void *obj;
+    Iter0803A350 *it;
+    s32 *p;
+    s32 *end;
+    s32 v;
+
+    obj = *arg0;
+    it = ((Vt0803A350 *) *(void **) obj)->unk14C(obj);
+    p = it->unk0;
+    end = it->unk4;
+    if (p != end) {
+        do {
+            if ((func_08008CD0(*p) << 0x18) == 0) {
+                v = *p;
+                goto done;
             }
-            goto loop_1;
-        }
-    } else {
-block_4:
-        var_r0 = *(temp_r5 - 4);
+            p += 1;
+        } while (p != end);
     }
-    func_08008B6C(var_r0, arg1);
+    v = *(end - 1);
+done:
+    func_08008B6C(v, (u16) arg1);
 }

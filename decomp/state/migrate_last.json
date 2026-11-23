@@ -64,6 +64,11 @@
     "status": "SKIP",
     "when": "2026-11-23T10:18:54"
   },
+  "code_entities_08034CEC.s:func_0803A350": {
+    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75459: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
+    "status": "OK",
+    "when": "2026-11-23T11:09:48"
+  },
   "code_lib_syscall.s:ArcTan2": {
     "detail": "`CpuSet' referenced in section `.text' of src/m4a.o: defined in discarded section `.text.code_lib_syscall.080D3750' of asm/code_lib_syscall.o `CpuSet' referenced in section `.text' of src/m4a.o: defin",
     "status": "GAGAL",
@@ -98,6 +103,11 @@
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75459: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
     "status": "OK",
     "when": "2026-11-23T11:06:31"
+  },
+  "game_state.s:func_0801DCD4": {
+    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75459: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
+    "status": "OK",
+    "when": "2026-11-23T11:11:38"
   },
   "hardware.s:func_080087C8": {
     "detail": "tidak ada kandidat: status di shard bukan promoted (butuh MATCH dulu)",

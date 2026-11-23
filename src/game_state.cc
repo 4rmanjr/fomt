@@ -1669,6 +1669,10 @@ typedef struct G08016EC4 {
 } G08016EC4;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0801140C GenObj__func_0801140C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -3575,7 +3579,6 @@ void func_08016E9C(GenObj__func_08016E9C *arg0) {
 // DECOMP-MATCHED func_08016EC4 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 __attribute__((section(".text.game_state.08016EC4")))
 void func_08016EC4(G08016EC4 *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4, u16 arg5) {
     void *h;
@@ -3586,7 +3589,6 @@ void func_08016EC4(G08016EC4 *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4, u16 
     ((void (*)(void *, i32, i32, i32, i32, u16)) *(void **) (vt + 0x160))(h, arg1, arg2, arg3, arg4, arg5);
 }
 }
-
 
 // DECOMP-MATCHED func_08016EF0 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -3880,6 +3882,27 @@ void func_0801DCA8(GenObj__func_0801DCA8 *arg0) {
     *p = zero;
 }
 }
+// DECOMP-MATCHED func_0801DCD4 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+i32 GetValueShipped__C11ShippingBin(i32);             /* extern */
+u32 func_0801140C(GenObj__func_0801140C *arg0);                             /* extern */
+__attribute__((section(".text.game_state.0801DCD4")))
+void func_0801DCD4(void **arg0) {
+    i32 args[2];
+    i32 a;
+    void **slot;
+
+    a = GetValueShipped__C11ShippingBin((i32) ((u8 *) *(void **) ((u8 *) arg0 + 0x1038) + 0x54));
+    func_0801140C((GenObj__func_0801140C *) *(void **) ((u8 *) arg0 + 0x1038));
+    slot = (void **) ((u8 *) *arg0 + 0x140);
+    args[0] = 0x3DB;
+    args[1] = a;
+    ((void (*)(void **, i32 *, i32)) *slot)(arg0, args, 1);
+}
+}
+
 
 // DECOMP-MATCHED func_0801DD18 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {

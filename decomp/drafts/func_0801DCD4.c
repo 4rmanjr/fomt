@@ -1,21 +1,17 @@
-s32 GetValueShipped__C11ShippingBin(s32);           /* extern */
-s32 func_0801140C(s32);                               /* extern */
+typedef struct GenObj__func_0801140C GenObj__func_0801140C;
 
-typedef struct GenObj {
-    struct GenObj *unk0;
-    u8 _pad4[316];
-    s32 unk140;
-    u8 _pad144[3828];
-    s32 unk1038;
-} GenObj;
-void func_0801DCD4(GenObj *arg0) {
-    s32 sp0;
-    s32 sp4;
-    s32 temp_r6;
+s32 GetValueShipped__C11ShippingBin(s32);             /* extern */
+u32 func_0801140C(GenObj__func_0801140C *);           /* extern */
 
-    temp_r6 = GetValueShipped__C11ShippingBin(arg0->unk1038 + 0x54);
-    func_0801140C(arg0->unk1038);
-    sp0 = 0x3DB;
-    sp4 = temp_r6;
-    ((void (*)(void *,...))(arg0->unk0->unk140))(arg0, &sp0, 1);
+void func_0801DCD4(void **arg0) {
+    s32 args[2];
+    s32 a;
+    void **slot;
+
+    a = GetValueShipped__C11ShippingBin((s32) ((u8 *) *(void **) ((u8 *) arg0 + 0x1038) + 0x54));
+    func_0801140C((GenObj__func_0801140C *) *(void **) ((u8 *) arg0 + 0x1038));
+    slot = (void **) ((u8 *) *arg0 + 0x140);
+    args[0] = 0x3DB;
+    args[1] = a;
+    ((void (*)(void **, s32 *, s32)) *slot)(arg0, args, 1);
 }

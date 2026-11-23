@@ -2517,3 +2517,28 @@ sebelum `bl` (setelah argumen stack disiapkan), jangan simpan fn di variabel.
 Catatan gate: prototipe callee harus **sama persis** dengan yang sudah ada di
 `src/<modul>.cc` (mis. `func_080A5BD8` di sana `(void *, i32 *, i32, i32)`),
 termasuk jumlah parameter — bukan cuma tipe argumen yang dipakai fungsi baru.
+
+### 76. Tiga tuas lagi: slot fn dimuat akhir, uji byte `<<24`, tipe param callee
+
+1. **Hitung slot pointer fungsi sebelum argumen stack diisi.** Ref
+   `func_0801DCD4` menghitung `*arg0 + 0x140` (r1) SEBELUM `str` argumen,
+   lalu `ldr r3, [r1]` sesudahnya. Bentuk yang menutup: simpan slotnya dulu
+   (`void **slot = (void **)((u8 *)*arg0 + 0x140);`), isi array argumen, baru
+   `((void (*)(...)) *slot)(...)` — jangan membaca `*slot` di ekspresi call
+   sebelum argumen tersimpan.
+2. **Uji byte pakai `<< 24`, bukan `== 0`.** `func_0803A350` butuh
+   `(func_08008CD0(*p) << 0x18) == 0` agar muncul `lsls r0, r0, #0x18; cmp r0,
+   #0`; `== 0` polos menghasilkan `cmp r0, #0` saja.
+3. **Prototipe callee mengikuti `src/`, bukan naluri sendiri.** Gate migrate
+   membandingkan string tanda tangan per modul. Di `game_state`:
+   `GetValueShipped__C11ShippingBin` dideklarasikan `(i32)` dan
+   `func_0801140C` memakai `GenObj__func_0801140C *`, jadi draf harus memakai
+   bentuk itu (`(s32)((u8 *)obj + 0x54)`, cast struct) walau `void *` lebih
+   wajar. Sebaliknya `func_080A5BD8` di `code_809E804` `(void *, i32 *, i32,
+   i32)` sehingga argumen pointer harus di-cast.
+
+Tambahan: nilai yang dipakai dua kali lintas call **jangan** disimpan di
+variabel (`obj = ...; f(obj); g(obj);`) kalau ref memuat ulang dari field —
+tulis deref-nya dua kali supaya gcc memuat ulang lewat basis yang sama
+(`(u8 *)arg0 + 0x1038`), dan pakai `s32` + cast `(u16)` di call-site untuk
+parameter yang di ref baru dipotong di ujung.

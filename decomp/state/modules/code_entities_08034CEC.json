@@ -2327,13 +2327,14 @@
  },
  "func_0803A350": {
   "addr": 134456144,
-  "judged_mtime": 1793582714.0994072,
+  "judged_mtime": 1795432174.1942682,
   "module": "code_entities_08034CEC.s",
-  "note": ".c:18: warning: comparison between pointer and integer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803A350/opencode/func.c:24: warning: comparison between pointer and integer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0803A350/opencode/func.c:31: invalid type argument of `unary *'\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 687,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803A394": {
