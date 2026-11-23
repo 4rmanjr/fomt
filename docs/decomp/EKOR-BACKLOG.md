@@ -63,7 +63,7 @@ Sisa **72** fungsi (40 `promoted`, 26 `failed`, 6 `pending`). Tabel = 12 entri t
 | 68 | `func_08008CEC` | 8B | pending | - |
 | 69 | `func_08008CF4` | 8B | pending | - |
 | 70 | `func_08008CFC` | 20B | pending | - |
-| 71 | `func_08008D10` | 28B | pending | DINDING toolchain: ref memuat konstanta 5 lewat literal pool la… |
+| 71 | `func_08008D10` | 28B | pending | DINDING toolchain (terverifikasi ulang): ref memuat konstanta 5… |
 
 ## `code_actor_0809BFE8.s`
 

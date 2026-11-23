@@ -2051,6 +2051,15 @@ dan assignment terpisah), bitfield `u32 : 8`, `enum`, `static inline` pengembali
 (`add r1,r0,#0; lsls; lsrs`) atau `ldrb` dari alamat — tidak pernah pool untuk
 nilai 5.
 
+Pencarian lanjutan (2026-11-23) memperluas ruang uji secara sistematis:
+2784 fungsi dibangkitkan dari 16 literal (`5`, `0x5`, `05`, `5U`, `5L`,
+`~0xFA`, `-(-5)`, `0x1F5>>4`, `sizeof(int)+1`, …) x 11 cast (`u8`, `s8`, `u16`,
+`s16`, `u32`, `s32`, `char`, `short`, `unsigned char`, `unsigned`, tanpa cast) x
+6 tipe parameter callee (`u8`, `s8`, `u16`, `u32`, `s32`, variadic), plus
+kombinasi biner antar konstanta. Total dengan percobaan sebelumnya ~3100 bentuk;
+nol menghasilkan `ldr` dari pool + `lsls #0x18`/`#0x10`. Yang muncul hanya
+`movs`, `ldr`+`ldrb` (alamat global), atau mask-dari-register.
+
 Kesimpulan: agbcc melipat konversi sempit dari konstanta, sedangkan pool+mask
 hanya keluar untuk konstanta yang tidak bisa jadi immediate. Untuk `5` itu
 mustahil, jadi tidak ada bentuk C yang MATCH; jangan buang kuota judge untuk
