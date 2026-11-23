@@ -2070,3 +2070,39 @@ hanya keluar untuk konstanta yang tidak bisa jadi immediate. Untuk `5` itu
 mustahil, jadi tidak ada bentuk C yang MATCH; jangan buang kuota judge untuk
 kelas ini. Catat sebagai dinding dan lewati. Karena `hardware.s` tail-only,
 `func_08008D10` sebagai ujung berkas mengunci semua `pending` di atasnya.
+
+## 65. Pin register di agbcc: nama NUMERIK (`"r9"`), bukan alias (`"sb"`), dan wajib di-fence
+
+Kasus `func_080E5664` (439B) di `code_linkonce.s`: ref menyimpan `fl` (flag
+perbandingan) di `sb`/r9, dan prolognya hanya menyimpan r8 + sb
+(`push {r4,r5,r6,r7,lr}; mov r7,sb; mov r6,r8; push {r6,r7}`). Draf parkir
+menyimpan r8,r9,r10 -> 206 instruksi dan `sl` dipakai 9-10x.
+
+Dua jebakan yang menghabiskan beberapa varian:
+
+1. `register s32 fl __asm__("sb")` **diabaikan diam-diam** oleh agbcc: pin-nya
+   hilang, alokator tetap memakai `sl`, dan tidak ada error/warning. Nama yang
+   bekerja adalah **numerik**: `__asm__("r9")`. (Begitu juga `"r10"` untuk sl,
+   `"r11"` untuk fp.) Ini sebabnya percobaan `fl`->sb sebelumnya terlihat
+   "tidak berpengaruh".
+2. Pin tanpa fence akan dilipat: setelah `fl = t;` harus ada
+   `__asm__ volatile("" : "+r"(fl));`, dan untuk parameter
+   `a3 = arg3; __asm__ volatile("" : "+r"(a3));`. Tanpa fence, `a0 = arg0;`
+   pun tidak dihormati (terbukti: r7 malah diisi arg3).
+
+Ukuran lokal (`cc_probe`-style, prelude judge + `agbcc -O2`, lalu normalisasi
+`movs`->`mov`, `#0x8`->`#8`, `sb`->r9):
+
+| varian | pin | instr | r10 | sama-instruksi |
+|---|---|---|---|---|
+| draf parkir | a0->r7 (tanpa fence) | 210 | 10 | 54/212 (25%) |
+| wB | a0->r7, a1->r6, a2->r8, a3->r4, fl->r9 + fence | 210 | 0 | 142/212 (67%) |
+
+`wB` juga mereproduksi prolog ref persis, menghapus `sl` sepenuhnya, dan
+menggeser klasifikasi engine dari `zero-reload`/regalloc ke `instruksi`. Tetap
+bukan MATCH: sisa beda frame (`sub sp,#0x18` vs `#0x14` — ref punya satu kata
+ekstra di area argumen keluar/slot) dan urutan di sekitar L56D0/L5710.
+
+Aturan praktis: pin register selalu (a) nama numerik, (b) berpasangan dengan
+fence `"+r"`, (c) satu pin per home ref, lalu ukur dulu dengan kompilasi lokal
+sebelum judge.
