@@ -35,6 +35,12 @@ Yang diperiksa:
    tanpa perlu ada yang ingat meregenerasinya. Kalau `baserom.gba` atau berkas
    `.s` sumbernya tidak ada, gate dilewati dengan catatan (bukan masalah),
    karena tanpa keduanya dokumen tidak bisa dihitung ulang.
+8. **Peta berkas 0x70 basi** (`docs/decomp/ASET-0X70-PETA-BERKAS.md`):
+   dokumen itu dihasilkan `tools/scripts/extract_assets.py` dari
+   `assets/0x70/manifest.json`. Gate membandingkannya dengan
+   `extract_assets.render_map_doc(manifest)` yang sama dengan `--check-map`,
+   jadi manifest berubah (pasangan/status/berkas) tanpa regenerasi dokumen
+   langsung menggagalkan pemeriksaan, bukan lolos diam-diam.
 
 Read-only; exit 1 bila ada masalah (`--json` untuk agent, `--strict` sama
 dengan default).
@@ -74,6 +80,10 @@ ASET_DOC = "docs/decomp/ASET-INVENTARIS.md"
 ASET_TOOL = REPO / "tools/scripts/asset_inventory.py"
 ASET_INPUTS = [REPO / "asm" / "data" / "data_0813B288.s", REPO / "baserom.gba"]
 
+MAP_DOC = "docs/decomp/ASET-0X70-PETA-BERKAS.md"
+MAP_TOOL = REPO / "tools/scripts/extract_assets.py"
+MAP_MANIFEST = REPO / "assets" / "0x70" / "manifest.json"
+
 
 def aset_inventaris():
     """-> (masalah|None, catatan|None) untuk dokumen inventaris aset.
@@ -106,6 +116,39 @@ def aset_inventaris():
         return (ASET_DOC, "BASI terhadap hasil generate — jalankan "
                 "python3 tools/scripts/asset_inventory.py"), None
     return None, "inventaris aset sinkron"
+
+
+def aset_0x70():
+    """-> (masalah|None, catatan|None) untuk dokumen peta berkas 0x70.
+
+    Dokumen itu hasil generate dari manifest, dan `extract_assets.py
+    --check-map` memakai renderer yang sama. Gate ini memanggil renderer itu
+    langsung supaya manifest yang berubah tanpa regenerasi dokumen terlihat.
+    """
+    import importlib.util
+    import json
+
+    out = REPO / MAP_DOC
+    if not out.exists():
+        return (MAP_DOC, "dokumen peta berkas 0x70 hilang — jalankan "
+                "tools/scripts/extract_assets.py"), None
+    if not MAP_MANIFEST.exists():
+        return (MAP_DOC, "manifest 0x70 hilang — jalankan "
+                "tools/scripts/extract_assets.py"), None
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "extract_assets", MAP_TOOL)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        text = mod.render_map_doc(
+            json.loads(MAP_MANIFEST.read_text()))
+    except Exception as e:  # gate tidak boleh lolos diam-diam saat tool rusak
+        return (MAP_DOC,
+                f"gate peta 0x70 gagal dijalankan: {type(e).__name__}: {e}"), None
+    if out.read_text() != text:
+        return (MAP_DOC, "BASI terhadap manifest — jalankan "
+                "python3 tools/scripts/extract_assets.py"), None
+    return None, "peta berkas 0x70 sinkron"
 
 
 def ekor_backlog():
@@ -240,6 +283,12 @@ def check(max_agents):
         notes.append(note)
 
     prob, note = aset_inventaris()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = aset_0x70()
     if prob:
         problems.append(prob)
     elif note:

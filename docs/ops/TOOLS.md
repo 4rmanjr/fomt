@@ -128,7 +128,9 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   `--out DIR` untuk lokasi lain, `--quiet` untuk ringkasan saja. Selain
   `manifest.json`, tool menulis `docs/decomp/ASET-0X70-PETA-BERKAS.md` (peta
   simbol -> stream -> bin/PNG, hasil generate); `--check-map` exit 1 bila
-  dokumen itu basi terhadap manifest. Seluruh stream dirender dalam hitungan
+  dokumen itu basi terhadap manifest, dan `check_docs.py` memanggil renderer
+  yang sama sebagai gate (dokumen basi menggagalkan tutup sesi, bukan lolos
+  diam-diam). Seluruh stream dirender dalam hitungan
   puluhan detik; tidak menjalankan build dan tidak menulis ROM.
 - `raw_assets.py` — inventaris sisa 231 blob **mentah** (bukan `0x70`) dari
   `asset_inventory.analyze()`, kelompokkan dari isi: `palet` (<=1 KB, semua u16
