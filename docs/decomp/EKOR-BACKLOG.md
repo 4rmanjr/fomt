@@ -25,7 +25,7 @@ python3 -c "import sys;sys.path.insert(0,'decomp');import migrate,pathlib;print(
 |---|---|---|---|---|---|
 | `code_actor_0809BFE8.s` | 51 | 9 | 3 | `func_0809DA00` (1323B, failed) | terkunci di ujung |
 | `code_linkonce.s` | 428 | 9 | 3 | `func_080E5664` (439B, failed) | terkunci di ujung |
-| `hardware.s` | 77 | 3 | 9 | `func_08008F60` (132B, promoted) | terbuka |
+| `hardware.s` | 73 | 28 | 38 | `func_08008D2C` (8B, pending) | terbuka |
 
 Delapan modul tail-only lain (`code_iwram`, `game_scene`, `interrupt`, `main`, `more_items`, `scene`,
 `sram_proxy_1`, `vtables`) sudah kosong di `asm/` — tidak punya blocker ekor lagi.
@@ -74,24 +74,25 @@ Tabel di bawah hanya **12 entri terakhir** (batas keluaran `tail_chain.py`): itu
 
 ## `hardware.s`
 
-Fungsi tersisa di asm: **77** (semua belum di `src/`). Blocker terakhir menurut `tail_chain.py`: `func_08008F60` (132B, status `promoted`).
+Fungsi tersisa di asm: **73** (semua belum di `src/`) — 28 `failed`, 38 `promoted` menunggu giliran.
+Blocker terakhir menurut `tail_chain.py`: `func_08008D2C` (8B, status `pending`, harus MATCH dulu).
 
-Tabel di bawah hanya **12 entri terakhir** (batas keluaran `tail_chain.py`): itu bagian yang menentukan urutan cabut. `hardware.s` masih menyisakan **65** fungsi lain di bawahnya yang juga belum di `src/` — daftar penuhnya lewat `--json` atau shard state.
+Tabel di bawah hanya **12 entri terakhir** (batas keluaran `tail_chain.py`): itu bagian yang menentukan urutan cabut.
 
-| idx | fungsi | ukuran | status | residual terakhir | catatan |
-|---|---|---|---|---|---|
-| 65 | `func_08008CD0` | 108B | failed | kompilasi gagal (tipe/arity) | ekor `.byte` |
-| 66 | `func_08008D3C` | 72B | failed | kompilasi gagal (lihat log judge) | ekor `.byte` |
-| 67 | `func_08008D84` | 12B | promoted | - | MATCH, menunggu giliran cabut |
-| 68 | `func_08008D90` | 12B | promoted | - | MATCH, menunggu giliran cabut |
-| 69 | `func_08008D9C` | 12B | promoted | - | MATCH, menunggu giliran cabut |
-| 70 | `func_08008DA8` | 16B | promoted | - | MATCH, menunggu giliran cabut |
-| 71 | `func_08008DB8` | 48B | promoted | - | ekor `.byte`, MATCH, menunggu giliran cabut |
-| 72 | `func_08008DE8` | 124B | promoted | - | ekor `.byte`, MATCH, menunggu giliran cabut |
-| 73 | `func_08008E64` | 84B | failed | byte +0x2: 0x4 vs ref 0x0 [1missing,1extra,1regalloc @>  / adds r4, r0, #0] | - |
-| 74 | `func_08008EB8` | 84B | promoted | - | MATCH, menunggu giliran cabut |
-| 75 | `func_08008F0C` | 84B | promoted | - | MATCH, menunggu giliran cabut |
-| 76 | `func_08008F60` | 132B | promoted | - | ekor `.byte`, MATCH, menunggu giliran cabut |
+| idx | fungsi | ukuran | status | catatan |
+|---|---|---|---|---|
+| 61 | `func_08008C70` | 28B | promoted | - |
+| 62 | `func_08008C8C` | 28B | promoted | - |
+| 63 | `func_08008CA8` | 28B | promoted | - |
+| 64 | `func_08008CC4` | 12B | promoted | - |
+| 65 | `func_08008CD0` | 12B | failed | - |
+| 66 | `func_08008CDC` | 8B | pending | - |
+| 67 | `func_08008CE4` | 8B | pending | - |
+| 68 | `func_08008CEC` | 8B | pending | - |
+| 69 | `func_08008CF4` | 8B | pending | - |
+| 70 | `func_08008CFC` | 20B | pending | - |
+| 71 | `func_08008D10` | 28B | pending | - |
+| 72 | `func_08008D2C` | 8B | pending | - |
 
 ## Penjadwalan
 
@@ -117,15 +118,16 @@ Prioritas praktis:
 
 ## Catatan khusus per modul
 
-### `hardware.s` — blob `.byte` di ujung
+### `hardware.s` — blob `.byte` di ujung sudah dipecah
 
-`asm/hardware.s` sekarang berakhir di label `.L08008FB8` (44B `.byte`). Itu **ekor data** milik
-`func_08008F60` (132B, `byte_tail: true`) — bukan fungsi terpisah tanpa nama, sehingga tidak butuh
-entri state sendiri. `func_08008FE4` (56B + 120B ekor data) sudah MATCH dan dicabut, jadi tidak ada lagi
-blob yang menyandera ujung berkas. Konsekuensinya `func_08008F60` (idx terakhir, `promoted`) dapat
-dicabut kapan saja lewat `migrate.py --module hardware.s --func func_08008F60`; semua `failed` di
-bawahnya (`func_08008E64` 84B, `func_08008D3C` 72B, `func_08008CD0` 108B) baru bisa menyusul setelah
-giliran itu.
+Blob `.L08008CDC` (96B, sebelumnya menempel di `ref_len` `func_08008CD0` sehingga blok itu
+terbaca 108B) kini dipecah jadi 8 entri `thumb_func_start` (`func_08008CDC`…`func_08008D34`) dengan
+instruksi hasil decode; byte ROM tidak berubah (`make compare` HIJAU sesudah pemecahan). `ref_len`
+`func_08008CD0` turun ke 12B, dan kedelapan entri baru terdaftar lewat scan modul.
+`func_08008D34` (8B, `void f(s32 *p) { p[0] -= 0x40; }`) sudah MATCH + pindah ke
+`src/hardware_migrated.cc`; link berikutnya `func_08008D2C` (8B, tambah 0x40) masih `pending`.
+Catatan historis: blob `func_08008FE4` (56B + 120B ekor) sudah lebih dulu MATCH/dicabut, jadi bukan
+blob yang menyandera ujung berkas lagi.
 
 ### `code_linkonce.s` — blocker 439B
 

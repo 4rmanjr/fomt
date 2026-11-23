@@ -744,11 +744,78 @@
   "judged_mtime": 1793582714.0274186,
   "module": "hardware.s",
   "note": "unc.c: In function `func_08008CD0':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08008CD0/opencode/func.c:3: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08008CD0/opencode/func.c:3: request for member `unk4' in something not a structure or union\n",
-  "ref_len": 108,
+  "ref_len": 12,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
-  "size": 818,
+  "size": 183,
   "status": "failed",
+  "thumb": true
+ },
+ "func_08008CDC": {
+  "addr": 134253788,
+  "module": "hardware.s",
+  "ref_len": 8,
+  "size": 131,
+  "status": "pending",
+  "thumb": true
+ },
+ "func_08008CE4": {
+  "addr": 134253796,
+  "module": "hardware.s",
+  "ref_len": 8,
+  "size": 131,
+  "status": "pending",
+  "thumb": true
+ },
+ "func_08008CEC": {
+  "addr": 134253804,
+  "module": "hardware.s",
+  "ref_len": 8,
+  "size": 131,
+  "status": "pending",
+  "thumb": true
+ },
+ "func_08008CF4": {
+  "addr": 134253812,
+  "module": "hardware.s",
+  "ref_len": 8,
+  "size": 130,
+  "status": "pending",
+  "thumb": true
+ },
+ "func_08008CFC": {
+  "addr": 134253820,
+  "module": "hardware.s",
+  "ref_len": 20,
+  "size": 200,
+  "status": "pending",
+  "thumb": true
+ },
+ "func_08008D10": {
+  "addr": 134253840,
+  "module": "hardware.s",
+  "ref_len": 28,
+  "size": 313,
+  "status": "pending",
+  "thumb": true
+ },
+ "func_08008D2C": {
+  "addr": 134253868,
+  "module": "hardware.s",
+  "ref_len": 8,
+  "size": 127,
+  "status": "pending",
+  "thumb": true
+ },
+ "func_08008D34": {
+  "addr": 134253876,
+  "judged_mtime": 1795400405.3116708,
+  "module": "hardware.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
+  "ref_len": 7,
+  "size": 128,
+  "status": "promoted",
   "thumb": true
  },
  "func_08008D3C": {

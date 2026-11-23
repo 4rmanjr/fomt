@@ -1737,3 +1737,8 @@ s32 func_08008D3C(u16 arg0) {
     func_08008B54(&sp0, gSongTable[arg0].unk4);
     return sp0;
 }
+
+// DECOMP-MATCHED func_08008D34 (dari hardware.s; cek manusia sebelum ke src/)
+void func_08008D34(s32 *arg0) {
+    arg0[0] -= 0x40;
+}
