@@ -2060,6 +2060,11 @@ kombinasi biner antar konstanta. Total dengan percobaan sebelumnya ~3100 bentuk;
 nol menghasilkan `ldr` dari pool + `lsls #0x18`/`#0x10`. Yang muncul hanya
 `movs`, `ldr`+`ldrb` (alamat global), atau mask-dari-register.
 
+Frontend C++ build (`agbcp`/libagbc++, yang dipakai `src/*.cc`) juga diuji
+2026-11-23 dengan flags build asli: baik `5` maupun `(u8)5` ke parameter `u8`
+tetap `movs r1,#5`. Jadi tiga compiler (`agbcc`, `old_agbcc`, `agbcp`) sama-sama
+melipat; tidak ada jalur build di repo ini yang menghasilkan pool untuk 5.
+
 Kesimpulan: agbcc melipat konversi sempit dari konstanta, sedangkan pool+mask
 hanya keluar untuk konstanta yang tidak bisa jadi immediate. Untuk `5` itu
 mustahil, jadi tidak ada bentuk C yang MATCH; jangan buang kuota judge untuk
