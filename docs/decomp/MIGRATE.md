@@ -98,6 +98,9 @@ penempatan yang menghalangi.
 | `bukan fungsi terakhir di <mod>.s (N penerus belum pindah)` | modul **tail-only legacy** (`hardware.s`, `code_actor_0809BFE8.s`, `code_linkonce.s`) → wajib pindah dari ekor |
 | `butuh tulis manual callee` | callee belum MATCH & tanda tangan beda |
 
+Dinding asm-tangan (fungsi ujung yang terbukti tidak punya bentuk C): opsi
+kebijakan + rekomendasinya di §44 (masih proposal, belum ada kode).
+
 ## 5. Modul split vs tail-only
 
 - **Split** (`game_state`, `code_809E804`, `code_entities*`,
@@ -1239,3 +1242,70 @@ Transformasi migrator memotong/menafsirkan identifier `zero` sebagai nama tipe
 tidak menolong, tapi **mengganti nama variabel** (mis. `zero` -> `zz`) langsung
 bersih dan codegen tidak berubah (rename murni). Aturan praktis: jangan pakai
 `zero` sebagai nama variabel lokal di blok MATCH yang akan dimigrasikan.
+
+## 44. Kebijakan fungsi ujung yang asm-tangan (proposal; kode belum diubah)
+
+Kasus pemicu: `func_08008D10`, fungsi **terakhir** `asm/hardware.s`, tidak bisa
+ditulis ulang di C dengan literal apa pun (322 bentuk awal, ~3100 bentuk
+sistematis, tiga compiler) sehingga mengunci enam `pending` di atasnya. Kasus
+itu akhirnya pecah lewat simbol absolut linker (POLA-DIFF §64), jadi §44 ini
+**preventif**: kelas yang sama tetap mungkin muncul - fungsi ref yang memang
+asm tangan, atau yang tidak punya bentuk C di toolchain repo ini.
+
+Batasan teknis yang mengunci semua opsi (baca dulu sebelum memilih):
+
+- Di modul tail-only `fomt.lds` menaruh `asm/<mod>.obj(.text)` lalu
+  `src/<mod>_migrated.o(.text)`, jadi **alamat ROM = urutan link**. Tidak ada
+  cara "melewati" fungsi ujung tanpa memindahkan byte-nya: penerusnya akan
+  bergeser masuk ke rentang alamat fungsi itu dan `make compare` merah.
+- Karena itu opsi "gate `migrate.py` diberi penanda dinding yang boleh
+  dilewati" **tidak bisa berdiri sendiri**. Ia hanya masuk akal sebagai
+  varian O2/O3, yaitu bila byte fungsi dinding juga berubah tempat.
+- Semua opsi wajib lulus `make compare` HIJAU dan tidak boleh mengaburkan
+  akuntansi MATCH: MATCH berarti "terjemahan C terbukti byte-identik", dan
+  angka itu yang dipakai laporan progres.
+
+| | opsi | isi | biaya | konsekuensi |
+|---|---|---|---|---|
+| O0 | status quo | fungsi dinding tinggal di asm, modul dibekukan | 0 | rantai di atasnya mati; semua `promoted` di modul itu tak bisa pindah. Hanya masuk akal kalau sisa rantainya pendek |
+| O1 | **carry verbatim** (perluas §28a/§34 ke **kode**) | blok fungsi dinding dipindah ke `src/` sebagai string inline asm verbatim, ber-marker `DECOMP-CARRIED`, status shard `carried` | kecil: mekanisme salin-verbatim sudah ada untuk data ekor; perlu jalur baru di `migrate.py` + status enum | rantai terbuka, ROM tetap identik, reversibel (byte asli disimpan). Tapi `src/` mulai memuat asm, dan `carried` **bukan** MATCH: harus tampil terpisah di laporan, dikecualikan `migrate_audit`/`verify`, dan bisa menyembunyikan fungsi yang sebenarnya masih bisa diterjemahkan |
+| O2 | splitter per-fungsi untuk modul tail-only | fungsi dinding dipisah jadi section sendiri, `fomt.lds` menempatkannya berurutan; gate boleh pindah penerus selagi dinding tetap asm | besar: `split_asm_sections.py` + generator `fomt.lds` + `migrate.is_split_module` | model paling bersih ("asm tetap asm, src hanya C"), tapi satu section salah urut = seluruh build merah; per-modul pengecualian, sulit dirawat |
+| O3 | bedah linker script | sisipkan potongan `src` di antara blok asm lewat entri `fomt.lds` per fungsi | sedang-besar, rapuh | efeknya sama dengan O2 tanpa splitter; tiap fungsi dinding jadi entri manual di .lds |
+| O4 | patch biner pasca-link | bangun dari C lalu tambal byte dinding | kecil di permukaan | **ditolak**: menyembunyikan divergensi, `make compare` berhenti bermakna, tidak ada jejak di sumber |
+| O5 | parkir + vonis permanen | dinding tetap asm, tandai `SKIP permanen` di `wall_registry.py`, modul dinyatakan beku | 0 | jujur tapi tidak menghasilkan apa pun; berguna kalau rantai di atasnya memang sudah habis atau dinding >100B |
+
+**Rekomendasi: O1**, dengan syarat masuk yang ketat supaya tidak jadi tempat
+sampah asm:
+
+1. **Memblokir**: hanya untuk fungsi yang benar-benar ujung rantai **dan**
+   setidaknya satu MATCH di atasnya tertahan. Bukan untuk mempercepat.
+2. **Dinding terbukti**: `wall_registry.py --kind permanen` menyebutnya, note
+   shard berisi bukti (compiler yang diuji + jumlah bentuk + ringkasan di
+   POLA-DIFF). Dinding yang cuma "belum ketemu" tetap O0.
+3. **Batas ukuran**: <=32B dan maksimal satu blok `carried` per modul. Di atas
+   itu, byte yang dibawa asm lebih banyak daripada yang diterjemahkan.
+4. **Akuntansi terpisah**: status `carried`, marker `DECOMP-CARRIED`, muncul
+   sebagai baris sendiri di laporan (`carried N+1`), **tidak** masuk DELTA
+   MATCH; `plan_stats`/`status` menghitungnya di luar `matched`.
+5. **Dapat dibuka lagi**: `carried` disimpan bersama alamat asalnya sehingga
+   kalau nanti ada ide C baru (mis. trik simbol absolut §64), blok itu
+   dikembalikan ke draf dan di-judge seperti biasa.
+
+Konsekuensi O1 yang harus diterima: laporan progres tidak lagi "100% C" untuk
+modul yang punya blok `carried`; `fomt verify` harus melewati (atau merakit
+ulang verbatim) blok itu; dan setiap blok `carried` menaikkan risiko bahwa
+fungsi yang sebenarnya bisa diterjemahkan ikut dibekukan.
+
+**Kalau kelas ini ternyata sering** (mis. rantai `code_linkonce.s` yang masih
+menahan ~128 kandidat), O1 tetap jalan tetapi O2 yang benar secara struktural:
+dinding jadi section sendiri dan gate tidak perlu tahu soal "dinding" sama
+sekali. Urutannya: pakai O1 untuk membuka rantai sekarang, catat setiap blok
+`carried`, lalu ganti ke O2 kalau jumlahnya melewati ~3 modul.
+
+**Yang perlu diputuskan pemilik repo** sebelum ada kode: (a) O1 vs O2, (b)
+batas ukuran/jumlah `carried`, (c) apakah `carried` dihitung sebagai `pindah`
+di laporan sesi atau baris terpisah, (d) siapa yang boleh menandai dinding
+permanen (saat ini note shard + `wall_registry.py`).
+
+Status: **proposal, belum ada perubahan kode** - `migrate.py` masih menolak
+blok yang tidak MATCH, dan `EKOR-BACKLOG.md` belum punya kolom `carried`.
