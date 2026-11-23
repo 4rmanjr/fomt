@@ -21,6 +21,13 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   `push {…, lr}`).
   Peta semua blocker ekor (fungsi failed, ukuran, residual terakhir) ada di
   `docs/decomp/EKOR-BACKLOG.md`.
+- `ekor_snapshot.py` — **regenerasi** `docs/decomp/EKOR-BACKLOG.md`: ringkasan
+  per modul tail-only, tabel 12 entri ekor, dan kelas S/M/L, semuanya dari
+  `tail_chain.py --json` + shard state (kolom residual = ringkasan note, bukan
+  angka karangan). Bagian naratif setelah penanda
+  `<!-- manual:catatan-per-modul -->` disalin apa adanya. `--check` exit 1 kalau
+  dokumen di disk basi, `--stdout` untuk melihat hasil tanpa menulis. Jalankan
+  setiap habis MATCH/migrasi yang mengubah ujung rantai.
 - `diff_mismatch.py <func>` — hitung mismatch `diff.py` setelah target branch
   dinormalkan (`--json`/`--strict`, `--diff-json` untuk output yang sudah ada).
 - `width_mismatch.py` — lebar akses asm (`ldrb/strb/ldrh/strh/ldr/str`) vs tipe
