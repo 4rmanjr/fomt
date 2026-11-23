@@ -1825,3 +1825,26 @@ Hasil percobaan sesi ini: 89 instruksi vs ref 88; judge `len 226 vs ref 218
 [2missing,7extra,7operand,14regalloc]`. Bentuk V1 lama (dua statement `temp->unkC`) tetap terbaik
 secara len (214). Kesimpulan: `func_08005A58` adalah **wall codegen** — jangan ulangi dengan variasi C
 lain kecuali tersedia compiler lain; gate `migrate` tidak dijalankan.
+
+## 59. Ref mempertahankan null-check mati + dead store; agbcc melipatnya (`func_08004C0C`)
+
+`func_08004C0C` (`new_game.s`, 60B) menyalin pointer hasil `func_08004570(&a, ...)` ke tiga slot
+frame (`a` di `[sp]`, `p=&a` di `[sp+4]`, `b=a` di `[sp+8]`), menulis `*p = 0`, menyalin `b` ke
+`*arg0`, lalu **membaca ulang `a`** untuk null-check yang — karena `a` sudah dinolkan — selalu
+di-skip saat runtime. Ref tetap meng-emit store `p`/`b` dan null-check itu; agbcc membuktikan
+`*p = 0` menulis `a` sehingga seluruh blok hilang (38B vs 58B).
+
+Resep yang membawa draft ke **1 instruksi** dari ref (judge: `byte +0x16: 0x69 vs 0x01
+[1different @ adds r1, r0, #0 | mov r1, sp]`, semua instruksi lain identik):
+
+- frame jadi agregat `{ Obj *p0; Obj **p4; Obj *p8; }` (slot `p4`/`p8` dipertahankan sebagai
+  dead store seperti ref);
+- salinan nilai disimpan di lokal (`b = l.p0;` sebelum `l.p4`/`l.p8`) supaya ref memakai register
+  yang sama untuk `*arg0 = b`;
+- `q = p; __asm__ volatile("" : "+r"(q) : : "memory"); *q = 0;` — barrier inilah yang menahan
+  propagasi nilai (`l.p0` dibaca ulang untuk null-check) dan mempertahankan dead store.
+- Sisa beda yang tidak bisa digeser: ref menyalin pointer ke r1 (`adds r1, r0, #0`) sebelum
+  menolkan r0, sedangkan agbcc me-rematerialisasi alamat jadi `mov r1, sp`. Pin `q` ke `r1`,
+  pin `p` ke `r0`, pin keduanya, urutan assignment, ternary, cast `u8 *`, `volatile` per field,
+  dan `old_agbcc` semuanya tetap menghasilkan `mov r1, sp` (atau bentuk yang lebih jauh).
+  Diparkir setelah 3 judge.
