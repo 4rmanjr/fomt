@@ -1,8 +1,27 @@
-void *func_08008AE0(s32);                           /* extern */
-s32 func_08008AF0(s32);                               /* extern */
-s32 func_080098AC(s32 *, s32);                        /* extern */
-s32 func_080098DC(s32 *, s32);                        /* extern */
-s32 func_08009940(s32 *, s32 *);                      /* extern */
+typedef struct Node Node;
+struct Node {
+    void *next;
+    void *prev;
+    void *vt;
+    void *data;
+};
+
+typedef struct Cont Cont;
+struct Cont {
+    void *f0;
+    void *f4;
+    void *f8;
+    void *fC;
+    void *f10;
+    void *f14;
+    void *f18;
+};
+
+void *func_08008AE0(s32);
+s32 func_08008AF0(s32);
+s32 func_080098AC(void *, s32);
+s32 func_080098DC(void *, s32);
+s32 func_08009940(void *, void *);
 extern s32 vtable_unk_080E5AD0;
 extern s32 vtable_unk_080E5AE0;
 extern s32 vtable_unk_080E5AF0;
@@ -10,74 +29,64 @@ extern s32 vtable_unk_080E5BB4;
 extern s32 vtable_unk_080E5BD8;
 extern s32 vtable_unk_080E5BE8;
 
-typedef struct GenObj {
-    u8 _pad0[4];
-    s32 unk4;
-    struct GenObj *unk8;
-    s32 unkC;
-    s32 unk10;
-    s32 unk14;
-} GenObj;
 void func_080087C8(s32 *arg0) {
-    s32 sp0;
-    s32 sp4;
-    s32 *sp8;
-    s32 spC;
-    GenObj *sp10;
-    s32 *sp18;
-    s32 sp1C;
-    GenObj *sp20;
-    s32 *sp28;
-    s32 sp2C;
-    GenObj *sp30;
-    s32 *sp38;
-s32 sp3C;
-    GenObj *sp40;
-    s32 *sp48;
-    s32 temp_r2;
-    s32 temp_r2_2;
-    s32 temp_r5;
-    s32 temp_r5_2;
-    GenObj *temp_r0;
-    GenObj *temp_r0_2;
+    Node a;
+    Node b;
+    Node c;
+    Cont d;
+    register void *pb __asm__("r8");
+    register void *pc __asm__("r6");
+    register Cont *pd __asm__("r4");
+    s32 base;
+    u8 *q;
+    void *obj;
+    u32 *vt;
 
-    temp_r5 = *arg0;
-    temp_r2 = temp_r5 + 0x34;
-    sp0 = 0;
-    sp4 = 0;
-    sp8 = &vtable_unk_080E5AF0;
-    spC = temp_r2;
-    temp_r2_2 = temp_r2 + 0x58;
-    sp10 = 0;
-    sp10.unk4 = 0;
-    sp18 = &vtable_unk_080E5AE0;
-    sp1C = temp_r2_2;
-    sp20 = 0;
-    sp20.unk4 = 0;
-    sp28 = &vtable_unk_080E5AD0;
-    sp2C = temp_r2_2 - 0x68;
-    sp30 = 0;
-    sp30.unk4 = 0;
-    sp38 = &vtable_unk_080E5BB4;
-    sp30.unkC = &sp40;
-    sp48 = &vtable_unk_080E5BE8;
-    sp40 = 0;
-    sp40.unk4 = 0;
-    sp40.unk8 = &vtable_unk_080E5BD8;
-    sp30.unk10 = &sp3C;
-    sp30.unk14 = &sp40;
-    func_08009940(&sp30, temp_r5 + 0x494);
-    func_08009940(&sp30, &sp0);
-    func_08009940(&sp30, &sp20);
-    func_08009940(&sp30, &sp10);
-    temp_r5_2 = temp_r5 + 0x490;
-    temp_r0 = func_08008AE0(temp_r5_2);
-    ((void (*)(void *,...))(temp_r0->unk8->unk10))(temp_r0, &sp30);
-    func_08008AF0(temp_r5_2);
-    temp_r0_2 = func_08008AE0(temp_r5_2);
-    ((void (*)(void *,...))(temp_r0_2->unk8->unk14))(temp_r0_2, &sp30);
-    func_080098DC(&sp30, 2);
-    func_080098AC(&sp20, 2);
-    func_080098AC(&sp10, 2);
-    func_080098AC(&sp0, 2);
+    base = *arg0;
+    pb = &b;
+    pc = &c;
+    pd = &d;
+    q = (u8 *) (base + 0x34);
+    a.next = 0;
+    a.prev = 0;
+    a.vt = &vtable_unk_080E5AF0;
+    a.data = q;
+    q += 0x58;
+    ((Node *) pb)->next = 0;
+    ((Node *) pb)->prev = 0;
+    ((Node *) pb)->vt = &vtable_unk_080E5AE0;
+    ((Node *) pb)->data = q;
+    q -= 0x68;
+    ((Node *) pc)->next = 0;
+    ((Node *) pc)->prev = 0;
+    ((Node *) pc)->vt = &vtable_unk_080E5AD0;
+    ((Node *) pc)->data = q;
+    pd->f0 = 0;
+    pd->f4 = 0;
+    pd->f8 = &vtable_unk_080E5BB4;
+    pd->fC = &pd->f10;
+    pd->f18 = &vtable_unk_080E5BE8;
+    pd->f10 = 0;
+    pd->f14 = 0;
+    pd->f18 = &vtable_unk_080E5BD8;
+    pd->f10 = &pd->fC;
+    pd->f14 = &pd->f10;
+
+    func_08009940(pd, (void *) (base + 0x494));
+    func_08009940(pd, &a);
+    func_08009940(pd, pc);
+    func_08009940(pd, pb);
+
+    base += 0x490;
+    obj = func_08008AE0(base);
+    vt = (u32 *) *((u32 *) obj + 2);
+    ((void (*)(void *, void *)) vt[4])(obj, pd);
+    func_08008AF0(base);
+    obj = func_08008AE0(base);
+    vt = (u32 *) *((u32 *) obj + 2);
+    ((void (*)(void *, void *)) vt[5])(obj, pd);
+    func_080098DC(pd, 2);
+    func_080098AC(pc, 2);
+    func_080098AC(pb, 2);
+    func_080098AC(&a, 2);
 }

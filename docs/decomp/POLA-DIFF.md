@@ -2249,3 +2249,29 @@ notasi yang berbeda di teks tidak menghasilkan byte berbeda sama sekali.
    `python3 -c "import decomp.run as r; print(r._judge('<fungsi>', tag='probe'))"`.
 
 Rincian per varian (termasuk varian D: lokal 80 -> judge 43) ada di §67.
+
+## 70. Pembanding byte objek vs ROM untuk fungsi ekor (`dif4` saja tidak cukup)
+
+`dif4` membandingkan teks asm (LCS) dan hanya penyaring kandidat. Untuk fungsi
+panjang, ukur byte objek lawan ROM langsung; pembukti: `func_080087C8`
+(`dif4` 63% sementara byte objek 240B vs ROM 240B dengan 89 instruksi beda,
+dan judge memecahnya 8missing/9extra/21operand/6regalloc/4different).
+
+Resep (semua di `/tmp`, jangan masuk repo):
+
+1. `agbcc -O2 -fhex-asm` draf -> `.s` (lihat `decomp/drafts` + flag build).
+2. `arm-none-eabi-as --defsym <simbol>=0x<8 digit alamat>` untuk tiap
+   `func_*_AABBCCDD` / `vtable_*_AABBCCDD` (alamat ada di namanya) dan
+   `_call_via_rN`; tanpa ini literal pool `ldr rN, [pc, #x]` beda semua.
+3. Ambil `.text` objek lewat `elftools` (path `tools/python`), potong sesuai
+   `st_size` simbol fungsi.
+4. Disasm ROM slice + kandidat dengan capstone (mode Thumb), bandingkan per
+   instruksi; `bl`/`b` di-relaksasi (byte target baru benar setelah link).
+5. Hitung jumlah instruksi beda + cetak offset pertama yang beda — itu peta
+   kerja yang sebenarnya, bukan persentase LCS.
+
+Pelajaran dari `func_080087C8`: urutan prolog yang "aneh" di ref (mis.
+`ldr r3, [pc, #..]` dimuat jauh sebelum `str r3, [sp, #0x48]`) adalah
+penjadwalan agbcc, bukan bukti struktur lain; dan store yang tampak mati
+(`f18` ditulis dua kali) hilang di draf karena gcc menghapusnya — itu yang
+membuat panjang objek 236B/228B, bukan 240B.

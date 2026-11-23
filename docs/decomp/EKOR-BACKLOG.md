@@ -82,7 +82,7 @@ Sisa **34** fungsi (10 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 22 f
 | 30 | `func_08008574` | 328B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x6: 0x6 vs ref 0x81 |
 | 31 | `func_080086BC` | 104B | failed | byte +0x6: 0x14 vs ref 0x16 |
 | 32 | `func_08008724` | 164B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x2: 0x81 vs ref 0x84 |
-| 33 | `func_080087C8` | 240B | failed | uji 2026-11-23: draf 3 varian (bingkai 76B, sentinel-list) -> l… |
+| 33 | `func_080087C8` | 240B | failed | 2026-11-23: draf v6 (Node 16B x3 + Cont 28B, basis dipaksa r8/r… |
 
 ## Penjadwalan
 
