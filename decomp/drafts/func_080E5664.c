@@ -41,7 +41,13 @@ u32 **func_080E5664(u32 **arg0, Tree *arg1, Node **arg2, u32 *arg3) {
     __asm__ volatile("" : "+r"(fl));
     hdr = a1->unk4;
     a0 = a0;
-    n = *a2;
+    {
+        register Node *nn __asm__("r2");
+
+        nn = *arg2;
+        __asm__ volatile("" : "+r"(nn));
+        n = nn;
+    }
     if (n != hdr->unk8) {
         goto L56F4;
     }

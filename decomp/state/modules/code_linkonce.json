@@ -4814,9 +4814,9 @@
  "func_080E5664": {
   "addr": 135157348,
   "draft_src": "manual",
-  "judged_mtime": 1795418037.407909,
+  "judged_mtime": 1795418225.8621976,
   "module": "code_linkonce.s",
-  "note": "byte +0x14: 0x40 vs ref 0x12 [7missing,7extra,20operand,56regalloc @>  | mov r0, r8] | FRAME 2026-11-23: ref `sub sp,#0x18` dicapai dengan `Node *slot[4]` (elemen ke-4 tak diakses; ref juga tak menyentuh [sp,#0x14] - itu padding, bukan slot terpakai). Ukur lokal: 1-satunya beda 2 baris frame, 211 instr, 142 sama (67%); judge berikutnya 7missing/7extra/20operand/56regalloc TANPA diff stack (sebelumnya ada 2stack). Sisa residual bukan soal frame.",
+  "note": "byte +0x16: 0x13 vs ref 0x88 [7missing,7extra,20operand,55regalloc @>  | adds r3, r2, #0] | LANJUT 2026-11-23: prolog+frame sudah sama (push{r4-r7,lr};mov r7,sb;mov r6,r8;push{r6,r7};sub sp,#0x18). Diff pertama pindah ke pemuatan `*arg2`: blok pin `register Node *nn __asm__(\"r2\")` + fence lalu `n = nn` membuat `ldr r2,[r2]` sama persis, regalloc 56->55, byte diff pertama kini +0x16 pada `adds r3,r2,#0` (salinan yang di ref baru ada di jalur L56F4). Varian yang memakai nn untuk cmp (salinan setelah cabang) turun ke 47% - jangan diulang.",
   "ref_len": 439,
   "sanitize_v": 4,
   "size": 3573,

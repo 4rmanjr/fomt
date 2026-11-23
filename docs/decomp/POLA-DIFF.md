@@ -2126,3 +2126,15 @@ elemen ke-4 tak pernah diakses). Hasil ukur lokal: satu-satunya beda di seluruh
 kehilangan diff stack (7missing/7extra/20operand/56regalloc, tanpa `2stack`).
 Jadi urutan diagnosis yang benar: cek dulu apakah offset frame yang hilang
 pernah disentuh ref; kalau tidak, itu padding, dan array+1 adalah obat termurah.
+
+**Setelah frame benar, diff pertama ada di pemuatan pointer argumen.** Ref
+memakai register argumen langsung (`ldr r2,[r2]`) karena `mov r8,r2` tidak
+menghapus r2; draf yang membaca lewat pin `a2` (r8) menambah `mov r0,r8`
+(2 instruksi jadi 1 kalau sumbernya `arg2`). Meminjamkan hasilnya ke register
+ref dengan blok pin (`register Node *nn __asm__("r2")` + fence, lalu `n = nn`)
+membuat `ldr r2,[r2]` sama persis dan regalloc turun 56 -> 55, tetapi menyisakan
+satu `adds r3,r2,#0` yang di ref baru muncul jauh di jalur lain (L56F4).
+Membalik urutan (pakai `nn` untuk `cmp`, `n = nn` setelah cabang) justru
+menaruh salinan r2->r5 di jalur yang salah dan menjatuhkan kecocokan 67% ->
+47%; jangan ulangi. Pelajaran: pin hasil load hanya menolong kalau titik
+salinnya memang ada di jalur yang sama dengan ref.

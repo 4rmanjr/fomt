@@ -44,7 +44,7 @@ Sisa **428** fungsi (165 `promoted`, 263 `failed`). Tabel = 12 entri terakhir; 4
 | 424 | `func_080E54C4` | 44B | promoted | - |
 | 425 | `func_080E54F0` | 192B | failed | byte +0x6: 0x1d vs ref 0x5 |
 | 426 | `func_080E55B0` | 180B | failed | len 172 vs ref 178 |
-| 427 | `func_080E5664` | 439B | failed | byte +0x14: 0x40 vs ref 0x12 |
+| 427 | `func_080E5664` | 439B | failed | byte +0x16: 0x13 vs ref 0x88 |
 
 ## `hardware.s`
 
