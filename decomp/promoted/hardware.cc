@@ -1747,3 +1747,20 @@ void func_08008D34(s32 *arg0) {
 void func_08008D2C(s32 *arg0) {
     *arg0 += 0x40;
 }
+
+// DECOMP-MATCHED func_08007EC8 (dari hardware.s; cek manusia sebelum ke src/)
+void func_080D6F5C(u8 *);                             /* extern */
+
+void func_08007EC8(u8 *arg0) {
+    func_080D6F5C(arg0 + 0x80);
+    func_080D6F5C(arg0 + 4);
+    arg0[0] = 0;
+    arg0[1] = 1;
+}
+
+// DECOMP-MATCHED func_0800894C (dari hardware.s; cek manusia sebelum ke src/)
+s32 func_08008AE0(s32);                               /* extern */
+
+s32 func_0800894C(s32 *arg0) {
+    return func_08008AE0(*arg0 + 0x490);
+}

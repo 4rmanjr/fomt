@@ -750,7 +750,8 @@ membaik hanya dengan memperbaiki lebar field, tanpa MATCH:
 
 - `func_08050AD8`: `unk1DC` dideklarasikan `s32` -> draf `str`; setelah jadi
   `u8` keluar `strb` sesuai ref. Cacat kedua: `func_080ADCA4(arg0 + 0x1E4, ...)`
-  dengan `arg0` pointer struct menskala `sizeof`, wajib `(u8 *)arg0 + 0x1E4`.
+  dengan `arg0` pointer struct menskala `sizeof`, wajib `(u8 *)arg0 + 0x1E4`. Pembukti lain:
+  `func_08007EC8` (draf `GenObj *` + `arg0 + 0x80` -> satu operand salah; `u8 *arg0` langsung byte-identik).
   Sisa diff: ref punya `cmp r5, #0x0; bcc` ekstra (cek unsigned yang tidak
   muncul dari varian C mana pun yang dicoba: `u32`/`s32`, if terpisah vs
   gabungan, `< 0` vs `< 0U`) + tukar regalloc konstan `mov #1`. Parkir.

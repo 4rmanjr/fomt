@@ -228,13 +228,14 @@
  },
  "func_08007EC8": {
   "addr": 134250184,
-  "judged_mtime": 1793582714.0224195,
+  "judged_mtime": 1795407897.0782447,
   "module": "hardware.s",
-  "note": "len 36 vs ref 30 [2missing,5extra,1operand,1regalloc,2different @>  | adds r4, r0, #0]",
+  "note": "MATCH 32B, promote-only (bukan fungsi terakhir: 51 penerus belum pindah). Kunci: arg0 bertipe u8* supaya arg0+0x80 dan arg0+4 jadi offset byte, bukan skala sizeof struct (POLA-DIFF 11.2); draf lama memakai GenObj* sehingga +0x80 jadi +0x400.",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 307,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08007EE8": {
@@ -490,13 +491,14 @@
  },
  "func_0800894C": {
   "addr": 134252876,
-  "judged_mtime": 1793582714.0244193,
+  "judged_mtime": 1795407897.0782447,
   "module": "hardware.s",
-  "note": "byte +0xe: 0x1 vs ref 0x2 [2regalloc @r pop {r1} | pop {r0}]",
+  "note": "MATCH 52B, promote-only (bukan fungsi terakhir: 28 penerus belum pindah). Ref epilog pop {r1}; bx r1 => fungsi mengembalikan s32: `return func_08008AE0(*arg0 + 0x490);` (draf lama void memberi pop {r0}).",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 436,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08008980": {
