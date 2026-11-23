@@ -2500,3 +2500,20 @@ setelah menulis ulang draf, **hapus blok + `// DECOMP-MATCHED`** milik fungsi
 itu dulu, reset `status` shard ke `matched`, baru `promote()` (lihat MIGRATE
 §17). Tanpa itu `migrate.py` melaporkan `blok DECOMP-MATCHED tidak ditemukan`
 walau `promote()` mencetak path.
+
+### 75. Call virtual: tulis ekspresi call inline, jangan lewat variabel `fn`
+
+`func_08016EC4` (44B) beda 3 instruksi karena ref menyimpan argumen stack
+(`str r6, [sp]` / `str r5, [sp, #4]`) **sebelum** memuat pointer fungsi
+(`ldr r4, [r4]`), sedangkan draf `fn = *(void **)(vt + 0x160); fn(...)`
+memuat pointer lebih dulu. Menulis call-nya inline menutup semuanya:
+
+    ((void (*)(void *, s32, s32, s32, s32, u16))
+        *(void **) (vt + 0x160))(h, arg1, arg2, arg3, arg4, arg5);
+
+Pembukti: `func_08016EC4` (MATCH). Aturan umum: kalau ref memuat fn tepat
+sebelum `bl` (setelah argumen stack disiapkan), jangan simpan fn di variabel.
+
+Catatan gate: prototipe callee harus **sama persis** dengan yang sudah ada di
+`src/<modul>.cc` (mis. `func_080A5BD8` di sana `(void *, i32 *, i32, i32)`),
+termasuk jumlah parameter — bukan cuma tipe argumen yang dipakai fungsi baru.
