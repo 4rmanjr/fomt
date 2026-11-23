@@ -283,6 +283,170 @@ typedef struct S_08CD0 {
 } S_08CD0;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08008BB0 {
+    i32 unk0;
+    i32 unk4;
+} GenObj__func_08008BB0;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08008B88 {
+    i32 unk0;
+    i32 unk4;
+} GenObj__func_08008B88;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08008B54 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08008B24(u8);                              /* extern */
+
+i32 *func_08008B54(i32 *arg0, u8 arg1) {
+    *arg0 = func_08008B24(arg1);
+    return arg0;
+}
+}
+
+// DECOMP-MATCHED func_08008B6C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayStart(void *);                            /* extern */
+
+extern SongEntry gSongTable[];
+
+void func_08008B6C(i32 *arg0, i32 arg1) {
+    u32 t = (u32)(arg1 << 0x10);
+    i32 a0 = *arg0;
+    u32 base = (u32) gSongTable;
+    ((i32 (*)(i32, i32)) m4aMPlayStart)(a0, *(i32 *)(base + (t >> 0xD)));
+}
+}
+
+// DECOMP-MATCHED func_08008B88 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayStart(void *);                            /* extern */
+
+extern SongEntry gSongTable[];
+
+void func_08008B88(void **arg0, i32 arg1) {
+    u32 t = (u32)(arg1 << 0x10);
+    u32 base = (u32) gSongTable;
+    i32 song = *(i32 *)(base + (t >> 0xD));
+    GenObj__func_08008B88 *temp_r2 = (GenObj__func_08008B88 *) *arg0;
+
+    if ((temp_r2->unk0 != song) || ((i32) temp_r2->unk4 < 0)) {
+        m4aMPlayStart(temp_r2);
+    }
+}
+}
+
+// DECOMP-MATCHED func_08008BB0 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayContinue(void *);                         /* extern */
+i32 m4aMPlayStart(void *);                            /* extern */
+
+extern SongEntry gSongTable[];
+
+void func_08008BB0(void **arg0, i32 arg1) {
+    u32 t = (u32)(arg1 << 0x10);
+    u32 base = (u32) gSongTable;
+    i32 song = *(i32 *)(base + (t >> 0xD));
+    GenObj__func_08008BB0 *temp_r2 = (GenObj__func_08008BB0 *) *arg0;
+
+    if (temp_r2->unk0 != song) {
+        m4aMPlayStart(temp_r2);
+        return;
+    }
+    if ((i32) temp_r2->unk4 < 0) {
+        m4aMPlayContinue(temp_r2);
+    }
+}
+}
+
+// DECOMP-MATCHED func_08008BE0 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayStop(i32);                                /* extern */
+
+void func_08008BE0(i32 *arg0) {
+    m4aMPlayStop(*arg0);
+}
+}
+// ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
+asm(
+".L08008BEC:\n"
+"    .byte 0x00, 0xB5, 0x00, 0x68\n"
+"    .byte 0xC9, 0xF0, 0x22, 0xFC, 0x01, 0xBC, 0x00, 0x47\n"
+);
+
+// DECOMP-MATCHED func_08008BF8 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayFadeOut(i32, u16);                        /* extern */
+
+void func_08008BF8(i32 *arg0, u16 arg1) {
+    m4aMPlayFadeOut(*arg0, arg1);
+}
+}
+// ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
+asm(
+".L08008C08:\n"
+"    .byte 0x00, 0xB5, 0x09, 0x04, 0x09, 0x0C, 0x00, 0x68\n"
+"    .byte 0xC9, 0xF0, 0x36, 0xFC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0xB5, 0x09, 0x04, 0x09, 0x0C, 0x00, 0x68\n"
+"    .byte 0xC9, 0xF0, 0x3E, 0xFC, 0x01, 0xBC, 0x00, 0x47\n"
+);
+
+// DECOMP-MATCHED func_08008C28 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayTempoControl(i32, u16);                   /* extern */
+
+void func_08008C28(i32 *arg0, u16 arg1) {
+    m4aMPlayTempoControl(*arg0, arg1);
+}
+}
+
+// DECOMP-MATCHED func_08008C38 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayVolumeControl(i32, u16, u16);             /* extern */
+
+void func_08008C38(i32 *arg0, u16 arg1, u16 arg2) {
+    m4aMPlayVolumeControl(*arg0, arg2, arg1);
+}
+}
+
+// DECOMP-MATCHED func_08008C54 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayPitchControl(i32, u16, i16);              /* extern */
+
+void func_08008C54(i32 *arg0, i16 arg1, u16 arg2) {
+    m4aMPlayPitchControl(*arg0, arg2, arg1);
+}
+}
+
+// DECOMP-MATCHED func_08008C70 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayPanpotControl(i32, u16, i8);              /* extern */
+
+void func_08008C70(i32 *arg0, i8 arg1, u16 arg2) {
+    m4aMPlayPanpotControl(*arg0, arg2, arg1);
+}
+}
+
+// DECOMP-MATCHED func_08008C8C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayModDepthSet(i32, u16, u8);                /* extern */
+
+void func_08008C8C(i32 *arg0, u8 arg1, u16 arg2) {
+    m4aMPlayModDepthSet(*arg0, arg2, arg1);
+}
+}
+
+// DECOMP-MATCHED func_08008CA8 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aMPlayLFOSpeedSet(i32, u16, u8);                /* extern */
+
+void func_08008CA8(i32 *arg0, u8 arg1, u16 arg2) {
+    m4aMPlayLFOSpeedSet(*arg0, arg2, arg1);
+}
+}
+
 // DECOMP-MATCHED func_08008CC4 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 m4aMPlayImmInit(i32);                             /* extern */
@@ -339,8 +503,7 @@ extern "C" {
    konstanta 0 keluar sebagai `movs`, jadi tidak ada urusan literal pool di sini.
    Tanda tangan callee mengikuti konvensi src (tipe balik int, parameter tanpa
    nama) supaya gate migrasi tidak menolak; nilai baliknya dibuang ref. */
-i32 func_08008B54(i32 *, u8);
-
+i32* func_08008B54(i32 *arg0, u8 arg1);                             /* extern */
 i32 func_08008CFC(void) {
     i32 sp0;
 
@@ -364,8 +527,7 @@ extern char _M4aNumMusicPlayers[];
 /* Tanda tangan mengikuti konvensi `src/hardware_migrated.cc` (kalinya sudah
    dimigrasi sebagai `i32 func_08008B54(i32 *, u8)`); nilai baliknya dibuang
    ref (`bl` lalu `ldr r0,[sp]`), jadi pointer vs i32 tidak mengubah byte. */
-i32 func_08008B54(i32 *, u8);
-
+i32* func_08008B54(i32 *arg0, u8 arg1);                             /* extern */
 i32 func_08008D10(void) {
     i32 sp0;
 
@@ -390,8 +552,7 @@ void func_08008D34(i32 *arg0) {
 
 // DECOMP-MATCHED func_08008D3C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-
-i32 func_08008B54(i32 *, u8);                         /* extern */
+i32* func_08008B54(i32 *arg0, u8 arg1);                             /* extern */
 extern SongEntry gSongTable[];
 
 i32 func_08008D3C(u16 arg0) {

@@ -22,7 +22,7 @@ python3 tools/scripts/tail_chain.py --module <stem>.s [--json]
 | modul | tersisa di asm | promoted terkunci | blocker terakhir | status rantai |
 |---|---|---|---|---|
 | `code_linkonce.s` | 428 | 165 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
-| `hardware.s` | 64 | 39 | `func_08008CA8` (28B, `promoted`) | siap dicabut (`migrate.py` saja, tanpa judge) |
+| `hardware.s` | 52 | 27 | `func_08008B24` (48B, `promoted`) | siap dicabut (`migrate.py` saja, tanpa judge) |
 | `code_actor_0809BFE8.s` | 51 | 26 | `func_0809DA00` (1323B, `failed`) | terbuka, ujung belum MATCH |
 
 Modul tail-only lain sudah kosong di `asm/` (tidak punya blocker ekor lagi): `code_iwram`, `game_scene`, `interrupt`, `main`, `more_items`, `scene`, `sram_proxy_1`, `vtables`.
@@ -48,22 +48,22 @@ Sisa **428** fungsi (165 `promoted`, 263 `failed`). Tabel = 12 entri terakhir; 4
 
 ## `hardware.s`
 
-Sisa **64** fungsi (39 `promoted`, 25 `failed`). Tabel = 12 entri terakhir; 52 fungsi lain di bawahnya juga belum di `src/`.
+Sisa **52** fungsi (27 `promoted`, 25 `failed`). Tabel = 12 entri terakhir; 40 fungsi lain di bawahnya juga belum di `src/`.
 
 | idx | fungsi | ukuran | status | residual terakhir |
 |---|---|---|---|---|
-| 52 | `func_08008B54` | 24B | promoted | - |
-| 53 | `func_08008B6C` | 24B | promoted | - |
-| 54 | `func_08008B88` | 36B | promoted | - |
-| 55 | `func_08008BB0` | 48B | promoted | - |
-| 56 | `func_08008BE0` | 24B | promoted (byte ekor) (MULTI-FUNGSI 2 prolog) | - |
-| 57 | `func_08008BF8` | 48B | promoted (byte ekor) (MULTI-FUNGSI 3 prolog) | - |
-| 58 | `func_08008C28` | 16B | promoted | - |
-| 59 | `func_08008C38` | 28B | promoted | - |
-| 60 | `func_08008C54` | 28B | promoted | - |
-| 61 | `func_08008C70` | 28B | promoted | - |
-| 62 | `func_08008C8C` | 28B | promoted | - |
-| 63 | `func_08008CA8` | 28B | promoted | - |
+| 40 | `func_08008918` | 8B | promoted | - |
+| 41 | `func_08008920` | 32B | promoted (byte ekor) | - |
+| 42 | `func_08008940` | 12B | promoted | - |
+| 43 | `func_0800894C` | 52B | promoted (byte ekor) (MULTI-FUNGSI 2 prolog) | MATCH, menunggu giliran cabut |
+| 44 | `func_08008980` | 232B | failed | len 202 vs ref 204 |
+| 45 | `func_08008A68` | 112B | promoted | - |
+| 46 | `func_08008AE0` | 16B | promoted (byte ekor) | - |
+| 47 | `func_08008AF0` | 12B | promoted | - |
+| 48 | `func_08008AFC` | 16B | promoted | - |
+| 49 | `func_08008B0C` | 12B | promoted | - |
+| 50 | `func_08008B18` | 12B | promoted | - |
+| 51 | `func_08008B24` | 48B | promoted | - |
 
 ## `code_actor_0809BFE8.s`
 
@@ -88,7 +88,7 @@ Sisa **51** fungsi (26 `promoted`, 25 `failed`). Tabel = 12 entri terakhir; 39 f
 
 | kelas | ukuran | arti | sisa / linkonce / hardware / actor_0809BFE8 |
 |---|---|---|---|
-| S | ≤100B | satu judge biasanya cukup; residual umumnya regalloc kecil | 316 / 37 / 38 |
+| S | ≤100B | satu judge biasanya cukup; residual umumnya regalloc kecil | 316 / 25 / 38 |
 | M | 101–300B | perlu 2–3 varian; perhatikan tekanan register | 77 / 23 / 8 |
 | L | >300B | **pekerjaan tersendiri**, bukan sela-sela | 35 / 4 / 5 |
 
