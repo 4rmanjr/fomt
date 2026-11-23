@@ -1337,3 +1337,59 @@ Cek dulu sebelum mengusulkan carry (jangan andalkan ingatan sesi lama):
 grep -n "DECOMP-MATCHED func_08008D10\|DECOMP-MATCHED func_08008CFC" src/hardware_migrated.cc
 grep -c "08008D10\|08008CFC" asm/hardware.s   # harus 0
 ```
+
+## 45. Dua tabrakan extern yang diselesaikan tanpa mengubah byte (terbukti)
+
+Dua gate yang tampak seperti "butuh ubah kode" ternyata cukup diselesaikan di
+tingkat deklarasi; byte target tidak bergeser (`pindah: 1` + `make compare`
+HIJAU). Jangan mengubah `migrate.py` untuk kasus ini.
+
+### 45a. Global bertabrakan tipe: `extern s32 gSongTable;` vs `extern SongEntry gSongTable[];`
+
+**Gejala.** Migrasi berhenti di kompilasi TU gabungan (bukan di gate SKIP):
+`conflicting types for 'gSongTable'` / `conflicting types for struct SongEntry
+gSongTable[]`.
+
+**Sebab.** Blok baru menulis `extern s32 gSongTable;` (bentuk m2c untuk alamat
+global), sedangkan blok yang sudah ada di `src/hardware_migrated.cc` memakai
+`extern SongEntry gSongTable[];` (tabel lagu). Di C keduanya tidak bisa hidup
+bersama.
+
+**Penyelesaian.** Salin typedef `SongEntry` yang **sama persis** ke blok baru
+(definisi identik, bukan definisi baru dengan layout berbeda), ganti extern
+menjadi `extern SongEntry gSongTable[];`, lalu ambil alamatnya lewat cast
+`u32 base = (u32) gSongTable;`. Alamat global tidak berubah, jadi tidak ada
+instruksi tambahan.
+
+**Pembukti.** `func_08008B88`, `func_08008BB0` (dan `func_08008B6C` yang ikut
+memakai `gSongTable[]`) - commit `cc7ba144`.
+
+### 45b. Callee beda arity: `m4aMPlayStart`
+
+**Gejala.** Extern di blok (`s32 m4aMPlayStart(s32, s32);`) tidak cocok dengan
+deklarasi yang sudah dipakai TU; definisi aslinya di `src/m4a.c:648`
+(`void m4aMPlayStart(struct MusicPlayer *, struct Song *)`) - dua argumen,
+bukan satu.
+
+**Penyelesaian.** Samakan extern blok dengan bentuk yang dipakai TU
+(`i32 m4aMPlayStart(void *);`), lalu panggil lewat cast pointer ke tipe
+call-site sebenarnya:
+`((i32 (*)(i32, i32)) m4aMPlayStart)(a0, song);`. Cast hanya mengubah tipe
+ekspresi; argumen tetap dikirim di register yang sama, jadi byte identik.
+
+**Pembukti.** `func_08008B6C` - commit `cc7ba144`.
+
+### Perintah cek
+
+```sh
+grep -n "gSongTable" src/hardware_migrated.cc     # bentuk mana yang sudah ada
+grep -n "m4aMPlayStart" src/m4a.c src/hardware_migrated.cc
+python3 decomp/migrate.py --module hardware.s --func <fungsi>  # saat masih di asm: "pindah: 1"
+make compare                                       # sha1 target tetap HIJAU
+```
+
+Sesudah fungsi itu pindah, perintah `migrate.py` yang sama menjawab SKIP
+"sudah ada di src" - itu normal, bukan tanda gagal.
+
+Kalau `pindah: 1` tetapi `make compare` MERAH, berarti cast/penyalinan typedef
+menggeser sesuatu: batalkan, jangan "perbaiki" gate.
