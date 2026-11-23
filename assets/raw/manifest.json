@@ -1,0 +1,1997 @@
+{
+ "blobs": [
+  {
+   "symbol": "gUnk_084F90CC",
+   "offset": "0x4F90CC",
+   "size": 5844,
+   "group": "tabel",
+   "note": "5844 B, bukan kelipatan 32 B; 56/1461 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_084FA7A0",
+   "offset": "0x4FA7A0",
+   "size": 512,
+   "group": "tilemap",
+   "note": "256 entri 16-bit; bit 10-15 modal 62%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_084FA7A0_512_tilemap_32.png"
+  },
+  {
+   "symbol": "gUnk_084FA9A0",
+   "offset": "0x4FA9A0",
+   "size": 166128,
+   "group": "tabel",
+   "note": "166128 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08523290",
+   "offset": "0x523290",
+   "size": 15876,
+   "group": "tabel",
+   "note": "15876 B, bukan kelipatan 32 B; 127/3969 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08527094",
+   "offset": "0x527094",
+   "size": 420,
+   "group": "tabel",
+   "note": "420 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08529794",
+   "offset": "0x529794",
+   "size": 512,
+   "group": "palet",
+   "note": "256 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08529794_512_palet.png"
+  },
+  {
+   "symbol": "gUnk_08529994",
+   "offset": "0x529994",
+   "size": 532,
+   "group": "tabel",
+   "note": "532 B, bukan kelipatan 32 B; 1/133 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08529BA8",
+   "offset": "0x529BA8",
+   "size": 508,
+   "group": "tabel",
+   "note": "508 B, bukan kelipatan 32 B; 1/127 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08529DA4",
+   "offset": "0x529DA4",
+   "size": 2356,
+   "group": "tabel",
+   "note": "2356 B, bukan kelipatan 32 B; 9/589 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0852CA40",
+   "offset": "0x52CA40",
+   "size": 512,
+   "group": "palet",
+   "note": "256 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0852CA40_512_palet.png"
+  },
+  {
+   "symbol": "gUnk_0852CC40",
+   "offset": "0x52CC40",
+   "size": 532,
+   "group": "tabel",
+   "note": "532 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0852CE54",
+   "offset": "0x52CE54",
+   "size": 508,
+   "group": "tabel",
+   "note": "508 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0852D050",
+   "offset": "0x52D050",
+   "size": 2356,
+   "group": "tabel",
+   "note": "2356 B, bukan kelipatan 32 B; 9/589 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0852D984",
+   "offset": "0x52D984",
+   "size": 385188,
+   "group": "tabel",
+   "note": "385188 B, bukan kelipatan 32 B; 87/96297 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0858BA28",
+   "offset": "0x58BA28",
+   "size": 898616,
+   "group": "tabel",
+   "note": "898616 B, bukan kelipatan 32 B; 1482/224654 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08667060",
+   "offset": "0x667060",
+   "size": 2112,
+   "group": "sprite/OBJ",
+   "note": "66 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08667060_2112_sprite.png"
+  },
+  {
+   "symbol": "gUnk_086678A0",
+   "offset": "0x6678A0",
+   "size": 196736,
+   "group": "sprite/OBJ",
+   "note": "6148 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086678A0_196736_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08697920",
+   "offset": "0x697920",
+   "size": 4576,
+   "group": "sprite/OBJ",
+   "note": "143 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08697920_4576_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08698B00",
+   "offset": "0x698B00",
+   "size": 788,
+   "group": "tabel",
+   "note": "788 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08698E14",
+   "offset": "0x698E14",
+   "size": 4576,
+   "group": "sprite/OBJ",
+   "note": "143 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08698E14_4576_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08699FF4",
+   "offset": "0x699FF4",
+   "size": 176,
+   "group": "tabel",
+   "note": "176 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0869A0A4",
+   "offset": "0x69A0A4",
+   "size": 4576,
+   "group": "sprite/OBJ",
+   "note": "143 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0869A0A4_4576_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0869B284",
+   "offset": "0x69B284",
+   "size": 238212,
+   "group": "tabel",
+   "note": "238212 B, bukan kelipatan 32 B; 306/59553 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086D5508",
+   "offset": "0x6D5508",
+   "size": 3680,
+   "group": "sprite/OBJ",
+   "note": "115 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086D5508_3680_sprite.png"
+  },
+  {
+   "symbol": "gUnk_086D6368",
+   "offset": "0x6D6368",
+   "size": 240,
+   "group": "tilemap",
+   "note": "120 entri 16-bit; bit 10-15 modal 52%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086D6368_240_tilemap_24.png"
+  },
+  {
+   "symbol": "gUnk_086D6458",
+   "offset": "0x6D6458",
+   "size": 192,
+   "group": "tilemap",
+   "note": "96 entri 16-bit; bit 10-15 modal 54%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086D6458_192_tilemap_16.png"
+  },
+  {
+   "symbol": "gUnk_086D6518",
+   "offset": "0x6D6518",
+   "size": 8,
+   "group": "tabel",
+   "note": "8 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086D6520",
+   "offset": "0x6D6520",
+   "size": 8,
+   "group": "tabel",
+   "note": "8 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086D6528",
+   "offset": "0x6D6528",
+   "size": 32,
+   "group": "tilemap",
+   "note": "16 entri 16-bit; bit 10-15 modal 62%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086D6528_32_tilemap_8.png"
+  },
+  {
+   "symbol": "gUnk_086D6548",
+   "offset": "0x6D6548",
+   "size": 192,
+   "group": "tilemap",
+   "note": "96 entri 16-bit; bit 10-15 modal 43%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086D6548_192_tilemap_16.png"
+  },
+  {
+   "symbol": "gUnk_086D6608",
+   "offset": "0x6D6608",
+   "size": 144,
+   "group": "tilemap",
+   "note": "72 entri 16-bit; bit 10-15 modal 69%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086D6608_144_tilemap_8.png"
+  },
+  {
+   "symbol": "gUnk_086D6698",
+   "offset": "0x6D6698",
+   "size": 3680,
+   "group": "sprite/OBJ",
+   "note": "115 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086D6698_3680_sprite.png"
+  },
+  {
+   "symbol": "gUnk_086D74F8",
+   "offset": "0x6D74F8",
+   "size": 20172,
+   "group": "tabel",
+   "note": "20172 B, bukan kelipatan 32 B; 39/5043 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086DC3C4",
+   "offset": "0x6DC3C4",
+   "size": 12,
+   "group": "tabel",
+   "note": "12 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086DC3D0",
+   "offset": "0x6DC3D0",
+   "size": 12,
+   "group": "tabel",
+   "note": "12 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086DC3DC",
+   "offset": "0x6DC3DC",
+   "size": 12,
+   "group": "tabel",
+   "note": "12 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086DC3E8",
+   "offset": "0x6DC3E8",
+   "size": 12,
+   "group": "tabel",
+   "note": "12 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086DC3F4",
+   "offset": "0x6DC3F4",
+   "size": 344,
+   "group": "tabel",
+   "note": "344 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086DC54C",
+   "offset": "0x6DC54C",
+   "size": 48,
+   "group": "tilemap",
+   "note": "24 entri 16-bit; bit 10-15 modal 100%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086DC54C_48_tilemap_8.png"
+  },
+  {
+   "symbol": "gUnk_086DC57C",
+   "offset": "0x6DC57C",
+   "size": 1804,
+   "group": "tabel",
+   "note": "1804 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086DCC88",
+   "offset": "0x6DCC88",
+   "size": 2568,
+   "group": "tabel",
+   "note": "2568 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086DD690",
+   "offset": "0x6DD690",
+   "size": 32,
+   "group": "tilemap",
+   "note": "16 entri 16-bit; bit 10-15 modal 100%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086DD690_32_tilemap_8.png"
+  },
+  {
+   "symbol": "gUnk_086DD6B0",
+   "offset": "0x6DD6B0",
+   "size": 48,
+   "group": "tilemap",
+   "note": "24 entri 16-bit; bit 10-15 modal 100%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086DD6B0_48_tilemap_8.png"
+  },
+  {
+   "symbol": "gUnk_086DD6E0",
+   "offset": "0x6DD6E0",
+   "size": 1804,
+   "group": "tabel",
+   "note": "1804 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086DDDEC",
+   "offset": "0x6DDDEC",
+   "size": 2568,
+   "group": "tabel",
+   "note": "2568 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086DE7F4",
+   "offset": "0x6DE7F4",
+   "size": 50408,
+   "group": "tabel",
+   "note": "50408 B, bukan kelipatan 32 B; 42/12602 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086EACDC",
+   "offset": "0x6EACDC",
+   "size": 8,
+   "group": "tabel",
+   "note": "8 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086EACE4",
+   "offset": "0x6EACE4",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086EACE4_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_086EAD04",
+   "offset": "0x6EAD04",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086EAD04_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_086EAD24",
+   "offset": "0x6EAD24",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086EAD24_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_086EAD44",
+   "offset": "0x6EAD44",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086EAD44_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_086EAD64",
+   "offset": "0x6EAD64",
+   "size": 32,
+   "group": "tilemap",
+   "note": "16 entri 16-bit; bit 10-15 modal 100%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086EAD64_32_tilemap_8.png"
+  },
+  {
+   "symbol": "gUnk_086EAD84",
+   "offset": "0x6EAD84",
+   "size": 8,
+   "group": "tabel",
+   "note": "8 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086EAD8C",
+   "offset": "0x6EAD8C",
+   "size": 33312,
+   "group": "sprite/OBJ",
+   "note": "1041 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086EAD8C_33312_sprite.png"
+  },
+  {
+   "symbol": "gUnk_086F2FAC",
+   "offset": "0x6F2FAC",
+   "size": 31444,
+   "group": "tabel",
+   "note": "31444 B, bukan kelipatan 32 B; 29/7861 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_086FAA80",
+   "offset": "0x6FAA80",
+   "size": 1412,
+   "group": "tabel",
+   "note": "1412 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0871D51C",
+   "offset": "0x71D51C",
+   "size": 4748,
+   "group": "tabel",
+   "note": "4748 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0871E7A8",
+   "offset": "0x71E7A8",
+   "size": 1284,
+   "group": "tabel",
+   "note": "1284 B, bukan kelipatan 32 B; 1/321 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0871ECAC",
+   "offset": "0x71ECAC",
+   "size": 296,
+   "group": "tabel",
+   "note": "296 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0871EDD4",
+   "offset": "0x71EDD4",
+   "size": 300,
+   "group": "tabel",
+   "note": "300 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0871EF00",
+   "offset": "0x71EF00",
+   "size": 28320,
+   "group": "sprite/OBJ",
+   "note": "885 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0871EF00_28320_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08725DA0",
+   "offset": "0x725DA0",
+   "size": 3884,
+   "group": "tabel",
+   "note": "3884 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08726CCC",
+   "offset": "0x726CCC",
+   "size": 1692,
+   "group": "tabel",
+   "note": "1692 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08727368",
+   "offset": "0x727368",
+   "size": 1804,
+   "group": "tabel",
+   "note": "1804 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08727A74",
+   "offset": "0x727A74",
+   "size": 1940,
+   "group": "tabel",
+   "note": "1940 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08728208",
+   "offset": "0x728208",
+   "size": 280,
+   "group": "tabel",
+   "note": "280 B, bukan kelipatan 32 B; 1/70 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08728320",
+   "offset": "0x728320",
+   "size": 4188,
+   "group": "tabel",
+   "note": "4188 B, bukan kelipatan 32 B; 8/1047 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0872937C",
+   "offset": "0x72937C",
+   "size": 228,
+   "group": "tabel",
+   "note": "228 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08729460",
+   "offset": "0x729460",
+   "size": 10756,
+   "group": "tabel",
+   "note": "10756 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0872BE64",
+   "offset": "0x72BE64",
+   "size": 1900,
+   "group": "tabel",
+   "note": "1900 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0872D5AC",
+   "offset": "0x72D5AC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0872D5AC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0872DDE4",
+   "offset": "0x72DDE4",
+   "size": 96,
+   "group": "palet",
+   "note": "48 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0872DDE4_96_palet.png"
+  },
+  {
+   "symbol": "gUnk_0872DE44",
+   "offset": "0x72DE44",
+   "size": 4148,
+   "group": "tabel",
+   "note": "4148 B, bukan kelipatan 32 B; 9/1037 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0872EE78",
+   "offset": "0x72EE78",
+   "size": 676,
+   "group": "tabel",
+   "note": "676 B, bukan kelipatan 32 B; 1/169 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0872FA9C",
+   "offset": "0x72FA9C",
+   "size": 352,
+   "group": "palet",
+   "note": "176 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0872FA9C_352_palet.png"
+  },
+  {
+   "symbol": "gUnk_08731940",
+   "offset": "0x731940",
+   "size": 512,
+   "group": "palet",
+   "note": "256 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08731940_512_palet.png"
+  },
+  {
+   "symbol": "gUnk_08731B40",
+   "offset": "0x731B40",
+   "size": 26116,
+   "group": "tabel",
+   "note": "26116 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08738144",
+   "offset": "0x738144",
+   "size": 2452,
+   "group": "tabel",
+   "note": "2452 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_087399C4",
+   "offset": "0x7399C4",
+   "size": 160,
+   "group": "palet",
+   "note": "80 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087399C4_160_palet.png"
+  },
+  {
+   "symbol": "gUnk_0873A6E8",
+   "offset": "0x73A6E8",
+   "size": 1900,
+   "group": "tabel",
+   "note": "1900 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0873AE54",
+   "offset": "0x73AE54",
+   "size": 372,
+   "group": "tabel",
+   "note": "372 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0873AFC8",
+   "offset": "0x73AFC8",
+   "size": 3676,
+   "group": "tabel",
+   "note": "3676 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0873CBF4",
+   "offset": "0x73CBF4",
+   "size": 192,
+   "group": "palet",
+   "note": "96 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0873CBF4_192_palet.png"
+  },
+  {
+   "symbol": "gUnk_0873CCB4",
+   "offset": "0x73CCB4",
+   "size": 504,
+   "group": "tabel",
+   "note": "504 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0873CEAC",
+   "offset": "0x73CEAC",
+   "size": 228,
+   "group": "tabel",
+   "note": "228 B, bukan kelipatan 32 B; 2/57 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0873CF90",
+   "offset": "0x73CF90",
+   "size": 676,
+   "group": "tabel",
+   "note": "676 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0873D234",
+   "offset": "0x73D234",
+   "size": 968,
+   "group": "tabel",
+   "note": "968 B, bukan kelipatan 32 B; 6/242 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0873D5FC",
+   "offset": "0x73D5FC",
+   "size": 220,
+   "group": "tabel",
+   "note": "220 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0873D6D8",
+   "offset": "0x73D6D8",
+   "size": 1900,
+   "group": "tabel",
+   "note": "1900 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0873DE44",
+   "offset": "0x73DE44",
+   "size": 1900,
+   "group": "tabel",
+   "note": "1900 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0873E5B0",
+   "offset": "0x73E5B0",
+   "size": 1900,
+   "group": "tabel",
+   "note": "1900 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0873ED1C",
+   "offset": "0x73ED1C",
+   "size": 1708,
+   "group": "tabel",
+   "note": "1708 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_087400E4",
+   "offset": "0x7400E4",
+   "size": 192,
+   "group": "palet",
+   "note": "96 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087400E4_192_palet.png"
+  },
+  {
+   "symbol": "gUnk_087401A4",
+   "offset": "0x7401A4",
+   "size": 688,
+   "group": "tabel",
+   "note": "688 B, bukan kelipatan 32 B; 4/172 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08740454",
+   "offset": "0x740454",
+   "size": 332,
+   "group": "tabel",
+   "note": "332 B, bukan kelipatan 32 B; 6/83 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_087405A0",
+   "offset": "0x7405A0",
+   "size": 872,
+   "group": "tabel",
+   "note": "872 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08740908",
+   "offset": "0x740908",
+   "size": 220,
+   "group": "tabel",
+   "note": "220 B, bukan kelipatan 32 B; 1/55 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_087409E4",
+   "offset": "0x7409E4",
+   "size": 9844,
+   "group": "tabel",
+   "note": "9844 B, bukan kelipatan 32 B; 10/2461 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08747A14",
+   "offset": "0x747A14",
+   "size": 96,
+   "group": "palet",
+   "note": "48 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08747A14_96_palet.png"
+  },
+  {
+   "symbol": "gUnk_0874E330",
+   "offset": "0x74E330",
+   "size": 512,
+   "group": "palet",
+   "note": "256 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0874E330_512_palet.png"
+  },
+  {
+   "symbol": "gUnk_0874E530",
+   "offset": "0x74E530",
+   "size": 280,
+   "group": "tabel",
+   "note": "280 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0874EB40",
+   "offset": "0x74EB40",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0874EB40_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0874EE38",
+   "offset": "0x74EE38",
+   "size": 220,
+   "group": "tabel",
+   "note": "220 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0874F2EC",
+   "offset": "0x74F2EC",
+   "size": 96,
+   "group": "palet",
+   "note": "48 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0874F2EC_96_palet.png"
+  },
+  {
+   "symbol": "gUnk_0874F34C",
+   "offset": "0x74F34C",
+   "size": 5012,
+   "group": "tabel",
+   "note": "5012 B, bukan kelipatan 32 B; 20/1253 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_087506E0",
+   "offset": "0x7506E0",
+   "size": 1388,
+   "group": "tabel",
+   "note": "1388 B, bukan kelipatan 32 B; 1/347 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08750C4C",
+   "offset": "0x750C4C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08750C4C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08750C6C",
+   "offset": "0x750C6C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08750C6C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08750C8C",
+   "offset": "0x750C8C",
+   "size": 448,
+   "group": "palet",
+   "note": "224 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08750C8C_448_palet.png"
+  },
+  {
+   "symbol": "gUnk_08750E4C",
+   "offset": "0x750E4C",
+   "size": 288,
+   "group": "sprite/OBJ",
+   "note": "9 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08750E4C_288_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08750F6C",
+   "offset": "0x750F6C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08750F6C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08750F8C",
+   "offset": "0x750F8C",
+   "size": 288,
+   "group": "sprite/OBJ",
+   "note": "9 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08750F8C_288_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087510AC",
+   "offset": "0x7510AC",
+   "size": 288,
+   "group": "palet",
+   "note": "144 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087510AC_288_palet.png"
+  },
+  {
+   "symbol": "gUnk_087511CC",
+   "offset": "0x7511CC",
+   "size": 288,
+   "group": "palet",
+   "note": "144 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087511CC_288_palet.png"
+  },
+  {
+   "symbol": "gUnk_087512EC",
+   "offset": "0x7512EC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087512EC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875130C",
+   "offset": "0x75130C",
+   "size": 288,
+   "group": "sprite/OBJ",
+   "note": "9 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875130C_288_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875142C",
+   "offset": "0x75142C",
+   "size": 288,
+   "group": "sprite/OBJ",
+   "note": "9 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875142C_288_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875154C",
+   "offset": "0x75154C",
+   "size": 288,
+   "group": "sprite/OBJ",
+   "note": "9 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875154C_288_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875166C",
+   "offset": "0x75166C",
+   "size": 288,
+   "group": "sprite/OBJ",
+   "note": "9 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875166C_288_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875178C",
+   "offset": "0x75178C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875178C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_087517AC",
+   "offset": "0x7517AC",
+   "size": 288,
+   "group": "sprite/OBJ",
+   "note": "9 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087517AC_288_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087518CC",
+   "offset": "0x7518CC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087518CC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875194C",
+   "offset": "0x75194C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875194C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875196C",
+   "offset": "0x75196C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875196C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087519EC",
+   "offset": "0x7519EC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087519EC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08751A0C",
+   "offset": "0x751A0C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751A0C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08751A8C",
+   "offset": "0x751A8C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751A8C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08751AAC",
+   "offset": "0x751AAC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751AAC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08751B2C",
+   "offset": "0x751B2C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751B2C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08751B4C",
+   "offset": "0x751B4C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751B4C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08751BCC",
+   "offset": "0x751BCC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751BCC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08751BEC",
+   "offset": "0x751BEC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751BEC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08751C6C",
+   "offset": "0x751C6C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751C6C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08751C8C",
+   "offset": "0x751C8C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751C8C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08751D0C",
+   "offset": "0x751D0C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751D0C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08751D2C",
+   "offset": "0x751D2C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751D2C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08751DAC",
+   "offset": "0x751DAC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751DAC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08751DCC",
+   "offset": "0x751DCC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751DCC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08751E4C",
+   "offset": "0x751E4C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751E4C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08751E6C",
+   "offset": "0x751E6C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751E6C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08751EEC",
+   "offset": "0x751EEC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751EEC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08751F0C",
+   "offset": "0x751F0C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751F0C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08751F8C",
+   "offset": "0x751F8C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751F8C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08751FAC",
+   "offset": "0x751FAC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08751FAC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875202C",
+   "offset": "0x75202C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875202C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875204C",
+   "offset": "0x75204C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875204C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087520CC",
+   "offset": "0x7520CC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087520CC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_087520EC",
+   "offset": "0x7520EC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087520EC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875216C",
+   "offset": "0x75216C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875216C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875218C",
+   "offset": "0x75218C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875218C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875220C",
+   "offset": "0x75220C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875220C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875222C",
+   "offset": "0x75222C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875222C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087522AC",
+   "offset": "0x7522AC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087522AC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_087522CC",
+   "offset": "0x7522CC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087522CC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875234C",
+   "offset": "0x75234C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875234C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875236C",
+   "offset": "0x75236C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875236C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087523EC",
+   "offset": "0x7523EC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087523EC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875240C",
+   "offset": "0x75240C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875240C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875248C",
+   "offset": "0x75248C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875248C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_087524AC",
+   "offset": "0x7524AC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087524AC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875252C",
+   "offset": "0x75252C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875252C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875254C",
+   "offset": "0x75254C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875254C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087525CC",
+   "offset": "0x7525CC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087525CC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_087525EC",
+   "offset": "0x7525EC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087525EC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875266C",
+   "offset": "0x75266C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875266C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875268C",
+   "offset": "0x75268C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875268C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875270C",
+   "offset": "0x75270C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875270C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875272C",
+   "offset": "0x75272C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875272C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087527AC",
+   "offset": "0x7527AC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087527AC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_087527CC",
+   "offset": "0x7527CC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087527CC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875284C",
+   "offset": "0x75284C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875284C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875286C",
+   "offset": "0x75286C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875286C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087528EC",
+   "offset": "0x7528EC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087528EC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875290C",
+   "offset": "0x75290C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875290C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875298C",
+   "offset": "0x75298C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875298C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_087529AC",
+   "offset": "0x7529AC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087529AC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08752A2C",
+   "offset": "0x752A2C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752A2C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08752AAC",
+   "offset": "0x752AAC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752AAC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08752ACC",
+   "offset": "0x752ACC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752ACC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08752B4C",
+   "offset": "0x752B4C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752B4C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08752BCC",
+   "offset": "0x752BCC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752BCC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08752C4C",
+   "offset": "0x752C4C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752C4C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08752CCC",
+   "offset": "0x752CCC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752CCC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08752D4C",
+   "offset": "0x752D4C",
+   "size": 128,
+   "group": "palet",
+   "note": "64 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752D4C_128_palet.png"
+  },
+  {
+   "symbol": "gUnk_08752DCC",
+   "offset": "0x752DCC",
+   "size": 128,
+   "group": "palet",
+   "note": "64 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752DCC_128_palet.png"
+  },
+  {
+   "symbol": "gUnk_08752E4C",
+   "offset": "0x752E4C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752E4C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08752ECC",
+   "offset": "0x752ECC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752ECC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08752EEC",
+   "offset": "0x752EEC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752EEC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_08752F6C",
+   "offset": "0x752F6C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752F6C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08752F8C",
+   "offset": "0x752F8C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08752F8C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875300C",
+   "offset": "0x75300C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875300C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875302C",
+   "offset": "0x75302C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875302C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087530AC",
+   "offset": "0x7530AC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087530AC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_087530CC",
+   "offset": "0x7530CC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087530CC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875314C",
+   "offset": "0x75314C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875314C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875316C",
+   "offset": "0x75316C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875316C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087531EC",
+   "offset": "0x7531EC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087531EC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875320C",
+   "offset": "0x75320C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875320C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875328C",
+   "offset": "0x75328C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875328C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_087532AC",
+   "offset": "0x7532AC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087532AC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875332C",
+   "offset": "0x75332C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875332C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875334C",
+   "offset": "0x75334C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875334C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_087533CC",
+   "offset": "0x7533CC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087533CC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_087533EC",
+   "offset": "0x7533EC",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_087533EC_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875346C",
+   "offset": "0x75346C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875346C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875348C",
+   "offset": "0x75348C",
+   "size": 128,
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (32 B/tile)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875348C_128_sprite.png"
+  },
+  {
+   "symbol": "gUnk_0875350C",
+   "offset": "0x75350C",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875350C_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875352C",
+   "offset": "0x75352C",
+   "size": 220,
+   "group": "tabel",
+   "note": "220 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08753608",
+   "offset": "0x753608",
+   "size": 220,
+   "group": "tabel",
+   "note": "220 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_087536E4",
+   "offset": "0x7536E4",
+   "size": 236,
+   "group": "tabel",
+   "note": "236 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_087537D0",
+   "offset": "0x7537D0",
+   "size": 3748,
+   "group": "tabel",
+   "note": "3748 B, bukan kelipatan 32 B; 1/937 word menunjuk ROM",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08754674",
+   "offset": "0x754674",
+   "size": 1432,
+   "group": "tabel",
+   "note": "1432 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08754C0C",
+   "offset": "0x754C0C",
+   "size": 1352,
+   "group": "tabel",
+   "note": "1352 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08755154",
+   "offset": "0x755154",
+   "size": 220,
+   "group": "tabel",
+   "note": "220 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08755230",
+   "offset": "0x755230",
+   "size": 780,
+   "group": "tilemap",
+   "note": "390 entri 16-bit; bit 10-15 modal 88%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08755230_780_tilemap_30.png"
+  },
+  {
+   "symbol": "gUnk_0875553C",
+   "offset": "0x75553C",
+   "size": 780,
+   "group": "tilemap",
+   "note": "390 entri 16-bit; bit 10-15 modal 69%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875553C_780_tilemap_30.png"
+  },
+  {
+   "symbol": "gUnk_08757AE0",
+   "offset": "0x757AE0",
+   "size": 192,
+   "group": "palet",
+   "note": "96 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08757AE0_192_palet.png"
+  },
+  {
+   "symbol": "gUnk_08757BA0",
+   "offset": "0x757BA0",
+   "size": 12,
+   "group": "tabel",
+   "note": "12 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08757BAC",
+   "offset": "0x757BAC",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08757BAC_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08757BCC",
+   "offset": "0x757BCC",
+   "size": 12,
+   "group": "tabel",
+   "note": "12 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08757BD8",
+   "offset": "0x757BD8",
+   "size": 32,
+   "group": "palet",
+   "note": "16 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08757BD8_32_palet.png"
+  },
+  {
+   "symbol": "gUnk_08757BF8",
+   "offset": "0x757BF8",
+   "size": 20,
+   "group": "tabel",
+   "note": "20 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08757C0C",
+   "offset": "0x757C0C",
+   "size": 8,
+   "group": "tabel",
+   "note": "8 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_08757C14",
+   "offset": "0x757C14",
+   "size": 780,
+   "group": "tilemap",
+   "note": "390 entri 16-bit; bit 10-15 modal 88%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08757C14_780_tilemap_30.png"
+  },
+  {
+   "symbol": "gUnk_08757F20",
+   "offset": "0x757F20",
+   "size": 780,
+   "group": "tilemap",
+   "note": "390 entri 16-bit; bit 10-15 modal 69%",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_08757F20_780_tilemap_30.png"
+  },
+  {
+   "symbol": "gUnk_0875A358",
+   "offset": "0x75A358",
+   "size": 192,
+   "group": "palet",
+   "note": "96 warna (semua u16 < 0x8000)",
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_0875A358_192_palet.png"
+  },
+  {
+   "symbol": "gUnk_0875A418",
+   "offset": "0x75A418",
+   "size": 12,
+   "group": "tabel",
+   "note": "12 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0875A424",
+   "offset": "0x75A424",
+   "size": 20,
+   "group": "tabel",
+   "note": "20 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0875A438",
+   "offset": "0x75A438",
+   "size": 8,
+   "group": "tabel",
+   "note": "8 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0875A440",
+   "offset": "0x75A440",
+   "size": 4100,
+   "group": "tabel",
+   "note": "4100 B, bukan kelipatan 32 B",
+   "renderable": false
+  },
+  {
+   "symbol": "gUnk_0875B444",
+   "offset": "0x75B444",
+   "size": 1460,
+   "group": "tabel",
+   "note": "1460 B, bukan kelipatan 32 B; 4/365 word menunjuk ROM",
+   "renderable": false
+  }
+ ]
+}

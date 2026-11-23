@@ -130,6 +130,15 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   simbol -> stream -> bin/PNG, hasil generate); `--check-map` exit 1 bila
   dokumen itu basi terhadap manifest. Seluruh stream dirender dalam hitungan
   puluhan detik; tidak menjalankan build dan tidak menulis ROM.
+- `raw_assets.py` — inventaris sisa 231 blob **mentah** (bukan `0x70`) dari
+  `asset_inventory.analyze()`, kelompokkan dari isi: `palet` (<=1 KB, semua u16
+  < 0x8000), `sprite/OBJ` (kelipatan 32 B = tile 4bpp), `tilemap` (entri
+  16-bit, bit 10-15 konsisten), `tabel` (sisanya, tidak dirender). Menulis
+  `assets/raw/png/` + `assets/raw/manifest.json` + dokumen generate
+  `docs/decomp/ASET-MENTAH-BERKAS.md`; `--check` exit 1 bila dokumen basi,
+  `--out DIR`/`--quiet` seperti `extract_assets.py`. Kelompok ditentukan dari
+  isi, bukan nama simbol; blob yang tidak kelipatan 32 B tidak dipaksakan jadi
+  tile. Tidak menjalankan build dan tidak menulis ROM.
 
 ## Engine kerja (`decomp_engine.py`)
 
