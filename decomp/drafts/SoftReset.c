@@ -1,8 +1,6 @@
-/* Warning: missing "bx $lr" in last block of SoftReset (initial). */
+typedef unsigned char u8;
 
-s32 SoftReset(s32 arg0) {
-    *(s8 *)0x04000208 = 0;
-    M2C_ERROR(/* unknown instruction: svc 0x1 */);
-    M2C_ERROR(/* unknown instruction: svc 0x0 */);
-    return arg0;
+void SoftReset(void) {
+    *(volatile u8 *) 0x04000208 = 0;
+    asm("ldr r1, =0x03007F00\n\tmov sp, r1\n\tsvc #1\n\tsvc #0\n\tmov r0, r0");
 }

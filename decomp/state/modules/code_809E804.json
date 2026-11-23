@@ -6006,9 +6006,9 @@
  },
  "rand": {
   "addr": 135074276,
-  "judged_mtime": 1793582714.2633808,
+  "judged_mtime": 1795428426.8675928,
   "module": "code_809E804.s",
-  "note": "member `unk4' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_rand/opencode/func.c:14: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_rand/opencode/func.c:14: request for member `unk8' in something not a structure or union\n",
+  "note": "len 36 vs ref 30 [1missing,4extra,2operand,3regalloc,5different @| adr r0, #0x10 | ldr r2, [pc, #0x10]]",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 297,

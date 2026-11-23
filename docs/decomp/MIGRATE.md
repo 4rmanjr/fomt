@@ -112,6 +112,25 @@ kebijakan + rekomendasinya di §44 (masih proposal, belum ada kode).
 - Modul `code_linkonce.s` = gabungan (`migratable_set` kosong) → SKIP
   permanen.
 
+### 4b. Modul yang belum punya `src/<stem>.cc`: konversi entri lds DULU
+
+`split_asm_sections.py` mengembalikan file asm apa adanya selama
+`src/<stem>.cc` belum ada, jadi `fomt.lds` modul itu masih berbunyi
+`asm/<stem>.o(.text);`. Begitu migrate membuat file src, splitter mulai
+memecah per fungsi dan lds lama tidak lagi memuat section itu:
+`CpuSet referenced in section .text ... of asm/<stem>.o` lalu make MERAH.
+
+Urutan yang benar untuk modul semacam ini (pembukti: `code_lib_syscall`):
+
+1. tulis `src/<stem>.cc` dengan `#include "prelude.h"` lebih dulu (tanpa itu
+   `i32`/`u8` belum ada dan agbcc gagal di `__attribute__`), lalu blok
+   `// DECOMP-MATCHED <nama>` + `extern "C" { ... }` dan
+   `__attribute__((section(".text.<stem>.<addr8>")))` untuk SATU fungsi;
+2. ganti entri lds modul itu menjadi
+   `*(SORT_BY_NAME(.text.<stem>.*))` + `src/<stem>.o(.text);`;
+3. `make compare` HIJAU, baru fungsi berikutnya lewat `migrate.py`
+   (baseline-nya sekarang hijau sehingga section-replace berjalan normal).
+
 ## 6. Re-judge draf yang state-nya sudah `promoted`
 
 `fomt` tidak mengantrekan fungsi berstatus `promoted`, walaupun draf baru

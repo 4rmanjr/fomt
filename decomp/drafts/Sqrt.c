@@ -1,3 +1,3 @@
-void Sqrt(void) {
-    M2C_ERROR(/* unknown instruction: svc 0x8 */);
+s32 Sqrt(s32 x) {
+    asm("svc #8");
 }

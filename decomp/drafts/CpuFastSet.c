@@ -1,3 +1,3 @@
-void CpuFastSet(void) {
-    M2C_ERROR(/* unknown instruction: svc 0xc */);
+s32 CpuFastSet(s32 src, s32 dst) {
+    asm("svc #0xc");
 }

@@ -1,3 +1,4 @@
-void IntrWait(void) {
-    M2C_ERROR(/* unknown instruction: svc 0x4 */);
+s32 IntrWait(s32 waitFlags, s32 waitMask) {
+    asm("movs r2, #0");
+    asm("svc #4");
 }

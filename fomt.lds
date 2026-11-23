@@ -146,7 +146,8 @@ SECTIONS
 
         src/m4a_1.o(.text);
         src/m4a.o(.text);
-        asm/code_lib_syscall.o(.text);
+        *(SORT_BY_NAME(.text.code_lib_syscall.*))
+        src/code_lib_syscall.o(.text);
         *(SORT_BY_NAME(.text.code_lib_sram.*))
         src/code_lib_sram.o(.text);
         *libgcc.a:_call_via_rX.o(.text);

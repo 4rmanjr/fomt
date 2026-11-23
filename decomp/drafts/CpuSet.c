@@ -1,3 +1,3 @@
-void CpuSet(void) {
-    M2C_ERROR(/* unknown instruction: svc 0xb */);
+s32 CpuSet(s32 src, s32 dst) {
+    asm("svc #0xb");
 }

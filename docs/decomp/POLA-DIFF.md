@@ -2416,3 +2416,20 @@ semua basis lebih dulu (`add r0/r6/r4, sp, ...`), bukan memuat konstanta.
 
 Kesimpulan: wall-nya penjadwalan + regalloc agbcc, bukan urutan sumber.
 Parkir fungsi ini; bukti lengkap ada di 70b-70g.
+
+### 71. SWI wrapper: `asm("svc #N")` menulis persis `svc #N; bx lr`
+
+Fungsi syscall BIOS di `code_lib_syscall.s` dulu ditandai "skip permanen (svc
+satu instruksi)". Ternyata inline asm agbcc meneruskan instruksinya apa adanya:
+
+    s32 ArcTan2(s32 x, s32 y) { asm("svc #0xa"); }
+
+menghasilkan `svc #0xa` lalu `bx lr` = 4B, byte-identik. Pembukti: `ArcTan2`
+(0xa), `CpuFastSet` (0xc), `CpuSet` (0xb), `Sqrt` (8). `IntrWait` butuh
+`movs r2, #0` di depan dan MATCH dengan dua `asm()` terpisah
+(`"movs r2, #0"` lalu `"svc #4"`).
+
+Batasnya: `SoftReset` (svc #1 lalu #0) tidak bisa ditutup begini. Ref-nya
+**tidak** punya `bx lr` karena `svc #0` tidak kembali, sedangkan gcc selalu
+menutup badan fungsi dengan `bx lr` -> 26B vs 24B. Bentuk `noreturn` yang
+membuang `bx lr` belum ditemukan di agbcc, jadi tetap wall (bukan skip buta).
