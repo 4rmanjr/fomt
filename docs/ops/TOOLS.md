@@ -94,6 +94,17 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
 - `decomp/srcmarkers.py` — daftar fungsi yang punya marker `DECOMP-MATCHED`
   di `src/`; dipakai `fomt status` dan `plan_stats.py` untuk membedakan
   migrasi `src/` dari promote-only.
+- `asset_inventory.py` — inventaris read-only blob `.incbin` di
+  `asm/data/data_0813B288.s`: alamat, ukuran, kelas format, stream, dan
+  pemakai pointer. Format `0x70` (dekoder `decompress.py`) hanya diterima
+  kalau seluruh blob habis terurai; header BIOS LZ77/RLE divalidasi dengan
+  mendekode stream, kandidat gagal dicatat sebagai header kebetulan. Huffman
+  BIOS (`0x24`/`0x28`) belum punya dekoder, jadi hanya ditandai kandidat.
+  Pemakai pointer = kata 32-bit sejajar di ROM yang bernilai alamat awal blob;
+  pemiliknya simbol terdekat dari `asm/` (tanpa ELF). Menulis
+  `docs/decomp/ASET-INVENTARIS.md` (hasil generate, jangan disunting tangan);
+  `--stdout` untuk melihat, `--check` exit 1 bila dokumen basi, `--json` untuk
+  data mentah. Tidak menjalankan build dan tidak menyentuh `fomt.gba`.
 
 ## Engine kerja (`decomp_engine.py`)
 
