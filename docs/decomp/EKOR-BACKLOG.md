@@ -44,7 +44,7 @@ Sisa **428** fungsi (165 `promoted`, 263 `failed`). Tabel = 12 entri terakhir; 4
 | 424 | `func_080E54C4` | 44B | promoted | - |
 | 425 | `func_080E54F0` | 192B | failed | byte +0x6: 0x1d vs ref 0x5 |
 | 426 | `func_080E55B0` | 180B | failed | len 172 vs ref 178 |
-| 427 | `func_080E5664` | 439B | failed | len 442 vs ref 438 |
+| 427 | `func_080E5664` | 439B | failed | BASELINE judge 7m/7e/20o/55r (m+e+o 34), lokal dif4 27m/26e/42o |
 
 ## `code_actor_0809BFE8.s`
 

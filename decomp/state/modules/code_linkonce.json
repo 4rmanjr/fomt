@@ -4814,9 +4814,9 @@
  "func_080E5664": {
   "addr": 135157348,
   "draft_src": "manual",
-  "judged_mtime": 1795421625.474971,
+  "judged_mtime": 1795422584.2147388,
   "module": "code_linkonce.s",
-  "note": "len 442 vs ref 438 [6missing,7extra,32operand,59regalloc @>  | adds r5, r2, #0] | VARIAN p->r3 (2026-11-23): pin `register Node *p __asm__(\"r3\")` -> judge len 442, 6m/7e/32o/59r (total 45) vs baseline 34, regalloc 55 -> 59. Bersama varian fl (total 43) ini menunjukkan total dif4 lokal TIDAK sahih sebagai proksi total judge (lokal 95 -> 78/76 tapi judge 34 -> 45/43). Draf dikembalikan ke baseline; varian disimpan di komentar kepala draf + /tmp/varian_fl_080E5664.c dan /tmp/varian_p_r3_080E5664.c.",
+  "note": "BASELINE judge 7m/7e/20o/55r (m+e+o 34), lokal dif4 27m/26e/42o. VARIAN D (2026-11-23): `fl` tak dipin r9 DAN 3 fence `__asm__ volatile(\"\" : \"+r\"(fl))` dibuang -> lokal 12m/13e/55o (jauh lebih baik) tapi judge len 442 [5missing,7extra,31operand,59regalloc] = m+e+o 43, TOLAK. Varian lain (lokal saja, tak di-judge karena total >= baseline): inlining `*a2` di 2 call-site (A) 35/32/36; A+`(*a2)->unkC` (B) 35/32/36; A+`(*a2)->unk10` (C) 39/36/32; fence saja tanpa cabut pin (D1) 28/26/42; cabut pin saja (D2) identik baseline; `p` dipin r2 (E) 31/29/44. Kesimpulan: m/e lokal turun selalu dibayar operand/regalloc judge naik; draf dikembalikan ke baseline, salinan varian di /tmp/vD_080E5664.c dan /tmp/vE_080E5664.c.",
   "ref_len": 439,
   "sanitize_v": 4,
   "size": 3573,

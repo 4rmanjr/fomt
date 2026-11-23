@@ -2168,3 +2168,28 @@ harus sama) dan menuntut argumen call-site terkonversi implisit. `src` sudah pun
 Cast ini tidak mengubah byte (`pindah: 1`, sha1 target HIJAU). Catatan: `promote()`
 tidak menulis ulang blok yang sudah ada — perbaikan tanda tangan harus diedit
 langsung di `decomp/promoted/code_0803EE94.cc`.
+
+## 67. `func_080E5664`: pin `fl` ke r9 menahan alokasi; m/e lokal turun tapi total judge naik
+
+Ref memakai `mov r1, r8; ldr r3, [r1]` lalu node hidup di `r2`/`r3`, sedangkan draf
+memakai `mov r0, r8; ldr r7, [r0]` (node mendarat di `r7`). Klaster ini murni
+alokasi register: instruksi sama, register beda. Enam varian diukur (dif4 lokal
+`/tmp/dif4.py`, judge hanya untuk yang lokalnya membaik):
+
+| varian | lokal m/e/o | judge m/e/o/r |
+|---|---|---|
+| baseline (pin `fl`=r9 + 3 fence) | 27/26/42 | 7/7/20/55 |
+| A: `*a2` diinline ke 2 call-site | 35/32/36 | tak di-judge |
+| B: A + `(*a2)->unkC` | 35/32/36 | tak di-judge |
+| C: A + `(*a2)->unk10` | 39/36/32 | tak di-judge |
+| D: pin `fl` dicabut + 3 fence dibuang | 12/13/55 | 5/7/31/59 |
+| D1: hanya fence dibuang | 28/26/42 | tak di-judge |
+| D2: hanya pin dicabut | 27/26/42 | tak di-judge |
+| E: `p` dipin `r2` | 31/29/44 | tak di-judge |
+
+Pelajaran: pada fungsi yang sudah regalloc-bound, **m/e lokal bukan proksi**. Varian D
+memotong missing+extra lokal 53 -> 25 (total 95 -> 80) tetapi judge total m+e+o naik
+34 -> 43 karena operand/regalloc ikut naik (42 -> 55 lokal, 55 -> 59 judge). Pola
+yang sama muncul di dua varian sebelumnya (arg-6 `fl`, `p` dipin r3). Aturan praktis:
+pilih varian hanya bila total m+e+o lokal turun **dan** operand tidak melonjak;
+kalau ragu, cap judge 1x lalu kembalikan baseline.
