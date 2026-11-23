@@ -1721,6 +1721,12 @@ tiga beda strukturalnya sudah terjelaskan dan semuanya soal **tipe lokal + uruta
    Mencoba store lewat anggota struct + baca lewat cast (atau sebaliknya) berhasil memaksa reload
    tetapi merusak urutan literal/penjumlahan alamat (`q`), jadi varian itu lebih jauh dari ref
    (156B). Ini yang masih terbuka.
+   Varian berikutnya juga gagal: pointer baru dihitung **ulang sesudah** `strb` dari ekspresi
+   berbeda (`r = (u8 *)arg0 + 0x4610; if (*r > 0xB)`). Reload memang muncul (`ldrb` dari alamat
+   hasil hitung, bukan nilai register), tetapi bukan bentuk ref — ref memuat literal `0x4610` lagi
+   lalu `adds r2,r5,r0` — dan fungsi membengkak 152B -> 158B (judge: 2missing/7extra/11operand).
+   Versi dengan ekspresi yang sama (`r = p + 0x4610;`) di-CSE total: byte-identik dengan draf lama,
+   tetap DIFF. Jadi reload hanya bisa dipaksa dengan mengorbankan bentuk alamat, bukan jalan MATCH.
 
 ## 54. Literal konstan di argumen loop tidak di-hoist ke register
 
