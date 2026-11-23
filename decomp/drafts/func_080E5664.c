@@ -101,7 +101,7 @@ L56D0:
     if (p->unkC == 0) {
         goto L57CE;
     }
-    func_080E54F0(a0, a1, q, q, a3, 0);
+    func_080E54F0(a0, a1, q, q, a3, (u32) fl);
     goto L580A;
 L56F4:
     if (n != hdr) {

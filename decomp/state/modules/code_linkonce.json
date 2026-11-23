@@ -4814,9 +4814,9 @@
  "func_080E5664": {
   "addr": 135157348,
   "draft_src": "manual",
-  "judged_mtime": 1795418225.8621976,
+  "judged_mtime": 1795420675.2937434,
   "module": "code_linkonce.s",
-  "note": "byte +0x16: 0x13 vs ref 0x88 [7missing,7extra,20operand,55regalloc @>  | adds r3, r2, #0] | LANJUT 2026-11-23: prolog+frame sudah sama (push{r4-r7,lr};mov r7,sb;mov r6,r8;push{r6,r7};sub sp,#0x18). Diff pertama pindah ke pemuatan `*arg2`: blok pin `register Node *nn __asm__(\"r2\")` + fence lalu `n = nn` membuat `ldr r2,[r2]` sama persis, regalloc 56->55, byte diff pertama kini +0x16 pada `adds r3,r2,#0` (salinan yang di ref baru ada di jalur L56F4). Varian yang memakai nn untuk cmp (salinan setelah cabang) turun ke 47% - jangan diulang. | UKUR 2026-11-23 (5 varian lokal, tanpa judge karena tak ada yang membaik): baseline dif4 143/212 (67%, 27m/26e/42o). Klaster operand terbesar 5x `mov r1,r8` vs `mov r0,r8` (pemuatan *a2) + 2x node/kv/k bergeser satu register (ref node r2, kv r1, k r0; draf node r3, kv r2, k r1). v1 (kv dimuat sebelum k di semua blok) 143 (30m/29e/39o); v2 (p->r2) 137; v3 (kv->r1) 132; v4 (kv->r1+k->r0) 124; v5 (p->r1) 134. Semua pin hanya memindahkan residual. Sisa jurang struktural: blok replace 15 baris di jalur func_080E54F0/55E0 (ref `mov r0,r9; b L; cmp r2,r1; bne L` vs urutan call draf).",
+  "note": "len 442 vs ref 438 [5missing,7extra,31operand,55regalloc @>  | adds r3, r2, #0] | UKUR 2026-11-23 (blok 15 baris): ref `.L080E56E4` mengirim arg ke-6 = `sb` (fl) — `str r4,[sp]; mov r0,sb; b .L080E57E2` lalu `.L080E57E2: str r0,[sp,#4]` — sedangkan jalur `.L080E57DE` mengirim 0 (`movs r0,#0`); draf lama menulis 0 di KEDUA jalur. Setelah jalur pertama dibetulkan (`func_080E54F0(a0,a1,q,q,a3,(u32)fl)`) dif4 143 -> 149 (70%), tapi judge: len 442 vs ref 438, 5missing/7extra/31operand/55regalloc (sebelumnya 7/7/20/55, len 439) — missing+extra turun 2, operand naik 11, regalloc tetap 55. Varian lain di basis baru: t->r3 122, p->r2 143. Draf sekarang = varian ini (semantik arg ke-6 lebih benar). Sisa klaster: pergeseran register `mov r1,r8` vs `mov r0,r8` (5x) dan node r2 vs r3.",
   "ref_len": 439,
   "sanitize_v": 4,
   "size": 3573,
