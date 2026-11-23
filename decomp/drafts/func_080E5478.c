@@ -8,7 +8,8 @@ extern s32 vtable_unk_080E8594;
 
 typedef struct GenObj {
     u8 _pad0[4];
-    s32 unk4;
+    u16 unk4;
+    u8 _pad6[2];
     s32 unk8;
     void *unkC;
     s32 unk10;

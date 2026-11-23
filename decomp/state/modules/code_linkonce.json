@@ -4767,13 +4767,14 @@
  },
  "func_080E5478": {
   "addr": 135156856,
-  "judged_mtime": 1793150387.859861,
+  "judged_mtime": 1795408592.9333549,
   "module": "code_linkonce.s",
-  "note": "byte +0x22: 0x60 vs ref 0xa0 [6extra,1different @| ldrh r0, [r4, #4] | ldr r0, [r4, #4]]",
+  "note": "MATCH 76B, promote-only: gate migrasi menolak karena bukan fungsi terakhir di code_linkonce.s (4 penerus belum pindah: 54C4, 54F0, 55B0, 5664). Kunci MATCH: field unk4 bertipe u16 (+pad 2B), bukan s32, supaya ref ldrh r0,[r4,#4] tereproduksi (salah tipe -> ldr + 6extra).",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 729,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E54C4": {
