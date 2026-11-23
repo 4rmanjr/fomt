@@ -1,3 +1,13 @@
+/* VARIAN ALTERNATIF (temuan, bukan baseline). Ref jalur `.L080E56E4`
+   mengirim argumen ke-6 = `sb` (fl): `str r4,[sp]; mov r0,sb; b .L080E57E2`
+   lalu `.L080E57E2: str r0,[sp,#4]`, sedangkan jalur `.L080E57DE` mengirim 0
+   (`movs r0,#0`). Menerapkannya = ubah call tepat setelah
+   `p = *a2; if (p->unkC == 0) goto L57CE;` dari `func_080E54F0(a0, a1, q, q,
+   a3, 0)` menjadi `func_080E54F0(a0, a1, q, q, a3, (u32) fl)`.
+   Angka judge: varian fl len 442 / 5missing,7extra,31operand,55regalloc
+   (total 43); baseline ini len 439 / 7missing,7extra,20operand,55regalloc
+   (total 34) -> baseline dipilih. dif4 lokal: varian fl 149/212 (70%),
+   baseline 143/212 (67%). */
 void *func_080E2354(void *);                          /* extern */
 void *func_080E2B28(void *);                          /* extern */
 
@@ -101,7 +111,7 @@ L56D0:
     if (p->unkC == 0) {
         goto L57CE;
     }
-    func_080E54F0(a0, a1, q, q, a3, (u32) fl);
+    func_080E54F0(a0, a1, q, q, a3, 0);
     goto L580A;
 L56F4:
     if (n != hdr) {
