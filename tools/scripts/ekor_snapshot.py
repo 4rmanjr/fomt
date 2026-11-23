@@ -188,9 +188,47 @@ def collect(tail_len):
     return rows, sorted(empty)
 
 
+# Baris tanggal hanya menandai kapan snapshot diambil. Selama ikut dibandingkan,
+# dokumen jadi BASI semata karena pergantian hari walau data tidak berubah,
+# jadi perbandingan (`--check` dan gate `check_docs.py`) mengabaikannya.
+DATE_LINE = re.compile(r"^Snapshot \*\*\d{4}-\d{2}-\d{2}\*\*", re.M)
+DATE_SLOT = "Snapshot **<tanggal>**"
+
+
+def tanpa_tanggal(text):
+    """-> teks dengan baris Snapshot diturunkan ke placeholder."""
+    return DATE_LINE.sub(DATE_SLOT, text, count=1)
+
+
+def is_stale(existing, text):
+    """True bila isi dokumen berbeda dari hasil generate, tanggal diabaikan."""
+    return tanpa_tanggal(existing) != tanpa_tanggal(text)
+
+
+def tanggal_input(stems):
+    """-> ISO date mtime input terbaru (`asm/<stem>.s` + shard state).
+
+    Diturunkan dari input, bukan jam dinding: regenerate tanpa perubahan data
+    menghasilkan dokumen yang sama. mtime bisa bergeser saat clone/checkout —
+    itu sebabnya baris ini tidak ikut dibandingkan.
+    """
+    newest = 0.0
+    for stem in stems:
+        for p in (REPO / "asm" / f"{stem}.s",
+                  REPO / "decomp" / "state" / "modules" / f"{stem}.json"):
+            try:
+                newest = max(newest, p.stat().st_mtime)
+            except OSError:
+                pass
+    if not newest:
+        return None
+    return datetime.date.fromtimestamp(newest).isoformat()
+
+
 def build(tail_len, manual):
     rows, empty = collect(tail_len)
-    today = datetime.date.today().isoformat()
+    today = (tanggal_input([r["stem"] for r in rows] + empty)
+             or datetime.date.today().isoformat())
     out = []
     add = out.append
     add("# Backlog blocker rantai ekor (modul tail-only)")
@@ -316,7 +354,8 @@ def main(argv=None):
     ap.add_argument("--tail", type=int, default=12, help="jumlah entri tabel per modul")
     ap.add_argument("--stdout", action="store_true", help="cetak, jangan tulis")
     ap.add_argument("--check", action="store_true",
-                    help="exit 1 bila dokumen di disk berbeda dari hasil generate")
+                    help="exit 1 bila dokumen di disk berbeda dari hasil generate "
+                         "(baris tanggal Snapshot diabaikan)")
     args = ap.parse_args(argv)
 
     out = Path(args.out)
@@ -328,8 +367,9 @@ def main(argv=None):
         sys.stdout.write(text)
         return 0
     if args.check:
-        if existing == text:
-            print(f"{out}: sinkron")
+        if not is_stale(existing, text):
+            note = "" if existing == text else " (baris tanggal diabaikan)"
+            print(f"{out}: sinkron{note}")
             return 0
         print(f"{out}: BASI — jalankan tools/scripts/ekor_snapshot.py")
         return 1

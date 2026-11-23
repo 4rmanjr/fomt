@@ -25,7 +25,9 @@ Yang diperiksa:
 6. **Backlog ekor basi** (`docs/decomp/EKOR-BACKLOG.md`): dokumen itu dihasilkan
    `tools/scripts/ekor_snapshot.py`, jadi isinya dibandingkan dengan hasil
    generate saat ini. MATCH/migrasi yang mengubah ujung rantai tanpa regenerasi
-   akan menggagalkan gate ini, bukan lewat diam-diam.
+   akan menggagalkan gate ini, bukan lewat diam-diam. Baris `Snapshot **tanggal**`
+   tidak ikut dibandingkan (ditangani `ekor_snapshot.is_stale`), jadi dokumen
+   tidak dianggap basi hanya karena pergantian hari.
 
 Read-only; exit 1 bila ada masalah (`--json` untuk agent, `--strict` sama
 dengan default).
@@ -83,7 +85,7 @@ def ekor_backlog():
         text = mod.build(EKOR_TAIL, manual) + "\n"
     except Exception as e:  # gate tidak boleh lolos diam-diam saat tool rusak
         return (EKOR_DOC, f"gate ekor gagal dijalankan: {type(e).__name__}: {e}"), None
-    if existing != text:
+    if mod.is_stale(existing, text):
         return (EKOR_DOC, "BASI terhadap hasil generate — jalankan "
                 "python3 tools/scripts/ekor_snapshot.py"), None
     return None, "backlog ekor sinkron"

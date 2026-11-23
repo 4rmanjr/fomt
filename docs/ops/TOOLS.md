@@ -31,10 +31,15 @@ Katalog tool + flag. Kalau perilaku tool berubah, ubah **berkas ini** (bukan
   `tail_chain.py --json` + shard state (kolom residual = ringkasan note, bukan
   angka karangan). Bagian naratif setelah penanda
   `<!-- manual:catatan-per-modul -->` disalin apa adanya. `--check` exit 1 kalau
-  dokumen di disk basi, `--stdout` untuk melihat hasil tanpa menulis. Jalankan
-  setiap habis MATCH/migrasi yang mengubah ujung rantai.
+  dokumen di disk basi, `--stdout` untuk melihat hasil tanpa menulis. Baris
+  `Snapshot **tanggal**` **tidak** ikut dibandingkan (pergantian hari bukan
+  perubahan data), dan tanggalnya diturunkan dari mtime input terbaru
+  (`asm/<stem>.s` + shard), bukan jam dinding — jadi regenerate tanpa perubahan
+  data menghasilkan dokumen identik. Jalankan setiap habis MATCH/migrasi yang
+  mengubah ujung rantai.
   **Gate-nya otomatis**: `check_docs.py` membandingkan dokumen dengan hasil
-  generate `ekor_snapshot.build()` dan menjadikannya masalah (exit 1) bila basi,
+  generate lewat `ekor_snapshot.is_stale()` (tanggal diabaikan) dan
+  menjadikannya masalah (exit 1) bila basi,
   jadi lupa meregenerasi tidak bisa lewat diam-diam di tutup sesi; `--check`
   manual hanya untuk gerbang cepat tanpa memuat seluruh pemeriksaan dokumen.
 - `diff_mismatch.py <func>` — hitung mismatch `diff.py` setelah target branch

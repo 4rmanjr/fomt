@@ -54,7 +54,9 @@ symlink). Pelengkap khusus status basi: `python3 decomp/audit_sync.py`.
    `check_docs.py` (langkah 2b): dokumen yang tidak sama dengan hasil generate
    dihitung sebagai masalah, jadi lupa meregenerasi menggagalkan tutup sesi
    alih-alih menyisakan backlog basi; `ekor_snapshot.py --check` tetap ada
-   sebagai gerbang cepat satu perintah.
+   sebagai gerbang cepat satu perintah. Baris `Snapshot **tanggal**` tidak ikut
+   dibandingkan dan tanggalnya diturunkan dari mtime input, jadi dokumen tidak
+   dianggap basi hanya karena pergantian hari.
 4. Tulis log sesi **baru** `docs/SESI-<tanggal>.md` (arsip bertanggal: jangan
    mengedit angka sesi lama). Isi: gejala, akar masalah, perbaikan, bukti
    (output tool), sisa/next.
