@@ -2330,3 +2330,41 @@ kalau pointernya berasal dari parameter/`void *` buram; pada alamat lokal yang
 diketahui, DSE tetap jalan. Ini yang membuat ref (yang mempertahankan ketiga
 store: `0x40`, `0x44`, `0x48` masing-masing dua kali) tidak bisa ditiru dari
 C biasa tanpa barrier.
+
+### 70e. Peta bingkai `func_080087C8` (76B) - titik mulai, bukan tebakan
+
+Bingkai ref `sub sp, #0x4c` = 76 byte = 19 word. Peta hasil baca asm, sudah
+diverifikasi lawan byte ROM:
+
+| offset | isi | keterangan |
+|---|---|---|
+| `sp+0x00` | node 16B | `{next=0, prev=0, vt=vtable_unk_080E5AF0, data=p+0x34}` |
+| `sp+0x10` | node 16B | `{0, 0, vt=vtable_unk_080E5AE0, data=p+0x8C}` |
+| `sp+0x20` | node 16B | `{0, 0, vt=vtable_unk_080E5AD0, data=p+0x24}` |
+| `sp+0x30` | container | `{f0=0, f4=0, vt=vtable_unk_080E5BB4, fC=&e}` |
+| `sp+0x40` | sentinel 12B | `{next=&container.fC, prev=&e, vt=vtable_unk_080E5BD8}` |
+
+Dua bacaan yang identik byte-per-byte: (a) container 28B `0x30..0x4b` dengan
+field `f0,f4,vt,fC,f10,f14,f18`, atau (b) container 16B `0x30..0x3f` +
+sentinel 12B `0x40..0x4b`. Yang penting bukan namanya, melainkan urutan
+tulisnya: `0x3C=&sentinel`, lalu sentinel ditulis `vt=vtable_unk_080E5BE8`,
+`next=0`, `prev=0`, kemudian **ditimpa** `vt=vtable_unk_080E5BD8`,
+`next=&container.fC`, `prev=&e`.
+
+Uji `func_08009940(container, item)` x4 menyisipkan `p+0x494`, `sp+0x00`,
+`sp+0x20`, `sp+0x10`; sesudah itu `func_08008AE0(p+0x490)` dipanggil dua kali
+(virtual `+0x10` lalu `+0x14`) dengan `func_08008AF0(p+0x490)` di antaranya,
+ditutup `func_080098DC(container, 2)` dan tiga `func_080098AC(node, 2)`.
+
+Angka semua varian yang sudah dicoba (pembanding byte objek vs ROM):
+
+| varian | objek | instruksi beda | catatan |
+|---|---|---|---|
+| 19 word (bingkai datar, urutan asm) | 232B | 92 | titip di `decomp/drafts/` sebagai titik mulai |
+| struct Node/Cont + `register r8/r6/r4` (v6) | 240B | 89 | terbaik; judge 48 selisih |
+| + `void * volatile *` / `volatile Cont *` | 244/248B | 83/81 | store bertahan, prolog memburuk |
+| + initializer agregat `Sent e = {0,0,&vtBE8}` | 240B | 91 | agbcc memakai `ldm/stm`, bukan `str` |
+| + alias `char *` (draf sekarang) | 232B | 92 | terlipat ke alamat lokal, store tetap hilang |
+
+Karena bingkai, urutan tulis, dan pointer berjalan sudah cocok, sisa selisih
+bukan lagi soal struktur: semuanya regalloc + penjadwalan + DSE (70b-70d).
