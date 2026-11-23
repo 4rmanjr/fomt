@@ -297,12 +297,96 @@ typedef struct GenObj__func_08008B88 {
 } GenObj__func_08008B88;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+struct MusicPlayerEnt {
+    struct MusicPlayer *music_player;
+    struct MusicPlayerTrack *track;
+    u8 num_tracks;
+    u16 unk_A;
+};
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08008AE0 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08008AE0(i32 *arg0) {
+    return *arg0 + 0xC;
+}
+}
+// ekor tak-bermarker dari hardware.s (verbatim, jangan diubah)
+asm(
+"    .align 2, 0\n"
+".L08008AE8:\n"
+"    .byte 0x00, 0x68, 0x0C, 0x30, 0x70, 0x47, 0x00, 0x00\n"
+);
+
+// DECOMP-MATCHED func_08008AF0 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08000568(i32);                               /* extern */
+
+void func_08008AF0(void) {
+    func_08000568(1);
+}
+}
+
+// DECOMP-MATCHED func_08008AFC (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aSoundInit();                                   /* extern */
+i32 m4aSoundVSyncOff();                               /* extern */
+
+void func_08008AFC(void) {
+    m4aSoundInit();
+    m4aSoundVSyncOff();
+}
+}
+
+// DECOMP-MATCHED func_08008B0C (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aSoundVSync();                                  /* extern */
+
+i32 func_08008B0C(void) {
+    m4aSoundVSync();
+    return 1;
+}
+}
+
+// DECOMP-MATCHED func_08008B18 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 m4aSoundMain();                                   /* extern */
+
+i32 func_08008B18(void) {
+    m4aSoundMain();
+    return 1;
+}
+}
+
+// DECOMP-MATCHED func_08008B24 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+struct MusicPlayer;
+struct MusicPlayerTrack;
+
+extern struct MusicPlayerEnt gMusicPlayerTable[];
+
+/* _M4aNumMusicPlayers didefinisikan linker (fomt.lds = 5); judge merakit
+   tanpa link sehingga nilai absolutnya dinyatakan di sini. */
+__asm__(".equ _M4aNumMusicPlayers, 5");
+extern char _M4aNumMusicPlayers[];
+#define NUM_MUSIC_PLAYERS_B24 ((u16)_M4aNumMusicPlayers)
+
+struct MusicPlayer *func_08008B24(u32 arg0) {
+    if (arg0 >= NUM_MUSIC_PLAYERS_B24) {
+        arg0 %= NUM_MUSIC_PLAYERS_B24;
+    }
+    return gMusicPlayerTable[arg0].music_player;
+}
+}
+
 // DECOMP-MATCHED func_08008B54 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08008B24(u8);                              /* extern */
+struct MusicPlayer;
+struct MusicPlayer *func_08008B24(u32);                  /* extern */
 
 i32 *func_08008B54(i32 *arg0, u8 arg1) {
-    *arg0 = func_08008B24(arg1);
+    *arg0 = (i32) func_08008B24(arg1);
     return arg0;
 }
 }

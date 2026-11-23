@@ -69,10 +69,11 @@ s32 func_08008B18(void) {
 }
 
 // DECOMP-MATCHED func_08008B54 (dari hardware.s; cek manusia sebelum ke src/)
-s32 func_08008B24(u8);                              /* extern */
+struct MusicPlayer;
+struct MusicPlayer *func_08008B24(u32);                  /* extern */
 
 s32 *func_08008B54(s32 *arg0, u8 arg1) {
-    *arg0 = func_08008B24(arg1);
+    *arg0 = (s32) func_08008B24(arg1);
     return arg0;
 }
 
@@ -879,11 +880,11 @@ extern struct MusicPlayerEnt gMusicPlayerTable[];
    tanpa link sehingga nilai absolutnya dinyatakan di sini. */
 __asm__(".equ _M4aNumMusicPlayers, 5");
 extern char _M4aNumMusicPlayers[];
-#define NUM_MUSIC_PLAYERS ((u16)_M4aNumMusicPlayers)
+#define NUM_MUSIC_PLAYERS_B24 ((u16)_M4aNumMusicPlayers)
 
 struct MusicPlayer *func_08008B24(u32 arg0) {
-    if (arg0 >= NUM_MUSIC_PLAYERS) {
-        arg0 %= NUM_MUSIC_PLAYERS;
+    if (arg0 >= NUM_MUSIC_PLAYERS_B24) {
+        arg0 %= NUM_MUSIC_PLAYERS_B24;
     }
     return gMusicPlayerTable[arg0].music_player;
 }
