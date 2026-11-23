@@ -1604,12 +1604,16 @@ def _void_ptr_arith_fix(body):
 
 
 def _norm_void_params(params):
-    """Daftar parameter `void` tunggal berarti "tanpa parameter" (C).
+    """Parameter `void` tunggal berarti "tanpa parameter" (C).
+
+    Hanya `void` yang dinormalkan: `()` (K&R) berarti "argumen tak-spesifik"
+    dan HARUS tetap dianggap daftar 1 elemen kosong, karena di situlah
+    proteksi arity-mismatch func_080A0504 bergantung.
 
     Tanpa normalisasi ini deklarasi `void f(void)` dibaca sebagai satu
     parameter bernama `void`, sehingga call `f()` (0 argumen) dilaporkan
     arity-mismatch (TERBUKTI func_08008A68, 2026-11-23)."""
-    if len(params) == 1 and params[0].strip() in ("void", ""):
+    if len(params) == 1 and (params[0] or "").strip() == "void":
         return []
     return params
 

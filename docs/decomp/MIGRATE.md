@@ -1412,11 +1412,14 @@ SKIP-nya sama, karena sumber masalahnya bukan deklarasi di draf.
 parameter bernama `void`. Call `f()` (0 argumen) lalu selalu terhitung
 arity-mismatch.
 
-**Perbaikan.** `_norm_void_params()` memetakan `['void']`/`['']` -> `[]`
-(semantik C: daftar parameter `void` = tanpa parameter). Dipakai di kedua
-pengumpul deklarasi di `_callsite_ptr_mismatch()` (`EXTERN_RE` dan
-`FUNC_DEF_RE`), jadi deklarasi `void f(void)` dan K&R `void f()` diperlakukan
-sama.
+**Perbaikan.** `_norm_void_params()` memetakan `['void']` -> `[]` (semantik C:
+daftar parameter `void` = tanpa parameter), dipakai di kedua pengumpul
+deklarasi di `_callsite_ptr_mismatch()` (`EXTERN_RE` dan `FUNC_DEF_RE`).
+PENTING: `['']` (K&R `f()`) **tidak** dinormalkan - itu berarti "argumen
+tak-spesifik", dan proteksi arity-mismatch `func_080A0504` (§ di POLA-DIFF)
+bergantung pada pembedaan ini. Mencoba menormalkan `['']` juga terbukti
+mematikan proteksi itu (func_080A0504/080A1C94/080A1ED4 kembali lolos), jadi
+versi final hanya `void`.
 
 **Pembukti.** `func_08008A68` (112B, `promoted`): sebelum perbaikan selalu SKIP
 di call `func_08008D90()`; sesudahnya `migrate.py` melaporkan `pindah: 1` dengan
@@ -1450,3 +1453,19 @@ Penyelesaian: tambah cast eksplisit di sisi kanan / pada variabelnya
 (`= (GenObj *) &vtable_unk_080E5B90;`, `(GenObj *) __builtin_new(0x6C)`,
 `GenObj *temp_r0_2;`) — semuanya no-op codegen, dibuktikan target compare
 HIJAU. Pembukti: `func_08008980` (commit yang menyertakan §68).
+
+**Bukti tidak meloloskan fungsi lain** (2026-11-23). Dua sapuan A/B, dengan
+`_norm_void_params` diganti fungsi identitas sebagai "sebelum":
+
+- semua fungsi yang masih di `asm/*.s` (24 modul): verdict `migrate_gate`
+  identik sebelum/sesudah - 0 berubah.
+- 1207 blok `DECOMP-MATCHED` di `decomp/promoted/*.cc`: 6 blok berubah, semuanya
+  SKIP-palsu yang sama polanya (call 0 argumen ke callee `(void)`), dan tiap
+  callee diverifikasi benar-benar tanpa parameter: `func_080D0AE0(void)`,
+  `func_080D0ABC(void)`, `func_0800912C(void)`, `func_08008D90(void)`,
+  `func_08008D9C(void)` (pemanggilnya: `func_080D0340`, `func_080D02F0`,
+  `func_08009158`, `func_08009140`, `func_08008A68`, `func_08008980`).
+
+Jadi satu-satunya fungsi yang keputusan migrasinya benar-benar berubah adalah
+`func_08008A68` (SKIP -> `pindah: 1`); sisanya blok yang sudah lama ada di
+`src/` dan hanya tidak lagi akan tertahan bila dimigrasi ulang.
