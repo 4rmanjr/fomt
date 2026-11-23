@@ -4278,3 +4278,70 @@ void func_08094388(GenObj *arg0) {
     }
     ((void (*)(u8 *)) fn)((u8 *) a2 + a2->unk4->unk20);
 }
+
+// DECOMP-MATCHED func_0809AAD4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_0809AAD4(u8 *arg0) {
+    s32 count;
+    s32 n;
+    u8 *p;
+    u8 lim;
+
+    count = 0;
+    lim = arg0[0xA06];
+    if (count < (s32) lim) {
+        n = lim;
+        p = arg0;
+        do {
+            if ((*(u16 *) p <= 0xAB) && ((*(u8 *) (p + 0x13) << 0x1B) < 0)) {
+                count += 1;
+            }
+            p += 0x14;
+            n -= 1;
+        } while (n != 0);
+    }
+    return count;
+}
+
+// DECOMP-MATCHED func_0809AB8C (dari code_0803EE94.s; cek manusia sebelum ke src/)
+typedef struct Obj0809AB8C {
+    s32 unk0;
+    u8 bit0 : 1;
+    u8 bit1 : 1;
+    u8 rest : 6;
+} Obj0809AB8C;
+
+s32 func_0809AE6C(void *);                             /* extern */
+
+void *func_0809AB8C(Obj0809AB8C *arg0) {
+    arg0->unk0 = 0x1F4;
+    arg0->bit0 = 0;
+    arg0->bit1 = 0;
+    *(s32 *) ((u8 *) arg0 + 8) = 0;
+    *(s32 *) ((u8 *) arg0 + 0xFC) = 0;
+    *(s32 *) ((u8 *) arg0 + 0x120) = 0;
+    *(s32 *) ((u8 *) arg0 + 0x124) = 0;
+    *(s32 *) ((u8 *) arg0 + 0x128) = 0;
+    *(s32 *) ((u8 *) arg0 + 0x12C) = 0;
+    func_0809AE6C(arg0);
+    return arg0;
+}
+
+
+// DECOMP-MATCHED func_0807D1DC (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 __4ToolUi(s32 *, s32);                             /* extern */
+s32 *GetDesc__C4Tool(s32 *);                           /* extern */
+s32 func_080CABEC(s32, s32);                         /* extern */
+extern s32 gUnk_080FDDD8;
+
+void func_0807D1DC(void *arg0, s32 arg1) {
+    s32 sp0;
+    s32 idx;
+    s32 *e;
+    u8 *base;
+
+    base = (u8 *) &gUnk_080FDDD8;
+    idx = *(s32 *) (u8 *) ((arg1 << 2) + (s32) arg0 + 0x2A8);
+    e = (s32 *) (base + (idx << 3));
+    __4ToolUi(&sp0, *e);
+    func_080CABEC((s32) arg0, (s32) GetDesc__C4Tool(&sp0));
+}

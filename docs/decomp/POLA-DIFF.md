@@ -2542,3 +2542,33 @@ variabel (`obj = ...; f(obj); g(obj);`) kalau ref memuat ulang dari field —
 tulis deref-nya dua kali supaya gcc memuat ulang lewat basis yang sama
 (`(u8 *)arg0 + 0x1038`), dan pakai `s32` + cast `(u16)` di call-site untuk
 parameter yang di ref baru dipotong di ujung.
+
+### 77. Bitfield, guard terbalik, dan urutan operand alamat
+
+1. **Dua bit 1-bit = dua `movs; rsbs`.** `func_0809AB8C` butuh
+   `arg0->bit0 = 0; arg0->bit1 = 0;` pada dua bitfield 1-bit terpisah; itu
+   memaksa `movs r0,#2; rsbs` (`& ~1`) dan `movs r1,#3; rsbs` (`& ~2`).
+   Bentuk `x &= -2; x &= -3;` atau `(x & -2) & -3` justru dilipat jadi satu
+   mask (`0xFE`/`0xFC`/`-4`) dan tidak cocok.
+2. **Guard loop ditulis pakai variabel hasil, bukan konstanta.** Di
+   `func_0809AAD4` ref membandingkan `cmp r3, r0` (r3 = count yang masih 0)
+   sehingga sumbernya `if (count < (s32) lim)`. Menulis `if (lim > 0)`
+   menghasilkan `cmp r0,#0` dan meleset. Counter `n` harus `s32` (hasil
+   `ldrb`), bukan `u8`, supaya `n -= 1` jadi `subs r2,#1` tanpa pemotongan.
+3. **Pointer yang diturunkan di tempat memakai `q -= 2`, bukan `*(q - 2)`.**
+   `func_0806E1E8`/`080A6474`: ref melakukan `ldrb r1,[r0]; subs r0,#2;
+   strb r1,[r0]`. Bentuk `*(q - 2) = *q` membuat gcc menghitung alamat kedua
+   dari basis (`adds r1,r1,#0x38`) dan kehilangan `subs`.
+4. **Urutan operand `adds` mengikuti urutan tulis di sumber.**
+   `func_0807D1DC`: ref `adds r1,r1,r4` (= `(arg1 << 2) + arg0`), jadi
+   indeksnya ditulis `(arg1 << 2) + (s32) arg0`, bukan `arg0 + (arg1 << 2)`
+   (yang menghasilkan `adds r1,r4,r1`).
+5. **Alamat basis global dimuat lebih dulu.** Ref memuat `gUnk_...` ke
+   register sebelum hitungan indeks; menyimpan `base = (u8 *)&gUnk_...;`
+   sebagai pernyataan pertama mereproduksi urutan itu.
+6. **Prototipe callee saat migrasi = prototipe di `src/`, termasuk yang
+   "aneh".** `func_080A4A94` dideklarasikan `(void)` di
+   `src/code_809E804.cc` dan `func_080CABEC` `(i32, i32)` di
+   `src/code_0803EE94.cc`; draf yang memakai `(void *)`/`(s32, s32 *)`
+   ditolak gate SKIP walau byte-nya identik. Cast di call-site
+   (`func_080A4A94();`, `(s32) GetDesc__C4Tool(&sp0)`) tidak mengubah kode.

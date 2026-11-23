@@ -1,36 +1,22 @@
-s32 func_0809AE6C(void *);                            /* extern */
-
-typedef struct GenObj {
+typedef struct Obj0809AB8C {
     s32 unk0;
-    u8 unk4;
-    u8 _pad5[3];
-    s32 unk8;
-} GenObj;
-void *func_0809AB8C(GenObj *arg0) {
-    s32 neg2 = 2;
-    s32 neg3 = 3;
-    s32 off;
+    u8 bit0 : 1;
+    u8 bit1 : 1;
+    u8 rest : 6;
+} Obj0809AB8C;
 
-    arg0->unk0 = 0xFA << 1;
-    neg2 = 0 - neg2;
-    neg2 &= arg0->unk4;
-    neg3 = 0 - neg3;
-    neg3 &= neg2;
-    arg0->unk4 = neg3;
-    arg0->unk8 = 0;
-    *((s32 *)((u8 *)arg0 + 0xFC)) = 0;
-    off = 0x90 << 1;
-    *((s32 *)((u8 *)arg0 + off)) = 0;
-    off += 4;
-    *((s32 *)((u8 *)arg0 + off)) = 0;
-    off += 4;
-    *((s32 *)((u8 *)arg0 + off)) = 0;
-    off += 4;
-    *((s32 *)((u8 *)arg0 + off)) = 0;
+s32 func_0809AE6C(void *);                             /* extern */
+
+void *func_0809AB8C(Obj0809AB8C *arg0) {
+    arg0->unk0 = 0x1F4;
+    arg0->bit0 = 0;
+    arg0->bit1 = 0;
+    *(s32 *) ((u8 *) arg0 + 8) = 0;
+    *(s32 *) ((u8 *) arg0 + 0xFC) = 0;
+    *(s32 *) ((u8 *) arg0 + 0x120) = 0;
+    *(s32 *) ((u8 *) arg0 + 0x124) = 0;
+    *(s32 *) ((u8 *) arg0 + 0x128) = 0;
+    *(s32 *) ((u8 *) arg0 + 0x12C) = 0;
     func_0809AE6C(arg0);
     return arg0;
 }
-
-/* ATTEMPT-NOTE opencode: konstanta via shift; bit-clear via neg-var+rsbs; offset rantai via off-var. */
-
-/* ATTEMPT-NOTE opencode: urutan+struktur pas (push r4, off akhir, neg via var); sisa dst-and (ands r0,r1 vs ands r1,r0 dst; 2x). t-var di-load duluan merusak alokasi. */

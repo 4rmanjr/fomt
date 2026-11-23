@@ -1112,7 +1112,7 @@
  },
  "func_08051D30": {
   "addr": 134552880,
-  "judged_mtime": 1793582714.1164043,
+  "judged_mtime": 1795350505.0,
   "module": "code_0803EE94.s",
   "note": "len 74 vs ref 62 [5missing,12extra,12operand,6regalloc,3different @i push {r4, r5, r6, r7, lr} | push {r4, r5, lr}]",
   "ref_len": 64,
@@ -2270,9 +2270,9 @@
  },
  "func_0806D948": {
   "addr": 134666568,
-  "judged_mtime": 1793925737.3768322,
+  "judged_mtime": 1795432711.5268154,
   "module": "code_0803EE94.s",
-  "note": "fy/func.c: In function `func_0806D948':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0806D948/buffy/func.c:19: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0806D948/buffy/func.c:19: request for member `unk8' in something not a structure or union\n",
+  "note": "len 38 vs ref 72 [16missing,4regalloc @r ldr r2, [sp] | ldr r1, [sp]]",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 569,
@@ -2347,9 +2347,9 @@
  },
  "func_0806E1E8": {
   "addr": 134668776,
-  "judged_mtime": 1793582714.130402,
+  "judged_mtime": 1795433173.3650591,
   "module": "code_0803EE94.s",
-  "note": "omething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0806E1E8/opencode/func.c:25: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0806E1E8/opencode/func.c:25: request for member `unk8' in something not a structure or union\n",
+  "note": "len 76 vs ref 74 [1extra,4operand,7regalloc @r ands r0, r1 | ands r1, r0]",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 621,
@@ -2986,7 +2986,7 @@
  },
  "func_08076B94": {
   "addr": 134704020,
-  "judged_mtime": 1793582714.1344016,
+  "judged_mtime": 1795432747.4816294,
   "module": "code_0803EE94.s",
   "note": "byte +0x2: 0x6 vs ref 0xc [2missing,3extra,5operand,4regalloc @< adds r4, r1, #0 | ]",
   "ref_len": 76,
@@ -3377,9 +3377,9 @@
  },
  "func_0807AFF4": {
   "addr": 134721524,
-  "judged_mtime": 1793582714.1394007,
+  "judged_mtime": 1795432627.4494534,
   "module": "code_0803EE94.s",
-  "note": "07AFF4/opencode/func.c: In function `func_0807AFF4':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0807AFF4/opencode/func.c:16: structure has no member named `unk4'\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_0807AFF4/opencode/func.c:20: warning: comparison between pointer and integer\n",
+  "note": "len 74 vs ref 68 [4extra,3operand @>  | ldr r3, [pc, #0x38]]",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 560,
@@ -3490,9 +3490,9 @@
  },
  "func_0807D194": {
   "addr": 134730132,
-  "judged_mtime": 1793582714.1414003,
+  "judged_mtime": 1795433219.6835413,
   "module": "code_0803EE94.s",
-  "note": "byte +0x13: 0x60 vs ref 0x70 [1extra,2different @| strb r1, [r0] | str r1, [r0]]",
+  "note": "byte +0xd: 0x48 vs ref 0x49 [1missing,2extra,2operand,8regalloc @r ldr r1, [pc, #0x20] | ldr r0, [pc, #0x20]]",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 630,
@@ -3501,14 +3501,15 @@
  },
  "func_0807D1DC": {
   "addr": 134730204,
-  "judged_mtime": 1793925743.995182,
+  "judged_mtime": 1795433234.0492191,
   "module": "code_0803EE94.s",
-  "note": "byte +0xa: 0x60 vs ref 0x9 [3extra,1operand,6regalloc @r adds r1, r1, r4 | adds r0, r4, r1]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 60,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 483,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0807D218": {
@@ -3984,7 +3985,7 @@
  },
  "func_08081108": {
   "addr": 134746376,
-  "judged_mtime": 1793582714.1444,
+  "judged_mtime": 1795432672.6679373,
   "module": "code_0803EE94.s",
   "note": "byte +0x6: 0xa vs ref 0x8 [3missing,5extra,4operand,1regalloc,1stack @< adds r0, r1, #0 | ]",
   "ref_len": 68,
@@ -6650,13 +6651,14 @@
  },
  "func_0809AAD4": {
   "addr": 134851284,
-  "judged_mtime": 1795350505.0,
+  "judged_mtime": 1795432672.6679373,
   "module": "code_0803EE94.s",
-  "note": "len 62 vs ref 50 [7extra,8operand,2regalloc,3different @i push {lr} | push {r4, lr}]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 52,
   "sanitize_v": 4,
   "size": 512,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809AB08": {
@@ -6672,13 +6674,14 @@
  },
  "func_0809AB8C": {
   "addr": 134851468,
-  "judged_mtime": 1793582714.167396,
+  "judged_mtime": 1795433027.1145427,
   "module": "code_0803EE94.s",
-  "note": "byte +0xa: 0x2 vs ref 0x21 [3missing,3extra,2operand,16regalloc @>  | movs r1, #2]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 617,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809ABD8": {
