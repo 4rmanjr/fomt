@@ -912,6 +912,19 @@ parameter di r0/r1/r2. Dari ~15 bentuk C yang dicoba di kedua front end (`agbcc`
 tidak ada yang memenuhi ketiganya. `func_0805E760` tetap `failed`; jangan ulangi tanpa ide baru
 (varian flag/compiler yang belum dicoba), dan jangan "menambal" dengan inline asm.
 
+**Percobaan ulang 2026-11-23 (batas keras, tanpa bentuk baru).** Ref `func_0805E760` didisasm
+ulang byte-per-byte: `push {r4, lr}; adds r4, r0` → r0 adalah `Out *arg0` (parameter C, bukan hidden
+sret), `adds r3, r1` → args, `cmp r2, r0` → indeks; ekor `adds r0, r4; pop {r4}; pop {r2}; bx r2`.
+Yang diuji ulang: (a) `-freg-struct-return` + tipe balik `Out` + `return *(Out *)arg0;` → tetap
+salin struct (load 2 word + `str`, +4B) dan epilog `pop {r2}`; (b) `agbcp` (C++) dan `agbcc` baru
+untuk `return (long long)(u32)arg0;` → `adds r0, r4; mov r1, #0` (50B) lawan `asr r1, r4, #31` di
+`old_agbcc` — keduanya +2B; (c) sret 2 parameter (`Out f(Args *, u32)`) tetap tak bisa menulis
+`strh` lewat pointer ke slot balik; compound literal menulis langsung ke sret tetapi butuh
+`push {r4, r5, r6, lr}`, mask padding, dan `str` word (bukan `strh`). Kesimpulan: kombinasi
+`adds r0, r4` + `pop {r2}` + parameter r0/r1/r2 + tulis `strh` lewat pointer **tidak punya bentuk C**
+di toolchain ini; `pop {r2}` semata penanda nilai balik 64-bit, dan setiap bentuk 64-bit menambah
+satu instruksi ekstensi. Jangan diulang tanpa toolchain/front end baru.
+
 **Sisir penuh keluarga `pop {r2}` (2026-11-23).** `grep "pop {r2}" asm/*.s` **tidak** cukup: banyak
 fungsi kecil di `asm/` masih berupa blob `.byte`/komentar disassembly, jadi epilognya tak terlihat
 sebagai teks. Cara yang benar: pola byte `04 BC 10 47` (`pop {r2}; bx r2`) discan langsung ke
