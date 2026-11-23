@@ -1603,6 +1603,17 @@ def _void_ptr_arith_fix(body):
     return body
 
 
+def _norm_void_params(params):
+    """Daftar parameter `void` tunggal berarti "tanpa parameter" (C).
+
+    Tanpa normalisasi ini deklarasi `void f(void)` dibaca sebagai satu
+    parameter bernama `void`, sehingga call `f()` (0 argumen) dilaporkan
+    arity-mismatch (TERBUKTI func_08008A68, 2026-11-23)."""
+    if len(params) == 1 and params[0].strip() in ("void", ""):
+        return []
+    return params
+
+
 def _callsite_ptr_mismatch(body, src_nostruct):
     """Cek pre-compile call-site vs deklarasi extern (aturan konversi C++).
 
@@ -1616,7 +1627,8 @@ def _callsite_ptr_mismatch(body, src_nostruct):
         for m in EXTERN_RE.finditer(text):
             if "(*" in m.group(0):
                 continue
-            params = [_param_type(p) for p in _split_top_commas(m.group(4))]
+            params = _norm_void_params(
+                [_param_type(p) for p in _split_top_commas(m.group(4))])
             decls.setdefault(m.group(3), []).append(params)
     # Definisi berargumen (FUNC_DEF_RE) ikut mengikat arity: deklarasi
     # K&R `s32 f()` + definisi `s32 f(s32)` = call `f()` arity-mismatch
@@ -1626,7 +1638,8 @@ def _callsite_ptr_mismatch(body, src_nostruct):
         for m in FUNC_DEF_RE.finditer(text):
             if "(*" in m.group(0):
                 continue
-            params = [_param_type(p) for p in _split_top_commas(m.group(4))]
+            params = _norm_void_params(
+                [_param_type(p) for p in _split_top_commas(m.group(4))])
             if m.group(3) not in decls or params not in decls[m.group(3)]:
                 decls.setdefault(m.group(3), []).append(params)
     if not any("**" in (t or "") for pl in decls.values()

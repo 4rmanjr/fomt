@@ -1183,11 +1183,12 @@ void func_08009674(s32 arg0, s32 arg1) {
 }
 
 // DECOMP-MATCHED func_08008A68 (dari hardware.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(s32 *);                            /* extern */
-s32 func_08008D90();                                  /* extern */
-s32 func_0800959C(void *, s32);                       /* extern */
-s32 func_080098AC(s32 *, s32);                          /* extern */
-s32 func_080D7944(void *, s32);                       /* extern */
+void __builtin_delete(void *);                          /* extern */
+void func_08008D90(void);                             /* extern */
+void func_0800959C(void *, s32);                      /* extern */
+struct GenObj__func_080098AC;
+void func_080098AC(struct GenObj__func_080098AC *, s32);  /* extern */
+void func_080D7944(void *, s32);                      /* extern */
 extern s32 vtable_unk_080E5B0C;
 extern s32 vtable_unk_080E5B18;
 
@@ -1203,23 +1204,23 @@ void func_08008A68(s32 *arg0, s32 arg1) {
     GenObj *temp_r5;
     GenObj *temp_r4;
 
-    temp_r5 = *arg0;
+    temp_r5 = (GenObj *) *arg0;
     if (temp_r5 != 0) {
         if (temp_r5->unk68 != 0) {
             func_08008D90();
         }
         temp_r4 = (GenObj *)((u8 *)temp_r5 + 0x34);
-        temp_r4->unk30 = &vtable_unk_080E5B0C;
-        temp_r4->unk8 = &vtable_unk_080E5B18;
+        temp_r4->unk30 = (GenObj *) &vtable_unk_080E5B0C;
+        temp_r4->unk8 = (GenObj *) &vtable_unk_080E5B18;
         func_080D7944((GenObj *)((u8 *)temp_r5 + 0x50), 0);
         func_0800959C(temp_r4, 2);
-        func_080098AC((GenObj *)((u8 *)temp_r5 + 0x28), 2);
+        func_080098AC((struct GenObj__func_080098AC *) (GenObj *)((u8 *)temp_r5 + 0x28), 2);
         func_0800959C((GenObj *)((u8 *)temp_r5 + 0xC), 2);
-        func_080098AC(temp_r5, 2);
-        __builtin_delete(temp_r5);
+        func_080098AC((struct GenObj__func_080098AC *) temp_r5, 2);
+        __builtin_delete((void *) temp_r5);
     }
     if (1 & arg1) {
-        __builtin_delete(arg0);
+        __builtin_delete((void *) arg0);
     }
 }
 

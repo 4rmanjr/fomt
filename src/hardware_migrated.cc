@@ -306,6 +306,53 @@ struct MusicPlayerEnt {
 };
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08008A68 {
+    u8 _pad0[8];
+    struct GenObj__func_08008A68 *unk8;
+    u8 _padC[36];
+    struct GenObj__func_08008A68 *unk30;
+    u8 _pad34[52];
+    u8 unk68;
+} GenObj__func_08008A68;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08008A68 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+void __builtin_delete(void *);                          /* extern */
+void func_08008D90(void);                             /* extern */
+void func_0800959C(void *arg0, i32 arg1);                             /* extern */
+struct GenObj__func_080098AC;
+void func_080098AC(GenObj__func_080098AC *arg0, i32 arg1);                             /* extern */
+void func_080D7944(void *, i32);                      /* extern */
+extern i32 vtable_unk_080E5B0C;
+extern i32 vtable_unk_080E5B18;
+
+void func_08008A68(i32 *arg0, i32 arg1) {
+    GenObj__func_08008A68 *temp_r5;
+    GenObj__func_08008A68 *temp_r4;
+
+    temp_r5 = (GenObj__func_08008A68 *) *arg0;
+    if (temp_r5 != 0) {
+        if (temp_r5->unk68 != 0) {
+            func_08008D90();
+        }
+        temp_r4 = (GenObj__func_08008A68 *)((u8 *)temp_r5 + 0x34);
+        temp_r4->unk30 = (GenObj__func_08008A68 *) &vtable_unk_080E5B0C;
+        temp_r4->unk8 = (GenObj__func_08008A68 *) &vtable_unk_080E5B18;
+        func_080D7944((GenObj__func_08008A68 *)((u8 *)temp_r5 + 0x50), 0);
+        func_0800959C(temp_r4, 2);
+        func_080098AC((struct GenObj__func_080098AC *) (GenObj__func_08008A68 *)((u8 *)temp_r5 + 0x28), 2);
+        func_0800959C((GenObj__func_08008A68 *)((u8 *)temp_r5 + 0xC), 2);
+        func_080098AC((struct GenObj__func_080098AC *) temp_r5, 2);
+        __builtin_delete((void *) temp_r5);
+    }
+    if (1 & arg1) {
+        __builtin_delete((void *) arg0);
+    }
+}
+}
+
 // DECOMP-MATCHED func_08008AE0 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08008AE0(i32 *arg0) {
