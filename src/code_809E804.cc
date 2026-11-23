@@ -2406,6 +2406,31 @@ u32 func_080AB788(i32 arg0) {
 }
 }
 
+// DECOMP-MATCHED func_080AB82C (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+u32 func_080AB788(i32 arg0);                             /* extern */
+__attribute__((section(".text.code_809E804.080AB82C")))
+u32 func_080AB82C(u8 *arg0, u32 arg1) {
+    register u32 i __asm__("r1");
+    register u32 acc __asm__("r2");
+    u32 temp_r3;
+
+    temp_r3 = func_080AB788(0x64);
+    i = 0;
+    acc = *arg0;
+loop_1:
+    if (temp_r3 >= acc) {
+        i += 1;
+        if (i < arg1) {
+            acc += *((i * 4) + arg0);
+            goto loop_1;
+        }
+        i = 0;
+    }
+    return i;
+}
+}
+
 // DECOMP-MATCHED func_080ABBA0 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080AC388(void *, void *, void *, i32, i32, i32); /* extern */
@@ -3062,6 +3087,20 @@ i32 func_080B9464(i32 arg0, i32 arg1, i32 arg2) {
         r = 0;
     }
     return r;
+}
+}
+
+// DECOMP-MATCHED func_080B97FC (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080B97FC")))
+void func_080B97FC(u8 *arg0, i32 arg1) {
+    if ((arg1 << 0x18) != 0) {
+        *(i32 *) (arg0 + 0x80) = 4;
+        *(i32 *) (arg0 + 0xC0) = 2;
+    } else {
+        *(i32 *) (arg0 + 0x80) = 2;
+        *(i32 *) (arg0 + 0xC0) = 4;
+    }
 }
 }
 

@@ -1,9 +1,9 @@
 u32 func_080AB788(s32);                             /* extern */
 
 u32 func_080AB82C(u8 *arg0, u32 arg1) {
+    register u32 i __asm__("r1");
+    register u32 acc __asm__("r2");
     u32 temp_r3;
-    u32 i;
-    u32 acc;
 
     temp_r3 = func_080AB788(0x64);
     i = 0;

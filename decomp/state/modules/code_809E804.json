@@ -662,9 +662,9 @@
  "func_080A0A1C": {
   "addr": 134875676,
   "draft_src": "manual",
-  "judged_mtime": 1794384379.1317558,
+  "judged_mtime": 1795350505.0,
   "module": "code_809E804.s",
-  "note": "len 50 vs ref 54 (4 percobaan). Bitfield `(b<<0x1A)>>0x1A` dan `(b & ~0x3F) | (*p & 0x3F)` benar; ref memakai pointer ke slot stack (v ke [sp], 0x3F ke [sp+4]) memilih min(v,0x3F). Draf menyimpan 0x3F di r5 sehingga push {r4,r5,lr} vs ref {r4,lr}; 3 varian belum menggeser.",
+  "note": "len 50 vs ref 54 [3missing,1extra,3operand,11regalloc,2different @i push {r4, lr} | push {r4, r5, lr}]",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 482,
@@ -1988,13 +1988,14 @@
  "func_080AB82C": {
   "addr": 134920236,
   "draft_src": "manual",
-  "judged_mtime": 1794378096.4187546,
+  "judged_mtime": 1795429041.1341217,
   "module": "code_809E804.s",
-  "note": "byte +0xf: 0x22 vs ref 0x21 [9regalloc @r movs r1, #0 | movs r2, #0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 439,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080AB85C": {
@@ -2694,9 +2695,9 @@
  "func_080ADF40": {
   "addr": 134930240,
   "draft_src": "manual",
-  "judged_mtime": 0,
+  "judged_mtime": 1795429259.5855114,
   "module": "code_809E804.s",
-  "note": "parkir 4/5: ref menyalin load/konstanta ke r0 sebelum add/asr (adds r5,r0; adds r0,r4; asr); pin r5/r1/r4/r3 tidak menutup. Draf diregenerasi m2c.",
+  "note": "len 36 vs ref 44 [4missing,4operand,10regalloc @i push {r4, r5, lr} | push {r4, lr}]",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 420,
@@ -3386,13 +3387,14 @@
  },
  "func_080B97FC": {
   "addr": 134977532,
-  "judged_mtime": 1793582714.2043903,
+  "judged_mtime": 1795429344.0467398,
   "module": "code_809E804.s",
-  "note": "len 50 vs ref 42 [4extra,4operand,3regalloc @i beq #0x18 | beq #0x1c]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 397,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080B9828": {
@@ -5385,7 +5387,7 @@
  },
  "func_080CFB28": {
   "addr": 135068456,
-  "judged_mtime": 1793582714.2223873,
+  "judged_mtime": 1795350505.0,
   "module": "code_809E804.s",
   "note": "len 54 vs ref 48 [4extra,1operand,1different @| adds r4, r6, #0 | ldr r0, [pc, #0x20]]",
   "ref_len": 52,
@@ -6085,7 +6087,7 @@
  },
  "sub_080D0FDC": {
   "addr": 135073756,
-  "judged_mtime": 1793582714.26738,
+  "judged_mtime": 1795350505.0,
   "module": "code_809E804.s",
   "note": "len 76 vs ref 46 [9extra,3operand,11regalloc,9different @| mov r3, ip | push {r4, r5, r6, lr}]",
   "ref_len": 48,
@@ -6108,7 +6110,7 @@
  },
  "sub_080D11B8": {
   "addr": 135074232,
-  "judged_mtime": 1793582714.26738,
+  "judged_mtime": 1795350505.0,
   "module": "code_809E804.s",
   "note": "byte +0x0: 0x10 vs ref 0x4 [2different @| ldm r0!, {r2} | adds r0, #0x10]",
   "ref_len": 44,

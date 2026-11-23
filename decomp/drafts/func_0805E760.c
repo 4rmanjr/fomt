@@ -16,7 +16,7 @@ typedef struct Out {
     u16 unk4;
 } Out;
 
-s32 func_0805E760(Out *arg0, Args *arg1, u32 arg2) {
+Out *func_0805E760(Out *arg0, Args *arg1, u32 arg2) {
     Item *it;
     u16 u0;
     s32 v;
@@ -32,5 +32,5 @@ s32 func_0805E760(Out *arg0, Args *arg1, u32 arg2) {
         arg0->unk0 = 0;
         arg0->unk4 = 0;
     }
-    return (s32) arg0;
+    return arg0;
 }

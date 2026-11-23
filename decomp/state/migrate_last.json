@@ -1,4 +1,44 @@
 {
+  "code_809E804.s:func_0809EED0": {
+    "detail": "func_0809EED0 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-23T10:18:52"
+  },
+  "code_809E804.s:func_080AB82C": {
+    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75526: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
+    "status": "OK",
+    "when": "2026-11-23T10:21:50"
+  },
+  "code_809E804.s:func_080B97FC": {
+    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75498: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
+    "status": "OK",
+    "when": "2026-11-23T10:22:42"
+  },
+  "code_809E804.s:func_080D116A": {
+    "detail": "func_080D116A grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-23T10:18:45"
+  },
+  "code_809E804.s:func_080D116E": {
+    "detail": "func_080D116E grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-23T10:18:49"
+  },
+  "code_809E804.s:func_080D117E": {
+    "detail": "func_080D117E grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-23T10:18:47"
+  },
+  "code_809E804.s:func_080D1186": {
+    "detail": "func_080D1186 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-23T10:18:51"
+  },
+  "code_809E804.s:sub_080D1204": {
+    "detail": "sub_080D1204 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-23T10:18:54"
+  },
   "code_lib_syscall.s:ArcTan2": {
     "detail": "`CpuSet' referenced in section `.text' of src/m4a.o: defined in discarded section `.text.code_lib_syscall.080D3750' of asm/code_lib_syscall.o `CpuSet' referenced in section `.text' of src/m4a.o: defin",
     "status": "GAGAL",
@@ -23,6 +63,11 @@
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75556: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
     "status": "OK",
     "when": "2026-11-23T10:09:44"
+  },
+  "game_state.s:func_0801268C": {
+    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75498: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
+    "status": "OK",
+    "when": "2026-11-23T10:23:00"
   },
   "hardware.s:func_080087C8": {
     "detail": "tidak ada kandidat: status di shard bukan promoted (butuh MATCH dulu)",

@@ -2433,3 +2433,24 @@ Batasnya: `SoftReset` (svc #1 lalu #0) tidak bisa ditutup begini. Ref-nya
 **tidak** punya `bx lr` karena `svc #0` tidak kembali, sedangkan gcc selalu
 menutup badan fungsi dengan `bx lr` -> 26B vs 24B. Bentuk `noreturn` yang
 membuang `bx lr` belum ditemukan di agbcc, jadi tetap wall (bukan skip buta).
+
+### 72. Dua tuas yang menutup diff "hanya-register"
+
+Bukan semua diff register itu wall. Dua tuas ini berhasil:
+
+1. **Pin register eksplisit.** `register u32 i __asm__("r1");` menggeser
+   alokasi tanpa mengubah instruksi. Pembukti: `func_080AB82C` (sebelumnya
+   r1/r2 tertukar pada `i` vs `acc`) jadi byte-identik setelah `i` di-pin ke
+   `r1` dan `acc` ke `r2`. Pin pada pointer basis juga bisa, tapi hati-hati:
+   nilai yang di-pin sering kehilangan salinan `add rX, rY, #0` yang ada di
+   ref (`func_08012720` jadi lebih jauh saat basisnya di-pin).
+2. **Pindahkan pelebaran tipe ke dalam cabang lewat cast.** Parameter `u16`
+   membuat gcc menaruh `lsls/lsrs #0x10` di prolog; ref menaruhnya di dalam
+   `if`. Solusinya deklarasikan parameter sebagai `s32` lalu cast di call-site:
+   `f(x, arg1, (u16) arg2, ...)`. Pembukti: `func_0801268C` (sebelumnya beda
+   urutan dua instruksi itu) jadi identik.
+
+Sisa yang tetap wall walau cuma beda 1-2 instruksi: `func_08012720`/
+`func_08012760` (konstanta `0x2210` selalu dimuat ke `r1`, ref `r2`),
+`func_0805E760` (`pop {r1}; bx r1` vs ref `pop {r2}; bx r2`), `func_08024CA0`
+(gcc mengkanonikkan `c < 0x24` jadi `cmp #0x23; ble`, ref `cmp #0x24; blt`).

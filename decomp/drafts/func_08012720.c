@@ -5,17 +5,18 @@ typedef struct GenObj {
     u8 *unk4;
 } GenObj;
 
-void func_08012720(GenObj *arg0) {
-    register s32 x __asm__("r3");
-    u8 *p;
+void func_08012720(GenObj *arg0, s32 arg1) {
+    u8 *base;
+    s32 *p;
+    s32 x;
 
-    p = arg0->unk4 + 0xAC;
-    x = *(s32 *) p;
+    base = arg0->unk4;
+    p = (s32 *) (base + 0xAC);
+    x = p[0];
     if (x != 0) {
-        s32 base = *(s32 *) (p - 0x20);
-        s32 b = *(u8 *) (base + 0x2210);
+        s32 y = *(s32 *) ((u8 *) p - 0x20);
 
-        if ((b << 0x1C) < 0) {
+        if ((*(u8 *) (y + 0x2210) << 0x1C) < 0) {
             func_08050E68(x);
         }
     }

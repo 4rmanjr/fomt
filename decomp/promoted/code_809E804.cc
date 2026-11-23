@@ -3456,3 +3456,37 @@ void func_080CECD0(void *arg0) {
     p += 0x80;
     *(s32 *) p = zz;
 }
+
+// DECOMP-MATCHED func_080AB82C (dari code_809E804.s; cek manusia sebelum ke src/)
+u32 func_080AB788(s32);                             /* extern */
+
+u32 func_080AB82C(u8 *arg0, u32 arg1) {
+    register u32 i __asm__("r1");
+    register u32 acc __asm__("r2");
+    u32 temp_r3;
+
+    temp_r3 = func_080AB788(0x64);
+    i = 0;
+    acc = *arg0;
+loop_1:
+    if (temp_r3 >= acc) {
+        i += 1;
+        if (i < arg1) {
+            acc += *((i * 4) + arg0);
+            goto loop_1;
+        }
+        i = 0;
+    }
+    return i;
+}
+
+// DECOMP-MATCHED func_080B97FC (dari code_809E804.s; cek manusia sebelum ke src/)
+void func_080B97FC(u8 *arg0, s32 arg1) {
+    if ((arg1 << 0x18) != 0) {
+        *(s32 *) (arg0 + 0x80) = 4;
+        *(s32 *) (arg0 + 0xC0) = 2;
+    } else {
+        *(s32 *) (arg0 + 0x80) = 2;
+        *(s32 *) (arg0 + 0xC0) = 4;
+    }
+}
