@@ -255,11 +255,19 @@ def _stamp_write(sig):
 def problems(out=OUT, quick=False):
     """-> (bad: list[(alamat, sebab)], catatan|None, total).
 
-    Hash bin + hash PNG di repo selalu diperiksa (murah, dan inilah yang
-    menangkap PNG rusak). Render ulang setiap PNG hanya dijalankan bila
-    `quick=False` atau bila sidik jari input (manifest + bin `extern/`)
-    berbeda dari render terakhir yang lolos, karena render penuh untuk semua
-    stream butuh puluhan detik.
+    Selalu diperiksa: berkas bin ada dan sha256-nya cocok dengan manifest,
+    berkas PNG ada dan png_sha256-nya cocok dengan manifest (ini menangkap
+    PNG rusak/diedit).
+
+    Render ulang setiap PNG hanya dijalankan bila `quick=False` atau bila
+    sidik jari input (manifest + bin `extern/`) berbeda dari render terakhir
+    yang lolos (`build/embedded_check.stamp.json`), karena render penuh untuk
+    semua stream butuh puluhan detik.
+
+    Hasil render ulang dibandingkan **piksel**-nya dengan berkas PNG di repo
+    (bukan hash byte-nya), sehingga beda versi zlib container yang tidak
+    mengubah piksel tidak dilaporkan sebagai masalah; perbandingan byte akan
+    gagal di lingkungan dengan encoder zlib berbeda.
     """
     path = out / "embedded_manifest.json"
     if not path.exists():
@@ -267,13 +275,17 @@ def problems(out=OUT, quick=False):
     manifest = json.loads(path.read_text())
     total = sum(len(b["streams"]) for b in manifest.get("banks", []))
     sig = _signature(out, manifest) if quick else None
-    skip = bool(quick and _stamp_matches(sig))
-    note = ("render ulang PNG tertanam dilewati: input sama dengan render "
-            "terakhir yang lolos (`build/embedded_check.stamp.json`); hash "
-            "berkas tetap diperiksa") if skip else None
+    do_render = not quick or not _stamp_matches(sig)
+    note = None
+    if do_render:
+        render_tmp = Path(tempfile.mkdtemp(prefix="fomt-embedded-"))
+    else:
+        note = ("render ulang PNG tertanam dilewati: input sama dengan render "
+                "terakhir yang lolos (`build/embedded_check.stamp.json`); hash "
+                "berkas tetap diperiksa")
     bad = []
-    with tempfile.TemporaryDirectory(prefix="fomt-embedded-") as tmp:
-        tmp = Path(tmp)
+    fresh = {}
+    if do_render:
         for bank in manifest.get("banks", []):
             for s in bank["streams"]:
                 bin_path = out / s["bin"]
@@ -289,32 +301,68 @@ def problems(out=OUT, quick=False):
                     continue
                 if not s.get("png"):
                     continue
+                fresh_png = render_tmp / f"{s['address']}.png"
+                try:
+                    if s["group"] == "palet":
+                        fx.render_palette(data, fresh_png)
+                    elif s["group"] == "tile":
+                        fx.render_tiles(data, fresh_png)
+                    else:
+                        fx.render_map(data, fresh_png, s["map_width"])
+                except (OSError, ValueError) as e:
+                    bad.append((s["address"], f"render ulang gagal: {e}"))
+                    continue
+                fresh[s["address"]] = fresh_png
+        # Bandingkan piksel sebelum temporary directory dihapus.
+        for bank in manifest.get("banks", []):
+            for s in bank["streams"]:
+                if not s.get("png"):
+                    continue
                 png_path = Path(s["png"])
                 if not png_path.is_absolute():
                     png_path = REPO / png_path
                 if not png_path.exists():
                     bad.append((s["address"], "PNG hilang"))
                     continue
-                if sha256(png_path.read_bytes()) != s.get("png_sha256"):
+                file_hash = sha256(png_path.read_bytes())
+                if file_hash != s.get("png_sha256"):
                     bad.append((s["address"], "sha256 PNG di repo beda"))
                     continue
-                if skip:
+                if s["address"] not in fresh:
                     continue
-                fresh = tmp / f"{s['address']}.png"
                 try:
-                    if s["group"] == "palet":
-                        fx.render_palette(data, fresh)
-                    elif s["group"] == "tile":
-                        fx.render_tiles(data, fresh)
-                    else:
-                        fx.render_map(data, fresh, s["map_width"])
-                except (OSError, ValueError) as e:
-                    bad.append((s["address"], f"render ulang gagal: {e}"))
+                    from PIL import Image
+                    a = Image.open(png_path).convert("RGB")
+                    b = Image.open(fresh[s["address"]]).convert("RGB")
+                except Exception as e:
+                    bad.append((s["address"], f"gagal baca PNG untuk perbandingan: {e}"))
                     continue
-                if sha256(fresh.read_bytes()) != s["png_sha256"]:
-                    bad.append((s["address"], "hash render ulang beda"))
-    if sig is not None and not bad:
-        _stamp_write(sig)
+                if a.size != b.size:
+                    bad.append((s["address"], "ukuran render ulang beda"))
+                elif list(a.getdata()) != list(b.getdata()):
+                    bad.append((s["address"], "piksel render ulang beda"))
+        if not bad:
+            _stamp_write(sig)
+        try:
+            import shutil
+            shutil.rmtree(render_tmp, ignore_errors=True)
+        except Exception:
+            pass
+    else:
+        for bank in manifest.get("banks", []):
+            for s in bank["streams"]:
+                if not s.get("png"):
+                    continue
+                png_path = Path(s["png"])
+                if not png_path.is_absolute():
+                    png_path = REPO / png_path
+                if not png_path.exists():
+                    bad.append((s["address"], "PNG hilang"))
+                    continue
+                file_hash = sha256(png_path.read_bytes())
+                if file_hash != s.get("png_sha256"):
+                    bad.append((s["address"], "sha256 PNG di repo beda"))
+                    continue
     return bad, note, total
 
 

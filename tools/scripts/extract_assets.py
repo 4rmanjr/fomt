@@ -941,7 +941,7 @@ def render_manifest_png(out, manifest, dest):
                     render_map(data, path, width)
             else:
                 continue
-            fresh[key] = {"png": str(path),
+            fresh[key] = {"path": path,
                           "png_sha256": hashlib.sha256(
                               path.read_bytes()).hexdigest()}
     return fresh
@@ -992,10 +992,19 @@ def png_stamp_write(sig):
 def png_problems(out, quick=False):
     """-> (masalah: list[str], catatan: str|None, jumlah entri).
 
-    Yang selalu diperiksa: berkas PNG ada dan sha256-nya sama dengan
-    `png_sha256` di manifest (ini yang menangkap PNG rusak/diedit). Render ulang
-    dari bin + extern hanya dijalankan bila `quick=False` atau bila ada bin yang
-    lebih baru dari PNG (`quick=True`), karena render penuh butuh puluhan detik.
+    Selalu diperiksa: berkas PNG ada dan sha256-nya cocok dengan
+    `png_sha256` di manifest (ini menangkap PNG rusak/diedit).
+
+    Render ulang dari bin + extern hanya dijalankan bila `quick=False`
+    atau bila sidik jari input (manifest + bin/ + extern/) berbeda dari
+    render terakhir yang lolos (`build/png_check.stamp.json`), karena
+    render penuh butuh puluhan detik.
+
+    Hasil render ulang dibandingkan **piksel**-nya dengan berkas PNG di
+    repo (bukan hash byte-nya), sehingga beda versi zlib container yang
+    tidak mengubah piksel tidak dilaporkan sebagai masalah; perbandingan
+    byte akan gagal di lingkungan dengan encoder zlib berbeda.
+
     Tidak membaca `baserom.gba`.
     """
     manifest_path = out / "manifest.json"
@@ -1013,36 +1022,57 @@ def png_problems(out, quick=False):
 
     note = None
     fresh = {}
-    sig = png_source_signature(out) if quick else None
-    if quick and png_stamp_matches(sig):
-        note = ("render ulang PNG dilewati: input render sama dengan render "
-                "terakhir yang lolos (`build/png_check.stamp.json`); hash "
-                "berkas tetap diperiksa")
-    else:
+    do_render = not quick or not png_stamp_matches(png_source_signature(out))
+    bad = []
+    if do_render:
         with tempfile.TemporaryDirectory(prefix="fomt-png-") as tmp:
             try:
                 fresh = render_manifest_png(out, manifest, Path(tmp))
             except (OSError, ValueError) as e:
                 return [f"render ulang gagal: {e}"], None, len(ref)
+            for key, old in ref.items():
+                path = Path(old["png"])
+                if not path.is_absolute():
+                    path = REPO / path
+                if not path.exists():
+                    bad.append((key, "file PNG tidak ada"))
+                    continue
+                file_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+                if file_hash != old["png_sha256"]:
+                    bad.append((key, "file PNG beda dari manifest"))
+                    continue
+                if key not in fresh:
+                    continue
+                fresh_path = fresh[key]["path"]
+                try:
+                    from PIL import Image
+                    a = Image.open(path).convert("RGB")
+                    b = Image.open(fresh_path).convert("RGB")
+                except Exception as e:
+                    bad.append((key, f"gagal baca PNG untuk perbandingan: {e}"))
+                    continue
+                if a.size != b.size:
+                    bad.append((key, "ukuran render ulang beda"))
+                elif list(a.getdata()) != list(b.getdata()):
+                    bad.append((key, "piksel render ulang beda"))
+    else:
+        note = ("render ulang PNG dilewati: input render sama dengan render "
+                "terakhir yang lolos (`build/png_check.stamp.json`); hash "
+                "berkas tetap diperiksa")
+        for key, old in ref.items():
+            path = Path(old["png"])
+            if not path.is_absolute():
+                path = REPO / path
+            if not path.exists():
+                bad.append((key, "file PNG tidak ada"))
+                continue
+            file_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+            if file_hash != old["png_sha256"]:
+                bad.append((key, "file PNG beda dari manifest"))
+                continue
 
-    bad = []
-    for key, old in ref.items():
-        if fresh or not note:
-            new = fresh.get(key)
-            if not new or not new.get("png_sha256"):
-                bad.append((key, "PNG hasil render ulang tidak ada"))
-            elif new["png_sha256"] != old["png_sha256"]:
-                bad.append((key, "hash render ulang beda"))
-        path = Path(old["png"])
-        if not path.is_absolute():
-            path = REPO / path
-        if not path.exists():
-            bad.append((key, "file PNG tidak ada"))
-        elif hashlib.sha256(path.read_bytes()).hexdigest() != old["png_sha256"]:
-            bad.append((key, "file PNG beda dari manifest"))
-
-    if sig is not None and not bad:
-        png_stamp_write(sig)
+    if do_render and not bad:
+        png_stamp_write(png_source_signature(out))
     return ([f"{k[0]}#{k[1]}: {why}" for k, why in bad], note, len(ref))
 
 
