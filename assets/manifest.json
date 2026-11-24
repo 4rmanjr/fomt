@@ -21,6 +21,46 @@
    }
   },
   {
+   "id": "gfx/fonts/gunk_084f90cc",
+   "symbol": "gUnk_084F90CC",
+   "kind": "glyph_font",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x4F90CC",
+    "size": 5844,
+    "sha256": "92bc2a39dd9caf5e0f02a8ce7518f223eabe6c491bc4e05b8d1d2104f731754c"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/glyph_084f90cc.json",
+    "png": "assets/gfx/fonts/glyph_084f90cc.png"
+   },
+   "encoder": {
+    "tool": "glyph_font.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/fonts/gunk_084fa9a0",
+   "symbol": "gUnk_084FA9A0",
+   "kind": "glyph_font",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x4FA9A0",
+    "size": 166128,
+    "sha256": "bb7ffb1ed47acb9a05d2789eae9f3236945a4892df746c5a4f9f1dde706c4d3e"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/glyph_084fa9a0.json",
+    "png": "assets/gfx/fonts/glyph_084fa9a0.png"
+   },
+   "encoder": {
+    "tool": "glyph_font.py",
+    "version": 1
+   }
+  },
+  {
    "id": "gfx/fonts/gunk_0852d984",
    "symbol": "gUnk_0852D984",
    "kind": "font_container",

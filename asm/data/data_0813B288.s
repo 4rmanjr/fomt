@@ -6,7 +6,9 @@
 
 	.global gUnk_084F90CC
 gUnk_084F90CC:
-	.incbin "baserom.gba", 0x4F90CC, 0x16D4
+	@ rom: 0x4F90CC 0x16D4 — source assets/gfx/fonts/glyph_084f90cc.{png,json}; glyph 8x12 1bpp, record 12 B
+	@ func_080D0D28 mengindeks record ini; decode/encode glyph_font.py: byte identik slice ROM.
+	.incbin "build/assets/gUnk_084F90CC.bin"
 
 	.global gUnk_084FA7A0
 gUnk_084FA7A0:
@@ -14,7 +16,9 @@ gUnk_084FA7A0:
 
 	.global gUnk_084FA9A0
 gUnk_084FA9A0:
-	.incbin "baserom.gba", 0x4FA9A0, 0x288F0
+	@ rom: 0x4FA9A0 0x288F0 — source assets/gfx/fonts/glyph_084fa9a0.{png,json}; glyph 8x12 2bpp, record 24 B
+	@ func_080D0D28 mengindeks record ini; decode/encode glyph_font.py: byte identik slice ROM.
+	.incbin "build/assets/gUnk_084FA9A0.bin"
 
 	.global gUnk_08523290
 gUnk_08523290:

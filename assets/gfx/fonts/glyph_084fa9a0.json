@@ -1,0 +1,27 @@
+{
+ "kind": "glyph_font",
+ "source": {
+  "png": "glyph_084fa9a0.png",
+  "bpp": 2,
+  "glyph_width": 8,
+  "glyph_height": 12,
+  "columns": 16,
+  "count": 6922
+ },
+ "encoder": {
+  "tool": "glyph_font.py",
+  "version": 1,
+  "pixel_order": "msb-left",
+  "planes": "plane0,plane1"
+ },
+ "id": "gfx/fonts/gunk_084fa9a0",
+ "symbol": "gUnk_084FA9A0",
+ "rom": {
+  "offset": "0x4FA9A0",
+  "size": 166128,
+  "sha256": "bb7ffb1ed47acb9a05d2789eae9f3236945a4892df746c5a4f9f1dde706c4d3e"
+ },
+ "note": "glyph 24 B; func_080D0D28 indeks r5*24 -> func_03000714",
+ "status": "rom-exact",
+ "semantics": "unidentified"
+}

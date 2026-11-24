@@ -44,8 +44,10 @@ KIND_LABEL = {
     "tiles4bpp": "Tiles 4bpp",
     "tilemap": "Tilemap",
     "font_container": "Container font",
+    "glyph_font": "Glyph 8x12",
 }
-KIND_ORDER = ["sprite", "palette", "tiles4bpp", "tilemap", "font_container"]
+KIND_ORDER = ["sprite", "palette", "tiles4bpp", "tilemap", "font_container",
+              "glyph_font"]
 
 
 def _module(path, name):

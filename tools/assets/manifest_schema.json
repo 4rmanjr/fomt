@@ -38,6 +38,7 @@
        "tiles4bpp",
        "tilemap",
        "font_container",
+       "glyph_font",
        "palette",
        "sprite"
       ]

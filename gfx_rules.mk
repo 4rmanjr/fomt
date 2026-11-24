@@ -4,6 +4,8 @@
 
 ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_0875A440.bin \
+  $(BUILD_DIR)/assets/gUnk_084F90CC.bin \
+  $(BUILD_DIR)/assets/gUnk_084FA9A0.bin \
   $(BUILD_DIR)/assets/gUnk_0852D984.bin \
   $(BUILD_DIR)/assets/gUnk_0858BA28.bin \
   $(BUILD_DIR)/assets/gUnk_086F2FAC.bin \
@@ -97,6 +99,20 @@ $(BUILD_DIR)/assets/gUnk_0875A440.bin: \
     tools/assets/tile4bpp.py
 	@echo "ASSET $@"
 	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/fonts/clock.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_084F90CC.bin: \
+    assets/gfx/fonts/glyph_084f90cc.json \
+    assets/gfx/fonts/glyph_084f90cc.png \
+    tools/assets/glyph_font.py
+	@echo "ASSET $@"
+	@python3 tools/assets/glyph_font.py encode --json assets/gfx/fonts/glyph_084f90cc.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_084FA9A0.bin: \
+    assets/gfx/fonts/glyph_084fa9a0.json \
+    assets/gfx/fonts/glyph_084fa9a0.png \
+    tools/assets/glyph_font.py
+	@echo "ASSET $@"
+	@python3 tools/assets/glyph_font.py encode --json assets/gfx/fonts/glyph_084fa9a0.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_0852D984.bin: \
     assets/gfx/fonts/unk_0852d984.json \

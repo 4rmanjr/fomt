@@ -373,6 +373,17 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   0x7409E4 juga memakai codec ini
   (`unk_08753*.json`, `unk_08754*.json`, `unk_08755154.json`); semuanya lolos
   `verify` MATCH dan `.incbin`-nya sudah dialihkan.
+- `tools/assets/glyph_font.py` — codec font glyph 8x12 untuk blob yang dibaca
+  `func_080D0D28` (record tetap, bukan container `func_0805E6CC`). `--bpp 1`:
+  12 B/record, 1 byte per baris, bit MSB = piksel kiri. `--bpp 2`: 24 B/record,
+  2 byte per baris = bitplane 0 lalu bitplane 1 (piksel = `p0 | p1<<1`); bitplane
+  terpisah karena glyph blok asli memuat nibble 0xF yang mustahil untuk 2bpp
+  ber-nibble. PNG kanonik menyimpan indeks sebagai grayscale `indeks*17`, jadi
+  `encode` menolak piksel yang bukan kelipatan 17 atau melebihi `2**bpp`.
+  `source.bpp`/`columns`/`count` di JSON menentukan ukuran PNG yang sah. Contoh:
+  `python3 tools/assets/glyph_font.py verify --json
+  assets/gfx/fonts/glyph_084f90cc.json`. Dipakai blob 0x4F90CC (487 glyph 1bpp)
+  dan 0x4FA9A0 (6922 glyph 2bpp).
 - `tools/assets/stream_audit.py` — audit seluruh stream `0x70` yang sudah
   diekstrak: blob utuh (`assets/0x70/manifest.json`) **dan** bank tertanam
   (`assets/0x70/embedded_manifest.json`). Hash compressed dihitung dari slice
@@ -536,7 +547,8 @@ dikerjakan, lalu periksa `git diff` (tool ini tidak punya `--check`).
 build dan tidak menulis ROM. Berkas yang ada:
 `test_cli.py`, `test_asset_manifest.py`, `test_asset_verify.py`,
 `test_embedded_streams.py`, `test_font_container.py`, `test_font_palettes.py`,
-`test_lz70.py`, `test_map2bin.py`, `test_raw_assets.py`, `test_readme_stats.py`,
+`test_glyph_font.py`, `test_lz70.py`, `test_map2bin.py`, `test_raw_assets.py`,
+`test_readme_stats.py`,
 `test_sprite2gba.py`, `test_stream_audit.py`, `test_tile4bpp.py`.
 `check_docs.py` menolak skrip `tools/**/*.py` yang belum disebut di berkas ini
 (folder vendored dikecualikan), jadi tes baru tanpa entri menggagalkan gate.

@@ -46,6 +46,7 @@ TOOLS_DIR = Path(__file__).resolve().parent
 ENCODERS = {
     "tiles4bpp": "tile4bpp.py",
     "font_container": "font_container.py",
+    "glyph_font": "glyph_font.py",
     "palette": "pal2gba.py",
     "sprite": "sprite2gba.py",
     "tilemap": "map2bin.py",
