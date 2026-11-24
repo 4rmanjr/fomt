@@ -49,6 +49,21 @@ def font_4100():
     return bytes(body) + struct.pack("<I", 1)
 
 
+def palette_16():
+    """16 warna BGR555 sah: tiap word mengisi >= 2 nibble."""
+    cols = [0x7FFF, 0x03E0, 0x7C00, 0x001F, 0x4210, 0x2108, 0x6318, 0x1CE7,
+            0x5294, 0x0C63, 0x3DEF, 0x77BD, 0x294A, 0x0421, 0x6B5A, 0x7BDE]
+    return struct.pack("<16H", *cols)
+
+
+def tile_jarang(tiles=4):
+    """Tile 4bpp jarang: word satu-nibble (0x0003, 0x0030), semua < 0x8000."""
+    body = bytearray()
+    for i in range(tiles * 16):
+        body += struct.pack("<H", (0x0003, 0x0030, 0x0000, 0x0300)[i % 4])
+    return bytes(body)
+
+
 def sprite_128():
     # Bit 15 menyala supaya tidak lolos cabang palet; modal 0xFFFF > 90%
     # membuat cabang tilemap juga tidak aktif.
@@ -131,6 +146,29 @@ class RawAssetClassifier(unittest.TestCase):
             self.assertIsNone(probe)
             self.assertIn("tertanam", note)
             self.assertIn("diekstrak ke assets/0x70/extern", note)
+
+    def test_palet_padat_tetap_palet(self):
+        self.check(palette_16(), "palet")
+
+    def test_tile_jarang_bukan_palet(self):
+        # 128 B, semua u16 < 0x8000: dulu lolos cabang palet "64 warna".
+        data = tile_jarang()
+        self.assertTrue(all(v < 0x8000 for v in struct.unpack("<64H", data)))
+        got, note, _ = raw_assets.classify(data)
+        self.assertEqual(got, "sprite/OBJ", note)
+        self.assertIn("bukan palet", note)
+
+    def test_single_nibble_fraction_memisahkan(self):
+        cols = struct.unpack("<16H", palette_16())
+        sparse = struct.unpack("<64H", tile_jarang())
+        self.assertLess(raw_assets.single_nibble_fraction(cols), 0.15)
+        self.assertGreaterEqual(raw_assets.single_nibble_fraction(sparse), 0.15)
+
+    def test_palet_dengan_warna_gelap_tetap_palet(self):
+        # Palet nyaris hitam: banyak nibble nol, tetapi tiap warna masih dua
+        # nibble -> bukan pola tile jarang.
+        cols = [0x0011, 0x0022, 0x0110, 0x0220, 0x1100, 0x2200] * 2 + [0x0000] * 4
+        self.check(struct.pack("<16H", *cols), "palet")
 
     def test_sprite_128_stays_sprite(self):
         data = sprite_128()

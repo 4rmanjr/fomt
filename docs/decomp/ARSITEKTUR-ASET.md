@@ -757,13 +757,22 @@ blok itu adalah `gUnk_08752AAC` (0x20 B ke `0x05000000+sl`), pasangan sah untuk
 `gUnk_08752A2C` (blob bersebelahan, jarak load 153 baris → `--pair-rule
 asm-branch`).
 
-**Cacat inventaris:** `gUnk_08752D4C` dan `gUnk_08752DCC` terdaftar sebagai
-`palet` "64 warna" karena heuristik `raw_assets.py` hanya memeriksa "semua u16
-< 0x8000" + kelipatan 32 B, dan tile 4bpp yang jarang (banyak nol) lolos
-syarat itu. Akibatnya penyebut `palet` di README kelebihan 2 dan populasi
-`sprite/OBJ` kurang 2. Perbaikan heuristik belum dilakukan karena butuh aturan
-yang memisahkan tile jarang dari palet asli (rasio nol saja tidak cukup:
-palet sah ada yang 0,69 nol, tile ini 0,5–0,8).
+**Cacat inventaris (sudah diperbaiki):** `gUnk_08752D4C` dan
+`gUnk_08752DCC` dulu terdaftar sebagai `palet` "64 warna" karena heuristik
+`raw_assets.py` hanya memeriksa "semua u16 < 0x8000" + kelipatan 32 B, dan
+tile 4bpp jarang (banyak nol) lolos syarat itu. Rasio nol tidak bisa dipakai
+sebagai pembeda (palet sah ada yang 0,69 nol; tile ini 0,5–0,8), jadi
+heuristiknya sekarang memakai **pola nibble**: palet berisi warna BGR555 yang
+mengisi beberapa nibble per word, sedangkan tile 4bpp berisi indeks piksel
+sehingga word empat-piksel sering menyisakan satu nibble. Ambangnya
+`single_nibble_fraction < 15%` untuk palet (palet sah terukur <= 6%, tile
+22–100%), dengan tes yang mengunci kedua sisi.
+
+Validasi ke call site: keempat blob yang berubah kategori memang di-DMA ke
+VRAM, bukan palette RAM — `08750C4C` → `0x060100A0` (0x20 B),
+`08750C8C` → `0x06002A00` (416 B), `08752D4C` → slot 0x73 (0x80 B),
+`08752DCC` → slot 0x70. Karena itu penyebut `palet` turun 4 dan populasi
+`sprite/OBJ` naik 4.
 
 ### Aturan pemasangan sprite + palet
 

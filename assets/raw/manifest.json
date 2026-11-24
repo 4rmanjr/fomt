@@ -132,7 +132,7 @@
    "offset": "0x667060",
    "size": 2112,
    "group": "sprite/OBJ",
-   "note": "66 tile 4bpp (32 B/tile)",
+   "note": "66 tile 4bpp (bukan palet: 56% word satu-nibble)",
    "renderable": true,
    "png": "assets/raw/png/gUnk_08667060_2112_sprite.png"
   },
@@ -150,7 +150,7 @@
    "offset": "0x697920",
    "size": 4576,
    "group": "sprite/OBJ",
-   "note": "143 tile 4bpp (32 B/tile)",
+   "note": "143 tile 4bpp (bukan palet: 25% word satu-nibble)",
    "renderable": true,
    "png": "assets/raw/png/gUnk_08697920_4576_sprite.png"
   },
@@ -167,7 +167,7 @@
    "offset": "0x698E14",
    "size": 4576,
    "group": "sprite/OBJ",
-   "note": "143 tile 4bpp (32 B/tile)",
+   "note": "143 tile 4bpp (bukan palet: 19% word satu-nibble)",
    "renderable": true,
    "png": "assets/raw/png/gUnk_08698E14_4576_sprite.png"
   },
@@ -184,7 +184,7 @@
    "offset": "0x69A0A4",
    "size": 4576,
    "group": "sprite/OBJ",
-   "note": "143 tile 4bpp (32 B/tile)",
+   "note": "143 tile 4bpp (bukan palet: 25% word satu-nibble)",
    "renderable": true,
    "png": "assets/raw/png/gUnk_0869A0A4_4576_sprite.png"
   },
@@ -927,10 +927,10 @@
    "symbol": "gUnk_08750C4C",
    "offset": "0x750C4C",
    "size": 32,
-   "group": "palet",
-   "note": "16 warna (semua u16 < 0x8000)",
+   "group": "sprite/OBJ",
+   "note": "1 tile 4bpp (bukan palet: 100% word satu-nibble)",
    "renderable": true,
-   "png": "assets/raw/png/gUnk_08750C4C_32_palet.png"
+   "png": "assets/raw/png/gUnk_08750C4C_32_sprite.png"
   },
   {
    "symbol": "gUnk_08750C6C",
@@ -945,10 +945,10 @@
    "symbol": "gUnk_08750C8C",
    "offset": "0x750C8C",
    "size": 448,
-   "group": "palet",
-   "note": "224 warna (semua u16 < 0x8000)",
+   "group": "sprite/OBJ",
+   "note": "14 tile 4bpp (bukan palet: 22% word satu-nibble)",
    "renderable": true,
-   "png": "assets/raw/png/gUnk_08750C8C_448_palet.png"
+   "png": "assets/raw/png/gUnk_08750C8C_448_sprite.png"
   },
   {
    "symbol": "gUnk_08750E4C",
@@ -1153,7 +1153,7 @@
    "offset": "0x751BEC",
    "size": 128,
    "group": "sprite/OBJ",
-   "note": "4 tile 4bpp (32 B/tile)",
+   "note": "4 tile 4bpp (bukan palet: 18% word satu-nibble)",
    "renderable": true,
    "png": "assets/raw/png/gUnk_08751BEC_128_sprite.png"
   },
@@ -1189,7 +1189,7 @@
    "offset": "0x751D2C",
    "size": 128,
    "group": "sprite/OBJ",
-   "note": "4 tile 4bpp (32 B/tile)",
+   "note": "4 tile 4bpp (bukan palet: 24% word satu-nibble)",
    "renderable": true,
    "png": "assets/raw/png/gUnk_08751D2C_128_sprite.png"
   },
@@ -1441,7 +1441,7 @@
    "offset": "0x7525EC",
    "size": 128,
    "group": "sprite/OBJ",
-   "note": "4 tile 4bpp (32 B/tile)",
+   "note": "4 tile 4bpp (bukan palet: 16% word satu-nibble)",
    "renderable": true,
    "png": "assets/raw/png/gUnk_087525EC_128_sprite.png"
   },
@@ -1495,7 +1495,7 @@
    "offset": "0x7527CC",
    "size": 128,
    "group": "sprite/OBJ",
-   "note": "4 tile 4bpp (32 B/tile)",
+   "note": "4 tile 4bpp (bukan palet: 15% word satu-nibble)",
    "renderable": true,
    "png": "assets/raw/png/gUnk_087527CC_128_sprite.png"
   },
@@ -1576,7 +1576,7 @@
    "offset": "0x752ACC",
    "size": 128,
    "group": "sprite/OBJ",
-   "note": "4 tile 4bpp (32 B/tile)",
+   "note": "4 tile 4bpp (bukan palet: 16% word satu-nibble)",
    "renderable": true,
    "png": "assets/raw/png/gUnk_08752ACC_128_sprite.png"
   },
@@ -1620,19 +1620,19 @@
    "symbol": "gUnk_08752D4C",
    "offset": "0x752D4C",
    "size": 128,
-   "group": "palet",
-   "note": "64 warna (semua u16 < 0x8000)",
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (bukan palet: 25% word satu-nibble)",
    "renderable": true,
-   "png": "assets/raw/png/gUnk_08752D4C_128_palet.png"
+   "png": "assets/raw/png/gUnk_08752D4C_128_sprite.png"
   },
   {
    "symbol": "gUnk_08752DCC",
    "offset": "0x752DCC",
    "size": 128,
-   "group": "palet",
-   "note": "64 warna (semua u16 < 0x8000)",
+   "group": "sprite/OBJ",
+   "note": "4 tile 4bpp (bukan palet: 23% word satu-nibble)",
    "renderable": true,
-   "png": "assets/raw/png/gUnk_08752DCC_128_palet.png"
+   "png": "assets/raw/png/gUnk_08752DCC_128_sprite.png"
   },
   {
    "symbol": "gUnk_08752E4C",

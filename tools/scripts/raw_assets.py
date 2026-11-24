@@ -7,7 +7,12 @@ Tujuannya supaya cakupan aset tidak berhenti di 53 blob terkompresi.
 
 Kelompok (heuristik isi, bukan nama simbol):
 
-- `palet`     — <= 1024 B, kelipatan 32 B, semua u16 < 0x8000 (bit 15 kosong).
+- `palet`     — <= 1024 B, kelipatan 32 B, semua u16 < 0x8000 (bit 15 kosong),
+                **dan** bukan tile jarang: word non-nol yang isinya paling
+                banyak satu nibble harus < 15%. Warna BGR555 mengisi beberapa
+                nibble sekaligus, sedangkan tile 4bpp jarang menyisakan satu
+                piksel berisi per word, jadi rasio ini memisahkan keduanya
+                (palet sah <= 6%, tile jarang 22-100%).
                 Dirender sebagai kartu swatch.
 - `sprite/OBJ`— kelipatan 32 B (satu tile 4bpp = 32 B), bukan palet/tilemap.
                 Blob non-32 B yang menyisakan 1-31 B header/ekor juga masuk
@@ -272,6 +277,25 @@ def scan_chain(rom, offset, size):
     return best
 
 
+PALETTE_MAX_SINGLE_NIBBLE = 0.15
+
+
+def single_nibble_fraction(u):
+    """Fraksi word non-nol yang punya <= 1 nibble non-nol.
+
+    Palet berisi warna BGR555: nibble adalah komponen warna, jadi warna gelap
+    pun masih mengisi beberapa nibble. Tile 4bpp berisi indeks piksel, jadi
+    word empat-piksel pada gambar jarang sering menyisakan satu piksel saja
+    (0x0003, 0x0030, ...). Nilai tinggi = data tile, bukan palet.
+    """
+    nz = [v for v in u if v]
+    if not nz:
+        return 0.0
+    return sum(1 for v in nz
+               if sum(1 for shift in (0, 4, 8, 12) if (v >> shift) & 0xF) <= 1
+               ) / len(nz)
+
+
 def classify(data, name=None):
     """-> (kelompok, catatan, (start, ekor) atau None).
 
@@ -290,7 +314,10 @@ def classify(data, name=None):
         return group, note, None
     n = len(data)
     u = u16s(data)
-    if n and n <= 1024 and n % 32 == 0 and u and all(v < 0x8000 for v in u):
+    sparse = single_nibble_fraction(u) if u else 0.0
+    if (n and n <= 1024 and n % 32 == 0 and u
+            and all(v < 0x8000 for v in u)
+            and sparse < PALETTE_MAX_SINGLE_NIBBLE):
         return "palet", f"{len(u)} warna (semua u16 < 0x8000)", None
     nz = [v for v in u if v]
     if n >= 32 and n % 2 == 0 and nz:
@@ -302,6 +329,10 @@ def classify(data, name=None):
             return ("tilemap", f"{len(u)} entri 16-bit; "
                     f"bit 10-15 modal {top / len(nz):.0%}", None)
     if n % 32 == 0:
+        if sparse >= PALETTE_MAX_SINGLE_NIBBLE:
+            return ("sprite/OBJ",
+                    f"{n // 32} tile 4bpp (bukan palet: "
+                    f"{sparse:.0%} word satu-nibble)", None)
         return "sprite/OBJ", f"{n // 32} tile 4bpp (32 B/tile)", None
     window = tile_prefix(data)
     if window:
