@@ -1,6 +1,8 @@
 # Friends of Mineral Town
 
-This is a decompilation of the 2003 GBA game "Harvest Moon: Friends of Mineral Town" (US).
+Decompilation of the 2003 GBA game **Harvest Moon: Friends of Mineral Town** (US).
+Two translation tracks run side by side, and both are proven by bytes, not by
+claims: asm → C, and ROM blobs → editable asset sources.
 
 It builds the following ROM:
 
@@ -8,22 +10,68 @@ It builds the following ROM:
 
 [fomt.gba]: https://datomatic.no-intro.org/index.php?page=show_record&s=23&n=1249
 
+---
+
+## Progress
+
+Snapshot **2026-11-24**. Numbers are regenerated, never typed by hand:
+
+```sh
+fomt status                              # fungsi MATCH / src / promote-only
+python3 tools/scripts/plan_stats.py      # rincian per modul + byte
+python3 tools/assets/asset_manifest.py   # aset source rom-exact
+```
+
+### Translasi asm → C
+
+| Tahap | Selesai | Total | Progres |
+|---|---:|---:|---|
+| **MATCH** (byte-identik dengan ROM) | 1.357 | 2.643 | `██████████░░░░░░░░░░` 51,3% |
+| **Dipindah ke `src/`** (bukti migrasi) | 1.118 | 2.643 | `████████░░░░░░░░░░░░` 42,3% |
+| Promote-only (MATCH, tertahan rantai ekor) | 239 | 2.643 | `██░░░░░░░░░░░░░░░░░░` 9,0% |
+| Sisa (belum MATCH) | 1.286 | 2.643 | `██████████░░░░░░░░░░` 48,7% |
+
+Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.092 B (7,1%)** — persentase
+fungsi jauh lebih tinggi karena fungsi yang sudah selesai kebanyakan kecil.
+"MATCH" saja belum dihitung selesai: sebuah fungsi baru dianggap beres ketika
+bloknya **pindah ke `src/`** dan `make compare` tetap HIJAU.
+
+### Translasi aset ROM → source
+
+| Kelas | Rom-exact | Populasi | Progres |
+|---|---:|---:|---|
+| Sprite/OBJ (PNG + `.pal` + JSON) | 1 | 73 blob | `░░░░░░░░░░░░░░░░░░░░` 1,4% |
+| Palet, tiles 4bpp, container font | 3 | 3 pipeline | `████████████████████` 100% (proof-of-pipeline) |
+
+Yang dimaksud "selesai" untuk aset: PNG terindeks + palet JASC + metadata JSON
+di `assets/gfx/`, di-encode tool repo, dan `sha256(encoded) == sha256(slice ROM)`
+sehingga `.incbin` tidak lagi menunjuk `baserom.gba`. Sprite pertama yang sudah
+begitu: `gUnk_087518CC` (128 B, 4 tile 4bpp). Enam puluh satu blob sprite lain
+masih `.incbin` ROM, dan sprite di dalam container terkompresi `0x70` menunggu
+encoder yang byte-identik.
+
+Pipeline, tabel padanan pret/pokeemerald-expansion, dan alur menambah sprite:
+[docs/decomp/ARSITEKTUR-ASET.md](./docs/decomp/ARSITEKTUR-ASET.md).
+
+```sh
+make assets-bin     # encode aset rom-exact -> build/assets/*.bin
+make assets-check   # gate: aturan/manifest tidak basi + hash cocok ROM
+make test-tools     # regresi encoder & inventory
+```
+
 ## Setting up
 
 See [INSTALL.md](./INSTALL.md).
-
-## Asset pipeline
-
-Rencana source asset, encoder, dan gate byte-identik ada di
-[docs/decomp/ARSITEKTUR-ASET.md](./docs/decomp/ARSITEKTUR-ASET.md). Aset di
-`assets/raw/` dan `assets/0x70/` saat ini adalah inventaris/preview, bukan
-source build.
 
 ## Contributing
 
 Please do. Feel free to yell at me if you need naming/style/formatting guidelines.
 
 If you're looking for things that need to be done, check out [TODO.md](./TODO.md).
+
+Working rules (one command `fomt`, no overwriting MATCH results, honest commit
+messages) are in [AGENTS.md](./AGENTS.md); asset architecture in
+[docs/decomp/ARSITEKTUR-ASET.md](./docs/decomp/ARSITEKTUR-ASET.md).
 
 ## Contact
 
