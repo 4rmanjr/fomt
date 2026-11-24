@@ -1165,6 +1165,72 @@
    }
   },
   {
+   "id": "gfx/palettes/gunk_08529794",
+   "symbol": "gUnk_08529794",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x529794",
+    "size": 512,
+    "sha256": "8d2885512b1f0a453e45d632c61a41be90d978f8614aa07109202a955da61303"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08529794.json",
+    "png": "assets/gfx/palettes/unk_08529794.png",
+    "pal": "assets/gfx/palettes/unk_08529794.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_0806EC94 (code_0803EE94.s:93938): func_08008E64(gUnk_08529794, 0x05000000, 0x200), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 93928."
+  },
+  {
+   "id": "gfx/palettes/gunk_0852ca40",
+   "symbol": "gUnk_0852CA40",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x52CA40",
+    "size": 512,
+    "sha256": "9a610ecd5ca19e05911dfe937b0ff5d6004c716ae5578e09430639536e0ea96e"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0852ca40.json",
+    "png": "assets/gfx/palettes/unk_0852ca40.png",
+    "pal": "assets/gfx/palettes/unk_0852ca40.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_0806EC94 (code_0803EE94.s:93938): func_08008E64(gUnk_0852CA40, 0x05000000, 0x200), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 93932."
+  },
+  {
+   "id": "gfx/palettes/gunk_0872d5ac",
+   "symbol": "gUnk_0872D5AC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72D5AC",
+    "size": 32,
+    "sha256": "8e1ed1963c40d1b5b01b43c421f40a59a3581b0f7b93a413edef4cd18a9223bd"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0872d5ac.json",
+    "png": "assets/gfx/palettes/unk_0872d5ac.png",
+    "pal": "assets/gfx/palettes/unk_0872d5ac.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_080B55D0 (code_809E804.s:46450): func_08008E64(gUnk_0872D5AC, 0x050000E0, 0x20), tujuan 0x050000E0 di palette RAM; simbol dimuat di baris 46446."
+  },
+  {
    "id": "gfx/palettes/panel_screen",
    "symbol": "gUnk_08731940",
    "kind": "palette",
@@ -1185,6 +1251,292 @@
     "version": 1
    },
    "evidence": "func_080AE7D0 (code_809E804.s:32445): func_08008E64(gUnk_08731940, 0x05000000, 0x200) menyalin 512 B ke palette RAM; tidak ada palet lain yang dimuat scene ini."
+  },
+  {
+   "id": "gfx/palettes/gunk_0874e330",
+   "symbol": "gUnk_0874E330",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74E330",
+    "size": 512,
+    "sha256": "d503e20b342424db39c68a212268de64fa9307148860754d9cc7d6c2b75b453e"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0874e330.json",
+    "png": "assets/gfx/palettes/unk_0874e330.png",
+    "pal": "assets/gfx/palettes/unk_0874e330.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_080019D8 (intro_scene.s:1959): func_08008E64(gUnk_0874E330, 0x05000000, 0x200), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 1954."
+  },
+  {
+   "id": "gfx/palettes/gunk_0874eb40",
+   "symbol": "gUnk_0874EB40",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74EB40",
+    "size": 32,
+    "sha256": "51d75bd9affde28e7b4baf19af92de0b3c648b203b5944a8ad173bf63622792b"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0874eb40.json",
+    "png": "assets/gfx/palettes/unk_0874eb40.png",
+    "pal": "assets/gfx/palettes/unk_0874eb40.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_08000F5C (intro_scene.s:712): func_08008E64(gUnk_0874EB40, 0x05000000, 0x20), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 708."
+  },
+  {
+   "id": "gfx/palettes/gunk_08750c6c",
+   "symbol": "gUnk_08750C6C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x750C6C",
+    "size": 32,
+    "sha256": "9985d2bb7b07b88d53543f5ab323df57ac3eb3402671d800405dfdf4f9c18237"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08750c6c.json",
+    "png": "assets/gfx/palettes/unk_08750c6c.png",
+    "pal": "assets/gfx/palettes/unk_08750c6c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_080645F0 (code_0803EE94.s:74783): func_08008F0C(antrean, gUnk_08750C6C, 0x05000220, 0x20), tujuan 0x05000220 di palette RAM; simbol dimuat di baris 74779."
+  },
+  {
+   "id": "gfx/palettes/gunk_08750f6c",
+   "symbol": "gUnk_08750F6C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x750F6C",
+    "size": 32,
+    "sha256": "9985d2bb7b07b88d53543f5ab323df57ac3eb3402671d800405dfdf4f9c18237"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08750f6c.json",
+    "png": "assets/gfx/palettes/unk_08750f6c.png",
+    "pal": "assets/gfx/palettes/unk_08750f6c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_080645F0 (code_0803EE94.s:74491): func_08008F0C(antrean, gUnk_08750F6C, 0x05000060, 0x20), tujuan 0x05000060 di palette RAM; simbol dimuat di baris 74487."
+  },
+  {
+   "id": "gfx/palettes/gunk_087512ec",
+   "symbol": "gUnk_087512EC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7512EC",
+    "size": 32,
+    "sha256": "4e9002d1a59b76f30985349aa2066e6382f673231ec4021f73eeb7d7b88f8b86"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_087512ec.json",
+    "png": "assets/gfx/palettes/unk_087512ec.png",
+    "pal": "assets/gfx/palettes/unk_087512ec.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_08068344 (code_0803EE94.s:81712): func_08008F0C(antrean, gUnk_087512EC, 0x05000000, 0x20), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 81705."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875178c",
+   "symbol": "gUnk_0875178C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75178C",
+    "size": 32,
+    "sha256": "786cebe9ac9654a40caf028be177f840f8737b11fd1e5c6da5609f867ae48da4"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875178c.json",
+    "png": "assets/gfx/palettes/unk_0875178c.png",
+    "pal": "assets/gfx/palettes/unk_0875178c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_0806644C (code_0803EE94.s:78830): func_08008F0C(antrean, gUnk_0875178C, 0x05000040, 0x20), tujuan 0x05000040 di palette RAM; simbol dimuat di baris 78826."
+  },
+  {
+   "id": "gfx/palettes/gunk_087519ec",
+   "symbol": "gUnk_087519EC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7519EC",
+    "size": 32,
+    "sha256": "802c0f10cc179a1e49a865aa4692b1f9af3bec51d17643173304ce22275e6d4a"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_087519ec.json",
+    "png": "assets/gfx/palettes/unk_087519ec.png",
+    "pal": "assets/gfx/palettes/unk_087519ec.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_08059FE0 (code_0803EE94.s:50773): func_08008E64(gUnk_087519EC, 0x05000200, 0x20), tujuan 0x05000200 di palette RAM; simbol dimuat di baris 50761."
+  },
+  {
+   "id": "gfx/palettes/gunk_087525cc",
+   "symbol": "gUnk_087525CC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7525CC",
+    "size": 32,
+    "sha256": "c2d31d3df9d77a1dd609cdd2d941b616e158556a752618f8dee970a6caae5eac"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_087525cc.json",
+    "png": "assets/gfx/palettes/unk_087525cc.png",
+    "pal": "assets/gfx/palettes/unk_087525cc.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_0805FF14 (code_0803EE94.s:64274): func_08008F0C(antrean, gUnk_087525CC, 0x05000040, 0x20), tujuan 0x05000040 di palette RAM; simbol dimuat di baris 64270."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875298c",
+   "symbol": "gUnk_0875298C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75298C",
+    "size": 32,
+    "sha256": "0ee27de88e66e01fa84e0937b3beb2d7a32a48f16a3157a07f020f55130ef992"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875298c.json",
+    "png": "assets/gfx/palettes/unk_0875298c.png",
+    "pal": "assets/gfx/palettes/unk_0875298c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_080645F0 (code_0803EE94.s:73896): func_08008F0C(antrean, gUnk_0875298C, 0x05000040, 0x20), tujuan 0x05000040 di palette RAM; simbol dimuat di baris 73892."
+  },
+  {
+   "id": "gfx/palettes/gunk_08752aac",
+   "symbol": "gUnk_08752AAC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752AAC",
+    "size": 32,
+    "sha256": "16651959cfb2129a001de5974a24772259962d7e5d22e88096280f1c57371186"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08752aac.json",
+    "png": "assets/gfx/palettes/unk_08752aac.png",
+    "pal": "assets/gfx/palettes/unk_08752aac.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_08068344 (code_0803EE94.s:80966): func_08008F0C(antrean, gUnk_08752AAC, 0x05000000, 0x20), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 80960."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875300c",
+   "symbol": "gUnk_0875300C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75300C",
+    "size": 32,
+    "sha256": "84a8bbee59e93dd83fb28f8a997494fdfbf9d372a41fb9939056bb7b9bb5d3a5"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875300c.json",
+    "png": "assets/gfx/palettes/unk_0875300c.png",
+    "pal": "assets/gfx/palettes/unk_0875300c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_080C85A0 (code_809E804.s:85907): func_08008F0C(antrean, gUnk_0875300C, 0x05000200, 0x20), tujuan 0x05000200 di palette RAM; simbol dimuat di baris 85901."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875314c",
+   "symbol": "gUnk_0875314C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75314C",
+    "size": 32,
+    "sha256": "89c7ff047c0b133a2a57cf2f2b2da384bfa816cf2157c745683da7a338581ebe"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875314c.json",
+    "png": "assets/gfx/palettes/unk_0875314c.png",
+    "pal": "assets/gfx/palettes/unk_0875314c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_0805FF14 (code_0803EE94.s:64563): func_08008F0C(antrean, gUnk_0875314C, 0x05000060, 0x20), tujuan 0x05000060 di palette RAM; simbol dimuat di baris 64559."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875350c",
+   "symbol": "gUnk_0875350C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75350C",
+    "size": 32,
+    "sha256": "09ef2d4ac73942140df2e6ae6a72c097c230dece335ae03e237241f0bb987a7c"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875350c.json",
+    "png": "assets/gfx/palettes/unk_0875350c.png",
+    "pal": "assets/gfx/palettes/unk_0875350c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_0805FF14 (code_0803EE94.s:64852): func_08008F0C(antrean, gUnk_0875350C, 0x05000080, 0x20), tujuan 0x05000080 di palette RAM; simbol dimuat di baris 64848."
   },
   {
    "id": "gfx/sprites/gunk_08750e4c",

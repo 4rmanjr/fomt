@@ -1,0 +1,23 @@
+{
+ "id": "gfx/palettes/gunk_087519ec",
+ "symbol": "gUnk_087519EC",
+ "kind": "palette",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x7519EC",
+  "size": 32,
+  "sha256": "802c0f10cc179a1e49a865aa4692b1f9af3bec51d17643173304ce22275e6d4a"
+ },
+ "source": {
+  "pal": "unk_087519ec.pal",
+  "png": "unk_087519ec.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "func_08059FE0 (code_0803EE94.s:50773): func_08008E64(gUnk_087519EC, 0x05000200, 0x20), tujuan 0x05000200 di palette RAM; simbol dimuat di baris 50761."
+}

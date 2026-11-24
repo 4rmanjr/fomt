@@ -61,7 +61,23 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_0875553C.bin \
   $(BUILD_DIR)/assets/gUnk_08757C14.bin \
   $(BUILD_DIR)/assets/gUnk_08757F20.bin \
+  $(BUILD_DIR)/assets/gUnk_08529794.bin \
+  $(BUILD_DIR)/assets/gUnk_0852CA40.bin \
+  $(BUILD_DIR)/assets/gUnk_0872D5AC.bin \
   $(BUILD_DIR)/assets/gUnk_08731940.bin \
+  $(BUILD_DIR)/assets/gUnk_0874E330.bin \
+  $(BUILD_DIR)/assets/gUnk_0874EB40.bin \
+  $(BUILD_DIR)/assets/gUnk_08750C6C.bin \
+  $(BUILD_DIR)/assets/gUnk_08750F6C.bin \
+  $(BUILD_DIR)/assets/gUnk_087512EC.bin \
+  $(BUILD_DIR)/assets/gUnk_0875178C.bin \
+  $(BUILD_DIR)/assets/gUnk_087519EC.bin \
+  $(BUILD_DIR)/assets/gUnk_087525CC.bin \
+  $(BUILD_DIR)/assets/gUnk_0875298C.bin \
+  $(BUILD_DIR)/assets/gUnk_08752AAC.bin \
+  $(BUILD_DIR)/assets/gUnk_0875300C.bin \
+  $(BUILD_DIR)/assets/gUnk_0875314C.bin \
+  $(BUILD_DIR)/assets/gUnk_0875350C.bin \
   $(BUILD_DIR)/assets/gUnk_08750E4C.bin \
   $(BUILD_DIR)/assets/gUnk_08750F8C.bin \
   $(BUILD_DIR)/assets/gUnk_087510AC.bin \
@@ -529,6 +545,30 @@ $(BUILD_DIR)/assets/gUnk_08757F20.bin: \
 	@echo "ASSET $@"
 	@python3 tools/assets/map2bin.py encode --json assets/gfx/maps/gUnk_08757F20.json --out $@
 
+$(BUILD_DIR)/assets/gUnk_08529794.bin: \
+    assets/gfx/palettes/unk_08529794.json \
+    assets/gfx/palettes/unk_08529794.png \
+    assets/gfx/palettes/unk_08529794.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_08529794.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0852CA40.bin: \
+    assets/gfx/palettes/unk_0852ca40.json \
+    assets/gfx/palettes/unk_0852ca40.png \
+    assets/gfx/palettes/unk_0852ca40.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_0852ca40.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872D5AC.bin: \
+    assets/gfx/palettes/unk_0872d5ac.json \
+    assets/gfx/palettes/unk_0872d5ac.png \
+    assets/gfx/palettes/unk_0872d5ac.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_0872d5ac.json --out $@
+
 $(BUILD_DIR)/assets/gUnk_08731940.bin: \
     assets/gfx/palettes/unk_08731940.json \
     assets/gfx/palettes/unk_08731940.png \
@@ -536,6 +576,110 @@ $(BUILD_DIR)/assets/gUnk_08731940.bin: \
     tools/assets/pal2gba.py
 	@echo "ASSET $@"
 	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_08731940.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0874E330.bin: \
+    assets/gfx/palettes/unk_0874e330.json \
+    assets/gfx/palettes/unk_0874e330.png \
+    assets/gfx/palettes/unk_0874e330.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_0874e330.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0874EB40.bin: \
+    assets/gfx/palettes/unk_0874eb40.json \
+    assets/gfx/palettes/unk_0874eb40.png \
+    assets/gfx/palettes/unk_0874eb40.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_0874eb40.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08750C6C.bin: \
+    assets/gfx/palettes/unk_08750c6c.json \
+    assets/gfx/palettes/unk_08750c6c.png \
+    assets/gfx/palettes/unk_08750c6c.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_08750c6c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08750F6C.bin: \
+    assets/gfx/palettes/unk_08750f6c.json \
+    assets/gfx/palettes/unk_08750f6c.png \
+    assets/gfx/palettes/unk_08750f6c.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_08750f6c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087512EC.bin: \
+    assets/gfx/palettes/unk_087512ec.json \
+    assets/gfx/palettes/unk_087512ec.png \
+    assets/gfx/palettes/unk_087512ec.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_087512ec.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875178C.bin: \
+    assets/gfx/palettes/unk_0875178c.json \
+    assets/gfx/palettes/unk_0875178c.png \
+    assets/gfx/palettes/unk_0875178c.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_0875178c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087519EC.bin: \
+    assets/gfx/palettes/unk_087519ec.json \
+    assets/gfx/palettes/unk_087519ec.png \
+    assets/gfx/palettes/unk_087519ec.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_087519ec.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087525CC.bin: \
+    assets/gfx/palettes/unk_087525cc.json \
+    assets/gfx/palettes/unk_087525cc.png \
+    assets/gfx/palettes/unk_087525cc.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_087525cc.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875298C.bin: \
+    assets/gfx/palettes/unk_0875298c.json \
+    assets/gfx/palettes/unk_0875298c.png \
+    assets/gfx/palettes/unk_0875298c.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_0875298c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08752AAC.bin: \
+    assets/gfx/palettes/unk_08752aac.json \
+    assets/gfx/palettes/unk_08752aac.png \
+    assets/gfx/palettes/unk_08752aac.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_08752aac.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875300C.bin: \
+    assets/gfx/palettes/unk_0875300c.json \
+    assets/gfx/palettes/unk_0875300c.png \
+    assets/gfx/palettes/unk_0875300c.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_0875300c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875314C.bin: \
+    assets/gfx/palettes/unk_0875314c.json \
+    assets/gfx/palettes/unk_0875314c.png \
+    assets/gfx/palettes/unk_0875314c.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_0875314c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875350C.bin: \
+    assets/gfx/palettes/unk_0875350c.json \
+    assets/gfx/palettes/unk_0875350c.png \
+    assets/gfx/palettes/unk_0875350c.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/unk_0875350c.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_08750E4C.bin: \
     assets/gfx/sprites/gUnk_08750E4C.json \

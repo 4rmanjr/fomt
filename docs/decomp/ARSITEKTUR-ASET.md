@@ -966,9 +966,9 @@ dialihkan ke `build/assets/` dibagi biaya membuktikannya.
 | 1 | container `func_0805E6CC` utuh | parse A–F+T berakhir tepat di ujung slice,
 encode ulang byte identik, dan rujukan kode dekat `func_0805E6CC` |
 `font_container.py` | selesai — lihat catatan di bawah |
-| 2 | palet 32 B/512 B (`gUnk_08529794`, `gUnk_0852CA40`, `gUnk_0874E330`,
-…) | semua u16 < 0x8000 dan `pal2gba.py` encode ulang byte identik |
-`pal2gba.py` | tambah bukti pemuat (salinan ke `0x05000000`) lalu migrasi |
+| 2 | palet 32 B/512 B | semua u16 < 0x8000 dan `pal2gba.py` encode ulang byte
+identik; hanya yang tapak salinannya menuju palette RAM yang dimigrasikan |
+`pal2gba.py` | sebagian selesai — sisanya menunggu penelusuran antar-fungsi |
 | 3 | tile 4bpp 32 B/tile (`gUnk_0872FA9C`, …) | `tile4bpp.py` round-trip byte
 identik, tetapi sebagian blob berukuran kelipatan 32 ternyata tabel atau
 stream `0x70` | `tile4bpp.py` | sortir dulu: hanya yang call site-nya menyalin
@@ -993,6 +993,22 @@ Saat memindai kandidat, pola regex harus toleran terhadap baris `.global` yang
 membawa komentar `@…`: `gUnk_08738144` ditulis `@gCalendarFont?` dan lolos
 parse penuh, tetapi pola yang menuntut `.global <simbol>` bersih melewatkannya
 sehingga kelasnya tampak kurang satu.
+
+Kelas 2 baru sebagian, dan batasnya adalah bukti pemuat, bukan bentuk byte.
+Bukti yang diterima: tapak salinan yang tujuannya konstanta palette RAM
+(`0x05000000`–`0x050003FF`), lewat `func_08008E64` (`r0` sumber, `r1` tujuan,
+`r2` panjang), `func_08008F0C` (`r0` antrean, `r1` sumber, **`r2` tujuan**,
+`r3` panjang), atau `Unpack` (`r1` tujuan). Tujuan boleh berupa basis palette
+RAM ditambah indeks slot (`0x05000200 + slot*0x20`), asalkan basisnya konstanta
+itu. Bukti disimpan di field `evidence` metadata aset, jadi tidak perlu
+ditelusuri ulang dari asm.
+
+Palet yang simbolnya hanya disimpan ke field struct — mis. `str r0, [rN, #0xc]`
+berpasangan dengan tile di `+8` — belum punya bukti di fungsi itu: salinannya
+dilakukan rutin bersama yang menerima struct tersebut, sehingga butuh
+penelusuran antar-fungsi sebelum boleh dialihkan. Blob yang salah satu u16-nya
+`>= 0x8000` tetap bukan palet (bit 15 bukan bagian BGR555) dan tidak dihitung
+sebagai kandidat.
 
 Angka pasti per kelas tidak ditulis di sini — ambil dari
 `tools/scripts/asset_inventory.py --json` dan `assets/manifest.json` supaya

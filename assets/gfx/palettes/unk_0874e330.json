@@ -1,0 +1,23 @@
+{
+ "id": "gfx/palettes/gunk_0874e330",
+ "symbol": "gUnk_0874E330",
+ "kind": "palette",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x74E330",
+  "size": 512,
+  "sha256": "d503e20b342424db39c68a212268de64fa9307148860754d9cc7d6c2b75b453e"
+ },
+ "source": {
+  "pal": "unk_0874e330.pal",
+  "png": "unk_0874e330.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "func_080019D8 (intro_scene.s:1959): func_08008E64(gUnk_0874E330, 0x05000000, 0x200), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 1954."
+}

@@ -1,0 +1,23 @@
+{
+ "id": "gfx/palettes/gunk_0852ca40",
+ "symbol": "gUnk_0852CA40",
+ "kind": "palette",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x52CA40",
+  "size": 512,
+  "sha256": "9a610ecd5ca19e05911dfe937b0ff5d6004c716ae5578e09430639536e0ea96e"
+ },
+ "source": {
+  "pal": "unk_0852ca40.pal",
+  "png": "unk_0852ca40.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "func_0806EC94 (code_0803EE94.s:93938): func_08008E64(gUnk_0852CA40, 0x05000000, 0x200), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 93932."
+}
