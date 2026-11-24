@@ -233,6 +233,104 @@ class PairRule(unittest.TestCase):
         self.assertIn("tidak dikenal", str(ctx.exception))
 
 
+def _bg_asm(tmp, pal_const="0x05000040", sl_bank=None, tile=0x72, pal=2):
+    """Fixture asm: DMA palet + BG map `bl func_0804E9F4` dengan indeks palet."""
+    lines = []
+    if sl_bank is not None:
+        lines += ["\tmovs r4, #%d" % sl_bank, "\tlsls r4, r4, #5",
+                  "\tmov sl, r4"]
+    lines += ["\tmovs r0, #0x%02x" % tile, "\tlsls r0, r0, #0x10",
+              "\tstr r0, [sp, #0x108]",
+              "\tldr r1, .Lp @ =gUnk_0875298C"]
+    pal_line = len(lines)
+    if sl_bank is not None:
+        lines += ["\tmovs r2, #0xa0", "\tlsls r2, r2, #0x13",
+                  "\tadd r2, sl"]
+    else:
+        lines += ["\tldr r2, .Lq @ =%s" % pal_const]
+    lines += ["\tmovs r3, #0x20", "\tbl func_08008F0C",
+              "\tldr r3, [sp, #0x108]", "\tlsrs r1, r3, #0x10"]
+    branch = len(lines)
+    lines += ["\tmovs r2, #%d" % pal, "\tstr r2, [sp]",
+              "\tmovs r2, #0x20", "\tstr r2, [sp, #4]",
+              "\tmovs r3, #1"]
+    bg = len(lines) + 1
+    lines += ["\tbl func_0804E9F4"]
+    lines += [".Lp: .4byte gUnk_0875298C"]
+    if pal_const is not None:
+        lines += [".Lq: .4byte " + pal_const]
+    path = tmp / "bg.s"
+    path.write_text("\n".join(lines) + "\n")
+    return path, pal_line, branch, bg
+
+
+class BgMapCheck(unittest.TestCase):
+    """Bukti BG map tidak boleh diketik manual: baris + indeks palet divalidasi."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.dir = Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def check(self, **kw):
+        path, pal, branch, bg = _bg_asm(self.dir, **kw)
+        return sprite2gba.check_bg_map(str(path), pal, branch, bg,
+                                       kw.get("tile", 0x72),
+                                       kw.get("pal", 2))
+
+    def test_menerima_baris_bl_dan_indeks_palet_literal(self):
+        info = self.check()
+        self.assertEqual(info["tile"], "0x72")
+        self.assertEqual(info["palette"], 2)
+        self.assertEqual(info["palette_dma"], "0x05000040")
+        self.assertEqual(info["bank"], 2)
+
+    def test_menerima_offset_palet_lewat_sl(self):
+        info = self.check(pal_const=None, sl_bank=1, pal=1)
+        self.assertEqual(info["palette_dma"], "0x05000020")
+        self.assertEqual(info["bank"], 1)
+
+    def test_menolak_baris_bukan_bl_func(self):
+        path, pal, branch, bg = _bg_asm(self.dir)
+        with self.assertRaises(SystemExit) as ctx:
+            sprite2gba.check_bg_map(str(path), pal, branch, bg - 1, 0x72, 2)
+        self.assertIn("bukan `bl func_0804E9F4`", str(ctx.exception))
+
+    def test_menolak_tile_yang_tidak_ditetapkan_baris_branch(self):
+        path, pal, branch, bg = _bg_asm(self.dir)
+        with self.assertRaises(SystemExit) as ctx:
+            sprite2gba.check_bg_map(str(path), pal, branch, bg, 0x73, 2)
+        self.assertIn("menetapkan tile 0x72", str(ctx.exception))
+
+    def test_menolak_indeks_palet_berbeda(self):
+        path, pal, branch, bg = _bg_asm(self.dir)
+        with self.assertRaises(SystemExit) as ctx:
+            sprite2gba.check_bg_map(str(path), pal, branch, bg, 0x72, 3)
+        self.assertIn("indeks palet 2", str(ctx.exception))
+
+    def test_menolak_palet_di_dma_ke_bank_lain(self):
+        path, pal, branch, bg = _bg_asm(self.dir, pal_const="0x05000060")
+        with self.assertRaises(SystemExit) as ctx:
+            sprite2gba.check_bg_map(str(path), pal, branch, bg, 0x72, 2)
+        self.assertIn("bank 3", str(ctx.exception))
+
+    def test_semua_aset_bg_map_di_repo_lolos(self):
+        checked = 0
+        for path in sorted((REPO / "assets" / "gfx" / "sprites").glob("*.json")):
+            meta = json.loads(path.read_text())
+            bg = (meta.get("pair") or {}).get("bg_map")
+            if not bg:
+                continue
+            info = sprite2gba.check_bg_map(
+                bg["asm"], meta["pair"]["load_lines"][1], bg["branch"],
+                bg["line"], int(bg["tile"], 16), bg["palette"])
+            self.assertEqual(info["palette_dma"], bg["palette_dma"], path.name)
+            checked += 1
+        self.assertGreater(checked, 0)
+
+
 class GfxRules(unittest.TestCase):
     def test_rules_synced(self):
         self.assertEqual(gfx_rules.main(["--check"]), 0)

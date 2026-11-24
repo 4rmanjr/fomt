@@ -284,7 +284,14 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   menentukan aturan id §6: placeholder `gunk_<alamat>` hanya sah bila
   semantiknya belum terbukti. Baris `--pair-lines` harus memuat `@ =<symbol>`
   dan merupakan rujukan pertama simbol itu, jadi nomornya tidak bisa asal
-  diketik.
+  diketik. Bukti BG map diverifikasi mesin lewat `--pair-bg-line` (baris
+  `bl func_0804E9F4`), `--pair-bg-branch` (baris `movs r1, #tile` /
+  `lsrs r1, rX, #0x10`), `--pair-bg-tile`, dan `--pair-bg-palette`; tool
+  menolak bila baris bukan `bl func_0804E9F4`, tile tidak ditetapkan di
+  branch, indeks palet di `[sp]` berbeda, atau palet tidak di-DMA ke
+  `0x05000000 + palette*0x20` (literal `@ =0x0500xxxx` maupun `+ sl`).
+  Hasilnya blok `pair.bg_map` (`asm`, `line`, `branch`, `tile`, `palette`,
+  `palette_dma`, `bank`) yang dicek ulang `verify`.
   Contoh: `python3 tools/assets/sprite2gba.py verify --json
   assets/gfx/sprites/gUnk_087518CC.json`.
 - `tools/assets/pal2gba.py` — codec palet: `.pal` JASC (8 bit/kanal, source

@@ -332,6 +332,169 @@ def check_pair(offset, size, pal_offset, rule="adjacent", lines="",
     return pair
 
 
+BG_MAP_TOOL = "func_0804E9F4"
+
+
+def _sp_slots(asm_lines):
+    """slot stack -> nilai `movs rX,#imm; lsls rX,rX,#0x10; str rX,[sp,#slot]`."""
+    slots = {}
+    for i in range(len(asm_lines) - 2):
+        m = re.fullmatch(r"\tmovs r(\d), #(0x[0-9a-f]+)", asm_lines[i])
+        if not m:
+            continue
+        reg, imm = m.group(1), int(m.group(2), 16)
+        if not re.fullmatch(rf"\tlsls r{reg}, r{reg}, #0x10", asm_lines[i + 1]):
+            continue
+        m3 = re.fullmatch(rf"\tstr r{reg}, \[sp, #(0x[0-9a-f]+)\]",
+                          asm_lines[i + 2])
+        if m3:
+            slots[m3.group(1)] = imm
+    return slots
+
+
+def _bg_tile(asm_lines, branch_line, slots):
+    """Tile yang ditulis `movs r1,#tile` atau `lsrs r1,rX,#0x10` di branch."""
+    text = asm_lines[branch_line - 1].strip()
+    m = re.fullmatch(r"movs r1, #(0x[0-9a-f]+)", text)
+    if m:
+        return int(m.group(1), 16)
+    m = re.fullmatch(r"lsrs r1, r(\d+), #0x10", text)
+    if not m:
+        raise SystemExit(
+            f"--pair-bg-branch baris {branch_line} bukan `movs r1, #tile` "
+            f"atau `lsrs r1, rX, #0x10` ({text!r})")
+    reg = m.group(1)
+    for line in reversed(asm_lines[max(0, branch_line - 9):branch_line - 1]):
+        m2 = re.fullmatch(rf"\tldr r{reg}, \[sp, #(0x[0-9a-f]+)\]", line)
+        if m2:
+            slot = m2.group(1)
+            if slot not in slots:
+                raise SystemExit(
+                    f"--pair-bg-branch baris {branch_line}: konstanta slot "
+                    f"{slot} tidak ditemukan")
+            return slots[slot]
+    raise SystemExit(
+        f"--pair-bg-branch baris {branch_line}: `ldr r{reg}, [sp, ...]` "
+        "tidak ditemukan")
+
+
+def _bg_palette(asm_lines, branch_line, bg_line):
+    """Argumen ke-5 (`[sp]`) pemanggilan BG map di antara branch dan bl."""
+    found = None
+    for i in range(branch_line - 1, bg_line - 1):
+        m = re.fullmatch(r"\tstr r(\d), \[sp\]", asm_lines[i])
+        if not m:
+            continue
+        reg = m.group(1)
+        value = None
+        for k in range(i - 1, max(i - 60, 0), -1):
+            m2 = re.fullmatch(rf"\tmovs r{reg}, #(\d+)", asm_lines[k])
+            if m2:
+                value = int(m2.group(1))
+                break
+            if re.match(rf"\t(mov|ldr|add|sub|lsl|lsr)s? r{reg}\b",
+                        asm_lines[k]):
+                break
+        if value is None:
+            continue
+        if found is not None and found != value:
+            raise SystemExit(
+                f"--pair-bg-line {bg_line}: indeks palet di jendela "
+                f"branch..bl tidak konsisten ({found} vs {value})")
+        found = value
+    if found is None:
+        raise SystemExit(
+            f"--pair-bg-line {bg_line}: `str rX, [sp]` dengan nilai "
+            f"`movs rX, #N` (argumen indeks palet) tidak ditemukan")
+    return found
+
+
+def _palette_dma_offset(asm_lines, pal_line):
+    """Offset palet di palette RAM (0x05000000 + offset) dari baris load-nya."""
+    window = range(pal_line - 1, min(pal_line + 8, len(asm_lines)))
+    for i in window:
+        m = re.search(r"@ =0x0500([0-9a-fA-F]{4})", asm_lines[i])
+        if m:
+            return int(m.group(1), 16)
+    for i in window:
+        m = re.fullmatch(r"\tmovs r(\d), #0xa0", asm_lines[i])
+        if not m:
+            continue
+        reg = m.group(1)
+        if i + 1 >= len(asm_lines) or not re.fullmatch(
+                rf"\tlsls r{reg}, r{reg}, #0x13", asm_lines[i + 1]):
+            continue
+        for j in range(i + 2, min(i + 6, len(asm_lines))):
+            m2 = re.fullmatch(rf"\tadd r{reg}, (sl|r\d+)", asm_lines[j])
+            if not m2:
+                continue
+            reg2, base = m2.group(1), j
+            if reg2 == "sl":
+                m3 = next((k for k in range(base - 1, max(base - 250, 0), -1)
+                           if re.fullmatch(r"\tmov sl, r\d+", asm_lines[k])),
+                          None)
+                if m3 is None:
+                    break
+                reg2 = re.fullmatch(r"\tmov sl, (r\d+)", asm_lines[m3]).group(1)
+                base = m3
+            for k in range(base - 1, max(base - 9, -1), -1):
+                m4 = re.fullmatch(rf"\tmovs {reg2}, #(\d+)", asm_lines[k])
+                if m4:
+                    value = int(m4.group(1))
+                    if any(re.fullmatch(
+                            rf"\tlsls {reg2}, {reg2}, #5", asm_lines[q])
+                           for q in range(k + 1, base)):
+                        value <<= 5
+                    return value
+            break
+    raise SystemExit(
+        f"--pair-asm: offset palette RAM untuk baris load palet {pal_line} "
+        "tidak bisa dibaca (literal 0x0500xxxx maupun 0x05000000+sl)")
+
+
+def check_bg_map(asm_path, pal_line, branch_line, bg_line, tile, palette):
+    """Verifikasi mesin bukti BG map: baris `bl func_0804E9F4` + indeks palet.
+
+    Bukti yang dikutip di JSON tidak boleh diketik manual: baris branch harus
+    benar-benar menetapkan tile itu di r1, baris `bl` harus memanggil
+    `func_0804E9F4`, indeks palet di jendela branch..bl harus sama dengan
+    `palette`, dan palet pasangan harus di-DMA ke bank `palette`
+    (`0x05000000 + palette*0x20`).
+    """
+    asm_file = Path(asm_path)
+    if not asm_file.exists():
+        raise SystemExit(f"--pair-asm: berkas {asm_path} tidak ada")
+    asm_lines = asm_file.read_text(errors="replace").splitlines()
+    if not 0 < branch_line < bg_line <= len(asm_lines):
+        raise SystemExit(
+            f"--pair-bg-branch {branch_line} / --pair-bg-line {bg_line} "
+            "di luar berkas atau urutannya terbalik")
+    if asm_lines[bg_line - 1].strip() != f"bl {BG_MAP_TOOL}":
+        raise SystemExit(
+            f"--pair-bg-line {bg_line} bukan `bl {BG_MAP_TOOL}` "
+            f"({asm_lines[bg_line - 1].strip()!r})")
+    got_tile = _bg_tile(asm_lines, branch_line, _sp_slots(asm_lines))
+    if got_tile != tile:
+        raise SystemExit(
+            f"--pair-bg-branch {branch_line} menetapkan tile "
+            f"0x{got_tile:02X}, bukan 0x{tile:02X}")
+    got_pal = _bg_palette(asm_lines, branch_line, bg_line)
+    if got_pal != palette:
+        raise SystemExit(
+            f"--pair-bg-line {bg_line} memakai indeks palet {got_pal}, "
+            f"bukan {palette}")
+    offset = _palette_dma_offset(asm_lines, pal_line)
+    bank = offset // 32
+    if bank != palette:
+        raise SystemExit(
+            f"palet baris {pal_line} di-DMA ke 0x05000000+0x{offset:X} "
+            f"(bank {bank}), bukan bank {palette}; bukti BG map dan tujuan "
+            "DMA palet tidak cocok")
+    return {"asm": asm_path, "line": bg_line, "branch": branch_line,
+            "tile": f"0x{tile:02X}", "palette": palette,
+            "palette_dma": f"0x{0x05000000 + offset:08X}", "bank": bank}
+
+
 # ------------------------------------------------------------------ perintah
 
 def decode(args):
@@ -350,6 +513,18 @@ def decode(args):
                               DEFAULT_PAIR_MAX_DISTANCE),
                       getattr(args, "pair_asm", ""), args.symbol,
                       args.pal_symbol)
+    bg_line = getattr(args, "pair_bg_line", None)
+    if bg_line:
+        if "load_lines" not in pair:
+            raise SystemExit("--pair-bg-line butuh --pair-rule asm-load/"
+                             "asm-branch beserta --pair-lines")
+        for name in ("pair_bg_branch", "pair_bg_tile", "pair_bg_palette"):
+            if getattr(args, name, None) is None:
+                raise SystemExit(f"--pair-bg-line butuh --{name.replace('_', '-')}")
+        pair["bg_map"] = check_bg_map(
+            getattr(args, "pair_asm", ""), pair["load_lines"][1],
+            args.pair_bg_branch, bg_line, args.pair_bg_tile,
+            args.pair_bg_palette)
     colors = pal2gba.decode_bytes(pal)
     indices, width, height = unpack_tiles(tiles, args.tiles_wide)
     tile_count = args.size // TILE_BYTES
@@ -419,6 +594,14 @@ def verify(meta_path, rom_path="baserom.gba"):
             psize = int(str(pal["rom"]["size"]), 0)
             if sha256(raw[poff:poff + psize]) != pal["rom"]["sha256"]:
                 problems.append("sha256 palet ROM != metadata (pasangan berubah)")
+    bg = (meta.get("pair") or {}).get("bg_map")
+    if bg:
+        try:
+            check_bg_map(bg["asm"], meta["pair"]["load_lines"][1],
+                         bg["branch"], bg["line"],
+                         int(bg["tile"], 16), bg["palette"])
+        except SystemExit as exc:
+            problems.append(f"bukti BG map: {exc}")
     print(f"symbol={meta.get('symbol', '?')} size={len(encoded)} "
           f"sha256={sha256(encoded)}")
     for problem in problems:
@@ -457,6 +640,15 @@ def main(argv=None):
     d.add_argument("--pair-reason", default="",
                    help="alasan palet dimuat di cabang lain "
                         "(wajib untuk asm-branch)")
+    d.add_argument("--pair-bg-line", type=int,
+                   help="baris `bl func_0804E9F4` yang menulis tile ini di BG map")
+    d.add_argument("--pair-bg-branch", type=int,
+                   help="baris yang menetapkan tile di r1 (movs r1,#tile / "
+                        "lsrs r1,rX,#0x10)")
+    d.add_argument("--pair-bg-tile", type=lambda s: int(s, 0),
+                   help="nomor tile BG map yang diharapkan (mis. 0x73)")
+    d.add_argument("--pair-bg-palette", type=int,
+                   help="indeks palet BG map yang diharapkan (0-15)")
     d.add_argument("--pair-max-distance", type=int,
                    default=DEFAULT_PAIR_MAX_DISTANCE,
                    help="batas jarak baris load untuk asm-load")

@@ -46,7 +46,16 @@
    73892
   ],
   "distance": 448,
-  "reason": "BG map tile 0x73 ditulis func_0804E9F4 dengan indeks palet 2 (branch baris 76012, bl baris 76042); palet gUnk_0875298C di-DMA ke bank 2 (baris 73892)"
+  "reason": "BG map tile 0x73 ditulis func_0804E9F4 dengan indeks palet 2 (branch baris 76012, bl baris 76042); palet gUnk_0875298C di-DMA ke bank 2 (baris 73892)",
+  "bg_map": {
+   "asm": "asm/code_0803EE94.s",
+   "line": 76042,
+   "branch": 76012,
+   "tile": "0x73",
+   "palette": 2,
+   "palette_dma": "0x05000040",
+   "bank": 2
+  }
  },
  "evidence": "func_0804E9F4 menulis tile 0x73 dengan indeks palet 2 (branch 76012, bl 76042); gUnk_0875298C di-DMA 0x20 B ke bank 2 (baris 73892); tile gUnk_08752D4C di-DMA 0x80 B (baris 73444)",
  "note": "4 tile 8x8 berisi; frame 2x2 satu objek"

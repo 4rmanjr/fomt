@@ -794,8 +794,8 @@ indeks palet eksplisit:
 
 | slot tile | blob | indeks palet | palet | bukti |
 |---|---|---|---|---|
-| 0x71 / 0x72 / 0x77 | `08752B4C` / `087529AC` / `08752ACC` | 2 | `gUnk_0875298C` | `func_0804E9F4` di baris 75717 / 75852 / 76042; palet di-DMA ke `0x05000040` (bank 2) di baris 73892 |
-| 0x59 / 0x5A / 0x5B | `08752CCC` / `08752BCC` / `08752C4C` | 1 | `gUnk_08752AAC` | `func_0804E9F4` di baris 83546 / 83559 / 83572; palet di-DMA ke `0x05000020` (bank 1) di baris 80960 |
+| 0x71 / 0x72 / 0x77 | `08752B4C` / `087529AC` / `08752ACC` | 2 | `gUnk_0875298C` | branch 75710 / 75845 / 76024, `func_0804E9F4` di baris 75717 / 75852 / 76042; palet di-DMA ke `0x05000040` (bank 2) di baris 73892 |
+| 0x59 / 0x5A / 0x5B | `08752CCC` / `08752BCC` / `08752C4C` | 1 | `gUnk_08752AAC` | branch 83541 / 83554 / 83567, `func_0804E9F4` di baris 83546 / 83559 / 83572; palet di-DMA ke `0x05000020` (bank 1) di baris 80960 |
 
 Karena load tile dan palet berjauhan, pasangannya dicatat
 `--pair-rule asm-branch` dengan `--pair-lines` yang diverifikasi
@@ -810,10 +810,17 @@ Dua blob lain di blok itu ikut dikonversi dengan bukti yang sama:
 ditulis dengan indeks palet 2, jadi pasangannya `gUnk_0875298C`; keduanya
 kini `kind: sprite` dan JSON lama di `assets/gfx/tiles/` dihapus.
 
-Nomor baris di tabel adalah baris `bl func_0804E9F4` untuk tile yang
-bersangkutan; nomor itu sengaja dicatat karena `pair.reason`/`evidence` di
-JSON mengutipnya, dan subset `--pair-asm` hanya memverifikasi baris load
-tile/palet (bukan baris BG map).
+Nomor baris di tabel bukan lagi kutipan manual: kedelapan JSON menyimpan blok
+`pair.bg_map` (`line`, `branch`, `tile`, `palette`, `palette_dma`, `bank`)
+yang dihasilkan `sprite2gba.py` dari `check_bg_map`. Tool membaca asm dan
+menolak bukti yang tidak cocok: baris `line` harus benar-benar
+`bl func_0804E9F4`, baris `branch` harus menetapkan tile itu di `r1`
+(`movs r1, #tile` atau `lsrs r1, rX, #0x10` dengan konstanta slot stack yang
+dicek), argumen ke-5 `[sp]` di jendela branch..bl harus sama dengan indeks
+palet, dan palet pasangan harus di-DMA ke `0x05000000 + palette*0x20`
+(literal `@ =0x0500xxxx` maupun `0x05000000 + sl`). `verify` menjalankan
+ulang pemeriksaan ini, jadi angka di tabel dan di JSON tidak bisa menyimpang
+dari asm.
 
 Keempatnya lalu dimigrasikan sebagai **`kind: tiles4bpp`** lewat jalur tile
 (`tile4bpp.py`), bukan sprite: blob ini tile mentah tanpa palet pasangan, jadi
@@ -842,6 +849,12 @@ di cabang lain dari fungsi yang sama. Karena itu `sprite2gba.py decode` punya
 | `adjacent` (default) | palet tepat setelah tile di ROM; cukup urutan blob | `pal_offset == offset + size` |
 | `asm-load` | palet dirujuk load asm berdekatan | `--pair-lines tile/palet` + `--pair-asm <berkas .s>`; baris wajib memuat `@ =<symbol>`/`@ =<pal-symbol>` dan harus rujukan **pertama**; jarak <= `--pair-max-distance` (default 40 baris) |
 | `asm-branch` | palet dimuat di cabang lain, jarak jauh | `--pair-lines` + `--pair-asm` + `--pair-reason` wajib; jarak dicatat apa adanya |
+
+Bukti BG map (slot tile + indeks palet) diverifikasi terpisah lewat
+`--pair-bg-line` (baris `bl func_0804E9F4`), `--pair-bg-branch` (baris yang
+menetapkan tile di `r1`), `--pair-bg-tile`, dan `--pair-bg-palette`. Keempatnya
+wajib bersama dan hanya sah bila `--pair-lines`/`--pair-asm` sudah ada;
+hasilnya blok `pair.bg_map` yang ikut dicek ulang oleh `verify`.
 
 Contoh kasus nyata: `gUnk_0875254C`/`gUnk_087525CC` dimuat di baris 64123 dan
 64270 (jarak 147, beda cabang `func_0805FF14`), jadi dipanggil dengan
