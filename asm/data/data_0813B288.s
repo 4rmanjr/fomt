@@ -144,7 +144,9 @@ gUnk_08699FF4:
 
 	.global gUnk_0869A0A4
 gUnk_0869A0A4:
-	.incbin "baserom.gba", 0x69A0A4, 0x11E0
+	@ rom: 0x69A0A4 0x11E0 — source assets/gfx/tiles/gUnk_0869A0A4.{png,json}; tiles 4bpp (143 tile)
+	@ func_080A748C (code_809E804.s:19344) menyalin 0x11E0 B ke 0x06006E20 (VRAM); tile4bpp.py: byte identik slice ROM.
+	.incbin "build/assets/gUnk_0869A0A4.bin"
 
 	.global gUnk_0869B284
 gUnk_0869B284:

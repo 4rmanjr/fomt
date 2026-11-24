@@ -138,6 +138,7 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_086678A0.bin \
   $(BUILD_DIR)/assets/gUnk_08697920.bin \
   $(BUILD_DIR)/assets/gUnk_08698E14.bin \
+  $(BUILD_DIR)/assets/gUnk_0869A0A4.bin \
   $(BUILD_DIR)/assets/gUnk_086D5508.bin \
   $(BUILD_DIR)/assets/gUnk_086D6698.bin \
   $(BUILD_DIR)/assets/gUnk_08750C4C.bin \
@@ -1156,6 +1157,13 @@ $(BUILD_DIR)/assets/gUnk_08698E14.bin: \
     tools/assets/tile4bpp.py
 	@echo "ASSET $@"
 	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_08698E14.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0869A0A4.bin: \
+    assets/gfx/tiles/gUnk_0869A0A4.json \
+    assets/gfx/tiles/gUnk_0869A0A4.png \
+    tools/assets/tile4bpp.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_0869A0A4.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_086D5508.bin: \
     assets/gfx/tiles/gUnk_086D5508.json \

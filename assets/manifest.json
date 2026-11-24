@@ -2851,6 +2851,27 @@
    }
   },
   {
+   "id": "gfx/tiles/gunk_0869a0a4",
+   "symbol": "gUnk_0869A0A4",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x69A0A4",
+    "size": 4576,
+    "sha256": "69f5649e9bcb3da8816bab1a5155e7aecbd7a6757596e32bcdc07ecd199bda45"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_0869A0A4.json",
+    "png": "assets/gfx/tiles/gUnk_0869A0A4.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   },
+   "evidence": "func_080A748C (code_809E804.s:19344): func_08008F0C(antrean, gUnk_0869A0A4, 0x06006E20, 0x11E0) \u2014 salinan 143 tile (4576 B) ke VRAM, panjang salinan sama dengan ukuran slice; simbol dimuat di baris 19339."
+  },
+  {
    "id": "gfx/tiles/gunk_086d5508",
    "symbol": "gUnk_086D5508",
    "kind": "tiles4bpp",

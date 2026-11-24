@@ -969,10 +969,9 @@ encode ulang byte identik, dan rujukan kode dekat `func_0805E6CC` |
 | 2 | palet 32 B/512 B | semua u16 < 0x8000 dan `pal2gba.py` encode ulang byte
 identik; hanya yang tapak salinannya menuju palette RAM yang dimigrasikan |
 `pal2gba.py` | sebagian selesai — sisanya menunggu penelusuran antar-fungsi |
-| 3 | tile 4bpp 32 B/tile (`gUnk_0872FA9C`, …) | `tile4bpp.py` round-trip byte
-identik, tetapi sebagian blob berukuran kelipatan 32 ternyata tabel atau
-stream `0x70` | `tile4bpp.py` | sortir dulu: hanya yang call site-nya menyalin
-ke VRAM `0x06000000` |
+| 3 | tile 4bpp kelipatan 32 B (`gUnk_0872FA9C`, …) | `tile4bpp.py` round-trip
+byte identik, tetapi bentuk byte saja tidak cukup | `tile4bpp.py` | sebagian
+selesai — sisanya diparkir, lihat catatan di bawah |
 | 4 | stream `0x70` (lihat `ASET-0X70-PETA-BERKAS.md`) | dekoder ada
 (`decompress.py`, `lz70.parse`), encoder byte-identik belum | belum | butuh
 encoder LZSS deterministik + gate hash sebelum layak |
@@ -1012,6 +1011,31 @@ dilakukan rutin bersama yang menerima struct tersebut, sehingga butuh
 penelusuran antar-fungsi sebelum boleh dialihkan. Blob yang salah satu u16-nya
 `>= 0x8000` tetap bukan palet (bit 15 bukan bagian BGR555) dan tidak dihitung
 sebagai kandidat.
+
+Kelas 3 disortir dengan syarat yang sama seperti kelas 2: tapak salinan harus
+menuju VRAM (`0x06000000`–`0x06017FFF`) dan panjang salinan harus sama dengan
+ukuran slice. Yang lolos hanya `gUnk_0869A0A4` (143 tile, `func_080A748C`
+menyalin 0x11E0 B ke `0x06006E20`); sisanya parkir dengan alasan yang terbaca
+dari tapak salinannya:
+
+- `gUnk_0872DDE4`, `gUnk_0872FA9C`, `gUnk_087399C4`, `gUnk_0873CBF4`,
+  `gUnk_087400E4`, `gUnk_08747A14`, `gUnk_0874F2EC` menuju palette RAM
+  (`0x05000000`/`0x05000020`), jadi milik kelas palet. Panjang salinannya juga
+  tidak sama dengan ukuran slice (0x200 lebih besar, 0x40 lebih kecil), artinya
+  slice itu bukan blok utuh yang disalin — sumber kanonik per-simbol akan
+  memotong data yang ikut tersalin. Pasangan `gUnk_08757AE0`/`gUnk_0875A358`
+  (192 B, salinan 0xC0) ukurannya cocok dan paling siap untuk kelas palet.
+- `gUnk_08757BAC`, `gUnk_08757BD8`, `gUnk_086D6528`, `gUnk_086DD690`,
+  `gUnk_086EAD64`, `gUnk_086EAD8C` berisi entri map u16 (`0x93ff`, deret
+  `0x92a0…`, `0x93xx` berurutan) dan dipakai penulis BG map (`func_08077E64`
+  memakai `ldrh`/`strh`), bukan tile 4bpp. `gUnk_086D6458` seluruhnya `0x93ff`
+  dan tidak dirujuk kode.
+- `gUnk_086D6548` dan empat blok `func_080A95A4` (`gUnk_086EACE4`,
+  `gUnk_086EAD04`, `gUnk_086EAD24`, `gUnk_086EAD44`) disalin ke
+  `[field objek + 0xc0]`; tujuannya tidak terbaca dari fungsi itu.
+- sisa 32 B adalah kandidat palet yang pointer-nya disimpan ke struct (catatan
+  kelas 2 di atas), dan `gUnk_084FA7A0` tetap tabel indeks glyph (baris parkir
+  di tabel).
 
 Angka pasti per kelas tidak ditulis di sini — ambil dari
 `tools/scripts/asset_inventory.py --json` dan `assets/manifest.json` supaya
