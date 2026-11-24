@@ -1,0 +1,52 @@
+{
+ "id": "gfx/sprites/gunk_087530cc",
+ "symbol": "gUnk_087530CC",
+ "kind": "sprite",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x7530CC",
+  "size": 128,
+  "sha256": "f91fc7320c28eb39ffc0f9de52f480c7aefd861501c1e559509121afa2281688"
+ },
+ "palette": {
+  "symbol": "gUnk_0875314C",
+  "rom": {
+   "offset": "0x75314C",
+   "size": 32,
+   "sha256": "89c7ff047c0b133a2a57cf2f2b2da384bfa816cf2157c745683da7a338581ebe"
+  }
+ },
+ "source": {
+  "png": "gUnk_087530CC.png",
+  "pal": "gUnk_087530CC.pal",
+  "tiles_wide": 2,
+  "tile_count": 4
+ },
+ "frame": {
+  "width_tiles": 2,
+  "height_tiles": 2,
+  "count": 1,
+  "order": "row-major"
+ },
+ "encoder": {
+  "tool": "sprite2gba.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first",
+  "png_format": "indexed-8-plte"
+ },
+ "pair": {
+  "rule": "asm-branch",
+  "rom_adjacent": true,
+  "source": "asm",
+  "asm": "asm/code_0803EE94.s",
+  "load_lines": [
+   64412,
+   64559
+  ],
+  "distance": 147,
+  "reason": "palet dimuat di cabang lain func_0805FF14 (jarak 147 baris)"
+ },
+ "evidence": "code_0803EE94.s:64412/64559 memuat gUnk_087530CC (tile 0x80) dan gUnk_0875314C (palet 0x20)",
+ "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri"
+}
