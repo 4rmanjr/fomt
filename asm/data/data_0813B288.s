@@ -1097,7 +1097,10 @@ gUnk_0875314C:
 
 	.global gUnk_0875316C
 gUnk_0875316C:
-	.incbin "baserom.gba", 0x75316C, 0x80
+	@ rom: 0x75316C 0x80 — source assets/gfx/sprites/gUnk_0875316C.{png,pal,json};
+	@ palet pasangan gUnk_087531EC (pair-rule asm-load 68455/68457, lihat `pair.load_lines`) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875316C.bin"
 
 	.global gUnk_087531EC
 gUnk_087531EC:
@@ -1105,7 +1108,10 @@ gUnk_087531EC:
 
 	.global gUnk_0875320C
 gUnk_0875320C:
-	.incbin "baserom.gba", 0x75320C, 0x80
+	@ rom: 0x75320C 0x80 — source assets/gfx/sprites/gUnk_0875320C.{png,pal,json};
+	@ palet pasangan gUnk_0875328C (pair-rule asm-load 68268/68270, lihat `pair.load_lines`) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875320C.bin"
 
 	.global gUnk_0875328C
 gUnk_0875328C:
@@ -1113,7 +1119,10 @@ gUnk_0875328C:
 
 	.global gUnk_087532AC
 gUnk_087532AC:
-	.incbin "baserom.gba", 0x7532AC, 0x80
+	@ rom: 0x7532AC 0x80 — source assets/gfx/sprites/gUnk_087532AC.{png,pal,json};
+	@ palet pasangan gUnk_0875332C (pair-rule asm-load 71946/71947, lihat `pair.load_lines`) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_087532AC.bin"
 
 	.global gUnk_0875332C
 gUnk_0875332C:
@@ -1121,7 +1130,10 @@ gUnk_0875332C:
 
 	.global gUnk_0875334C
 gUnk_0875334C:
-	.incbin "baserom.gba", 0x75334C, 0x80
+	@ rom: 0x75334C 0x80 — source assets/gfx/sprites/gUnk_0875334C.{png,pal,json};
+	@ palet pasangan gUnk_087533CC (pair-rule asm-load 71928/71929, lihat `pair.load_lines`) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875334C.bin"
 
 	.global gUnk_087533CC
 gUnk_087533CC:
@@ -1129,7 +1141,10 @@ gUnk_087533CC:
 
 	.global gUnk_087533EC
 gUnk_087533EC:
-	.incbin "baserom.gba", 0x7533EC, 0x80
+	@ rom: 0x7533EC 0x80 — source assets/gfx/sprites/gUnk_087533EC.{png,pal,json};
+	@ palet pasangan gUnk_0875346C (pair-rule asm-load 71953/71954, lihat `pair.load_lines`) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_087533EC.bin"
 
 	.global gUnk_0875346C
 gUnk_0875346C:

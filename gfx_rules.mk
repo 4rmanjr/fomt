@@ -39,6 +39,11 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_08752F8C.bin \
   $(BUILD_DIR)/assets/gUnk_0875302C.bin \
   $(BUILD_DIR)/assets/gUnk_087530CC.bin \
+  $(BUILD_DIR)/assets/gUnk_0875316C.bin \
+  $(BUILD_DIR)/assets/gUnk_0875320C.bin \
+  $(BUILD_DIR)/assets/gUnk_087532AC.bin \
+  $(BUILD_DIR)/assets/gUnk_0875334C.bin \
+  $(BUILD_DIR)/assets/gUnk_087533EC.bin \
   $(BUILD_DIR)/assets/gUnk_08750C4C.bin \
   $(BUILD_DIR)/assets/gUnk_08750C8C.bin \
   $(BUILD_DIR)/assets/gUnk_08752D4C.bin \
@@ -329,6 +334,46 @@ $(BUILD_DIR)/assets/gUnk_087530CC.bin: \
     tools/assets/sprite2gba.py
 	@echo "ASSET $@"
 	@python3 tools/assets/sprite2gba.py encode --json assets/gfx/sprites/gUnk_087530CC.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875316C.bin: \
+    assets/gfx/sprites/gUnk_0875316C.json \
+    assets/gfx/sprites/gUnk_0875316C.png \
+    assets/gfx/sprites/gUnk_0875316C.pal \
+    tools/assets/sprite2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/sprite2gba.py encode --json assets/gfx/sprites/gUnk_0875316C.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875320C.bin: \
+    assets/gfx/sprites/gUnk_0875320C.json \
+    assets/gfx/sprites/gUnk_0875320C.png \
+    assets/gfx/sprites/gUnk_0875320C.pal \
+    tools/assets/sprite2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/sprite2gba.py encode --json assets/gfx/sprites/gUnk_0875320C.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087532AC.bin: \
+    assets/gfx/sprites/gUnk_087532AC.json \
+    assets/gfx/sprites/gUnk_087532AC.png \
+    assets/gfx/sprites/gUnk_087532AC.pal \
+    tools/assets/sprite2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/sprite2gba.py encode --json assets/gfx/sprites/gUnk_087532AC.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875334C.bin: \
+    assets/gfx/sprites/gUnk_0875334C.json \
+    assets/gfx/sprites/gUnk_0875334C.png \
+    assets/gfx/sprites/gUnk_0875334C.pal \
+    tools/assets/sprite2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/sprite2gba.py encode --json assets/gfx/sprites/gUnk_0875334C.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087533EC.bin: \
+    assets/gfx/sprites/gUnk_087533EC.json \
+    assets/gfx/sprites/gUnk_087533EC.png \
+    assets/gfx/sprites/gUnk_087533EC.pal \
+    tools/assets/sprite2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/sprite2gba.py encode --json assets/gfx/sprites/gUnk_087533EC.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_08750C4C.bin: \
     assets/gfx/tiles/gUnk_08750C4C.json \

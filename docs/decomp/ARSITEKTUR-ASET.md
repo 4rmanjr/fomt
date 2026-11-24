@@ -830,3 +830,11 @@ python3 tools/assets/sprite2gba.py decode --rom baserom.gba \
     --pair-reason "palet dimuat di cabang lain func_0805FF14" \
     --png ... --pal ... --json ... --id ... --symbol gUnk_0875254C
 ```
+
+Rantai sprite 4-tile yang sama berlanjut setelah `gUnk_087530CC`: pasangan
+`gUnk_0875316C`/`gUnk_087531EC`, `gUnk_0875320C`/`gUnk_0875328C`,
+`gUnk_087532AC`/`gUnk_0875332C`, `gUnk_0875334C`/`gUnk_087533CC`, dan
+`gUnk_087533EC`/`gUnk_0875346C` semuanya dimuat berurutan di asm (jarak 1–2
+baris, `code_0803EE94.s`), jadi bukti pasangannya `--pair-rule asm-load`, bukan
+`asm-branch`; blob ROM-nya juga bersebelahan sehingga `rom_adjacent` benar.
+Alamat tetap dipakai hanya sebagai placeholder `semantics: unidentified` (§6).
