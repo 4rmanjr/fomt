@@ -1022,7 +1022,10 @@ gUnk_0875298C:
 
 	.global gUnk_087529AC
 gUnk_087529AC:
-	.incbin "baserom.gba", 0x7529AC, 0x80
+	@ rom: 0x7529AC 0x80 — source assets/gfx/tiles/gUnk_087529AC.{png,json};
+	@ 1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x72/0x20 ke VRAM, digerbang tile4bpp.py verify.
+	@ palet pasangan belum terbukti (cabang itu tidak menyalin palet), jadi tidak ada `pair`.
+	.incbin "build/assets/gUnk_087529AC.bin"
 
 	.global gUnk_08752A2C
 gUnk_08752A2C:
@@ -1037,23 +1040,38 @@ gUnk_08752AAC:
 
 	.global gUnk_08752ACC
 gUnk_08752ACC:
-	.incbin "baserom.gba", 0x752ACC, 0x80
+	@ rom: 0x752ACC 0x80 — source assets/gfx/tiles/gUnk_08752ACC.{png,json};
+	@ 1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x77/0x80 ke VRAM, digerbang tile4bpp.py verify.
+	@ palet pasangan belum terbukti (cabang itu tidak menyalin palet), jadi tidak ada `pair`.
+	.incbin "build/assets/gUnk_08752ACC.bin"
 
 	.global gUnk_08752B4C
 gUnk_08752B4C:
-	.incbin "baserom.gba", 0x752B4C, 0x80
+	@ rom: 0x752B4C 0x80 — source assets/gfx/tiles/gUnk_08752B4C.{png,json};
+	@ 1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x71/0x20 ke VRAM, digerbang tile4bpp.py verify.
+	@ palet pasangan belum terbukti (cabang itu tidak menyalin palet), jadi tidak ada `pair`.
+	.incbin "build/assets/gUnk_08752B4C.bin"
 
 	.global gUnk_08752BCC
 gUnk_08752BCC:
-	.incbin "baserom.gba", 0x752BCC, 0x80
+	@ rom: 0x752BCC 0x80 — source assets/gfx/tiles/gUnk_08752BCC.{png,json};
+	@ 1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x5A/0x20 ke VRAM, digerbang tile4bpp.py verify.
+	@ palet pasangan belum terbukti (cabang itu tidak menyalin palet), jadi tidak ada `pair`.
+	.incbin "build/assets/gUnk_08752BCC.bin"
 
 	.global gUnk_08752C4C
 gUnk_08752C4C:
-	.incbin "baserom.gba", 0x752C4C, 0x80
+	@ rom: 0x752C4C 0x80 — source assets/gfx/tiles/gUnk_08752C4C.{png,json};
+	@ 1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x5B/0x20 ke VRAM, digerbang tile4bpp.py verify.
+	@ palet pasangan belum terbukti (cabang itu tidak menyalin palet), jadi tidak ada `pair`.
+	.incbin "build/assets/gUnk_08752C4C.bin"
 
 	.global gUnk_08752CCC
 gUnk_08752CCC:
-	.incbin "baserom.gba", 0x752CCC, 0x80
+	@ rom: 0x752CCC 0x80 — source assets/gfx/tiles/gUnk_08752CCC.{png,json};
+	@ 1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x59/0x20 ke VRAM, digerbang tile4bpp.py verify.
+	@ palet pasangan belum terbukti (cabang itu tidak menyalin palet), jadi tidak ada `pair`.
+	.incbin "build/assets/gUnk_08752CCC.bin"
 
 	.global gUnk_08752D4C
 gUnk_08752D4C:

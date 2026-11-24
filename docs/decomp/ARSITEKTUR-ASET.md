@@ -759,7 +759,12 @@ VRAM pada slot tile berbeda (`func_080645F0`, `func_08068344`):
 | `gUnk_08752CCC` / `BCC` / `C4C` | `+ 0x59/0x5a/0x5b*0x20` | 0x20 |
 
 `func_08008F0C` hanyalah penyusun deskriptor DMA3 (`0x84000000 | count`), jadi
-tujuan `0x0600xxxx` itu pasti VRAM, bukan palette RAM. Satu-satunya palet di
+tujuan `0x0600xxxx` itu pasti VRAM, bukan palette RAM.
+Pemeriksaan byte tiap blob 128 B: hanya 32 B pertama berisi gambar, sedangkan
+tile #1–#3 selalu 32 B nol (hash-nya sama di semua blob). Jadi isinya satu
+tile 8×8 + 0x60 padding nol, bukan empat frame. Karena itu salinan 0x20 B
+memang satu tile 4bpp — tile 8bpp butuh 0x40 B — dan `gUnk_08752ACC` disalin
+0x80 B karena ikut membawa padding-nya. Satu-satunya palet di
 blok itu adalah `gUnk_08752AAC` (0x20 B ke `0x05000000+sl`), pasangan sah untuk
 `gUnk_08752A2C` (blob bersebelahan, jarak load 153 baris → `--pair-rule
 asm-branch`).
@@ -780,6 +785,17 @@ VRAM, bukan palette RAM — `08750C4C` → `0x060100A0` (0x20 B),
 `08750C8C` → `0x06002A00` (416 B), `08752D4C` → slot 0x73 (0x80 B),
 `08752DCC` → slot 0x70. Karena itu penyebut `palet` turun 4 dan populasi
 `sprite/OBJ` naik 4.
+
+Keenam blob `087529AC`, `08752B4C`, `08752ACC`, `08752CCC`, `08752BCC`, dan
+`08752C4C` juga dimigrasikan sebagai **`kind: tiles4bpp`** (`tile4bpp.py
+verify` MATCH, `.incbin` dialihkan ke `build/assets/<symbol>.bin`). Klaim
+pasangan palet **tetap diparkir**: cabang yang menyalin tile itu tidak
+menyalin palet apa pun, dan palet di fungsi yang sama sudah terikat ke objek
+lain (`08752AAC` ↔ `08752A2C`; `08750F6C`, `0875298C`, `087525CC` ke blok
+tile 0x80+, 0x7B, 0x6C). Tidak ada palet yang bisa dibuktikan sebagai
+pasangan keenam blob ini, jadi menambahkan blok `pair` di sini akan
+mengarang bukti; alasannya dicatat di `raw_assets.py` (override
+`VERIFIED_LAYOUT`) dan di komentar `.incbin`.
 
 Keempatnya lalu dimigrasikan sebagai **`kind: tiles4bpp`** lewat jalur tile
 (`tile4bpp.py`), bukan sprite: blob ini tile mentah tanpa palet pasangan, jadi

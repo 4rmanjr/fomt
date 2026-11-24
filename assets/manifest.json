@@ -1137,6 +1137,126 @@
    }
   },
   {
+   "id": "gfx/tiles/gunk_087529ac",
+   "symbol": "gUnk_087529AC",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7529AC",
+    "size": 128,
+    "sha256": "eabbf364dd3f1b489c7ab5df2bdbd4989fc10248eb2032d0439abae3c0739547"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_087529AC.json",
+    "png": "assets/gfx/tiles/gUnk_087529AC.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_08752acc",
+   "symbol": "gUnk_08752ACC",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752ACC",
+    "size": 128,
+    "sha256": "544c753c94d191908294f5db94a19d1cec38b880dbc83c1bd46e53d38a8d7004"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08752ACC.json",
+    "png": "assets/gfx/tiles/gUnk_08752ACC.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_08752b4c",
+   "symbol": "gUnk_08752B4C",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752B4C",
+    "size": 128,
+    "sha256": "bdb3b30e48403290ad2d1943e40464e536df80be2e48b21d73a099df12aba27b"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08752B4C.json",
+    "png": "assets/gfx/tiles/gUnk_08752B4C.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_08752bcc",
+   "symbol": "gUnk_08752BCC",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752BCC",
+    "size": 128,
+    "sha256": "b2874a01897f959d4330225b3b977f369b79078b1d59f355cb79175b2a57103b"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08752BCC.json",
+    "png": "assets/gfx/tiles/gUnk_08752BCC.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_08752c4c",
+   "symbol": "gUnk_08752C4C",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752C4C",
+    "size": 128,
+    "sha256": "4d1dadd2306ba11d8f087f82502dfc4a486f661068a3c08498929fc3d22773ea"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08752C4C.json",
+    "png": "assets/gfx/tiles/gUnk_08752C4C.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_08752ccc",
+   "symbol": "gUnk_08752CCC",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752CCC",
+    "size": 128,
+    "sha256": "9234f32b7674edb2dde1f512c024eaec9cce82a3c5990b81f4da9dc545901cf4"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08752CCC.json",
+    "png": "assets/gfx/tiles/gUnk_08752CCC.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
    "id": "gfx/tiles/gunk_08752d4c",
    "symbol": "gUnk_08752D4C",
    "kind": "tiles4bpp",

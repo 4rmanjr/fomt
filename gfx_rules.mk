@@ -55,6 +55,12 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_087533EC.bin \
   $(BUILD_DIR)/assets/gUnk_08750C4C.bin \
   $(BUILD_DIR)/assets/gUnk_08750C8C.bin \
+  $(BUILD_DIR)/assets/gUnk_087529AC.bin \
+  $(BUILD_DIR)/assets/gUnk_08752ACC.bin \
+  $(BUILD_DIR)/assets/gUnk_08752B4C.bin \
+  $(BUILD_DIR)/assets/gUnk_08752BCC.bin \
+  $(BUILD_DIR)/assets/gUnk_08752C4C.bin \
+  $(BUILD_DIR)/assets/gUnk_08752CCC.bin \
   $(BUILD_DIR)/assets/gUnk_08752D4C.bin \
   $(BUILD_DIR)/assets/gUnk_08752DCC.bin
 
@@ -469,6 +475,48 @@ $(BUILD_DIR)/assets/gUnk_08750C8C.bin: \
     tools/assets/tile4bpp.py
 	@echo "ASSET $@"
 	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_08750C8C.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087529AC.bin: \
+    assets/gfx/tiles/gUnk_087529AC.json \
+    assets/gfx/tiles/gUnk_087529AC.png \
+    tools/assets/tile4bpp.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_087529AC.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08752ACC.bin: \
+    assets/gfx/tiles/gUnk_08752ACC.json \
+    assets/gfx/tiles/gUnk_08752ACC.png \
+    tools/assets/tile4bpp.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_08752ACC.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08752B4C.bin: \
+    assets/gfx/tiles/gUnk_08752B4C.json \
+    assets/gfx/tiles/gUnk_08752B4C.png \
+    tools/assets/tile4bpp.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_08752B4C.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08752BCC.bin: \
+    assets/gfx/tiles/gUnk_08752BCC.json \
+    assets/gfx/tiles/gUnk_08752BCC.png \
+    tools/assets/tile4bpp.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_08752BCC.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08752C4C.bin: \
+    assets/gfx/tiles/gUnk_08752C4C.json \
+    assets/gfx/tiles/gUnk_08752C4C.png \
+    tools/assets/tile4bpp.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_08752C4C.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08752CCC.bin: \
+    assets/gfx/tiles/gUnk_08752CCC.json \
+    assets/gfx/tiles/gUnk_08752CCC.png \
+    tools/assets/tile4bpp.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_08752CCC.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_08752D4C.bin: \
     assets/gfx/tiles/gUnk_08752D4C.json \

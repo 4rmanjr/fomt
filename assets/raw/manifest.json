@@ -1549,7 +1549,7 @@
    "offset": "0x7529AC",
    "size": 128,
    "group": "sprite/OBJ",
-   "note": "4 tile 4bpp (32 B/tile)",
+   "note": "1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x20 B ke VRAM slot 0x72; palet tidak dirujuk cabang itu",
    "renderable": true,
    "png": "assets/raw/png/gUnk_087529AC_128_sprite.png"
   },
@@ -1576,7 +1576,7 @@
    "offset": "0x752ACC",
    "size": 128,
    "group": "sprite/OBJ",
-   "note": "4 tile 4bpp (bukan palet: 16% word satu-nibble)",
+   "note": "1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x80 B (tile + padding) ke VRAM slot 0x77; palet tidak dirujuk cabang itu",
    "renderable": true,
    "png": "assets/raw/png/gUnk_08752ACC_128_sprite.png"
   },
@@ -1585,7 +1585,7 @@
    "offset": "0x752B4C",
    "size": 128,
    "group": "sprite/OBJ",
-   "note": "4 tile 4bpp (32 B/tile)",
+   "note": "1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x20 B ke VRAM slot 0x71; palet tidak dirujuk cabang itu",
    "renderable": true,
    "png": "assets/raw/png/gUnk_08752B4C_128_sprite.png"
   },
@@ -1594,7 +1594,7 @@
    "offset": "0x752BCC",
    "size": 128,
    "group": "sprite/OBJ",
-   "note": "4 tile 4bpp (32 B/tile)",
+   "note": "1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B ke VRAM slot 0x5A; palet tidak dirujuk cabang itu",
    "renderable": true,
    "png": "assets/raw/png/gUnk_08752BCC_128_sprite.png"
   },
@@ -1603,7 +1603,7 @@
    "offset": "0x752C4C",
    "size": 128,
    "group": "sprite/OBJ",
-   "note": "4 tile 4bpp (32 B/tile)",
+   "note": "1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B ke VRAM slot 0x5B; palet tidak dirujuk cabang itu",
    "renderable": true,
    "png": "assets/raw/png/gUnk_08752C4C_128_sprite.png"
   },
@@ -1612,7 +1612,7 @@
    "offset": "0x752CCC",
    "size": 128,
    "group": "sprite/OBJ",
-   "note": "4 tile 4bpp (32 B/tile)",
+   "note": "1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B ke VRAM slot 0x59; palet tidak dirujuk cabang itu",
    "renderable": true,
    "png": "assets/raw/png/gUnk_08752CCC_128_sprite.png"
   },

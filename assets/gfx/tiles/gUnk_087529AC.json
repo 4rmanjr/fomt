@@ -1,0 +1,28 @@
+{
+ "kind": "tiles4bpp",
+ "source": {
+  "png": "gUnk_087529AC.png",
+  "tiles_wide": 4,
+  "tile_count": 4,
+  "header_hex": "",
+  "tail_hex": "",
+  "tile_offset": 0,
+  "tile_trim": 0
+ },
+ "encoder": {
+  "tool": "tile4bpp.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first"
+ },
+ "id": "gfx/tiles/gunk_087529ac",
+ "symbol": "gUnk_087529AC",
+ "status": "rom-exact",
+ "semantics": "unidentified",
+ "rom": {
+  "offset": "0x7529AC",
+  "size": 128,
+  "sha256": "eabbf364dd3f1b489c7ab5df2bdbd4989fc10248eb2032d0439abae3c0739547"
+ },
+ "note": "4 tile 8x8: tile pertama berisi, tiga sisanya nol (padding); func_080645F0 menyalin 0x20 B ke VRAM slot 0x72. Palet pasangan belum terbukti: cabang itu tidak menyalin palet."
+}

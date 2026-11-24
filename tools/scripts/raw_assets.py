@@ -91,6 +91,36 @@ VERIFIED_LAYOUT = {
         "(086DC400/4C4/4D0, dims 30x26); sudah diekstrak ke "
         "assets/0x70/extern",
     ),
+    "gUnk_087529AC": (
+        "sprite/OBJ", None,
+        "1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x20 B "
+        "ke VRAM slot 0x72; palet tidak dirujuk cabang itu",
+    ),
+    "gUnk_08752B4C": (
+        "sprite/OBJ", None,
+        "1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x20 B "
+        "ke VRAM slot 0x71; palet tidak dirujuk cabang itu",
+    ),
+    "gUnk_08752ACC": (
+        "sprite/OBJ", None,
+        "1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x80 B "
+        "(tile + padding) ke VRAM slot 0x77; palet tidak dirujuk cabang itu",
+    ),
+    "gUnk_08752CCC": (
+        "sprite/OBJ", None,
+        "1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B "
+        "ke VRAM slot 0x59; palet tidak dirujuk cabang itu",
+    ),
+    "gUnk_08752BCC": (
+        "sprite/OBJ", None,
+        "1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B "
+        "ke VRAM slot 0x5A; palet tidak dirujuk cabang itu",
+    ),
+    "gUnk_08752C4C": (
+        "sprite/OBJ", None,
+        "1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B "
+        "ke VRAM slot 0x5B; palet tidak dirujuk cabang itu",
+    ),
     "gUnk_087510AC": (
         "sprite/OBJ", None,
         "9 tile 4bpp: func_0806644C menyalin 0x120 B ke VRAM 0x060014A0 "
