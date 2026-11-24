@@ -4,7 +4,7 @@
 
 ## Metode
 
-Status `terbukti` hanya diberikan bila **satu fungsi** yang memuat simbol font juga memuat simbol palet (kelompok `palet` di `assets/raw/manifest.json`) **dan** menulis palet RAM (`0x05000xxx`). Selain itu statusnya `belum terbukti`, berapa pun miripnya render atau dekatnya letak di ROM.
+Status `terbukti` hanya diberikan bila di satu fungsi call site ada pemanggilan `func_08008E64`/`func_08008EB8`/`Unpack` yang argumen sumbernya (r0, ditelusuri mundur sampai penugasan terakhirnya) adalah simbol palet (kelompok `palet` di `assets/raw/manifest.json`) dan tujuannya (r1) di `0x05000000`-`0x050003FF`. Memuat simbol palet dan menulis palet RAM di fungsi yang sama **tidak** cukup: simbol palet harus benar-benar sumber salinan itu. Nilai register yang ditimpa (termasuk seluruh daftar `pop`/`ldm`, rentang `rX-rY` ikut) atau lewat `bl` lain dianggap tidak diketahui, bukan ditebak. Selain itu statusnya `belum terbukti`, berapa pun miripnya render atau dekatnya letak di ROM.
 
 Dua alasan struktural yang membuat pasangan tidak otomatis ada:
 

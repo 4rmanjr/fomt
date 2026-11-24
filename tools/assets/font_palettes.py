@@ -4,9 +4,14 @@
 Untuk `gUnk_0875A440` dan 12 wadah font/objek, tool ini mengumpulkan:
 
 - **call site**: setiap fungsi asm yang memuat simbol itu (`ldr rX, =simbol`);
-- **bukti palet**: fungsi call site yang sekaligus memuat simbol palet
-  (kelompok `palet` di `assets/raw/manifest.json`) *dan* menulis palet RAM
-  (`0x05000xxx`). Hanya kombinasi itu yang boleh berstatus `terbukti`;
+- **bukti palet**: di fungsi call site itu ada pemanggilan
+  `func_08008E64`/`func_08008EB8`/`Unpack` yang **argumen sumbernya**
+  (r0, ditelusuri mundur sampai penugasan terakhirnya) adalah simbol palet
+  (kelompok `palet` di `assets/raw/manifest.json`) dan **tujuannya** (r1)
+  berada di `0x05000000`-`0x050003FF`. Sekadar memuat simbol palet dan
+  menulis palet RAM di fungsi yang sama **tidak** cukup: simbol palet harus
+  benar-benar menjadi sumber salinan itu. Hanya kombinasi itu yang boleh
+  berstatus `terbukti`;
 - **petunjuk posisi**: blob tepat sebelum simbol di `data_0813B288.s` yang
   isinya palet. Ini **bukan** bukti pasangan — hanya kandidat untuk diperiksa
   (dicatat beserta pemuatnya, kalau ada).
@@ -43,8 +48,59 @@ FONT_SYMBOLS = (
     "gUnk_0872DE44", "gUnk_08731B40", "gUnk_087409E4", "gUnk_0874F34C",
     "gUnk_0875A440",
 )
-PALETTE_RAM = re.compile(r"0x0?5[0-9A-Fa-f]{6}")
 RE_FUNC = re.compile(r"\s*thumb_func_start\s+(\w+)")
+
+# Pemanggilan salin yang dipakai sebagai bukti, dengan (indeks sumber, indeks
+# tujuan) mulai dari r0. `func_08008E64`/`func_08008EB8` = salin/DMA
+# (src, dst, size); `Unpack` = src di r0, tujuan di r1.
+COPY_CALLS = {
+    "func_08008E64": (0, 1),
+    "func_08008EB8": (0, 1),
+    "Unpack": (0, 1),
+}
+# Palet RAM GBA: BG 0x05000000-0x050001FF, OBJ 0x05000200-0x050003FF.
+PALETTE_RAM_LO, PALETTE_RAM_HI = 0x05000000, 0x05000400
+
+REG = r"(r(?:1[0-2]|[0-9])|sb|sl|fp|ip)"
+RE_LDR_LABEL = re.compile(
+    r"^ldr\s+" + REG + r"\s*,\s*(?:\.\w+\s*@\s*)?=(.+?)\s*$")
+RE_MOV = re.compile(r"^movs?\s+" + REG + r"\s*,\s*" + REG + r"\s*$")
+RE_MOVI = re.compile(
+    r"^movs?\s+" + REG + r"\s*,\s*#(-?(?:0x[0-9A-Fa-f]+|\d+))\s*$")
+RE_ADDI = re.compile(r"^adds?\s+" + REG + r"\s*,\s*" + REG
+                     + r"\s*,\s*#(-?(?:0x[0-9A-Fa-f]+|\d+))\s*$")
+RE_WRITE = re.compile(
+    r"^(?:ldr|ldrb|ldrh|ldrsb|ldrsh|ldm|ldmia|adds?|subs?|ands?|orrs?|eors?"
+    r"|lsls?|lsrs?|asrs?|muls?|negs?|mvns?|bics?|adcs?|sbcs?|rsbs?|rev"
+    r"|rev16|revsh|sxtb|sxth|uxtb|uxth)\s+" + REG + r"\b")
+RE_POP = re.compile(r"^pop\s*\{([^}]*)\}")
+# `ldm`/`ldmia` menulis daftar register tujuan, sama seperti `pop`.
+RE_LDM = re.compile(r"^(?:ldm|ldmia|ldmfd|ldmib)\s+" + REG
+                    + r"\s*!?\s*,?\s*\{([^}]*)\}")
+RE_BL = re.compile(r"^bl\s+(\w+)")
+RE_RANGE = re.compile(r"r(\d+)-r(\d+)$")
+
+
+def reg_list(text):
+    """-> daftar register dari daftar `{...}`, rentang `rX-rY` diperluas."""
+    out = []
+    for part in text.replace(" ", "").split(","):
+        if not part:
+            continue
+        m = RE_RANGE.match(part)
+        if m:
+            lo, hi = int(m.group(1)), int(m.group(2))
+            if lo <= hi:
+                out.extend(f"r{n}" for n in range(lo, hi + 1))
+            continue
+        out.append(part)
+    return out
+
+
+def clobber(regs, names):
+    """Kosongkan nilai register yang ditulis; rentang sudah diperluas."""
+    for name in names:
+        regs[name] = None
 
 
 def sha_assets():
@@ -82,6 +138,89 @@ def symbol_refs(body, symbol):
     return re.search(r"=\s*" + re.escape(symbol) + r"\b", body) is not None
 
 
+def _value(token):
+    """-> ('sym', nama) | ('const', int) untuk operand `=...`."""
+    token = token.strip()
+    try:
+        return ("const", int(token, 0))
+    except ValueError:
+        return ("sym", token)
+
+
+def trace_copies(body):
+    """-> daftar salinan ke palet RAM dengan sumber yang terlacak.
+
+    Setiap pemanggilan `COPY_CALLS` dicatat bersama nilai argumen sumber dan
+    tujuan pada saat itu. Nilai register dilacak mundur dari instruksi
+    penugasan (`ldr rX, =...`, `mov`, `movs`, `adds #imm`) dan dikosongkan
+    begitu register ditimpa atau lewat `bl` lain (r0-r3, ip, lr). Daftar
+    register yang ditulis sekaligus — `pop {…}` dan `ldm`/`ldmia` — ikut
+    dikosongkan seluruhnya, termasuk bentuk rentang `rX-rY`. Nilai yang tidak
+    bisa dipastikan sengaja dianggap tidak diketahui, bukan ditebak.
+    """
+    regs = {}
+    found = []
+    for raw in body.splitlines():
+        line = raw.strip()
+        m = RE_LDR_LABEL.match(line)
+        if m:
+            regs[m.group(1)] = _value(m.group(2))
+            continue
+        m = RE_MOV.match(line)
+        if m:
+            regs[m.group(1)] = regs.get(m.group(2))
+            continue
+        m = RE_MOVI.match(line)
+        if m:
+            regs[m.group(1)] = ("const", int(m.group(2), 0))
+            continue
+        m = RE_ADDI.match(line)
+        if m:
+            base = regs.get(m.group(2))
+            regs[m.group(1)] = (("const", base[1] + int(m.group(3), 0))
+                                if base and base[0] == "const" else None)
+            continue
+        m = RE_POP.match(line)
+        if m:
+            clobber(regs, reg_list(m.group(1)))
+            continue
+        m = RE_LDM.match(line)
+        if m:
+            clobber(regs, [m.group(1)] + reg_list(m.group(2)))
+            continue
+        m = RE_BL.match(line)
+        if m:
+            callee = m.group(1)
+            if callee in COPY_CALLS:
+                src_i, dst_i = COPY_CALLS[callee]
+                found.append({"call": callee,
+                              "source": regs.get(f"r{src_i}"),
+                              "dest": regs.get(f"r{dst_i}")})
+            for reg in ("r0", "r1", "r2", "r3", "ip", "lr"):
+                regs[reg] = None
+            continue
+        m = RE_WRITE.match(line)
+        if m:
+            regs[m.group(1)] = None
+    return found
+
+
+def palette_copy(traced, palette_symbols):
+    """-> salinan yang sumbernya simbol palet dan tujuannya palet RAM."""
+    out = []
+    for c in traced:
+        src, dst = c["source"], c["dest"]
+        if not src or src[0] != "sym" or src[1] not in palette_symbols:
+            continue
+        if not dst or dst[0] != "const":
+            continue
+        if not PALETTE_RAM_LO <= dst[1] < PALETTE_RAM_HI:
+            continue
+        out.append({"call": c["call"], "source": src[1],
+                    "dest": f"0x{dst[1]:08X}"})
+    return out
+
+
 def analyse():
     raw = sha_assets()
     streams = streams_0x70()
@@ -95,10 +234,12 @@ def analyse():
             if not symbol_refs(body, symbol):
                 continue
             sites.append({"file": rel, "line": line, "function": fn})
-            found = sorted(s for s in palette_symbols if symbol_refs(body, s))
-            if found and PALETTE_RAM.search(body):
+            copies = palette_copy(trace_copies(body), palette_symbols)
+            if copies:
                 proven.append({"function": fn, "file": rel,
-                               "palette_symbols": found,
+                               "palette_symbols": sorted(
+                                   {c["source"] for c in copies}),
+                               "copies": copies,
                                "rom": f"{rel}:{line}"})
         # Petunjuk posisi: blob tepat sebelumnya yang isinya palet.
         candidates = []
@@ -145,11 +286,18 @@ def render_doc(manifest):
            "`python3 tools/assets/font_palettes.py`. Sumbernya "
            "`assets/gfx/fonts/palettes.json`.", "",
            "## Metode", "",
-           "Status `terbukti` hanya diberikan bila **satu fungsi** yang memuat "
-           "simbol font juga memuat simbol palet (kelompok `palet` di "
-           "`assets/raw/manifest.json`) **dan** menulis palet RAM "
-           "(`0x05000xxx`). Selain itu statusnya `belum terbukti`, berapa pun "
-           "miripnya render atau dekatnya letak di ROM.", "",
+           "Status `terbukti` hanya diberikan bila di satu fungsi call site "
+           "ada pemanggilan `func_08008E64`/`func_08008EB8`/`Unpack` yang "
+           "argumen sumbernya (r0, ditelusuri mundur sampai penugasan "
+           "terakhirnya) adalah simbol palet (kelompok `palet` di "
+           "`assets/raw/manifest.json`) dan tujuannya (r1) di "
+           "`0x05000000`-`0x050003FF`. Memuat simbol palet dan menulis palet "
+           "RAM di fungsi yang sama **tidak** cukup: simbol palet harus "
+           "benar-benar sumber salinan itu. Nilai register yang ditimpa "
+           "(termasuk seluruh daftar `pop`/`ldm`, rentang `rX-rY` ikut) atau "
+           "lewat `bl` lain dianggap tidak diketahui, bukan ditebak. Selain "
+           "itu statusnya `belum terbukti`, berapa pun miripnya render atau "
+           "dekatnya letak di ROM.", "",
            "Dua alasan struktural yang membuat pasangan tidak otomatis ada:",
            "",
            "- vtable wadah font (`0x080E79C8`, 5 entri) hanya berisi "
@@ -182,9 +330,14 @@ def render_doc(manifest):
             out.append("")
             out.append("Bukti palet:")
             for p in e["proof"]:
-                out.append(f"- `{p['function']}` memuat "
-                           f"{', '.join(f'`{x}`' for x in p['palette_symbols'])} "
-                           f"dan menulis palet RAM ({p['rom']})")
+                for c in p.get("copies", []):
+                    out.append(f"- `{p['function']}`: "
+                               f"`{c['call']}({c['source']}, {c['dest']}, "
+                               f"...)` — simbol palet sebagai sumber "
+                               f"({p['rom']})")
+                if not p.get("copies"):
+                    out.append(f"- `{p['function']}`: bukti lama tanpa "
+                               f"argumen sumber ({p['rom']})")
         out.append("")
     out += ["## Petunjuk posisi (bukan bukti)", "",
             "Blob tepat sebelum simbol di `data_0813B288.s` yang isinya palet. "

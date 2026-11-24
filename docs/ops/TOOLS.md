@@ -304,9 +304,14 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   Gate yang sama dipasang di `check_docs.py`, jadi hash semua stream tidak
   bisa basi tanpa ketahuan walau tidak ada yang ingat menjalankan `--check`.
 - `tools/assets/font_palettes.py` — telusur palet `gUnk_0875A440` + 12
-  wadah font/objek dari call site. Status `terbukti` hanya bila satu fungsi
-  yang memuat font juga memuat simbol palet dan menulis palet RAM
-  (`0x05000xxx`); selain itu `belum terbukti`. Blob palet yang kebetulan
+  wadah font/objek dari call site. Status `terbukti` hanya bila di fungsi
+  call site itu ada pemanggilan `func_08008E64`/`func_08008EB8`/`Unpack`
+  yang **argumen sumbernya** (r0, dilacak mundur sampai penugasan
+  terakhirnya) adalah simbol palet dan **tujuannya** (r1) di
+  `0x05000000`-`0x050003FF`. Memuat simbol palet + menulis palet RAM di
+  fungsi yang sama tidak cukup; register yang ditimpa (termasuk seluruh
+  daftar `pop`/`ldm`, bentuk rentang `rX-rY` ikut dikosongkan) atau lewat
+  `bl` lain dianggap tidak diketahui. Selain itu `belum terbukti`. Blob palet yang kebetulan
   berdekatan dicatat terpisah sebagai `positional_candidates` (bukan bukti).
   Menulis `assets/gfx/fonts/palettes.json` + dokumen generate
   `docs/decomp/PALET-FONT.md`; `--check` exit 1 bila basi.

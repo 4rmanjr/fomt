@@ -129,7 +129,9 @@ belum punya encoder `0x70` yang terbukti byte-identik. Prioritas di dokumen
 itu bukan izin mengganti `.incbin`.
 
 Palet `gUnk_0875A440` dan 12 wadah font/objek belum punya pasangan yang
-terbukti: call site-nya tidak memuat simbol palet, dan vtable wadah hanya
+terbukti: tidak ada call site yang menyalin simbol palet ke palet RAM
+(`func_08008E64`/`func_08008EB8`/`Unpack` dengan sumber terselusur), dan
+vtable wadah hanya
 mengembalikan pointer glyph/tile. Status bukti + kandidat posisi dicatat di
 [`PALET-FONT.md`](PALET-FONT.md); jangan mengisi palet di manifest aset
 sebelum ada bukti loader.
