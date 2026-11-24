@@ -410,7 +410,9 @@ gUnk_0872DDE4:
 
 	.global gUnk_0872DE44
 gUnk_0872DE44:
-	.incbin "baserom.gba", 0x72DE44, 0x1034
+	@ rom: 0x72DE44 0x1034 — source assets/gfx/fonts/unk_0872de44.{png,json}; container func_0805E6CC
+	@ decode font_container.py (6 tabel + ekor T) lalu encode ulang: byte identik slice ROM.
+	.incbin "build/assets/gUnk_0872DE44.bin"
 
 	.global gUnk_0872EE78
 gUnk_0872EE78:
