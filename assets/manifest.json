@@ -520,6 +520,111 @@
     "version": 1
    },
    "evidence": "code_0803EE94.s:67706/67708 memuat gUnk_087525EC (0x80 tile) dan gUnk_0875266C (0x20 palet) di fungsi yang sama"
+  },
+  {
+   "id": "gfx/sprites/gunk_0875268c",
+   "symbol": "gUnk_0875268C",
+   "kind": "sprite",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75268C",
+    "size": 128,
+    "sha256": "6eebd92d906fd4e0d50e021c87dfb924d7dc89e3994460e8074488a991ac550e"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_0875268C.json",
+    "png": "assets/gfx/sprites/gUnk_0875268C.png",
+    "pal": "assets/gfx/sprites/gUnk_0875268C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:67519/67521 memuat gUnk_0875268C (tile 0x80) dan gUnk_0875270C (palet 0x20)"
+  },
+  {
+   "id": "gfx/sprites/gunk_0875272c",
+   "symbol": "gUnk_0875272C",
+   "kind": "sprite",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75272C",
+    "size": 128,
+    "sha256": "b743f74dc90232b6899c394ee425ca96c122a61ee9aea7cc026dbf3e44381177"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_0875272C.json",
+    "png": "assets/gfx/sprites/gUnk_0875272C.png",
+    "pal": "assets/gfx/sprites/gUnk_0875272C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:71714/71715 memuat gUnk_0875272C (tile 0x80) dan gUnk_087527AC (palet 0x20)"
+  },
+  {
+   "id": "gfx/sprites/gunk_087527cc",
+   "symbol": "gUnk_087527CC",
+   "kind": "sprite",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7527CC",
+    "size": 128,
+    "sha256": "1677e1c847065ad950b68290b249ce3c184a271043ed87a858a26c526dbb57f3"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_087527CC.json",
+    "png": "assets/gfx/sprites/gUnk_087527CC.png",
+    "pal": "assets/gfx/sprites/gUnk_087527CC.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:67069/67071 memuat gUnk_087527CC (tile 0x80) dan gUnk_0875284C (palet 0x20)"
+  },
+  {
+   "id": "gfx/sprites/gunk_0875286c",
+   "symbol": "gUnk_0875286C",
+   "kind": "sprite",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75286C",
+    "size": 128,
+    "sha256": "755040254b7c0efb1d23b2e69f1500031bbf1daa6b57e42e0433bfd5550a305e"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_0875286C.json",
+    "png": "assets/gfx/sprites/gUnk_0875286C.png",
+    "pal": "assets/gfx/sprites/gUnk_0875286C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:65695/65698 memuat gUnk_0875286C (tile 0x80) dan gUnk_087528EC (palet 0x20)"
+  },
+  {
+   "id": "gfx/sprites/gunk_0875290c",
+   "symbol": "gUnk_0875290C",
+   "kind": "sprite",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75290C",
+    "size": 128,
+    "sha256": "577830e91675ac0f323c3ed71d780c87f83b4b5a0a209b2c96e93c9d5b5533e3"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_0875290C.json",
+    "png": "assets/gfx/sprites/gUnk_0875290C.png",
+    "pal": "assets/gfx/sprites/gUnk_0875290C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:73742/73892 memuat gUnk_0875290C (tile 0x80) dan gUnk_0875298C (palet 0x20)"
   }
  ]
 }

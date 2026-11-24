@@ -110,6 +110,58 @@ class SpriteGba(unittest.TestCase):
         self.assertEqual(sprite2gba.verify(SPRITE_ASSET), 0)
 
 
+class PairRule(unittest.TestCase):
+    """Aturan pemasangan sprite+palet: adjacent, asm-load, asm-branch."""
+
+    OFF, SIZE = 0x7518CC, 128
+
+    def test_adjacent_default_menerima_palet_tepat_setelah_tile(self):
+        pair = sprite2gba.check_pair(self.OFF, self.SIZE, 0x75194C)
+        self.assertEqual(pair["rule"], "adjacent")
+        self.assertTrue(pair["rom_adjacent"])
+
+    def test_adjacent_menolak_palet_yang_tidak_bersebelahan(self):
+        with self.assertRaises(SystemExit) as ctx:
+            sprite2gba.check_pair(self.OFF, self.SIZE, 0x752000)
+        self.assertIn("tepat setelah tile", str(ctx.exception))
+
+    def test_asm_load_menerima_jarak_dekat(self):
+        pair = sprite2gba.check_pair(self.OFF, self.SIZE, 0x75194C,
+                                     "asm-load", "65665/65668")
+        self.assertEqual(pair["load_lines"], [65665, 65668])
+        self.assertEqual(pair["distance"], 3)
+
+    def test_asm_load_menolak_jarak_jauh(self):
+        # kasus nyata 0875254C: palet dimuat 147 baris kemudian
+        with self.assertRaises(SystemExit) as ctx:
+            sprite2gba.check_pair(0x75254C, 128, 0x7525CC,
+                                  "asm-load", "64123/64270")
+        self.assertIn("asm-branch", str(ctx.exception))
+
+    def test_asm_branch_wajib_alasan(self):
+        with self.assertRaises(SystemExit) as ctx:
+            sprite2gba.check_pair(0x75254C, 128, 0x7525CC,
+                                  "asm-branch", "64123/64270")
+        self.assertIn("--pair-reason", str(ctx.exception))
+
+    def test_asm_branch_mencatat_jarak_dan_alasan(self):
+        pair = sprite2gba.check_pair(0x75254C, 128, 0x7525CC, "asm-branch",
+                                     "64123/64270", "beda cabang func_0805FF14")
+        self.assertEqual(pair["distance"], 147)
+        self.assertEqual(pair["reason"], "beda cabang func_0805FF14")
+        self.assertTrue(pair["rom_adjacent"])
+
+    def test_asm_load_wajib_pair_lines(self):
+        with self.assertRaises(SystemExit) as ctx:
+            sprite2gba.check_pair(self.OFF, self.SIZE, 0x75194C, "asm-load")
+        self.assertIn("--pair-lines", str(ctx.exception))
+
+    def test_pair_rule_tidak_dikenal_ditolak(self):
+        with self.assertRaises(SystemExit) as ctx:
+            sprite2gba.check_pair(self.OFF, self.SIZE, 0x75194C, "kira-kira")
+        self.assertIn("tidak dikenal", str(ctx.exception))
+
+
 class GfxRules(unittest.TestCase):
     def test_rules_synced(self):
         self.assertEqual(gfx_rules.main(["--check"]), 0)

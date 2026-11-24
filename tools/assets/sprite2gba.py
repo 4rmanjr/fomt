@@ -15,7 +15,9 @@ Metadata per-sprite menyimpan:
 - `source`: PNG + `.pal` + `tiles_wide`/`tile_count`;
 - `frame`: `width_tiles`/`height_tiles`/`count`, urutan kiri-ke-kanan lalu
   baris berikutnya; total tile wajib `count * width_tiles * height_tiles`;
-- `encoder`: tool/versi/urutan tile & nibble.
+- `encoder`: tool/versi/urutan tile & nibble;
+- `pair`: bagaimana palet pasangan ditetapkan (`adjacent`/`asm-load`/
+  `asm-branch`), jarak baris load, dan alasan bila lintas cabang.
 
 `encode_source(meta_path)` dipakai `asset_manifest.py`/`asset_verify.py`.
 `.incbin` tidak pernah disentuh tool ini.
@@ -33,6 +35,7 @@ Metadata per-sprite menyimpan:
 """
 import argparse
 import hashlib
+import re
 import importlib.util
 import json
 import struct
@@ -243,6 +246,58 @@ def encode_source(meta_path):
     return pack_tiles(indices, width, height, tiles_wide, tile_count)
 
 
+
+# ------------------------------------------------- pasangan sprite + palet
+#
+# Palet tidak selalu dimuat persis setelah tile di asm: kadang di cabang lain
+# dari fungsi yang sama. Aturan pemasangan karenanya eksplisit, bukan asumsi.
+PAIR_RULES = ("adjacent", "asm-load", "asm-branch")
+DEFAULT_PAIR_MAX_DISTANCE = 40
+
+
+def check_pair(offset, size, pal_offset, rule="adjacent", lines="",
+               reason="", max_distance=DEFAULT_PAIR_MAX_DISTANCE):
+    """Validasi + catat cara pasangan sprite+palet ditetapkan.
+
+    - ``adjacent``  : palet tepat setelah tile di ROM (urutan blob `.incbin`).
+    - ``asm-load``  : palet dirujuk load asm berdekatan (<= max_distance baris).
+    - ``asm-branch``: load berjauhan karena cabang berbeda; wajib `reason`.
+
+    `adjacent` tetap dicatat pada semua aturan supaya pembaca JSON tahu apakah
+    urutan blob ROM mendukung pasangan ini.
+    """
+    if rule not in PAIR_RULES:
+        raise SystemExit(f"--pair-rule {rule!r} tidak dikenal; pilih "
+                         + ", ".join(PAIR_RULES))
+    adjacent = pal_offset == offset + size
+    pair = {"rule": rule, "rom_adjacent": adjacent}
+    if rule == "adjacent":
+        if not adjacent:
+            raise SystemExit(
+                f"--pair-rule adjacent: palet 0x{pal_offset:X} bukan tepat "
+                f"setelah tile 0x{offset:X}+0x{size:X} = 0x{offset + size:X}")
+        return pair
+    m = re.fullmatch(r"\s*(\d+)\s*[/:]\s*(\d+)\s*", lines or "")
+    if not m:
+        raise SystemExit(f"--pair-rule {rule} butuh "
+                         "--pair-lines <baris-load-tile>/<baris-load-palet>")
+    lines_tile, lines_pal = int(m.group(1)), int(m.group(2))
+    distance = abs(lines_tile - lines_pal)
+    pair.update({"source": "asm", "load_lines": [lines_tile, lines_pal],
+                 "distance": distance})
+    if rule == "asm-load" and distance > max_distance:
+        raise SystemExit(
+            f"--pair-rule asm-load: jarak load {distance} > {max_distance} "
+            "baris; kalau palet memang dimuat di cabang lain, pakai "
+            "--pair-rule asm-branch --pair-reason <alasan>")
+    if rule == "asm-branch":
+        if not (reason or "").strip():
+            raise SystemExit("--pair-rule asm-branch wajib --pair-reason "
+                             "(kenapa palet dimuat di cabang lain)")
+        pair["reason"] = reason.strip()
+    return pair
+
+
 # ------------------------------------------------------------------ perintah
 
 def decode(args):
@@ -253,6 +308,12 @@ def decode(args):
     pal = rom[args.pal_offset:args.pal_offset + args.pal_size]
     if len(pal) != args.pal_size:
         raise SystemExit(f"slice palet hanya {len(pal)} B")
+    pair = check_pair(args.offset, args.size, args.pal_offset,
+                      getattr(args, "pair_rule", "adjacent"),
+                      getattr(args, "pair_lines", ""),
+                      getattr(args, "pair_reason", ""),
+                      getattr(args, "pair_max_distance",
+                              DEFAULT_PAIR_MAX_DISTANCE))
     colors = pal2gba.decode_bytes(pal)
     indices, width, height = unpack_tiles(tiles, args.tiles_wide)
     tile_count = args.size // TILE_BYTES
@@ -287,6 +348,7 @@ def decode(args):
         "encoder": {"tool": "sprite2gba.py", "version": 1,
                     "tile_order": "row-major", "nibble_order": "low-first",
                     "png_format": "indexed-8-plte"},
+        "pair": pair,
     }
     if args.evidence:
         meta["evidence"] = args.evidence
@@ -349,6 +411,18 @@ def main(argv=None):
     d.add_argument("--symbol", required=True)
     d.add_argument("--evidence", default="")
     d.add_argument("--note", default="")
+    d.add_argument("--pair-rule", choices=PAIR_RULES, default="adjacent",
+                   help="aturan pemasangan sprite+palet (default: adjacent)")
+    d.add_argument("--pair-lines", default="",
+                   metavar="TILE/PAL",
+                   help="nomor baris load tile dan palet di asm "
+                        "(wajib untuk asm-load/asm-branch)")
+    d.add_argument("--pair-reason", default="",
+                   help="alasan palet dimuat di cabang lain "
+                        "(wajib untuk asm-branch)")
+    d.add_argument("--pair-max-distance", type=int,
+                   default=DEFAULT_PAIR_MAX_DISTANCE,
+                   help="batas jarak baris load untuk asm-load")
     d.set_defaults(func=decode)
 
     e = sub.add_parser("encode", help="JSON + PNG -> binary")

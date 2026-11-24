@@ -936,7 +936,10 @@ gUnk_0875266C:
 
 	.global gUnk_0875268C
 gUnk_0875268C:
-	.incbin "baserom.gba", 0x75268C, 0x80
+	@ rom: 0x75268C 0x80 — source assets/gfx/sprites/gUnk_0875268C.{png,pal,json};
+	@ palet pasangan gUnk_0875270C (pair-rule asm-load) digerbang di metadata.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875268C.bin"
 
 	.global gUnk_0875270C
 gUnk_0875270C:
@@ -944,7 +947,10 @@ gUnk_0875270C:
 
 	.global gUnk_0875272C
 gUnk_0875272C:
-	.incbin "baserom.gba", 0x75272C, 0x80
+	@ rom: 0x75272C 0x80 — source assets/gfx/sprites/gUnk_0875272C.{png,pal,json};
+	@ palet pasangan gUnk_087527AC (pair-rule asm-load) digerbang di metadata.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875272C.bin"
 
 	.global gUnk_087527AC
 gUnk_087527AC:
@@ -952,7 +958,10 @@ gUnk_087527AC:
 
 	.global gUnk_087527CC
 gUnk_087527CC:
-	.incbin "baserom.gba", 0x7527CC, 0x80
+	@ rom: 0x7527CC 0x80 — source assets/gfx/sprites/gUnk_087527CC.{png,pal,json};
+	@ palet pasangan gUnk_0875284C (pair-rule asm-load) digerbang di metadata.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_087527CC.bin"
 
 	.global gUnk_0875284C
 gUnk_0875284C:
@@ -960,7 +969,10 @@ gUnk_0875284C:
 
 	.global gUnk_0875286C
 gUnk_0875286C:
-	.incbin "baserom.gba", 0x75286C, 0x80
+	@ rom: 0x75286C 0x80 — source assets/gfx/sprites/gUnk_0875286C.{png,pal,json};
+	@ palet pasangan gUnk_087528EC (pair-rule asm-load) digerbang di metadata.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875286C.bin"
 
 	.global gUnk_087528EC
 gUnk_087528EC:
@@ -968,7 +980,10 @@ gUnk_087528EC:
 
 	.global gUnk_0875290C
 gUnk_0875290C:
-	.incbin "baserom.gba", 0x75290C, 0x80
+	@ rom: 0x75290C 0x80 — source assets/gfx/sprites/gUnk_0875290C.{png,pal,json};
+	@ palet pasangan gUnk_0875298C (pair-rule asm-branch, lihat `pair.reason`) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875290C.bin"
 
 	.global gUnk_0875298C
 gUnk_0875298C:

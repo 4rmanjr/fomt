@@ -273,7 +273,10 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   (`width_tiles`/`height_tiles`/`count`; total tile wajib cocok). `decode`
   menulis PNG+`.pal`+JSON dari slice ROM, `encode` membalik, `verify`
   membandingkan byte/hash tile **dan** hash palet terhadap ROM. Dipakai
-  `asset_manifest.py`/`asset_verify.py` lewat `kind: sprite`.
+  `asset_manifest.py`/`asset_verify.py` lewat `kind: sprite`. Pemasangan
+  sprite+palet eksplisit lewat `--pair-rule adjacent|asm-load|asm-branch`
+  (+`--pair-lines tile/palet`, `--pair-reason` untuk lintas cabang); hasilnya
+  dicatat di JSON sebagai blok `pair`.
   Contoh: `python3 tools/assets/sprite2gba.py verify --json
   assets/gfx/sprites/gUnk_087518CC.json`.
 - `tools/assets/pal2gba.py` — codec palet: `.pal` JASC (8 bit/kanal, source

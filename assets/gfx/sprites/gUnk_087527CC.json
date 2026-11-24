@@ -1,0 +1,50 @@
+{
+ "id": "gfx/sprites/gunk_087527cc",
+ "symbol": "gUnk_087527CC",
+ "kind": "sprite",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x7527CC",
+  "size": 128,
+  "sha256": "1677e1c847065ad950b68290b249ce3c184a271043ed87a858a26c526dbb57f3"
+ },
+ "palette": {
+  "symbol": "gUnk_0875284C",
+  "rom": {
+   "offset": "0x75284C",
+   "size": 32,
+   "sha256": "25f5a2db3de1e4690c908fc50972652094ce40f2b5cdc7421f7b5f4c33a35114"
+  }
+ },
+ "source": {
+  "png": "gUnk_087527CC.png",
+  "pal": "gUnk_087527CC.pal",
+  "tiles_wide": 2,
+  "tile_count": 4
+ },
+ "frame": {
+  "width_tiles": 2,
+  "height_tiles": 2,
+  "count": 1,
+  "order": "row-major"
+ },
+ "encoder": {
+  "tool": "sprite2gba.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first",
+  "png_format": "indexed-8-plte"
+ },
+ "pair": {
+  "rule": "asm-load",
+  "rom_adjacent": true,
+  "source": "asm",
+  "load_lines": [
+   67069,
+   67071
+  ],
+  "distance": 2
+ },
+ "evidence": "code_0803EE94.s:67069/67071 memuat gUnk_087527CC (tile 0x80) dan gUnk_0875284C (palet 0x20)",
+ "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri"
+}

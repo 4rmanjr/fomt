@@ -734,3 +734,32 @@ Aturan besi: langkah 5 hanya boleh dilakukan setelah langkah 4 hijau. Selama
 status belum `rom-exact`, `.incbin` tetap menunjuk ROM sehingga pekerjaan aset
 dan pekerjaan decomp (`fomt`, judge, migrate) bisa berjalan bersamaan tanpa
 saling merusak `make compare`.
+
+### Aturan pemasangan sprite + palet
+
+Pasangan tile+palet tidak selalu muncul berdampingan di asm: palet bisa dimuat
+di cabang lain dari fungsi yang sama. Karena itu `sprite2gba.py decode` punya
+`--pair-rule` eksplisit, dan hasilnya dicatat di JSON sebagai blok `pair`
+(`rule`, `rom_adjacent`, `load_lines`, `distance`, `reason`):
+
+| `--pair-rule` | Arti | Syarat yang ditegakkan tool |
+|---|---|---|
+| `adjacent` (default) | palet tepat setelah tile di ROM; cukup urutan blob | `pal_offset == offset + size` |
+| `asm-load` | palet dirujuk load asm berdekatan | `--pair-lines tile/palet`, jarak <= `--pair-max-distance` (default 40 baris) |
+| `asm-branch` | palet dimuat di cabang lain, jarak jauh | `--pair-lines` + `--pair-reason` wajib; jarak dicatat apa adanya |
+
+Contoh kasus nyata: `gUnk_0875254C`/`gUnk_087525CC` dimuat di baris 64123 dan
+64270 (jarak 147, beda cabang `func_0805FF14`), jadi dipanggil dengan
+`--pair-rule asm-branch --pair-lines 64123/64270 --pair-reason "..."`. Semua
+aturan tetap mencatat `rom_adjacent`, sehingga pembaca JSON tahu apakah urutan
+blob ROM mendukung pasangan itu. `--pair-rule adjacent` menolak pasangan yang
+tidak bersebelahan, bukan menerimanya diam-diam.
+
+```sh
+python3 tools/assets/sprite2gba.py decode --rom baserom.gba \
+    --offset 0x75254C --size 128 --pal-offset 0x7525CC --pal-size 32 \
+    --pal-symbol gUnk_087525CC --tiles-wide 2 --frame-width 2 --frame-height 2 \
+    --pair-rule asm-branch --pair-lines 64123/64270 \
+    --pair-reason "palet dimuat di cabang lain func_0805FF14" \
+    --png ... --pal ... --json ... --id ... --symbol gUnk_0875254C
+```
