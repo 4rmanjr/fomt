@@ -19,5 +19,5 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "func_08059FE0 (code_0803EE94.s:50773): func_08008E64(gUnk_087519EC, 0x05000200, 0x20), tujuan 0x05000200 di palette RAM; simbol dimuat di baris 50761."
+ "evidence": "func_08059FE0 (code_0803EE94.s:50773): func_08008E64(gUnk_087519EC, 0x05000200 + slot*0x20, 0x20) \u2014 palette RAM basis 0x05000200 ditambah indeks slot (hasil func_080074C0, lsls #5); simbol dimuat di baris 50761."
 }

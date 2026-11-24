@@ -803,7 +803,7 @@ gUnk_087511CC:
 	.global gUnk_087512EC
 gUnk_087512EC:
 	@ rom: 0x7512EC 0x20 — source assets/gfx/palettes/unk_087512ec.{pal,png,json}; palet BGR555
-	@ func_08068344 (code_0803EE94.s:81712) menyalin 0x20 B ke 0x05000000 (palette RAM); pal2gba.py: byte identik slice ROM.
+	@ func_08068344 (code_0803EE94.s:81712) menyalin 0x20 B ke 0x05000000 + offset slot (palette RAM); pal2gba.py: byte identik slice ROM.
 	.incbin "build/assets/gUnk_087512EC.bin"
 
 	.global gUnk_0875130C
@@ -868,7 +868,7 @@ gUnk_0875196C:
 	.global gUnk_087519EC
 gUnk_087519EC:
 	@ rom: 0x7519EC 0x20 — source assets/gfx/palettes/unk_087519ec.{pal,png,json}; palet BGR555
-	@ func_08059FE0 (code_0803EE94.s:50773) menyalin 0x20 B ke 0x05000200 (palette RAM); pal2gba.py: byte identik slice ROM.
+	@ func_08059FE0 (code_0803EE94.s:50773) menyalin 0x20 B ke 0x05000200 + slot*0x20 (palette RAM); pal2gba.py: byte identik slice ROM.
 	.incbin "build/assets/gUnk_087519EC.bin"
 
 	.global gUnk_08751A0C
@@ -1168,7 +1168,7 @@ gUnk_08752A2C:
 	.global gUnk_08752AAC
 gUnk_08752AAC:
 	@ rom: 0x752AAC 0x20 — source assets/gfx/palettes/unk_08752aac.{pal,png,json}; palet BGR555
-	@ func_08068344 (code_0803EE94.s:80966) menyalin 0x20 B ke 0x05000000 (palette RAM); pal2gba.py: byte identik slice ROM.
+	@ func_08068344 (code_0803EE94.s:80966) menyalin 0x20 B ke 0x05000000 + offset slot (palette RAM); pal2gba.py: byte identik slice ROM.
 	.incbin "build/assets/gUnk_08752AAC.bin"
 
 	.global gUnk_08752ACC
@@ -1259,7 +1259,7 @@ gUnk_08752F8C:
 	.global gUnk_0875300C
 gUnk_0875300C:
 	@ rom: 0x75300C 0x20 — source assets/gfx/palettes/unk_0875300c.{pal,png,json}; palet BGR555
-	@ func_080C85A0 (code_809E804.s:85907) menyalin 0x20 B ke 0x05000200 (palette RAM); pal2gba.py: byte identik slice ROM.
+	@ func_080C85A0 (code_809E804.s:85907) menyalin 0x20 B ke 0x05000200 + slot*0x20 (palette RAM); pal2gba.py: byte identik slice ROM.
 	.incbin "build/assets/gUnk_0875300C.bin"
 
 	.global gUnk_0875302C

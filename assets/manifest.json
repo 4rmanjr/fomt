@@ -1360,7 +1360,7 @@
     "tool": "pal2gba.py",
     "version": 1
    },
-   "evidence": "func_08068344 (code_0803EE94.s:81712): func_08008F0C(antrean, gUnk_087512EC, 0x05000000, 0x20), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 81705."
+   "evidence": "func_08068344 (code_0803EE94.s:81712): func_08008F0C(antrean, gUnk_087512EC, 0x05000000 + offset slot, 0x20) \u2014 basis palette RAM ditambah offset slot dari [sp,#0xd8] (0x20 atau 0x40 menurut cabang); simbol dimuat di baris 81705."
   },
   {
    "id": "gfx/palettes/gunk_0875178c",
@@ -1404,7 +1404,7 @@
     "tool": "pal2gba.py",
     "version": 1
    },
-   "evidence": "func_08059FE0 (code_0803EE94.s:50773): func_08008E64(gUnk_087519EC, 0x05000200, 0x20), tujuan 0x05000200 di palette RAM; simbol dimuat di baris 50761."
+   "evidence": "func_08059FE0 (code_0803EE94.s:50773): func_08008E64(gUnk_087519EC, 0x05000200 + slot*0x20, 0x20) \u2014 palette RAM basis 0x05000200 ditambah indeks slot (hasil func_080074C0, lsls #5); simbol dimuat di baris 50761."
   },
   {
    "id": "gfx/palettes/gunk_087525cc",
@@ -1470,7 +1470,7 @@
     "tool": "pal2gba.py",
     "version": 1
    },
-   "evidence": "func_08068344 (code_0803EE94.s:80966): func_08008F0C(antrean, gUnk_08752AAC, 0x05000000, 0x20), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 80960."
+   "evidence": "func_08068344 (code_0803EE94.s:80966): func_08008F0C(antrean, gUnk_08752AAC, 0x05000000 + offset slot, 0x20) \u2014 basis palette RAM ditambah offset slot di sl (jalur ini 1*0x20); simbol dimuat di baris 80960."
   },
   {
    "id": "gfx/palettes/gunk_0875300c",
@@ -1492,7 +1492,7 @@
     "tool": "pal2gba.py",
     "version": 1
    },
-   "evidence": "func_080C85A0 (code_809E804.s:85907): func_08008F0C(antrean, gUnk_0875300C, 0x05000200, 0x20), tujuan 0x05000200 di palette RAM; simbol dimuat di baris 85901."
+   "evidence": "func_080C85A0 (code_809E804.s:85907): func_08008F0C(antrean, gUnk_0875300C, 0x05000200 + slot*0x20, 0x20) \u2014 palette RAM basis 0x05000200 ditambah indeks slot (hasil func_080074C0, lsls #5); simbol dimuat di baris 85901."
   },
   {
    "id": "gfx/palettes/gunk_0875314c",

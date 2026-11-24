@@ -19,5 +19,5 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "func_080C85A0 (code_809E804.s:85907): func_08008F0C(antrean, gUnk_0875300C, 0x05000200, 0x20), tujuan 0x05000200 di palette RAM; simbol dimuat di baris 85901."
+ "evidence": "func_080C85A0 (code_809E804.s:85907): func_08008F0C(antrean, gUnk_0875300C, 0x05000200 + slot*0x20, 0x20) \u2014 palette RAM basis 0x05000200 ditambah indeks slot (hasil func_080074C0, lsls #5); simbol dimuat di baris 85901."
 }
