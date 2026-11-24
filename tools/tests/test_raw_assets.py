@@ -127,6 +127,17 @@ class RawAssetClassifier(unittest.TestCase):
             self.assertIsNone(probe)
             self.assertIn(f"func_0805E6CC: {counts}", note)
 
+    def test_verified_7546xx_containers_are_not_flat_tile(self):
+        # 1432/1352 B bukan kelipatan 32 B; func_0805E6CC di call site
+        # membuktikan container, jadi jangan dirender tile datar.
+        for name, counts in (
+                ("gUnk_08754674", "A1/B3/C3/D40/E1/F0/T4"),
+                ("gUnk_08754C0C", "A2/B4/C2/D36/E2/F0/T5")):
+            got, note, probe = raw_assets.classify(font_4148(), name)
+            self.assertEqual(got, "sprite/OBJ", note)
+            self.assertIsNone(probe)
+            self.assertIn(f"func_0805E6CC: {counts}", note)
+
     def test_verified_glyph_containers_are_not_flat_tile(self):
         for name, stride in (("gUnk_084F90CC", 12),
                              ("gUnk_084FA9A0", 24)):

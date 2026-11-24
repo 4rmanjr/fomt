@@ -336,8 +336,9 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   hasil encode sama dengan slice ROM. Tool ini **tidak** menyunting
   `asm/data/*.s`. Contoh: `python3 tools/assets/font_container.py verify
   --json assets/gfx/fonts/unk_0872de44.json`. Container 0x75352C, 0x753608,
-  0x7536E4, dan 0x7537D0 juga memakai codec ini (`unk_08753*.json`);
-  keempatnya lolos `verify` MATCH dan `.incbin`-nya sudah dialihkan.
+  0x7536E4, 0x7537D0, 0x754674, dan 0x754C0C juga memakai codec ini
+  (`unk_08753*.json`, `unk_08754*.json`); semuanya lolos `verify` MATCH dan
+  `.incbin`-nya sudah dialihkan.
 - `tools/assets/stream_audit.py` — audit seluruh stream `0x70` yang sudah
   diekstrak: blob utuh (`assets/0x70/manifest.json`) **dan** bank tertanam
   (`assets/0x70/embedded_manifest.json`). Hash compressed dihitung dari slice

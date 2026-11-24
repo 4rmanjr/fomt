@@ -1872,16 +1872,18 @@
    "symbol": "gUnk_08754674",
    "offset": "0x754674",
    "size": 1432,
-   "group": "tabel",
-   "note": "1432 B, bukan kelipatan 32 B",
+   "group": "sprite/OBJ",
+   "note": "container func_0805E6CC: A1/B3/C3/D40/E1/F0/T4; func_0805E6CC dipanggil langsung di baris 166592 (func_08094AC0), bukan tile datar",
+   "layout": "container",
    "renderable": false
   },
   {
    "symbol": "gUnk_08754C0C",
    "offset": "0x754C0C",
    "size": 1352,
-   "group": "tabel",
-   "note": "1352 B, bukan kelipatan 32 B",
+   "group": "sprite/OBJ",
+   "note": "container func_0805E6CC: A2/B4/C2/D36/E2/F0/T5; func_0805E6CC dipanggil langsung di baris 166585, code_809E804.s 95889/98781, bukan tile datar",
+   "layout": "container",
    "renderable": false
   },
   {

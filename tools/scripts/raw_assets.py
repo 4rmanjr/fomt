@@ -210,6 +210,17 @@ VERIFIED_LAYOUT = {
         "func_0805E6CC dipanggil langsung di baris 96720 dan 113849, "
         "bukan tile datar",
     ),
+    "gUnk_08754674": (
+        "sprite/OBJ", "container",
+        "container func_0805E6CC: A1/B3/C3/D40/E1/F0/T4; func_0805E6CC "
+        "dipanggil langsung di baris 166592 (func_08094AC0), bukan tile datar",
+    ),
+    "gUnk_08754C0C": (
+        "sprite/OBJ", "container",
+        "container func_0805E6CC: A2/B4/C2/D36/E2/F0/T5; func_0805E6CC "
+        "dipanggil langsung di baris 166585, code_809E804.s 95889/98781, "
+        "bukan tile datar",
+    ),
     "gUnk_08731B40": (
         "sprite/OBJ", "container",
         "count 20 + tabel; @ChickenPortraits, func_0805E6CC, bukan tile datar",

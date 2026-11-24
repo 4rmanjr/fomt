@@ -125,6 +125,48 @@
    "evidence": "container func_0805E6CC A20/B40/C11/D73/E13/F0/T40 (3748 B habis tepat); asm/code_0803EE94.s:96720 dan 113849 memanggil func_0805E6CC dengan gUnk_087537D0"
   },
   {
+   "id": "gfx/fonts/gunk_08754674",
+   "symbol": "gUnk_08754674",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x754674",
+    "size": 1432,
+    "sha256": "3ad7d5722ca026e54678295cb52f199e435ae313e99a8c0cadf4b62e89566fda"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_08754674.json",
+    "png": "assets/gfx/fonts/unk_08754674.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   },
+   "evidence": "container func_0805E6CC A1/B3/C3/D40/E1/F0/T4 (1432 B habis tepat); asm/code_0803EE94.s:166592 memanggil func_0805E6CC dengan gUnk_08754674 di func_08094AC0"
+  },
+  {
+   "id": "gfx/fonts/gunk_08754c0c",
+   "symbol": "gUnk_08754C0C",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x754C0C",
+    "size": 1352,
+    "sha256": "2908231dba2fb5105723476b17f7fd4ab3d4fe597144df7a0dc06ef065ffca6b"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_08754c0c.json",
+    "png": "assets/gfx/fonts/unk_08754c0c.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   },
+   "evidence": "container func_0805E6CC A2/B4/C2/D36/E2/F0/T5 (1352 B habis tepat); asm/code_0803EE94.s:166585 (func_08094AC0), asm/code_809E804.s:95889 (func_080CD578), dan asm/code_809E804.s:98781 (func_080CEC00) memanggil func_0805E6CC dengan gUnk_08754C0C"
+  },
+  {
    "id": "gfx/palettes/panel_screen",
    "symbol": "gUnk_08731940",
    "kind": "palette",
