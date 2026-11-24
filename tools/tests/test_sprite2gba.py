@@ -390,6 +390,93 @@ class BgMapClaim(unittest.TestCase):
                          + ", ".join(offenders))
 
 
+def _quoted_bg_claims(meta):
+    """-> (baris bl/branch func_0804E9F4, indeks palet) kutipan reason/evidence."""
+    pair = meta.get("pair") or {}
+    text = " ".join(str(pair.get(k, "")) for k in ("reason", "evidence"))
+    lines = []
+    for clause in re.findall(r"func_0804E9F4[^;]*", text):
+        lines += [int(n) for n in re.findall(
+            r"(?:(?:bl|branch)\s+(?:baris\s+)?|baris\s+)(\d+)", clause)]
+    pals = [int(n) for n in re.findall(r"indeks palet\s+(\d+)", text)]
+    return lines, pals
+
+
+def _bg_claim_problems(meta):
+    """Selisih antara kutipan reason/evidence dan angka pair.bg_map."""
+    bg = (meta.get("pair") or {}).get("bg_map") or {}
+    lines, pals = _quoted_bg_claims(meta)
+    problems = []
+    if not lines:
+        problems.append("tidak mengutip nomor baris func_0804E9F4")
+    elif (int(bg.get("line")) not in set(lines)
+          or set(lines) - {int(bg.get("line")), int(bg.get("branch", -1))}):
+        problems.append(f"baris dikutip {sorted(set(lines))}, pair.bg_map "
+                        f"line {bg.get('line')} / branch {bg.get('branch')}")
+    if not pals:
+        problems.append("tidak mengutip indeks palet BG map")
+    elif set(pals) != {int(bg.get("palette"))}:
+        problems.append(f"indeks palet dikutip {sorted(set(pals))}, "
+                        f"pair.bg_map {bg.get('palette')}")
+    return problems
+
+
+class BgMapQuote(unittest.TestCase):
+    """Kalimat bukti tidak boleh menyimpang dari angka pair.bg_map."""
+
+    def meta(self, reason="", evidence="", line=75852, palette=2, branch=75845):
+        return {"pair": {"reason": reason, "evidence": evidence,
+                         "bg_map": {"line": line, "palette": palette,
+                                    "branch": branch}}}
+
+    def test_kutipan_cocok_tidak_bermasalah(self):
+        meta = self.meta("ditulis func_0804E9F4 dengan indeks palet 2 "
+                         "(bl baris 75852)",
+                         "func_0804E9F4 menulis dengan indeks palet 2 "
+                         "(baris 75852)")
+        self.assertEqual(_bg_claim_problems(meta), [])
+
+    def test_baris_yang_menyimpang_ditolak(self):
+        meta = self.meta(reason="func_0804E9F4 dengan indeks palet 2 "
+                                "(bl baris 75853)")
+        problems = _bg_claim_problems(meta)
+        self.assertTrue(any("baris dikutip" in p for p in problems), problems)
+
+    def test_indeks_palet_yang_menyimpang_ditolak(self):
+        meta = self.meta(reason="func_0804E9F4 dengan indeks palet 3 "
+                                "(bl baris 75852)")
+        problems = _bg_claim_problems(meta)
+        self.assertTrue(any("indeks palet dikutip" in p for p in problems),
+                        problems)
+
+    def test_kutipan_berbeda_antar_reason_dan_evidence_ditolak(self):
+        meta = self.meta(reason="func_0804E9F4 (bl baris 75852)",
+                         evidence="func_0804E9F4 (baris 75853)")
+        problems = _bg_claim_problems(meta)
+        self.assertTrue(any("baris dikutip" in p for p in problems), problems)
+
+    def test_kutipan_branch_sah_tapi_wajib_ada_baris_bl(self):
+        sah = self.meta(reason="func_0804E9F4 dengan indeks palet 2 "
+                                "(branch baris 75845, bl baris 75852)")
+        self.assertEqual(_bg_claim_problems(sah), [])
+        tanpa_bl = self.meta(reason="func_0804E9F4 (branch 75845)")
+        problems = _bg_claim_problems(tanpa_bl)
+        self.assertTrue(any("baris dikutip" in p for p in problems), problems)
+
+    def test_setiap_aset_bg_map_mengutip_angka_yang_sama(self):
+        checked, failures = 0, []
+        for path in sorted((REPO / "assets" / "gfx" / "sprites").glob("*.json")):
+            meta = json.loads(path.read_text())
+            if not _has_bg_map(meta):
+                continue
+            checked += 1
+            problems = _bg_claim_problems(meta)
+            if problems:
+                failures.append(f"{path.name}: {'; '.join(problems)}")
+        self.assertGreater(checked, 0)
+        self.assertEqual(failures, [], "\n".join(failures))
+
+
 class GfxRules(unittest.TestCase):
     def test_rules_synced(self):
         self.assertEqual(gfx_rules.main(["--check"]), 0)

@@ -822,7 +822,10 @@ palet, dan palet pasangan harus di-DMA ke `0x05000000 + palette*0x20`
 ulang pemeriksaan ini, jadi angka di tabel dan di JSON tidak bisa menyimpang
 dari asm. Tes regresi menolak setiap sprite JSON yang `pair.reason`/`evidence`
 menyebut `func_0804E9F4` atau indeks palet BG map tanpa blok `pair.bg_map`,
-jadi aset baru tidak bisa kembali ke kutipan manual.
+jadi aset baru tidak bisa kembali ke kutipan manual. Nomor baris `bl`/branch
+dan indeks palet yang dikutip `pair.reason`/`evidence` juga wajib sama persis
+dengan `line`/`branch`/`palette` di blok itu, sehingga kalimat bukti tidak
+bisa menyimpang dari angka hasil mesin.
 
 Keempatnya lalu dimigrasikan sebagai **`kind: tiles4bpp`** lewat jalur tile
 (`tile4bpp.py`), bukan sprite: blob ini tile mentah tanpa palet pasangan, jadi
