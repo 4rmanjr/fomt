@@ -87,16 +87,12 @@ $(shell mkdir -p $(SUBDIRS))
 # = ASET ROM-EXACT =
 # ==================
 
-# Simbol yang `.incbin`-nya sudah diganti source. Binary dibangun dari
-# PNG+JSON sebelum asm data dirakit; `.incbin` di asm menunjuk berkas ini.
-# Gate: `tile4bpp.py verify` MATCH (sha256 c5ae1933…) lalu `make compare`.
-ASSET_BINS := $(BUILD_DIR)/assets/gUnk_0875A440.bin
-
-$(BUILD_DIR)/assets/gUnk_0875A440.bin: \
-    assets/gfx/fonts/clock.json assets/gfx/fonts/clock.png \
-    tools/assets/tile4bpp.py
-	@echo "ASSET $@"
-	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/fonts/clock.json --out $@
+# Aturan konversi graphics (pola `graphics_file_rules.mk` pret) dihasilkan
+# `tools/assets/gfx_rules.py` dari metadata `assets/gfx/**/*.json`: menambah
+# aset = taruh PNG/palet + JSON, jalankan tool itu, tanpa menyunting Makefile.
+# Hanya aset `rom-exact` punya aturan, jadi `.incbin` tidak pernah menunjuk
+# byte yang belum lolos gate hash.
+include gfx_rules.mk
 
 # ===========
 # = RECIPES =

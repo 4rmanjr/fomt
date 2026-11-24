@@ -23,7 +23,7 @@
      },
      "kind": {
       "type": "string",
-      "enum": ["tiles4bpp", "font_container", "palette"]
+      "enum": ["tiles4bpp", "font_container", "palette", "sprite"]
      },
      "status": {
       "type": "string",

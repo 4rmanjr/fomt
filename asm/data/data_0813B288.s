@@ -694,7 +694,10 @@ gUnk_087517AC:
 
 	.global gUnk_087518CC
 gUnk_087518CC:
-	.incbin "baserom.gba", 0x7518CC, 0x80
+	@ rom: 0x7518CC 0x80 — source assets/gfx/sprites/gUnk_087518CC.{png,pal,json};
+	@ palet pasangan gUnk_0875194C ikut digerbang di metadata sprite.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_087518CC.bin"
 
 	.global gUnk_0875194C
 gUnk_0875194C:

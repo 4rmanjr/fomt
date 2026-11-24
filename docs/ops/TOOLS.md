@@ -237,15 +237,35 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   Tidak menjalankan build dan tidak menulis ROM.
 - `tools/assets/asset_manifest.py` — indeks aset source di
   `assets/manifest.json` (satu tempat untuk hash + status + encoder). Sumber
-  datanya metadata per-aset di `assets/gfx/fonts/*.json` dan
-  `assets/gfx/palettes/*.json` (berkas tanpa `rom`/`kind` dilewati). Generator
-  menjalankan encoder yang dideklarasikan (`tiles4bpp` → `tile4bpp.py`,
-  `font_container` → `font_container.py`, `palette` → `pal2gba.py`),
+  datanya metadata per-aset di `assets/gfx/fonts/*.json`,
+  `assets/gfx/palettes/*.json`, dan `assets/gfx/sprites/*.json` (berkas tanpa
+  `rom`/`kind` dilewati). Generator menjalankan encoder yang dideklarasikan
+  (`tiles4bpp` → `tile4bpp.py`, `font_container` → `font_container.py`,
+  `palette` → `pal2gba.py`, `sprite` → `sprite2gba.py`),
   membandingkan byte dan SHA-256 hasilnya dengan slice `baserom.gba` dan
   dengan `rom.sha256` metadata, lalu menolak entri yang statusnya bukan
   `rom-exact`. `--check` exit 1 bila manifest basi (gate yang sama dipanggil
   `check_docs.py`). Tidak menjalankan build dan tidak menyentuh
   `asm/data/*.s`.
+- `tools/assets/gfx_rules.py` — hasilkan `gfx_rules.mk`, aturan konversi
+  graphics bergaya `graphics_file_rules.mk` pret tetapi **digenerate** dari
+  metadata `assets/gfx/**/*.json`. Isinya variabel `ASSET_BINS` (satu target
+  `build/assets/<symbol>.bin` per aset `rom-exact`) + satu aturan build per
+  aset (dependensi JSON, PNG, palet, dan berkas encoder). Makefile
+  meng-include berkas itu, jadi menambah aset tidak perlu menyunting Makefile
+  dan aset yang belum `rom-exact` tidak punya aturan (`.incbin`-nya tetap ROM).
+  `--check` exit 1 bila basi; gate yang sama dipanggil `check_docs.py`.
+- `tools/assets/sprite2gba.py` — codec sprite/OBJ 4bpp (pola `gbagfx`): source
+  PNG **terindeks 8-bit + PLTE** (warna palet terlihat, indeks tidak ambigu
+  walau ada entri palet kembar) dan `.pal` JASC, hasilnya byte tile GBA.
+  Metadata menyimpan `rom` tile, `palette.rom` (offset/ukuran/sha256 palet
+  pasangan, ikut digerbang), `source.tiles_wide`/`tile_count`, dan `frame`
+  (`width_tiles`/`height_tiles`/`count`; total tile wajib cocok). `decode`
+  menulis PNG+`.pal`+JSON dari slice ROM, `encode` membalik, `verify`
+  membandingkan byte/hash tile **dan** hash palet terhadap ROM. Dipakai
+  `asset_manifest.py`/`asset_verify.py` lewat `kind: sprite`.
+  Contoh: `python3 tools/assets/sprite2gba.py verify --json
+  assets/gfx/sprites/gUnk_087518CC.json`.
 - `tools/assets/pal2gba.py` — codec palet: `.pal` JASC (8 bit/kanal, source
   kanonik) ⇄ u16 GBA BGR555 little endian. `decode` menulis `.pal` (+PNG
   swatch dari `render_palette`), `encode --json <metadata> --out <bin>`

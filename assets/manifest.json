@@ -58,6 +58,27 @@
     "version": 1
    },
    "evidence": "func_080AE7D0 (code_809E804.s:32445): func_08008E64(gUnk_08731940, 0x05000000, 0x200) menyalin 512 B ke palette RAM; tidak ada palet lain yang dimuat scene ini."
+  },
+  {
+   "id": "gfx/sprites/gunk_087518cc",
+   "symbol": "gUnk_087518CC",
+   "kind": "sprite",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7518CC",
+    "size": 128,
+    "sha256": "4de58c351e247d6a45c3d0a4ebc649a6e0cd80f4f933ffcc77bd281738c94a66"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_087518CC.json",
+    "png": "assets/gfx/sprites/gUnk_087518CC.png",
+    "pal": "assets/gfx/sprites/gUnk_087518CC.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:65183 (func 0x0805F8E0..): struct+8=gUnk_087518CC tile, struct+0xc=gUnk_0875194C palet"
   }
  ]
 }

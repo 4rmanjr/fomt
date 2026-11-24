@@ -39,8 +39,14 @@ gUnk_0872DE44:
     .incbin "baserom.gba", 0x72DE44, 0x1034
 ```
 
-Satu simbol, `gUnk_0875A440`, sudah dialihkan ke binary hasil encoder (§8);
-sisanya masih `.incbin "baserom.gba"`.
+Sebagian simbol sudah dialihkan ke binary hasil encoder (§8): font jam
+(`gUnk_0875A440`, kelas `tiles4bpp`) dan satu sprite OBJ 16x16
+(`gUnk_087518CC`, kelas `sprite`, palet pasangannya `gUnk_0875194C` ikut
+digerbang di metadata). Sisanya masih `.incbin "baserom.gba"`.
+
+Daftar aturan build graphics tidak lagi ditulis tangan: `gfx_rules.mk`
+dihasilkan `tools/assets/gfx_rules.py` dari metadata `assets/gfx/**/*.json`
+(pola `graphics_file_rules.mk` pret) dan di-include Makefile.
 
 Konsekuensinya:
 
@@ -73,6 +79,18 @@ Yang diadopsi adalah **arsitekturnya**, bukan format Pokémon-nya:
 
 Format Harvest Moon tetap milik repo ini; jangan memaksakan `map.json` atau
 tileset Pokémon ke format FOMT.
+
+Pemetaan konkret terhadap pokeemerald-expansion (yang sudah diadopsi):
+
+| komponen pret/pokeemerald | padanan di repo ini | status |
+|---|---|---|
+| `graphics_file_rules.mk` (satu aturan per aset) | `gfx_rules.mk` yang **digenerate** `tools/assets/gfx_rules.py` dari metadata | diadopsi |
+| `gbagfx` PNG→`.4bpp`/`.gbapal` | `sprite2gba.py`, `tile4bpp.py`, `pal2gba.py` | diadopsi untuk 4bpp/palet |
+| PNG terindeks + `.pal` JASC sebagai source | `assets/gfx/sprites/*.png` (PLTE) + `.pal` | diadopsi |
+| `object_event_graphics_info` (size/width/height/pointer palet) | metadata JSON per sprite: `frame`, `palette.rom`, `rom` | diadopsi sebagai metadata; tabel C-nya belum |
+| `INCBIN` di asm data | `.incbin "build/assets/<symbol>.bin"` setelah gate hash | diadopsi |
+| `mapjson`/porymap untuk peta | — | belum (format peta FOMT belum dipetakan) |
+| `.lz` (kompresi saat build) | `lz70.py` | belum byte-identik, jadi tidak dipakai build |
 
 Referensi pola:
 
@@ -177,8 +195,11 @@ assets/
       clock.png
       clock.pal
       clock.json
-    ui/
     sprites/
+      gUnk_087518CC.png    # PNG terindeks 8-bit + PLTE (warna palet)
+      gUnk_087518CC.pal
+      gUnk_087518CC.json   # rom + palette.rom + frame
+    ui/
     tilesets/
   maps/
     farm/
@@ -190,12 +211,12 @@ assets/
     0x70/
       gUnk_086FD240.json
 tools/assets/
-  png2gba.py
-  gba2png.py
+  gfx_rules.py        # generate gfx_rules.mk (aturan build graphics)
+  tile4bpp.py
+  sprite2gba.py
   pal2gba.py
-  map2bin.py
   lz70.py
-  build_assets.py
+  asset_manifest.py
   asset_verify.py
   asset_diff.py
 build/assets/                # generated, tidak diedit tangan
@@ -303,7 +324,7 @@ Untuk container `0x70`, tambahkan:
 | tilemap peta | `.bin` + `map.json` | `map2bin` | lebar/tinggi, 0x03FF kosong, indeks tile |
 | map/tileset | source tileset + metatile + atribut + layout | editor/compiler khusus FOMT | pasangan palet/tileset, header 40 B, sha256 |
 | layar statis (logo/HUD) | PNG tilemap + palet/tileset | renderer layar | kelas `layar`, bukan peta; bukti fungsi scene |
-| sprite/OBJ | PNG + frame/OAM/anim JSON | `sprite2gba` | urutan tile, palet, metadata frame |
+| sprite/OBJ | PNG terindeks (PLTE) + `.pal` + JSON frame | `sprite2gba.py` | urutan tile, hash palet pasangan, jumlah tile = frame × tile/frame |
 | tabel/struct | JSON/C dengan schema | generator C/asm | layout struct, `static_assert`, hash byte |
 | container 0x70 | manifest stream + source decoded | `lz70` + encoder stream | decoded hash **dan** compressed hash |
 | container font/objek (`func_0805E6CC`) | JSON tabel + PNG tile | `font_container.py` | urutan enam tabel + ekor, SHA-256 seluruh container |
@@ -345,14 +366,16 @@ Aturan build:
 - Generated asm tetap mempertahankan `.global`, urutan, dan alignment.
 - Untuk aset `rom-exact`, generated asm tidak boleh memakai
   `.incbin "baserom.gba"`.
-- `build_assets.py` belum ada. Simbol pertama yang sudah dialihkan
-  (`gUnk_0875A440`) memakai aturan Makefile langsung: objek
-  `build/asm/data/data_0813B288.o` bergantung pada
-  `build/assets/<symbol>.bin`, yang dibangun `tile4bpp.py encode` dari
-  `assets/gfx/fonts/clock.{png,json}`. Ganti satu simbol per perubahan dan
-  jalankan `make compare`. Provenance offset/ukuran ROM tetap ditulis di asm
-  sebagai komentar `@ rom: 0xOFFSET 0xSIZE` supaya inventaris aset tidak
-  kehilangan asal simbol.
+- Orkestrasi build ada di Makefile, bukan skrip terpisah: `gfx_rules.mk`
+  (dihasilkan `tools/assets/gfx_rules.py`) mendefinisikan `ASSET_BINS` dan satu
+  aturan `build/assets/<symbol>.bin` per aset `rom-exact`; objek
+  `build/asm/data/data_0813B288.o` bergantung pada daftar itu. Menambah aset =
+  taruh PNG/palet + JSON, jalankan `gfx_rules.py`; tidak ada sunting Makefile.
+  Aset yang belum `rom-exact` tidak punya aturan, jadi `.incbin`-nya tetap
+  menunjuk ROM.
+- Ganti satu simbol per perubahan dan jalankan `make compare`. Provenance
+  offset/ukuran ROM tetap ditulis di asm sebagai komentar
+  `@ rom: 0xOFFSET 0xSIZE` supaya inventaris aset tidak kehilangan asal simbol.
 - `build/assets/**` tidak di-track; source + manifest + versi tool yang
   di-track.
 - `make compare` tetap menjadi gerbang akhir; asset build bukan pengganti
@@ -514,6 +537,10 @@ aset source yang lolos gate.
 - Palet, tile/font/UI 4bpp, tilemap.
 - Satu aset dibuktikan end-to-end: decode → encode → sha256 → `make compare`.
 - Baru setelah satu aset berhasil, buat template untuk kelas itu.
+- **Progres:** kelas sprite punya `tools/assets/sprite2gba.py` (PNG terindeks
+  + `.pal` + metadata frame, hash palet pasangan ikut digerbang) dan satu
+  sprite sudah dialihkan `.incbin`-nya dengan `make compare` HIJAU. Aturan
+  build-nya digenerate, jadi aset baru di kelas ini tidak menyentuh Makefile.
 
 **Exit:** ada minimal satu kelas yang seluruh asetnya `rom-exact`.
 

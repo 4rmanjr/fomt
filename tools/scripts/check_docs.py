@@ -228,6 +228,43 @@ def aset_sumber():
     return None, f"manifest aset sinkron ({count} aset rom-exact)"
 
 
+GFX_RULES = "gfx_rules.mk"
+GFX_RULES_TOOL = REPO / "tools" / "assets" / "gfx_rules.py"
+
+
+def aset_aturan_gfx():
+    """-> (masalah|None, catatan|None) untuk aturan build `gfx_rules.mk`.
+
+    Berkas itu dihasilkan `gfx_rules.py` dari metadata `assets/gfx/**/*.json`
+    dan di-include Makefile. Gate ini membuat aset `rom-exact` baru yang
+    lupa diregenerasi terlihat: tanpa aturan, `.incbin` bisa menunjuk bin
+    yang tidak pernah dibangun.
+    """
+    import importlib.util
+
+    if not GFX_RULES_TOOL.exists():
+        return (GFX_RULES, "tool gfx_rules.py hilang"), None
+    out = REPO / GFX_RULES
+    if not out.exists():
+        return (GFX_RULES, "aturan gfx hilang — jalankan "
+                "python3 tools/assets/gfx_rules.py"), None
+    try:
+        spec = importlib.util.spec_from_file_location("gfx_rules",
+                                                     GFX_RULES_TOOL)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        text = mod.render(mod.collect())
+    except Exception as e:  # gate tidak boleh lolos diam-diam saat tool rusak
+        return (GFX_RULES,
+                f"gate aturan gfx gagal dijalankan: {type(e).__name__}: {e}"), \
+            None
+    if out.read_text() != text:
+        return (GFX_RULES, "BASI terhadap metadata assets/gfx — jalankan "
+                "python3 tools/assets/gfx_rules.py"), None
+    return None, ("aturan build gfx sinkron "
+                  f"({text.count('.bin: \\')} aset rom-exact)")
+
+
 REENCODE_DOC = "docs/decomp/ASET-0X70-REENCODE.md"
 REENCODE_MANIFEST = "assets/0x70/reencode_manifest.json"
 REENCODE_TOOL = REPO / "tools" / "assets" / "stream_audit.py"
@@ -567,6 +604,12 @@ def check(max_agents):
         notes.append(note)
 
     prob, note = aset_sumber()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = aset_aturan_gfx()
     if prob:
         problems.append(prob)
     elif note:
