@@ -170,6 +170,19 @@ class RawAssetClassifier(unittest.TestCase):
         cols = [0x0011, 0x0022, 0x0110, 0x0220, 0x1100, 0x2200] * 2 + [0x0000] * 4
         self.check(struct.pack("<16H", *cols), "palet")
 
+    def test_override_call_site_menang_atas_palet_288(self):
+        # 288 B = 9 x palet 16 warna: isi lolos cabang palet "144 warna",
+        # tetapi call site menyalinnya 0x120 B ke VRAM, jadi tile.
+        data = palette_16() * 9
+        self.assertEqual(raw_assets.classify(data)[0], "palet")
+        for name, dst in (("gUnk_087510AC", "0x060014A0"),
+                          ("gUnk_087511CC", "0x06001380")):
+            got, note, probe = raw_assets.classify(data, name)
+            self.assertEqual(got, "sprite/OBJ", note)
+            self.assertIsNone(probe)
+            self.assertIn("0x120 B", note)
+            self.assertIn(dst, note)
+
     def test_sprite_128_stays_sprite(self):
         data = sprite_128()
         self.assertEqual(len(data), 128)

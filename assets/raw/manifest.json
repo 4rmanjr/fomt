@@ -981,19 +981,19 @@
    "symbol": "gUnk_087510AC",
    "offset": "0x7510AC",
    "size": 288,
-   "group": "palet",
-   "note": "144 warna (semua u16 < 0x8000)",
+   "group": "sprite/OBJ",
+   "note": "9 tile 4bpp: func_0806644C menyalin 0x120 B ke VRAM 0x060014A0 (func_08008F0C); klasifikasi isi menyebut palet 144 warna, call site membuktikannya tile",
    "renderable": true,
-   "png": "assets/raw/png/gUnk_087510AC_288_palet.png"
+   "png": "assets/raw/png/gUnk_087510AC_288_sprite.png"
   },
   {
    "symbol": "gUnk_087511CC",
    "offset": "0x7511CC",
    "size": 288,
-   "group": "palet",
-   "note": "144 warna (semua u16 < 0x8000)",
+   "group": "sprite/OBJ",
+   "note": "9 tile 4bpp: func_08068344 menyalin 0x120 B ke VRAM 0x06001380 (func_08008F0C); klasifikasi isi menyebut palet 144 warna, call site membuktikannya tile",
    "renderable": true,
-   "png": "assets/raw/png/gUnk_087511CC_288_palet.png"
+   "png": "assets/raw/png/gUnk_087511CC_288_sprite.png"
   },
   {
    "symbol": "gUnk_087512EC",

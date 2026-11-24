@@ -63,6 +63,204 @@
    "evidence": "func_080AE7D0 (code_809E804.s:32445): func_08008E64(gUnk_08731940, 0x05000000, 0x200) menyalin 512 B ke palette RAM; tidak ada palet lain yang dimuat scene ini."
   },
   {
+   "id": "gfx/sprites/gunk_08750e4c",
+   "symbol": "gUnk_08750E4C",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x750E4C",
+    "size": 288,
+    "sha256": "a3b99c81ab8bac0912cd6c7d928f34f9bb739630701489b284e7ebf8e7fd047d"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_08750E4C.json",
+    "png": "assets/gfx/sprites/gUnk_08750E4C.png",
+    "pal": "assets/gfx/sprites/gUnk_08750E4C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_080645F0: baris 74337 menyalin tile gUnk_08750E4C 0x120 B ke VRAM 0x060015C0, baris 74487 menyalin palet gUnk_08750F6C 0x20 B (func_08008F0C)"
+  },
+  {
+   "id": "gfx/sprites/gunk_08750f8c",
+   "symbol": "gUnk_08750F8C",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x750F8C",
+    "size": 288,
+    "sha256": "fc2bda977d99c32f7fe6f8e480a47193d891ff65946dcbbbba85162e4146a331"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_08750F8C.json",
+    "png": "assets/gfx/sprites/gUnk_08750F8C.png",
+    "pal": "assets/gfx/sprites/gUnk_08750F8C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_080645F0: baris 74187 menyalin tile gUnk_08750F8C 0x120 B ke VRAM 0x060014A0, baris 74487 menyalin palet gUnk_08750F6C 0x20 B (func_08008F0C)"
+  },
+  {
+   "id": "gfx/sprites/gunk_087510ac",
+   "symbol": "gUnk_087510AC",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7510AC",
+    "size": 288,
+    "sha256": "c477e41b27535552a2455bf44fa3b970cd335c9e5c8fe920f46959f871438583"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_087510AC.json",
+    "png": "assets/gfx/sprites/gUnk_087510AC.png",
+    "pal": "assets/gfx/sprites/gUnk_087510AC.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_0806644C: baris 78680 menyalin tile gUnk_087510AC 0x120 B ke VRAM 0x060014A0, baris 78826 menyalin palet gUnk_0875178C 0x20 B (func_08008F0C)"
+  },
+  {
+   "id": "gfx/sprites/gunk_087511cc",
+   "symbol": "gUnk_087511CC",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7511CC",
+    "size": 288,
+    "sha256": "0246e5f8a7ce9136217957ade7c5cfdbd2aa7be7f208a419b15a768c18963f75"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_087511CC.json",
+    "png": "assets/gfx/sprites/gUnk_087511CC.png",
+    "pal": "assets/gfx/sprites/gUnk_087511CC.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_08068344: baris 81550 menyalin tile gUnk_087511CC 0x120 B ke VRAM 0x06001380, baris 81705 menyalin palet gUnk_087512EC 0x20 B (func_08008F0C)"
+  },
+  {
+   "id": "gfx/sprites/gunk_0875130c",
+   "symbol": "gUnk_0875130C",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75130C",
+    "size": 288,
+    "sha256": "b078a388eb2836e81fa338079b4185f05f6a0f635ed977b2e1d8052a72b78777"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_0875130C.json",
+    "png": "assets/gfx/sprites/gUnk_0875130C.png",
+    "pal": "assets/gfx/sprites/gUnk_0875130C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_08068344: baris 82004 menyalin tile gUnk_0875130C 0x120 B ke VRAM 0x060015C0, baris 81705 menyalin palet gUnk_087512EC 0x20 B (func_08008F0C)"
+  },
+  {
+   "id": "gfx/sprites/gunk_0875142c",
+   "symbol": "gUnk_0875142C",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75142C",
+    "size": 288,
+    "sha256": "aa637cc310aea66cedff57eb3080b430e380c20703184036a73c2f87eba97dbb"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_0875142C.json",
+    "png": "assets/gfx/sprites/gUnk_0875142C.png",
+    "pal": "assets/gfx/sprites/gUnk_0875142C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_08068344: baris 82154 menyalin tile gUnk_0875142C 0x120 B ke VRAM 0x060016E0, baris 81705 menyalin palet gUnk_087512EC 0x20 B (func_08008F0C)"
+  },
+  {
+   "id": "gfx/sprites/gunk_0875154c",
+   "symbol": "gUnk_0875154C",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75154C",
+    "size": 288,
+    "sha256": "acfc397f1fb7813b07fd714a306bb890cc4ccec2b94cee6ff10754408c7cebf6"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_0875154C.json",
+    "png": "assets/gfx/sprites/gUnk_0875154C.png",
+    "pal": "assets/gfx/sprites/gUnk_0875154C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_08068344: baris 81854 menyalin tile gUnk_0875154C 0x120 B ke VRAM 0x060014A0, baris 81705 menyalin palet gUnk_087512EC 0x20 B (func_08008F0C)"
+  },
+  {
+   "id": "gfx/sprites/gunk_0875166c",
+   "symbol": "gUnk_0875166C",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75166C",
+    "size": 288,
+    "sha256": "bbf625be269f793c6bbe13c09ac11bc6f851b41588f4439f921255a9cb15ce1a"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_0875166C.json",
+    "png": "assets/gfx/sprites/gUnk_0875166C.png",
+    "pal": "assets/gfx/sprites/gUnk_0875166C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_0806644C: baris 78532 menyalin tile gUnk_0875166C 0x120 B ke VRAM 0x06001380, baris 78826 menyalin palet gUnk_0875178C 0x20 B (func_08008F0C)"
+  },
+  {
+   "id": "gfx/sprites/gunk_087517ac",
+   "symbol": "gUnk_087517AC",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7517AC",
+    "size": 288,
+    "sha256": "c7a0b84c724745c4430e04c21fa72ebca8a52e9b769c2190ae01c21be4f5d89e"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_087517AC.json",
+    "png": "assets/gfx/sprites/gUnk_087517AC.png",
+    "pal": "assets/gfx/sprites/gUnk_087517AC.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_080645F0: baris 74037 menyalin tile gUnk_087517AC 0x120 B ke VRAM 0x06001380, baris 74487 menyalin palet gUnk_08750F6C 0x20 B (func_08008F0C)"
+  },
+  {
    "id": "gfx/sprites/gunk_087518cc",
    "symbol": "gUnk_087518CC",
    "kind": "sprite",

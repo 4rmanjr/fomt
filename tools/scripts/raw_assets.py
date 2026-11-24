@@ -91,6 +91,18 @@ VERIFIED_LAYOUT = {
         "(086DC400/4C4/4D0, dims 30x26); sudah diekstrak ke "
         "assets/0x70/extern",
     ),
+    "gUnk_087510AC": (
+        "sprite/OBJ", None,
+        "9 tile 4bpp: func_0806644C menyalin 0x120 B ke VRAM 0x060014A0 "
+        "(func_08008F0C); klasifikasi isi menyebut palet 144 warna, call "
+        "site membuktikannya tile",
+    ),
+    "gUnk_087511CC": (
+        "sprite/OBJ", None,
+        "9 tile 4bpp: func_08068344 menyalin 0x120 B ke VRAM 0x06001380 "
+        "(func_08008F0C); klasifikasi isi menyebut palet 144 warna, call "
+        "site membuktikannya tile",
+    ),
     "gUnk_084F90CC": (
         "sprite/OBJ", "container",
         "glyph 12 B; func_080D0D28 indeks r5*12 -> func_0300085C",

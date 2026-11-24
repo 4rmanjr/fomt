@@ -650,7 +650,10 @@ gUnk_08750C8C:
 
 	.global gUnk_08750E4C
 gUnk_08750E4C:
-	.incbin "baserom.gba", 0x750E4C, 0x120
+	@ rom: 0x750E4C 0x120 — source assets/gfx/sprites/gUnk_08750E4C.{png,pal,json};
+	@ palet pasangan gUnk_08750F6C (pair-rule asm-branch 74337/74487, palet dipakai bersama batch DMA) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_08750E4C.bin"
 
 	.global gUnk_08750F6C
 gUnk_08750F6C:
@@ -658,15 +661,24 @@ gUnk_08750F6C:
 
 	.global gUnk_08750F8C
 gUnk_08750F8C:
-	.incbin "baserom.gba", 0x750F8C, 0x120
+	@ rom: 0x750F8C 0x120 — source assets/gfx/sprites/gUnk_08750F8C.{png,pal,json};
+	@ palet pasangan gUnk_08750F6C (pair-rule asm-branch 74187/74487, palet dipakai bersama batch DMA) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_08750F8C.bin"
 
 	.global gUnk_087510AC
 gUnk_087510AC:
-	.incbin "baserom.gba", 0x7510AC, 0x120
+	@ rom: 0x7510AC 0x120 — source assets/gfx/sprites/gUnk_087510AC.{png,pal,json};
+	@ palet pasangan gUnk_0875178C (pair-rule asm-branch 78680/78826, palet dipakai bersama batch DMA) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_087510AC.bin"
 
 	.global gUnk_087511CC
 gUnk_087511CC:
-	.incbin "baserom.gba", 0x7511CC, 0x120
+	@ rom: 0x7511CC 0x120 — source assets/gfx/sprites/gUnk_087511CC.{png,pal,json};
+	@ palet pasangan gUnk_087512EC (pair-rule asm-branch 81550/81705, palet dipakai bersama batch DMA) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_087511CC.bin"
 
 	.global gUnk_087512EC
 gUnk_087512EC:
@@ -674,19 +686,31 @@ gUnk_087512EC:
 
 	.global gUnk_0875130C
 gUnk_0875130C:
-	.incbin "baserom.gba", 0x75130C, 0x120
+	@ rom: 0x75130C 0x120 — source assets/gfx/sprites/gUnk_0875130C.{png,pal,json};
+	@ palet pasangan gUnk_087512EC (pair-rule asm-branch 82004/81705, palet dipakai bersama batch DMA) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875130C.bin"
 
 	.global gUnk_0875142C
 gUnk_0875142C:
-	.incbin "baserom.gba", 0x75142C, 0x120
+	@ rom: 0x75142C 0x120 — source assets/gfx/sprites/gUnk_0875142C.{png,pal,json};
+	@ palet pasangan gUnk_087512EC (pair-rule asm-branch 82154/81705, palet dipakai bersama batch DMA) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875142C.bin"
 
 	.global gUnk_0875154C
 gUnk_0875154C:
-	.incbin "baserom.gba", 0x75154C, 0x120
+	@ rom: 0x75154C 0x120 — source assets/gfx/sprites/gUnk_0875154C.{png,pal,json};
+	@ palet pasangan gUnk_087512EC (pair-rule asm-branch 81854/81705, palet dipakai bersama batch DMA) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875154C.bin"
 
 	.global gUnk_0875166C
 gUnk_0875166C:
-	.incbin "baserom.gba", 0x75166C, 0x120
+	@ rom: 0x75166C 0x120 — source assets/gfx/sprites/gUnk_0875166C.{png,pal,json};
+	@ palet pasangan gUnk_0875178C (pair-rule asm-branch 78532/78826, palet dipakai bersama batch DMA) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875166C.bin"
 
 	.global gUnk_0875178C
 gUnk_0875178C:
@@ -694,7 +718,10 @@ gUnk_0875178C:
 
 	.global gUnk_087517AC
 gUnk_087517AC:
-	.incbin "baserom.gba", 0x7517AC, 0x120
+	@ rom: 0x7517AC 0x120 — source assets/gfx/sprites/gUnk_087517AC.{png,pal,json};
+	@ palet pasangan gUnk_08750F6C (pair-rule asm-branch 74037/74487, palet dipakai bersama batch DMA) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_087517AC.bin"
 
 	.global gUnk_087518CC
 gUnk_087518CC:

@@ -13,8 +13,8 @@ python3 tools/scripts/raw_assets.py --check   # exit 1 bila dokumen basi
 
 | kelompok | blob | bisa dirender |
 |---|---|---|
-| palet | 66 | 66 |
-| sprite/OBJ | 77 | 65 |
+| palet | 64 | 64 |
+| sprite/OBJ | 79 | 67 |
 | tilemap | 16 | 16 |
 | gambar terkompresi | 3 | 0 |
 | tabel | 69 | 0 |
@@ -39,7 +39,7 @@ Pemeriksa silang untuk kelompok `gambar terkompresi`: 94 blob non-32 B diuji apa
 
 Tidak ada kandidat `belum terbukti`: setiap rantai sudah dijelaskan penunjuk kode/tabel (bank atau container).
 
-## palet (66 blob)
+## palet (64 blob)
 
 Dirender sebagai kartu swatch 16 warna per baris, warna GBA 5-5-5.
 
@@ -50,8 +50,6 @@ Dirender sebagai kartu swatch 16 warna per baris, warna GBA 5-5-5.
 | `gUnk_08731940` | `0x731940` | 512 | 256 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_08731940_512_palet.png) |
 | `gUnk_0874E330` | `0x74E330` | 512 | 256 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_0874E330_512_palet.png) |
 | `gUnk_0872FA9C` | `0x72FA9C` | 352 | 176 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_0872FA9C_352_palet.png) |
-| `gUnk_087510AC` | `0x7510AC` | 288 | 144 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_087510AC_288_palet.png) |
-| `gUnk_087511CC` | `0x7511CC` | 288 | 144 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_087511CC_288_palet.png) |
 | `gUnk_0873CBF4` | `0x73CBF4` | 192 | 96 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_0873CBF4_192_palet.png) |
 | `gUnk_087400E4` | `0x7400E4` | 192 | 96 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_087400E4_192_palet.png) |
 | `gUnk_08757AE0` | `0x757AE0` | 192 | 96 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_08757AE0_192_palet.png) |
@@ -112,7 +110,7 @@ Dirender sebagai kartu swatch 16 warna per baris, warna GBA 5-5-5.
 | `gUnk_08757BAC` | `0x757BAC` | 32 | 16 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_08757BAC_32_palet.png) |
 | `gUnk_08757BD8` | `0x757BD8` | 32 | 16 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_08757BD8_32_palet.png) |
 
-## sprite/OBJ (77 blob)
+## sprite/OBJ (79 blob)
 
 Dirender sebagai lembar tile 4bpp abu-abu indeks (tanpa palet; warna asli butuh palet OBJ terpisah). Entri `layout: container` adalah wadah font/objek terverifikasi call-site dan sengaja tidak dirender.
 
@@ -142,6 +140,8 @@ Dirender sebagai lembar tile 4bpp abu-abu indeks (tanpa palet; warna asli butuh 
 | `gUnk_08750C8C` | `0x750C8C` | 448 | 14 tile 4bpp (bukan palet: 22% word satu-nibble) | ya | [png](../../assets/raw/png/gUnk_08750C8C_448_sprite.png) |
 | `gUnk_08750E4C` | `0x750E4C` | 288 | 9 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_08750E4C_288_sprite.png) |
 | `gUnk_08750F8C` | `0x750F8C` | 288 | 9 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_08750F8C_288_sprite.png) |
+| `gUnk_087510AC` | `0x7510AC` | 288 | 9 tile 4bpp: func_0806644C menyalin 0x120 B ke VRAM 0x060014A0 (func_08008F0C); klasifikasi isi menyebut palet 144 warna, call site membuktikannya tile | ya | [png](../../assets/raw/png/gUnk_087510AC_288_sprite.png) |
+| `gUnk_087511CC` | `0x7511CC` | 288 | 9 tile 4bpp: func_08068344 menyalin 0x120 B ke VRAM 0x06001380 (func_08008F0C); klasifikasi isi menyebut palet 144 warna, call site membuktikannya tile | ya | [png](../../assets/raw/png/gUnk_087511CC_288_sprite.png) |
 | `gUnk_0875130C` | `0x75130C` | 288 | 9 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_0875130C_288_sprite.png) |
 | `gUnk_0875142C` | `0x75142C` | 288 | 9 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_0875142C_288_sprite.png) |
 | `gUnk_0875154C` | `0x75154C` | 288 | 9 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_0875154C_288_sprite.png) |

@@ -838,3 +838,24 @@ Rantai sprite 4-tile yang sama berlanjut setelah `gUnk_087530CC`: pasangan
 baris, `code_0803EE94.s`), jadi bukti pasangannya `--pair-rule asm-load`, bukan
 `asm-branch`; blob ROM-nya juga bersebelahan sehingga `rom_adjacent` benar.
 Alamat tetap dipakai hanya sebagai placeholder `semantics: unidentified` (§6).
+
+### Rantai sprite 9-tile 0x750E4C–0x7517AC
+
+Sembilan blob 9-tile di rentang ini dipakai tiga fungsi `code_0803EE94.s` yang
+menyalin tile 0x120 B ke VRAM (`func_08008F0C`) lalu palet 0x20 B ke slot
+palet: `func_080645F0` (tile `gUnk_08750E4C`, `gUnk_08750F8C`, `gUnk_087517AC`
++ palet `gUnk_08750F6C`), `func_0806644C` (`gUnk_087510AC`, `gUnk_0875166C` +
+`gUnk_0875178C`), dan `func_08068344` (`gUnk_087511CC`, `gUnk_0875154C`,
+`gUnk_0875130C`, `gUnk_0875142C` + `gUnk_087512EC`).
+
+Karena palet dimuat di baris jauh dari tile-nya, pasangannya dicatat
+`--pair-rule asm-branch` dengan `--pair-lines`/`--pair-asm`; `pair.reason`
+menyebut satu fungsi dan tujuan DMA kedua sisi, sebab palet di sini dipakai
+bersama oleh beberapa tile dalam satu batch, bukan pasangan 1:1.
+
+Dua di antaranya semula diklasifikasi `palet` 144 warna (`gUnk_087510AC`,
+`gUnk_087511CC`) karena isinya 288 B nilai u16 di bawah 0x8000. Call site
+membuktikannya tile: keduanya di-DMA 0x120 B ke VRAM `0x060014A0` /
+`0x06001380`, bukan ke `0x05xxxxxx`. Override `VERIFIED_LAYOUT` di
+`raw_assets.py` mencatat bukti itu supaya klasifikasi isi tidak menang atas
+call site.

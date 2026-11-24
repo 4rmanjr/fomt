@@ -1,0 +1,53 @@
+{
+ "id": "gfx/sprites/gunk_0875166c",
+ "symbol": "gUnk_0875166C",
+ "kind": "sprite",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x75166C",
+  "size": 288,
+  "sha256": "bbf625be269f793c6bbe13c09ac11bc6f851b41588f4439f921255a9cb15ce1a"
+ },
+ "palette": {
+  "symbol": "gUnk_0875178C",
+  "rom": {
+   "offset": "0x75178C",
+   "size": 32,
+   "sha256": "786cebe9ac9654a40caf028be177f840f8737b11fd1e5c6da5609f867ae48da4"
+  }
+ },
+ "source": {
+  "png": "gUnk_0875166C.png",
+  "pal": "gUnk_0875166C.pal",
+  "tiles_wide": 3,
+  "tile_count": 9
+ },
+ "frame": {
+  "width_tiles": 3,
+  "height_tiles": 3,
+  "count": 1,
+  "order": "row-major"
+ },
+ "semantics": "unidentified",
+ "encoder": {
+  "tool": "sprite2gba.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first",
+  "png_format": "indexed-8-plte"
+ },
+ "pair": {
+  "rule": "asm-branch",
+  "rom_adjacent": true,
+  "source": "asm",
+  "asm": "asm/code_0803EE94.s",
+  "load_lines": [
+   78532,
+   78826
+  ],
+  "distance": 294,
+  "reason": "func_0806644C menyalin palet gUnk_0875178C 0x20 B (baris 78826) sementara tile gUnk_0875166C di-DMA 0x120 B ke VRAM 0x06001380 (baris 78532); satu fungsi, palet dipakai bersama"
+ },
+ "evidence": "func_0806644C: baris 78532 menyalin tile gUnk_0875166C 0x120 B ke VRAM 0x06001380, baris 78826 menyalin palet gUnk_0875178C 0x20 B (func_08008F0C)",
+ "note": "9 tile 4bpp = satu frame 48x48; ukuran OAM/animasi belum ditelusuri"
+}
