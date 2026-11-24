@@ -20,6 +20,18 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   lama disimpan sebagai riwayat (idempoten).
 - `migrate_audit.py` — klasifikasi semua blok promoted: bisa migrasi vs alasan
   SKIP (`--json`).
+- `brief.py <func> [--siblings N]` — paket kerja satu fungsi dalam satu
+  perintah: status/`ref_len`/`in_src`/budget judge dari shard state, `note`,
+  draf (maks 40 baris), blok asm ref (maks 45 baris, pool `.byte`/`.4byte`
+  dipotong), dan saudara modul dengan status + `note` sama (maks N, default
+  5). Budget judge diskalakan dari `ref_len`: <=32 -> 3, <=64 -> 4, <=128 ->
+  6, <=256 -> 8, di atas itu -> 10. Read-only.
+- `judge_summary.py <func>` — ringkas log judge terakhir
+  (`decomp/logs/judge_<func>/*/func.s`) + `note` jadi diagnosis siap kerja:
+  lokasi residual pertama, skor, pasangan instruksi, klasifikasi
+  COMPILE-ERROR vs DIFF kodegen, dugaan pola dari katalog `PATTERNS` (maks
+  3, mis. epilog `pop {r1}` = return value, argumen `_call_via_r2` yang
+  dibuang m2c), dan saran aksi. Read-only; tidak menyentuh state/draf.
 - `tail_chain.py --module <stem>.s` — urutan ekor + NEXT/blocker untuk modul
   tail-only. Blok yang `ref_len`-nya memuat lebih dari satu prolog
   `push {…, lr}` (blob `.byte` berisi beberapa fungsi) ditandai MULTI-FUNGSI:
@@ -435,6 +447,51 @@ python3 tools/scripts/decomp_engine.py learn | hint <func> | sectors
 - `synth_types.py` — sintesis typedef dari offset asm (v3: 0/10 MATCH, 7/10
   compile pada pilot); heuristik typing bukan jalan MATCH, lanjutkan dengan
   diff byte.
+
+## Alat data/ROM (ad-hoc)
+
+Utilitas kecil untuk membaca/menamai data ROM. Tiga di antaranya **menulis
+ulang berkas asm di tempat** — jalankan hanya pada berkas yang sedang
+dikerjakan, lalu periksa `git diff` (tool ini tidak punya `--check`).
+
+- `symbols.py` — pustaka, bukan CLI: `from_elf(f)` menghasilkan pasangan
+  `(alamat, nama)` untuk simbol `STB_GLOBAL` di `.symtab` ELF. Dipakai
+  `dump_pointers.py`/`finddata.py`/`findiwrams.py`/`vtnames.py`; butuh
+  pyelftools yang di-vendor di `python/`.
+- `dump_pointers.py ELF ROM OFFSET COUNT` — cetak array pointer C
+  (`void * gUnk_<alamat>[] = { ... };`) untuk COUNT u32 di ROM mulai OFFSET,
+  setiap alamat dipetakan ke nama simbol ELF atau tetap literal. Read-only.
+- `finddata.py ELF ASM...` — pindai baris `_08xxxxxx: .4byte 0x08xxxxxx`,
+  cetak peta alamat -> simbol, lalu **tulis ulang asm**: literal
+  `0x08xxxxxx` yang punya simbol diganti namanya. Verifikasi lewat
+  `make compare`, bukan lewat tool.
+- `findiwrams.py ELF ASM...` — sama untuk pointer IWRAM `0x03xxxxxx` di bawah
+  `0x03007E00`; yang tidak ada di ELF dinamai `gUnk_<alamat>`. Juga
+  **menulis ulang asm**.
+- `vtnames.py ASM...` — ganti `gUnk_08xxxxxx` di rentang vtable
+  `0x080E59EC-0x080E85E8` menjadi `vtable_unk_08xxxxxx`; tidak butuh ELF.
+  Juga **menulis ulang asm**.
+- `dump_item_tables.py ROM` — cetak tabel item game sebagai makro `o(...)`:
+  TOOL 81 entri @`0x080EAB0C` (12 B: pointer nama, icon, pointer deskripsi),
+  FOOD 171 @`0x080EDCD8` (16 B: nama, `is_drink`, stamina, fatigue, icon,
+  deskripsi), ARTICLE 95 @`0x080EFED4` (12 B), PRODUCT 103 @`0x080F0348`
+  (harga 15 bit + bit FOOD/ARTICLE, indeks item). Teks dibaca cp932; `tag` =
+  nama di-uppercase dengan karakter non-alfanumerik jadi `_`. Read-only.
+- `dump_schedule.py ROM ADDR` — decode `ScheduleInfo` di ADDR ke JSON:
+  pointer `select_schedule`, daftar schedule (entri `{time, path}`; `time`
+  dikonversi ke `HH:MM` mulai 06:00), dan daftar path (x/y awal, bitfield
+  location/facing, titik 8 B tipe A `{instant, x|y}` atau tipe B
+  `{x|y, speed, unk_04, facing}`). Path yang dipakai bersama diberi id dari
+  alamat terurut. Read-only.
+- `data_analysis.py` — pustaka, bukan CLI: `ROM.u8/u16/u32` (mask
+  `0x1FFFFFF`) dan `ROMAnalyzer` yang menelusuri tipe berlapis (`T[n]`,
+  `T*`, typedef terdaftar di `register_types`) sampai daun data. Dipakai
+  `dump_schedule.py`.
+- `schedule_to_c.py` — stdin JSON dari `dump_schedule.py` -> C: deklarasi +
+  definisi `ScheduleInfo`, `Schedule const * const[]`, `Schedule`,
+  `ScheduleEntry`, `PathInfo`, dan `PathPointA/B` (tipe titik dipilih dari ada/
+  tidaknya `facing`); urutan emit tetap `si, sl, sc, se, pi, pp`, dan waktu
+  `HH:MM` dikembalikan ke menit mentah. Tanpa argumen CLI.
 
 ## Prasyarat lingkungan
 
