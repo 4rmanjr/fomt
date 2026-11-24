@@ -33,3 +33,5 @@ decomp/state/progress.json.bak
 # riwayat percobaan engine decomp (basis pengetahuan ikut di-commit)
 decomp/engine/*
 !decomp/engine/knowledge.json
+# toolchain hasil tools/scripts/setup_arm_binutils.sh (binary, jangan di-commit)
+.toolchain/

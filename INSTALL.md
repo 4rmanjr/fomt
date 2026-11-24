@@ -11,6 +11,22 @@ Better instructions will come eventually.
 
 [notyourav/agbcc]: https://github.com/notyourav/agbcc
 
+## Toolchain arm-none-eabi tanpa root (Linux x86-64/ARM64)
+
+`tools/arm-gnu/bin` hanya berisi `arm-none-eabi-as` dan `arm-none-eabi-cpp`;
+`make compare` juga memerlukan `ld`, `objcopy`, dan `strip`. Kalau paket
+sistem tidak bisa dipasang (tanpa root), pasang binutils ke dalam workspace:
+
+```bash
+tools/scripts/setup_arm_binutils.sh          # unduh .deb + dpkg-deb -x, tanpa root
+export PATH="$PWD/.toolchain/arm-binutils/usr/bin:$PWD/tools/arm-gnu/bin:$PATH"
+make compare
+```
+
+Hasil ekstraksi ada di `.toolchain/` yang git-ignored, jadi `git status` tetap
+bersih. Versi paket bisa diganti lewat `BINUTILS_VERSION=...`; skrip memilih
+`amd64`/`arm64` mengikuti `uname -m`.
+
 ## Termux (Android ARM64)
 
 The `decomp/` pipeline (`fomt`, see `AGENTS.md`) runs on Termux even though

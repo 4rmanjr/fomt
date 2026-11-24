@@ -21,6 +21,86 @@
    }
   },
   {
+   "id": "gfx/fonts/gunk_0858ba28",
+   "symbol": "gUnk_0858BA28",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x58BA28",
+    "size": 898616,
+    "sha256": "19a8733e132573478713e9b6e48e9650a702e62516209159787d26f270933736"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_0858ba28.json",
+    "png": "assets/gfx/fonts/unk_0858ba28.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/fonts/gunk_0871d51c",
+   "symbol": "gUnk_0871D51C",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x71D51C",
+    "size": 4748,
+    "sha256": "413634a8db92072ac9cd7e3db2dbb7c7c5980d1eca3e636b3c98a55661ea6a49"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_0871d51c.json",
+    "png": "assets/gfx/fonts/unk_0871d51c.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/fonts/gunk_08728320",
+   "symbol": "gUnk_08728320",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x728320",
+    "size": 4188,
+    "sha256": "db6e14760f25e35a7211916f8a30cdafd90bcba78faed0e738bfc69dcf0edbfc"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_08728320.json",
+    "png": "assets/gfx/fonts/unk_08728320.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/fonts/gunk_08729460",
+   "symbol": "gUnk_08729460",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x729460",
+    "size": 10756,
+    "sha256": "7a8b853ced44cc16da447b0f51ff98865b591f54b006fac3a3b52adfc9b1a24a"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_08729460.json",
+    "png": "assets/gfx/fonts/unk_08729460.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   }
+  },
+  {
    "id": "gfx/fonts/gunk_0872de44",
    "symbol": "gUnk_0872DE44",
    "kind": "font_container",
@@ -34,6 +114,46 @@
    "source": {
     "json": "assets/gfx/fonts/unk_0872de44.json",
     "png": "assets/gfx/fonts/unk_0872de44.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/fonts/gunk_08731b40",
+   "symbol": "gUnk_08731B40",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x731B40",
+    "size": 26116,
+    "sha256": "f7ba7a09d7fd9da4ce57d4c898240aee2a733beb30e58e95230efa83ab0d1104"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_08731b40.json",
+    "png": "assets/gfx/fonts/unk_08731b40.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/fonts/gunk_0874f34c",
+   "symbol": "gUnk_0874F34C",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74F34C",
+    "size": 5012,
+    "sha256": "3c47dd074560851632fbf494299b6fd99557d62111d576a42f2dff8a1d1078c8"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_0874f34c.json",
+    "png": "assets/gfx/fonts/unk_0874f34c.png"
    },
    "encoder": {
     "tool": "font_container.py",

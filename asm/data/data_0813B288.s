@@ -94,7 +94,9 @@ gUnk_0852D984:
 
 	.global gUnk_0858BA28
 gUnk_0858BA28:
-	.incbin "baserom.gba", 0x58BA28, 0xDB638
+	@ rom: 0x58BA28 0xDB638 — source assets/gfx/fonts/unk_0858ba28.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0858BA28.bin"
 
 	.global gUnk_08667060
 gUnk_08667060:
@@ -306,7 +308,9 @@ gUnk_087170B8:
 
 	.global gUnk_0871D51C
 gUnk_0871D51C:
-	.incbin "baserom.gba", 0x71D51C, 0x128C
+	@ rom: 0x71D51C 0x128C — source assets/gfx/fonts/unk_0871d51c.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0871D51C.bin"
 
 	.global gUnk_0871E7A8
 gUnk_0871E7A8:
@@ -346,7 +350,9 @@ gUnk_08728208:
 
 	.global gUnk_08728320
 gUnk_08728320:
-	.incbin "baserom.gba", 0x728320, 0x105C
+	@ rom: 0x728320 0x105C — source assets/gfx/fonts/unk_08728320.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08728320.bin"
 
 	.global gUnk_0872937C
 gUnk_0872937C:
@@ -354,7 +360,9 @@ gUnk_0872937C:
 
 	.global gUnk_08729460
 gUnk_08729460:
-	.incbin "baserom.gba", 0x729460, 0x2A04
+	@ rom: 0x729460 0x2A04 — source assets/gfx/fonts/unk_08729460.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08729460.bin"
 
 	.global gUnk_0872BE64
 gUnk_0872BE64:
@@ -442,7 +450,9 @@ gUnk_08731940:
 
 	.global gUnk_08731B40 @ChickenPortraits
 gUnk_08731B40:
-	.incbin "baserom.gba", 0x731B40, 0x6604
+	@ rom: 0x731B40 0x6604 — source assets/gfx/fonts/unk_08731b40.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08731B40.bin"
 
 	.global gUnk_08738144 @gCalendarFont?
 gUnk_08738144:
@@ -638,7 +648,9 @@ gUnk_0874F2EC:
 
 	.global gUnk_0874F34C
 gUnk_0874F34C:
-	.incbin "baserom.gba", 0x74F34C, 0x1394
+	@ rom: 0x74F34C 0x1394 — source assets/gfx/fonts/unk_0874f34c.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0874F34C.bin"
 
 	.global gUnk_087506E0
 gUnk_087506E0:
