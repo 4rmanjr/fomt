@@ -38,7 +38,11 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_08752EEC.bin \
   $(BUILD_DIR)/assets/gUnk_08752F8C.bin \
   $(BUILD_DIR)/assets/gUnk_0875302C.bin \
-  $(BUILD_DIR)/assets/gUnk_087530CC.bin
+  $(BUILD_DIR)/assets/gUnk_087530CC.bin \
+  $(BUILD_DIR)/assets/gUnk_08750C4C.bin \
+  $(BUILD_DIR)/assets/gUnk_08750C8C.bin \
+  $(BUILD_DIR)/assets/gUnk_08752D4C.bin \
+  $(BUILD_DIR)/assets/gUnk_08752DCC.bin
 
 $(BUILD_DIR)/assets/gUnk_0875A440.bin: \
     assets/gfx/fonts/clock.json \
@@ -325,3 +329,31 @@ $(BUILD_DIR)/assets/gUnk_087530CC.bin: \
     tools/assets/sprite2gba.py
 	@echo "ASSET $@"
 	@python3 tools/assets/sprite2gba.py encode --json assets/gfx/sprites/gUnk_087530CC.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08750C4C.bin: \
+    assets/gfx/tiles/gUnk_08750C4C.json \
+    assets/gfx/tiles/gUnk_08750C4C.png \
+    tools/assets/tile4bpp.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_08750C4C.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08750C8C.bin: \
+    assets/gfx/tiles/gUnk_08750C8C.json \
+    assets/gfx/tiles/gUnk_08750C8C.png \
+    tools/assets/tile4bpp.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_08750C8C.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08752D4C.bin: \
+    assets/gfx/tiles/gUnk_08752D4C.json \
+    assets/gfx/tiles/gUnk_08752D4C.png \
+    tools/assets/tile4bpp.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_08752D4C.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08752DCC.bin: \
+    assets/gfx/tiles/gUnk_08752DCC.json \
+    assets/gfx/tiles/gUnk_08752DCC.png \
+    tools/assets/tile4bpp.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/tiles/gUnk_08752DCC.json --out $@

@@ -1,0 +1,27 @@
+{
+ "kind": "tiles4bpp",
+ "source": {
+  "png": "gUnk_08750C4C.png",
+  "tiles_wide": 1,
+  "tile_count": 1,
+  "header_hex": "",
+  "tail_hex": "",
+  "tile_offset": 0,
+  "tile_trim": 0
+ },
+ "encoder": {
+  "tool": "tile4bpp.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first"
+ },
+ "id": "gfx/tiles/gunk_08750c4c",
+ "symbol": "gUnk_08750C4C",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x750C4C",
+  "size": 32,
+  "sha256": "e98672a456687f9c428628c321ff964b8507028878310d4e3eaebd3cfbe37e49"
+ },
+ "note": "1 tile 8x8 dari DMA ke 0x060100A0 (0x20 B)"
+}

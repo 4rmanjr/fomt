@@ -1,0 +1,27 @@
+{
+ "kind": "tiles4bpp",
+ "source": {
+  "png": "gUnk_08752DCC.png",
+  "tiles_wide": 4,
+  "tile_count": 4,
+  "header_hex": "",
+  "tail_hex": "",
+  "tile_offset": 0,
+  "tile_trim": 0
+ },
+ "encoder": {
+  "tool": "tile4bpp.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first"
+ },
+ "id": "gfx/tiles/gunk_08752dcc",
+ "symbol": "gUnk_08752DCC",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x752DCC",
+  "size": 128,
+  "sha256": "ccdc2896da25e2ddd8c4fb879590ee0c58eb84ee13ebce7084af8600d3561da0"
+ },
+ "note": "4 tile 8x8 dari DMA VRAM slot 0x70 (func_080645F0)"
+}

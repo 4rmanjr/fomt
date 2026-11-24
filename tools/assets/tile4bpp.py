@@ -259,6 +259,9 @@ def cmd_decode(args):
     meta.update({
         "id": args.id,
         "symbol": args.symbol,
+        # Sama seperti sprite2gba.decode: hanya aset dengan status ini yang
+        # boleh masuk asset_manifest/`gfx_rules.mk`.
+        "status": "rom-exact",
         "rom": {
             "offset": f"0x{args.offset:X}",
             "size": len(blob),

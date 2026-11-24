@@ -33,6 +33,21 @@ class Tile4bppCodec(unittest.TestCase):
             (td / "tiles.json").write_text(json.dumps(meta))
             self.assertEqual(tile4bpp.encode_source(td / "tiles.json"), blob)
 
+    def test_decode_menulis_status_rom_exact(self):
+        with tempfile.TemporaryDirectory() as td:
+            td = Path(td)
+            rom = td / "rom.gba"
+            blob = synthetic()
+            rom.write_bytes(bytes(16) + blob)
+            tile4bpp.main([
+                "decode", "--rom", str(rom), "--offset", "16",
+                "--size", str(len(blob)), "--header", "4", "--tail", "4",
+                "--tiles-wide", "2", "--png", str(td / "t.png"),
+                "--json", str(td / "t.json"), "--id", "gfx/tiles/uji",
+                "--symbol", "sUji"])
+            meta = json.loads((td / "t.json").read_text())
+            self.assertEqual(meta["status"], "rom-exact")
+
     def test_rejects_colour_outside_index_palette(self):
         blob = synthetic()
         rgb, meta = tile4bpp.decode_blob(blob, 4, 4, 2)

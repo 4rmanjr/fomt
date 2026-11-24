@@ -248,7 +248,10 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
 - `tools/assets/asset_manifest.py` — indeks aset source di
   `assets/manifest.json` (satu tempat untuk hash + status + encoder). Sumber
   datanya metadata per-aset di `assets/gfx/fonts/*.json`,
-  `assets/gfx/palettes/*.json`, dan `assets/gfx/sprites/*.json` (berkas tanpa
+  `assets/gfx/palettes/*.json`, `assets/gfx/sprites/*.json`, dan
+  `assets/gfx/tiles/*.json` — direktori `tiles/` untuk blob tile 4bpp tanpa
+  palet pasangan (mis. tile yang di-DMA mentah ke VRAM; `tile4bpp.py decode`
+  menulis `status: rom-exact` di sini) (berkas tanpa
   `rom`/`kind` dilewati). Generator menjalankan encoder yang dideklarasikan
   (`tiles4bpp` → `tile4bpp.py`, `font_container` → `font_container.py`,
   `palette` → `pal2gba.py`, `sprite` → `sprite2gba.py`),

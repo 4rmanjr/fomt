@@ -26,6 +26,9 @@ class AssetManifest(unittest.TestCase):
         # Daftar simbol diturunkan dari metadata, bukan dipatok: menambah aset
         # (mis. palet Fase 0) tidak boleh membuat regresi ini merah.
         expected = []
+        # `assets/gfx/tiles/` (blob tile tanpa palet) harus ikut dipindai,
+        # kalau tidak aset tiles4bpp baru tidak pernah masuk manifest.
+        self.assertIn(asset_manifest.TILE_DIR, asset_manifest.ASSET_DIRS)
         for directory in asset_manifest.ASSET_DIRS:
             for path in sorted(Path(directory).glob("*.json")):
                 meta = json.loads(path.read_text())

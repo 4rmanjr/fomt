@@ -751,6 +751,82 @@
     "version": 1
    },
    "evidence": "code_0803EE94.s:64412/64559 memuat gUnk_087530CC (tile 0x80) dan gUnk_0875314C (palet 0x20)"
+  },
+  {
+   "id": "gfx/tiles/gunk_08750c4c",
+   "symbol": "gUnk_08750C4C",
+   "kind": "tiles4bpp",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x750C4C",
+    "size": 32,
+    "sha256": "e98672a456687f9c428628c321ff964b8507028878310d4e3eaebd3cfbe37e49"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08750C4C.json",
+    "png": "assets/gfx/tiles/gUnk_08750C4C.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_08750c8c",
+   "symbol": "gUnk_08750C8C",
+   "kind": "tiles4bpp",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x750C8C",
+    "size": 448,
+    "sha256": "2b7c39eab1900bb410cced0daa2ffd21055045e47ddcf99f318255775e77ec4f"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08750C8C.json",
+    "png": "assets/gfx/tiles/gUnk_08750C8C.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_08752d4c",
+   "symbol": "gUnk_08752D4C",
+   "kind": "tiles4bpp",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752D4C",
+    "size": 128,
+    "sha256": "bbed8d40d3b50a112b0044f5cb15532a8373cd3979856ca2d420d71d65ae5dcf"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08752D4C.json",
+    "png": "assets/gfx/tiles/gUnk_08752D4C.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_08752dcc",
+   "symbol": "gUnk_08752DCC",
+   "kind": "tiles4bpp",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752DCC",
+    "size": 128,
+    "sha256": "ccdc2896da25e2ddd8c4fb879590ee0c58eb84ee13ebce7084af8600d3561da0"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08752DCC.json",
+    "png": "assets/gfx/tiles/gUnk_08752DCC.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
   }
  ]
 }

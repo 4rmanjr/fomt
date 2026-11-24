@@ -634,7 +634,9 @@ gUnk_087506E0:
 
 	.global gUnk_08750C4C
 gUnk_08750C4C:
-	.incbin "baserom.gba", 0x750C4C, 0x20
+	@ rom: 0x750C4C 0x20 — source assets/gfx/tiles/gUnk_08750C4C.{png,json};
+	@ tile 8x8 (DMA 0x20 B ke 0x060100A0), digerbang tile4bpp.py verify.
+	.incbin "build/assets/gUnk_08750C4C.bin"
 
 	.global gUnk_08750C6C
 gUnk_08750C6C:
@@ -642,7 +644,9 @@ gUnk_08750C6C:
 
 	.global gUnk_08750C8C
 gUnk_08750C8C:
-	.incbin "baserom.gba", 0x750C8C, 0x1C0
+	@ rom: 0x750C8C 0x1C0 — source assets/gfx/tiles/gUnk_08750C8C.{png,json};
+	@ 14 tile 8x8 (DMA ke 0x06002A00), digerbang tile4bpp.py verify.
+	.incbin "build/assets/gUnk_08750C8C.bin"
 
 	.global gUnk_08750E4C
 gUnk_08750E4C:
@@ -1026,11 +1030,15 @@ gUnk_08752CCC:
 
 	.global gUnk_08752D4C
 gUnk_08752D4C:
-	.incbin "baserom.gba", 0x752D4C, 0x80
+	@ rom: 0x752D4C 0x80 — source assets/gfx/tiles/gUnk_08752D4C.{png,json};
+	@ 4 tile 8x8 (DMA ke VRAM slot 0x73), digerbang tile4bpp.py verify.
+	.incbin "build/assets/gUnk_08752D4C.bin"
 
 	.global gUnk_08752DCC
 gUnk_08752DCC:
-	.incbin "baserom.gba", 0x752DCC, 0x80
+	@ rom: 0x752DCC 0x80 — source assets/gfx/tiles/gUnk_08752DCC.{png,json};
+	@ 4 tile 8x8 (DMA ke VRAM slot 0x70), digerbang tile4bpp.py verify.
+	.incbin "build/assets/gUnk_08752DCC.bin"
 
 	.global gUnk_08752E4C
 gUnk_08752E4C:

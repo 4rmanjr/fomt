@@ -774,6 +774,21 @@ VRAM, bukan palette RAM — `08750C4C` → `0x060100A0` (0x20 B),
 `08752DCC` → slot 0x70. Karena itu penyebut `palet` turun 4 dan populasi
 `sprite/OBJ` naik 4.
 
+Keempatnya lalu dimigrasikan sebagai **`kind: tiles4bpp`** lewat jalur tile
+(`tile4bpp.py`), bukan sprite: blob ini tile mentah tanpa palet pasangan, jadi
+tidak ada `--pair-rule` yang perlu dibuktikan. Source hidup di
+`assets/gfx/tiles/*.json` + PNG indeks; `tile4bpp.py verify` mencocokkan byte
+dan hash ke ROM, `assets-check` menggabungkannya dengan gate lain, baru
+`.incbin` dialihkan ke `build/assets/<symbol>.bin`. Preview grayscale
+menunjukkan isinya nyata: dua potongan grafis (busur/panah), satu tile garis,
+dan satu strip glyph angka 0–9/`X`/`=`.
+
+Dua penyesuaian tool ikut di commit yang sama: `asset_manifest.py` memindai
+`assets/gfx/tiles/` (sebelumnya hanya fonts/palettes/sprites, sehingga aset
+tile baru tidak pernah masuk manifest), dan `tile4bpp.py decode` menulis
+`status: rom-exact` seperti `sprite2gba.py` — tanpa itu manifest menolak
+metadata hasil decode dengan "status None".
+
 ### Aturan pemasangan sprite + palet
 
 Pasangan tile+palet tidak selalu muncul berdampingan di asm: palet bisa dimuat
