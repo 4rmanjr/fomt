@@ -227,6 +227,25 @@
    }
   },
   {
+   "id": "gfx/maps/gunk_08757c14",
+   "symbol": "gUnk_08757C14",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x757C14",
+    "size": 780,
+    "sha256": "e4efc433aba1112d8905ef11ddeba996e6da3c0696701835f1dab01050d931c9"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_08757C14.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
+  },
+  {
    "id": "gfx/palettes/panel_screen",
    "symbol": "gUnk_08731940",
    "kind": "palette",

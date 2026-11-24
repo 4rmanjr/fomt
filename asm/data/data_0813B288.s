@@ -1316,7 +1316,11 @@ gUnk_08757C0C:
 
 	.global gUnk_08757C14
 gUnk_08757C14:
-	.incbin "baserom.gba", 0x757C14, 0x30C
+	@ rom: 0x757C14 0x30C — source assets/gfx/maps/gUnk_08757C14.json;
+	@ tilemap BG 30x13 entri u16 (indeks tile + bit palet), bukan tile datar;
+	@ func_08077EC0 (baris 112770, cabang r5=1) memuatnya lalu func_08077E34
+	@ (baris 112650) menyalin 30 kolom x 13 baris ke screenblock 0x1e.
+	.incbin "build/assets/gUnk_08757C14.bin"
 
 	.global gUnk_08757F20
 gUnk_08757F20:
