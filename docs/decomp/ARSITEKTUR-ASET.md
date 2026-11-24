@@ -954,6 +954,37 @@ piksel kiri) dan 2bpp (2 byte/baris = bitplane 0 lalu bitplane 1; piksel =
 nibble 0xF, yang mustahil untuk 2bpp ber-nibble. Encode ulang keduanya byte
 identik dengan slice ROM, jadi `.incbin` dialihkan ke `build/assets/*.bin`.
 
+### Backlog blob tanpa metadata: urutan nilai
+
+Blob di `asm/data/data_0813B288.s` yang belum punya metadata dinilai dengan
+tiga bukti: parse struktural oleh kodek yang ada, round-trip byte identik ke
+slice ROM, dan call site di `asm/`. Urutan nilai = byte ROM yang bisa langsung
+dialihkan ke `build/assets/` dibagi biaya membuktikannya.
+
+| Prioritas | Kelas | Bukti yang sudah ada | Kodek | Langkah berikut |
+|---|---|---|---|---|
+| 1 | container `func_0805E6CC` utuh (`gUnk_08725DA0`, `gUnk_08738144`,
+`gUnk_0873AFC8`, …) | parse A–F+T berakhir tepat di ujung slice dan encode
+ulang byte identik; hampir semua berlokasi dekat call `func_0805E6CC` |
+`font_container.py` | decode → JSON+PNG → `.incbin build/assets` → manifest |
+| 2 | palet 32 B/512 B (`gUnk_08529794`, `gUnk_0852CA40`, `gUnk_0874E330`,
+…) | semua u16 < 0x8000 dan `pal2gba.py` encode ulang byte identik |
+`pal2gba.py` | tambah bukti pemuat (salinan ke `0x05000000`) lalu migrasi |
+| 3 | tile 4bpp 32 B/tile (`gUnk_0872FA9C`, …) | `tile4bpp.py` round-trip byte
+identik, tetapi sebagian blob berukuran kelipatan 32 ternyata tabel atau
+stream `0x70` | `tile4bpp.py` | sortir dulu: hanya yang call site-nya menyalin
+ke VRAM `0x06000000` |
+| 4 | stream `0x70` (lihat `ASET-0X70-PETA-BERKAS.md`) | dekoder ada
+(`decompress.py`, `lz70.parse`), encoder byte-identik belum | belum | butuh
+encoder LZSS deterministik + gate hash sebelum layak |
+| parkir | `gUnk_084FA7A0` (0x4FA7A0, 512 B) | 256 × s16 indeks glyph, semua
+`0xFFFF`; `func_080D0D28` membacanya `ldrsh` dan memperlakukan `-1` sebagai
+sentinel | belum | butuh kodek tabel s16; bukan palet, bukan tile |
+
+Angka pasti per kelas tidak ditulis di sini — ambil dari
+`tools/scripts/asset_inventory.py --json` dan `assets/manifest.json` supaya
+tidak cepat basi.
+
 ### `gUnk_08755230`: tilemap BG 30x13, kelas baru `tilemap`
 
 Blob sesudah rantai container (0x755230, 780 B) bukan container: kelipatan 2
