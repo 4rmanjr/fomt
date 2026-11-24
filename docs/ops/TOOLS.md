@@ -360,14 +360,17 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   `func_0805E6CC` (bukan tile datar). `decode` mengikuti pembacaan fungsi:
   enam tabel berhitung — A 4 B, B 16 B, C 8 B, D 32 B, E 32 B, F 8 B — lalu
   ekor T (u16 count + count×u32); tiap tabel diawali 4 B (u16 count + 2 B pad).
-  Panjang hasil parse harus berakhir tepat di ukuran slice, jadi framing
-  “header + tile datar” ditolak alih-alih diterima diam-diam. Hanya tabel
+  Kalau slice punya byte sesudah ekor T (mis. palet 32 B atau payload yang
+  dibaca pemanggil lain), sisa itu disimpan `source.tail_hex` dan disalin
+  apa adanya saat `encode`; framing “header + tile datar” tetap ditolak
+  karena tabel T tidak berakhir di dalam prefix container. Hanya tabel
   berentri 32 B yang dirender ke PNG; tabel lain disimpan sebagai hex di JSON
   dan disalin apa adanya saat `encode`. `verify` menuntut byte dan SHA-256
   hasil encode sama dengan slice ROM. Tool ini **tidak** menyunting
   `asm/data/*.s`. Contoh: `python3 tools/assets/font_container.py verify
   --json assets/gfx/fonts/unk_0872de44.json`. Container 0x75352C, 0x753608,
-  0x7536E4, 0x7537D0, 0x754674, 0x754C0C, dan 0x755154 juga memakai codec ini
+  0x7536E4, 0x7537D0, 0x754674, 0x754C0C, 0x755154, 0x752D984, 0x76F2FAC,
+  0x7409E4 juga memakai codec ini
   (`unk_08753*.json`, `unk_08754*.json`, `unk_08755154.json`); semuanya lolos
   `verify` MATCH dan `.incbin`-nya sudah dialihkan.
 - `tools/assets/stream_audit.py` — audit seluruh stream `0x70` yang sudah

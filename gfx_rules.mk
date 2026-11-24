@@ -4,12 +4,15 @@
 
 ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_0875A440.bin \
+  $(BUILD_DIR)/assets/gUnk_0852D984.bin \
   $(BUILD_DIR)/assets/gUnk_0858BA28.bin \
+  $(BUILD_DIR)/assets/gUnk_086F2FAC.bin \
   $(BUILD_DIR)/assets/gUnk_0871D51C.bin \
   $(BUILD_DIR)/assets/gUnk_08728320.bin \
   $(BUILD_DIR)/assets/gUnk_08729460.bin \
   $(BUILD_DIR)/assets/gUnk_0872DE44.bin \
   $(BUILD_DIR)/assets/gUnk_08731B40.bin \
+  $(BUILD_DIR)/assets/gUnk_087409E4.bin \
   $(BUILD_DIR)/assets/gUnk_0874F34C.bin \
   $(BUILD_DIR)/assets/gUnk_0875352C.bin \
   $(BUILD_DIR)/assets/gUnk_08753608.bin \
@@ -95,12 +98,26 @@ $(BUILD_DIR)/assets/gUnk_0875A440.bin: \
 	@echo "ASSET $@"
 	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/fonts/clock.json --out $@
 
+$(BUILD_DIR)/assets/gUnk_0852D984.bin: \
+    assets/gfx/fonts/unk_0852d984.json \
+    assets/gfx/fonts/unk_0852d984.png \
+    tools/assets/font_container.py
+	@echo "ASSET $@"
+	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/unk_0852d984.json --out $@
+
 $(BUILD_DIR)/assets/gUnk_0858BA28.bin: \
     assets/gfx/fonts/unk_0858ba28.json \
     assets/gfx/fonts/unk_0858ba28.png \
     tools/assets/font_container.py
 	@echo "ASSET $@"
 	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/unk_0858ba28.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086F2FAC.bin: \
+    assets/gfx/fonts/unk_086f2fac.json \
+    assets/gfx/fonts/unk_086f2fac.png \
+    tools/assets/font_container.py
+	@echo "ASSET $@"
+	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/unk_086f2fac.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_0871D51C.bin: \
     assets/gfx/fonts/unk_0871d51c.json \
@@ -136,6 +153,13 @@ $(BUILD_DIR)/assets/gUnk_08731B40.bin: \
     tools/assets/font_container.py
 	@echo "ASSET $@"
 	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/unk_08731b40.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087409E4.bin: \
+    assets/gfx/fonts/unk_087409e4.json \
+    assets/gfx/fonts/unk_087409e4.png \
+    tools/assets/font_container.py
+	@echo "ASSET $@"
+	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/unk_087409e4.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_0874F34C.bin: \
     assets/gfx/fonts/unk_0874f34c.json \

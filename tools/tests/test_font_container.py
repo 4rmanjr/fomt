@@ -51,6 +51,22 @@ class FontContainerCodec(unittest.TestCase):
             (td / "tiles.json").write_text(json.dumps(meta))
             self.assertEqual(font_container.encode_source(td / "tiles.json"), blob)
 
+
+    def test_roundtrip_with_tail(self):
+        # Container diikuti ekor mentah (mis. palet 32 B): ekor disimpan
+        # tail_hex dan encode harus mengembalikan byte yang sama.
+        blob = synthetic() + bytes(range(0x20))
+        rgb, meta = font_container.decode_blob(blob, tiles_wide=2)
+        self.assertEqual(meta["source"]["tail_hex"], bytes(range(0x20)).hex())
+        with tempfile.TemporaryDirectory() as td:
+            td = Path(td)
+            tile4bpp.write_png(td / "tiles.png", 16, 16, rgb)
+            meta["source"]["png"] = "tiles.png"
+            meta["rom"] = {"offset": "0x0", "size": len(blob),
+                           "sha256": font_container.sha256(blob)}
+            (td / "tiles.json").write_text(json.dumps(meta))
+            self.assertEqual(font_container.encode_source(td / "tiles.json"), blob)
+
     def test_rejects_flat_tile_framing(self):
         # Framing lama (header 20 B + tile datar) bukan container: panjang
         # total tidak berakhir di count tabel T, jadi harus ditolak.

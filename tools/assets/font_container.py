@@ -94,13 +94,33 @@ def parse(blob):
     return out
 
 
+def parse_prefix(blob):
+    """Slice container -> (sections, consumed) tanpa menuntut akhir slice.
+
+    Dipakai untuk blob yang container-nya diikuti ekor mentah (mis. palet 32 B
+    atau payload yang dibaca pemanggil lain); ekornya disimpan `tail_hex`.
+    """
+    blob = bytes(blob)
+    pos = 0
+    for name, entry_size in SECTIONS + (TRAILER,):
+        if pos + 4 > len(blob):
+            raise ValueError(f"tabel {name}: header terpotong di 0x{pos:X}")
+        count = struct.unpack_from("<H", blob, pos)[0]
+        pos += 4 + count * entry_size
+        if pos > len(blob):
+            raise ValueError(
+                f"tabel {name}: count {count} x {entry_size} B melewati akhir")
+    return parse(blob[:pos]), pos
+
+
 def tile_sections(sections):
     return [s for s in sections if s["entry_size"] == tile4bpp.TILE_BYTES]
 
 
 def decode_blob(blob, tiles_wide=16):
     """Slice container -> (rgb, metadata)."""
-    sections = parse(blob)
+    sections, consumed = parse_prefix(blob)
+    tail = bytes(blob[consumed:])
     tiles = b"".join(bytes.fromhex(s["data_hex"]) for s in tile_sections(sections))
     count = len(tiles) // tile4bpp.TILE_BYTES
     if count * tile4bpp.TILE_BYTES != len(tiles):
@@ -122,6 +142,7 @@ def decode_blob(blob, tiles_wide=16):
             "png": None,
             "tiles_wide": tiles_wide,
             "tile_count": count,
+            "tail_hex": tail.hex(),
         },
     })
     return rgb, meta
@@ -180,7 +201,7 @@ def encode_source(meta_path):
             out += data
     if primed != total:
         raise ValueError(f"tile terpakai {primed}, JSON bilang {total}")
-    return bytes(out)
+    return bytes(out) + bytes.fromhex(source.get("tail_hex", ""))
 
 
 def verify(meta_path, rom_path=None, out_path=None):

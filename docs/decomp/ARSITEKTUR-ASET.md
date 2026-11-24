@@ -941,6 +941,20 @@ Section D-nya berawalan byte yang sama dengan `gUnk_0875352C`, hanya section E
 (1 tile) yang berbeda, jadi keduanya varian isi dari bentuk container yang
 sama — tetap `unidentified` karena arti tabelnya belum terbukti.
 
+### Blob 0x4F90CC dan 0x4FA9A0: glyph 1bpp/2bpp, parkir (belum ada codec)
+
+Dua blob ini bukan container `func_0805E6CC` maupun tile 4bpp. Call site
+`func_080D0D28` memilih record berukuran tetap: `gUnk_084F90CC` diindeks
+`r5*12` lalu diteruskan ke `func_0300085C`.
+(asm/code_809E804.s:103164), sedangkan `gUnk_084FA9A0` diindeks `r5*24`
+dan diteruskan ke `func_03000714` (baris 103149). Ukuran slice habis dibagi
+record (5844/12 = 487, 166128/24 = 6922), dan isi record cocok dengan glyph
+8x12: 12 B = 8x12 1bpp, 24 B = 8x12 2bpp (maksimum nibble 15 hanya di blob
+24 B). Keduanya **diparkir**: `tools/assets/` belum punya encoder 1bpp/2bpp,
+dan `tile4bpp.py` hanya menerima body 4bpp 32 B/tile. Membukanya butuh codec
+glyph baru (PNG terindeks 2/4 warna + indeks per baris) plus gate hash,
+bukan penyesuaian metadata.
+
 ### `gUnk_08755230`: tilemap BG 30x13, kelas baru `tilemap`
 
 Blob sesudah rantai container (0x755230, 780 B) bukan container: kelipatan 2

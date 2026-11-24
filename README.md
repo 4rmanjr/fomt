@@ -45,8 +45,8 @@ Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.093 B (7,1%)** — persent
 | Palet | 1 | 64 | `░░░░░░░░░░░░░░░░░░░░` 1,6% |
 | Tiles 4bpp | 9 | 86 | `██░░░░░░░░░░░░░░░░░░` 10,5% |
 | Tilemap | 4 | 16 | `█████░░░░░░░░░░░░░░░` 25% |
-| Container font | 14 | 86 | `███░░░░░░░░░░░░░░░░░` 16,3% |
-| **Total (blob unik)** | 84 | 166 | `██████████░░░░░░░░░░` 50,6% |
+| Container font | 17 | 86 | `████░░░░░░░░░░░░░░░░` 19,8% |
+| **Total (blob unik)** | 87 | 166 | `██████████░░░░░░░░░░` 52,4% |
 <!-- README-STATS:END -->
 
 Definisi selesainya sengaja ketat di kedua jalur:

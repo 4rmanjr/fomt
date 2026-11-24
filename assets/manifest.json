@@ -21,6 +21,26 @@
    }
   },
   {
+   "id": "gfx/fonts/gunk_0852d984",
+   "symbol": "gUnk_0852D984",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x52D984",
+    "size": 385188,
+    "sha256": "34c23aced1a4f23ba80d1429a87f4c8a7ca11b0458c61a37a6eb48731440bbd2"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_0852d984.json",
+    "png": "assets/gfx/fonts/unk_0852d984.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   }
+  },
+  {
    "id": "gfx/fonts/gunk_0858ba28",
    "symbol": "gUnk_0858BA28",
    "kind": "font_container",
@@ -34,6 +54,26 @@
    "source": {
     "json": "assets/gfx/fonts/unk_0858ba28.json",
     "png": "assets/gfx/fonts/unk_0858ba28.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/fonts/gunk_086f2fac",
+   "symbol": "gUnk_086F2FAC",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6F2FAC",
+    "size": 31444,
+    "sha256": "05c7ae83c0ee6545068240067c25e180cd02cc62246de04183f2d240eca9b4e7"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_086f2fac.json",
+    "png": "assets/gfx/fonts/unk_086f2fac.png"
    },
    "encoder": {
     "tool": "font_container.py",
@@ -134,6 +174,26 @@
    "source": {
     "json": "assets/gfx/fonts/unk_08731b40.json",
     "png": "assets/gfx/fonts/unk_08731b40.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/fonts/gunk_087409e4",
+   "symbol": "gUnk_087409E4",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7409E4",
+    "size": 9844,
+    "sha256": "5b8cf1c1cf0752cb069e74abd490f0570fe42a284b4d7d4872a580af6237f811"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_087409e4.json",
+    "png": "assets/gfx/fonts/unk_087409e4.png"
    },
    "encoder": {
     "tool": "font_container.py",
