@@ -787,15 +787,28 @@ VRAM, bukan palette RAM — `08750C4C` → `0x060100A0` (0x20 B),
 `sprite/OBJ` naik 4.
 
 Keenam blob `087529AC`, `08752B4C`, `08752ACC`, `08752CCC`, `08752BCC`, dan
-`08752C4C` juga dimigrasikan sebagai **`kind: tiles4bpp`** (`tile4bpp.py
-verify` MATCH, `.incbin` dialihkan ke `build/assets/<symbol>.bin`). Klaim
-pasangan palet **tetap diparkir**: cabang yang menyalin tile itu tidak
-menyalin palet apa pun, dan palet di fungsi yang sama sudah terikat ke objek
-lain (`08752AAC` ↔ `08752A2C`; `08750F6C`, `0875298C`, `087525CC` ke blok
-tile 0x80+, 0x7B, 0x6C). Tidak ada palet yang bisa dibuktikan sebagai
-pasangan keenam blob ini, jadi menambahkan blok `pair` di sini akan
-mengarang bukti; alasannya dicatat di `raw_assets.py` (override
-`VERIFIED_LAYOUT`) dan di komentar `.incbin`.
+`08752C4C` akhirnya bisa dipasangkan secara sah lewat jalur BG-map, bukan
+lewat kedekatan load. `func_0804E9F4` menulis entri peta tile dengan
+`tile | (indeks_palet << 12)`, dan call site-nya menulis slot tile ini dengan
+indeks palet eksplisit:
+
+| slot tile | blob | indeks palet | palet | bukti |
+|---|---|---|---|---|
+| 0x71 / 0x72 / 0x77 | `08752B4C` / `087529AC` / `08752ACC` | 2 | `gUnk_0875298C` | `func_0804E9F4` di baris 75698 / 75852 / 76030; palet di-DMA ke `0x05000040` (bank 2) di baris 73892 |
+| 0x59 / 0x5A / 0x5B | `08752CCC` / `08752BCC` / `08752C4C` | 1 | `gUnk_08752AAC` | `func_0804E9F4` di baris 83546 / 83559 / 83572; palet di-DMA ke `0x05000020` (bank 1) di baris 80960 |
+
+Karena load tile dan palet berjauhan, pasangannya dicatat
+`--pair-rule asm-branch` dengan `--pair-lines` yang diverifikasi
+`--pair-asm`; `pair.reason` menyebut slot tile, indeks palet, dan tujuan DMA
+palet. Keenam aset kini `kind: sprite` di `assets/gfx/sprites/` (JSON lama di
+`assets/gfx/tiles/` dihapus) dengan `sprite2gba.py verify` MATCH; PNG-nya
+menampilkan ikon 8x8 di tile 0, sedangkan tiga tile sisanya padding nol.
+
+Metode yang sama berlaku untuk dua blob `tiles4bpp` lain di blok itu
+(`gUnk_08752DCC` slot 0x70 dan `gUnk_08752D4C` slot 0x73): keduanya juga
+ditulis `func_0804E9F4` dengan indeks palet 2, jadi paletnya `gUnk_0875298C`.
+Keduanya belum diubah menjadi sprite di commit ini (di luar cakupan), tetapi
+buktinya sudah ada bila ingin dikonversi.
 
 Keempatnya lalu dimigrasikan sebagai **`kind: tiles4bpp`** lewat jalur tile
 (`tile4bpp.py`), bukan sprite: blob ini tile mentah tanpa palet pasangan, jadi

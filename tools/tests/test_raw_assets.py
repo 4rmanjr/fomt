@@ -185,8 +185,8 @@ class RawAssetClassifier(unittest.TestCase):
 
     def test_override_padding_nol_dan_slot_dma(self):
         # 32 B gambar + 96 B nol: klasifikasi isi menyebut 4 tile, call site
-        # menyalin satu tile 0x20 B ke VRAM; catatan override harus menyebut
-        # padding dan slot tujuan supaya pembaca tahu paletnya belum terbukti.
+        # menyalin satu tile 0x20 B ke VRAM dan menulis BG map dengan indeks
+        # palet; catatan override harus menyebut padding, slot, dan indeks itu.
         data = struct.pack("<16H", *range(16)) + bytes(96)
         for name, slot in (("gUnk_087529AC", "0x72"),
                            ("gUnk_08752CCC", "0x59")):
@@ -195,7 +195,7 @@ class RawAssetClassifier(unittest.TestCase):
             self.assertIsNone(probe)
             self.assertIn("padding nol", note)
             self.assertIn(f"slot {slot}", note)
-            self.assertIn("palet tidak dirujuk", note)
+            self.assertIn("indeks palet", note)
 
     def test_sprite_128_stays_sprite(self):
         data = sprite_128()

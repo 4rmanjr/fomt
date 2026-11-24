@@ -94,32 +94,38 @@ VERIFIED_LAYOUT = {
     "gUnk_087529AC": (
         "sprite/OBJ", None,
         "1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x20 B "
-        "ke VRAM slot 0x72; palet tidak dirujuk cabang itu",
+        "ke VRAM slot 0x72; BG map tile 0x72 ditulis func_0804E9F4 dengan "
+        "indeks palet 2 -> gUnk_0875298C (bank 0x40)",
     ),
     "gUnk_08752B4C": (
         "sprite/OBJ", None,
         "1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x20 B "
-        "ke VRAM slot 0x71; palet tidak dirujuk cabang itu",
+        "ke VRAM slot 0x71; BG map tile 0x71 ditulis func_0804E9F4 dengan "
+        "indeks palet 2 -> gUnk_0875298C (bank 0x40)",
     ),
     "gUnk_08752ACC": (
         "sprite/OBJ", None,
         "1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x80 B "
-        "(tile + padding) ke VRAM slot 0x77; palet tidak dirujuk cabang itu",
+        "(tile + padding) ke VRAM slot 0x77; BG map tile 0x77 ditulis "
+        "func_0804E9F4 dengan indeks palet 2 -> gUnk_0875298C (bank 0x40)",
     ),
     "gUnk_08752CCC": (
         "sprite/OBJ", None,
         "1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B "
-        "ke VRAM slot 0x59; palet tidak dirujuk cabang itu",
+        "ke VRAM slot 0x59; BG map tile 0x59 ditulis func_0804E9F4 dengan "
+        "indeks palet 1 -> gUnk_08752AAC (bank 0x20)",
     ),
     "gUnk_08752BCC": (
         "sprite/OBJ", None,
         "1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B "
-        "ke VRAM slot 0x5A; palet tidak dirujuk cabang itu",
+        "ke VRAM slot 0x5A; BG map tile 0x5A ditulis func_0804E9F4 dengan "
+        "indeks palet 1 -> gUnk_08752AAC (bank 0x20)",
     ),
     "gUnk_08752C4C": (
         "sprite/OBJ", None,
         "1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B "
-        "ke VRAM slot 0x5B; palet tidak dirujuk cabang itu",
+        "ke VRAM slot 0x5B; BG map tile 0x5B ditulis func_0804E9F4 dengan "
+        "indeks palet 1 -> gUnk_08752AAC (bank 0x20)",
     ),
     "gUnk_087510AC": (
         "sprite/OBJ", None,
