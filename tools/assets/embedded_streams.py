@@ -277,15 +277,9 @@ def problems(out=OUT, quick=False):
     sig = _signature(out, manifest) if quick else None
     do_render = not quick or not _stamp_matches(sig)
     note = None
-    if do_render:
-        render_tmp = Path(tempfile.mkdtemp(prefix="fomt-embedded-"))
-    else:
-        note = ("render ulang PNG tertanam dilewati: input sama dengan render "
-                "terakhir yang lolos (`build/embedded_check.stamp.json`); hash "
-                "berkas tetap diperiksa")
     bad = []
-    fresh = {}
-    if do_render:
+    with tempfile.TemporaryDirectory(prefix="fomt-embedded-") as tmp:
+        tmp = Path(tmp)
         for bank in manifest.get("banks", []):
             for s in bank["streams"]:
                 bin_path = out / s["bin"]
@@ -301,7 +295,19 @@ def problems(out=OUT, quick=False):
                     continue
                 if not s.get("png"):
                     continue
-                fresh_png = render_tmp / f"{s['address']}.png"
+                png_path = Path(s["png"])
+                if not png_path.is_absolute():
+                    png_path = REPO / png_path
+                if not png_path.exists():
+                    bad.append((s["address"], "PNG hilang"))
+                    continue
+                file_hash = sha256(png_path.read_bytes())
+                if file_hash != s.get("png_sha256"):
+                    bad.append((s["address"], "sha256 PNG di repo beda"))
+                    continue
+                if not do_render:
+                    continue
+                fresh_png = tmp / f"{s['address']}.png"
                 try:
                     if s["group"] == "palet":
                         fx.render_palette(data, fresh_png)
@@ -312,57 +318,23 @@ def problems(out=OUT, quick=False):
                 except (OSError, ValueError) as e:
                     bad.append((s["address"], f"render ulang gagal: {e}"))
                     continue
-                fresh[s["address"]] = fresh_png
-        # Bandingkan piksel sebelum temporary directory dihapus.
-        for bank in manifest.get("banks", []):
-            for s in bank["streams"]:
-                if not s.get("png"):
-                    continue
-                png_path = Path(s["png"])
-                if not png_path.is_absolute():
-                    png_path = REPO / png_path
-                if not png_path.exists():
-                    bad.append((s["address"], "PNG hilang"))
-                    continue
-                file_hash = sha256(png_path.read_bytes())
-                if file_hash != s.get("png_sha256"):
-                    bad.append((s["address"], "sha256 PNG di repo beda"))
-                    continue
-                if s["address"] not in fresh:
-                    continue
                 try:
                     from PIL import Image
                     a = Image.open(png_path).convert("RGB")
-                    b = Image.open(fresh[s["address"]]).convert("RGB")
+                    b = Image.open(fresh_png).convert("RGB")
                 except Exception as e:
                     bad.append((s["address"], f"gagal baca PNG untuk perbandingan: {e}"))
                     continue
                 if a.size != b.size:
                     bad.append((s["address"], "ukuran render ulang beda"))
-                elif list(a.getdata()) != list(b.getdata()):
+                elif a.tobytes() != b.tobytes():
                     bad.append((s["address"], "piksel render ulang beda"))
-        if not bad:
+        if do_render and sig is not None and not bad:
             _stamp_write(sig)
-        try:
-            import shutil
-            shutil.rmtree(render_tmp, ignore_errors=True)
-        except Exception:
-            pass
-    else:
-        for bank in manifest.get("banks", []):
-            for s in bank["streams"]:
-                if not s.get("png"):
-                    continue
-                png_path = Path(s["png"])
-                if not png_path.is_absolute():
-                    png_path = REPO / png_path
-                if not png_path.exists():
-                    bad.append((s["address"], "PNG hilang"))
-                    continue
-                file_hash = sha256(png_path.read_bytes())
-                if file_hash != s.get("png_sha256"):
-                    bad.append((s["address"], "sha256 PNG di repo beda"))
-                    continue
+    if not do_render:
+        note = ("render ulang PNG tertanam dilewati: input sama dengan render "
+                "terakhir yang lolos (`build/embedded_check.stamp.json`); hash "
+                "berkas tetap diperiksa")
     return bad, note, total
 
 

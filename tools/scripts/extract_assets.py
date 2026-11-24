@@ -1021,44 +1021,15 @@ def png_problems(out, quick=False):
                  "extract_assets.py"], None, len(ref))
 
     note = None
-    fresh = {}
     do_render = not quick or not png_stamp_matches(png_source_signature(out))
     bad = []
-    if do_render:
-        with tempfile.TemporaryDirectory(prefix="fomt-png-") as tmp:
+    fresh = {}
+    with tempfile.TemporaryDirectory(prefix="fomt-png-") as tmp:
+        if do_render:
             try:
                 fresh = render_manifest_png(out, manifest, Path(tmp))
             except (OSError, ValueError) as e:
                 return [f"render ulang gagal: {e}"], None, len(ref)
-            for key, old in ref.items():
-                path = Path(old["png"])
-                if not path.is_absolute():
-                    path = REPO / path
-                if not path.exists():
-                    bad.append((key, "file PNG tidak ada"))
-                    continue
-                file_hash = hashlib.sha256(path.read_bytes()).hexdigest()
-                if file_hash != old["png_sha256"]:
-                    bad.append((key, "file PNG beda dari manifest"))
-                    continue
-                if key not in fresh:
-                    continue
-                fresh_path = fresh[key]["path"]
-                try:
-                    from PIL import Image
-                    a = Image.open(path).convert("RGB")
-                    b = Image.open(fresh_path).convert("RGB")
-                except Exception as e:
-                    bad.append((key, f"gagal baca PNG untuk perbandingan: {e}"))
-                    continue
-                if a.size != b.size:
-                    bad.append((key, "ukuran render ulang beda"))
-                elif list(a.getdata()) != list(b.getdata()):
-                    bad.append((key, "piksel render ulang beda"))
-    else:
-        note = ("render ulang PNG dilewati: input render sama dengan render "
-                "terakhir yang lolos (`build/png_check.stamp.json`); hash "
-                "berkas tetap diperiksa")
         for key, old in ref.items():
             path = Path(old["png"])
             if not path.is_absolute():
@@ -1070,7 +1041,23 @@ def png_problems(out, quick=False):
             if file_hash != old["png_sha256"]:
                 bad.append((key, "file PNG beda dari manifest"))
                 continue
-
+            if not do_render or key not in fresh:
+                continue
+            try:
+                from PIL import Image
+                a = Image.open(path).convert("RGB")
+                b = Image.open(fresh[key]["path"]).convert("RGB")
+            except Exception as e:
+                bad.append((key, f"gagal baca PNG untuk perbandingan: {e}"))
+                continue
+            if a.size != b.size:
+                bad.append((key, "ukuran render ulang beda"))
+            elif a.tobytes() != b.tobytes():
+                bad.append((key, "piksel render ulang beda"))
+    if not do_render:
+        note = ("render ulang PNG dilewati: input render sama dengan render "
+                "terakhir yang lolos (`build/png_check.stamp.json`); hash "
+                "berkas tetap diperiksa")
     if do_render and not bad:
         png_stamp_write(png_source_signature(out))
     return ([f"{k[0]}#{k[1]}: {why}" for k, why in bad], note, len(ref))
