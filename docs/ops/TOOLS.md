@@ -56,6 +56,14 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   menjadikannya masalah (exit 1) bila basi,
   jadi lupa meregenerasi tidak bisa lewat diam-diam di tutup sesi; `--check`
   manual hanya untuk gerbang cepat tanpa memuat seluruh pemeriksaan dokumen.
+
+- `readme_stats.py` — **regenerasi blok statistik `README.md`** di antara
+  penanda `<!-- README-STATS:BEGIN -->`/`END`: tabel MATCH/src/promote-only,
+  byte ROM dari C, dan progres aset (sprite rom-exact vs populasi blob
+  `sprite/OBJ`, plus kelas pipeline yang terbukti). Sumbernya `plan_stats.py`
+  dan manifest aset, jadi angkanya tidak diketik tangan. `--check` (exit 1 bila
+  blok basi) dipanggil `check_docs.py`; `--stdout` mencetak blok tanpa menulis.
+  Jangan menyunting angka di dalam penanda — ubah datanya lalu jalankan ulang.
 - `diff_mismatch.py <func>` — hitung mismatch `diff.py` setelah target branch
   dinormalkan (`--json`/`--strict`, `--diff-json` untuk output yang sudah ada).
 - `width_mismatch.py` — lebar akses asm (`ldrb/strb/ldrh/strh/ldr/str`) vs tipe

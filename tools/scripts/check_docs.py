@@ -98,6 +98,7 @@ MD_TICK = re.compile(r"`([\w./-]+\.md)(?:#[^`]*)?`")
 EKOR_DOC = "docs/decomp/EKOR-BACKLOG.md"
 EKOR_TOOL = REPO / "tools/scripts/ekor_snapshot.py"
 EKOR_TAIL = 12  # default --tail ekor_snapshot.py
+README_STATS_TOOL = REPO / "tools/scripts/readme_stats.py"
 
 
 ASET_DOC = "docs/decomp/ASET-INVENTARIS.md"
@@ -483,6 +484,31 @@ def ekor_backlog():
 
 
 
+def readme_stats():
+    """-> (masalah|None, catatan|None) untuk blok statistik README.
+
+    Blok `README-STATS` di README.md adalah hasil generate
+    `tools/scripts/readme_stats.py`. Tanpa gate ini persentase di README akan
+    basi diam-diam setiap kali ada MATCH/migrasi/aset baru.
+    """
+    import importlib.util
+
+    readme = REPO / "README.md"
+    if not readme.exists():
+        return ("README.md", "README hilang"), None
+    try:
+        spec = importlib.util.spec_from_file_location("readme_stats",
+                                                      README_STATS_TOOL)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        if mod.is_stale(readme.read_text()):
+            return ("README.md", "statistik BASI terhadap state/manifest — "
+                    "jalankan python3 tools/scripts/readme_stats.py"), None
+    except Exception as e:  # gate tidak boleh lolos diam-diam saat tool rusak
+        return ("README.md",
+                f"gate statistik gagal dijalankan: {type(e).__name__}: {e}"), None
+    return None, "statistik README sinkron"
+
 def engine_normalizations():
     """(problems, keyword -> nama pola) dari decomp_engine.NORMALIZATIONS.
 
@@ -580,6 +606,12 @@ def check(max_agents):
                 problems.append((f"{rel}:{i}", f"rujukan .md tidak ada: {m}"))
 
     prob, note = ekor_backlog()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = readme_stats()
     if prob:
         problems.append(prob)
     elif note:
