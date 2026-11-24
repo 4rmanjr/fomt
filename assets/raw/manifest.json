@@ -1836,32 +1836,36 @@
    "symbol": "gUnk_0875352C",
    "offset": "0x75352C",
    "size": 220,
-   "group": "tabel",
-   "note": "220 B, bukan kelipatan 32 B",
+   "group": "sprite/OBJ",
+   "note": "container func_0805E6CC: A1/B1/C1/D4/E1/F0/T1; func_08082264 (baris 133363 -> 132394) meneruskannya ke func_0805E6CC, bukan tile datar",
+   "layout": "container",
    "renderable": false
   },
   {
    "symbol": "gUnk_08753608",
    "offset": "0x753608",
    "size": 220,
-   "group": "tabel",
-   "note": "220 B, bukan kelipatan 32 B",
+   "group": "sprite/OBJ",
+   "note": "container func_0805E6CC: A1/B1/C1/D4/E1/F0/T1; func_0805E6CC dipanggil langsung di baris 130129, bukan tile datar",
+   "layout": "container",
    "renderable": false
   },
   {
    "symbol": "gUnk_087536E4",
    "offset": "0x7536E4",
    "size": 236,
-   "group": "tabel",
-   "note": "236 B, bukan kelipatan 32 B",
+   "group": "sprite/OBJ",
+   "note": "container func_0805E6CC: A2/B4/C3/D2/E1/F0/T4; func_0805E6CC dipanggil langsung di code_809E804.s baris 84854, bukan tile datar",
+   "layout": "container",
    "renderable": false
   },
   {
    "symbol": "gUnk_087537D0",
    "offset": "0x7537D0",
    "size": 3748,
-   "group": "tabel",
-   "note": "3748 B, bukan kelipatan 32 B; 1/937 word menunjuk ROM",
+   "group": "sprite/OBJ",
+   "note": "container func_0805E6CC: A20/B40/C11/D73/E13/F0/T40; func_0805E6CC dipanggil langsung di baris 96720 dan 113849, bukan tile datar",
+   "layout": "container",
    "renderable": false
   },
   {

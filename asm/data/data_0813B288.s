@@ -1219,19 +1219,31 @@ gUnk_0875350C:
 
 	.global gUnk_0875352C
 gUnk_0875352C:
-	.incbin "baserom.gba", 0x75352C, 0xDC
+	@ rom: 0x75352C 0xDC — source assets/gfx/fonts/unk_0875352c.{png,json};
+	@ container func_0805E6CC A1/B1/C1/D4/E1/F0/T1 (bukan tile datar);
+	@ func_08082264 (baris 133363 -> 132394) meneruskannya ke func_0805E6CC.
+	.incbin "build/assets/gUnk_0875352C.bin"
 
 	.global gUnk_08753608
 gUnk_08753608:
-	.incbin "baserom.gba", 0x753608, 0xDC
+	@ rom: 0x753608 0xDC — source assets/gfx/fonts/unk_08753608.{png,json};
+	@ container func_0805E6CC A1/B1/C1/D4/E1/F0/T1 (bukan tile datar);
+	@ func_0805E6CC dipanggil langsung di baris 130129.
+	.incbin "build/assets/gUnk_08753608.bin"
 
 	.global gUnk_087536E4
 gUnk_087536E4:
-	.incbin "baserom.gba", 0x7536E4, 0xEC
+	@ rom: 0x7536E4 0xEC — source assets/gfx/fonts/unk_087536e4.{png,json};
+	@ container func_0805E6CC A2/B4/C3/D2/E1/F0/T4 (bukan tile datar);
+	@ func_0805E6CC dipanggil langsung di code_809E804.s baris 84854.
+	.incbin "build/assets/gUnk_087536E4.bin"
 
 	.global gUnk_087537D0
 gUnk_087537D0:
-	.incbin "baserom.gba", 0x7537D0, 0xEA4
+	@ rom: 0x7537D0 0xEA4 — source assets/gfx/fonts/unk_087537d0.{png,json};
+	@ container func_0805E6CC A20/B40/C11/D73/E13/F0/T40 (bukan tile datar);
+	@ func_0805E6CC dipanggil langsung di baris 96720 dan 113849.
+	.incbin "build/assets/gUnk_087537D0.bin"
 
 	.global gUnk_08754674
 gUnk_08754674:

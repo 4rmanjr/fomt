@@ -188,6 +188,28 @@ VERIFIED_LAYOUT = {
         "container func_0805E6CC: A27/B27/C6/D106/E1/F0/T27; tile 4bpp "
         "hanya D+E (107 tile), sisa tabel",
     ),
+    "gUnk_0875352C": (
+        "sprite/OBJ", "container",
+        "container func_0805E6CC: A1/B1/C1/D4/E1/F0/T1; func_08082264 "
+        "(baris 133363 -> 132394) meneruskannya ke func_0805E6CC, bukan "
+        "tile datar",
+    ),
+    "gUnk_08753608": (
+        "sprite/OBJ", "container",
+        "container func_0805E6CC: A1/B1/C1/D4/E1/F0/T1; func_0805E6CC "
+        "dipanggil langsung di baris 130129, bukan tile datar",
+    ),
+    "gUnk_087536E4": (
+        "sprite/OBJ", "container",
+        "container func_0805E6CC: A2/B4/C3/D2/E1/F0/T4; func_0805E6CC "
+        "dipanggil langsung di code_809E804.s baris 84854, bukan tile datar",
+    ),
+    "gUnk_087537D0": (
+        "sprite/OBJ", "container",
+        "container func_0805E6CC: A20/B40/C11/D73/E13/F0/T40; "
+        "func_0805E6CC dipanggil langsung di baris 96720 dan 113849, "
+        "bukan tile datar",
+    ),
     "gUnk_08731B40": (
         "sprite/OBJ", "container",
         "count 20 + tabel; @ChickenPortraits, func_0805E6CC, bukan tile datar",

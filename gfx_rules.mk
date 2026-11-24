@@ -5,6 +5,10 @@
 ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_0875A440.bin \
   $(BUILD_DIR)/assets/gUnk_0872DE44.bin \
+  $(BUILD_DIR)/assets/gUnk_0875352C.bin \
+  $(BUILD_DIR)/assets/gUnk_08753608.bin \
+  $(BUILD_DIR)/assets/gUnk_087536E4.bin \
+  $(BUILD_DIR)/assets/gUnk_087537D0.bin \
   $(BUILD_DIR)/assets/gUnk_08731940.bin \
   $(BUILD_DIR)/assets/gUnk_08750E4C.bin \
   $(BUILD_DIR)/assets/gUnk_08750F8C.bin \
@@ -78,6 +82,34 @@ $(BUILD_DIR)/assets/gUnk_0872DE44.bin: \
     tools/assets/font_container.py
 	@echo "ASSET $@"
 	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/unk_0872de44.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875352C.bin: \
+    assets/gfx/fonts/unk_0875352c.json \
+    assets/gfx/fonts/unk_0875352c.png \
+    tools/assets/font_container.py
+	@echo "ASSET $@"
+	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/unk_0875352c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08753608.bin: \
+    assets/gfx/fonts/unk_08753608.json \
+    assets/gfx/fonts/unk_08753608.png \
+    tools/assets/font_container.py
+	@echo "ASSET $@"
+	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/unk_08753608.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087536E4.bin: \
+    assets/gfx/fonts/unk_087536e4.json \
+    assets/gfx/fonts/unk_087536e4.png \
+    tools/assets/font_container.py
+	@echo "ASSET $@"
+	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/unk_087536e4.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087537D0.bin: \
+    assets/gfx/fonts/unk_087537d0.json \
+    assets/gfx/fonts/unk_087537d0.png \
+    tools/assets/font_container.py
+	@echo "ASSET $@"
+	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/unk_087537d0.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_08731940.bin: \
     assets/gfx/palettes/unk_08731940.json \

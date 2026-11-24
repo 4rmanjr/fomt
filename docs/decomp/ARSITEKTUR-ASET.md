@@ -900,6 +900,28 @@ dengan rantai sebelumnya, slot tile itu juga ditulis ke BG map:
 (branch baris 65553), sehingga `pair.bg_map` ikut terverifikasi mesin dan
 angkanya cocok dengan tujuan DMA palet (bank 4).
 
+### Blob 0x75352C–0x7537D0: container `func_0805E6CC`, bukan sprite
+
+Empat blob sesudah palet `gUnk_0875350C` berukuran 220/220/236/3748 B — bukan
+kelipatan 32 B — sehingga tidak bisa dipotong sebagai tile datar. Call site
+memutuskan formatnya: `func_0805E6CC` (0x0805E6CC) adalah pembaca container
+berhitung (enam tabel A–F + ekor T). `gUnk_08753608` (baris 130129),
+`gUnk_087536E4` (code_809E804.s baris 84854), dan `gUnk_087537D0` (baris
+96720, 113849) dipanggil langsung dengan simbol itu sebagai argumen kedua;
+`gUnk_0875352C` (baris 133363) masuk lewat `func_08082264`, yang di baris
+132394 meneruskan argumen ke-4-nya ke `func_0805E6CC`.
+
+Aritmetika panjangnya menutup tepat di ukuran slice: `gUnk_0875352C` dan
+`gUnk_08753608` A1/B1/C1/D4/E1/F0/T1 = 0xDC, `gUnk_087536E4`
+A2/B4/C3/D2/E1/F0/T4 = 0xEC, `gUnk_087537D0` A20/B40/C11/D73/E13/F0/T40 =
+0xEA4. Karena itu pipeline-nya **bukan** `sprite2gba.py --pair-rule` — tidak
+ada pasangan tile/palet yang perlu dibuktikan, dan byte-nya bukan body tile
+datar. Keempatnya dimigrasikan dengan `font_container.py` (tabel disimpan
+sebagai hex, hanya section D+E 32 B yang dirender ke PNG), lolos `verify`
+MATCH, lalu `.incbin`-nya dialihkan ke `build/assets/*.bin`. Semantik isinya
+tetap `unidentified`: yang terbukti hanya format container dan pembacanya,
+bukan arti tabel A–F.
+
 ### Rantai sprite 9-tile 0x750E4C–0x7517AC
 
 Sembilan blob 9-tile di rentang ini dipakai tiga fungsi `code_0803EE94.s` yang
