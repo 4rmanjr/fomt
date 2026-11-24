@@ -688,3 +688,49 @@ Sebuah aset dianggap selesai jika:
 
 Status `decoded-exact`, `header-only`, dan `opaque` tetap boleh ada sebagai
 utang teknis yang tercatat, tetapi tidak dihitung sebagai aset selesai.
+
+## 18. Pola pret/pokeemerald-expansion yang diadopsi
+
+Repo upstream (`pret/pokeemerald`, `rh-hideout/pokeemerald-expansion`) membangun
+graphics dari source lewat aturan pola + tool konversi, bukan dari blob ROM.
+Modelnya diadopsi di sini; yang berbeda hanya bentuk metadatanya.
+
+| upstream | di repo ini | catatan |
+|---|---|---|
+| `tools/gbagfx` (`png` -> `4bpp`/`1bpp`/`gbapal`, `lz`, `rl`) | `tools/assets/tile4bpp.py`, `sprite2gba.py`, `pal2gba.py`, `font_container.py` | encoder Python, satu per kelas; tiap encoder punya tes di `tools/tests/` |
+| `graphics_file_rules.mk` / `spritesheet_rules.mk` (di-`include` Makefile) | `gfx_rules.mk` (di-include Makefile) | upstream ditulis/di-`scaninc`; di sini **digenerate** dari `assets/gfx/**/*.json` |
+| `INCGFX_U32("x.png", ".4bpp", "-mwidth 4 -mheight 4")` di C | metadata JSON: `source.png` + `frame.width_tiles/height_tiles` | slice frame per tile 8x8, urutan kiri->kanan lalu baris berikutnya |
+| `.pal` JASC -> `.gbapal` | `pal2gba.py` dari `source.pal` | palet pasangan sprite ikut digerbang di metadata |
+| `.lz` / `.smol` (compresSmol) | `tools/assets/lz70.py` (format `0x70`) | byte-compressed belum identik -> stream tetap `opaque` |
+| `make clean-generated` | `make clean-assets` | hanya `build/assets/`, ROM tidak disentuh |
+| status "sudah dikonversi" implisit | status eksplisit `rom-exact`/`decoded-exact`/`opaque` | gate hash, bukan asumsi |
+
+Perintah harian (jalur aset tidak menyentuh build ROM):
+
+```sh
+make assets-rules     # regenerasi gfx_rules.mk setelah tambah/ubah JSON
+make assets-bin       # encode semua aset rom-exact ke build/assets/*.bin
+make assets-check     # gate: aturan & manifest tidak basi + hash cocok ROM
+make clean-assets     # buang bin hasil encode
+```
+
+### Alur menambah sprite (end-to-end)
+
+1. **Ambil dari ROM** (sekali per sprite): `sprite2gba.py decode --rom
+   baserom.gba --offset <off> --size <n> --pal-offset <off> --pal-size 32
+   --frame-width <tile> --frame-height <tile> --png ... --pal ... --json ...
+   --id gfx/sprites/<nama> --symbol <gUnk_...>`.
+2. **Edit** PNG terindeks (PLTE 16 warna) dan `.pal` JASC; jangan mengubah
+   offset/ukuran sampai gate hijau.
+3. `python3 tools/assets/asset_manifest.py` — gate hash menulis ulang
+   `assets/manifest.json` (aset yang hash-nya beda tidak akan masuk).
+4. `make assets-rules && make assets-bin && make assets-check`.
+5. Ganti `.incbin "baserom.gba", <off>, <size>` di
+   `asm/data/data_0813B288.s` menjadi `.incbin "build/assets/<symbol>.bin"`
+   (beri komentar provenance: offset + sumber PNG/palet/JSON).
+6. `make compare` — HIJAU berarti byte ROM tidak bergeser satu pun.
+
+Aturan besi: langkah 5 hanya boleh dilakukan setelah langkah 4 hijau. Selama
+status belum `rom-exact`, `.incbin` tetap menunjuk ROM sehingga pekerjaan aset
+dan pekerjaan decomp (`fomt`, judge, migrate) bisa berjalan bersamaan tanpa
+saling merusak `make compare`.

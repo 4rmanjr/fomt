@@ -75,3 +75,19 @@ setelah judge, `judged_mtime` = mtime draf itu sendiri.
 
 Klaim basi diambil alih setelah `FOMT_CLAIM_TTL` detik (default 1800).
 `FOMT_CLAIM_TTL=0` hanya bila tidak ada agent lain yang jalan.
+
+## Perintah aset (jalur terpisah dari decomp)
+
+```sh
+make assets-rules   # regenerasi gfx_rules.mk dari assets/gfx/**/*.json
+make assets-bin     # encode semua aset rom-exact -> build/assets/<symbol>.bin
+make assets-check   # gate: aturan + manifest tidak basi, hash cocok slice ROM
+make clean-assets   # hapus build/assets (ROM/ELF tidak disentuh)
+make test-tools     # 73 tes tools/ (encoder, manifest, inventory, CLI)
+```
+
+Alur lengkap sprite + tabel padanan pret/pokeemerald-expansion ada di
+`docs/decomp/ARSITEKTUR-ASET.md` §18. Aturan kerjanya: `.incbin` hanya boleh
+diganti ke `build/assets/<symbol>.bin` setelah `make assets-check` HIJAU, jadi
+pekerjaan aset dan pekerjaan decomp (`fomt`) tidak saling mengunci `make
+compare`.

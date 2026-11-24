@@ -111,6 +111,34 @@ test-tools:
 
 .PHONY: test-tools
 
+# ===================
+# = ASET SOURCE     =
+# ===================
+# Jalur aset sengaja terpisah dari `compare`: PNG/palet hanya dipakai encoder,
+# dan yang masuk `.incbin` selalu `$(BUILD_DIR)/assets/<symbol>.bin` yang sudah
+# lolos gate hash. Jadi kerja aset dan kerja decomp tidak saling mengunci.
+
+# Bangun semua bin aset rom-exact tanpa menyentuh ROM/ELF.
+assets-bin: $(ASSET_BINS)
+	@echo "ASSET $(words $(ASSET_BINS)) bin rom-exact siap di $(BUILD_DIR)/assets"
+
+# Regenerasi `gfx_rules.mk` setelah menambah/mengubah metadata aset.
+assets-rules:
+	@python3 tools/assets/gfx_rules.py
+
+# Gate aset: aturan & manifest tidak basi, dan tiap aset rom-exact cocok byte
+# dengan slice ROM (hash encoder + hash PNG sumber).
+assets-check:
+	@python3 tools/assets/gfx_rules.py --check
+	@python3 tools/assets/asset_manifest.py --check
+	@python3 tools/assets/asset_verify.py
+
+clean-assets:
+	@echo "RM $(BUILD_DIR)/assets"
+	@rm -rf $(BUILD_DIR)/assets
+
+.PHONY: assets-bin assets-rules assets-check clean-assets
+
 # ROM from ELF
 %.gba: %.elf
 	$(OBJCOPY) -O binary $< $@
