@@ -735,6 +735,36 @@ status belum `rom-exact`, `.incbin` tetap menunjuk ROM sehingga pekerjaan aset
 dan pekerjaan decomp (`fomt`, judge, migrate) bisa berjalan bersamaan tanpa
 saling merusak `make compare`.
 
+### Blok `0x7529AC`–`0x752DCC`: tile 8×8, bukan palet 64 warna
+
+Blok ini sempat diparkir karena tidak ada pasangan tile+palet yang rapi. Hasil
+telusur: **bukan** sprite 8bpp dan **bukan** palet yang dibagi lewat tabel OAM.
+Isinya tile 8×8 individual, dan masing-masing simbol disalin **0x20 B** ke
+VRAM pada slot tile berbeda (`func_080645F0`, `func_08068344`):
+
+| simbol | tujuan DMA | ukuran |
+|---|---|---|
+| `gUnk_08752B4C` | `0x06000000 + 0x71*0x20` | 0x20 |
+| `gUnk_087529AC` | `+ 0x72*0x20` | 0x20 |
+| `gUnk_08752D4C` | `+ 0x73*0x20` | 0x80 (4 tile) |
+| `gUnk_08752DCC` | `+ 0x70*0x20` | 0x20 |
+| `gUnk_08752A2C` | `+ 0x58*0x20` | 0x20 |
+| `gUnk_08752CCC` / `BCC` / `C4C` | `+ 0x59/0x5a/0x5b*0x20` | 0x20 |
+
+`func_08008F0C` hanyalah penyusun deskriptor DMA3 (`0x84000000 | count`), jadi
+tujuan `0x0600xxxx` itu pasti VRAM, bukan palette RAM. Satu-satunya palet di
+blok itu adalah `gUnk_08752AAC` (0x20 B ke `0x05000000+sl`), pasangan sah untuk
+`gUnk_08752A2C` (blob bersebelahan, jarak load 153 baris → `--pair-rule
+asm-branch`).
+
+**Cacat inventaris:** `gUnk_08752D4C` dan `gUnk_08752DCC` terdaftar sebagai
+`palet` "64 warna" karena heuristik `raw_assets.py` hanya memeriksa "semua u16
+< 0x8000" + kelipatan 32 B, dan tile 4bpp yang jarang (banyak nol) lolos
+syarat itu. Akibatnya penyebut `palet` di README kelebihan 2 dan populasi
+`sprite/OBJ` kurang 2. Perbaikan heuristik belum dilakukan karena butuh aturan
+yang memisahkan tile jarang dari palet asli (rasio nol saja tidak cukup:
+palet sah ada yang 0,69 nol, tile ini 0,5–0,8).
+
 ### Aturan pemasangan sprite + palet
 
 Pasangan tile+palet tidak selalu muncul berdampingan di asm: palet bisa dimuat

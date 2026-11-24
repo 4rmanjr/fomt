@@ -1,0 +1,52 @@
+{
+ "id": "gfx/sprites/gunk_08752a2c",
+ "symbol": "gUnk_08752A2C",
+ "kind": "sprite",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x752A2C",
+  "size": 128,
+  "sha256": "2a0f0a69c268bd5867f62742c5199bce454ee5c6e5f9f12bafdf11ef3678147b"
+ },
+ "palette": {
+  "symbol": "gUnk_08752AAC",
+  "rom": {
+   "offset": "0x752AAC",
+   "size": 32,
+   "sha256": "16651959cfb2129a001de5974a24772259962d7e5d22e88096280f1c57371186"
+  }
+ },
+ "source": {
+  "png": "gUnk_08752A2C.png",
+  "pal": "gUnk_08752A2C.pal",
+  "tiles_wide": 2,
+  "tile_count": 4
+ },
+ "frame": {
+  "width_tiles": 2,
+  "height_tiles": 2,
+  "count": 1,
+  "order": "row-major"
+ },
+ "encoder": {
+  "tool": "sprite2gba.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first",
+  "png_format": "indexed-8-plte"
+ },
+ "pair": {
+  "rule": "asm-branch",
+  "rom_adjacent": true,
+  "source": "asm",
+  "asm": "asm/code_0803EE94.s",
+  "load_lines": [
+   80807,
+   80960
+  ],
+  "distance": 153,
+  "reason": "tile dan palet dimuat di func_08068344 pada cabang berbeda (jarak 153 baris)"
+ },
+ "evidence": "code_0803EE94.s:80807 tile 0x20 -> VRAM 0x06000B00 (slot 0x58); :80960 palet 0x20 -> 0x05000000+sl (func_08068344)",
+ "note": "call-site menyalin 0x20 B (satu tile 8x8); blob 128 B = 4 tile, frame 16x16 hanya wadah"
+}

@@ -627,6 +627,27 @@
    "evidence": "code_0803EE94.s:73742/73892 memuat gUnk_0875290C (tile 0x80) dan gUnk_0875298C (palet 0x20)"
   },
   {
+   "id": "gfx/sprites/gunk_08752a2c",
+   "symbol": "gUnk_08752A2C",
+   "kind": "sprite",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752A2C",
+    "size": 128,
+    "sha256": "2a0f0a69c268bd5867f62742c5199bce454ee5c6e5f9f12bafdf11ef3678147b"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_08752A2C.json",
+    "png": "assets/gfx/sprites/gUnk_08752A2C.png",
+    "pal": "assets/gfx/sprites/gUnk_08752A2C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:80807 tile 0x20 -> VRAM 0x06000B00 (slot 0x58); :80960 palet 0x20 -> 0x05000000+sl (func_08068344)"
+  },
+  {
    "id": "gfx/sprites/gunk_08752e4c",
    "symbol": "gUnk_08752E4C",
    "kind": "sprite",

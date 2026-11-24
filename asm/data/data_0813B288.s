@@ -995,7 +995,10 @@ gUnk_087529AC:
 
 	.global gUnk_08752A2C
 gUnk_08752A2C:
-	.incbin "baserom.gba", 0x752A2C, 0x80
+	@ rom: 0x752A2C 0x80 — source assets/gfx/sprites/gUnk_08752A2C.{png,pal,json};
+	@ palet pasangan gUnk_08752AAC (pair-rule asm-branch) ikut digerbang.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_08752A2C.bin"
 
 	.global gUnk_08752AAC
 gUnk_08752AAC:
