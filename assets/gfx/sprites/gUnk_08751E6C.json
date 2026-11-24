@@ -1,0 +1,40 @@
+{
+ "id": "gfx/sprites/gunk_08751e6c",
+ "symbol": "gUnk_08751E6C",
+ "kind": "sprite",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x751E6C",
+  "size": 128,
+  "sha256": "5ad3b21f015b1600f2089d7b3d5384d2f1cce39d5c139982b4f17e9f55341d97"
+ },
+ "palette": {
+  "symbol": "gUnk_08751EEC",
+  "rom": {
+   "offset": "0x751EEC",
+   "size": 32,
+   "sha256": "8510d77f55528eb9f592f23c125cf914b330792539a726c3c64cfad77c394505"
+  }
+ },
+ "source": {
+  "png": "gUnk_08751E6C.png",
+  "pal": "gUnk_08751E6C.pal",
+  "tiles_wide": 2,
+  "tile_count": 4
+ },
+ "frame": {
+  "width_tiles": 2,
+  "height_tiles": 2,
+  "count": 1,
+  "order": "row-major"
+ },
+ "encoder": {
+  "tool": "sprite2gba.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first",
+  "png_format": "indexed-8-plte"
+ },
+ "evidence": "code_0803EE94.s:66630/66632 memuat gUnk_08751E6C (0x80 tile) dan gUnk_08751EEC (0x20 palet) di fungsi yang sama",
+ "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri"
+}
