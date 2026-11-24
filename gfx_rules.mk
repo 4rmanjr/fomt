@@ -15,6 +15,7 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_08755230.bin \
   $(BUILD_DIR)/assets/gUnk_0875553C.bin \
   $(BUILD_DIR)/assets/gUnk_08757C14.bin \
+  $(BUILD_DIR)/assets/gUnk_08757F20.bin \
   $(BUILD_DIR)/assets/gUnk_08731940.bin \
   $(BUILD_DIR)/assets/gUnk_08750E4C.bin \
   $(BUILD_DIR)/assets/gUnk_08750F8C.bin \
@@ -155,6 +156,12 @@ $(BUILD_DIR)/assets/gUnk_08757C14.bin: \
     tools/assets/map2bin.py
 	@echo "ASSET $@"
 	@python3 tools/assets/map2bin.py encode --json assets/gfx/maps/gUnk_08757C14.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08757F20.bin: \
+    assets/gfx/maps/gUnk_08757F20.json \
+    tools/assets/map2bin.py
+	@echo "ASSET $@"
+	@python3 tools/assets/map2bin.py encode --json assets/gfx/maps/gUnk_08757F20.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_08731940.bin: \
     assets/gfx/palettes/unk_08731940.json \
