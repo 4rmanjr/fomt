@@ -331,6 +331,65 @@ class BgMapCheck(unittest.TestCase):
         self.assertGreater(checked, 0)
 
 
+BG_CLAIM_TOOL = re.compile(r"func_0804E9F4")
+BG_CLAIM_PALETTE = re.compile(r"indeks palet", re.I)
+BG_CLAIM_MAP = re.compile(r"BG map|peta tile", re.I)
+
+
+def _claims_bg_map(meta):
+    """True bila pair.reason/evidence mengklaim bukti BG map secara manual."""
+    pair = meta.get("pair") or {}
+    text = " ".join(str(pair.get(k, "")) for k in ("reason", "evidence"))
+    return bool(BG_CLAIM_TOOL.search(text)
+                or (BG_CLAIM_PALETTE.search(text)
+                    and BG_CLAIM_MAP.search(text)))
+
+
+def _has_bg_map(meta):
+    bg = (meta.get("pair") or {}).get("bg_map")
+    return isinstance(bg, dict) and bool(bg)
+
+
+class BgMapClaim(unittest.TestCase):
+    """Penjaga: klaim BG map manual wajib punya blok pair.bg_map terverifikasi."""
+
+    def meta(self, reason="", evidence="", bg_map=None):
+        pair = {"reason": reason, "evidence": evidence}
+        if bg_map is not None:
+            pair["bg_map"] = bg_map
+        return {"pair": pair}
+
+    def test_menolak_sebutan_func_0804E9F4_tanpa_blok(self):
+        meta = self.meta(reason="tile 0x72 ditulis func_0804E9F4")
+        self.assertTrue(_claims_bg_map(meta))
+        self.assertFalse(_has_bg_map(meta))
+
+    def test_menolak_indeks_palet_bg_map_tanpa_blok(self):
+        meta = self.meta(evidence="BG map memakai indeks palet 2")
+        self.assertTrue(_claims_bg_map(meta))
+        self.assertFalse(_has_bg_map(meta))
+
+    def test_alasan_tanpa_klaim_bg_map_tidak_ikut_dihukum(self):
+        meta = self.meta(reason="palet dimuat di cabang lain func_0805FF14")
+        self.assertFalse(_claims_bg_map(meta))
+
+    def test_klaim_dengan_blok_diterima(self):
+        meta = self.meta(reason="ditulis func_0804E9F4", bg_map={"line": 1})
+        self.assertTrue(_claims_bg_map(meta))
+        self.assertTrue(_has_bg_map(meta))
+
+    def test_setiap_klaim_bg_map_di_aset_punya_blok(self):
+        offenders = []
+        for path in sorted((REPO / "assets" / "gfx" / "sprites").glob("*.json")):
+            meta = json.loads(path.read_text())
+            if _claims_bg_map(meta) and not _has_bg_map(meta):
+                offenders.append(path.name)
+        self.assertEqual(offenders, [],
+                         "pair.reason/evidence menyebut func_0804E9F4 atau "
+                         "indeks palet BG map tanpa pair.bg_map: "
+                         + ", ".join(offenders))
+
+
 class GfxRules(unittest.TestCase):
     def test_rules_synced(self):
         self.assertEqual(gfx_rules.main(["--check"]), 0)
