@@ -6,10 +6,13 @@ Fixture kecil + manifest asli. Yang dikunci:
   * schema menolak field wajib yang hilang dan `id` berisi alamat ROM;
   * `pal2gba` round-trip 5 bit eksak dan byte-nya sama dengan slice ROM;
   * `asset_verify` melaporkan hash ROM yang diubah, dan mencatat `.incbin`
-    yang belum dialihkan sebagai catatan (bukan kegagalan di Fase 0).
+    yang belum dialihkan sebagai catatan (bukan kegagalan di Fase 0);
+  * penjaga evidence palet menolak tujuan tetap di tapak salinan yang menambah
+    indeks slot, dan sebaliknya.
 
 Jalankan: python3 tools/tests/test_asset_verify.py
 """
+import hashlib
 import importlib.util
 import json
 import tempfile
@@ -107,12 +110,27 @@ class VerifyGate(unittest.TestCase):
         self.assertLess(summary["ok"], summary["assets"])
 
     @unittest.skipUnless(ROM.exists(), "butuh baserom.gba")
-    def test_incbin_is_a_note_not_a_failure(self):
-        problems, notes, _summary = verify.verify()
-        self.assertEqual(problems, [])
+    def test_incbin_note_for_unswitched_blob(self):
+        # Catatan `.incbin baserom` diuji pada blob yang memang belum dialihkan
+        # (bukan pada aset rom-exact, yang sekarang semuanya ber-.incbin bin).
+        rom = ROM.read_bytes()
+        incbins = verify.incbin_offsets()
+        self.assertIn(0x523290, incbins, "gUnk_08523290 harus masih baserom")
+        asset = minimal_asset(
+            id="gfx/palettes/x", semantics="proven", symbol="gUnk_08523290",
+            rom={"offset": "0x523290", "size": 32,
+                 "sha256": hashlib.sha256(
+                     rom[0x523290:0x523290 + 32]).hexdigest()},
+            source={"json": "assets/gfx/palettes/unk_087519ec.json"})
+        _problems, notes = verify.check_asset(asset, rom, incbins)
         self.assertTrue(any(".incbin baserom" in n for n in notes), notes)
+
+    @unittest.skipUnless(ROM.exists(), "butuh baserom.gba")
+    def test_all_rom_exact_assets_switched(self):
+        _problems, notes, _summary = verify.verify()
+        self.assertEqual(notes, [])
         strict, _notes, _summary = verify.verify(require_switched=True)
-        self.assertTrue(any(".incbin" in p for p in strict), strict)
+        self.assertEqual(strict, [])
 
     @unittest.skipUnless(ROM.exists(), "butuh baserom.gba")
     def test_summary_counts_every_asset(self):
@@ -120,6 +138,62 @@ class VerifyGate(unittest.TestCase):
         manifest = json.loads(MANIFEST.read_text())
         self.assertEqual(summary["assets"], len(manifest["assets"]))
         self.assertEqual(summary["ok"], summary["assets"])
+
+
+class PaletteEvidenceGuard(unittest.TestCase):
+    """Evidence palet tidak boleh menyebut tujuan tetap di tapak ber-slot."""
+    SLOT_ASM = ("\tldr r0, .LC0 @ =0x05000200\n"
+                "\tadds r1, r1, r0\n"
+                "\tbl func_08008E64\n")
+    FIXED_ASM = ("\tldr r1, .LC0 @ =0x050000E0\n"
+                 "\tmovs r2, #0x20\n"
+                 "\tbl func_08008E64\n")
+
+    def repo(self, asm):
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        (root / "asm").mkdir()
+        (root / "asm" / "code_test.s").write_text(asm)
+        return root
+
+    def problems(self, asm, evidence):
+        return verify.palette_evidence_problems(
+            {"kind": "palette", "evidence": evidence}, self.repo(asm))
+
+    def test_slot_site_with_fixed_evidence_is_rejected(self):
+        errs = self.problems(
+            self.SLOT_ASM,
+            "func_08000000 (code_test.s:3): func_08008E64(x, 0x05000200, 0x20)")
+        self.assertEqual(len(errs), 1)
+        self.assertIn("slot", errs[0])
+
+    def test_slot_site_with_slot_evidence_passes(self):
+        self.assertEqual(self.problems(
+            self.SLOT_ASM,
+            "func_08000000 (code_test.s:3): func_08008E64(x, 0x05000200 + slot*0x20, 0x20)"),
+            [])
+
+    def test_fixed_site_with_slot_evidence_is_rejected(self):
+        errs = self.problems(
+            self.FIXED_ASM,
+            "func_08000000 (code_test.s:3): func_08008E64(x, 0x050000E0 + slot, 0x20)")
+        self.assertEqual(len(errs), 1)
+        self.assertIn("slot", errs[0])
+
+    def test_fixed_site_with_fixed_evidence_passes(self):
+        self.assertEqual(self.problems(
+            self.FIXED_ASM,
+            "func_08000000 (code_test.s:3): func_08008E64(x, 0x050000E0, 0x20)"),
+            [])
+
+    def test_real_manifest_palettes_pass(self):
+        manifest = json.loads(MANIFEST.read_text())
+        palettes = [a for a in manifest["assets"] if a["kind"] == "palette"]
+        self.assertTrue(palettes)
+        for asset in palettes:
+            with self.subTest(symbol=asset["symbol"]):
+                self.assertEqual(verify.palette_evidence_problems(asset), [])
 
 
 class SchemaSemantics(unittest.TestCase):

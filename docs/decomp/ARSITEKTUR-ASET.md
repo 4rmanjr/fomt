@@ -1001,7 +1001,10 @@ Bukti yang diterima: tapak salinan yang tujuannya konstanta palette RAM
 `r3` panjang), atau `Unpack` (`r1` tujuan). Tujuan boleh berupa basis palette
 RAM ditambah indeks slot (`0x05000200 + slot*0x20`), asalkan basisnya konstanta
 itu. Bukti disimpan di field `evidence` metadata aset, jadi tidak perlu
-ditelusuri ulang dari asm.
+ditelusuri ulang dari asm. `asset_verify.py` ikut menjaga bukti itu: kutipan
+`<berkas>.s:<baris>` di evidence dicocokkan dengan asm, sehingga evidence yang
+menulis tujuan tetap padahal tapak salinannya menambah indeks slot (atau
+sebaliknya) menjadi masalah gate, bukan sekadar catatan.
 
 Palet yang simbolnya hanya disimpan ke field struct — mis. `str r0, [rN, #0xc]`
 berpasangan dengan tile di `+8` — belum punya bukti di fungsi itu: salinannya

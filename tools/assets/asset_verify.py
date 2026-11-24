@@ -12,7 +12,12 @@ lalu untuk setiap aset:
 3. setiap berkas `source` ada;
 4. `.incbin "baserom.gba", <offset>, <size>` yang masih tersisa di
    `asm/data/*.s` dilaporkan sebagai catatan (Fase 0 belum mengubah build);
-   dengan `--require-switched` catatan itu menjadi kegagalan.
+   dengan `--require-switched` catatan itu menjadi kegagalan;
+5. untuk `kind: palette`, `evidence` yang menyebut tapak salinan
+   (`<berkas>.s:<baris>`) harus cocok dengan asm: tapak yang menambah indeks
+   slot sebelum salinan wajib menulis basis + slot, sedangkan tapak bertujuan
+   tetap wajib menyebut konstanta tujuannya. Tujuannya mencegah evidence
+   menulis `0x05000200` padahal byte-nya masuk ke `0x05000200 + slot*0x20`.
 
   python3 tools/assets/asset_verify.py                  # semua aset
   python3 tools/assets/asset_verify.py --symbol gUnk_08731940
@@ -38,6 +43,14 @@ ASM_DATA = REPO / "asm" / "data"
 
 INCBIN = re.compile(
     r'\.incbin\s+"baserom\.gba"\s*,\s*(0x[0-9A-Fa-f]+)\s*,\s*(0x[0-9A-Fa-f]+)')
+# Penjaga evidence palet: tapak salinan ke palette RAM.
+PALETTE_RAM = (0x05000000, 0x05000400)
+COPY_CALL = re.compile(
+    r'\bbl\s+(Unpack|func_08008E64|func_08008EB8|func_08008F0C)\b')
+# func_08008F0C(obj, src, dst, len) menaruh tujuan di r2, yang lain di r1.
+COPY_DST_REG = {"func_08008F0C": "r2"}
+EVIDENCE_CITE = re.compile(r'([\w./-]+\.s):(\d+)')
+REG_ALIAS = {"sb": "r9", "sl": "r10", "fp": "r11", "ip": "r12"}
 
 _TYPES = {"object": dict, "array": list, "string": str, "integer": int,
           "null": type(None), "boolean": bool, "number": (int, float)}
@@ -109,7 +122,135 @@ def incbin_offsets():
     return found
 
 
-def check_asset(asset, rom, incbins):
+def _reg(text):
+    return REG_ALIAS.get(text.strip(), text.strip())
+
+
+def _imm(text):
+    """'#0xa0' -> 0xA0; None bila bukan literal."""
+    match = re.fullmatch(r'#(-?0x[0-9A-Fa-f]+|-?\d+)', text.strip())
+    if not match:
+        return None
+    return int(match.group(1), 0) & 0xFFFFFFFF
+
+
+def _trace_constant(lines, reg):
+    """Nilai konstan `reg` setelah `lines`, atau None bila tak terlacak.
+
+    Hanya melacak bentuk yang dipakai pemuat palet (movs/ldr @=konstanta,
+    lsls, adds, mov, dan tambah register). Tulis lain ke register tujuan
+    membuat nilainya None — artinya tujuan tidak terbukti tetap.
+    """
+    vals = {}
+    for line in lines:
+        text = line.strip()
+        if not text or text.startswith('@') or text.endswith(':'):
+            continue
+        match = re.fullmatch(r'movs?\s+(\w+),\s*(#\S+)', text)
+        if match:
+            vals[_reg(match.group(1))] = _imm(match.group(2))
+            continue
+        match = re.fullmatch(r'ldr\s+(\w+),\s*\.L[0-9A-Fa-f]+\s*@\s*=\s*(0x[0-9A-Fa-f]+)',
+                             text)
+        if match:
+            vals[_reg(match.group(1))] = int(match.group(2), 16)
+            continue
+        match = re.fullmatch(r'lsls\s+(\w+),\s*(\w+),\s*#(\S+)', text)
+        if match:
+            base = vals.get(_reg(match.group(2)))
+            shift = _imm('#' + match.group(3))
+            vals[_reg(match.group(1))] = (None if base is None or shift is None
+                                          else (base << shift) & 0xFFFFFFFF)
+            continue
+        match = re.fullmatch(r'adds?\s+(\w+),\s*(\w+),\s*#(\S+)', text)
+        if match:
+            base = vals.get(_reg(match.group(2)))
+            value = _imm('#' + match.group(3))
+            vals[_reg(match.group(1))] = (None if base is None or value is None
+                                          else (base + value) & 0xFFFFFFFF)
+            continue
+        match = re.fullmatch(r'adds?\s+(\w+),\s*#(\S+)', text)
+        if match:
+            dst = _reg(match.group(1))
+            base = vals.get(dst)
+            value = _imm('#' + match.group(2))
+            vals[dst] = (None if base is None or value is None
+                         else (base + value) & 0xFFFFFFFF)
+            continue
+        match = re.fullmatch(r'adds?\s+(\w+),\s*(\w+),\s*(\w+)', text)
+        if match:
+            left = vals.get(_reg(match.group(2)))
+            right = vals.get(_reg(match.group(3)))
+            vals[_reg(match.group(1))] = (None if left is None or right is None
+                                          else (left + right) & 0xFFFFFFFF)
+            continue
+        match = re.fullmatch(r'adds?\s+(\w+),\s*(\w+)', text)
+        if match:
+            dst = _reg(match.group(1))
+            left, right = vals.get(dst), vals.get(_reg(match.group(2)))
+            vals[dst] = (None if left is None or right is None
+                         else (left + right) & 0xFFFFFFFF)
+            continue
+        match = re.fullmatch(r'movs?\s+(\w+),\s*(\w+)', text)
+        if match:
+            vals[_reg(match.group(1))] = vals.get(_reg(match.group(2)))
+            continue
+        written = re.match(r'(?:ldr|ldrb|ldrh|ldrsb|ldrsh|ldmia|pop)\s+(\w+)', text)
+        if written:
+            vals[_reg(written.group(1))] = None
+        if re.search(r'\bbl\s+\w+', text):
+            for clobbered in ('r0', 'r1', 'r2', 'r3', 'r12'):
+                vals[clobbered] = None
+    return vals.get(_reg(reg))
+
+
+def palette_evidence_problems(asset, repo=None):
+    """Evidence palet yang menyebut tujuan tetap padahal tapak menambah slot.
+
+    `evidence` dikutip sebagai `<berkas>.s:<baris>`; baris itu harus `bl`
+    salinan. Tujuan dihitung dari instruksi sebelumnya: bila hasilnya konstanta
+    palette RAM, evidence wajib menyebut konstanta itu dan tidak boleh menyebut
+    slot; bila hasilnya tak terlacak (mis. basis + register slot), evidence
+    wajib menyebut slot/indeks.
+    """
+    if asset.get('kind') != 'palette':
+        return []
+    evidence = asset.get('evidence') or ''
+    if not evidence:
+        return []
+    root = Path(repo) if repo is not None else REPO
+    for match in EVIDENCE_CITE.finditer(evidence):
+        path = root / 'asm' / Path(match.group(1)).name
+        if not path.exists():
+            continue
+        lines = path.read_text().splitlines()
+        index = int(match.group(2)) - 1
+        if not 0 <= index < len(lines):
+            continue
+        call = COPY_CALL.search(lines[index])
+        if not call:
+            continue
+        tool = call.group(1)
+        reg = COPY_DST_REG.get(tool, 'r1')
+        value = _trace_constant(lines[max(0, index - 16):index], reg)
+        where = f"{match.group(1)}:{match.group(2)}"
+        claims_slot = re.search(r'\bslot\b', evidence, re.I) is not None
+        if value is not None and PALETTE_RAM[0] <= value < PALETTE_RAM[1]:
+            if claims_slot:
+                return [f"evidence menyebut slot, padahal {tool} di {where} "
+                        f"memakai tujuan tetap 0x{value:08X}"]
+            if f"0x{value:08X}".upper() not in evidence.upper():
+                return [f"evidence tidak menyebut tujuan tetap 0x{value:08X} "
+                        f"yang dipakai {tool} di {where}"]
+            return []
+        if not claims_slot:
+            return [f"{tool} di {where} menambah indeks slot sebelum salinan, "
+                    "tetapi evidence menyebut tujuan tetap; tulis basis + slot"]
+        return []
+    return []
+
+
+def check_asset(asset, rom, incbins, repo=None):
     """-> (masalah: list[str], catatan: list[str])."""
     problems, notes = [], []
     symbol = asset.get("symbol", "?")
@@ -155,6 +296,8 @@ def check_asset(asset, rom, incbins):
                                 f"manifest {declared[:12]}…")
             if len(slice_) == size and encoded != slice_:
                 problems.append("byte encoder != byte ROM walau hash sama")
+
+    problems += palette_evidence_problems(asset, repo)
 
     hit = incbins.get(offset)
     if hit and asset["status"] == "rom-exact":

@@ -324,7 +324,11 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   sama), pastikan berkas source ada, dan laporkan `.incbin "baserom.gba"`
   yang belum dialihkan sebagai catatan (`--require-switched` membuatnya
   gagal). `--symbol X` untuk satu aset, `--json` untuk laporan mesin, exit 1
-  bila ada masalah.
+  bila ada masalah. Khusus `kind: palette`, `evidence` yang mengutip tapak
+  salinan (`<berkas>.s:<baris>`) dicocokkan dengan asm: tapak yang menambah
+  indeks slot sebelum salinan wajib menyebut basis + slot, dan tapak bertujuan
+  tetap wajib menyebut konstanta tujuannya — evidence yang menulis
+  `0x05000200` padahal byte-nya masuk ke `0x05000200 + slot*0x20` ditolak.
 - `tools/assets/lz70.py` — encoder `0x70` minimal untuk format `000`
   (atom0/lzss0/diff0): header `(size<<8)|0x70`, format byte di dalam bitstream,
   tangga jarak 2 entri, perintah literal/run-length/lookup. `encode` (greedy)
