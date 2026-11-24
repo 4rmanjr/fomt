@@ -98,15 +98,21 @@ gUnk_0858BA28:
 
 	.global gUnk_08667060
 gUnk_08667060:
-	.incbin "baserom.gba", 0x667060, 0x840
+	@ rom: 0x667060 0x840 — source assets/gfx/tiles/gUnk_08667060.{png,json}; 66 tile 4bpp
+	@ decode tile4bpp.py dari ROM + encode ulang, byte identik slice ROM (gate asset_verify).
+	.incbin "build/assets/gUnk_08667060.bin"
 
 	.global gUnk_086678A0
 gUnk_086678A0:
-	.incbin "baserom.gba", 0x6678A0, 0x30080
+	@ rom: 0x6678A0 0x30080 — source assets/gfx/tiles/gUnk_086678A0.{png,json}; 6148 tile 4bpp
+	@ decode tile4bpp.py dari ROM + encode ulang, byte identik slice ROM (gate asset_verify).
+	.incbin "build/assets/gUnk_086678A0.bin"
 
 	.global gUnk_08697920
 gUnk_08697920:
-	.incbin "baserom.gba", 0x697920, 0x11E0
+	@ rom: 0x697920 0x11E0 — source assets/gfx/tiles/gUnk_08697920.{png,json}; 143 tile 4bpp
+	@ decode tile4bpp.py dari ROM + encode ulang, byte identik slice ROM (gate asset_verify).
+	.incbin "build/assets/gUnk_08697920.bin"
 
 	.global gUnk_08698B00
 gUnk_08698B00:
@@ -114,7 +120,9 @@ gUnk_08698B00:
 
 	.global gUnk_08698E14
 gUnk_08698E14:
-	.incbin "baserom.gba", 0x698E14, 0x11E0
+	@ rom: 0x698E14 0x11E0 — source assets/gfx/tiles/gUnk_08698E14.{png,json}; 143 tile 4bpp
+	@ decode tile4bpp.py dari ROM + encode ulang, byte identik slice ROM (gate asset_verify).
+	.incbin "build/assets/gUnk_08698E14.bin"
 
 	.global gUnk_08699FF4
 gUnk_08699FF4:
@@ -130,7 +138,9 @@ gUnk_0869B284:
 
 	.global gUnk_086D5508
 gUnk_086D5508:
-	.incbin "baserom.gba", 0x6D5508, 0xE60
+	@ rom: 0x6D5508 0xE60 — source assets/gfx/tiles/gUnk_086D5508.{png,json}; 115 tile 4bpp
+	@ decode tile4bpp.py dari ROM + encode ulang, byte identik slice ROM (gate asset_verify).
+	.incbin "build/assets/gUnk_086D5508.bin"
 
 	.global gUnk_086D6368
 gUnk_086D6368:
@@ -162,7 +172,9 @@ gUnk_086D6608:
 
 	.global gUnk_086D6698
 gUnk_086D6698:
-	.incbin "baserom.gba", 0x6D6698, 0xE60
+	@ rom: 0x6D6698 0xE60 — source assets/gfx/tiles/gUnk_086D6698.{png,json}; 115 tile 4bpp
+	@ decode tile4bpp.py dari ROM + encode ulang, byte identik slice ROM (gate asset_verify).
+	.incbin "build/assets/gUnk_086D6698.bin"
 
 	.global gUnk_086D74F8
 gUnk_086D74F8:

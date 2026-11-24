@@ -43,10 +43,10 @@ Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.093 B (7,1%)** — persent
 |---|---:|---:|---|
 | Sprite/OBJ | 56 | 86 | `█████████████░░░░░░░` 65,1% |
 | Palet | 1 | 64 | `░░░░░░░░░░░░░░░░░░░░` 1,6% |
-| Tiles 4bpp | 3 | 86 | `█░░░░░░░░░░░░░░░░░░░` 3,5% |
+| Tiles 4bpp | 9 | 86 | `██░░░░░░░░░░░░░░░░░░` 10,5% |
 | Tilemap | 4 | 16 | `█████░░░░░░░░░░░░░░░` 25% |
 | Container font | 8 | 86 | `██░░░░░░░░░░░░░░░░░░` 9,3% |
-| **Total (blob unik)** | 72 | 166 | `█████████░░░░░░░░░░░` 43,4% |
+| **Total (blob unik)** | 78 | 166 | `█████████░░░░░░░░░░░` 47% |
 <!-- README-STATS:END -->
 
 Definisi selesainya sengaja ketat di kedua jalur:

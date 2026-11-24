@@ -1519,6 +1519,126 @@
    "evidence": "func_0805FF14: baris 64701 memuat tile gUnk_0875348C dan baris 64709 menyalin 0x20 B ke VRAM 0x06000BA0 (slot tile 0x5D); baris 64848 menyalin palet gUnk_0875350C 0x20 B ke 0x05000080 (bank 4); BG map tile 0x5D ditulis func_0804E9F4 dengan indeks palet 4 (branch 65553, bl 65559)"
   },
   {
+   "id": "gfx/tiles/gunk_08667060",
+   "symbol": "gUnk_08667060",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x667060",
+    "size": 2112,
+    "sha256": "45596a1fced2bdeb33c101de5f124c26939d03ee0f2d71e361ba5ffab53a7cc7"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08667060.json",
+    "png": "assets/gfx/tiles/gUnk_08667060.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_086678a0",
+   "symbol": "gUnk_086678A0",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6678A0",
+    "size": 196736,
+    "sha256": "7ea46c9396f5d294719456cf9d6b7a13a8d4e2762b201eade900744a4a2304bc"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_086678A0.json",
+    "png": "assets/gfx/tiles/gUnk_086678A0.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_08697920",
+   "symbol": "gUnk_08697920",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x697920",
+    "size": 4576,
+    "sha256": "c96ae146f633dd5f3bf42dfb802ff294bdca0f5f4758150ac4896a543914be44"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08697920.json",
+    "png": "assets/gfx/tiles/gUnk_08697920.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_08698e14",
+   "symbol": "gUnk_08698E14",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x698E14",
+    "size": 4576,
+    "sha256": "06b60f66dfabae472ce929a164912c2e88ae4d8c468f6181db5a4304ce50e6bf"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_08698E14.json",
+    "png": "assets/gfx/tiles/gUnk_08698E14.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_086d5508",
+   "symbol": "gUnk_086D5508",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6D5508",
+    "size": 3680,
+    "sha256": "cdc8b2e5448f68894d102c8ca9c672ecd8a18f5932d5a932ff38411619c5ca28"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_086D5508.json",
+    "png": "assets/gfx/tiles/gUnk_086D5508.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/tiles/gunk_086d6698",
+   "symbol": "gUnk_086D6698",
+   "kind": "tiles4bpp",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6D6698",
+    "size": 3680,
+    "sha256": "6282b44093e405b3cdcd10a2ca0d6de388705f284cdb4376d6eff47b7f920786"
+   },
+   "source": {
+    "json": "assets/gfx/tiles/gUnk_086D6698.json",
+    "png": "assets/gfx/tiles/gUnk_086D6698.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
    "id": "gfx/tiles/gunk_08750c4c",
    "symbol": "gUnk_08750C4C",
    "kind": "tiles4bpp",
