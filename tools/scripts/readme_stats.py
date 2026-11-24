@@ -37,8 +37,14 @@ RAW_MANIFEST = REPO / "assets" / "raw" / "manifest.json"
 BEGIN = "<!-- README-STATS:BEGIN -->"
 END = "<!-- README-STATS:END -->"
 BAR_WIDTH = 20
-# Kelas bukan-sprite yang jalurnya sudah terbukti end-to-end.
-NON_SPRITE_KINDS = ("palette", "tiles4bpp", "font_container")
+# Label tampilan per `kind` metadata aset.
+KIND_LABEL = {
+    "sprite": "Sprite/OBJ",
+    "palette": "Palet",
+    "tiles4bpp": "Tiles 4bpp",
+    "font_container": "Container font",
+}
+KIND_ORDER = ["sprite", "palette", "tiles4bpp", "font_container"]
 
 
 def _module(path, name):
@@ -65,22 +71,60 @@ def func_totals():
     }
 
 
+def _raw_blobs():
+    """-> {symbol: group} untuk blob `.incbin` yang terinventaris."""
+    raw = json.loads(RAW_MANIFEST.read_text())["blobs"]
+    return {b["symbol"]: b.get("group") for b in raw}
+
+
 def asset_totals():
-    """-> dict aset source rom-exact per kelas + populasi blob sprite/OBJ."""
+    """Cakupan aset source terhadap populasi blob inventaris.
+
+    Pembilang = aset `rom-exact` per kelas (kind). Penyebut = jumlah blob
+    `.incbin` yang terinventaris di grup kelas itu, dipetakan lewat `group`
+    milik simbol aset di `assets/raw/manifest.json`. Jadi angkanya mengukur
+    seberapa banyak populasi nyata yang sudah punya source, bukan perbandingan
+    himpunan dengan dirinya sendiri.
+
+    Konsekuensi yang disengaja: beberapa kelas bisa berbagi grup (mis. sprite,
+    tiles 4bpp font, dan container font semuanya terinventaris sebagai
+    `sprite/OBJ`), sehingga baris per kelas memakai penyebut grup yang sama.
+    Baris total memakai **union simbol** supaya tidak menghitung ganda.
+    """
     assets = json.loads(ASSET_MANIFEST.read_text())["assets"]
-    by_kind = {}
+    blobs = _raw_blobs()
+    group_size = {}
+    for group in blobs.values():
+        group_size[group] = group_size.get(group, 0) + 1
+    kind_done, kind_groups, unknown = {}, {}, []
     for asset in assets:
         if asset.get("status") != "rom-exact":
             continue
-        by_kind[asset["kind"]] = by_kind.get(asset["kind"], 0) + 1
-    raw = json.loads(RAW_MANIFEST.read_text())["blobs"]
-    sprite_blobs = [b for b in raw if b.get("group") == "sprite/OBJ"]
+        kind = asset["kind"]
+        kind_done[kind] = kind_done.get(kind, 0) + 1
+        group = blobs.get(asset["symbol"])
+        if group is None:
+            unknown.append(asset["symbol"])
+            continue
+        kind_groups.setdefault(kind, set()).add(group)
+    symbols_in = lambda groups: {s for s, g in blobs.items() if g in groups}
+    rows = []
+    order = lambda k: (KIND_ORDER.index(k) if k in KIND_ORDER
+                       else len(KIND_ORDER), k)
+    for kind in sorted(kind_done, key=order):
+        groups = kind_groups.get(kind, set())
+        rows.append({"kind": kind, "done": kind_done[kind],
+                     "denominator": len(symbols_in(groups)),
+                     "groups": sorted(groups)})
+    mapped = [r for r in rows if r["denominator"]]
+    all_groups = {g for r in mapped for g in r["groups"]}
     return {
-        "kinds": by_kind,
-        "sprite_done": by_kind.get("sprite", 0),
-        "sprite_total": len(sprite_blobs),
-        "sprite_renderable": sum(1 for b in sprite_blobs if b.get("renderable")),
-        "nonsprite_done": sum(by_kind.get(k, 0) for k in NON_SPRITE_KINDS),
+        "rows": rows,
+        "total_done": sum(r["done"] for r in mapped),
+        "total_denominator": len(symbols_in(all_groups)),
+        "unknown": unknown,
+        "sprite_done": kind_done.get("sprite", 0),
+        "sprite_total": group_size.get("sprite/OBJ", 0),
     }
 
 
@@ -136,17 +180,22 @@ def render(totals=None, assets=None):
         "",
         "### Translasi aset ROM -> source",
         "",
-        "| Kelas | Rom-exact | Populasi | Progres |",
+        "| Kelas | Rom-exact | Populasi blob | Cakupan |",
         "|---|---:|---:|---|",
     ]
-    sp = pct(a["sprite_done"], a["sprite_total"])
-    lines.append(f"| Sprite/OBJ (PNG + `.pal` + JSON) | {num(a['sprite_done'])} | "
-                 f"{num(a['sprite_total'])} blob | `{bar(sp)}` {dec(sp)}% |")
-    proven = len([k for k in NON_SPRITE_KINDS if a["kinds"].get(k)])
-    cls = pct(proven, len(NON_SPRITE_KINDS))
-    lines.append(f"| Palet, tiles 4bpp, container font | "
-                 f"{num(a['nonsprite_done'])} | {num(proven)} pipeline terbukti | "
-                 f"`{bar(cls)}` {dec(cls)}% |")
+    for row in a["rows"]:
+        p = pct(row["done"], row["denominator"])
+        den = num(row["denominator"]) if row["denominator"] else "tak terinventaris"
+        lines.append(f"| {KIND_LABEL.get(row['kind'], row['kind'])} | "
+                     f"{num(row['done'])} | {den} | "
+                     f"`{bar(p)}` {dec(p)}% |")
+    tp = pct(a["total_done"], a["total_denominator"])
+    lines.append(f"| **Total (blob unik)** | {num(a['total_done'])} | "
+                 f"{num(a['total_denominator'])} | `{bar(tp)}` {dec(tp)}% |")
+    if a["unknown"]:
+        lines.append("")
+        lines.append("Aset rom-exact tanpa blob inventaris (tak dihitung di "
+                     "penyebut): " + ", ".join(f"`{s}`" for s in a["unknown"]) + ".")
     lines.append("")
     return "\n".join(lines)
 

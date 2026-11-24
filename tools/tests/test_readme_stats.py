@@ -15,8 +15,23 @@ TOTALS = {
     "bytes_total": 1000, "bytes_matched": 150, "bytes_src": 120,
 }
 ASSETS = {
-    "kinds": {"sprite": 1, "palette": 1, "tiles4bpp": 1, "font_container": 1},
-    "sprite_done": 1, "sprite_total": 73, "nonsprite_done": 3,
+    "rows": [
+        {"kind": "sprite", "done": 1, "denominator": 73, "groups": ["sprite/OBJ"]},
+        {"kind": "palette", "done": 1, "denominator": 70, "groups": ["palet"]},
+    ],
+    "total_done": 2, "total_denominator": 143, "unknown": [],
+    "sprite_done": 1, "sprite_total": 73,
+}
+# Kasus penting: beberapa kelas berbagi grup yang sama. Penyebutnya harus
+# populasi grup (73), bukan jumlah aset yang selesai (3), supaya tidak 100%.
+SHARED = {
+    "rows": [
+        {"kind": "sprite", "done": 1, "denominator": 73, "groups": ["sprite/OBJ"]},
+        {"kind": "tiles4bpp", "done": 1, "denominator": 73, "groups": ["sprite/OBJ"]},
+        {"kind": "font_container", "done": 1, "denominator": 73, "groups": ["sprite/OBJ"]},
+    ],
+    "total_done": 3, "total_denominator": 73, "unknown": [],
+    "sprite_done": 1, "sprite_total": 73,
 }
 
 
@@ -29,6 +44,22 @@ class ReadmeStats(unittest.TestCase):
         self.assertIn("9%", block)          # nol di belakang dibuang
         self.assertIn("120 / 1.000 B", block)  # pemisah ribuan Indonesia
         self.assertIn("1,4%", block)        # 1/73 -> 1,4 (pembulatan, koma)
+        self.assertIn("| **Total (blob unik)** | 2 | 143 |", block)
+
+    def test_kelas_berbagi_grup_tidak_pernah_100_persen(self):
+        block = readme_stats.render(TOTALS, SHARED)
+        self.assertIn("| Sprite/OBJ | 1 | 73 |", block)
+        self.assertIn("| Tiles 4bpp | 1 | 73 |", block)
+        # total memakai union simbol (73), bukan 3 -> kalau 100% berarti
+        # penyebutnya kembali dihitung dari himpunan yang sama (bug lama).
+        self.assertIn("| **Total (blob unik)** | 3 | 73 |", block)
+        self.assertNotIn("100%", block)
+
+    def test_aset_tanpa_blob_dilaporkan(self):
+        data = dict(SHARED, unknown=["gUnk_SINTETIS"])
+        block = readme_stats.render(TOTALS, data)
+        self.assertIn("tak dihitung di penyebut", block)
+        self.assertIn("`gUnk_SINTETIS`", block)
 
     def test_bar_panjangnya_tetap(self):
         self.assertEqual(readme_stats.bar(0).count("░"), readme_stats.BAR_WIDTH)

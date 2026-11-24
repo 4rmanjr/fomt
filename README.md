@@ -39,10 +39,13 @@ Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.092 B (7,1%)** — persent
 
 ### Translasi aset ROM -> source
 
-| Kelas | Rom-exact | Populasi | Progres |
+| Kelas | Rom-exact | Populasi blob | Cakupan |
 |---|---:|---:|---|
-| Sprite/OBJ (PNG + `.pal` + JSON) | 1 | 73 blob | `░░░░░░░░░░░░░░░░░░░░` 1,4% |
-| Palet, tiles 4bpp, container font | 3 | 3 pipeline terbukti | `████████████████████` 100% |
+| Sprite/OBJ | 1 | 73 | `░░░░░░░░░░░░░░░░░░░░` 1,4% |
+| Palet | 1 | 70 | `░░░░░░░░░░░░░░░░░░░░` 1,4% |
+| Tiles 4bpp | 1 | 73 | `░░░░░░░░░░░░░░░░░░░░` 1,4% |
+| Container font | 1 | 73 | `░░░░░░░░░░░░░░░░░░░░` 1,4% |
+| **Total (blob unik)** | 4 | 143 | `█░░░░░░░░░░░░░░░░░░░` 2,8% |
 <!-- README-STATS:END -->
 
 Definisi selesainya sengaja ketat di kedua jalur:
@@ -57,6 +60,12 @@ Definisi selesainya sengaja ketat di kedua jalur:
   sudah begitu: `gUnk_087518CC` (128 B, 4 tile 4bpp). Blob sprite lain masih
   `.incbin` ROM, dan sprite di dalam container terkompresi `0x70` menunggu
   encoder yang byte-identik.
+- **Penyebut cakupan.** Populasi dihitung dari blob `.incbin` yang benar-benar
+  terinventaris di `assets/raw` (satu blob = satu entri `.incbin`; satu blob
+  bisa memuat beberapa sprite). Beberapa kelas berbagi grup inventaris yang
+  sama (`sprite/OBJ`), jadi baris total memakai union blob supaya tidak
+  menghitung ganda. Stream di dalam container `0x70` belum masuk penyebut
+  karena encoder-nya belum byte-identik.
 
 Pipeline, tabel padanan pret/pokeemerald-expansion, dan alur menambah sprite:
 [docs/decomp/ARSITEKTUR-ASET.md](./docs/decomp/ARSITEKTUR-ASET.md).
