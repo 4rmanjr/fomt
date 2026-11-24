@@ -716,7 +716,10 @@ gUnk_087519EC:
 
 	.global gUnk_08751A0C
 gUnk_08751A0C:
-	.incbin "baserom.gba", 0x751A0C, 0x80
+	@ rom: 0x751A0C 0x80 — source assets/gfx/sprites/gUnk_08751A0C.{png,pal,json};
+	@ palet pasangan gUnk_08751A8C ikut digerbang di metadata sprite.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_08751A0C.bin"
 
 	.global gUnk_08751A8C
 gUnk_08751A8C:
@@ -724,7 +727,10 @@ gUnk_08751A8C:
 
 	.global gUnk_08751AAC
 gUnk_08751AAC:
-	.incbin "baserom.gba", 0x751AAC, 0x80
+	@ rom: 0x751AAC 0x80 — source assets/gfx/sprites/gUnk_08751AAC.{png,pal,json};
+	@ palet pasangan gUnk_08751B2C ikut digerbang di metadata sprite.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_08751AAC.bin"
 
 	.global gUnk_08751B2C
 gUnk_08751B2C:
@@ -732,7 +738,10 @@ gUnk_08751B2C:
 
 	.global gUnk_08751B4C
 gUnk_08751B4C:
-	.incbin "baserom.gba", 0x751B4C, 0x80
+	@ rom: 0x751B4C 0x80 — source assets/gfx/sprites/gUnk_08751B4C.{png,pal,json};
+	@ palet pasangan gUnk_08751BCC ikut digerbang di metadata sprite.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_08751B4C.bin"
 
 	.global gUnk_08751BCC
 gUnk_08751BCC:
@@ -740,7 +749,10 @@ gUnk_08751BCC:
 
 	.global gUnk_08751BEC
 gUnk_08751BEC:
-	.incbin "baserom.gba", 0x751BEC, 0x80
+	@ rom: 0x751BEC 0x80 — source assets/gfx/sprites/gUnk_08751BEC.{png,pal,json};
+	@ palet pasangan gUnk_08751C6C ikut digerbang di metadata sprite.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_08751BEC.bin"
 
 	.global gUnk_08751C6C
 gUnk_08751C6C:
@@ -748,7 +760,10 @@ gUnk_08751C6C:
 
 	.global gUnk_08751C8C
 gUnk_08751C8C:
-	.incbin "baserom.gba", 0x751C8C, 0x80
+	@ rom: 0x751C8C 0x80 — source assets/gfx/sprites/gUnk_08751C8C.{png,pal,json};
+	@ palet pasangan gUnk_08751D0C ikut digerbang di metadata sprite.
+	@ gate `sprite2gba.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_08751C8C.bin"
 
 	.global gUnk_08751D0C
 gUnk_08751D0C:
