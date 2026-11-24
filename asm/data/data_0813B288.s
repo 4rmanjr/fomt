@@ -1428,7 +1428,9 @@ gUnk_08755848:
 
 	.global gUnk_08757AE0
 gUnk_08757AE0:
-	.incbin "baserom.gba", 0x757AE0, 0xC0
+	@ rom: 0x757AE0 0xC0 — source assets/gfx/palettes/unk_08757ae0.{pal,png,json}; palet BGR555
+	@ func_08077EC0 (code_0803EE94.s:112761) menyalin 0xC0 B ke 0x05000020 (palette RAM); pal2gba.py: byte identik slice ROM.
+	.incbin "build/assets/gUnk_08757AE0.bin"
 
 	.global gUnk_08757BA0
 gUnk_08757BA0:
@@ -1476,7 +1478,9 @@ gUnk_0875822C:
 
 	.global gUnk_0875A358
 gUnk_0875A358:
-	.incbin "baserom.gba", 0x75A358, 0xC0
+	@ rom: 0x75A358 0xC0 — source assets/gfx/palettes/unk_0875a358.{pal,png,json}; palet BGR555
+	@ func_08077EC0 (code_0803EE94.s:112761) menyalin 0xC0 B ke 0x05000020 (palette RAM); pal2gba.py: byte identik slice ROM.
+	.incbin "build/assets/gUnk_0875A358.bin"
 
 	.global gUnk_0875A418
 gUnk_0875A418:

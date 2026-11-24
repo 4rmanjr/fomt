@@ -1,0 +1,23 @@
+{
+ "id": "gfx/palettes/gunk_08757ae0",
+ "symbol": "gUnk_08757AE0",
+ "kind": "palette",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x757AE0",
+  "size": 192,
+  "sha256": "aebda16d14cda88265adc73057792f4b5254830acf480841988eb35c03eae9f0"
+ },
+ "source": {
+  "pal": "unk_08757ae0.pal",
+  "png": "unk_08757ae0.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "func_08077EC0 (code_0803EE94.s:112761): func_08008E64(gUnk_08757AE0, 0x05000020, 0xC0) \u2014 192 B ke palette RAM; simbol dimuat di baris 112754, dipilih saat r5==0 (cabang lain memakai gUnk_0875A358)."
+}

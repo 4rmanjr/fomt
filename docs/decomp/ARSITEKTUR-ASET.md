@@ -1024,7 +1024,9 @@ dari tapak salinannya:
   tidak sama dengan ukuran slice (0x200 lebih besar, 0x40 lebih kecil), artinya
   slice itu bukan blok utuh yang disalin — sumber kanonik per-simbol akan
   memotong data yang ikut tersalin. Pasangan `gUnk_08757AE0`/`gUnk_0875A358`
-  (192 B, salinan 0xC0) ukurannya cocok dan paling siap untuk kelas palet.
+  (192 B, salinan 0xC0 ke `0x05000020`) ukurannya cocok sehingga sudah
+  dimigrasikan sebagai palet: keduanya varian isi yang dipilih `func_08077EC0`
+  menurut `r5`, dan pilihan itu dicatat di `evidence` masing-masing aset.
 - `gUnk_08757BAC`, `gUnk_08757BD8`, `gUnk_086D6528`, `gUnk_086DD690`,
   `gUnk_086EAD64`, `gUnk_086EAD8C` berisi entri map u16 (`0x93ff`, deret
   `0x92a0…`, `0x93xx` berurutan) dan dipakai penulis BG map (`func_08077E64`
