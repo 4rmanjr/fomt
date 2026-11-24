@@ -91,6 +91,18 @@ VERIFIED_LAYOUT = {
         "(086DC400/4C4/4D0, dims 30x26); sudah diekstrak ke "
         "assets/0x70/extern",
     ),
+    "gUnk_08752D4C": (
+        "sprite/OBJ", None,
+        "4 tile 8x8 berisi; func_080645F0 menyalin 0x80 B ke VRAM slot 0x73; "
+        "BG map tile 0x73 ditulis func_0804E9F4 dengan indeks palet 2 -> "
+        "gUnk_0875298C (bank 0x40)",
+    ),
+    "gUnk_08752DCC": (
+        "sprite/OBJ", None,
+        "1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x20 B "
+        "ke VRAM slot 0x70; BG map tile 0x70 ditulis func_0804E9F4 dengan "
+        "indeks palet 2 -> gUnk_0875298C (bank 0x40)",
+    ),
     "gUnk_087529AC": (
         "sprite/OBJ", None,
         "1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x20 B "

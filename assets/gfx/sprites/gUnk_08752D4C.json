@@ -1,0 +1,53 @@
+{
+ "id": "gfx/sprites/gunk_08752d4c",
+ "symbol": "gUnk_08752D4C",
+ "kind": "sprite",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x752D4C",
+  "size": 128,
+  "sha256": "bbed8d40d3b50a112b0044f5cb15532a8373cd3979856ca2d420d71d65ae5dcf"
+ },
+ "palette": {
+  "symbol": "gUnk_0875298C",
+  "rom": {
+   "offset": "0x75298C",
+   "size": 32,
+   "sha256": "0ee27de88e66e01fa84e0937b3beb2d7a32a48f16a3157a07f020f55130ef992"
+  }
+ },
+ "source": {
+  "png": "gUnk_08752D4C.png",
+  "pal": "gUnk_08752D4C.pal",
+  "tiles_wide": 2,
+  "tile_count": 4
+ },
+ "frame": {
+  "width_tiles": 2,
+  "height_tiles": 2,
+  "count": 1,
+  "order": "row-major"
+ },
+ "semantics": "unidentified",
+ "encoder": {
+  "tool": "sprite2gba.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first",
+  "png_format": "indexed-8-plte"
+ },
+ "pair": {
+  "rule": "asm-branch",
+  "rom_adjacent": false,
+  "source": "asm",
+  "asm": "asm/code_0803EE94.s",
+  "load_lines": [
+   73444,
+   73892
+  ],
+  "distance": 448,
+  "reason": "BG map tile 0x73 ditulis func_0804E9F4 dengan indeks palet 2 (branch baris 76012, bl baris 76042); palet gUnk_0875298C di-DMA ke bank 2 (baris 73892)"
+ },
+ "evidence": "func_0804E9F4 menulis tile 0x73 dengan indeks palet 2 (branch 76012, bl 76042); gUnk_0875298C di-DMA 0x20 B ke bank 2 (baris 73892); tile gUnk_08752D4C di-DMA 0x80 B (baris 73444)",
+ "note": "4 tile 8x8 berisi; frame 2x2 satu objek"
+}

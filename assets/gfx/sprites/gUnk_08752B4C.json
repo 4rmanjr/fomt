@@ -46,8 +46,8 @@
    73892
   ],
   "distance": 744,
-  "reason": "BG map tile 0x71 ditulis func_0804E9F4 dengan indeks palet 2 (bl baris 75698); palet gUnk_0875298C di-DMA ke bank 2 (baris 73892)"
+  "reason": "BG map tile 0x71 ditulis func_0804E9F4 dengan indeks palet 2 (bl baris 75717); palet gUnk_0875298C di-DMA ke bank 2 (baris 73892)"
  },
- "evidence": "func_0804E9F4 menulis tile 0x71 dengan indeks palet 2 (baris 75698); gUnk_0875298C di-DMA 0x20 B ke bank 2 (baris 73892); tile gUnk_08752B4C di-DMA (baris 73148)",
+ "evidence": "func_0804E9F4 menulis tile 0x71 dengan indeks palet 2 (baris 75717); gUnk_0875298C di-DMA 0x20 B ke bank 2 (baris 73892); tile gUnk_08752B4C di-DMA (baris 73148)",
  "note": "1 tile 8x8 berisi + 0x60 padding nol; frame 2x2 hanya memuat gambar di tile 0"
 }

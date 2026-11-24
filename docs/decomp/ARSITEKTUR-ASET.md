@@ -794,7 +794,7 @@ indeks palet eksplisit:
 
 | slot tile | blob | indeks palet | palet | bukti |
 |---|---|---|---|---|
-| 0x71 / 0x72 / 0x77 | `08752B4C` / `087529AC` / `08752ACC` | 2 | `gUnk_0875298C` | `func_0804E9F4` di baris 75698 / 75852 / 76030; palet di-DMA ke `0x05000040` (bank 2) di baris 73892 |
+| 0x71 / 0x72 / 0x77 | `08752B4C` / `087529AC` / `08752ACC` | 2 | `gUnk_0875298C` | `func_0804E9F4` di baris 75717 / 75852 / 76042; palet di-DMA ke `0x05000040` (bank 2) di baris 73892 |
 | 0x59 / 0x5A / 0x5B | `08752CCC` / `08752BCC` / `08752C4C` | 1 | `gUnk_08752AAC` | `func_0804E9F4` di baris 83546 / 83559 / 83572; palet di-DMA ke `0x05000020` (bank 1) di baris 80960 |
 
 Karena load tile dan palet berjauhan, pasangannya dicatat
@@ -804,11 +804,16 @@ palet. Keenam aset kini `kind: sprite` di `assets/gfx/sprites/` (JSON lama di
 `assets/gfx/tiles/` dihapus) dengan `sprite2gba.py verify` MATCH; PNG-nya
 menampilkan ikon 8x8 di tile 0, sedangkan tiga tile sisanya padding nol.
 
-Metode yang sama berlaku untuk dua blob `tiles4bpp` lain di blok itu
-(`gUnk_08752DCC` slot 0x70 dan `gUnk_08752D4C` slot 0x73): keduanya juga
-ditulis `func_0804E9F4` dengan indeks palet 2, jadi paletnya `gUnk_0875298C`.
-Keduanya belum diubah menjadi sprite di commit ini (di luar cakupan), tetapi
-buktinya sudah ada bila ingin dikonversi.
+Dua blob lain di blok itu ikut dikonversi dengan bukti yang sama:
+`gUnk_08752DCC` (slot 0x70, `func_0804E9F4` baris 75581) dan
+`gUnk_08752D4C` (slot 0x73, branch baris 76012 dengan `bl` 76042) juga
+ditulis dengan indeks palet 2, jadi pasangannya `gUnk_0875298C`; keduanya
+kini `kind: sprite` dan JSON lama di `assets/gfx/tiles/` dihapus.
+
+Nomor baris di tabel adalah baris `bl func_0804E9F4` untuk tile yang
+bersangkutan; nomor itu sengaja dicatat karena `pair.reason`/`evidence` di
+JSON mengutipnya, dan subset `--pair-asm` hanya memverifikasi baris load
+tile/palet (bukan baris BG map).
 
 Keempatnya lalu dimigrasikan sebagai **`kind: tiles4bpp`** lewat jalur tile
 (`tile4bpp.py`), bukan sprite: blob ini tile mentah tanpa palet pasangan, jadi

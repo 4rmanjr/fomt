@@ -181,8 +181,8 @@ Dirender sebagai lembar tile 4bpp abu-abu indeks (tanpa palet; warna asli butuh 
 | `gUnk_08752BCC` | `0x752BCC` | 128 | 1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B ke VRAM slot 0x5A; BG map tile 0x5A ditulis func_0804E9F4 dengan indeks palet 1 -> gUnk_08752AAC (bank 0x20) | ya | [png](../../assets/raw/png/gUnk_08752BCC_128_sprite.png) |
 | `gUnk_08752C4C` | `0x752C4C` | 128 | 1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B ke VRAM slot 0x5B; BG map tile 0x5B ditulis func_0804E9F4 dengan indeks palet 1 -> gUnk_08752AAC (bank 0x20) | ya | [png](../../assets/raw/png/gUnk_08752C4C_128_sprite.png) |
 | `gUnk_08752CCC` | `0x752CCC` | 128 | 1 tile 8x8 berisi + 0x60 padding nol; func_08068344 menyalin 0x20 B ke VRAM slot 0x59; BG map tile 0x59 ditulis func_0804E9F4 dengan indeks palet 1 -> gUnk_08752AAC (bank 0x20) | ya | [png](../../assets/raw/png/gUnk_08752CCC_128_sprite.png) |
-| `gUnk_08752D4C` | `0x752D4C` | 128 | 4 tile 4bpp (bukan palet: 25% word satu-nibble) | ya | [png](../../assets/raw/png/gUnk_08752D4C_128_sprite.png) |
-| `gUnk_08752DCC` | `0x752DCC` | 128 | 4 tile 4bpp (bukan palet: 23% word satu-nibble) | ya | [png](../../assets/raw/png/gUnk_08752DCC_128_sprite.png) |
+| `gUnk_08752D4C` | `0x752D4C` | 128 | 4 tile 8x8 berisi; func_080645F0 menyalin 0x80 B ke VRAM slot 0x73; BG map tile 0x73 ditulis func_0804E9F4 dengan indeks palet 2 -> gUnk_0875298C (bank 0x40) | ya | [png](../../assets/raw/png/gUnk_08752D4C_128_sprite.png) |
+| `gUnk_08752DCC` | `0x752DCC` | 128 | 1 tile 8x8 berisi + 0x60 padding nol; func_080645F0 menyalin 0x20 B ke VRAM slot 0x70; BG map tile 0x70 ditulis func_0804E9F4 dengan indeks palet 2 -> gUnk_0875298C (bank 0x40) | ya | [png](../../assets/raw/png/gUnk_08752DCC_128_sprite.png) |
 | `gUnk_08752E4C` | `0x752E4C` | 128 | 4 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_08752E4C_128_sprite.png) |
 | `gUnk_08752EEC` | `0x752EEC` | 128 | 4 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_08752EEC_128_sprite.png) |
 | `gUnk_08752F8C` | `0x752F8C` | 128 | 4 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_08752F8C_128_sprite.png) |

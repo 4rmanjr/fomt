@@ -918,7 +918,7 @@
     "tool": "sprite2gba.py",
     "version": 1
    },
-   "evidence": "func_0804E9F4 menulis tile 0x77 dengan indeks palet 2 (baris 76030); gUnk_0875298C di-DMA 0x20 B ke bank 2 (baris 73892); tile gUnk_08752ACC di-DMA (baris 73592)"
+   "evidence": "func_0804E9F4 menulis tile 0x77 dengan indeks palet 2 (baris 76042); gUnk_0875298C di-DMA 0x20 B ke bank 2 (baris 73892); tile gUnk_08752ACC di-DMA (baris 73592)"
   },
   {
    "id": "gfx/sprites/gunk_08752b4c",
@@ -940,7 +940,7 @@
     "tool": "sprite2gba.py",
     "version": 1
    },
-   "evidence": "func_0804E9F4 menulis tile 0x71 dengan indeks palet 2 (baris 75698); gUnk_0875298C di-DMA 0x20 B ke bank 2 (baris 73892); tile gUnk_08752B4C di-DMA (baris 73148)"
+   "evidence": "func_0804E9F4 menulis tile 0x71 dengan indeks palet 2 (baris 75717); gUnk_0875298C di-DMA 0x20 B ke bank 2 (baris 73892); tile gUnk_08752B4C di-DMA (baris 73148)"
   },
   {
    "id": "gfx/sprites/gunk_08752bcc",
@@ -1007,6 +1007,50 @@
     "version": 1
    },
    "evidence": "func_0804E9F4 menulis tile 0x59 dengan indeks palet 1 (baris 83546); gUnk_08752AAC di-DMA 0x20 B ke bank 1 (baris 80960); tile gUnk_08752CCC di-DMA (baris 81106)"
+  },
+  {
+   "id": "gfx/sprites/gunk_08752d4c",
+   "symbol": "gUnk_08752D4C",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752D4C",
+    "size": 128,
+    "sha256": "bbed8d40d3b50a112b0044f5cb15532a8373cd3979856ca2d420d71d65ae5dcf"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_08752D4C.json",
+    "png": "assets/gfx/sprites/gUnk_08752D4C.png",
+    "pal": "assets/gfx/sprites/gUnk_08752D4C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_0804E9F4 menulis tile 0x73 dengan indeks palet 2 (branch 76012, bl 76042); gUnk_0875298C di-DMA 0x20 B ke bank 2 (baris 73892); tile gUnk_08752D4C di-DMA 0x80 B (baris 73444)"
+  },
+  {
+   "id": "gfx/sprites/gunk_08752dcc",
+   "symbol": "gUnk_08752DCC",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752DCC",
+    "size": 128,
+    "sha256": "ccdc2896da25e2ddd8c4fb879590ee0c58eb84ee13ebce7084af8600d3561da0"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_08752DCC.json",
+    "png": "assets/gfx/sprites/gUnk_08752DCC.png",
+    "pal": "assets/gfx/sprites/gUnk_08752DCC.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_0804E9F4 menulis tile 0x70 dengan indeks palet 2 (baris 75581); gUnk_0875298C di-DMA 0x20 B ke bank 2 (baris 73892); tile gUnk_08752DCC di-DMA 0x20 B (baris 73000)"
   },
   {
    "id": "gfx/sprites/gunk_08752e4c",
@@ -1262,46 +1306,6 @@
    "source": {
     "json": "assets/gfx/tiles/gUnk_08750C8C.json",
     "png": "assets/gfx/tiles/gUnk_08750C8C.png"
-   },
-   "encoder": {
-    "tool": "tile4bpp.py",
-    "version": 1
-   }
-  },
-  {
-   "id": "gfx/tiles/gunk_08752d4c",
-   "symbol": "gUnk_08752D4C",
-   "kind": "tiles4bpp",
-   "semantics": "unidentified",
-   "status": "rom-exact",
-   "rom": {
-    "offset": "0x752D4C",
-    "size": 128,
-    "sha256": "bbed8d40d3b50a112b0044f5cb15532a8373cd3979856ca2d420d71d65ae5dcf"
-   },
-   "source": {
-    "json": "assets/gfx/tiles/gUnk_08752D4C.json",
-    "png": "assets/gfx/tiles/gUnk_08752D4C.png"
-   },
-   "encoder": {
-    "tool": "tile4bpp.py",
-    "version": 1
-   }
-  },
-  {
-   "id": "gfx/tiles/gunk_08752dcc",
-   "symbol": "gUnk_08752DCC",
-   "kind": "tiles4bpp",
-   "semantics": "unidentified",
-   "status": "rom-exact",
-   "rom": {
-    "offset": "0x752DCC",
-    "size": 128,
-    "sha256": "ccdc2896da25e2ddd8c4fb879590ee0c58eb84ee13ebce7084af8600d3561da0"
-   },
-   "source": {
-    "json": "assets/gfx/tiles/gUnk_08752DCC.json",
-    "png": "assets/gfx/tiles/gUnk_08752DCC.png"
    },
    "encoder": {
     "tool": "tile4bpp.py",

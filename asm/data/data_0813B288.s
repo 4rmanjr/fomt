@@ -1043,7 +1043,7 @@ gUnk_08752AAC:
 gUnk_08752ACC:
 	@ rom: 0x752ACC 0x80 — source assets/gfx/sprites/gUnk_08752ACC.{png,pal,json};
 	@ 1 tile 8x8 berisi + 0x60 padding nol; func_0804E9F4 menulis BG map tile 0x77
-	@ dengan indeks palet 2 (baris 76030), palet gUnk_0875298C di-DMA ke bank 2;
+	@ dengan indeks palet 2 (baris 76042), palet gUnk_0875298C di-DMA ke bank 2;
 	@ pair-rule asm-branch (tile baris 73592/palet baris 73892) digerbang sprite2gba.py verify.
 	.incbin "build/assets/gUnk_08752ACC.bin"
 
@@ -1051,7 +1051,7 @@ gUnk_08752ACC:
 gUnk_08752B4C:
 	@ rom: 0x752B4C 0x80 — source assets/gfx/sprites/gUnk_08752B4C.{png,pal,json};
 	@ 1 tile 8x8 berisi + 0x60 padding nol; func_0804E9F4 menulis BG map tile 0x71
-	@ dengan indeks palet 2 (baris 75698), palet gUnk_0875298C di-DMA ke bank 2;
+	@ dengan indeks palet 2 (baris 75717), palet gUnk_0875298C di-DMA ke bank 2;
 	@ pair-rule asm-branch (tile baris 73148/palet baris 73892) digerbang sprite2gba.py verify.
 	.incbin "build/assets/gUnk_08752B4C.bin"
 
@@ -1081,14 +1081,18 @@ gUnk_08752CCC:
 
 	.global gUnk_08752D4C
 gUnk_08752D4C:
-	@ rom: 0x752D4C 0x80 — source assets/gfx/tiles/gUnk_08752D4C.{png,json};
-	@ 4 tile 8x8 (DMA ke VRAM slot 0x73), digerbang tile4bpp.py verify.
+	@ rom: 0x752D4C 0x80 — source assets/gfx/sprites/gUnk_08752D4C.{png,pal,json};
+	@ 4 tile 8x8 berisi; DMA 0x80 B ke VRAM slot 0x73.
+	@ func_0804E9F4 menulis BG map tile 0x73 dengan indeks palet 2 (baris 76012, bl 76042),
+	@ palet gUnk_0875298C di-DMA ke bank 2 (baris 73892); pair-rule asm-branch digerbang sprite2gba.py verify.
 	.incbin "build/assets/gUnk_08752D4C.bin"
 
 	.global gUnk_08752DCC
 gUnk_08752DCC:
-	@ rom: 0x752DCC 0x80 — source assets/gfx/tiles/gUnk_08752DCC.{png,json};
-	@ 4 tile 8x8 (DMA ke VRAM slot 0x70), digerbang tile4bpp.py verify.
+	@ rom: 0x752DCC 0x80 — source assets/gfx/sprites/gUnk_08752DCC.{png,pal,json};
+	@ 1 tile 8x8 berisi + 0x60 padding nol; DMA 0x20 B ke VRAM slot 0x70.
+	@ func_0804E9F4 menulis BG map tile 0x70 dengan indeks palet 2 (baris 75581, bl 75581),
+	@ palet gUnk_0875298C di-DMA ke bank 2 (baris 73892); pair-rule asm-branch digerbang sprite2gba.py verify.
 	.incbin "build/assets/gUnk_08752DCC.bin"
 
 	.global gUnk_08752E4C
