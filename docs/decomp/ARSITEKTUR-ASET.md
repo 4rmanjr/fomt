@@ -34,10 +34,13 @@ sudah ada, serta [`TOOLS.md`](../ops/TOOLS.md) untuk perintah tool.
 `asm/data/data_0813B288.s` memuat blob sebagai:
 
 ```asm
-.global gUnk_0875A440
-gUnk_0875A440:
-    .incbin "baserom.gba", 0x75A440, 0x1004
+.global gUnk_0872DE44
+gUnk_0872DE44:
+    .incbin "baserom.gba", 0x72DE44, 0x1034
 ```
+
+Satu simbol, `gUnk_0875A440`, sudah dialihkan ke binary hasil encoder (§8);
+sisanya masih `.incbin "baserom.gba"`.
 
 Konsekuensinya:
 
@@ -118,6 +121,19 @@ mengubah ROM.
 `header-only` dan `decoded-exact` adalah status jujur, bukan kegagalan yang
 perlu disembunyikan. Ia mencegah klaim bukti yang tidak bisa dipertahankan.
 
+Audit hash compressed + decoded dan prioritas konversi untuk **seluruh**
+stream `0x70` yang sudah diekstrak — blob utuh maupun bank tertanam — ada di
+[`ASET-0X70-REENCODE.md`](ASET-0X70-REENCODE.md); cakupan per sumber dicatat
+di bagian Ringkasan dokumen itu, dan saat ini semuanya `opaque` karena repo
+belum punya encoder `0x70` yang terbukti byte-identik. Prioritas di dokumen
+itu bukan izin mengganti `.incbin`.
+
+Palet `gUnk_0875A440` dan 12 wadah font/objek belum punya pasangan yang
+terbukti: call site-nya tidak memuat simbol palet, dan vtable wadah hanya
+mengembalikan pointer glyph/tile. Status bukti + kandidat posisi dicatat di
+[`PALET-FONT.md`](PALET-FONT.md); jangan mengisi palet di manifest aset
+sebelum ada bukti loader.
+
 ### 4.4 Symbol/address contract
 
 Dalam profil `match`:
@@ -130,6 +146,24 @@ Dalam profil `match`:
 
 Jika perubahan source mengubah ukuran atau urutan, itu perubahan profil `mod`,
 bukan `match`.
+
+### 4.5 Framing lossless bukan bukti format
+
+Round-trip byte-identik hanya membuktikan framing yang dipilih bisa dibalik,
+bukan bahwa framing itu benar. Satu blob bisa dibaca sebagai “header 20 B +
+N tile” dan tetap round-trip, padahal aslinya container berhitung. Bukti format
+harus datang dari pembaca sebenarnya (call site) dan aritmetika panjangnya,
+bukan dari kecocokan hash semata.
+
+Contoh konkret `gUnk_0872DE44` (`0x72DE44`, 4148 B): `func_0805E6CC` membaca
+enam tabel berhitung lalu satu tabel ekor — A 27×4 B, B 27×16 B, C 6×8 B,
+D 106×32 B, E 1×32 B, F 0×8 B, lalu T 27×4 B — dan totalnya tepat `0x1034`.
+Framing lama “20 B header + 129 tile” juga round-trip, tetapi 22 B tabel ikut
+menjadi piksel sehingga preview-nya tampak seperti glyph yang bergeser. Source
+yang benar hanya merender section D+E (107 tile 4bpp) dan menyimpan tabel lain
+apa adanya; `tools/assets/font_container.py` melakukan itu dan `verify`
+menuntut SHA-256 seluruh container sama. Penggantian `.incbin` untuk simbol ini
+tetap pekerjaan terpisah dan belum dilakukan.
 
 ## 5. Struktur direktori target
 
@@ -172,6 +206,17 @@ Aturan:
 - `assets/manifest.json` adalah indeks, bukan tempat menyimpan byte asset.
 - `assets/raw/` dan `assets/0x70/` yang sekarang tetap dipertahankan sebagai
   export/audit; jangan langsung dijadikan input build tanpa status `rom-exact`.
+- Export `0x70` (`assets/0x70/`) punya tiga direktori: `bin/` (stream masih
+  terpak dari blob; nama `bin/<blob>_<index>_<unpacked>_0x<format>.bin`),
+  `png/` (render indeks + `png_sha256` di manifest; bukan source kanonik), dan
+  `extern/` untuk bin hasil unpack yang **bukan** stream di dalam blob sumber
+  (pasangan eksternal, mis. tabel tile/palet map). Rujukan di
+  `assets/0x70/manifest.json` selalu path relatif terhadap `assets/0x70/`:
+  `bin/...`, `png/...`, dan `extern/extern_<alamat>_<unpacked>_<sha8>.bin`
+  (mis. `extern/extern_086913D4_32768_4a0f1517.bin`) dengan `sha8` = 8 digit
+  pertama `sha256` isi bin setelah unpack (bukan hash terpak). Entri
+  `external_assets` mengikat `address`, `bin`, `unpacked`, `format`, dan
+  `sha256` penuh untuk tiap pasangan itu.
 
 ## 6. Manifest aset
 
@@ -216,9 +261,22 @@ Field yang wajib ada:
 - `deps`: palet, tileset, atau include lain;
 - `status`: salah satu status di §4.3.
 
+Schema mesin: `tools/assets/manifest_schema.json` (JSON Schema draft-07),
+divalidasi `tools/assets/asset_verify.py`; `id` juga ditolak bila memuat
+alamat ROM. Artefak pertama Fase 0 yang lolos: `gfx/fonts/clock` (4bpp),
+`gfx/fonts/unk_0872de44` (container), dan `gfx/palettes/panel_screen`
+(`gUnk_08731940`, 256 warna, bukti DMA `func_080AE7D0`).
+
 Aturan `id`: huruf kecil, berbentuk path, stabil, dan tidak memuat alamat ROM.
 Rename `id` adalah commit migrasi tersendiri; simbol tetap nama linker yang
 dipakai kode.
+
+`assets/manifest.json` adalah indeks yang dihasilkan
+`tools/assets/asset_manifest.py` dari metadata per-aset: `id`, `symbol`,
+`kind`, `status`, `rom` (offset/ukuran/sha256), `source` (PNG + JSON), dan
+`encoder` (tool + versi). Generator menjalankan encoder dan menolak aset yang
+byte/hash-nya belum cocok atau statusnya belum `rom-exact`, jadi entri di
+indeks tidak bisa mendahului gate; `--check` exit 1 bila indeks basi.
 
 Untuk container `0x70`, tambahkan:
 
@@ -246,7 +304,18 @@ Untuk container `0x70`, tambahkan:
 | sprite/OBJ | PNG + frame/OAM/anim JSON | `sprite2gba` | urutan tile, palet, metadata frame |
 | tabel/struct | JSON/C dengan schema | generator C/asm | layout struct, `static_assert`, hash byte |
 | container 0x70 | manifest stream + source decoded | `lz70` + encoder stream | decoded hash **dan** compressed hash |
+| container font/objek (`func_0805E6CC`) | JSON tabel + PNG tile | `font_container.py` | urutan enam tabel + ekor, SHA-256 seluruh container |
+| bank stream 0x70 tertanam | bin `extern/` + `embedded_manifest.json` | `embedded_streams.py` | rantai stream berakhir di ujung blob; sha256 bin + PNG tanpa ROM |
 | audio | MIDI/WAV | encoder m4a | urutan/loop, sample, hash |
+
+Kelas `layar` diputuskan dari fungsi pemuat scene (`SCREEN_SCENES` di
+`tools/scripts/extract_assets.py`), bukan dari gambar: sebuah stream hanya
+dipindah ke `layar` bila **semua** call site-nya berada di satu fungsi yang
+memang memuat tilemap langsung ke screenblock BG (`0x0600C000-0x0600FFFF`)
+plus palet, tanpa header peta/kamera. Contoh terverifikasi: `func_080B7164`
+(`gUnk_0872D630`, `gUnk_0872D5CC`), `func_080B55D0` (`gUnk_0872C73C`,
+`gUnk_0872C5D0`), `func_080AE7D0` (`gUnk_0872FE6C`, `gUnk_0872FC34`) — panel
+layar 32x32, bukan lapis peta; render-nya memperlihatkan kotak dialog/panel BG.
 
 Urutan prioritas: palet → tile/font/UI → tilemap → container `0x70` →
 map/tileset → audio → tabel/struct. Mulai dari yang encoder-nya paling mudah
@@ -274,6 +343,14 @@ Aturan build:
 - Generated asm tetap mempertahankan `.global`, urutan, dan alignment.
 - Untuk aset `rom-exact`, generated asm tidak boleh memakai
   `.incbin "baserom.gba"`.
+- `build_assets.py` belum ada. Simbol pertama yang sudah dialihkan
+  (`gUnk_0875A440`) memakai aturan Makefile langsung: objek
+  `build/asm/data/data_0813B288.o` bergantung pada
+  `build/assets/<symbol>.bin`, yang dibangun `tile4bpp.py encode` dari
+  `assets/gfx/fonts/clock.{png,json}`. Ganti satu simbol per perubahan dan
+  jalankan `make compare`. Provenance offset/ukuran ROM tetap ditulis di asm
+  sebagai komentar `@ rom: 0xOFFSET 0xSIZE` supaya inventaris aset tidak
+  kehilangan asal simbol.
 - `build/assets/**` tidak di-track; source + manifest + versi tool yang
   di-track.
 - `make compare` tetap menjadi gerbang akhir; asset build bukan pengganti
@@ -284,7 +361,8 @@ Aturan build:
 ### Gate per aset
 
 ```text
-asset_verify --symbol gUnk_0875A440
+python3 tools/assets/asset_verify.py --symbol gUnk_0875A440
+python3 tools/assets/asset_verify.py            # semua aset di manifest
 ```
 
 Memeriksa:
@@ -292,7 +370,54 @@ Memeriksa:
 - sha256 generated == sha256 slice ROM;
 - offset, ukuran, alignment tidak berubah;
 - source dan encoder yang tercatat benar-benar dipakai;
-- aset `rom-exact` tidak masih memakai `baserom.gba`.
+- aset `rom-exact` tidak masih memakai `baserom.gba` (di Fase 0 ini masih
+  dilaporkan sebagai catatan; `--require-switched` menjadikannya kegagalan);
+- `assets/manifest.json` sesuai schema dan tidak punya symbol/offset ganda.
+
+Gate `assets/manifest.json` juga dipanggil `check_docs.py` (dibandingkan
+dengan `asset_manifest.build()`), jadi manifest basi menggagalkan tutup sesi.
+
+### Gate aset `0x70` tanpa ROM
+
+Dua gerbang ini merender/hash ulang dari manifest + berkas yang sudah ada,
+sehingga bisa dijalankan tanpa `baserom.gba`:
+
+```sh
+python3 tools/scripts/extract_assets.py --check-png
+python3 tools/scripts/extract_assets.py --check-external
+```
+
+- `--check-png` merender ulang setiap PNG dari `bin/` stream internal atau
+  `extern/*.bin`, lalu membandingkan `png_sha256` di manifest **dan** hash
+  berkas PNG di disk. Format ringkas: `PNG: <n> diperiksa, <m> masalah`;
+  `m > 0` → exit 1, dengan baris `MASALAH <blob>#<i>: <sebab>` (mis.
+  `hash render ulang beda` atau `file PNG beda dari manifest`).
+- `--check-external` menghitung SHA-256 setiap entri
+  `external_assets` di `assets/0x70/manifest.json`, mencocokkannya dengan
+  field `sha256`, dan menolak berkas yang hilang. Format ringkas:
+  `aset pasangan eksternal: <cocok>/<total> cocok`; `MASALAH <alamat>:
+  sha256 beda` / `berkas hilang: <bin>` → exit 1.
+
+Uji negatif yang pernah dijalankan: satu PNG dipotong 1 byte dan satu bin
+`extern/` diubah 1 byte → kedua perintah exit 1 (`hash render ulang beda`,
+`sha256 beda`); setelah berkas dipulihkan byte-identik, keduanya exit 0.
+Artinya kegagalan berkas benar-benar tertangkap, bukan hanya kegagalan
+manifest.
+
+Gate tutup sesi memakai jalur murah dari pemeriksaan yang sama:
+`check_docs.py` memanggil kedua jalur `quick`: `extract_assets.png_problems`
+untuk PNG stream/pasangan dan `embedded_streams.problems` untuk PNG bank
+tertanam. Keduanya selalu memeriksa hash setiap PNG ke `png_sha256`
+manifestnya (murah, dan itu yang menangkap PNG rusak), dan hanya merender
+ulang bila sidik jari input render (isi manifest + path/ukuran/mtime setiap
+`bin/`) berbeda dari render terakhir yang lolos. Sidik jari disimpan di
+`build/png_check.stamp.json` dan `build/embedded_check.stamp.json`
+(gitignored), jadi render penuh hanya terjadi setelah clone/clean atau saat
+bin benar-benar berubah; `--check-png` tanpa `--quick` dan `embedded_streams
+--check` tanpa `--quick` selalu merender ulang. Hook `pre-commit` juga
+terpicu bila yang di-stage adalah `assets/0x70/png|bin|extern/` atau
+`assets/0x70/manifest.json`, jadi PNG rusak tidak bisa ikut ter-commit tanpa
+ada yang menjalankan perintah manual.
 
 ### Gate build
 
@@ -368,12 +493,19 @@ wajib memperbarui [`TOOLS.md`](../ops/TOOLS.md) pada commit yang sama.
 
 ### Fase 0 — baseline dan pengaman
 
-- Tambahkan `asset_verify.py` dan schema manifest.
-- Perkaya manifest raw/0x70 dengan sha256, status, kind, dan source.
-- Tegaskan `assets/raw` dan `assets/0x70` sebagai export/audit.
-- Belum mengubah `.incbin` atau build pada fase ini.
+- **Selesai:** `tools/assets/asset_verify.py` + `tools/assets/manifest_schema.json`
+  (validasi schema, hash ROM, encoder, source, catatan `.incbin`).
+- **Selesai:** bukti tiga aset source `rom-exact` — `gfx/fonts/clock`
+  (`tile4bpp.py`), `gfx/fonts/unk_0872de44` (`font_container.py`), dan
+  `gfx/palettes/panel_screen` (`gUnk_08731940`, `pal2gba.py`); semuanya
+  `sha256(encoded) == sha256(ROM slice)` dan `make compare` HIJAU.
+- **Selesai:** `assets/raw` dan `assets/0x70` tetap export/audit (tidak jadi
+  input build), belum ada `.incbin` baru yang diubah.
+- **Belum:** status `opaque` + sha256 per blob `raw/0x70` masuk manifest;
+  `.incbin` diganti hanya setelah encoder-nya lolos gate (Fase 1).
 
-**Exit:** semua blob punya status; belum ada klaim `rom-exact`.
+**Exit:** semua blob punya status; belum ada klaim `rom-exact` baru di luar
+aset source yang lolos gate.
 
 ### Fase 1 — encoder termudah
 
@@ -390,6 +522,15 @@ wajib memperbarui [`TOOLS.md`](../ops/TOOLS.md) pada commit yang sama.
   juga sama.
 - Jika compressor tidak bisa mereproduksi byte, tetap `opaque`; jangan
   mengganti `.incbin`.
+- **Progres:** `tools/assets/lz70.py` menulis format `000` (atom0/lzss0/diff0).
+  Replay token asli via serializer = byte identik **3/3** stream P0 (model
+  header/bit/padding terbukti), roundtrip decode 3/3, dan parse optimal
+  mencapai ukuran compressed yang sama persis dengan aslinya **3/3**.
+- **Namun hash compressed belum sama**: ada banyak tokenisasi berbiaya bit
+  identik dan encoder asli memilih di antaranya dengan aturan yang belum
+  diketahui (24 kombinasi tie-break diuji, tidak ada yang cocok). Karena
+  `stream_audit.py` menilai byte, bukan ukuran, ketiga stream P0 **tetap
+  `opaque`**. Rincian: `assets/0x70/encoder_probe.md`.
 
 **Exit:** container yang exact sudah terverifikasi; sisanya punya alasan.
 

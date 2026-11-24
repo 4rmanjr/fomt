@@ -14,13 +14,30 @@ python3 tools/scripts/raw_assets.py --check   # exit 1 bila dokumen basi
 | kelompok | blob | bisa dirender |
 |---|---|---|
 | palet | 70 | 70 |
-| sprite/OBJ | 74 | 62 |
-| tilemap | 15 | 15 |
-| gambar terkompresi | 2 | 0 |
-| tabel | 70 | 0 |
+| sprite/OBJ | 73 | 61 |
+| tilemap | 16 | 16 |
+| gambar terkompresi | 3 | 0 |
+| tabel | 69 | 0 |
 | **total** | **231** | **147** |
 
-Kelompok ditentukan dari isi, bukan nama simbol: palet = semua u16 < 0x8000 dan <= 1 KB; sprite/OBJ = kelipatan 32 B (tile 4bpp), ditambah blob non-32 B yang setelah header/ekor <= 31 B menyisakan tile dengan >= 13% nibble nol dan <= 12 indeks/tile; tilemap = entri 16-bit dengan bit 10-15 konsisten; gambar terkompresi = blob dengan stream 0x70 valid; sisanya tabel/struct dan tidak dirender. Offset/ekor yang dipotong dicatat di manifest (`tile_offset`/`tile_trim`). Override `layout: container` menandai wadah font/objek yang sudah diverifikasi dari call site; isinya bukan tile 4bpp datar dan tidak dirender sebagai lembar tile. Batas ini heuristik, bukan bukti format; override call-site adalah bukti terpisah.
+Kelompok ditentukan dari isi, bukan nama simbol, kecuali `gambar terkompresi` (lihat di bawah): palet = semua u16 < 0x8000 dan <= 1 KB; sprite/OBJ = kelipatan 32 B (tile 4bpp), ditambah blob non-32 B yang setelah header/ekor <= 31 B menyisakan tile dengan >= 13% nibble nol dan <= 12 indeks/tile; tilemap = entri 16-bit dengan bit 10-15 konsisten; sisanya tabel/struct dan tidak dirender. Kelompok `gambar terkompresi` **bukan** hasil deteksi isi: hanya blob yang bank stream `0x70`-nya terbukti dari call site (daftar override di `VERIFIED_LAYOUT`) yang masuk ke sana, karena rantai `0x70` yang berakhir tepat di ujung blob juga muncul di blob lain yang terbukti container. Offset/ekor yang dipotong dicatat di manifest (`tile_offset`/`tile_trim`). Override `layout: container` menandai wadah font/objek yang sudah diverifikasi dari call site; isinya bukan tile 4bpp datar dan tidak dirender sebagai lembar tile. Untuk stamp peta, field `map_width` di manifest berisi lebar kolom dari loader (`func_080AA9C8`), bukan tebakan pembagi; hash PNG memakai lebar itu. Batas ini heuristik, bukan bukti format; override call-site adalah bukti terpisah.
+
+## Rantai `0x70` valid di blob non-32 B
+
+Pemeriksa silang untuk kelompok `gambar terkompresi`: 94 blob non-32 B diuji apakah memuat rantai stream `0x70` yang berakhir tepat di ujung blob, lalu hasilnya dibandingkan dengan kelompoknya. Tabel ini **bukan** penentu kelompok (lihat alasannya di atas); gunanya memastikan tidak ada bank tertanam yang lolos dari kelompok.
+
+- blob non-32 B: **94**
+- dengan rantai `0x70` berakhir di ujung: **4**
+- bank terbukti: **3**, container terbukti: **1**, belum terbukti: **0**
+
+| simbol | ukuran | sisa %32 | kelompok | awal | stream | packed | status |
+|---|---:|---:|---|---:|---:|---:|---|
+| `gUnk_0869B284` | 238212 | 4 | gambar terkompresi | 308 | 119 | 237904 | bank terbukti |
+| `gUnk_086D74F8` | 20172 | 12 | gambar terkompresi | 96 | 25 | 20076 | bank terbukti |
+| `gUnk_087409E4` | 9844 | 20 | sprite/OBJ | 4112 | 20 | 5732 | container terbukti |
+| `gUnk_086DC3F4` | 344 | 24 | gambar terkompresi | 12 | 3 | 332 | bank terbukti |
+
+Tidak ada kandidat `belum terbukti`: setiap rantai sudah dijelaskan penunjuk kode/tabel (bank atau container).
 
 ## palet (70 blob)
 
@@ -99,7 +116,7 @@ Dirender sebagai kartu swatch 16 warna per baris, warna GBA 5-5-5.
 | `gUnk_08757BAC` | `0x757BAC` | 32 | 16 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_08757BAC_32_palet.png) |
 | `gUnk_08757BD8` | `0x757BD8` | 32 | 16 warna (semua u16 < 0x8000) | ya | [png](../../assets/raw/png/gUnk_08757BD8_32_palet.png) |
 
-## sprite/OBJ (74 blob)
+## sprite/OBJ (73 blob)
 
 Dirender sebagai lembar tile 4bpp abu-abu indeks (tanpa palet; warna asli butuh palet OBJ terpisah). Entri `layout: container` adalah wadah font/objek terverifikasi call-site dan sengaja tidak dirender.
 
@@ -109,7 +126,6 @@ Dirender sebagai lembar tile 4bpp abu-abu indeks (tanpa palet; warna asli butuh 
 | `gUnk_0852D984` | `0x52D984` | 385188 | count 184 + tabel; func_0805E6CC (font/objek), bukan tile datar | tidak | - |
 | `gUnk_086678A0` | `0x6678A0` | 196736 | 6148 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_086678A0_196736_sprite.png) |
 | `gUnk_084FA9A0` | `0x4FA9A0` | 166128 | glyph 24 B; func_080D0D28 indeks r5*24 -> func_03000714 | tidak | - |
-| `gUnk_086EAD8C` | `0x6EAD8C` | 33312 | 1041 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_086EAD8C_33312_sprite.png) |
 | `gUnk_086F2FAC` | `0x6F2FAC` | 31444 | count 4 + tabel; func_0805E6CC (font/objek), bukan tile datar | tidak | - |
 | `gUnk_0871EF00` | `0x71EF00` | 28320 | 885 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_0871EF00_28320_sprite.png) |
 | `gUnk_08731B40` | `0x731B40` | 26116 | count 20 + tabel; @ChickenPortraits, func_0805E6CC, bukan tile datar | tidak | - |
@@ -122,7 +138,7 @@ Dirender sebagai lembar tile 4bpp abu-abu indeks (tanpa palet; warna asli butuh 
 | `gUnk_08698E14` | `0x698E14` | 4576 | 143 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_08698E14_4576_sprite.png) |
 | `gUnk_0869A0A4` | `0x69A0A4` | 4576 | 143 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_0869A0A4_4576_sprite.png) |
 | `gUnk_08728320` | `0x728320` | 4188 | count 7 + tabel; func_0805E6CC (font/objek), bukan tile datar | tidak | - |
-| `gUnk_0872DE44` | `0x72DE44` | 4148 | count 27 + tabel; func_080522F8 -> func_0805E6CC, bukan tile datar | tidak | - |
+| `gUnk_0872DE44` | `0x72DE44` | 4148 | container func_0805E6CC: A27/B27/C6/D106/E1/F0/T27; tile 4bpp hanya D+E (107 tile), sisa tabel | tidak | - |
 | `gUnk_0875A440` | `0x75A440` | 4100 | 128 tile 4bpp dipotong 4 B ekor; 62% nibble nol, 2.7 indeks/tile | ya | [png](../../assets/raw/png/gUnk_0875A440_4100_sprite.png) |
 | `gUnk_086D5508` | `0x6D5508` | 3680 | 115 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_086D5508_3680_sprite.png) |
 | `gUnk_086D6698` | `0x6D6698` | 3680 | 115 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_086D6698_3680_sprite.png) |
@@ -180,13 +196,12 @@ Dirender sebagai lembar tile 4bpp abu-abu indeks (tanpa palet; warna asli butuh 
 | `gUnk_087533EC` | `0x7533EC` | 128 | 4 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_087533EC_128_sprite.png) |
 | `gUnk_0875348C` | `0x75348C` | 128 | 4 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_0875348C_128_sprite.png) |
 
-## tilemap (15 blob)
+## tilemap (16 blob)
 
-Dirender sebagai grid indeks; lebar ditebak dari jumlah entri dan dicantumkan di nama berkas.
+Dirender sebagai grid indeks; lebar diambil dari `map_width` (call site) bila ada, sisanya ditebak dari jumlah entri dan dicantumkan di nama berkas.
 
 | simbol | offset | ukuran | catatan | bisa dirender | PNG |
 |---|---|---|---|---|---|
-| `gUnk_086DE7F4` | `0x6DE7F4` | 50408 | 25204 entri u16; func_080AA9C8 memilihnya sebagai layer peta | ya | [png](../../assets/raw/png/gUnk_086DE7F4_50408_tilemap_32.png) |
 | `gUnk_08755230` | `0x755230` | 780 | 390 entri 16-bit; bit 10-15 modal 88% | ya | [png](../../assets/raw/png/gUnk_08755230_780_tilemap_30.png) |
 | `gUnk_0875553C` | `0x75553C` | 780 | 390 entri 16-bit; bit 10-15 modal 69% | ya | [png](../../assets/raw/png/gUnk_0875553C_780_tilemap_30.png) |
 | `gUnk_08757C14` | `0x757C14` | 780 | 390 entri 16-bit; bit 10-15 modal 88% | ya | [png](../../assets/raw/png/gUnk_08757C14_780_tilemap_30.png) |
@@ -196,33 +211,38 @@ Dirender sebagai grid indeks; lebar ditebak dari jumlah entri dan dicantumkan di
 | `gUnk_086D6458` | `0x6D6458` | 192 | 96 entri 16-bit; bit 10-15 modal 54% | ya | [png](../../assets/raw/png/gUnk_086D6458_192_tilemap_16.png) |
 | `gUnk_086D6548` | `0x6D6548` | 192 | 96 entri 16-bit; bit 10-15 modal 43% | ya | [png](../../assets/raw/png/gUnk_086D6548_192_tilemap_16.png) |
 | `gUnk_086D6608` | `0x6D6608` | 144 | 72 entri 16-bit; bit 10-15 modal 69% | ya | [png](../../assets/raw/png/gUnk_086D6608_144_tilemap_8.png) |
-| `gUnk_086DC54C` | `0x6DC54C` | 48 | 24 entri 16-bit; bit 10-15 modal 100% | ya | [png](../../assets/raw/png/gUnk_086DC54C_48_tilemap_8.png) |
-| `gUnk_086DD6B0` | `0x6DD6B0` | 48 | 24 entri 16-bit; bit 10-15 modal 100% | ya | [png](../../assets/raw/png/gUnk_086DD6B0_48_tilemap_8.png) |
+| `gUnk_086DC54C` | `0x6DC54C` | 48 | stamp 6x4 (24 entri u16) dibaca func_080AA9C8 (sl=6, 4 baris); lebar = kolom loader | ya | [png](../../assets/raw/png/gUnk_086DC54C_48_tilemap_6.png) |
+| `gUnk_086DD6B0` | `0x6DD6B0` | 48 | stamp 6x4 (24 entri u16) dibaca func_080AA9C8 (sl=6, 4 baris); lebar = kolom loader | ya | [png](../../assets/raw/png/gUnk_086DD6B0_48_tilemap_6.png) |
 | `gUnk_086D6528` | `0x6D6528` | 32 | 16 entri 16-bit; bit 10-15 modal 62% | ya | [png](../../assets/raw/png/gUnk_086D6528_32_tilemap_8.png) |
-| `gUnk_086DD690` | `0x6DD690` | 32 | 16 entri 16-bit; bit 10-15 modal 100% | ya | [png](../../assets/raw/png/gUnk_086DD690_32_tilemap_8.png) |
-| `gUnk_086EAD64` | `0x6EAD64` | 32 | 16 entri 16-bit; bit 10-15 modal 100% | ya | [png](../../assets/raw/png/gUnk_086EAD64_32_tilemap_8.png) |
+| `gUnk_086DD690` | `0x6DD690` | 32 | stamp 4x4 (16 entri u16) dibaca func_080AA9C8 (sl=4, 4 baris); lebar = kolom loader | ya | [png](../../assets/raw/png/gUnk_086DD690_32_tilemap_4.png) |
+| `gUnk_086EAD64` | `0x6EAD64` | 32 | stamp 4x4 (16 entri u16) dibaca func_080AA9C8 (sl=4, 4 baris); lebar = kolom loader | ya | [png](../../assets/raw/png/gUnk_086EAD64_32_tilemap_4.png) |
+| `gUnk_086EACDC` | `0x6EACDC` | 8 | stamp 2x2 (4 entri u16) dibaca func_080AA9C8 (sl=2, 2 baris); lebar = kolom loader | ya | [png](../../assets/raw/png/gUnk_086EACDC_8_tilemap_2.png) |
+| `gUnk_086EAD84` | `0x6EAD84` | 8 | stamp 2x2 (4 entri u16) dibaca func_080AA9C8 (sl=2, 2 baris); lebar = kolom loader | ya | [png](../../assets/raw/png/gUnk_086EAD84_8_tilemap_2.png) |
 
-## gambar terkompresi (2 blob)
+## gambar terkompresi (3 blob)
 
-Tidak dirender mentah: berisi stream `0x70`; dekompresi/ekstraksi ada di `assets/0x70`.
+Tidak dirender mentah: berisi bank stream `0x70` tertanam. `assets/0x70/` memuat blob berformat `0x70` dan bank tertanam `gUnk_0869B284`, `gUnk_086D74F8`, `gUnk_086DC3F4` (lihat `ASET-0X70-TERTANAM.md`).
 
 | simbol | offset | ukuran | catatan | bisa dirender | PNG |
 |---|---|---|---|---|---|
-| `gUnk_0869B284` | `0x69B284` | 238212 | palet 0x00-0x7f; bank 37 stream 0x70 valid (mulai 0x4ac); contoh decode menghasilkan gambar UI | tidak | - |
-| `gUnk_086D74F8` | `0x6D74F8` | 20172 | 2 stream 0x70 valid (0x890, 0x3ad4); palet di 0x20 | tidak | - |
+| `gUnk_0869B284` | `0x69B284` | 238212 | palet 0x00-0x7f; bank 119 stream 0x70 tertanam (mulai 0x134) sudah diekstrak ke assets/0x70/extern | tidak | - |
+| `gUnk_086D74F8` | `0x6D74F8` | 20172 | 25 stream 0x70 tertanam (mulai 0x60); palet di 0x20; sudah diekstrak ke assets/0x70/extern | tidak | - |
+| `gUnk_086DC3F4` | `0x6DC3F4` | 344 | stempel 3x2 12 B (func_080AA540 menyalin 12 B); sisa 332 B = 3 stream 0x70 tertanam (1560 B) ditunjuk tabel descriptor 0x08106860 (086DC400/4C4/4D0, dims 30x26); sudah diekstrak ke assets/0x70/extern | tidak | - |
 
-## tabel (70 blob)
+## tabel (69 blob)
 
 Tidak dirender: data angka/struct, bukan piksel atau tilemap 16-bit.
 
 | simbol | offset | ukuran | catatan | bisa dirender | PNG |
 |---|---|---|---|---|---|
+| `gUnk_086DE7F4` | `0x6DE7F4` | 50408 | tabel 16-bit; func_080AA9C8 (kasus 21) memakai 16 entri sebagai blok 4x4 (sl=4 kolom, 4 baris) yang dicap ke lapis, bukan lapis peta; 25204 entri tak punya lebar persegi dan header peta gUnk_08105EDC tidak menunjuk blob ini | tidak | - |
+| `gUnk_086EAD8C` | `0x6EAD8C` | 33312 | 16656 entri u16 = 1041 blok 4x4; func_080AA9C8 memakai 16 entri pertama sebagai stamp 4x4 (sl=4, 4 baris), bukan 1041 tile 4bpp | tidak | - |
 | `gUnk_08523290` | `0x523290` | 15876 | tabel glyph int16; func_080D0D28 memakai ldrsh, 0xffff = sentinel | tidak | - |
 | `gUnk_08725DA0` | `0x725DA0` | 3884 | 3884 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_087537D0` | `0x7537D0` | 3748 | 3748 B, bukan kelipatan 32 B; 1/937 word menunjuk ROM | tidak | - |
 | `gUnk_0873AFC8` | `0x73AFC8` | 3676 | 3676 B, bukan kelipatan 32 B | tidak | - |
-| `gUnk_086DCC88` | `0x6DCC88` | 2568 | 2568 B, bukan kelipatan 32 B | tidak | - |
-| `gUnk_086DDDEC` | `0x6DDDEC` | 2568 | 2568 B, bukan kelipatan 32 B | tidak | - |
+| `gUnk_086DCC88` | `0x6DCC88` | 2568 | 1284 entri u16; func_080AA9C8 memakai 16 entri pertama sebagai stamp 4x4 (sl=4, 4 baris); sisa tabel tak terbukti persegi (80,25 blok) | tidak | - |
+| `gUnk_086DDDEC` | `0x6DDDEC` | 2568 | 1284 entri u16; func_080AA9C8 memakai 16 entri pertama sebagai stamp 4x4 (sl=4, 4 baris); sisa tabel tak terbukti persegi (80,25 blok) | tidak | - |
 | `gUnk_08738144` | `0x738144` | 2452 | 2452 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_08529DA4` | `0x529DA4` | 2356 | 2356 B, bukan kelipatan 32 B; 9/589 word menunjuk ROM | tidak | - |
 | `gUnk_0852D050` | `0x52D050` | 2356 | 2356 B, bukan kelipatan 32 B; 9/589 word menunjuk ROM | tidak | - |
@@ -232,8 +252,8 @@ Tidak dirender: data angka/struct, bukan piksel atau tilemap 16-bit.
 | `gUnk_0873D6D8` | `0x73D6D8` | 1900 | 1900 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_0873DE44` | `0x73DE44` | 1900 | 1900 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_0873E5B0` | `0x73E5B0` | 1900 | 1900 B, bukan kelipatan 32 B | tidak | - |
-| `gUnk_086DC57C` | `0x6DC57C` | 1804 | 1804 B, bukan kelipatan 32 B | tidak | - |
-| `gUnk_086DD6E0` | `0x6DD6E0` | 1804 | 1804 B, bukan kelipatan 32 B | tidak | - |
+| `gUnk_086DC57C` | `0x6DC57C` | 1804 | 902 entri u16; func_080AA9C8 memakai 4 entri pertama sebagai stamp 2x2 (sl=2, 2 baris); 902 entri bukan persegi | tidak | - |
+| `gUnk_086DD6E0` | `0x6DD6E0` | 1804 | 902 entri u16; func_080AA9C8 memakai 4 entri pertama sebagai stamp 2x2 (sl=2, 2 baris); 902 entri bukan persegi | tidak | - |
 | `gUnk_08727368` | `0x727368` | 1804 | 1804 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_0873ED1C` | `0x73ED1C` | 1708 | 1708 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_08726CCC` | `0x726CCC` | 1692 | 1692 B, bukan kelipatan 32 B | tidak | - |
@@ -256,7 +276,6 @@ Tidak dirender: data angka/struct, bukan piksel atau tilemap 16-bit.
 | `gUnk_0873CCB4` | `0x73CCB4` | 504 | 504 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_08527094` | `0x527094` | 420 | 420 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_0873AE54` | `0x73AE54` | 372 | 372 B, bukan kelipatan 32 B | tidak | - |
-| `gUnk_086DC3F4` | `0x6DC3F4` | 344 | 344 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_08740454` | `0x740454` | 332 | 332 B, bukan kelipatan 32 B; 6/83 word menunjuk ROM | tidak | - |
 | `gUnk_0871EDD4` | `0x71EDD4` | 300 | 300 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_0871ECAC` | `0x71ECAC` | 296 | 296 B, bukan kelipatan 32 B | tidak | - |
@@ -283,8 +302,6 @@ Tidak dirender: data angka/struct, bukan piksel atau tilemap 16-bit.
 | `gUnk_0875A418` | `0x75A418` | 12 | 12 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_086D6518` | `0x6D6518` | 8 | 8 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_086D6520` | `0x6D6520` | 8 | 8 B, bukan kelipatan 32 B | tidak | - |
-| `gUnk_086EACDC` | `0x6EACDC` | 8 | 8 B, bukan kelipatan 32 B | tidak | - |
-| `gUnk_086EAD84` | `0x6EAD84` | 8 | 8 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_08757C0C` | `0x757C0C` | 8 | 8 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_0875A438` | `0x75A438` | 8 | 8 B, bukan kelipatan 32 B | tidak | - |
 

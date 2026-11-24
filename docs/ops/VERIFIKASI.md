@@ -7,7 +7,10 @@ Tool: [`TOOLS.md`](./TOOLS.md).
 
 | perubahan | bukti minimal |
 |---|---|
-| skrip Python | `python3 -m py_compile <skrip>` |
+| skrip Python | `python3 -m py_compile <skrip>` + `make test-tools` |
+| aset source (`assets/gfx/**`, `assets/manifest.json`) | `python3 tools/assets/asset_manifest.py --check` + `python3 tools/assets/asset_verify.py` (sha256 encoder == slice ROM) |
+| encoder stream `0x70` | `python3 tools/assets/lz70.py probe` — exit 1 berarti ada stream yang belum byte-identik dan **harus** tetap `opaque`; ini status jujur, bukan alasan mengganti `.incbin` |
+| `assets/0x70/reencode_manifest.json` / `ASET-0X70-REENCODE.md` | otomatis oleh `check_docs.py`: laporan dibandingkan dengan `stream_audit.build()` dari slice ROM + bin (blob utuh dan bank tertanam), jadi hash stream yang basi = masalah |
 | edit src manual / `migrate.py` | `make compare` HIJAU (`fomt.gba: OK`) |
 | judge, regen draf, parkir draf | tidak mengubah tree build → **tidak** perlu compare |
 | MATCH/migrasi yang mengubah ujung rantai (fungsi di ujung berkas asm pindah atau promosi ekor baru) | `python3 tools/scripts/ekor_snapshot.py` lalu `check_docs.py` (basi = masalah, exit 1) |
@@ -28,6 +31,22 @@ gagal bila ADA fungsi lain di modul itu yang gagal.
 struktural (blok duplikat/kurung rusak/state yatim/status basi/`i32`/drift/
 symlink). Pelengkap khusus status basi: `python3 decomp/audit_sync.py`.
 
+## Regresi `tools/tests`
+
+Semua test di `tools/tests/` (termasuk `test_raw_assets.py`, yang mengunci
+kelas/lebar blob mentah) dijalankan satu perintah:
+
+```sh
+make test-tools
+```
+
+Isinya `python3 -m unittest discover -s tools/tests -p 'test_*.py'`; tidak
+menjalankan build dan tidak menulis ROM. Beberapa test membaca berkas repo
+(`baserom.gba`, `assets/raw/manifest.json`), jadi jalankan dari root repo.
+Exit 0 = semua lulus; exit 1 = ada yang gagal (`FAILED (failures=…)` /
+`errors=…`). Karena outputnya >20 baris, arahkan ke `/tmp/test-tools.log` bila
+ingin hemat konteks lalu baca `tail -5` (R7); durasinya sekitar satu menit.
+
 ## Jangan klaim tanpa output
 
 - Jangan pernah bilang "selesai" tanpa output perintah yang mendukung.
@@ -46,7 +65,16 @@ symlink). Pelengkap khusus status basi: `python3 decomp/audit_sync.py`.
 1. `make compare` HIJAU.
 2. `python3 tools/scripts/audit_consistency.py` → masalah struktural 0.
 2b. `python3 tools/scripts/check_docs.py` → masalah dokumen 0 (termasuk gate
-   backlog ekor: `EKOR-BACKLOG.md` basi = masalah).
+   backlog ekor: `EKOR-BACKLOG.md` basi = masalah, dan gate PNG
+   `assets/0x70/png/` terhadap `png_sha256` manifestnya — baik PNG stream
+   (`extract_assets`) maupun PNG bank tertanam (`embedded_streams`); render
+   ulang hanya dijalankan bila sidik jari input beda dari render terakhir yang
+   lolos, jadi PNG rusak tetap tertangkap tanpa perintah manual dan tanpa
+   biaya render tiap sesi). Gate yang sama juga membandingkan
+   `assets/0x70/reencode_manifest.json` + `docs/decomp/ASET-0X70-REENCODE.md`
+   dengan `stream_audit.build()` (hash compressed/decoded semua stream yang
+   sudah diekstrak — blob utuh + bank tertanam — dan status `opaque`), jadi
+   laporan hash tidak bisa basi tanpa terdeteksi.
 3. `python3 tools/scripts/ekor_snapshot.py` → tulis ulang
    `docs/decomp/EKOR-BACKLOG.md` **bila sesi ini mengubah ujung rantai**: fungsi
    terakhir sebuah modul tail-only pindah/promosi, ekor dipromosikan jadi fungsi,

@@ -22,5 +22,6 @@
   "size": 4100,
   "sha256": "c5ae19339aeaedfcb4715e284f0ddc125d10b30c9c5b4eb27509bbf0225357cd"
  },
- "note": "128 tile 4bpp + 4 B ekor; preview grayscale indeks"
+ "note": "128 tile 4bpp + 4 B ekor; preview grayscale indeks",
+ "status": "rom-exact"
 }

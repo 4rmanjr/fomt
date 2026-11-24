@@ -6,9 +6,9 @@ dibuktikan di inventaris, bukan menguji ulang isi ROM:
 
   * flat tile 4148 B: 20 B header + 129 tile tetap sprite;
   * gClockFont 4100 B: 128 tile + 4 B ekor tetap sprite;
-  * symbol yang terverifikasi call-site/stream sebagai container/tilemap/
-    gambar terkompresi tetap memakai override walau data sintetisnya lolos
-    uji tile;
+  * symbol yang terverifikasi call-site/stream sebagai container/tabel
+    metatile/gambar terkompresi tetap memakai override walau data sintetisnya
+    lolos uji tile;
   * sprite 128 B: empat tile tetap sprite;
   * tilemap 780 B: 390 entri tetap tilemap;
   * tabel besar non-32 B tetap tabel.
@@ -16,7 +16,9 @@ dibuktikan di inventaris, bukan menguji ulang isi ROM:
 Jalankan: python3 tools/tests/test_raw_assets.py
 """
 import importlib.util
+import json
 import struct
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -66,6 +68,12 @@ def large_table():
     return bytes(range(256)) * 32 + b"\x07"
 
 
+def cell_stamp(cols, rows):
+    """Stempel peta u16 selaras: atribut bit 10-15 konsisten."""
+    return struct.pack(f"<{cols * rows}H",
+                       *[0x2400 + i for i in range(cols * rows)])
+
+
 class RawAssetClassifier(unittest.TestCase):
     def check(self, data, group, window=None, name=None):
         got, note, probe = raw_assets.classify(data, name)
@@ -89,7 +97,7 @@ class RawAssetClassifier(unittest.TestCase):
         got, note, probe = raw_assets.classify(data, "gUnk_0872DE44")
         self.assertEqual(got, "sprite/OBJ", note)
         self.assertIsNone(probe)
-        self.assertIn("count 27", note)
+        self.assertIn("A27/B27/C6/D106/E1/F0/T27", note)
 
     def test_verified_glyph_containers_are_not_flat_tile(self):
         for name, stride in (("gUnk_084F90CC", 12),
@@ -99,11 +107,16 @@ class RawAssetClassifier(unittest.TestCase):
             self.assertIsNone(probe)
             self.assertIn(f"glyph {stride} B", note)
 
-    def test_verified_map_layer_is_tilemap(self):
-        got, note, probe = raw_assets.classify(tilemap_780(), "gUnk_086DE7F4")
-        self.assertEqual(got, "tilemap", note)
+    def test_verified_metatile_table_is_not_tilemap(self):
+        # 25204 entri tidak punya lebar persegi; loader memakainya sebagai blok
+        # 4x4, jadi jangan dirender sebagai grid lebar 32 (fallback).
+        got, note, probe = raw_assets.classify(large_table(), "gUnk_086DE7F4")
+        self.assertEqual(got, "tabel", note)
         self.assertIsNone(probe)
-        self.assertIn("layer peta", note)
+        self.assertIn("blok 4x4", note)
+        self.assertIsNone(raw_assets.render(
+            {"symbol": "gUnk_086DE7F4", "size": 50408}, bytes(50408),
+            Path("/tmp"), "tilemap", note))
 
     def test_verified_glyph_table_stays_table(self):
         got, note, probe = raw_assets.classify(large_table(), "gUnk_08523290")
@@ -112,11 +125,12 @@ class RawAssetClassifier(unittest.TestCase):
         self.assertIn("ldrsh", note)
 
     def test_verified_embedded_streams_are_compressed(self):
-        for name in ("gUnk_0869B284", "gUnk_086D74F8"):
+        for name in ("gUnk_0869B284", "gUnk_086D74F8", "gUnk_086DC3F4"):
             got, note, probe = raw_assets.classify(large_table(), name)
             self.assertEqual(got, "gambar terkompresi", note)
             self.assertIsNone(probe)
-            self.assertIn("0x70", note)
+            self.assertIn("tertanam", note)
+            self.assertIn("diekstrak ke assets/0x70/extern", note)
 
     def test_sprite_128_stays_sprite(self):
         data = sprite_128()
@@ -132,6 +146,75 @@ class RawAssetClassifier(unittest.TestCase):
         data = large_table()
         self.assertGreater(len(data), 4096)
         self.check(data, "tabel")
+
+    def test_stamp_width_comes_from_loader_not_divisor(self):
+        # 48 B stamp 6x4: heuristik pembagi memilih lebar 8 (48 = 6*8 juga
+        # habis), tetapi loader membaca 6 kolom. 32 B/8 B sama kasusnya.
+        for name, (cols, rows, _block) in raw_assets.VERIFIED_MAP_STAMP.items():
+            data = cell_stamp(cols, rows)
+            self.assertEqual(len(data) // 2, cols * rows, name)
+            got, note, probe = raw_assets.classify(data, name)
+            self.assertEqual(got, "tilemap", note)
+            self.assertEqual(probe, None)
+            self.assertIn(f"stamp {cols}x{rows}", note)
+            with tempfile.TemporaryDirectory() as tmp:
+                (Path(tmp) / "png").mkdir()
+                entry = {"symbol": name, "size": len(data),
+                         "map_width": cols}
+                png = raw_assets.render(entry, data, Path(tmp),
+                                        "tilemap", note)
+                self.assertTrue(png and png.endswith(f"tilemap_{cols}.png"),
+                                png)
+
+    def test_stamp_without_matching_width_is_not_rendered(self):
+        # Kalau map_width tidak membagi jumlah entri, jangan render grid.
+        data = cell_stamp(6, 4)
+        entry = {"symbol": "x", "size": len(data), "map_width": 5}
+        self.assertIsNone(raw_assets.render(entry, data, Path("/tmp"),
+                                           "tilemap", "test"))
+
+    def test_stamp_library_is_not_sprite_sheet(self):
+        # gUnk_086EAD8C 33312 B = 1041 blok 4x4 u16; bukan 1041 tile 4bpp.
+        got, note, probe = raw_assets.classify(bytes(33312), "gUnk_086EAD8C")
+        self.assertEqual(got, "tabel", note)
+        self.assertIsNone(probe)
+        self.assertIn("1041 blok 4x4", note)
+        self.assertIn("bukan 1041 tile 4bpp", note)
+
+    def test_non_square_stamp_tables_are_not_rendered(self):
+        for name in ("gUnk_086DCC88", "gUnk_086DDDEC",
+                     "gUnk_086DC57C", "gUnk_086DD6E0"):
+            got, note, probe = raw_assets.classify(large_table(), name)
+            self.assertEqual(got, "tabel", note)
+            self.assertIsNone(probe)
+            self.assertIn("stamp", note)
+            self.assertIsNone(raw_assets.render(
+                {"symbol": name, "size": len(large_table())},
+                large_table(), Path("/tmp"), "tabel", note))
+
+    def test_chain_scan_cross_checks_group(self):
+        # Rantai 0x70 valid di blob non-32 B harus tetap terlihat meski bukan
+        # penentu kelompok: tiga bank + satu container terbukti.
+        manifest = REPO / "assets" / "raw" / "manifest.json"
+        rows = {b["symbol"]: b
+                for b in json.loads(manifest.read_text())["blobs"]}
+        expected = {"gUnk_0869B284": (119, "gambar terkompresi"),
+                    "gUnk_086D74F8": (25, "gambar terkompresi"),
+                    "gUnk_086DC3F4": (3, "gambar terkompresi"),
+                    "gUnk_087409E4": (20, "sprite/OBJ")}
+        for name, (streams, group) in expected.items():
+            self.assertEqual(rows[name]["group"], group, name)
+            self.assertEqual(rows[name]["chain_0x70"]["streams"], streams,
+                             name)
+            self.assertTrue(rows[name]["size"] % 32, name)
+
+    def test_stamp_sizes_in_manifest_match_rom(self):
+        # Regresi silang: lebar/tinggi loader harus pas dengan ukuran ROM.
+        manifest = REPO / "assets" / "raw" / "manifest.json"
+        sizes = {b["symbol"]: b["size"]
+                 for b in json.loads(manifest.read_text())["blobs"]}
+        for name, (cols, rows, _b) in raw_assets.VERIFIED_MAP_STAMP.items():
+            self.assertEqual(sizes[name] // 2, cols * rows, name)
 
 
 if __name__ == "__main__":

@@ -16,9 +16,17 @@ Kelompok (heuristik isi, bukan nama simbol):
 - `tilemap`   — entri 16-bit dengan bit 10-15 konsisten (>= 40% modal) dan
                 jumlah entri masuk akal untuk lebar tilemap. Dirender sebagai
                 grid indeks.
-- `gambar terkompresi` — blob berisi satu atau beberapa stream `0x70` yang
-                terverifikasi; tidak dirender mentah (dekompresi ada di
-                `assets/0x70`).
+- `gambar terkompresi` — **hanya** blob yang bank stream `0x70`-nya
+                terbukti dari penunjuk kode/tabel (`VERIFIED_LAYOUT`); tidak
+                dirender mentah. Bukan deteksi isi: rantai `0x70` yang berakhir
+                tepat di ujung blob juga muncul di blob yang justru terbukti
+                container (`gUnk_087409E4`), jadi rantai valid saja belum bukti.
+                Supaya daftar bank tidak berhenti di contoh yang diingat,
+                setiap generate memindai rantai `0x70` di semua blob non-32 B
+                dan menabelkannya di dokumen generate (bagian "Rantai `0x70`
+                valid di blob non-32 B") dengan status bank/container/belum
+                terbukti. `assets/0x70/` memuat blob berformat `0x70` plus bank
+                tertanam tadi (`ASET-0X70-TERTANAM.md`).
 - `tabel`     — sisanya: tabel angka/struct, termasuk data non-32 B yang
                 tidak lolos uji tile. Tidak dirender.
 
@@ -51,8 +59,10 @@ RAW_WIDTHS = (64, 32, 30, 60, 46, 40, 36, 28, 24, 20, 16, 56, 48,
 # Blob yang lolos uji tile secara statistik, tetapi call site membuktikan
 # bahwa isinya bukan tile 4bpp datar. Kunci ini berasal dari penelusuran asm:
 # `container` = wadah font/objek (header count + tabel, atau record glyph);
-# `tilemap` = array u16 yang ditulis ke peta; `gambar terkompresi` = blob with
-# valid embedded `0x70` streams. Jangan menambah entri hanya dari nama symbol;
+# `tilemap` = array u16 yang ditulis ke peta; `gambar terkompresi` = blob yang
+# bank stream `0x70`-nya terbukti dari call site (bukan dari isi: rantai `0x70`
+# valid bisa muncul di blob container, mis. `gUnk_087409E4`). Jangan menambah
+# entri hanya dari nama symbol;
 # setiap entri harus punya bukti call site/stream di komentar nilainya.
 VERIFIED_LAYOUT = {
     "gUnk_08523290": (
@@ -61,11 +71,20 @@ VERIFIED_LAYOUT = {
     ),
     "gUnk_0869B284": (
         "gambar terkompresi", None,
-        "palet 0x00-0x7f; bank 37 stream 0x70 valid (mulai 0x4ac); contoh decode menghasilkan gambar UI",
+        "palet 0x00-0x7f; bank 119 stream 0x70 tertanam (mulai 0x134) sudah "
+        "diekstrak ke assets/0x70/extern",
     ),
     "gUnk_086D74F8": (
         "gambar terkompresi", None,
-        "2 stream 0x70 valid (0x890, 0x3ad4); palet di 0x20",
+        "25 stream 0x70 tertanam (mulai 0x60); palet di 0x20; sudah "
+        "diekstrak ke assets/0x70/extern",
+    ),
+    "gUnk_086DC3F4": (
+        "gambar terkompresi", None,
+        "stempel 3x2 12 B (func_080AA540 menyalin 12 B); sisa 332 B = 3 "
+        "stream 0x70 tertanam (1560 B) ditunjuk tabel descriptor 0x08106860 "
+        "(086DC400/4C4/4D0, dims 30x26); sudah diekstrak ke "
+        "assets/0x70/extern",
     ),
     "gUnk_084F90CC": (
         "sprite/OBJ", "container",
@@ -101,7 +120,8 @@ VERIFIED_LAYOUT = {
     ),
     "gUnk_0872DE44": (
         "sprite/OBJ", "container",
-        "count 27 + tabel; func_080522F8 -> func_0805E6CC, bukan tile datar",
+        "container func_0805E6CC: A27/B27/C6/D106/E1/F0/T27; tile 4bpp "
+        "hanya D+E (107 tile), sisa tabel",
     ),
     "gUnk_08731B40": (
         "sprite/OBJ", "container",
@@ -115,10 +135,53 @@ VERIFIED_LAYOUT = {
         "sprite/OBJ", "container",
         "count 22 + tabel; func_080A220C -> func_0805E6CC, bukan tile datar",
     ),
-    "gUnk_086DE7F4": (
-        "tilemap", None,
-        "25204 entri u16; func_080AA9C8 memilihnya sebagai layer peta",
+    "gUnk_086DCC88": (
+        "tabel", None,
+        "1284 entri u16; func_080AA9C8 memakai 16 entri pertama sebagai stamp "
+        "4x4 (sl=4, 4 baris); sisa tabel tak terbukti persegi (80,25 blok)",
     ),
+    "gUnk_086DDDEC": (
+        "tabel", None,
+        "1284 entri u16; func_080AA9C8 memakai 16 entri pertama sebagai stamp "
+        "4x4 (sl=4, 4 baris); sisa tabel tak terbukti persegi (80,25 blok)",
+    ),
+    "gUnk_086DC57C": (
+        "tabel", None,
+        "902 entri u16; func_080AA9C8 memakai 4 entri pertama sebagai stamp "
+        "2x2 (sl=2, 2 baris); 902 entri bukan persegi",
+    ),
+    "gUnk_086DD6E0": (
+        "tabel", None,
+        "902 entri u16; func_080AA9C8 memakai 4 entri pertama sebagai stamp "
+        "2x2 (sl=2, 2 baris); 902 entri bukan persegi",
+    ),
+    "gUnk_086EAD8C": (
+        "tabel", None,
+        "16656 entri u16 = 1041 blok 4x4; func_080AA9C8 memakai 16 entri "
+        "pertama sebagai stamp 4x4 (sl=4, 4 baris), bukan 1041 tile 4bpp",
+    ),
+    "gUnk_086DE7F4": (
+        "tabel", None,
+        "tabel 16-bit; func_080AA9C8 (kasus 21) memakai 16 entri sebagai blok "
+        "4x4 (sl=4 kolom, 4 baris) yang dicap ke lapis, bukan lapis peta; "
+        "25204 entri tak punya lebar persegi dan header peta gUnk_08105EDC "
+        "tidak menunjuk blob ini",
+    ),
+}
+
+# `func_080AA9C8` mengambil potongan peta (stamp) dari tabel u16: ia membaca
+# `sl` kolom x 4 baris (atau 2x2) berurutan dan menuliskannya ke peta tujuan.
+# Kalau seluruh blob tepat satu stamp, lebar yang benar adalah `sl` dari asm —
+# heuristik pembagi memilih 8 sehingga grid-nya salah. Kunci = symbol,
+# nilai = (kolom, baris, keterangan blok). Hanya untuk blob yang ukurannya
+# tepat kolom*baris entri; sisanya tetap `tabel` lewat VERIFIED_LAYOUT.
+VERIFIED_MAP_STAMP = {
+    "gUnk_086DC54C": (6, 4, "sl=6, 4 baris"),
+    "gUnk_086DD6B0": (6, 4, "sl=6, 4 baris"),
+    "gUnk_086DD690": (4, 4, "sl=4, 4 baris"),
+    "gUnk_086EAD64": (4, 4, "sl=4, 4 baris"),
+    "gUnk_086EACDC": (2, 2, "sl=2, 2 baris"),
+    "gUnk_086EAD84": (2, 2, "sl=2, 2 baris"),
 }
 
 
@@ -180,12 +243,48 @@ def tile_prefix(data):
     return None
 
 
+def scan_chain(rom, offset, size):
+    """-> kandidat rantai `0x70` yang berakhir tepat di ujung blob, atau None.
+
+    Pemeriksa silang kelompok `gambar terkompresi`, **bukan** penentu
+    kelompok: rantai valid juga muncul di blob yang terbukti container
+    (`gUnk_087409E4`). Yang dipindai hanya blob non-32 B karena jalur tile
+    tidak bisa menjelaskan sisanya.
+    """
+    if size % 32 == 0:
+        return None
+    end = offset + size
+    best = None
+    for rel in range(size - 4):
+        if rom[offset + rel] != 0x70:
+            continue
+        cur, count, packed = offset + rel, 0, 0
+        while cur < end:
+            got = inv.decode_popuri(rom, cur, end)
+            if not got:
+                break
+            count += 1
+            packed += got[0]
+            cur += got[0]
+        if count >= 2 and cur == end:
+            if best is None or count > best["streams"]:
+                best = {"start": rel, "streams": count, "packed": packed}
+    return best
+
+
 def classify(data, name=None):
     """-> (kelompok, catatan, (start, ekor) atau None).
 
     `name` hanya dipakai untuk override hasil verifikasi call site; tanpa nama,
     classifier tetap murni berbasis isi agar fixture kecil tetap deterministik.
+    Kelompok `gambar terkompresi` **tidak** punya jalur deteksi isi: satu-satunya
+    sumbernya adalah override `VERIFIED_LAYOUT` yang punya bukti call site,
+    karena rantai `0x70` yang valid bisa juga berada di dalam blob lain.
     """
+    if name in VERIFIED_MAP_STAMP:
+        cols, rows, block = VERIFIED_MAP_STAMP[name]
+        return ("tilemap", f"stamp {cols}x{rows} ({cols * rows} entri u16) "
+                f"dibaca func_080AA9C8 ({block}); lebar = kolom loader", None)
     if name in VERIFIED_LAYOUT:
         group, _layout, note = VERIFIED_LAYOUT[name]
         return group, note, None
@@ -243,7 +342,12 @@ def render(entry, data, out, group, note):
         return f"assets/raw/{png}"
     if group == "tilemap":
         count = len(data) // 2
-        width = tilemap_width(count)
+        width = entry.get("map_width") or tilemap_width(count)
+        # Lebar fallback tidak boleh dipakai untuk render: kalau jumlah entri
+        # tidak habis dibagi lebar tebakan, blob itu bukan tilemap persegi dan
+        # gridnya menyesatkan. Lebih baik tidak dirender sama sekali.
+        if width < 1 or count % width:
+            return None
         png = f"png/{name}_{entry['size']}_tilemap_{width}.png"
         fx.render_map(data, out / png, width)
         return f"assets/raw/{png}"
@@ -262,6 +366,12 @@ def build(rom, entries):
                "size": entry.size, "group": group, "note": note}
         if layout:
             row["layout"] = layout
+        stamp = VERIFIED_MAP_STAMP.get(entry.name)
+        if stamp:
+            row["map_width"] = stamp[0]
+        chain = scan_chain(rom, entry.offset, entry.size)
+        if chain:
+            row["chain_0x70"] = chain
         if window:
             row["tile_offset"], row["tile_trim"] = window
         row["data"] = data
@@ -301,18 +411,69 @@ def render_doc(manifest):
                    f"{sum(1 for r in rows if r['group'] == g and r['renderable'])} |")
     out.append(f"| **total** | **{len(rows)}** | **{rendered}** |")
     out.append("")
-    out.append("Kelompok ditentukan dari isi, bukan nama simbol: palet = semua "
+    out.append("Kelompok ditentukan dari isi, bukan nama simbol, kecuali "
+               "`gambar terkompresi` (lihat di bawah): palet = semua "
                "u16 < 0x8000 dan <= 1 KB; sprite/OBJ = kelipatan 32 B (tile "
                "4bpp), ditambah blob non-32 B yang setelah header/ekor <= 31 B "
                "menyisakan tile dengan >= 13% nibble nol dan <= 12 indeks/tile; "
-               "tilemap = entri 16-bit dengan bit 10-15 konsisten; "
-               "gambar terkompresi = blob dengan stream 0x70 valid; sisanya "
-               "tabel/struct dan tidak dirender. Offset/ekor yang dipotong "
+               "tilemap = entri 16-bit dengan bit 10-15 konsisten; sisanya "
+               "tabel/struct dan tidak dirender. Kelompok `gambar "
+               "terkompresi` **bukan** hasil deteksi isi: hanya blob yang bank "
+               "stream `0x70`-nya terbukti dari call site (daftar override di "
+               "`VERIFIED_LAYOUT`) yang masuk ke sana, karena rantai `0x70` "
+               "yang berakhir tepat di ujung blob juga muncul di blob lain "
+               "yang terbukti container. Offset/ekor yang dipotong "
                "dicatat di manifest (`tile_offset`/`tile_trim`). Override "
                "`layout: container` menandai wadah font/objek yang sudah "
                "diverifikasi dari call site; isinya bukan tile 4bpp datar dan "
-               "tidak dirender sebagai lembar tile. Batas ini heuristik, bukan "
+               "tidak dirender sebagai lembar tile. Untuk stamp peta, field "
+               "`map_width` di manifest berisi lebar kolom dari loader "
+               "(`func_080AA9C8`), bukan tebakan pembagi; hash PNG memakai "
+               "lebar itu. Batas ini heuristik, bukan "
                "bukti format; override call-site adalah bukti terpisah.")
+    out.append("")
+    chain = [r for r in rows if r.get("chain_0x70")]
+    non32 = sum(1 for r in rows if r["size"] % 32)
+
+    def chain_status(row):
+        if row["group"] == "gambar terkompresi":
+            return "bank terbukti"
+        if row.get("layout") == "container":
+            return "container terbukti"
+        return "belum terbukti"
+
+    status = collections.Counter(chain_status(r) for r in chain)
+    out.append("## Rantai `0x70` valid di blob non-32 B")
+    out.append("")
+    out.append(f"Pemeriksa silang untuk kelompok `gambar terkompresi`: {non32} "
+               "blob non-32 B diuji apakah memuat rantai stream `0x70` yang "
+               "berakhir tepat di ujung blob, lalu hasilnya dibandingkan "
+               "dengan kelompoknya. Tabel ini **bukan** penentu kelompok "
+               "(lihat alasannya di atas); gunanya memastikan tidak ada bank "
+               "tertanam yang lolos dari kelompok.")
+    out.append("")
+    out.append(f"- blob non-32 B: **{non32}**")
+    out.append(f"- dengan rantai `0x70` berakhir di ujung: **{len(chain)}**")
+    out.append(f"- bank terbukti: **{status['bank terbukti']}**, container "
+               f"terbukti: **{status['container terbukti']}**, belum "
+               f"terbukti: **{status['belum terbukti']}**")
+    out.append("")
+    if chain:
+        out.append("| simbol | ukuran | sisa %32 | kelompok | awal | stream "
+                   "| packed | status |")
+        out.append("|---|---:|---:|---|---:|---:|---:|---|")
+        for r in sorted(chain, key=lambda x: -x["size"]):
+            c = r["chain_0x70"]
+            out.append(f"| `{r['symbol']}` | {r['size']} | {r['size'] % 32} | "
+                       f"{r['group']} | {c['start']} | {c['streams']} | "
+                       f"{c['packed']} | {chain_status(r)} |")
+        out.append("")
+    out.append("`belum terbukti` = rantai valid tetapi belum ada call "
+               "site/tabel descriptor yang menunjuknya: telusuri dulu, jangan "
+               "langsung memasukkannya ke kelompok."
+               if status["belum terbukti"] else
+               "Tidak ada kandidat `belum terbukti`: setiap rantai sudah "
+               "dijelaskan penunjuk kode/tabel (bank atau container).")
     out.append("")
     for g in ("palet", "sprite/OBJ", "tilemap", "gambar terkompresi", "tabel"):
         sel = [r for r in rows if r["group"] == g]
@@ -329,11 +490,16 @@ def render_doc(manifest):
                        "Entri `layout: container` adalah wadah font/objek "
                        "terverifikasi call-site dan sengaja tidak dirender.")
         elif g == "tilemap":
-            out.append("Dirender sebagai grid indeks; lebar ditebak dari "
+            out.append("Dirender sebagai grid indeks; lebar diambil dari "
+                       "`map_width` (call site) bila ada, sisanya ditebak dari "
                        "jumlah entri dan dicantumkan di nama berkas.")
         elif g == "gambar terkompresi":
-            out.append("Tidak dirender mentah: berisi stream `0x70`; "
-                       "dekompresi/ekstraksi ada di `assets/0x70`.")
+            names = ", ".join(f"`{x['symbol']}`" for x in sorted(
+                sel, key=lambda x: x["offset"]))
+            out.append("Tidak dirender mentah: berisi bank stream `0x70` "
+                       "tertanam. `assets/0x70/` memuat blob berformat `0x70` "
+                       f"dan bank tertanam {names} (lihat "
+                       "`ASET-0X70-TERTANAM.md`).")
         else:
             out.append("Tidak dirender: data angka/struct, bukan piksel atau "
                        "tilemap 16-bit.")

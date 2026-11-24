@@ -1134,7 +1134,9 @@ gUnk_0875A438:
 
 	.global gUnk_0875A440 @ gClockFont
 gUnk_0875A440:
-	.incbin "baserom.gba", 0x75A440, 0x1004
+	@ rom: 0x75A440 0x1004 — source assets/gfx/fonts/clock.{png,json};
+	@ gate `tile4bpp.py verify` MATCH, lalu `make compare` HIJAU.
+	.incbin "build/assets/gUnk_0875A440.bin"
 
 	.global gUnk_0875B444
 gUnk_0875B444:

@@ -45,6 +45,27 @@
    "kind": "hud",
    "label": "HUD/panel tetap",
    "reason": "tiga lapis panel layar, bukan lapis peta"
+  },
+  {
+   "file": "code_809E804.s",
+   "function": "func_080AE7D0",
+   "kind": "panel",
+   "label": "panel layar BG (map 0x0600F000 + 0x0600F800)",
+   "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM"
+  },
+  {
+   "file": "code_809E804.s",
+   "function": "func_080B55D0",
+   "kind": "panel",
+   "label": "panel layar BG (map 0x0600E800 + 0x0600F800)",
+   "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM"
+  },
+  {
+   "file": "code_809E804.s",
+   "function": "func_080B7164",
+   "kind": "panel",
+   "label": "panel layar BG (map 0x0600F000 + 0x0600F800)",
+   "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM"
   }
  ],
  "streams": [
@@ -3876,10 +3897,18 @@
      "packed": 364,
      "unpacked": 2048,
      "format": "030",
-     "group": "peta",
-     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (85%)",
+     "group": "layar",
+     "note": "layar panel: scene memuat dua tilemap BG + palet langsung ke VRAM",
      "bin": "bin/gUnk_0872C5D0_00_2048_0x030.bin",
-     "png_kind": "peta berwarna",
+     "screen": {
+      "kind": "panel",
+      "label": "panel layar BG (map 0x0600E800 + 0x0600F800)",
+      "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM",
+      "file": "code_809E804.s",
+      "function": "func_080B55D0",
+      "line": 46439
+     },
+     "png_kind": "layar berwarna",
      "pair_status": "verified",
      "pair": {
       "palette": {
@@ -3909,7 +3938,7 @@
      },
      "map_width": 32,
      "map_height": 32,
-     "png": "assets/0x70/png/gUnk_0872C5D0_00_peta_32x32.png",
+     "png": "assets/0x70/png/gUnk_0872C5D0_00_layar_32x32.png",
      "png_sha256": "9e64434491d93e30bc9891ea92b415c64db540e5909d9e814bdeb9121e9eb07c"
     }
    ]
@@ -3924,10 +3953,18 @@
      "packed": 272,
      "unpacked": 2048,
      "format": "030",
-     "group": "peta",
-     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (88%)",
+     "group": "layar",
+     "note": "layar panel: scene memuat dua tilemap BG + palet langsung ke VRAM",
      "bin": "bin/gUnk_0872C73C_00_2048_0x030.bin",
-     "png_kind": "peta berwarna",
+     "screen": {
+      "kind": "panel",
+      "label": "panel layar BG (map 0x0600E800 + 0x0600F800)",
+      "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM",
+      "file": "code_809E804.s",
+      "function": "func_080B55D0",
+      "line": 46442
+     },
+     "png_kind": "layar berwarna",
      "pair_status": "verified",
      "pair": {
       "palette": {
@@ -3957,7 +3994,7 @@
      },
      "map_width": 32,
      "map_height": 32,
-     "png": "assets/0x70/png/gUnk_0872C73C_00_peta_32x32.png",
+     "png": "assets/0x70/png/gUnk_0872C73C_00_layar_32x32.png",
      "png_sha256": "ab3128dfa88c2d5930654fa0d8cd8b16b9eeffcf7327d41630f153b21fa8c1f0"
     }
    ]
@@ -3991,10 +4028,18 @@
      "packed": 100,
      "unpacked": 2048,
      "format": "030",
-     "group": "peta",
-     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (41%)",
+     "group": "layar",
+     "note": "layar panel: scene memuat dua tilemap BG + palet langsung ke VRAM",
      "bin": "bin/gUnk_0872D5CC_00_2048_0x030.bin",
-     "png_kind": "peta berwarna",
+     "screen": {
+      "kind": "panel",
+      "label": "panel layar BG (map 0x0600F000 + 0x0600F800)",
+      "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM",
+      "file": "code_809E804.s",
+      "function": "func_080B7164",
+      "line": 49957
+     },
+     "png_kind": "layar berwarna",
      "pair_status": "verified",
      "pair": {
       "palette": {
@@ -4034,7 +4079,7 @@
      },
      "map_width": 32,
      "map_height": 32,
-     "png": "assets/0x70/png/gUnk_0872D5CC_00_peta_32x32.png",
+     "png": "assets/0x70/png/gUnk_0872D5CC_00_layar_32x32.png",
      "png_sha256": "0fd75571ac1455a88bfb722227166b3c23d113e7db76d0d47defb4be2069a988"
     }
    ]
@@ -4049,10 +4094,18 @@
      "packed": 168,
      "unpacked": 2048,
      "format": "030",
-     "group": "peta",
-     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (82%)",
+     "group": "layar",
+     "note": "layar panel: scene memuat dua tilemap BG + palet langsung ke VRAM",
      "bin": "bin/gUnk_0872D630_00_2048_0x030.bin",
-     "png_kind": "peta berwarna",
+     "screen": {
+      "kind": "panel",
+      "label": "panel layar BG (map 0x0600F000 + 0x0600F800)",
+      "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM",
+      "file": "code_809E804.s",
+      "function": "func_080B7164",
+      "line": 49960
+     },
+     "png_kind": "layar berwarna",
      "pair_status": "verified",
      "pair": {
       "palette": {
@@ -4092,7 +4145,7 @@
      },
      "map_width": 32,
      "map_height": 32,
-     "png": "assets/0x70/png/gUnk_0872D630_00_peta_32x32.png",
+     "png": "assets/0x70/png/gUnk_0872D630_00_layar_32x32.png",
      "png_sha256": "b1577b8e29a66d89185d4ec968bdf0c45a27b32b9caccb27d44141b9d3aca278"
     }
    ]
@@ -4237,10 +4290,18 @@
      "packed": 568,
      "unpacked": 2048,
      "format": "020",
-     "group": "peta",
-     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (41%)",
+     "group": "layar",
+     "note": "layar panel: scene memuat dua tilemap BG + palet langsung ke VRAM",
      "bin": "bin/gUnk_0872FC34_00_2048_0x020.bin",
-     "png_kind": "peta berwarna",
+     "screen": {
+      "kind": "panel",
+      "label": "panel layar BG (map 0x0600F000 + 0x0600F800)",
+      "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM",
+      "file": "code_809E804.s",
+      "function": "func_080AE7D0",
+      "line": 32432
+     },
+     "png_kind": "layar berwarna",
      "pair_status": "verified",
      "pair": {
       "palette": {
@@ -4280,7 +4341,7 @@
      },
      "map_width": 32,
      "map_height": 32,
-     "png": "assets/0x70/png/gUnk_0872FC34_00_peta_32x32.png",
+     "png": "assets/0x70/png/gUnk_0872FC34_00_layar_32x32.png",
      "png_sha256": "bac9621287034ee3e477eeb5b403932968746194acdc6946af5adeb945d401dc"
     }
    ]
@@ -4295,10 +4356,18 @@
      "packed": 140,
      "unpacked": 2048,
      "format": "030",
-     "group": "peta",
-     "note": "1024 entri 16-bit; entri terbanyak 0x03FF (94%)",
+     "group": "layar",
+     "note": "layar panel: scene memuat dua tilemap BG + palet langsung ke VRAM",
      "bin": "bin/gUnk_0872FE6C_00_2048_0x030.bin",
-     "png_kind": "peta berwarna",
+     "screen": {
+      "kind": "panel",
+      "label": "panel layar BG (map 0x0600F000 + 0x0600F800)",
+      "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM",
+      "file": "code_809E804.s",
+      "function": "func_080AE7D0",
+      "line": 32435
+     },
+     "png_kind": "layar berwarna",
      "pair_status": "verified",
      "pair": {
       "palette": {
@@ -4338,7 +4407,7 @@
      },
      "map_width": 32,
      "map_height": 32,
-     "png": "assets/0x70/png/gUnk_0872FE6C_00_peta_32x32.png",
+     "png": "assets/0x70/png/gUnk_0872FE6C_00_layar_32x32.png",
      "png_sha256": "3caf653e955a46c9e926aba120ce670868c749321e1ed23ea13ef3e2d4c962dc"
     }
    ]

@@ -46,6 +46,25 @@ Yang diperiksa:
    Gate memanggil `raw_assets.render_doc(manifest)` yang sama dengan
    `--check`, jadi kelompok/ukuran/PNG berubah tanpa regenerasi dokumen
    langsung terlihat.
+10. **Manifest aset source basi** (`assets/manifest.json`): dibandingkan
+   dengan `asset_manifest.build()` yang menjalankan encoder tiap aset, jadi
+   klaim `rom-exact` yang tidak lagi cocok hash langsung gagal. Dilewati
+   dengan catatan bila `baserom.gba` tidak ada.
+11. **PNG 0x70 rusak** (`assets/0x70/png/`): gate memakai jalur `quick` dari
+   dua pemeriksa: `extract_assets.png_problems(..., quick=True)` untuk PNG
+   stream/pasangan dan `embedded_streams.problems(..., quick=True)` untuk PNG
+   bank tertanam. Setiap berkas PNG selalu diperiksa terhadap `png_sha256`
+   manifestnya (murah, dan inilah yang menangkap PNG rusak); render ulang
+   penuh hanya dijalankan bila sidik jari input (manifest + bin) berbeda dari
+   render terakhir yang lolos (`build/*_check.stamp.json`) — jadi render besar
+   terjadi sekali setelah clone/clean atau saat bin berubah, bukan tiap commit.
+12. **Laporan reencode 0x70 basi** (`docs/decomp/ASET-0X70-REENCODE.md` dan
+   `assets/0x70/reencode_manifest.json`): keduanya dihasilkan
+   `tools/assets/stream_audit.py` dari slice ROM + `assets/0x70/bin/` dan
+   `assets/0x70/extern/` (bank tertanam). Gate membandingkan keduanya dengan
+   `stream_audit.build()`/`render_doc()` saat ini, jadi hash semua stream
+   tidak bisa berubah (atau laporan tertinggal) tanpa terdeteksi. Dilewati
+   dengan catatan bila `baserom.gba` tidak ada.
 
 Read-only; exit 1 bila ada masalah (`--json` untuk agent, `--strict` sama
 dengan default).
@@ -84,6 +103,14 @@ EKOR_TAIL = 12  # default --tail ekor_snapshot.py
 ASET_DOC = "docs/decomp/ASET-INVENTARIS.md"
 ASET_TOOL = REPO / "tools/scripts/asset_inventory.py"
 ASET_INPUTS = [REPO / "asm" / "data" / "data_0813B288.s", REPO / "baserom.gba"]
+
+PALET_DOC = "docs/decomp/PALET-FONT.md"
+PALET_TOOL = REPO / "tools/assets/font_palettes.py"
+PALET_MANIFEST = REPO / "assets" / "gfx" / "fonts" / "palettes.json"
+
+EMBED_DOC = "docs/decomp/ASET-0X70-TERTANAM.md"
+EMBED_TOOL = REPO / "tools/assets/embedded_streams.py"
+EMBED_MANIFEST = REPO / "assets" / "0x70" / "embedded_manifest.json"
 
 MAP_DOC = "docs/decomp/ASET-0X70-PETA-BERKAS.md"
 MAP_TOOL = REPO / "tools/scripts/extract_assets.py"
@@ -160,6 +187,143 @@ def aset_0x70():
     return None, "peta berkas 0x70 sinkron"
 
 
+ASSET_MANIFEST_DOC = "assets/manifest.json"
+ASSET_MANIFEST_TOOL = REPO / "tools" / "assets" / "asset_manifest.py"
+ASSET_MANIFEST_ROM = REPO / "baserom.gba"
+
+
+def aset_sumber():
+    """-> (masalah|None, catatan|None) untuk `assets/manifest.json`.
+
+    Manifest itu hasil `asset_manifest.build()` (menjalankan encoder tiap
+    aset source). Gate ini mencegah manifest basi/berisi klaim yang tidak
+    lolos hash tanpa ada yang ingat menjalankan `--check`.
+    """
+    import importlib.util
+
+    path = REPO / ASSET_MANIFEST_DOC
+    if not ASSET_MANIFEST_TOOL.exists():
+        return (ASSET_MANIFEST_DOC, "tool asset_manifest.py hilang"), None
+    if not path.exists():
+        return (ASSET_MANIFEST_DOC,
+                "manifest aset source hilang — jalankan "
+                "tools/assets/asset_manifest.py"), None
+    if not ASSET_MANIFEST_ROM.exists():
+        return None, "manifest aset source: gate dilewati (tanpa baserom.gba)"
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "asset_manifest", ASSET_MANIFEST_TOOL)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        text = mod.render(mod.build())
+    except Exception as e:  # gate tidak boleh lolos diam-diam saat tool rusak
+        return (ASSET_MANIFEST_DOC,
+                f"gate manifest aset gagal dijalankan: {type(e).__name__}: {e}"), \
+            None
+    if path.read_text() != text:
+        return (ASSET_MANIFEST_DOC,
+                "BASI terhadap encoder/source — jalankan "
+                "python3 tools/assets/asset_manifest.py"), None
+    count = len(json.loads(text)["assets"])
+    return None, f"manifest aset sinkron ({count} aset rom-exact)"
+
+
+REENCODE_DOC = "docs/decomp/ASET-0X70-REENCODE.md"
+REENCODE_MANIFEST = "assets/0x70/reencode_manifest.json"
+REENCODE_TOOL = REPO / "tools" / "assets" / "stream_audit.py"
+
+
+def aset_reencode():
+    """-> (masalah|None, catatan|None) untuk laporan reencode stream 0x70.
+
+    Laporan itu memuat hash compressed/decoded tiap stream dan status
+    `opaque`/`ok`. Tanpa gate ini, stream yang hash-nya berubah (atau klaim
+    `ok` lama yang tidak lagi benar) hanya tertangkap bila ada yang ingat
+    menjalankan `stream_audit.py --check`.
+    """
+    import importlib.util
+
+    if not REENCODE_TOOL.exists():
+        return (REENCODE_DOC, "tool stream_audit.py hilang"), None
+    if not (REPO / "baserom.gba").exists():
+        return None, "laporan reencode: gate dilewati (tanpa baserom.gba)"
+    for rel in (REENCODE_MANIFEST, REENCODE_DOC):
+        if not (REPO / rel).exists():
+            return (rel, "laporan reencode hilang — jalankan "
+                    "python3 tools/assets/stream_audit.py"), None
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "stream_audit", REENCODE_TOOL)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.build()
+        data = json.dumps(result, indent=1) + "\n"
+        doc = mod.render_doc(result)
+    except Exception as e:  # gate tidak boleh lolos diam-diam saat tool rusak
+        return (REENCODE_DOC,
+                f"gate reencode gagal dijalankan: {type(e).__name__}: {e}"), None
+    if (REPO / REENCODE_MANIFEST).read_text() != data:
+        return (REENCODE_MANIFEST,
+                "BASI terhadap slice ROM/bin — jalankan "
+                "python3 tools/assets/stream_audit.py"), None
+    if (REPO / REENCODE_DOC).read_text() != doc:
+        return (REENCODE_DOC,
+                "BASI terhadap slice ROM/bin — jalankan "
+                "python3 tools/assets/stream_audit.py"), None
+    return None, (f"laporan reencode sinkron ({result['total']} stream, "
+                  f"{result['opaque']} opaque)")
+
+
+def aset_png():
+    """-> (masalah|None, catatan|None) untuk PNG `assets/0x70/`.
+
+    Jalur cepat `--check-png`: hash setiap PNG ke `png_sha256` manifest selalu
+    diperiksa, render ulang hanya bila bin sumber lebih baru (mtime). Tanpa
+    gate ini PNG peta yang rusak hanya tertangkap bila ada yang ingat
+    menjalankan perintah manual.
+    """
+    import importlib.util
+
+    if not MAP_MANIFEST.exists():
+        return ("assets/0x70/png", "manifest 0x70 hilang — jalankan "
+                "tools/scripts/extract_assets.py"), None
+    problems = []
+    totals = {}
+    notes = []
+    for name, path in (("peta", MAP_TOOL), ("tertanam", EMBED_TOOL)):
+        try:
+            spec = importlib.util.spec_from_file_location(name, path)
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            if name == "peta":
+                found, note, total = mod.png_problems(mod.DEFAULT_OUT,
+                                                     quick=True)
+            else:
+                found, note, total = mod.problems(mod.OUT, quick=True)
+        except Exception as e:  # gate tidak boleh lolos diam-diam
+            return ("assets/0x70/png",
+                    f"gate PNG 0x70 ({name}) gagal dijalankan: "
+                    f"{type(e).__name__}: {e}"), None
+        totals[name] = total
+        if note:
+            notes.append(note)
+        for item in found:
+            problems.append(item if isinstance(item, str)
+                            else f"{item[0]}: {item[1]}")
+    if problems:
+        shown = "; ".join(problems[:3])
+        more = f" (+{len(problems) - 3} lain)" if len(problems) > 3 else ""
+        return ("assets/0x70/png",
+                f"{len(problems)} PNG bermasalah: {shown}{more} — jalankan "
+                "extract_assets.py / embedded_streams.py"), None
+    total = sum(totals.values())
+    note = notes[0] if len(notes) == 1 else None
+    if len(notes) == 2:
+        note = ("render ulang PNG dilewati untuk kedua manifest (stamp cocok); "
+                "hash berkas tetap diperiksa")
+    return None, note or f"PNG 0x70: {total} cocok dengan manifest"
+
+
 def aset_mentah():
     """-> (masalah|None, catatan|None) untuk dokumen aset mentah.
 
@@ -189,6 +353,68 @@ def aset_mentah():
         return (RAW_DOC, "BASI terhadap manifest — jalankan "
                 "python3 tools/scripts/raw_assets.py"), None
     return None, "aset mentah sinkron"
+
+
+def aset_tertanam():
+    """-> (masalah|None, catatan|None) untuk dokumen bank stream tertanam.
+
+    Dokumen itu hasil generate `embedded_streams.render_doc()`; gate ini
+    memanggil renderer yang sama supaya manifest berubah tanpa regenerasi
+    dokumen menggagalkan tutup sesi.
+    """
+    import importlib.util
+
+    out = REPO / EMBED_DOC
+    if not out.exists():
+        return (EMBED_DOC, "dokumen bank tertanam hilang — jalankan "
+                "python3 tools/assets/embedded_streams.py"), None
+    if not EMBED_MANIFEST.exists():
+        return (EMBED_DOC, "manifest bank tertanam hilang — jalankan "
+                "python3 tools/assets/embedded_streams.py"), None
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "embedded_streams", EMBED_TOOL)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        text = mod.render_doc(json.loads(EMBED_MANIFEST.read_text()))
+    except Exception as e:  # gate tidak boleh lolos diam-diam saat tool rusak
+        return (EMBED_DOC,
+                f"gate bank tertanam gagal dijalankan: {type(e).__name__}: {e}"), None
+    if out.read_text() != text:
+        return (EMBED_DOC, "BASI terhadap manifest — jalankan "
+                "python3 tools/assets/embedded_streams.py"), None
+    return None, "bank stream tertanam sinkron"
+
+
+def palet_font():
+    """-> (masalah|None, catatan|None) untuk dokumen status palet font.
+
+    Dokumen itu hasil generate `font_palettes.render_doc()`; gate memanggil
+    renderer yang sama supaya manifest berubah tanpa regenerasi dokumen
+    menggagalkan tutup sesi.
+    """
+    import importlib.util
+
+    out = REPO / PALET_DOC
+    if not out.exists():
+        return (PALET_DOC, "dokumen status palet font hilang — jalankan "
+                "python3 tools/assets/font_palettes.py"), None
+    if not PALET_MANIFEST.exists():
+        return (PALET_DOC, "manifest status palet font hilang — jalankan "
+                "python3 tools/assets/font_palettes.py"), None
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "font_palettes", PALET_TOOL)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        text = mod.render_doc(json.loads(PALET_MANIFEST.read_text()))
+    except Exception as e:  # gate tidak boleh lolos diam-diam saat tool rusak
+        return (PALET_DOC,
+                f"gate status palet font gagal dijalankan: {type(e).__name__}: {e}"), None
+    if out.read_text() != text:
+        return (PALET_DOC, "BASI terhadap manifest — jalankan "
+                "python3 tools/assets/font_palettes.py"), None
+    return None, "status palet font sinkron"
 
 
 def ekor_backlog():
@@ -335,6 +561,36 @@ def check(max_agents):
         notes.append(note)
 
     prob, note = aset_mentah()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = aset_sumber()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = aset_reencode()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = aset_png()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = aset_tertanam()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = palet_font()
     if prob:
         problems.append(prob)
     elif note:

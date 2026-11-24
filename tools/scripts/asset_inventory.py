@@ -56,6 +56,9 @@ MAX_POPURI_SIZE = 0x40000
 RE_GLOBAL = re.compile(r"^\s*\.global\s+(\w+)")
 RE_INCBIN = re.compile(
     r'\.incbin\s+"baserom\.gba",\s*0x([0-9A-Fa-f]+),\s*0x([0-9A-Fa-f]+)')
+# Provenance untuk entri yang `.incbin`-nya sudah diganti binary hasil encoder:
+# inventaris tetap butuh offset/ukuran ROM asal simbol itu.
+RE_ROM_COMMENT = re.compile(r"@\s*rom:\s*0x([0-9A-Fa-f]+)\s+0x([0-9A-Fa-f]+)")
 RE_HEX8 = re.compile(r"([0-9A-Fa-f]{8})")
 RE_THUMB = re.compile(r"thumb_func_start\s+(\w+)")
 
@@ -81,6 +84,10 @@ def parse_entries(path):
 
     `.global` dibaca dulu supaya komentar di baris `.global` (mis.
     `gUnk_0875A440 @ gClockFont`) tidak membuat entri terlewat.
+
+    Entri boleh memakai `.incbin "baserom.gba", off, size` atau — bila
+    `.incbin`-nya sudah diganti binary hasil encoder — komentar provenance
+    `@ rom: 0xOFFSET 0xSIZE` di bawah simbol.
     """
     lines = path.read_text().splitlines()
     entries = []
@@ -88,15 +95,18 @@ def parse_entries(path):
         m = RE_GLOBAL.match(line)
         if not m:
             continue
-        inc = None
-        for probe in lines[i + 1:i + 4]:
-            inc = RE_INCBIN.search(probe)
-            if inc:
+        inc = rom = None
+        for probe in lines[i + 1:i + 5]:
+            inc = inc or RE_INCBIN.search(probe)
+            rom = rom or RE_ROM_COMMENT.search(probe)
+            if inc and rom:
                 break
-        if not inc:
-            raise SystemExit(f"{path}: entri {m.group(1)} tanpa .incbin")
-        entries.append(Entry(m.group(1), int(inc.group(1), 16),
-                             int(inc.group(2), 16)))
+        span = inc or rom
+        if not span:
+            raise SystemExit(
+                f"{path}: entri {m.group(1)} tanpa .incbin atau '@ rom:'")
+        entries.append(Entry(m.group(1), int(span.group(1), 16),
+                             int(span.group(2), 16)))
     # preamble ditulis sebagai .incbin dengan ekspresi, bukan angka: cari baris
     preamble = None
     for line in lines:

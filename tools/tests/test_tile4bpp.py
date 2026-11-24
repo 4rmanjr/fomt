@@ -52,7 +52,7 @@ class Tile4bppCodec(unittest.TestCase):
         rom = rom_path.read_bytes()
         for meta_path in sorted((REPO / "assets" / "gfx" / "fonts").glob("*.json")):
             meta = json.loads(meta_path.read_text())
-            if "rom" not in meta:
+            if "rom" not in meta or meta.get("kind") != "tiles4bpp":
                 continue
             encoded = tile4bpp.encode_source(meta_path)
             offset = int(meta["rom"]["offset"], 0)

@@ -100,7 +100,9 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   migrasi `src/` dari promote-only.
 - `asset_inventory.py` — inventaris read-only blob `.incbin` di
   `asm/data/data_0813B288.s`: alamat, ukuran, kelas format, stream, dan
-  pemakai pointer. Format `0x70` (dekoder `decompress.py`) hanya diterima
+  pemakai pointer. Entri yang `.incbin`-nya sudah diganti binary hasil
+  encoder wajib menulis komentar `@ rom: 0xOFFSET 0xSIZE` di bawah simbol;
+  inventaris memakai provenance itu sebagai ganti `.incbin "baserom.gba"`. Format `0x70` (dekoder `decompress.py`) hanya diterima
   kalau seluruh blob habis terurai; header BIOS LZ77/RLE divalidasi dengan
   mendekode stream, kandidat gagal dicatat sebagai header kebetulan. Huffman
   BIOS (`0x24`/`0x28`) belum punya dekoder, jadi hanya ditandai kandidat.
@@ -133,8 +135,12 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   ada bukti, bukti ganda berbeda, atau aset pasangan tidak masuk akal, stream
   jadi grid indeks dan
   `manifest.json` mencatat `pair_status: unproven` + alasannya. Tilemap yang
-  dimuat scene logo/HUD (`func_08000F5C`, `func_08077810`, `func_080A2BA4`)
-  dikelompokkan `layar`, bukan `peta`; manifest mencatat `screen` (jenis,
+  dimuat scene logo/HUD/panel (`func_08000F5C`, `func_08077810`,
+  `func_080A2BA4`, `func_080AE7D0`, `func_080B55D0`, `func_080B7164`)
+  dikelompokkan `layar`, bukan `peta`; syaratnya semua call site stream itu
+  ada di satu fungsi `SCREEN_SCENES` yang memuat tilemap langsung ke
+  screenblock BG (`0x0600C000-0x0600FFFF`) plus palet, tanpa header peta.
+  Manifest mencatat `screen` (jenis,
   fungsi, baris), PNG-nya `layar berwarna`, dan stream itu tidak dihitung di
   pasangan/peta berwarna. Pasangan yang
   hanya punya entri header ditandai `pair_status: header-only`, bukan
@@ -157,10 +163,21 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   (exit 1 bila hilang/beda). Setiap PNG menyimpan `png_sha256`;
   `--check-png` merender ulang PNG dari `bin` + `extern` **tanpa ROM** ke
   direktori sementara, membandingkan hash render dengan manifest, lalu
-  memeriksa file PNG di repo (exit 1 bila beda/hilang). `--check-map` exit 1 bila
+  memeriksa file PNG di repo (exit 1 bila beda/hilang). Render ulang itu
+  puluhan detik; `--check-png --quick` melewatinya bila input render
+  (manifest + `bin/` + `extern/`) sama dengan render terakhir yang lolos —
+  sidik jari input disimpan di `build/png_check.stamp.json` (gitignored) —
+  dan tetap memeriksa hash berkas. Gate `check_docs.py` memakai jalur `quick`
+  itu, jadi PNG peta yang rusak menggagalkan tutup sesi/pre-commit tanpa
+  membayar render tiap commit (render penuh hanya sekali setelah clone/clean
+  atau saat bin berubah).
+  `--check-map` exit 1 bila
   dokumen itu basi terhadap manifest, dan `check_docs.py` memanggil renderer
   yang sama sebagai gate (dokumen basi menggagalkan tutup sesi, bukan lolos
-  diam-diam). `pair_evidence.source` mencatat `callsite` atau `header-only`;
+  diam-diam). Saat menulis ulang, hanya berkas yang tercatat di manifest lama
+  yang dihapus — `png/` dan `extern/` dipakai bersama `embedded_streams.py`
+  (`extern_stream_*.png`, `stream_*.bin`), jadi glob-hapus akan menghapus
+  keluaran tool lain. `pair_evidence.source` mencatat `callsite` atau `header-only`;
   `header-only` tidak boleh disebut terbukti dari call site. Seluruh stream dirender dalam hitungan
   puluhan detik; tidak menjalankan build dan tidak menulis ROM.
 - `raw_assets.py` — inventaris sisa 231 blob **mentah** (bukan `0x70`) dari
@@ -168,8 +185,18 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   < 0x8000), `sprite/OBJ` (kelipatan 32 B = tile 4bpp, atau non-32 B dengan
   header/ekor <=31 B yang menyisakan tile >=13% nibble nol dan <=12
   indeks/tile), `tilemap` (entri 16-bit, bit 10-15 konsisten), `gambar
-  terkompresi` (blob dengan stream `0x70` valid), `tabel` (sisanya, tidak
-  dirender). Menulis
+  terkompresi` (**hanya** blob yang bank stream `0x70`-nya terbukti dari
+  penunjuk kode/tabel di `VERIFIED_LAYOUT`; daftar bank ada di dokumen
+  generate), `tabel` (sisanya, tidak dirender).
+  Kelompok `gambar terkompresi` tidak punya jalur deteksi isi: scan rantai
+  `0x70` yang berakhir tepat di ujung blob memang menemukan rantai di blob
+  lain, tetapi sebagian blob itu justru terbukti container (mis.
+  `gUnk_087409E4`), jadi rantai valid saja bukan bukti dan kandidat baru wajib
+  ditelusuri kode/tabel dulu. Supaya daftar bank tidak berhenti di contoh yang
+  diingat, setiap generate memindai rantai `0x70` di semua blob non-32 B dan
+  menulis tabel "Rantai `0x70` valid di blob non-32 B" dengan status
+  bank/container/belum terbukti (scan itu menambah puluhan detik dan tetap
+  bukan penentu kelompok). Menulis
   `assets/raw/png/` + `assets/raw/manifest.json` + dokumen generate
   `docs/decomp/ASET-MENTAH-BERKAS.md`; `--check` exit 1 bila dokumen basi,
   dan `check_docs.py` memanggil renderer yang sama sebagai gate (dokumen basi
@@ -182,11 +209,63 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   adalah override kecil yang berasal dari call site, bukan dari nama: entri
   `layout: container` (glyph/font/objek dengan count+tabel) tetap di kelompok
   `sprite/OBJ` tetapi tidak punya `tile_offset` dan tidak dirender sebagai
-  lembar tile; entri seperti `gUnk_086DE7F4` dikoreksi menjadi `tilemap` karena
-  call site menulis entri u16-nya ke peta; `gUnk_0869B284`/`gUnk_086D74F8`
-  menjadi `gambar terkompresi` karena berisi stream `0x70` yang terverifikasi.
+  lembar tile; `gUnk_086DE7F4` dikoreksi menjadi `tabel` karena
+  `func_080AA9C8` (kasus 21) memakai 16 entri-nya sebagai blok 4x4 yang dicap
+  ke lapis, bukan lapis peta (25204 entri juga tak punya lebar persegi dan
+  header peta `gUnk_08105EDC` tidak menunjuknya). Empat tabel stamp lain
+  (`gUnk_086DCC88`, `gUnk_086DDDEC`, `gUnk_086DC57C`, `gUnk_086DD6E0`) dan
+  `gUnk_086EAD8C` juga `tabel` dengan catatan yang sama; yang terakhir dulu
+  salah sebagai `sprite/OBJ` 1041 tile 4bpp padahal 16656 entri u16 = 1041
+  blok 4x4. `VERIFIED_MAP_STAMP` memberi `map_width` dari loader untuk blob
+  yang ukurannya tepat satu stamp: `gUnk_086DC54C`/`gUnk_086DD6B0` 6x4,
+  `gUnk_086DD690`/`gUnk_086EAD64` 4x4, `gUnk_086EACDC`/`gUnk_086EAD84` 2x2
+  (heuristik pembagi dulu memilih 8, atau `sprite/OBJ` untuk yang 32 B).
+  Bukti untuk sprite kecil: `func_08008F0C(src, dst, size)` menyusun
+  deskriptor DMA dengan kontrol `0x84000000 | size/4`, jadi `size` dalam
+  byte (32-bit transfer). Contoh: `gUnk_0875196C` 128 B dengan `r3=0x80` ke
+  `0x06000A80`, palet 32 B-nya tepat di +0x80; `gUnk_08750E4C` 288 B dengan
+  `r3=0x120` ke `0x060015C0`. Blob 128/288 B yang dipakai dengan pola itu
+  memang tile 4bpp, tetapi entri yang tak punya bukti sekadar heuristik.
+  Render `tilemap` menolak
+  lebar fallback: bila jumlah entri tidak habis dibagi lebar terpilih, blob
+  tidak dirender;   `gUnk_0869B284`/`gUnk_086D74F8`/`gUnk_086DC3F4`
+  menjadi `gambar terkompresi` karena isinya bank stream `0x70` tertanam.
+  `assets/0x70/manifest.json` tetap hanya memuat blob yang seluruhnya
+  berformat `0x70`; ketiga bank tertanam diekstrak terpisah ke
+  `assets/0x70/extern/` (`embedded_streams.py`).
   Setiap entri override harus punya bukti fungsi/alamat/stream di komentar.
   Tidak menjalankan build dan tidak menulis ROM.
+- `tools/assets/asset_manifest.py` — indeks aset source di
+  `assets/manifest.json` (satu tempat untuk hash + status + encoder). Sumber
+  datanya metadata per-aset di `assets/gfx/fonts/*.json` dan
+  `assets/gfx/palettes/*.json` (berkas tanpa `rom`/`kind` dilewati). Generator
+  menjalankan encoder yang dideklarasikan (`tiles4bpp` → `tile4bpp.py`,
+  `font_container` → `font_container.py`, `palette` → `pal2gba.py`),
+  membandingkan byte dan SHA-256 hasilnya dengan slice `baserom.gba` dan
+  dengan `rom.sha256` metadata, lalu menolak entri yang statusnya bukan
+  `rom-exact`. `--check` exit 1 bila manifest basi (gate yang sama dipanggil
+  `check_docs.py`). Tidak menjalankan build dan tidak menyentuh
+  `asm/data/*.s`.
+- `tools/assets/pal2gba.py` — codec palet: `.pal` JASC (8 bit/kanal, source
+  kanonik) ⇄ u16 GBA BGR555 little endian. `decode` menulis `.pal` (+PNG
+  swatch dari `render_palette`), `encode --json <metadata> --out <bin>`
+  dipakai `asset_manifest.py`, `--check` menguji round-trip 5 bit eksak.
+- `tools/assets/asset_verify.py` — gate per-aset Fase 0: validasi
+  `assets/manifest.json` terhadap `tools/assets/manifest_schema.json`, cek
+  sha256 slice ROM, jalankan ulang encoder dari source (byte + hash harus
+  sama), pastikan berkas source ada, dan laporkan `.incbin "baserom.gba"`
+  yang belum dialihkan sebagai catatan (`--require-switched` membuatnya
+  gagal). `--symbol X` untuk satu aset, `--json` untuk laporan mesin, exit 1
+  bila ada masalah.
+- `tools/assets/lz70.py` — encoder `0x70` minimal untuk format `000`
+  (atom0/lzss0/diff0): header `(size<<8)|0x70`, format byte di dalam bitstream,
+  tangga jarak 2 entri, perintah literal/run-length/lookup. `encode` (greedy)
+  atau `encode --optimal` (dynamic programming biaya bit), `probe` menguji
+  stream P0 terhadap `baserom.gba` dengan tiga tingkat: replay token asli,
+  roundtrip decode, dan byte-identik. `--sweep` mencoba tangga 1..12.
+  `--write-report` menulis `assets/0x70/encoder_probe.md`. Exit 1 bila ada
+  stream yang belum byte-identik; tool ini tidak mengubah status manifest —
+  keputusan itu tetap di `stream_audit.py`.
 - `tools/assets/tile4bpp.py` — codec minimal tile/font 4bpp untuk pilot aset.
   `decode` mengubah slice ROM menjadi PNG truecolor 8-bit (16 warna indeks
   grayscale) + JSON berisi `tile_offset`/`tile_trim`, hex header/ekor, symbol,
@@ -196,7 +275,59 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   beda. Tool ini **tidak** menyunting `asm/data/*.s`; penggantian `.incbin`
   hanya boleh dilakukan setelah gate ini HIJAU (dan `make compare` HIJAU).
   Contoh: `python3 tools/assets/tile4bpp.py verify --json
-  assets/gfx/fonts/clock.json`. Source pilot ada di `assets/gfx/fonts/`.
+  assets/gfx/fonts/clock.json`. Source pilot `tiles4bpp` ada di
+  `assets/gfx/fonts/` (`clock`); `unk_0872de44` memakai `font_container.py`.
+- `tools/assets/font_container.py` — codec container font/objek
+  `func_0805E6CC` (bukan tile datar). `decode` mengikuti pembacaan fungsi:
+  enam tabel berhitung — A 4 B, B 16 B, C 8 B, D 32 B, E 32 B, F 8 B — lalu
+  ekor T (u16 count + count×u32); tiap tabel diawali 4 B (u16 count + 2 B pad).
+  Panjang hasil parse harus berakhir tepat di ukuran slice, jadi framing
+  “header + tile datar” ditolak alih-alih diterima diam-diam. Hanya tabel
+  berentri 32 B yang dirender ke PNG; tabel lain disimpan sebagai hex di JSON
+  dan disalin apa adanya saat `encode`. `verify` menuntut byte dan SHA-256
+  hasil encode sama dengan slice ROM. Tool ini **tidak** menyunting
+  `asm/data/*.s`. Contoh: `python3 tools/assets/font_container.py verify
+  --json assets/gfx/fonts/unk_0872de44.json`.
+- `tools/assets/stream_audit.py` — audit seluruh stream `0x70` yang sudah
+  diekstrak: blob utuh (`assets/0x70/manifest.json`) **dan** bank tertanam
+  (`assets/0x70/embedded_manifest.json`). Hash compressed dihitung dari slice
+  ROM (`offset` blob + `offset` stream, panjang `packed`), hash decoded dari
+  `assets/0x70/bin/` atau `assets/0x70/extern/`; stream bank tertanam dicek
+  ulang terhadap sha256 `embedded_manifest.json`, lalu setiap stream diberi
+  status dan kolom `sumber` (`blob 0x70`/`bank tertanam`).
+  Status `ok` hanya diberikan bila encoder menghasilkan byte compressed yang
+  sama; selama repo hanya punya `decompress.unpack()` tanpa encoder, semua
+  stream tetap **`opaque`**. Prioritas `P0`–`P3` (atom0/lzss0 → atom0/lzss →
+  huffman4 → huffman8) hanya urutan kandidat implementasi, bukan izin mengganti
+  `.incbin`. Menulis `assets/0x70/reencode_manifest.json` dan
+  `docs/decomp/ASET-0X70-REENCODE.md`; `--check` exit 1 bila laporan basi.
+  Gate yang sama dipasang di `check_docs.py`, jadi hash semua stream tidak
+  bisa basi tanpa ketahuan walau tidak ada yang ingat menjalankan `--check`.
+- `tools/assets/font_palettes.py` — telusur palet `gUnk_0875A440` + 12
+  wadah font/objek dari call site. Status `terbukti` hanya bila satu fungsi
+  yang memuat font juga memuat simbol palet dan menulis palet RAM
+  (`0x05000xxx`); selain itu `belum terbukti`. Blob palet yang kebetulan
+  berdekatan dicatat terpisah sebagai `positional_candidates` (bukan bukti).
+  Menulis `assets/gfx/fonts/palettes.json` + dokumen generate
+  `docs/decomp/PALET-FONT.md`; `--check` exit 1 bila basi.
+- `tools/assets/embedded_streams.py` — bank stream `0x70` yang **tertanam**
+  di blob mentah (`gUnk_0869B284`, `gUnk_086D74F8`, `gUnk_086DC3F4`)
+  diekstrak ke
+  `assets/0x70/extern/stream_<alamat>_<buka>_<sha8>.bin` + PNG di
+  `assets/0x70/png/`, dicatat di `assets/0x70/embedded_manifest.json`, dan
+  ditabelkan di dokumen generate `docs/decomp/ASET-0X70-TERTANAM.md`. Offset
+  awal bank dihitung dari rantai stream yang berakhir tepat di ujung blob,
+  bukan daftar offset tangan; byte sebelumnya disimpan sebagai
+  `prefix_sha256`. Bank ketiga tidak ditunjuk satu call site bank:
+  tabel descriptor `0x08106860` menunjuk tiga stream-nya satu per satu
+  (`0x086DC400`/`4C4`/`4D0`, 30x26 = 1560 B tiap stream) dan prefix 12 B-nya
+  stempel 3x2 yang disalin `func_080AA540`, jadi simbol asm 0x158 B memuat
+  stempel + bank sekaligus. `--check` merender ulang PNG dari bin `extern/` dan
+  memeriksa sha256 bin + PNG **tanpa membaca ROM**; `--check --quick`
+  melewati render bila sidik jari input sama dengan render terakhir yang lolos
+  (`build/embedded_check.stamp.json`) dan tetap memeriksa hash berkas.
+  `check_docs.py` memanggil jalur `quick` itu (bersama jalur `quick`
+  `extract_assets.py`) sebagai gate PNG tutup sesi.
 
 ## Engine kerja (`decomp_engine.py`)
 

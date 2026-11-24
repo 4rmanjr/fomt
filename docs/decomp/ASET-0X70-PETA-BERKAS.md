@@ -21,15 +21,15 @@ Setiap entri PNG menyimpan `png_sha256` di manifest. `--check-png` merender ulan
 |---|---|
 | palet | 20 |
 | tile | 23 |
-| peta | 86 |
-| layar | 5 |
+| peta | 80 |
+| layar | 11 |
 | lain | 3 |
 
-PNG: swatch palet 20, lembar tile 4bpp (abu-abu indeks) 23, peta berwarna 69, layar berwarna 5, grid indeks (pasangan tidak terbukti) 17, tanpa PNG 3. Total 137 stream dari 53 simbol yang punya stream 0x70.
+PNG: swatch palet 20, lembar tile 4bpp (abu-abu indeks) 23, peta berwarna 63, layar berwarna 11, grid indeks (pasangan tidak terbukti) 17, tanpa PNG 3. Total 137 stream dari 53 simbol yang seluruh isinya berformat `0x70`. Bank stream `0x70` tertanam di blob mentah diekstrak `embedded_streams.py` ke `assets/0x70/extern/` dan tidak dihitung di sini (lihat `ASET-0X70-TERTANAM.md`).
 
-Pasangan peta: 69 pasangan byte-valid: 10 call site `Unpack`, 59 header-only (bukan call site; 41 interior, 18 eksterior), 17 tidak terbukti (jadi grid indeks).
+Pasangan peta: 63 pasangan byte-valid: 4 call site `Unpack`, 59 header-only (bukan call site; 41 interior, 18 eksterior), 17 tidak terbukti (jadi grid indeks).
 
-Layar statis: 5 tilemap kelas `layar` (5 berpasangan) — bukan peta dan tidak dihitung di `peta berwarna`; call site-nya juga tidak masuk angka call site peta di atas.
+Layar statis: 11 tilemap kelas `layar` (11 berpasangan) — bukan peta dan tidak dihitung di `peta berwarna`; call site-nya juga tidak masuk angka call site peta di atas.
 
 ## Bukti loader 59 peta header-only
 
@@ -49,10 +49,16 @@ Karena itu 59 pasangan ber-header ditandai `pair_status: header-only`; bukti hea
 
 ## Layar statis (bukan peta)
 
-Kelas `layar` memisahkan tilemap layar tetap dari peta. Pemisahnya fungsi pemuat scene, bukan kemiripan gambar: scene intro/boot memuat logo, dan panel HUD dimuat sebagai tiga lapis layar. Tilemap ini tetap punya palet/tileset, tetapi tidak masuk hitungan peta berwarna.
+Kelas `layar` memisahkan tilemap layar tetap dari peta. Pemisahnya fungsi pemuat scene, bukan kemiripan gambar: scene intro/boot memuat logo, panel HUD dimuat sebagai tiga lapis layar, dan panel layar lain memuat dua tilemap BG langsung ke screenblock `0x0600Exxx`/`0x0600Fxxx` plus palet. Syaratnya semua call site stream itu di satu fungsi `SCREEN_SCENES`. Tilemap ini tetap punya palet/tileset, tetapi tidak masuk hitungan peta berwarna.
 
 | simbol | jenis | pemuat | PNG |
 |---|---|---|---|
+| `gUnk_0872C5D0` | panel layar BG (map 0x0600E800 + 0x0600F800) | `func_080B55D0` (code_809E804.s:46439) | [png](../../assets/0x70/png/gUnk_0872C5D0_00_layar_32x32.png) |
+| `gUnk_0872C73C` | panel layar BG (map 0x0600E800 + 0x0600F800) | `func_080B55D0` (code_809E804.s:46442) | [png](../../assets/0x70/png/gUnk_0872C73C_00_layar_32x32.png) |
+| `gUnk_0872D5CC` | panel layar BG (map 0x0600F000 + 0x0600F800) | `func_080B7164` (code_809E804.s:49957) | [png](../../assets/0x70/png/gUnk_0872D5CC_00_layar_32x32.png) |
+| `gUnk_0872D630` | panel layar BG (map 0x0600F000 + 0x0600F800) | `func_080B7164` (code_809E804.s:49960) | [png](../../assets/0x70/png/gUnk_0872D630_00_layar_32x32.png) |
+| `gUnk_0872FC34` | panel layar BG (map 0x0600F000 + 0x0600F800) | `func_080AE7D0` (code_809E804.s:32432) | [png](../../assets/0x70/png/gUnk_0872FC34_00_layar_32x32.png) |
+| `gUnk_0872FE6C` | panel layar BG (map 0x0600F000 + 0x0600F800) | `func_080AE7D0` (code_809E804.s:32435) | [png](../../assets/0x70/png/gUnk_0872FE6C_00_layar_32x32.png) |
 | `gUnk_0874EB60` | logo Natsume (intro) | `func_08000F5C` (intro_scene.s:715) | [png](../../assets/0x70/png/gUnk_0874EB60_00_layar_32x20.png) |
 | `gUnk_0874ECCC` | logo Natsume (boot) | `func_08077810` (code_0803EE94.s:112032) | [png](../../assets/0x70/png/gUnk_0874ECCC_00_layar_32x64.png) |
 | `gUnk_0874EF14` | HUD/panel tetap | `func_080A2BA4` (code_809E804.s:8436) | [png](../../assets/0x70/png/gUnk_0874EF14_00_layar_32x20.png) |
@@ -161,19 +167,19 @@ Path berkas relatif terhadap root repo. `stream` = urutan stream di dalam simbol
 | `gUnk_087170B8` | 25700 | 22 | 0x431C | 160 | 1680 | `0x033` | peta | [bin](../../assets/0x70/bin/gUnk_087170B8_22_1680_0x033.bin) | [png](../../assets/0x70/png/gUnk_087170B8_22_peta_30x28.png) | header-only peta#47 +0x14 (interior 3/3; loader `func_080A5CC0`) | palet gUnk_087170B8#24, tile gUnk_087170B8#23 |
 | `gUnk_087170B8` | 25700 | 23 | 0x43BC | 8064 | 32768 | `0x231` | tile | [bin](../../assets/0x70/bin/gUnk_087170B8_23_32768_0x231.bin) | [png](../../assets/0x70/png/gUnk_087170B8_23_tile.png) | - | - |
 | `gUnk_087170B8` | 25700 | 24 | 0x633C | 296 | 480 | `0x133` | palet | [bin](../../assets/0x70/bin/gUnk_087170B8_24_480_0x133.bin) | [png](../../assets/0x70/png/gUnk_087170B8_24_palet.png) | - | - |
-| `gUnk_0872C5D0` | 364 | 0 | 0x0000 | 364 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872C5D0_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872C5D0_00_peta_32x32.png) | terbukti call site `func_080B55D0` 0x0600E800 | palet gUnk_086FD19C#0, tile gUnk_086FB004#0 |
-| `gUnk_0872C73C` | 272 | 0 | 0x0000 | 272 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872C73C_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872C73C_00_peta_32x32.png) | terbukti call site `func_080B55D0` 0x0600F800 | palet gUnk_086FD19C#0, tile gUnk_086FB004#0 |
+| `gUnk_0872C5D0` | 364 | 0 | 0x0000 | 364 | 2048 | `0x030` | layar | [bin](../../assets/0x70/bin/gUnk_0872C5D0_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872C5D0_00_layar_32x32.png) | layar panel `func_080B55D0` (bukan peta) | palet gUnk_086FD19C#0, tile gUnk_086FB004#0 |
+| `gUnk_0872C73C` | 272 | 0 | 0x0000 | 272 | 2048 | `0x030` | layar | [bin](../../assets/0x70/bin/gUnk_0872C73C_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872C73C_00_layar_32x32.png) | layar panel `func_080B55D0` (bukan peta) | palet gUnk_086FD19C#0, tile gUnk_086FB004#0 |
 | `gUnk_0872C84C` | 3424 | 0 | 0x0000 | 3424 | 4480 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_0872C84C_00_4480_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872C84C_00_tile.png) | - | - |
-| `gUnk_0872D5CC` | 100 | 0 | 0x0000 | 100 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872D5CC_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872D5CC_00_peta_32x32.png) | terbukti call site `func_080B7164` 0x0600F000 | palet [extern](../../assets/0x70/extern/extern_0872DDE4_480_dc4cbd58.bin), tile gUnk_0872D6D8#0 |
-| `gUnk_0872D630` | 168 | 0 | 0x0000 | 168 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872D630_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872D630_00_peta_32x32.png) | terbukti call site `func_080B7164` 0x0600F800 | palet [extern](../../assets/0x70/extern/extern_0872DDE4_480_dc4cbd58.bin), tile gUnk_0872D6D8#0 |
+| `gUnk_0872D5CC` | 100 | 0 | 0x0000 | 100 | 2048 | `0x030` | layar | [bin](../../assets/0x70/bin/gUnk_0872D5CC_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872D5CC_00_layar_32x32.png) | layar panel `func_080B7164` (bukan peta) | palet [extern](../../assets/0x70/extern/extern_0872DDE4_480_dc4cbd58.bin), tile gUnk_0872D6D8#0 |
+| `gUnk_0872D630` | 168 | 0 | 0x0000 | 168 | 2048 | `0x030` | layar | [bin](../../assets/0x70/bin/gUnk_0872D630_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872D630_00_layar_32x32.png) | layar panel `func_080B7164` (bukan peta) | palet [extern](../../assets/0x70/extern/extern_0872DDE4_480_dc4cbd58.bin), tile gUnk_0872D6D8#0 |
 | `gUnk_0872D6D8` | 1804 | 0 | 0x0000 | 1804 | 3776 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_0872D6D8_00_3776_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872D6D8_00_tile.png) | - | - |
 | `gUnk_0872F11C` | 160 | 0 | 0x0000 | 160 | 384 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872F11C_00_384_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872F11C_00_peta_indeks_16.png) | tak terbukti: tidak ada call site atau header | - |
 | `gUnk_0872F1BC` | 48 | 0 | 0x0000 | 48 | 384 | `0x020` | peta | [bin](../../assets/0x70/bin/gUnk_0872F1BC_00_384_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872F1BC_00_peta_indeks_16.png) | tak terbukti: tidak ada call site atau header | - |
 | `gUnk_0872F1EC` | 48 | 0 | 0x0000 | 48 | 384 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872F1EC_00_384_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872F1EC_00_peta_indeks_16.png) | tak terbukti: tidak ada call site atau header | - |
 | `gUnk_0872F21C` | 2176 | 0 | 0x0000 | 2176 | 11456 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_0872F21C_00_11456_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872F21C_00_tile.png) | - | - |
 | `gUnk_0872FBFC` | 56 | 0 | 0x0000 | 56 | 384 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872FBFC_00_384_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872FBFC_00_peta_indeks_16.png) | tak terbukti: tidak ada call site atau header | - |
-| `gUnk_0872FC34` | 568 | 0 | 0x0000 | 568 | 2048 | `0x020` | peta | [bin](../../assets/0x70/bin/gUnk_0872FC34_00_2048_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872FC34_00_peta_32x32.png) | terbukti call site `func_080AE7D0` 0x0600F800 | palet [extern](../../assets/0x70/extern/extern_08731940_480_9f292003.bin), tile gUnk_0872FEF8#0 |
-| `gUnk_0872FE6C` | 140 | 0 | 0x0000 | 140 | 2048 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_0872FE6C_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872FE6C_00_peta_32x32.png) | terbukti call site `func_080AE7D0` 0x0600F000 | palet [extern](../../assets/0x70/extern/extern_08731940_480_9f292003.bin), tile gUnk_0872FEF8#0 |
+| `gUnk_0872FC34` | 568 | 0 | 0x0000 | 568 | 2048 | `0x020` | layar | [bin](../../assets/0x70/bin/gUnk_0872FC34_00_2048_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872FC34_00_layar_32x32.png) | layar panel `func_080AE7D0` (bukan peta) | palet [extern](../../assets/0x70/extern/extern_08731940_480_9f292003.bin), tile gUnk_0872FEF8#0 |
+| `gUnk_0872FE6C` | 140 | 0 | 0x0000 | 140 | 2048 | `0x030` | layar | [bin](../../assets/0x70/bin/gUnk_0872FE6C_00_2048_0x030.bin) | [png](../../assets/0x70/png/gUnk_0872FE6C_00_layar_32x32.png) | layar panel `func_080AE7D0` (bukan peta) | palet [extern](../../assets/0x70/extern/extern_08731940_480_9f292003.bin), tile gUnk_0872FEF8#0 |
 | `gUnk_0872FEF8` | 6728 | 0 | 0x0000 | 6728 | 29696 | `0x020` | tile | [bin](../../assets/0x70/bin/gUnk_0872FEF8_00_29696_0x020.bin) | [png](../../assets/0x70/png/gUnk_0872FEF8_00_tile.png) | - | - |
 | `gUnk_08738AD8` | 496 | 0 | 0x0000 | 496 | 1280 | `0x000` | peta | [bin](../../assets/0x70/bin/gUnk_08738AD8_00_1280_0x000.bin) | [png](../../assets/0x70/png/gUnk_08738AD8_00_peta_indeks_32.png) | tak terbukti: tidak ada call site atau header | - |
 | `gUnk_08738CC8` | 40 | 0 | 0x0000 | 40 | 1280 | `0x030` | peta | [bin](../../assets/0x70/bin/gUnk_08738CC8_00_1280_0x030.bin) | [png](../../assets/0x70/png/gUnk_08738CC8_00_peta_indeks_32.png) | tak terbukti: tidak ada call site atau header | - |

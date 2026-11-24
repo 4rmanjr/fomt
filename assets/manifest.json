@@ -1,0 +1,63 @@
+{
+ "assets": [
+  {
+   "id": "gfx/fonts/clock",
+   "symbol": "gUnk_0875A440",
+   "kind": "tiles4bpp",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75A440",
+    "size": 4100,
+    "sha256": "c5ae19339aeaedfcb4715e284f0ddc125d10b30c9c5b4eb27509bbf0225357cd"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/clock.json",
+    "png": "assets/gfx/fonts/clock.png"
+   },
+   "encoder": {
+    "tool": "tile4bpp.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/fonts/unk_0872de44",
+   "symbol": "gUnk_0872DE44",
+   "kind": "font_container",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72DE44",
+    "size": 4148,
+    "sha256": "fb7e5be52ccd941e7330f86a984b93f2dbec6a694a8bcbbe9e7806bc7d9087ea"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_0872de44.json",
+    "png": "assets/gfx/fonts/unk_0872de44.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/palettes/panel_screen",
+   "symbol": "gUnk_08731940",
+   "kind": "palette",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x731940",
+    "size": 512,
+    "sha256": "f00f6c6244f3c5497846998979764889717faf5eb805d1630b36001e60ece437"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08731940.json",
+    "png": "assets/gfx/palettes/unk_08731940.png",
+    "pal": "assets/gfx/palettes/unk_08731940.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "func_080AE7D0 (code_809E804.s:32445): func_08008E64(gUnk_08731940, 0x05000000, 0x200) menyalin 512 B ke palette RAM; tidak ada palet lain yang dimuat scene ini."
+  }
+ ]
+}

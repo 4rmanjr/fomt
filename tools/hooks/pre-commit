@@ -7,7 +7,8 @@ root=$(git rev-parse --show-toplevel)
 cd "$root"
 
 # hanya jalankan bila ada dokumen yang ikut di-stage
-staged=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.md$|^tools/scripts/check_docs\.py$' || true)
+staged=$(git diff --cached --name-only --diff-filter=ACMR \
+    | grep -E '\.md$|^tools/scripts/check_docs\.py$|^assets/0x70/(png|bin|extern)/|^assets/0x70/manifest\.json$' || true)
 if [ -z "$staged" ]; then
     exit 0
 fi

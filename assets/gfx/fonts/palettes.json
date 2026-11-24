@@ -1,0 +1,359 @@
+{
+ "symbols": [
+  {
+   "symbol": "gUnk_084F90CC",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_809E804.s",
+     "line": 102989,
+     "function": "func_080D0D28"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": []
+  },
+  {
+   "symbol": "gUnk_084FA9A0",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_809E804.s",
+     "line": 102989,
+     "function": "func_080D0D28"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": []
+  },
+  {
+   "symbol": "gUnk_0852D984",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_809E804.s",
+     "line": 31059,
+     "function": "func_080ADCA4"
+    },
+    {
+     "file": "asm/code_809E804.s",
+     "line": 31121,
+     "function": "func_080ADD20"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": []
+  },
+  {
+   "symbol": "gUnk_0858BA28",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_0803EE94.s",
+     "line": 35378,
+     "function": "func_080522F8"
+    },
+    {
+     "file": "asm/code_0803EE94.s",
+     "line": 47002,
+     "function": "func_0805806C"
+    },
+    {
+     "file": "asm/code_0803EE94.s",
+     "line": 100932,
+     "function": "func_080722DC"
+    },
+    {
+     "file": "asm/code_0803EE94.s",
+     "line": 143468,
+     "function": "func_08088318"
+    },
+    {
+     "file": "asm/code_0803EE94.s",
+     "line": 150245,
+     "function": "func_0808BDA0"
+    },
+    {
+     "file": "asm/code_0803EE94.s",
+     "line": 151302,
+     "function": "func_0808C664"
+    },
+    {
+     "file": "asm/code_0803EE94.s",
+     "line": 159781,
+     "function": "func_08091094"
+    },
+    {
+     "file": "asm/code_0803EE94.s",
+     "line": 162483,
+     "function": "func_08092754"
+    },
+    {
+     "file": "asm/code_809E804.s",
+     "line": 28357,
+     "function": "func_080AC674"
+    },
+    {
+     "file": "asm/code_809E804.s",
+     "line": 31433,
+     "function": "func_080ADF6C"
+    },
+    {
+     "file": "asm/code_809E804.s",
+     "line": 43342,
+     "function": "func_080B3CC8"
+    },
+    {
+     "file": "asm/code_809E804.s",
+     "line": 61429,
+     "function": "func_080BC938"
+    },
+    {
+     "file": "asm/code_809E804.s",
+     "line": 70207,
+     "function": "func_080C0DCC"
+    },
+    {
+     "file": "asm/intro_scene.s",
+     "line": 4,
+     "function": "func_08000914"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": []
+  },
+  {
+   "symbol": "gUnk_086F2FAC",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_809E804.s",
+     "line": 28357,
+     "function": "func_080AC674"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": []
+  },
+  {
+   "symbol": "gUnk_0871D51C",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_0803EE94.s",
+     "line": 35378,
+     "function": "func_080522F8"
+    },
+    {
+     "file": "asm/code_809E804.s",
+     "line": 28357,
+     "function": "func_080AC674"
+    },
+    {
+     "file": "asm/code_809E804.s",
+     "line": 31433,
+     "function": "func_080ADF6C"
+    },
+    {
+     "file": "asm/code_809E804.s",
+     "line": 43342,
+     "function": "func_080B3CC8"
+    },
+    {
+     "file": "asm/code_809E804.s",
+     "line": 61429,
+     "function": "func_080BC938"
+    },
+    {
+     "file": "asm/code_809E804.s",
+     "line": 70207,
+     "function": "func_080C0DCC"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": [
+    {
+     "symbol": "gUnk_087170B8",
+     "reason": "blob sebelumnya berformat 0x70, stream 0: palet 480 B",
+     "loaders": [
+      {
+       "file": "asm/code_809E804.s",
+       "line": 21883,
+       "function": "func_080A95A4"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "symbol": "gUnk_08728320",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_0803EE94.s",
+     "line": 29677,
+     "function": "func_0804F288"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": []
+  },
+  {
+   "symbol": "gUnk_08729460",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_809E804.s",
+     "line": 43342,
+     "function": "func_080B3CC8"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": []
+  },
+  {
+   "symbol": "gUnk_0872DE44",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_0803EE94.s",
+     "line": 35378,
+     "function": "func_080522F8"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": [
+    {
+     "symbol": "gUnk_0872DDE4",
+     "reason": "blob sebelumnya 0x72DDE4 (96 B), klasifikasi isi: palet",
+     "loaders": [
+      {
+       "file": "asm/code_809E804.s",
+       "line": 49944,
+       "function": "func_080B7164"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "symbol": "gUnk_08731B40",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_809E804.s",
+     "line": 43342,
+     "function": "func_080B3CC8"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": [
+    {
+     "symbol": "gUnk_08731940",
+     "reason": "blob sebelumnya 0x731940 (512 B), klasifikasi isi: palet",
+     "loaders": [
+      {
+       "file": "asm/code_809E804.s",
+       "line": 32403,
+       "function": "func_080AE7D0"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "symbol": "gUnk_087409E4",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_809E804.s",
+     "line": 43342,
+     "function": "func_080B3CC8"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": []
+  },
+  {
+   "symbol": "gUnk_0874F34C",
+   "container": true,
+   "call_sites": [
+    {
+     "file": "asm/code_809E804.s",
+     "line": 7191,
+     "function": "func_080A220C"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": [
+    {
+     "symbol": "gUnk_0874F2EC",
+     "reason": "blob sebelumnya 0x74F2EC (96 B), klasifikasi isi: palet",
+     "loaders": [
+      {
+       "file": "asm/code_809E804.s",
+       "line": 8371,
+       "function": "func_080A2BA4"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "symbol": "gUnk_0875A440",
+   "container": false,
+   "call_sites": [
+    {
+     "file": "asm/code_0803A8A4.s",
+     "line": 3596,
+     "function": "func_0803C5B0"
+    },
+    {
+     "file": "asm/code_0803A8A4.s",
+     "line": 4536,
+     "function": "func_0803CD4C"
+    },
+    {
+     "file": "asm/code_0803A8A4.s",
+     "line": 4936,
+     "function": "func_0803D080"
+    },
+    {
+     "file": "asm/code_0803A8A4.s",
+     "line": 4998,
+     "function": "func_0803D0F0"
+    },
+    {
+     "file": "asm/code_0803A8A4.s",
+     "line": 5162,
+     "function": "func_0803D240"
+    },
+    {
+     "file": "asm/code_0803A8A4.s",
+     "line": 5245,
+     "function": "func_0803D2E8"
+    },
+    {
+     "file": "asm/code_0803A8A4.s",
+     "line": 5291,
+     "function": "func_0803D340"
+    }
+   ],
+   "palette_status": "belum terbukti",
+   "proof": [],
+   "positional_candidates": []
+  }
+ ]
+}

@@ -193,7 +193,12 @@
    "offset": "0x69B284",
    "size": 238212,
    "group": "gambar terkompresi",
-   "note": "palet 0x00-0x7f; bank 37 stream 0x70 valid (mulai 0x4ac); contoh decode menghasilkan gambar UI",
+   "note": "palet 0x00-0x7f; bank 119 stream 0x70 tertanam (mulai 0x134) sudah diekstrak ke assets/0x70/extern",
+   "chain_0x70": {
+    "start": 308,
+    "streams": 119,
+    "packed": 237904
+   },
    "renderable": false
   },
   {
@@ -280,7 +285,12 @@
    "offset": "0x6D74F8",
    "size": 20172,
    "group": "gambar terkompresi",
-   "note": "2 stream 0x70 valid (0x890, 0x3ad4); palet di 0x20",
+   "note": "25 stream 0x70 tertanam (mulai 0x60); palet di 0x20; sudah diekstrak ke assets/0x70/extern",
+   "chain_0x70": {
+    "start": 96,
+    "streams": 25,
+    "packed": 20076
+   },
    "renderable": false
   },
   {
@@ -319,8 +329,13 @@
    "symbol": "gUnk_086DC3F4",
    "offset": "0x6DC3F4",
    "size": 344,
-   "group": "tabel",
-   "note": "344 B, bukan kelipatan 32 B",
+   "group": "gambar terkompresi",
+   "note": "stempel 3x2 12 B (func_080AA540 menyalin 12 B); sisa 332 B = 3 stream 0x70 tertanam (1560 B) ditunjuk tabel descriptor 0x08106860 (086DC400/4C4/4D0, dims 30x26); sudah diekstrak ke assets/0x70/extern",
+   "chain_0x70": {
+    "start": 12,
+    "streams": 3,
+    "packed": 332
+   },
    "renderable": false
   },
   {
@@ -328,16 +343,17 @@
    "offset": "0x6DC54C",
    "size": 48,
    "group": "tilemap",
-   "note": "24 entri 16-bit; bit 10-15 modal 100%",
+   "note": "stamp 6x4 (24 entri u16) dibaca func_080AA9C8 (sl=6, 4 baris); lebar = kolom loader",
+   "map_width": 6,
    "renderable": true,
-   "png": "assets/raw/png/gUnk_086DC54C_48_tilemap_8.png"
+   "png": "assets/raw/png/gUnk_086DC54C_48_tilemap_6.png"
   },
   {
    "symbol": "gUnk_086DC57C",
    "offset": "0x6DC57C",
    "size": 1804,
    "group": "tabel",
-   "note": "1804 B, bukan kelipatan 32 B",
+   "note": "902 entri u16; func_080AA9C8 memakai 4 entri pertama sebagai stamp 2x2 (sl=2, 2 baris); 902 entri bukan persegi",
    "renderable": false
   },
   {
@@ -345,7 +361,7 @@
    "offset": "0x6DCC88",
    "size": 2568,
    "group": "tabel",
-   "note": "2568 B, bukan kelipatan 32 B",
+   "note": "1284 entri u16; func_080AA9C8 memakai 16 entri pertama sebagai stamp 4x4 (sl=4, 4 baris); sisa tabel tak terbukti persegi (80,25 blok)",
    "renderable": false
   },
   {
@@ -353,25 +369,27 @@
    "offset": "0x6DD690",
    "size": 32,
    "group": "tilemap",
-   "note": "16 entri 16-bit; bit 10-15 modal 100%",
+   "note": "stamp 4x4 (16 entri u16) dibaca func_080AA9C8 (sl=4, 4 baris); lebar = kolom loader",
+   "map_width": 4,
    "renderable": true,
-   "png": "assets/raw/png/gUnk_086DD690_32_tilemap_8.png"
+   "png": "assets/raw/png/gUnk_086DD690_32_tilemap_4.png"
   },
   {
    "symbol": "gUnk_086DD6B0",
    "offset": "0x6DD6B0",
    "size": 48,
    "group": "tilemap",
-   "note": "24 entri 16-bit; bit 10-15 modal 100%",
+   "note": "stamp 6x4 (24 entri u16) dibaca func_080AA9C8 (sl=6, 4 baris); lebar = kolom loader",
+   "map_width": 6,
    "renderable": true,
-   "png": "assets/raw/png/gUnk_086DD6B0_48_tilemap_8.png"
+   "png": "assets/raw/png/gUnk_086DD6B0_48_tilemap_6.png"
   },
   {
    "symbol": "gUnk_086DD6E0",
    "offset": "0x6DD6E0",
    "size": 1804,
    "group": "tabel",
-   "note": "1804 B, bukan kelipatan 32 B",
+   "note": "902 entri u16; func_080AA9C8 memakai 4 entri pertama sebagai stamp 2x2 (sl=2, 2 baris); 902 entri bukan persegi",
    "renderable": false
   },
   {
@@ -379,25 +397,26 @@
    "offset": "0x6DDDEC",
    "size": 2568,
    "group": "tabel",
-   "note": "2568 B, bukan kelipatan 32 B",
+   "note": "1284 entri u16; func_080AA9C8 memakai 16 entri pertama sebagai stamp 4x4 (sl=4, 4 baris); sisa tabel tak terbukti persegi (80,25 blok)",
    "renderable": false
   },
   {
    "symbol": "gUnk_086DE7F4",
    "offset": "0x6DE7F4",
    "size": 50408,
-   "group": "tilemap",
-   "note": "25204 entri u16; func_080AA9C8 memilihnya sebagai layer peta",
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_086DE7F4_50408_tilemap_32.png"
+   "group": "tabel",
+   "note": "tabel 16-bit; func_080AA9C8 (kasus 21) memakai 16 entri sebagai blok 4x4 (sl=4 kolom, 4 baris) yang dicap ke lapis, bukan lapis peta; 25204 entri tak punya lebar persegi dan header peta gUnk_08105EDC tidak menunjuk blob ini",
+   "renderable": false
   },
   {
    "symbol": "gUnk_086EACDC",
    "offset": "0x6EACDC",
    "size": 8,
-   "group": "tabel",
-   "note": "8 B, bukan kelipatan 32 B",
-   "renderable": false
+   "group": "tilemap",
+   "note": "stamp 2x2 (4 entri u16) dibaca func_080AA9C8 (sl=2, 2 baris); lebar = kolom loader",
+   "map_width": 2,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086EACDC_8_tilemap_2.png"
   },
   {
    "symbol": "gUnk_086EACE4",
@@ -440,26 +459,28 @@
    "offset": "0x6EAD64",
    "size": 32,
    "group": "tilemap",
-   "note": "16 entri 16-bit; bit 10-15 modal 100%",
+   "note": "stamp 4x4 (16 entri u16) dibaca func_080AA9C8 (sl=4, 4 baris); lebar = kolom loader",
+   "map_width": 4,
    "renderable": true,
-   "png": "assets/raw/png/gUnk_086EAD64_32_tilemap_8.png"
+   "png": "assets/raw/png/gUnk_086EAD64_32_tilemap_4.png"
   },
   {
    "symbol": "gUnk_086EAD84",
    "offset": "0x6EAD84",
    "size": 8,
-   "group": "tabel",
-   "note": "8 B, bukan kelipatan 32 B",
-   "renderable": false
+   "group": "tilemap",
+   "note": "stamp 2x2 (4 entri u16) dibaca func_080AA9C8 (sl=2, 2 baris); lebar = kolom loader",
+   "map_width": 2,
+   "renderable": true,
+   "png": "assets/raw/png/gUnk_086EAD84_8_tilemap_2.png"
   },
   {
    "symbol": "gUnk_086EAD8C",
    "offset": "0x6EAD8C",
    "size": 33312,
-   "group": "sprite/OBJ",
-   "note": "1041 tile 4bpp (32 B/tile)",
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_086EAD8C_33312_sprite.png"
+   "group": "tabel",
+   "note": "16656 entri u16 = 1041 blok 4x4; func_080AA9C8 memakai 16 entri pertama sebagai stamp 4x4 (sl=4, 4 baris), bukan 1041 tile 4bpp",
+   "renderable": false
   },
   {
    "symbol": "gUnk_086F2FAC",
@@ -617,7 +638,7 @@
    "offset": "0x72DE44",
    "size": 4148,
    "group": "sprite/OBJ",
-   "note": "count 27 + tabel; func_080522F8 -> func_0805E6CC, bukan tile datar",
+   "note": "container func_0805E6CC: A27/B27/C6/D106/E1/F0/T27; tile 4bpp hanya D+E (107 tile), sisa tabel",
    "layout": "container",
    "renderable": false
   },
@@ -826,6 +847,11 @@
    "group": "sprite/OBJ",
    "note": "count 1 + tabel; func_0805E6CC (font/objek), bukan tile datar",
    "layout": "container",
+   "chain_0x70": {
+    "start": 4112,
+    "streams": 20,
+    "packed": 5732
+   },
    "renderable": false
   },
   {

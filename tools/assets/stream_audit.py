@@ -1,0 +1,303 @@
+#!/usr/bin/env python3
+"""Audit hash stream 0x70 dan klasifikasi kesiapan reencode byte-identik.
+
+Tool ini sengaja **tidak** menganggap payload hasil decode sebagai bukti
+reencode.  Setiap stream dihitung hash compressed dari slice ROM dan hash
+decoded dari `assets/0x70/bin/`; status `opaque` diberikan bila belum ada
+encoder 0x70 yang terbukti menghasilkan byte compressed yang sama.
+
+  python3 tools/assets/stream_audit.py
+  python3 tools/assets/stream_audit.py --check
+
+Output: `assets/0x70/reencode_manifest.json` dan
+`docs/decomp/ASET-0X70-REENCODE.md`.
+"""
+import argparse
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[2]
+TOOLS = REPO / "tools" / "scripts"
+sys.path.insert(0, str(TOOLS))
+import asset_inventory as inv  # noqa: E402
+import decompress  # noqa: E402
+
+MANIFEST = REPO / "assets" / "0x70" / "manifest.json"
+EMBEDDED = REPO / "assets" / "0x70" / "embedded_manifest.json"
+OUT = REPO / "assets" / "0x70" / "reencode_manifest.json"
+DOC = REPO / "docs" / "decomp" / "ASET-0X70-REENCODE.md"
+
+
+def sha256(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def format_family(fmt):
+    """(prioritas, keluarga) dari tiga digit atom/lzss/diff."""
+    atom = int(fmt[0])
+    lzss = int(fmt[1])
+    if atom == 0 and lzss == 0:
+        return "P0", "atom0/lzss0 (paling sederhana)"
+    if atom == 0:
+        return "P1", f"atom0/lzss{lzss}"
+    if atom == 1:
+        return "P2", f"huffman4/lzss{lzss}"
+    return "P3", f"huffman8/lzss{lzss}"
+
+
+def build(manifest=MANIFEST, rom_path=REPO / "baserom.gba",
+          embedded_path=EMBEDDED):
+    """-> laporan hash untuk blob `0x70` utuh **dan** bank `0x70` tertanam.
+
+    Bank tertanam diambil dari `assets/0x70/embedded_manifest.json` (hasil
+    `embedded_streams.py`): slice ROM-nya didekode ulang dan dibandingkan
+    dengan bin `extern/` serta sha256 manifest itu, jadi cakupan laporan =
+    seluruh stream `0x70` yang sudah diekstrak.
+    """
+    manifest = Path(manifest)
+    rom = Path(rom_path).read_bytes()
+    source = json.loads(manifest.read_text())
+    by_symbol = {e.name: e for e in inv.analyze()[1]}
+    rows = []
+    for blob in source["streams"]:
+        entry = by_symbol.get(blob["blob"])
+        if entry is None:
+            raise SystemExit(f"symbol {blob['blob']} tidak ada di inventory")
+        for stream in blob["streams"]:
+            offset = entry.offset + int(stream["offset"])
+            packed = int(stream["packed"])
+            compressed = rom[offset:offset + packed]
+            bin_path = manifest.parent / stream["bin"]
+            decoded = bin_path.read_bytes()
+            if len(decoded) != int(stream["unpacked"]):
+                raise SystemExit(
+                    f"{blob['blob']}#{stream['index']}: decoded "
+                    f"{len(decoded)} != {stream['unpacked']}")
+            if len(compressed) != packed:
+                raise SystemExit(f"{blob['blob']}#{stream['index']}: compressed terpotong")
+            try:
+                from_rom, rom_fmt, _ = decompress.unpack(compressed, 0)
+            except decompress.UnpackException as exc:
+                raise SystemExit(
+                    f"{blob['blob']}#{stream['index']}: decode gagal: {exc}")
+            if from_rom != decoded:
+                raise SystemExit(
+                    f"{blob['blob']}#{stream['index']}: decode compressed != bin")
+            priority, family = format_family(str(stream["format"]))
+            rows.append({
+                "symbol": blob["blob"],
+                "index": stream["index"],
+                "source": "blob 0x70",
+                "format": str(stream["format"]),
+                "family": family,
+                "priority": priority,
+                "group": stream.get("group", "?"),
+                "compressed": {
+                    "offset": f"0x{offset:06X}",
+                    "size": packed,
+                    "sha256": sha256(compressed),
+                },
+                "decoded": {
+                    "size": len(decoded),
+                    "sha256": sha256(decoded),
+                    "bin": stream["bin"],
+                    "decoded_from_compressed": True,
+                    "format_decoded": rom_fmt,
+                },
+                "reencode": "opaque",
+                "reason": "belum ada encoder 0x70 yang terbukti byte-identik",
+            })
+    embedded = Path(embedded_path)
+    banks = json.loads(embedded.read_text()).get("banks", []) \
+        if embedded.exists() else []
+    for bank in banks:
+        entry = by_symbol.get(bank["blob"])
+        if entry is None:
+            raise SystemExit(f"symbol {bank['blob']} tidak ada di inventory")
+        for stream in bank["streams"]:
+            offset = entry.offset + int(stream["offset"])
+            packed = int(stream["packed"])
+            compressed = rom[offset:offset + packed]
+            decoded = (embedded.parent / stream["bin"]).read_bytes()
+            where = f"{bank['blob']}#{stream['index']}"
+            if len(decoded) != int(stream["unpacked"]):
+                raise SystemExit(
+                    f"{where}: decoded {len(decoded)} != {stream['unpacked']}")
+            if len(compressed) != packed:
+                raise SystemExit(f"{where}: compressed terpotong")
+            try:
+                from_rom, rom_fmt, _ = decompress.unpack(compressed, 0)
+            except decompress.UnpackException as exc:
+                raise SystemExit(f"{where}: decode gagal: {exc}")
+            if from_rom != decoded:
+                raise SystemExit(
+                    f"{where}: decode compressed != bin extern")
+            if sha256(decoded) != stream["sha256"]:
+                raise SystemExit(
+                    f"{where}: bin extern beda dengan embedded_manifest")
+            priority, family = format_family(str(stream["format"]))
+            rows.append({
+                "symbol": bank["blob"],
+                "index": stream["index"],
+                "source": "bank tertanam",
+                "format": str(stream["format"]),
+                "family": family,
+                "priority": priority,
+                "group": stream.get("group", "?"),
+                "compressed": {
+                    "offset": f"0x{offset:06X}",
+                    "size": packed,
+                    "sha256": sha256(compressed),
+                },
+                "decoded": {
+                    "size": len(decoded),
+                    "sha256": sha256(decoded),
+                    "bin": f"{stream['bin']}",
+                    "decoded_from_compressed": True,
+                    "format_decoded": rom_fmt,
+                },
+                "reencode": "opaque",
+                "reason": "belum ada encoder 0x70 yang terbukti byte-identik",
+            })
+    counts = {}
+    for row in rows:
+        counts[row["reencode"]] = counts.get(row["reencode"], 0) + 1
+    priorities = {}
+    for row in rows:
+        key = (row["priority"], row["family"])
+        p = priorities.setdefault(key, {"streams": 0, "packed": 0, "decoded": 0})
+        p["streams"] += 1
+        p["packed"] += row["compressed"]["size"]
+        p["decoded"] += row["decoded"]["size"]
+    sources = {}
+    for row in rows:
+        s = sources.setdefault(row["source"],
+                               {"streams": 0, "packed": 0, "decoded": 0})
+        s["streams"] += 1
+        s["packed"] += row["compressed"]["size"]
+        s["decoded"] += row["decoded"]["size"]
+    return {
+        "source_manifest": str(manifest.relative_to(REPO)),
+        "total": len(rows),
+        "reencodeable": sum(1 for r in rows if r["reencode"] == "ok"),
+        "opaque": sum(1 for r in rows if r["reencode"] == "opaque"),
+        "decode_verified": sum(
+            1 for r in rows if r["decoded"]["decoded_from_compressed"]),
+        "counts": counts,
+        "priorities": [
+            {"priority": k[0], "family": k[1], **v}
+            for k, v in sorted(priorities.items())
+        ],
+        "sources": [{"source": k, **v}
+                    for k, v in sorted(sources.items())],
+        "embedded_banks": len(banks),
+        "streams": rows,
+    }
+
+
+def render_doc(result):
+    out = [
+        "# Klasifikasi reencode stream `0x70`",
+        "",
+        "**Dihasilkan otomatis** oleh `python3 tools/assets/stream_audit.py`.",
+        "Hash `compressed` dihitung dari slice ROM; hash `decoded` dari",
+        "`assets/0x70/bin/` (blob utuh) dan `assets/0x70/extern/` (bank",
+        "tertanam). Setiap slice compressed juga didekode ulang dan",
+        "dibandingkan dengan bin sebelum hash dicatat. Status hanya `ok` bila",
+        "encoder menghasilkan byte compressed yang sama, bukan hanya payload",
+        "yang sama.",
+        "",
+        "Cakupan: stream dari blob yang seluruhnya berformat `0x70` di",
+        "`assets/0x70/manifest.json` **dan** stream bank `0x70` tertanam yang",
+        "diekstrak `embedded_streams.py` ke `assets/0x70/extern/` (lihat",
+        "`ASET-0X70-TERTANAM.md`). Stream bank tertanam dicek ulang di sini:",
+        "slice ROM-nya harus decode ke bin `extern/` dengan sha256 yang sama",
+        "dengan `embedded_manifest.json`, jadi laporan ini mencakup seluruh",
+        "stream `0x70` yang sudah diekstrak, bukan hanya blob utuh.",
+        "",
+        "## Ringkasan",
+        "",
+        f"- total stream: **{result['total']}**",
+    ]
+    for s in result["sources"]:
+        out.append(f"- sumber `{s['source']}`: **{s['streams']}** stream, "
+                   f"{s['packed']} B compressed → {s['decoded']} B decoded")
+    out += [
+        f"- bank tertanam tercakup: **{result['embedded_banks']}**",
+        f"- compressed → decoded terverifikasi: **{result['decode_verified']}**",
+        f"- bisa direencode byte-identik: **{result['reencodeable']}**",
+        f"- wajib `opaque`: **{result['opaque']}**",
+        "",
+        "## Prioritas konversi",
+        "",
+        "| prioritas | keluarga | stream | compressed B | decoded B |",
+        "|---|---|---:|---:|---:|",
+    ]
+    for p in result["priorities"]:
+        out.append(f"| {p['priority']} | {p['family']} | {p['streams']} | "
+                   f"{p['packed']} | {p['decoded']} |")
+    out += [
+        "",
+        "Semua stream saat ini `opaque`: repo hanya memiliki decoder `unpack()`;",
+        "tidak ada encoder `0x70` yang diuji menghasilkan compressed hash yang",
+        "sama. Prioritas di atas adalah urutan kandidat implementasi encoder,",
+        "bukan klaim bahwa stream tersebut sudah aman diganti `.incbin`.",
+        "",
+        "## Bukti hash",
+        "",
+        "| simbol | # | sumber | format | group | compressed | decoded | compressed sha256 | decoded sha256 | status |",
+        "|---|---:|---|---|---|---:|---:|---|---|---|",
+    ]
+    for r in result["streams"]:
+        out.append(
+            f"| `{r['symbol']}` | {r['index']} | {r['source']} | "
+            f"`{r['format']}` | "
+            f"{r['group']} | {r['compressed']['size']} | "
+            f"{r['decoded']['size']} | `{r['compressed']['sha256']}` | "
+            f"`{r['decoded']['sha256']}` | {r['reencode']} |")
+    out += [
+        "",
+        "## Aturan",
+        "",
+        "- `opaque` adalah status jujur, bukan kegagalan yang boleh disembunyikan.",
+        "- Jangan mengganti `.incbin` hanya karena decoded hash cocok.",
+        "- Naikkan status hanya setelah encoder + hash compressed + hash decoded",
+        "  cocok, lalu `make compare` HIJAU.",
+    ]
+    return "\n".join(out) + "\n"
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--check", action="store_true",
+                    help="exit 1 bila laporan basi")
+    ap.add_argument("--manifest", type=Path, default=MANIFEST)
+    ap.add_argument("--rom", type=Path, default=REPO / "baserom.gba")
+    args = ap.parse_args(argv)
+    result = build(args.manifest, args.rom)
+    data = json.dumps(result, indent=1) + "\n"
+    doc = render_doc(result)
+    if args.check:
+        if not OUT.exists() or not DOC.exists():
+            print("MASALAH: laporan reencode belum ada", file=sys.stderr)
+            return 1
+        if OUT.read_text() != data or DOC.read_text() != doc:
+            print("BASI: laporan reencode — jalankan tool tanpa --check",
+                  file=sys.stderr)
+            return 1
+        print("laporan reencode sinkron")
+        return 0
+    OUT.write_text(data)
+    DOC.parent.mkdir(parents=True, exist_ok=True)
+    DOC.write_text(doc)
+    print(f"stream={result['total']} reencodeable={result['reencodeable']} "
+          f"opaque={result['opaque']}")
+    print(f"output={OUT.relative_to(REPO)}")
+    print(f"doc={DOC.relative_to(REPO)}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

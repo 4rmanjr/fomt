@@ -103,6 +103,26 @@ SCREEN_SCENES = {
         "label": "HUD/panel tetap",
         "reason": "tiga lapis panel layar, bukan lapis peta",
     },
+    # Tiga scene panel berikut memuat tilemap langsung ke screenblock BG:
+    # `Unpack(gUnk_0872FE6C -> 0x0600F000)`, `Unpack(gUnk_0872C73C ->
+    # 0x0600F800)`, `Unpack(gUnk_0872D630 -> 0x0600F800)`, masing-masing
+    # berpasangan dengan palet DMA ke 0x05000000 dan tile ke 0x06000000.
+    # Tidak ada header peta/kamera yang terlibat, jadi ini layar tetap.
+    ("code_809E804.s", "func_080AE7D0"): {
+        "kind": "panel",
+        "label": "panel layar BG (map 0x0600F000 + 0x0600F800)",
+        "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM",
+    },
+    ("code_809E804.s", "func_080B55D0"): {
+        "kind": "panel",
+        "label": "panel layar BG (map 0x0600E800 + 0x0600F800)",
+        "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM",
+    },
+    ("code_809E804.s", "func_080B7164"): {
+        "kind": "panel",
+        "label": "panel layar BG (map 0x0600F000 + 0x0600F800)",
+        "reason": "scene memuat dua tilemap BG + palet langsung ke VRAM",
+    },
 }
 PALETTE_RAM = (0x05000000, 0x05000200)
 TILE_RAM = (0x06000000, 0x0600C000)
@@ -715,7 +735,10 @@ def render_map_doc(manifest):
         parts.append(f"tanpa PNG {kinds['-']}")
     out.append("PNG: " + ", ".join(parts)
                + f". Total {stream_count} stream dari {len(blobs)} simbol "
-               "yang punya stream 0x70.")
+               "yang seluruh isinya berformat `0x70`. Bank stream `0x70` "
+               "tertanam di blob mentah diekstrak `embedded_streams.py` ke "
+               "`assets/0x70/extern/` dan tidak dihitung di sini (lihat "
+               "`ASET-0X70-TERTANAM.md`).")
     out.append("")
     out.append(f"Pasangan peta: {valid} pasangan byte-valid: {calls} call site "
                f"`Unpack`, {header_only} header-only (bukan call site; "
@@ -767,8 +790,11 @@ def render_map_doc(manifest):
     out.append("")
     out.append("Kelas `layar` memisahkan tilemap layar tetap dari peta. "
                "Pemisahnya fungsi pemuat scene, bukan kemiripan gambar: "
-               "scene intro/boot memuat logo, dan panel HUD dimuat sebagai "
-               "tiga lapis layar. Tilemap ini tetap punya palet/tileset, tetapi "
+               "scene intro/boot memuat logo, panel HUD dimuat sebagai tiga "
+               "lapis layar, dan panel layar lain memuat dua tilemap BG "
+               "langsung ke screenblock `0x0600Exxx`/`0x0600Fxxx` plus palet. "
+               "Syaratnya semua call site stream itu di satu fungsi "
+               "`SCREEN_SCENES`. Tilemap ini tetap punya palet/tileset, tetapi "
                "tidak masuk hitungan peta berwarna.")
     out.append("")
     out.append("| simbol | jenis | pemuat | PNG |")
@@ -921,44 +947,92 @@ def render_manifest_png(out, manifest, dest):
     return fresh
 
 
-def check_png(out):
-    """Render ulang PNG dari manifest + bin, lalu bandingkan hash.
+def png_sources(out):
+    """Berkas yang menjadi sumber render PNG: `bin/*.bin` + `extern/*.bin`."""
+    return [p for d in (out / "bin", out / "extern") if d.is_dir()
+            for p in d.glob("*.bin")]
 
-    Tidak membaca `baserom.gba`: pasangan internal memakai bin stream, dan
-    pasangan eksternal memakai `extern/*.bin`. File PNG di repo juga diperiksa
-    terhadap manifest supaya korupsi file tidak lolos.
+
+PNG_STAMP = REPO / "build" / "png_check.stamp.json"
+
+
+def png_source_signature(out):
+    """Sidik jari input render: isi manifest + (path, ukuran, mtime) bin.
+
+    Dipakai jalur cepat gate: selama input render sama persis dengan render
+    terakhir yang lolos, render ulang tidak bisa menemukan hal baru — hash
+    berkas PNG di disk sudah diperiksa terpisah, dan itu yang menangkap PNG
+    rusak. Stamp disimpan di `build/` (gitignored, boleh hilang).
+    """
+    manifest_path = out / "manifest.json"
+    sig = {"manifest": hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+           "sources": []}
+    for p in sorted(png_sources(out)):
+        st = p.stat()
+        sig["sources"].append([p.relative_to(out).as_posix(),
+                               st.st_size, st.st_mtime_ns])
+    return sig
+
+
+def png_stamp_matches(sig):
+    try:
+        return json.loads(PNG_STAMP.read_text()) == sig
+    except (OSError, ValueError):
+        return False
+
+
+def png_stamp_write(sig):
+    try:
+        PNG_STAMP.parent.mkdir(parents=True, exist_ok=True)
+        PNG_STAMP.write_text(json.dumps(sig) + "\n")
+    except OSError:
+        pass  # gate tetap benar tanpa cache; cuma lebih lambat
+
+
+def png_problems(out, quick=False):
+    """-> (masalah: list[str], catatan: str|None, jumlah entri).
+
+    Yang selalu diperiksa: berkas PNG ada dan sha256-nya sama dengan
+    `png_sha256` di manifest (ini yang menangkap PNG rusak/diedit). Render ulang
+    dari bin + extern hanya dijalankan bila `quick=False` atau bila ada bin yang
+    lebih baru dari PNG (`quick=True`), karena render penuh butuh puluhan detik.
+    Tidak membaca `baserom.gba`.
     """
     manifest_path = out / "manifest.json"
     if not manifest_path.exists():
-        print("MASALAH: manifest tidak ada", file=sys.stderr)
-        return 1
+        return ["manifest tidak ada"], None, 0
     manifest = json.loads(manifest_path.read_text())
     ref = _png_entries(manifest)
     if not ref:
-        print("MASALAH: manifest tidak punya entri PNG", file=sys.stderr)
-        return 1
+        return ["manifest tidak punya entri PNG"], None, 0
     missing_hash = [f"{b}#{i}" for (b, i), s in ref.items()
                     if not s.get("png_sha256")]
     if missing_hash:
-        print(f"MASALAH: {len(missing_hash)} PNG tanpa png_sha256 — "
-              "jalankan extract_assets.py", file=sys.stderr)
-        return 1
+        return ([f"{len(missing_hash)} PNG tanpa png_sha256 — jalankan "
+                 "extract_assets.py"], None, len(ref))
 
-    with tempfile.TemporaryDirectory(prefix="fomt-png-") as tmp:
-        try:
-            fresh = render_manifest_png(out, manifest, Path(tmp))
-        except (OSError, ValueError) as e:
-            print(f"MASALAH: render ulang gagal: {e}", file=sys.stderr)
-            return 1
+    note = None
+    fresh = {}
+    sig = png_source_signature(out) if quick else None
+    if quick and png_stamp_matches(sig):
+        note = ("render ulang PNG dilewati: input render sama dengan render "
+                "terakhir yang lolos (`build/png_check.stamp.json`); hash "
+                "berkas tetap diperiksa")
+    else:
+        with tempfile.TemporaryDirectory(prefix="fomt-png-") as tmp:
+            try:
+                fresh = render_manifest_png(out, manifest, Path(tmp))
+            except (OSError, ValueError) as e:
+                return [f"render ulang gagal: {e}"], None, len(ref)
 
     bad = []
     for key, old in ref.items():
-        new = fresh.get(key)
-        if not new or not new.get("png_sha256"):
-            bad.append((key, "PNG hasil render ulang tidak ada"))
-            continue
-        if new["png_sha256"] != old["png_sha256"]:
-            bad.append((key, "hash render ulang beda"))
+        if fresh or not note:
+            new = fresh.get(key)
+            if not new or not new.get("png_sha256"):
+                bad.append((key, "PNG hasil render ulang tidak ada"))
+            elif new["png_sha256"] != old["png_sha256"]:
+                bad.append((key, "hash render ulang beda"))
         path = Path(old["png"])
         if not path.is_absolute():
             path = REPO / path
@@ -967,12 +1041,22 @@ def check_png(out):
         elif hashlib.sha256(path.read_bytes()).hexdigest() != old["png_sha256"]:
             bad.append((key, "file PNG beda dari manifest"))
 
-    for key, why in bad[:10]:
-        print(f"MASALAH {key[0]}#{key[1]}: {why}", file=sys.stderr)
-    if len(bad) > 10:
-        print(f"... {len(bad) - 10} masalah lain", file=sys.stderr)
-    print(f"PNG: {len(ref)} diperiksa, {len(bad)} masalah")
-    return 1 if bad else 0
+    if sig is not None and not bad:
+        png_stamp_write(sig)
+    return ([f"{k[0]}#{k[1]}: {why}" for k, why in bad], note, len(ref))
+
+
+def check_png(out, quick=False):
+    """Cetak hasil `png_problems`; exit 1 bila ada masalah."""
+    problems, note, total = png_problems(out, quick)
+    for p in problems[:10]:
+        print(f"MASALAH {p}", file=sys.stderr)
+    if len(problems) > 10:
+        print(f"... {len(problems) - 10} masalah lain", file=sys.stderr)
+    print(f"PNG: {total} diperiksa, {len(problems)} masalah")
+    if note:
+        print(note)
+    return 1 if problems else 0
 
 
 def main(argv):
@@ -986,12 +1070,17 @@ def main(argv):
     ap.add_argument("--check-png", action="store_true",
                     help="render ulang PNG dari manifest (tanpa ROM), "
                          "lalu bandingkan png_sha256")
+    ap.add_argument("--quick", action="store_true",
+                    help="dengan --check-png: lewati render ulang bila input "
+                         "render (manifest + bin/ + extern/) sama dengan "
+                         "render terakhir yang lolos; hash berkas tetap "
+                         "diperiksa")
     ap.add_argument("--no-doc", action="store_true",
                     help="jangan menulis dokumen peta (dipakai render sementara)")
     args = ap.parse_args(argv)
 
     if args.check_png:
-        return check_png(args.out)
+        return check_png(args.out, quick=args.quick)
 
     if args.check_map:
         manifest_path = args.out / "manifest.json"
@@ -1046,10 +1135,32 @@ def main(argv):
     bindir.mkdir(parents=True, exist_ok=True)
     pngdir.mkdir(parents=True, exist_ok=True)
     extdir.mkdir(parents=True, exist_ok=True)
-    for stale in pngdir.glob("*.png"):
-        stale.unlink()
-    for stale in extdir.glob("*.bin"):
-        stale.unlink()
+    # Hapus hanya berkas yang memang milik manifest ini (entri lama), bukan
+    # seluruh isi direktori: `png/` dipakai bersama `embedded_streams.py`
+    # (`extern_stream_*.png`) dan `extern/` juga memuat bin bank tertanam
+    # (`stream_*.bin`). Glob-hapus dulu ikut menghapus keluaran tool lain.
+    owned = set()
+    prev = args.out / "manifest.json"
+    if prev.exists():
+        try:
+            old = json.loads(prev.read_text())
+        except ValueError:
+            old = {}
+        prefix = args.out.relative_to(REPO).parts  # mis. ('assets', '0x70')
+        for b in old.get("streams", []):
+            for s in b.get("streams", []):
+                for key in ("png", "bin"):
+                    if not s.get(key):
+                        continue
+                    rel = Path(s[key])
+                    if rel.parts[:len(prefix)] == prefix:
+                        rel = Path(*rel.parts[len(prefix):])
+                    owned.add(rel)
+        for e in old.get("external_assets", []):
+            if e.get("bin"):
+                owned.add(Path(e["bin"]))
+    for rel in owned:
+        (args.out / rel).unlink(missing_ok=True)
 
     records = []
     for entry in inventory:

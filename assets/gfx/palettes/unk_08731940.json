@@ -1,0 +1,22 @@
+{
+ "id": "gfx/palettes/panel_screen",
+ "symbol": "gUnk_08731940",
+ "kind": "palette",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x731940",
+  "size": 512,
+  "sha256": "f00f6c6244f3c5497846998979764889717faf5eb805d1630b36001e60ece437"
+ },
+ "source": {
+  "pal": "unk_08731940.pal",
+  "png": "unk_08731940.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "func_080AE7D0 (code_809E804.s:32445): func_08008E64(gUnk_08731940, 0x05000000, 0x200) menyalin 512 B ke palette RAM; tidak ada palet lain yang dimuat scene ini."
+}
