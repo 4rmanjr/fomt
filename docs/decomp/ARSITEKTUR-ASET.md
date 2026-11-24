@@ -931,6 +931,13 @@ Pembacanya tetap `func_0805E6CC`, dipanggil langsung di `func_08094AC0`
 lolos `verify` MATCH lalu `.incbin`-nya dialihkan dengan `font_container.py`,
 tetap `semantics: unidentified`.
 
+`gUnk_08755154` (0x755154, 220 B, A1/B1/C1/D4/E1/F0/T1) menutup rangkaian ini
+dengan jalur yang sama seperti `gUnk_0875352C`: baris 133387 memuatnya,
+`func_08082264` (baris 132394) meneruskan argumen ke-4 ke `func_0805E6CC`.
+Section D-nya berawalan byte yang sama dengan `gUnk_0875352C`, hanya section E
+(1 tile) yang berbeda, jadi keduanya varian isi dari bentuk container yang
+sama — tetap `unidentified` karena arti tabelnya belum terbukti.
+
 ### Rantai sprite 9-tile 0x750E4C–0x7517AC
 
 Sembilan blob 9-tile di rentang ini dipakai tiga fungsi `code_0803EE94.s` yang

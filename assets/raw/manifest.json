@@ -1890,8 +1890,9 @@
    "symbol": "gUnk_08755154",
    "offset": "0x755154",
    "size": 220,
-   "group": "tabel",
-   "note": "220 B, bukan kelipatan 32 B",
+   "group": "sprite/OBJ",
+   "note": "container func_0805E6CC: A1/B1/C1/D4/E1/F0/T1; func_08082264 (baris 133387 -> 132394) meneruskannya ke func_0805E6CC, bukan tile datar",
+   "layout": "container",
    "renderable": false
   },
   {

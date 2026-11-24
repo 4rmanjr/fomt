@@ -221,6 +221,12 @@ VERIFIED_LAYOUT = {
         "dipanggil langsung di baris 166585, code_809E804.s 95889/98781, "
         "bukan tile datar",
     ),
+    "gUnk_08755154": (
+        "sprite/OBJ", "container",
+        "container func_0805E6CC: A1/B1/C1/D4/E1/F0/T1; func_08082264 "
+        "(baris 133387 -> 132394) meneruskannya ke func_0805E6CC, bukan "
+        "tile datar",
+    ),
     "gUnk_08731B40": (
         "sprite/OBJ", "container",
         "count 20 + tabel; @ChickenPortraits, func_0805E6CC, bukan tile datar",

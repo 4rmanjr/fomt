@@ -167,6 +167,27 @@
    "evidence": "container func_0805E6CC A2/B4/C2/D36/E2/F0/T5 (1352 B habis tepat); asm/code_0803EE94.s:166585 (func_08094AC0), asm/code_809E804.s:95889 (func_080CD578), dan asm/code_809E804.s:98781 (func_080CEC00) memanggil func_0805E6CC dengan gUnk_08754C0C"
   },
   {
+   "id": "gfx/fonts/gunk_08755154",
+   "symbol": "gUnk_08755154",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x755154",
+    "size": 220,
+    "sha256": "52f9afdd6e98d76dea6fac9c43ccfdb3bdb2d70a06678910080a24c796c08c42"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/unk_08755154.json",
+    "png": "assets/gfx/fonts/unk_08755154.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   },
+   "evidence": "container func_0805E6CC A1/B1/C1/D4/E1/F0/T1 (220 B habis tepat); asm/code_0803EE94.s:133387 memuat gUnk_08755154 lalu func_08082264 (baris 132394) meneruskannya sebagai argumen ke-4 ke func_0805E6CC (jalur sama dengan gUnk_0875352C)"
+  },
+  {
    "id": "gfx/palettes/panel_screen",
    "symbol": "gUnk_08731940",
    "kind": "palette",

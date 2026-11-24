@@ -1261,7 +1261,10 @@ gUnk_08754C0C:
 
 	.global gUnk_08755154
 gUnk_08755154:
-	.incbin "baserom.gba", 0x755154, 0xDC
+	@ rom: 0x755154 0xDC — source assets/gfx/fonts/unk_08755154.{png,json};
+	@ container func_0805E6CC A1/B1/C1/D4/E1/F0/T1 (bukan tile datar);
+	@ func_08082264 (baris 133387 -> 132394) meneruskannya ke func_0805E6CC.
+	.incbin "build/assets/gUnk_08755154.bin"
 
 	.global gUnk_08755230
 gUnk_08755230:
