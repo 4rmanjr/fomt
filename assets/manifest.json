@@ -79,6 +79,27 @@
     "version": 1
    },
    "evidence": "code_0803EE94.s:65183 (func 0x0805F8E0..): struct+8=gUnk_087518CC tile, struct+0xc=gUnk_0875194C palet"
+  },
+  {
+   "id": "gfx/sprites/gunk_0875196c",
+   "symbol": "gUnk_0875196C",
+   "kind": "sprite",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75196C",
+    "size": 128,
+    "sha256": "63983ec0c584723411cae1198790b006cc3da48141539dbd9babb585f6c02b96"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_0875196C.json",
+    "png": "assets/gfx/sprites/gUnk_0875196C.png",
+    "pal": "assets/gfx/sprites/gUnk_0875196C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:50747 func: ldr gUnk_0875196C + movs r2,#0x80 -> func_08008E64 ke 0x06010600; gUnk_087519EC 0x20 -> 0x05000200 (palet pasangan)"
   }
  ]
 }

@@ -6,7 +6,8 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_0875A440.bin \
   $(BUILD_DIR)/assets/gUnk_0872DE44.bin \
   $(BUILD_DIR)/assets/gUnk_08731940.bin \
-  $(BUILD_DIR)/assets/gUnk_087518CC.bin
+  $(BUILD_DIR)/assets/gUnk_087518CC.bin \
+  $(BUILD_DIR)/assets/gUnk_0875196C.bin
 
 $(BUILD_DIR)/assets/gUnk_0875A440.bin: \
     assets/gfx/fonts/clock.json \
@@ -37,3 +38,11 @@ $(BUILD_DIR)/assets/gUnk_087518CC.bin: \
     tools/assets/sprite2gba.py
 	@echo "ASSET $@"
 	@python3 tools/assets/sprite2gba.py encode --json assets/gfx/sprites/gUnk_087518CC.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875196C.bin: \
+    assets/gfx/sprites/gUnk_0875196C.json \
+    assets/gfx/sprites/gUnk_0875196C.png \
+    assets/gfx/sprites/gUnk_0875196C.pal \
+    tools/assets/sprite2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/sprite2gba.py encode --json assets/gfx/sprites/gUnk_0875196C.json --out $@
