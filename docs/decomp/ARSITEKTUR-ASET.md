@@ -745,21 +745,27 @@ di cabang lain dari fungsi yang sama. Karena itu `sprite2gba.py decode` punya
 | `--pair-rule` | Arti | Syarat yang ditegakkan tool |
 |---|---|---|
 | `adjacent` (default) | palet tepat setelah tile di ROM; cukup urutan blob | `pal_offset == offset + size` |
-| `asm-load` | palet dirujuk load asm berdekatan | `--pair-lines tile/palet`, jarak <= `--pair-max-distance` (default 40 baris) |
-| `asm-branch` | palet dimuat di cabang lain, jarak jauh | `--pair-lines` + `--pair-reason` wajib; jarak dicatat apa adanya |
+| `asm-load` | palet dirujuk load asm berdekatan | `--pair-lines tile/palet` + `--pair-asm <berkas .s>`; baris wajib memuat `@ =<symbol>`/`@ =<pal-symbol>` dan harus rujukan **pertama**; jarak <= `--pair-max-distance` (default 40 baris) |
+| `asm-branch` | palet dimuat di cabang lain, jarak jauh | `--pair-lines` + `--pair-asm` + `--pair-reason` wajib; jarak dicatat apa adanya |
 
 Contoh kasus nyata: `gUnk_0875254C`/`gUnk_087525CC` dimuat di baris 64123 dan
 64270 (jarak 147, beda cabang `func_0805FF14`), jadi dipanggil dengan
-`--pair-rule asm-branch --pair-lines 64123/64270 --pair-reason "..."`. Semua
+`--pair-rule asm-branch --pair-lines 64123/64270 --pair-asm asm/code_0803EE94.s
+--pair-reason "..."`. Nomor baris tidak bisa asal diketik: tool membaca berkas
+asm dan menolak baris yang tidak memuat rujukan simbol pasangan, atau yang
+bukan rujukan pertama (baris kanonik). Semua
 aturan tetap mencatat `rom_adjacent`, sehingga pembaca JSON tahu apakah urutan
 blob ROM mendukung pasangan itu. `--pair-rule adjacent` menolak pasangan yang
-tidak bersebelahan, bukan menerimanya diam-diam.
+tidak bersebelahan, bukan menerimanya diam-diam. Blok `pair` hanya ada pada
+aset `kind: sprite`; `tiles4bpp`, `font_container`, dan `palette` tidak punya
+palet pasangan di metadata (palet font dikelola `fonts/palettes.json`).
 
 ```sh
 python3 tools/assets/sprite2gba.py decode --rom baserom.gba \
     --offset 0x75254C --size 128 --pal-offset 0x7525CC --pal-size 32 \
     --pal-symbol gUnk_087525CC --tiles-wide 2 --frame-width 2 --frame-height 2 \
     --pair-rule asm-branch --pair-lines 64123/64270 \
+    --pair-asm asm/code_0803EE94.s \
     --pair-reason "palet dimuat di cabang lain func_0805FF14" \
     --png ... --pal ... --json ... --id ... --symbol gUnk_0875254C
 ```

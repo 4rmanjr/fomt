@@ -36,5 +36,16 @@
   "png_format": "indexed-8-plte"
  },
  "evidence": "code_0803EE94.s:71828/71829 memuat gUnk_08751BEC (0x80 tile) dan gUnk_08751C6C (0x20 palet) di fungsi yang sama",
- "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri"
+ "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri",
+ "pair": {
+  "rule": "asm-load",
+  "rom_adjacent": true,
+  "source": "asm",
+  "asm": "asm/code_0803EE94.s",
+  "load_lines": [
+   71828,
+   71829
+  ],
+  "distance": 1
+ }
 }

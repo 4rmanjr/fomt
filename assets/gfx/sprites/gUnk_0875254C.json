@@ -36,5 +36,17 @@
   "png_format": "indexed-8-plte"
  },
  "evidence": "code_0803EE94.s:64123/64270 memuat gUnk_0875254C (tile, 0x20 per panggilan ke 0x06000B00) dan gUnk_087525CC (palet 0x20 ke 0x05000040) di fungsi func_0805FF14, cabang berbeda (jarak 147 baris); pasangan mengikuti urutan blob ROM, dikonfirmasi visual",
- "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri"
+ "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri",
+ "pair": {
+  "rule": "asm-branch",
+  "rom_adjacent": true,
+  "source": "asm",
+  "asm": "asm/code_0803EE94.s",
+  "load_lines": [
+   64123,
+   64270
+  ],
+  "distance": 147,
+  "reason": "palet dimuat di cabang lain func_0805FF14 (jarak 147 baris)"
+ }
 }

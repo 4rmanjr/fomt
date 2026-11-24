@@ -114,6 +114,27 @@ class PairRule(unittest.TestCase):
     """Aturan pemasangan sprite+palet: adjacent, asm-load, asm-branch."""
 
     OFF, SIZE = 0x7518CC, 128
+    ASM = """	.text
+	ldr r1, .L0 @ =sTest
+	nop
+	ldr r2, .L1 @ =sPal
+	b .L2
+	ldr r3, .L3 @ =sTest
+"""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.asm = Path(self.tmp.name) / "code.s"
+        self.asm.write_text(self.ASM)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def pair(self, *a, **kw):
+        kw.setdefault("asm_path", str(self.asm))
+        kw.setdefault("symbol", "sTest")
+        kw.setdefault("pal_symbol", "sPal")
+        return sprite2gba.check_pair(*a, **kw)
 
     def test_adjacent_default_menerima_palet_tepat_setelah_tile(self):
         pair = sprite2gba.check_pair(self.OFF, self.SIZE, 0x75194C)
@@ -125,36 +146,67 @@ class PairRule(unittest.TestCase):
             sprite2gba.check_pair(self.OFF, self.SIZE, 0x752000)
         self.assertIn("tepat setelah tile", str(ctx.exception))
 
-    def test_asm_load_menerima_jarak_dekat(self):
-        pair = sprite2gba.check_pair(self.OFF, self.SIZE, 0x75194C,
-                                     "asm-load", "65665/65668")
-        self.assertEqual(pair["load_lines"], [65665, 65668])
-        self.assertEqual(pair["distance"], 3)
+    def test_asm_load_menerima_baris_terverifikasi(self):
+        pair = self.pair(self.OFF, self.SIZE, 0x75194C, "asm-load", "2/4")
+        self.assertEqual(pair["load_lines"], [2, 4])
+        self.assertEqual(pair["distance"], 2)
+        self.assertEqual(pair["asm"], str(self.asm))
+
+    def test_asm_load_menolak_baris_tanpa_rujukan(self):
+        with self.assertRaises(SystemExit) as ctx:
+            self.pair(self.OFF, self.SIZE, 0x75194C, "asm-load", "3/4")
+        self.assertIn("tidak memuat", str(ctx.exception))
+
+    def test_asm_load_menolak_rujukan_bukan_yang_pertama(self):
+        with self.assertRaises(SystemExit) as ctx:
+            self.pair(self.OFF, self.SIZE, 0x75194C, "asm-load", "6/4")
+        self.assertIn("bukan rujukan pertama", str(ctx.exception))
+
+    def test_asm_load_menolak_baris_tile_dan_palet_tertukar(self):
+        with self.assertRaises(SystemExit) as ctx:
+            self.pair(self.OFF, self.SIZE, 0x75194C, "asm-load", "4/2")
+        self.assertIn("tidak memuat", str(ctx.exception))
+
+    def test_asm_load_menolak_simbol_yang_tidak_ada_di_asm(self):
+        with self.assertRaises(SystemExit) as ctx:
+            self.pair(self.OFF, self.SIZE, 0x75194C, "asm-load", "2/4",
+                      symbol="sLain")
+        self.assertIn("tidak dirujuk", str(ctx.exception))
 
     def test_asm_load_menolak_jarak_jauh(self):
-        # kasus nyata 0875254C: palet dimuat 147 baris kemudian
         with self.assertRaises(SystemExit) as ctx:
-            sprite2gba.check_pair(0x75254C, 128, 0x7525CC,
-                                  "asm-load", "64123/64270")
+            self.pair(self.OFF, self.SIZE, 0x75194C, "asm-load", "2/4",
+                      max_distance=1)
         self.assertIn("asm-branch", str(ctx.exception))
 
     def test_asm_branch_wajib_alasan(self):
         with self.assertRaises(SystemExit) as ctx:
-            sprite2gba.check_pair(0x75254C, 128, 0x7525CC,
-                                  "asm-branch", "64123/64270")
+            self.pair(self.OFF, self.SIZE, 0x75194C, "asm-branch", "2/4")
         self.assertIn("--pair-reason", str(ctx.exception))
 
     def test_asm_branch_mencatat_jarak_dan_alasan(self):
-        pair = sprite2gba.check_pair(0x75254C, 128, 0x7525CC, "asm-branch",
-                                     "64123/64270", "beda cabang func_0805FF14")
-        self.assertEqual(pair["distance"], 147)
+        pair = self.pair(self.OFF, self.SIZE, 0x75194C, "asm-branch", "2/4",
+                         "beda cabang func_0805FF14")
+        self.assertEqual(pair["distance"], 2)
         self.assertEqual(pair["reason"], "beda cabang func_0805FF14")
-        self.assertTrue(pair["rom_adjacent"])
 
     def test_asm_load_wajib_pair_lines(self):
         with self.assertRaises(SystemExit) as ctx:
-            sprite2gba.check_pair(self.OFF, self.SIZE, 0x75194C, "asm-load")
+            self.pair(self.OFF, self.SIZE, 0x75194C, "asm-load")
         self.assertIn("--pair-lines", str(ctx.exception))
+
+    def test_asm_load_wajib_pair_asm(self):
+        with self.assertRaises(SystemExit) as ctx:
+            sprite2gba.check_pair(self.OFF, self.SIZE, 0x75194C, "asm-load",
+                                  "2/4", symbol="sTest", pal_symbol="sPal")
+        self.assertIn("--pair-asm", str(ctx.exception))
+
+    def test_pair_asm_berkas_hilang_ditolak(self):
+        with self.assertRaises(SystemExit) as ctx:
+            sprite2gba.check_pair(self.OFF, self.SIZE, 0x75194C, "asm-load",
+                                  "2/4", asm_path="/tmp/tidak-ada.s",
+                                  symbol="sTest", pal_symbol="sPal")
+        self.assertIn("tidak ada", str(ctx.exception))
 
     def test_pair_rule_tidak_dikenal_ditolak(self):
         with self.assertRaises(SystemExit) as ctx:

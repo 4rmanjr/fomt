@@ -255,8 +255,15 @@ PAIR_RULES = ("adjacent", "asm-load", "asm-branch")
 DEFAULT_PAIR_MAX_DISTANCE = 40
 
 
+def _asm_ref_lines(asm_lines, symbol):
+    """Nomor baris (1-based) yang memuat `@ =<symbol>` di berkas asm."""
+    pat = re.compile(r"@\s*=\s*" + re.escape(symbol) + r"\b")
+    return [i for i, line in enumerate(asm_lines, 1) if pat.search(line)]
+
+
 def check_pair(offset, size, pal_offset, rule="adjacent", lines="",
-               reason="", max_distance=DEFAULT_PAIR_MAX_DISTANCE):
+               reason="", max_distance=DEFAULT_PAIR_MAX_DISTANCE,
+               asm_path="", symbol="", pal_symbol=""):
     """Validasi + catat cara pasangan sprite+palet ditetapkan.
 
     - ``adjacent``  : palet tepat setelah tile di ROM (urutan blob `.incbin`).
@@ -283,7 +290,34 @@ def check_pair(offset, size, pal_offset, rule="adjacent", lines="",
                          "--pair-lines <baris-load-tile>/<baris-load-palet>")
     lines_tile, lines_pal = int(m.group(1)), int(m.group(2))
     distance = abs(lines_tile - lines_pal)
-    pair.update({"source": "asm", "load_lines": [lines_tile, lines_pal],
+    if not asm_path:
+        raise SystemExit(f"--pair-rule {rule} butuh --pair-asm <berkas .s> "
+                         "supaya nomor baris bisa diverifikasi")
+    if not (symbol and pal_symbol):
+        raise SystemExit(f"--pair-rule {rule} butuh --symbol dan "
+                         "--pal-symbol untuk verifikasi baris asm")
+    asm_file = Path(asm_path)
+    if not asm_file.exists():
+        raise SystemExit(f"--pair-asm: berkas {asm_path} tidak ada")
+    asm_lines = asm_file.read_text(errors="replace").splitlines()
+    refs = {}
+    for role, sym, want in (("tile", symbol, lines_tile),
+                            ("palet", pal_symbol, lines_pal)):
+        hits = _asm_ref_lines(asm_lines, sym)
+        if not hits:
+            raise SystemExit(f"--pair-asm: {sym} tidak dirujuk di {asm_path}")
+        if want not in hits:
+            raise SystemExit(
+                f"--pair-asm: baris {want} di {asm_path} tidak memuat "
+                f"`@ ={sym}` (rujukan ada di baris {hits[0]}"
+                + (f", {len(hits)} tempat" if len(hits) > 1 else "") + ")")
+        if want != hits[0]:
+            raise SystemExit(
+                f"--pair-asm: baris {want} bukan rujukan pertama {sym}; "
+                f"pakai baris {hits[0]} (kanonik)")
+        refs[role] = want
+    pair.update({"source": "asm", "asm": asm_path,
+                 "load_lines": [refs["tile"], refs["palet"]],
                  "distance": distance})
     if rule == "asm-load" and distance > max_distance:
         raise SystemExit(
@@ -313,7 +347,9 @@ def decode(args):
                       getattr(args, "pair_lines", ""),
                       getattr(args, "pair_reason", ""),
                       getattr(args, "pair_max_distance",
-                              DEFAULT_PAIR_MAX_DISTANCE))
+                              DEFAULT_PAIR_MAX_DISTANCE),
+                      getattr(args, "pair_asm", ""), args.symbol,
+                      args.pal_symbol)
     colors = pal2gba.decode_bytes(pal)
     indices, width, height = unpack_tiles(tiles, args.tiles_wide)
     tile_count = args.size // TILE_BYTES
@@ -423,6 +459,10 @@ def main(argv=None):
     d.add_argument("--pair-max-distance", type=int,
                    default=DEFAULT_PAIR_MAX_DISTANCE,
                    help="batas jarak baris load untuk asm-load")
+    d.add_argument("--pair-asm", default="",
+                   metavar="BERKAS",
+                   help="berkas .s untuk memverifikasi --pair-lines "
+                        "(wajib untuk asm-load/asm-branch)")
     d.set_defaults(func=decode)
 
     e = sub.add_parser("encode", help="JSON + PNG -> binary")

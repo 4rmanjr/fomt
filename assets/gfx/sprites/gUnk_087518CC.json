@@ -36,5 +36,16 @@
   "png_format": "indexed-8-plte"
  },
  "evidence": "code_0803EE94.s:65183 (func 0x0805F8E0..): struct+8=gUnk_087518CC tile, struct+0xc=gUnk_0875194C palet",
- "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri"
+ "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri",
+ "pair": {
+  "rule": "asm-load",
+  "rom_adjacent": true,
+  "source": "asm",
+  "asm": "asm/code_0803EE94.s",
+  "load_lines": [
+   65183,
+   65185
+  ],
+  "distance": 2
+ }
 }

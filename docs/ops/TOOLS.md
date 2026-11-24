@@ -275,8 +275,10 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   membandingkan byte/hash tile **dan** hash palet terhadap ROM. Dipakai
   `asset_manifest.py`/`asset_verify.py` lewat `kind: sprite`. Pemasangan
   sprite+palet eksplisit lewat `--pair-rule adjacent|asm-load|asm-branch`
-  (+`--pair-lines tile/palet`, `--pair-reason` untuk lintas cabang); hasilnya
-  dicatat di JSON sebagai blok `pair`.
+  (+`--pair-lines tile/palet`, `--pair-asm` untuk memverifikasi baris asm,
+  `--pair-reason` untuk lintas cabang); hasilnya dicatat di JSON sebagai blok
+  `pair`. Baris `--pair-lines` harus memuat `@ =<symbol>` dan merupakan rujukan
+  pertama simbol itu, jadi nomornya tidak bisa asal diketik.
   Contoh: `python3 tools/assets/sprite2gba.py verify --json
   assets/gfx/sprites/gUnk_087518CC.json`.
 - `tools/assets/pal2gba.py` — codec palet: `.pal` JASC (8 bit/kanal, source

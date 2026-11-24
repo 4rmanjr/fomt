@@ -36,5 +36,16 @@
   "png_format": "indexed-8-plte"
  },
  "evidence": "code_0803EE94.s:50747 func: ldr gUnk_0875196C + movs r2,#0x80 -> func_08008E64 ke 0x06010600; gUnk_087519EC 0x20 -> 0x05000200 (palet pasangan)",
- "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri"
+ "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri",
+ "pair": {
+  "rule": "asm-load",
+  "rom_adjacent": true,
+  "source": "asm",
+  "asm": "asm/code_0803EE94.s",
+  "load_lines": [
+   50748,
+   50761
+  ],
+  "distance": 13
+ }
 }
