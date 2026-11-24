@@ -6,7 +6,8 @@ menjalankan encoder
 yang dideklarasikan, lalu menulis `assets/manifest.json`:
 
 ```json
-{"assets": [{"id", "symbol", "kind", "status", "rom", "source", "encoder"}]}
+{"assets": [{"id", "symbol", "kind", "semantics", "status", "rom",
+ "source", "encoder"}]}
 ```
 
 Sebelum menulis, setiap aset digerbang: byte + SHA-256 hasil encoder harus sama
@@ -23,6 +24,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -63,6 +65,34 @@ def load_encoder(kind):
     return module
 
 
+SEMANTICS = ("proven", "unidentified")
+
+
+def check_semantics(ident, semantics, symbol, directory):
+    """Aturan id §6: semantik, atau pengecualian eksplisit untuk placeholder.
+
+    - `unidentified`: id wajib placeholder kanonik `<directory>/gunk_<alamat>`
+      yang diturunkan dari simbol + lokasi berkas, jadi tidak bisa dikarang.
+    - `proven`: id wajib nama semantik; id yang masih memuat alamat ROM ditolak.
+    """
+    if semantics not in SEMANTICS:
+        raise SystemExit(f"field semantics wajib salah satu {SEMANTICS}, "
+                         f"bukan {semantics!r}")
+    suffix = symbol[len("gUnk_"):].lower() if symbol.startswith("gUnk_") else None
+    derived = f"{directory}/gunk_{suffix}" if suffix else None
+    has_address = re.search(r"(?:^|/)g?unk_[0-9a-f]{6,8}$", ident) is not None
+    if semantics == "unidentified":
+        if derived is None or ident != derived:
+            raise SystemExit(
+                f"semantics unidentified wajib id placeholder {derived!r} "
+                f"(simbol + lokasi berkas), bukan {ident!r}")
+    elif has_address or ident == derived:
+        raise SystemExit(
+            f"semantics proven tapi id {ident!r} masih memuat alamat ROM; "
+            "ganti ke nama semantik atau tandai semantics=unidentified")
+    return semantics
+
+
 def build_entry(meta_path, rom):
     meta = json.loads(meta_path.read_text())
     kind = meta.get("kind")
@@ -87,10 +117,14 @@ def build_entry(meta_path, rom):
         raise SystemExit(
             f"{meta_path}: status {status!r}; hanya aset rom-exact masuk manifest")
     source_dir = meta_path.parent.relative_to(REPO)
+    ident = meta.get("id", str(source_dir / meta_path.stem))
+    directory = str(meta_path.parent.relative_to(REPO / "assets"))
+    semantics = check_semantics(ident, meta.get("semantics"), symbol, directory)
     entry = {
-        "id": meta.get("id", str(source_dir / meta_path.stem)),
+        "id": ident,
         "symbol": symbol,
         "kind": kind,
+        "semantics": semantics,
         "status": status,
         "rom": {
             "offset": f"0x{offset:X}",

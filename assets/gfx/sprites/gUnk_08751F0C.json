@@ -2,6 +2,7 @@
  "id": "gfx/sprites/gunk_08751f0c",
  "symbol": "gUnk_08751F0C",
  "kind": "sprite",
+ "semantics": "unidentified",
  "status": "rom-exact",
  "rom": {
   "offset": "0x751F0C",

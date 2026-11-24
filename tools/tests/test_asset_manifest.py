@@ -61,5 +61,47 @@ class AssetManifest(unittest.TestCase):
                                            asset_manifest.ROM.read_bytes())
 
 
+class SemanticsRule(unittest.TestCase):
+    """§6: id semantik, atau placeholder eksplisit untuk yang belum terbukti."""
+
+    def test_placeholder_wajib_sama_dengan_simbol_dan_lokasi(self):
+        got = asset_manifest.check_semantics(
+            "gfx/tiles/gunk_08750c4c", "unidentified",
+            "gUnk_08750C4C", "gfx/tiles")
+        self.assertEqual(got, "unidentified")
+
+    def test_placeholder_yang_dikarang_ditolak(self):
+        with self.assertRaises(SystemExit) as ctx:
+            asset_manifest.check_semantics(
+                "gfx/tiles/tile_keren", "unidentified",
+                "gUnk_08750C4C", "gfx/tiles")
+        self.assertIn("placeholder", str(ctx.exception))
+
+    def test_id_semantik_dengan_status_unidentified_ditolak(self):
+        with self.assertRaises(SystemExit) as ctx:
+            asset_manifest.check_semantics(
+                "gfx/palettes/panel_screen", "unidentified",
+                "gUnk_08731940", "gfx/palettes")
+        self.assertIn("placeholder", str(ctx.exception))
+
+    def test_proven_menolak_id_beralamat(self):
+        with self.assertRaises(SystemExit) as ctx:
+            asset_manifest.check_semantics(
+                "gfx/fonts/gunk_0872de44", "proven",
+                "gUnk_0872DE44", "gfx/fonts")
+        self.assertIn("alamat ROM", str(ctx.exception))
+
+    def test_proven_menerima_id_semantik(self):
+        got = asset_manifest.check_semantics(
+            "gfx/fonts/clock", "proven", "gUnk_0875A440", "gfx/fonts")
+        self.assertEqual(got, "proven")
+
+    def test_semantics_wajib_dikenal(self):
+        with self.assertRaises(SystemExit) as ctx:
+            asset_manifest.check_semantics(
+                "gfx/fonts/clock", "mungkin", "gUnk_0875A440", "gfx/fonts")
+        self.assertIn("semantics wajib", str(ctx.exception))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

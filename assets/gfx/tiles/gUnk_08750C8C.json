@@ -1,5 +1,6 @@
 {
  "kind": "tiles4bpp",
+ "semantics": "unidentified",
  "source": {
   "png": "gUnk_08750C8C.png",
   "tiles_wide": 2,

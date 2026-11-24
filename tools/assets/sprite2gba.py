@@ -381,6 +381,7 @@ def decode(args):
                   "count": tile_count // (args.frame_width
                                           * args.frame_height),
                   "order": "row-major"},
+        "semantics": getattr(args, "semantics", "unidentified"),
         "encoder": {"tool": "sprite2gba.py", "version": 1,
                     "tile_order": "row-major", "nibble_order": "low-first",
                     "png_format": "indexed-8-plte"},
@@ -459,6 +460,10 @@ def main(argv=None):
     d.add_argument("--pair-max-distance", type=int,
                    default=DEFAULT_PAIR_MAX_DISTANCE,
                    help="batas jarak baris load untuk asm-load")
+    d.add_argument("--semantics", choices=("proven", "unidentified"),
+                   default="unidentified",
+                   help="proven bila id semantik sudah terbukti, "
+                        "unidentified untuk placeholder gunk_<alamat>")
     d.add_argument("--pair-asm", default="",
                    metavar="BERKAS",
                    help="berkas .s untuk memverifikasi --pair-lines "

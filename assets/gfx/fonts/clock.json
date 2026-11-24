@@ -1,5 +1,6 @@
 {
  "kind": "tiles4bpp",
+ "semantics": "proven",
  "source": {
   "png": "clock.png",
   "tiles_wide": 16,

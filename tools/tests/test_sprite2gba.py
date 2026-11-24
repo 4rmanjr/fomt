@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Regresi sprite2gba + gfx_rules: source PNG/palet, frame, dan aturan build."""
+import argparse
 import importlib.util
 import json
 import re
@@ -103,6 +104,24 @@ class SpriteGba(unittest.TestCase):
         sprite2gba.write_png_indexed(png, 16, 16, bytes(indices), colors)
         _, _, got, _ = sprite2gba.read_png_indexed(png)
         self.assertEqual(got[0], 20)  # PLTE menyimpan indeks apa adanya
+
+    def test_decode_menulis_semantics_dan_pair(self):
+        rom = self.dir / "rom.gba"
+        tiles = bytes(range(128))
+        rom.write_bytes(bytes(0x10) + tiles + bytes(32))
+        png, pal, js = (self.dir / "d.png", self.dir / "d.pal",
+                        self.dir / "d.json")
+        sprite2gba.decode(argparse.Namespace(
+            rom=str(rom), offset=0x10, size=128, pal_offset=0x90,
+            pal_size=32, pal_symbol="sPal", tiles_wide=2, frame_width=2,
+            frame_height=2, png=str(png), pal=str(pal), json=str(js),
+            id="gfx/sprites/gunk_00000010", symbol="gUnk_00000010",
+            evidence="", note="", pair_rule="adjacent", pair_lines="",
+            pair_reason="", pair_max_distance=40, pair_asm="",
+            semantics="unidentified"))
+        meta = json.loads(js.read_text())
+        self.assertEqual(meta["semantics"], "unidentified")
+        self.assertEqual(meta["pair"]["rule"], "adjacent")
 
     def test_real_sprite_rom_exact(self):
         if not (REPO / "baserom.gba").exists():

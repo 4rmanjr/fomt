@@ -3,19 +3,30 @@
  "title": "assets/manifest.json",
  "description": "Indeks aset source: status build, hash ROM, source kanonik, encoder. Divalidasi asset_verify.py.",
  "type": "object",
- "required": ["assets"],
+ "required": [
+  "assets"
+ ],
  "properties": {
   "assets": {
    "type": "array",
    "minItems": 1,
    "items": {
     "type": "object",
-    "required": ["id", "symbol", "kind", "status", "rom", "source", "encoder"],
+    "required": [
+     "id",
+     "symbol",
+     "kind",
+     "status",
+     "rom",
+     "source",
+     "encoder",
+     "semantics"
+    ],
     "properties": {
      "id": {
       "type": "string",
       "pattern": "^(?!.*0x[0-9A-Fa-f]{4})[a-z0-9][a-z0-9_/-]*$",
-      "description": "Nama stabil semantik, bukan alamat ROM."
+      "description": "Nama stabil semantik, bukan alamat ROM; placeholder `gunk_<alamat>` hanya boleh bila `semantics` = unidentified (lihat ARSITEKTUR-ASET §6)."
      },
      "symbol": {
       "type": "string",
@@ -23,42 +34,104 @@
      },
      "kind": {
       "type": "string",
-      "enum": ["tiles4bpp", "font_container", "palette", "sprite"]
+      "enum": [
+       "tiles4bpp",
+       "font_container",
+       "palette",
+       "sprite"
+      ]
      },
      "status": {
       "type": "string",
-      "enum": ["rom-exact", "decoded-exact", "header-only", "opaque"]
+      "enum": [
+       "rom-exact",
+       "decoded-exact",
+       "header-only",
+       "opaque"
+      ]
      },
      "rom": {
       "type": "object",
-      "required": ["offset", "size", "sha256"],
+      "required": [
+       "offset",
+       "size",
+       "sha256"
+      ],
       "properties": {
-       "offset": {"type": "string", "pattern": "^0x[0-9A-Fa-f]+$"},
-       "size": {"type": "integer", "minimum": 1},
-       "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+       "offset": {
+        "type": "string",
+        "pattern": "^0x[0-9A-Fa-f]+$"
+       },
+       "size": {
+        "type": "integer",
+        "minimum": 1
+       },
+       "sha256": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+       }
       }
      },
      "source": {
       "type": "object",
-      "required": ["json"],
+      "required": [
+       "json"
+      ],
       "properties": {
-       "json": {"type": "string"},
-       "png": {"type": "string"},
-       "pal": {"type": "string"}
+       "json": {
+        "type": "string"
+       },
+       "png": {
+        "type": "string"
+       },
+       "pal": {
+        "type": "string"
+       }
       }
      },
      "encoder": {
       "type": "object",
-      "required": ["tool", "version"],
+      "required": [
+       "tool",
+       "version"
+      ],
       "properties": {
-       "tool": {"type": "string", "pattern": "^[A-Za-z0-9_]+\\.py$"},
-       "version": {"type": "integer", "minimum": 1}
+       "tool": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_]+\\.py$"
+       },
+       "version": {
+        "type": "integer",
+        "minimum": 1
+       }
       }
      },
-     "deps": {"type": "array", "items": {"type": "string"}},
-     "codec": {"type": ["string", "null"]},
-     "evidence": {"type": "string"},
-     "note": {"type": "string"}
+     "deps": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "codec": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "evidence": {
+      "type": "string"
+     },
+     "note": {
+      "type": "string"
+     },
+     "semantics": {
+      "type": "string",
+      "enum": [
+       "proven",
+       "unidentified"
+      ],
+      "description": "proven: id semantik yang sudah terbukti; unidentified: placeholder kanonik gunk_<alamat> karena semantik aset belum terbukti"
+     }
     }
    }
   }

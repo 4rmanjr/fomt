@@ -47,6 +47,7 @@ class Tile4bppCodec(unittest.TestCase):
                 "--symbol", "sUji"])
             meta = json.loads((td / "t.json").read_text())
             self.assertEqual(meta["status"], "rom-exact")
+            self.assertEqual(meta["semantics"], "unidentified")
 
     def test_rejects_colour_outside_index_palette(self):
         blob = synthetic()

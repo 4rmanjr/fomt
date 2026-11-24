@@ -262,6 +262,7 @@ def cmd_decode(args):
         # Sama seperti sprite2gba.decode: hanya aset dengan status ini yang
         # boleh masuk asset_manifest/`gfx_rules.mk`.
         "status": "rom-exact",
+        "semantics": args.semantics,
         "rom": {
             "offset": f"0x{args.offset:X}",
             "size": len(blob),
@@ -292,6 +293,8 @@ def main(argv=None):
     d.add_argument("--id", required=True)
     d.add_argument("--symbol", required=True)
     d.add_argument("--note", default="")
+    d.add_argument("--semantics", choices=("proven", "unidentified"),
+                   default="unidentified")
     d.set_defaults(func=cmd_decode)
 
     e = sub.add_parser("encode", help="JSON + PNG -> binary")

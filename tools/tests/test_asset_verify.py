@@ -37,6 +37,7 @@ ROM = REPO / "baserom.gba"
 def minimal_asset(**over):
     asset = {
         "id": "gfx/palettes/x",
+        "semantics": "proven",
         "symbol": "gUnk_00000000",
         "kind": "palette",
         "status": "rom-exact",
@@ -119,6 +120,33 @@ class VerifyGate(unittest.TestCase):
         manifest = json.loads(MANIFEST.read_text())
         self.assertEqual(summary["assets"], len(manifest["assets"]))
         self.assertEqual(summary["ok"], summary["assets"])
+
+
+class SchemaSemantics(unittest.TestCase):
+    def entry(self, **extra):
+        entry = {
+            "id": "gfx/fonts/clock", "symbol": "gUnk_0875A440",
+            "kind": "tiles4bpp", "semantics": "proven", "status": "rom-exact",
+            "rom": {"offset": "0x75A440", "size": 4100, "sha256": "0" * 64},
+            "source": {"json": "assets/gfx/fonts/clock.json"},
+            "encoder": {"tool": "tile4bpp.py", "version": 1},
+        }
+        entry.update(extra)
+        return entry
+
+    def errors(self, entry):
+        manifest = {"assets": [entry]}
+        schema = json.loads(verify.SCHEMA.read_text())
+        return verify.validate(manifest, schema)
+
+    def test_semantics_wajib(self):
+        entry = self.entry()
+        entry.pop("semantics")
+        self.assertTrue(any("semantics" in e for e in self.errors(entry)))
+
+    def test_semantics_enum(self):
+        self.assertTrue(any("enum" in e
+                            for e in self.errors(self.entry(semantics="lain"))))
 
 
 if __name__ == "__main__":

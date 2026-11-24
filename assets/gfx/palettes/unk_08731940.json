@@ -2,6 +2,7 @@
  "id": "gfx/palettes/panel_screen",
  "symbol": "gUnk_08731940",
  "kind": "palette",
+ "semantics": "proven",
  "status": "rom-exact",
  "rom": {
   "offset": "0x731940",

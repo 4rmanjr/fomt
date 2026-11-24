@@ -274,7 +274,14 @@ Contoh satu aset:
 
 Field yang wajib ada:
 
-- `id`: nama stabil dan semantik, bukan alamat;
+- `id`: nama stabil dan semantik, bukan alamat. **Pengecualian eksplisit:**
+  aset yang semantiknya belum terbukti wajib memakai placeholder kanonik
+  `<dir>/gunk_<alamat>` (diturunkan dari `symbol` + lokasi berkas) dan menandai
+  `"semantics": "unidentified"`. Aset dengan id semantik memakai
+  `"semantics": "proven"`, dan `asset_manifest.py` menolak `proven` yang id-nya
+  masih memuat alamat ROM, atau `unidentified` yang id-nya bukan placeholder
+  kanonik. Field `semantics` wajib di schema; §6 karena itu tidak lagi
+  "dilarang tanpa jalan keluar", melainkan dilarang tanpa penanda;
 - `symbol`: nama linker yang dipakai C/asm;
 - `kind`: kelas encoder;
 - `rom`: offset, ukuran, sha256;

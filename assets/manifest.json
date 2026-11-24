@@ -4,6 +4,7 @@
    "id": "gfx/fonts/clock",
    "symbol": "gUnk_0875A440",
    "kind": "tiles4bpp",
+   "semantics": "proven",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75A440",
@@ -20,9 +21,10 @@
    }
   },
   {
-   "id": "gfx/fonts/unk_0872de44",
+   "id": "gfx/fonts/gunk_0872de44",
    "symbol": "gUnk_0872DE44",
    "kind": "font_container",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x72DE44",
@@ -42,6 +44,7 @@
    "id": "gfx/palettes/panel_screen",
    "symbol": "gUnk_08731940",
    "kind": "palette",
+   "semantics": "proven",
    "status": "rom-exact",
    "rom": {
     "offset": "0x731940",
@@ -63,6 +66,7 @@
    "id": "gfx/sprites/gunk_087518cc",
    "symbol": "gUnk_087518CC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x7518CC",
@@ -84,6 +88,7 @@
    "id": "gfx/sprites/gunk_0875196c",
    "symbol": "gUnk_0875196C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75196C",
@@ -105,6 +110,7 @@
    "id": "gfx/sprites/gunk_08751a0c",
    "symbol": "gUnk_08751A0C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x751A0C",
@@ -126,6 +132,7 @@
    "id": "gfx/sprites/gunk_08751aac",
    "symbol": "gUnk_08751AAC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x751AAC",
@@ -147,6 +154,7 @@
    "id": "gfx/sprites/gunk_08751b4c",
    "symbol": "gUnk_08751B4C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x751B4C",
@@ -168,6 +176,7 @@
    "id": "gfx/sprites/gunk_08751bec",
    "symbol": "gUnk_08751BEC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x751BEC",
@@ -189,6 +198,7 @@
    "id": "gfx/sprites/gunk_08751c8c",
    "symbol": "gUnk_08751C8C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x751C8C",
@@ -210,6 +220,7 @@
    "id": "gfx/sprites/gunk_08751d2c",
    "symbol": "gUnk_08751D2C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x751D2C",
@@ -231,6 +242,7 @@
    "id": "gfx/sprites/gunk_08751dcc",
    "symbol": "gUnk_08751DCC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x751DCC",
@@ -252,6 +264,7 @@
    "id": "gfx/sprites/gunk_08751e6c",
    "symbol": "gUnk_08751E6C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x751E6C",
@@ -273,6 +286,7 @@
    "id": "gfx/sprites/gunk_08751f0c",
    "symbol": "gUnk_08751F0C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x751F0C",
@@ -294,6 +308,7 @@
    "id": "gfx/sprites/gunk_08751fac",
    "symbol": "gUnk_08751FAC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x751FAC",
@@ -315,6 +330,7 @@
    "id": "gfx/sprites/gunk_0875204c",
    "symbol": "gUnk_0875204C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75204C",
@@ -336,6 +352,7 @@
    "id": "gfx/sprites/gunk_087520ec",
    "symbol": "gUnk_087520EC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x7520EC",
@@ -357,6 +374,7 @@
    "id": "gfx/sprites/gunk_0875218c",
    "symbol": "gUnk_0875218C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75218C",
@@ -378,6 +396,7 @@
    "id": "gfx/sprites/gunk_0875222c",
    "symbol": "gUnk_0875222C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75222C",
@@ -399,6 +418,7 @@
    "id": "gfx/sprites/gunk_087522cc",
    "symbol": "gUnk_087522CC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x7522CC",
@@ -420,6 +440,7 @@
    "id": "gfx/sprites/gunk_0875236c",
    "symbol": "gUnk_0875236C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75236C",
@@ -441,6 +462,7 @@
    "id": "gfx/sprites/gunk_0875240c",
    "symbol": "gUnk_0875240C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75240C",
@@ -462,6 +484,7 @@
    "id": "gfx/sprites/gunk_087524ac",
    "symbol": "gUnk_087524AC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x7524AC",
@@ -483,6 +506,7 @@
    "id": "gfx/sprites/gunk_0875254c",
    "symbol": "gUnk_0875254C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75254C",
@@ -504,6 +528,7 @@
    "id": "gfx/sprites/gunk_087525ec",
    "symbol": "gUnk_087525EC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x7525EC",
@@ -525,6 +550,7 @@
    "id": "gfx/sprites/gunk_0875268c",
    "symbol": "gUnk_0875268C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75268C",
@@ -546,6 +572,7 @@
    "id": "gfx/sprites/gunk_0875272c",
    "symbol": "gUnk_0875272C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75272C",
@@ -567,6 +594,7 @@
    "id": "gfx/sprites/gunk_087527cc",
    "symbol": "gUnk_087527CC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x7527CC",
@@ -588,6 +616,7 @@
    "id": "gfx/sprites/gunk_0875286c",
    "symbol": "gUnk_0875286C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75286C",
@@ -609,6 +638,7 @@
    "id": "gfx/sprites/gunk_0875290c",
    "symbol": "gUnk_0875290C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75290C",
@@ -630,6 +660,7 @@
    "id": "gfx/sprites/gunk_08752a2c",
    "symbol": "gUnk_08752A2C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x752A2C",
@@ -651,6 +682,7 @@
    "id": "gfx/sprites/gunk_08752e4c",
    "symbol": "gUnk_08752E4C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x752E4C",
@@ -672,6 +704,7 @@
    "id": "gfx/sprites/gunk_08752eec",
    "symbol": "gUnk_08752EEC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x752EEC",
@@ -693,6 +726,7 @@
    "id": "gfx/sprites/gunk_08752f8c",
    "symbol": "gUnk_08752F8C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x752F8C",
@@ -714,6 +748,7 @@
    "id": "gfx/sprites/gunk_0875302c",
    "symbol": "gUnk_0875302C",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x75302C",
@@ -735,6 +770,7 @@
    "id": "gfx/sprites/gunk_087530cc",
    "symbol": "gUnk_087530CC",
    "kind": "sprite",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x7530CC",
@@ -756,6 +792,7 @@
    "id": "gfx/tiles/gunk_08750c4c",
    "symbol": "gUnk_08750C4C",
    "kind": "tiles4bpp",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x750C4C",
@@ -775,6 +812,7 @@
    "id": "gfx/tiles/gunk_08750c8c",
    "symbol": "gUnk_08750C8C",
    "kind": "tiles4bpp",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x750C8C",
@@ -794,6 +832,7 @@
    "id": "gfx/tiles/gunk_08752d4c",
    "symbol": "gUnk_08752D4C",
    "kind": "tiles4bpp",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x752D4C",
@@ -813,6 +852,7 @@
    "id": "gfx/tiles/gunk_08752dcc",
    "symbol": "gUnk_08752DCC",
    "kind": "tiles4bpp",
+   "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
     "offset": "0x752DCC",

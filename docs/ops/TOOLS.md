@@ -280,8 +280,11 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   sprite+palet eksplisit lewat `--pair-rule adjacent|asm-load|asm-branch`
   (+`--pair-lines tile/palet`, `--pair-asm` untuk memverifikasi baris asm,
   `--pair-reason` untuk lintas cabang); hasilnya dicatat di JSON sebagai blok
-  `pair`. Baris `--pair-lines` harus memuat `@ =<symbol>` dan merupakan rujukan
-  pertama simbol itu, jadi nomornya tidak bisa asal diketik.
+  `pair`. `--semantics proven|unidentified` (default `unidentified`)
+  menentukan aturan id §6: placeholder `gunk_<alamat>` hanya sah bila
+  semantiknya belum terbukti. Baris `--pair-lines` harus memuat `@ =<symbol>`
+  dan merupakan rujukan pertama simbol itu, jadi nomornya tidak bisa asal
+  diketik.
   Contoh: `python3 tools/assets/sprite2gba.py verify --json
   assets/gfx/sprites/gUnk_087518CC.json`.
 - `tools/assets/pal2gba.py` — codec palet: `.pal` JASC (8 bit/kanal, source
