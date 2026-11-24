@@ -42,9 +42,10 @@ KIND_LABEL = {
     "sprite": "Sprite/OBJ",
     "palette": "Palet",
     "tiles4bpp": "Tiles 4bpp",
+    "tilemap": "Tilemap",
     "font_container": "Container font",
 }
-KIND_ORDER = ["sprite", "palette", "tiles4bpp", "font_container"]
+KIND_ORDER = ["sprite", "palette", "tiles4bpp", "tilemap", "font_container"]
 
 
 def _module(path, name):

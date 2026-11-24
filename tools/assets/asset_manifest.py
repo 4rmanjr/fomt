@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """asset_manifest.py — indeks aset source: hash, status, encoder di satu tempat.
 
-Membaca metadata per-aset di `assets/gfx/{fonts,palettes,sprites,tiles}/*.json`,
+Membaca metadata per-aset di `assets/gfx/{fonts,maps,palettes,sprites,tiles}/*.json`,
 menjalankan encoder
 yang dideklarasikan, lalu menulis `assets/manifest.json`:
 
@@ -34,9 +34,10 @@ FONT_DIR = ASSETS / "gfx" / "fonts"
 PALETTE_DIR = ASSETS / "gfx" / "palettes"
 SPRITE_DIR = ASSETS / "gfx" / "sprites"
 TILE_DIR = ASSETS / "gfx" / "tiles"
+MAP_DIR = ASSETS / "gfx" / "maps"
 # Direktori metadata aset yang dipindai. Berkas tanpa `rom`/`kind` dilewati,
 # jadi indeks status seperti `fonts/palettes.json` tidak ikut.
-ASSET_DIRS = (FONT_DIR, PALETTE_DIR, SPRITE_DIR, TILE_DIR)
+ASSET_DIRS = (FONT_DIR, MAP_DIR, PALETTE_DIR, SPRITE_DIR, TILE_DIR)
 MANIFEST = ASSETS / "manifest.json"
 ROM = REPO / "baserom.gba"
 TOOLS_DIR = Path(__file__).resolve().parent
@@ -47,6 +48,7 @@ ENCODERS = {
     "font_container": "font_container.py",
     "palette": "pal2gba.py",
     "sprite": "sprite2gba.py",
+    "tilemap": "map2bin.py",
 }
 
 

@@ -38,14 +38,18 @@ class AssetManifest(unittest.TestCase):
         kinds = {a["kind"] for a in assets}
         self.assertIn("tiles4bpp", kinds)
         self.assertIn("palette", kinds)
+        self.assertIn("tilemap", kinds)
         for entry in assets:
             self.assertEqual(entry["status"], "rom-exact")
             for key in ("id", "kind", "rom", "source", "encoder"):
                 self.assertIn(key, entry)
             self.assertIn("json", entry["source"])
             # source minimal punya satu representasi gambar: png atau pal.
-            self.assertTrue(entry["source"].get("png")
-                            or entry["source"].get("pal"))
+            # Pengecualian `tilemap`: sumbernya grid entri di JSON itu sendiri
+            # (render butuh tileset pasangan yang belum tentu terbukti).
+            if entry["kind"] != "tilemap":
+                self.assertTrue(entry["source"].get("png")
+                                or entry["source"].get("pal"))
             self.assertRegex(entry["rom"]["sha256"], r"^[0-9a-f]{64}$")
 
     def test_rejects_status_below_rom_exact(self):

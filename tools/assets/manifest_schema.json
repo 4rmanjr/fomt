@@ -36,6 +36,7 @@
       "type": "string",
       "enum": [
        "tiles4bpp",
+       "tilemap",
        "font_container",
        "palette",
        "sprite"

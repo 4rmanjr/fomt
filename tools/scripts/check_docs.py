@@ -65,6 +65,12 @@ Yang diperiksa:
    `stream_audit.build()`/`render_doc()` saat ini, jadi hash semua stream
    tidak bisa berubah (atau laporan tertinggal) tanpa terdeteksi. Dilewati
    dengan catatan bila `baserom.gba` tidak ada.
+13. **Katalog tool lengkap**: setiap `tools/**/*.py` milik repo harus disebut
+   namanya di `docs/ops/TOOLS.md`. Tool yang lahir tanpa entri katalog hanya
+   diketahui dari riwayat sesi, dan pemakaian/jebakannya hilang untuk agent
+   berikutnya. Folder yang di-vendor (`tools/VENDORED.md`: `m2c`,
+   `decompnet`, `python`, `asm-differ`) dikecualikan karena katalognya berkas
+   itu, bukan katalog tool repo.
 
 Read-only; exit 1 bila ada masalah (`--json` untuk agent, `--strict` sama
 dengan default).
@@ -120,6 +126,42 @@ MAP_MANIFEST = REPO / "assets" / "0x70" / "manifest.json"
 RAW_DOC = "docs/decomp/ASET-MENTAH-BERKAS.md"
 RAW_TOOL = REPO / "tools/scripts/raw_assets.py"
 RAW_MANIFEST = REPO / "assets" / "raw" / "manifest.json"
+
+TOOLS_DOC = "docs/ops/TOOLS.md"
+# Folder tool yang di-vendor (`tools/VENDORED.md`): katalognya berkas itu,
+# bukan bagian katalog tool repo di `docs/ops/TOOLS.md`.
+VENDORED_TOOLS = {"m2c", "decompnet", "python", "asm-differ"}
+
+
+def tools_katalog():
+    """-> (masalah|None, catatan|None) katalog tool vs berkas `tools/`.
+
+    Katalog hanya berguna bila lengkap: skrip baru tanpa entri di `TOOLS.md`
+    membuat pemakaian dan jebakannya hanya diketahui dari riwayat sesi. Gate
+    ini memeriksa **nama berkas** setiap `tools/**/*.py` milik repo muncul di
+    dokumen itu; folder vendored dilewati.
+    """
+    doc = REPO / TOOLS_DOC
+    if not doc.exists():
+        return (TOOLS_DOC, "katalog tool hilang"), None
+    listed = {Path(m).name for m in
+              re.findall(r"[\w./-]+\.py", doc.read_text())}
+    checked = 0
+    missing = []
+    for path in sorted((REPO / "tools").rglob("*.py")):
+        rel = path.relative_to(REPO)
+        if len(rel.parts) > 2 and rel.parts[1] in VENDORED_TOOLS:
+            continue
+        checked += 1
+        if path.name not in listed:
+            missing.append(rel.as_posix())
+    if missing:
+        shown = ", ".join(missing[:4])
+        more = f" (+{len(missing) - 4} lain)" if len(missing) > 4 else ""
+        return (TOOLS_DOC,
+                f"{len(missing)} skrip tools belum dirujuk katalog: {shown}"
+                f"{more} — tambahkan entri di {TOOLS_DOC}"), None
+    return None, f"katalog tool lengkap ({checked} skrip dirujuk)"
 
 
 def aset_inventaris():
@@ -666,6 +708,12 @@ def check(max_agents):
         notes.append(note)
 
     prob, note = palet_font()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = tools_katalog()
     if prob:
         problems.append(prob)
     elif note:

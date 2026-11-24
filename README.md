@@ -35,7 +35,7 @@ python3 tools/scripts/readme_stats.py    # tulis ulang blok statistik ini
 | Promote-only (MATCH, tertahan rantai ekor) | 239 | 2.643 | `██░░░░░░░░░░░░░░░░░░` 9% |
 | Sisa (belum MATCH) | 1.286 | 2.643 | `██████████░░░░░░░░░░` 48,7% |
 
-Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.092 B (7,1%)** — persentase fungsi lebih tinggi karena fungsi yang sudah selesai kebanyakan kecil.
+Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.093 B (7,1%)** — persentase fungsi lebih tinggi karena fungsi yang sudah selesai kebanyakan kecil.
 
 ### Translasi aset ROM -> source
 
@@ -44,8 +44,9 @@ Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.092 B (7,1%)** — persent
 | Sprite/OBJ | 56 | 86 | `█████████████░░░░░░░` 65,1% |
 | Palet | 1 | 64 | `░░░░░░░░░░░░░░░░░░░░` 1,6% |
 | Tiles 4bpp | 3 | 86 | `█░░░░░░░░░░░░░░░░░░░` 3,5% |
+| Tilemap | 1 | 16 | `█░░░░░░░░░░░░░░░░░░░` 6,2% |
 | Container font | 8 | 86 | `██░░░░░░░░░░░░░░░░░░` 9,3% |
-| **Total (blob unik)** | 68 | 150 | `█████████░░░░░░░░░░░` 45,3% |
+| **Total (blob unik)** | 69 | 166 | `████████░░░░░░░░░░░░` 41,6% |
 <!-- README-STATS:END -->
 
 Definisi selesainya sengaja ketat di kedua jalur:

@@ -328,7 +328,7 @@ Untuk container `0x70`, tambahkan:
 |---|---|---|---|
 | palet | PNG indexed / `.pal` JASC | `pal2gba` | 16/256 warna, urutan bank, BGR555 |
 | tile/font/UI 4bpp | PNG indexed | `png2gba` | 8×8 tile, urutan tile, `tile_offset`/`tile_trim` |
-| tilemap peta | `.bin` + `map.json` | `map2bin` | lebar/tinggi, 0x03FF kosong, indeks tile |
+| tilemap BG | grid entri u16 di JSON (`entries` + `tilemap.width/height`) | `map2bin.py` | jumlah entri = width×height = `rom.size`/2, byte + SHA-256 vs slice ROM |
 | map/tileset | source tileset + metatile + atribut + layout | editor/compiler khusus FOMT | pasangan palet/tileset, header 40 B, sha256 |
 | layar statis (logo/HUD) | PNG tilemap + palet/tileset | renderer layar | kelas `layar`, bukan peta; bukti fungsi scene |
 | sprite/OBJ | PNG terindeks (PLTE) + `.pal` + JSON frame | `sprite2gba.py` | urutan tile, hash palet pasangan, jumlah tile = frame × tile/frame |
@@ -548,6 +548,9 @@ aset source yang lolos gate.
   + `.pal` + metadata frame, hash palet pasangan ikut digerbang) dan satu
   sprite sudah dialihkan `.incbin`-nya dengan `make compare` HIJAU. Aturan
   build-nya digenerate, jadi aset baru di kelas ini tidak menyentuh Makefile.
+  Kelas tilemap punya `tools/assets/map2bin.py` (grid entri u16, grid wajib
+  cocok dengan `rom.size`) dan sudah dipakai `gUnk_08755230`; palet dan
+  tiles4bpp menyusul dengan pola yang sama.
 
 **Exit:** ada minimal satu kelas yang seluruh asetnya `rom-exact`.
 
@@ -870,8 +873,8 @@ bukan rujukan pertama (baris kanonik). Semua
 aturan tetap mencatat `rom_adjacent`, sehingga pembaca JSON tahu apakah urutan
 blob ROM mendukung pasangan itu. `--pair-rule adjacent` menolak pasangan yang
 tidak bersebelahan, bukan menerimanya diam-diam. Blok `pair` hanya ada pada
-aset `kind: sprite`; `tiles4bpp`, `font_container`, dan `palette` tidak punya
-palet pasangan di metadata (palet font dikelola `fonts/palettes.json`).
+aset `kind: sprite`; `tiles4bpp`, `tilemap`, `font_container`, dan `palette`
+tidak punya palet pasangan di metadata (palet font dikelola `fonts/palettes.json`).
 
 ```sh
 python3 tools/assets/sprite2gba.py decode --rom baserom.gba \
@@ -937,6 +940,27 @@ dengan jalur yang sama seperti `gUnk_0875352C`: baris 133387 memuatnya,
 Section D-nya berawalan byte yang sama dengan `gUnk_0875352C`, hanya section E
 (1 tile) yang berbeda, jadi keduanya varian isi dari bentuk container yang
 sama — tetap `unidentified` karena arti tabelnya belum terbukti.
+
+### `gUnk_08755230`: tilemap BG 30x13, kelas baru `tilemap`
+
+Blob sesudah rantai container (0x755230, 780 B) bukan container: kelipatan 2
+tetapi bukan 220/236 B, dan `func_08077EC0` (baris 112762) memuatnya lalu
+memanggil `func_08077E34` (baris 112650) dengan `(obj, 0x1e, blob)`. Fungsi
+itu penyalin peta: `ldrh`/`strh` per entri selama 30 kolom (`cmp r1, #0x1d`)
+dan 13 baris (`cmp r3, #0xc`) ke `0x06000000 + (0x1e << 11) + baris*0x40`.
+Jadi 30×13×2 = 780 B habis tepat, dan argumen `0x1e` adalah **nomor
+screenblock tujuan**, bukan lebar grid — membaca argumen itu sebagai lebar
+memotong blob jadi 30×26. `gUnk_0875553C` adalah pasangan bentuk yang sama
+untuk screenblock `0x1d`.
+
+Kelasnya karena itu `kind: tilemap`: source kanoniknya grid entri u16 di JSON
+(`entries`, urut baris) + `tilemap.width/height`, bukan PNG. Render peta butuh
+tileset pasangan yang belum terbukti, sedangkan yang dibuktikan call site
+hanyalah grid dan tujuan salinnya. `map2bin.py encode` menolak grid yang
+jumlah entrinya tidak sama dengan `width*height` **atau** dengan
+`rom.size`/2, jadi lebar tebakan tidak bisa lolos; `verify` membandingkan
+byte + SHA-256 dengan slice ROM. Isinya berbit palet 1/2 dengan indeks tile
+berurutan 0..413, tetapi arti tiap entri tetap `semantics: unidentified`.
 
 ### Rantai sprite 9-tile 0x750E4C–0x7517AC
 

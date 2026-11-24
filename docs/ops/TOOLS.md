@@ -20,6 +20,14 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   lama disimpan sebagai riwayat (idempoten).
 - `migrate_audit.py` — klasifikasi semua blok promoted: bisa migrasi vs alasan
   SKIP (`--json`).
+- `migratable_failed.py` — antrean migrasi hemat token: `failed` di modul
+  migratable (`decomp/migrate.MIGRATABLE_MODULES`) yang belum ada di `src/`,
+  beserta alasan SKIP-nya. `LIMIT=<n>` membatasi baris (default 15). Read-only.
+- `pick_targets.py [--limit N]` — pemilah kandidat migrasi tiga grup, termurah
+  dulu per grup: **A** compile-error (pasti bisa maju), **B** pola-lolos (note
+  cocok resep terbukti: vtable-ret+ret-dipakai, call-chain fold, arg-dibuang
+  r2, epilog-return, mask-hoist), **C** hindari (gejala wall tercatat, jangan
+  bakar judge). Read-only; tidak menyentuh state/draf.
 - `brief.py <func> [--siblings N]` — paket kerja satu fungsi dalam satu
   perintah: status/`ref_len`/`in_src`/budget judge dari shard state, `note`,
   draf (maks 40 baris), blok asm ref (maks 45 baris, pool `.byte`/`.4byte`
@@ -337,6 +345,17 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   Contoh: `python3 tools/assets/tile4bpp.py verify --json
   assets/gfx/fonts/clock.json`. Source pilot `tiles4bpp` ada di
   `assets/gfx/fonts/` (`clock`); `unk_0872de44` memakai `font_container.py`.
+- `tools/assets/map2bin.py` — codec **tilemap BG 16-bit** (`kind: tilemap`):
+  source kanoniknya grid entri u16 di JSON (`entries` urut baris + `tilemap`
+  `width`/`height`), bukan PNG — menggambar peta butuh tileset pasangan yang
+  belum tentu terbukti, sedangkan yang dibuktikan call site adalah grid dan
+  tujuan salinnya. `encode` menolak grid yang jumlah entrinya tidak sama
+  dengan `width*height` **atau** dengan `rom.size`, jadi lebar tebakan tidak
+  bisa lolos. `decode` memotong slice ROM menjadi metadata (`--width/--height`
+  wajib, bukan heuristik), `verify` membandingkan byte + SHA-256 hasil encode
+  dengan slice ROM. Tidak menyentuh `asm/data/*.s`. Contoh: `python3
+  tools/assets/map2bin.py verify --json assets/gfx/maps/gUnk_08755230.json`
+  (30x13 entri, 780 B).
 - `tools/assets/font_container.py` — codec container font/objek
   `func_0805E6CC` (bukan tile datar). `decode` mengikuti pembacaan fungsi:
   enam tabel berhitung — A 4 B, B 16 B, C 8 B, D 32 B, E 32 B, F 8 B — lalu
@@ -448,6 +467,21 @@ python3 tools/scripts/decomp_engine.py learn | hint <func> | sectors
   compile pada pilot); heuristik typing bukan jalan MATCH, lanjutkan dengan
   diff byte.
 
+## Build dan lingkungan
+
+- `split_asm_sections.py ASM OUT` — pecah `asm/<stem>.s` menjadi section per
+  fungsi/chunk data (`.text.<stem>.<addr8>`, chunk tanpa label alamat jadi
+  `.<funcaddr>.zz`) supaya linker script bisa menyelipkan `src/<stem>.o` tepat
+  di posisi fungsi asm yang dicabut. Dipanggil otomatis oleh Makefile untuk
+  setiap `.o` asm; menjalankannya manual hanya untuk memeriksa hasil pecahan
+  (OUT harus di luar `asm/`, mis. `build/`).
+- `tools/migrate_proot.py` — jalur migrasi di proot/Termux saat `make compare`
+  belum bisa hijau: gate-nya zero-diff old-vs-new (link tidak menggeser satu
+  byte) + judge MATCH per fungsi, hanya untuk modul pre-m4a
+  (`interrupt`/`main`/`sram_*`). `migrate_one` me-revert otomatis bila gate
+  MERAH. Modul pasca-m4a-shift tetap butuh baseline hijau penuh. Tidak
+  menyentuh state JSON.
+
 ## Alat data/ROM (ad-hoc)
 
 Utilitas kecil untuk membaca/menamai data ROM. Tiga di antaranya **menulis
@@ -492,6 +526,17 @@ dikerjakan, lalu periksa `git diff` (tool ini tidak punya `--check`).
   `ScheduleEntry`, `PathInfo`, dan `PathPointA/B` (tipe titik dipilih dari ada/
   tidaknya `facing`); urutan emit tetap `si, sl, sc, se, pi, pp`, dan waktu
   `HH:MM` dikembalikan ke menit mentah. Tanpa argumen CLI.
+
+## Regresi tool (`tools/tests/`)
+
+`make test-tools` menjalankan semuanya (`unittest discover`); tidak menyentuh
+build dan tidak menulis ROM. Berkas yang ada:
+`test_cli.py`, `test_asset_manifest.py`, `test_asset_verify.py`,
+`test_embedded_streams.py`, `test_font_container.py`, `test_font_palettes.py`,
+`test_lz70.py`, `test_map2bin.py`, `test_raw_assets.py`, `test_readme_stats.py`,
+`test_sprite2gba.py`, `test_stream_audit.py`, `test_tile4bpp.py`.
+`check_docs.py` menolak skrip `tools/**/*.py` yang belum disebut di berkas ini
+(folder vendored dikecualikan), jadi tes baru tanpa entri menggagalkan gate.
 
 ## Prasyarat lingkungan
 

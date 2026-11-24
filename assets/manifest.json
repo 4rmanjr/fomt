@@ -188,6 +188,26 @@
    "evidence": "container func_0805E6CC A1/B1/C1/D4/E1/F0/T1 (220 B habis tepat); asm/code_0803EE94.s:133387 memuat gUnk_08755154 lalu func_08082264 (baris 132394) meneruskannya sebagai argumen ke-4 ke func_0805E6CC (jalur sama dengan gUnk_0875352C)"
   },
   {
+   "id": "gfx/maps/gunk_08755230",
+   "symbol": "gUnk_08755230",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x755230",
+    "size": 780,
+    "sha256": "e4efc433aba1112d8905ef11ddeba996e6da3c0696701835f1dab01050d931c9"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_08755230.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   },
+   "evidence": "asm/code_0803EE94.s baris 112762 (func_08077EC0) memuat gUnk_08755230 lalu memanggil func_08077E34 (baris 112650) dengan (obj, 0x1e, blob). Fungsi itu menyalin 30 entri u16 per baris selama 13 baris (`cmp r1, #0x1d`, `cmp r3, #0xc`) ke 0x06000000 + (0x1e << 11) + baris*0x40, jadi 30x13x2 = 780 B habis tepat dan grid 30x13 terbukti. 0x1e adalah nomor screenblock tujuan, bukan lebar grid; gUnk_0875553C adalah pasangan bentuk yang sama untuk screenblock 0x1d."
+  },
+  {
    "id": "gfx/palettes/panel_screen",
    "symbol": "gUnk_08731940",
    "kind": "palette",
