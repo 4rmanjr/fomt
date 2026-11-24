@@ -1,0 +1,40 @@
+{
+ "id": "gfx/sprites/gunk_0875254c",
+ "symbol": "gUnk_0875254C",
+ "kind": "sprite",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x75254C",
+  "size": 128,
+  "sha256": "163db1657111bb6fdb0803b259c6a4ba4c40c2d25d61c25e78de7f44571e4c13"
+ },
+ "palette": {
+  "symbol": "gUnk_087525CC",
+  "rom": {
+   "offset": "0x7525CC",
+   "size": 32,
+   "sha256": "c2d31d3df9d77a1dd609cdd2d941b616e158556a752618f8dee970a6caae5eac"
+  }
+ },
+ "source": {
+  "png": "gUnk_0875254C.png",
+  "pal": "gUnk_0875254C.pal",
+  "tiles_wide": 2,
+  "tile_count": 4
+ },
+ "frame": {
+  "width_tiles": 2,
+  "height_tiles": 2,
+  "count": 1,
+  "order": "row-major"
+ },
+ "encoder": {
+  "tool": "sprite2gba.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first",
+  "png_format": "indexed-8-plte"
+ },
+ "evidence": "code_0803EE94.s:64123/64270 memuat gUnk_0875254C (tile, 0x20 per panggilan ke 0x06000B00) dan gUnk_087525CC (palet 0x20 ke 0x05000040) di fungsi func_0805FF14, cabang berbeda (jarak 147 baris); pasangan mengikuti urutan blob ROM, dikonfirmasi visual",
+ "note": "4 tile 4bpp = satu frame 16x16; ukuran OAM/animasi belum ditelusuri"
+}
