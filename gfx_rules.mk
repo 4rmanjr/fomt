@@ -61,6 +61,7 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_087532AC.bin \
   $(BUILD_DIR)/assets/gUnk_0875334C.bin \
   $(BUILD_DIR)/assets/gUnk_087533EC.bin \
+  $(BUILD_DIR)/assets/gUnk_0875348C.bin \
   $(BUILD_DIR)/assets/gUnk_08750C4C.bin \
   $(BUILD_DIR)/assets/gUnk_08750C8C.bin
 
@@ -525,6 +526,14 @@ $(BUILD_DIR)/assets/gUnk_087533EC.bin: \
     tools/assets/sprite2gba.py
 	@echo "ASSET $@"
 	@python3 tools/assets/sprite2gba.py encode --json assets/gfx/sprites/gUnk_087533EC.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875348C.bin: \
+    assets/gfx/sprites/gUnk_0875348C.json \
+    assets/gfx/sprites/gUnk_0875348C.png \
+    assets/gfx/sprites/gUnk_0875348C.pal \
+    tools/assets/sprite2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/sprite2gba.py encode --json assets/gfx/sprites/gUnk_0875348C.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_08750C4C.bin: \
     assets/gfx/tiles/gUnk_08750C4C.json \

@@ -891,6 +891,15 @@ baris, `code_0803EE94.s`), jadi bukti pasangannya `--pair-rule asm-load`, bukan
 `asm-branch`; blob ROM-nya juga bersebelahan sehingga `rom_adjacent` benar.
 Alamat tetap dipakai hanya sebagai placeholder `semantics: unidentified` (§6).
 
+Rantai berlanjut ke `gUnk_0875348C` (0x80, palet `gUnk_0875350C`): tile
+di-DMA 0x20 B ke VRAM `0x06000BA0` (slot tile 0x5D, baris 64709) dan palet
+di-DMA ke `0x05000080` (bank 4) di cabang lain `func_0805FF14` (baris
+64848), jadi pasangannya `--pair-rule asm-branch` (jarak 147). Bedanya
+dengan rantai sebelumnya, slot tile itu juga ditulis ke BG map:
+`func_0804E9F4` dipanggil di baris 65559 dengan tile 0x5D dan indeks palet 4
+(branch baris 65553), sehingga `pair.bg_map` ikut terverifikasi mesin dan
+angkanya cocok dengan tujuan DMA palet (bank 4).
+
 ### Rantai sprite 9-tile 0x750E4C–0x7517AC
 
 Sembilan blob 9-tile di rentang ini dipakai tiga fungsi `code_0803EE94.s` yang

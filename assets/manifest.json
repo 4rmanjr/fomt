@@ -1273,6 +1273,28 @@
    "evidence": "code_0803EE94.s:71953/71954 memuat gUnk_087533EC (tile 0x80) dan gUnk_0875346C (palet 0x20)"
   },
   {
+   "id": "gfx/sprites/gunk_0875348c",
+   "symbol": "gUnk_0875348C",
+   "kind": "sprite",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75348C",
+    "size": 128,
+    "sha256": "e39421be5c1877ceef505cd5086cee0a61cd64ea69fa633084bee69dc0a77c54"
+   },
+   "source": {
+    "json": "assets/gfx/sprites/gUnk_0875348C.json",
+    "png": "assets/gfx/sprites/gUnk_0875348C.png",
+    "pal": "assets/gfx/sprites/gUnk_0875348C.pal"
+   },
+   "encoder": {
+    "tool": "sprite2gba.py",
+    "version": 1
+   },
+   "evidence": "func_0805FF14: baris 64701 memuat tile gUnk_0875348C dan baris 64709 menyalin 0x20 B ke VRAM 0x06000BA0 (slot tile 0x5D); baris 64848 menyalin palet gUnk_0875350C 0x20 B ke 0x05000080 (bank 4); BG map tile 0x5D ditulis func_0804E9F4 dengan indeks palet 4 (branch 65553, bl 65559)"
+  },
+  {
    "id": "gfx/tiles/gunk_08750c4c",
    "symbol": "gUnk_08750C4C",
    "kind": "tiles4bpp",

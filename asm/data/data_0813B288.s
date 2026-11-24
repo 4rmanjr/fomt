@@ -1207,7 +1207,11 @@ gUnk_0875346C:
 
 	.global gUnk_0875348C
 gUnk_0875348C:
-	.incbin "baserom.gba", 0x75348C, 0x80
+	@ rom: 0x75348C 0x80 — source assets/gfx/sprites/gUnk_0875348C.{png,pal,json};
+	@ 1 tile 8x8 berisi + 0x60 padding nol; func_0804E9F4 menulis BG map tile 0x5D
+	@ dengan indeks palet 4 (baris 65559), palet gUnk_0875350C di-DMA ke bank 4 (baris 64848);
+	@ pair-rule asm-branch (tile baris 64701/palet baris 64848) digerbang sprite2gba.py verify.
+	.incbin "build/assets/gUnk_0875348C.bin"
 
 	.global gUnk_0875350C
 gUnk_0875350C:

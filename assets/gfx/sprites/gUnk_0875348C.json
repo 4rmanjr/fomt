@@ -1,0 +1,62 @@
+{
+ "id": "gfx/sprites/gunk_0875348c",
+ "symbol": "gUnk_0875348C",
+ "kind": "sprite",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x75348C",
+  "size": 128,
+  "sha256": "e39421be5c1877ceef505cd5086cee0a61cd64ea69fa633084bee69dc0a77c54"
+ },
+ "palette": {
+  "symbol": "gUnk_0875350C",
+  "rom": {
+   "offset": "0x75350C",
+   "size": 32,
+   "sha256": "09ef2d4ac73942140df2e6ae6a72c097c230dece335ae03e237241f0bb987a7c"
+  }
+ },
+ "source": {
+  "png": "gUnk_0875348C.png",
+  "pal": "gUnk_0875348C.pal",
+  "tiles_wide": 2,
+  "tile_count": 4
+ },
+ "frame": {
+  "width_tiles": 2,
+  "height_tiles": 2,
+  "count": 1,
+  "order": "row-major"
+ },
+ "semantics": "unidentified",
+ "encoder": {
+  "tool": "sprite2gba.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first",
+  "png_format": "indexed-8-plte"
+ },
+ "pair": {
+  "rule": "asm-branch",
+  "rom_adjacent": true,
+  "source": "asm",
+  "asm": "asm/code_0803EE94.s",
+  "load_lines": [
+   64701,
+   64848
+  ],
+  "distance": 147,
+  "reason": "BG map tile 0x5D ditulis func_0804E9F4 dengan indeks palet 4 (branch baris 65553, bl baris 65559); tile di-DMA 0x20 B ke VRAM 0x06000BA0 (baris 64709); palet gUnk_0875350C di-DMA ke 0x05000080 (bank 4) di cabang lain func_0805FF14 (baris 64848)",
+  "bg_map": {
+   "asm": "asm/code_0803EE94.s",
+   "line": 65559,
+   "branch": 65553,
+   "tile": "0x5D",
+   "palette": 4,
+   "palette_dma": "0x05000080",
+   "bank": 4
+  }
+ },
+ "evidence": "func_0805FF14: baris 64701 memuat tile gUnk_0875348C dan baris 64709 menyalin 0x20 B ke VRAM 0x06000BA0 (slot tile 0x5D); baris 64848 menyalin palet gUnk_0875350C 0x20 B ke 0x05000080 (bank 4); BG map tile 0x5D ditulis func_0804E9F4 dengan indeks palet 4 (branch 65553, bl 65559)",
+ "note": "4 tile 4bpp = satu frame 16x16; hanya tile 0 berisi (DMA 0x20 B), tiga tile sisanya padding nol; ukuran OAM/animasi belum ditelusuri"
+}
