@@ -1,0 +1,107 @@
+{
+ "kind": "font_container",
+ "source": {
+  "png": "unk_0873d234.png",
+  "tiles_wide": 16,
+  "tile_count": 25,
+  "tail_hex": ""
+ },
+ "encoder": {
+  "tool": "font_container.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first"
+ },
+ "format": "func_0805E6CC",
+ "layout": {
+  "entry_sections": [
+   [
+    "A",
+    4
+   ],
+   [
+    "B",
+    16
+   ],
+   [
+    "C",
+    8
+   ],
+   [
+    "D",
+    32
+   ],
+   [
+    "E",
+    32
+   ],
+   [
+    "F",
+    8
+   ]
+  ],
+  "trailer": [
+   "T",
+   4
+  ]
+ },
+ "sections": [
+  {
+   "name": "A",
+   "entry_size": 4,
+   "count": 3,
+   "prefix_hex": "03000000",
+   "data_hex": "020000000200020002000400"
+  },
+  {
+   "name": "B",
+   "entry_size": 16,
+   "count": 6,
+   "prefix_hex": "06000000",
+   "data_hex": "0100000004000000010000000000000001000000040004000100000000000000010000000400080001000000000000000100000004000c0001000000000000000100000004001000010000000000000001000000040014000100000000000000"
+  },
+  {
+   "name": "C",
+   "entry_size": 8,
+   "count": 1,
+   "prefix_hex": "01000000",
+   "data_hex": "0000004000000000"
+  },
+  {
+   "name": "D",
+   "entry_size": 32,
+   "prefix_hex": "18000000",
+   "tiles": 24
+  },
+  {
+   "name": "E",
+   "entry_size": 32,
+   "prefix_hex": "01000000",
+   "tiles": 1
+  },
+  {
+   "name": "F",
+   "entry_size": 8,
+   "count": 0,
+   "prefix_hex": "00000000",
+   "data_hex": ""
+  },
+  {
+   "name": "T",
+   "entry_size": 4,
+   "count": 6,
+   "prefix_hex": "06000000",
+   "data_hex": "000028000100280002000c0003000c000400080005000800"
+  }
+ ],
+ "id": "gfx/fonts/gunk_0873d234",
+ "symbol": "gUnk_0873D234",
+ "rom": {
+  "offset": "0x73D234",
+  "size": 968,
+  "sha256": "3abfeee1b4c92cf474ec9bcba97809fbe42f87006023cb6e07e2c9d3736bda77"
+ },
+ "note": "count 3 + tabel; func_0805E6CC, bukan tile datar",
+ "status": "rom-exact",
+ "semantics": "unidentified"
+}

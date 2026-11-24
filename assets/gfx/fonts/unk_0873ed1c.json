@@ -1,0 +1,107 @@
+{
+ "kind": "font_container",
+ "source": {
+  "png": "unk_0873ed1c.png",
+  "tiles_wide": 16,
+  "tile_count": 43,
+  "tail_hex": ""
+ },
+ "encoder": {
+  "tool": "font_container.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first"
+ },
+ "format": "func_0805E6CC",
+ "layout": {
+  "entry_sections": [
+   [
+    "A",
+    4
+   ],
+   [
+    "B",
+    16
+   ],
+   [
+    "C",
+    8
+   ],
+   [
+    "D",
+    32
+   ],
+   [
+    "E",
+    32
+   ],
+   [
+    "F",
+    8
+   ]
+  ],
+  "trailer": [
+   "T",
+   4
+  ]
+ },
+ "sections": [
+  {
+   "name": "A",
+   "entry_size": 4,
+   "count": 3,
+   "prefix_hex": "03000000",
+   "data_hex": "040000000400040003000800"
+  },
+  {
+   "name": "B",
+   "entry_size": 16,
+   "count": 10,
+   "prefix_hex": "0a000000",
+   "data_hex": "01000000040000000100000000000000020001000600040001000000000000000100030004000a0001000000000000000100040001000e0001000000000000000100050004000f00010001000000000001000600040013000100010000000000010007000400170001000100000000000200080006001b00010001000000000001000a0004002100010001000000000001000a00040025000100010000000000"
+  },
+  {
+   "name": "C",
+   "entry_size": 8,
+   "count": 11,
+   "prefix_hex": "0b000000",
+   "data_hex": "f300074000000000f0000d4000000000f0801d0004000000f3001a4000000000f800000000000000f400ed4100000000f500ea4100000000f300e84100000000f800f74100000000f880070004000000f200f64100000000"
+  },
+  {
+   "name": "D",
+   "entry_size": 32,
+   "prefix_hex": "29000000",
+   "tiles": 41
+  },
+  {
+   "name": "E",
+   "entry_size": 32,
+   "prefix_hex": "02000000",
+   "tiles": 2
+  },
+  {
+   "name": "F",
+   "entry_size": 8,
+   "count": 0,
+   "prefix_hex": "00000000",
+   "data_hex": ""
+  },
+  {
+   "name": "T",
+   "entry_size": 4,
+   "count": 11,
+   "prefix_hex": "0b000000",
+   "data_hex": "0000060001000600020006000300060005000900060009000300090004000900070008000800080009000800"
+  }
+ ],
+ "id": "gfx/fonts/gunk_0873ed1c",
+ "symbol": "gUnk_0873ED1C",
+ "rom": {
+  "offset": "0x73ED1C",
+  "size": 1708,
+  "sha256": "e9264bb9348375ee86ed48a0c373615fddcc4d5812c9c4656abff76e0c4081b3"
+ },
+ "note": "count 3 + tabel; func_0805E6CC, bukan tile datar",
+ "status": "rom-exact",
+ "semantics": "unidentified"
+}

@@ -26,7 +26,9 @@ gUnk_08523290:
 
 	.global gUnk_08527094
 gUnk_08527094:
-	.incbin "baserom.gba", 0x527094, 0x1A4
+	@ rom: 0x527094 0x1A4 — source assets/gfx/fonts/unk_08527094.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08527094.bin"
 
 	.global gUnk_08527238
 gUnk_08527238:
@@ -280,7 +282,9 @@ gUnk_086F2FAC:
 
 	.global gUnk_086FAA80
 gUnk_086FAA80:
-	.incbin "baserom.gba", 0x6FAA80, 0x584
+	@ rom: 0x6FAA80 0x584 — source assets/gfx/fonts/unk_086faa80.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_086FAA80.bin"
 
 	.global gUnk_086FB004
 gUnk_086FB004:
@@ -322,39 +326,57 @@ gUnk_0871D51C:
 
 	.global gUnk_0871E7A8
 gUnk_0871E7A8:
-	.incbin "baserom.gba", 0x71E7A8, 0x504
+	@ rom: 0x71E7A8 0x504 — source assets/gfx/fonts/unk_0871e7a8.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0871E7A8.bin"
 
 	.global gUnk_0871ECAC
 gUnk_0871ECAC:
-	.incbin "baserom.gba", 0x71ECAC, 0x128
+	@ rom: 0x71ECAC 0x128 — source assets/gfx/fonts/unk_0871ecac.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0871ECAC.bin"
 
 	.global gUnk_0871EDD4
 gUnk_0871EDD4:
-	.incbin "baserom.gba", 0x71EDD4, 0x12C
+	@ rom: 0x71EDD4 0x12C — source assets/gfx/fonts/unk_0871edd4.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0871EDD4.bin"
 
 	.global gUnk_0871EF00
 gUnk_0871EF00:
-	.incbin "baserom.gba", 0x71EF00, 0x6EA0
+	@ rom: 0x71EF00 0x6EA0 — source assets/gfx/fonts/unk_0871ef00.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0871EF00.bin"
 
 	.global gUnk_08725DA0
 gUnk_08725DA0:
-	.incbin "baserom.gba", 0x725DA0, 0xF2C
+	@ rom: 0x725DA0 0xF2C — source assets/gfx/fonts/unk_08725da0.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08725DA0.bin"
 
 	.global gUnk_08726CCC
 gUnk_08726CCC:
-	.incbin "baserom.gba", 0x726CCC, 0x69C
+	@ rom: 0x726CCC 0x69C — source assets/gfx/fonts/unk_08726ccc.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08726CCC.bin"
 
 	.global gUnk_08727368
 gUnk_08727368:
-	.incbin "baserom.gba", 0x727368, 0x70C
+	@ rom: 0x727368 0x70C — source assets/gfx/fonts/unk_08727368.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08727368.bin"
 
 	.global gUnk_08727A74
 gUnk_08727A74:
-	.incbin "baserom.gba", 0x727A74, 0x794
+	@ rom: 0x727A74 0x794 — source assets/gfx/fonts/unk_08727a74.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08727A74.bin"
 
 	.global gUnk_08728208
 gUnk_08728208:
-	.incbin "baserom.gba", 0x728208, 0x118
+	@ rom: 0x728208 0x118 — source assets/gfx/fonts/unk_08728208.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08728208.bin"
 
 	.global gUnk_08728320
 gUnk_08728320:
@@ -364,7 +386,9 @@ gUnk_08728320:
 
 	.global gUnk_0872937C
 gUnk_0872937C:
-	.incbin "baserom.gba", 0x72937C, 0xE4
+	@ rom: 0x72937C 0xE4 — source assets/gfx/fonts/unk_0872937c.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0872937C.bin"
 
 	.global gUnk_08729460
 gUnk_08729460:
@@ -374,7 +398,9 @@ gUnk_08729460:
 
 	.global gUnk_0872BE64
 gUnk_0872BE64:
-	.incbin "baserom.gba", 0x72BE64, 0x76C
+	@ rom: 0x72BE64 0x76C — source assets/gfx/fonts/unk_0872be64.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0872BE64.bin"
 
 	.global gUnk_0872C5D0
 gUnk_0872C5D0:
@@ -416,7 +442,9 @@ gUnk_0872DE44:
 
 	.global gUnk_0872EE78
 gUnk_0872EE78:
-	.incbin "baserom.gba", 0x72EE78, 0x2A4
+	@ rom: 0x72EE78 0x2A4 — source assets/gfx/fonts/unk_0872ee78.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0872EE78.bin"
 
 	.global gUnk_0872F11C
 gUnk_0872F11C:
@@ -468,7 +496,9 @@ gUnk_08731B40:
 
 	.global gUnk_08738144 @gCalendarFont?
 gUnk_08738144:
-	.incbin "baserom.gba", 0x738144, 0x994
+	@ rom: 0x738144 0x994 — source assets/gfx/fonts/unk_08738144.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08738144.bin"
 
 	.global gUnk_08738AD8
 gUnk_08738AD8:
@@ -496,15 +526,21 @@ gUnk_08739A64:
 
 	.global gUnk_0873A6E8
 gUnk_0873A6E8:
-	.incbin "baserom.gba", 0x73A6E8, 0x76C
+	@ rom: 0x73A6E8 0x76C — source assets/gfx/fonts/unk_0873a6e8.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873A6E8.bin"
 
 	.global gUnk_0873AE54
 gUnk_0873AE54:
-	.incbin "baserom.gba", 0x73AE54, 0x174
+	@ rom: 0x73AE54 0x174 — source assets/gfx/fonts/unk_0873ae54.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873AE54.bin"
 
 	.global gUnk_0873AFC8
 gUnk_0873AFC8:
-	.incbin "baserom.gba", 0x73AFC8, 0xE5C
+	@ rom: 0x73AFC8 0xE5C — source assets/gfx/fonts/unk_0873afc8.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873AFC8.bin"
 
 	.global gUnk_0873BE24
 gUnk_0873BE24:
@@ -524,39 +560,57 @@ gUnk_0873CBF4:
 
 	.global gUnk_0873CCB4
 gUnk_0873CCB4:
-	.incbin "baserom.gba", 0x73CCB4, 0x1F8
+	@ rom: 0x73CCB4 0x1F8 — source assets/gfx/fonts/unk_0873ccb4.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873CCB4.bin"
 
 	.global gUnk_0873CEAC
 gUnk_0873CEAC:
-	.incbin "baserom.gba", 0x73CEAC, 0xE4
+	@ rom: 0x73CEAC 0xE4 — source assets/gfx/fonts/unk_0873ceac.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873CEAC.bin"
 
 	.global gUnk_0873CF90
 gUnk_0873CF90:
-	.incbin "baserom.gba", 0x73CF90, 0x2A4
+	@ rom: 0x73CF90 0x2A4 — source assets/gfx/fonts/unk_0873cf90.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873CF90.bin"
 
 	.global gUnk_0873D234
 gUnk_0873D234:
-	.incbin "baserom.gba", 0x73D234, 0x3C8
+	@ rom: 0x73D234 0x3C8 — source assets/gfx/fonts/unk_0873d234.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873D234.bin"
 
 	.global gUnk_0873D5FC
 gUnk_0873D5FC:
-	.incbin "baserom.gba", 0x73D5FC, 0xDC
+	@ rom: 0x73D5FC 0xDC — source assets/gfx/fonts/unk_0873d5fc.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873D5FC.bin"
 
 	.global gUnk_0873D6D8
 gUnk_0873D6D8:
-	.incbin "baserom.gba", 0x73D6D8, 0x76C
+	@ rom: 0x73D6D8 0x76C — source assets/gfx/fonts/unk_0873d6d8.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873D6D8.bin"
 
 	.global gUnk_0873DE44
 gUnk_0873DE44:
-	.incbin "baserom.gba", 0x73DE44, 0x76C
+	@ rom: 0x73DE44 0x76C — source assets/gfx/fonts/unk_0873de44.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873DE44.bin"
 
 	.global gUnk_0873E5B0
 gUnk_0873E5B0:
-	.incbin "baserom.gba", 0x73E5B0, 0x76C
+	@ rom: 0x73E5B0 0x76C — source assets/gfx/fonts/unk_0873e5b0.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873E5B0.bin"
 
 	.global gUnk_0873ED1C
 gUnk_0873ED1C:
-	.incbin "baserom.gba", 0x73ED1C, 0x6AC
+	@ rom: 0x73ED1C 0x6AC — source assets/gfx/fonts/unk_0873ed1c.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0873ED1C.bin"
 
 	.global gUnk_0873F3C8
 gUnk_0873F3C8:
@@ -576,19 +630,27 @@ gUnk_087400E4:
 
 	.global gUnk_087401A4
 gUnk_087401A4:
-	.incbin "baserom.gba", 0x7401A4, 0x2B0
+	@ rom: 0x7401A4 0x2B0 — source assets/gfx/fonts/unk_087401a4.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_087401A4.bin"
 
 	.global gUnk_08740454
 gUnk_08740454:
-	.incbin "baserom.gba", 0x740454, 0x14C
+	@ rom: 0x740454 0x14C — source assets/gfx/fonts/unk_08740454.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08740454.bin"
 
 	.global gUnk_087405A0
 gUnk_087405A0:
-	.incbin "baserom.gba", 0x7405A0, 0x368
+	@ rom: 0x7405A0 0x368 — source assets/gfx/fonts/unk_087405a0.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_087405A0.bin"
 
 	.global gUnk_08740908
 gUnk_08740908:
-	.incbin "baserom.gba", 0x740908, 0xDC
+	@ rom: 0x740908 0xDC — source assets/gfx/fonts/unk_08740908.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_08740908.bin"
 
 	.global gUnk_087409E4
 gUnk_087409E4:
@@ -618,7 +680,9 @@ gUnk_0874E330:
 
 	.global gUnk_0874E530
 gUnk_0874E530:
-	.incbin "baserom.gba", 0x74E530, 0x118
+	@ rom: 0x74E530 0x118 — source assets/gfx/fonts/unk_0874e530.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0874E530.bin"
 
 	.global gUnk_0874E648
 gUnk_0874E648:
@@ -638,7 +702,9 @@ gUnk_0874ECCC:
 
 	.global gUnk_0874EE38
 gUnk_0874EE38:
-	.incbin "baserom.gba", 0x74EE38, 0xDC
+	@ rom: 0x74EE38 0xDC — source assets/gfx/fonts/unk_0874ee38.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_0874EE38.bin"
 
 	.global gUnk_0874EF14
 gUnk_0874EF14:
@@ -668,7 +734,9 @@ gUnk_0874F34C:
 
 	.global gUnk_087506E0
 gUnk_087506E0:
-	.incbin "baserom.gba", 0x7506E0, 0x56C
+	@ rom: 0x7506E0 0x56C — source assets/gfx/fonts/unk_087506e0.{png,json}; container func_0805E6CC
+	@ decode font_container.py dari ROM + encode ulang, byte identik slice ROM.
+	.incbin "build/assets/gUnk_087506E0.bin"
 
 	.global gUnk_08750C4C
 gUnk_08750C4C:

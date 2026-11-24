@@ -963,10 +963,9 @@ dialihkan ke `build/assets/` dibagi biaya membuktikannya.
 
 | Prioritas | Kelas | Bukti yang sudah ada | Kodek | Langkah berikut |
 |---|---|---|---|---|
-| 1 | container `func_0805E6CC` utuh (`gUnk_08725DA0`, `gUnk_08738144`,
-`gUnk_0873AFC8`, …) | parse A–F+T berakhir tepat di ujung slice dan encode
-ulang byte identik; hampir semua berlokasi dekat call `func_0805E6CC` |
-`font_container.py` | decode → JSON+PNG → `.incbin build/assets` → manifest |
+| 1 | container `func_0805E6CC` utuh | parse A–F+T berakhir tepat di ujung slice,
+encode ulang byte identik, dan rujukan kode dekat `func_0805E6CC` |
+`font_container.py` | selesai — lihat catatan di bawah |
 | 2 | palet 32 B/512 B (`gUnk_08529794`, `gUnk_0852CA40`, `gUnk_0874E330`,
 …) | semua u16 < 0x8000 dan `pal2gba.py` encode ulang byte identik |
 `pal2gba.py` | tambah bukti pemuat (salinan ke `0x05000000`) lalu migrasi |
@@ -980,6 +979,20 @@ encoder LZSS deterministik + gate hash sebelum layak |
 | parkir | `gUnk_084FA7A0` (0x4FA7A0, 512 B) | 256 × s16 indeks glyph, semua
 `0xFFFF`; `func_080D0D28` membacanya `ldrsh` dan memperlakukan `-1` sebagai
 sentinel | belum | butuh kodek tabel s16; bukan palet, bukan tile |
+
+Kelas 1 sudah habis: setiap blob `data_0813B288.s` yang masih
+`.incbin "baserom.gba"` diuji ulang dengan `font_container.parse` dan tidak ada
+yang lolos lagi, jadi pemindai berikutnya tidak perlu mengulang kelas ini.
+Bukti yang dicatat untuk gelombang terakhir hanya parse + round-trip + rujukan
+kode, karena itu semantiknya tetap `unidentified` (arti tabel A–F belum
+terbukti). Satu blob memakai jalur tidak langsung: `gUnk_0874EE38` tidak
+memanggil `func_0805E6CC` sendiri, melainkan lewat `func_08082264` — jalur yang
+sama dengan `gUnk_0875352C` dan `gUnk_08755154`.
+
+Saat memindai kandidat, pola regex harus toleran terhadap baris `.global` yang
+membawa komentar `@…`: `gUnk_08738144` ditulis `@gCalendarFont?` dan lolos
+parse penuh, tetapi pola yang menuntut `.global <simbol>` bersih melewatkannya
+sehingga kelasnya tampak kurang satu.
 
 Angka pasti per kelas tidak ditulis di sini — ambil dari
 `tools/scripts/asset_inventory.py --json` dan `assets/manifest.json` supaya

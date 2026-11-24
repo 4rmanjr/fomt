@@ -1,0 +1,107 @@
+{
+ "kind": "font_container",
+ "source": {
+  "png": "unk_08527094.png",
+  "tiles_wide": 16,
+  "tile_count": 5,
+  "tail_hex": ""
+ },
+ "encoder": {
+  "tool": "font_container.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first"
+ },
+ "format": "func_0805E6CC",
+ "layout": {
+  "entry_sections": [
+   [
+    "A",
+    4
+   ],
+   [
+    "B",
+    16
+   ],
+   [
+    "C",
+    8
+   ],
+   [
+    "D",
+    32
+   ],
+   [
+    "E",
+    32
+   ],
+   [
+    "F",
+    8
+   ]
+  ],
+  "trailer": [
+   "T",
+   4
+  ]
+ },
+ "sections": [
+  {
+   "name": "A",
+   "entry_size": 4,
+   "count": 4,
+   "prefix_hex": "04000000",
+   "data_hex": "02000000020002000200040002000600"
+  },
+  {
+   "name": "B",
+   "entry_size": 16,
+   "count": 8,
+   "prefix_hex": "08000000",
+   "data_hex": "0100000001000000010000000000000001000100010001000100000000000000010002000100000001000000000000000100030001000100010000000000000001000400010002000100000000000000010001000100030001000000000000000100050001000200010000000000000001000600010003000100000000000000"
+  },
+  {
+   "name": "C",
+   "entry_size": 8,
+   "count": 7,
+   "prefix_hex": "07000000",
+   "data_hex": "01000000000000000000000000000000ff0000200000000000000020000000000000ff010000000000000110000000000000001000000000"
+  },
+  {
+   "name": "D",
+   "entry_size": 32,
+   "prefix_hex": "04000000",
+   "tiles": 4
+  },
+  {
+   "name": "E",
+   "entry_size": 32,
+   "prefix_hex": "01000000",
+   "tiles": 1
+  },
+  {
+   "name": "F",
+   "entry_size": 8,
+   "count": 0,
+   "prefix_hex": "00000000",
+   "data_hex": ""
+  },
+  {
+   "name": "T",
+   "entry_size": 4,
+   "count": 8,
+   "prefix_hex": "08000000",
+   "data_hex": "00000c0001000c0002000c0003000c0004000c0005000c0006000c0007000c00"
+  }
+ ],
+ "id": "gfx/fonts/gunk_08527094",
+ "symbol": "gUnk_08527094",
+ "rom": {
+  "offset": "0x527094",
+  "size": 420,
+  "sha256": "b54f1e2abe5bc34fdde8cb5a4c7b18d82d5d669d315db22a237cd9b03856306d"
+ },
+ "note": "count 4 + tabel; func_0805E6CC, bukan tile datar",
+ "status": "rom-exact",
+ "semantics": "unidentified"
+}
