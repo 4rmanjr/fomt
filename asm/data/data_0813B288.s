@@ -454,7 +454,9 @@ gUnk_0872FEF8:
 
 	.global gUnk_08731940
 gUnk_08731940:
-	.incbin "baserom.gba", 0x731940, 0x200
+	@ rom: 0x731940 0x200 — source assets/gfx/palettes/unk_08731940.{pal,png,json}; 256 warna
+	@ func_080AE7D0 (code_809E804.s:32445) menyalin 512 B ke palette RAM; pal2gba.py: byte identik ROM.
+	.incbin "build/assets/gUnk_08731940.bin"
 
 	.global gUnk_08731B40 @ChickenPortraits
 gUnk_08731B40:
