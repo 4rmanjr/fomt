@@ -1,0 +1,33 @@
+{
+ "id": "gfx/maps/gunk_08757ba0",
+ "symbol": "gUnk_08757BA0",
+ "kind": "tilemap",
+ "status": "rom-exact",
+ "semantics": "unidentified",
+ "rom": {
+  "offset": "0x757BA0",
+  "size": 12,
+  "sha256": "da4b844fbd056e60e68259f0a1a490798958569f634e579d88ea028d132b5e74"
+ },
+ "source": {
+  "json": "gUnk_08757BA0.json"
+ },
+ "encoder": {
+  "tool": "map2bin.py",
+  "version": 1
+ },
+ "tilemap": {
+  "width": 2,
+  "height": 3,
+  "order": "column"
+ },
+ "entries": [
+  20924,
+  20925,
+  20926,
+  20956,
+  20957,
+  20958
+ ],
+ "note": "func_08077E64 dipanggil dari func_08077EC0 dengan x=0, lebar=2, tinggi=3 (baris 112850-112856); loop 112870-112890 menyalin 6 entri kolom demi kolom ke 0x06000000."
+}

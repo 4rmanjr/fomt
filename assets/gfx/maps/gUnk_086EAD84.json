@@ -1,0 +1,31 @@
+{
+ "id": "gfx/maps/gunk_086ead84",
+ "symbol": "gUnk_086EAD84",
+ "kind": "tilemap",
+ "status": "rom-exact",
+ "semantics": "unidentified",
+ "rom": {
+  "offset": "0x6EAD84",
+  "size": 8,
+  "sha256": "463b9049aec08bbd4351d767562c6d85c914b0e7de70885e0f3424511dc72b43"
+ },
+ "source": {
+  "json": "gUnk_086EAD84.json"
+ },
+ "encoder": {
+  "tool": "map2bin.py",
+  "version": 1
+ },
+ "tilemap": {
+  "width": 2,
+  "height": 2,
+  "order": "column"
+ },
+ "entries": [
+  37552,
+  37553,
+  37554,
+  37555
+ ],
+ "note": "func_080AA9C8 memilih gUnk_086EAD84 untuk id 0xd (baris 24554); sl=2 dan tinggi 2 (24556-24559); loop 24678-24702 menyalin 4 entri kolom demi kolom ke lapis peta [r6,#0x14]."
+}

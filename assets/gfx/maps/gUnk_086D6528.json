@@ -1,0 +1,40 @@
+{
+ "id": "gfx/maps/gunk_086d6528",
+ "symbol": "gUnk_086D6528",
+ "kind": "tilemap_bank",
+ "status": "rom-exact",
+ "semantics": "unidentified",
+ "rom": {
+  "offset": "0x6D6528",
+  "size": 32,
+  "sha256": "3d8a3c5076a6d905639ce4ea2cddc5c6afe98e51e3c8c3b092dd2a634492383d"
+ },
+ "source": {
+  "json": "gUnk_086D6528.json"
+ },
+ "encoder": {
+  "tool": "tilemap_bank.py",
+  "version": 1
+ },
+ "evidence": "method_0800AF20 mengembalikan gUnk_086D6528 untuk field 2 (literal 0xAF50); func_080AA6D0 hanya menyalin src+0 dan src+4 (2x2 = 8 B). Sisa 24 B belum punya pembaca dan disimpan raw.",
+ "layers": [
+  {
+   "offset": 0,
+   "width": 2,
+   "height": 2,
+   "entries": [
+    37709,
+    37710,
+    37711,
+    37712
+   ]
+  }
+ ],
+ "raw": [
+  {
+   "offset": 8,
+   "hex": "ff93ff9325a326a327a328a3ffa3ffa325a326a327a328a3"
+  }
+ ],
+ "note": "Layer 2x2 dari offset 0; 24 B sisa raw."
+}

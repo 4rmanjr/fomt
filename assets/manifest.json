@@ -1128,6 +1128,146 @@
    "evidence": "container func_0805E6CC A1/B1/C1/D4/E1/F0/T1 (220 B habis tepat); asm/code_0803EE94.s:133387 memuat gUnk_08755154 lalu func_08082264 (baris 132394) meneruskannya sebagai argumen ke-4 ke func_0805E6CC (jalur sama dengan gUnk_0875352C)"
   },
   {
+   "id": "gfx/maps/gunk_086d6518",
+   "symbol": "gUnk_086D6518",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6D6518",
+    "size": 8,
+    "sha256": "2072a328011953e3edffc2bfcf134afaf8c148a743d23e071b1d453a44781549"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086D6518.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   },
+   "evidence": "method_0800AF20 mengembalikan gUnk_086D6518 untuk field 0 (literal 0xAF40); func_080AA6D0 menyalin src+0 dan src+4 masing-masing 4 B ke dua baris peta (2x2). Seluruh 8 B terbaca."
+  },
+  {
+   "id": "gfx/maps/gunk_086d6520",
+   "symbol": "gUnk_086D6520",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6D6520",
+    "size": 8,
+    "sha256": "f7654ed35adb7ffa07d0e1255dee87735f31edf4872c9c98d2c3cde6b8d29093"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086D6520.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   },
+   "evidence": "method_0800AF20 mengembalikan gUnk_086D6520 untuk field 1 (literal 0xAF48); func_080AA6D0 menyalin src+0 dan src+4 masing-masing 4 B ke dua baris peta (2x2). Seluruh 8 B terbaca."
+  },
+  {
+   "id": "gfx/maps/gunk_086d6528",
+   "symbol": "gUnk_086D6528",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6D6528",
+    "size": 32,
+    "sha256": "3d8a3c5076a6d905639ce4ea2cddc5c6afe98e51e3c8c3b092dd2a634492383d"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086D6528.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "method_0800AF20 mengembalikan gUnk_086D6528 untuk field 2 (literal 0xAF50); func_080AA6D0 hanya menyalin src+0 dan src+4 (2x2 = 8 B). Sisa 24 B belum punya pembaca dan disimpan raw."
+  },
+  {
+   "id": "gfx/maps/gunk_086dc3c4",
+   "symbol": "gUnk_086DC3C4",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DC3C4",
+    "size": 12,
+    "sha256": "5412c929f2969d27e1f0acc0897b22ae4c7355db4204c055116c5f2aa57a4aea"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DC3C4.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   },
+   "evidence": "func_0809E0AC memilih gUnk_086DC3C4 untuk nilai field 0 (literal 0x9E0EC); func_080AA540 (dipanggil 16261) menyalin src+0/+4/+8 masing-masing 4 B ke tiga baris peta (2 kolom x 3 baris, urut baris). Seluruh 12 B terbaca."
+  },
+  {
+   "id": "gfx/maps/gunk_086dc3d0",
+   "symbol": "gUnk_086DC3D0",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DC3D0",
+    "size": 12,
+    "sha256": "ae81cb6d0085807d98948d7549ad51fd8621e6818bc545f85d6cdaf1318780e4"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DC3D0.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   },
+   "evidence": "func_0809E0AC memilih gUnk_086DC3D0 untuk field 1 (literal 0x9E0F4); func_080AA540 menyalin src+0/+4/+8 masing-masing 4 B ke tiga baris peta (2 kolom x 3 baris). Seluruh 12 B terbaca."
+  },
+  {
+   "id": "gfx/maps/gunk_086dc3dc",
+   "symbol": "gUnk_086DC3DC",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DC3DC",
+    "size": 12,
+    "sha256": "d6ef5674c5e6ee46180d5a7be7a574b72be8978cc92e919ff789a5cca627a1f0"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DC3DC.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   },
+   "evidence": "func_0809E0AC memilih gUnk_086DC3DC untuk field 2 (literal 0x9E0FC); func_080AA540 menyalin src+0/+4/+8 masing-masing 4 B ke tiga baris peta (2 kolom x 3 baris). Seluruh 12 B terbaca."
+  },
+  {
+   "id": "gfx/maps/gunk_086dc3e8",
+   "symbol": "gUnk_086DC3E8",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DC3E8",
+    "size": 12,
+    "sha256": "7e427bb246335f333e6835b69326ef163acbd686bcdc0d409ec00f1c78617a6c"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DC3E8.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   },
+   "evidence": "func_0809E0AC memilih gUnk_086DC3E8 untuk field 3 (literal 0x9E104); func_080AA540 menyalin src+0/+4/+8 masing-masing 4 B ke tiga baris peta (2 kolom x 3 baris). Seluruh 12 B terbaca."
+  },
+  {
    "id": "gfx/maps/gunk_086dc54c",
    "symbol": "gUnk_086DC54C",
    "kind": "tilemap",
@@ -1146,6 +1286,46 @@
     "version": 1
    },
    "evidence": "asm/code_809E804.s baris 24613 (.L080AAB54) memilih gUnk_086DC54C untuk id 0xe (baris 24622); sl=6 (baris 24631) dan 4 baris (baris 24633) membuat loop 24672/24686 membaca tepat 24 entri u16 berurutan lewat ldrh [r4] (baris 24701), lalu strh ke lapis peta [r6,#0x14] (baris 24699/24702) di (x0+kolom, y0+baris). 24 entri = 48 B = seluruh slice; label di asm memang 0x30 dan simbol berikutnya (gUnk_086DC57C) tepat di +0x30, jadi batas simbol benar dan grid 6x4 urut baris round-trip terbukti."
+  },
+  {
+   "id": "gfx/maps/gunk_086dc57c",
+   "symbol": "gUnk_086DC57C",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DC57C",
+    "size": 1804,
+    "sha256": "fe1cd4eb5ce77356d4c3fe11af4401943d78d238b6f9246982c2f20fed73d2b2"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DC57C.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "func_080AA9C8 memilih gUnk_086DC57C untuk id 0xc (baris 24524); sl=2 dan tinggi=2 (baris 24556-24559), lalu loop 24678-24702 membaca 4 entri dari offset 0. Sisa byte tidak dibaca loop ini."
+  },
+  {
+   "id": "gfx/maps/gunk_086dcc88",
+   "symbol": "gUnk_086DCC88",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DCC88",
+    "size": 2568,
+    "sha256": "aae671e7684258961ea7077941457dd6382b09aa7bbeaea11650880a73099ff9"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DCC88.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "func_080AA9C8 memilih gUnk_086DCC88 untuk id 0xe (baris 24513); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini."
   },
   {
    "id": "gfx/maps/gunk_086dd690",
@@ -1188,6 +1368,46 @@
    "evidence": "asm/code_809E804.s baris 24613 (.L080AAB54) memilih gUnk_086DD6B0 untuk id 0xf (baris 24628); sl=6 (baris 24631) dan 4 baris (baris 24633) membuat loop 24672/24686 membaca tepat 24 entri u16 berurutan lewat ldrh [r4] (baris 24701), lalu strh ke lapis peta [r6,#0x14] (baris 24699/24702) di (x0+kolom, y0+baris). 24 entri = 48 B = seluruh slice; label di asm memang 0x30 dan simbol berikutnya (gUnk_086DD6E0) tepat di +0x30, jadi batas simbol benar dan grid 6x4 urut baris round-trip terbukti."
   },
   {
+   "id": "gfx/maps/gunk_086dd6e0",
+   "symbol": "gUnk_086DD6E0",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DD6E0",
+    "size": 1804,
+    "sha256": "a2e4747c73c3fcbfd1e5d2bdb06dff22f9ffda200dad279846a53457703717cb"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DD6E0.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "func_080AA9C8 memilih gUnk_086DD6E0 untuk id 0xd (baris 24532); sl=2 dan tinggi=2 (baris 24556-24559), lalu loop 24678-24702 membaca 4 entri dari offset 0. Sisa byte tidak dibaca loop ini."
+  },
+  {
+   "id": "gfx/maps/gunk_086dddec",
+   "symbol": "gUnk_086DDDEC",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DDDEC",
+    "size": 2568,
+    "sha256": "55d5b978e65cbb7497042e53cb64658a8eefd66cd8d84105b9c1473a4f43f7e3"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DDDEC.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "func_080AA9C8 memilih gUnk_086DDDEC untuk id 0xf (baris 24518); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini."
+  },
+  {
    "id": "gfx/maps/gunk_086de7f4",
    "symbol": "gUnk_086DE7F4",
    "kind": "tilemap_bank",
@@ -1208,6 +1428,25 @@
    "evidence": "asm/code_809E804.s baris 14381 (func_080A5BD8) membaca descriptor 0x18 B: u8 lebar (14397), u8 tinggi (14398), tiga pointer layer u16 di +4/+8/+0xc (14401), lalu memcpy lebar x tinggi entri per layer (14436) ke lapis peta. Tabel descriptor 0x10692C-0x1070DC (82 record) menunjuk layer di blob ini; source mencatat offset/lebar/tinggi tiap layer, dan raw menutup byte yang tidak dirujuk supaya round-trip byte-identik tanpa mengarang format."
   },
   {
+   "id": "gfx/maps/gunk_086eacdc",
+   "symbol": "gUnk_086EACDC",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6EACDC",
+    "size": 8,
+    "sha256": "b128bf942fd562658bfb186ea2b14769ca86b1b08f12170a6a2754dace657292"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086EACDC.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
+  },
+  {
    "id": "gfx/maps/gunk_086ead64",
    "symbol": "gUnk_086EAD64",
    "kind": "tilemap",
@@ -1226,6 +1465,25 @@
     "version": 1
    },
    "evidence": "asm/code_809E804.s baris 24565 (.L080AAB00) memilih gUnk_086EAD64 untuk id 0xc (baris 24593); sl=4 (baris 24603) dan 4 baris (baris 24606) membuat loop 24672/24686 membaca tepat 16 entri u16 berurutan lewat ldrh [r4] (baris 24701), lalu strh ke lapis peta [r6,#0x14] (baris 24699/24702) di (x0+kolom, y0+baris). 16 entri = 32 B = seluruh slice, jadi grid 4x4 urut baris dan round-trip terbukti; arti indeks tile/palet tiap entri tetap unidentified."
+  },
+  {
+   "id": "gfx/maps/gunk_086ead84",
+   "symbol": "gUnk_086EAD84",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6EAD84",
+    "size": 8,
+    "sha256": "463b9049aec08bbd4351d767562c6d85c914b0e7de70885e0f3424511dc72b43"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086EAD84.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
   },
   {
    "id": "gfx/maps/gunk_086ead8c",
@@ -1287,6 +1545,120 @@
    }
   },
   {
+   "id": "gfx/maps/gunk_08757ba0",
+   "symbol": "gUnk_08757BA0",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x757BA0",
+    "size": 12,
+    "sha256": "da4b844fbd056e60e68259f0a1a490798958569f634e579d88ea028d132b5e74"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_08757BA0.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/maps/gunk_08757bac",
+   "symbol": "gUnk_08757BAC",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x757BAC",
+    "size": 32,
+    "sha256": "aac8dc20c2c116d01e0afebbdc2464b59f3bfe38ab9b5afbd1195cb04febcab3"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_08757BAC.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/maps/gunk_08757bcc",
+   "symbol": "gUnk_08757BCC",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x757BCC",
+    "size": 12,
+    "sha256": "c15908eff35051ce6ca623ee1a797264677ba32942777b140165db748b5735c3"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_08757BCC.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/maps/gunk_08757bd8",
+   "symbol": "gUnk_08757BD8",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x757BD8",
+    "size": 32,
+    "sha256": "384f4c0625513522d31daab075cc86183f0fe444082519667f7ce99ea7f4b289"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_08757BD8.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/maps/gunk_08757bf8",
+   "symbol": "gUnk_08757BF8",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x757BF8",
+    "size": 20,
+    "sha256": "4141b0a72161ca22214c18988178a955c1d746aa503f68c76c0df58073896922"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_08757BF8.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/maps/gunk_08757c0c",
+   "symbol": "gUnk_08757C0C",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x757C0C",
+    "size": 8,
+    "sha256": "287669a1e8456475f1be9fe41a3043a309eab6f2492aff1dc8f162c8a28b5716"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_08757C0C.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
+  },
+  {
    "id": "gfx/maps/gunk_08757c14",
    "symbol": "gUnk_08757C14",
    "kind": "tilemap",
@@ -1318,6 +1690,63 @@
    },
    "source": {
     "json": "assets/gfx/maps/gUnk_08757F20.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/maps/gunk_0875a418",
+   "symbol": "gUnk_0875A418",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75A418",
+    "size": 12,
+    "sha256": "9f67b9b76b3c115bee68da6892275cc4f2901420b541ea6eb35c4fa849ecc125"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_0875A418.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/maps/gunk_0875a424",
+   "symbol": "gUnk_0875A424",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75A424",
+    "size": 20,
+    "sha256": "31a0d079321e2b5beef227431914db53c7b9c8ceb9036f0b1c6a7a31efa0c2c4"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_0875A424.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   }
+  },
+  {
+   "id": "gfx/maps/gunk_0875a438",
+   "symbol": "gUnk_0875A438",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75A438",
+    "size": 8,
+    "sha256": "287669a1e8456475f1be9fe41a3043a309eab6f2492aff1dc8f162c8a28b5716"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_0875A438.json"
    },
    "encoder": {
     "tool": "map2bin.py",

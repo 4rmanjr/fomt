@@ -115,12 +115,12 @@ class VerifyGate(unittest.TestCase):
         # (bukan pada aset rom-exact, yang sekarang semuanya ber-.incbin bin).
         rom = ROM.read_bytes()
         incbins = verify.incbin_offsets()
-        self.assertIn(0x6EAD84, incbins, "gUnk_086EAD84 harus masih baserom")
+        self.assertIn(0x6D6458, incbins, "gUnk_086D6458 harus masih baserom")
         asset = minimal_asset(
-            id="gfx/palettes/x", semantics="proven", symbol="gUnk_086EAD84",
-            rom={"offset": "0x6EAD84", "size": 8,
+            id="gfx/palettes/x", semantics="proven", symbol="gUnk_086D6458",
+            rom={"offset": "0x6D6458", "size": 192,
                  "sha256": hashlib.sha256(
-                     rom[0x6EAD84:0x6EAD84 + 8]).hexdigest()},
+                     rom[0x6D6458:0x6D6458 + 192]).hexdigest()},
             source={"json": "assets/gfx/palettes/unk_087519ec.json"})
         _problems, notes = verify.check_asset(asset, rom, incbins)
         self.assertTrue(any(".incbin baserom" in n for n in notes), notes)

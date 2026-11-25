@@ -370,13 +370,15 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   assets/gfx/fonts/clock.json`. Source pilot `tiles4bpp` ada di
   `assets/gfx/fonts/` (`clock`); `unk_0872de44` memakai `font_container.py`.
 - `tools/assets/map2bin.py` — codec **tilemap BG 16-bit** (`kind: tilemap`):
-  source kanoniknya grid entri u16 di JSON (`entries` urut baris + `tilemap`
-  `width`/`height`), bukan PNG — menggambar peta butuh tileset pasangan yang
+  source kanoniknya grid entri u16 di JSON (`entries` + `tilemap`
+  `width`/`height`, default urut baris; `tilemap.order="column"` bila sumber
+  disalin kolom demi kolom, `tilemap.padding` untuk ekor u16 nol), bukan PNG — menggambar peta butuh tileset pasangan yang
   belum tentu terbukti, sedangkan yang dibuktikan call site adalah grid dan
   tujuan salinnya. `encode` menolak grid yang jumlah entrinya tidak sama
-  dengan `width*height` **atau** dengan `rom.size`, jadi lebar tebakan tidak
-  bisa lolos. `decode` memotong slice ROM menjadi metadata (`--width/--height`
-  wajib, bukan heuristik), `verify` membandingkan byte + SHA-256 hasil encode
+  dengan `width*height + padding` **atau** dengan `rom.size`, jadi lebar
+  tebakan tidak bisa lolos. `decode` memotong slice ROM menjadi metadata
+  (`--width/--height` wajib, bukan heuristik; `--padding`/`--order` opsional),
+  `verify` membandingkan byte + SHA-256 hasil encode
   dengan slice ROM. Tidak menyentuh `asm/data/*.s`. Contoh: `python3
   tools/assets/map2bin.py verify --json assets/gfx/maps/gUnk_08755230.json`
   (30x13 entri, 780 B).

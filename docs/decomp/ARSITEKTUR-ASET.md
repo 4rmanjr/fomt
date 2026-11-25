@@ -1078,13 +1078,12 @@ dari tapak salinannya:
   (192 B, salinan 0xC0 ke `0x05000020`) ukurannya cocok sehingga sudah
   dimigrasikan sebagai palet: keduanya varian isi yang dipilih `func_08077EC0`
   menurut `r5`, dan pilihan itu dicatat di `evidence` masing-masing aset.
-- `gUnk_08757BAC`, `gUnk_08757BD8`, `gUnk_086D6528`, `gUnk_086EAD8C`,
-  `gUnk_086DE7F4` berisi entri map u16 (`0x93ff`, deret `0x92a0…`, `0x93xx`
-  berurutan) dan dipakai penulis BG map (`func_08077E64` memakai
-  `ldrh`/`strh`), bukan tile 4bpp. `gUnk_086D6458` seluruhnya `0x93ff` dan
-  tidak dirujuk kode. Dua stamp 4x4 yang seluruh slice-nya habis dibaca
-  (`gUnk_086EAD64`, `gUnk_086DD690`) sudah dimigrasikan sebagai tilemap; lihat
-  §`func_080AA9C8`.
+- `gUnk_086D6528`, `gUnk_086EAD8C`, `gUnk_086DE7F4` berisi entri map u16
+  (`0x93ff`, deret `0x92a0…`, `0x93xx` berurutan), bukan tile 4bpp.
+  `gUnk_086D6458` seluruhnya `0x93ff` dan tidak dirujuk kode. Dua stamp 4x4
+  yang seluruh slice-nya habis dibaca (`gUnk_086EAD64`, `gUnk_086DD690`) dan
+  cluster BG map di §`func_08077E64` sudah dimigrasikan sebagai tilemap;
+  `gUnk_08757BAC`/`gUnk_08757BD8` termasuk cluster itu.
 - `gUnk_086D6548` dan empat blok `func_080A95A4` (`gUnk_086EACE4`,
   `gUnk_086EAD04`, `gUnk_086EAD24`, `gUnk_086EAD44`) disalin ke
   `[field objek + 0xc0]`; tujuannya tidak terbaca dari fungsi itu.
@@ -1098,7 +1097,8 @@ dari tapak salinannya:
   (`code_809E804.s:22351`), tujuan field yang pemiliknya belum terbukti
   sebagai palette RAM.
   `gUnk_08757BAC`/`gUnk_08757BD8` ditulis `func_08077E64` lewat `ldrh`/`strh`
-  sebagai entri BG map, bukan palet.
+  sebagai entri BG map, bukan palet; keduanya sudah dimigrasikan sebagai
+  tilemap di §`func_08077E64`.
 
 Angka pasti per kelas tidak ditulis di sini — ambil dari
 `tools/scripts/asset_inventory.py --json` dan `assets/manifest.json` supaya
@@ -1176,9 +1176,42 @@ tetapi byte itu tidak diklaim sebagai layer.
 
 Alasan parkir stamp lain, semuanya dari loop yang sama:
 
-- `gUnk_086DCC88` dan `gUnk_086DDDEC` (2568 B) hanya 32 B pertamanya dibaca;
-- `gUnk_086EACDC`, `gUnk_086EAD84`, `gUnk_086DC57C`, `gUnk_086DD6E0` memakai
-  `sl=2` dan 2 baris (baris 24558-24561): hanya 8 B dibaca dari slice besar.
+- `gUnk_086DCC88`/`gUnk_086DDDEC` (2568 B) hanya 32 B pertamanya dibaca
+  (layer 4x4), `gUnk_086DC57C`/`gUnk_086DD6E0` (1804 B) hanya 8 B (layer 2x2).
+  Keempatnya sudah dimigrasikan sebagai `kind: tilemap_bank`: layer dari
+  offset 0, sisa byte disimpan `raw` sehingga round-trip tetap byte-identik
+  tanpa mengarang isi yang belum punya pembaca. Dua stamp 2x2 yang seluruh
+  slice-nya habis dibaca (`gUnk_086EACDC`, `gUnk_086EAD84`) juga sudah
+  dimigrasikan sebagai tilemap di §`func_08077E64`.
+
+### Cluster BG map `func_08077E64`
+
+`func_08077E64(tilemap, x, y, ?, lebar, tinggi, src)` menyalin `lebar x tinggi`
+entri u16 dari `src` ke BG map di `0x06000000 + x*0x800 + y*2`, kolom demi
+kolom. Argumennya terbaca dari call site: `r3` = x, `sp+0x1c` = tinggi,
+`sp+0x20` = lebar, `sp+0x24` = src (loop 112870-112890). Sembilan slice di
+`code_0803EE94.s` cocok persis dengan `lebar*tinggi` dari call site, termasuk
+tiga slice 20 B yang berisi 3x3 entri + satu padding nol dan dua slice 32 B
+berisi 3x5 + satu padding nol. Kesembilannya dimigrasikan sebagai
+`kind: tilemap` dengan `tilemap.order="column"`; `map2bin.py` sekarang mencatat
+padding/urutan eksplisit dan tetap menolak jumlah entri yang tidak cocok.
+`gUnk_086EACDC`/`gUnk_086EAD84` (2x2) memakai loop yang sama di
+`func_080AA9C8` dan juga sudah dimigrasikan.
+
+Dua pola pointer literal melengkapi cluster ini. `method_0800AF20`
+mengembalikan `gUnk_086D6518`/`gUnk_086D6520` untuk field 0/1, lalu
+`func_080AA6D0` menyalin `src+0` dan `src+4` ke dua baris peta: 2x2, seluruh
+8 B. Untuk field 2 (`gUnk_086D6528`) hanya 8 B pertama yang disalin, jadi
+24 B sisanya disimpan `raw` lewat `kind: tilemap_bank`. `func_0809E0AC`
+mengembalikan `gUnk_086DC3C4`–`gUnk_086DC3E8` untuk field 0–3, dan
+`func_080AA540` menyalin `src+0/+4/+8` masing-masing 4 B ke tiga baris:
+2x3, seluruh 12 B. Field 4 adalah blob terkompresi `gUnk_086DC3F4`, bukan
+tilemap, dan tetap parkir karena memuat huffman.
+
+Sisa blob di sekitar cluster ini belum punya lebar/tinggi yang terbaca:
+`gUnk_086D6368`/`gUnk_086D6548` disalin 0x60 B dari offset `+0x100`/`+0x160`
+di dalam buffer objek, bukan dari awal simbol, jadi slice simbol bukan blok
+utuh yang disalin.
 
 ### Rantai sprite 9-tile 0x750E4C–0x7517AC
 

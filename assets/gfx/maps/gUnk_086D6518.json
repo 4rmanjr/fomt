@@ -1,0 +1,30 @@
+{
+ "id": "gfx/maps/gunk_086d6518",
+ "symbol": "gUnk_086D6518",
+ "kind": "tilemap",
+ "status": "rom-exact",
+ "semantics": "unidentified",
+ "rom": {
+  "offset": "0x6D6518",
+  "size": 8,
+  "sha256": "2072a328011953e3edffc2bfcf134afaf8c148a743d23e071b1d453a44781549"
+ },
+ "source": {
+  "json": "gUnk_086D6518.json"
+ },
+ "encoder": {
+  "tool": "map2bin.py",
+  "version": 1
+ },
+ "evidence": "method_0800AF20 mengembalikan gUnk_086D6518 untuk field 0 (literal 0xAF40); func_080AA6D0 menyalin src+0 dan src+4 masing-masing 4 B ke dua baris peta (2x2). Seluruh 8 B terbaca.",
+ "tilemap": {
+  "width": 2,
+  "height": 2
+ },
+ "entries": [
+  37630,
+  37631,
+  37632,
+  37633
+ ]
+}

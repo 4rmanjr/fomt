@@ -1,0 +1,33 @@
+{
+ "id": "gfx/maps/gunk_08757bcc",
+ "symbol": "gUnk_08757BCC",
+ "kind": "tilemap",
+ "status": "rom-exact",
+ "semantics": "unidentified",
+ "rom": {
+  "offset": "0x757BCC",
+  "size": 12,
+  "sha256": "c15908eff35051ce6ca623ee1a797264677ba32942777b140165db748b5735c3"
+ },
+ "source": {
+  "json": "gUnk_08757BCC.json"
+ },
+ "encoder": {
+  "tool": "map2bin.py",
+  "version": 1
+ },
+ "tilemap": {
+  "width": 2,
+  "height": 3,
+  "order": "column"
+ },
+ "entries": [
+  8630,
+  8631,
+  8632,
+  8662,
+  8663,
+  8664
+ ],
+ "note": "func_08077E64 dipanggil dengan x=0x18, lebar=2, tinggi=3 (baris 112824-112830); 6 entri kolom demi kolom."
+}

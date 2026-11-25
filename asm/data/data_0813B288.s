@@ -172,15 +172,21 @@ gUnk_086D6458:
 
 	.global gUnk_086D6518
 gUnk_086D6518:
-	.incbin "baserom.gba", 0x6D6518, 0x8
+	@ rom: 0x6D6518 0x8 — source assets/gfx/maps/gUnk_086D6518.json
+	@ tilemap 2x2: method_0800AF20 field 0 (literal 0xAF40), disalin func_080AA6D0 (src+0/+4).
+	.incbin "build/assets/gUnk_086D6518.bin"
 
 	.global gUnk_086D6520
 gUnk_086D6520:
-	.incbin "baserom.gba", 0x6D6520, 0x8
+	@ rom: 0x6D6520 0x8 — source assets/gfx/maps/gUnk_086D6520.json
+	@ tilemap 2x2: method_0800AF20 field 1 (literal 0xAF48), disalin func_080AA6D0 (src+0/+4).
+	.incbin "build/assets/gUnk_086D6520.bin"
 
 	.global gUnk_086D6528
 gUnk_086D6528:
-	.incbin "baserom.gba", 0x6D6528, 0x20
+	@ rom: 0x6D6528 0x20 — source assets/gfx/maps/gUnk_086D6528.json
+	@ layer 2x2 offset 0 dibaca method_0800AF20 field 2 (0xAF50) via func_080AA6D0; 24 B sisa raw.
+	.incbin "build/assets/gUnk_086D6528.bin"
 
 	.global gUnk_086D6548
 gUnk_086D6548:
@@ -202,19 +208,27 @@ gUnk_086D74F8:
 
 	.global gUnk_086DC3C4
 gUnk_086DC3C4:
-	.incbin "baserom.gba", 0x6DC3C4, 0xC
+	@ rom: 0x6DC3C4 0xC — source assets/gfx/maps/gUnk_086DC3C4.json
+	@ tilemap 2x3: func_0809E0AC field 0 (literal 0x9E0EC), func_080AA540 menyalin src+0/+4/+8 (3 baris x 2 entri).
+	.incbin "build/assets/gUnk_086DC3C4.bin"
 
 	.global gUnk_086DC3D0
 gUnk_086DC3D0:
-	.incbin "baserom.gba", 0x6DC3D0, 0xC
+	@ rom: 0x6DC3D0 0xC — source assets/gfx/maps/gUnk_086DC3D0.json
+	@ tilemap 2x3: func_0809E0AC field 1 (literal 0x9E0F4), func_080AA540 menyalin src+0/+4/+8.
+	.incbin "build/assets/gUnk_086DC3D0.bin"
 
 	.global gUnk_086DC3DC
 gUnk_086DC3DC:
-	.incbin "baserom.gba", 0x6DC3DC, 0xC
+	@ rom: 0x6DC3DC 0xC — source assets/gfx/maps/gUnk_086DC3DC.json
+	@ tilemap 2x3: func_0809E0AC field 2 (literal 0x9E0FC), func_080AA540 menyalin src+0/+4/+8.
+	.incbin "build/assets/gUnk_086DC3DC.bin"
 
 	.global gUnk_086DC3E8
 gUnk_086DC3E8:
-	.incbin "baserom.gba", 0x6DC3E8, 0xC
+	@ rom: 0x6DC3E8 0xC — source assets/gfx/maps/gUnk_086DC3E8.json
+	@ tilemap 2x3: func_0809E0AC field 3 (literal 0x9E104), func_080AA540 menyalin src+0/+4/+8.
+	.incbin "build/assets/gUnk_086DC3E8.bin"
 
 	.global gUnk_086DC3F4
 gUnk_086DC3F4:
@@ -230,11 +244,15 @@ gUnk_086DC54C:
 
 	.global gUnk_086DC57C
 gUnk_086DC57C:
-	.incbin "baserom.gba", 0x6DC57C, 0x70C
+	@ rom: 0x6DC57C 0x70C — source assets/gfx/maps/gUnk_086DC57C.json
+	@ layer 2x2 di offset 0 dibaca func_080AA9C8 (id 0xc, 24524; sl=2, tinggi=2, loop 24678-24702); 1796 B sisa raw.
+	.incbin "build/assets/gUnk_086DC57C.bin"
 
 	.global gUnk_086DCC88
 gUnk_086DCC88:
-	.incbin "baserom.gba", 0x6DCC88, 0xA08
+	@ rom: 0x6DCC88 0xA08 — source assets/gfx/maps/gUnk_086DCC88.json
+	@ layer 4x4 di offset 0 dibaca func_080AA9C8 (id 0xe, 24513; sl=4, 4 baris, loop 24678-24702); 2536 B sisa raw.
+	.incbin "build/assets/gUnk_086DCC88.bin"
 
 	.global gUnk_086DD690
 gUnk_086DD690:
@@ -253,11 +271,15 @@ gUnk_086DD6B0:
 
 	.global gUnk_086DD6E0
 gUnk_086DD6E0:
-	.incbin "baserom.gba", 0x6DD6E0, 0x70C
+	@ rom: 0x6DD6E0 0x70C — source assets/gfx/maps/gUnk_086DD6E0.json
+	@ layer 2x2 di offset 0 dibaca func_080AA9C8 (id 0xd, 24532; sl=2, tinggi=2, loop 24678-24702); 1796 B sisa raw.
+	.incbin "build/assets/gUnk_086DD6E0.bin"
 
 	.global gUnk_086DDDEC
 gUnk_086DDDEC:
-	.incbin "baserom.gba", 0x6DDDEC, 0xA08
+	@ rom: 0x6DDDEC 0xA08 — source assets/gfx/maps/gUnk_086DDDEC.json
+	@ layer 4x4 di offset 0 dibaca func_080AA9C8 (id 0xf, 24518; sl=4, 4 baris, loop 24678-24702); 2536 B sisa raw.
+	.incbin "build/assets/gUnk_086DDDEC.bin"
 
 	.global gUnk_086DE7F4
 gUnk_086DE7F4:
@@ -268,7 +290,9 @@ gUnk_086DE7F4:
 
 	.global gUnk_086EACDC
 gUnk_086EACDC:
-	.incbin "baserom.gba", 0x6EACDC, 0x8
+	@ rom: 0x6EACDC 0x8 — source assets/gfx/maps/gUnk_086EACDC.json
+	@ tilemap 2x2 (kolom demi kolom): func_080AA9C8 id 0xc (baris 24548), sl=2/tinggi=2 (24556-24559), loop 24678-24702.
+	.incbin "build/assets/gUnk_086EACDC.bin"
 
 	.global gUnk_086EACE4
 gUnk_086EACE4:
@@ -295,7 +319,9 @@ gUnk_086EAD64:
 
 	.global gUnk_086EAD84
 gUnk_086EAD84:
-	.incbin "baserom.gba", 0x6EAD84, 0x8
+	@ rom: 0x6EAD84 0x8 — source assets/gfx/maps/gUnk_086EAD84.json
+	@ tilemap 2x2 (kolom demi kolom): func_080AA9C8 id 0xd (baris 24554), sl=2/tinggi=2 (24556-24559), loop 24678-24702.
+	.incbin "build/assets/gUnk_086EAD84.bin"
 
 	.global gUnk_086EAD8C
 gUnk_086EAD8C:
@@ -1522,27 +1548,39 @@ gUnk_08757AE0:
 
 	.global gUnk_08757BA0
 gUnk_08757BA0:
-	.incbin "baserom.gba", 0x757BA0, 0xC
+	@ rom: 0x757BA0 0xC — source assets/gfx/maps/gUnk_08757BA0.json
+	@ tilemap 2x3 (kolom demi kolom): func_08077E64 dari func_08077EC0 x=0, lebar=2, tinggi=3 (112850-112856).
+	.incbin "build/assets/gUnk_08757BA0.bin"
 
 	.global gUnk_08757BAC
 gUnk_08757BAC:
-	.incbin "baserom.gba", 0x757BAC, 0x20
+	@ rom: 0x757BAC 0x20 — source assets/gfx/maps/gUnk_08757BAC.json
+	@ tilemap 3x5 + 1 padding nol (kolom demi kolom): func_08077E64 x=0x1e, lebar=3, tinggi=5 (112760-112770).
+	.incbin "build/assets/gUnk_08757BAC.bin"
 
 	.global gUnk_08757BCC
 gUnk_08757BCC:
-	.incbin "baserom.gba", 0x757BCC, 0xC
+	@ rom: 0x757BCC 0xC — source assets/gfx/maps/gUnk_08757BCC.json
+	@ tilemap 2x3 (kolom demi kolom): func_08077E64 x=0x18, lebar=2, tinggi=3 (112824-112830).
+	.incbin "build/assets/gUnk_08757BCC.bin"
 
 	.global gUnk_08757BD8
 gUnk_08757BD8:
-	.incbin "baserom.gba", 0x757BD8, 0x20
+	@ rom: 0x757BD8 0x20 — source assets/gfx/maps/gUnk_08757BD8.json
+	@ tilemap 3x5 + 1 padding nol (kolom demi kolom): func_08077E64 x=0xa, lebar=3, tinggi=5 (112781-112789).
+	.incbin "build/assets/gUnk_08757BD8.bin"
 
 	.global gUnk_08757BF8
 gUnk_08757BF8:
-	.incbin "baserom.gba", 0x757BF8, 0x14
+	@ rom: 0x757BF8 0x14 — source assets/gfx/maps/gUnk_08757BF8.json
+	@ tilemap 3x3 + 1 padding nol (kolom demi kolom): func_08077E64 x=0x1b, lebar=3, tinggi=3 (112900-112906).
+	.incbin "build/assets/gUnk_08757BF8.bin"
 
 	.global gUnk_08757C0C
 gUnk_08757C0C:
-	.incbin "baserom.gba", 0x757C0C, 0x8
+	@ rom: 0x757C0C 0x8 — source assets/gfx/maps/gUnk_08757C0C.json
+	@ tilemap 2x2 (kolom demi kolom): func_08077E64 x=0xe, lebar=2, tinggi=2 (112875-112882).
+	.incbin "build/assets/gUnk_08757C0C.bin"
 
 	.global gUnk_08757C14
 gUnk_08757C14:
@@ -1572,15 +1610,21 @@ gUnk_0875A358:
 
 	.global gUnk_0875A418
 gUnk_0875A418:
-	.incbin "baserom.gba", 0x75A418, 0xC
+	@ rom: 0x75A418 0xC — source assets/gfx/maps/gUnk_0875A418.json
+	@ tilemap 2x3 (kolom demi kolom): func_08077E64 x=0, lebar=2, tinggi=3 (112843-112849).
+	.incbin "build/assets/gUnk_0875A418.bin"
 
 	.global gUnk_0875A424
 gUnk_0875A424:
-	.incbin "baserom.gba", 0x75A424, 0x14
+	@ rom: 0x75A424 0x14 — source assets/gfx/maps/gUnk_0875A424.json
+	@ tilemap 3x3 + 1 padding nol (kolom demi kolom): func_08077E64 x=0x1b, lebar=3, tinggi=3 (112894-112900).
+	.incbin "build/assets/gUnk_0875A424.bin"
 
 	.global gUnk_0875A438
 gUnk_0875A438:
-	.incbin "baserom.gba", 0x75A438, 0x8
+	@ rom: 0x75A438 0x8 — source assets/gfx/maps/gUnk_0875A438.json
+	@ tilemap 2x2 (kolom demi kolom): func_08077E64 x=0xe, lebar=2, tinggi=2 (112869-112875).
+	.incbin "build/assets/gUnk_0875A438.bin"
 
 	.global gUnk_0875A440 @ gClockFont
 gUnk_0875A440:

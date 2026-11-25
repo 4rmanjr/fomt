@@ -15,9 +15,12 @@ Format metadata:
  "sha256": "..."}}
 ```
 
-Entri disimpan urut baris demi baris, little endian, tanpa padding; jumlahnya
-wajib `width * height` dan byte hasilnya wajib sepanjang `rom.size`, jadi grid
-yang salah tidak bisa lolos diam-diam (frame "lebar tebakan" ditolak).
+Entri disimpan little endian; jumlahnya wajib `width * height` dan byte
+hasilnya wajib sepanjang `rom.size`, jadi grid yang salah tidak bisa lolos
+diam-diam (frame "lebar tebakan" ditolak). Default urut baris demi baris;
+`tilemap.order="column"` mencatat sumber yang disalin kolom demi kolom (encode
+tetap mengikuti urutan `entries`). `tilemap.padding` menyimpan u16 nol di ekor
+bila slice ROM lebih panjang dari grid (contoh grid 3x3 + 1 padding = 20 B).
 
   python3 tools/assets/map2bin.py decode --rom baserom.gba \\
       --offset 0x755230 --size 780 --width 30 --height 13 \\
@@ -43,23 +46,28 @@ def sha256(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def entries_from_bytes(data, width, height):
+def entries_from_bytes(data, width, height, padding=0):
     if len(data) % ENTRY:
         raise ValueError(f"tilemap {len(data)} B bukan kelipatan {ENTRY}")
     count = len(data) // ENTRY
-    if count != width * height:
+    if count != width * height + padding:
         raise ValueError(
-            f"tilemap {count} entri != {width}x{height} = {width * height}")
-    return [int.from_bytes(data[i:i + ENTRY], "little")
-            for i in range(0, len(data), ENTRY)]
+            f"tilemap {count} entri != {width}x{height} + {padding} padding")
+    entries = [int.from_bytes(data[i:i + ENTRY], "little")
+               for i in range(0, (count - padding) * ENTRY, ENTRY)]
+    tail = data[(count - padding) * ENTRY:]
+    if any(tail):
+        raise ValueError("padding tilemap wajib nol")
+    return entries
 
 
-def bytes_from_entries(entries):
+def bytes_from_entries(entries, padding=0):
     out = bytearray()
     for value in entries:
         if not 0 <= value <= 0xFFFF:
             raise ValueError(f"entri {value!r} di luar u16")
         out += int(value).to_bytes(ENTRY, "little")
+    out += bytes(ENTRY * padding)
     return bytes(out)
 
 
@@ -78,25 +86,27 @@ def read_entries(meta_path):
         raise ValueError(
             f"{meta_path}: {len(entries)} entri != {width}x{height} = "
             f"{width * height}")
+    padding = grid.get("padding", 0)
     size = meta.get("rom", {}).get("size")
-    if size is not None and len(entries) * ENTRY != size:
+    if size is not None and (len(entries) + padding) * ENTRY != size:
         raise ValueError(
-            f"{meta_path}: {len(entries)} entri = {len(entries) * ENTRY} B, "
-            f"metadata bilang {size} B")
+            f"{meta_path}: {len(entries)} entri + {padding} padding = "
+            f"{(len(entries) + padding) * ENTRY} B, metadata bilang {size} B")
     return meta, entries
 
 
 def encode_source(meta_path):
     """Byte ROM dari grid entri di metadata per-aset."""
     try:
-        _, entries = read_entries(meta_path)
-        return bytes_from_entries(entries)
+        meta, entries = read_entries(meta_path)
+        return bytes_from_entries(entries, meta["tilemap"].get("padding", 0))
     except ValueError as e:
         raise SystemExit(f"MASALAH: {e}")
 
 
 def decode_meta(blob, width, height, args):
-    entries = entries_from_bytes(blob, width, height)
+    padding = getattr(args, "padding", 0)
+    entries = entries_from_bytes(blob, width, height, padding)
     return {
         "id": args.id,
         "symbol": args.symbol,
@@ -111,7 +121,9 @@ def decode_meta(blob, width, height, args):
         },
         "source": {"json": Path(args.json).name},
         "encoder": {"tool": "map2bin.py", "version": 1},
-        "tilemap": {"width": width, "height": height},
+        "tilemap": {"width": width, "height": height,
+                    **(({"padding": padding}) if padding else {}),
+                    **(({"order": args.order}) if args.order != "row" else {})},
         "entries": entries,
         "note": args.note,
     }
@@ -119,7 +131,8 @@ def decode_meta(blob, width, height, args):
 
 def verify(json_path, rom_path, out_path=None):
     meta, entries = read_entries(json_path)
-    encoded = bytes_from_entries(entries)
+    padding = meta["tilemap"].get("padding", 0)
+    encoded = bytes_from_entries(entries, padding)
     expected_hash = meta["rom"]["sha256"]
     offset = int(str(meta["rom"]["offset"]), 0)
     size = int(meta["rom"]["size"])
@@ -168,6 +181,10 @@ def main(argv=None):
     d.add_argument("--size", type=int, required=True)
     d.add_argument("--width", type=int, required=True)
     d.add_argument("--height", type=int, required=True)
+    d.add_argument("--padding", type=int, default=0,
+                   help="jumlah u16 nol setelah grid")
+    d.add_argument("--order", choices=("row", "column"), default="row",
+                   help="urutan sumber di ROM (encode tetap urut list)")
     d.add_argument("--json", required=True)
     d.add_argument("--id", required=True)
     d.add_argument("--symbol", required=True)

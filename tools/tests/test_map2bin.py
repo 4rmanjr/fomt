@@ -69,6 +69,15 @@ class Map2Bin(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 map2bin.encode_source(path)
 
+    def test_padding_nol_di_ekor(self):
+        data = map2bin.bytes_from_entries([1, 2, 3], padding=1)
+        self.assertEqual(data, b"\x01\x00\x02\x00\x03\x00\x00\x00")
+        self.assertEqual(map2bin.entries_from_bytes(data, 3, 1, padding=1),
+                         [1, 2, 3])
+        with self.assertRaises(ValueError):
+            map2bin.entries_from_bytes(b"\x01\x00\x02\x00\x03\x00\xff\xff",
+                                       3, 1, padding=1)
+
     def test_decode_menolak_lebar_tebakan(self):
         blob = b"\x01\x00\xff\x00\xff\x03"
         with self.assertRaises(ValueError):
