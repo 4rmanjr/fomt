@@ -45,10 +45,12 @@ class AssetManifest(unittest.TestCase):
                 self.assertIn(key, entry)
             self.assertIn("json", entry["source"])
             # source minimal punya satu representasi gambar: png atau pal.
-            # Pengecualian `tilemap` dan `glyph_index`: sumbernya grid/array
-            # entri di metadata JSON itu sendiri (peta butuh tileset pasangan
-            # yang belum tentu terbukti; indeks glyph bukan gambar).
-            if entry["kind"] not in ("tilemap", "glyph_index"):
+            # Pengecualian `tilemap`, `tilemap_bank`, dan `glyph_index`:
+            # sumbernya grid/array entri di metadata JSON itu sendiri (peta
+            # butuh tileset pasangan yang belum tentu terbukti; indeks glyph
+            # bukan gambar).
+            if entry["kind"] not in ("tilemap", "tilemap_bank",
+                                     "glyph_index"):
                 self.assertTrue(entry["source"].get("png")
                                 or entry["source"].get("pal"))
             self.assertRegex(entry["rom"]["sha256"], r"^[0-9a-f]{64}$")

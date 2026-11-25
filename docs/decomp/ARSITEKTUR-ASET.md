@@ -1139,9 +1139,21 @@ dengan `memcpy` (baris 14436). Contoh `gUnk_08106A7C` (data) berukuran 4x6
 dengan dua layer 48 B di `gUnk_086EAD8C+3184` dan `+3232` — dua layer 4x6 yang
 bersebelahan, bukan blok 32 B. Pointer descriptor itu tidak kelipatan 32, dan
 `gUnk_086DE7F4` juga dirujuk pada offset 4x6/17x20 dan ukuran campuran. Jadi
-keduanya bank layer peta berukuran variabel yang dirujuk per offset, dan hanya
-sebagian isinya yang dirujuk; sumber kanonik per-simbol akan mengarang format
-untuk sisa yang tak terbaca.
+keduanya bank layer peta berukuran variabel yang dirujuk per offset.
+
+Keduanya sudah dimigrasikan dengan `kind: tilemap_bank`
+(`tools/assets/tilemap_bank.py`). Source-nya satu JSON per simbol yang memuat
+`layers` (offset, lebar, tinggi, descriptor, slot, entri urut baris) dan `raw`
+(hex byte yang tidak dirujuk); `encode` menolak source yang tidak menutup
+seluruh `rom.size`, tumpang tindih, atau jumlah entri tidak sama dengan
+`lebar x tinggi`. Layer diambil dari tabel descriptor `0x10692C`-`0x1070DC`
+(record `0x18`) yang menunjuk ke dalam blob, sehingga offset/ukuran tiap layer
+tidak ditebak. `.incbin` **tidak perlu dipecah** di offset layer: pointer
+descriptor adalah angka absolut, dan mengganti satu simbol utuh dengan binary
+hasil encode menjaga semua offset. Split hanya akan menambah label tanpa
+mengubah byte; yang penting source mencatat offset tiap layer. Byte yang tidak
+dirujuk tetap `raw` dan boleh belum dipahami — round-trip tetap byte-identik,
+tetapi byte itu tidak diklaim sebagai layer.
 
 Alasan parkir stamp lain, semuanya dari loop yang sama:
 

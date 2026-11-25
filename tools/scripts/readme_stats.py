@@ -43,11 +43,12 @@ KIND_LABEL = {
     "palette": "Palet",
     "tiles4bpp": "Tiles 4bpp",
     "tilemap": "Tilemap",
+    "tilemap_bank": "Bank layer peta",
     "font_container": "Container font",
     "glyph_font": "Glyph 8x12",
     "glyph_index": "Indeks glyph",
 }
-KIND_ORDER = ["sprite", "palette", "tiles4bpp", "tilemap", "font_container",
+KIND_ORDER = ["sprite", "palette", "tiles4bpp", "tilemap", "tilemap_bank", "font_container",
               "glyph_font", "glyph_index"]
 
 

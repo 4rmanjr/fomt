@@ -26,7 +26,7 @@
      "id": {
       "type": "string",
       "pattern": "^(?!.*0x[0-9A-Fa-f]{4})[a-z0-9][a-z0-9_/-]*$",
-      "description": "Nama stabil semantik, bukan alamat ROM; placeholder `gunk_<alamat>` hanya boleh bila `semantics` = unidentified (lihat ARSITEKTUR-ASET §6)."
+      "description": "Nama stabil semantik, bukan alamat ROM; placeholder `gunk_<alamat>` hanya boleh bila `semantics` = unidentified (lihat ARSITEKTUR-ASET \u00a76)."
      },
      "symbol": {
       "type": "string",
@@ -41,7 +41,8 @@
        "glyph_font",
        "glyph_index",
        "palette",
-       "sprite"
+       "sprite",
+       "tilemap_bank"
       ]
      },
      "status": {

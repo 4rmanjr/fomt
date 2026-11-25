@@ -261,7 +261,10 @@ gUnk_086DDDEC:
 
 	.global gUnk_086DE7F4
 gUnk_086DE7F4:
-	.incbin "baserom.gba", 0x6DE7F4, 0xC4E8
+	@ rom: 0x6DE7F4 0xC4E8 — source assets/gfx/maps/gUnk_086DE7F4.json (tilemap_bank, 45 layer)
+	@ layer dirujuk descriptor 0x18 B func_080A5BD8 (baris 14381/14401/14436): offset+lebar+tinggi di source;
+	@ byte di luar layer tetap raw di JSON, encode tilemap_bank.py byte identik.
+	.incbin "build/assets/gUnk_086DE7F4.bin"
 
 	.global gUnk_086EACDC
 gUnk_086EACDC:
@@ -296,7 +299,10 @@ gUnk_086EAD84:
 
 	.global gUnk_086EAD8C
 gUnk_086EAD8C:
-	.incbin "baserom.gba", 0x6EAD8C, 0x8220
+	@ rom: 0x6EAD8C 0x8220 — source assets/gfx/maps/gUnk_086EAD8C.json (tilemap_bank, 58 layer)
+	@ layer dirujuk descriptor 0x18 B func_080A5BD8 (baris 14381/14401/14436): offset+lebar+tinggi di source;
+	@ byte di luar layer tetap raw di JSON, encode tilemap_bank.py byte identik.
+	.incbin "build/assets/gUnk_086EAD8C.bin"
 
 	.global gUnk_086F2FAC
 gUnk_086F2FAC:

@@ -369,6 +369,18 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   dengan slice ROM. Tidak menyentuh `asm/data/*.s`. Contoh: `python3
   tools/assets/map2bin.py verify --json assets/gfx/maps/gUnk_08755230.json`
   (30x13 entri, 780 B).
+- `tools/assets/tilemap_bank.py` — codec **bank layer peta** (`kind:
+  tilemap_bank`) untuk simbol yang memuat banyak grid u16 berukuran berbeda,
+  dirujuk descriptor `0x18` B `func_080A5BD8` (u8 lebar/tinggi, tiga pointer
+  layer di `+4/+8/+0xc`, blockmap `+0x10`, blocktable `+0x14`). Source kanonik
+  tetap satu JSON per simbol, tetapi memuat `layers` (`offset`, `width`,
+  `height`, `descriptor`, `slot`, `entries` urut baris) dan `raw` (hex byte
+  yang tidak dirujuk) yang bersama-sama menutup `rom.size`. `decode` memindai
+  tabel descriptor (`--descriptor-start/--descriptor-end`, record `0x18`) dan
+  menolak layer yang tumpang tindih; `encode` menolak celah, tumpang tindih,
+  atau jumlah entri tidak sama dengan `width*height`; `verify` membandingkan
+  byte + SHA-256 dengan slice ROM. Contoh: `gUnk_086EAD8C` (58 layer) dan
+  `gUnk_086DE7F4` (45 layer) di `assets/gfx/maps/`.
 - `tools/assets/font_container.py` — codec container font/objek
   `func_0805E6CC` (bukan tile datar). `decode` mengikuti pembacaan fungsi:
   enam tabel berhitung — A 4 B, B 16 B, C 8 B, D 32 B, E 32 B, F 8 B — lalu
@@ -572,7 +584,7 @@ dikerjakan, lalu periksa `git diff` (tool ini tidak punya `--check`).
 build dan tidak menulis ROM. Berkas yang ada:
 `test_cli.py`, `test_asset_manifest.py`, `test_asset_verify.py`,
 `test_embedded_streams.py`, `test_font_container.py`, `test_font_palettes.py`,
-`test_glyph_font.py`, `test_glyph_index.py`, `test_lz70.py`, `test_map2bin.py`,
+`test_glyph_font.py`, `test_glyph_index.py`, `test_lz70.py`, `test_map2bin.py`, `test_tilemap_bank.py`,
 `test_raw_assets.py`,
 `test_readme_stats.py`,
 `test_sprite2gba.py`, `test_stream_audit.py`, `test_tile4bpp.py`.

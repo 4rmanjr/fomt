@@ -62,7 +62,9 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_086DC54C.bin \
   $(BUILD_DIR)/assets/gUnk_086DD690.bin \
   $(BUILD_DIR)/assets/gUnk_086DD6B0.bin \
+  $(BUILD_DIR)/assets/gUnk_086DE7F4.bin \
   $(BUILD_DIR)/assets/gUnk_086EAD64.bin \
+  $(BUILD_DIR)/assets/gUnk_086EAD8C.bin \
   $(BUILD_DIR)/assets/gUnk_08755230.bin \
   $(BUILD_DIR)/assets/gUnk_0875553C.bin \
   $(BUILD_DIR)/assets/gUnk_08757C14.bin \
@@ -592,11 +594,23 @@ $(BUILD_DIR)/assets/gUnk_086DD6B0.bin: \
 	@echo "ASSET $@"
 	@python3 tools/assets/map2bin.py encode --json assets/gfx/maps/gUnk_086DD6B0.json --out $@
 
+$(BUILD_DIR)/assets/gUnk_086DE7F4.bin: \
+    assets/gfx/maps/gUnk_086DE7F4.json \
+    tools/assets/tilemap_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tilemap_bank.py encode --json assets/gfx/maps/gUnk_086DE7F4.json --out $@
+
 $(BUILD_DIR)/assets/gUnk_086EAD64.bin: \
     assets/gfx/maps/gUnk_086EAD64.json \
     tools/assets/map2bin.py
 	@echo "ASSET $@"
 	@python3 tools/assets/map2bin.py encode --json assets/gfx/maps/gUnk_086EAD64.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086EAD8C.bin: \
+    assets/gfx/maps/gUnk_086EAD8C.json \
+    tools/assets/tilemap_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/tilemap_bank.py encode --json assets/gfx/maps/gUnk_086EAD8C.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_08755230.bin: \
     assets/gfx/maps/gUnk_08755230.json \
