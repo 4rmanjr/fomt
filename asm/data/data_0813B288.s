@@ -1683,6 +1683,6 @@ gUnk_0875A440:
 
 	.global gUnk_0875B444
 gUnk_0875B444:
-	@ PARKIR (partial): container func_0805E6CC (code_0803A8A4.s:3610); prefix A-F/T
-	@ berakhir di 0x3D4, ekor 0x1E0 B belum punya pembaca; source disimpan partial.
+	@ PARKIR (partial): container func_0805E6CC (code_0803A8A4.s:3610); prefix A-F/T berakhir di 0x3D4.
+	@ Tail +0x3D4..+0x4F4 (0x120 B) + +0x4F4..+0x514 (0x20 B) via gUnk_080F9F70/74; +0x514..+0x5B4 (0xA0 B) belum punya pembaca.
 	.incbin "baserom.gba", 0x75B444, 0x5B4
