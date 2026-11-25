@@ -149,7 +149,18 @@ def asset_totals():
         "sprite_done": sum(1 for s in exact
                            if blobs.get(s) == "sprite/OBJ"),
         "sprite_total": group_size.get("sprite/OBJ", 0),
+        "sprite_kinds": _kind_count(
+            assets, lambda s: blobs.get(s) == "sprite/OBJ"),
     }
+
+
+def _kind_count(assets, predicate):
+    counts = {}
+    for asset in assets:
+        if asset.get("status") == "rom-exact" and predicate(asset["symbol"]):
+            kind = asset["kind"]
+            counts[kind] = counts.get(kind, 0) + 1
+    return counts
 
 
 def pct(part, whole):
@@ -204,6 +215,19 @@ def render(totals=None, assets=None):
         "",
         "### Translasi aset ROM -> source",
         "",
+    ]
+    if a.get("sprite_total"):
+        sp = pct(a["sprite_done"], a["sprite_total"])
+        kinds = a.get("sprite_kinds") or {}
+        detail = ", ".join(f"{num(n)} {KIND_LABEL.get(k, k)}"
+                          for k, n in sorted(kinds.items(), key=lambda kv: -kv[1]))
+        lines.append(
+            f"Grup Sprite/OBJ: **{num(a['sprite_done'])}/{num(a['sprite_total'])} "
+            f"blob ({dec(sp)}%)**" + (f" — {detail}." if detail else ".") +
+            " Baris kelas di bawah menghitung sumber per kelas; blob yang "
+            "sudah selesai sebagai kelas lain tetap dihitung di grup.")
+        lines.append("")
+    lines += [
         "| Kelas | Rom-exact | Populasi blob | Cakupan |",
         "|---|---:|---:|---|",
     ]

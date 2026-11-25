@@ -39,6 +39,8 @@ Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.093 B (7,1%)** — persent
 
 ### Translasi aset ROM -> source
 
+Grup Sprite/OBJ: **86/86 blob (100%)** — 56 Sprite/OBJ, 18 Container font, 10 Tiles 4bpp, 2 Glyph 8x12. Baris kelas di bawah menghitung sumber per kelas; blob yang sudah selesai sebagai kelas lain tetap dihitung di grup.
+
 | Kelas | Rom-exact | Populasi blob | Cakupan |
 |---|---:|---:|---|
 | Sprite/OBJ | 56 | 86 | `█████████████░░░░░░░` 65,1% |
