@@ -24,5 +24,6 @@
     "size": 2112,
     "sha256": "45596a1fced2bdeb33c101de5f124c26939d03ee0f2d71e361ba5ffab53a7cc7"
   },
-  "note": "66 tile 4bpp"
+  "note": "66 tile 4bpp",
+  "evidence": "func_0805E6CC (code_809E804.s:28483) memuat gUnk_08667060 sebagai container enam tabel; source tile4bpp adalah representasi byte-exact, bukan klaim salinan flat."
 }

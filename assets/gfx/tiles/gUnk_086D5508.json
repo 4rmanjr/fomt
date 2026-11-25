@@ -24,5 +24,6 @@
     "size": 3680,
     "sha256": "cdc8b2e5448f68894d102c8ca9c672ecd8a18f5932d5a932ff38411619c5ca28"
   },
-  "note": "115 tile 4bpp"
+  "note": "115 tile 4bpp",
+  "evidence": "func_08008F0C (code_809E804.s:19035): salinan 0xE60 B dari gUnk_086D5508 ke 0x06005FC0 — 115 tile 4bpp, panjang salinan = ukuran slice."
 }

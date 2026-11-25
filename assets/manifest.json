@@ -18,7 +18,8 @@
    "encoder": {
     "tool": "tile4bpp.py",
     "version": 1
-   }
+   },
+   "evidence": "memcpy (code_0803A8A4.s:3781) menyalin 0x20 B dari +0x3A0, dan tapak 4583 menyalin satu tile 0x20 B per indeks; slice 4100 B belum terbukti tersalin penuh."
   },
   {
    "id": "gfx/fonts/gunk_084f90cc",
@@ -4287,7 +4288,8 @@
    "encoder": {
     "tool": "tile4bpp.py",
     "version": 1
-   }
+   },
+   "evidence": "func_0805E6CC (code_809E804.s:28483) memuat gUnk_08667060 sebagai container enam tabel; source tile4bpp adalah representasi byte-exact, bukan klaim salinan flat."
   },
   {
    "id": "gfx/tiles/gunk_086678a0",
@@ -4307,7 +4309,8 @@
    "encoder": {
     "tool": "tile4bpp.py",
     "version": 1
-   }
+   },
+   "evidence": "func_0805E6CC (code_0803EE94.s:35477) memuat gUnk_086678A0 sebagai container enam tabel; source tile4bpp adalah representasi byte-exact, bukan klaim salinan flat."
   },
   {
    "id": "gfx/tiles/gunk_08697920",
@@ -4327,7 +4330,8 @@
    "encoder": {
     "tool": "tile4bpp.py",
     "version": 1
-   }
+   },
+   "evidence": "func_08008F0C (code_809E804.s:19485): salinan 0x11E0 B dari gUnk_08697920 ke 0x06006E20 \u2014 143 tile 4bpp, panjang salinan = ukuran slice."
   },
   {
    "id": "gfx/tiles/gunk_08698e14",
@@ -4347,7 +4351,8 @@
    "encoder": {
     "tool": "tile4bpp.py",
     "version": 1
-   }
+   },
+   "evidence": "func_08008F0C (code_809E804.s:19211): salinan 0x11E0 B dari gUnk_08698E14 ke 0x06006E20 \u2014 143 tile 4bpp, panjang salinan = ukuran slice."
   },
   {
    "id": "gfx/tiles/gunk_0869a0a4",
@@ -4388,7 +4393,8 @@
    "encoder": {
     "tool": "tile4bpp.py",
     "version": 1
-   }
+   },
+   "evidence": "func_08008F0C (code_809E804.s:19035): salinan 0xE60 B dari gUnk_086D5508 ke 0x06005FC0 \u2014 115 tile 4bpp, panjang salinan = ukuran slice."
   },
   {
    "id": "gfx/tiles/gunk_086d6698",
@@ -4408,7 +4414,8 @@
    "encoder": {
     "tool": "tile4bpp.py",
     "version": 1
-   }
+   },
+   "evidence": "func_08008F0C (code_809E804.s:19806): salinan 0xE60 B dari gUnk_086D6698 ke 0x06005FC0 \u2014 115 tile 4bpp, panjang salinan = ukuran slice."
   },
   {
    "id": "gfx/tiles/gunk_08750c4c",
@@ -4428,7 +4435,8 @@
    "encoder": {
     "tool": "tile4bpp.py",
     "version": 1
-   }
+   },
+   "evidence": "func_08008F0C (code_0803EE94.s:74635): salinan 0x20 B dari gUnk_08750C4C ke 0x060100A0 \u2014 1 tile 4bpp; tapak BG-map di 75562 memakai tile yang sama."
   },
   {
    "id": "gfx/tiles/gunk_08750c8c",
@@ -4448,7 +4456,8 @@
    "encoder": {
     "tool": "tile4bpp.py",
     "version": 1
-   }
+   },
+   "evidence": "func_08008E64 (code_0803EE94.s:173391): salinan 0x1C0 B (448 B = 14 tile) dari gUnk_08750C8C ke 0x06010000 + slot*0x20; tapak 0x1A0 di 78389 hanya subset."
   }
  ]
 }

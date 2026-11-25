@@ -39,29 +39,13 @@ Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.093 B (7,1%)** — persent
 
 ### Translasi aset ROM -> source
 
-Grup Sprite/OBJ: **86/86 blob (100%)** — 56 Sprite/OBJ, 18 Container font, 10 Tiles 4bpp, 2 Glyph 8x12. Baris kelas di bawah menghitung sumber per kelas; blob yang sudah selesai sebagai kelas lain tetap dihitung di grup.
-
-| Kelas | Rom-exact | Populasi blob | Cakupan |
-|---|---:|---:|---|
-| Sprite/OBJ | 56 | 86 | `█████████████░░░░░░░` 65,1% |
-| Palet | 62 | 64 | `███████████████████░` 96,9% |
-| Tiles 4bpp | 10 | 86 | `██░░░░░░░░░░░░░░░░░░` 11,6% |
-| Tilemap | 25 | 142 | `████░░░░░░░░░░░░░░░░` 17,6% |
-| Container font | 51 | 149 | `███████░░░░░░░░░░░░░` 34,2% |
-| Glyph 8x12 | 2 | 86 | `░░░░░░░░░░░░░░░░░░░░` 2,3% |
-| Indeks glyph | 2 | 63 | `█░░░░░░░░░░░░░░░░░░░` 3,2% |
-| Container terkompresi | 3 | 3 | `████████████████████` 100% |
-| **Total (blob unik)** | 211 | 231 | `██████████████████░░` 91,3% |
-
-Cakupan per grup blob (non-overlap):
-
-| Grup blob | Rom-exact | Populasi | Cakupan |
-|---|---:|---:|---|
-| Sprite/OBJ | 86 | 86 | `████████████████████` 100% |
-| Palet | 64 | 64 | `████████████████████` 100% |
-| Tabel | 48 | 63 | `███████████████░░░░░` 76,2% |
-| Tilemap | 10 | 15 | `█████████████░░░░░░░` 66,7% |
-| **Total (semua grup)** | 211 | 231 | `██████████████████░░` 91,3% |
+| Grup blob | Rom-exact | Populasi | Cakupan | Sumber kelas |
+|---|---:|---:|---|---|
+| Sprite/OBJ | 86 | 86 | `████████████████████` 100% | 56 Sprite/OBJ, 18 Container font, 10 Tiles 4bpp, 2 Glyph 8x12 |
+| Palet | 64 | 64 | `████████████████████` 100% | 62 Palet, 2 Tilemap |
+| Tabel | 48 | 63 | `███████████████░░░░░` 76,2% | 33 Container font, 13 Tilemap, 2 Indeks glyph; 15 belum |
+| Tilemap | 10 | 15 | `█████████████░░░░░░░` 66,7% | 10 Tilemap; 5 belum |
+| **Total (semua grup)** | 211 | 231 | `██████████████████░░` 91,3% | |
 <!-- README-STATS:END -->
 
 Definisi selesainya sengaja ketat di kedua jalur:

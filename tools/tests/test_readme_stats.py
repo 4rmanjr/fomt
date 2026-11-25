@@ -19,6 +19,14 @@ ASSETS = {
         {"kind": "sprite", "done": 1, "denominator": 73, "groups": ["sprite/OBJ"]},
         {"kind": "palette", "done": 1, "denominator": 70, "groups": ["palet"]},
     ],
+    "group_rows": [
+        {"group": "sprite/OBJ", "done": 1, "denominator": 73},
+        {"group": "palet", "done": 1, "denominator": 70},
+    ],
+    "group_kinds": {
+        "sprite/OBJ": {"sprite": 1},
+        "palet": {"palette": 1},
+    },
     "total_done": 2, "total_denominator": 143, "unknown": [],
     "sprite_done": 1, "sprite_total": 73,
 }
@@ -30,6 +38,9 @@ SHARED = {
         {"kind": "tiles4bpp", "done": 1, "denominator": 73, "groups": ["sprite/OBJ"]},
         {"kind": "font_container", "done": 1, "denominator": 73, "groups": ["sprite/OBJ"]},
     ],
+    "group_rows": [{"group": "sprite/OBJ", "done": 1, "denominator": 73}],
+    "group_kinds": {"sprite/OBJ":
+                    {"sprite": 1, "tiles4bpp": 1, "font_container": 1}},
     "total_done": 3, "total_denominator": 73, "unknown": [],
     "sprite_done": 1, "sprite_total": 73,
 }
@@ -44,15 +55,16 @@ class ReadmeStats(unittest.TestCase):
         self.assertIn("9%", block)          # nol di belakang dibuang
         self.assertIn("120 / 1.000 B", block)  # pemisah ribuan Indonesia
         self.assertIn("1,4%", block)        # 1/73 -> 1,4 (pembulatan, koma)
-        self.assertIn("| **Total (blob unik)** | 2 | 143 |", block)
+        self.assertIn("| **Total (semua grup)** | 2 | 143 |", block)
 
-    def test_kelas_berbagi_grup_tidak_pernah_100_persen(self):
+    def test_kelas_berbagi_grup_ditampilkan_sebagai_rincian(self):
         block = readme_stats.render(TOTALS, SHARED)
+        # Satu grup, tiga kelas sumber: tidak ada baris "Tiles 4bpp 1/73" yang
+        # bisa disalahbaca sebagai 72 tile tersisa.
         self.assertIn("| Sprite/OBJ | 1 | 73 |", block)
-        self.assertIn("| Tiles 4bpp | 1 | 73 |", block)
-        # total memakai union simbol (73), bukan 3 -> kalau 100% berarti
-        # penyebutnya kembali dihitung dari himpunan yang sama (bug lama).
-        self.assertIn("| **Total (blob unik)** | 3 | 73 |", block)
+        self.assertIn("1 Sprite/OBJ, 1 Tiles 4bpp, 1 Container font", block)
+        self.assertNotIn("| Tiles 4bpp |", block)
+        self.assertIn("| **Total (semua grup)** | 3 | 73 |", block)
         self.assertNotIn("100%", block)
 
     def test_tabel_grup_non_overlap_bisa_100_persen(self):
@@ -64,7 +76,8 @@ class ReadmeStats(unittest.TestCase):
         block = readme_stats.render(TOTALS, data)
         self.assertIn("| Sprite/OBJ | 73 | 73 |", block)
         self.assertIn("100%", block)
-        self.assertIn("Cakupan per grup blob", block)
+        self.assertIn("| Grup blob | Rom-exact | Populasi | Cakupan | Sumber kelas |",
+                      block)
         self.assertNotIn("| Gambar terkompresi |", block)
 
     def test_aset_tanpa_blob_dilaporkan(self):

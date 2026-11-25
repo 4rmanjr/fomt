@@ -151,7 +151,22 @@ def asset_totals():
         "sprite_total": group_size.get("sprite/OBJ", 0),
         "sprite_kinds": _kind_count(
             assets, lambda s: blobs.get(s) == "sprite/OBJ"),
+        "group_kinds": _group_kinds(assets, blobs),
     }
+
+
+def _group_kinds(assets, blobs):
+    counts = {}
+    for asset in assets:
+        if asset.get("status") != "rom-exact":
+            continue
+        group = blobs.get(asset["symbol"])
+        if group is None:
+            continue
+        by_kind = counts.setdefault(group, {})
+        kind = asset["kind"]
+        by_kind[kind] = by_kind.get(kind, 0) + 1
+    return counts
 
 
 def _kind_count(assets, predicate):
@@ -215,50 +230,27 @@ def render(totals=None, assets=None):
         "",
         "### Translasi aset ROM -> source",
         "",
+        "| Grup blob | Rom-exact | Populasi | Cakupan | Sumber kelas |",
+        "|---|---:|---:|---|---|",
     ]
-    if a.get("sprite_total"):
-        sp = pct(a["sprite_done"], a["sprite_total"])
-        kinds = a.get("sprite_kinds") or {}
+    group_kinds = a.get("group_kinds") or {}
+    for row in a.get("group_rows") or []:
+        if row["group"] == "gambar terkompresi":
+            continue
+        p = pct(row["done"], row["denominator"])
+        kinds = group_kinds.get(row["group"], {})
         detail = ", ".join(f"{num(n)} {KIND_LABEL.get(k, k)}"
                           for k, n in sorted(kinds.items(), key=lambda kv: -kv[1]))
-        lines.append(
-            f"Grup Sprite/OBJ: **{num(a['sprite_done'])}/{num(a['sprite_total'])} "
-            f"blob ({dec(sp)}%)**" + (f" — {detail}." if detail else ".") +
-            " Baris kelas di bawah menghitung sumber per kelas; blob yang "
-            "sudah selesai sebagai kelas lain tetap dihitung di grup.")
-        lines.append("")
-    lines += [
-        "| Kelas | Rom-exact | Populasi blob | Cakupan |",
-        "|---|---:|---:|---|",
-    ]
-    for row in a["rows"]:
-        p = pct(row["done"], row["denominator"])
-        den = num(row["denominator"]) if row["denominator"] else "tak terinventaris"
-        lines.append(f"| {KIND_LABEL.get(row['kind'], row['kind'])} | "
-                     f"{num(row['done'])} | {den} | "
-                     f"`{bar(p)}` {dec(p)}% |")
-    tp = pct(a["total_done"], a["total_denominator"])
-    lines.append(f"| **Total (blob unik)** | {num(a['total_done'])} | "
-                 f"{num(a['total_denominator'])} | `{bar(tp)}` {dec(tp)}% |")
-    if a.get("group_rows"):
-        # Tabel per kind di atas memakai penyebut grup, jadi beberapa baris
-        # berbagi populasi yang sama. Tabel ini non-overlap: satu blob hanya
-        # dihitung di grupnya sendiri, sehingga 100% berarti seluruh blob grup
-        # itu sudah rom-exact.
-        lines += ["", "Cakupan per grup blob (non-overlap):", "",
-                  "| Grup blob | Rom-exact | Populasi | Cakupan |",
-                  "|---|---:|---:|---|"]
-        for row in a["group_rows"]:
-            if row["group"] == "gambar terkompresi":
-                continue
-            p = pct(row["done"], row["denominator"])
-            lines.append(f"| {GROUP_LABEL.get(row['group'], row['group'])} | "
-                         f"{num(row['done'])} | {num(row['denominator'])} | "
-                         f"`{bar(p)}` {dec(p)}% |")
-        gtp = pct(a["total_done"], a["total_denominator"])
-        lines.append(f"| **Total (semua grup)** | "
-                     f"{num(a['total_done'])} | {num(a['total_denominator'])} | "
-                     f"`{bar(gtp)}` {dec(gtp)}% |")
+        missing = row["denominator"] - row["done"]
+        if missing:
+            detail += ("; " if detail else "") + f"{num(missing)} belum"
+        lines.append(f"| {GROUP_LABEL.get(row['group'], row['group'])} | "
+                     f"{num(row['done'])} | {num(row['denominator'])} | "
+                     f"`{bar(p)}` {dec(p)}% | {detail or '—'} |")
+    gtp = pct(a["total_done"], a["total_denominator"])
+    lines.append(f"| **Total (semua grup)** | "
+                 f"{num(a['total_done'])} | {num(a['total_denominator'])} | "
+                 f"`{bar(gtp)}` {dec(gtp)}% | |")
     if a["unknown"]:
         lines.append("")
         lines.append("Aset rom-exact tanpa blob inventaris (tak dihitung di "
