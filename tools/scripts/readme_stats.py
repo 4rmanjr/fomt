@@ -50,6 +50,13 @@ KIND_LABEL = {
 }
 KIND_ORDER = ["sprite", "palette", "tiles4bpp", "tilemap", "tilemap_bank", "font_container",
               "glyph_font", "glyph_index"]
+GROUP_LABEL = {
+    "sprite/OBJ": "Sprite/OBJ",
+    "palet": "Palet",
+    "tabel": "Tabel",
+    "tilemap": "Tilemap",
+    "gambar terkompresi": "Gambar terkompresi",
+}
 
 
 def _module(path, name):
@@ -95,6 +102,8 @@ def asset_totals():
     tiles 4bpp font, dan container font semuanya terinventaris sebagai
     `sprite/OBJ`), sehingga baris per kelas memakai penyebut grup yang sama.
     Baris total memakai **union simbol** supaya tidak menghitung ganda.
+    `group_rows` adalah pelengkap non-overlap: satu blob hanya dihitung di
+    grupnya sendiri, sehingga 100% di tabel itu berarti grup tuntas.
     """
     assets = json.loads(ASSET_MANIFEST.read_text())["assets"]
     blobs = _raw_blobs()
@@ -123,12 +132,21 @@ def asset_totals():
                      "groups": sorted(groups)})
     mapped = [r for r in rows if r["denominator"]]
     all_groups = {g for r in mapped for g in r["groups"]}
+    exact = {a["symbol"] for a in assets if a.get("status") == "rom-exact"}
+    group_rows = []
+    for group in ("sprite/OBJ", "palet", "tabel", "tilemap",
+                  "gambar terkompresi"):
+        syms = {s for s, g in blobs.items() if g == group}
+        group_rows.append({"group": group, "done": len(syms & exact),
+                           "denominator": len(syms)})
     return {
         "rows": rows,
+        "group_rows": group_rows,
         "total_done": sum(r["done"] for r in mapped),
         "total_denominator": len(symbols_in(all_groups)),
         "unknown": unknown,
-        "sprite_done": kind_done.get("sprite", 0),
+        "sprite_done": sum(1 for s in exact
+                           if blobs.get(s) == "sprite/OBJ"),
         "sprite_total": group_size.get("sprite/OBJ", 0),
     }
 
@@ -197,6 +215,25 @@ def render(totals=None, assets=None):
     tp = pct(a["total_done"], a["total_denominator"])
     lines.append(f"| **Total (blob unik)** | {num(a['total_done'])} | "
                  f"{num(a['total_denominator'])} | `{bar(tp)}` {dec(tp)}% |")
+    if a.get("group_rows"):
+        # Tabel per kind di atas memakai penyebut grup, jadi beberapa baris
+        # berbagi populasi yang sama. Tabel ini non-overlap: satu blob hanya
+        # dihitung di grupnya sendiri, sehingga 100% berarti seluruh blob grup
+        # itu sudah rom-exact.
+        lines += ["", "Cakupan per grup blob (non-overlap):", "",
+                  "| Grup blob | Rom-exact | Populasi | Cakupan |",
+                  "|---|---:|---:|---|"]
+        for row in a["group_rows"]:
+            if row["group"] == "gambar terkompresi":
+                continue
+            p = pct(row["done"], row["denominator"])
+            lines.append(f"| {GROUP_LABEL.get(row['group'], row['group'])} | "
+                         f"{num(row['done'])} | {num(row['denominator'])} | "
+                         f"`{bar(p)}` {dec(p)}% |")
+        gtp = pct(a["total_done"], a["total_denominator"])
+        lines.append(f"| **Total (tanpa 3 blob terkompresi)** | "
+                     f"{num(a['total_done'])} | {num(a['total_denominator'])} | "
+                     f"`{bar(gtp)}` {dec(gtp)}% |")
     if a["unknown"]:
         lines.append("")
         lines.append("Aset rom-exact tanpa blob inventaris (tak dihitung di "

@@ -1,0 +1,23 @@
+{
+ "id": "gfx/palettes/gunk_086ead24",
+ "symbol": "gUnk_086EAD24",
+ "kind": "palette",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x6EAD24",
+  "size": 32,
+  "sha256": "1026f83ea01b6fa1b1deb71371dfd7d5e8e3668a5996b28469881311bd501923"
+ },
+ "source": {
+  "pal": "gunk_086ead24.pal",
+  "png": "gunk_086ead24.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "code_809E804.s:22348 ldr r0,=gUnk_086EAD24; 22357 bl func_08008E64. Salin 0x20 B ke [base+0x1c+idx*4]+0xC0 (palette RAM) saat r6=2/r3!=3."
+}

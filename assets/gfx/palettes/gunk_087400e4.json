@@ -1,0 +1,23 @@
+{
+ "id": "gfx/palettes/gunk_087400e4",
+ "symbol": "gUnk_087400E4",
+ "kind": "palette",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x7400E4",
+  "size": 192,
+  "sha256": "3cd46474231b5f816641cec654275a7dde0612f764272a2fd6b7990e77c49bd4"
+ },
+ "source": {
+  "pal": "gunk_087400e4.pal",
+  "png": "gunk_087400e4.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "code_809E804.s:71185 ldr r0,=gUnk_087400E4; 71186 ldr r1,=0x05000020; 71187 r2=0x200; 71189 bl func_08008E64. Seluruh 192 B tersalin ke palet RAM +0x20."
+}

@@ -82,7 +82,9 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   byte ROM dari C, dan **cakupan aset** per kelas (rom-exact / populasi blob
   `.incbin` yang terinventaris, dipetakan lewat grup aset di
   `assets/raw/manifest.json`; baris total memakai union blob agar kelas yang
-  berbagi grup tidak dihitung ganda). Sumbernya `plan_stats.py` dan manifest
+  berbagi grup tidak dihitung ganda). Ditambah tabel **cakupan per grup blob**
+  yang non-overlap: satu blob hanya dihitung di grupnya sendiri, jadi 100%
+  berarti seluruh blob grup itu rom-exact. Sumbernya `plan_stats.py` dan manifest
   aset, jadi angkanya tidak diketik tangan. `--check` (exit 1 bila
   blok basi) dipanggil `check_docs.py`; `--stdout` mencetak blok tanpa menulis.
   Jangan menyunting angka di dalam penanda — ubah datanya lalu jalankan ulang.

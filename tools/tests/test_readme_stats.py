@@ -55,6 +55,18 @@ class ReadmeStats(unittest.TestCase):
         self.assertIn("| **Total (blob unik)** | 3 | 73 |", block)
         self.assertNotIn("100%", block)
 
+    def test_tabel_grup_non_overlap_bisa_100_persen(self):
+        data = dict(ASSETS, group_rows=[
+            {"group": "sprite/OBJ", "done": 73, "denominator": 73},
+            {"group": "palet", "done": 70, "denominator": 70},
+            {"group": "gambar terkompresi", "done": 0, "denominator": 3},
+        ])
+        block = readme_stats.render(TOTALS, data)
+        self.assertIn("| Sprite/OBJ | 73 | 73 |", block)
+        self.assertIn("100%", block)
+        self.assertIn("Cakupan per grup blob", block)
+        self.assertNotIn("| Gambar terkompresi |", block)
+
     def test_aset_tanpa_blob_dilaporkan(self):
         data = dict(SHARED, unknown=["gUnk_SINTETIS"])
         block = readme_stats.render(TOTALS, data)

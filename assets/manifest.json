@@ -1614,6 +1614,248 @@
    }
   },
   {
+   "id": "gfx/palettes/gunk_086eace4",
+   "symbol": "gUnk_086EACE4",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6EACE4",
+    "size": 32,
+    "sha256": "63d03f706527c2c3a00235a9cb2a920f3e327ca7070c1b7ab316cc4df90a4b77"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/gunk_086eace4.json",
+    "png": "assets/gfx/palettes/gunk_086eace4.png",
+    "pal": "assets/gfx/palettes/gunk_086eace4.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_809E804.s:22343 ldr r0,=gUnk_086EACE4; 22357 bl func_08008E64. Salin 0x20 B ke [base+0x1c+idx*4]+0xC0 (palette RAM) saat r6=0/r3!=3."
+  },
+  {
+   "id": "gfx/palettes/gunk_086ead04",
+   "symbol": "gUnk_086EAD04",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6EAD04",
+    "size": 32,
+    "sha256": "ff131b978f02f656488c2bef56a53fea40f12a3edc066d99161e38a68902ec39"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/gunk_086ead04.json",
+    "png": "assets/gfx/palettes/gunk_086ead04.png",
+    "pal": "assets/gfx/palettes/gunk_086ead04.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_809E804.s:22368 ldr r0,=gUnk_086EAD04; 22378 bl func_08008E64. Salin 0x20 B ke [base+0x1c+idx*4]+0xC0 (palette RAM) saat r6=0/r3=3."
+  },
+  {
+   "id": "gfx/palettes/gunk_086ead24",
+   "symbol": "gUnk_086EAD24",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6EAD24",
+    "size": 32,
+    "sha256": "1026f83ea01b6fa1b1deb71371dfd7d5e8e3668a5996b28469881311bd501923"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/gunk_086ead24.json",
+    "png": "assets/gfx/palettes/gunk_086ead24.png",
+    "pal": "assets/gfx/palettes/gunk_086ead24.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_809E804.s:22348 ldr r0,=gUnk_086EAD24; 22357 bl func_08008E64. Salin 0x20 B ke [base+0x1c+idx*4]+0xC0 (palette RAM) saat r6=2/r3!=3."
+  },
+  {
+   "id": "gfx/palettes/gunk_086ead44",
+   "symbol": "gUnk_086EAD44",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6EAD44",
+    "size": 32,
+    "sha256": "6700d476241736dab98f16418ecfb4de38df778850155f4d912ffb1d88bc7104"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/gunk_086ead44.json",
+    "png": "assets/gfx/palettes/gunk_086ead44.png",
+    "pal": "assets/gfx/palettes/gunk_086ead44.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_809E804.s:22386 ldr r0,=gUnk_086EAD44; 22395 bl func_08008E64. Salin 0x20 B ke [base+0x1c+idx*4]+0xC0 (palette RAM) saat r6=2/r3=3."
+  },
+  {
+   "id": "gfx/palettes/gunk_0872dde4",
+   "symbol": "gUnk_0872DDE4",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72DDE4",
+    "size": 96,
+    "sha256": "556f3423f4da49c183dafea8575bba9330a4b4d3d5f9b3c11b31e360832955b3"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/gunk_0872dde4.json",
+    "png": "assets/gfx/palettes/gunk_0872dde4.png",
+    "pal": "assets/gfx/palettes/gunk_0872dde4.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_809E804.s:49969 ldr r0,=gUnk_0872DDE4; 49972-49973 set r1=0x05000000,r2=0x200; 49974 bl func_08008E64. Seluruh 96 B tersalin."
+  },
+  {
+   "id": "gfx/palettes/gunk_0872fa9c",
+   "symbol": "gUnk_0872FA9C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72FA9C",
+    "size": 352,
+    "sha256": "7ce4c9e3169bbc0b279b26593ee8fcbc428f23944e63caae7ebe6ae1fb5d265a"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/gunk_0872fa9c.json",
+    "png": "assets/gfx/palettes/gunk_0872fa9c.png",
+    "pal": "assets/gfx/palettes/gunk_0872fa9c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:52053 ldr r0,=gUnk_0872FA9C; 52056-52057 set r1=0x05000000,r2=0x200; 52058 bl func_08008E64. Seluruh 352 B tersalin."
+  },
+  {
+   "id": "gfx/palettes/gunk_087399c4",
+   "symbol": "gUnk_087399C4",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7399C4",
+    "size": 160,
+    "sha256": "4293b48703925a20da3254c8ab11b3e585f63f55c24ba25489ed1296513d8e51"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/gunk_087399c4.json",
+    "png": "assets/gfx/palettes/gunk_087399c4.png",
+    "pal": "assets/gfx/palettes/gunk_087399c4.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:40686 ldr r0,=gUnk_087399C4; 40689-40690 set r1=0x05000000,r2=0x200; 40691 bl func_08008E64. Seluruh 160 B tersalin."
+  },
+  {
+   "id": "gfx/palettes/gunk_0873cbf4",
+   "symbol": "gUnk_0873CBF4",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x73CBF4",
+    "size": 192,
+    "sha256": "f52675fe893d77e2fba976c7b291acd6a6359d433e8283bc04cbf5a35e34f469"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/gunk_0873cbf4.json",
+    "png": "assets/gfx/palettes/gunk_0873cbf4.png",
+    "pal": "assets/gfx/palettes/gunk_0873cbf4.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_809E804.s:62197 ldr r0,=gUnk_0873CBF4; 62200-62201 set r1=0x05000000,r2=0x200; 62202 bl func_08008E64. Seluruh 192 B tersalin."
+  },
+  {
+   "id": "gfx/palettes/gunk_087400e4",
+   "symbol": "gUnk_087400E4",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7400E4",
+    "size": 192,
+    "sha256": "3cd46474231b5f816641cec654275a7dde0612f764272a2fd6b7990e77c49bd4"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/gunk_087400e4.json",
+    "png": "assets/gfx/palettes/gunk_087400e4.png",
+    "pal": "assets/gfx/palettes/gunk_087400e4.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_809E804.s:71185 ldr r0,=gUnk_087400E4; 71186 ldr r1,=0x05000020; 71187 r2=0x200; 71189 bl func_08008E64. Seluruh 192 B tersalin ke palet RAM +0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_08747a14",
+   "symbol": "gUnk_08747A14",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x747A14",
+    "size": 96,
+    "sha256": "9d372a163a837204d61a996f95b8f894912cd6d7e4f49342fd07b810c2751d8e"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/gunk_08747a14.json",
+    "png": "assets/gfx/palettes/gunk_08747a14.png",
+    "pal": "assets/gfx/palettes/gunk_08747a14.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:62074 ldr r0,=gUnk_08747A14; 62075-62078 set r1=0x05000000,r2=0x40; 62079 bl func_08008E64. Hanya 64 B pertama (32 warna) tersalin ke palet RAM; 32 B ekor belum punya pembaca, dicatat sebagai coverage 0,667 dan bukan bukti penuh."
+  },
+  {
+   "id": "gfx/palettes/gunk_0874f2ec",
+   "symbol": "gUnk_0874F2EC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74F2EC",
+    "size": 96,
+    "sha256": "f993aac13f92482924501abbd6986a3327e0a2a5d3f36a43468d2c1b4ee251d9"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/gunk_0874f2ec.json",
+    "png": "assets/gfx/palettes/gunk_0874f2ec.png",
+    "pal": "assets/gfx/palettes/gunk_0874f2ec.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_809E804.s:8447 ldr r0,=gUnk_0874F2EC; 8450-8451 set r1=0x05000000,r2=0x200; 8452 bl func_08008E64. Seluruh 96 B tersalin."
+  },
+  {
    "id": "gfx/palettes/gunk_08529794",
    "symbol": "gUnk_08529794",
    "kind": "palette",

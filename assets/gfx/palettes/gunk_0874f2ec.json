@@ -1,0 +1,23 @@
+{
+ "id": "gfx/palettes/gunk_0874f2ec",
+ "symbol": "gUnk_0874F2EC",
+ "kind": "palette",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x74F2EC",
+  "size": 96,
+  "sha256": "f993aac13f92482924501abbd6986a3327e0a2a5d3f36a43468d2c1b4ee251d9"
+ },
+ "source": {
+  "pal": "gunk_0874f2ec.pal",
+  "png": "gunk_0874f2ec.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "code_809E804.s:8447 ldr r0,=gUnk_0874F2EC; 8450-8451 set r1=0x05000000,r2=0x200; 8452 bl func_08008E64. Seluruh 96 B tersalin."
+}

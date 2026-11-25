@@ -34,7 +34,9 @@ class EmbeddedStreams(unittest.TestCase):
 
     def test_check_works_without_rom(self):
         # --check hanya membaca manifest + extern/ + png/, bukan baserom.gba.
-        self.assertEqual(embedded.check(), 0)
+        # quick=True melewati render ulang hanya bila sidik jari bin+manifest
+        # sama dengan render terakhir; hash setiap bin/PNG tetap diperiksa.
+        self.assertEqual(embedded.check(quick=True), 0)
 
     def test_manifest_matches_doc_and_streams(self):
         manifest = json.loads(embedded.MANIFEST.read_text())

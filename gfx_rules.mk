@@ -84,6 +84,17 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_0875A418.bin \
   $(BUILD_DIR)/assets/gUnk_0875A424.bin \
   $(BUILD_DIR)/assets/gUnk_0875A438.bin \
+  $(BUILD_DIR)/assets/gUnk_086EACE4.bin \
+  $(BUILD_DIR)/assets/gUnk_086EAD04.bin \
+  $(BUILD_DIR)/assets/gUnk_086EAD24.bin \
+  $(BUILD_DIR)/assets/gUnk_086EAD44.bin \
+  $(BUILD_DIR)/assets/gUnk_0872DDE4.bin \
+  $(BUILD_DIR)/assets/gUnk_0872FA9C.bin \
+  $(BUILD_DIR)/assets/gUnk_087399C4.bin \
+  $(BUILD_DIR)/assets/gUnk_0873CBF4.bin \
+  $(BUILD_DIR)/assets/gUnk_087400E4.bin \
+  $(BUILD_DIR)/assets/gUnk_08747A14.bin \
+  $(BUILD_DIR)/assets/gUnk_0874F2EC.bin \
   $(BUILD_DIR)/assets/gUnk_08529794.bin \
   $(BUILD_DIR)/assets/gUnk_0852CA40.bin \
   $(BUILD_DIR)/assets/gUnk_0872D5AC.bin \
@@ -740,6 +751,94 @@ $(BUILD_DIR)/assets/gUnk_0875A438.bin: \
     tools/assets/map2bin.py
 	@echo "ASSET $@"
 	@python3 tools/assets/map2bin.py encode --json assets/gfx/maps/gUnk_0875A438.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086EACE4.bin: \
+    assets/gfx/palettes/gunk_086eace4.json \
+    assets/gfx/palettes/gunk_086eace4.png \
+    assets/gfx/palettes/gunk_086eace4.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/gunk_086eace4.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086EAD04.bin: \
+    assets/gfx/palettes/gunk_086ead04.json \
+    assets/gfx/palettes/gunk_086ead04.png \
+    assets/gfx/palettes/gunk_086ead04.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/gunk_086ead04.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086EAD24.bin: \
+    assets/gfx/palettes/gunk_086ead24.json \
+    assets/gfx/palettes/gunk_086ead24.png \
+    assets/gfx/palettes/gunk_086ead24.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/gunk_086ead24.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086EAD44.bin: \
+    assets/gfx/palettes/gunk_086ead44.json \
+    assets/gfx/palettes/gunk_086ead44.png \
+    assets/gfx/palettes/gunk_086ead44.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/gunk_086ead44.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872DDE4.bin: \
+    assets/gfx/palettes/gunk_0872dde4.json \
+    assets/gfx/palettes/gunk_0872dde4.png \
+    assets/gfx/palettes/gunk_0872dde4.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/gunk_0872dde4.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872FA9C.bin: \
+    assets/gfx/palettes/gunk_0872fa9c.json \
+    assets/gfx/palettes/gunk_0872fa9c.png \
+    assets/gfx/palettes/gunk_0872fa9c.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/gunk_0872fa9c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087399C4.bin: \
+    assets/gfx/palettes/gunk_087399c4.json \
+    assets/gfx/palettes/gunk_087399c4.png \
+    assets/gfx/palettes/gunk_087399c4.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/gunk_087399c4.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0873CBF4.bin: \
+    assets/gfx/palettes/gunk_0873cbf4.json \
+    assets/gfx/palettes/gunk_0873cbf4.png \
+    assets/gfx/palettes/gunk_0873cbf4.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/gunk_0873cbf4.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087400E4.bin: \
+    assets/gfx/palettes/gunk_087400e4.json \
+    assets/gfx/palettes/gunk_087400e4.png \
+    assets/gfx/palettes/gunk_087400e4.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/gunk_087400e4.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08747A14.bin: \
+    assets/gfx/palettes/gunk_08747a14.json \
+    assets/gfx/palettes/gunk_08747a14.png \
+    assets/gfx/palettes/gunk_08747a14.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/gunk_08747a14.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0874F2EC.bin: \
+    assets/gfx/palettes/gunk_0874f2ec.json \
+    assets/gfx/palettes/gunk_0874f2ec.png \
+    assets/gfx/palettes/gunk_0874f2ec.pal \
+    tools/assets/pal2gba.py
+	@echo "ASSET $@"
+	@python3 tools/assets/pal2gba.py encode --json assets/gfx/palettes/gunk_0874f2ec.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_08529794.bin: \
     assets/gfx/palettes/unk_08529794.json \

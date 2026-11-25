@@ -295,19 +295,27 @@ gUnk_086EACDC:
 
 	.global gUnk_086EACE4
 gUnk_086EACE4:
-	.incbin "baserom.gba", 0x6EACE4, 0x20
+	@ rom: 0x6EACE4 0x20 — source assets/gfx/palettes/gunk_086eace4.json
+	@ palet: func_08008E64(gUnk_086EACE4, palette RAM, 0x20) — code_809E804.s:22343/22357.
+	.incbin "build/assets/gUnk_086EACE4.bin"
 
 	.global gUnk_086EAD04
 gUnk_086EAD04:
-	.incbin "baserom.gba", 0x6EAD04, 0x20
+	@ rom: 0x6EAD04 0x20 — source assets/gfx/palettes/gunk_086ead04.json
+	@ palet: func_08008E64(gUnk_086EAD04, palette RAM, 0x20) — code_809E804.s:22368/22378.
+	.incbin "build/assets/gUnk_086EAD04.bin"
 
 	.global gUnk_086EAD24
 gUnk_086EAD24:
-	.incbin "baserom.gba", 0x6EAD24, 0x20
+	@ rom: 0x6EAD24 0x20 — source assets/gfx/palettes/gunk_086ead24.json
+	@ palet: func_08008E64(gUnk_086EAD24, palette RAM, 0x20) — code_809E804.s:22348/22357.
+	.incbin "build/assets/gUnk_086EAD24.bin"
 
 	.global gUnk_086EAD44
 gUnk_086EAD44:
-	.incbin "baserom.gba", 0x6EAD44, 0x20
+	@ rom: 0x6EAD44 0x20 — source assets/gfx/palettes/gunk_086ead44.json
+	@ palet: func_08008E64(gUnk_086EAD44, palette RAM, 0x20) — code_809E804.s:22386/22395.
+	.incbin "build/assets/gUnk_086EAD44.bin"
 
 	.global gUnk_086EAD64
 gUnk_086EAD64:
@@ -488,7 +496,9 @@ gUnk_0872D6D8:
 
 	.global gUnk_0872DDE4
 gUnk_0872DDE4:
-	.incbin "baserom.gba", 0x72DDE4, 0x60
+	@ rom: 0x72DDE4 0x60 — source assets/gfx/palettes/gunk_0872dde4.json
+	@ palet: func_08008E64(gUnk_0872DDE4, palette RAM, 0x60) — code_809E804.s:49969/49974.
+	.incbin "build/assets/gUnk_0872DDE4.bin"
 
 	.global gUnk_0872DE44
 gUnk_0872DE44:
@@ -520,7 +530,9 @@ gUnk_0872F21C:
 
 	.global gUnk_0872FA9C
 gUnk_0872FA9C:
-	.incbin "baserom.gba", 0x72FA9C, 0x160
+	@ rom: 0x72FA9C 0x160 — source assets/gfx/palettes/gunk_0872fa9c.json
+	@ palet: func_08008E64(gUnk_0872FA9C, palette RAM, 0x160) — code_0803EE94.s:52053/52058.
+	.incbin "build/assets/gUnk_0872FA9C.bin"
 
 	.global gUnk_0872FBFC
 gUnk_0872FBFC:
@@ -574,7 +586,9 @@ gUnk_08738D1C:
 
 	.global gUnk_087399C4
 gUnk_087399C4:
-	.incbin "baserom.gba", 0x7399C4, 0xA0
+	@ rom: 0x7399C4 0xA0 — source assets/gfx/palettes/gunk_087399c4.json
+	@ palet: func_08008E64(gUnk_087399C4, palette RAM, 0xA0) — code_0803EE94.s:40686/40691.
+	.incbin "build/assets/gUnk_087399C4.bin"
 
 	.global gUnk_08739A64
 gUnk_08739A64:
@@ -612,7 +626,9 @@ gUnk_0873BFF0:
 
 	.global gUnk_0873CBF4
 gUnk_0873CBF4:
-	.incbin "baserom.gba", 0x73CBF4, 0xC0
+	@ rom: 0x73CBF4 0xC0 — source assets/gfx/palettes/gunk_0873cbf4.json
+	@ palet: func_08008E64(gUnk_0873CBF4, palette RAM, 0xC0) — code_809E804.s:62197/62202.
+	.incbin "build/assets/gUnk_0873CBF4.bin"
 
 	.global gUnk_0873CCB4
 gUnk_0873CCB4:
@@ -682,7 +698,9 @@ gUnk_0873F6AC:
 
 	.global gUnk_087400E4
 gUnk_087400E4:
-	.incbin "baserom.gba", 0x7400E4, 0xC0
+	@ rom: 0x7400E4 0xC0 — source assets/gfx/palettes/gunk_087400e4.json
+	@ palet: func_08008E64(gUnk_087400E4, palette RAM, 0xC0) — code_809E804.s:71185/71189.
+	.incbin "build/assets/gUnk_087400E4.bin"
 
 	.global gUnk_087401A4
 gUnk_087401A4:
@@ -720,7 +738,9 @@ gUnk_08743058:
 
 	.global gUnk_08747A14
 gUnk_08747A14:
-	.incbin "baserom.gba", 0x747A14, 0x60
+	@ rom: 0x747A14 0x60 — source assets/gfx/palettes/gunk_08747a14.json
+	@ palet: func_08008E64(gUnk_08747A14, 0x05000000, 0x40) — code_0803EE94.s:62074/62079 (64 B; 32 B ekor belum terbukti).
+	.incbin "build/assets/gUnk_08747A14.bin"
 
 	.global gUnk_08747A74
 gUnk_08747A74:
@@ -784,7 +804,9 @@ gUnk_0874F050:
 
 	.global gUnk_0874F2EC
 gUnk_0874F2EC:
-	.incbin "baserom.gba", 0x74F2EC, 0x60
+	@ rom: 0x74F2EC 0x60 — source assets/gfx/palettes/gunk_0874f2ec.json
+	@ palet: func_08008E64(gUnk_0874F2EC, palette RAM, 0x60) — code_809E804.s:8447/8452.
+	.incbin "build/assets/gUnk_0874F2EC.bin"
 
 	.global gUnk_0874F34C
 gUnk_0874F34C:

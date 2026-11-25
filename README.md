@@ -42,13 +42,23 @@ Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.093 B (7,1%)** — persent
 | Kelas | Rom-exact | Populasi blob | Cakupan |
 |---|---:|---:|---|
 | Sprite/OBJ | 56 | 86 | `█████████████░░░░░░░` 65,1% |
-| Palet | 51 | 64 | `████████████████░░░░` 79,7% |
+| Palet | 62 | 64 | `███████████████████░` 96,9% |
 | Tiles 4bpp | 10 | 86 | `██░░░░░░░░░░░░░░░░░░` 11,6% |
 | Tilemap | 25 | 142 | `████░░░░░░░░░░░░░░░░` 17,6% |
 | Container font | 51 | 149 | `███████░░░░░░░░░░░░░` 34,2% |
 | Glyph 8x12 | 2 | 86 | `░░░░░░░░░░░░░░░░░░░░` 2,3% |
 | Indeks glyph | 2 | 63 | `█░░░░░░░░░░░░░░░░░░░` 3,2% |
-| **Total (blob unik)** | 197 | 228 | `█████████████████░░░` 86,4% |
+| **Total (blob unik)** | 208 | 228 | `██████████████████░░` 91,2% |
+
+Cakupan per grup blob (non-overlap):
+
+| Grup blob | Rom-exact | Populasi | Cakupan |
+|---|---:|---:|---|
+| Sprite/OBJ | 86 | 86 | `████████████████████` 100% |
+| Palet | 64 | 64 | `████████████████████` 100% |
+| Tabel | 48 | 63 | `███████████████░░░░░` 76,2% |
+| Tilemap | 10 | 15 | `█████████████░░░░░░░` 66,7% |
+| **Total (tanpa 3 blob terkompresi)** | 208 | 228 | `██████████████████░░` 91,2% |
 <!-- README-STATS:END -->
 
 Definisi selesainya sengaja ketat di kedua jalur:
@@ -61,16 +71,16 @@ Definisi selesainya sengaja ketat di kedua jalur:
   `assets/gfx/`, di-encode tool repo, dan `sha256(encoded) == sha256(slice ROM)`
   sehingga `.incbin` tidak lagi menunjuk `baserom.gba`. Aset yang mayoritas
   byte-nya masih `raw` (proven < 50%) diparkir `decoded-exact` dan tidak
-  dihitung, walaupun encode-nya byte-identik. Sprite pertama yang
-  sudah begitu: `gUnk_087518CC` (128 B, 4 tile 4bpp). Blob sprite lain masih
-  `.incbin` ROM, dan sprite di dalam container terkompresi `0x70` menunggu
-  encoder yang byte-identik.
+  dihitung, walaupun encode-nya byte-identik. Seluruh blob grup `sprite/OBJ`
+  dan `palet` di `assets/raw` sudah punya source rom-exact; sprite di dalam
+  container terkompresi `0x70` masih menunggu encoder huffman yang byte-identik.
 - **Penyebut cakupan.** Populasi dihitung dari blob `.incbin` yang benar-benar
   terinventaris di `assets/raw` (satu blob = satu entri `.incbin`; satu blob
-  bisa memuat beberapa sprite). Beberapa kelas berbagi grup inventaris yang
-  sama (`sprite/OBJ`), jadi baris total memakai union blob supaya tidak
-  menghitung ganda. Stream di dalam container `0x70` belum masuk penyebut
-  karena encoder-nya belum byte-identik.
+  bisa memuat beberapa sprite). Tabel per kelas memakai penyebut grup, jadi
+  beberapa baris berbagi populasi; tabel "Cakupan per grup blob" di atasnya
+  non-overlap dan totalnya memakai union blob supaya tidak menghitung ganda.
+  Stream di dalam container `0x70` belum masuk penyebut karena encoder-nya
+  belum byte-identik.
 
 Pipeline, tabel padanan pret/pokeemerald-expansion, dan alur menambah sprite:
 [docs/decomp/ARSITEKTUR-ASET.md](./docs/decomp/ARSITEKTUR-ASET.md).

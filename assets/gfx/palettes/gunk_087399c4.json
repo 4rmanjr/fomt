@@ -1,0 +1,23 @@
+{
+ "id": "gfx/palettes/gunk_087399c4",
+ "symbol": "gUnk_087399C4",
+ "kind": "palette",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x7399C4",
+  "size": 160,
+  "sha256": "4293b48703925a20da3254c8ab11b3e585f63f55c24ba25489ed1296513d8e51"
+ },
+ "source": {
+  "pal": "gunk_087399c4.pal",
+  "png": "gunk_087399c4.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "code_0803EE94.s:40686 ldr r0,=gUnk_087399C4; 40689-40690 set r1=0x05000000,r2=0x200; 40691 bl func_08008E64. Seluruh 160 B tersalin."
+}
