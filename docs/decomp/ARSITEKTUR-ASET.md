@@ -561,15 +561,20 @@ aset source yang lolos gate.
   juga sama.
 - Jika compressor tidak bisa mereproduksi byte, tetap `opaque`; jangan
   mengganti `.incbin`.
-- **Progres:** `tools/assets/lz70.py` menulis format `000` (atom0/lzss0/diff0).
-  Replay token asli via serializer = byte identik **3/3** stream P0 (model
-  header/bit/padding terbukti), roundtrip decode 3/3, dan parse optimal
-  mencapai ukuran compressed yang sama persis dengan aslinya **3/3**.
-- **Namun hash compressed belum sama**: ada banyak tokenisasi berbiaya bit
-  identik dan encoder asli memilih di antaranya dengan aturan yang belum
-  diketahui (24 kombinasi tie-break diuji, tidak ada yang cocok). Karena
-  `stream_audit.py` menilai byte, bukan ukuran, ketiga stream P0 **tetap
-  `opaque`**. Rincian: `assets/0x70/encoder_probe.md`.
+- **Progres:** `tools/assets/lz70.py` menulis format `000` (atom0/lzss0) dan
+  atom0/lzss2 (`020`/`023`/`024`, termasuk diff 2/3/4). Replay token asli via
+  serializer byte-identik untuk seluruh stream kedua format, dan encoder
+  parity menghasilkan compressed persis sama dengan tangga asli: **5/5**
+  stream `000` dan **70/70** stream atom0/lzss2.
+- **Aturan tokenisasi** yang terbukti: match terpanjang di seluruh jendela
+  (seri → jarak terdekat), match 3 B di tiga byte terakhir tidak dipakai,
+  literal escape dipakai mulai 9 B, dan match >18 B lewat escape VLI.
+  Lzss0 menambahkan run token (menang bila panjang utuh >= match); lzss2
+  tidak punya run token sehingga jarak 1 ikut sebagai match.
+- `stream_audit.py` menaikkan status ke `ok` hanya bila compressed hasil
+  encoder sama byte. Status ini per stream; blob belum diganti `.incbin`
+  karena satu blob bisa memuat format lain yang belum punya encoder.
+  Rincian angka: `docs/decomp/ASET-0X70-REENCODE.md`.
 
 **Exit:** container yang exact sudah terverifikasi; sisanya punya alasan.
 
@@ -996,8 +1001,9 @@ parkir karena panjang salinan tidak sama dengan slice / tujuan field +0xc0 |
 byte identik, tetapi bentuk byte saja tidak cukup | `tile4bpp.py` | sebagian
 selesai — sisanya diparkir, lihat catatan di bawah |
 | 4 | stream `0x70` (lihat `ASET-0X70-PETA-BERKAS.md`) | dekoder ada
-(`decompress.py`, `lz70.parse`), encoder byte-identik belum | belum | butuh
-encoder LZSS deterministik + gate hash sebelum layak |
+(`decompress.py`); encoder byte-identik untuk `000` dan atom0/lzss2 sudah
+terbukti | `lz70.py` | sebagian — status naik per stream lewat
+`stream_audit.py`; format huffman/lzss3 belum punya encoder |
 | 5 | tabel indeks glyph s16 (`gUnk_084FA7A0`, `gUnk_08523290`) | 256 + 7938
 entri `int16`, `ldrsh`, nilai < 0 = karakter tanpa glyph; `gUnk_08523290`
 diindeks `func_080D0CD4` (`189*lead + trail - 0x40`) | `glyph_index.py` |

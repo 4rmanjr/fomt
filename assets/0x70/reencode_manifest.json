@@ -1,12 +1,12 @@
 {
  "source_manifest": "assets/0x70/manifest.json",
  "total": 284,
- "reencodeable": 5,
- "opaque": 279,
+ "reencodeable": 75,
+ "opaque": 209,
  "decode_verified": 284,
  "counts": {
-  "opaque": 279,
-  "ok": 5
+  "opaque": 209,
+  "ok": 75
  },
  "priorities": [
   {
@@ -585,8 +585,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -631,8 +631,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -654,8 +654,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -677,8 +677,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -723,8 +723,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -746,8 +746,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -838,8 +838,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -861,8 +861,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1045,8 +1045,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1068,8 +1068,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1666,8 +1666,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_08716F84",
@@ -1781,8 +1781,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1804,8 +1804,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1896,8 +1896,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2034,8 +2034,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2057,8 +2057,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2149,8 +2149,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2218,8 +2218,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2356,8 +2356,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0872D5CC",
@@ -2425,8 +2425,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0872F11C",
@@ -2471,8 +2471,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0872F1EC",
@@ -2517,8 +2517,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0872FBFC",
@@ -2563,8 +2563,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0872FE6C",
@@ -2609,8 +2609,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_08738AD8",
@@ -2701,8 +2701,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_08739A64",
@@ -2724,8 +2724,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0873BE24",
@@ -2793,8 +2793,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0873F3C8",
@@ -2816,8 +2816,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0873F5D4",
@@ -2862,8 +2862,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_08743058",
@@ -2885,8 +2885,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_08747A74",
@@ -3138,8 +3138,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0874EFEC",
@@ -3161,8 +3161,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0874F050",
@@ -3184,8 +3184,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_08755848",
@@ -3276,8 +3276,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3414,8 +3414,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3552,8 +3552,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3897,8 +3897,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3966,8 +3966,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4081,8 +4081,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4288,8 +4288,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4311,8 +4311,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4357,8 +4357,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4426,8 +4426,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4449,8 +4449,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4610,8 +4610,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4679,8 +4679,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4840,8 +4840,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4909,8 +4909,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4978,8 +4978,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5001,8 +5001,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5047,8 +5047,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5208,8 +5208,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5254,8 +5254,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "020"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 020"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5277,8 +5277,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5392,8 +5392,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5461,8 +5461,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5530,8 +5530,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6013,8 +6013,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6036,8 +6036,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6059,8 +6059,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6220,8 +6220,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6266,8 +6266,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6289,8 +6289,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6335,8 +6335,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6358,8 +6358,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6404,8 +6404,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6427,8 +6427,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6473,8 +6473,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6542,8 +6542,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "024"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 024"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086DC3F4",
@@ -6611,8 +6611,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "023"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 023"
+   "reencode": "ok",
+   "reason": "encoder lz70 atom0/lzss2 (match terpanjang, escape literal >=9) byte identik dengan tangga asli"
   }
  ]
 }

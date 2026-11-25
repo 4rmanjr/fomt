@@ -34,8 +34,9 @@ class StreamAudit(unittest.TestCase):
                     for s in b["streams"]]
         self.assertEqual(self.result["total"], expected)
         self.assertEqual(self.result["decode_verified"], expected)
-        # Hanya format 000 yang punya encoder byte-identik saat ini.
-        expected_ok = sum(1 for fmt in formats if fmt == "000")
+        # Encoder byte-identik: 000 (lzss0) dan atom0/lzss2 (020/023/024).
+        encoded_formats = ("000", "020", "023", "024")
+        expected_ok = sum(1 for fmt in formats if fmt in encoded_formats)
         self.assertEqual(self.result["reencodeable"], expected_ok)
         self.assertEqual(self.result["opaque"], expected - expected_ok)
         self.assertEqual(self.result["embedded_banks"], len(banks["banks"]))
@@ -77,14 +78,21 @@ class StreamAudit(unittest.TestCase):
         """Status `ok` harus disertai byte compressed yang benar-benar sama."""
         rom = (REPO / "baserom.gba").read_bytes()
         rows = [r for r in self.result["streams"] if r["reencode"] == "ok"]
-        self.assertTrue(rows, "format 000 seharusnya sudah reencodeable")
+        self.assertTrue(rows, "format 000/atom0-lzss2 harus reencodeable")
         for row in rows:
-            self.assertEqual(row["format"], "000", row["symbol"])
+            self.assertIn(row["format"], ("000", "020", "023", "024"),
+                          row["symbol"])
             offset = int(row["compressed"]["offset"], 0)
             original = rom[offset:offset + row["compressed"]["size"]]
             decoded = (REPO / "assets/0x70" / row["decoded"]["bin"]).read_bytes()
-            _size, widths, _tokens = lz70.parse(original)
-            self.assertEqual(lz70.encode(decoded, widths, parity=True), original,
+            if row["format"] == "000":
+                _size, widths, _tokens = lz70.parse(original)
+                encoded = lz70.encode(decoded, widths, parity=True)
+            else:
+                _size, widths, _tokens, _spec = lz70.parse_lzss2(original)
+                encoded = lz70.encode_lzss2(decoded, widths,
+                                            int(row["format"][2]))
+            self.assertEqual(encoded, original,
                              f"{row['symbol']}#{row['index']} bukan byte-identik")
 
     def test_check_docs_gate_is_synced(self):

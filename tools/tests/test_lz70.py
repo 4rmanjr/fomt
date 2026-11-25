@@ -54,6 +54,45 @@ def p0_streams():
     return rows
 
 
+def lzss2_streams():
+    """(label, compressed, decoded, diff) untuk seluruh atom0/lzss2."""
+    if not ROM.exists():
+        return []
+    inv = load("asset_inventory",
+               REPO / "tools" / "scripts" / "asset_inventory.py")
+    rom = ROM.read_bytes()
+    by_symbol = {e.name: e for e in inv.analyze()[1]}
+    source = json.loads(MANIFEST.read_text())
+    embedded = json.loads(
+        (MANIFEST.parent / "embedded_manifest.json").read_text())
+    rows = []
+    for blob in source["streams"]:
+        entry = by_symbol.get(blob["blob"])
+        for stream in blob["streams"]:
+            fmt = str(stream["format"])
+            if fmt not in ("020", "023", "024"):
+                continue
+            offset = entry.offset + int(stream["offset"])
+            packed = int(stream["packed"])
+            rows.append((f"{blob['blob']}#{stream['index']}",
+                         rom[offset:offset + packed],
+                         (MANIFEST.parent / stream["bin"]).read_bytes(),
+                         int(fmt[2])))
+    for bank in embedded.get("banks", []):
+        entry = by_symbol.get(bank["blob"])
+        for stream in bank["streams"]:
+            fmt = str(stream["format"])
+            if fmt not in ("020", "023", "024"):
+                continue
+            offset = entry.offset + int(stream["offset"])
+            packed = int(stream["packed"])
+            rows.append((f"{bank['blob']}#{stream['index']}",
+                         rom[offset:offset + packed],
+                         (MANIFEST.parent / stream["bin"]).read_bytes(),
+                         int(fmt[2])))
+    return rows
+
+
 class Lz70(unittest.TestCase):
     def setUp(self):
         self.streams = p0_streams()
@@ -106,6 +145,60 @@ class Lz70(unittest.TestCase):
     def test_rejects_plain_bytes(self):
         with self.assertRaises(ValueError):
             lz70.parse(b"nope-nope-nope")
+
+
+class Lzss2(unittest.TestCase):
+    """Format atom0/lzss2: replay, encoder byte-identik, dan ambang token."""
+
+    def setUp(self):
+        self.streams = lzss2_streams()
+        if not self.streams:
+            self.skipTest("baserom.gba tidak ada")
+        self.assertEqual(len(self.streams), 70,
+                         "P1 atom0/lzss2 harus 70 stream")
+
+    def test_replay_is_byte_identical(self):
+        for label, original, _decoded, diff in self.streams:
+            size, widths, tokens, spec = lz70.parse_lzss2(original)
+            self.assertEqual(spec >> 5, diff, label)
+            self.assertEqual(lz70.serialize_lzss2(size, widths, tokens, spec),
+                             original, f"{label} replay beda")
+
+    def test_encode_is_byte_identical(self):
+        for label, original, decoded, diff in self.streams:
+            _size, widths, _tokens, _spec = lz70.parse_lzss2(original)
+            out = lz70.encode_lzss2(decoded, widths, diff)
+            self.assertEqual(out, original, f"{label} encoder beda")
+            self.assertEqual(decompress.unpack(out)[0], decoded, label)
+
+    def test_diff_encode_inverts_decoder(self):
+        payload = bytes(range(64))
+        for diff in range(5):
+            filtered = bytearray(lz70.diff_encode(payload, diff))
+            decompress.DIFF_FUNCS[diff](filtered)
+            self.assertEqual(bytes(filtered), payload, f"diff{diff}")
+
+    def test_escape_literal_threshold(self):
+        ladder = lz70.Ladder((7, 11))
+        eight = lz70._tokens_lzss2(bytes(range(8)), ladder)
+        nine = lz70._tokens_lzss2(bytes(range(9)), ladder)
+        self.assertTrue(all(t[0] == "lit" for t in eight))
+        self.assertEqual([len(t[1]) for t in nine if t[0] == "lrun"], [9])
+
+    def test_long_match_threshold(self):
+        ladder = lz70.Ladder((7, 11))
+        for length, kind in ((18, "match"), (19, "lmatch")):
+            block = bytes(range(length))
+            tokens = lz70._tokens_lzss2(block + b"\xff\xfe" + block, ladder)
+            found = [t for t in tokens if t[0] in ("match", "lmatch")]
+            self.assertTrue(any(t[0] == kind and t[2] == length
+                                for t in found), (length, tokens))
+
+    def test_three_byte_tail_stays_literal(self):
+        ladder = lz70.Ladder((7, 11))
+        tokens = lz70._tokens_lzss2(b"abcXYZabc", ladder)
+        self.assertFalse([t for t in tokens if t[0] in ("match", "lmatch")],
+                         tokens)
 
 
 if __name__ == "__main__":

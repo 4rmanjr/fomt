@@ -38,17 +38,26 @@ def sha256(data):
 
 def reencode_status(compressed, decoded, fmt):
     """-> (status, alasan). `ok` hanya dari encoder yang byte-identik."""
-    if fmt != "000":
-        return "opaque", f"belum ada encoder untuk format {fmt}"
     try:
-        _size, widths, _tokens = lz70.parse(compressed)
-        encoded = lz70.encode(decoded, widths, parity=True)
+        if fmt == "000":
+            _size, widths, _tokens = lz70.parse(compressed)
+            encoded = lz70.encode(decoded, widths, parity=True)
+            reason = ("encoder lz70 parity (match terpanjang, seri run) "
+                      "menghasilkan byte identik dengan tangga asli")
+        elif fmt in ("020", "023", "024"):
+            _size, widths, _tokens, spec = lz70.parse_lzss2(compressed)
+            if spec != ((int(fmt[2]) << 5) | 2):
+                return "opaque", f"spec {spec:#04x} tidak cocok format {fmt}"
+            encoded = lz70.encode_lzss2(decoded, widths, int(fmt[2]))
+            reason = ("encoder lz70 atom0/lzss2 (match terpanjang, escape "
+                      "literal >=9) byte identik dengan tangga asli")
+        else:
+            return "opaque", f"belum ada encoder untuk format {fmt}"
     except ValueError as exc:
         return "opaque", f"encoder 0x70 gagal: {exc}"
     if encoded == compressed:
-        return "ok", ("encoder lz70 parity (match terpanjang, seri run) "
-                      "menghasilkan byte identik dengan tangga asli")
-    return "opaque", "encoder 0x70 parity belum byte-identik"
+        return "ok", reason
+    return "opaque", "encoder 0x70 belum byte-identik dengan stream asli"
 
 
 def format_family(fmt):
@@ -262,10 +271,13 @@ def render_doc(result):
     out += [
         "",
         "Status `ok` hanya untuk stream yang compressed-nya dihasilkan ulang",
-        "byte-identik oleh `lz70.py` strategi `parity` dengan tangga asli.",
-        "Aturan itu terbukti pada format `000`: match terpanjang (seri -> jarak",
+        "byte-identik oleh `lz70.py` dengan tangga asli.",
+        "Aturan terbukti pada format `000`: match terpanjang (seri -> jarak",
         "terdekat), run menang bila panjangnya >= match, literal berhenti di",
-        "run>=2 atau match berikutnya. Format lain (atom/huffman di depan)",
+        "run>=2 atau match berikutnya. Untuk atom0/lzss2 (`020`/`023`/`024`)",
+        "aturannya match terpanjang (jarak seri -> terdekat), literal escape",
+        "dipakai mulai 9 B, match >18 B lewat escape, dan match 3 B di tiga",
+        "byte terakhir tidak dipakai. Format huffman (`1xx`/`2xx`) dan lzss3",
         "tetap `opaque` karena belum ada encodernya. `ok` di level stream juga",
         "belum berarti blob boleh diganti `.incbin`: satu blob bisa memuat",
         "banyak stream, dan penggantian menunggu seluruh isi blob ter-encode.",

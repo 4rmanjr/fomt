@@ -9,7 +9,7 @@ Tool: [`TOOLS.md`](./TOOLS.md).
 |---|---|
 | skrip Python | `python3 -m py_compile <skrip>` + `make test-tools` |
 | aset source (`assets/gfx/**`, `assets/manifest.json`) | `python3 tools/assets/asset_manifest.py --check` + `python3 tools/assets/asset_verify.py` (sha256 encoder == slice ROM; evidence palet harus cocok dengan tapak salinan: tujuan tetap vs basis + slot) |
-| encoder stream `0x70` | `python3 tools/assets/lz70.py probe` — exit 1 berarti ada stream yang belum byte-identik dan **harus** tetap `opaque`; ini status jujur, bukan alasan mengganti `.incbin` |
+| encoder stream `0x70` | `python3 tools/assets/lz70.py probe` — exit 1 berarti ada stream P0 (`000`) yang belum byte-identik dan **harus** tetap `opaque`; status per format (termasuk atom0/lzss2) diperiksa `stream_audit.py --check` |
 | `assets/0x70/reencode_manifest.json` / `ASET-0X70-REENCODE.md` | otomatis oleh `check_docs.py`: laporan dibandingkan dengan `stream_audit.build()` dari slice ROM + bin (blob utuh dan bank tertanam), jadi hash stream yang basi = masalah |
 | edit src manual / `migrate.py` | `make compare` HIJAU (`fomt.gba: OK`) |
 | judge, regen draf, parkir draf | tidak mengubah tree build → **tidak** perlu compare |

@@ -88,6 +88,7 @@ class Ladder:
         for width in self.widths:
             self.bases.append(start)
             start += 1 << width
+        self.max_distance = start - 1
 
     def encode(self, distance):
         for index, (base, width) in enumerate(zip(self.bases, self.widths)):
@@ -391,6 +392,264 @@ def serialize(size, widths, tokens):
         else:
             _emit_match(writer, ladder, token[1], token[2])
     return struct.pack("<I", (size << 8) | 0x70) + writer.bytes()
+
+
+def diff_encode(data, diff_fmt):
+    """Kebalikan `decompress.DIFF_FUNCS`: payload final -> data yang difilter.
+
+    Encoder asli memfilter payload lebih dulu, lalu meng-LZSS-kan hasilnya;
+    decoder meng-LZSS lalu membalik filter. Untuk menulis ulang compressed
+    byte-identik, encoder harus memakai data terfilter ini.
+    """
+    out = bytearray(data)
+    n = len(out)
+    if diff_fmt == 0:
+        return bytes(out)
+    if diff_fmt == 1:
+        kept = 0
+        for i in range(n):
+            lo, hi = out[i] & 0xF, (out[i] >> 4) & 0xF
+            # decoder: hi += kept lalu lo += hi, jadi filter menulis
+            # (lo - hi) dan (hi - kept); accumulator berikutnya = lo.
+            out[i] = ((lo - hi) & 0xF) | (((hi - kept) & 0xF) << 4)
+            kept = lo
+        return bytes(out)
+    if diff_fmt == 2:
+        previous = 0
+        for i in range(n):
+            value = out[i]
+            out[i] = (value - previous) & 0xFF
+            previous = value
+        return bytes(out)
+    if diff_fmt == 3:
+        previous = 0
+        if n % 2:
+            raise ValueError("diff3 butuh payload genap")
+        for i in range(0, n, 2):
+            value = out[i] | (out[i + 1] << 8)
+            delta = (value - previous) & 0xFFFF
+            out[i], out[i + 1] = delta & 0xFF, delta >> 8
+            previous = value
+        return bytes(out)
+    if diff_fmt == 4:
+        even_kept = odd_kept = 0
+        if n % 2:
+            raise ValueError("diff4 butuh payload genap")
+        for i in range(0, n, 2):
+            even, odd = out[i], out[i + 1]
+            out[i] = (even - even_kept) & 0xFF
+            out[i + 1] = (odd - odd_kept) & 0xFF
+            even_kept, odd_kept = even, odd
+        return bytes(out)
+    raise ValueError(f"diff{diff_fmt} tidak didukung")
+
+
+def _write_vli(writer, value):
+    """VLI basis 8: atom 4 bit, bit rendah = lanjut; digit besar dulu."""
+    digits = []
+    while True:
+        digits.append(value & 7)
+        value >>= 3
+        if not value:
+            break
+    last = len(digits) - 1
+    for index, digit in enumerate(reversed(digits)):
+        writer.write((digit << 1) | (0 if index == last else 1), 4)
+
+
+def _read_vli(read):
+    value = 0
+    while True:
+        atom = read.read_bits(4)
+        value = (value << 3) + (atom >> 1)
+        if not (atom & 1):
+            return value
+
+
+def _emit_literal2(writer, byte):
+    writer.write(0, 1)
+    writer.write(byte, 8)
+
+
+def _emit_literal_run(writer, chunk):
+    writer.write(1, 1)
+    writer.write(7, 3)
+    _write_vli(writer, len(chunk) - 1)
+    writer.write(0, 1)
+    for byte in chunk:
+        writer.write(byte, 8)
+
+
+def _emit_match2(writer, ladder, distance, length):
+    index, raw = ladder.encode(distance)
+    if index is None:
+        raise ValueError(f"jarak {distance} di luar tangga {ladder.widths}")
+    writer.write(1, 1)
+    if length <= 18:
+        writer.write(index, 3)
+        writer.write(raw, ladder.widths[index])
+        writer.write(length - 3, 4)
+        return
+    encoded = length - 3
+    writer.write(7, 3)
+    _write_vli(writer, encoded >> 4)
+    writer.write(1, 1)
+    writer.write(index, 3)
+    writer.write(raw, ladder.widths[index])
+    writer.write(encoded & 0xF, 4)
+
+
+def _tokens_lzss2(data, ladder):
+    """Aturan tokenisasi encoder asli atom0/lzss2 (terbukti 70/70 stream).
+
+    - match: **terpanjang** di seluruh jendela, jarak seri -> terdekat;
+      jarak 1 ikut dipertimbangkan (tidak ada token run di lzss2).
+    - kandidat dihitung dengan hash 3 byte dan rantai mundur, termasuk
+      posisi di dalam literal yang sedang berjalan dan match yang tumpang
+      tindih; decoder menyalin byte per byte sehingga keduanya sah.
+    - match 3 byte pada posisi tersisa tepat 3 byte tidak dipakai: encoder
+      butuh minimal 4 byte tersisa untuk mempertimbangkan match. Dua stream
+      P1 membuktikannya (ekor 3 byte jadi literal, bukan match jarak jauh).
+    - match 3..18 ditulis pendek; >18 lewat escape `idx=7` + VLI + 4 bit
+      rendah. Literal ditulis satu per satu, kecuali blok literal >= 9 byte
+      yang memakai escape literal (di bawah 9, escape kalah bit).
+    """
+    n = len(data)
+    head = {}
+    previous = [-1] * n
+    for index in range(max(0, n - 2)):
+        key = data[index:index + 3]
+        previous[index] = head.get(key, -1)
+        head[key] = index
+
+    def match_at(index):
+        if index + 4 > n:
+            return None
+        best = None
+        limit = n - index
+        candidate = head.get(data[index:index + 3], -1)
+        while candidate >= 0:
+            if candidate >= index:
+                candidate = previous[candidate]
+                continue
+            distance = index - candidate
+            if distance > ladder.max_distance:
+                break
+            length = 3
+            while (length < limit
+                   and data[candidate + length] == data[index + length]):
+                length += 1
+            if (best is None or length > best[1]
+                    or (length == best[1] and distance < best[0])):
+                best = (distance, length)
+            if best[1] == limit:
+                break  # tidak mungkin lebih panjang dari sisa data
+            candidate = previous[candidate]
+        return best
+
+    tokens = []
+    index = 0
+    while index < n:
+        match = match_at(index)
+        if match is not None:
+            distance, length = match
+            kind = "match" if length <= 18 else "lmatch"
+            tokens.append((kind, distance, length))
+            index += length
+            continue
+        start = index
+        index += 1
+        while index < n and match_at(index) is None:
+            index += 1
+        chunk = bytes(data[start:index])
+        if len(chunk) >= 9:
+            tokens.append(("lrun", chunk))
+        else:
+            tokens.extend(("lit", byte) for byte in chunk)
+    return tokens
+
+
+def parse_lzss2(stream):
+    """Stream atom0/lzss2 -> (size, widths, tokens, spec). Token persis asli."""
+    head = int.from_bytes(stream[:4], "little")
+    if head & 0xFF != 0x70:
+        raise ValueError("bukan header 0x70")
+    size = head >> 8
+    bits = decompress.ReadBits(stream, 4)
+    spec = bits.read_bits(8)
+    lzss_fmt = spec & 7
+    atom_fmt = (spec >> 3) & 3
+    diff_fmt = (spec >> 5) & 7
+    if atom_fmt != 0 or lzss_fmt != 2:
+        raise ValueError(f"format {atom_fmt}{lzss_fmt}{diff_fmt} bukan atom0/lzss2")
+    read = decompress.ReadRaw(bits)
+    widths = tuple(read.read_bits(4) + 1 for _ in range(7))
+    ladder = Ladder(widths)
+    tokens = []
+    produced = 0
+    while produced < size:
+        if read.read_bits(1) == 0:
+            tokens.append(("lit", read.read_byte()))
+            produced += 1
+            continue
+        index = read.read_bits(3)
+        if index < 7:
+            distance = ladder.bases[index] + read.read_bits(widths[index])
+            length = 3 + read.read_bits(4)
+            tokens.append(("match", distance, length))
+            produced += length
+            continue
+        count = _read_vli(read)
+        if read.read_bits(1) == 0:
+            chunk = bytes(read.read_byte() for _ in range(count + 1))
+            tokens.append(("lrun", chunk))
+            produced += len(chunk)
+            continue
+        index = read.read_bits(3)
+        if index == 7:
+            raise ValueError("escape match dengan idx 7 tidak valid")
+        distance = ladder.bases[index] + read.read_bits(widths[index])
+        length = read.read_bits(4) + (count << 4) + 3
+        tokens.append(("lmatch", distance, length))
+        produced += length
+    if produced != size:
+        raise ValueError(f"token menghasilkan {produced} B, header {size} B")
+    return size, widths, tokens, spec
+
+
+def serialize_lzss2(size, widths, tokens, spec):
+    ladder = Ladder(widths)
+    writer = BitWriter()
+    writer.write(spec, 8)
+    for width in widths:
+        writer.write(width - 1, 4)
+    for token in tokens:
+        if token[0] == "lit":
+            _emit_literal2(writer, token[1])
+        elif token[0] == "lrun":
+            _emit_literal_run(writer, token[1])
+        elif token[0] == "match":
+            _emit_match2(writer, ladder, token[1], token[2])
+        elif token[0] == "lmatch":
+            _emit_match2(writer, ladder, token[1], token[2])
+        else:
+            raise ValueError(f"token {token[0]} tidak dikenal")
+    return struct.pack("<I", (size << 8) | 0x70) + writer.bytes()
+
+
+def encode_lzss2(data, widths, diff_fmt=0):
+    """Payload final -> stream atom0/lzss2 byte-identik (tangga asli).
+
+    Payload difilter dulu dengan kebalikan `diff_fmt` (0..4), lalu tokenisasi
+    `_tokens_lzss2`. `spec = (diff<<5) | (atom0<<3) | lzss2`.
+    """
+    if len(data) > 0xFFFFFF:
+        raise ValueError("payload > 24 bit")
+    ladder = Ladder(widths)
+    filtered = diff_encode(data, diff_fmt)
+    tokens = _tokens_lzss2(filtered, ladder)
+    spec = ((diff_fmt & 7) << 5) | 2
+    return serialize_lzss2(len(data), widths, tokens, spec)
 
 
 def _decode(stream):
