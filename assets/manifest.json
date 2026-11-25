@@ -22,27 +22,6 @@
    "evidence": "memcpy (code_0803A8A4.s:3782) menyalin 0x20 B dari +0x3A0, dan tapak 4583 menyalin satu tile 0x20 B per indeks; slice 4100 B belum terbukti tersalin penuh."
   },
   {
-   "id": "gfx/fonts/gunk_0875b444",
-   "symbol": "gUnk_0875B444",
-   "kind": "font_container",
-   "semantics": "unidentified",
-   "status": "rom-exact",
-   "rom": {
-    "offset": "0x75B444",
-    "size": 1460,
-    "sha256": "1b3a3dd164c511bad3dc69b202a46ce526a5cc91d5c4ee1591e5098d44ee58a3"
-   },
-   "source": {
-    "json": "assets/gfx/fonts/gUnk_0875B444.json",
-    "png": "assets/gfx/fonts/gUnk_0875B444.png"
-   },
-   "encoder": {
-    "tool": "font_container.py",
-    "version": 1
-   },
-   "evidence": "func_0803C5B0 (code_0803A8A4.s:3610): func_0805E6CC(obj, gUnk_0875B444); container A=6/B=6/C=1/D=24/E=1/F=0/T=6, ekor 0x1E0 B disimpan tail_hex."
-  },
-  {
    "id": "gfx/fonts/gunk_084f90cc",
    "symbol": "gUnk_084F90CC",
    "kind": "glyph_font",

@@ -101,8 +101,8 @@
   "size": 1460,
   "sha256": "1b3a3dd164c511bad3dc69b202a46ce526a5cc91d5c4ee1591e5098d44ee58a3"
  },
- "note": "container func_0805E6CC: A=6/B=6/C=1/D=24/E=1/F=0/T=6; ekor 480 B disimpan tail_hex dan belum punya pembaca; PNG hanya 25 tile D+E",
- "status": "rom-exact",
+ "note": "container func_0805E6CC: A=6/B=6/C=1/D=24/E=1/F=0/T=6; ekor 480 B disimpan tail_hex dan belum punya pembaca; PNG hanya 25 tile D+E Status partial: ekor 0x1E0 B belum punya pembaca, jadi tidak dihitung selesai.",
+ "status": "partial",
  "semantics": "unidentified",
  "evidence": "func_0803C5B0 (code_0803A8A4.s:3610): func_0805E6CC(obj, gUnk_0875B444); container A=6/B=6/C=1/D=24/E=1/F=0/T=6, ekor 0x1E0 B disimpan tail_hex."
 }

@@ -1683,6 +1683,6 @@ gUnk_0875A440:
 
 	.global gUnk_0875B444
 gUnk_0875B444:
-	@ rom: 0x75B444 0x5B4 — source assets/gfx/fonts/gUnk_0875B444.json; container func_0805E6CC
-	@ A=6/B=6/C=1/D=24/E=1/F=0/T=6 + ekor 0x1E0 B; font_container.py: byte identik slice ROM.
-	.incbin "build/assets/gUnk_0875B444.bin"
+	@ PARKIR (partial): container func_0805E6CC (code_0803A8A4.s:3610); prefix A-F/T
+	@ berakhir di 0x3D4, ekor 0x1E0 B belum punya pembaca; source disimpan partial.
+	.incbin "baserom.gba", 0x75B444, 0x5B4

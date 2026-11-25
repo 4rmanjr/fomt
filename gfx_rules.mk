@@ -4,7 +4,6 @@
 
 ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_0875A440.bin \
-  $(BUILD_DIR)/assets/gUnk_0875B444.bin \
   $(BUILD_DIR)/assets/gUnk_084F90CC.bin \
   $(BUILD_DIR)/assets/gUnk_084FA9A0.bin \
   $(BUILD_DIR)/assets/gUnk_084FA7A0.bin \
@@ -222,13 +221,6 @@ $(BUILD_DIR)/assets/gUnk_0875A440.bin: \
     tools/assets/tile4bpp.py
 	@echo "ASSET $@"
 	@python3 tools/assets/tile4bpp.py encode --json assets/gfx/fonts/clock.json --out $@
-
-$(BUILD_DIR)/assets/gUnk_0875B444.bin: \
-    assets/gfx/fonts/gUnk_0875B444.json \
-    assets/gfx/fonts/gUnk_0875B444.png \
-    tools/assets/font_container.py
-	@echo "ASSET $@"
-	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/gUnk_0875B444.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_084F90CC.bin: \
     assets/gfx/fonts/glyph_084f90cc.json \
