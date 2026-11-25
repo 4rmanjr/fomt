@@ -1,12 +1,11 @@
 {
  "source_manifest": "assets/0x70/manifest.json",
  "total": 284,
- "reencodeable": 128,
- "opaque": 156,
+ "reencodeable": 284,
+ "opaque": 0,
  "decode_verified": 284,
  "counts": {
-  "opaque": 156,
-  "ok": 128
+  "ok": 284
  },
  "priorities": [
   {
@@ -73,7 +72,7 @@
    "formats": [
     "130"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_08527348",
@@ -81,7 +80,7 @@
    "formats": [
     "130"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_08527520",
@@ -89,7 +88,7 @@
    "formats": [
     "130"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_085275D0",
@@ -97,7 +96,7 @@
    "formats": [
     "230"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_0852A6D8",
@@ -105,7 +104,7 @@
    "formats": [
     "130"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_0852A7EC",
@@ -113,7 +112,7 @@
    "formats": [
     "130"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_0852A9BC",
@@ -121,7 +120,7 @@
    "formats": [
     "130"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_0852AA6C",
@@ -129,7 +128,7 @@
    "formats": [
     "220"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_086FB004",
@@ -137,7 +136,7 @@
    "formats": [
     "230"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_086FD19C",
@@ -164,7 +163,7 @@
     "230",
     "231"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_08714A30",
@@ -192,7 +191,7 @@
     "133",
     "231"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_08716F84",
@@ -215,7 +214,7 @@
     "230",
     "231"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_0872C5D0",
@@ -432,7 +431,7 @@
     "130",
     "220"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_0874A9C0",
@@ -440,7 +439,7 @@
    "formats": [
     "230"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_0874E648",
@@ -448,7 +447,7 @@
    "formats": [
     "230"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_0874EB60",
@@ -456,7 +455,7 @@
    "formats": [
     "100"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_0874ECCC",
@@ -464,7 +463,7 @@
    "formats": [
     "130"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_0874EF14",
@@ -504,7 +503,7 @@
    "formats": [
     "220"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   },
   {
    "symbol": "gUnk_0875822C",
@@ -512,7 +511,7 @@
    "formats": [
     "230"
    ],
-   "fully_encoded": false
+   "fully_encoded": true
   }
  ],
  "sources": [
@@ -551,8 +550,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_08527348",
@@ -574,8 +573,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_08527520",
@@ -597,8 +596,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_085275D0",
@@ -620,8 +619,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0852A6D8",
@@ -643,8 +642,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0852A7EC",
@@ -666,8 +665,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0852A9BC",
@@ -689,8 +688,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0852AA6C",
@@ -712,8 +711,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "220"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 220"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FB004",
@@ -735,8 +734,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD19C",
@@ -781,8 +780,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -804,8 +803,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -873,8 +872,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -919,8 +918,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -942,8 +941,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -965,8 +964,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1011,8 +1010,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "124"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 124"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1057,8 +1056,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1149,8 +1148,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1218,8 +1217,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1241,8 +1240,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1264,8 +1263,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1333,8 +1332,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1356,8 +1355,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1379,8 +1378,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1402,8 +1401,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1448,8 +1447,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1471,8 +1470,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "123"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 123"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1540,8 +1539,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1586,8 +1585,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1609,8 +1608,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1655,8 +1654,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1678,8 +1677,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1724,8 +1723,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1747,8 +1746,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1770,8 +1769,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1793,8 +1792,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1816,8 +1815,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1885,8 +1884,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1908,8 +1907,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_08714A30",
@@ -2023,8 +2022,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_08714BEC",
@@ -2069,8 +2068,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_08714BEC",
@@ -2092,8 +2091,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_08714BEC",
@@ -2207,8 +2206,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2276,8 +2275,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2322,8 +2321,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2368,8 +2367,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2391,8 +2390,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2414,8 +2413,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2437,8 +2436,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2460,8 +2459,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2529,8 +2528,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2552,8 +2551,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2575,8 +2574,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2621,8 +2620,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2644,8 +2643,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2713,8 +2712,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2736,8 +2735,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0872C5D0",
@@ -3357,8 +3356,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "220"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 220"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_08747A74",
@@ -3380,8 +3379,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_08747A74",
@@ -3403,8 +3402,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_08747A74",
@@ -3426,8 +3425,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_08747A74",
@@ -3449,8 +3448,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0874A9C0",
@@ -3472,8 +3471,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0874E648",
@@ -3495,8 +3494,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0874EB60",
@@ -3518,8 +3517,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "100"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 100"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0874ECCC",
@@ -3541,8 +3540,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0874EF14",
@@ -3656,8 +3655,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "220"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 220"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0875822C",
@@ -3679,8 +3678,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3702,8 +3701,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3748,8 +3747,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3771,8 +3770,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3794,8 +3793,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3817,8 +3816,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3840,8 +3839,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3909,8 +3908,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3955,8 +3954,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3978,8 +3977,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4047,8 +4046,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4093,8 +4092,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4116,8 +4115,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4139,8 +4138,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4162,8 +4161,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4185,8 +4184,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4231,8 +4230,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4254,8 +4253,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4277,8 +4276,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4323,8 +4322,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4369,8 +4368,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4392,8 +4391,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4438,8 +4437,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4461,8 +4460,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4507,8 +4506,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4576,8 +4575,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4622,8 +4621,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4645,8 +4644,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4668,8 +4667,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4691,8 +4690,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4714,8 +4713,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4783,8 +4782,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4829,8 +4828,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4852,8 +4851,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4921,8 +4920,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4944,8 +4943,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4967,8 +4966,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4990,8 +4989,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5013,8 +5012,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5036,8 +5035,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5082,8 +5081,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5105,8 +5104,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5151,8 +5150,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5174,8 +5173,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5197,8 +5196,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5220,8 +5219,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5243,8 +5242,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5266,8 +5265,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5312,8 +5311,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5335,8 +5334,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5381,8 +5380,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5404,8 +5403,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5473,8 +5472,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5542,8 +5541,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5565,8 +5564,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5588,8 +5587,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "220"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 220"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5611,8 +5610,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "123"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 123"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5634,8 +5633,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "124"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 124"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5680,8 +5679,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5749,8 +5748,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5772,8 +5771,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5795,8 +5794,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5818,8 +5817,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5864,8 +5863,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5887,8 +5886,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5933,8 +5932,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5956,8 +5955,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6002,8 +6001,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6025,8 +6024,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6048,8 +6047,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6094,8 +6093,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6117,8 +6116,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6163,8 +6162,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "220"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 220"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6209,8 +6208,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6232,8 +6231,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6255,8 +6254,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6278,8 +6277,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6301,8 +6300,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "220"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 220"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6347,8 +6346,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "230"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 230"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6370,8 +6369,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6393,8 +6392,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -6416,8 +6415,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "130"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 130"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6439,8 +6438,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "124"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 124"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6531,8 +6530,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6577,8 +6576,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6600,8 +6599,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6623,8 +6622,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "231"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 231"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6646,8 +6645,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "133"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 133"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -7014,8 +7013,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "134"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder untuk format 134"
+   "reencode": "ok",
+   "reason": "encoder lz70 huffman (header pohon + tangga dari stream, token LZSS parity byte identik)"
   },
   {
    "symbol": "gUnk_086DC3F4",

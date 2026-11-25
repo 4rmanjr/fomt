@@ -58,14 +58,20 @@ gUnk_08529794:
 
 	.global gUnk_08529994
 gUnk_08529994:
+	@ PARKIR: header 4 B + blok gaya 0x80 B; call site code_0803EE94.s:94173
+	@ hanya menyalin satu blok (0x80 B) per gaya, ekor 0x10 B dan batas gaya belum terbukti.
 	.incbin "baserom.gba", 0x529994, 0x214
 
 	.global gUnk_08529BA8
 gUnk_08529BA8:
+	@ PARKIR: header 4 B + blok gaya 0x40 B; call site code_0803EE94.s:94205
+	@ hanya menyalin satu blok per gaya, ekor 0x1B8 B belum terbukti.
 	.incbin "baserom.gba", 0x529BA8, 0x1FC
 
 	.global gUnk_08529DA4
 gUnk_08529DA4:
+	@ PARKIR: header 4 B + blok gaya 0x2C0 B; call site code_0803EE94.s:94236
+	@ hanya menyalin satu blok per gaya, ekor 0x240 B belum terbukti.
 	.incbin "baserom.gba", 0x529DA4, 0x934
 
 	.global gUnk_0852A6D8
@@ -92,14 +98,20 @@ gUnk_0852CA40:
 
 	.global gUnk_0852CC40
 gUnk_0852CC40:
+	@ PARKIR: pasangan gUnk_08529994 (varian malam); header 4 B + blok gaya 0x80 B,
+	@ ekor 0x10 B dan batas gaya belum terbukti (code_0803EE94.s:94177).
 	.incbin "baserom.gba", 0x52CC40, 0x214
 
 	.global gUnk_0852CE54
 gUnk_0852CE54:
+	@ PARKIR: pasangan gUnk_08529BA8; header 4 B + blok gaya 0x40 B,
+	@ ekor 0x1B8 B belum terbukti (code_0803EE94.s:94209).
 	.incbin "baserom.gba", 0x52CE54, 0x1FC
 
 	.global gUnk_0852D050
 gUnk_0852D050:
+	@ PARKIR: pasangan gUnk_08529DA4; header 4 B + blok gaya 0x2C0 B,
+	@ ekor 0x240 B belum terbukti (code_0803EE94.s:94240).
 	.incbin "baserom.gba", 0x52D050, 0x934
 
 	.global gUnk_0852D984
@@ -134,6 +146,7 @@ gUnk_08697920:
 
 	.global gUnk_08698B00
 gUnk_08698B00:
+	@ PARKIR: func_080A9850 menyalin 0x80 B ke lapis (+0x160) dari 0x314 B; sisa 0x294 B raw.
 	.incbin "baserom.gba", 0x698B00, 0x314
 
 	.global gUnk_08698E14
@@ -144,6 +157,7 @@ gUnk_08698E14:
 
 	.global gUnk_08699FF4
 gUnk_08699FF4:
+	@ PARKIR: func_080A9826/080CFB5C menyalin 0x80 B dari 0xB0 B (73%); ekor 0x30 B tanpa pembaca.
 	.incbin "baserom.gba", 0x699FF4, 0xB0
 
 	.global gUnk_0869A0A4
@@ -154,6 +168,8 @@ gUnk_0869A0A4:
 
 	.global gUnk_0869B284
 gUnk_0869B284:
+	@ PARKIR (container): prefix 308 B + 119 stream 0x70 (mulai +0x134); semua stream
+	@ byte-identik (284/284), tetapi encoder container (prefix + offset) belum ada.
 	.incbin "baserom.gba", 0x69B284, 0x3A284
 
 	.global gUnk_086D5508
@@ -164,10 +180,13 @@ gUnk_086D5508:
 
 	.global gUnk_086D6368
 gUnk_086D6368:
+	@ PARKIR: func_080A97CC/080CFB5C menyalin 0x60 B dari 0xF0 B (40%); sisa 0x90 B tanpa pembaca.
 	.incbin "baserom.gba", 0x6D6368, 0xF0
 
 	.global gUnk_086D6458
 gUnk_086D6458:
+	@ PARKIR: hanya dikembalikan method_0800AF5C (GetUnk8()==0);
+	@ 0/0xC0 B punya pembaca field yang terbukti.
 	.incbin "baserom.gba", 0x6D6458, 0xC0
 
 	.global gUnk_086D6518
@@ -190,10 +209,13 @@ gUnk_086D6528:
 
 	.global gUnk_086D6548
 gUnk_086D6548:
+	@ PARKIR: func_080A97F4/080CFB5C menyalin 0x60 B dari 0xC0 B (50%); sisa 0x60 B tanpa pembaca.
 	.incbin "baserom.gba", 0x6D6548, 0xC0
 
 	.global gUnk_086D6608
 gUnk_086D6608:
+	@ PARKIR: hanya dikembalikan method_0800AF5C (GetUnk8()==1);
+	@ 0/0x90 B punya pembaca field yang terbukti.
 	.incbin "baserom.gba", 0x6D6608, 0x90
 
 	.global gUnk_086D6698
@@ -204,6 +226,8 @@ gUnk_086D6698:
 
 	.global gUnk_086D74F8
 gUnk_086D74F8:
+	@ PARKIR (container): prefix 96 B + 25 stream 0x70 (mulai +0x60);
+	@ semua stream byte-identik, encoder container belum ada.
 	.incbin "baserom.gba", 0x6D74F8, 0x4ECC
 
 	.global gUnk_086DC3C4
@@ -232,6 +256,8 @@ gUnk_086DC3E8:
 
 	.global gUnk_086DC3F4
 gUnk_086DC3F4:
+	@ PARKIR (container): stempel 3x2 12 B (func_080AA540) + 3 stream 0x70 dari tabel
+	@ descriptor 0x08106860 (30x26); semua stream byte-identik, encoder container belum ada.
 	.incbin "baserom.gba", 0x6DC3F4, 0x158
 
 	.global gUnk_086DC54C
@@ -1654,4 +1680,6 @@ gUnk_0875A440:
 
 	.global gUnk_0875B444
 gUnk_0875B444:
+	@ PARKIR: container func_0805E6CC (code_0803A8A4.s:3609); tabel T berakhir
+	@ 0x3D4 dari 0x5B4, ekor 0x1E0 B belum punya pembaca.
 	.incbin "baserom.gba", 0x75B444, 0x5B4

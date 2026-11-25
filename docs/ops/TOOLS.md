@@ -333,8 +333,14 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   tetap wajib menyebut konstanta tujuannya — evidence yang menulis
   `0x05000200` padahal byte-nya masuk ke `0x05000200 + slot*0x20` ditolak.
 - `tools/assets/lz70.py` — encoder `0x70` untuk format `000`
-  (atom0/lzss0/diff0), atom0/lzss2 (`020`/`023`/`024`), dan atom0/lzss3
-  (`030`/`033`): header `(size<<8)|0x70`, format byte di dalam bitstream.
+  (atom0/lzss0/diff0), atom0/lzss2 (`020`/`023`/`024`), atom0/lzss3
+  (`030`/`033`), serta huffman4/huffman8 (`1xx`/`2xx`, termasuk lzss0/2/3
+  dan diff 0..4): header `(size<<8)|0x70`, format byte di dalam bitstream.
+  Huffman memakai pohon header asli (`parse_huffman` -> `counts`/`leaves`)
+  seperti decoder membacanya, lalu `encode_huffman` menurunkan ulang token
+  LZSS dan mengodekan literal dengan pohon itu; run lzss0 tetap byte mentah.
+  Pohon diperlakukan sebagai header, sama seperti tangga LZSS, bukan
+  diturunkan dari frekuensi.
   Lzss0 memakai tangga jarak 2 entri dengan perintah literal/run-length/lookup;
   lzss2 memakai tangga 7 entri, literal tunggal, dan escape VLI untuk blok
   literal >=9 B atau match >18 B; lzss3 memakai tangga 3 entri dan unit 2 B
@@ -354,8 +360,9 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   1..12. `--write-report` menulis `assets/0x70/encoder_probe.md`. Exit 1 bila
   ada stream yang belum byte-identik; tool ini tidak mengubah status manifest —
   keputusan itu tetap di `stream_audit.py`, yang memakai encoder `parity`
-  untuk `000`, `encode_lzss2` untuk atom0/lzss2, dan `encode_lzss3` untuk
-  atom0/lzss3, dan hanya menaikkan status bila compressed byte-identik. Aturan
+  untuk `000`, `encode_lzss2` untuk atom0/lzss2, `encode_lzss3` untuk
+  atom0/lzss3, dan `encode_huffman` untuk `1xx`/`2xx`, dan hanya menaikkan
+  status bila compressed byte-identik. Aturan
   lzss2: match terpanjang (seri -> terdekat), match 3 B di tiga byte terakhir
   tidak dipakai, literal escape mulai 9 B, match >18 B lewat escape. Aturan
   lzss3 sama tetapi per unit 2 B: match minimal 4 B, pendek 4..18 B, literal
@@ -444,9 +451,10 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   ulang terhadap sha256 `embedded_manifest.json`, lalu setiap stream diberi
   status dan kolom `sumber` (`blob 0x70`/`bank tertanam`).
   Status `ok` hanya diberikan bila encoder menghasilkan byte compressed yang
-  sama; format yang belum punya encoder tetap **`opaque`**. Prioritas `P0`–`P3`
-  (atom0/lzss0 → atom0/lzss → huffman4 → huffman8) hanya urutan kandidat
-  implementasi, bukan izin mengganti `.incbin`. Hasil reencode di-cache di
+  sama; semua format yang sudah diekstrak (atom0 dan huffman4/8) kini punya
+  encoder, jadi `opaque` tinggal penanda stream yang encoder-nya gagal/berbeda.
+  Prioritas `P0`–`P3` (atom0/lzss0 → atom0/lzss → huffman4 → huffman8) hanya
+  urutan kandidat implementasi, bukan izin mengganti `.incbin`. Hasil reencode di-cache di
   `build/.cache/stream_reencode.json` dengan kunci hash input + hash
   `lz70.py`/`decompress.py`/tool ini: run pertama membayar encode penuh, run
   berikutnya hanya verifikasi hash (detik), dan perubahan encoder otomatis

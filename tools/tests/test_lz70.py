@@ -101,6 +101,43 @@ def lzss3_streams():
     return atom0_streams(("030", "033"))
 
 
+def huffman_streams():
+    """(label, compressed, decoded, format) untuk semua stream huffman."""
+    if not ROM.exists():
+        return []
+    inv = load("asset_inventory",
+               REPO / "tools" / "scripts" / "asset_inventory.py")
+    rom = ROM.read_bytes()
+    by_symbol = {e.name: e for e in inv.analyze()[1]}
+    source = json.loads(MANIFEST.read_text())
+    embedded = json.loads(
+        (MANIFEST.parent / "embedded_manifest.json").read_text())
+    rows = []
+    for blob in source["streams"]:
+        entry = by_symbol.get(blob["blob"])
+        for stream in blob["streams"]:
+            fmt = str(stream["format"])
+            if fmt[0] not in "12":
+                continue
+            offset = entry.offset + int(stream["offset"])
+            packed = int(stream["packed"])
+            rows.append((f"{blob['blob']}#{stream['index']}",
+                         rom[offset:offset + packed],
+                         (MANIFEST.parent / stream["bin"]).read_bytes(), fmt))
+    for bank in embedded.get("banks", []):
+        entry = by_symbol.get(bank["blob"])
+        for stream in bank["streams"]:
+            fmt = str(stream["format"])
+            if fmt[0] not in "12":
+                continue
+            offset = entry.offset + int(stream["offset"])
+            packed = int(stream["packed"])
+            rows.append((f"{bank['blob']}#{stream['index']}",
+                         rom[offset:offset + packed],
+                         (MANIFEST.parent / stream["bin"]).read_bytes(), fmt))
+    return rows
+
+
 class Lz70(unittest.TestCase):
     def setUp(self):
         self.streams = p0_streams()
@@ -259,6 +296,47 @@ class Lzss3(unittest.TestCase):
         tail = lz70._tokens_lzss3(block + b"\xff\xfe" + block[:2], ladder)
         self.assertFalse([t for t in tail if t[0] in ("match", "lmatch")],
                          tail)
+
+
+class Huffman(unittest.TestCase):
+    """Format huffman4/8: pohon header + token LZSS parity byte-identik."""
+
+    def setUp(self):
+        self.streams = huffman_streams()
+        if not self.streams:
+            self.skipTest("baserom.gba tidak ada")
+        self.assertEqual(len(self.streams), 156,
+                         "huffman harus 156 stream (blob + bank tertanam)")
+
+    def test_encode_is_byte_identical(self):
+        for label, original, decoded, fmt in self.streams:
+            header = lz70.parse_huffman(original)
+            spec = header[1]
+            self.assertEqual(f"{(spec >> 3) & 3}{spec & 7}{spec >> 5}", fmt,
+                             label)
+            out = lz70.encode_huffman(decoded, header)
+            self.assertEqual(out, original, f"{label} encoder beda")
+            payload, unpacked_fmt, _ = decompress.unpack(out)
+            self.assertEqual(payload, decoded, label)
+            self.assertEqual(unpacked_fmt, fmt, label)
+
+    def test_tree_codes_match_header(self):
+        for label, original, _decoded, _fmt in self.streams:
+            _size, _spec, _atom, counts, leaves, _widths = \
+                lz70.parse_huffman(original)
+            codes = lz70.huffman_codes(counts, leaves)
+            self.assertEqual(len(codes), sum(counts), label)
+            for depth, row in enumerate(leaves):
+                for value in row:
+                    self.assertEqual(codes[value][1], depth + 1, label)
+
+    def test_rejects_non_huffman(self):
+        for _label, original, _decoded, _fmt in self.streams:
+            broken = bytearray(original)
+            broken[7] = 0x03  # atom0/lzss3, bukan huffman
+            with self.assertRaises(ValueError):
+                lz70.parse_huffman(bytes(broken))
+            break
 
 
 if __name__ == "__main__":

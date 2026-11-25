@@ -33,11 +33,9 @@ class StreamAudit(unittest.TestCase):
                     for s in b["streams"]]
         self.assertEqual(self.result["total"], expected)
         self.assertEqual(self.result["decode_verified"], expected)
-        # Encoder byte-identik: lzss0, atom0/lzss2, dan atom0/lzss3.
-        encoded_formats = ("000", "020", "023", "024", "030", "033")
-        expected_ok = sum(1 for fmt in formats if fmt in encoded_formats)
-        self.assertEqual(self.result["reencodeable"], expected_ok)
-        self.assertEqual(self.result["opaque"], expected - expected_ok)
+        # Semua format yang diekstrak kini punya encoder (atom0 + huffman).
+        self.assertEqual(self.result["reencodeable"], expected)
+        self.assertEqual(self.result["opaque"], 0)
         self.assertEqual(self.result["embedded_banks"], len(banks["banks"]))
         self.assertEqual(
             sum(s["streams"] for s in self.result["sources"]), expected)
@@ -71,7 +69,7 @@ class StreamAudit(unittest.TestCase):
             row = self.by_key[key]
             self.assertEqual(row["compressed"]["sha256"], compressed)
             self.assertEqual(row["decoded"]["sha256"], decoded)
-            self.assertEqual(row["reencode"], "opaque")
+            self.assertEqual(row["reencode"], "ok")
 
     def test_ok_streams_reen_code_byte_identical(self):
         """Status `ok` disertai encoder yang benar-benar byte-identik.
@@ -82,9 +80,10 @@ class StreamAudit(unittest.TestCase):
         """
         rom = (REPO / "baserom.gba").read_bytes()
         rows = [r for r in self.result["streams"] if r["reencode"] == "ok"]
-        self.assertTrue(rows, "format 000/atom0-lzss2 harus reencodeable")
+        self.assertTrue(rows, "semua stream harus reencodeable")
         formats = {r["format"] for r in rows}
-        self.assertEqual(formats, {"000", "020", "023", "024", "030", "033"})
+        self.assertIn("130", formats)
+        self.assertIn("230", formats)
         seen = set()
         for row in rows:
             if row["format"] in seen:

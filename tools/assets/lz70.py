@@ -856,6 +856,197 @@ def encode_lzss3(data, widths, diff_fmt=0):
     return serialize_lzss3(len(data), widths, tokens, spec)
 
 
+HUFF_BITS = {1: 4, 2: 8}  # atom_fmt -> bit lebar simbol
+LZSS_LADDER_LEN = {0: 2, 1: 4, 2: 7, 3: 3}  # lzss -1 sudah baca tangga
+
+
+def parse_huffman(stream):
+    """Stream huffman (`1xx`/`2xx`) -> (size, spec, atom, counts, leaves, widths).
+
+    Pohon huffman adalah **header** stream, sama seperti tangga LZSS: encoder
+    memakai header asli apa adanya, lalu menurunkan ulang token LZSS dari
+    payload. `counts[d]` = jumlah daun berkode panjang d+1; `leaves[d]` = nilai
+    daun pada panjang itu, berurutan sesuai penugasan kanonik decoder.
+    """
+    head = int.from_bytes(stream[:4], "little")
+    if head & 0xFF != 0x70:
+        raise ValueError("bukan header 0x70")
+    size = head >> 8
+    bits = decompress.ReadBits(stream, 4)
+    spec = bits.read_bits(8)
+    atom = (spec >> 3) & 3
+    lzss = spec & 7
+    if atom not in HUFF_BITS:
+        raise ValueError(f"atom {atom} bukan huffman")
+    if lzss not in LZSS_LADDER_LEN:
+        raise ValueError(f"lzss {lzss} belum punya tangga")
+    width = HUFF_BITS[atom]
+    counts = []
+    leaves = []
+    for _ in range(width * 2):
+        count = bits.read_bits(width)
+        counts.append(count)
+        leaves.append([bits.read_bits(width) for _ in range(count)])
+    widths = tuple(bits.read_bits(4) + 1 for _ in range(LZSS_LADDER_LEN[lzss]))
+    return size, spec, atom, counts, leaves, widths
+
+
+def huffman_codes(counts, leaves):
+    """(counts, leaves) -> {symbol: (kode, panjang)} kanonik seperti decoder."""
+    codes = {}
+    path = 0
+    for depth, (count, row) in enumerate(zip(counts, leaves)):
+        path <<= 1
+        if count > (1 << (depth + 1)):
+            raise ValueError(f"{count} daun pada panjang {depth + 1} tidak muat")
+        for value in row:
+            if value in codes:
+                raise ValueError(f"simbol {value} punya dua kode")
+            codes[value] = (path, depth + 1)
+            path += 1
+    if len(codes) < 2:
+        raise ValueError("pohon huffman perlu minimal dua daun")
+    return codes
+
+
+class HuffWriter(BitWriter):
+    """BitWriter + penulisan simbol; atom1 = dua nibble per byte."""
+
+    def __init__(self, codes, atom):
+        super().__init__()
+        self.codes = codes
+        self.atom = atom
+
+    def symbol(self, value):
+        code, length = self.codes[value]
+        self.write(code, length)
+
+    def byte(self, value):
+        if self.atom == 1:
+            self.symbol(value >> 4)
+            self.symbol(value & 0xF)
+        else:
+            self.symbol(value)
+
+
+def _emit_tokens_huffman(writer, tokens, lzss, ladder):
+    for token in tokens:
+        kind = token[0]
+        if lzss == 0:
+            if kind == "literal":
+                for start in range(0, len(token[1]), 64):
+                    chunk = token[1][start:start + 64]
+                    writer.write(2, 2)
+                    writer.write(len(chunk) - 1, 6)
+                    for byte in chunk:
+                        writer.byte(byte)
+            elif kind == "run":
+                writer.write(3, 2)
+                writer.write(token[2] - 2, 6)
+                writer.write(token[1], 8)  # run byte mentah, bukan simbol
+            else:
+                index, raw = ladder.encode(token[1])
+                writer.write(index, 2)
+                writer.write(raw, ladder.widths[index])
+                writer.write(token[2] - 3, 6)
+        elif lzss == 2:
+            if kind == "lit":
+                writer.write(0, 1)
+                writer.byte(token[1])
+            elif kind == "lrun":
+                writer.write(1, 1)
+                writer.write(7, 3)
+                _write_vli(writer, len(token[1]) - 1)
+                writer.write(0, 1)
+                for byte in token[1]:
+                    writer.byte(byte)
+            else:
+                distance, length = token[1], token[2]
+                index, raw = ladder.encode(distance)
+                writer.write(1, 1)
+                if length <= 18:
+                    writer.write(index, 3)
+                    writer.write(raw, ladder.widths[index])
+                    writer.write(length - 3, 4)
+                else:
+                    encoded = length - 3
+                    writer.write(7, 3)
+                    _write_vli(writer, encoded >> 4)
+                    writer.write(1, 1)
+                    writer.write(index, 3)
+                    writer.write(raw, ladder.widths[index])
+                    writer.write(encoded & 0xF, 4)
+        elif lzss == 3:
+            if kind == "lit":
+                writer.write(0, 1)
+                writer.byte(token[1][0])
+                writer.byte(token[1][1])
+            elif kind == "lrun":
+                writer.write(1, 1)
+                writer.write(3, 2)
+                _write_vli3(writer, len(token[1]) // 2 - 1)
+                writer.write(0, 1)
+                for byte in token[1]:
+                    writer.byte(byte)
+            else:
+                distance, length = token[1], token[2]
+                units, size = distance // 2, length // 2
+                index, raw = ladder.encode(units)
+                writer.write(1, 1)
+                if size <= 9:
+                    writer.write(index, 2)
+                    writer.write(raw, ladder.widths[index])
+                    writer.write(size - 2, 3)
+                else:
+                    writer.write(3, 2)
+                    _write_vli3(writer, (size - 2) >> 3)
+                    writer.write(1, 1)
+                    writer.write(index, 2)
+                    writer.write(raw, ladder.widths[index])
+                    writer.write((size - 2) & 7, 3)
+        elif lzss == 4:
+            writer.byte(token[1][0])
+        else:
+            raise ValueError(f"lzss {lzss} tidak didukung encoder huffman")
+
+
+def encode_huffman(data, header):
+    """Payload final + header huffman asli -> stream byte-identik.
+
+    Header (pohon + tangga) dipakai apa adanya seperti `parse`/`parse_lzss2`
+    memakai tangga dari stream asli. Token LZSS diturunkan ulang dari payload
+    dengan aturan parity yang sudah terbukti, lalu literal dikodekan dengan
+    pohon asli. Run lzss0 tetap byte mentah (decoder memakai `read_bits(8)`).
+    """
+    size, spec, atom, counts, leaves, widths = header
+    lzss = spec & 7
+    diff = (spec >> 5) & 7
+    ladder = Ladder(widths) if widths else None
+    codes = huffman_codes(counts, leaves)
+    filtered = diff_encode(data, diff)
+    if lzss == 0:
+        tokens = _tokens_parity(filtered, ladder)
+    elif lzss == 2:
+        tokens = _tokens_lzss2(filtered, ladder)
+    elif lzss == 3:
+        tokens = _tokens_lzss3(filtered, ladder)
+    elif lzss == 4:
+        tokens = [("lit", bytes([byte])) for byte in filtered]
+    else:
+        raise ValueError(f"lzss {lzss} tidak didukung encoder huffman")
+    writer = HuffWriter(codes, atom)
+    writer.write(spec, 8)
+    width = HUFF_BITS[atom]
+    for count, row in zip(counts, leaves):
+        writer.write(count, width)
+        for value in row:
+            writer.write(value, width)
+    for value in widths:
+        writer.write(value - 1, 4)
+    _emit_tokens_huffman(writer, tokens, lzss, ladder)
+    return struct.pack("<I", (size << 8) | 0x70) + writer.bytes()
+
+
 def _decode(stream):
     payload, fmt, _ = decompress.unpack(stream, 0)
     return payload, fmt

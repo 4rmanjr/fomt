@@ -72,15 +72,17 @@ Definisi selesainya sengaja ketat di kedua jalur:
   sehingga `.incbin` tidak lagi menunjuk `baserom.gba`. Aset yang mayoritas
   byte-nya masih `raw` (proven < 50%) diparkir `decoded-exact` dan tidak
   dihitung, walaupun encode-nya byte-identik. Seluruh blob grup `sprite/OBJ`
-  dan `palet` di `assets/raw` sudah punya source rom-exact; sprite di dalam
-  container terkompresi `0x70` masih menunggu encoder huffman yang byte-identik.
+  dan `palet` di `assets/raw` sudah punya source rom-exact; semua stream di
+  container terkompresi `0x70` (284/284) sudah bisa direencode byte-identik,
+  tetapi container-nya sendiri belum dipindahkan utuh karena prefix/stempel
+  dan batas stream-nya belum semuanya terbukti.
 - **Penyebut cakupan.** Populasi dihitung dari blob `.incbin` yang benar-benar
   terinventaris di `assets/raw` (satu blob = satu entri `.incbin`; satu blob
   bisa memuat beberapa sprite). Tabel per kelas memakai penyebut grup, jadi
   beberapa baris berbagi populasi; tabel "Cakupan per grup blob" di atasnya
   non-overlap dan totalnya memakai union blob supaya tidak menghitung ganda.
-  Stream di dalam container `0x70` belum masuk penyebut karena encoder-nya
-  belum byte-identik.
+  Stream di dalam container `0x70` belum masuk penyebut karena container-nya
+  belum dipindahkan utuh, walaupun setiap stream sudah byte-identik.
 
 Pipeline, tabel padanan pret/pokeemerald-expansion, dan alur menambah sprite:
 [docs/decomp/ARSITEKTUR-ASET.md](./docs/decomp/ARSITEKTUR-ASET.md).

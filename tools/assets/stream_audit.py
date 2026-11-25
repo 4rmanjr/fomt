@@ -61,6 +61,14 @@ def reencode_status(compressed, decoded, fmt):
             encoded = lz70.encode_lzss3(decoded, widths, int(fmt[2]))
             reason = ("encoder lz70 atom0/lzss3 (unit 2 B, escape literal "
                       ">=9 pasang) byte identik dengan tangga asli")
+        elif fmt[0] in "12":
+            header = lz70.parse_huffman(compressed)
+            spec = header[1]
+            if f"{(spec >> 3) & 3}{spec & 7}{spec >> 5}" != fmt:
+                return "opaque", f"spec {spec:#04x} tidak cocok format {fmt}"
+            encoded = lz70.encode_huffman(decoded, header)
+            reason = ("encoder lz70 huffman (header pohon + tangga dari "
+                      "stream, token LZSS parity byte identik)")
         else:
             return "opaque", f"belum ada encoder untuk format {fmt}"
     except ValueError as exc:
@@ -355,13 +363,14 @@ def render_doc(result):
     ]
     for blob in result["blobs"]:
         status = ("siap container" if blob["fully_encoded"]
-                  else "parkir: ada format tanpa encoder")
+                  else "parkir: ada stream opaque")
         out.append(f"| `{blob['symbol']}` | {blob['streams']} | "
                    f"`{','.join(blob['formats'])}` | {status} |")
     out += [
         "",
         "Status `ok` hanya untuk stream yang compressed-nya dihasilkan ulang",
-        "byte-identik oleh `lz70.py` dengan tangga asli.",
+        "byte-identik oleh `lz70.py` dengan header asli (tangga LZSS; untuk",
+        "huffman juga pohon simbol) seperti decoder membacanya.",
         "Aturan terbukti pada format `000`: match terpanjang (seri -> jarak",
         "terdekat), run menang bila panjangnya >= match, literal berhenti di",
         "run>=2 atau match berikutnya. Untuk atom0/lzss2 (`020`/`023`/`024`)",
@@ -369,10 +378,12 @@ def render_doc(result):
         "dipakai mulai 9 B, match >18 B lewat escape, dan match 3 B di tiga",
         "byte terakhir tidak dipakai. Lzss3 (`030`/`033`) memakai unit 2 B:",
         "match minimal 2 unit, pendek 2..9 unit, >9 unit lewat escape, literal",
-        "escape mulai 9 pasang. Format huffman (`1xx`/`2xx`) tetap `opaque`",
-        "karena belum ada encodernya. `ok` di level stream juga",
-        "belum berarti blob boleh diganti `.incbin`: satu blob bisa memuat",
-        "banyak stream, dan penggantian menunggu seluruh isi blob ter-encode.",
+        "escape mulai 9 pasang. Huffman (`1xx`/`2xx`) memakai pohon header",
+        "(counts + daun per panjang) apa adanya, sedangkan token LZSS dan",
+        "literal diturunkan ulang dengan aturan parity yang sama; run lzss0",
+        "tetap byte mentah karena decoder memakai `read_bits(8)`. `ok` di level",
+        "stream belum berarti blob boleh diganti `.incbin`: container masih",
+        "butuh prefix/stempel dan batas stream yang terbukti.",
         "",
         "## Bukti hash",
         "",
