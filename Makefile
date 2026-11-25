@@ -103,13 +103,28 @@ compare: $(ROM)
 
 .PHONY: compare
 
+# Gate lengkap satu perintah. Urutan sengaja: dokumen dulu (cepat, menangkap
+# laporan basi), lalu build ROM, aset, dan tes.
+gate:
+	@python3 tools/scripts/check_docs.py
+	@$(MAKE) --no-print-directory compare
+	@$(MAKE) --no-print-directory assets-check
+	@$(MAKE) --no-print-directory test-tools
+
+.PHONY: gate
+
 # Semua regresi tools/ (termasuk test_raw_assets.py); tidak menyentuh build
 # dan tidak menulis ROM.
 test-tools:
-	@echo "TEST tools/tests"
+	@echo "TEST tools/tests (paralel)"
+	@python3 tools/tests/run_parallel.py
+
+# Fallback satu proses bila ada bug yang hanya muncul serial.
+test-tools-serial:
+	@echo "TEST tools/tests (serial)"
 	@python3 -m unittest discover -s tools/tests -p 'test_*.py'
 
-.PHONY: test-tools
+.PHONY: test-tools test-tools-serial
 
 # ===================
 # = ASET SOURCE     =

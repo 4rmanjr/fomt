@@ -2,7 +2,7 @@
  "id": "gfx/maps/gunk_086d6528",
  "symbol": "gUnk_086D6528",
  "kind": "tilemap_bank",
- "status": "rom-exact",
+ "status": "decoded-exact",
  "semantics": "unidentified",
  "rom": {
   "offset": "0x6D6528",
@@ -36,5 +36,11 @@
    "hex": "ff93ff9325a326a327a328a3ffa3ffa325a326a327a328a3"
   }
  ],
- "note": "Layer 2x2 dari offset 0; 24 B sisa raw."
+ "note": "Layer 2x2 dari offset 0; 24 B sisa raw. Metrik: 24/32 B (75.0%) masih raw, jadi aset tidak dihitung selesai sampai byte itu punya pembaca.",
+ "coverage": {
+  "total_bytes": 32,
+  "proven_bytes": 8,
+  "raw_bytes": 24,
+  "proven_ratio": 0.25
+ }
 }

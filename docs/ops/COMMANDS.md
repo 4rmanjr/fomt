@@ -83,7 +83,8 @@ make assets-rules   # regenerasi gfx_rules.mk dari assets/gfx/**/*.json
 make assets-bin     # encode semua aset rom-exact -> build/assets/<symbol>.bin
 make assets-check   # gate: aturan + manifest tidak basi, hash cocok slice ROM
 make clean-assets   # hapus build/assets (ROM/ELF tidak disentuh)
-make test-tools     # 73 tes tools/ (encoder, manifest, inventory, CLI)
+make test-tools     # regresi tools/ (encoder, manifest, inventory, CLI)
+make gate           # check_docs + compare + assets-check + test-tools
 ```
 
 Alur lengkap sprite + tabel padanan pret/pokeemerald-expansion ada di

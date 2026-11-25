@@ -1168,26 +1168,6 @@
    "evidence": "method_0800AF20 mengembalikan gUnk_086D6520 untuk field 1 (literal 0xAF48); func_080AA6D0 menyalin src+0 dan src+4 masing-masing 4 B ke dua baris peta (2x2). Seluruh 8 B terbaca."
   },
   {
-   "id": "gfx/maps/gunk_086d6528",
-   "symbol": "gUnk_086D6528",
-   "kind": "tilemap_bank",
-   "semantics": "unidentified",
-   "status": "rom-exact",
-   "rom": {
-    "offset": "0x6D6528",
-    "size": 32,
-    "sha256": "3d8a3c5076a6d905639ce4ea2cddc5c6afe98e51e3c8c3b092dd2a634492383d"
-   },
-   "source": {
-    "json": "assets/gfx/maps/gUnk_086D6528.json"
-   },
-   "encoder": {
-    "tool": "tilemap_bank.py",
-    "version": 1
-   },
-   "evidence": "method_0800AF20 mengembalikan gUnk_086D6528 untuk field 2 (literal 0xAF50); func_080AA6D0 hanya menyalin src+0 dan src+4 (2x2 = 8 B). Sisa 24 B belum punya pembaca dan disimpan raw."
-  },
-  {
    "id": "gfx/maps/gunk_086dc3c4",
    "symbol": "gUnk_086DC3C4",
    "kind": "tilemap",
@@ -1288,46 +1268,6 @@
    "evidence": "asm/code_809E804.s baris 24613 (.L080AAB54) memilih gUnk_086DC54C untuk id 0xe (baris 24622); sl=6 (baris 24631) dan 4 baris (baris 24633) membuat loop 24672/24686 membaca tepat 24 entri u16 berurutan lewat ldrh [r4] (baris 24701), lalu strh ke lapis peta [r6,#0x14] (baris 24699/24702) di (x0+kolom, y0+baris). 24 entri = 48 B = seluruh slice; label di asm memang 0x30 dan simbol berikutnya (gUnk_086DC57C) tepat di +0x30, jadi batas simbol benar dan grid 6x4 urut baris round-trip terbukti."
   },
   {
-   "id": "gfx/maps/gunk_086dc57c",
-   "symbol": "gUnk_086DC57C",
-   "kind": "tilemap_bank",
-   "semantics": "unidentified",
-   "status": "rom-exact",
-   "rom": {
-    "offset": "0x6DC57C",
-    "size": 1804,
-    "sha256": "fe1cd4eb5ce77356d4c3fe11af4401943d78d238b6f9246982c2f20fed73d2b2"
-   },
-   "source": {
-    "json": "assets/gfx/maps/gUnk_086DC57C.json"
-   },
-   "encoder": {
-    "tool": "tilemap_bank.py",
-    "version": 1
-   },
-   "evidence": "func_080AA9C8 memilih gUnk_086DC57C untuk id 0xc (baris 24524); sl=2 dan tinggi=2 (baris 24556-24559), lalu loop 24678-24702 membaca 4 entri dari offset 0. Sisa byte tidak dibaca loop ini."
-  },
-  {
-   "id": "gfx/maps/gunk_086dcc88",
-   "symbol": "gUnk_086DCC88",
-   "kind": "tilemap_bank",
-   "semantics": "unidentified",
-   "status": "rom-exact",
-   "rom": {
-    "offset": "0x6DCC88",
-    "size": 2568,
-    "sha256": "aae671e7684258961ea7077941457dd6382b09aa7bbeaea11650880a73099ff9"
-   },
-   "source": {
-    "json": "assets/gfx/maps/gUnk_086DCC88.json"
-   },
-   "encoder": {
-    "tool": "tilemap_bank.py",
-    "version": 1
-   },
-   "evidence": "func_080AA9C8 memilih gUnk_086DCC88 untuk id 0xe (baris 24513); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini."
-  },
-  {
    "id": "gfx/maps/gunk_086dd690",
    "symbol": "gUnk_086DD690",
    "kind": "tilemap",
@@ -1366,66 +1306,6 @@
     "version": 1
    },
    "evidence": "asm/code_809E804.s baris 24613 (.L080AAB54) memilih gUnk_086DD6B0 untuk id 0xf (baris 24628); sl=6 (baris 24631) dan 4 baris (baris 24633) membuat loop 24672/24686 membaca tepat 24 entri u16 berurutan lewat ldrh [r4] (baris 24701), lalu strh ke lapis peta [r6,#0x14] (baris 24699/24702) di (x0+kolom, y0+baris). 24 entri = 48 B = seluruh slice; label di asm memang 0x30 dan simbol berikutnya (gUnk_086DD6E0) tepat di +0x30, jadi batas simbol benar dan grid 6x4 urut baris round-trip terbukti."
-  },
-  {
-   "id": "gfx/maps/gunk_086dd6e0",
-   "symbol": "gUnk_086DD6E0",
-   "kind": "tilemap_bank",
-   "semantics": "unidentified",
-   "status": "rom-exact",
-   "rom": {
-    "offset": "0x6DD6E0",
-    "size": 1804,
-    "sha256": "a2e4747c73c3fcbfd1e5d2bdb06dff22f9ffda200dad279846a53457703717cb"
-   },
-   "source": {
-    "json": "assets/gfx/maps/gUnk_086DD6E0.json"
-   },
-   "encoder": {
-    "tool": "tilemap_bank.py",
-    "version": 1
-   },
-   "evidence": "func_080AA9C8 memilih gUnk_086DD6E0 untuk id 0xd (baris 24532); sl=2 dan tinggi=2 (baris 24556-24559), lalu loop 24678-24702 membaca 4 entri dari offset 0. Sisa byte tidak dibaca loop ini."
-  },
-  {
-   "id": "gfx/maps/gunk_086dddec",
-   "symbol": "gUnk_086DDDEC",
-   "kind": "tilemap_bank",
-   "semantics": "unidentified",
-   "status": "rom-exact",
-   "rom": {
-    "offset": "0x6DDDEC",
-    "size": 2568,
-    "sha256": "55d5b978e65cbb7497042e53cb64658a8eefd66cd8d84105b9c1473a4f43f7e3"
-   },
-   "source": {
-    "json": "assets/gfx/maps/gUnk_086DDDEC.json"
-   },
-   "encoder": {
-    "tool": "tilemap_bank.py",
-    "version": 1
-   },
-   "evidence": "func_080AA9C8 memilih gUnk_086DDDEC untuk id 0xf (baris 24518); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini."
-  },
-  {
-   "id": "gfx/maps/gunk_086de7f4",
-   "symbol": "gUnk_086DE7F4",
-   "kind": "tilemap_bank",
-   "semantics": "unidentified",
-   "status": "rom-exact",
-   "rom": {
-    "offset": "0x6DE7F4",
-    "size": 50408,
-    "sha256": "e512d2c0dfc1fbbf9d7623519c7991ae72adef95e8316b6b2185f7c17dd95ec9"
-   },
-   "source": {
-    "json": "assets/gfx/maps/gUnk_086DE7F4.json"
-   },
-   "encoder": {
-    "tool": "tilemap_bank.py",
-    "version": 1
-   },
-   "evidence": "asm/code_809E804.s baris 14381 (func_080A5BD8) membaca descriptor 0x18 B: u8 lebar (14397), u8 tinggi (14398), tiga pointer layer u16 di +4/+8/+0xc (14401), lalu memcpy lebar x tinggi entri per layer (14436) ke lapis peta. Tabel descriptor 0x10692C-0x1070DC (82 record) menunjuk layer di blob ini; source mencatat offset/lebar/tinggi tiap layer, dan raw menutup byte yang tidak dirujuk supaya round-trip byte-identik tanpa mengarang format."
   },
   {
    "id": "gfx/maps/gunk_086eacdc",
@@ -1484,26 +1364,6 @@
     "tool": "map2bin.py",
     "version": 1
    }
-  },
-  {
-   "id": "gfx/maps/gunk_086ead8c",
-   "symbol": "gUnk_086EAD8C",
-   "kind": "tilemap_bank",
-   "semantics": "unidentified",
-   "status": "rom-exact",
-   "rom": {
-    "offset": "0x6EAD8C",
-    "size": 33312,
-    "sha256": "6be5082486e5cedceb426faaed59e352778254e6204154347a5cb37b0802e29e"
-   },
-   "source": {
-    "json": "assets/gfx/maps/gUnk_086EAD8C.json"
-   },
-   "encoder": {
-    "tool": "tilemap_bank.py",
-    "version": 1
-   },
-   "evidence": "asm/code_809E804.s baris 14381 (func_080A5BD8) membaca descriptor 0x18 B: u8 lebar (14397), u8 tinggi (14398), tiga pointer layer u16 di +4/+8/+0xc (14401), lalu memcpy lebar x tinggi entri per layer (14436) ke lapis peta. Tabel descriptor 0x10692C-0x1070DC (82 record) menunjuk layer di blob ini; source mencatat offset/lebar/tinggi tiap layer, dan raw menutup byte yang tidak dirujuk supaya round-trip byte-identik tanpa mengarang format."
   },
   {
    "id": "gfx/maps/gunk_08755230",

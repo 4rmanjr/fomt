@@ -30,6 +30,9 @@ MANIFEST = REPO / "assets" / "0x70" / "manifest.json"
 EMBEDDED = REPO / "assets" / "0x70" / "embedded_manifest.json"
 OUT = REPO / "assets" / "0x70" / "reencode_manifest.json"
 DOC = REPO / "docs" / "decomp" / "ASET-0X70-REENCODE.md"
+CACHE = REPO / "build" / ".cache" / "stream_reencode.json"
+CACHE_TOOLS = (Path(__file__), REPO / "tools" / "assets" / "lz70.py",
+               REPO / "tools" / "scripts" / "decompress.py")
 
 
 def sha256(data):
@@ -67,6 +70,46 @@ def reencode_status(compressed, decoded, fmt):
     return "opaque", "encoder 0x70 belum byte-identik dengan stream asli"
 
 
+def _cache_key():
+    """Kunci cache: perubahan encoder/decoder otomatis membatalkan cache."""
+    digest = hashlib.sha256()
+    for path in CACHE_TOOLS:
+        digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
+def load_cache(path=CACHE):
+    """-> dict input-hash -> [status, reason]; kosong bila cache basi."""
+    try:
+        data = json.loads(Path(path).read_text())
+    except (OSError, ValueError):
+        return {}
+    if data.get("tool") != _cache_key():
+        return {}
+    entries = data.get("entries")
+    return entries if isinstance(entries, dict) else {}
+
+
+def save_cache(entries, path=CACHE):
+    path = Path(path)
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({"tool": _cache_key(), "entries": entries},
+                                   sort_keys=True) + "\n")
+    except OSError:
+        pass  # cache hanya percepatan; gate tetap jalan tanpa cache
+
+
+def cached_reencode(compressed, decoded, fmt, cache):
+    """reencode_status dengan cache per (format, compressed, decoded)."""
+    key = f"{fmt}:{sha256(compressed)}:{sha256(decoded)}"
+    if key in cache:
+        return tuple(cache[key])
+    status, reason = reencode_status(compressed, decoded, fmt)
+    cache[key] = [status, reason]
+    return status, reason
+
+
 def format_family(fmt):
     """(prioritas, keluarga) dari tiga digit atom/lzss/diff."""
     atom = int(fmt[0])
@@ -91,6 +134,7 @@ def build(manifest=MANIFEST, rom_path=REPO / "baserom.gba",
     """
     manifest = Path(manifest)
     rom = Path(rom_path).read_bytes()
+    cache = load_cache()
     source = json.loads(manifest.read_text())
     by_symbol = {e.name: e for e in inv.analyze()[1]}
     rows = []
@@ -119,8 +163,8 @@ def build(manifest=MANIFEST, rom_path=REPO / "baserom.gba",
                 raise SystemExit(
                     f"{blob['blob']}#{stream['index']}: decode compressed != bin")
             priority, family = format_family(str(stream["format"]))
-            reencode, reason = reencode_status(
-                compressed, decoded, str(stream["format"]))
+            reencode, reason = cached_reencode(
+                compressed, decoded, str(stream["format"]), cache)
             rows.append({
                 "symbol": blob["blob"],
                 "index": stream["index"],
@@ -173,8 +217,8 @@ def build(manifest=MANIFEST, rom_path=REPO / "baserom.gba",
                 raise SystemExit(
                     f"{where}: bin extern beda dengan embedded_manifest")
             priority, family = format_family(str(stream["format"]))
-            reencode, reason = reencode_status(
-                compressed, decoded, str(stream["format"]))
+            reencode, reason = cached_reencode(
+                compressed, decoded, str(stream["format"]), cache)
             rows.append({
                 "symbol": bank["blob"],
                 "index": stream["index"],
@@ -235,6 +279,7 @@ def build(manifest=MANIFEST, rom_path=REPO / "baserom.gba",
         s["streams"] += 1
         s["packed"] += row["compressed"]["size"]
         s["decoded"] += row["decoded"]["size"]
+    save_cache(cache)
     return {
         "source_manifest": str(manifest.relative_to(REPO)),
         "total": len(rows),

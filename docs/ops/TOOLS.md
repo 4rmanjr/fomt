@@ -442,10 +442,13 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   ulang terhadap sha256 `embedded_manifest.json`, lalu setiap stream diberi
   status dan kolom `sumber` (`blob 0x70`/`bank tertanam`).
   Status `ok` hanya diberikan bila encoder menghasilkan byte compressed yang
-  sama; selama repo hanya punya `decompress.unpack()` tanpa encoder, semua
-  stream tetap **`opaque`**. Prioritas `P0`–`P3` (atom0/lzss0 → atom0/lzss →
-  huffman4 → huffman8) hanya urutan kandidat implementasi, bukan izin mengganti
-  `.incbin`. Menulis `assets/0x70/reencode_manifest.json` dan
+  sama; format yang belum punya encoder tetap **`opaque`**. Prioritas `P0`–`P3`
+  (atom0/lzss0 → atom0/lzss → huffman4 → huffman8) hanya urutan kandidat
+  implementasi, bukan izin mengganti `.incbin`. Hasil reencode di-cache di
+  `build/.cache/stream_reencode.json` dengan kunci hash input + hash
+  `lz70.py`/`decompress.py`/tool ini: run pertama membayar encode penuh, run
+  berikutnya hanya verifikasi hash (detik), dan perubahan encoder otomatis
+  membatalkan cache. Menulis `assets/0x70/reencode_manifest.json` dan
   `docs/decomp/ASET-0X70-REENCODE.md`; `--check` exit 1 bila laporan basi.
   Gate yang sama dipasang di `check_docs.py`, jadi hash semua stream tidak
   bisa basi tanpa ketahuan walau tidak ada yang ingat menjalankan `--check`.
@@ -593,9 +596,13 @@ dikerjakan, lalu periksa `git diff` (tool ini tidak punya `--check`).
 
 ## Regresi tool (`tools/tests/`)
 
-`make test-tools` menjalankan semuanya (`unittest discover`); tidak menyentuh
+`make test-tools` menjalankan semua modul lewat `tools/tests/run_parallel.py`:
+tiap modul di proses terpisah (default sampai 6 worker, atur dengan
+`FOMT_TEST_WORKERS`), jadi modul lambat tidak menahan modul lain. Hasil dan
+exit code tetap `unittest` yang sama; `make test-tools-serial` menjalankan
+`unittest discover` satu proses bila perlu membandingkan. Tidak menyentuh
 build dan tidak menulis ROM. Berkas yang ada:
-`test_cli.py`, `test_asset_manifest.py`, `test_asset_verify.py`,
+`run_parallel.py`, `test_cli.py`, `test_asset_manifest.py`, `test_asset_verify.py`,
 `test_embedded_streams.py`, `test_font_container.py`, `test_font_palettes.py`,
 `test_glyph_font.py`, `test_glyph_index.py`, `test_lz70.py`, `test_map2bin.py`, `test_tilemap_bank.py`,
 `test_raw_assets.py`,

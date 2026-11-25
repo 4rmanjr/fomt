@@ -150,8 +150,11 @@ def build_entry(meta_path, rom):
     return entry
 
 
+PARKED_STATUSES = ("decoded-exact", "header-only", "opaque", "partial")
+
+
 def build(asset_dirs=ASSET_DIRS, rom_path=ROM):
-    """-> isi manifest; SystemExit bila ada aset yang belum rom-exact."""
+    """-> isi manifest; metadata non-rom-exact diparkir, bukan dihitung."""
     rom_path = Path(rom_path)
     if not rom_path.exists():
         raise SystemExit(f"{rom_path}: ROM referensi tidak ada")
@@ -164,6 +167,13 @@ def build(asset_dirs=ASSET_DIRS, rom_path=ROM):
             # rom/kind), mis. `palettes.json` dari font_palettes.py.
             if "rom" not in meta or "kind" not in meta:
                 continue
+            status = meta.get("status")
+            if status in PARKED_STATUSES:
+                continue
+            if status != "rom-exact":
+                raise SystemExit(
+                    f"{path}: status {status!r} tidak dikenal; pakai "
+                    f"rom-exact atau salah satu {PARKED_STATUSES}")
             entries.append(build_entry(path, rom))
     if not entries:
         raise SystemExit(f"{asset_dirs}: tidak ada metadata aset")

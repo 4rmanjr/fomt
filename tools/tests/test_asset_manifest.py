@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regresi indeks aset: sinkron dengan metadata dan menolak non-rom-exact."""
+"""Regresi indeks aset: sinkron, memarkir non-rom-exact, menolak status asing."""
 import importlib.util
 import json
 import shutil
@@ -32,7 +32,8 @@ class AssetManifest(unittest.TestCase):
         for directory in asset_manifest.ASSET_DIRS:
             for path in sorted(Path(directory).glob("*.json")):
                 meta = json.loads(path.read_text())
-                if "rom" in meta and "kind" in meta:
+                if ("rom" in meta and "kind" in meta
+                        and meta.get("status") == "rom-exact"):
                     expected.append(meta["symbol"])
         self.assertEqual([a["symbol"] for a in assets], expected)
         kinds = {a["kind"] for a in assets}

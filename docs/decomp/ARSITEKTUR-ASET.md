@@ -588,6 +588,13 @@ aset source yang lolos gate.
   encoder sama byte. Status ini per stream; alasan parkir yang tersisa
   adalah format huffman di atas, bukan tebakan isi.
   Rincian angka: `docs/decomp/ASET-0X70-REENCODE.md`.
+- **Huffman (prioritas berikut):** probe pada `gUnk_08527238` (format `130`)
+  menunjukkan kedalaman kode Huffman4 bisa direproduksi dari frekuensi
+  **literal** (bukan frekuensi byte hasil decode), dengan heap seri yang
+  dipecah menurut urutan masuk. Namun penugasan path/kode masih beda dari
+  stream asli, jadi tree belum bisa ditulis byte-identik; encoder huffman
+  dan container untuk blob yang memuatnya tetap **belum** ada. Jangan ubah
+  status stream huffman menjadi `ok` sebelum tree + token stream cocok byte.
 
 **Exit:** container yang exact sudah terverifikasi; sisanya punya alasan.
 
@@ -712,10 +719,14 @@ Sebuah aset dianggap selesai jika:
 - offset/ukuran/alignment tidak berubah;
 - `make compare` HIJAU;
 - tidak memakai `.incbin "baserom.gba"`;
+- byte yang belum punya pembaca tidak mendominasi source: `coverage.
+  proven_ratio` minimal 0.5 (di bawah itu aset diparkir, bukan dihitung);
 - dokumentasi dan tool yang dipakai tercatat.
 
-Status `decoded-exact`, `header-only`, dan `opaque` tetap boleh ada sebagai
-utang teknis yang tercatat, tetapi tidak dihitung sebagai aset selesai.
+Status `decoded-exact`, `header-only`, `opaque`, dan `partial` tetap boleh ada
+sebagai utang teknis yang tercatat, tetapi tidak dihitung sebagai aset selesai.
+Ambang 0.5 mencegah bank yang 90%+ isinya `raw` menaikkan cakupan seolah-olah
+byte itu sudah diterjemahkan.
 
 ## 18. Pola pret/pokeemerald-expansion yang diadopsi
 
@@ -1160,29 +1171,31 @@ bersebelahan, bukan blok 32 B. Pointer descriptor itu tidak kelipatan 32, dan
 `gUnk_086DE7F4` juga dirujuk pada offset 4x6/17x20 dan ukuran campuran. Jadi
 keduanya bank layer peta berukuran variabel yang dirujuk per offset.
 
-Keduanya sudah dimigrasikan dengan `kind: tilemap_bank`
-(`tools/assets/tilemap_bank.py`). Source-nya satu JSON per simbol yang memuat
-`layers` (offset, lebar, tinggi, descriptor, slot, entri urut baris) dan `raw`
+Keduanya punya source `kind: tilemap_bank`
+(`tools/assets/tilemap_bank.py`), tetapi **tidak dihitung selesai**: 30.426/
+33.312 B (91,3%) dan 29.940/50.408 B (59,4%) masih `raw`. Source-nya satu JSON
+per simbol yang memuat `layers` (offset, lebar, tinggi, descriptor, slot, entri
+urut baris) dan `raw`
 (hex byte yang tidak dirujuk); `encode` menolak source yang tidak menutup
 seluruh `rom.size`, tumpang tindih, atau jumlah entri tidak sama dengan
 `lebar x tinggi`. Layer diambil dari tabel descriptor `0x10692C`-`0x1070DC`
 (record `0x18`) yang menunjuk ke dalam blob, sehingga offset/ukuran tiap layer
 tidak ditebak. `.incbin` **tidak perlu dipecah** di offset layer: pointer
-descriptor adalah angka absolut, dan mengganti satu simbol utuh dengan binary
-hasil encode menjaga semua offset. Split hanya akan menambah label tanpa
-mengubah byte; yang penting source mencatat offset tiap layer. Byte yang tidak
-dirujuk tetap `raw` dan boleh belum dipahami — round-trip tetap byte-identik,
-tetapi byte itu tidak diklaim sebagai layer.
+descriptor adalah angka absolut, dan (kalau nanti byte `raw` sudah terbukti)
+mengganti satu simbol utuh dengan binary hasil encode menjaga semua offset.
+Split hanya akan menambah label tanpa mengubah byte; yang penting source
+mencatat offset tiap layer. Byte yang tidak dirujuk tetap `raw` dan belum
+dipahami — round-trip byte-identik, tetapi byte itu tidak diklaim sebagai
+layer dan asetnya berstatus `decoded-exact` sampai coverage cukup.
 
 Alasan parkir stamp lain, semuanya dari loop yang sama:
 
 - `gUnk_086DCC88`/`gUnk_086DDDEC` (2568 B) hanya 32 B pertamanya dibaca
   (layer 4x4), `gUnk_086DC57C`/`gUnk_086DD6E0` (1804 B) hanya 8 B (layer 2x2).
-  Keempatnya sudah dimigrasikan sebagai `kind: tilemap_bank`: layer dari
-  offset 0, sisa byte disimpan `raw` sehingga round-trip tetap byte-identik
-  tanpa mengarang isi yang belum punya pembaca. Dua stamp 2x2 yang seluruh
-  slice-nya habis dibaca (`gUnk_086EACDC`, `gUnk_086EAD84`) juga sudah
-  dimigrasikan sebagai tilemap di §`func_08077E64`.
+  Keempatnya berstatus `decoded-exact`, **bukan** aset selesai: layer dari
+  offset 0 hanya 8/1804 B atau 32/2568 B (0,4–1,2% proven), sisanya `raw`.
+  Dua stamp 2x2 yang seluruh slice-nya habis dibaca (`gUnk_086EACDC`,
+  `gUnk_086EAD84`) tetap dihitung sebagai tilemap di §`func_08077E64`.
 
 ### Cluster BG map `func_08077E64`
 
@@ -1202,7 +1215,8 @@ Dua pola pointer literal melengkapi cluster ini. `method_0800AF20`
 mengembalikan `gUnk_086D6518`/`gUnk_086D6520` untuk field 0/1, lalu
 `func_080AA6D0` menyalin `src+0` dan `src+4` ke dua baris peta: 2x2, seluruh
 8 B. Untuk field 2 (`gUnk_086D6528`) hanya 8 B pertama yang disalin, jadi
-24 B sisanya disimpan `raw` lewat `kind: tilemap_bank`. `func_0809E0AC`
+24 B sisanya `raw`; aset itu diparkir `decoded-exact` (25% proven) dan tidak
+dihitung selesai. `func_0809E0AC`
 mengembalikan `gUnk_086DC3C4`–`gUnk_086DC3E8` untuk field 0–3, dan
 `func_080AA540` menyalin `src+0/+4/+8` masing-masing 4 B ke tiga baris:
 2x3, seluruh 12 B. Field 4 adalah blob terkompresi `gUnk_086DC3F4`, bukan

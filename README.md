@@ -45,11 +45,10 @@ Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.093 B (7,1%)** — persent
 | Palet | 51 | 64 | `████████████████░░░░` 79,7% |
 | Tiles 4bpp | 10 | 86 | `██░░░░░░░░░░░░░░░░░░` 11,6% |
 | Tilemap | 25 | 142 | `████░░░░░░░░░░░░░░░░` 17,6% |
-| Bank layer peta | 7 | 78 | `██░░░░░░░░░░░░░░░░░░` 9% |
 | Container font | 51 | 149 | `███████░░░░░░░░░░░░░` 34,2% |
 | Glyph 8x12 | 2 | 86 | `░░░░░░░░░░░░░░░░░░░░` 2,3% |
 | Indeks glyph | 2 | 63 | `█░░░░░░░░░░░░░░░░░░░` 3,2% |
-| **Total (blob unik)** | 204 | 228 | `██████████████████░░` 89,5% |
+| **Total (blob unik)** | 197 | 228 | `█████████████████░░░` 86,4% |
 <!-- README-STATS:END -->
 
 Definisi selesainya sengaja ketat di kedua jalur:
@@ -60,7 +59,9 @@ Definisi selesainya sengaja ketat di kedua jalur:
   kebanyakan fungsi kecil.
 - **Aset.** Selesai berarti PNG terindeks + palet JASC + metadata JSON di
   `assets/gfx/`, di-encode tool repo, dan `sha256(encoded) == sha256(slice ROM)`
-  sehingga `.incbin` tidak lagi menunjuk `baserom.gba`. Sprite pertama yang
+  sehingga `.incbin` tidak lagi menunjuk `baserom.gba`. Aset yang mayoritas
+  byte-nya masih `raw` (proven < 50%) diparkir `decoded-exact` dan tidak
+  dihitung, walaupun encode-nya byte-identik. Sprite pertama yang
   sudah begitu: `gUnk_087518CC` (128 B, 4 tile 4bpp). Blob sprite lain masih
   `.incbin` ROM, dan sprite di dalam container terkompresi `0x70` menunggu
   encoder yang byte-identik.

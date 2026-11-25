@@ -184,9 +184,9 @@ gUnk_086D6520:
 
 	.global gUnk_086D6528
 gUnk_086D6528:
-	@ rom: 0x6D6528 0x20 — source assets/gfx/maps/gUnk_086D6528.json
-	@ layer 2x2 offset 0 dibaca method_0800AF20 field 2 (0xAF50) via func_080AA6D0; 24 B sisa raw.
-	.incbin "build/assets/gUnk_086D6528.bin"
+	@ PARKIR (decoded-exact): layer 2x2 offset 0 sudah terbukti, 24/32 B raw;
+	@ source assets/gfx/maps/gUnk_086D6528.json, belum dihitung selesai.
+	.incbin "baserom.gba", 0x6D6528, 0x20
 
 	.global gUnk_086D6548
 gUnk_086D6548:
@@ -244,15 +244,15 @@ gUnk_086DC54C:
 
 	.global gUnk_086DC57C
 gUnk_086DC57C:
-	@ rom: 0x6DC57C 0x70C — source assets/gfx/maps/gUnk_086DC57C.json
-	@ layer 2x2 di offset 0 dibaca func_080AA9C8 (id 0xc, 24524; sl=2, tinggi=2, loop 24678-24702); 1796 B sisa raw.
-	.incbin "build/assets/gUnk_086DC57C.bin"
+	@ PARKIR (decoded-exact): layer 2x2 offset 0 terbukti, 1796/1804 B raw;
+	@ source assets/gfx/maps/gUnk_086DC57C.json, belum dihitung selesai.
+	.incbin "baserom.gba", 0x6DC57C, 0x70C
 
 	.global gUnk_086DCC88
 gUnk_086DCC88:
-	@ rom: 0x6DCC88 0xA08 — source assets/gfx/maps/gUnk_086DCC88.json
-	@ layer 4x4 di offset 0 dibaca func_080AA9C8 (id 0xe, 24513; sl=4, 4 baris, loop 24678-24702); 2536 B sisa raw.
-	.incbin "build/assets/gUnk_086DCC88.bin"
+	@ PARKIR (decoded-exact): layer 4x4 offset 0 terbukti, 2536/2568 B raw;
+	@ source assets/gfx/maps/gUnk_086DCC88.json, belum dihitung selesai.
+	.incbin "baserom.gba", 0x6DCC88, 0xA08
 
 	.global gUnk_086DD690
 gUnk_086DD690:
@@ -271,22 +271,21 @@ gUnk_086DD6B0:
 
 	.global gUnk_086DD6E0
 gUnk_086DD6E0:
-	@ rom: 0x6DD6E0 0x70C — source assets/gfx/maps/gUnk_086DD6E0.json
-	@ layer 2x2 di offset 0 dibaca func_080AA9C8 (id 0xd, 24532; sl=2, tinggi=2, loop 24678-24702); 1796 B sisa raw.
-	.incbin "build/assets/gUnk_086DD6E0.bin"
+	@ PARKIR (decoded-exact): layer 2x2 offset 0 terbukti, 1796/1804 B raw;
+	@ source assets/gfx/maps/gUnk_086DD6E0.json, belum dihitung selesai.
+	.incbin "baserom.gba", 0x6DD6E0, 0x70C
 
 	.global gUnk_086DDDEC
 gUnk_086DDDEC:
-	@ rom: 0x6DDDEC 0xA08 — source assets/gfx/maps/gUnk_086DDDEC.json
-	@ layer 4x4 di offset 0 dibaca func_080AA9C8 (id 0xf, 24518; sl=4, 4 baris, loop 24678-24702); 2536 B sisa raw.
-	.incbin "build/assets/gUnk_086DDDEC.bin"
+	@ PARKIR (decoded-exact): layer 4x4 offset 0 terbukti, 2536/2568 B raw;
+	@ source assets/gfx/maps/gUnk_086DDDEC.json, belum dihitung selesai.
+	.incbin "baserom.gba", 0x6DDDEC, 0xA08
 
 	.global gUnk_086DE7F4
 gUnk_086DE7F4:
-	@ rom: 0x6DE7F4 0xC4E8 — source assets/gfx/maps/gUnk_086DE7F4.json (tilemap_bank, 45 layer)
-	@ layer dirujuk descriptor 0x18 B func_080A5BD8 (baris 14381/14401/14436): offset+lebar+tinggi di source;
-	@ byte di luar layer tetap raw di JSON, encode tilemap_bank.py byte identik.
-	.incbin "build/assets/gUnk_086DE7F4.bin"
+	@ PARKIR (decoded-exact): 45 layer descriptor terbukti, 29940/50408 B raw;
+	@ source assets/gfx/maps/gUnk_086DE7F4.json, belum dihitung selesai.
+	.incbin "baserom.gba", 0x6DE7F4, 0xC4E8
 
 	.global gUnk_086EACDC
 gUnk_086EACDC:
@@ -325,10 +324,9 @@ gUnk_086EAD84:
 
 	.global gUnk_086EAD8C
 gUnk_086EAD8C:
-	@ rom: 0x6EAD8C 0x8220 — source assets/gfx/maps/gUnk_086EAD8C.json (tilemap_bank, 58 layer)
-	@ layer dirujuk descriptor 0x18 B func_080A5BD8 (baris 14381/14401/14436): offset+lebar+tinggi di source;
-	@ byte di luar layer tetap raw di JSON, encode tilemap_bank.py byte identik.
-	.incbin "build/assets/gUnk_086EAD8C.bin"
+	@ PARKIR (decoded-exact): 58 layer descriptor terbukti, 30426/33312 B raw;
+	@ source assets/gfx/maps/gUnk_086EAD8C.json, belum dihitung selesai.
+	.incbin "baserom.gba", 0x6EAD8C, 0x8220
 
 	.global gUnk_086F2FAC
 gUnk_086F2FAC:

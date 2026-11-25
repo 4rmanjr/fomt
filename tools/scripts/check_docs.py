@@ -79,6 +79,7 @@ dengan default).
 """
 import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -311,6 +312,27 @@ def aset_aturan_gfx():
 REENCODE_DOC = "docs/decomp/ASET-0X70-REENCODE.md"
 REENCODE_MANIFEST = "assets/0x70/reencode_manifest.json"
 REENCODE_TOOL = REPO / "tools" / "assets" / "stream_audit.py"
+
+
+SCAN_SKIP = {".git", "build", "node_modules", "__pycache__", ".venv",
+             "venv", "decomp/logs"}
+
+
+def named_files(name):
+    """Cari berkas bernama `name` tanpa menelusuri build/vendor.
+
+    `REPO.glob("**/name")` ikut memindai `build/` dan cache lain yang bisa
+    puluhan ribu berkas; gate dokumen jadi lambat tanpa menambah akurasi,
+    karena rujukan pendek hanya sah bila unik di sumber repo.
+    """
+    hits = []
+    for root, dirs, files in os.walk(REPO):
+        rel = os.path.relpath(root, REPO)
+        dirs[:] = [d for d in dirs
+                   if d not in SCAN_SKIP and f"{rel}/{d}".lstrip("./") not in SCAN_SKIP]
+        if name in files:
+            hits.append(Path(root) / name)
+    return hits
 
 
 def aset_reencode():
@@ -638,7 +660,7 @@ def check(max_agents):
                     continue
                 # nama pendek di prosa (`MIGRATE.md`) boleh, asal unik di docs/
                 if "/" not in m:
-                    hits = list(REPO.glob(f"**/{m}"))
+                    hits = named_files(m)
                     if len(hits) == 1:
                         continue
                     problems.append((f"{rel}:{i}",
