@@ -1128,6 +1128,26 @@
    "evidence": "container func_0805E6CC A1/B1/C1/D4/E1/F0/T1 (220 B habis tepat); asm/code_0803EE94.s:133387 memuat gUnk_08755154 lalu func_08082264 (baris 132394) meneruskannya sebagai argumen ke-4 ke func_0805E6CC (jalur sama dengan gUnk_0875352C)"
   },
   {
+   "id": "gfx/maps/gunk_0869b284",
+   "symbol": "gUnk_0869B284",
+   "kind": "compressed_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x69B284",
+    "size": 238212,
+    "sha256": "8e773b4555f2802a2609504efbc30bb46d259917c11a0e39e505718c30978c2d"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_0869B284.json"
+   },
+   "encoder": {
+    "tool": "compressed_bank.py",
+    "version": 1
+   },
+   "evidence": "Prefix 308 B = palet 128 B (disalin 0x80 B oleh func_080A95A4) + 15 struct Unk_Something 12 B; 4 di antaranya ditunjuk gUnk_080E93F8 (0x0869B304/31C/358/394). 119 stream 0x70 ditunjuk 168 entri pointer gUnk_08105EDC (119 unik, tepat semua awal stream) dan rantai berakhir di ujung blob 0x3A284. Semua stream direencode byte-identik dengan header aslinya."
+  },
+  {
    "id": "gfx/maps/gunk_086d6518",
    "symbol": "gUnk_086D6518",
    "kind": "tilemap",
@@ -1166,6 +1186,26 @@
     "version": 1
    },
    "evidence": "method_0800AF20 mengembalikan gUnk_086D6520 untuk field 1 (literal 0xAF48); func_080AA6D0 menyalin src+0 dan src+4 masing-masing 4 B ke dua baris peta (2x2). Seluruh 8 B terbaca."
+  },
+  {
+   "id": "gfx/maps/gunk_086d74f8",
+   "symbol": "gUnk_086D74F8",
+   "kind": "compressed_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6D74F8",
+    "size": 20172,
+    "sha256": "afa739cad1afdbcbcc37db16a6e54030e31a23d105a16e39162caa142306dcad"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086D74F8.json"
+   },
+   "encoder": {
+    "tool": "compressed_bank.py",
+    "version": 1
+   },
+   "evidence": "Prefix 96 B = 32 B nol + palet 32 warna (64 B), disalin utuh 0x60 B oleh func_080A95A4. 25 stream 0x70 ditunjuk 51 entri pointer gUnk_08105EDC (25 unik, tepat semua awal stream) dan rantai berakhir di ujung blob 0x4ECC. Semua stream direencode byte-identik dengan header aslinya."
   },
   {
    "id": "gfx/maps/gunk_086dc3c4",

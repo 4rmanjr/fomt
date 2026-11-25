@@ -576,25 +576,21 @@ aset source yang lolos gate.
 - **Blob:** setiap blob `0x70` dimuat utuh oleh `Unpack` (contoh
   `func_080B55D0` memuat `gUnk_0872C84C` ke `0x06004000`, baris 46443-46446;
   `gUnk_086FD19C` ke `0x05000000`, baris 46433-46435), jadi penggantian
-  `.incbin` menunggu **seluruh** stream di blob itu byte-identik. Blob yang
-  semua stream-nya atom0 lzss0/2/3 sudah siap untuk container encoder; blob
-  yang masih memuat huffman (`100`/`123`/`124`/`130`/`133`/`134`/`220`/
-  `230`/`231`) tetap parkir karena format itu belum punya encoder. Daftar
-  per blob + formatnya dihasilkan di `docs/decomp/ASET-0X70-REENCODE.md`
-  bagian "Status per blob"; 53 blob itu seluruhnya dirujuk `Unpack` langsung
-  atau lewat tabel/pointer (`ASET-0X70-PETA-BERKAS.md`), tidak ada yang
-  dibaca per stream.
+  `.incbin` menunggu **seluruh** stream di blob itu byte-identik. Encoder
+  huffman kini tersedia, jadi semua format (`000`..`234`) bisa direencode
+  byte-identik; daftar per blob ada di `docs/decomp/ASET-0X70-REENCODE.md`.
+  Tiga container bertingkat sudah rom-exact lewat `compressed_bank.py`:
+  `gUnk_086DC3F4` (3 stream), `gUnk_0869B284` (119 stream; 168 pointer
+  `gUnk_08105EDC` menunjuk 119/119 awal stream) dan `gUnk_086D74F8`
+  (25 stream; 51 pointer menunjuk 25/25). Prefix `gUnk_086D74F8` disalin
+  utuh 0x60 B oleh `func_080A95A4`; prefix `gUnk_0869B284` = palet 128 B
+  + 15 struct 12 B, dengan 4 entri ditunjuk `gUnk_080E93F8`.
 - `stream_audit.py` menaikkan status ke `ok` hanya bila compressed hasil
-  encoder sama byte. Status ini per stream; alasan parkir yang tersisa
-  adalah format huffman di atas, bukan tebakan isi.
-  Rincian angka: `docs/decomp/ASET-0X70-REENCODE.md`.
-- **Huffman (prioritas berikut):** probe pada `gUnk_08527238` (format `130`)
-  menunjukkan kedalaman kode Huffman4 bisa direproduksi dari frekuensi
-  **literal** (bukan frekuensi byte hasil decode), dengan heap seri yang
-  dipecah menurut urutan masuk. Namun penugasan path/kode masih beda dari
-  stream asli, jadi tree belum bisa ditulis byte-identik; encoder huffman
-  dan container untuk blob yang memuatnya tetap **belum** ada. Jangan ubah
-  status stream huffman menjadi `ok` sebelum tree + token stream cocok byte.
+  encoder sama byte. Saat ini 284/284 stream `ok`; tidak ada lagi format yang
+  menunggu encoder. Rincian angka: `docs/decomp/ASET-0X70-REENCODE.md`.
+- **Huffman:** `compressed_bank.py` menyimpan header asli sebagai `counts`,
+  `leaves`, dan `widths`, lalu `lz70.encode_huffman` mereproduksi tree + token
+  byte-identik. Tidak ada lagi stream huffman yang diparkir karena encoder.
 
 **Exit:** container yang exact sudah terverifikasi; sisanya punya alasan.
 

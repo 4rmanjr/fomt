@@ -48,8 +48,8 @@ Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.093 B (7,1%)** — persent
 | Container font | 51 | 149 | `███████░░░░░░░░░░░░░` 34,2% |
 | Glyph 8x12 | 2 | 86 | `░░░░░░░░░░░░░░░░░░░░` 2,3% |
 | Indeks glyph | 2 | 63 | `█░░░░░░░░░░░░░░░░░░░` 3,2% |
-| Container terkompresi | 1 | 3 | `███████░░░░░░░░░░░░░` 33,3% |
-| **Total (blob unik)** | 209 | 231 | `██████████████████░░` 90,5% |
+| Container terkompresi | 3 | 3 | `████████████████████` 100% |
+| **Total (blob unik)** | 211 | 231 | `██████████████████░░` 91,3% |
 
 Cakupan per grup blob (non-overlap):
 
@@ -59,7 +59,7 @@ Cakupan per grup blob (non-overlap):
 | Palet | 64 | 64 | `████████████████████` 100% |
 | Tabel | 48 | 63 | `███████████████░░░░░` 76,2% |
 | Tilemap | 10 | 15 | `█████████████░░░░░░░` 66,7% |
-| **Total (semua grup)** | 209 | 231 | `██████████████████░░` 90,5% |
+| **Total (semua grup)** | 211 | 231 | `██████████████████░░` 91,3% |
 <!-- README-STATS:END -->
 
 Definisi selesainya sengaja ketat di kedua jalur:
@@ -75,16 +75,16 @@ Definisi selesainya sengaja ketat di kedua jalur:
   dihitung, walaupun encode-nya byte-identik. Seluruh blob grup `sprite/OBJ`
   dan `palet` di `assets/raw` sudah punya source rom-exact; semua stream di
   container terkompresi `0x70` (284/284) sudah bisa direencode byte-identik.
-  Container `gUnk_086DC3F4` (prefix 12 B + 3 stream) sudah rom-exact lewat
-  `compressed_bank.py`; dua container lain menunggu prefix/offset yang terbukti.
+  Ketiga container `0x70` (`gUnk_086DC3F4`, `gUnk_0869B284`, `gUnk_086D74F8`)
+  sudah rom-exact lewat `compressed_bank.py`; sisa 20 blob adalah tilemap dan
+  tabel yang menunggu bukti pembaca penuh.
 - **Penyebut cakupan.** Populasi dihitung dari blob `.incbin` yang benar-benar
   terinventaris di `assets/raw` (satu blob = satu entri `.incbin`; satu blob
   bisa memuat beberapa sprite). Tabel per kelas memakai penyebut grup, jadi
   beberapa baris berbagi populasi; tabel "Cakupan per grup blob" di atasnya
   non-overlap dan totalnya memakai union blob supaya tidak menghitung ganda.
-  Blob container `0x70` dihitung di grup `gambar terkompresi`; satu sudah
-  rom-exact dan dua sisanya belum, jadi stream di dalamnya tidak dihitung
-  sebagai aset terpisah.
+  Blob container `0x70` dihitung di grup `gambar terkompresi`; ketiganya sudah
+  rom-exact, dan stream di dalamnya tidak dihitung sebagai aset terpisah.
 
 Pipeline, tabel padanan pret/pokeemerald-expansion, dan alur menambah sprite:
 [docs/decomp/ARSITEKTUR-ASET.md](./docs/decomp/ARSITEKTUR-ASET.md).

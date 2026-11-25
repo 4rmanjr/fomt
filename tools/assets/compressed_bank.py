@@ -163,7 +163,7 @@ def encode_source(meta_path):
     return bytes(out)
 
 
-def build_metadata(rom, offset, size, ident, symbol):
+def build_metadata(rom, offset, size, ident, symbol, evidence=None):
     blob = rom[offset:offset + size]
     if len(blob) != size:
         raise ValueError(f"slice ROM {len(blob)} B != size {size}")
@@ -195,7 +195,7 @@ def build_metadata(rom, offset, size, ident, symbol):
         },
         "source": {"json": f"{symbol}.json"},
         "encoder": {"tool": "compressed_bank.py", "version": 1},
-        "evidence": (
+        "evidence": evidence or (
             "Prefix 12 B = stempel 3x2 yang disalin func_080AA540; tiga stream "
             "0x70 ditunjuk tabel descriptor 0x08106860 (0x086DC400/0x086DC4C4/"
             "0x086DC4D0, 30x26 = 780 entri) dan rantainya berakhir tepat di ujung "
@@ -247,6 +247,8 @@ def main(argv=None):
     dec.add_argument("--json", required=True, type=Path)
     dec.add_argument("--id", required=True)
     dec.add_argument("--symbol", required=True)
+    dec.add_argument("--evidence", default=None,
+                     help="teks bukti pembaca untuk metadata")
     enc = sub.add_parser("encode", help="metadata JSON -> byte ROM")
     enc.add_argument("--json", required=True, type=Path)
     enc.add_argument("--out", required=True, type=Path)
@@ -257,7 +259,7 @@ def main(argv=None):
     if args.cmd == "decode":
         rom = args.rom.read_bytes()
         meta = build_metadata(rom, int(args.offset, 0), args.size, args.id,
-                              args.symbol)
+                              args.symbol, args.evidence)
         args.json.write_text(json.dumps(meta, indent=1) + "\n")
         print(f"{args.json}: prefix {meta['prefix_size']} B, "
               f"{len(meta['streams'])} stream")

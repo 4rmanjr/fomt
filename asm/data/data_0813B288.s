@@ -168,9 +168,10 @@ gUnk_0869A0A4:
 
 	.global gUnk_0869B284
 gUnk_0869B284:
-	@ PARKIR (container): prefix 308 B + 119 stream 0x70 (mulai +0x134); semua stream
-	@ byte-identik (284/284), tetapi encoder container (prefix + offset) belum ada.
-	.incbin "baserom.gba", 0x69B284, 0x3A284
+	@ rom: 0x69B284 0x3A284 — source assets/gfx/maps/gUnk_0869B284.json;
+	@ container: prefix 308 B + 119 stream 0x70; 168 pointer gUnk_08105EDC
+	@ menunjuk 119/119 awal stream, prefix 0x80 B disalin func_080A95A4.
+	.incbin "build/assets/gUnk_0869B284.bin"
 
 	.global gUnk_086D5508
 gUnk_086D5508:
@@ -226,9 +227,10 @@ gUnk_086D6698:
 
 	.global gUnk_086D74F8
 gUnk_086D74F8:
-	@ PARKIR (container): prefix 96 B + 25 stream 0x70 (mulai +0x60);
-	@ semua stream byte-identik, encoder container belum ada.
-	.incbin "baserom.gba", 0x6D74F8, 0x4ECC
+	@ rom: 0x6D74F8 0x4ECC — source assets/gfx/maps/gUnk_086D74F8.json;
+	@ container: prefix 96 B + 25 stream 0x70; 51 pointer gUnk_08105EDC
+	@ menunjuk 25/25 awal stream, prefix disalin utuh 0x60 B func_080A95A4.
+	.incbin "build/assets/gUnk_086D74F8.bin"
 
 	.global gUnk_086DC3C4
 gUnk_086DC3C4:
