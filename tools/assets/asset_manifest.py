@@ -60,6 +60,50 @@ def sha256(data):
     return hashlib.sha256(data).hexdigest()
 
 
+BUILD_ASSETS = REPO / "build" / "assets"
+SCRIPTS = REPO / "tools" / "scripts"
+# Modul bersama yang memengaruhi output encoder (selain tool per aset).
+SHARED_ENCODERS = {
+    "compressed_bank.py": (TOOLS_DIR / "lz70.py", SCRIPTS / "decompress.py",
+                           SCRIPTS / "asset_inventory.py"),
+    "font_container.py": (TOOLS_DIR / "tile4bpp.py",),
+}
+
+
+def _source_path(meta_path, rel):
+    path = Path(rel)
+    if path.is_absolute():
+        return path
+    beside = meta_path.parent / path
+    return beside if beside.exists() else REPO / path
+
+
+def built_bin_matches(meta_path, meta, expected):
+    """True bila bin build masih baru dan byte-nya sama dengan `expected`.
+
+    `meta` cukup punya `symbol`, `encoder.tool`, dan `source` (json/png/pal).
+    Dipakai `asset_manifest.py` dan `asset_verify.py` supaya encode ulang
+    container besar tidak terjadi berkali-kali dalam satu gate.
+    """
+    meta_path = Path(meta_path)
+    tool = meta["encoder"]["tool"]
+    paths = [meta_path, TOOLS_DIR / tool, *SHARED_ENCODERS.get(tool, ())]
+    for key in ("png", "pal"):
+        rel = meta.get("source", {}).get(key)
+        if rel:
+            paths.append(_source_path(meta_path, rel))
+    newest = max((p.stat().st_mtime_ns for p in paths if p.exists()),
+                 default=0)
+    path = BUILD_ASSETS / f"{meta.get('symbol', '')}.bin"
+    try:
+        if path.stat().st_mtime_ns < newest:
+            return False
+        data = path.read_bytes()
+    except OSError:
+        return False
+    return len(data) == len(expected) and data == expected
+
+
 def load_encoder(kind):
     name = ENCODERS.get(kind)
     if name is None:
@@ -108,16 +152,21 @@ def build_entry(meta_path, rom):
     offset = int(str(meta["rom"]["offset"]), 0)
     size = int(meta["rom"]["size"])
     declared = meta["rom"]["sha256"]
-    encoded = load_encoder(kind).encode_source(meta_path)
-    actual = sha256(encoded)
     original = rom[offset:offset + size]
     if len(original) != size:
         raise SystemExit(
             f"{meta_path}: slice ROM {len(original)} B, metadata bilang {size} B")
-    if actual != declared or encoded != original:
+    encoded = None
+    if built_bin_matches(meta_path, meta, original):
+        actual = sha256(original)
+    else:
+        encoded = load_encoder(kind).encode_source(meta_path)
+        actual = sha256(encoded)
+    if actual != declared or (encoded is not None and encoded != original):
         raise SystemExit(
             f"{meta_path}: gate hash MERAH (encoded {actual}, "
-            f"metadata {declared}, byte ROM {'sama' if encoded == original else 'beda'})")
+            f"metadata {declared}, byte ROM "
+            f"{'sama' if (encoded or original) == original else 'beda'})")
     status = meta.get("status")
     if status != "rom-exact":
         raise SystemExit(

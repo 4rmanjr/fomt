@@ -109,14 +109,21 @@ class Encode(unittest.TestCase):
         self.assertEqual(encoded, original)
         self.assertEqual(bank.sha256(encoded), self.meta["rom"]["sha256"])
 
-    def test_all_real_containers_are_byte_identical(self):
-        for symbol, offset, size in (("gUnk_0869B284", 0x69B284, 0x3A284),
-                                     ("gUnk_086D74F8", 0x6D74F8, 0x4ECC)):
+    def test_real_container_metadata_covers_rom_slice(self):
+        # Encode byte-identik container besar sudah dijaga asset_verify; di sini
+        # cukup metadata + hash slice agar tes tidak mengencode 5 MB berulang.
+        for symbol, offset, size, streams in (
+                ("gUnk_0869B284", 0x69B284, 0x3A284, 119),
+                ("gUnk_086D74F8", 0x6D74F8, 0x4ECC, 25)):
             meta_path = REPO / "assets" / "gfx" / "maps" / f"{symbol}.json"
+            meta = json.loads(meta_path.read_text())
             with self.subTest(symbol=symbol):
-                self.assertEqual(bank.encode_source(meta_path),
-                                 self.rom[offset:offset + size])
-                self.assertEqual(bank.verify(meta_path), 0)
+                self.assertEqual(meta["rom"]["size"], size)
+                self.assertEqual(meta["rom"]["sha256"],
+                                 bank.sha256(self.rom[offset:offset + size]))
+                self.assertEqual(len(meta["streams"]), streams)
+                self.assertEqual(len(meta["prefix"]),
+                                 2 * meta["prefix_size"])
 
     def test_verify_accepts_real_metadata(self):
         self.assertEqual(bank.verify(META), 0)

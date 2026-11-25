@@ -6,9 +6,11 @@ lalu untuk setiap aset:
 
 1. slice `baserom.gba[offset:offset+size]` punya sha256 yang sama dengan
    `rom.sha256` di manifest;
-2. modul encoder yang tercatat (`encoder.tool`) benar-benar dipanggil ulang
-   dari source kanonik (`source.json` -> `pal`/`png`), dan byte hasilnya sama
-   dengan slice ROM (sha256 + isi);
+2. modul encoder yang tercatat (`encoder.tool`) dipanggil ulang dari source
+   kanonik (`source.json` -> `pal`/`png`) dan byte hasilnya sama dengan slice
+   ROM. Bila `build/assets/<symbol>.bin` sudah ada, lebih baru daripada semua
+   input encoder, dan byte-nya sama dengan slice ROM, encode ulang dilewati
+   (`--force-encode` memaksa jalur lambat);
 3. setiap berkas `source` ada;
 4. `.incbin "baserom.gba", <offset>, <size>` yang masih tersisa di
    `asm/data/*.s` dilaporkan sebagai catatan (Fase 0 belum mengubah build);
@@ -23,6 +25,7 @@ lalu untuk setiap aset:
   python3 tools/assets/asset_verify.py --symbol gUnk_08731940
   python3 tools/assets/asset_verify.py --json
   python3 tools/assets/asset_verify.py --require-switched
+  python3 tools/assets/asset_verify.py --force-encode
 
 Tidak menjalankan build dan tidak menulis berkas.
 """
@@ -40,6 +43,8 @@ MANIFEST = REPO / "assets" / "manifest.json"
 SCHEMA = TOOLS / "manifest_schema.json"
 ROM = REPO / "baserom.gba"
 ASM_DATA = REPO / "asm" / "data"
+sys.path.insert(0, str(TOOLS))
+import asset_manifest  # noqa: E402 - helper jalur cepat bin build
 
 INCBIN = re.compile(
     r'\.incbin\s+"baserom\.gba"\s*,\s*(0x[0-9A-Fa-f]+)\s*,\s*(0x[0-9A-Fa-f]+)')
@@ -250,7 +255,7 @@ def palette_evidence_problems(asset, repo=None):
     return []
 
 
-def check_asset(asset, rom, incbins, repo=None):
+def check_asset(asset, rom, incbins, repo=None, force_encode=False):
     """-> (masalah: list[str], catatan: list[str])."""
     problems, notes = [], []
     symbol = asset.get("symbol", "?")
@@ -280,14 +285,15 @@ def check_asset(asset, rom, incbins, repo=None):
     if not (TOOLS / tool).exists():
         problems.append(f"encoder tidak ada: tools/assets/{tool}")
     elif meta_path.exists() and asset["status"] == "rom-exact":
-        try:
-            encoded = load_module(tool).encode_source(meta_path)
-        except SystemExit as e:
-            problems.append(f"encoder gagal: {e}")
-            encoded = None
-        except Exception as e:  # noqa: BLE001 - laporkan semua kegagalan tool
-            problems.append(f"encoder error: {type(e).__name__}: {e}")
-            encoded = None
+        encoded = None
+        if force_encode or not asset_manifest.built_bin_matches(
+                meta_path, asset, slice_):
+            try:
+                encoded = load_module(tool).encode_source(meta_path)
+            except SystemExit as e:
+                problems.append(f"encoder gagal: {e}")
+            except Exception as e:  # noqa: BLE001 - laporkan semua kegagalan
+                problems.append(f"encoder error: {type(e).__name__}: {e}")
         if encoded is not None:
             if len(encoded) != size:
                 problems.append(f"hasil encoder {len(encoded)} B != {size} B")
@@ -307,7 +313,7 @@ def check_asset(asset, rom, incbins, repo=None):
 
 
 def verify(manifest_path=MANIFEST, schema_path=SCHEMA, rom_path=ROM,
-           symbol=None, require_switched=False):
+           symbol=None, require_switched=False, force_encode=False):
     """-> (masalah, catatan, ringkasan). Tidak mencetak apa pun."""
     if not manifest_path.exists():
         return [f"{manifest_path}: manifest tidak ada"], [], {}
@@ -343,7 +349,8 @@ def verify(manifest_path=MANIFEST, schema_path=SCHEMA, rom_path=ROM,
             problems.append(f"{key}: offset {off} juga dipakai "
                             f"{seen_offset[off]}")
         seen_offset[off] = key
-        found, asset_notes = check_asset(asset, rom, incbins)
+        found, asset_notes = check_asset(asset, rom, incbins,
+                                         force_encode=force_encode)
         if require_switched:
             found += [n for n in asset_notes if n.startswith("masih .incbin")]
         problems += [f"{key}: {p}" for p in found]
@@ -365,9 +372,12 @@ def main(argv=None):
     ap.add_argument("--rom", type=Path, default=ROM)
     ap.add_argument("--require-switched", action="store_true",
                     help=".incbin baserom untuk aset rom-exact = kegagalan")
+    ap.add_argument("--force-encode", action="store_true",
+                    help="abaikan bin build dan jalankan ulang semua encoder")
     args = ap.parse_args(argv)
     problems, notes, summary = verify(args.manifest, args.schema, args.rom,
-                                      args.symbol, args.require_switched)
+                                      args.symbol, args.require_switched,
+                                      args.force_encode)
     if args.json:
         print(json.dumps({"problems": problems, "notes": notes,
                           "summary": summary}, indent=1))

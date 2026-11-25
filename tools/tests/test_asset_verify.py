@@ -133,6 +133,31 @@ class VerifyGate(unittest.TestCase):
         self.assertEqual(strict, [])
 
     @unittest.skipUnless(ROM.exists(), "butuh baserom.gba")
+    def test_fast_path_requires_matching_build_bin(self):
+        manifest = json.loads(MANIFEST.read_text())
+        asset = next(a for a in manifest["assets"]
+                     if a["symbol"] == "gUnk_08731940")
+        meta_path = REPO / asset["source"]["json"]
+        rom = ROM.read_bytes()
+        off = int(asset["rom"]["offset"], 0)
+        size = asset["rom"]["size"]
+        slice_ = rom[off:off + size]
+        if not (verify.REPO / "build" / "assets" /
+                "gUnk_08731940.bin").exists():
+            self.skipTest("bin build belum ada")
+        self.assertTrue(verify.asset_manifest.built_bin_matches(
+            meta_path, asset, slice_))
+        self.assertFalse(verify.asset_manifest.built_bin_matches(
+            meta_path, asset, bytes([slice_[0] ^ 0xFF]) + slice_[1:]))
+
+    @unittest.skipUnless(ROM.exists(), "butuh baserom.gba")
+    def test_force_encode_still_runs_encoder(self):
+        problems, _notes, summary = verify.verify(
+            symbol="gUnk_08731940", force_encode=True)
+        self.assertEqual(problems, [])
+        self.assertEqual(summary["ok"], 1)
+
+    @unittest.skipUnless(ROM.exists(), "butuh baserom.gba")
     def test_summary_counts_every_asset(self):
         _problems, _notes, summary = verify.verify()
         manifest = json.loads(MANIFEST.read_text())

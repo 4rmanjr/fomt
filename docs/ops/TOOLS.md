@@ -280,8 +280,12 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   `palette` → `pal2gba.py`, `sprite` → `sprite2gba.py`),
   membandingkan byte dan SHA-256 hasilnya dengan slice `baserom.gba` dan
   dengan `rom.sha256` metadata, lalu menolak entri yang statusnya bukan
-  `rom-exact`. `--check` exit 1 bila manifest basi (gate yang sama dipanggil
-  `check_docs.py`). Tidak menjalankan build dan tidak menyentuh
+  `rom-exact`. Bila `build/assets/<symbol>.bin` lebih baru daripada
+  JSON/PNG/PAL + tool encoder (termasuk modul bersama `lz70.py`,
+  `decompress.py`, `asset_inventory.py`, `tile4bpp.py`) dan byte-nya sama
+  dengan slice ROM, encode ulang dilewati; helper yang sama dipakai
+  `asset_verify.py`. `--check` exit 1 bila manifest basi (gate yang sama
+  dipanggil `check_docs.py`). Tidak menjalankan build dan tidak menyentuh
   `asm/data/*.s`.
 - `tools/assets/gfx_rules.py` — hasilkan `gfx_rules.mk`, aturan konversi
   graphics bergaya `graphics_file_rules.mk` pret tetapi **digenerate** dari
@@ -323,11 +327,14 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   dipakai `asset_manifest.py`, `--check` menguji round-trip 5 bit eksak.
 - `tools/assets/asset_verify.py` — gate per-aset Fase 0: validasi
   `assets/manifest.json` terhadap `tools/assets/manifest_schema.json`, cek
-  sha256 slice ROM, jalankan ulang encoder dari source (byte + hash harus
-  sama), pastikan berkas source ada, dan laporkan `.incbin "baserom.gba"`
-  yang belum dialihkan sebagai catatan (`--require-switched` membuatnya
-  gagal). `--symbol X` untuk satu aset, `--json` untuk laporan mesin, exit 1
-  bila ada masalah. Khusus `kind: palette`, `evidence` yang mengutip tapak
+  sha256 slice ROM, jalankan encoder dari source (byte + hash harus sama),
+  pastikan berkas source ada, dan laporkan `.incbin "baserom.gba"` yang
+  belum dialihkan sebagai catatan (`--require-switched` membuatnya gagal).
+  Bila `build/assets/<symbol>.bin` lebih baru daripada JSON/PNG/PAL + tool
+  encoder (termasuk `lz70.py`, `decompress.py`, `asset_inventory.py`) dan
+  byte-nya sama dengan slice ROM, encode ulang dilewati; `--force-encode`
+  memaksa encoder jalan untuk audit independen. `--symbol X` untuk satu aset,
+  `--json` untuk laporan mesin, exit 1 bila ada masalah. Khusus `kind: palette`, `evidence` yang mengutip tapak
   salinan (`<berkas>.s:<baris>`) dicocokkan dengan asm: tapak yang menambah
   indeks slot sebelum salinan wajib menyebut basis + slot, dan tapak bertujuan
   tetap wajib menyebut konstanta tujuannya — evidence yang menulis
