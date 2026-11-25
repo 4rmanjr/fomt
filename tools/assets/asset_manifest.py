@@ -47,6 +47,7 @@ ENCODERS = {
     "tiles4bpp": "tile4bpp.py",
     "font_container": "font_container.py",
     "glyph_font": "glyph_font.py",
+    "glyph_index": "glyph_index.py",
     "palette": "pal2gba.py",
     "sprite": "sprite2gba.py",
     "tilemap": "map2bin.py",

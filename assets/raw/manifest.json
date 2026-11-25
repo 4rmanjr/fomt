@@ -13,10 +13,9 @@
    "symbol": "gUnk_084FA7A0",
    "offset": "0x4FA7A0",
    "size": 512,
-   "group": "tilemap",
-   "note": "256 entri 16-bit; bit 10-15 modal 62%",
-   "renderable": true,
-   "png": "assets/raw/png/gUnk_084FA7A0_512_tilemap_32.png"
+   "group": "tabel",
+   "note": "256 entri s16 indeks glyph untuk kode 0x00-0xFF; func_080D0D28 ldrsh, nilai < 0 = tanpa glyph",
+   "renderable": false
   },
   {
    "symbol": "gUnk_084FA9A0",
@@ -32,7 +31,7 @@
    "offset": "0x523290",
    "size": 15876,
    "group": "tabel",
-   "note": "tabel glyph int16; func_080D0D28 memakai ldrsh, 0xffff = sentinel",
+   "note": "7938 entri s16 indeks glyph kode 2-byte; func_080D0CD4 memetakan lead/trail ke 189*lead + trail - 0x40; ldrsh, nilai < 0 = tanpa glyph",
    "renderable": false
   },
   {

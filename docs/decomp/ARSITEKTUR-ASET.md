@@ -954,6 +954,28 @@ piksel kiri) dan 2bpp (2 byte/baris = bitplane 0 lalu bitplane 1; piksel =
 nibble 0xF, yang mustahil untuk 2bpp ber-nibble. Encode ulang keduanya byte
 identik dengan slice ROM, jadi `.incbin` dialihkan ke `build/assets/*.bin`.
 
+### Tabel indeks glyph 0x4FA7A0/0x523290: array s16, bukan kontainer
+
+`func_080D0D28` memakai dua tabel sebelum menyentuh record glyph: kode satu
+byte `0x00`–`0xFF` diindeks langsung ke `gUnk_084FA7A0` (256 entri, 512 B),
+sedangkan kode dua byte dilewatkan `func_080D0CD4` lebih dulu lalu diindeks ke
+`gUnk_08523290` (7938 entri, 15876 B). Keduanya dibaca `ldrsh`; nilai negatif
+(praktiknya `-1`) berarti karakter itu tidak punya glyph, dan pemanggil
+mengosongkan sel 8x12 dengan `memset 0x80`. Indeks hasil `func_080D0CD4` adalah
+`189 * lead + (trail - 0x40)`: lead `0x81`–`0x9F` menempati offset 0–30 dan
+lead `0xE0`–`0xEA` offset 31–41, masing-masing 189 trail — 42 × 189 = 7938,
+tepat ukuran tabel. Indeks glyph-nya cocok dengan populasi record: maksimum
+tabel 2-byte 6921, sedangkan `gUnk_084FA9A0` berisi 6922 glyph (0..6921),
+dan maksimum tabel 1-byte 368 < 487 record `gUnk_084F90CC`.
+
+Codec `tools/assets/glyph_index.py` (`kind: glyph_index`) menyimpan array itu
+sebagai `source.entries` di metadata JSON, satu nilai per baris. `encode`
+menolak jumlah entri yang tidak sama dengan `source.count` maupun
+`rom.size/2`, dan nilai di luar s16; `verify` menuntut byte dan SHA-256 sama
+dengan slice ROM. Semantik aset tetap `unidentified` karena yang terbukti
+adalah peran tabel sebagai pemeta kode → indeks glyph, bukan arti tiap kode
+karakter. `.incbin` kedua simbol sudah dialihkan ke `build/assets/*.bin`.
+
 ### Backlog blob tanpa metadata: urutan nilai
 
 Blob di `asm/data/data_0813B288.s` yang belum punya metadata dinilai dengan
@@ -975,9 +997,10 @@ selesai — sisanya diparkir, lihat catatan di bawah |
 | 4 | stream `0x70` (lihat `ASET-0X70-PETA-BERKAS.md`) | dekoder ada
 (`decompress.py`, `lz70.parse`), encoder byte-identik belum | belum | butuh
 encoder LZSS deterministik + gate hash sebelum layak |
-| parkir | `gUnk_084FA7A0` (0x4FA7A0, 512 B) | 256 × s16 indeks glyph, semua
-`0xFFFF`; `func_080D0D28` membacanya `ldrsh` dan memperlakukan `-1` sebagai
-sentinel | belum | butuh kodek tabel s16; bukan palet, bukan tile |
+| 5 | tabel indeks glyph s16 (`gUnk_084FA7A0`, `gUnk_08523290`) | 256 + 7938
+entri `int16`, `ldrsh`, nilai < 0 = karakter tanpa glyph; `gUnk_08523290`
+diindeks `func_080D0CD4` (`189*lead + trail - 0x40`) | `glyph_index.py` |
+selesai — lihat catatan di bawah |
 
 Kelas 1 sudah habis: setiap blob `data_0813B288.s` yang masih
 `.incbin "baserom.gba"` diuji ulang dengan `font_container.parse` dan tidak ada
@@ -1036,8 +1059,8 @@ dari tapak salinannya:
   `gUnk_086EAD04`, `gUnk_086EAD24`, `gUnk_086EAD44`) disalin ke
   `[field objek + 0xc0]`; tujuannya tidak terbaca dari fungsi itu.
 - sisa 32 B adalah kandidat palet yang pointer-nya disimpan ke struct (catatan
-  kelas 2 di atas), dan `gUnk_084FA7A0` tetap tabel indeks glyph (baris parkir
-  di tabel).
+  kelas 2 di atas); keduanya bukan tabel indeks glyph, yang punya kodek
+  sendiri (`glyph_index.py`).
 
 Angka pasti per kelas tidak ditulis di sini — ambil dari
 `tools/scripts/asset_inventory.py --json` dan `assets/manifest.json` supaya

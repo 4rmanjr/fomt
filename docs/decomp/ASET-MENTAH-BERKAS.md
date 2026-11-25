@@ -15,10 +15,10 @@ python3 tools/scripts/raw_assets.py --check   # exit 1 bila dokumen basi
 |---|---|---|
 | palet | 64 | 64 |
 | sprite/OBJ | 86 | 67 |
-| tilemap | 16 | 16 |
+| tilemap | 15 | 15 |
 | gambar terkompresi | 3 | 0 |
-| tabel | 62 | 0 |
-| **total** | **231** | **147** |
+| tabel | 63 | 0 |
+| **total** | **231** | **146** |
 
 Kelompok ditentukan dari isi, bukan nama simbol, kecuali `gambar terkompresi` (lihat di bawah): palet = semua u16 < 0x8000 dan <= 1 KB; sprite/OBJ = kelipatan 32 B (tile 4bpp), ditambah blob non-32 B yang setelah header/ekor <= 31 B menyisakan tile dengan >= 13% nibble nol dan <= 12 indeks/tile; tilemap = entri 16-bit dengan bit 10-15 konsisten; sisanya tabel/struct dan tidak dirender. Kelompok `gambar terkompresi` **bukan** hasil deteksi isi: hanya blob yang bank stream `0x70`-nya terbukti dari call site (daftar override di `VERIFIED_LAYOUT`) yang masuk ke sana, karena rantai `0x70` yang berakhir tepat di ujung blob juga muncul di blob lain yang terbukti container. Offset/ekor yang dipotong dicatat di manifest (`tile_offset`/`tile_trim`). Override `layout: container` menandai wadah font/objek yang sudah diverifikasi dari call site; isinya bukan tile 4bpp datar dan tidak dirender sebagai lembar tile. Untuk stamp peta, field `map_width` di manifest berisi lebar kolom dari loader (`func_080AA9C8`), bukan tebakan pembagi; hash PNG memakai lebar itu. Batas ini heuristik, bukan bukti format; override call-site adalah bukti terpisah.
 
@@ -203,7 +203,7 @@ Dirender sebagai lembar tile 4bpp abu-abu indeks (tanpa palet; warna asli butuh 
 | `gUnk_0875348C` | `0x75348C` | 128 | 4 tile 4bpp (32 B/tile) | ya | [png](../../assets/raw/png/gUnk_0875348C_128_sprite.png) |
 | `gUnk_08750C4C` | `0x750C4C` | 32 | 1 tile 4bpp (bukan palet: 100% word satu-nibble) | ya | [png](../../assets/raw/png/gUnk_08750C4C_32_sprite.png) |
 
-## tilemap (16 blob)
+## tilemap (15 blob)
 
 Dirender sebagai grid indeks; lebar diambil dari `map_width` (call site) bila ada, sisanya ditebak dari jumlah entri dan dicantumkan di nama berkas.
 
@@ -213,7 +213,6 @@ Dirender sebagai grid indeks; lebar diambil dari `map_width` (call site) bila ad
 | `gUnk_0875553C` | `0x75553C` | 780 | 390 entri 16-bit; bit 10-15 modal 69% | ya | [png](../../assets/raw/png/gUnk_0875553C_780_tilemap_30.png) |
 | `gUnk_08757C14` | `0x757C14` | 780 | 390 entri 16-bit; bit 10-15 modal 88% | ya | [png](../../assets/raw/png/gUnk_08757C14_780_tilemap_30.png) |
 | `gUnk_08757F20` | `0x757F20` | 780 | 390 entri 16-bit; bit 10-15 modal 69% | ya | [png](../../assets/raw/png/gUnk_08757F20_780_tilemap_30.png) |
-| `gUnk_084FA7A0` | `0x4FA7A0` | 512 | 256 entri 16-bit; bit 10-15 modal 62% | ya | [png](../../assets/raw/png/gUnk_084FA7A0_512_tilemap_32.png) |
 | `gUnk_086D6368` | `0x6D6368` | 240 | 120 entri 16-bit; bit 10-15 modal 52% | ya | [png](../../assets/raw/png/gUnk_086D6368_240_tilemap_24.png) |
 | `gUnk_086D6458` | `0x6D6458` | 192 | 96 entri 16-bit; bit 10-15 modal 54% | ya | [png](../../assets/raw/png/gUnk_086D6458_192_tilemap_16.png) |
 | `gUnk_086D6548` | `0x6D6548` | 192 | 96 entri 16-bit; bit 10-15 modal 43% | ya | [png](../../assets/raw/png/gUnk_086D6548_192_tilemap_16.png) |
@@ -236,7 +235,7 @@ Tidak dirender mentah: berisi bank stream `0x70` tertanam. `assets/0x70/` memuat
 | `gUnk_086D74F8` | `0x6D74F8` | 20172 | 25 stream 0x70 tertanam (mulai 0x60); palet di 0x20; sudah diekstrak ke assets/0x70/extern | tidak | - |
 | `gUnk_086DC3F4` | `0x6DC3F4` | 344 | stempel 3x2 12 B (func_080AA540 menyalin 12 B); sisa 332 B = 3 stream 0x70 tertanam (1560 B) ditunjuk tabel descriptor 0x08106860 (086DC400/4C4/4D0, dims 30x26); sudah diekstrak ke assets/0x70/extern | tidak | - |
 
-## tabel (62 blob)
+## tabel (63 blob)
 
 Tidak dirender: data angka/struct, bukan piksel atau tilemap 16-bit.
 
@@ -244,7 +243,7 @@ Tidak dirender: data angka/struct, bukan piksel atau tilemap 16-bit.
 |---|---|---|---|---|---|
 | `gUnk_086DE7F4` | `0x6DE7F4` | 50408 | tabel 16-bit; func_080AA9C8 (kasus 21) memakai 16 entri sebagai blok 4x4 (sl=4 kolom, 4 baris) yang dicap ke lapis, bukan lapis peta; 25204 entri tak punya lebar persegi dan header peta gUnk_08105EDC tidak menunjuk blob ini | tidak | - |
 | `gUnk_086EAD8C` | `0x6EAD8C` | 33312 | 16656 entri u16 = 1041 blok 4x4; func_080AA9C8 memakai 16 entri pertama sebagai stamp 4x4 (sl=4, 4 baris), bukan 1041 tile 4bpp | tidak | - |
-| `gUnk_08523290` | `0x523290` | 15876 | tabel glyph int16; func_080D0D28 memakai ldrsh, 0xffff = sentinel | tidak | - |
+| `gUnk_08523290` | `0x523290` | 15876 | 7938 entri s16 indeks glyph kode 2-byte; func_080D0CD4 memetakan lead/trail ke 189*lead + trail - 0x40; ldrsh, nilai < 0 = tanpa glyph | tidak | - |
 | `gUnk_08725DA0` | `0x725DA0` | 3884 | 3884 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_0873AFC8` | `0x73AFC8` | 3676 | 3676 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_086DCC88` | `0x6DCC88` | 2568 | 1284 entri u16; func_080AA9C8 memakai 16 entri pertama sebagai stamp 4x4 (sl=4, 4 baris); sisa tabel tak terbukti persegi (80,25 blok) | tidak | - |
@@ -275,6 +274,7 @@ Tidak dirender: data angka/struct, bukan piksel atau tilemap 16-bit.
 | `gUnk_0873CF90` | `0x73CF90` | 676 | 676 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_08529994` | `0x529994` | 532 | 532 B, bukan kelipatan 32 B; 1/133 word menunjuk ROM | tidak | - |
 | `gUnk_0852CC40` | `0x52CC40` | 532 | 532 B, bukan kelipatan 32 B | tidak | - |
+| `gUnk_084FA7A0` | `0x4FA7A0` | 512 | 256 entri s16 indeks glyph untuk kode 0x00-0xFF; func_080D0D28 ldrsh, nilai < 0 = tanpa glyph | tidak | - |
 | `gUnk_08529BA8` | `0x529BA8` | 508 | 508 B, bukan kelipatan 32 B; 1/127 word menunjuk ROM | tidak | - |
 | `gUnk_0852CE54` | `0x52CE54` | 508 | 508 B, bukan kelipatan 32 B | tidak | - |
 | `gUnk_0873CCB4` | `0x73CCB4` | 504 | 504 B, bukan kelipatan 32 B | tidak | - |

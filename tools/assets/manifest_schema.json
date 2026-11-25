@@ -39,6 +39,7 @@
        "tilemap",
        "font_container",
        "glyph_font",
+       "glyph_index",
        "palette",
        "sprite"
       ]

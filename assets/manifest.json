@@ -61,6 +61,46 @@
    }
   },
   {
+   "id": "gfx/fonts/gunk_084fa7a0",
+   "symbol": "gUnk_084FA7A0",
+   "kind": "glyph_index",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x4FA7A0",
+    "size": 512,
+    "sha256": "11c0120da3c6987ad865a11a4d1d2e26d53c682c461d61ebbea033f9b6495d9b"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/glyph_index_084fa7a0.json"
+   },
+   "encoder": {
+    "tool": "glyph_index.py",
+    "version": 1
+   },
+   "evidence": "code_809E804.s:103120 (func_080D0D28): ldrsh dari gUnk_084FA7A0 + kode*2; nilai < 0 -> sel glyph dikosongkan (memset 0x80)."
+  },
+  {
+   "id": "gfx/fonts/gunk_08523290",
+   "symbol": "gUnk_08523290",
+   "kind": "glyph_index",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x523290",
+    "size": 15876,
+    "sha256": "c89678927fb7c91d7c7c1aab05290d884acd21da1f52bd15c3dbaf1a7086228a"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/glyph_index_08523290.json"
+   },
+   "encoder": {
+    "tool": "glyph_index.py",
+    "version": 1
+   },
+   "evidence": "code_809E804.s:103137 (func_080D0D28): ldrsh dari gUnk_08523290 + indeks*2; indeks dari func_080D0CD4 (baris 103130) = 189*lead + (trail-0x40), lead 0x81-0x9F/0xE0-0xEA; nilai < 0 -> tanpa glyph."
+  },
+  {
    "id": "gfx/fonts/gunk_08527094",
    "symbol": "gUnk_08527094",
    "kind": "font_container",

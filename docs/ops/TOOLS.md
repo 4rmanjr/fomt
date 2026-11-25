@@ -274,6 +274,7 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   menulis `status: rom-exact` di sini) (berkas tanpa
   `rom`/`kind` dilewati). Generator menjalankan encoder yang dideklarasikan
   (`tiles4bpp` → `tile4bpp.py`, `font_container` → `font_container.py`,
+  `glyph_font` → `glyph_font.py`, `glyph_index` → `glyph_index.py`,
   `palette` → `pal2gba.py`, `sprite` → `sprite2gba.py`),
   membandingkan byte dan SHA-256 hasilnya dengan slice `baserom.gba` dan
   dengan `rom.sha256` metadata, lalu menolak entri yang statusnya bukan
@@ -388,6 +389,18 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   `python3 tools/assets/glyph_font.py verify --json
   assets/gfx/fonts/glyph_084f90cc.json`. Dipakai blob 0x4F90CC (487 glyph 1bpp)
   dan 0x4FA9A0 (6922 glyph 2bpp).
+- `tools/assets/glyph_index.py` — codec **tabel indeks glyph s16**
+  (`kind: glyph_index`) yang dibaca `func_080D0D28` sebelum record glyph:
+  array `int16` little-endian, nilai < 0 berarti karakter tanpa glyph (pemanggil
+  mengosongkan sel 8x12 dengan `memset 0x80`). `source.entries` di metadata
+  JSON adalah source kanonik (satu nilai per baris, urut indeks); `encode`
+  menolak jumlah entri yang tidak sama dengan `source.count` maupun
+  `rom.size/2`, dan nilai di luar rentang s16. `--encoding byte` untuk tabel
+  256 entri kode `0x00`–`0xFF` (indeks `kode*2`); `--encoding shift-jis` untuk
+  tabel 7938 entri kode 2-byte yang dipetakan `func_080D0CD4` menjadi
+  `189*lead + (trail - 0x40)`. Contoh: `python3 tools/assets/glyph_index.py
+  verify --json assets/gfx/fonts/glyph_index_08523290.json`. Dipakai
+  0x4FA7A0 (256 entri) dan 0x523290 (7938 entri).
 - `tools/assets/stream_audit.py` — audit seluruh stream `0x70` yang sudah
   diekstrak: blob utuh (`assets/0x70/manifest.json`) **dan** bank tertanam
   (`assets/0x70/embedded_manifest.json`). Hash compressed dihitung dari slice
@@ -551,7 +564,8 @@ dikerjakan, lalu periksa `git diff` (tool ini tidak punya `--check`).
 build dan tidak menulis ROM. Berkas yang ada:
 `test_cli.py`, `test_asset_manifest.py`, `test_asset_verify.py`,
 `test_embedded_streams.py`, `test_font_container.py`, `test_font_palettes.py`,
-`test_glyph_font.py`, `test_lz70.py`, `test_map2bin.py`, `test_raw_assets.py`,
+`test_glyph_font.py`, `test_glyph_index.py`, `test_lz70.py`, `test_map2bin.py`,
+`test_raw_assets.py`,
 `test_readme_stats.py`,
 `test_sprite2gba.py`, `test_stream_audit.py`, `test_tile4bpp.py`.
 `check_docs.py` menolak skrip `tools/**/*.py` yang belum disebut di berkas ini

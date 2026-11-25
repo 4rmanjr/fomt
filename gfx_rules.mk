@@ -6,6 +6,8 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_0875A440.bin \
   $(BUILD_DIR)/assets/gUnk_084F90CC.bin \
   $(BUILD_DIR)/assets/gUnk_084FA9A0.bin \
+  $(BUILD_DIR)/assets/gUnk_084FA7A0.bin \
+  $(BUILD_DIR)/assets/gUnk_08523290.bin \
   $(BUILD_DIR)/assets/gUnk_08527094.bin \
   $(BUILD_DIR)/assets/gUnk_0852D984.bin \
   $(BUILD_DIR)/assets/gUnk_0858BA28.bin \
@@ -166,6 +168,18 @@ $(BUILD_DIR)/assets/gUnk_084FA9A0.bin: \
     tools/assets/glyph_font.py
 	@echo "ASSET $@"
 	@python3 tools/assets/glyph_font.py encode --json assets/gfx/fonts/glyph_084fa9a0.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_084FA7A0.bin: \
+    assets/gfx/fonts/glyph_index_084fa7a0.json \
+    tools/assets/glyph_index.py
+	@echo "ASSET $@"
+	@python3 tools/assets/glyph_index.py encode --json assets/gfx/fonts/glyph_index_084fa7a0.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08523290.bin: \
+    assets/gfx/fonts/glyph_index_08523290.json \
+    tools/assets/glyph_index.py
+	@echo "ASSET $@"
+	@python3 tools/assets/glyph_index.py encode --json assets/gfx/fonts/glyph_index_08523290.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_08527094.bin: \
     assets/gfx/fonts/unk_08527094.json \

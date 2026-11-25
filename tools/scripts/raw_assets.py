@@ -70,9 +70,15 @@ RAW_WIDTHS = (64, 32, 30, 60, 46, 40, 36, 28, 24, 20, 16, 56, 48,
 # entri hanya dari nama symbol;
 # setiap entri harus punya bukti call site/stream di komentar nilainya.
 VERIFIED_LAYOUT = {
+    "gUnk_084FA7A0": (
+        "tabel", None,
+        "256 entri s16 indeks glyph untuk kode 0x00-0xFF; func_080D0D28 "
+        "ldrsh, nilai < 0 = tanpa glyph",
+    ),
     "gUnk_08523290": (
         "tabel", None,
-        "tabel glyph int16; func_080D0D28 memakai ldrsh, 0xffff = sentinel",
+        "7938 entri s16 indeks glyph kode 2-byte; func_080D0CD4 memetakan "
+        "lead/trail ke 189*lead + trail - 0x40; ldrsh, nilai < 0 = tanpa glyph",
     ),
     "gUnk_0869B284": (
         "gambar terkompresi", None,
