@@ -34,8 +34,8 @@ class StreamAudit(unittest.TestCase):
                     for s in b["streams"]]
         self.assertEqual(self.result["total"], expected)
         self.assertEqual(self.result["decode_verified"], expected)
-        # Encoder byte-identik: 000 (lzss0) dan atom0/lzss2 (020/023/024).
-        encoded_formats = ("000", "020", "023", "024")
+        # Encoder byte-identik: lzss0, atom0/lzss2, dan atom0/lzss3.
+        encoded_formats = ("000", "020", "023", "024", "030", "033")
         expected_ok = sum(1 for fmt in formats if fmt in encoded_formats)
         self.assertEqual(self.result["reencodeable"], expected_ok)
         self.assertEqual(self.result["opaque"], expected - expected_ok)
@@ -80,7 +80,8 @@ class StreamAudit(unittest.TestCase):
         rows = [r for r in self.result["streams"] if r["reencode"] == "ok"]
         self.assertTrue(rows, "format 000/atom0-lzss2 harus reencodeable")
         for row in rows:
-            self.assertIn(row["format"], ("000", "020", "023", "024"),
+            self.assertIn(row["format"],
+                          ("000", "020", "023", "024", "030", "033"),
                           row["symbol"])
             offset = int(row["compressed"]["offset"], 0)
             original = rom[offset:offset + row["compressed"]["size"]]
@@ -88,9 +89,13 @@ class StreamAudit(unittest.TestCase):
             if row["format"] == "000":
                 _size, widths, _tokens = lz70.parse(original)
                 encoded = lz70.encode(decoded, widths, parity=True)
-            else:
+            elif row["format"][1] == "2":
                 _size, widths, _tokens, _spec = lz70.parse_lzss2(original)
                 encoded = lz70.encode_lzss2(decoded, widths,
+                                            int(row["format"][2]))
+            else:
+                _size, widths, _tokens, _spec = lz70.parse_lzss3(original)
+                encoded = lz70.encode_lzss3(decoded, widths,
                                             int(row["format"][2]))
             self.assertEqual(encoded, original,
                              f"{row['symbol']}#{row['index']} bukan byte-identik")

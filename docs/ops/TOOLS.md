@@ -331,12 +331,14 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   tetap wajib menyebut konstanta tujuannya — evidence yang menulis
   `0x05000200` padahal byte-nya masuk ke `0x05000200 + slot*0x20` ditolak.
 - `tools/assets/lz70.py` — encoder `0x70` untuk format `000`
-  (atom0/lzss0/diff0) dan atom0/lzss2 (`020`/`023`/`024`): header
-  `(size<<8)|0x70`, format byte di dalam bitstream. Lzss0 memakai tangga jarak
-  2 entri dengan perintah literal/run-length/lookup; lzss2 memakai tangga 7
-  entri, literal tunggal, dan escape VLI untuk blok literal >=9 B atau match
-  >18 B. API lzss2: `parse_lzss2`/`serialize_lzss2`/`encode_lzss2`
-  (`diff_encode` membalik filter diff 1..4). `encode` (greedy),
+  (atom0/lzss0/diff0), atom0/lzss2 (`020`/`023`/`024`), dan atom0/lzss3
+  (`030`/`033`): header `(size<<8)|0x70`, format byte di dalam bitstream.
+  Lzss0 memakai tangga jarak 2 entri dengan perintah literal/run-length/lookup;
+  lzss2 memakai tangga 7 entri, literal tunggal, dan escape VLI untuk blok
+  literal >=9 B atau match >18 B; lzss3 memakai tangga 3 entri dan unit 2 B
+  (match minimal 2 unit, escape literal >=9 pasang). API: `parse_lzss2`/
+  `encode_lzss2` dan `parse_lzss3`/`encode_lzss3` (`diff_encode` membalik
+  filter diff 1..4). `encode` (greedy),
   `encode --optimal` (dynamic programming biaya bit), atau `encode --parity`:
   aturan tokenisasi encoder asli yang terbukti byte-identik untuk stream
   format `000` — match **terpanjang** di seluruh jendela (seri → jarak
@@ -350,10 +352,12 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   1..12. `--write-report` menulis `assets/0x70/encoder_probe.md`. Exit 1 bila
   ada stream yang belum byte-identik; tool ini tidak mengubah status manifest —
   keputusan itu tetap di `stream_audit.py`, yang memakai encoder `parity`
-  untuk format `000` dan `encode_lzss2` untuk atom0/lzss2, dan hanya menaikkan
-  status bila compressed byte-identik. Aturan lzss2: match terpanjang (seri ->
-  terdekat), match 3 B di tiga byte terakhir tidak dipakai, literal escape
-  mulai 9 B, match >18 B lewat escape.
+  untuk `000`, `encode_lzss2` untuk atom0/lzss2, dan `encode_lzss3` untuk
+  atom0/lzss3, dan hanya menaikkan status bila compressed byte-identik. Aturan
+  lzss2: match terpanjang (seri -> terdekat), match 3 B di tiga byte terakhir
+  tidak dipakai, literal escape mulai 9 B, match >18 B lewat escape. Aturan
+  lzss3 sama tetapi per unit 2 B: match minimal 4 B, pendek 4..18 B, literal
+  escape mulai 18 B.
 - `tools/assets/tile4bpp.py` — codec minimal tile/font 4bpp untuk pilot aset.
   `decode` mengubah slice ROM menjadi PNG truecolor 8-bit (16 warna indeks
   grayscale) + JSON berisi `tile_offset`/`tile_trim`, hex header/ekor, symbol,

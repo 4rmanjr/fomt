@@ -561,19 +561,32 @@ aset source yang lolos gate.
   juga sama.
 - Jika compressor tidak bisa mereproduksi byte, tetap `opaque`; jangan
   mengganti `.incbin`.
-- **Progres:** `tools/assets/lz70.py` menulis format `000` (atom0/lzss0) dan
-  atom0/lzss2 (`020`/`023`/`024`, termasuk diff 2/3/4). Replay token asli via
-  serializer byte-identik untuk seluruh stream kedua format, dan encoder
-  parity menghasilkan compressed persis sama dengan tangga asli: **5/5**
-  stream `000` dan **70/70** stream atom0/lzss2.
+- **Progres:** `tools/assets/lz70.py` menulis format `000` (atom0/lzss0),
+  atom0/lzss2 (`020`/`023`/`024`), dan atom0/lzss3 (`030`/`033`, termasuk
+  diff 3). Replay token asli via serializer byte-identik untuk seluruh stream
+  ketiga format, dan encoder menghasilkan compressed persis sama dengan
+  tangga asli: **5/5** `000`, **70/70** atom0/lzss2, **53/53** atom0/lzss3.
 - **Aturan tokenisasi** yang terbukti: match terpanjang di seluruh jendela
   (seri → jarak terdekat), match 3 B di tiga byte terakhir tidak dipakai,
   literal escape dipakai mulai 9 B, dan match >18 B lewat escape VLI.
   Lzss0 menambahkan run token (menang bila panjang utuh >= match); lzss2
-  tidak punya run token sehingga jarak 1 ikut sebagai match.
+  tidak punya run token sehingga jarak 1 ikut sebagai match. Lzss3 memakai
+  unit 2 B: match minimal 2 unit (4 B), pendek 2..9 unit, >9 unit lewat
+  escape, dan literal escape mulai 9 pasang (18 B).
+- **Blob:** setiap blob `0x70` dimuat utuh oleh `Unpack` (contoh
+  `func_080B55D0` memuat `gUnk_0872C84C` ke `0x06004000`, baris 46443-46446;
+  `gUnk_086FD19C` ke `0x05000000`, baris 46433-46435), jadi penggantian
+  `.incbin` menunggu **seluruh** stream di blob itu byte-identik. Blob yang
+  semua stream-nya atom0 lzss0/2/3 sudah siap untuk container encoder; blob
+  yang masih memuat huffman (`100`/`123`/`124`/`130`/`133`/`134`/`220`/
+  `230`/`231`) tetap parkir karena format itu belum punya encoder. Daftar
+  per blob + formatnya dihasilkan di `docs/decomp/ASET-0X70-REENCODE.md`
+  bagian "Status per blob"; 53 blob itu seluruhnya dirujuk `Unpack` langsung
+  atau lewat tabel/pointer (`ASET-0X70-PETA-BERKAS.md`), tidak ada yang
+  dibaca per stream.
 - `stream_audit.py` menaikkan status ke `ok` hanya bila compressed hasil
-  encoder sama byte. Status ini per stream; blob belum diganti `.incbin`
-  karena satu blob bisa memuat format lain yang belum punya encoder.
+  encoder sama byte. Status ini per stream; alasan parkir yang tersisa
+  adalah format huffman di atas, bukan tebakan isi.
   Rincian angka: `docs/decomp/ASET-0X70-REENCODE.md`.
 
 **Exit:** container yang exact sudah terverifikasi; sisanya punya alasan.

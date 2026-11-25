@@ -51,6 +51,13 @@ def reencode_status(compressed, decoded, fmt):
             encoded = lz70.encode_lzss2(decoded, widths, int(fmt[2]))
             reason = ("encoder lz70 atom0/lzss2 (match terpanjang, escape "
                       "literal >=9) byte identik dengan tangga asli")
+        elif fmt in ("030", "033"):
+            _size, widths, _tokens, spec = lz70.parse_lzss3(compressed)
+            if spec != ((int(fmt[2]) << 5) | 3):
+                return "opaque", f"spec {spec:#04x} tidak cocok format {fmt}"
+            encoded = lz70.encode_lzss3(decoded, widths, int(fmt[2]))
+            reason = ("encoder lz70 atom0/lzss3 (unit 2 B, escape literal "
+                      ">=9 pasang) byte identik dengan tangga asli")
         else:
             return "opaque", f"belum ada encoder untuk format {fmt}"
     except ValueError as exc:
@@ -194,6 +201,26 @@ def build(manifest=MANIFEST, rom_path=REPO / "baserom.gba",
     counts = {}
     for row in rows:
         counts[row["reencode"]] = counts.get(row["reencode"], 0) + 1
+    blobs = {}
+    for row in rows:
+        if row["source"] != "blob 0x70":
+            continue
+        blob = blobs.setdefault(row["symbol"], {
+            "symbol": row["symbol"],
+            "streams": 0,
+            "formats": set(),
+            "fully_encoded": True,
+        })
+        blob["streams"] += 1
+        blob["formats"].add(row["format"])
+        if row["reencode"] != "ok":
+            blob["fully_encoded"] = False
+    blob_rows = [
+        {"symbol": b["symbol"], "streams": b["streams"],
+         "formats": sorted(b["formats"]),
+         "fully_encoded": b["fully_encoded"]}
+        for b in sorted(blobs.values(), key=lambda b: b["symbol"])
+    ]
     priorities = {}
     for row in rows:
         key = (row["priority"], row["family"])
@@ -220,6 +247,7 @@ def build(manifest=MANIFEST, rom_path=REPO / "baserom.gba",
             {"priority": k[0], "family": k[1], **v}
             for k, v in sorted(priorities.items())
         ],
+        "blobs": blob_rows,
         "sources": [{"source": k, **v}
                     for k, v in sorted(sources.items())],
         "embedded_banks": len(banks),
@@ -270,6 +298,23 @@ def render_doc(result):
                    f"{p['packed']} | {p['decoded']} |")
     out += [
         "",
+        "## Status per blob `0x70`",
+        "",
+        "Setiap blob dimuat utuh oleh `Unpack` (call site di",
+        "`ASET-0X70-PETA-BERKAS.md`), jadi satu stream yang belum byte-identik",
+        "memblokir penggantian `.incbin` seluruh blob. Blob yang seluruh",
+        "stream-nya `ok` sudah siap kalau container encoder dibuat.",
+        "",
+        "| simbol | stream | format | status |",
+        "|---|---:|---|---|",
+    ]
+    for blob in result["blobs"]:
+        status = ("siap container" if blob["fully_encoded"]
+                  else "parkir: ada format tanpa encoder")
+        out.append(f"| `{blob['symbol']}` | {blob['streams']} | "
+                   f"`{','.join(blob['formats'])}` | {status} |")
+    out += [
+        "",
         "Status `ok` hanya untuk stream yang compressed-nya dihasilkan ulang",
         "byte-identik oleh `lz70.py` dengan tangga asli.",
         "Aturan terbukti pada format `000`: match terpanjang (seri -> jarak",
@@ -277,8 +322,10 @@ def render_doc(result):
         "run>=2 atau match berikutnya. Untuk atom0/lzss2 (`020`/`023`/`024`)",
         "aturannya match terpanjang (jarak seri -> terdekat), literal escape",
         "dipakai mulai 9 B, match >18 B lewat escape, dan match 3 B di tiga",
-        "byte terakhir tidak dipakai. Format huffman (`1xx`/`2xx`) dan lzss3",
-        "tetap `opaque` karena belum ada encodernya. `ok` di level stream juga",
+        "byte terakhir tidak dipakai. Lzss3 (`030`/`033`) memakai unit 2 B:",
+        "match minimal 2 unit, pendek 2..9 unit, >9 unit lewat escape, literal",
+        "escape mulai 9 pasang. Format huffman (`1xx`/`2xx`) tetap `opaque`",
+        "karena belum ada encodernya. `ok` di level stream juga",
         "belum berarti blob boleh diganti `.incbin`: satu blob bisa memuat",
         "banyak stream, dan penggantian menunggu seluruh isi blob ter-encode.",
         "",

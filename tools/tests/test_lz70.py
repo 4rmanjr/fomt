@@ -54,8 +54,8 @@ def p0_streams():
     return rows
 
 
-def lzss2_streams():
-    """(label, compressed, decoded, diff) untuk seluruh atom0/lzss2."""
+def atom0_streams(formats):
+    """(label, compressed, decoded, diff) untuk format atom0 yang diminta."""
     if not ROM.exists():
         return []
     inv = load("asset_inventory",
@@ -70,7 +70,7 @@ def lzss2_streams():
         entry = by_symbol.get(blob["blob"])
         for stream in blob["streams"]:
             fmt = str(stream["format"])
-            if fmt not in ("020", "023", "024"):
+            if fmt not in formats:
                 continue
             offset = entry.offset + int(stream["offset"])
             packed = int(stream["packed"])
@@ -82,7 +82,7 @@ def lzss2_streams():
         entry = by_symbol.get(bank["blob"])
         for stream in bank["streams"]:
             fmt = str(stream["format"])
-            if fmt not in ("020", "023", "024"):
+            if fmt not in formats:
                 continue
             offset = entry.offset + int(stream["offset"])
             packed = int(stream["packed"])
@@ -91,6 +91,14 @@ def lzss2_streams():
                          (MANIFEST.parent / stream["bin"]).read_bytes(),
                          int(fmt[2])))
     return rows
+
+
+def lzss2_streams():
+    return atom0_streams(("020", "023", "024"))
+
+
+def lzss3_streams():
+    return atom0_streams(("030", "033"))
 
 
 class Lz70(unittest.TestCase):
@@ -199,6 +207,58 @@ class Lzss2(unittest.TestCase):
         tokens = lz70._tokens_lzss2(b"abcXYZabc", ladder)
         self.assertFalse([t for t in tokens if t[0] in ("match", "lmatch")],
                          tokens)
+
+
+class Lzss3(unittest.TestCase):
+    """Format atom0/lzss3: replay, encoder byte-identik, dan ambang unit."""
+
+    def setUp(self):
+        self.streams = lzss3_streams()
+        if not self.streams:
+            self.skipTest("baserom.gba tidak ada")
+        self.assertEqual(len(self.streams), 53,
+                         "P1 atom0/lzss3 harus 53 stream")
+
+    def test_replay_is_byte_identical(self):
+        for label, original, _decoded, diff in self.streams:
+            size, widths, tokens, spec = lz70.parse_lzss3(original)
+            self.assertEqual(spec >> 5, diff, label)
+            self.assertEqual(lz70.serialize_lzss3(size, widths, tokens, spec),
+                             original, f"{label} replay beda")
+
+    def test_encode_is_byte_identical(self):
+        for label, original, decoded, diff in self.streams:
+            _size, widths, _tokens, _spec = lz70.parse_lzss3(original)
+            out = lz70.encode_lzss3(decoded, widths, diff)
+            self.assertEqual(out, original, f"{label} encoder beda")
+            self.assertEqual(decompress.unpack(out)[0], decoded, label)
+
+    def test_literal_escape_threshold(self):
+        ladder = lz70.Ladder((7, 11, 13))
+        eight = lz70._tokens_lzss3(bytes(range(16)), ladder)
+        nine = lz70._tokens_lzss3(bytes(range(18)), ladder)
+        self.assertTrue(all(t[0] == "lit" for t in eight))
+        self.assertEqual([len(t[1]) for t in nine if t[0] == "lrun"], [18])
+
+    def test_match_threshold_is_units(self):
+        ladder = lz70.Ladder((7, 11, 13))
+        for units, kind in ((9, "match"), (10, "lmatch")):
+            block = bytes(range(units * 2))
+            tokens = lz70._tokens_lzss3(block + b"\xff\xfe" + block,
+                                        ladder)
+            found = [t for t in tokens if t[0] in ("match", "lmatch")]
+            self.assertTrue(any(t[0] == kind and t[2] == units * 2
+                                for t in found), (units, tokens))
+
+    def test_minimum_two_units(self):
+        ladder = lz70.Ladder((7, 11, 13))
+        block = b"abcX"
+        tokens = lz70._tokens_lzss3(block + b"\xff\xfe" + block, ladder)
+        self.assertTrue(any(t[0] == "match" and t[2] == 4 for t in tokens),
+                        tokens)
+        tail = lz70._tokens_lzss3(block + b"\xff\xfe" + block[:2], ladder)
+        self.assertFalse([t for t in tail if t[0] in ("match", "lmatch")],
+                         tail)
 
 
 if __name__ == "__main__":

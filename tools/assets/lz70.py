@@ -652,6 +652,210 @@ def encode_lzss2(data, widths, diff_fmt=0):
     return serialize_lzss2(len(data), widths, tokens, spec)
 
 
+def _write_vli3(writer, value):
+    """VLI basis 4 khusus lzss3: atom 3 bit, digit besar dulu."""
+    digits = []
+    while True:
+        digits.append(value & 3)
+        value >>= 2
+        if not value:
+            break
+    last = len(digits) - 1
+    for index, digit in enumerate(reversed(digits)):
+        writer.write((digit << 1) | (0 if index == last else 1), 3)
+
+
+def _read_vli3(read):
+    value = 0
+    while True:
+        atom = read.read_bits(3)
+        value = (value << 2) + (atom >> 1)
+        if not (atom & 1):
+            return value
+
+
+def _emit_literal3(writer, pair):
+    writer.write(0, 1)
+    writer.write(pair[0], 8)
+    writer.write(pair[1], 8)
+
+
+def _emit_literal_run3(writer, chunk):
+    writer.write(1, 1)
+    writer.write(3, 2)
+    _write_vli3(writer, len(chunk) // 2 - 1)
+    writer.write(0, 1)
+    for byte in chunk:
+        writer.write(byte, 8)
+
+
+def _emit_match3(writer, ladder, distance, length):
+    """Jarak/panjang lzss3 dalam unit 2 byte."""
+    units = distance // 2
+    size = length // 2
+    index, raw = ladder.encode(units)
+    if index is None:
+        raise ValueError(f"jarak {distance} di luar tangga {ladder.widths}")
+    writer.write(1, 1)
+    if size <= 9:
+        writer.write(index, 2)
+        writer.write(raw, ladder.widths[index])
+        writer.write(size - 2, 3)
+        return
+    writer.write(3, 2)
+    _write_vli3(writer, (size - 2) >> 3)
+    writer.write(1, 1)
+    writer.write(index, 2)
+    writer.write(raw, ladder.widths[index])
+    writer.write((size - 2) & 7, 3)
+
+
+def _tokens_lzss3(data, ladder):
+    """Aturan tokenisasi encoder asli atom0/lzss3 (terbukti 53/53 stream).
+
+    lzss3 bekerja per **unit 2 byte**: literal satu unit, match minimal 2
+    unit (4 B), jarak dihitung dalam unit lalu dikali 2 oleh decoder.
+    Match terpanjang (seri -> jarak terdekat), 2..9 unit pendek, >9 unit
+    lewat escape `idx=3` + VLI basis 4 + 3 bit rendah. Escape literal
+    dipakai mulai 9 unit (18 B); di bawah itu literal per unit lebih murah.
+    Posisi dengan sisa kurang dari 2 unit tidak boleh menjadi match.
+    """
+    if len(data) % 2:
+        raise ValueError("lzss3 butuh payload genap")
+    units = [data[index:index + 2] for index in range(0, len(data), 2)]
+    n = len(units)
+    head = {}
+    previous = [-1] * n
+    for index in range(max(0, n - 1)):
+        key = units[index]
+        previous[index] = head.get(key, -1)
+        head[key] = index
+
+    def match_at(index):
+        if index + 2 > n:
+            return None
+        best = None
+        limit = n - index
+        candidate = head.get(units[index], -1)
+        while candidate >= 0:
+            if candidate >= index:
+                candidate = previous[candidate]
+                continue
+            distance = index - candidate
+            if distance > ladder.max_distance:
+                break
+            length = 1
+            while (length < limit
+                   and units[candidate + length] == units[index + length]):
+                length += 1
+            if length >= 2:
+                if (best is None or length > best[1]
+                        or (length == best[1] and distance < best[0])):
+                    best = (distance, length)
+                if best[1] == limit:
+                    break
+            candidate = previous[candidate]
+        return best
+
+    tokens = []
+    index = 0
+    while index < n:
+        match = match_at(index)
+        if match is not None:
+            distance, length = match
+            kind = "match" if length <= 9 else "lmatch"
+            tokens.append((kind, distance * 2, length * 2))
+            index += length
+            continue
+        start = index
+        index += 1
+        while index < n and match_at(index) is None:
+            index += 1
+        chunk = b"".join(units[start:index])
+        if index - start >= 9:
+            tokens.append(("lrun", chunk))
+        else:
+            tokens.extend(("lit", units[pos]) for pos in range(start, index))
+    return tokens
+
+
+def parse_lzss3(stream):
+    """Stream atom0/lzss3 -> (size, widths, tokens, spec)."""
+    head = int.from_bytes(stream[:4], "little")
+    if head & 0xFF != 0x70:
+        raise ValueError("bukan header 0x70")
+    size = head >> 8
+    bits = decompress.ReadBits(stream, 4)
+    spec = bits.read_bits(8)
+    lzss_fmt = spec & 7
+    atom_fmt = (spec >> 3) & 3
+    diff_fmt = (spec >> 5) & 7
+    if atom_fmt != 0 or lzss_fmt != 3:
+        raise ValueError(f"format {atom_fmt}{lzss_fmt}{diff_fmt} bukan atom0/lzss3")
+    read = decompress.ReadRaw(bits)
+    widths = tuple(read.read_bits(4) + 1 for _ in range(3))
+    ladder = Ladder(widths)
+    tokens = []
+    produced = 0
+    while produced < size:
+        if read.read_bits(1) == 0:
+            tokens.append(("lit", bytes([read.read_byte(), read.read_byte()])))
+            produced += 2
+            continue
+        index = read.read_bits(2)
+        if index < 3:
+            distance = ladder.bases[index] + read.read_bits(widths[index])
+            length = 2 + read.read_bits(3)
+            tokens.append(("match", distance * 2, length * 2))
+            produced += length * 2
+            continue
+        count = _read_vli3(read)
+        if read.read_bits(1) == 0:
+            chunk = bytes(read.read_byte() for _ in range((count + 1) * 2))
+            tokens.append(("lrun", chunk))
+            produced += len(chunk)
+            continue
+        index = read.read_bits(2)
+        if index == 3:
+            raise ValueError("escape match dengan idx 3 tidak valid")
+        distance = ladder.bases[index] + read.read_bits(widths[index])
+        length = read.read_bits(3) + (count << 3) + 2
+        tokens.append(("lmatch", distance * 2, length * 2))
+        produced += length * 2
+    if produced != size:
+        raise ValueError(f"token menghasilkan {produced} B, header {size} B")
+    return size, widths, tokens, spec
+
+
+def serialize_lzss3(size, widths, tokens, spec):
+    ladder = Ladder(widths)
+    writer = BitWriter()
+    writer.write(spec, 8)
+    for width in widths:
+        writer.write(width - 1, 4)
+    for token in tokens:
+        if token[0] == "lit":
+            _emit_literal3(writer, token[1])
+        elif token[0] == "lrun":
+            _emit_literal_run3(writer, token[1])
+        elif token[0] in ("match", "lmatch"):
+            _emit_match3(writer, ladder, token[1], token[2])
+        else:
+            raise ValueError(f"token {token[0]} tidak dikenal")
+    return struct.pack("<I", (size << 8) | 0x70) + writer.bytes()
+
+
+def encode_lzss3(data, widths, diff_fmt=0):
+    """Payload final -> stream atom0/lzss3 byte-identik (tangga asli)."""
+    if len(data) > 0xFFFFFF:
+        raise ValueError("payload > 24 bit")
+    ladder = Ladder(widths)
+    filtered = diff_encode(data, diff_fmt)
+    tokens = _tokens_lzss3(filtered, ladder)
+    spec = ((diff_fmt & 7) << 5) | 3
+    return serialize_lzss3(len(data), widths, tokens, spec)
+
+
 def _decode(stream):
     payload, fmt, _ = decompress.unpack(stream, 0)
     return payload, fmt
