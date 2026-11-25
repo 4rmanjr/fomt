@@ -1116,9 +1116,17 @@ kolom 24686 membaca `ldrh r1, [r4]` (baris 24701) berurutan, lalu menulis
 `strh r1, [r0]` (baris 24702) ke lapis `[r6,#0x14]` (baris 24699) pada
 `(x0+kolom, y0+baris)`: 16 entri u16 = 32 B, urut baris, lebar 4.
 
-Yang lolos hanya dua simbol yang slice-nya tepat 32 B: `gUnk_086EAD64`
-(kasus `0xc`, baris 24593) dan `gUnk_086DD690` (kasus `0xe`, baris 24582),
-keduanya kini `kind: tilemap` 4x4. `gUnk_086EAD8C` (33.312 B = 1041 x 32) dan
+Yang lolos adalah simbol yang slice-nya tepat sebesar grid yang dibaca:
+`gUnk_086EAD64` (kasus `0xc`, baris 24593) dan `gUnk_086DD690` (kasus `0xe`,
+baris 24582) 4x4 = 32 B, serta `gUnk_086DC54C` (kasus `0xe`, baris 24622) dan
+`gUnk_086DD6B0` (kasus `0xf`, baris 24628) 6x4 = 48 B di `.L080AAB54`
+(`sl=6` baris 24631, 4 baris baris 24633). Keempatnya kini `kind: tilemap`
+(lebar 4 atau 6, tinggi 4, urut baris). Klaim sesi sebelumnya bahwa dua label
+6x4 itu hanya 32 B **salah**: label di asm memang `0x30`, dan simbol
+berikutnya (`gUnk_086DC57C`/`gUnk_086DD6E0`) tepat di `+0x30`, jadi batas
+simbol benar dan tidak ada byte yang bocor ke label sebelah.
+
+`gUnk_086EAD8C` (33.312 B = 1041 x 32) dan
 `gUnk_086DE7F4` (50.408 B = 1575 x 32 + 8) **tidak** dimigrasikan: hanya 32 B
 pertama yang dibaca stamp, jadi blok-blok sisanya tidak punya pembaca dan
 bentuknya tidak boleh ditebak dari kelipatan 32.
@@ -1138,9 +1146,6 @@ untuk sisa yang tak terbaca.
 Alasan parkir stamp lain, semuanya dari loop yang sama:
 
 - `gUnk_086DCC88` dan `gUnk_086DDDEC` (2568 B) hanya 32 B pertamanya dibaca;
-- `gUnk_086DC54C` dan `gUnk_086DD6B0` dibaca 6 kolom x 4 baris = 48 B di
-  `.L080AAB54` (baris 24613), padahal slice-nya 32 B — salinan melewati batas
-  simbol, jadi slice itu bukan stamp utuh;
 - `gUnk_086EACDC`, `gUnk_086EAD84`, `gUnk_086DC57C`, `gUnk_086DD6E0` memakai
   `sl=2` dan 2 baris (baris 24558-24561): hanya 8 B dibaca dari slice besar.
 

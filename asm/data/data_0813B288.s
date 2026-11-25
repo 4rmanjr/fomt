@@ -222,7 +222,11 @@ gUnk_086DC3F4:
 
 	.global gUnk_086DC54C
 gUnk_086DC54C:
-	.incbin "baserom.gba", 0x6DC54C, 0x30
+	@ rom: 0x6DC54C 0x30 — source assets/gfx/maps/gUnk_086DC54C.json
+	@ stamp 6x4: func_080AA9C8 memilihnya untuk id 0xe (baris 24622), sl=6 (24631) dan 4 baris (24633);
+	@ loop 24672/24686 membaca 24 entri urut baris (ldrh [r4], 24701) dan menulis strh ke lapis peta [r6,#0x14] (24699/24702).
+	@ 48 B = seluruh slice; gUnk_086DC57C tepat di +0x30, jadi batas simbol benar.
+	.incbin "build/assets/gUnk_086DC54C.bin"
 
 	.global gUnk_086DC57C
 gUnk_086DC57C:
@@ -241,7 +245,11 @@ gUnk_086DD690:
 
 	.global gUnk_086DD6B0
 gUnk_086DD6B0:
-	.incbin "baserom.gba", 0x6DD6B0, 0x30
+	@ rom: 0x6DD6B0 0x30 — source assets/gfx/maps/gUnk_086DD6B0.json
+	@ stamp 6x4: func_080AA9C8 memilihnya untuk id 0xf (baris 24628), sl=6 (24631) dan 4 baris (24633);
+	@ loop 24672/24686 membaca 24 entri urut baris (ldrh [r4], 24701) dan menulis strh ke lapis peta [r6,#0x14] (24699/24702).
+	@ 48 B = seluruh slice; gUnk_086DD6E0 tepat di +0x30, jadi batas simbol benar.
+	.incbin "build/assets/gUnk_086DD6B0.bin"
 
 	.global gUnk_086DD6E0
 gUnk_086DD6E0:

@@ -1,0 +1,51 @@
+{
+ "id": "gfx/maps/gunk_086dd6b0",
+ "symbol": "gUnk_086DD6B0",
+ "kind": "tilemap",
+ "status": "rom-exact",
+ "semantics": "unidentified",
+ "rom": {
+  "offset": "0x6DD6B0",
+  "size": 48,
+  "sha256": "b68aab9df3199b7ce33e2b8a14d5bfbe3d682a31c272b73ef8deb108ddffc305"
+ },
+ "source": {
+  "json": "gUnk_086DD6B0.json"
+ },
+ "encoder": {
+  "tool": "map2bin.py",
+  "version": 1
+ },
+ "tilemap": {
+  "width": 6,
+  "height": 4
+ },
+ "entries": [
+  37832,
+  37833,
+  37834,
+  37835,
+  37836,
+  37837,
+  37838,
+  37839,
+  37840,
+  37841,
+  37842,
+  37843,
+  37844,
+  37845,
+  37846,
+  37847,
+  37848,
+  37849,
+  37850,
+  37851,
+  37852,
+  37853,
+  37854,
+  37855
+ ],
+ "note": "stamp 6x4: 24 entri map u16 (indeks tile + palet 9, 0x93c8..0x93df berurutan) dibaca func_080AA9C8 kasus 0xf (sl=6, 4 baris) dan ditulis urut baris ke lapis peta",
+ "evidence": "asm/code_809E804.s baris 24613 (.L080AAB54) memilih gUnk_086DD6B0 untuk id 0xf (baris 24628); sl=6 (baris 24631) dan 4 baris (baris 24633) membuat loop 24672/24686 membaca tepat 24 entri u16 berurutan lewat ldrh [r4] (baris 24701), lalu strh ke lapis peta [r6,#0x14] (baris 24699/24702) di (x0+kolom, y0+baris). 24 entri = 48 B = seluruh slice; label di asm memang 0x30 dan simbol berikutnya (gUnk_086DD6E0) tepat di +0x30, jadi batas simbol benar dan grid 6x4 urut baris round-trip terbukti."
+}
