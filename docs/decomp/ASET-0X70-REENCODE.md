@@ -23,8 +23,8 @@ stream `0x70` yang sudah diekstrak, bukan hanya blob utuh.
 - sumber `blob 0x70`: **137** stream, 255188 B compressed → 987120 B decoded
 - bank tertanam tercakup: **3**
 - compressed → decoded terverifikasi: **284**
-- bisa direencode byte-identik: **0**
-- wajib `opaque`: **284**
+- bisa direencode byte-identik: **5**
+- wajib `opaque`: **279**
 
 ## Prioritas konversi
 
@@ -39,10 +39,14 @@ stream `0x70` yang sudah diekstrak, bukan hanya blob utuh.
 | P3 | huffman8/lzss2 | 6 | 71300 | 168972 |
 | P3 | huffman8/lzss3 | 36 | 297680 | 936546 |
 
-Semua stream saat ini `opaque`: repo hanya memiliki decoder `unpack()`;
-tidak ada encoder `0x70` yang diuji menghasilkan compressed hash yang
-sama. Prioritas di atas adalah urutan kandidat implementasi encoder,
-bukan klaim bahwa stream tersebut sudah aman diganti `.incbin`.
+Status `ok` hanya untuk stream yang compressed-nya dihasilkan ulang
+byte-identik oleh `lz70.py` strategi `parity` dengan tangga asli.
+Aturan itu terbukti pada format `000`: match terpanjang (seri -> jarak
+terdekat), run menang bila panjangnya >= match, literal berhenti di
+run>=2 atau match berikutnya. Format lain (atom/huffman di depan)
+tetap `opaque` karena belum ada encodernya. `ok` di level stream juga
+belum berarti blob boleh diganti `.incbin`: satu blob bisa memuat
+banyak stream, dan penggantian menunggu seluruh isi blob ter-encode.
 
 ## Bukti hash
 
@@ -104,7 +108,7 @@ bukan klaim bahwa stream tersebut sudah aman diganti `.incbin`.
 | `gUnk_086FD240` | 43 | blob 0x70 | `134` | peta | 1144 | 22144 | `8b6812070d83851c0b0c341b3fd95004d780357c1e86ca23e4b4d22c0b6d7086` | `d5cb3c1d7d7dfae820c20fcc2af25023728dc047561fc5d12cc9c332f7803a64` | opaque |
 | `gUnk_086FD240` | 44 | blob 0x70 | `130` | palet | 272 | 480 | `210cc474eab5283ae3359b2c2d3e77f98d1a18f9ba3629c10d9ce73e8c863b68` | `9d5c8656e65bf6fb451ceec4f0d9b55024168413234c1303695a09bc2d6e037b` | opaque |
 | `gUnk_086FD240` | 45 | blob 0x70 | `231` | tile | 10208 | 32768 | `2e1245512ee3c647eafb1f149a36058c1e3066078f8f12d9735393cd7287a3f9` | `a4a50c7e63159df88dbbb2cacf9f276cdfe32995a0ce7419f1ed4c290499f2d5` | opaque |
-| `gUnk_086FD240` | 46 | blob 0x70 | `000` | palet | 144 | 480 | `6fb3ef79645abb636185f2e8b358ba7214421c1261066b7f2017a06bb6ec9f90` | `b76c95f339f224774dfc514faf65854a9d35a5cb820eb3eb544d2e5f2e1343f1` | opaque |
+| `gUnk_086FD240` | 46 | blob 0x70 | `000` | palet | 144 | 480 | `6fb3ef79645abb636185f2e8b358ba7214421c1261066b7f2017a06bb6ec9f90` | `b76c95f339f224774dfc514faf65854a9d35a5cb820eb3eb544d2e5f2e1343f1` | ok |
 | `gUnk_086FD240` | 47 | blob 0x70 | `033` | peta | 448 | 7200 | `26f603947ec41dbcbceedf8893bb82277e7124960a1d5e4a0178fb42c5746707` | `beb8265052461f0dac030558025e10b9b6c0e6a459e8087ec13c071e20295c6e` | opaque |
 | `gUnk_086FD240` | 48 | blob 0x70 | `133` | peta | 432 | 7200 | `15e6e2587df38495567c7c7c6a77cd6bda56e9a11d4b3d4f82bcec18283b51b6` | `254042808eec18c29100a2f5edf9119ec6eeb207a6a2808471d5b81c74dcb876` | opaque |
 | `gUnk_086FD240` | 49 | blob 0x70 | `133` | peta | 176 | 7200 | `223ed50c3f85a422fac66e6ba0062dd4e349b218a2d99e1f24e071bceb793770` | `1a6f27da524a954bf855070a46929ff677db3aa3328732b5ae230ad2f8a85184` | opaque |
@@ -113,7 +117,7 @@ bukan klaim bahwa stream tersebut sudah aman diganti `.incbin`.
 | `gUnk_08714B60` | 0 | blob 0x70 | `030` | palet | 140 | 480 | `5eb927662660f0d053ff96932a55a32658ac34bb0ae76c87d5b43b71c21d6d09` | `41dbde1f9599e8adfcb84ceb1ae5e414d8c5abd61c7a681f902d25518d1a1884` | opaque |
 | `gUnk_08714BEC` | 0 | blob 0x70 | `030` | palet | 152 | 480 | `c5aeb9ec2ca0b5bc83592337aac82c03f2900dda98f4cb9c69281e1abfdd6af5` | `d5fd0b168d5d1d94f0f8418069e562e8729749e9cbb528993a116ffd54aadd39` | opaque |
 | `gUnk_08714BEC` | 1 | blob 0x70 | `231` | tile | 7860 | 32768 | `dcfd89a056349a5ce9b666dee9b6bd64a3f0c3c665f7847d208b744302de9b5b` | `668ad4a8b2f21cbea0d30c951b28f8c078e077f0d520ee3090498456c978a037` | opaque |
-| `gUnk_08714BEC` | 2 | blob 0x70 | `000` | palet | 136 | 480 | `930f457ebea416807158558f004631edd3915e00bb5b736e4960afbe4bca7a51` | `631b392d569e25daa4e117bf516bf36ab8ecb3768b4f24e7ea71dc81adccbfd3` | opaque |
+| `gUnk_08714BEC` | 2 | blob 0x70 | `000` | palet | 136 | 480 | `930f457ebea416807158558f004631edd3915e00bb5b736e4960afbe4bca7a51` | `631b392d569e25daa4e117bf516bf36ab8ecb3768b4f24e7ea71dc81adccbfd3` | ok |
 | `gUnk_08714BEC` | 3 | blob 0x70 | `133` | peta | 356 | 7200 | `f28474b5ce045805233c5648afd4593ee85a7b640239f41a689f82923928837a` | `d7cf4f32f7d499ef4671a00c0e796c97a7a85d679ccba14d76612239e2e62ece` | opaque |
 | `gUnk_08714BEC` | 4 | blob 0x70 | `133` | peta | 424 | 7200 | `c0d4a6194fa1a765c235692be41060cc9c36e208a0b55e1357fab227e543792a` | `37a4024504b1ef5936506aec178fffbb1ca89eea4b174774cb8c0a6d2ef6a40b` | opaque |
 | `gUnk_08714BEC` | 5 | blob 0x70 | `023` | peta | 184 | 7200 | `c950f254bfa86792b181ccf93cca384eba99aa79b9b4a86779ef100471b6dc74` | `f7e82d45e1e0a19954a0931ec4c01f5d378b94cf0fc10155a825c0da176bbccf` | opaque |
@@ -158,7 +162,7 @@ bukan klaim bahwa stream tersebut sudah aman diganti `.incbin`.
 | `gUnk_0872FC34` | 0 | blob 0x70 | `020` | layar | 568 | 2048 | `dac12010416069a87ce5c9a1cce09ffea27752538ad96b3d852067f4dfac2ff5` | `73e1c04e3f9622a7d78a399e425ed516d6710b372836b29e302fe5228d91df99` | opaque |
 | `gUnk_0872FE6C` | 0 | blob 0x70 | `030` | layar | 140 | 2048 | `7337a182c0e3095afb5c988987362f741f3f00349c5695770114ecd67c07490f` | `d764a85f2be59aadc57a6af5e3c1a1b23d7b50e17af591602da0668c67d94853` | opaque |
 | `gUnk_0872FEF8` | 0 | blob 0x70 | `020` | tile | 6728 | 29696 | `2888335b90c9eb97f6070deac4405a291ada4de4bd88808231aaf5177caf2b0b` | `2009c6811a8e0d65e84ac9dd2301fdecad4273a43655203b28d8d548e613f816` | opaque |
-| `gUnk_08738AD8` | 0 | blob 0x70 | `000` | peta | 496 | 1280 | `91bd413189c1ab2f0228d4be27761f7c8ac8ec3f2a7e523a389615435ad86473` | `9c41b5933668015a6764034d784dcb83c04882e4bc7c9bd33fea10cc2c5c4fea` | opaque |
+| `gUnk_08738AD8` | 0 | blob 0x70 | `000` | peta | 496 | 1280 | `91bd413189c1ab2f0228d4be27761f7c8ac8ec3f2a7e523a389615435ad86473` | `9c41b5933668015a6764034d784dcb83c04882e4bc7c9bd33fea10cc2c5c4fea` | ok |
 | `gUnk_08738CC8` | 0 | blob 0x70 | `030` | peta | 40 | 1280 | `e99f913ef71767ada07d4b3455c2db321462255152f113cb8034468a2c7068bb` | `9ad20d67f09cc5e3562a1de29c3ca988525600978d35c1b5d22d14c8c2f1e324` | opaque |
 | `gUnk_08738CF0` | 0 | blob 0x70 | `030` | peta | 44 | 320 | `622b6f0b4a161985f29b616e03344dafff33b4bad8973617e255b0661d794544` | `a18b68486e22b435aafa1ede5d0043cc0f92bc55815745c9de8027f8a2aba945` | opaque |
 | `gUnk_08738D1C` | 0 | blob 0x70 | `020` | tile | 3240 | 10496 | `00ae8e164ffed10b091e6f86a32ce83721fb96d9decb4322f0da99ba13ed34dd` | `de5997db9603377c0ebc305533788dbd83f361e8e1cea417c595728be3efbce3` | opaque |
@@ -201,7 +205,7 @@ bukan klaim bahwa stream tersebut sudah aman diganti `.incbin`.
 | `gUnk_0869B284` | 13 | bank tertanam | `024` | peta | 148 | 22528 | `acfee105c75b60af68bd0431157b4db1bba41c6c7be9927cd7854c0b46894d58` | `c33f635bbcce334450c810677f42fc61d5e6e85b71a1d4d0e466a651b60f7708` | opaque |
 | `gUnk_0869B284` | 14 | bank tertanam | `030` | palet | 212 | 480 | `4217e17ff3d62a998b4db566f119e9d7ff5311d01345d1770f5dd3928fa1ea96` | `2ee6d9552637003ec42bf6d51913c6a51095e52f3cca62f872a7b613838e01fe` | opaque |
 | `gUnk_0869B284` | 15 | bank tertanam | `231` | tile | 14716 | 32768 | `78d8eb90cf78d75938d8670a206104e1257655f79351c3a01c5f1bf77fce987d` | `2c4f1b76c1b4ae59aaf19742874799578714b738e0e6e2bd93cf5041dee0cb41` | opaque |
-| `gUnk_0869B284` | 16 | bank tertanam | `000` | palet | 204 | 480 | `680554bfbe1739b9ca81aa6dd2ebd587decb53808501e5d48b6361320e01046c` | `fd88c1b1f38ba9ea12992fa9b4a00b2b47904c71bf2af893771cc099e10df405` | opaque |
+| `gUnk_0869B284` | 16 | bank tertanam | `000` | palet | 204 | 480 | `680554bfbe1739b9ca81aa6dd2ebd587decb53808501e5d48b6361320e01046c` | `fd88c1b1f38ba9ea12992fa9b4a00b2b47904c71bf2af893771cc099e10df405` | ok |
 | `gUnk_0869B284` | 17 | bank tertanam | `230` | peta | 2688 | 16384 | `1c6719d68cc73323b4ec81b4e8794f54dca9c1a7c8b3f898ae5e8b5016a007e9` | `43688575d60b51b5450f0a8c386fbe490312751718bd852bea03e2b7df294571` | opaque |
 | `gUnk_0869B284` | 18 | bank tertanam | `134` | peta | 1784 | 16384 | `0e5e77deec6ee21e33a1e28e80377fab824c2a8fb7a31c6df07498a0b377b88f` | `491313fe10c4e38a402edce7e0a4f22ebde5b1513fbfee309acd36fcf38e056a` | opaque |
 | `gUnk_0869B284` | 19 | bank tertanam | `134` | peta | 1352 | 16384 | `98bb2c32074e9233ac414c2961d4609fa130f232012f63cc7f3afff286223a9d` | `307d57a2970987b909b29e662664135005f81d97e7bb97537e90b3559cefbd4c` | opaque |
@@ -219,7 +223,7 @@ bukan klaim bahwa stream tersebut sudah aman diganti `.incbin`.
 | `gUnk_0869B284` | 31 | bank tertanam | `023` | peta | 448 | 3024 | `4ec25ae9472143df3a123cfb1a0cfcc460720d7b802018ed3370db2fc966a3be` | `0ba7993a5f423afdd3e005ef19a38444e39af78d32bb9fdfcad5e4bb68977f40` | opaque |
 | `gUnk_0869B284` | 32 | bank tertanam | `134` | peta | 212 | 3024 | `29bd3cbf90f41798125a34e32335f6004d18fb76c09435fd6972c6d6eabb9594` | `e1528dc5e4f27c2dc675a8fc765c2a8a18859e048e51f5ed56bb8987562b302e` | opaque |
 | `gUnk_0869B284` | 33 | bank tertanam | `231` | tile | 5900 | 32768 | `7c49791a814b20b6b03b108435e0fbf5164b1be8c3279d4943f489dddbbd2add` | `8ae69b589f207f9b957af12a4a5cb84f2cc67bc943cf4f1ec36e106c4a15f0b2` | opaque |
-| `gUnk_0869B284` | 34 | bank tertanam | `000` | palet | 440 | 480 | `ece241fb3057753e528c279b754eb38231df79e3b74551111f2ab60785435b46` | `85774b298095c7d782b8b89c03410bd68b672bedd18d25c7f954573951f3a56e` | opaque |
+| `gUnk_0869B284` | 34 | bank tertanam | `000` | palet | 440 | 480 | `ece241fb3057753e528c279b754eb38231df79e3b74551111f2ab60785435b46` | `85774b298095c7d782b8b89c03410bd68b672bedd18d25c7f954573951f3a56e` | ok |
 | `gUnk_0869B284` | 35 | bank tertanam | `133` | peta | 616 | 3024 | `43aafa126f7c11ea29ff65426d87615ce8fbb0918de7f1fa1733c9fcfc07fd0b` | `765e907041832b6aa01c4cfa284b1f7f2736c845f87ae0fccce920eb61cb8d34` | opaque |
 | `gUnk_0869B284` | 36 | bank tertanam | `023` | peta | 480 | 3024 | `d2ebb0139b6e7039c797b6164764885979521a497b31fc04d9cfc9d240335dbf` | `e330aa28aa3ca7cf8669d07535cbb1d20cc5e8024d33927feb08bce83ca89b57` | opaque |
 | `gUnk_0869B284` | 37 | bank tertanam | `033` | peta | 276 | 3024 | `deb6a72879ced8854ab980b23e52cc168a68dd583431aa9e7ce1dae4af139f37` | `26c2955347ce4449981245c46a1c4aec6cb02473c40627de215bf685c0258c20` | opaque |

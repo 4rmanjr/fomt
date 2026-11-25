@@ -1,11 +1,12 @@
 {
  "source_manifest": "assets/0x70/manifest.json",
  "total": 284,
- "reencodeable": 0,
- "opaque": 284,
+ "reencodeable": 5,
+ "opaque": 279,
  "decode_verified": 284,
  "counts": {
-  "opaque": 284
+  "opaque": 279,
+  "ok": 5
  },
  "priorities": [
   {
@@ -102,7 +103,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_08527348",
@@ -125,7 +126,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_08527520",
@@ -148,7 +149,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_085275D0",
@@ -171,7 +172,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_0852A6D8",
@@ -194,7 +195,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0852A7EC",
@@ -217,7 +218,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0852A9BC",
@@ -240,7 +241,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0852AA6C",
@@ -263,7 +264,7 @@
     "format_decoded": "220"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 220"
   },
   {
    "symbol": "gUnk_086FB004",
@@ -286,7 +287,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_086FD19C",
@@ -309,7 +310,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -332,7 +333,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -355,7 +356,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -378,7 +379,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -401,7 +402,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -424,7 +425,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -447,7 +448,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -470,7 +471,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -493,7 +494,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -516,7 +517,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -539,7 +540,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -562,7 +563,7 @@
     "format_decoded": "124"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 124"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -585,7 +586,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -608,7 +609,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -631,7 +632,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -654,7 +655,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -677,7 +678,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -700,7 +701,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -723,7 +724,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -746,7 +747,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -769,7 +770,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -792,7 +793,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -815,7 +816,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -838,7 +839,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -861,7 +862,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -884,7 +885,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -907,7 +908,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -930,7 +931,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -953,7 +954,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -976,7 +977,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -999,7 +1000,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1022,7 +1023,7 @@
     "format_decoded": "123"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 123"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1045,7 +1046,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1068,7 +1069,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1091,7 +1092,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1114,7 +1115,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1137,7 +1138,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1160,7 +1161,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1183,7 +1184,7 @@
     "format_decoded": "033"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 033"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1206,7 +1207,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1229,7 +1230,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1252,7 +1253,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1275,7 +1276,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1298,7 +1299,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1321,7 +1322,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1344,7 +1345,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1367,7 +1368,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1389,8 +1390,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "000"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reencode": "ok",
+   "reason": "encoder lz70 parity (match terpanjang, seri run) menghasilkan byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1413,7 +1414,7 @@
     "format_decoded": "033"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 033"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1436,7 +1437,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_086FD240",
@@ -1459,7 +1460,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_08714A30",
@@ -1482,7 +1483,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_08714A30",
@@ -1505,7 +1506,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_08714B60",
@@ -1528,7 +1529,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_08714BEC",
@@ -1551,7 +1552,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_08714BEC",
@@ -1574,7 +1575,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_08714BEC",
@@ -1596,8 +1597,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "000"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reencode": "ok",
+   "reason": "encoder lz70 parity (match terpanjang, seri run) menghasilkan byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_08714BEC",
@@ -1620,7 +1621,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_08714BEC",
@@ -1643,7 +1644,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_08714BEC",
@@ -1666,7 +1667,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_08716F84",
@@ -1689,7 +1690,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_08716F84",
@@ -1712,7 +1713,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1735,7 +1736,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1758,7 +1759,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1781,7 +1782,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1804,7 +1805,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1827,7 +1828,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1850,7 +1851,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1873,7 +1874,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1896,7 +1897,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1919,7 +1920,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1942,7 +1943,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1965,7 +1966,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -1988,7 +1989,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2011,7 +2012,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2034,7 +2035,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2057,7 +2058,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2080,7 +2081,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2103,7 +2104,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2126,7 +2127,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2149,7 +2150,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2172,7 +2173,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2195,7 +2196,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2218,7 +2219,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2241,7 +2242,7 @@
     "format_decoded": "033"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 033"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2264,7 +2265,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_087170B8",
@@ -2287,7 +2288,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0872C5D0",
@@ -2310,7 +2311,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0872C73C",
@@ -2333,7 +2334,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0872C84C",
@@ -2356,7 +2357,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_0872D5CC",
@@ -2379,7 +2380,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0872D630",
@@ -2402,7 +2403,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0872D6D8",
@@ -2425,7 +2426,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_0872F11C",
@@ -2448,7 +2449,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0872F1BC",
@@ -2471,7 +2472,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_0872F1EC",
@@ -2494,7 +2495,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0872F21C",
@@ -2517,7 +2518,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_0872FBFC",
@@ -2540,7 +2541,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0872FC34",
@@ -2563,7 +2564,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_0872FE6C",
@@ -2586,7 +2587,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0872FEF8",
@@ -2609,7 +2610,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_08738AD8",
@@ -2631,8 +2632,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "000"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reencode": "ok",
+   "reason": "encoder lz70 parity (match terpanjang, seri run) menghasilkan byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_08738CC8",
@@ -2655,7 +2656,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_08738CF0",
@@ -2678,7 +2679,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_08738D1C",
@@ -2701,7 +2702,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_08739A64",
@@ -2724,7 +2725,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_0873BE24",
@@ -2747,7 +2748,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0873BF48",
@@ -2770,7 +2771,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0873BFF0",
@@ -2793,7 +2794,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_0873F3C8",
@@ -2816,7 +2817,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_0873F5D4",
@@ -2839,7 +2840,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0873F6AC",
@@ -2862,7 +2863,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_08743058",
@@ -2885,7 +2886,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_08747A74",
@@ -2908,7 +2909,7 @@
     "format_decoded": "220"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 220"
   },
   {
    "symbol": "gUnk_08747A74",
@@ -2931,7 +2932,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_08747A74",
@@ -2954,7 +2955,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_08747A74",
@@ -2977,7 +2978,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_08747A74",
@@ -3000,7 +3001,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0874A9C0",
@@ -3023,7 +3024,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_0874E648",
@@ -3046,7 +3047,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_0874EB60",
@@ -3069,7 +3070,7 @@
     "format_decoded": "100"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 100"
   },
   {
    "symbol": "gUnk_0874ECCC",
@@ -3092,7 +3093,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0874EF14",
@@ -3115,7 +3116,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0874EF3C",
@@ -3138,7 +3139,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_0874EFEC",
@@ -3161,7 +3162,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_0874F050",
@@ -3184,7 +3185,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_08755848",
@@ -3207,7 +3208,7 @@
     "format_decoded": "220"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 220"
   },
   {
    "symbol": "gUnk_0875822C",
@@ -3230,7 +3231,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3253,7 +3254,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3276,7 +3277,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3299,7 +3300,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3322,7 +3323,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3345,7 +3346,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3368,7 +3369,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3391,7 +3392,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3414,7 +3415,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3437,7 +3438,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3460,7 +3461,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3483,7 +3484,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3506,7 +3507,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3529,7 +3530,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3552,7 +3553,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3575,7 +3576,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3598,7 +3599,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3620,8 +3621,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "000"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reencode": "ok",
+   "reason": "encoder lz70 parity (match terpanjang, seri run) menghasilkan byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3644,7 +3645,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3667,7 +3668,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3690,7 +3691,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3713,7 +3714,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3736,7 +3737,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3759,7 +3760,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3782,7 +3783,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3805,7 +3806,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3828,7 +3829,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3851,7 +3852,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3874,7 +3875,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3897,7 +3898,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3920,7 +3921,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3943,7 +3944,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3966,7 +3967,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -3989,7 +3990,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4012,7 +4013,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4034,8 +4035,8 @@
     "decoded_from_compressed": true,
     "format_decoded": "000"
    },
-   "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reencode": "ok",
+   "reason": "encoder lz70 parity (match terpanjang, seri run) menghasilkan byte identik dengan tangga asli"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4058,7 +4059,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4081,7 +4082,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4104,7 +4105,7 @@
     "format_decoded": "033"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 033"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4127,7 +4128,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4150,7 +4151,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4173,7 +4174,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4196,7 +4197,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4219,7 +4220,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4242,7 +4243,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4265,7 +4266,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4288,7 +4289,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4311,7 +4312,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4334,7 +4335,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4357,7 +4358,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4380,7 +4381,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4403,7 +4404,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4426,7 +4427,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4449,7 +4450,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4472,7 +4473,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4495,7 +4496,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4518,7 +4519,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4541,7 +4542,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4564,7 +4565,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4587,7 +4588,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4610,7 +4611,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4633,7 +4634,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4656,7 +4657,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4679,7 +4680,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4702,7 +4703,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4725,7 +4726,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4748,7 +4749,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4771,7 +4772,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4794,7 +4795,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4817,7 +4818,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4840,7 +4841,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4863,7 +4864,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4886,7 +4887,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4909,7 +4910,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4932,7 +4933,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4955,7 +4956,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -4978,7 +4979,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5001,7 +5002,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5024,7 +5025,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5047,7 +5048,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5070,7 +5071,7 @@
     "format_decoded": "033"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 033"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5093,7 +5094,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5116,7 +5117,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5139,7 +5140,7 @@
     "format_decoded": "220"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 220"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5162,7 +5163,7 @@
     "format_decoded": "123"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 123"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5185,7 +5186,7 @@
     "format_decoded": "124"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 124"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5208,7 +5209,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5231,7 +5232,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5254,7 +5255,7 @@
     "format_decoded": "020"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 020"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5277,7 +5278,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5300,7 +5301,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5323,7 +5324,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5346,7 +5347,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5369,7 +5370,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5392,7 +5393,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5415,7 +5416,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5438,7 +5439,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5461,7 +5462,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5484,7 +5485,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5507,7 +5508,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5530,7 +5531,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5553,7 +5554,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5576,7 +5577,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5599,7 +5600,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5622,7 +5623,7 @@
     "format_decoded": "033"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 033"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5645,7 +5646,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5668,7 +5669,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5691,7 +5692,7 @@
     "format_decoded": "033"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 033"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5714,7 +5715,7 @@
     "format_decoded": "220"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 220"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5737,7 +5738,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5760,7 +5761,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5783,7 +5784,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5806,7 +5807,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5829,7 +5830,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5852,7 +5853,7 @@
     "format_decoded": "220"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 220"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5875,7 +5876,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5898,7 +5899,7 @@
     "format_decoded": "230"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 230"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5921,7 +5922,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5944,7 +5945,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_0869B284",
@@ -5967,7 +5968,7 @@
     "format_decoded": "130"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 130"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -5990,7 +5991,7 @@
     "format_decoded": "124"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 124"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6013,7 +6014,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6036,7 +6037,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6059,7 +6060,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6082,7 +6083,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6105,7 +6106,7 @@
     "format_decoded": "033"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 033"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6128,7 +6129,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6151,7 +6152,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6174,7 +6175,7 @@
     "format_decoded": "231"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 231"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6197,7 +6198,7 @@
     "format_decoded": "133"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 133"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6220,7 +6221,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6243,7 +6244,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6266,7 +6267,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6289,7 +6290,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6312,7 +6313,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6335,7 +6336,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6358,7 +6359,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6381,7 +6382,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6404,7 +6405,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6427,7 +6428,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6450,7 +6451,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6473,7 +6474,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6496,7 +6497,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6519,7 +6520,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086D74F8",
@@ -6542,7 +6543,7 @@
     "format_decoded": "024"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 024"
   },
   {
    "symbol": "gUnk_086DC3F4",
@@ -6565,7 +6566,7 @@
     "format_decoded": "134"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 134"
   },
   {
    "symbol": "gUnk_086DC3F4",
@@ -6588,7 +6589,7 @@
     "format_decoded": "030"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 030"
   },
   {
    "symbol": "gUnk_086DC3F4",
@@ -6611,7 +6612,7 @@
     "format_decoded": "023"
    },
    "reencode": "opaque",
-   "reason": "belum ada encoder 0x70 yang terbukti byte-identik"
+   "reason": "belum ada encoder untuk format 023"
   }
  ]
 }

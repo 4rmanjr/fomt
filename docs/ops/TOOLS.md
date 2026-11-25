@@ -332,13 +332,21 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   `0x05000200` padahal byte-nya masuk ke `0x05000200 + slot*0x20` ditolak.
 - `tools/assets/lz70.py` — encoder `0x70` minimal untuk format `000`
   (atom0/lzss0/diff0): header `(size<<8)|0x70`, format byte di dalam bitstream,
-  tangga jarak 2 entri, perintah literal/run-length/lookup. `encode` (greedy)
-  atau `encode --optimal` (dynamic programming biaya bit), `probe` menguji
-  stream P0 terhadap `baserom.gba` dengan tiga tingkat: replay token asli,
-  roundtrip decode, dan byte-identik. `--sweep` mencoba tangga 1..12.
-  `--write-report` menulis `assets/0x70/encoder_probe.md`. Exit 1 bila ada
-  stream yang belum byte-identik; tool ini tidak mengubah status manifest —
-  keputusan itu tetap di `stream_audit.py`.
+  tangga jarak 2 entri, perintah literal/run-length/lookup. `encode` (greedy),
+  `encode --optimal` (dynamic programming biaya bit), atau `encode --parity`:
+  aturan tokenisasi encoder asli yang terbukti byte-identik untuk stream
+  format `000` — match **terpanjang** di seluruh jendela (seri → jarak
+  terdekat), match jarak 1 tidak dipakai (byte berulang ditangani run), run menang bila
+  panjang utuhnya >= match (run 127 B dihitung utuh walau token dipotong 65 B),
+  literal berhenti sebelum run>=2 atau match
+  berikutnya. Indeks match mencakup byte di dalam literal
+  yang sedang berjalan, jadi match boleh menunjuk ke awal literal itu. `probe`
+  menguji stream P0 terhadap `baserom.gba`: replay token asli, roundtrip
+  decode, dan byte-identik greedy/optimal/parity. `--sweep` mencoba tangga
+  1..12. `--write-report` menulis `assets/0x70/encoder_probe.md`. Exit 1 bila
+  ada stream yang belum byte-identik; tool ini tidak mengubah status manifest —
+  keputusan itu tetap di `stream_audit.py`, yang memakai strategi `parity`
+  untuk menaikkan status stream format `000` ke `ok`.
 - `tools/assets/tile4bpp.py` — codec minimal tile/font 4bpp untuk pilot aset.
   `decode` mengubah slice ROM menjadi PNG truecolor 8-bit (16 warna indeks
   grayscale) + JSON berisi `tile_offset`/`tile_trim`, hex header/ekor, symbol,

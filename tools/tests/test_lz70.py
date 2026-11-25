@@ -2,9 +2,9 @@
 """Regresi encoder 0x70 minimal (format 000).
 
 Yang dijaga: header/bitstream tulis-ulang identik dengan stream asli (replay),
-payload hasil encoder dapat didekode balik, dan encoder optimal tidak lebih
-besar dari stream asli. Byte-identik penuh **belum** tercapai, jadi status
-`opaque` di manifest sengaja tidak diubah di sini.
+payload hasil encoder dapat didekode balik, encoder optimal tidak lebih besar
+dari stream asli, dan strategi `parity` (aturan tokenisasi encoder asli)
+menghasilkan byte persis sama untuk ketiga stream P0 format 000.
 """
 import importlib.util
 import json
@@ -72,12 +72,22 @@ class Lz70(unittest.TestCase):
     def test_encode_roundtrip(self):
         for symbol, index, original, decoded in self.streams:
             size, widths, _tokens = lz70.parse(original)
-            for optimal in (False, True):
-                out = lz70.encode(decoded, widths, optimal=optimal)
+            for optimal, parity in ((False, False), (True, False),
+                                    (False, True)):
+                out = lz70.encode(decoded, widths, optimal=optimal,
+                                  parity=parity)
                 self.assertEqual(out[:4],
                                  (len(decoded) << 8 | 0x70).to_bytes(4, "little"))
                 self.assertEqual(lz70._decode(out)[0], decoded,
-                                 f"{symbol}#{index} roundtrip gagal")
+                                 f"{symbol}#{index} roundtrip gagal "
+                                 f"(optimal={optimal}, parity={parity})")
+
+    def test_parity_is_byte_identical(self):
+        """Aturan tie-break asli: match terpanjang, seri run, literal berhenti."""
+        for symbol, index, original, decoded in self.streams:
+            _size, widths, _tokens = lz70.parse(original)
+            self.assertEqual(lz70.encode(decoded, widths, parity=True),
+                             original, f"{symbol}#{index} parity beda")
 
     def test_optimal_is_not_larger(self):
         for symbol, index, original, decoded in self.streams:

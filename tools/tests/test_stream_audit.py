@@ -9,6 +9,7 @@ REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "tools" / "assets"))
 sys.path.insert(0, str(REPO / "tools" / "scripts"))
 import check_docs  # noqa: E402
+import lz70  # noqa: E402
 import stream_audit  # noqa: E402
 
 
@@ -27,10 +28,16 @@ class StreamAudit(unittest.TestCase):
             (REPO / "assets/0x70/embedded_manifest.json").read_text())
         expected = (sum(len(b["streams"]) for b in blobs["streams"])
                     + sum(len(b["streams"]) for b in banks["banks"]))
+        formats = [str(s["format"]) for b in blobs["streams"]
+                   for s in b["streams"]]
+        formats += [str(s["format"]) for b in banks["banks"]
+                    for s in b["streams"]]
         self.assertEqual(self.result["total"], expected)
         self.assertEqual(self.result["decode_verified"], expected)
-        self.assertEqual(self.result["reencodeable"], 0)
-        self.assertEqual(self.result["opaque"], expected)
+        # Hanya format 000 yang punya encoder byte-identik saat ini.
+        expected_ok = sum(1 for fmt in formats if fmt == "000")
+        self.assertEqual(self.result["reencodeable"], expected_ok)
+        self.assertEqual(self.result["opaque"], expected - expected_ok)
         self.assertEqual(self.result["embedded_banks"], len(banks["banks"]))
         self.assertEqual(
             sum(s["streams"] for s in self.result["sources"]), expected)
@@ -65,6 +72,20 @@ class StreamAudit(unittest.TestCase):
             self.assertEqual(row["compressed"]["sha256"], compressed)
             self.assertEqual(row["decoded"]["sha256"], decoded)
             self.assertEqual(row["reencode"], "opaque")
+
+    def test_ok_streams_reen_code_byte_identical(self):
+        """Status `ok` harus disertai byte compressed yang benar-benar sama."""
+        rom = (REPO / "baserom.gba").read_bytes()
+        rows = [r for r in self.result["streams"] if r["reencode"] == "ok"]
+        self.assertTrue(rows, "format 000 seharusnya sudah reencodeable")
+        for row in rows:
+            self.assertEqual(row["format"], "000", row["symbol"])
+            offset = int(row["compressed"]["offset"], 0)
+            original = rom[offset:offset + row["compressed"]["size"]]
+            decoded = (REPO / "assets/0x70" / row["decoded"]["bin"]).read_bytes()
+            _size, widths, _tokens = lz70.parse(original)
+            self.assertEqual(lz70.encode(decoded, widths, parity=True), original,
+                             f"{row['symbol']}#{row['index']} bukan byte-identik")
 
     def test_check_docs_gate_is_synced(self):
         prob, note = check_docs.aset_reencode()

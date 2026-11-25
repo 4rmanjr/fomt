@@ -21,8 +21,10 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 TOOLS = REPO / "tools" / "scripts"
 sys.path.insert(0, str(TOOLS))
+sys.path.insert(0, str(REPO / "tools" / "assets"))
 import asset_inventory as inv  # noqa: E402
 import decompress  # noqa: E402
+import lz70  # noqa: E402
 
 MANIFEST = REPO / "assets" / "0x70" / "manifest.json"
 EMBEDDED = REPO / "assets" / "0x70" / "embedded_manifest.json"
@@ -32,6 +34,21 @@ DOC = REPO / "docs" / "decomp" / "ASET-0X70-REENCODE.md"
 
 def sha256(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def reencode_status(compressed, decoded, fmt):
+    """-> (status, alasan). `ok` hanya dari encoder yang byte-identik."""
+    if fmt != "000":
+        return "opaque", f"belum ada encoder untuk format {fmt}"
+    try:
+        _size, widths, _tokens = lz70.parse(compressed)
+        encoded = lz70.encode(decoded, widths, parity=True)
+    except ValueError as exc:
+        return "opaque", f"encoder 0x70 gagal: {exc}"
+    if encoded == compressed:
+        return "ok", ("encoder lz70 parity (match terpanjang, seri run) "
+                      "menghasilkan byte identik dengan tangga asli")
+    return "opaque", "encoder 0x70 parity belum byte-identik"
 
 
 def format_family(fmt):
@@ -86,6 +103,8 @@ def build(manifest=MANIFEST, rom_path=REPO / "baserom.gba",
                 raise SystemExit(
                     f"{blob['blob']}#{stream['index']}: decode compressed != bin")
             priority, family = format_family(str(stream["format"]))
+            reencode, reason = reencode_status(
+                compressed, decoded, str(stream["format"]))
             rows.append({
                 "symbol": blob["blob"],
                 "index": stream["index"],
@@ -106,8 +125,8 @@ def build(manifest=MANIFEST, rom_path=REPO / "baserom.gba",
                     "decoded_from_compressed": True,
                     "format_decoded": rom_fmt,
                 },
-                "reencode": "opaque",
-                "reason": "belum ada encoder 0x70 yang terbukti byte-identik",
+                "reencode": reencode,
+                "reason": reason,
             })
     embedded = Path(embedded_path)
     banks = json.loads(embedded.read_text()).get("banks", []) \
@@ -138,6 +157,8 @@ def build(manifest=MANIFEST, rom_path=REPO / "baserom.gba",
                 raise SystemExit(
                     f"{where}: bin extern beda dengan embedded_manifest")
             priority, family = format_family(str(stream["format"]))
+            reencode, reason = reencode_status(
+                compressed, decoded, str(stream["format"]))
             rows.append({
                 "symbol": bank["blob"],
                 "index": stream["index"],
@@ -158,8 +179,8 @@ def build(manifest=MANIFEST, rom_path=REPO / "baserom.gba",
                     "decoded_from_compressed": True,
                     "format_decoded": rom_fmt,
                 },
-                "reencode": "opaque",
-                "reason": "belum ada encoder 0x70 yang terbukti byte-identik",
+                "reencode": reencode,
+                "reason": reason,
             })
     counts = {}
     for row in rows:
@@ -240,10 +261,14 @@ def render_doc(result):
                    f"{p['packed']} | {p['decoded']} |")
     out += [
         "",
-        "Semua stream saat ini `opaque`: repo hanya memiliki decoder `unpack()`;",
-        "tidak ada encoder `0x70` yang diuji menghasilkan compressed hash yang",
-        "sama. Prioritas di atas adalah urutan kandidat implementasi encoder,",
-        "bukan klaim bahwa stream tersebut sudah aman diganti `.incbin`.",
+        "Status `ok` hanya untuk stream yang compressed-nya dihasilkan ulang",
+        "byte-identik oleh `lz70.py` strategi `parity` dengan tangga asli.",
+        "Aturan itu terbukti pada format `000`: match terpanjang (seri -> jarak",
+        "terdekat), run menang bila panjangnya >= match, literal berhenti di",
+        "run>=2 atau match berikutnya. Format lain (atom/huffman di depan)",
+        "tetap `opaque` karena belum ada encodernya. `ok` di level stream juga",
+        "belum berarti blob boleh diganti `.incbin`: satu blob bisa memuat",
+        "banyak stream, dan penggantian menunggu seluruh isi blob ter-encode.",
         "",
         "## Bukti hash",
         "",

@@ -11,8 +11,11 @@ Tiga tingkat uji di `probe`:
 1. `roundtrip` — packed hasil encoder didekode ulang harus sama dengan payload;
 2. `replay` — perintah hasil parse stream asli, ditulis ulang serializer,
    harus sama byte dengan compressed asli (menguji model bit/header);
-3. `match` — encoder greedy dari payload harus sama byte dengan compressed
-   asli (menguji pilihan perintah encoder asli).
+3. `match` — encoder dari payload harus sama byte dengan compressed asli.
+   Strategi `parity` (`_tokens_parity`) memakai aturan encoder asli: match
+   terpanjang (seri -> jarak terdekat), run menang bila panjangnya >= match,
+   literal berhenti di run>=2 atau match berikutnya. Greedy/optimal hanya
+   pembanding ukuran; parity yang boleh menaikkan status stream.
 
   python3 tools/assets/lz70.py encode --bin x.bin --out x.packed [--ladder 7,11]
   python3 tools/assets/lz70.py probe            # 3 stream P0 format 000
@@ -177,6 +180,85 @@ def _tokens(data, ladder):
     return out
 
 
+def _match_at(data, head, ladder, index):
+    """Match terpanjang yang jaraknya masuk tangga; seri -> jarak terdekat."""
+    best = None
+    limit = min(MAX_MATCH, len(data) - index)
+    for candidate in reversed(head.get(data[index:index + 3], [])):
+        if candidate >= index:
+            continue
+        distance = index - candidate
+        # Jarak 1 tidak pernah dipakai encoder asli: byte berulang ditangani
+        # run, dan stream 000 tidak memuat satu pun match jarak 1.
+        if distance < 2 or distance > WINDOW or ladder.encode(distance) is None:
+            continue
+        length = 3
+        while (length < limit
+               and data[candidate + length] == data[index + length]):
+            length += 1
+        if best is None or length > best[1]:
+            best = (distance, length)
+            if length == limit:
+                break
+    return best
+
+
+def _tokens_parity(data, ladder):
+    """Aturan tokenisasi encoder asli (terbukti pada 3 stream P0 format 000).
+
+    - match: yang **terpanjang** di seluruh jendela, bukan yang terdekat;
+      jarak seri -> kandidat terdekat. Indeks mencakup byte di dalam literal
+      yang sedang berjalan, jadi match boleh menunjuk ke awal literal itu.
+    - match jarak 1 tidak dipertimbangkan; pengulangan byte ditangani run.
+    - run hanya dipakai bila panjang run utuh >= panjang match; seri -> run.
+      Run dihitung tanpa batas 65 B (token tetap dipotong 65 B saat ditulis).
+    - literal berhenti sebelum run >= 2 atau match berikutnya, maksimum 64 B.
+
+    Untuk data di sekitar posisi yang sama, aturan ini menghasilkan token
+    persis seperti stream asli, sehingga `serialize` byte-identik.
+    """
+    n = len(data)
+    head = {}
+    for index in range(max(0, n - 2)):
+        head.setdefault(data[index:index + 3], []).append(index)
+    out = []
+    i = 0
+    while i < n:
+        # Panjang run penuh dipakai untuk keputusan; token run sendiri tetap
+        # dipotong 65 B, jadi run 127 B menjadi 65+62 seperti stream asli.
+        run = 1
+        while i + run < n and data[i + run] == data[i]:
+            run += 1
+        match = _match_at(data, head, ladder, i) if i + 3 <= n else None
+        match_len = match[1] if match else 0
+        if run >= 2 and match_len >= 3:
+            use_match = match_len > run
+        else:
+            use_match = match_len >= 3 and run < 2
+        if use_match:
+            out.append(("match", match[0], match_len))
+            step = match_len
+        elif run >= 2:
+            out.append(("run", data[i], min(run, 65)))
+            step = min(run, 65)
+        else:
+            end = i + 1
+            while end < n and end - i < 64:
+                next_run = 1
+                while (end + next_run < n
+                       and data[end + next_run] == data[end]):
+                    next_run += 1
+                if next_run >= 2:
+                    break
+                if end + 3 <= n and _match_at(data, head, ladder, end):
+                    break
+                end += 1
+            out.append(("literal", bytes(data[i:end]), end - i))
+            step = end - i
+        i += step
+    return out
+
+
 def _tokens_optimal(data, ladder):
     """Dynamic programming: total bit minimum, seri dipilih token terpanjang.
 
@@ -236,8 +318,12 @@ def _tokens_optimal(data, ladder):
     return tokens
 
 
-def encode(data, ladder_widths=LADDER_DEFAULT, optimal=False):
-    """Payload -> byte stream `0x70` format 000 (header + tangga + perintah)."""
+def encode(data, ladder_widths=LADDER_DEFAULT, optimal=False, parity=False):
+    """Payload -> byte stream `0x70` format 000 (header + tangga + perintah).
+
+    `parity` memakai aturan tokenisasi encoder asli (`_tokens_parity`);
+    dengan tangga stream asli hasilnya byte-identik.
+    """
     ladder = Ladder(ladder_widths)
     if len(data) > 0xFFFFFF:
         raise ValueError("payload > 24 bit")
@@ -247,7 +333,8 @@ def encode(data, ladder_widths=LADDER_DEFAULT, optimal=False):
     writer.write(0, 8)  # format byte 000 ikut bitstream, bukan byte terpisah
     for value in ladder.header_bits():
         writer.write(value, 4)
-    for kind, value, extra in _tokens(data, ladder):
+    tokens = _tokens_parity(data, ladder) if parity else _tokens(data, ladder)
+    for kind, value, extra in tokens:
         if kind == "literal":
             _emit_literal(writer, value)
         elif kind == "run":
@@ -337,9 +424,11 @@ def probe(manifest=MANIFEST, rom_path=ROM, sweep=False):
                 ladders = [(a, b) for a in range(1, 13) for b in range(1, 13)]
             attempts = []
             for widths_try in ladders:
-                for optimal in (False, True):
+                for optimal, parity in ((False, False), (True, False),
+                                        (False, True)):
                     try:
-                        out = encode(decoded, widths_try, optimal=optimal)
+                        out = encode(decoded, widths_try, optimal=optimal,
+                                     parity=parity)
                     except ValueError:
                         continue
                     try:
@@ -349,6 +438,7 @@ def probe(manifest=MANIFEST, rom_path=ROM, sweep=False):
                         roundtrip = False
                     attempts.append({"ladder": list(widths_try),
                                      "optimal": optimal,
+                                     "parity": parity,
                                      "size": len(out),
                                      "sha256": sha256(out),
                                      "roundtrip": roundtrip,
@@ -372,8 +462,13 @@ def probe(manifest=MANIFEST, rom_path=ROM, sweep=False):
                 "roundtrip": bool(best and best["roundtrip"]),
                 "optimal_size": min((a["size"] for a in attempts
                                      if a["optimal"]), default=None),
+                "parity_size": min((a["size"] for a in attempts
+                                    if a["parity"]), default=None),
+                "parity_match": any(a["match"] for a in attempts
+                                    if a["parity"]),
                 "greedy_size": min((a["size"] for a in attempts
-                                    if not a["optimal"]), default=None),
+                                    if not a["optimal"] and not a["parity"]),
+                                   default=None),
                 "attempts": len(attempts),
                 "best": best,
             })
@@ -387,12 +482,12 @@ def render_probe(rows):
            "**Dihasilkan otomatis** oleh `python3 tools/assets/lz70.py probe "
            "--write-report` (`--sweep` untuk mencoba tangga 1..12).", "",
            f"Stream P0 format `000`: **{len(rows)}**. Serializer replay "
-           f"byte-identik: **{replays}/{len(rows)}**. Encoder greedy "
-                      f"byte-identik: **{matched}/{len(rows)}**. Ukuran optimal encoder "
+           f"byte-identik: **{replays}/{len(rows)}**. Encoder parity "
+           f"byte-identik: **{matched}/{len(rows)}**. Ukuran optimal encoder "
            f"sama dengan aslinya: "
            f"**{sum(1 for r in rows if r.get('optimal_size') == r['compressed_size'])}/{len(rows)}**.",
            "",
-           "| simbol | idx | compressed B | sha256 asli | replay | greedy | hasil encoder |",
+           "| simbol | idx | compressed B | sha256 asli | replay | parity | hasil encoder |",
            "|---|---:|---:|---|---|---|---|"]
     for row in rows:
         best = row["best"] or {}
@@ -400,8 +495,9 @@ def render_probe(rows):
             f"| `{row['symbol']}` | {row['index']} | {row['compressed_size']} "
             f"| `{row['compressed_sha256'][:16]}…` "
             f"| {'sama' if row['replay_match'] else 'beda'} "
-            f"| {'sama' if row['match'] else 'beda'} "
-            f"| optimal {row.get('optimal_size', '-')} B, greedy "
+            f"| {'sama' if row.get('parity_match') else 'beda'} "
+            f"| optimal {row.get('optimal_size', '-')} B, parity "
+            f"{row.get('parity_size', '-')} B, greedy "
             f"{row.get('greedy_size', '-')} B, tangga {row['parse_ladder']}, "
             f"roundtrip {'ya' if (best or {}).get('roundtrip') else 'tidak'} |")
     out.append("")
@@ -410,15 +506,12 @@ def render_probe(rows):
             "Tidak ada stream yang byte-identik, jadi status `opaque` "
             "dipertahankan.",
             "",
-            "Implikasi: format `000` sudah bisa **ditulis** — replay token "
-            "asli menghasilkan byte yang sama persis, dan encoder optimal "
-            "mencapai ukuran compressed yang sama dengan aslinya. Yang belum "
-            "sama adalah *pilihan* perintahnya: banyak tokenisasi berbiaya "
-            "bit identik, dan encoder asli memilih di antaranya dengan aturan "
-            "yang belum diketahui (24 kombinasi tie-break yang diuji di "
-            "`_tokens_optimal` + preferensi panjang/jarak tidak ada yang "
-            "cocok). Karena hash compressed bergantung pada byte, bukan "
-            "ukuran, stream ini tetap tidak boleh diklaim `ok`.",
+            "Aturan tokenisasi encoder asli sudah terbukti di "
+            "`_tokens_parity`: match terpanjang (seri → jarak terdekat), "
+            "run menang saat panjangnya >= match, dan literal berhenti di "
+            "run>=2 atau match berikutnya. Dengan tangga stream asli aturan "
+            "itu menghasilkan byte identik untuk ketiga stream P0, jadi "
+            "statusnya boleh naik lewat `stream_audit.py`.",
         ]
     return "\n".join(out) + "\n"
 
@@ -430,6 +523,8 @@ def main(argv=None):
     e.add_argument("--bin", required=True, type=Path)
     e.add_argument("--out", required=True, type=Path)
     e.add_argument("--ladder", default="7,11")
+    e.add_argument("--parity", action="store_true",
+                   help="pakai aturan tokenisasi encoder asli")
     p = sub.add_parser("probe", help="uji stream P0 format 000")
     p.add_argument("--sweep", action="store_true")
     p.add_argument("--json", action="store_true")
@@ -438,7 +533,7 @@ def main(argv=None):
 
     if args.cmd == "encode":
         widths = tuple(int(w) for w in args.ladder.split(","))
-        out = encode(args.bin.read_bytes(), widths)
+        out = encode(args.bin.read_bytes(), widths, parity=args.parity)
         args.out.parent.mkdir(parents=True, exist_ok=True)
         args.out.write_bytes(out)
         print(f"{args.out}: {len(out)} B")
