@@ -256,9 +256,10 @@ gUnk_086DC3E8:
 
 	.global gUnk_086DC3F4
 gUnk_086DC3F4:
-	@ PARKIR (container): stempel 3x2 12 B (func_080AA540) + 3 stream 0x70 dari tabel
-	@ descriptor 0x08106860 (30x26); semua stream byte-identik, encoder container belum ada.
-	.incbin "baserom.gba", 0x6DC3F4, 0x158
+	@ rom: 0x6DC3F4 0x158 — source assets/gfx/maps/gUnk_086DC3F4.json
+	@ Container 0x70: prefix 12 B stempel 3x2 (func_080AA540) + 3 stream (134/030/023)
+	@ dari descriptor 0x08106860 (30x26, 086DC400/4C4/4D0); compressed_bank.py: byte identik slice ROM.
+	.incbin "build/assets/gUnk_086DC3F4.bin"
 
 	.global gUnk_086DC54C
 gUnk_086DC54C:

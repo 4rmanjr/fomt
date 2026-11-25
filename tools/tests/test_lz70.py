@@ -309,7 +309,12 @@ class Huffman(unittest.TestCase):
                          "huffman harus 156 stream (blob + bank tertanam)")
 
     def test_encode_is_byte_identical(self):
+        """Satu sampel per format; semua 284 stream dicek `stream_audit`."""
+        seen = set()
         for label, original, decoded, fmt in self.streams:
+            if fmt in seen:
+                continue
+            seen.add(fmt)
             header = lz70.parse_huffman(original)
             spec = header[1]
             self.assertEqual(f"{(spec >> 3) & 3}{spec & 7}{spec >> 5}", fmt,
@@ -319,6 +324,7 @@ class Huffman(unittest.TestCase):
             payload, unpacked_fmt, _ = decompress.unpack(out)
             self.assertEqual(payload, decoded, label)
             self.assertEqual(unpacked_fmt, fmt, label)
+        self.assertTrue(seen)
 
     def test_tree_codes_match_header(self):
         for label, original, _decoded, _fmt in self.streams:

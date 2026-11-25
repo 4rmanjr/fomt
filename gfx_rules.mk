@@ -65,6 +65,7 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_086DC3D0.bin \
   $(BUILD_DIR)/assets/gUnk_086DC3DC.bin \
   $(BUILD_DIR)/assets/gUnk_086DC3E8.bin \
+  $(BUILD_DIR)/assets/gUnk_086DC3F4.bin \
   $(BUILD_DIR)/assets/gUnk_086DC54C.bin \
   $(BUILD_DIR)/assets/gUnk_086DD690.bin \
   $(BUILD_DIR)/assets/gUnk_086DD6B0.bin \
@@ -637,6 +638,12 @@ $(BUILD_DIR)/assets/gUnk_086DC3E8.bin: \
     tools/assets/map2bin.py
 	@echo "ASSET $@"
 	@python3 tools/assets/map2bin.py encode --json assets/gfx/maps/gUnk_086DC3E8.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086DC3F4.bin: \
+    assets/gfx/maps/gUnk_086DC3F4.json \
+    tools/assets/compressed_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/compressed_bank.py encode --json assets/gfx/maps/gUnk_086DC3F4.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_086DC54C.bin: \
     assets/gfx/maps/gUnk_086DC54C.json \

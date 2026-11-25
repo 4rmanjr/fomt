@@ -47,9 +47,10 @@ KIND_LABEL = {
     "font_container": "Container font",
     "glyph_font": "Glyph 8x12",
     "glyph_index": "Indeks glyph",
+    "compressed_bank": "Container terkompresi",
 }
 KIND_ORDER = ["sprite", "palette", "tiles4bpp", "tilemap", "tilemap_bank", "font_container",
-              "glyph_font", "glyph_index"]
+              "glyph_font", "glyph_index", "compressed_bank"]
 GROUP_LABEL = {
     "sprite/OBJ": "Sprite/OBJ",
     "palet": "Palet",
@@ -231,7 +232,7 @@ def render(totals=None, assets=None):
                          f"{num(row['done'])} | {num(row['denominator'])} | "
                          f"`{bar(p)}` {dec(p)}% |")
         gtp = pct(a["total_done"], a["total_denominator"])
-        lines.append(f"| **Total (tanpa 3 blob terkompresi)** | "
+        lines.append(f"| **Total (semua grup)** | "
                      f"{num(a['total_done'])} | {num(a['total_denominator'])} | "
                      f"`{bar(gtp)}` {dec(gtp)}% |")
     if a["unknown"]:

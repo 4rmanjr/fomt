@@ -42,7 +42,8 @@
        "glyph_index",
        "palette",
        "sprite",
-       "tilemap_bank"
+       "tilemap_bank",
+       "compressed_bank"
       ]
      },
      "status": {

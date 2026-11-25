@@ -367,6 +367,13 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   tidak dipakai, literal escape mulai 9 B, match >18 B lewat escape. Aturan
   lzss3 sama tetapi per unit 2 B: match minimal 4 B, pendek 4..18 B, literal
   escape mulai 18 B.
+- `tools/assets/compressed_bank.py` — container `0x70` bertingkat: prefix
+  mentah yang terbukti (stempel/palet) + beberapa stream. Metadata menyimpan
+  prefix hex, entri u16 per stream, dan header kompresi asli (tangga LZSS atau
+  pohon huffman), lalu `encode` menyusun ulang prefix + stream dan menolak
+  bila panjang packed tidak cocok. `decode` menemukan batas prefix/stream dari
+  rantai yang berakhir tepat di ujung blob; `verify` membandingkan byte dengan
+  slice ROM. Dipakai `gUnk_086DC3F4` (stempel 3x2 + stream 134/030/023).
 - `tools/assets/tile4bpp.py` — codec minimal tile/font 4bpp untuk pilot aset.
   `decode` mengubah slice ROM menjadi PNG truecolor 8-bit (16 warna indeks
   grayscale) + JSON berisi `tile_offset`/`tile_trim`, hex header/ekor, symbol,

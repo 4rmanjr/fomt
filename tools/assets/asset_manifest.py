@@ -52,6 +52,7 @@ ENCODERS = {
     "sprite": "sprite2gba.py",
     "tilemap": "map2bin.py",
     "tilemap_bank": "tilemap_bank.py",
+    "compressed_bank": "compressed_bank.py",
 }
 
 

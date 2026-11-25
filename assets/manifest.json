@@ -1248,6 +1248,26 @@
    "evidence": "func_0809E0AC memilih gUnk_086DC3E8 untuk field 3 (literal 0x9E104); func_080AA540 menyalin src+0/+4/+8 masing-masing 4 B ke tiga baris peta (2 kolom x 3 baris). Seluruh 12 B terbaca."
   },
   {
+   "id": "gfx/maps/gunk_086dc3f4",
+   "symbol": "gUnk_086DC3F4",
+   "kind": "compressed_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DC3F4",
+    "size": 344,
+    "sha256": "46e5bab2e6f97c9cb25ba6137d347f6a33de1e7e05254e5922e1e54330b4268c"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DC3F4.json"
+   },
+   "encoder": {
+    "tool": "compressed_bank.py",
+    "version": 1
+   },
+   "evidence": "Prefix 12 B = stempel 3x2 yang disalin func_080AA540; tiga stream 0x70 ditunjuk tabel descriptor 0x08106860 (0x086DC400/0x086DC4C4/0x086DC4D0, 30x26 = 780 entri) dan rantainya berakhir tepat di ujung blob 344 B. Stream 134/030/023 direencode byte-identik dengan header aslinya (lihat docs/decomp/ASET-0X70-REENCODE.md)."
+  },
+  {
    "id": "gfx/maps/gunk_086dc54c",
    "symbol": "gUnk_086DC54C",
    "kind": "tilemap",

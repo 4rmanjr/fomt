@@ -1220,7 +1220,10 @@ dihitung selesai. `func_0809E0AC`
 mengembalikan `gUnk_086DC3C4`–`gUnk_086DC3E8` untuk field 0–3, dan
 `func_080AA540` menyalin `src+0/+4/+8` masing-masing 4 B ke tiga baris:
 2x3, seluruh 12 B. Field 4 adalah blob terkompresi `gUnk_086DC3F4`, bukan
-tilemap, dan tetap parkir karena memuat huffman.
+tilemap: prefix 12 B (stempel 3x2) + tiga stream `0x70` yang ditunjuk
+descriptor `0x08106860`. Blob ini dimigrasikan sebagai `kind: compressed_bank`
+lewat `compressed_bank.py`; pohon huffman dan tangga LZSS dipakai sebagai
+header asli, sehingga 344 B-nya byte-identik.
 
 Sisa blob di sekitar cluster ini belum punya lebar/tinggi yang terbaca:
 `gUnk_086D6368`/`gUnk_086D6548` disalin 0x60 B dari offset `+0x100`/`+0x160`
