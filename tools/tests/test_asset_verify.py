@@ -227,6 +227,7 @@ class TilesEvidenceGuard(unittest.TestCase):
     """Evidence tiles4bpp harus menunjuk salinan/loader simbol yang benar."""
     ASM = ("\tldr r1, .LC0 @ =gUnk_08697920\n"
            "\tmovs r3, #0x8f\n"
+           "\tlsls r3, r3, #5\n"
            "\tbl func_08008F0C\n")
 
     def repo(self, asm):
@@ -242,20 +243,34 @@ class TilesEvidenceGuard(unittest.TestCase):
             {"kind": "tiles4bpp", "symbol": symbol, "evidence": evidence},
             self.repo(asm))
 
-    def test_copy_site_with_matching_symbol_passes(self):
+    def test_copy_site_with_matching_symbol_and_length_passes(self):
         self.assertEqual(self.problems(
-            self.ASM, "func_08000000 (code_test.s:3): salin 0x11E0 B"), [])
+            self.ASM, "func_08000000 (code_test.s:4): salin 0x11E0 B"), [])
 
     def test_non_copy_line_is_rejected(self):
-        errs = self.problems(self.ASM, "func_08000000 (code_test.s:2)")
+        errs = self.problems(self.ASM, "func_08000000 (code_test.s:3)")
         self.assertEqual(len(errs), 1)
         self.assertIn("bukan baris salinan/loader", errs[0])
 
     def test_other_symbol_at_copy_site_is_rejected(self):
-        errs = self.problems(self.ASM, "func_08000000 (code_test.s:3)",
+        errs = self.problems(self.ASM, "func_08000000 (code_test.s:4)",
                              symbol="gUnk_08698E14")
         self.assertEqual(len(errs), 1)
         self.assertIn("bukan gUnk_08698E14", errs[0])
+
+    def test_wrong_claimed_length_is_rejected(self):
+        errs = self.problems(
+            self.ASM, "func_08000000 (code_test.s:4): salin 0x1000 B")
+        self.assertEqual(len(errs), 1)
+        self.assertIn("padahal func_08008F0C menyalin 0x11E0 B", errs[0])
+
+    def test_untraceable_length_is_rejected(self):
+        asm = ("\tldr r1, .LC0 @ =gUnk_08697920\n"
+               "\tbl func_08008F0C\n")
+        errs = self.problems(
+            asm, "func_08000000 (code_test.s:2): salin 0x11E0 B")
+        self.assertEqual(len(errs), 1)
+        self.assertIn("tidak terlacak", errs[0])
 
     def test_container_loader_with_matching_symbol_passes(self):
         asm = ("\tldr r1, .LC0 @ =gUnk_08667060\n"

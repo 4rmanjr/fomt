@@ -68,16 +68,19 @@ class TableCodec(unittest.TestCase):
             self.encode([{"offset": 0, "format": "u8", "values": [256]}], 1)
         self.assertIn("di luar", str(ctx.exception))
 
-    def test_real_table_assets_match_rom(self):
-        manifest = json.loads((REPO / "assets" / "manifest.json").read_text())
-        rows = [a for a in manifest["assets"] if a["kind"] == "table"]
-        self.assertTrue(rows)
+    def test_parked_table_sources_still_roundtrip_rom(self):
+        # Status partial berarti tidak dihitung selesai, tetapi source segmennya
+        # tetap harus dapat direproduksi persis sebelum dipakai lagi.
+        paths = sorted((REPO / "assets" / "gfx" / "tables").glob("*.json"))
+        self.assertTrue(paths)
         rom = (REPO / "baserom.gba").read_bytes()
-        for asset in rows:
-            with self.subTest(symbol=asset["symbol"]):
-                encoded = table.encode_source(REPO / asset["source"]["json"])
-                offset = int(str(asset["rom"]["offset"]), 0)
-                size = asset["rom"]["size"]
+        for path in paths:
+            meta = json.loads(path.read_text())
+            with self.subTest(symbol=meta["symbol"]):
+                self.assertEqual(meta["status"], "partial")
+                encoded = table.encode_source(path)
+                offset = int(str(meta["rom"]["offset"]), 0)
+                size = meta["rom"]["size"]
                 self.assertEqual(encoded, rom[offset:offset + size])
 
 

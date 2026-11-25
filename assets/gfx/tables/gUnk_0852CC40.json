@@ -1,6 +1,6 @@
 {
  "kind": "table",
- "status": "rom-exact",
+ "status": "partial",
  "semantics": "unidentified",
  "id": "gfx/tables/gunk_0852cc40",
  "symbol": "gUnk_0852CC40",
@@ -34,5 +34,5 @@
   "version": 1
  },
  "evidence": "func_0806EC94 (code_0803EE94.s:94187): func_08008E64(sumber, VRAM, 0x80) menyalin satu blok gaya doghouse varian malam; header u16=4 = tile per blok, blok 0x80 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x190 B sisa tidak diklaim.",
- "note": "header u16 (tile per blok) + payload blok gaya 0x80 B; source exact, arti/ batas seluruh gaya belum terbukti"
+ "note": "header u16 (tile per blok) + payload blok gaya 0x80 B; source exact, arti/ batas seluruh gaya belum terbukti Status partial: payload hex belum punya pembaca penuh, jadi tidak dihitung selesai."
 }

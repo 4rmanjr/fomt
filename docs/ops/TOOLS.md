@@ -343,7 +343,9 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   baris `bl` salinan/loader (`Unpack`, `func_08008E64`, `func_08008EB8`,
   `func_08008F0C`, `func_0805E6CC`, atau `memcpy`) dan literal
   `@ =gUnk_...` terdekat wajib simbol aset itu; kutipan baris non-salinan
-  atau simbol lain ditolak.
+  atau simbol lain ditolak. Panjang `<n> B` yang diklaim juga dicocokkan
+  dengan register panjang asm (`r3` untuk `func_08008F0C`, `r2` untuk
+  `func_08008E64`/`memcpy`); panjang yang tidak terlacak atau berbeda gagal.
 - `tools/assets/lz70.py` — encoder `0x70` untuk format `000`
   (atom0/lzss0/diff0), atom0/lzss2 (`020`/`023`/`024`), atom0/lzss3
   (`030`/`033`), serta huffman4/huffman8 (`1xx`/`2xx`, termasuk lzss0/2/3
@@ -427,9 +429,11 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   `u16le`, `u32le`, atau `hex`; `encode` menolak celah, tumpang tindih, nilai
   di luar rentang, atau source yang tidak menutup seluruh `rom.size`.
   Gunakan `hex` hanya untuk byte yang belum punya arti per-field, dan tulis
-  `evidence`/`note` tentang bagian yang terbukti dari call site. Contoh:
-  `assets/gfx/tables/gUnk_08529994.json` (header u16 + blok gaya) dan
-  `gUnk_08698B00.json` (0x80 B pertama disalin ke lapis).
+  `evidence`/`note` tentang bagian yang terbukti dari call site. Selama payload
+  hex belum punya pembaca penuh, asetnya berstatus `partial` dan tidak masuk
+  manifest/`gfx_rules.mk`. Contoh: `assets/gfx/tables/gUnk_08529994.json`
+  (header u16 + blok gaya) dan `gUnk_08698B00.json` (0x80 B pertama disalin ke
+  lapis).
 - `tools/assets/font_container.py` — codec container font/objek
   `func_0805E6CC` (bukan tile datar). `decode` mengikuti pembacaan fungsi:
   enam tabel berhitung — A 4 B, B 16 B, C 8 B, D 32 B, E 32 B, F 8 B — lalu

@@ -23,8 +23,10 @@ lalu untuk setiap aset:
 6. untuk `kind: tiles4bpp`, setiap kutipan `<berkas>.s:<baris>` harus menunjuk
    baris `bl` salinan/loader dan simbol aset harus dimuat sebagai argumennya
    (literal `@ =gUnk_...` terdekat). Kutipan fungsi yang tidak menyalin atau
-   yang memuat simbol lain ditolak, jadi evidence tidak bisa menempel ke baris
-   asm yang kebetulan berdekatan.
+   yang memuat simbol lain ditolak. Bila evidence mengklaim panjang `<n> B`,
+   register panjang (`r3` untuk `func_08008F0C`, `r2` untuk
+   `func_08008E64`/`memcpy`) harus terlacak dan nilainya sama, jadi nomor
+   baris benar tetapi panjang salah tetap gagal.
 
   python3 tools/assets/asset_verify.py                  # semua aset
   python3 tools/assets/asset_verify.py --symbol gUnk_08731940
@@ -68,6 +70,10 @@ TILE_LOAD_CALL = re.compile(
     r'func_0805E6CC|memcpy)\b')
 SYMBOL_LOAD = re.compile(r'@\s*=\s*(gUnk_[0-9A-Fa-f]+)\b')
 TILE_SYMBOL_WINDOW = 24
+# Register panjang argumen salinan; None = loader tanpa panjang yang terbaca.
+COPY_LEN_REG = {"func_08008F0C": "r3", "func_08008E64": "r2",
+                "func_08008EB8": "r2", "memcpy": "r2"}
+LENGTH_CLAIM = re.compile(r'(?<![\w.])(0x[0-9A-Fa-f]+|\d+)\s*B\b')
 
 _TYPES = {"object": dict, "array": list, "string": str, "integer": int,
           "null": type(None), "boolean": bool, "number": (int, float)}
@@ -272,9 +278,11 @@ def tiles4bpp_evidence_problems(asset, repo=None):
 
     Setiap `<berkas>.s:<baris>` dicek langsung: baris yang dikutip wajib `bl`
     ke salinan/loader yang dikenal, dan literal `@ =gUnk_...` terdekat dalam
-    jendela sebelumnya wajib simbol aset ini. Jadi kutipan tidak bisa hanya
-    menempel pada baris yang kebetulan berdekatan, dan tidak bisa memakai
-    salinan untuk simbol lain.
+    jendela sebelumnya wajib simbol aset ini. Bila teks setelah kutipan
+    menyebut panjang `<angka> B`, angka itu harus sama dengan register panjang
+    yang dilacak dari instruksi sebelumnya (r3 untuk `func_08008F0C`, r2 untuk
+    `func_08008E64`/`memcpy`). Jadi kutipan tidak bisa menempel pada baris yang
+    kebetulan berdekatan, memakai simbol lain, atau mengklaim panjang lain.
     """
     if asset.get('kind') != 'tiles4bpp':
         return []
@@ -306,6 +314,26 @@ def tiles4bpp_evidence_problems(asset, repo=None):
         if loaded != symbol:
             return [f"{call.group(1)} di {where} memuat "
                     f"{loaded or 'tanpa simbol'}, bukan {symbol}"]
+        tool = call.group(1)
+        later = evidence[match.end():]
+        following = EVIDENCE_CITE.search(later)
+        claim_text = later[:following.start()] if following else later
+        claim = LENGTH_CLAIM.search(claim_text)
+        if not claim:
+            continue
+        reg = COPY_LEN_REG.get(tool)
+        if reg is None:
+            return [f"evidence mengklaim panjang {claim.group(1)} B di {where}, "
+                    f"tetapi {tool} tidak punya register panjang yang terlacak"]
+        length = _trace_constant(
+            lines[max(0, index - TILE_SYMBOL_WINDOW):index], reg)
+        claimed = int(claim.group(1), 0)
+        if length is None:
+            return [f"panjang {claim.group(1)} B diklaim di {where}, tetapi "
+                    f"{reg} untuk {tool} tidak terlacak"]
+        if claimed != length:
+            return [f"evidence mengklaim {claim.group(1)} B di {where}, "
+                    f"padahal {tool} menyalin 0x{length:X} B"]
     return []
 
 
