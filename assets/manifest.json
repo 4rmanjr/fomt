@@ -1425,6 +1425,28 @@
    "evidence": "func_0806644C (code_0803EE94.s:78830): func_08008F0C(antrean, gUnk_0875178C, 0x05000040, 0x20), tujuan 0x05000040 di palette RAM; simbol dimuat di baris 78826."
   },
   {
+   "id": "gfx/palettes/gunk_0875194c",
+   "symbol": "gUnk_0875194C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75194C",
+    "size": 32,
+    "sha256": "a04b6220792e806dfec978cb6433eda80d5a1e52ad8f62a0bfd7be0851b4026e"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875194c.json",
+    "png": "assets/gfx/palettes/unk_0875194c.png",
+    "pal": "assets/gfx/palettes/unk_0875194c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:65186 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
    "id": "gfx/palettes/gunk_087519ec",
    "symbol": "gUnk_087519EC",
    "kind": "palette",
@@ -1447,6 +1469,402 @@
    "evidence": "func_08059FE0 (code_0803EE94.s:50773): func_08008E64(gUnk_087519EC, 0x05000200 + slot*0x20, 0x20) \u2014 palette RAM basis 0x05000200 ditambah indeks slot (hasil func_080074C0, lsls #5); simbol dimuat di baris 50761."
   },
   {
+   "id": "gfx/palettes/gunk_08751a8c",
+   "symbol": "gUnk_08751A8C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x751A8C",
+    "size": 32,
+    "sha256": "5051b9b284ca342b4854484859de13740ecb9e2a7e90cebdd60d24f57ca418e4"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08751a8c.json",
+    "png": "assets/gfx/palettes/unk_08751a8c.png",
+    "pal": "assets/gfx/palettes/unk_08751a8c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:65669 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_08751b2c",
+   "symbol": "gUnk_08751B2C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x751B2C",
+    "size": 32,
+    "sha256": "192788f0fe7b6854408af983626540382d616897dbe2939a944be483e88c9893"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08751b2c.json",
+    "png": "assets/gfx/palettes/unk_08751b2c.png",
+    "pal": "assets/gfx/palettes/unk_08751b2c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:66193 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_08751bcc",
+   "symbol": "gUnk_08751BCC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x751BCC",
+    "size": 32,
+    "sha256": "a8f1398591f1678493ac727aac9351f50f7ee2580925c716de648197f13bd6f0"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08751bcc.json",
+    "png": "assets/gfx/palettes/unk_08751bcc.png",
+    "pal": "assets/gfx/palettes/unk_08751bcc.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:67896 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_08751c6c",
+   "symbol": "gUnk_08751C6C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x751C6C",
+    "size": 32,
+    "sha256": "a8f1398591f1678493ac727aac9351f50f7ee2580925c716de648197f13bd6f0"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08751c6c.json",
+    "png": "assets/gfx/palettes/unk_08751c6c.png",
+    "pal": "assets/gfx/palettes/unk_08751c6c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:71829 memuat gUnk_08751C6C lalu bl func_08063EB8 (baris 71843) yang menulis argumen palet ke struct+0xc (baris 71095) sebelum menambahkannya ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_08751d0c",
+   "symbol": "gUnk_08751D0C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x751D0C",
+    "size": 32,
+    "sha256": "fc8b6a7419007a9b58e1a8663be6a96235b7dcad8435bdaa1667148eda25d199"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08751d0c.json",
+    "png": "assets/gfx/palettes/unk_08751d0c.png",
+    "pal": "assets/gfx/palettes/unk_08751d0c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:71804 memuat gUnk_08751D0C lalu bl func_08063EB8 (baris 71843) yang menulis argumen palet ke struct+0xc (baris 71095) sebelum menambahkannya ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_08751dac",
+   "symbol": "gUnk_08751DAC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x751DAC",
+    "size": 32,
+    "sha256": "a8f1398591f1678493ac727aac9351f50f7ee2580925c716de648197f13bd6f0"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08751dac.json",
+    "png": "assets/gfx/palettes/unk_08751dac.png",
+    "pal": "assets/gfx/palettes/unk_08751dac.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:71836 memuat gUnk_08751DAC lalu bl func_08063EB8 (baris 71843) yang menulis argumen palet ke struct+0xc (baris 71095) sebelum menambahkannya ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_08751e4c",
+   "symbol": "gUnk_08751E4C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x751E4C",
+    "size": 32,
+    "sha256": "a8f1398591f1678493ac727aac9351f50f7ee2580925c716de648197f13bd6f0"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08751e4c.json",
+    "png": "assets/gfx/palettes/unk_08751e4c.png",
+    "pal": "assets/gfx/palettes/unk_08751e4c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:71822 memuat gUnk_08751E4C lalu bl func_08063EB8 (baris 71843) yang menulis argumen palet ke struct+0xc (baris 71095) sebelum menambahkannya ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_08751eec",
+   "symbol": "gUnk_08751EEC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x751EEC",
+    "size": 32,
+    "sha256": "8510d77f55528eb9f592f23c125cf914b330792539a726c3c64cfad77c394505"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08751eec.json",
+    "png": "assets/gfx/palettes/unk_08751eec.png",
+    "pal": "assets/gfx/palettes/unk_08751eec.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:66633 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_08751f8c",
+   "symbol": "gUnk_08751F8C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x751F8C",
+    "size": 32,
+    "sha256": "177698b73af8992b354aa70c6aa8bdf4f9fffefcaea2b7d42a6dbffbe2ebce04"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08751f8c.json",
+    "png": "assets/gfx/palettes/unk_08751f8c.png",
+    "pal": "assets/gfx/palettes/unk_08751f8c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:75016 memuat gUnk_08751F8C ke struct stack +0xc (sp+0x14); list obj+0x594 dibangun di baris 75043; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875202c",
+   "symbol": "gUnk_0875202C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75202C",
+    "size": 32,
+    "sha256": "11aaf8eb28533ed3e9c8562e57377d6b18dee82cceb74fb75dc5e8bfe648d448"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875202c.json",
+    "png": "assets/gfx/palettes/unk_0875202c.png",
+    "pal": "assets/gfx/palettes/unk_0875202c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:74996 memuat gUnk_0875202C ke struct stack +0xc (sp+0x14); list obj+0x594 dibangun di baris 75043; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_087520cc",
+   "symbol": "gUnk_087520CC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7520CC",
+    "size": 32,
+    "sha256": "11aaf8eb28533ed3e9c8562e57377d6b18dee82cceb74fb75dc5e8bfe648d448"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_087520cc.json",
+    "png": "assets/gfx/palettes/unk_087520cc.png",
+    "pal": "assets/gfx/palettes/unk_087520cc.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:74983 memuat gUnk_087520CC ke struct stack +0xc (sp+0x14); list obj+0x594 dibangun di baris 75043; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875216c",
+   "symbol": "gUnk_0875216C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75216C",
+    "size": 32,
+    "sha256": "177698b73af8992b354aa70c6aa8bdf4f9fffefcaea2b7d42a6dbffbe2ebce04"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875216c.json",
+    "png": "assets/gfx/palettes/unk_0875216c.png",
+    "pal": "assets/gfx/palettes/unk_0875216c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:75027 memuat gUnk_0875216C ke struct stack +0xc (sp+0x14); list obj+0x594 dibangun di baris 75043; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875220c",
+   "symbol": "gUnk_0875220C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75220C",
+    "size": 32,
+    "sha256": "177698b73af8992b354aa70c6aa8bdf4f9fffefcaea2b7d42a6dbffbe2ebce04"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875220c.json",
+    "png": "assets/gfx/palettes/unk_0875220c.png",
+    "pal": "assets/gfx/palettes/unk_0875220c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:74972 memuat gUnk_0875220C ke struct stack +0xc (sp+0x14); list obj+0x594 dibangun di baris 75043; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_087522ac",
+   "symbol": "gUnk_087522AC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7522AC",
+    "size": 32,
+    "sha256": "11aaf8eb28533ed3e9c8562e57377d6b18dee82cceb74fb75dc5e8bfe648d448"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_087522ac.json",
+    "png": "assets/gfx/palettes/unk_087522ac.png",
+    "pal": "assets/gfx/palettes/unk_087522ac.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:75038 memuat gUnk_087522AC ke struct stack +0xc (sp+0x14); list obj+0x594 dibangun di baris 75043; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875234c",
+   "symbol": "gUnk_0875234C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75234C",
+    "size": 32,
+    "sha256": "8ccfa81508cf1d41de4b21b2a7e7978e38053a2ac5d86683dcc5a0d0b88571a2"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875234c.json",
+    "png": "assets/gfx/palettes/unk_0875234c.png",
+    "pal": "assets/gfx/palettes/unk_0875234c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:75005 memuat gUnk_0875234C ke struct stack +0xc (sp+0x14); list obj+0x594 dibangun di baris 75043; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_087523ec",
+   "symbol": "gUnk_087523EC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7523EC",
+    "size": 32,
+    "sha256": "48a80f9c429f2ce04621b61d37ecdd0309ec95f6ec16c264b6035c0867a74c8c"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_087523ec.json",
+    "png": "assets/gfx/palettes/unk_087523ec.png",
+    "pal": "assets/gfx/palettes/unk_087523ec.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:68084 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875248c",
+   "symbol": "gUnk_0875248C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75248C",
+    "size": 32,
+    "sha256": "2eea4f3943955251674e466cac62d76b36404fc98a42dd5135bf823ed617cd3b"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875248c.json",
+    "png": "assets/gfx/palettes/unk_0875248c.png",
+    "pal": "assets/gfx/palettes/unk_0875248c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:65719 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875252c",
+   "symbol": "gUnk_0875252C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75252C",
+    "size": 32,
+    "sha256": "2160452ef2af75fa334ec7c594a2ebcbd6ce25073dbf4af6337ee80656a53ffb"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875252c.json",
+    "png": "assets/gfx/palettes/unk_0875252c.png",
+    "pal": "assets/gfx/palettes/unk_0875252c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:65689 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
    "id": "gfx/palettes/gunk_087525cc",
    "symbol": "gUnk_087525CC",
    "kind": "palette",
@@ -1467,6 +1885,116 @@
     "version": 1
    },
    "evidence": "func_0805FF14 (code_0803EE94.s:64274): func_08008F0C(antrean, gUnk_087525CC, 0x05000040, 0x20), tujuan 0x05000040 di palette RAM; simbol dimuat di baris 64270."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875266c",
+   "symbol": "gUnk_0875266C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75266C",
+    "size": 32,
+    "sha256": "fdc6f6956557f83031743543767112a31960c65321c692e1c46f9facbe90dea5"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875266c.json",
+    "png": "assets/gfx/palettes/unk_0875266c.png",
+    "pal": "assets/gfx/palettes/unk_0875266c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:67709 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875270c",
+   "symbol": "gUnk_0875270C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75270C",
+    "size": 32,
+    "sha256": "c5e272218a4ff500807a72109a29d027157115b6d3c74fb3b0c5039304dba7df"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875270c.json",
+    "png": "assets/gfx/palettes/unk_0875270c.png",
+    "pal": "assets/gfx/palettes/unk_0875270c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:67522 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_087527ac",
+   "symbol": "gUnk_087527AC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7527AC",
+    "size": 32,
+    "sha256": "d1147313fa34ccc420c1bbdadc2fc3e25ebbae077c0a8fbd9b1cbdd3020edbfa"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_087527ac.json",
+    "png": "assets/gfx/palettes/unk_087527ac.png",
+    "pal": "assets/gfx/palettes/unk_087527ac.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:71715 memuat gUnk_087527AC lalu bl func_08063EB8 (baris 71721) yang menulis argumen palet ke struct+0xc (baris 71095) sebelum menambahkannya ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875284c",
+   "symbol": "gUnk_0875284C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75284C",
+    "size": 32,
+    "sha256": "25f5a2db3de1e4690c908fc50972652094ce40f2b5cdc7421f7b5f4c33a35114"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875284c.json",
+    "png": "assets/gfx/palettes/unk_0875284c.png",
+    "pal": "assets/gfx/palettes/unk_0875284c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:67072 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_087528ec",
+   "symbol": "gUnk_087528EC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7528EC",
+    "size": 32,
+    "sha256": "16e553acc44ac581148ab9a5afa60e7e222fcde65ac2b60b829204ff6d01de56"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_087528ec.json",
+    "png": "assets/gfx/palettes/unk_087528ec.png",
+    "pal": "assets/gfx/palettes/unk_087528ec.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:65699 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
   },
   {
    "id": "gfx/palettes/gunk_0875298c",
@@ -1513,6 +2041,50 @@
    "evidence": "func_08068344 (code_0803EE94.s:80966): func_08008F0C(antrean, gUnk_08752AAC, 0x05000000 + offset slot, 0x20) \u2014 basis palette RAM ditambah offset slot di sl (jalur ini 1*0x20); simbol dimuat di baris 80960."
   },
   {
+   "id": "gfx/palettes/gunk_08752ecc",
+   "symbol": "gUnk_08752ECC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752ECC",
+    "size": 32,
+    "sha256": "366e7449453ed4cee3ca5346b7e2001cfbb60cd138519b8cc5c24eb153eabf37"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08752ecc.json",
+    "png": "assets/gfx/palettes/unk_08752ecc.png",
+    "pal": "assets/gfx/palettes/unk_08752ecc.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:65679 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_08752f6c",
+   "symbol": "gUnk_08752F6C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x752F6C",
+    "size": 32,
+    "sha256": "8d73f857b5f4b8bc81c692dce932bec2bd92110110c6b33838e1f2fb55127db9"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_08752f6c.json",
+    "png": "assets/gfx/palettes/unk_08752f6c.png",
+    "pal": "assets/gfx/palettes/unk_08752f6c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:68658 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
    "id": "gfx/palettes/gunk_0875300c",
    "symbol": "gUnk_0875300C",
    "kind": "palette",
@@ -1535,6 +2107,28 @@
    "evidence": "func_080C85A0 (code_809E804.s:85907): func_08008F0C(antrean, gUnk_0875300C, 0x05000200 + slot*0x20, 0x20) \u2014 palette RAM basis 0x05000200 ditambah indeks slot (hasil func_080074C0, lsls #5); simbol dimuat di baris 85901."
   },
   {
+   "id": "gfx/palettes/gunk_087530ac",
+   "symbol": "gUnk_087530AC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7530AC",
+    "size": 32,
+    "sha256": "301d4082af7428fdda2bbe41520b22a5cf0cf7755ba64019585a985b4b8dccae"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_087530ac.json",
+    "png": "assets/gfx/palettes/unk_087530ac.png",
+    "pal": "assets/gfx/palettes/unk_087530ac.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:65709 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
    "id": "gfx/palettes/gunk_0875314c",
    "symbol": "gUnk_0875314C",
    "kind": "palette",
@@ -1555,6 +2149,116 @@
     "version": 1
    },
    "evidence": "func_0805FF14 (code_0803EE94.s:64563): func_08008F0C(antrean, gUnk_0875314C, 0x05000060, 0x20), tujuan 0x05000060 di palette RAM; simbol dimuat di baris 64559."
+  },
+  {
+   "id": "gfx/palettes/gunk_087531ec",
+   "symbol": "gUnk_087531EC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7531EC",
+    "size": 32,
+    "sha256": "1f156c49f9a0d7c02d03bbc7d5b3a4f33eb95b5d1768e3bd2e4a195e6b960fef"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_087531ec.json",
+    "png": "assets/gfx/palettes/unk_087531ec.png",
+    "pal": "assets/gfx/palettes/unk_087531ec.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:68458 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875328c",
+   "symbol": "gUnk_0875328C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75328C",
+    "size": 32,
+    "sha256": "d1147313fa34ccc420c1bbdadc2fc3e25ebbae077c0a8fbd9b1cbdd3020edbfa"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875328c.json",
+    "png": "assets/gfx/palettes/unk_0875328c.png",
+    "pal": "assets/gfx/palettes/unk_0875328c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:68271 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875332c",
+   "symbol": "gUnk_0875332C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75332C",
+    "size": 32,
+    "sha256": "d1147313fa34ccc420c1bbdadc2fc3e25ebbae077c0a8fbd9b1cbdd3020edbfa"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875332c.json",
+    "png": "assets/gfx/palettes/unk_0875332c.png",
+    "pal": "assets/gfx/palettes/unk_0875332c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:71947 memuat gUnk_0875332C lalu bl func_08063EB8 (baris 71961) yang menulis argumen palet ke struct+0xc (baris 71095) sebelum menambahkannya ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_087533cc",
+   "symbol": "gUnk_087533CC",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7533CC",
+    "size": 32,
+    "sha256": "350291eb0ae7ed63bf6e8644f04e63fd6ccb347309f4a76b3bd9edec9ea72c62"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_087533cc.json",
+    "png": "assets/gfx/palettes/unk_087533cc.png",
+    "pal": "assets/gfx/palettes/unk_087533cc.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:71929 memuat gUnk_087533CC lalu bl func_08063EB8 (baris 71961) yang menulis argumen palet ke struct+0xc (baris 71095) sebelum menambahkannya ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+  },
+  {
+   "id": "gfx/palettes/gunk_0875346c",
+   "symbol": "gUnk_0875346C",
+   "kind": "palette",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75346C",
+    "size": 32,
+    "sha256": "d1147313fa34ccc420c1bbdadc2fc3e25ebbae077c0a8fbd9b1cbdd3020edbfa"
+   },
+   "source": {
+    "json": "assets/gfx/palettes/unk_0875346c.json",
+    "png": "assets/gfx/palettes/unk_0875346c.png",
+    "pal": "assets/gfx/palettes/unk_0875346c.pal"
+   },
+   "encoder": {
+    "tool": "pal2gba.py",
+    "version": 1
+   },
+   "evidence": "code_0803EE94.s:71954 memuat gUnk_0875346C lalu bl func_08063EB8 (baris 71961) yang menulis argumen palet ke struct+0xc (baris 71095) sebelum menambahkannya ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
   },
   {
    "id": "gfx/palettes/gunk_0875350c",

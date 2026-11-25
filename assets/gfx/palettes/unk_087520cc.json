@@ -1,0 +1,23 @@
+{
+ "id": "gfx/palettes/gunk_087520cc",
+ "symbol": "gUnk_087520CC",
+ "kind": "palette",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x7520CC",
+  "size": 32,
+  "sha256": "11aaf8eb28533ed3e9c8562e57377d6b18dee82cceb74fb75dc5e8bfe648d448"
+ },
+ "source": {
+  "pal": "unk_087520cc.pal",
+  "png": "unk_087520cc.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "code_0803EE94.s:74983 memuat gUnk_087520CC ke struct stack +0xc (sp+0x14); list obj+0x594 dibangun di baris 75043; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+}

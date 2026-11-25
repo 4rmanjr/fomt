@@ -1,0 +1,23 @@
+{
+ "id": "gfx/palettes/gunk_087533cc",
+ "symbol": "gUnk_087533CC",
+ "kind": "palette",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x7533CC",
+  "size": 32,
+  "sha256": "350291eb0ae7ed63bf6e8644f04e63fd6ccb347309f4a76b3bd9edec9ea72c62"
+ },
+ "source": {
+  "pal": "unk_087533cc.pal",
+  "png": "unk_087533cc.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "code_0803EE94.s:71929 memuat gUnk_087533CC lalu bl func_08063EB8 (baris 71961) yang menulis argumen palet ke struct+0xc (baris 71095) sebelum menambahkannya ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+}

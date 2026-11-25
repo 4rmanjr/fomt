@@ -1,0 +1,23 @@
+{
+ "id": "gfx/palettes/gunk_087523ec",
+ "symbol": "gUnk_087523EC",
+ "kind": "palette",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x7523EC",
+  "size": 32,
+  "sha256": "48a80f9c429f2ce04621b61d37ecdd0309ec95f6ec16c264b6035c0867a74c8c"
+ },
+ "source": {
+  "pal": "unk_087523ec.pal",
+  "png": "unk_087523ec.png"
+ },
+ "encoder": {
+  "tool": "pal2gba.py",
+  "version": 1
+ },
+ "deps": [],
+ "codec": null,
+ "evidence": "code_0803EE94.s:68084 menulis field +0xc struct yang ditambahkan ke list obj+0x594; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+}

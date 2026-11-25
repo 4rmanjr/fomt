@@ -990,7 +990,8 @@ encode ulang byte identik, dan rujukan kode dekat `func_0805E6CC` |
 `font_container.py` | selesai — lihat catatan di bawah |
 | 2 | palet 32 B/512 B | semua u16 < 0x8000 dan `pal2gba.py` encode ulang byte
 identik; hanya yang tapak salinannya menuju palette RAM yang dimigrasikan |
-`pal2gba.py` | sebagian selesai — sisanya menunggu penelusuran antar-fungsi |
+`pal2gba.py` | palet sprite 0x75194C–0x75346C selesai lewat list obj+0x594; sisanya
+parkir karena panjang salinan tidak sama dengan slice / tujuan field +0xc0 |
 | 3 | tile 4bpp kelipatan 32 B (`gUnk_0872FA9C`, …) | `tile4bpp.py` round-trip
 byte identik, tetapi bentuk byte saja tidak cukup | `tile4bpp.py` | sebagian
 selesai — sisanya diparkir, lihat catatan di bawah |
@@ -1028,12 +1029,20 @@ ditelusuri ulang dari asm. `asset_verify.py` ikut menjaga bukti itu: kutipan
 menulis tujuan tetap padahal tapak salinannya menambah indeks slot (atau
 sebaliknya) menjadi masalah gate, bukan sekadar catatan.
 
-Palet yang simbolnya hanya disimpan ke field struct — mis. `str r0, [rN, #0xc]`
-berpasangan dengan tile di `+8` — belum punya bukti di fungsi itu: salinannya
-dilakukan rutin bersama yang menerima struct tersebut, sehingga butuh
-penelusuran antar-fungsi sebelum boleh dialihkan. Blob yang salah satu u16-nya
-`>= 0x8000` tetap bukan palet (bit 15 bukan bagian BGR555) dan tidak dihitung
-sebagai kandidat.
+Palet sprite 0x75194C–0x75346C (32 × 32 B) memakai jalur antar-fungsi yang
+sama: definisi sprite menulis pointer palet ke `struct+0xc` (tile di `+8`),
+struct 0x10 B itu ditambahkan ke list `obj+0x594`, lalu `func_08076EA8`
+membaca `entry+0xc` dan menyalin 0x20 B ke `0x05000200 + slot*0x20`
+(`code_0803EE94.s:111004`, `func_08008F0C`). Tiga bentuk penulisan diterima:
+store langsung `str r0, [rN, #0xc]`, struct stack yang `+0xc`-nya diisi dari
+`sp+0x14` lalu disalin ke list (baris 75043), atau argumen kelima
+`func_08063EB8` yang menulisnya ke `struct+0xc` (baris 71095) sebelum menambah
+ke list yang sama. Bukti tiap aset mencatat baris penulisnya **dan** baris
+111004; `asset_verify.py` menerima evidence yang menyebut basis + slot karena
+tujuan salinan ditambah `r8` (slot × 0x20), bukan konstanta tetap.
+
+Blob yang salah satu u16-nya `>= 0x8000` tetap bukan palet (bit 15 bukan
+bagian BGR555) dan tidak dihitung sebagai kandidat.
 
 Kelas 3 disortir dengan syarat yang sama seperti kelas 2: tapak salinan harus
 menuju VRAM (`0x06000000`–`0x06017FFF`) dan panjang salinan harus sama dengan
@@ -1058,9 +1067,17 @@ dari tapak salinannya:
 - `gUnk_086D6548` dan empat blok `func_080A95A4` (`gUnk_086EACE4`,
   `gUnk_086EAD04`, `gUnk_086EAD24`, `gUnk_086EAD44`) disalin ke
   `[field objek + 0xc0]`; tujuannya tidak terbaca dari fungsi itu.
-- sisa 32 B adalah kandidat palet yang pointer-nya disimpan ke struct (catatan
-  kelas 2 di atas); keduanya bukan tabel indeks glyph, yang punya kodek
-  sendiri (`glyph_index.py`).
+- Sisa palet yang belum boleh dialihkan, dengan alasan dari asm:
+  `gUnk_0872DDE4` dan `gUnk_0874F2EC` disalin `0x200` B ke `0x05000000`
+  padahal slice-nya hanya 96 B (`code_809E804.s:8450`/`49978`), jadi slice
+  bukan blok utuh yang disalin. `gUnk_0872FA9C`, `gUnk_087399C4`,
+  `gUnk_0873CBF4`, `gUnk_087400E4`, `gUnk_08747A14` juga menuju palette RAM
+  dengan panjang salinan 0x200/0x40 yang tidak sama dengan ukuran slice.
+  `gUnk_086EACE4`–`gUnk_086EAD44` disalin 0x20 B ke `[field objek + 0xc0]`
+  (`code_809E804.s:22351`), tujuan field yang pemiliknya belum terbukti
+  sebagai palette RAM.
+  `gUnk_08757BAC`/`gUnk_08757BD8` ditulis `func_08077E64` lewat `ldrh`/`strh`
+  sebagai entri BG map, bukan palet.
 
 Angka pasti per kelas tidak ditulis di sini — ambil dari
 `tools/scripts/asset_inventory.py --json` dan `assets/manifest.json` supaya

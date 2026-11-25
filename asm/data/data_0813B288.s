@@ -862,7 +862,9 @@ gUnk_087518CC:
 
 	.global gUnk_0875194C
 gUnk_0875194C:
-	.incbin "baserom.gba", 0x75194C, 0x20
+	@ rom: 0x75194C 0x20 — source assets/gfx/palettes/unk_075194c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875194C.bin"
 
 	.global gUnk_0875196C
 gUnk_0875196C:
@@ -886,7 +888,9 @@ gUnk_08751A0C:
 
 	.global gUnk_08751A8C
 gUnk_08751A8C:
-	.incbin "baserom.gba", 0x751A8C, 0x20
+	@ rom: 0x751A8C 0x20 — source assets/gfx/palettes/unk_0751a8c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_08751A8C.bin"
 
 	.global gUnk_08751AAC
 gUnk_08751AAC:
@@ -897,7 +901,9 @@ gUnk_08751AAC:
 
 	.global gUnk_08751B2C
 gUnk_08751B2C:
-	.incbin "baserom.gba", 0x751B2C, 0x20
+	@ rom: 0x751B2C 0x20 — source assets/gfx/palettes/unk_0751b2c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_08751B2C.bin"
 
 	.global gUnk_08751B4C
 gUnk_08751B4C:
@@ -908,7 +914,9 @@ gUnk_08751B4C:
 
 	.global gUnk_08751BCC
 gUnk_08751BCC:
-	.incbin "baserom.gba", 0x751BCC, 0x20
+	@ rom: 0x751BCC 0x20 — source assets/gfx/palettes/unk_0751bcc.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_08751BCC.bin"
 
 	.global gUnk_08751BEC
 gUnk_08751BEC:
@@ -919,7 +927,9 @@ gUnk_08751BEC:
 
 	.global gUnk_08751C6C
 gUnk_08751C6C:
-	.incbin "baserom.gba", 0x751C6C, 0x20
+	@ rom: 0x751C6C 0x20 — source assets/gfx/palettes/unk_0751c6c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_08751C6C.bin"
 
 	.global gUnk_08751C8C
 gUnk_08751C8C:
@@ -930,7 +940,9 @@ gUnk_08751C8C:
 
 	.global gUnk_08751D0C
 gUnk_08751D0C:
-	.incbin "baserom.gba", 0x751D0C, 0x20
+	@ rom: 0x751D0C 0x20 — source assets/gfx/palettes/unk_0751d0c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_08751D0C.bin"
 
 	.global gUnk_08751D2C
 gUnk_08751D2C:
@@ -941,7 +953,9 @@ gUnk_08751D2C:
 
 	.global gUnk_08751DAC
 gUnk_08751DAC:
-	.incbin "baserom.gba", 0x751DAC, 0x20
+	@ rom: 0x751DAC 0x20 — source assets/gfx/palettes/unk_0751dac.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_08751DAC.bin"
 
 	.global gUnk_08751DCC
 gUnk_08751DCC:
@@ -952,7 +966,9 @@ gUnk_08751DCC:
 
 	.global gUnk_08751E4C
 gUnk_08751E4C:
-	.incbin "baserom.gba", 0x751E4C, 0x20
+	@ rom: 0x751E4C 0x20 — source assets/gfx/palettes/unk_0751e4c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_08751E4C.bin"
 
 	.global gUnk_08751E6C
 gUnk_08751E6C:
@@ -963,7 +979,9 @@ gUnk_08751E6C:
 
 	.global gUnk_08751EEC
 gUnk_08751EEC:
-	.incbin "baserom.gba", 0x751EEC, 0x20
+	@ rom: 0x751EEC 0x20 — source assets/gfx/palettes/unk_0751eec.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_08751EEC.bin"
 
 	.global gUnk_08751F0C
 gUnk_08751F0C:
@@ -974,7 +992,9 @@ gUnk_08751F0C:
 
 	.global gUnk_08751F8C
 gUnk_08751F8C:
-	.incbin "baserom.gba", 0x751F8C, 0x20
+	@ rom: 0x751F8C 0x20 — source assets/gfx/palettes/unk_0751f8c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_08751F8C.bin"
 
 	.global gUnk_08751FAC
 gUnk_08751FAC:
@@ -985,7 +1005,9 @@ gUnk_08751FAC:
 
 	.global gUnk_0875202C
 gUnk_0875202C:
-	.incbin "baserom.gba", 0x75202C, 0x20
+	@ rom: 0x75202C 0x20 — source assets/gfx/palettes/unk_075202c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875202C.bin"
 
 	.global gUnk_0875204C
 gUnk_0875204C:
@@ -996,7 +1018,9 @@ gUnk_0875204C:
 
 	.global gUnk_087520CC
 gUnk_087520CC:
-	.incbin "baserom.gba", 0x7520CC, 0x20
+	@ rom: 0x7520CC 0x20 — source assets/gfx/palettes/unk_07520cc.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_087520CC.bin"
 
 	.global gUnk_087520EC
 gUnk_087520EC:
@@ -1007,7 +1031,9 @@ gUnk_087520EC:
 
 	.global gUnk_0875216C
 gUnk_0875216C:
-	.incbin "baserom.gba", 0x75216C, 0x20
+	@ rom: 0x75216C 0x20 — source assets/gfx/palettes/unk_075216c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875216C.bin"
 
 	.global gUnk_0875218C
 gUnk_0875218C:
@@ -1018,7 +1044,9 @@ gUnk_0875218C:
 
 	.global gUnk_0875220C
 gUnk_0875220C:
-	.incbin "baserom.gba", 0x75220C, 0x20
+	@ rom: 0x75220C 0x20 — source assets/gfx/palettes/unk_075220c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875220C.bin"
 
 	.global gUnk_0875222C
 gUnk_0875222C:
@@ -1029,7 +1057,9 @@ gUnk_0875222C:
 
 	.global gUnk_087522AC
 gUnk_087522AC:
-	.incbin "baserom.gba", 0x7522AC, 0x20
+	@ rom: 0x7522AC 0x20 — source assets/gfx/palettes/unk_07522ac.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_087522AC.bin"
 
 	.global gUnk_087522CC
 gUnk_087522CC:
@@ -1040,7 +1070,9 @@ gUnk_087522CC:
 
 	.global gUnk_0875234C
 gUnk_0875234C:
-	.incbin "baserom.gba", 0x75234C, 0x20
+	@ rom: 0x75234C 0x20 — source assets/gfx/palettes/unk_075234c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875234C.bin"
 
 	.global gUnk_0875236C
 gUnk_0875236C:
@@ -1051,7 +1083,9 @@ gUnk_0875236C:
 
 	.global gUnk_087523EC
 gUnk_087523EC:
-	.incbin "baserom.gba", 0x7523EC, 0x20
+	@ rom: 0x7523EC 0x20 — source assets/gfx/palettes/unk_07523ec.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_087523EC.bin"
 
 	.global gUnk_0875240C
 gUnk_0875240C:
@@ -1062,7 +1096,9 @@ gUnk_0875240C:
 
 	.global gUnk_0875248C
 gUnk_0875248C:
-	.incbin "baserom.gba", 0x75248C, 0x20
+	@ rom: 0x75248C 0x20 — source assets/gfx/palettes/unk_075248c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875248C.bin"
 
 	.global gUnk_087524AC
 gUnk_087524AC:
@@ -1073,7 +1109,9 @@ gUnk_087524AC:
 
 	.global gUnk_0875252C
 gUnk_0875252C:
-	.incbin "baserom.gba", 0x75252C, 0x20
+	@ rom: 0x75252C 0x20 — source assets/gfx/palettes/unk_075252c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875252C.bin"
 
 	.global gUnk_0875254C
 gUnk_0875254C:
@@ -1097,7 +1135,9 @@ gUnk_087525EC:
 
 	.global gUnk_0875266C
 gUnk_0875266C:
-	.incbin "baserom.gba", 0x75266C, 0x20
+	@ rom: 0x75266C 0x20 — source assets/gfx/palettes/unk_075266c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875266C.bin"
 
 	.global gUnk_0875268C
 gUnk_0875268C:
@@ -1108,7 +1148,9 @@ gUnk_0875268C:
 
 	.global gUnk_0875270C
 gUnk_0875270C:
-	.incbin "baserom.gba", 0x75270C, 0x20
+	@ rom: 0x75270C 0x20 — source assets/gfx/palettes/unk_075270c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875270C.bin"
 
 	.global gUnk_0875272C
 gUnk_0875272C:
@@ -1119,7 +1161,9 @@ gUnk_0875272C:
 
 	.global gUnk_087527AC
 gUnk_087527AC:
-	.incbin "baserom.gba", 0x7527AC, 0x20
+	@ rom: 0x7527AC 0x20 — source assets/gfx/palettes/unk_07527ac.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_087527AC.bin"
 
 	.global gUnk_087527CC
 gUnk_087527CC:
@@ -1130,7 +1174,9 @@ gUnk_087527CC:
 
 	.global gUnk_0875284C
 gUnk_0875284C:
-	.incbin "baserom.gba", 0x75284C, 0x20
+	@ rom: 0x75284C 0x20 — source assets/gfx/palettes/unk_075284c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875284C.bin"
 
 	.global gUnk_0875286C
 gUnk_0875286C:
@@ -1141,7 +1187,9 @@ gUnk_0875286C:
 
 	.global gUnk_087528EC
 gUnk_087528EC:
-	.incbin "baserom.gba", 0x7528EC, 0x20
+	@ rom: 0x7528EC 0x20 — source assets/gfx/palettes/unk_07528ec.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_087528EC.bin"
 
 	.global gUnk_0875290C
 gUnk_0875290C:
@@ -1242,7 +1290,9 @@ gUnk_08752E4C:
 
 	.global gUnk_08752ECC
 gUnk_08752ECC:
-	.incbin "baserom.gba", 0x752ECC, 0x20
+	@ rom: 0x752ECC 0x20 — source assets/gfx/palettes/unk_0752ecc.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_08752ECC.bin"
 
 	.global gUnk_08752EEC
 gUnk_08752EEC:
@@ -1253,7 +1303,9 @@ gUnk_08752EEC:
 
 	.global gUnk_08752F6C
 gUnk_08752F6C:
-	.incbin "baserom.gba", 0x752F6C, 0x20
+	@ rom: 0x752F6C 0x20 — source assets/gfx/palettes/unk_0752f6c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_08752F6C.bin"
 
 	.global gUnk_08752F8C
 gUnk_08752F8C:
@@ -1277,7 +1329,9 @@ gUnk_0875302C:
 
 	.global gUnk_087530AC
 gUnk_087530AC:
-	.incbin "baserom.gba", 0x7530AC, 0x20
+	@ rom: 0x7530AC 0x20 — source assets/gfx/palettes/unk_07530ac.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_087530AC.bin"
 
 	.global gUnk_087530CC
 gUnk_087530CC:
@@ -1301,7 +1355,9 @@ gUnk_0875316C:
 
 	.global gUnk_087531EC
 gUnk_087531EC:
-	.incbin "baserom.gba", 0x7531EC, 0x20
+	@ rom: 0x7531EC 0x20 — source assets/gfx/palettes/unk_07531ec.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_087531EC.bin"
 
 	.global gUnk_0875320C
 gUnk_0875320C:
@@ -1312,7 +1368,9 @@ gUnk_0875320C:
 
 	.global gUnk_0875328C
 gUnk_0875328C:
-	.incbin "baserom.gba", 0x75328C, 0x20
+	@ rom: 0x75328C 0x20 — source assets/gfx/palettes/unk_075328c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875328C.bin"
 
 	.global gUnk_087532AC
 gUnk_087532AC:
@@ -1323,7 +1381,9 @@ gUnk_087532AC:
 
 	.global gUnk_0875332C
 gUnk_0875332C:
-	.incbin "baserom.gba", 0x75332C, 0x20
+	@ rom: 0x75332C 0x20 — source assets/gfx/palettes/unk_075332c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875332C.bin"
 
 	.global gUnk_0875334C
 gUnk_0875334C:
@@ -1334,7 +1394,9 @@ gUnk_0875334C:
 
 	.global gUnk_087533CC
 gUnk_087533CC:
-	.incbin "baserom.gba", 0x7533CC, 0x20
+	@ rom: 0x7533CC 0x20 — source assets/gfx/palettes/unk_07533cc.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_087533CC.bin"
 
 	.global gUnk_087533EC
 gUnk_087533EC:
@@ -1345,7 +1407,9 @@ gUnk_087533EC:
 
 	.global gUnk_0875346C
 gUnk_0875346C:
-	.incbin "baserom.gba", 0x75346C, 0x20
+	@ rom: 0x75346C 0x20 — source assets/gfx/palettes/unk_075346c.{pal,png,json}
+	@ field struct+0xc di list obj+0x594; func_08076EA8 (baris 111004) menyalin 0x20 B ke 0x05000200 + slot*0x20; encode pal2gba.py byte identik.
+	.incbin "build/assets/gUnk_0875346C.bin"
 
 	.global gUnk_0875348C
 gUnk_0875348C:
