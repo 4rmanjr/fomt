@@ -620,7 +620,7 @@ exit code tetap `unittest` yang sama; `make test-tools-serial` menjalankan
 `unittest discover` satu proses bila perlu membandingkan. Tidak menyentuh
 build dan tidak menulis ROM. Berkas yang ada:
 `run_parallel.py`, `test_cli.py`, `test_asset_manifest.py`, `test_asset_verify.py`,
-`test_embedded_streams.py`, `test_font_container.py`, `test_font_palettes.py`,
+`test_compressed_bank.py`, `test_embedded_streams.py`, `test_font_container.py`, `test_font_palettes.py`,
 `test_glyph_font.py`, `test_glyph_index.py`, `test_lz70.py`, `test_map2bin.py`, `test_tilemap_bank.py`,
 `test_raw_assets.py`,
 `test_readme_stats.py`,
