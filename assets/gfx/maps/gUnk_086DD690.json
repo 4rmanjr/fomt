@@ -1,0 +1,43 @@
+{
+ "id": "gfx/maps/gunk_086dd690",
+ "symbol": "gUnk_086DD690",
+ "kind": "tilemap",
+ "status": "rom-exact",
+ "semantics": "unidentified",
+ "rom": {
+  "offset": "0x6DD690",
+  "size": 32,
+  "sha256": "bcfe6016bcbd215a97f32b7bbf249155bf4f3e676440aa916f9e23f3782ecbb9"
+ },
+ "source": {
+  "json": "gUnk_086DD690.json"
+ },
+ "encoder": {
+  "tool": "map2bin.py",
+  "version": 1
+ },
+ "tilemap": {
+  "width": 4,
+  "height": 4
+ },
+ "entries": [
+  37788,
+  37789,
+  37790,
+  37791,
+  37792,
+  37793,
+  37794,
+  37795,
+  37796,
+  37797,
+  37798,
+  37799,
+  37800,
+  37801,
+  37802,
+  37803
+ ],
+ "note": "stamp 4x4: 16 entri map u16 (indeks tile + palet 9) dibaca func_080AA9C8 kasus 0xe (sl=4, 4 baris) dan ditulis urut baris ke lapis peta",
+ "evidence": "asm/code_809E804.s baris 24565 (.L080AAB00) memilih gUnk_086DD690 untuk id 0xe (baris 24582); sl=4 (baris 24603) dan 4 baris (baris 24606) membuat loop 24672/24686 membaca tepat 16 entri u16 berurutan lewat ldrh [r4] (baris 24701), lalu strh ke lapis peta [r6,#0x14] (baris 24699/24702) di (x0+kolom, y0+baris). 16 entri = 32 B = seluruh slice, jadi grid 4x4 urut baris dan round-trip terbukti; arti indeks tile/palet tiap entri tetap unidentified."
+}

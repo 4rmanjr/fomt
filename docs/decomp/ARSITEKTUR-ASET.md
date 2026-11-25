@@ -1059,11 +1059,13 @@ dari tapak salinannya:
   (192 B, salinan 0xC0 ke `0x05000020`) ukurannya cocok sehingga sudah
   dimigrasikan sebagai palet: keduanya varian isi yang dipilih `func_08077EC0`
   menurut `r5`, dan pilihan itu dicatat di `evidence` masing-masing aset.
-- `gUnk_08757BAC`, `gUnk_08757BD8`, `gUnk_086D6528`, `gUnk_086DD690`,
-  `gUnk_086EAD64`, `gUnk_086EAD8C` berisi entri map u16 (`0x93ff`, deret
-  `0x92a0…`, `0x93xx` berurutan) dan dipakai penulis BG map (`func_08077E64`
-  memakai `ldrh`/`strh`), bukan tile 4bpp. `gUnk_086D6458` seluruhnya `0x93ff`
-  dan tidak dirujuk kode.
+- `gUnk_08757BAC`, `gUnk_08757BD8`, `gUnk_086D6528`, `gUnk_086EAD8C`,
+  `gUnk_086DE7F4` berisi entri map u16 (`0x93ff`, deret `0x92a0…`, `0x93xx`
+  berurutan) dan dipakai penulis BG map (`func_08077E64` memakai
+  `ldrh`/`strh`), bukan tile 4bpp. `gUnk_086D6458` seluruhnya `0x93ff` dan
+  tidak dirujuk kode. Dua stamp 4x4 yang seluruh slice-nya habis dibaca
+  (`gUnk_086EAD64`, `gUnk_086DD690`) sudah dimigrasikan sebagai tilemap; lihat
+  §`func_080AA9C8`.
 - `gUnk_086D6548` dan empat blok `func_080A95A4` (`gUnk_086EACE4`,
   `gUnk_086EAD04`, `gUnk_086EAD24`, `gUnk_086EAD44`) disalin ke
   `[field objek + 0xc0]`; tujuannya tidak terbaca dari fungsi itu.
@@ -1103,6 +1105,44 @@ jumlah entrinya tidak sama dengan `width*height` **atau** dengan
 `rom.size`/2, jadi lebar tebakan tidak bisa lolos; `verify` membandingkan
 byte + SHA-256 dengan slice ROM. Isinya berbit palet 1/2 dengan indeks tile
 berurutan 0..413, tetapi arti tiap entri tetap `semantics: unidentified`.
+
+### Stamp 4x4 dari `func_080AA9C8`: dua yang habis, blob besar yang bukan tabel
+
+`func_080AA9C8` (baris 24421) memilih tabel menurut `[obj+4]`, lalu menulis
+stamp ke lapis peta. Di `.L080AAB00` (baris 24565) id `0xc`/`0xd`/`0xe`/`0xf`
+memilih `gUnk_086EAD64`/`gUnk_086EAD8C`/`gUnk_086DD690`/`gUnk_086DE7F4`,
+dengan `sl=4` (baris 24603) dan tinggi 4 (baris 24606). Loop baris 24672 dan
+kolom 24686 membaca `ldrh r1, [r4]` (baris 24701) berurutan, lalu menulis
+`strh r1, [r0]` (baris 24702) ke lapis `[r6,#0x14]` (baris 24699) pada
+`(x0+kolom, y0+baris)`: 16 entri u16 = 32 B, urut baris, lebar 4.
+
+Yang lolos hanya dua simbol yang slice-nya tepat 32 B: `gUnk_086EAD64`
+(kasus `0xc`, baris 24593) dan `gUnk_086DD690` (kasus `0xe`, baris 24582),
+keduanya kini `kind: tilemap` 4x4. `gUnk_086EAD8C` (33.312 B = 1041 x 32) dan
+`gUnk_086DE7F4` (50.408 B = 1575 x 32 + 8) **tidak** dimigrasikan: hanya 32 B
+pertama yang dibaca stamp, jadi blok-blok sisanya tidak punya pembaca dan
+bentuknya tidak boleh ditebak dari kelipatan 32.
+
+Struktur sisanya juga bukan tabel 4x4. Descriptor 0x18 B yang dibaca
+`func_080A5BD8` (baris 14381) berisi `u8` lebar (14397), `u8` tinggi (14398),
+tiga pointer layer u16 di `+4/+8/+0xc` (14401), blockmap di `+0x10`, dan tabel
+blok di `+0x14` (14448); fungsi itu menyalin `lebar x tinggi` entri per layer
+dengan `memcpy` (baris 14436). Contoh `gUnk_08106A7C` (data) berukuran 4x6
+dengan dua layer 48 B di `gUnk_086EAD8C+3184` dan `+3232` — dua layer 4x6 yang
+bersebelahan, bukan blok 32 B. Pointer descriptor itu tidak kelipatan 32, dan
+`gUnk_086DE7F4` juga dirujuk pada offset 4x6/17x20 dan ukuran campuran. Jadi
+keduanya bank layer peta berukuran variabel yang dirujuk per offset, dan hanya
+sebagian isinya yang dirujuk; sumber kanonik per-simbol akan mengarang format
+untuk sisa yang tak terbaca.
+
+Alasan parkir stamp lain, semuanya dari loop yang sama:
+
+- `gUnk_086DCC88` dan `gUnk_086DDDEC` (2568 B) hanya 32 B pertamanya dibaca;
+- `gUnk_086DC54C` dan `gUnk_086DD6B0` dibaca 6 kolom x 4 baris = 48 B di
+  `.L080AAB54` (baris 24613), padahal slice-nya 32 B — salinan melewati batas
+  simbol, jadi slice itu bukan stamp utuh;
+- `gUnk_086EACDC`, `gUnk_086EAD84`, `gUnk_086DC57C`, `gUnk_086DD6E0` memakai
+  `sl=2` dan 2 baris (baris 24558-24561): hanya 8 B dibaca dari slice besar.
 
 ### Rantai sprite 9-tile 0x750E4C–0x7517AC
 

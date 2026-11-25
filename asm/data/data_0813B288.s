@@ -234,7 +234,10 @@ gUnk_086DCC88:
 
 	.global gUnk_086DD690
 gUnk_086DD690:
-	.incbin "baserom.gba", 0x6DD690, 0x20
+	@ rom: 0x6DD690 0x20 — source assets/gfx/maps/gUnk_086DD690.json
+	@ stamp 4x4: func_080AA9C8 memilihnya untuk id 0xe (baris 24582), sl=4 (24603) dan 4 baris (24606);
+	@ loop 24672/24686 membaca 16 entri urut baris (ldrh [r4], 24701) dan menulis strh ke lapis peta [r6,#0x14] (24699/24702).
+	.incbin "build/assets/gUnk_086DD690.bin"
 
 	.global gUnk_086DD6B0
 gUnk_086DD6B0:
@@ -274,7 +277,10 @@ gUnk_086EAD44:
 
 	.global gUnk_086EAD64
 gUnk_086EAD64:
-	.incbin "baserom.gba", 0x6EAD64, 0x20
+	@ rom: 0x6EAD64 0x20 — source assets/gfx/maps/gUnk_086EAD64.json
+	@ stamp 4x4: func_080AA9C8 memilihnya untuk id 0xc (baris 24593), sl=4 (24603) dan 4 baris (24606);
+	@ loop 24672/24686 membaca 16 entri urut baris (ldrh [r4], 24701) dan menulis strh ke lapis peta [r6,#0x14] (24699/24702).
+	.incbin "build/assets/gUnk_086EAD64.bin"
 
 	.global gUnk_086EAD84
 gUnk_086EAD84:

@@ -1128,6 +1128,46 @@
    "evidence": "container func_0805E6CC A1/B1/C1/D4/E1/F0/T1 (220 B habis tepat); asm/code_0803EE94.s:133387 memuat gUnk_08755154 lalu func_08082264 (baris 132394) meneruskannya sebagai argumen ke-4 ke func_0805E6CC (jalur sama dengan gUnk_0875352C)"
   },
   {
+   "id": "gfx/maps/gunk_086dd690",
+   "symbol": "gUnk_086DD690",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DD690",
+    "size": 32,
+    "sha256": "bcfe6016bcbd215a97f32b7bbf249155bf4f3e676440aa916f9e23f3782ecbb9"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DD690.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   },
+   "evidence": "asm/code_809E804.s baris 24565 (.L080AAB00) memilih gUnk_086DD690 untuk id 0xe (baris 24582); sl=4 (baris 24603) dan 4 baris (baris 24606) membuat loop 24672/24686 membaca tepat 16 entri u16 berurutan lewat ldrh [r4] (baris 24701), lalu strh ke lapis peta [r6,#0x14] (baris 24699/24702) di (x0+kolom, y0+baris). 16 entri = 32 B = seluruh slice, jadi grid 4x4 urut baris dan round-trip terbukti; arti indeks tile/palet tiap entri tetap unidentified."
+  },
+  {
+   "id": "gfx/maps/gunk_086ead64",
+   "symbol": "gUnk_086EAD64",
+   "kind": "tilemap",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6EAD64",
+    "size": 32,
+    "sha256": "9b31e8586f19c10f14fb7674316b461dec5c14a21d6db8418542ecb918713b1d"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086EAD64.json"
+   },
+   "encoder": {
+    "tool": "map2bin.py",
+    "version": 1
+   },
+   "evidence": "asm/code_809E804.s baris 24565 (.L080AAB00) memilih gUnk_086EAD64 untuk id 0xc (baris 24593); sl=4 (baris 24603) dan 4 baris (baris 24606) membuat loop 24672/24686 membaca tepat 16 entri u16 berurutan lewat ldrh [r4] (baris 24701), lalu strh ke lapis peta [r6,#0x14] (baris 24699/24702) di (x0+kolom, y0+baris). 16 entri = 32 B = seluruh slice, jadi grid 4x4 urut baris dan round-trip terbukti; arti indeks tile/palet tiap entri tetap unidentified."
+  },
+  {
    "id": "gfx/maps/gunk_08755230",
    "symbol": "gUnk_08755230",
    "kind": "tilemap",

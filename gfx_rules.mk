@@ -59,6 +59,8 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_08754674.bin \
   $(BUILD_DIR)/assets/gUnk_08754C0C.bin \
   $(BUILD_DIR)/assets/gUnk_08755154.bin \
+  $(BUILD_DIR)/assets/gUnk_086DD690.bin \
+  $(BUILD_DIR)/assets/gUnk_086EAD64.bin \
   $(BUILD_DIR)/assets/gUnk_08755230.bin \
   $(BUILD_DIR)/assets/gUnk_0875553C.bin \
   $(BUILD_DIR)/assets/gUnk_08757C14.bin \
@@ -569,6 +571,18 @@ $(BUILD_DIR)/assets/gUnk_08755154.bin: \
     tools/assets/font_container.py
 	@echo "ASSET $@"
 	@python3 tools/assets/font_container.py encode --json assets/gfx/fonts/unk_08755154.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086DD690.bin: \
+    assets/gfx/maps/gUnk_086DD690.json \
+    tools/assets/map2bin.py
+	@echo "ASSET $@"
+	@python3 tools/assets/map2bin.py encode --json assets/gfx/maps/gUnk_086DD690.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086EAD64.bin: \
+    assets/gfx/maps/gUnk_086EAD64.json \
+    tools/assets/map2bin.py
+	@echo "ASSET $@"
+	@python3 tools/assets/map2bin.py encode --json assets/gfx/maps/gUnk_086EAD64.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_08755230.bin: \
     assets/gfx/maps/gUnk_08755230.json \
