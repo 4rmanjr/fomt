@@ -339,6 +339,11 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   indeks slot sebelum salinan wajib menyebut basis + slot, dan tapak bertujuan
   tetap wajib menyebut konstanta tujuannya — evidence yang menulis
   `0x05000200` padahal byte-nya masuk ke `0x05000200 + slot*0x20` ditolak.
+  Untuk `kind: tiles4bpp`, setiap kutipan `<berkas>.s:<baris>` wajib menunjuk
+  baris `bl` salinan/loader (`Unpack`, `func_08008E64`, `func_08008EB8`,
+  `func_08008F0C`, `func_0805E6CC`, atau `memcpy`) dan literal
+  `@ =gUnk_...` terdekat wajib simbol aset itu; kutipan baris non-salinan
+  atau simbol lain ditolak.
 - `tools/assets/lz70.py` — encoder `0x70` untuk format `000`
   (atom0/lzss0/diff0), atom0/lzss2 (`020`/`023`/`024`), atom0/lzss3
   (`030`/`033`), serta huffman4/huffman8 (`1xx`/`2xx`, termasuk lzss0/2/3
@@ -417,6 +422,14 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   atau jumlah entri tidak sama dengan `width*height`; `verify` membandingkan
   byte + SHA-256 dengan slice ROM. Contoh: `gUnk_086EAD8C` (58 layer) dan
   `gUnk_086DE7F4` (45 layer) di `assets/gfx/maps/`.
+- `tools/assets/table.py` — codec `kind: table` untuk tabel/struct yang belum
+  punya codec domain. Source JSON berisi `segments` dengan `format` `u8`,
+  `u16le`, `u32le`, atau `hex`; `encode` menolak celah, tumpang tindih, nilai
+  di luar rentang, atau source yang tidak menutup seluruh `rom.size`.
+  Gunakan `hex` hanya untuk byte yang belum punya arti per-field, dan tulis
+  `evidence`/`note` tentang bagian yang terbukti dari call site. Contoh:
+  `assets/gfx/tables/gUnk_08529994.json` (header u16 + blok gaya) dan
+  `gUnk_08698B00.json` (0x80 B pertama disalin ke lapis).
 - `tools/assets/font_container.py` — codec container font/objek
   `func_0805E6CC` (bukan tile datar). `decode` mengikuti pembacaan fungsi:
   enam tabel berhitung — A 4 B, B 16 B, C 8 B, D 32 B, E 32 B, F 8 B — lalu
@@ -628,7 +641,7 @@ exit code tetap `unittest` yang sama; `make test-tools-serial` menjalankan
 build dan tidak menulis ROM. Berkas yang ada:
 `run_parallel.py`, `test_cli.py`, `test_asset_manifest.py`, `test_asset_verify.py`,
 `test_compressed_bank.py`, `test_embedded_streams.py`, `test_font_container.py`, `test_font_palettes.py`,
-`test_glyph_font.py`, `test_glyph_index.py`, `test_lz70.py`, `test_map2bin.py`, `test_tilemap_bank.py`,
+`test_glyph_font.py`, `test_glyph_index.py`, `test_lz70.py`, `test_map2bin.py`, `test_table.py`, `test_tilemap_bank.py`,
 `test_raw_assets.py`,
 `test_readme_stats.py`,
 `test_sprite2gba.py`, `test_stream_audit.py`, `test_tile4bpp.py`.

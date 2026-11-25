@@ -19,7 +19,12 @@ lalu untuk setiap aset:
    (`<berkas>.s:<baris>`) harus cocok dengan asm: tapak yang menambah indeks
    slot sebelum salinan wajib menulis basis + slot, sedangkan tapak bertujuan
    tetap wajib menyebut konstanta tujuannya. Tujuannya mencegah evidence
-   menulis `0x05000200` padahal byte-nya masuk ke `0x05000200 + slot*0x20`.
+   menulis `0x05000200` padahal byte-nya masuk ke `0x05000200 + slot*0x20`;
+6. untuk `kind: tiles4bpp`, setiap kutipan `<berkas>.s:<baris>` harus menunjuk
+   baris `bl` salinan/loader dan simbol aset harus dimuat sebagai argumennya
+   (literal `@ =gUnk_...` terdekat). Kutipan fungsi yang tidak menyalin atau
+   yang memuat simbol lain ditolak, jadi evidence tidak bisa menempel ke baris
+   asm yang kebetulan berdekatan.
 
   python3 tools/assets/asset_verify.py                  # semua aset
   python3 tools/assets/asset_verify.py --symbol gUnk_08731940
@@ -56,6 +61,13 @@ COPY_CALL = re.compile(
 COPY_DST_REG = {"func_08008F0C": "r2"}
 EVIDENCE_CITE = re.compile(r'([\w./-]+\.s):(\d+)')
 REG_ALIAS = {"sb": "r9", "sl": "r10", "fp": "r11", "ip": "r12"}
+# Penjaga evidence tiles4bpp: baris yang dikutip harus salinan/loader, dan
+# simbol aset harus dimuat di jendela sebelum baris itu.
+TILE_LOAD_CALL = re.compile(
+    r'\bbl\s+(Unpack|func_08008E64|func_08008EB8|func_08008F0C|'
+    r'func_0805E6CC|memcpy)\b')
+SYMBOL_LOAD = re.compile(r'@\s*=\s*(gUnk_[0-9A-Fa-f]+)\b')
+TILE_SYMBOL_WINDOW = 24
 
 _TYPES = {"object": dict, "array": list, "string": str, "integer": int,
           "null": type(None), "boolean": bool, "number": (int, float)}
@@ -255,6 +267,48 @@ def palette_evidence_problems(asset, repo=None):
     return []
 
 
+def tiles4bpp_evidence_problems(asset, repo=None):
+    """Evidence tiles4bpp harus mengutip baris salinan/loader simbol itu.
+
+    Setiap `<berkas>.s:<baris>` dicek langsung: baris yang dikutip wajib `bl`
+    ke salinan/loader yang dikenal, dan literal `@ =gUnk_...` terdekat dalam
+    jendela sebelumnya wajib simbol aset ini. Jadi kutipan tidak bisa hanya
+    menempel pada baris yang kebetulan berdekatan, dan tidak bisa memakai
+    salinan untuk simbol lain.
+    """
+    if asset.get('kind') != 'tiles4bpp':
+        return []
+    evidence = asset.get('evidence') or ''
+    if not evidence:
+        return []
+    root = Path(repo) if repo is not None else REPO
+    symbol = asset.get('symbol')
+    for match in EVIDENCE_CITE.finditer(evidence):
+        path = root / 'asm' / Path(match.group(1)).name
+        if not path.exists():
+            return [f"evidence mengutip {match.group(1)} yang tidak ada"]
+        lines = path.read_text().splitlines()
+        index = int(match.group(2)) - 1
+        where = f"{match.group(1)}:{match.group(2)}"
+        if not 0 <= index < len(lines):
+            return [f"evidence mengutip {where} di luar berkas"]
+        call = TILE_LOAD_CALL.search(lines[index])
+        if not call:
+            return [f"{where} bukan baris salinan/loader tile "
+                    f"(harus bl ke Unpack/func_08008E64/func_08008EB8/"
+                    f"func_08008F0C/func_0805E6CC/memcpy)"]
+        loaded = None
+        for line in reversed(lines[max(0, index - TILE_SYMBOL_WINDOW):index + 1]):
+            hit = SYMBOL_LOAD.search(line)
+            if hit:
+                loaded = hit.group(1)
+                break
+        if loaded != symbol:
+            return [f"{call.group(1)} di {where} memuat "
+                    f"{loaded or 'tanpa simbol'}, bukan {symbol}"]
+    return []
+
+
 def check_asset(asset, rom, incbins, repo=None, force_encode=False):
     """-> (masalah: list[str], catatan: list[str])."""
     problems, notes = [], []
@@ -304,6 +358,7 @@ def check_asset(asset, rom, incbins, repo=None, force_encode=False):
                 problems.append("byte encoder != byte ROM walau hash sama")
 
     problems += palette_evidence_problems(asset, repo)
+    problems += tiles4bpp_evidence_problems(asset, repo)
 
     hit = incbins.get(offset)
     if hit and asset["status"] == "rom-exact":

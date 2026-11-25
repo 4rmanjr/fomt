@@ -48,9 +48,10 @@ KIND_LABEL = {
     "glyph_font": "Glyph 8x12",
     "glyph_index": "Indeks glyph",
     "compressed_bank": "Container terkompresi",
+    "table": "Tabel",
 }
 KIND_ORDER = ["sprite", "palette", "tiles4bpp", "tilemap", "tilemap_bank", "font_container",
-              "glyph_font", "glyph_index", "compressed_bank"]
+              "glyph_font", "glyph_index", "compressed_bank", "table"]
 GROUP_LABEL = {
     "sprite/OBJ": "Sprite/OBJ",
     "palet": "Palet",

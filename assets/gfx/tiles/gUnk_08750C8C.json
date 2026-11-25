@@ -25,5 +25,5 @@
     "sha256": "2b7c39eab1900bb410cced0daa2ffd21055045e47ddcf99f318255775e77ec4f"
   },
   "note": "14 tile 8x8 dari DMA ke 0x06002A00 (416 B)",
-  "evidence": "func_08008E64 (code_0803EE94.s:173391): salinan 0x1C0 B (448 B = 14 tile) dari gUnk_08750C8C ke 0x06010000 + slot*0x20; tapak 0x1A0 di 78389 hanya subset."
+  "evidence": "func_08008E64 (code_0803EE94.s:173395): salinan 0x1C0 B (448 B = 14 tile) dari gUnk_08750C8C ke 0x06010000 + slot*0x20; tapak 0x1A0 di 78389 hanya subset."
 }

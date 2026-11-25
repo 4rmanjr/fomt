@@ -58,21 +58,21 @@ gUnk_08529794:
 
 	.global gUnk_08529994
 gUnk_08529994:
-	@ PARKIR: header 4 B + blok gaya 0x80 B; call site code_0803EE94.s:94173
-	@ hanya menyalin satu blok (0x80 B) per gaya, ekor 0x10 B dan batas gaya belum terbukti.
-	.incbin "baserom.gba", 0x529994, 0x214
+	@ rom: 0x529994 0x214 — source assets/gfx/tables/gUnk_08529994.json; header u16 + blok gaya 0x80 B
+	@ table.py: encode byte-identik slice ROM; hanya satu blok gaya dibaca call site (code_0803EE94.s:94187).
+	.incbin "build/assets/gUnk_08529994.bin"
 
 	.global gUnk_08529BA8
 gUnk_08529BA8:
-	@ PARKIR: header 4 B + blok gaya 0x40 B; call site code_0803EE94.s:94205
-	@ hanya menyalin satu blok per gaya, ekor 0x1B8 B belum terbukti.
-	.incbin "baserom.gba", 0x529BA8, 0x1FC
+	@ rom: 0x529BA8 0x1FC — source assets/gfx/tables/gUnk_08529BA8.json; header u16 + blok gaya 0x40 B
+	@ table.py: encode byte-identik slice ROM; hanya satu blok gaya dibaca call site (code_0803EE94.s:94219).
+	.incbin "build/assets/gUnk_08529BA8.bin"
 
 	.global gUnk_08529DA4
 gUnk_08529DA4:
-	@ PARKIR: header 4 B + blok gaya 0x2C0 B; call site code_0803EE94.s:94236
-	@ hanya menyalin satu blok per gaya, ekor 0x240 B belum terbukti.
-	.incbin "baserom.gba", 0x529DA4, 0x934
+	@ rom: 0x529DA4 0x934 — source assets/gfx/tables/gUnk_08529DA4.json; header u16 + blok gaya 0x2C0 B
+	@ table.py: encode byte-identik slice ROM; hanya satu blok gaya dibaca call site (code_0803EE94.s:94255).
+	.incbin "build/assets/gUnk_08529DA4.bin"
 
 	.global gUnk_0852A6D8
 gUnk_0852A6D8:
@@ -98,21 +98,21 @@ gUnk_0852CA40:
 
 	.global gUnk_0852CC40
 gUnk_0852CC40:
-	@ PARKIR: pasangan gUnk_08529994 (varian malam); header 4 B + blok gaya 0x80 B,
-	@ ekor 0x10 B dan batas gaya belum terbukti (code_0803EE94.s:94177).
-	.incbin "baserom.gba", 0x52CC40, 0x214
+	@ rom: 0x52CC40 0x214 — source assets/gfx/tables/gUnk_0852CC40.json; varian malam
+	@ header u16 + blok gaya 0x80 B; table.py: encode byte-identik slice ROM (code_0803EE94.s:94187).
+	.incbin "build/assets/gUnk_0852CC40.bin"
 
 	.global gUnk_0852CE54
 gUnk_0852CE54:
-	@ PARKIR: pasangan gUnk_08529BA8; header 4 B + blok gaya 0x40 B,
-	@ ekor 0x1B8 B belum terbukti (code_0803EE94.s:94209).
-	.incbin "baserom.gba", 0x52CE54, 0x1FC
+	@ rom: 0x52CE54 0x1FC — source assets/gfx/tables/gUnk_0852CE54.json; varian malam
+	@ header u16 + blok gaya 0x40 B; table.py: encode byte-identik slice ROM (code_0803EE94.s:94219).
+	.incbin "build/assets/gUnk_0852CE54.bin"
 
 	.global gUnk_0852D050
 gUnk_0852D050:
-	@ PARKIR: pasangan gUnk_08529DA4; header 4 B + blok gaya 0x2C0 B,
-	@ ekor 0x240 B belum terbukti (code_0803EE94.s:94240).
-	.incbin "baserom.gba", 0x52D050, 0x934
+	@ rom: 0x52D050 0x934 — source assets/gfx/tables/gUnk_0852D050.json; varian malam
+	@ header u16 + blok gaya 0x2C0 B; table.py: encode byte-identik slice ROM (code_0803EE94.s:94255).
+	.incbin "build/assets/gUnk_0852D050.bin"
 
 	.global gUnk_0852D984
 gUnk_0852D984:
@@ -146,8 +146,9 @@ gUnk_08697920:
 
 	.global gUnk_08698B00
 gUnk_08698B00:
-	@ PARKIR: func_080A9850 menyalin 0x80 B ke lapis (+0x160) dari 0x314 B; sisa 0x294 B raw.
-	.incbin "baserom.gba", 0x698B00, 0x314
+	@ rom: 0x698B00 0x314 — source assets/gfx/tables/gUnk_08698B00.json; 0x80 B pertama
+	@ disalin func_080A9850 ke lapis +0x160 (code_809E804.s:22199); table.py: byte identik slice ROM.
+	.incbin "build/assets/gUnk_08698B00.bin"
 
 	.global gUnk_08698E14
 gUnk_08698E14:
@@ -157,8 +158,9 @@ gUnk_08698E14:
 
 	.global gUnk_08699FF4
 gUnk_08699FF4:
-	@ PARKIR: func_080A9826/080CFB5C menyalin 0x80 B dari 0xB0 B (73%); ekor 0x30 B tanpa pembaca.
-	.incbin "baserom.gba", 0x699FF4, 0xB0
+	@ rom: 0x699FF4 0xB0 — source assets/gfx/tables/gUnk_08699FF4.json; 0x80 B pertama
+	@ disalin func_080A9826/080CFB5C ke lapis +0x160 (code_809E804.s:22187); table.py: byte identik slice ROM.
+	.incbin "build/assets/gUnk_08699FF4.bin"
 
 	.global gUnk_0869A0A4
 gUnk_0869A0A4:
@@ -273,15 +275,15 @@ gUnk_086DC54C:
 
 	.global gUnk_086DC57C
 gUnk_086DC57C:
-	@ PARKIR (decoded-exact): layer 2x2 offset 0 terbukti, 1796/1804 B raw;
-	@ source assets/gfx/maps/gUnk_086DC57C.json, belum dihitung selesai.
-	.incbin "baserom.gba", 0x6DC57C, 0x70C
+	@ rom: 0x6DC57C 0x70C — source assets/gfx/maps/gUnk_086DC57C.json; bank layer + raw
+	@ tilemap_bank.py: layer 2x2 offset 0 terbukti, sisa raw; encode byte identik slice ROM.
+	.incbin "build/assets/gUnk_086DC57C.bin"
 
 	.global gUnk_086DCC88
 gUnk_086DCC88:
-	@ PARKIR (decoded-exact): layer 4x4 offset 0 terbukti, 2536/2568 B raw;
-	@ source assets/gfx/maps/gUnk_086DCC88.json, belum dihitung selesai.
-	.incbin "baserom.gba", 0x6DCC88, 0xA08
+	@ rom: 0x6DCC88 0xA08 — source assets/gfx/maps/gUnk_086DCC88.json; bank layer + raw
+	@ tilemap_bank.py: layer 4x4 offset 0 terbukti, sisa raw; encode byte identik slice ROM.
+	.incbin "build/assets/gUnk_086DCC88.bin"
 
 	.global gUnk_086DD690
 gUnk_086DD690:
@@ -300,21 +302,21 @@ gUnk_086DD6B0:
 
 	.global gUnk_086DD6E0
 gUnk_086DD6E0:
-	@ PARKIR (decoded-exact): layer 2x2 offset 0 terbukti, 1796/1804 B raw;
-	@ source assets/gfx/maps/gUnk_086DD6E0.json, belum dihitung selesai.
-	.incbin "baserom.gba", 0x6DD6E0, 0x70C
+	@ rom: 0x6DD6E0 0x70C — source assets/gfx/maps/gUnk_086DD6E0.json; bank layer + raw
+	@ tilemap_bank.py: layer 2x2 offset 0 terbukti, sisa raw; encode byte identik slice ROM.
+	.incbin "build/assets/gUnk_086DD6E0.bin"
 
 	.global gUnk_086DDDEC
 gUnk_086DDDEC:
-	@ PARKIR (decoded-exact): layer 4x4 offset 0 terbukti, 2536/2568 B raw;
-	@ source assets/gfx/maps/gUnk_086DDDEC.json, belum dihitung selesai.
-	.incbin "baserom.gba", 0x6DDDEC, 0xA08
+	@ rom: 0x6DDDEC 0xA08 — source assets/gfx/maps/gUnk_086DDDEC.json; bank layer + raw
+	@ tilemap_bank.py: layer 4x4 offset 0 terbukti, sisa raw; encode byte identik slice ROM.
+	.incbin "build/assets/gUnk_086DDDEC.bin"
 
 	.global gUnk_086DE7F4
 gUnk_086DE7F4:
-	@ PARKIR (decoded-exact): 45 layer descriptor terbukti, 29940/50408 B raw;
-	@ source assets/gfx/maps/gUnk_086DE7F4.json, belum dihitung selesai.
-	.incbin "baserom.gba", 0x6DE7F4, 0xC4E8
+	@ rom: 0x6DE7F4 0xC4E8 — source assets/gfx/maps/gUnk_086DE7F4.json; bank layer + raw
+	@ tilemap_bank.py: 45 layer descriptor + raw; encode byte identik slice ROM.
+	.incbin "build/assets/gUnk_086DE7F4.bin"
 
 	.global gUnk_086EACDC
 gUnk_086EACDC:
@@ -361,9 +363,9 @@ gUnk_086EAD84:
 
 	.global gUnk_086EAD8C
 gUnk_086EAD8C:
-	@ PARKIR (decoded-exact): 58 layer descriptor terbukti, 30426/33312 B raw;
-	@ source assets/gfx/maps/gUnk_086EAD8C.json, belum dihitung selesai.
-	.incbin "baserom.gba", 0x6EAD8C, 0x8220
+	@ rom: 0x6EAD8C 0x8220 — source assets/gfx/maps/gUnk_086EAD8C.json; bank layer + raw
+	@ tilemap_bank.py: 58 layer descriptor + raw; encode byte identik slice ROM.
+	.incbin "build/assets/gUnk_086EAD8C.bin"
 
 	.global gUnk_086F2FAC
 gUnk_086F2FAC:
@@ -1683,6 +1685,6 @@ gUnk_0875A440:
 
 	.global gUnk_0875B444
 gUnk_0875B444:
-	@ PARKIR: container func_0805E6CC (code_0803A8A4.s:3609); tabel T berakhir
-	@ 0x3D4 dari 0x5B4, ekor 0x1E0 B belum punya pembaca.
-	.incbin "baserom.gba", 0x75B444, 0x5B4
+	@ rom: 0x75B444 0x5B4 — source assets/gfx/fonts/gUnk_0875B444.json; container func_0805E6CC
+	@ A=6/B=6/C=1/D=24/E=1/F=0/T=6 + ekor 0x1E0 B; font_container.py: byte identik slice ROM.
+	.incbin "build/assets/gUnk_0875B444.bin"

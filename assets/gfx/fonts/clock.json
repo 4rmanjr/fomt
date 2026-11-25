@@ -25,5 +25,5 @@
   },
   "note": "128 tile 4bpp + 4 B ekor; preview grayscale indeks",
   "status": "rom-exact",
-  "evidence": "memcpy (code_0803A8A4.s:3781) menyalin 0x20 B dari +0x3A0, dan tapak 4583 menyalin satu tile 0x20 B per indeks; slice 4100 B belum terbukti tersalin penuh."
+  "evidence": "memcpy (code_0803A8A4.s:3782) menyalin 0x20 B dari +0x3A0, dan tapak 4583 menyalin satu tile 0x20 B per indeks; slice 4100 B belum terbukti tersalin penuh."
 }

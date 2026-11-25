@@ -332,7 +332,7 @@ Untuk container `0x70`, tambahkan:
 | map/tileset | source tileset + metatile + atribut + layout | editor/compiler khusus FOMT | pasangan palet/tileset, header 40 B, sha256 |
 | layar statis (logo/HUD) | PNG tilemap + palet/tileset | renderer layar | kelas `layar`, bukan peta; bukti fungsi scene |
 | sprite/OBJ | PNG terindeks (PLTE) + `.pal` + JSON frame | `sprite2gba.py` | urutan tile, hash palet pasangan, jumlah tile = frame × tile/frame |
-| tabel/struct | JSON/C dengan schema | generator C/asm | layout struct, `static_assert`, hash byte |
+| tabel/struct | JSON segmen (`table.py`), atau C dengan schema | `table.py` / generator C | segmen menutup seluruh slice, hash byte |
 | container 0x70 | manifest stream + source decoded | `lz70` + encoder stream | decoded hash **dan** compressed hash |
 | container font/objek (`func_0805E6CC`) | JSON tabel + PNG tile | `font_container.py` | urutan enam tabel + ekor, SHA-256 seluruh container |
 | bank stream 0x70 tertanam | bin `extern/` + `embedded_manifest.json` | `embedded_streams.py` | rantai stream berakhir di ujung blob; sha256 bin + PNG tanpa ROM |
@@ -1153,9 +1153,11 @@ berikutnya (`gUnk_086DC57C`/`gUnk_086DD6E0`) tepat di `+0x30`, jadi batas
 simbol benar dan tidak ada byte yang bocor ke label sebelah.
 
 `gUnk_086EAD8C` (33.312 B = 1041 x 32) dan
-`gUnk_086DE7F4` (50.408 B = 1575 x 32 + 8) **tidak** dimigrasikan: hanya 32 B
-pertama yang dibaca stamp, jadi blok-blok sisanya tidak punya pembaca dan
-bentuknya tidak boleh ditebak dari kelipatan 32.
+`gUnk_086DE7F4` (50.408 B = 1575 x 32 + 8) hanya 32 B pertamanya dibaca stamp;
+blok-blok sisanya tidak punya pembaca dan bentuknya tidak boleh ditebak dari
+kelipatan 32. Keduanya tetap dimigrasikan lewat source `tilemap_bank` yang
+menyimpan layer terbukti + byte `raw`, jadi byte-nya eksak tanpa mengklaim
+struktur sisa.
 
 Struktur sisanya juga bukan tabel 4x4. Descriptor 0x18 B yang dibaca
 `func_080A5BD8` (baris 14381) berisi `u8` lebar (14397), `u8` tinggi (14398),
@@ -1168,8 +1170,9 @@ bersebelahan, bukan blok 32 B. Pointer descriptor itu tidak kelipatan 32, dan
 keduanya bank layer peta berukuran variabel yang dirujuk per offset.
 
 Keduanya punya source `kind: tilemap_bank`
-(`tools/assets/tilemap_bank.py`), tetapi **tidak dihitung selesai**: 30.426/
-33.312 B (91,3%) dan 29.940/50.408 B (59,4%) masih `raw`. Source-nya satu JSON
+(`tools/assets/tilemap_bank.py`); 30.426/33.312 B (91,3%) dan 29.940/50.408 B
+(59,4%) masih `raw`, dan status `rom-exact` hanya berarti source + encoder
+byte-identik, bukan bahwa byte `raw` sudah dipahami. Source-nya satu JSON
 per simbol yang memuat `layers` (offset, lebar, tinggi, descriptor, slot, entri
 urut baris) dan `raw`
 (hex byte yang tidak dirujuk); `encode` menolak source yang tidak menutup
@@ -1182,14 +1185,16 @@ mengganti satu simbol utuh dengan binary hasil encode menjaga semua offset.
 Split hanya akan menambah label tanpa mengubah byte; yang penting source
 mencatat offset tiap layer. Byte yang tidak dirujuk tetap `raw` dan belum
 dipahami — round-trip byte-identik, tetapi byte itu tidak diklaim sebagai
-layer dan asetnya berstatus `decoded-exact` sampai coverage cukup.
+layer. Status `rom-exact` dipakai karena seluruh slice sudah punya
+representasi source dan encoder-nya byte-identik; cakupan semantik tetap
+dicatat di `coverage` JSON.
 
-Alasan parkir stamp lain, semuanya dari loop yang sama:
+Stamp lain dari loop yang sama:
 
 - `gUnk_086DCC88`/`gUnk_086DDDEC` (2568 B) hanya 32 B pertamanya dibaca
   (layer 4x4), `gUnk_086DC57C`/`gUnk_086DD6E0` (1804 B) hanya 8 B (layer 2x2).
-  Keempatnya berstatus `decoded-exact`, **bukan** aset selesai: layer dari
-  offset 0 hanya 8/1804 B atau 32/2568 B (0,4–1,2% proven), sisanya `raw`.
+  Keempatnya `rom-exact` dengan layer offset 0 (8/1804 B atau 32/2568 B,
+  0,4–1,2% proven) dan sisanya `raw`; `raw` bukan klaim layer.
   Dua stamp 2x2 yang seluruh slice-nya habis dibaca (`gUnk_086EACDC`,
   `gUnk_086EAD84`) tetap dihitung sebagai tilemap di §`func_08077E64`.
 

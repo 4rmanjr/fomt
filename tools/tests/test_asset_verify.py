@@ -8,7 +8,9 @@ Fixture kecil + manifest asli. Yang dikunci:
   * `asset_verify` melaporkan hash ROM yang diubah, dan mencatat `.incbin`
     yang belum dialihkan sebagai catatan (bukan kegagalan di Fase 0);
   * penjaga evidence palet menolak tujuan tetap di tapak salinan yang menambah
-    indeks slot, dan sebaliknya.
+    indeks slot, dan sebaliknya;
+  * penjaga evidence tiles4bpp menolak kutipan bukan salinan/loader dan kutipan
+    yang memuat simbol lain.
 
 Jalankan: python3 tools/tests/test_asset_verify.py
 """
@@ -219,6 +221,56 @@ class PaletteEvidenceGuard(unittest.TestCase):
         for asset in palettes:
             with self.subTest(symbol=asset["symbol"]):
                 self.assertEqual(verify.palette_evidence_problems(asset), [])
+
+
+class TilesEvidenceGuard(unittest.TestCase):
+    """Evidence tiles4bpp harus menunjuk salinan/loader simbol yang benar."""
+    ASM = ("\tldr r1, .LC0 @ =gUnk_08697920\n"
+           "\tmovs r3, #0x8f\n"
+           "\tbl func_08008F0C\n")
+
+    def repo(self, asm):
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        (root / "asm").mkdir()
+        (root / "asm" / "code_test.s").write_text(asm)
+        return root
+
+    def problems(self, asm, evidence, symbol="gUnk_08697920"):
+        return verify.tiles4bpp_evidence_problems(
+            {"kind": "tiles4bpp", "symbol": symbol, "evidence": evidence},
+            self.repo(asm))
+
+    def test_copy_site_with_matching_symbol_passes(self):
+        self.assertEqual(self.problems(
+            self.ASM, "func_08000000 (code_test.s:3): salin 0x11E0 B"), [])
+
+    def test_non_copy_line_is_rejected(self):
+        errs = self.problems(self.ASM, "func_08000000 (code_test.s:2)")
+        self.assertEqual(len(errs), 1)
+        self.assertIn("bukan baris salinan/loader", errs[0])
+
+    def test_other_symbol_at_copy_site_is_rejected(self):
+        errs = self.problems(self.ASM, "func_08000000 (code_test.s:3)",
+                             symbol="gUnk_08698E14")
+        self.assertEqual(len(errs), 1)
+        self.assertIn("bukan gUnk_08698E14", errs[0])
+
+    def test_container_loader_with_matching_symbol_passes(self):
+        asm = ("\tldr r1, .LC0 @ =gUnk_08667060\n"
+               "\tbl func_0805E6CC\n")
+        self.assertEqual(self.problems(
+            asm, "func_08000000 (code_test.s:2): container",
+            symbol="gUnk_08667060"), [])
+
+    def test_real_manifest_tiles_pass(self):
+        manifest = json.loads(MANIFEST.read_text())
+        tiles = [a for a in manifest["assets"] if a["kind"] == "tiles4bpp"]
+        self.assertTrue(tiles)
+        for asset in tiles:
+            with self.subTest(symbol=asset["symbol"]):
+                self.assertEqual(verify.tiles4bpp_evidence_problems(asset), [])
 
 
 class SchemaSemantics(unittest.TestCase):

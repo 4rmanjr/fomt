@@ -43,7 +43,8 @@
        "palette",
        "sprite",
        "tilemap_bank",
-       "compressed_bank"
+       "compressed_bank",
+       "table"
       ]
      },
      "status": {

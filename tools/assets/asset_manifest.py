@@ -35,9 +35,10 @@ PALETTE_DIR = ASSETS / "gfx" / "palettes"
 SPRITE_DIR = ASSETS / "gfx" / "sprites"
 TILE_DIR = ASSETS / "gfx" / "tiles"
 MAP_DIR = ASSETS / "gfx" / "maps"
+TABLE_DIR = ASSETS / "gfx" / "tables"
 # Direktori metadata aset yang dipindai. Berkas tanpa `rom`/`kind` dilewati,
 # jadi indeks status seperti `fonts/palettes.json` tidak ikut.
-ASSET_DIRS = (FONT_DIR, MAP_DIR, PALETTE_DIR, SPRITE_DIR, TILE_DIR)
+ASSET_DIRS = (FONT_DIR, MAP_DIR, PALETTE_DIR, SPRITE_DIR, TILE_DIR, TABLE_DIR)
 MANIFEST = ASSETS / "manifest.json"
 ROM = REPO / "baserom.gba"
 TOOLS_DIR = Path(__file__).resolve().parent
@@ -53,6 +54,7 @@ ENCODERS = {
     "tilemap": "map2bin.py",
     "tilemap_bank": "tilemap_bank.py",
     "compressed_bank": "compressed_bank.py",
+    "table": "table.py",
 }
 
 
