@@ -23,7 +23,7 @@ python3 tools/scripts/tail_chain.py --module <stem>.s [--json]
 |---|---|---|---|---|
 | `code_linkonce.s` | 428 | 168 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
 | `code_actor_0809BFE8.s` | 51 | 26 | `func_0809DA00` (1323B, `failed`) | terbuka, ujung belum MATCH |
-| `hardware.s` | 34 | 10 | `func_080087C8` (240B, `failed`) | terbuka, ujung belum MATCH |
+| `hardware.s` | 34 | 10 | `func_080087C8` (239B, `failed`) | terbuka, ujung belum MATCH |
 
 Modul tail-only lain sudah kosong di `asm/` (tidak punya blocker ekor lagi): `code_iwram`, `game_scene`, `interrupt`, `main`, `more_items`, `scene`, `sram_proxy_1`, `vtables`.
 
@@ -377,13 +377,13 @@ Sisa **34** fungsi (10 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 22 f
 | 30 | `func_08008574` | 328B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x6: 0x6 vs ref 0x81 |
 | 31 | `func_080086BC` | 104B | failed | byte +0x6: 0x14 vs ref 0x16 |
 | 32 | `func_08008724` | 164B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x2: 0x81 vs ref 0x84 |
-| 33 | `func_080087C8` | 240B | failed | migrate TOLAK: tidak ada kandidat: status di shard bukan promoted (butuh MATCH… |
+| 33 | `func_080087C8` | 239B | failed | migrate TOLAK: tidak ada kandidat: status di shard bukan promoted (butuh MATCH… |
 
 Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungsi non-`promoted` dan `promoted` yang baru bisa dicabut setelah fungsi itu MATCH + dicabut.
 
 | dari ujung | fungsi gerbang | ukuran | membuka |
 |---|---|---|---|
-| 0 | `func_080087C8` | 240B | - |
+| 0 | `func_080087C8` | 239B | - |
 | 1 | `func_08008724` | 164B | - |
 | 2 | `func_080086BC` | 104B | - |
 | 3 | `func_08008574` | 328B | - |

@@ -2726,3 +2726,47 @@ murni** dan tanpa materialisasi konstanta/mask yang bisa dilipat agbcc.
 Kandidat berikutnya sebaiknya disaring dulu: tidak ada `0xFFFF`/mask lebar,
 tidak ada literal arg ke-4/ke-5, dan tidak ada struct lokal yang alamatnya
 diambil.
+
+## 73. Sapuan kedua (penyaring pool/mask/stack): enam parkir regalloc
+
+Penyaring baru: fungsi `failed` 100–300 B dengan petunjuk galat tipe, lalu
+dibuang yang asm-nya punya `ldr =konstanta` lebar, `ands/orrs` mask, akses
+`sp`, atau `_call_via` (dinding §71/§72). Sisa 301 kandidat; enam yang paling
+bersih dibaca penuh dan ditulis ulang manual. Tidak ada MATCH baru.
+
+1. **`func_0805E790`** (148 B, `code_0803EE94`). Ref memuat **semua** nilai
+   entry dulu (r3,sb,r4,r6,r2,r5,r1,r8) baru menulis 8 field; versi
+   "assign langsung" menghasilkan 104 B (35missing) karena agbcc menulis
+   per-ekspresi. Versi 8 local temp berhasil meniru urutan muat-lalu-tulis,
+   tetapi agbcc menumpahkan satu temp ke stack (`add sp,#-8`,
+   `str r0,[sp,#4]`) → 18missing/18extra.
+2. **`func_08017180`** (120 B, `game_state`). Loop blit 2 tingkat; sisa
+   `10missing,11operand,13regalloc`. Ref menyimpan `arg1*4` di sb, base di
+   r8, `d` di r5/r3; agbcc memakai r4–r7 dan mengubah `muls` menjadi
+   `mul r0,r0,r6`.
+3. **`func_08037958`** (128 B, `code_entities_08034CEC`). Rantai panggilan +
+   rekaman 4 B. Setelah konstanta 0x3C dijadikan variabel, ref memakai
+   `muls r0,r5,r0`, agbcc tetap `mul r0,r0,r5` (bentuk 32-bit) → 5missing/
+   7extra; sisanya urutan `cmp` hasil panggilan vs reload field.
+4. **`func_0803B0A8`** (128 B, `code_0803A8A4`). Destruktor dengan dua loop
+   rentang. Bentuk pointer m2c (`t2 = arg0+0xE8; t2 += ...`) memberi badan
+   yang **sama urutannya** dengan ref, sisa `1operand,9regalloc`: ref menaruh
+   base/end di r2, agbcc di r4 (kalau dipaksa tipe `s32`, urutan malah
+   berubah karena `arg0+0xEC` direasosiasi menjadi `base+4`).
+5. **`func_08014318`** (100 B, `game_state`). Vtable `unkB0`/`unkBC` + field
+   5-bit. Struktur cocok; sisa `2missing,1extra,6operand,14regalloc` (salinan
+   `adds r6,r0` hilang, base 0x8C di r2 vs r3).
+6. **`func_080ADC00`** (132 B, `code_809E804`). Alokator 0x20 B + 4×(`str` +
+   `strh`); bentuk C sudah persis, sisa hanya peran register (ref:
+   obj di r2, nol di r0 lewat `adds r2,r0,#0`; agbcc: obj di r0). Catatan:
+   `ref_len` state 132 B tampaknya ikut menghitung `.byte` sesudah fungsi,
+   jadi bandingkan dengan objek, bukan angka itu.
+
+`func_0805E760` (48 B) juga dicek ulang: tetap `2regalloc` (`pop {r1}` vs
+`pop {r2}`) — sudah didiagnosis habis di `MIGRATE.md` §32, tidak diulang.
+
+Kesimpulan penyaring: setelah pool/mask/stack dibuang, **semua** sisa kandidat
+kelas ini jatuh ke pemilihan register agbcc (r2 vs r4, r1 vs r2) atau
+strength-reduction `mul`/mask. Fungsi yang menang (mis. `func_08038028`, §72)
+adalah yang badannya cuma panggilan + simpan field, tanpa loop dan tanpa
+aritmetika konstanta.

@@ -35,7 +35,7 @@ python3 tools/scripts/readme_stats.py    # tulis ulang blok statistik ini
 | Promote-only (MATCH, tertahan rantai ekor) | 239 | 2.643 | `██░░░░░░░░░░░░░░░░░░` 9% |
 | Sisa (belum MATCH) | 1.285 | 2.643 | `██████████░░░░░░░░░░` 48,6% |
 
-Byte ROM yang sudah dihasilkan dari C: **63.344 / 892.093 B (7,1%)** — persentase fungsi lebih tinggi karena fungsi yang sudah selesai kebanyakan kecil.
+Byte ROM yang sudah dihasilkan dari C: **63.344 / 892.092 B (7,1%)** — persentase fungsi lebih tinggi karena fungsi yang sudah selesai kebanyakan kecil.
 
 ### Translasi aset ROM -> source
 

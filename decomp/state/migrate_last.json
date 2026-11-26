@@ -174,6 +174,81 @@
     "status": "SKIP",
     "when": "2026-11-23T12:21:50"
   },
+  "game_state.s:func_08010348": {
+    "detail": "func_08010348 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08010E48": {
+    "detail": "func_08010E48 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08010E50": {
+    "detail": "func_08010E50 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08010E58": {
+    "detail": "func_08010E58 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08010E60": {
+    "detail": "func_08010E60 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08010F04": {
+    "detail": "func_08010F04 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08010F0C": {
+    "detail": "func_08010F0C sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08010F1C": {
+    "detail": "func_08010F1C sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08010F24": {
+    "detail": "func_08010F24 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08010F30": {
+    "detail": "func_08010F30 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08010F3C": {
+    "detail": "func_08010F3C sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08010F48": {
+    "detail": "func_08010F48 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_0801140C": {
+    "detail": "func_0801140C sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08011458": {
+    "detail": "func_08011458 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
+  "game_state.s:func_08011464": {
+    "detail": "func_08011464 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:20:49"
+  },
   "game_state.s:func_0801268C": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75498: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
     "status": "OK",

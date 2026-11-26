@@ -1374,9 +1374,10 @@
  },
  "func_08037958": {
   "addr": 134445400,
-  "judged_mtime": 1793582714.093408,
+  "draft_src": "manual",
+  "judged_mtime": 1795688229.3017976,
   "module": "code_entities_08034CEC.s",
-  "note": "omething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08037958/opencode/func.c:28: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08037958/opencode/func.c:28: request for member `unk2' in something not a structure or union\n",
+  "note": "byte +0x4: 0x1b vs ref 0x1d [5missing,7extra,6operand,6regalloc @i ldr r5, [pc, #0x74] | ldr r5, [pc, #0x6c]]",
   "ref_len": 128,
   "sanitize_v": 4,
   "size": 1205,
