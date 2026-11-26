@@ -626,7 +626,7 @@ void *func_0803BDFC(GenObj__func_0803BDFC *arg0, i32 arg1, i32 arg2, i32 arg3, i
 
 // DECOMP-MATCHED func_0803BE50 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 __builtin_delete(void *);                         /* extern */
+void * __builtin_delete(void *);
 i32 func_080098AC(i32, i32);                          /* extern */
 i32 func_080098DC(i32, i32);                          /* extern */
 extern i32 vtable_unk_080E7778;

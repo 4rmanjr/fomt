@@ -163,7 +163,7 @@
   "addr": 134857844,
   "judged_mtime": 1793017754.7978675,
   "module": "code_actor_0809BFE8.s",
-  "note": "",
+  "note": "GAGAL kompilasi: stdin:259 too many arguments to function",
   "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc",
   "ref_len": 64,
   "sanitize_v": 4,

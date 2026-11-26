@@ -429,8 +429,8 @@ i32 func_08008940(i32 *arg0) {
 
 // DECOMP-MATCHED func_0800894C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08008AE0(i32 *arg0);                             /* extern */
 i32 func_0800894C(i32 *arg0) {
+    i32 func_08008AE0(i32 *arg0);                             /* extern */
     return func_08008AE0((i32 *) (*arg0 + 0x490));
 }
 }
@@ -533,7 +533,7 @@ void **func_08008980(void **arg0) {
 
 // DECOMP-MATCHED func_08008A68 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-void __builtin_delete(void *);                          /* extern */
+void * __builtin_delete(void *);
 void func_08008D90(void);                             /* extern */
 void func_0800959C(void *arg0, i32 arg1);                             /* extern */
 struct GenObj__func_080098AC;
@@ -1465,7 +1465,7 @@ void *func_08009300(void *arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_08009324 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-void __builtin_delete(void *);                          /* extern */
+void * __builtin_delete(void *);
 
 void func_08009324(void *arg0, i32 arg1) {
     __builtin_delete((void *) *(i32 *) arg0);
@@ -1639,8 +1639,8 @@ i16 func_080094A4(void *arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_080094AC (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080093AC(i32 arg0);                             /* extern */
 i32 func_080094AC(i32 arg0) {
+    i32 func_080093AC(i32 arg0);                             /* extern */
     return func_080093AC(arg0 + 0xC);
 }
 }
@@ -1702,8 +1702,8 @@ void func_0800952C(void *arg0, i32 arg1, i32 arg2, i32 arg3) {
 
 // DECOMP-MATCHED func_0800953C (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08009344(i32 **arg0, i32 arg1);                             /* extern */
 i32 func_0800953C(void *arg0, i32 arg1) {
+    i32 func_08009344(i32 **arg0, i32 arg1);                             /* extern */
     return func_08009344((i32 **) ((u8 *) arg0 + 0xC), arg1);
 }
 }
@@ -2028,7 +2028,7 @@ asm(
 
 // DECOMP-MATCHED func_080098AC (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-void __builtin_delete(void *);                             /* extern */
+void * __builtin_delete(void *);
 extern i32 vtable_unk_080E5BE8;
 
 void func_080098AC(GenObj__func_080098AC *arg0, i32 arg1) {

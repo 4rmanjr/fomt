@@ -2877,7 +2877,7 @@ extern const u8 gData_code_809E804_080ADC30[84] __attribute__((section(".text.co
 
 // DECOMP-MATCHED func_080ADC84 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 __builtin_delete(i32 *);                            /* extern */
+void * __builtin_delete(void *);
 
 __attribute__((section(".text.code_809E804.080ADC84")))
 void func_080ADC84(i32 *arg0, i32 arg1) {

@@ -1,16 +1,19 @@
 typedef struct GenObj {
-    s32 unk0;
+    u8 a : 4;
+    u8 b : 4;
+    u8 _pad1[3];
     s32 unk4;
-    s32 unk8;
-    s32 unkA;
-    u8 _padE[66];
+    u16 unk8;
+    u16 unkA;
+    u8 _padC[0x44];
     s32 unk50;
-    s32 unk54;
-    s32 unk56;
+    u16 unk54;
+    u16 unk56;
 } GenObj;
+
 void func_080DDF18(GenObj *arg0, GenObj *arg1) {
-    arg1->unk0 = (u8) ((-0x10 & arg1->unk0) | 3);
-    arg1->unk4 = (s32) arg0->unk50;
-    arg1->unk8 = (u16) arg0->unk54;
-    arg1->unkA = (u16) arg0->unk56;
+    arg1->a = 3;
+    arg1->unk4 = arg0->unk50;
+    arg1->unk8 = arg0->unk54;
+    arg1->unkA = arg0->unk56;
 }

@@ -256,42 +256,335 @@ typedef struct Dst_func_080DD794 {
 } Dst_func_080DD794;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080D404C {
+    u8 _pad0[4];
+    i32 unk4;
+} GenObj__func_080D404C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080D7AAC {
+    i32 unk0;
+    void *unk4;
+} GenObj__func_080D7AAC;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Obj_D7B04 {
+    void *unk0;
+    void *unk4;
+} Obj_D7B04;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct {
+    i32 unk0;
+    i32 unk4;
+    void (*unk8)(void *, i32);
+} Vtbl;
+typedef struct {
+    Vtbl *vtbl;
+} Obj__func_080DB714;
+typedef struct {
+    i32 unk0;
+    Obj__func_080DB714 *unk4;
+} UnkStruct__func_080DB714;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DCE60 {
+    u8 _pad0[4];
+    struct GenObj__func_080DCE60 *unk4;
+    struct GenObj__func_080DCE60 *unk8;
+    u8 _padC[4];
+    i32 unk10;
+    i32 unk14;
+} GenObj__func_080DCE60;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DCEEC {
+    u8 _pad0[4];
+    struct GenObj__func_080DCEEC *unk4;
+    struct GenObj__func_080DCEEC *unk8;
+    u8 _padC[4];
+    i32 unk10;
+    i32 unk14;
+} GenObj__func_080DCEEC;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DCF4C {
+    u8 _pad0[4];
+    struct GenObj__func_080DCF4C *unk4;
+    struct GenObj__func_080DCF4C *unk8;
+    u8 _padC[4];
+    i32 unk10;
+    void *unk14;
+    i32 unk18;
+    u8 _pad1C[48];
+    struct GenObj__func_080DCF4C *unk4C;
+} GenObj__func_080DCF4C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E20C0 {
+    i32 unk0;
+    u8 _pad4[12];
+    i32 unk10;
+    u8 _pad14[12];
+    i32 unk20;
+} GenObj__func_080E20C0;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E4510 {
+    u8 _pad0[4];
+    struct GenObj__func_080E4510 *unk4;
+    struct GenObj__func_080E4510 *unk8;
+    u8 _padC[4];
+    i32 unk10;
+    i32 unk14;
+} GenObj__func_080E4510;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E542C {
+    i32 unk0;
+    u16 unk4;
+    u16 _pad6;
+    i32 unk8;
+    void *unkC;
+    i32 unk10;
+    void *unk14;
+} GenObj__func_080E542C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DCE94 {
+    u8 _pad0[4];
+    void *unk4;
+} GenObj__func_080DCE94;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DCEC0 {
+    u8 _pad0[4];
+    void *unk4;
+} GenObj__func_080DCEC0;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DCF20 {
+    u8 _pad0[4];
+    void *unk4;
+} GenObj__func_080DCF20;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E0D70 {
+    void *unk0;
+    struct GenObj__func_080E0D70 *unk4;
+    u8 _pad8[40];
+    void *unk30;
+} GenObj__func_080E0D70;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E19F8 {
+    u8 _pad0[16];
+    i32 unk10;
+    u8 _pad14[25620];
+    void *unk6428;
+} GenObj__func_080E19F8;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DD86C {
+    u8 a : 4;
+    u8 b : 4;
+    u8 _pad1[3];
+    i32 unk4;
+    u16 unk8;
+    u16 unkA;
+    u8 _padC[0x44];
+    i32 unk50;
+    u16 unk54;
+    u16 unk56;
+} GenObj__func_080DD86C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DDC24 {
+    u8 a : 4;
+    u8 b : 4;
+    u8 _pad1[3];
+    i32 unk4;
+    u16 unk8;
+    u16 unkA;
+    u8 _padC[0x44];
+    i32 unk50;
+    u16 unk54;
+    u16 unk56;
+} GenObj__func_080DDC24;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DDE74 {
+    u8 a : 4;
+    u8 b : 4;
+    u8 _pad1[3];
+    i32 unk4;
+    u16 unk8;
+    u16 unkA;
+    u8 _padC[0x44];
+    i32 unk50;
+    u16 unk54;
+    u16 unk56;
+} GenObj__func_080DDE74;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DDF18 {
+    u8 a : 4;
+    u8 b : 4;
+    u8 _pad1[3];
+    i32 unk4;
+    u16 unk8;
+    u16 unkA;
+    u8 _padC[0x44];
+    i32 unk50;
+    u16 unk54;
+    u16 unk56;
+} GenObj__func_080DDF18;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DDFBC {
+    u8 a : 4;
+    u8 b : 4;
+    u8 _pad1[3];
+    i32 unk4;
+    u16 unk8;
+    u16 unkA;
+    u8 _padC[0x44];
+    i32 unk50;
+    u16 unk54;
+    u16 unk56;
+} GenObj__func_080DDFBC;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E2B5C {
+    u8 _pad0[8];
+    i32 unk8;
+    i32 unkC;
+} GenObj__func_080E2B5C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E2B88 {
+    u8 _pad0[8];
+    i32 unk8;
+    i32 unkC;
+} GenObj__func_080E2B88;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E2E78 {
+    u8 _pad0[8];
+    i32 unk8;
+    i32 unkC;
+} GenObj__func_080E2E78;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E54C4 {
+    u8 _pad0[8];
+    i32 unk8;
+    i32 unkC;
+} GenObj__func_080E54C4;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E5478 {
+    u8 _pad0[4];
+    u16 unk4;
+    u8 _pad6[2];
+    i32 unk8;
+    void *unkC;
+    i32 unk10;
+    void *unk14;
+} GenObj__func_080E5478;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_080D3C60 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0800080C();                                  /* extern */
+i32 func_0800080C(void *, i32);
 
 __attribute__((section(".text.code_linkonce.b0.080D3C60")))
 void func_080D3C60(void) {
-    func_0800080C();
+    ((i32 (*)()) func_0800080C)();
 }
 }
 // DECOMP-MATCHED func_080D3C6C (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0800080C();                                  /* extern */
+i32 func_0800080C(void *, i32);
 
 __attribute__((section(".text.code_linkonce.b0.080D3C6C")))
 void func_080D3C6C(void) {
-    func_0800080C();
+    ((i32 (*)()) func_0800080C)();
+}
+}
+
+// DECOMP-MATCHED func_080D3ED4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 vtable_unk_080E5A28;
+
+__attribute__((section(".text.code_linkonce.b0.080D3ED4")))
+void func_080D3ED4(i32 **arg0, i32 arg1) {
+    *arg0 = &vtable_unk_080E5A28;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
 }
 }
 
 // DECOMP-MATCHED func_080D4040 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0800080C();                                  /* extern */
+i32 func_0800080C(void *, i32);
 
 __attribute__((section(".text.code_linkonce.b0.080D4040")))
 void func_080D4040(void) {
-    func_0800080C();
+    ((i32 (*)()) func_0800080C)();
+}
+}
+// DECOMP-MATCHED func_080D404C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800080C(void *, i32);
+i32 func_080D4480(i32, i32);                          /* extern */
+
+__attribute__((section(".text.code_linkonce.b0.080D404C")))
+void func_080D404C(GenObj__func_080D404C *arg0, i32 arg1) {
+    i32 temp_r0;
+
+    temp_r0 = arg0->unk4;
+    if (temp_r0 != 0) {
+        func_080D4480(temp_r0, 3);
+    }
+    func_0800080C(arg0, arg1);
 }
 }
 
 // DECOMP-MATCHED func_080D6D8C (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0800080C();                                  /* extern */
+i32 func_0800080C(void *, i32);
 
 __attribute__((section(".text.code_linkonce.b1.080D6D8C")))
 void func_080D6D8C(void) {
-    func_0800080C();
+    ((i32 (*)()) func_0800080C)();
 }
 }
 // DECOMP-MATCHED func_080D6D98 (dari code_linkonce.s; cek manusia sebelum ke src/)
@@ -510,7 +803,7 @@ i32 func_080D782C(GenObj__func_080D782C *arg0) {
 }
 // DECOMP-MATCHED func_080D7868 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b1.080D7868")))
 void func_080D7868(void) {
@@ -519,7 +812,7 @@ void func_080D7868(void) {
 }
 // DECOMP-MATCHED func_080D7874 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b1.080D7874")))
 void func_080D7874(void) {
@@ -527,9 +820,47 @@ void func_080D7874(void) {
 }
 }
 
+// DECOMP-MATCHED gData_code_linkonce_080D79F8.data.080D79F8
+extern "C" {
+// data tak-dirujuk di 0x080D79F8 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+extern const u8 gData_code_linkonce_080D79F8[180] __attribute__((section(".text.code_linkonce.b1.080D79F8"))) = {0x70, 0xB5, 0x46, 0x46, 0x40, 0xB4, 0x81, 0xB0, 0x06, 0x1C, 0x88, 0x46, 0x6D, 0x46, 0x01, 0x24, 0x01, 0x20, 0x28, 0xF7, 0x8D, 0xFD, 0x04, 0x40, 0x2C, 0x80, 0x30, 0x1C, 0x41, 0x46, 0x31, 0xF7, 0xA7, 0xFF, 0x69, 0x46, 0x08, 0x88, 0x00, 0x28, 0x01, 0xD0, 0x28, 0xF7, 0x67, 0xFD, 0x01, 0xB0, 0x08, 0xBC, 0x98, 0x46, 0x70, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00, 0x70, 0xB5, 0x46, 0x46, 0x40, 0xB4, 0x81, 0xB0, 0x06, 0x1C, 0x88, 0x46, 0x6D, 0x46, 0x01, 0x24, 0x01, 0x20, 0x28, 0xF7, 0x6F, 0xFD, 0x04, 0x40, 0x2C, 0x80, 0x30, 0x1C, 0x41, 0x46, 0x31, 0xF7, 0xAD, 0xFF, 0x69, 0x46, 0x08, 0x88, 0x00, 0x28, 0x01, 0xD0, 0x28, 0xF7, 0x49, 0xFD, 0x01, 0xB0, 0x08, 0xBC, 0x98, 0x46, 0x70, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00, 0x70, 0xB5, 0x46, 0x46, 0x40, 0xB4, 0x81, 0xB0, 0x06, 0x1C, 0x88, 0x46, 0x6D, 0x46, 0x01, 0x24, 0x01, 0x20, 0x28, 0xF7, 0x51, 0xFD, 0x04, 0x40, 0x2C, 0x80, 0x30, 0x1C, 0x41, 0x46, 0x31, 0xF7, 0xA1, 0xFF, 0x69, 0x46, 0x08, 0x88, 0x00, 0x28, 0x01, 0xD0, 0x28, 0xF7, 0x2B, 0xFD, 0x01, 0xB0, 0x08, 0xBC, 0x98, 0x46, 0x70, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00};
+}
+
+// DECOMP-MATCHED func_080D7AAC (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern void *gUnk_03000410;
+extern i32 vtable_unk_080E5B54;
+
+__attribute__((section(".text.code_linkonce.b1.080D7AAC")))
+void func_080D7AAC(GenObj__func_080D7AAC *arg0, i32 arg1) {
+    arg0->unk4 = &vtable_unk_080E5B54;
+    gUnk_03000410 = (void *) arg0->unk0;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080D7B04 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 vtable_unk_080E5B54;
+extern void *gUnk_03000410;
+
+__attribute__((section(".text.code_linkonce.b1.080D7B04")))
+void func_080D7B04(Obj_D7B04 *arg0, i32 arg1) {
+    arg0->unk4 = &vtable_unk_080E5B54;
+    gUnk_03000410 = (void *) arg0->unk0;
+    if (arg1 & 1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
 // DECOMP-MATCHED func_080D7B2C (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b1.080D7B2C")))
 void func_080D7B2C(void) {
@@ -538,7 +869,7 @@ void func_080D7B2C(void) {
 }
 // DECOMP-MATCHED func_080D7B38 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b1.080D7B38")))
 void func_080D7B38(void) {
@@ -547,7 +878,7 @@ void func_080D7B38(void) {
 }
 // DECOMP-MATCHED func_080D7B44 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b1.080D7B44")))
 void func_080D7B44(void) {
@@ -591,31 +922,47 @@ void func_080D7F88(GenObj__func_080D7F88 *arg0) {
 
 // DECOMP-MATCHED func_080DB314 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0800080C();                                  /* extern */
+i32 func_0800080C(void *, i32);
 
 __attribute__((section(".text.code_linkonce.b2.080DB314")))
 void func_080DB314(void) {
-    func_0800080C();
+    ((i32 (*)()) func_0800080C)();
+}
+}
+
+// DECOMP-MATCHED func_080DB714 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800080C(void *, i32);
+
+__attribute__((section(".text.code_linkonce.b2.080DB714")))
+void func_080DB714(UnkStruct__func_080DB714 *arg0, i32 arg1) {
+    Obj__func_080DB714 *temp_r1;
+
+    temp_r1 = (Obj__func_080DB714 *)(arg0->unk4);
+    if (temp_r1 != 0) {
+        temp_r1->vtbl->unk8(temp_r1, 3);
+    }
+    func_0800080C(arg0, arg1);
 }
 }
 
 // DECOMP-MATCHED func_080DC1C8 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0800080C();                                  /* extern */
+i32 func_0800080C(void *, i32);
 
 __attribute__((section(".text.code_linkonce.b2.080DC1C8")))
 void func_080DC1C8(void) {
-    func_0800080C();
+    ((i32 (*)()) func_0800080C)();
 }
 }
 
 // DECOMP-MATCHED func_080DC288 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_0800080C();                                  /* extern */
+i32 func_0800080C(void *, i32);
 
 __attribute__((section(".text.code_linkonce.b2.080DC288")))
 void func_080DC288(void) {
-    func_0800080C();
+    ((i32 (*)()) func_0800080C)();
 }
 }
 // DECOMP-MATCHED func_080DC294 (dari code_linkonce.s; cek manusia sebelum ke src/)
@@ -628,6 +975,24 @@ __attribute__((section(".text.code_linkonce.b2.080DC294")))
 void func_080DC294(i32 arg0) {
     LoadById__12ScriptEngineii(gUnk_0300040C + 8);
     func_080D7F3C(arg0);
+}
+}
+
+// DECOMP-MATCHED func_080DC724 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+i32 func_080A47B4(); /* extern */
+extern i32 vtable_unk_080E65E0;
+
+__attribute__((section(".text.code_linkonce.b2.080DC724")))
+void func_080DC724(u8 *arg0, i32 arg1) {
+    func_080A47B4(arg0 + 0x8C, 2);
+    func_080A47B4(arg0 + 0x48, 2);
+    func_080A47B4(arg0 + 8, 2);
+    *(i32 *) (arg0 + 4) = (i32) &vtable_unk_080E65E0;
+    if (arg1 & 1) {
+        __builtin_delete(arg0);
+    }
 }
 }
 
@@ -965,6 +1330,143 @@ void func_080DCB70(void) {
 }
 }
 
+// DECOMP-MATCHED func_080DCE60 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 __vt_7AEntity;
+
+__attribute__((section(".text.code_linkonce.b2.080DCE60")))
+void func_080DCE60(GenObj__func_080DCE60 *arg0, i32 arg1) {
+    GenObj__func_080DCE60 *temp_r1;
+
+    arg0->unk14 = (i32)(&__vt_7AEntity);
+    temp_r1 = (GenObj__func_080DCE60 *)(arg0->unk10);
+    if (temp_r1 != 0) {
+        ((void (*)(void *,...))(temp_r1->unk4->unk8))(temp_r1, 3);
+    }
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+// DECOMP-MATCHED func_080DCE94 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+i32 func_080A47B4(); /* extern */
+extern i32 vtable_unk_080E65E0;
+
+__attribute__((section(".text.code_linkonce.b2.080DCE94")))
+void func_080DCE94(GenObj__func_080DCE94 *arg0, i32 arg1) {
+    func_080A47B4((GenObj__func_080DCE94 *)((u8 *)arg0 + 8), 2);
+    arg0->unk4 = &vtable_unk_080E65E0;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080DCEC0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+i32 func_080A47B4(); /* extern */
+extern i32 vtable_unk_080E65E0;
+
+__attribute__((section(".text.code_linkonce.b2.080DCEC0")))
+void func_080DCEC0(GenObj__func_080DCEC0 *arg0, i32 arg1) {
+    func_080A47B4((GenObj__func_080DCEC0 *)((u8 *)arg0 + 8), 2);
+    arg0->unk4 = &vtable_unk_080E65E0;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080DCEEC (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 __vt_7AEntity;
+
+__attribute__((section(".text.code_linkonce.b2.080DCEEC")))
+void func_080DCEEC(GenObj__func_080DCEEC *arg0, i32 arg1) {
+    GenObj__func_080DCEEC *temp_r1;
+
+    arg0->unk14 = (i32)(&__vt_7AEntity);
+    temp_r1 = (GenObj__func_080DCEEC *)(arg0->unk10);
+    if (temp_r1 != 0) {
+        ((void (*)(void *,...))(temp_r1->unk4->unk8))(temp_r1, 3);
+    }
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080DCF20 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+i32 func_080A47B4(); /* extern */
+extern i32 vtable_unk_080E65E0;
+
+__attribute__((section(".text.code_linkonce.b2.080DCF20")))
+void func_080DCF20(GenObj__func_080DCF20 *arg0, i32 arg1) {
+    func_080A47B4((GenObj__func_080DCF20 *)((u8 *)arg0 + 8), 2);
+    arg0->unk4 = &vtable_unk_080E65E0;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080DCF4C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 __vt_7AEntity;
+extern i32 vtable_unk_080E7568;
+
+__attribute__((section(".text.code_linkonce.b2.080DCF4C")))
+void func_080DCF4C(GenObj__func_080DCF4C *arg0, i32 arg1) {
+    i32 var_r5;
+    u32 temp_r7;
+    u32 var_r6;
+    i32 *var_r4;
+    GenObj__func_080DCF4C *temp_r0;
+    GenObj__func_080DCF4C *temp_r1;
+    GenObj__func_080DCF4C *temp_r1_2;
+
+    arg0->unk14 = &vtable_unk_080E7568;
+    temp_r0 = (GenObj__func_080DCF4C *)(arg0->unk10);
+    if (temp_r0 != 0) {
+        i32 t5 = arg0->unk18;
+        var_r6 = 0;
+        temp_r7 = (u32)(temp_r0->unk8);
+        if (var_r6 < temp_r7) {
+            var_r5 = t5;
+            var_r4 = (i32 *)((u8 *)temp_r0 + 0xC);
+            do {
+                temp_r1 = (GenObj__func_080DCF4C *)*var_r4;
+                if (temp_r1 != 0) {
+                    ((void (*)(void *,...))(temp_r1->unk4C->unk14))(temp_r1, var_r5);
+                }
+                var_r5 += 0x10;
+                var_r4 = (i32 *)((u8 *)var_r4 + 4);
+                var_r6 += 1;
+            } while (var_r6 < temp_r7);
+        }
+    }
+    arg0->unk14 = &__vt_7AEntity;
+    temp_r0 = arg0;
+    temp_r1_2 = (GenObj__func_080DCF4C *)(temp_r0->unk10);
+    if (temp_r1_2 != 0) {
+        ((void (*)(void *,...))(temp_r1_2->unk4->unk8))(temp_r1_2, 3);
+    }
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+
+/* ATTEMPT-NOTE opencode: t5-var utk ldr-unk18-dulu (adds r5,r1); temp_r0-copy utk r2 di ekor; var_r6<temp_r7 (bukan >0U). */
+}
+
 // DECOMP-MATCHED func_080DCFCC (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 vfunc_14__7AEntity();                             /* extern */
@@ -1051,7 +1553,6 @@ void func_080DD788(void) {
 // DECOMP-MATCHED func_080DD794 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 __attribute__((section(".text.code_linkonce.b2.080DD794")))
 void func_080DD794(Src_func_080DD794 *arg0, Dst_func_080DD794 *arg1) {
     arg1->a = 8;
@@ -1061,7 +1562,6 @@ void func_080DD794(Src_func_080DD794 *arg0, Dst_func_080DD794 *arg1) {
 }
 }
 
-
 // DECOMP-MATCHED func_080DD860 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08039F50();                                  /* extern */
@@ -1069,6 +1569,17 @@ i32 func_08039F50();                                  /* extern */
 __attribute__((section(".text.code_linkonce.b2.080DD860")))
 void func_080DD860(void) {
     func_08039F50();
+}
+}
+// DECOMP-MATCHED func_080DD86C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_linkonce.b2.080DD86C")))
+void func_080DD86C(GenObj__func_080DD86C *arg0, GenObj__func_080DD86C *arg1) {
+    arg1->a = 7;
+    arg1->unk4 = arg0->unk50;
+    arg1->unk8 = arg0->unk54;
+    arg1->unkA = arg0->unk56;
 }
 }
 
@@ -1091,6 +1602,17 @@ void func_080DDC18(void) {
     func_08039F50();
 }
 }
+// DECOMP-MATCHED func_080DDC24 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_linkonce.b2.080DDC24")))
+void func_080DDC24(GenObj__func_080DDC24 *arg0, GenObj__func_080DDC24 *arg1) {
+    arg1->a = 5;
+    arg1->unk4 = arg0->unk50;
+    arg1->unk8 = arg0->unk54;
+    arg1->unkA = arg0->unk56;
+}
+}
 
 // DECOMP-MATCHED func_080DDE68 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -1099,6 +1621,17 @@ i32 func_08039F50();                                  /* extern */
 __attribute__((section(".text.code_linkonce.b2.080DDE68")))
 void func_080DDE68(void) {
     func_08039F50();
+}
+}
+// DECOMP-MATCHED func_080DDE74 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_linkonce.b2.080DDE74")))
+void func_080DDE74(GenObj__func_080DDE74 *arg0, GenObj__func_080DDE74 *arg1) {
+    arg1->a = 4;
+    arg1->unk4 = arg0->unk50;
+    arg1->unk8 = arg0->unk54;
+    arg1->unkA = arg0->unk56;
 }
 }
 
@@ -1111,6 +1644,17 @@ void func_080DDF0C(void) {
     func_08039F50();
 }
 }
+// DECOMP-MATCHED func_080DDF18 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_linkonce.b2.080DDF18")))
+void func_080DDF18(GenObj__func_080DDF18 *arg0, GenObj__func_080DDF18 *arg1) {
+    arg1->a = 3;
+    arg1->unk4 = arg0->unk50;
+    arg1->unk8 = arg0->unk54;
+    arg1->unkA = arg0->unk56;
+}
+}
 
 // DECOMP-MATCHED func_080DDFB0 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -1119,6 +1663,17 @@ i32 func_08039F50();                                  /* extern */
 __attribute__((section(".text.code_linkonce.b2.080DDFB0")))
 void func_080DDFB0(void) {
     func_08039F50();
+}
+}
+// DECOMP-MATCHED func_080DDFBC (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_linkonce.b2.080DDFBC")))
+void func_080DDFBC(GenObj__func_080DDFBC *arg0, GenObj__func_080DDFBC *arg1) {
+    arg1->a = 2;
+    arg1->unk4 = arg0->unk50;
+    arg1->unk8 = arg0->unk54;
+    arg1->unkA = arg0->unk56;
 }
 }
 
@@ -1224,7 +1779,7 @@ void func_080E09E4(GenObj__func_080E09E4 *arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_080E0A7C (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b2.080E0A7C")))
 void func_080E0A7C(void) {
@@ -1233,7 +1788,7 @@ void func_080E0A7C(void) {
 }
 // DECOMP-MATCHED func_080E0A88 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b2.080E0A88")))
 void func_080E0A88(void) {
@@ -1253,11 +1808,66 @@ i32 func_080E0D50(UnkStruct *arg0) {
 }
 // DECOMP-MATCHED func_080E0D64 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b2.080E0D64")))
 void func_080E0D64(void) {
     func_080098AC();
+}
+}
+// DECOMP-MATCHED func_080E0D70 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+i32 func_08007184(void *, i32);                       /* extern */
+i32 func_080073E0(void *, i32);                       /* extern */
+i32 func_080079E8(void *, i32);                       /* extern */
+i32 func_08007C28(void *, i32);                       /* extern */
+i32 func_080098AC(); /* extern */
+extern i32 vtable_unk_080E5A28;
+
+__attribute__((section(".text.code_linkonce.b2.080E0D70")))
+void func_080E0D70(GenObj__func_080E0D70 *arg0, i32 arg1) {
+    GenObj__func_080E0D70 *temp_r4;
+    GenObj__func_080E0D70 *temp_r4_2;
+    GenObj__func_080E0D70 *temp_r4_3;
+    GenObj__func_080E0D70 *temp_r4_4;
+    GenObj__func_080E0D70 *temp_r4_5;
+    GenObj__func_080E0D70 *temp_r4_6;
+    GenObj__func_080E0D70 *temp_r4_7;
+
+    func_080098AC((GenObj__func_080E0D70 *)((u8 *)arg0 + 0x340), 2);
+    temp_r4 = (GenObj__func_080E0D70 *)((u8 *)arg0 + 0x338);
+    func_08007C28(temp_r4, (i32)(temp_r4->unk4));
+    func_080079E8(temp_r4, 2);
+    func_080098AC((GenObj__func_080E0D70 *)((u8 *)arg0 + 0x31C), 2);
+    temp_r4_2 = (GenObj__func_080E0D70 *)((u8 *)arg0 + 0x314);
+    func_08007C28(temp_r4_2, (i32)(temp_r4_2->unk4));
+    func_080079E8(temp_r4_2, 2);
+    func_080098AC((GenObj__func_080E0D70 *)((u8 *)arg0 + 0x2FC), 2);
+    temp_r4_3 = (GenObj__func_080E0D70 *)((u8 *)arg0 + 0x2F4);
+    func_080073E0(temp_r4_3, (i32)(temp_r4_3->unk4));
+    func_08007184(temp_r4_3, 2);
+    func_080098AC((GenObj__func_080E0D70 *)((u8 *)arg0 + 0x2D8), 2);
+    temp_r4_4 = (GenObj__func_080E0D70 *)((u8 *)arg0 + 0x2D0);
+    func_08007C28(temp_r4_4, (i32)(temp_r4_4->unk4));
+    func_080079E8(temp_r4_4, 2);
+    func_080098AC((GenObj__func_080E0D70 *)((u8 *)arg0 + 0x2B4), 2);
+    temp_r4_5 = (GenObj__func_080E0D70 *)((u8 *)arg0 + 0x2A8);
+    func_08007C28(temp_r4_5, (i32)(temp_r4_5->unk4));
+    func_080079E8(temp_r4_5, 2);
+    func_080098AC((GenObj__func_080E0D70 *)((u8 *)arg0 + 0x190), 2);
+    temp_r4_6 = (GenObj__func_080E0D70 *)((u8 *)arg0 + 0x184);
+    func_08007C28(temp_r4_6, (i32)(temp_r4_6->unk4));
+    func_080079E8(temp_r4_6, 2);
+    func_080098AC((GenObj__func_080E0D70 *)((u8 *)arg0 + 0x68), 2);
+    temp_r4_7 = (GenObj__func_080E0D70 *)((u8 *)arg0 + 0x60);
+    func_080073E0(temp_r4_7, (i32)(temp_r4_7->unk4));
+    func_08007184(temp_r4_7, 2);
+    arg0->unk30 = &vtable_unk_080E5A28;
+    arg0->unk0 = &vtable_unk_080E5A28;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
 }
 }
 
@@ -1270,10 +1880,49 @@ void func_080E0EF0(void) {
     ScriptEngineDtor2();
 }
 }
+// DECOMP-MATCHED func_080E0EFC (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_linkonce.b3.080E0EFC")))
+void func_080E0EFC(u32 arg0, i32 arg1) {
+    register u32 var_r5 __asm__("r5");
+    u32 var_r1;
+    register i8 *var_r4 __asm__("r4");
+    register u32 var_r2 __asm__("r2");
+
+    var_r5 = arg0;
+    var_r4 = (i8 *) (arg1 + 1);
+    var_r2 = 0x19999999U;
+    var_r1 = 0xA;
+    if (var_r5 >= var_r1) {
+        var_r4 += 1;
+loop_2:
+        var_r1 *= 0xA;
+        if (var_r5 >= var_r1) {
+            var_r4 += 1;
+            if (var_r1 <= var_r2) {
+                goto loop_2;
+            }
+        }
+    }
+    *var_r4 = 0;
+    do {
+        u32 var_q;
+        u32 var_t;
+        register u32 var_d __asm__("r1");
+
+        var_r4 -= 1;
+        var_q = var_r5 / 10U;
+        var_t = var_q * 10;
+        var_d = var_r5 - var_t;
+        *var_r4 = var_d + 0x30;
+        var_r5 = var_q;
+    } while (var_r5 != 0);
+}
+}
 
 // DECOMP-MATCHED func_080E1018 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b3.080E1018")))
 void func_080E1018(void) {
@@ -1282,7 +1931,7 @@ void func_080E1018(void) {
 }
 // DECOMP-MATCHED func_080E1024 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b3.080E1024")))
 void func_080E1024(void) {
@@ -1291,17 +1940,30 @@ void func_080E1024(void) {
 }
 // DECOMP-MATCHED func_080E1030 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b3.080E1030")))
 void func_080E1030(void) {
     func_080098AC();
 }
 }
+// DECOMP-MATCHED func_080E103C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern char vtable_unk_080E78F0;
+
+__attribute__((section(".text.code_linkonce.b3.080E103C")))
+void func_080E103C(i32 **arg0, i32 arg1) {
+    *arg0 = (i32 *) &vtable_unk_080E78F0;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
 
 // DECOMP-MATCHED func_080E10E0 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b3.080E10E0")))
 void func_080E10E0(void) {
@@ -1313,6 +1975,114 @@ extern "C" {
 __attribute__((section(".text.code_linkonce.b3.080E10EC")))
 i32 func_080E10EC(void) {
     return 1;
+}
+}
+
+// DECOMP-MATCHED gData_code_linkonce_080E1118.data.080E1118
+extern "C" {
+// data tak-dirujuk di 0x080E1118 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+extern const u8 gData_code_linkonce_080E1118[16] __attribute__((section(".text.code_linkonce.b3.080E1118"))) = {0x00, 0x20, 0x70, 0x47, 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00};
+}
+
+// DECOMP-MATCHED func_080E1128 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 vtable_unk_080E7908;
+
+__attribute__((section(".text.code_linkonce.b3.080E1128")))
+void func_080E1128(i32 **arg0, i32 arg1) {
+    *arg0 = &vtable_unk_080E7908;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080E1498 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 vtable_unk_080E76F8;
+
+__attribute__((section(".text.code_linkonce.b3.080E1498")))
+void func_080E1498(i32 **arg0, i32 arg1) {
+    *arg0 = &vtable_unk_080E76F8;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080E1824 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 vtable_unk_080E76F8;
+
+__attribute__((section(".text.code_linkonce.b3.080E1824")))
+void func_080E1824(i32 **arg0, i32 arg1) {
+    *arg0 = &vtable_unk_080E76F8;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080E1964 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 vtable_unk_080E76F8;
+
+__attribute__((section(".text.code_linkonce.b3.080E1964")))
+void func_080E1964(i32 **arg0, i32 arg1) {
+    *arg0 = &vtable_unk_080E76F8;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+// DECOMP-MATCHED func_080E1984 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 vtable_unk_080E5A28;
+
+__attribute__((section(".text.code_linkonce.b3.080E1984")))
+void func_080E1984(i32 **arg0, i32 arg1) {
+    *arg0 = &vtable_unk_080E5A28;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080E19F8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080086BC(void *, i32);                       /* extern */
+i32 func_08050D0C(); /* extern */
+extern i32 vtable_unk_080E76F8;
+
+__attribute__((section(".text.code_linkonce.b3.080E19F8")))
+void func_080E19F8(GenObj__func_080E19F8 *arg0, i32 arg1) {
+    i32 temp_r0;
+
+    arg0->unk6428 = &vtable_unk_080E76F8;
+    temp_r0 = arg0->unk10;
+    if (temp_r0 != 0) {
+        func_08050D0C(temp_r0, 3);
+    }
+    func_080086BC(arg0, arg1);
+}
+}
+
+// DECOMP-MATCHED func_080E1A28 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 vtable_unk_080E76F8;
+
+__attribute__((section(".text.code_linkonce.b3.080E1A28")))
+void func_080E1A28(i32 **arg0, i32 arg1) {
+    *arg0 = &vtable_unk_080E76F8;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
 }
 }
 
@@ -1328,13 +2098,51 @@ i32 func_080E1A48(void) {
 }
 // DECOMP-MATCHED func_080E1A54 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08076E0C(void *, i32);                  /* extern */
+i32 func_08076E0C(); /* extern */
 extern i32 vtable_unk_080E5A28;
 
 __attribute__((section(".text.code_linkonce.b3.080E1A54")))
 void func_080E1A54(GenObj__func_080E1A54 *arg0, i32 arg1) {
     arg0->unk9C4 = &vtable_unk_080E5A28;
     func_08076E0C(arg0, arg1);
+}
+}
+
+// DECOMP-MATCHED func_080E1D8C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08076E0C(); /* extern */
+
+__attribute__((section(".text.code_linkonce.b3.080E1D8C")))
+void func_080E1D8C(void) {
+    func_08076E0C();
+}
+}
+// DECOMP-MATCHED func_080E1D98 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08076E0C(); /* extern */
+
+__attribute__((section(".text.code_linkonce.b3.080E1D98")))
+void func_080E1D98(void) {
+    func_08076E0C();
+}
+}
+// DECOMP-MATCHED func_080E1DA4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08076E0C(); /* extern */
+
+__attribute__((section(".text.code_linkonce.b3.080E1DA4")))
+void func_080E1DA4(void) {
+    func_08076E0C();
+}
+}
+
+// DECOMP-MATCHED func_080E1DB0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08076E0C(); /* extern */
+
+__attribute__((section(".text.code_linkonce.b3.080E1DB0")))
+void func_080E1DB0(void) {
+    func_08076E0C();
 }
 }
 
@@ -1346,6 +2154,37 @@ __attribute__((section(".text.code_linkonce.b3.080E1DBC")))
 i32 func_080E1DBC(void) {
     func_08076EA8();
     return 1;
+}
+}
+// DECOMP-MATCHED func_080E1DC8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08076E0C(); /* extern */
+
+__attribute__((section(".text.code_linkonce.b3.080E1DC8")))
+void func_080E1DC8(void) {
+    func_08076E0C();
+}
+}
+
+// DECOMP-MATCHED func_080E20C0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+i32 free(); /* extern */
+
+__attribute__((section(".text.code_linkonce.b3.080E20C0")))
+void func_080E20C0(GenObj__func_080E20C0 *arg0, i32 arg1) {
+    if (arg0->unk20 != 0) {
+        free();
+    }
+    if (arg0->unk10 != 0) {
+        free();
+    }
+    if (arg0->unk0 != 0) {
+        free();
+    }
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
 }
 }
 
@@ -1377,6 +2216,80 @@ void func_080E2110(void) {
 }
 }
 
+// DECOMP-MATCHED func_080E2B5C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 free(); /* extern */
+
+__attribute__((section(".text.code_linkonce.b3.080E2B5C")))
+void func_080E2B5C(i32 arg0, void *arg1) {
+    void *temp_r5;
+    GenObj__func_080E2B5C *var_r4;
+
+    var_r4 = (GenObj__func_080E2B5C *)(arg1);
+    if (var_r4 != 0) {
+        do {
+            func_080E2B5C(arg0, (void *) var_r4->unkC);
+            temp_r5 = (void *)(var_r4->unk8);
+            if (var_r4 != 0) {
+                free(var_r4);
+            }
+            var_r4 = (GenObj__func_080E2B5C *)(temp_r5);
+        } while (var_r4 != 0);
+    }
+}
+}
+// DECOMP-MATCHED func_080E2B88 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 free(); /* extern */
+
+__attribute__((section(".text.code_linkonce.b3.080E2B88")))
+void func_080E2B88(i32 arg0, void *arg1) {
+    void *temp_r5;
+    GenObj__func_080E2B88 *var_r4;
+
+    var_r4 = (GenObj__func_080E2B88 *)(arg1);
+    if (var_r4 != 0) {
+        do {
+            func_080E2B88(arg0, (void *) var_r4->unkC);
+            temp_r5 = (void *)(var_r4->unk8);
+            if (var_r4 != 0) {
+                free(var_r4);
+            }
+            var_r4 = (GenObj__func_080E2B88 *)(temp_r5);
+        } while (var_r4 != 0);
+    }
+}
+}
+
+// DECOMP-MATCHED gData_code_linkonce_080E2E34.data.080E2E34
+extern "C" {
+// data tak-dirujuk di 0x080E2E34 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+extern const u8 gData_code_linkonce_080E2E34[68] __attribute__((section(".text.code_linkonce.b3.080E2E34"))) = {0x30, 0xB5, 0x04, 0x1C, 0x0D, 0x1C, 0x0A, 0x48, 0xE0, 0x60, 0xA1, 0x68, 0x00, 0x29, 0x07, 0xD0, 0x08, 0x4A, 0x88, 0x18, 0x00, 0x68, 0x82, 0x68, 0x08, 0x1C, 0x03, 0x21, 0xF0, 0xF7, 0x60, 0xFD, 0x20, 0x1C, 0x29, 0x1C, 0x25, 0xF7, 0x30, 0xFC, 0x30, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00, 0x28, 0x5A, 0x0E, 0x08, 0xB4, 0x05, 0x00, 0x00, 0x00, 0xB5, 0x25, 0xF7, 0x25, 0xFC, 0x01, 0xBC, 0x00, 0x47, 0x00, 0x00};
+}
+
+// DECOMP-MATCHED func_080E2E78 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 free(); /* extern */
+
+__attribute__((section(".text.code_linkonce.b3.080E2E78")))
+void func_080E2E78(i32 arg0, void *arg1) {
+    void *temp_r5;
+    GenObj__func_080E2E78 *var_r4;
+
+    var_r4 = (GenObj__func_080E2E78 *)(arg1);
+    if (var_r4 != 0) {
+        do {
+            func_080E2E78(arg0, (void *) var_r4->unkC);
+            temp_r5 = (void *)(var_r4->unk8);
+            if (var_r4 != 0) {
+                free(var_r4);
+            }
+            var_r4 = (GenObj__func_080E2E78 *)(temp_r5);
+        } while (var_r4 != 0);
+    }
+}
+}
+
 // DECOMP-MATCHED func_080E35DC (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08093308(i32);                               /* extern */
@@ -1388,8 +2301,8 @@ void func_080E35DC(i32 arg0) {
 }
 // DECOMP-MATCHED func_080E35E8 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08050DC8(i32, i32 *, i32, i32);                /* extern */
-i32 func_08050E50(i32, i32);                          /* extern */
+i32 func_08050DC8(); /* extern */
+i32 func_08050E50(); /* extern */
 extern i32 gUnk_081004E0;
 
 __attribute__((section(".text.code_linkonce.b3.080E35E8")))
@@ -1412,8 +2325,8 @@ u32 func_080E3610(i32 arg0) {
 }
 // DECOMP-MATCHED func_080E3628 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08050DC8(i32, i32 *, i32, i32);                /* extern */
-i32 func_08050E50(i32, i32);                          /* extern */
+i32 func_08050DC8(); /* extern */
+i32 func_08050E50(); /* extern */
 extern i32 gUnk_08100524;
 
 __attribute__((section(".text.code_linkonce.b3.080E3628")))
@@ -1427,8 +2340,8 @@ void func_080E3628(i32 arg0) {
 }
 // DECOMP-MATCHED func_080E3650 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08050DC8(i32, i32 *, i32, i32);                /* extern */
-i32 func_08050E50(i32, i32);                          /* extern */
+i32 func_08050DC8(); /* extern */
+i32 func_08050E50(); /* extern */
 extern i32 gUnk_08100540;
 
 __attribute__((section(".text.code_linkonce.b3.080E3650")))
@@ -1440,6 +2353,25 @@ void func_080E3650(i32 arg0) {
     func_08050E50(temp_r4, 0x38);
 }
 }
+// DECOMP-MATCHED func_080E3678 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08050DC8(); /* extern */
+i32 func_08050E50(); /* extern */
+extern i32 gUnk_08100558;
+
+__attribute__((section(".text.code_linkonce.b3.080E3678")))
+void func_080E3678(void *arg0) {
+    void *temp_r4;
+
+    *((i32 *)((u8 *)arg0 + (0xF6 << 2))) = 0;
+    *((i32 *)((u8 *)arg0 + (0xF7 << 2))) = 0;
+    temp_r4 = (u8 *)arg0 + (0xE4 << 1);
+    func_08050DC8(temp_r4, &gUnk_08100558, 0, 0);
+    func_08050E50(temp_r4, 0x3A);
+}
+
+/* ATTEMPT-NOTE opencode: offset via shift (bukan literal); tanpa struct. */
+}
 
 // DECOMP-MATCHED func_080E3730 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -1450,8 +2382,8 @@ void func_080E3730(void) {
 }
 // DECOMP-MATCHED func_080E3734 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_08050DC8(i32, i32 *, i32, i32);                /* extern */
-i32 func_08050E50(i32, i32);                          /* extern */
+i32 func_08050DC8(); /* extern */
+i32 func_08050E50(); /* extern */
 extern i32 gUnk_08100594;
 
 __attribute__((section(".text.code_linkonce.b3.080E3734")))
@@ -1621,6 +2553,20 @@ void func_080E3B60(i32 **arg0, i32 arg1) {
 }
 }
 
+// DECOMP-MATCHED func_080E3D94 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 vtable_unk_080E76F8;
+
+__attribute__((section(".text.code_linkonce.b3.080E3D94")))
+void func_080E3D94(i32 **arg0, i32 arg1) {
+    *arg0 = &vtable_unk_080E76F8;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
 // DECOMP-MATCHED func_080E3DB4 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_linkonce.b3.080E3DB4")))
@@ -1756,13 +2702,43 @@ ret_arg1:
 /* ATTEMPT-NOTE opencode: pola E3DB4; sisa 1 byte: >>1>>1 di-fold jadi >>2 (ref 2x asrs#1); tmp2/var-reuse dicoba. */
 }
 
+// DECOMP-MATCHED func_080E4190 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 vtable_unk_080E76F8;
+
+__attribute__((section(".text.code_linkonce.b3.080E4190")))
+void func_080E4190(i32 **arg0, i32 arg1) {
+    *arg0 = &vtable_unk_080E76F8;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
 // DECOMP-MATCHED func_080E4238 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080098AC();                                  /* extern */
+i32 func_080098AC(); /* extern */
 
 __attribute__((section(".text.code_linkonce.b3.080E4238")))
 void func_080E4238(void) {
     func_080098AC();
+}
+}
+
+// DECOMP-MATCHED func_080E44B8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+i32 func_080AC85C(i32, i32);                          /* extern */
+extern i32 vtable_unk_080E61A0;
+
+__attribute__((section(".text.code_linkonce.b3.080E44B8")))
+void func_080E44B8(i32 **arg0, i32 arg1) {
+    func_080AC85C((i32)((i32 *)((u8 *)arg0 + 4)), 2);
+    *arg0 = &vtable_unk_080E61A0;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
 }
 }
 
@@ -1782,16 +2758,128 @@ i32 func_080E44E4(i32 arg0) {
     return func_080324BC(t, arg0, 5, 0x1b);
 }
 }
+// DECOMP-MATCHED func_080E4510 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 __vt_7AEntity;
+
+__attribute__((section(".text.code_linkonce.b3.080E4510")))
+void func_080E4510(GenObj__func_080E4510 *arg0, i32 arg1) {
+    GenObj__func_080E4510 *temp_r1;
+
+    arg0->unk14 = (i32)(&__vt_7AEntity);
+    temp_r1 = (GenObj__func_080E4510 *)(arg0->unk10);
+    if (temp_r1 != 0) {
+        ((void (*)(void *,...))(temp_r1->unk4->unk8))(temp_r1, 3);
+    }
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+// DECOMP-MATCHED func_080E4544 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+extern i32 vtable_unk_080E61A0;
+
+__attribute__((section(".text.code_linkonce.b3.080E4544")))
+void func_080E4544(i32 **arg0, i32 arg1) {
+    *arg0 = &vtable_unk_080E61A0;
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080E542C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800050C(i32);
+i32 func_08000528(i32);
+i32 func_080D100C();
+extern i32 func_080E5418;
+extern void *gUnk_03000414;
+extern i32 vtable_unk_080E857C;
+extern i32 vtable_unk_080E8588;
+
+__attribute__((section(".text.code_linkonce.b3.080E542C")))
+void *func_080E542C(GenObj__func_080E542C *arg0, i32 *arg1)
+{
+    void *prev;
+    i32 m;
+
+    arg0->unk14 = &vtable_unk_080E857C;
+    arg0->unk0 = *arg1;
+    m = 4;
+    m &= func_08000528(4);
+    arg0->unk4 = (u16) m;
+    prev = gUnk_03000414;
+    gUnk_03000414 = arg0;
+    arg0->unk8 = (i32) prev;
+    arg0->unkC = &vtable_unk_080E8588;
+    arg0->unk10 = func_080D100C(2, &func_080E5418);
+    func_0800050C(4);
+    return arg0;
+}
+}
+
+// DECOMP-MATCHED func_080E5478 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+i32 func_080004F4();                                  /* extern */
+i32 func_08000528(i32);                               /* extern */
+i32 func_080D100C(); /* extern */
+extern void *gUnk_03000414;
+extern i32 vtable_unk_080E857C;
+extern i32 vtable_unk_080E8594;
+
+__attribute__((section(".text.code_linkonce.b3.080E5478")))
+void func_080E5478(GenObj__func_080E5478 *arg0, i32 arg1) {
+    arg0->unk14 = &vtable_unk_080E857C;
+    func_08000528(4);
+    func_080D100C(2, arg0->unk10);
+    arg0->unkC = &vtable_unk_080E8594;
+    gUnk_03000414 = (void *) arg0->unk8;
+    if (arg0->unk4 != 0) {
+        func_080004F4();
+    }
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
+// DECOMP-MATCHED func_080E54C4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 free(); /* extern */
+
+__attribute__((section(".text.code_linkonce.b3.080E54C4")))
+void func_080E54C4(i32 arg0, void *arg1) {
+    void *temp_r5;
+    GenObj__func_080E54C4 *var_r4;
+
+    var_r4 = (GenObj__func_080E54C4 *)(arg1);
+    if (var_r4 != 0) {
+        do {
+            func_080E54C4(arg0, (void *) var_r4->unkC);
+            temp_r5 = (void *)(var_r4->unk8);
+            if (var_r4 != 0) {
+                free(var_r4);
+            }
+            var_r4 = (GenObj__func_080E54C4 *)(temp_r5);
+        } while (var_r4 != 0);
+    }
+}
+}
 
 // DECOMP-MATCHED func_080E581C (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-void __builtin_delete(void *);                             /* extern */
-extern i32 gUnk_03000414;
+void * __builtin_delete(void *);
+extern void *gUnk_03000414;
 extern i32 vtable_unk_080E8594;
 
 void func_080E581C(GenObj__func_080E581C *arg0, i32 arg1) {
     arg0->unk4 = &vtable_unk_080E8594;
-    gUnk_03000414 = arg0->unk0;
+    gUnk_03000414 = (void *) arg0->unk0;
     if (1 & arg1) {
         __builtin_delete(arg0);
     }
@@ -1800,13 +2888,13 @@ void func_080E581C(GenObj__func_080E581C *arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_080E5844 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-void __builtin_delete(void *);                             /* extern */
-extern i32 gUnk_03000414;
+void * __builtin_delete(void *);
+extern void *gUnk_03000414;
 extern i32 vtable_unk_080E8594;
 
 void func_080E5844(GenObj__func_080E5844 *arg0, i32 arg1) {
     arg0->unk4 = &vtable_unk_080E8594;
-    gUnk_03000414 = arg0->unk0;
+    gUnk_03000414 = (void *) arg0->unk0;
     if (1 & arg1) {
         __builtin_delete(arg0);
     }
@@ -1815,7 +2903,7 @@ void func_080E5844(GenObj__func_080E5844 *arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_080E586C (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 free();                                           /* extern */
+i32 free(); /* extern */
 
 void func_080E586C(GenObj__func_080E586C *arg0) {
     GenObj__func_080E586C *temp_r0;
@@ -1907,7 +2995,7 @@ void func_080E5898(Obj *arg0, i32 arg1) {
 // DECOMP-MATCHED func_080E596C (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080086BC(void *, i32);                       /* extern */
-i32 func_08050D0C(void *, i32);                          /* extern */
+i32 func_08050D0C(); /* extern */
 extern i32 vtable_unk_080E5A28;
 
 void func_080E596C(GenObj *arg0, i32 arg1) {

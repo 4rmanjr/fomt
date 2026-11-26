@@ -1637,3 +1637,20 @@ Tiga penyatuan tanda tangan yang muncul saat migrasi (semuanya nol byte):
 - pemanggil `func_080390D0()` tanpa argumen padahal r0 sudah berisi field →
   deklarasikan `u32 func_080390D0(void *)` dan teruskan `arg0->unk10`; CSE
   membuat compiler memakai r0 yang sama, byte tidak berubah.
+
+## §18 Promote-only: unifikasi tanda tangan harus per-simbol
+
+Blok MATCH yang menolak TU `.cc` hampir selalu karena deklarasi extern yang
+bentrok dengan blok lain di TU yang sama. Aturan yang terbukti aman:
+
+- Satukan HANYA simbol yang bentrok, lalu langsung `make compare`; unifikasi
+  global per-TU mengubah byte ROM (terbukti di `code_linkonce`,
+  `code_entities_08034CEC`, `hardware` — semuanya direvert).
+- Cara paling murah yang byte-netral: pindahkan deklarasi non-kanonik ke
+  dalam body fungsi blok itu (block-scope declaration menyembunyikan deklarasi
+  namespace tanpa mengubah codegen).
+- `gUnk_*` yang dipakai sebagai pointer dan sebagai `i32` disatukan ke
+  `void *` + cast `(void *)` di assignment.
+- `EC ... ALIAS(...)` di `src/*.cc` adalah definisi simbol — jangan pernah
+  ditulis ulang oleh pola deklarasi.
+- Sisa yang tetap menolak dicatat di `POLA-DIFF.md` §95 dan `note` shard.

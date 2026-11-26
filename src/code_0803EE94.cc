@@ -4168,14 +4168,14 @@ void *func_0807EEA0(GenObj__func_0807EEA0 *arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_0807EED4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 __builtin_delete(i32);                            /* extern */
+void * __builtin_delete(void *);
 i32 func_080C8360(void *, i32);                       /* extern */
 extern i32 vtable_unk_080E7C5C;
 
 __attribute__((section(".text.code_0803EE94.0807EED4")))
 void func_0807EED4(GenObj__func_0807EED4 *arg0, i32 arg1) {
     arg0->unk4 = &vtable_unk_080E7C5C;
-    __builtin_delete((i32)(arg0->unk6AC));
+    __builtin_delete((void *)(i32)(arg0->unk6AC));
     func_080C8360(arg0, arg1);
 }
 }
@@ -4548,14 +4548,14 @@ void *func_08081ACC(GenObj__func_08081ACC *arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_08081B00 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 __builtin_delete(i32);                            /* extern */
+void * __builtin_delete(void *);
 i32 func_080C8360(void *, i32);                       /* extern */
 extern i32 vtable_unk_080E7CCC;
 
 __attribute__((section(".text.code_0803EE94.08081B00")))
 void func_08081B00(GenObj__func_08081B00 *arg0, i32 arg1) {
     arg0->unk4 = &vtable_unk_080E7CCC;
-    __builtin_delete((i32)(arg0->unk6AC));
+    __builtin_delete((void *)(i32)(arg0->unk6AC));
     func_080C8360(arg0, arg1);
 }
 }
@@ -5816,14 +5816,14 @@ i32 *func_08093AD4(i32 *arg0, GenObj__func_08093AD4 *arg1) {
 
 // DECOMP-MATCHED func_08093DCC (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 __builtin_delete(i32);                            /* extern */
+void * __builtin_delete(void *);
 extern i32 vtable_unk_080E812C;
 
 __attribute__((section(".text.code_0803EE94.08093DCC")))
 void func_08093DCC(i32 *arg0, i32 arg1) {
     *arg0 = (i32)&vtable_unk_080E812C;
     if (1 & arg1) {
-        __builtin_delete((i32)(arg0));
+        __builtin_delete((void *)(i32)(arg0));
     }
 }
 }
@@ -6096,14 +6096,14 @@ void func_080941C8(GenObj__func_080941C8 *arg0) {
 
 // DECOMP-MATCHED func_08094268 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 __builtin_delete(i32);                            /* extern */
+void * __builtin_delete(void *);
 extern i32 vtable_unk_080E8028;
 
 __attribute__((section(".text.code_0803EE94.08094268")))
 void func_08094268(i32 *arg0, i32 arg1) {
     *arg0 = (i32)&vtable_unk_080E8028;
     if (1 & arg1) {
-        __builtin_delete((i32)(arg0));
+        __builtin_delete((void *)(i32)(arg0));
     }
 }
 }
@@ -6456,7 +6456,7 @@ i32 func_080948FC(i32 arg0) {
 
 // DECOMP-MATCHED func_08094814 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 __builtin_delete(i32);                            /* extern */
+void * __builtin_delete(void *);
 i32 __builtin_vec_delete();                           /* extern */
 
 __attribute__((section(".text.code_0803EE94.08094814")))
@@ -6468,7 +6468,7 @@ void func_08094814(GenObj__func_08094814 *arg0, i32 arg1) {
         __builtin_vec_delete();
     }
     if (1 & arg1) {
-        __builtin_delete((i32)(arg0));
+        __builtin_delete((void *)(i32)(arg0));
     }
 }
 }

@@ -181,7 +181,7 @@ s32 func_0800912C(void) {
 }
 
 // DECOMP-MATCHED func_08009324 (dari hardware.s; cek manusia sebelum ke src/)
-void __builtin_delete(void *);                          /* extern */
+void * __builtin_delete(void *);
 
 void func_08009324(void *arg0, s32 arg1) {
     __builtin_delete((void *) *(s32 *) arg0);
@@ -441,7 +441,7 @@ s16 func_080093A0(void *arg0, s32 arg1) {
 /* ATTEMPT-NOTE opencode: unk4 u16 + s16 return (ldrh + lsls/asrs). */
 
 // DECOMP-MATCHED func_08007714 (dari hardware.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(s32 *);                            /* extern */
+void * __builtin_delete(void *);
 s32 free();                                           /* extern */
 s32 func_08007184(s32 *, s32);                          /* extern */
 s32 func_080073E0(s32 *, s32);                          /* extern */
@@ -1183,7 +1183,7 @@ void func_08009674(s32 arg0, s32 arg1) {
 }
 
 // DECOMP-MATCHED func_08008A68 (dari hardware.s; cek manusia sebelum ke src/)
-void __builtin_delete(void *);                          /* extern */
+void * __builtin_delete(void *);
 void func_08008D90(void);                             /* extern */
 void func_0800959C(void *, s32);                      /* extern */
 struct GenObj__func_080098AC;
@@ -2045,7 +2045,7 @@ void **func_08008980(void **arg0) {
 }
 
 // DECOMP-MATCHED func_080079E8 (dari hardware.s; cek manusia sebelum ke src/)
-void *__builtin_delete(void *);                        /* extern */
+void * __builtin_delete(void *);
 extern u32 gUnk_03000408;
 
 void func_080079E8(void *arg0, s32 arg1) {

@@ -280,7 +280,7 @@ extern const u8 gData_hardware_080079D0[24] __attribute__((section(".text.hardwa
 
 // DECOMP-MATCHED func_080079E8 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
-void __builtin_delete(void *);                             /* extern */
+void * __builtin_delete(void *);
 extern u32 gUnk_03000408;
 
 __attribute__((section(".text.hardware.080079E8")))

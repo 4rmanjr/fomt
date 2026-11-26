@@ -2410,7 +2410,7 @@ i32 sp0[2];
 // DECOMP-MATCHED func_08037E48 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 GetLocation__C7AEntity(i32 *, void *);              /* extern */
-void __builtin_delete(void *);                             /* extern */
+void * __builtin_delete(void *);
 i32 func_08010014(i32, i32 *);                          /* extern */
 extern i32 __vt_7AEntity;
 extern i32 vtable_unk_080E73FC;
@@ -2509,7 +2509,7 @@ void *func_08038028(Obj *arg0, void *arg1, i32 *arg2) {
 // DECOMP-MATCHED func_08038098 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 GetLocation__C7AEntity(i32 *, void *);              /* extern */
-void __builtin_delete(void *);                             /* extern */
+void * __builtin_delete(void *);
 extern i32 __vt_7AEntity;
 extern i32 vtable_unk_080E73B4;
 
@@ -2774,7 +2774,7 @@ extern "C" {
    lalu `cmp r4,#0` (immediate), dan 0 yang sama dipakai ulang untuk
    `str r6,[r5]`. Pointer `slot` tetap memberi `adds r5,r0,#0; adds r5,#0xc`. */
 i32 func_080A47B4(void *, i32);
-void __builtin_delete(void *);
+void * __builtin_delete(void *);
 
 __attribute__((section(".text.code_entities_08034CEC.08038EB8")))
 void func_08038EB8(GenObj *arg0) {
@@ -2860,7 +2860,7 @@ i32 func_080396F4(i32 arg0, GenObj__func_080396F4 *arg1) {
 extern "C" {
 i32 GetLocation__C12AActorEntity(i32 *, void *);        /* extern */
 i32 SetLocation__5ActorRC13ActorLocation(i32, i32 *);   /* extern */
-void __builtin_delete(void *);                             /* extern */
+void * __builtin_delete(void *);
 extern i32 __vt_7AEntity;
 extern i32 vtable_unk_080E74DC;
 
@@ -2971,7 +2971,7 @@ u32 func_08039D98(GenObj__func_08039D98 *arg0) {
 
 // DECOMP-MATCHED func_08039F50 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
-void __builtin_delete(void *);                             /* extern */
+void * __builtin_delete(void *);
 i32 func_080A47B4(void *, i32);                       /* extern */
 extern i32 vtable_unk_080E76BC;
 
@@ -3051,10 +3051,10 @@ done:
 // DECOMP-MATCHED func_0803A798 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __7AEntityP10GameObjectRC8Location(void *, i32, i32 *); /* extern */
-void *__builtin_new(i32);                           /* extern */
 extern i32 vtable_unk_080E7568;
 
 void *func_0803A798(i32 arg0, i32 arg1) {
+    void *__builtin_new(i32);                           /* extern */
     u8 buf[8];
     GenObj *r5;
     u8 *p;

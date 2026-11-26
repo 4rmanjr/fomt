@@ -4356,9 +4356,9 @@ asm(
 
 // DECOMP-MATCHED func_0801FD3C (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 func_080A5A9C(i32);                               /* extern */
 
 i32 func_0801FD3C(GenObj *arg0) {
+    i32 func_080A5A9C(i32);                               /* extern */
     return func_080A5A9C((i32)arg0->unk4);
 }
 }

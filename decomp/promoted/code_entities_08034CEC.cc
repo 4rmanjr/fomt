@@ -212,7 +212,7 @@ void func_080387FC(GenObj *arg0) {
 }
 
 // DECOMP-MATCHED func_08039F50 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(void *);                         /* extern */
+void * __builtin_delete(void *);
 s32 func_080A47B4(void *, s32);                       /* extern */
 extern s32 vtable_unk_080E76BC;
 
@@ -387,7 +387,7 @@ void func_08037434(GenObj *arg0) {
 // DECOMP-MATCHED func_080399C0 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 s32 GetLocation__C12AActorEntity(s32 *, void *);        /* extern */
 s32 SetLocation__5ActorRC13ActorLocation(s32, s32 *);   /* extern */
-s32 __builtin_delete(void *);                         /* extern */
+void * __builtin_delete(void *);
 extern s32 __vt_7AEntity;
 extern s32 vtable_unk_080E74DC;
 
@@ -1728,7 +1728,7 @@ u16 func_08039D4C(s32 arg0, s32 arg1) {
 
 // DECOMP-MATCHED func_08037E48 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 s32 GetLocation__C7AEntity(s32 *, void *);              /* extern */
-s32 __builtin_delete(void *);                         /* extern */
+void * __builtin_delete(void *);
 s32 func_08010014(s32, s32 *);                          /* extern */
 extern s32 __vt_7AEntity;
 extern s32 vtable_unk_080E73FC;
@@ -1763,7 +1763,7 @@ u8 sp0[8];
 
 // DECOMP-MATCHED func_08038098 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 s32 GetLocation__C7AEntity(s32 *, void *);              /* extern */
-s32 __builtin_delete(void *);                         /* extern */
+void * __builtin_delete(void *);
 s32 memcpy(s32, s32 *, s32);                            /* extern */
 extern s32 __vt_7AEntity;
 extern s32 vtable_unk_080E73B4;
@@ -2253,7 +2253,7 @@ void *func_08037008(GenObj *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
    lalu `cmp r4,#0` (immediate), dan 0 yang sama dipakai ulang untuk
    `str r6,[r5]`. Pointer `slot` tetap memberi `adds r5,r0,#0; adds r5,#0xc`. */
 s32 func_080A47B4(void *, s32);
-void __builtin_delete(void *);
+void * __builtin_delete(void *);
 
 void func_08038EB8(GenObj *arg0) {
     s32 *slot = &arg0->unkC;

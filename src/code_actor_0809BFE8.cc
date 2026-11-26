@@ -159,7 +159,7 @@ u32 func_0809C38C(GenObj__func_0809C38C *arg0) {
 // DECOMP-MATCHED func_0809C444 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0809C22C();                                /* extern */
-u8 func_0809C3E0(i32);                              /* extern */
+u8 func_0809C3E0(i32, i32);
 
 __attribute__((section(".text.code_actor_0809BFE8.0809C444")))
 u8 func_0809C444(i32 arg0) {
@@ -169,7 +169,7 @@ u8 func_0809C444(i32 arg0) {
     var_r5 = 0;
     temp_r0 = func_0809C22C();
     if ((*((u8 *)arg0 + temp_r0) != 0) && ((temp_r0 == 0) || (temp_r0 == 3))) {
-        var_r5 = func_0809C3E0(arg0);
+        var_r5 = ((u8 (*)(i32)) func_0809C3E0)(arg0);
     }
     return var_r5;
 }
@@ -178,7 +178,7 @@ u8 func_0809C444(i32 arg0) {
 // DECOMP-MATCHED func_0809C4B4 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0809C22C();                                /* extern */
-u8 func_0809C3E0(i32);                              /* extern */
+u8 func_0809C3E0(i32, i32);
 
 __attribute__((section(".text.code_actor_0809BFE8.0809C4B4")))
 u8 func_0809C4B4(i32 arg0) {
@@ -188,7 +188,7 @@ u8 func_0809C4B4(i32 arg0) {
     temp_r0 = func_0809C22C();
     var_r2 = 0;
     if ((*((u8 *)arg0 + temp_r0) != 0) && ((temp_r0 == 5) || (temp_r0 == 2))) {
-        var_r2 = func_0809C3E0(arg0);
+        var_r2 = ((u8 (*)(i32)) func_0809C3E0)(arg0);
     }
     return var_r2;
 }

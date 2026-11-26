@@ -82,7 +82,7 @@ s32 func_0804F174(void) {
 }
 
 // DECOMP-MATCHED func_08050D0C (dari code_0803EE94.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(s32 *);                          /* extern */
+void * __builtin_delete(void *);
 s32 func_0804F69C(s32, s32);                          /* extern */
 
 void func_08050D0C(s32 *arg0, s32 arg1) {
@@ -573,7 +573,7 @@ s32 *func_0807EE84(s32 *arg0, GenObj *arg1) {
 }
 
 // DECOMP-MATCHED func_0807EED4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(s32);                            /* extern */
+void * __builtin_delete(void *);
 s32 func_080C8360(void *, s32);                       /* extern */
 extern s32 vtable_unk_080E7C5C;
 
@@ -738,7 +738,7 @@ s32 *func_08081AB0(s32 *arg0, GenObj *arg1) {
 }
 
 // DECOMP-MATCHED func_08081B00 (dari code_0803EE94.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(s32);                            /* extern */
+void * __builtin_delete(void *);
 s32 func_080C8360(void *, s32);                       /* extern */
 extern s32 vtable_unk_080E7CCC;
 
@@ -1279,7 +1279,7 @@ s32 *func_08093AD4(s32 *arg0, GenObj *arg1) {
 }
 
 // DECOMP-MATCHED func_08093DCC (dari code_0803EE94.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(s32 **);                           /* extern */
+void * __builtin_delete(void *);
 extern s32 vtable_unk_080E812C;
 
 void func_08093DCC(s32 **arg0, s32 arg1) {
@@ -1314,7 +1314,7 @@ void func_080941A8(GenObj *arg0) {
 }
 
 // DECOMP-MATCHED func_08094268 (dari code_0803EE94.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(s32 **);                           /* extern */
+void * __builtin_delete(void *);
 extern s32 vtable_unk_080E8028;
 
 void func_08094268(s32 **arg0, s32 arg1) {
@@ -1349,7 +1349,7 @@ void func_08094648(GenObj *arg0) {
 }
 
 // DECOMP-MATCHED func_08094814 (dari code_0803EE94.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(void *);                         /* extern */
+void * __builtin_delete(void *);
 s32 __builtin_vec_delete();                           /* extern */
 
 typedef struct GenObj {

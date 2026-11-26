@@ -44,7 +44,7 @@ void func_0803BEFC(GenObj__func_0803BDE4 **arg0, s32 arg1, s32 arg2) {
 }
 
 // DECOMP-MATCHED func_0803C7A0 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(void *);                          /* extern */
+void * __builtin_delete(void *);
 s32 func_080E0D70(s32, s32);                          /* extern */
 
 void func_0803C7A0(s32 *arg0, s32 arg1) {
@@ -60,7 +60,7 @@ void func_0803C7A0(s32 *arg0, s32 arg1) {
 }
 
 // DECOMP-MATCHED func_0803BE50 (dari code_0803A8A4.s; cek manusia sebelum ke src/)
-s32 __builtin_delete(void *);                         /* extern */
+void * __builtin_delete(void *);
 s32 func_080098AC(s32, s32);                          /* extern */
 s32 func_080098DC(s32, s32);                          /* extern */
 extern s32 vtable_unk_080E7778;

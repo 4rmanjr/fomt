@@ -62,12 +62,12 @@
   "draft_src": "manual",
   "judged_mtime": 1795355149.69407,
   "module": "code_entities.s",
-  "note": "[MATCH + pindah via JALUR BUILD KEDUA] Epilog `pop {r2}` (nilai balik 64-bit) hanya diproduksi old_agbcc, sedangkan src/*.cc memakai agbcp. Solusi yang TERBUKTI: TU C terpisah `src/pop_r2.c` (C, bukan C++) berisi fungsi ini + func_08037470, dengan override Makefile `$(BUILD_DIR)/src/pop_r2.o: CC1 := $(OLD_CC1)` (preseden src/m4a.o) dan `CFLAGS += -w` (cpp host menyisipkan <stdc-predef.h>; warning-nya mematikan build karena -Werror). Tipe dasar ditulis lokal karena old_agbcc tak bisa mem-parse <stdint.h> modern. Section `__attribute__((section(\".text.<stem>.<hex>\")))` menempatkan blok tepat di posisi asm yang dicabut. Bukti: `make compare` HIJAU (fomt.gba OK). Lihat MIGRATE.md 29",
+  "note": "blok DECOMP-MATCHED tidak ada di decomp/promoted/code_entities.cc; status dikembalikan ke failed",
   "promoted_to": "src/pop_r2.c",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 388,
-  "status": "promoted",
+  "status": "failed",
   "thumb": true
  },
  "func_080202C4": {
@@ -1964,7 +1964,7 @@
   "addr": 134422026,
   "judged_mtime": 1793321390.1962905,
   "module": "code_entities.s",
-  "note": "SKIP-migrasi permanen: grup gabungan/tak-split.",
+  "note": "SKIP-PERMANEN: data asing 316B menempel ekor",
   "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 593,
   "sanitize_checked_v": 4,

@@ -3354,3 +3354,93 @@ Kuncinya: menulis bitfield 4-bit membuat agbcc menghitung mask sebagai
 (nibble atas) dipertahankan — cocok dengan ref yang hanya membersihkan
 `0xF`. Bentuk literal `(x & ~0x10) | 0xB` menghasilkan 32 B (1 instruksi
 kurang) dan selalu DIFF 2 byte; bentuk bitfield menghasilkan 34 B identik.
+
+### §94 Kelas MATCH lanjutan §93.1: nibble + field u16 (`ldrh` via `adds`)
+
+`func_080DD86C`, `func_080DDC24`, `func_080DDE74`, `func_080DDF18`,
+`func_080DDFBC` (34 B, `code_linkonce.s`) byte-identik dengan SATU template,
+hanya konstanta nibble yang berbeda (7 / 5 / 4 / 3 / 2):
+
+```c
+typedef struct GenObj {
+    u8 a : 4;        /* 0x0, nibble rendah — yang ditulis */
+    u8 b : 4;        /* 0x0, nibble atas  — dipertahankan */
+    u8 _pad1[3];
+    s32 unk4;        /* 0x4  */
+    u16 unk8;        /* 0x8  */
+    u16 unkA;        /* 0xA  */
+    u8 _padC[0x44];
+    s32 unk50;       /* 0x50 */
+    u16 unk54;       /* 0x54 */
+    u16 unk56;       /* 0x56 */
+} GenObj;
+void f(GenObj *arg0, GenObj *arg1) {
+    arg1->a = 7;
+    arg1->unk4 = arg0->unk50;
+    arg1->unk8 = arg0->unk54;
+    arg1->unkA = arg0->unk56;
+}
+```
+
+Dua hal yang menentukan (keduanya pernah salah di draf lama):
+
+1. Yang di-assign adalah field **nibble rendah** (`a`), bukan `b`. Menulis `b`
+   menghasilkan `movs r2,#0xf; bics` (36 B) — DIFF 2 byte; menulis `a`
+   menghasilkan `movs r2,#0x10; rsbs r2,r2,#0; ands` persis seperti ref.
+2. Field sumber 0x54/0x56 harus bertipe **u16** di struct. Kalau ditulis `s32`
+   + cast `(u16)`, agbcc memakai `ldr r2,[r0,#0x54]` (32-bit); ref memakai
+   `adds r2,r0,#0x54; ldrh`. Dengan field u16, `adds`+`ldrh` muncul otomatis
+   (34 B identik).
+
+Draf lama (`(u8)((-0x10 & x) | 7)` + field s32) selalu DIFF: instruction count
+sama tapi operand/instruksi mask berbeda.
+
+### §95 Tembok promote-only: deklarasi extern yang bentrok di satu TU
+
+Residu promote-only (blok sudah byte-identik, tapi TU `.cc` menolak) hampir
+semuanya SATU kelas: blok baru mendeklarasikan extern dengan tanda tangan
+berbeda dari blok yang sudah ada di TU yang sama. Yang bekerja (byte-netral,
+`make compare` HIJAU):
+
+| cara | hasil |
+|---|---|
+| satukan deklarasi ke bentuk yang dipakai blok lama (`void *__builtin_delete(void *)`, `i32 f(void *, i32)`) + cast di call-site | HIJAU, byte-netral |
+| panggil bentuk 0-argumen lewat cast-call `((i32 (*)()) f)()` | HIJAU, tetap `bl` langsung |
+| deklarasi non-kanonik dipindah ke **dalam body** fungsi blok itu (block-scope) | HIJAU, byte-netral, konflik hilang tanpa cast |
+| `gUnk_*` disatukan ke `void *` + cast `(void *)` di assignment | HIJAU |
+
+Yang TIDAK bekerja (jangan diulang): menyatukan deklarasi secara global per-TU
+tanpa cast. Tiga TU (`code_linkonce`, `code_entities_08034CEC`, `hardware`)
+langsung mengubah byte ROM — deklarasi memengaruhi codegen, jadi unifikasi
+hanya boleh per-simbol dan harus divalidasi `make compare` tiap langkah.
+Catatan: `EC void func_0800080C() ALIAS(...)` di `src/scene.cc` adalah
+DEFINISI alias — jangan ikut ditulis ulang oleh pola apa pun.
+
+Sisa promote-only yang tetap menolak setelah kerja tipe (exact error, semua
+sudah dicatat di `note` shard masing-masing):
+
+| fungsi | error persis |
+|---|---|
+| `sub_080868BC` | `build/asm/code_0803EE94.split.s:136366: Error: invalid offset, value too big (0xFFFFFFFFFFFFFFFC)` |
+| `func_080D0644` | `[SKIP] sudah ada di src/code_809E804_v.c` (duplikat bookkeeping) |
+| `func_080D0EBC` | `` `__divsi3' referenced in section `.text.code_linkonce.b2.080DD9CC' ... defined in discarded section `.text' of libgcc.a(_divsi3.o) `` |
+| `func_080D116A/116E/117E/1186` | `cannot represent THUMB_OFFSET relocation in this object file format` |
+| `func_080D14EC`, `sub_080D1204/139C/1498/14C6` | `cannot represent THUMB_OFFSET relocation` / `invalid offset, value too big (0xFFFFFFFFFFFFFFFC)` |
+| `func_0809C474` | `stdin:259: too many arguments to function` |
+| `func_080202A0`, `func_08037470`, `func_08037ED0`, `func_0803834C` | `blok DECOMP-MATCHED tidak ditemukan di decomp/promoted/<modul>.cc` (blok hilang dari berkas promoted) |
+| `sub_08031E0A` | `data asing 316B menempel ekor` (SKIP-PERMANEN by-design) |
+| `func_080D6EAC` | `definisi func_080D6EAC di body vs extern usang di src (['i32 (i32)'])` |
+| `func_080D6EEC`, `func_080D6F1C` | `call-site func_080D6ECC: argumen `(u8 *)arg0 + 4` (`u8 *`) tak konversi implisit ke parameter `GenObj__*`` |
+| `func_080E0F48` | ``ANSI C++ forbids using pointer of type `void *' in arithmetic`` |
+| `func_080E10F8` | `stdin:1512: conflicting types for `i32 vtable_unk_080E78F0'` |
+| `func_080E3774` | `(.rodata+0x672c): multiple definition of `gUnk_081005D8'` |
+| `func_080E5418` | `stdin:2101: void value not ignored as it ought to be` |
+| `func_08007714` | ``ANSI C++ forbids comparison between pointer and integer`` |
+| `func_08007770` | `previous declaration `struct Unk_hardware_H * func_08007128(struct Unk_hardware_H *)' here` |
+| `func_08007EE8` | ``type `GenObj' is not a base type for type `GenObj__func_08007EE8'`` |
+| `func_08008020` | error kompilasi di body blok (lihat `note` shard `hardware`) |
+
+Residu promote-only awal 64 → 20. Yang pindah lewat cara-cara di tabel
+pertama: 40 fungsi (23 `code_linkonce` termasuk 5 MATCH baru §94, 11 residu
+`code_linkonce`, 6 `code_809E804`/`code_0803EE94`); sisanya tetap di luar
+`src/` dengan error di atas.
