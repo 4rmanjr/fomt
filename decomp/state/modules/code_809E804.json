@@ -2708,9 +2708,9 @@
  "func_080ADF40": {
   "addr": 134930240,
   "draft_src": "manual",
-  "judged_mtime": 1795435561.012676,
+  "judged_mtime": 1795694263.7943723,
   "module": "code_809E804.s",
-  "note": "len 38 vs ref 44 [3missing,3operand,10regalloc,2different @i push {r4, r5, lr} | push {r4, lr}]",
+  "note": "parkir: agbcc tanpa salinan r4/r5, 36 vs 44 B \u2014 POLA-DIFF \u00a787",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 420,
@@ -6060,9 +6060,9 @@
  },
  "rand": {
   "addr": 135074276,
-  "judged_mtime": 1795430626.5687535,
+  "judged_mtime": 1795694263.812373,
   "module": "code_809E804.s",
-  "note": "byte +0x1: 0x4a vs ref 0xa0 [1missing,2extra,2operand,3regalloc,3different @| adr r0, #0x10 | ldr r2, [pc, #0x10]]",
+  "note": "parkir: ref memuat 3 konstanta via ldm dari pool, agbcc selalu ldr terpisah, 32 vs 30 B \u2014 POLA-DIFF \u00a787",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 297,

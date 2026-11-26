@@ -2956,3 +2956,57 @@ bisa ditulis sebagai satu fungsi C, jadi:
 
 Hasil putaran ini: 17 MATCH baru + 17 migrasi ke `src/`
 (`code_entities.s`), src 1146 -> 1163.
+
+### 87. Empat fungsi promote-only kecil: wall regalloc/instruksi-seleksi terukur
+
+Semua dicoba sampai 4–5 bentuk sumber; tidak ada yang mencapai 0 byte diff.
+Perbedaan yang tersisa selalu satu kelas: agbcc memilih register/opcode lain,
+bukan struktur kode.
+
+`func_08012720` / `func_08012760` (game_state, 44 B):
+```
+ref : ldr r2, [r0, #4] | adds r0, r2, #0 | ... | ldr r3, [r0]
+ours: ldr r1, [r0, #4] | adds r0, r1, #0 | ... | ldr r2, [r0]
+```
+Struktur, offset, dan urutan instruksi identik; agbcc mengalokasikan pointer
+`p` di r1 (v di r2) sementara ref memakai r2/r3. Empat bentuk dicoba: pointer
+mentah, `s32 *q` + cast, struct field `arg0->unk4`, dan deklarasi `v`
+sebelum `p` — semuanya tetap r1. Sisa 7 residual regalloc, 1 instruksi beda.
+
+`func_08024C74` (code_entities, 18 B): ref merantai pointer di r0
+(`adds r0,#0x3c; strb; adds r0,#2; strb; adds r0,#0x68; strh r1,[r0]`) dengan
+satu `adds r2,r0` mati di awal. Bentuk sumber yang dicoba: tiga store lewat
+`arg0`, pointer berjalan `p`, pointer berjalan + variabel mati — hasil terbaik
+22 B (agbcc menaruh rantai di r2 dan menyimpan `mov r1,#0` kedua), ref 18 B.
+Instruksi `adds r2, r0` yang mati tidak bisa dipaksa muncul bersamaan dengan
+rantai r0.
+
+`func_080ADF40` (code_809E804, 44 B): ref memakai push {r4,r5,lr} dengan
+salinan `adds r5,r0` (a) dan `adds r4,r1` (sum) supaya keduanya hidup sampai
+`return (sum>>8)-(a>>8)`; agbcc menghasilkan 36 B tanpa salinan itu
+(`add r2,r0` + sum di r2). Menambah variabel `b` terpisah tidak memunculkan
+salinan.
+
+`rand` (code_809E804, 30 B): ref memuat tiga konstanta sekaligus dengan
+`add r0,pc,#0x10; ldm r0!,{r1,r2,r3}` (seed 0x03000A50, mul 0x41C64E6D,
+add 0x3039). Dua bentuk sumber dicoba (`static const` struct dan literal
+angka langsung); agbcc selalu mengeluarkan `ldr` terpisah per konstanta
+(32–40 B, 4–5 instruksi beda). Pola `ldm` untuk blok konstanta contiguous
+tidak bisa dipicu dari C di konfigurasi ini.
+
+### 87.1 `func_08012720`/`func_08012760`: pin register menutup 3 dari 4 selisih
+
+Pin `register u8 *p __asm__("r2")` + `register void *v __asm__("r3")` dan
+pointer `t = p + 0xAC` (dibaca lagi sebagai `t - 0x20`) menghasilkan asm yang
+identik dengan ref **kecuali satu halfword**:
+
+```
+ref : ldr r2, .L08012748   @ =0x00002210
+ours: ldr r1, .L5          @ =0x00002210
+```
+
+Sisa satu byte (+0x13). Penyebabnya: `p` yang di-pin memegang r2 sepanjang
+fungsi, jadi konstanta 0x2210 tidak boleh memakai r2 lagi (ref memakainya
+karena `p` sudah mati). Tanpa pin, `p` jatuh ke r1 dan dua instruksi pertama
+sudah beda. Kombinasi "p di r2 saat hidup, r2 bebas saat mati" tidak bisa
+dipaksakan lewat C/pin di agbcc 2.9 — inilah wall-nya, bukan struktur kode.

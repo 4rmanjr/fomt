@@ -785,9 +785,9 @@
  "func_08012720": {
   "addr": 134293280,
   "draft_src": "manual",
-  "judged_mtime": 1795430626.5687535,
+  "judged_mtime": 1795694522.2853026,
   "module": "game_state.s",
-  "note": "len 46 vs ref 42 [3extra,3operand,8regalloc @i push {lr} | push {r4, lr}]",
+  "note": "parkir: pin r2/r3 membuat asm identik kecuali 1 halfword (ldr r1 vs ldr r2 untuk konstanta 0x2210); pin memblok reuse r2 \u2014 POLA-DIFF \u00a787/\u00a787.1",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 479,
@@ -808,9 +808,9 @@
  },
  "func_08012760": {
   "addr": 134293344,
-  "judged_mtime": 1795431348.316404,
+  "judged_mtime": 1795694522.297303,
   "module": "game_state.s",
-  "note": "byte +0x13: 0x49 vs ref 0x4a [1extra,2regalloc @r ldr r2, [pc, #0x14] | ldr r1, [pc, #0x14]]",
+  "note": "parkir: pin r2/r3 membuat asm identik kecuali 1 halfword (ldr r1 vs ldr r2 untuk konstanta 0x2210); pin memblok reuse r2 \u2014 POLA-DIFF \u00a787/\u00a787.1",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 479,
