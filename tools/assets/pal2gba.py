@@ -57,13 +57,24 @@ def read_pal(path):
     lines = Path(path).read_text().splitlines()
     if len(lines) < 3 or lines[0].strip() != "JASC-PAL":
         raise ValueError(f"{path}: bukan JASC-PAL")
-    count = int(lines[2].strip())
+    try:
+        count = int(lines[2].strip())
+    except ValueError:
+        raise ValueError(f"{path}: jumlah warna bukan angka: {lines[2]!r}")
+    if count < 2:
+        raise ValueError(f"{path}: butuh minimal 2 warna, header bilang {count}")
     colors = []
     for line in lines[3:3 + count]:
         parts = line.split()
         if len(parts) != 3:
             raise ValueError(f"{path}: baris warna tidak valid: {line!r}")
-        colors.append(tuple(int(p) for p in parts))
+        try:
+            color = tuple(int(p) for p in parts)
+        except ValueError:
+            raise ValueError(f"{path}: kanal bukan angka: {line!r}")
+        if any(not 0 <= value <= 255 for value in color):
+            raise ValueError(f"{path}: kanal di luar 0..255: {line!r}")
+        colors.append(color)
     if len(colors) != count:
         raise ValueError(f"{path}: {len(colors)} warna, header bilang {count}")
     return colors

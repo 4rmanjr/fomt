@@ -64,33 +64,49 @@ def _paeth(a, b, c):
 def read_png(path):
     """Baca PNG truecolor/RGBA 8-bit non-interlaced -> (w, h, RGB bytes)."""
     raw = path.read_bytes()
-    if not raw.startswith(b"\x89PNG\r\n\x1a\n"):
+    if len(raw) < 8 or not raw.startswith(b"\x89PNG\r\n\x1a\n"):
         raise ValueError(f"{path}: bukan PNG")
     pos = 8
     width = height = None
     color_type = None
     idat = bytearray()
+    saw_iend = False
     while pos < len(raw):
-        if pos + 8 > len(raw):
-            raise ValueError(f"{path}: chunk terpotong")
+        if pos + 12 > len(raw):
+            raise ValueError(f"{path}: chunk terpotong di {pos:#x}")
         length = struct.unpack(">I", raw[pos:pos + 4])[0]
         tag = raw[pos + 4:pos + 8]
+        end = pos + 12 + length
+        if end > len(raw):
+            raise ValueError(f"{path}: chunk {tag!r} terpotong")
         data = raw[pos + 8:pos + 8 + length]
-        pos += 12 + length
+        pos = end
         if tag == b"IHDR":
+            if length != 13:
+                raise ValueError(f"{path}: IHDR {length} B, harus 13 B")
             (width, height, depth, color_type, _comp, _filter,
              interlace) = struct.unpack(">IIBBBBB", data)
             if depth != 8 or color_type not in (2, 6) or interlace != 0:
                 raise ValueError(f"{path}: butuh truecolor/RGBA 8-bit non-interlaced")
+            if width < 2 or height < 2:
+                raise ValueError(f"{path}: ukuran {width}x{height}, minimal 2x2")
         elif tag == b"IDAT":
             idat.extend(data)
         elif tag == b"IEND":
+            saw_iend = True
             break
     if width is None or height is None:
         raise ValueError(f"{path}: IHDR tidak ada")
+    if not idat:
+        raise ValueError(f"{path}: IDAT tidak ada")
+    if not saw_iend:
+        raise ValueError(f"{path}: IEND tidak ada")
     bpp = 3 if color_type == 2 else 4
     stride = width * bpp
-    stream = zlib.decompress(bytes(idat))
+    try:
+        stream = zlib.decompress(bytes(idat))
+    except zlib.error as exc:
+        raise ValueError(f"{path}: IDAT tidak valid: {exc}")
     rows = []
     prev = bytearray(stride)
     p = 0
@@ -122,6 +138,9 @@ def read_png(path):
             src = x * bpp
             dst = (y * width + x) * 3
             rgb[dst:dst + 3] = row[src:src + 3]
+    colors = {bytes(rgb[i:i + 3]) for i in range(0, len(rgb), 3)}
+    if len(colors) < 2:
+        raise ValueError(f"{path}: gambar hanya punya {len(colors)} warna")
     return width, height, rgb
 
 

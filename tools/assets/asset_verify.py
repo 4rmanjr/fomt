@@ -41,6 +41,7 @@ import hashlib
 import importlib.util
 import json
 import re
+import struct
 import sys
 from pathlib import Path
 
@@ -437,6 +438,7 @@ def padding_problems(asset, rom):
         if size and not any(a <= off and off + size <= b for a, b, _ in spans):
             problems.append(f"raw[{j}] {off:#x}..{off+size:#x} tidak punya padding")
     payload = []
+    base = int(str(meta.get("rom", {}).get("offset", 0)), 0)
     for i, seg in enumerate(meta.get("payload_segments", [])):
         if not isinstance(seg, dict):
             problems.append(f"payload[{i}] bukan objek")
@@ -452,11 +454,29 @@ def padding_problems(asset, rom):
             problems.append(f"payload[{i}] hex != size")
         if off < 0 or off + size > len(rom):
             problems.append(f"payload[{i}] {off:#x}..{off+size:#x} di luar ROM")
+        for source in seg.get("pointer_sources") or []:
+            try:
+                address = int(str(source), 0)
+            except ValueError:
+                problems.append(f"payload[{i}] pointer {source!r} bukan alamat")
+                continue
+            if address < 0 or address + 4 > len(rom):
+                problems.append(f"payload[{i}] pointer {source} di luar ROM")
+                continue
+            value = struct.unpack_from("<I", rom, address)[0]
+            want = 0x08000000 + base + off
+            if value != want:
+                problems.append(
+                    f"payload[{i}] pointer {source} = {value:#x}, "
+                    f"bukan {want:#x}")
         payload.append((off, off + size, i))
     payload.sort()
     for (a0, a1, ai), (b0, b1, bi) in zip(payload, payload[1:]):
         if b0 < a1:
             problems.append(f"payload[{ai}] dan payload[{bi}] tumpang tindih")
+        elif b0 > a1:
+            problems.append(
+                f"payload[{ai}]..payload[{bi}] celah {a1:#x}..{b0:#x}")
     for a, b, i in payload:
         if any(x < b and a < y for x, y, _ in spans):
             problems.append(f"payload[{i}] tumpang tindih dengan padding")

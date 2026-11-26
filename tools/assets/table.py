@@ -38,6 +38,19 @@ def sha256(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def _load_meta(meta_path):
+    try:
+        meta = json.loads(Path(meta_path).read_text())
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"{meta_path}: JSON tidak valid: {exc}")
+    if not isinstance(meta, dict):
+        raise SystemExit(f"{meta_path}: JSON wajib objek")
+    for key in ("rom", "source"):
+        if not isinstance(meta.get(key), dict):
+            raise SystemExit(f"{meta_path}: field {key} wajib objek")
+    return meta
+
+
 def _segment_bytes(segment):
     fmt = segment.get("format")
     offset = int(str(segment["offset"]), 0)
@@ -88,7 +101,7 @@ def _layout(meta):
 def encode_source(meta_path):
     """JSON segmen -> byte ROM lengkap."""
     meta_path = Path(meta_path)
-    meta = json.loads(meta_path.read_text())
+    meta = _load_meta(meta_path)
     if meta.get("kind") != "table":
         raise ValueError(f"{meta_path}: kind bukan table")
     try:
@@ -99,7 +112,7 @@ def encode_source(meta_path):
 
 def verify(meta_path, rom_path=None, out_path=None):
     meta_path = Path(meta_path)
-    meta = json.loads(meta_path.read_text())
+    meta = _load_meta(meta_path)
     encoded = encode_source(meta_path)
     expected = None
     if rom_path is not None:

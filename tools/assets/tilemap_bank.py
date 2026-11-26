@@ -127,8 +127,20 @@ def _segments(meta, size):
     return segments
 
 
+def _load_meta(meta_path):
+    try:
+        meta = json.loads(Path(meta_path).read_text())
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise SystemExit(f"{meta_path}: JSON tidak valid: {exc}")
+    if not isinstance(meta, dict):
+        raise SystemExit(f"{meta_path}: JSON wajib objek")
+    if not isinstance(meta.get("rom"), dict):
+        raise SystemExit(f"{meta_path}: field rom wajib objek")
+    return meta
+
+
 def encode_source(meta_path):
-    meta = json.loads(Path(meta_path).read_text())
+    meta = _load_meta(meta_path)
     size = int(meta["rom"]["size"])
     buf = bytearray(size)
     for offset, data, _label in _segments(meta, size):

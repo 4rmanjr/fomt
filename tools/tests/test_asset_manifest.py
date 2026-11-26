@@ -20,6 +20,21 @@ spec = importlib.util.spec_from_file_location(
 tile4bpp = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(tile4bpp)
 
+spec = importlib.util.spec_from_file_location(
+    "pal2gba", REPO / "tools" / "assets" / "pal2gba.py")
+pal2gba = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(pal2gba)
+
+spec = importlib.util.spec_from_file_location(
+    "table", REPO / "tools" / "assets" / "table.py")
+table = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(table)
+
+spec = importlib.util.spec_from_file_location(
+    "tilemap_bank", REPO / "tools" / "assets" / "tilemap_bank.py")
+tilemap_bank = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(tilemap_bank)
+
 
 class AssetManifest(unittest.TestCase):
     def setUp(self):
@@ -127,6 +142,14 @@ class AssetManifest(unittest.TestCase):
             end = seg["offset"] + seg["size"]
         self.assertEqual(end, 0x1D20 + 25856)
         self.assertEqual(segs[0]["offset"], 0x1D20)
+        rom = asset_manifest.ROM.read_bytes()
+        base = int(meta["rom"]["offset"], 0)
+        for seg in segs:
+            for source in seg["pointer_sources"]:
+                address = int(source, 0)
+                self.assertEqual(
+                    struct.unpack_from("<I", rom, address)[0],
+                    0x08000000 + base + seg["offset"], source)
 
     def test_source_files_are_not_degenerate(self):
         assets = json.loads(asset_manifest.MANIFEST.read_text())["assets"]
@@ -204,6 +227,97 @@ class AssetManifest(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 asset_manifest.build_entry(td / "clock.json",
                                            asset_manifest.ROM.read_bytes())
+
+
+class DegenerateSources(unittest.TestCase):
+    """Input source kosong/rusak harus gagal dengan pesan, bukan traceback."""
+
+    @staticmethod
+    def _chunk(tag, data):
+        return (struct.pack(">I", len(data)) + tag + data
+                + struct.pack(">I", zlib.crc32(tag + data) & 0xFFFFFFFF))
+
+    def _png(self, path, width=2, height=2, color=(255, 0, 0),
+             ihdr=True, idat=True, iend=True):
+        rows = b"".join(b"\x00" + bytes(color) * width
+                        for _ in range(height))
+        raw = bytearray(b"\x89PNG\r\n\x1a\n")
+        if ihdr:
+            raw += self._chunk(b"IHDR", struct.pack(
+                ">IIBBBBB", width, height, 8, 2, 0, 0, 0))
+        if idat:
+            raw += self._chunk(b"IDAT", zlib.compress(rows))
+        if iend:
+            raw += self._chunk(b"IEND", b"")
+        path.write_bytes(raw)
+
+    def test_degenerate_png_fails_cleanly(self):
+        with tempfile.TemporaryDirectory() as td:
+            td = Path(td)
+            cases = {
+                "empty": b"",
+                "signature": b"\x89PNG\r\n\x1a\n",
+                "truncated": b"\x89PNG\r\n\x1a\n" + b"\x00" * 12,
+            }
+            for name, raw in cases.items():
+                path = td / f"{name}.png"
+                path.write_bytes(raw)
+                with self.assertRaises(ValueError) as ctx:
+                    tile4bpp.read_png(path)
+                self.assertIn(str(path), str(ctx.exception))
+            malformed = {
+                "no-ihdr": {"ihdr": False},
+                "no-idat": {"idat": False},
+                "no-iend": {"iend": False},
+                "ihdr-only": {"idat": False, "iend": False},
+                "1x1": {"width": 1, "height": 1},
+                "single-color": {"width": 2, "height": 2},
+            }
+            for name, kwargs in malformed.items():
+                path = td / f"{name}.png"
+                self._png(path, **kwargs)
+                with self.assertRaises(ValueError) as ctx:
+                    tile4bpp.read_png(path)
+                self.assertIn(str(path), str(ctx.exception))
+
+    def test_degenerate_pal_fails_cleanly(self):
+        with tempfile.TemporaryDirectory() as td:
+            td = Path(td)
+            cases = {
+                "empty": "",
+                "header-only": "JASC-PAL\n0100\n",
+                "one-color": "JASC-PAL\n0100\n1\n255 0 0\n",
+                "count-mismatch": "JASC-PAL\n0100\n2\n255 0 0\n",
+                "not-jasc": "RIFF-PAL\n0100\n2\n0 0 0\n255 255 255\n",
+                "bad-channel": "JASC-PAL\n0100\n2\n0 0 999\n255 255 255\n",
+                "bad-count": "JASC-PAL\n0100\nx\n0 0 0\n",
+            }
+            for name, text in cases.items():
+                path = td / f"{name}.pal"
+                path.write_text(text)
+                with self.assertRaises(ValueError) as ctx:
+                    pal2gba.read_pal(path)
+                self.assertIn(str(path), str(ctx.exception))
+
+    def test_degenerate_json_fails_cleanly(self):
+        with tempfile.TemporaryDirectory() as td:
+            td = Path(td)
+            cases = {
+                "empty": "",
+                "whitespace": " \n\t\n",
+                "list": "[]",
+                "string": '"table"',
+                "null": "null",
+                "object": "{}",
+            }
+            for name, text in cases.items():
+                path = td / f"{name}.json"
+                path.write_text(text)
+                for loader in (table.encode_source,
+                               tilemap_bank.encode_source):
+                    with self.assertRaises(SystemExit) as ctx:
+                        loader(path)
+                    self.assertIn(str(path), str(ctx.exception))
 
 
 class SemanticsRule(unittest.TestCase):

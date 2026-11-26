@@ -66,7 +66,7 @@ Definisi selesainya sengaja ketat di kedua jalur:
   container terkompresi `0x70` (284/284) sudah bisa direencode byte-identik.
   Ketiga container `0x70` (`gUnk_086DC3F4`, `gUnk_0869B284`, `gUnk_086D74F8`)
   sudah rom-exact lewat `compressed_bank.py`; 20 blob tilemap/tabel terakhir
-  memakai segmen eksplisit/`padding` yang sudah diproven.
+  memakai segmen eksplisit/`payload_segments`/`padding` yang sudah diproven.
 - **Penyebut cakupan.** Populasi dihitung dari blob `.incbin` yang benar-benar
   terinventaris di `assets/raw` (satu blob = satu entri `.incbin`; satu blob
   bisa memuat beberapa sprite). Tabel per kelas memakai penyebut grup, jadi

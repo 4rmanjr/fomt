@@ -418,8 +418,13 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   dirujuk descriptor `0x18` B `func_080A5BD8` (u8 lebar/tinggi, tiga pointer
   layer di `+4/+8/+0xc`, blockmap `+0x10`, blocktable `+0x14`). Source kanonik
   tetap satu JSON per simbol, tetapi memuat `layers` (`offset`, `width`,
-  `height`, `descriptor`, `slot`, `entries` urut baris) dan `raw` (hex byte
-  yang tidak dirujuk) yang bersama-sama menutup `rom.size`. `decode` memindai
+  `height`, `descriptor`, `slot`, `entries` urut baris), `payload_segments`
+  (rentang yang dimulai pointer table: `offset`, `size`, `hex`, dan
+  `pointer_sources`), dan `raw` (hex byte yang tidak dirujuk); semuanya harus
+  bersama-sama menutup `rom.size`. `encode` menulis tiap segmen payload pada
+  offset-nya, sedangkan `asset_verify` memeriksa bahwa setiap alamat di
+  `pointer_sources` menunjuk tepat ke awal segmen dan tidak ada celah atau
+  tumpang tindih. `decode` memindai
   tabel descriptor (`--descriptor-start/--descriptor-end`, record `0x18`) dan
   menolak layer yang tumpang tindih; `encode` menolak celah, tumpang tindih,
   atau jumlah entri tidak sama dengan `width*height`; `verify` membandingkan
