@@ -250,6 +250,7 @@ class DegenerateSources(unittest.TestCase):
         if iend:
             raw += self._chunk(b"IEND", b"")
         path.write_bytes(raw)
+        return bytes(raw)
 
     def test_degenerate_png_fails_cleanly(self):
         with tempfile.TemporaryDirectory() as td:
@@ -273,6 +274,12 @@ class DegenerateSources(unittest.TestCase):
                 "1x1": {"width": 1, "height": 1},
                 "single-color": {"width": 2, "height": 2},
             }
+            path = td / "truncated-idat.png"
+            raw = self._png(path)
+            path.write_bytes(raw[:-20])
+            with self.assertRaises(ValueError) as ctx:
+                tile4bpp.read_png(path)
+            self.assertIn(str(path), str(ctx.exception))
             for name, kwargs in malformed.items():
                 path = td / f"{name}.png"
                 self._png(path, **kwargs)
