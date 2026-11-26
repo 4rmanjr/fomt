@@ -213,7 +213,7 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   keluaran tool lain. `pair_evidence.source` mencatat `callsite` atau `header-only`;
   `header-only` tidak boleh disebut terbukti dari call site. Seluruh stream dirender dalam hitungan
   puluhan detik; tidak menjalankan build dan tidak menulis ROM.
-- `raw_assets.py` — inventaris sisa 231 blob **mentah** (bukan `0x70`) dari
+- `raw_assets.py` — inventaris blob **mentah** (bukan `0x70`) dari
   `asset_inventory.analyze()`, kelompokkan dari isi: `palet` (<=1 KB, semua u16
   < 0x8000), `sprite/OBJ` (kelipatan 32 B = tile 4bpp, atau non-32 B dengan
   header/ekor <=31 B yang menyisakan tile >=13% nibble nol dan <=12
@@ -696,7 +696,7 @@ exit code tetap `unittest` yang sama; `make test-tools-serial` menjalankan
 `unittest discover` satu proses bila perlu membandingkan. Tidak menyentuh
 build dan tidak menulis ROM. Berkas yang ada:
 `run_parallel.py`, `test_cli.py`, `test_asset_manifest.py`, `test_asset_verify.py`,
-`test_compressed_bank.py`, `test_embedded_streams.py`, `test_font_container.py`, `test_font_palettes.py`,
+`test_check_docs_aset.py`, `test_compressed_bank.py`, `test_embedded_streams.py`, `test_font_container.py`, `test_font_palettes.py`,
 `test_glyph_font.py`, `test_glyph_index.py`, `test_lz70.py`, `test_map2bin.py`, `test_table.py`, `test_tilemap_bank.py`,
 `test_raw_assets.py`,
 `test_readme_stats.py`,

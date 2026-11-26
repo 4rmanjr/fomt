@@ -66,11 +66,17 @@ Yang diperiksa:
    tidak bisa berubah (atau laporan tertinggal) tanpa terdeteksi. Dilewati
    dengan catatan bila `baserom.gba` tidak ada.
 13. **Katalog tool lengkap**: setiap `tools/**/*.py` milik repo harus disebut
-   namanya di `docs/ops/TOOLS.md`. Tool yang lahir tanpa entri katalog hanya
-   diketahui dari riwayat sesi, dan pemakaian/jebakannya hilang untuk agent
-   berikutnya. Folder yang di-vendor (`tools/VENDORED.md`: `m2c`,
-   `decompnet`, `python`, `asm-differ`) dikecualikan karena katalognya berkas
-   itu, bukan katalog tool repo.
+    namanya di `docs/ops/TOOLS.md`. Tool yang lahir tanpa entri katalog hanya
+    diketahui dari riwayat sesi, dan pemakaian/jebakannya hilang untuk agent
+    berikutnya. Folder yang di-vendor (`tools/VENDORED.md`: `m2c`,
+    `decompnet`, `python`, `asm-differ`) dikecualikan karena katalognya berkas
+    itu, bukan katalog tool repo.
+14. **Klaim status aset basi**: `assets/manifest.json` adalah sumber
+    kebenaran status. Dokumen hidup (termasuk `ARSITEKTUR-ASET.md`) tidak
+    boleh lagi menyebut simbol `rom-exact` masih dibuka dari
+    `.incbin "baserom.gba"` atau masih diparkir; kalimat dari sesi lama
+    menyesatkan agent berikutnya setelah migrasi. Bentuk penyangkalan
+    ("tidak lagi parkir") tetap lolos.
 
 Read-only; exit 1 bila ada masalah (`--json` untuk agent, `--strict` sama
 dengan default).
@@ -234,6 +240,20 @@ def aset_0x70():
 ASSET_MANIFEST_DOC = "assets/manifest.json"
 ASSET_MANIFEST_TOOL = REPO / "tools" / "assets" / "asset_manifest.py"
 ASSET_MANIFEST_ROM = REPO / "baserom.gba"
+# Dokumen yang tidak boleh menyimpan klaim status aset yang sudah basi.
+ASSET_CLAIM_DOCS = LIVING + ["docs/decomp/ARSITEKTUR-ASET.md"]
+ROM_INCBIN = re.compile(r'\.incbin\s+"?baserom\.gba')
+PARKIR_CLAIM = re.compile(r"\b(?:di|ter)?parkir\w*\b", re.I)
+NEGASI = re.compile(r"\b(?:tidak|bukan|sudah|kini|sekarang)\b", re.I)
+
+
+def klaim_parkir(line):
+    """True bila `line` menyatakan parkir tanpa penyangkalan di klausanya."""
+    for m in PARKIR_CLAIM.finditer(line):
+        start = max(line.rfind(c, 0, m.start()) for c in ";:.")
+        if not NEGASI.search(line[start + 1:m.end() + 40]):
+            return True
+    return False
 
 
 def aset_sumber():
@@ -270,6 +290,55 @@ def aset_sumber():
                 "python3 tools/assets/asset_manifest.py"), None
     count = len(json.loads(text)["assets"])
     return None, f"manifest aset sinkron ({count} aset rom-exact)"
+
+
+def aset_klaim():
+    """-> (masalah|None, catatan|None) klaim status aset di dokumen.
+
+    Manifest adalah sumber kebenaran status: begitu satu simbol `rom-exact`,
+    dokumen tidak boleh lagi menyebutnya dibuka dari `baserom.gba` atau
+    diparkir. Tanpa gate ini kalimat dari sesi lama bertahan setelah migrasi
+    dan menyesatkan agent berikutnya; bentuk penyangkalan ("tidak lagi
+    parkir") tetap lolos.
+    """
+    path = REPO / ASSET_MANIFEST_DOC
+    if not path.exists():
+        return (ASSET_MANIFEST_DOC,
+                "manifest aset source hilang — jalankan "
+                "tools/assets/asset_manifest.py"), None
+    try:
+        assets = json.loads(path.read_text())["assets"]
+    except Exception as e:  # gate tidak boleh lolos diam-diam saat manifest rusak
+        return (ASSET_MANIFEST_DOC,
+                f"gate klaim aset gagal membaca manifest: {type(e).__name__}: {e}"), \
+            None
+    rom_exact = sorted(a["symbol"] for a in assets
+                       if a.get("status") == "rom-exact" and a.get("symbol"))
+    found = []
+    for rel in ASSET_CLAIM_DOCS:
+        doc = REPO / rel
+        if not doc.exists():
+            continue
+        for i, line in enumerate(doc.read_text().splitlines(), 1):
+            hits = [s for s in rom_exact if s in line]
+            if not hits:
+                continue
+            if ROM_INCBIN.search(line):
+                found.append((f"{rel}:{i}",
+                              f"klaim basi `{hits[0]}` masih dibuka dari "
+                              f"`.incbin \"baserom.gba\"` padahal manifest "
+                              f"`rom-exact`"))
+            elif klaim_parkir(line):
+                found.append((f"{rel}:{i}",
+                              f"klaim basi `{hits[0]}` masih diparkir "
+                              f"padahal manifest `rom-exact`"))
+    if found:
+        where, why = found[0]
+        more = f" (+{len(found) - 1} lain)" if len(found) > 1 else ""
+        return (where, why + more + " — perbarui dokumen, jangan biarkan "
+                "klaim lama"), None
+    return None, (f"klaim status aset sinkron ({len(rom_exact)} rom-exact "
+                  f"di {len(ASSET_CLAIM_DOCS)} dokumen)")
 
 
 GFX_RULES = "gfx_rules.mk"
@@ -700,6 +769,12 @@ def check(max_agents):
         notes.append(note)
 
     prob, note = aset_sumber()
+    if prob:
+        problems.append(prob)
+    elif note:
+        notes.append(note)
+
+    prob, note = aset_klaim()
     if prob:
         problems.append(prob)
     elif note:

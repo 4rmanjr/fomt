@@ -145,10 +145,11 @@ perlu disembunyikan. Ia mencegah klaim bukti yang tidak bisa dipertahankan.
 
 Audit hash compressed + decoded dan prioritas konversi untuk **seluruh**
 stream `0x70` yang sudah diekstrak — blob utuh maupun bank tertanam — ada di
-[`ASET-0X70-REENCODE.md`](ASET-0X70-REENCODE.md); cakupan per sumber dicatat
-di bagian Ringkasan dokumen itu, dan saat ini semuanya `opaque` karena repo
-belum punya encoder `0x70` yang terbukti byte-identik. Prioritas di dokumen
-itu bukan izin mengganti `.incbin`.
+[`ASET-0X70-REENCODE.md`](ASET-0X70-REENCODE.md); cakupan per sumber dan
+jumlah stream `opaque` ada di bagian Ringkasan dokumen itu — ambil angkanya
+dari `stream_audit.build()`, jangan disalin ke sini. Status `opaque` hanya
+penanda stream yang encoder-nya belum menghasilkan byte sama; prioritas di
+dokumen itu bukan izin mengganti `.incbin`.
 
 Palet `gUnk_0875A440` dan 12 wadah font/objek belum punya pasangan yang
 terbukti: tidak ada call site yang menyalin simbol palet ke palet RAM
@@ -406,8 +407,9 @@ Memeriksa:
 - sha256 generated == sha256 slice ROM;
 - offset, ukuran, alignment tidak berubah;
 - source dan encoder yang tercatat benar-benar dipakai;
-- aset `rom-exact` tidak masih memakai `baserom.gba` (di Fase 0 ini masih
-  dilaporkan sebagai catatan; `--require-switched` menjadikannya kegagalan);
+- aset `rom-exact` tidak masih memakai `baserom.gba` (`asset_verify`
+  melaporkannya sebagai catatan; `--require-switched` menjadikannya
+  kegagalan);
 - `assets/manifest.json` sesuai schema dan tidak punya symbol/offset ganda.
 
 Gate `assets/manifest.json` juga dipanggil `check_docs.py` (dibandingkan
@@ -1166,9 +1168,10 @@ berikutnya (`gUnk_086DC57C`/`gUnk_086DD6E0`) tepat di `+0x30`, jadi batas
 simbol benar dan tidak ada byte yang bocor ke label sebelah.
 
 `gUnk_086EAD8C` (33.312 B = 1041 x 32) dan
-`gUnk_086DE7F4` (50.408 B = 1575 x 32 + 8) **tidak** dimigrasikan: hanya 32 B
-pertama yang dibaca stamp, jadi blok-blok sisanya tidak punya pembaca dan
-bentuknya tidak boleh ditebak dari kelipatan 32.
+`gUnk_086DE7F4` (50.408 B = 1575 x 32 + 8) **bukan** tabel 4x4 walau ukurannya
+kelipatan 32: hanya 32 B pertama yang dibaca stamp, jadi blok-blok sisanya
+tidak punya pembaca dan bentuknya tidak boleh ditebak dari kelipatan itu
+(bentuk sebenarnya di paragraf berikut).
 
 Struktur sisanya juga bukan tabel 4x4. Descriptor 0x18 B yang dibaca
 `func_080A5BD8` (baris 14381) berisi `u8` lebar (14397), `u8` tinggi (14398),
@@ -1181,10 +1184,9 @@ bersebelahan, bukan blok 32 B. Pointer descriptor itu tidak kelipatan 32, dan
 keduanya bank layer peta berukuran variabel yang dirujuk per offset.
 
 Keduanya punya source `kind: tilemap_bank`
-(`tools/assets/tilemap_bank.py`), tetapi **tidak dihitung selesai**: 30.426/
-33.312 B (91,3%) dan 29.940/50.408 B (59,4%) masih `raw`. Source-nya satu JSON
-per simbol yang memuat `layers` (offset, lebar, tinggi, descriptor, slot, entri
-urut baris) dan `raw`
+(`tools/assets/tilemap_bank.py`) dan sudah dimigrasikan (`status: rom-exact`).
+Source-nya satu JSON per simbol yang memuat `layers` (offset, lebar, tinggi,
+descriptor, slot, entri urut baris) dan `raw`
 (hex byte yang tidak dirujuk); `encode` menolak source yang tidak menutup
 seluruh `rom.size`, tumpang tindih, atau jumlah entri tidak sama dengan
 `lebar x tinggi`. Layer diambil dari tabel descriptor `0x10692C`-`0x1070DC`
@@ -1193,9 +1195,10 @@ tidak ditebak. `.incbin` **tidak perlu dipecah** di offset layer: pointer
 descriptor adalah angka absolut, dan (kalau nanti byte `raw` sudah terbukti)
 mengganti satu simbol utuh dengan binary hasil encode menjaga semua offset.
 Split hanya akan menambah label tanpa mengubah byte; yang penting source
-mencatat offset tiap layer. Byte yang tidak dirujuk tetap `raw` dan belum
-dipahami — round-trip byte-identik, tetapi byte itu tidak diklaim sebagai
-layer dan asetnya berstatus `decoded-exact` sampai coverage cukup.
+mencatat offset tiap layer. Byte yang tidak dirujuk tetap `raw` (padding
+alignment/ekor) dan tidak diklaim sebagai layer: `encode` tetap menghasilkan
+byte identik, dan angka proven-nya dijaga blok `coverage` tiap JSON +
+`asset_verify`, bukan ditulis di sini.
 
 Alasan parkir stamp lain, semuanya dari loop yang sama:
 

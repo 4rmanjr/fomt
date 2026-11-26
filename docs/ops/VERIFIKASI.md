@@ -74,7 +74,11 @@ ingin hemat konteks lalu baca `tail -5` (R7); durasinya sekitar satu menit.
    `assets/0x70/reencode_manifest.json` + `docs/decomp/ASET-0X70-REENCODE.md`
    dengan `stream_audit.build()` (hash compressed/decoded semua stream yang
    sudah diekstrak — blob utuh + bank tertanam — dan status `opaque`), jadi
-   laporan hash tidak bisa basi tanpa terdeteksi.
+   laporan hash tidak bisa basi tanpa terdeteksi. Gate yang sama juga
+   memeriksa klaim status aset di dokumen hidup: simbol yang sudah
+   `rom-exact` tidak boleh disebut masih `.incbin "baserom.gba"` atau masih
+   diparkir (bentuk penyangkalan seperti "tidak lagi parkir" tetap lolos),
+   jadi kalimat basi setelah migrasi menggagalkan tutup sesi.
 3. `python3 tools/scripts/ekor_snapshot.py` → tulis ulang
    `docs/decomp/EKOR-BACKLOG.md` **bila sesi ini mengubah ujung rantai**: fungsi
    terakhir sebuah modul tail-only pindah/promosi, ekor dipromosikan jadi fungsi,
