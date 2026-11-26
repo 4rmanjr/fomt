@@ -41,18 +41,19 @@ gUnk_0869A0A4:
     .incbin "build/assets/gUnk_0869A0A4.bin"
 ```
 
-Seluruh blob aset yang terinventaris sudah `rom-exact`: byte source sama dengan
-slice ROM, `.incbin` menunjuk `build/assets/`, dan `asset_verify.py` tidak
-menemukan `.incbin "baserom.gba"` di antara mereka. Status itu membuktikan byte
+Seluruh blob aset di `data_0813B288.s` — termasuk 53 kontainer `0x70` utuh —
+sudah `rom-exact`: byte source sama dengan slice ROM, `.incbin` menunjuk
+`build/assets/`, dan `asset_verify.py` tidak menemukan `.incbin "baserom.gba"`
+di antara mereka. Status itu membuktikan byte
 source, bukan bahwa setiap field decoded — byte tanpa pembaca tetap disimpan
 eksplisit sebagai `raw`/`hex` dengan `padding` berjustifikasi (§4.3) dan
 semantiknya `unidentified`. Populasi serta cakupan per grup diambil dari
 `assets/manifest.json` dan `tools/scripts/asset_inventory.py --json`, bukan
 ditulis di sini.
 
-`.incbin "baserom.gba"` yang masih ada di berkas itu adalah data non-grafis di
-luar populasi aset, dan `make compare` tetap memakai `baserom.gba` sebagai
-pembanding.
+Tidak ada lagi `.incbin "baserom.gba"` per simbol di berkas itu; yang tersisa
+hanya baris pembuka region tanpa simbol (`.LDATA_BEG`), dan `make compare`
+tetap memakai `baserom.gba` sebagai pembanding.
 
 Daftar aturan build graphics tidak lagi ditulis tangan: `gfx_rules.mk`
 dihasilkan `tools/assets/gfx_rules.py` dari metadata `assets/gfx/**/*.json`
@@ -339,6 +340,7 @@ Untuk container `0x70`, tambahkan:
 | sprite/OBJ | PNG terindeks (PLTE) + `.pal` + JSON frame | `sprite2gba.py` | urutan tile, hash palet pasangan, jumlah tile = frame × tile/frame |
 | tabel/struct | JSON segmen (`table.py`), atau C dengan schema | `table.py` / generator C | segmen menutup seluruh slice, hash byte |
 | container 0x70 | manifest stream + source decoded | `lz70` + encoder stream | decoded hash **dan** compressed hash |
+| kontainer 0x70 utuh (`stream_bank`) | bin decoded per stream di `assets/0x70/bin` + header kompresi asli di JSON | `stream_bank.py` | tiap stream reencode byte-identik; total packed = `rom.size`, SHA-256 vs slice ROM |
 | container font/objek (`func_0805E6CC`) | JSON tabel + PNG tile | `font_container.py` | urutan enam tabel + ekor, SHA-256 seluruh container |
 | bank stream 0x70 tertanam | bin `extern/` + `embedded_manifest.json` | `embedded_streams.py` | rantai stream berakhir di ujung blob; sha256 bin + PNG tanpa ROM |
 | audio | MIDI/WAV | encoder m4a | urutan/loop, sample, hash |

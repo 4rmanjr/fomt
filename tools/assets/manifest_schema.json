@@ -44,6 +44,7 @@
        "sprite",
        "tilemap_bank",
        "compressed_bank",
+       "stream_bank",
        "table"
       ]
      },

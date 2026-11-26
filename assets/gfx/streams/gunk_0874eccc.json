@@ -1,0 +1,88 @@
+{
+ "id": "gfx/streams/gunk_0874eccc",
+ "symbol": "gUnk_0874ECCC",
+ "kind": "stream_bank",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x74ECCC",
+  "size": 364,
+  "sha256": "75d5bddfe3c45bfd96b145062a0cc929e4c4fa7b2b1127a6f7217cf17fafeab9"
+ },
+ "source": {
+  "json": "assets/gfx/streams/gunk_0874eccc.json",
+  "png": "../../0x70/png/gUnk_0874ECCC_00_layar_32x64.png"
+ },
+ "encoder": {
+  "tool": "stream_bank.py",
+  "version": 1
+ },
+ "streams": [
+  {
+   "format": "130",
+   "packed": 364,
+   "unpacked": 4096,
+   "bin": "assets/0x70/bin/gUnk_0874ECCC_00_4096_0x130.bin",
+   "bin_sha256": "d98ab606b25f20a431c0f3df13c35d6611c32667060dc4eb3b1a2b20914811d5",
+   "huffman": {
+    "spec": 11,
+    "atom": 1,
+    "counts": [
+     1,
+     0,
+     1,
+     1,
+     7,
+     6,
+     0,
+     0
+    ],
+    "leaves": [
+     [
+      0
+     ],
+     [],
+     [
+      1
+     ],
+     [
+      2
+     ],
+     [
+      4,
+      3,
+      6,
+      8,
+      10,
+      12,
+      14
+     ],
+     [
+      7,
+      11,
+      5,
+      13,
+      9,
+      15
+     ],
+     [],
+     []
+    ],
+    "widths": [
+     1,
+     5,
+     9
+    ]
+   },
+   "note": "layar logo: scene boot memuat latar logo, bukan lapis peta"
+  }
+ ],
+ "note": "1 stream 0x70 bersambung tanpa celah; payload per stream dari assets/0x70/bin, header kompresi asli dari stream ROM.",
+ "evidence": "assets/0x70/manifest.json entri gUnk_0874ECCC: 1 stream, 364 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok).",
+ "coverage": {
+  "total_bytes": 364,
+  "proven_bytes": 364,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
+}

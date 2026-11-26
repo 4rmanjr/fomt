@@ -10110,6 +10110,1117 @@
      ]
     }
    ]
+  },
+  {
+   "id": "gfx/streams/gunk_08527238",
+   "symbol": "gUnk_08527238",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x527238",
+    "size": 272,
+    "sha256": "6ef63dcb057b59d9bfbb2f098b98d626387127069452b8914a24118039098c70"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08527238.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08527238_00_peta_indeks_64.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08527238: 1 stream, 272 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08527348",
+   "symbol": "gUnk_08527348",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x527348",
+    "size": 472,
+    "sha256": "25e72b76e5b20cfcf4c5203e9d5fd1f47db6472468e0fa5626cd15d441020b48"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08527348.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08527348_00_peta_indeks_64.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08527348: 1 stream, 472 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08527520",
+   "symbol": "gUnk_08527520",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x527520",
+    "size": 176,
+    "sha256": "3cd80862e61a89ab561f28efac08cf6c4d193d88734fce04ecc25787df2c1e63"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08527520.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08527520_00_peta_indeks_64.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08527520: 1 stream, 176 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_085275d0",
+   "symbol": "gUnk_085275D0",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x5275D0",
+    "size": 8644,
+    "sha256": "669dec9d78bbe0d2ceb08383495eea9da863086b00c7dbd4687d90e5c01cddc5"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_085275d0.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_085275D0_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_085275D0: 1 stream, 8644 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0852a6d8",
+   "symbol": "gUnk_0852A6D8",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x52A6D8",
+    "size": 276,
+    "sha256": "603e7ade353a890db5487c4db016f37539c14c0ef09c6ae92502800d82dab11d"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0852a6d8.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0852A6D8_00_peta_indeks_64.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0852A6D8: 1 stream, 276 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0852a7ec",
+   "symbol": "gUnk_0852A7EC",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x52A7EC",
+    "size": 464,
+    "sha256": "1da4f7c4f280dd5f333fd0dae5507a686d170890ef04b53120206038e8472c8b"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0852a7ec.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0852A7EC_00_peta_indeks_64.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0852A7EC: 1 stream, 464 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0852a9bc",
+   "symbol": "gUnk_0852A9BC",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x52A9BC",
+    "size": 176,
+    "sha256": "3cd80862e61a89ab561f28efac08cf6c4d193d88734fce04ecc25787df2c1e63"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0852a9bc.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0852A9BC_00_peta_indeks_64.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0852A9BC: 1 stream, 176 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0852aa6c",
+   "symbol": "gUnk_0852AA6C",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x52AA6C",
+    "size": 8148,
+    "sha256": "cfb5e29e03d3defef982b8132b1b3acd90b6798a40cfbeb92d0ac723ccef4812"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0852aa6c.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0852AA6C_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0852AA6C: 1 stream, 8148 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_086fb004",
+   "symbol": "gUnk_086FB004",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6FB004",
+    "size": 8600,
+    "sha256": "7db15bfbc7c82fd7ac2155a4495cac59ff49fe39001bf8b024f74797fdf3022d"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_086fb004.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_086FB004_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_086FB004: 1 stream, 8600 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_086fd19c",
+   "symbol": "gUnk_086FD19C",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6FD19C",
+    "size": 164,
+    "sha256": "83c4f6b8f8b09d04e3bdf1dbe288f91e1dda4b5f1e4331d0de8238895dec6d50"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_086fd19c.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_086FD19C_00_palet.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_086FD19C: 1 stream, 164 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_086fd240",
+   "symbol": "gUnk_086FD240",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6FD240",
+    "size": 96240,
+    "sha256": "e3e478722f3bdea635f3ace0dc0e05d058c4ab41354875bc6a0e40ffd82d62e6"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_086fd240.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_086FD240_00_peta_60x56.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_086FD240: 50 stream, 96240 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08714a30",
+   "symbol": "gUnk_08714A30",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x714A30",
+    "size": 304,
+    "sha256": "94f4f856a5a8c505555e156db433691075a991a01d53647e1fb44308a161f452"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08714a30.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08714A30_00_palet.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08714A30: 2 stream, 304 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08714b60",
+   "symbol": "gUnk_08714B60",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x714B60",
+    "size": 140,
+    "sha256": "5eb927662660f0d053ff96932a55a32658ac34bb0ae76c87d5b43b71c21d6d09"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08714b60.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08714B60_00_palet.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08714B60: 1 stream, 140 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08714bec",
+   "symbol": "gUnk_08714BEC",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x714BEC",
+    "size": 9112,
+    "sha256": "c5ecc33bf35ac4354caa991363eae40642066e298282951b16ef5330b9b33622"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08714bec.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08714BEC_00_palet.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08714BEC: 6 stream, 9112 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08716f84",
+   "symbol": "gUnk_08716F84",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x716F84",
+    "size": 308,
+    "sha256": "0b2ff3c53d53a3ddb3454a165eb887a4b23dc99e156986ce8d63c95784272fb8"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08716f84.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08716F84_00_palet.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08716F84: 2 stream, 308 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_087170b8",
+   "symbol": "gUnk_087170B8",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x7170B8",
+    "size": 25700,
+    "sha256": "4426b21dfdca361d8e2cc36ff13ea75d1cfe7a2037ea8ed21bfcd08096d27a57"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_087170b8.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_087170B8_00_palet.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_087170B8: 25 stream, 25700 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872c5d0",
+   "symbol": "gUnk_0872C5D0",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72C5D0",
+    "size": 364,
+    "sha256": "4a034222fab9eb15c332549866b47b5a70630e77d7487e467323bbed970391df"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872c5d0.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872C5D0_00_layar_32x32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872C5D0: 1 stream, 364 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872c73c",
+   "symbol": "gUnk_0872C73C",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72C73C",
+    "size": 272,
+    "sha256": "2595b4633ff9a09552ec2f7b536955ab0f4413a6b39fd5214fc3e3ee643d539f"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872c73c.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872C73C_00_layar_32x32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872C73C: 1 stream, 272 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872c84c",
+   "symbol": "gUnk_0872C84C",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72C84C",
+    "size": 3424,
+    "sha256": "b7de5bf092453b35a902335d3b954614dbf5534a937363dc6ae48bef6f6d20e7"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872c84c.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872C84C_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872C84C: 1 stream, 3424 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872d5cc",
+   "symbol": "gUnk_0872D5CC",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72D5CC",
+    "size": 100,
+    "sha256": "aec067a08ab56caa943a968bc88bda8e1da338318eeb6ffcfcd77fe7d3a517e2"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872d5cc.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872D5CC_00_layar_32x32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872D5CC: 1 stream, 100 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872d630",
+   "symbol": "gUnk_0872D630",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72D630",
+    "size": 168,
+    "sha256": "39b62dbb753ae0c2c8872d650eb5c1669c7dea6ede55dff95fb29e8de4c49493"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872d630.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872D630_00_layar_32x32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872D630: 1 stream, 168 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872d6d8",
+   "symbol": "gUnk_0872D6D8",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72D6D8",
+    "size": 1804,
+    "sha256": "514c40d61f92f92855d8394ac5173fae6056601920e461c0a3440678fcb56be2"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872d6d8.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872D6D8_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872D6D8: 1 stream, 1804 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872f11c",
+   "symbol": "gUnk_0872F11C",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72F11C",
+    "size": 160,
+    "sha256": "bd33e16fade336e624dd46573117ceecac9c5db381af677e0c47181eb4f31db5"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872f11c.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872F11C_00_peta_indeks_16.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872F11C: 1 stream, 160 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872f1bc",
+   "symbol": "gUnk_0872F1BC",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72F1BC",
+    "size": 48,
+    "sha256": "da7be21c1d4e45d9563c51ce1e90b7d3a3f54b0e5aee32f6e3f12711d4541f67"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872f1bc.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872F1BC_00_peta_indeks_16.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872F1BC: 1 stream, 48 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872f1ec",
+   "symbol": "gUnk_0872F1EC",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72F1EC",
+    "size": 48,
+    "sha256": "57a7894247e1ea27086387ba74ef20a74e290a5ffa96b335c7ae80587dcfb0d3"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872f1ec.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872F1EC_00_peta_indeks_16.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872F1EC: 1 stream, 48 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872f21c",
+   "symbol": "gUnk_0872F21C",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72F21C",
+    "size": 2176,
+    "sha256": "9f24f2b35674dbcfd5d50880bc606e14b2346d8cee5ad71ef793d9c6102aa910"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872f21c.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872F21C_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872F21C: 1 stream, 2176 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872fbfc",
+   "symbol": "gUnk_0872FBFC",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72FBFC",
+    "size": 56,
+    "sha256": "d9baf01cd0809529aac6f842f16f8e26dc4f6890a4fd34ff90827a9a3289e304"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872fbfc.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872FBFC_00_peta_indeks_16.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872FBFC: 1 stream, 56 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872fc34",
+   "symbol": "gUnk_0872FC34",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72FC34",
+    "size": 568,
+    "sha256": "dac12010416069a87ce5c9a1cce09ffea27752538ad96b3d852067f4dfac2ff5"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872fc34.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872FC34_00_layar_32x32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872FC34: 1 stream, 568 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872fe6c",
+   "symbol": "gUnk_0872FE6C",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72FE6C",
+    "size": 140,
+    "sha256": "7337a182c0e3095afb5c988987362f741f3f00349c5695770114ecd67c07490f"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872fe6c.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872FE6C_00_layar_32x32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872FE6C: 1 stream, 140 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0872fef8",
+   "symbol": "gUnk_0872FEF8",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x72FEF8",
+    "size": 6728,
+    "sha256": "2888335b90c9eb97f6070deac4405a291ada4de4bd88808231aaf5177caf2b0b"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0872fef8.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0872FEF8_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0872FEF8: 1 stream, 6728 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08738ad8",
+   "symbol": "gUnk_08738AD8",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x738AD8",
+    "size": 496,
+    "sha256": "91bd413189c1ab2f0228d4be27761f7c8ac8ec3f2a7e523a389615435ad86473"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08738ad8.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08738AD8_00_peta_indeks_32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08738AD8: 1 stream, 496 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08738cc8",
+   "symbol": "gUnk_08738CC8",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x738CC8",
+    "size": 40,
+    "sha256": "e99f913ef71767ada07d4b3455c2db321462255152f113cb8034468a2c7068bb"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08738cc8.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08738CC8_00_peta_indeks_32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08738CC8: 1 stream, 40 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08738cf0",
+   "symbol": "gUnk_08738CF0",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x738CF0",
+    "size": 44,
+    "sha256": "622b6f0b4a161985f29b616e03344dafff33b4bad8973617e255b0661d794544"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08738cf0.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08738CF0_00_peta_indeks_20.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08738CF0: 1 stream, 44 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08738d1c",
+   "symbol": "gUnk_08738D1C",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x738D1C",
+    "size": 3240,
+    "sha256": "00ae8e164ffed10b091e6f86a32ce83721fb96d9decb4322f0da99ba13ed34dd"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08738d1c.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08738D1C_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08738D1C: 1 stream, 3240 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08739a64",
+   "symbol": "gUnk_08739A64",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x739A64",
+    "size": 3204,
+    "sha256": "9733403deda667c205be8ea11546d2ab5cedae90edcdaea941b4d5d9f264fda5"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08739a64.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08739A64_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08739A64: 1 stream, 3204 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0873be24",
+   "symbol": "gUnk_0873BE24",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x73BE24",
+    "size": 292,
+    "sha256": "a5c3faa1c11cf14203e9b1c160fb5c0875bfa23794ecf52f509d22300ac81d78"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0873be24.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0873BE24_00_peta_32x32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0873BE24: 1 stream, 292 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0873bf48",
+   "symbol": "gUnk_0873BF48",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x73BF48",
+    "size": 168,
+    "sha256": "00b085c337ee564a9c72e662d248a3c29c8d416260ca9c40731b17d3248374e1"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0873bf48.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0873BF48_00_peta_32x32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0873BF48: 1 stream, 168 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0873bff0",
+   "symbol": "gUnk_0873BFF0",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x73BFF0",
+    "size": 3076,
+    "sha256": "e6ba93b01f0de684fdf5da3426be7839d6c4f63afdbb91c9d7205bc2b0d4a477"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0873bff0.json"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0873BFF0: 1 stream, 3076 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0873f3c8",
+   "symbol": "gUnk_0873F3C8",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x73F3C8",
+    "size": 524,
+    "sha256": "902e14a2e67444406453154a024354dd123f98cf43b3727d581f18d309b75754"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0873f3c8.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0873F3C8_00_peta_32x32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0873F3C8: 1 stream, 524 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0873f5d4",
+   "symbol": "gUnk_0873F5D4",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x73F5D4",
+    "size": 216,
+    "sha256": "2d2dc503401f40779d0a48e5159aa5579ce3a758743de40421dbc129781e7637"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0873f5d4.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0873F5D4_00_peta_32x32.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0873F5D4: 1 stream, 216 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0873f6ac",
+   "symbol": "gUnk_0873F6AC",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x73F6AC",
+    "size": 2616,
+    "sha256": "623caa9aa86e390b37e326096a2214be3f8b10060e0b08c4c6ec9f68c5e97608"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0873f6ac.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0873F6AC_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0873F6AC: 1 stream, 2616 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08743058",
+   "symbol": "gUnk_08743058",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x743058",
+    "size": 18876,
+    "sha256": "f0c828f16cafc75c3b277841bca74d1b7f62bbdf3551c9b591103c0f46213d4f"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08743058.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08743058_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08743058: 1 stream, 18876 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08747a74",
+   "symbol": "gUnk_08747A74",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x747A74",
+    "size": 12108,
+    "sha256": "d00631160fde8a8d0a18ae6216f9ad9db85ed5dc5c0baa0970d7227fc496b897"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08747a74.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08747A74_01_peta_indeks_64.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08747A74: 5 stream, 12108 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0874a9c0",
+   "symbol": "gUnk_0874A9C0",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74A9C0",
+    "size": 14704,
+    "sha256": "20269c8c8acaa2cdfd0ec72cacca882ec6e21cda7e2abc961b97d62626ac877b"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0874a9c0.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0874A9C0_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0874A9C0: 1 stream, 14704 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0874e648",
+   "symbol": "gUnk_0874E648",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74E648",
+    "size": 1272,
+    "sha256": "40a4339338b7d0a11335c325d697c1f9971bc5fdcabf1ccb1883ccb22e44ec87"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0874e648.json"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0874E648: 1 stream, 1272 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0874eb60",
+   "symbol": "gUnk_0874EB60",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74EB60",
+    "size": 364,
+    "sha256": "331374d3ef973dff24a3200e367593fe6fbaad92c8ab0a2a7c49aff7241f276e"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0874eb60.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0874EB60_00_layar_32x20.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0874EB60: 1 stream, 364 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0874eccc",
+   "symbol": "gUnk_0874ECCC",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74ECCC",
+    "size": 364,
+    "sha256": "75d5bddfe3c45bfd96b145062a0cc929e4c4fa7b2b1127a6f7217cf17fafeab9"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0874eccc.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0874ECCC_00_layar_32x64.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0874ECCC: 1 stream, 364 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0874ef14",
+   "symbol": "gUnk_0874EF14",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74EF14",
+    "size": 40,
+    "sha256": "f89eac66fe9bfe4d66b2540a85e31a01b689315178f0e6381a7a3e53357fa2a5"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0874ef14.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0874EF14_00_layar_32x20.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0874EF14: 1 stream, 40 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0874ef3c",
+   "symbol": "gUnk_0874EF3C",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74EF3C",
+    "size": 176,
+    "sha256": "4713bef027f8a799ac01398ed175f9dc6d9c6ec3601cd1a199e553bc21da4d31"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0874ef3c.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0874EF3C_00_layar_32x20.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0874EF3C: 1 stream, 176 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0874efec",
+   "symbol": "gUnk_0874EFEC",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74EFEC",
+    "size": 100,
+    "sha256": "2be4fe990176fbdce9ceda3a34de17f25c5864b6b433e681733fcf0d850ecee6"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0874efec.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0874EFEC_00_layar_32x20.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0874EFEC: 1 stream, 100 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0874f050",
+   "symbol": "gUnk_0874F050",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x74F050",
+    "size": 668,
+    "sha256": "affe9000551cfe131462a85c89847ac8d7909a7883a8201e3109a5e577fdb54d"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0874f050.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0874F050_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0874F050: 1 stream, 668 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_08755848",
+   "symbol": "gUnk_08755848",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x755848",
+    "size": 8856,
+    "sha256": "fbe7362cf81e9965753dee43f108c033e3e0081e8d79207e1f44f39cc98e1f9a"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_08755848.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_08755848_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_08755848: 1 stream, 8856 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
+  },
+  {
+   "id": "gfx/streams/gunk_0875822c",
+   "symbol": "gUnk_0875822C",
+   "kind": "stream_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75822C",
+    "size": 8492,
+    "sha256": "77bfcdfa8918452edf8fa69de854011016f7447fb417468488565aa953a97672"
+   },
+   "source": {
+    "json": "assets/gfx/streams/gunk_0875822c.json",
+    "png": "assets/gfx/streams/../../0x70/png/gUnk_0875822C_00_tile.png"
+   },
+   "encoder": {
+    "tool": "stream_bank.py",
+    "version": 1
+   },
+   "evidence": "assets/0x70/manifest.json entri gUnk_0875822C: 1 stream, 8492 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok)."
   }
  ]
 }

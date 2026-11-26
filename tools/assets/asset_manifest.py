@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """asset_manifest.py — indeks aset source: hash, status, encoder di satu tempat.
 
-Membaca metadata per-aset di `assets/gfx/{fonts,maps,palettes,sprites,tiles}/*.json`,
+Membaca metadata per-aset di `assets/gfx/{fonts,maps,palettes,sprites,streams,tables}/*.json`,
 menjalankan encoder
 yang dideklarasikan, lalu menulis `assets/manifest.json`:
 
@@ -36,9 +36,11 @@ SPRITE_DIR = ASSETS / "gfx" / "sprites"
 TILE_DIR = ASSETS / "gfx" / "tiles"
 MAP_DIR = ASSETS / "gfx" / "maps"
 TABLE_DIR = ASSETS / "gfx" / "tables"
+STREAM_DIR = ASSETS / "gfx" / "streams"
 # Direktori metadata aset yang dipindai. Berkas tanpa `rom`/`kind` dilewati,
 # jadi indeks status seperti `fonts/palettes.json` tidak ikut.
-ASSET_DIRS = (FONT_DIR, MAP_DIR, PALETTE_DIR, SPRITE_DIR, TILE_DIR, TABLE_DIR)
+ASSET_DIRS = (FONT_DIR, MAP_DIR, PALETTE_DIR, SPRITE_DIR, TILE_DIR, TABLE_DIR,
+              STREAM_DIR)
 MANIFEST = ASSETS / "manifest.json"
 ROM = REPO / "baserom.gba"
 TOOLS_DIR = Path(__file__).resolve().parent
@@ -54,6 +56,7 @@ ENCODERS = {
     "tilemap": "map2bin.py",
     "tilemap_bank": "tilemap_bank.py",
     "compressed_bank": "compressed_bank.py",
+    "stream_bank": "stream_bank.py",
     "table": "table.py",
 }
 
@@ -68,6 +71,7 @@ SCRIPTS = REPO / "tools" / "scripts"
 SHARED_ENCODERS = {
     "compressed_bank.py": (TOOLS_DIR / "lz70.py", SCRIPTS / "decompress.py",
                            SCRIPTS / "asset_inventory.py"),
+    "stream_bank.py": (TOOLS_DIR / "lz70.py", SCRIPTS / "decompress.py"),
     "font_container.py": (TOOLS_DIR / "tile4bpp.py",),
 }
 
@@ -94,6 +98,9 @@ def built_bin_matches(meta_path, meta, expected):
         rel = meta.get("source", {}).get(key)
         if rel:
             paths.append(_source_path(meta_path, rel))
+    for stream in meta.get("streams") or ():
+        if stream.get("bin"):
+            paths.append(_source_path(meta_path, stream["bin"]))
     newest = max((p.stat().st_mtime_ns for p in paths if p.exists()),
                  default=0)
     path = BUILD_ASSETS / f"{meta.get('symbol', '')}.bin"

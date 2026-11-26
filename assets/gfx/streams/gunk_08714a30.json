@@ -1,0 +1,56 @@
+{
+ "id": "gfx/streams/gunk_08714a30",
+ "symbol": "gUnk_08714A30",
+ "kind": "stream_bank",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x714A30",
+  "size": 304,
+  "sha256": "94f4f856a5a8c505555e156db433691075a991a01d53647e1fb44308a161f452"
+ },
+ "source": {
+  "json": "assets/gfx/streams/gunk_08714a30.json",
+  "png": "../../0x70/png/gUnk_08714A30_00_palet.png"
+ },
+ "encoder": {
+  "tool": "stream_bank.py",
+  "version": 1
+ },
+ "streams": [
+  {
+   "format": "030",
+   "packed": 160,
+   "unpacked": 480,
+   "bin": "assets/0x70/bin/gUnk_08714A30_00_480_0x030.bin",
+   "bin_sha256": "19297f6d026c99f1b4cbe7e1c53661d9d45ff861e1ebf588b6042a0ef0c8ac0a",
+   "ladder": [
+    1,
+    4,
+    5
+   ],
+   "note": "15 bank x 16 warna (0x1E0)"
+  },
+  {
+   "format": "030",
+   "packed": 144,
+   "unpacked": 480,
+   "bin": "assets/0x70/bin/gUnk_08714A30_01_480_0x030.bin",
+   "bin_sha256": "285efd5701af4c60604c786828f1cc831df7d6ec1a4ad99e3e50abeadab3bbaa",
+   "ladder": [
+    1,
+    4,
+    7
+   ],
+   "note": "15 bank x 16 warna (0x1E0)"
+  }
+ ],
+ "note": "2 stream 0x70 bersambung tanpa celah; payload per stream dari assets/0x70/bin, header kompresi asli dari stream ROM.",
+ "evidence": "assets/0x70/manifest.json entri gUnk_08714A30: 2 stream, 304 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok).",
+ "coverage": {
+  "total_bytes": 304,
+  "proven_bytes": 304,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
+}

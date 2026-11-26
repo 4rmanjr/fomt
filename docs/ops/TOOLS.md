@@ -461,6 +461,21 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   atau jumlah entri tidak sama dengan `width*height`; `verify` membandingkan
   byte + SHA-256 dengan slice ROM. Contoh: `gUnk_086EAD8C` (58 layer) dan
   `gUnk_086DE7F4` (45 layer) di `assets/gfx/maps/`.
+- `tools/assets/stream_bank.py` — codec **kontainer `0x70` utuh**
+  (`kind: stream_bank`): blob yang seluruh isinya stream `0x70` bersambung
+  tanpa celah, jadi tidak ada prefix mentah seperti `compressed_bank`.
+  Source kanoniknya payload hasil decode per stream (`assets/0x70/bin/*.bin`)
+  + header kompresi asli (tangga LZSS / pohon huffman) yang diturunkan dari
+  byte ROM; `encode` menulis ulang tiap stream dengan `lz70` (parity untuk
+  format `000`, `lzss2`/`lzss3` untuk `02x`/`03x`, `encode_huffman` untuk
+  `1xx`/`2xx`) lalu menyambungnya, dan menolak panjang packed yang berbeda.
+  `coverage()` menghitung semua byte sebagai proven (tidak ada raw), dan
+  `verify` membandingkan byte + SHA-256 dengan slice ROM. `decode` mengambil
+  layout stream dari `assets/0x70/manifest.json` dan menolak celah antar
+  stream. CLI: `python3 tools/assets/stream_bank.py decode --symbol S
+  --offset 0x... --size 0x... --json assets/gfx/streams/<id>.json`, `encode`,
+  `verify`. Dipakai 53 simbol kontainer `0x70` yang dulu masih
+  `.incbin "baserom.gba"`.
 - `tools/assets/popuri.py` — codec **Unpack** (`format popuri`) dua arah:
   `parse_bytes()` membaca stream terkompresi menjadi `format`, `ladder`,
   tabel `huffman`, dan `tokens`; `assemble()` menulis byte terkompresi dari
@@ -700,7 +715,7 @@ build dan tidak menulis ROM. Berkas yang ada:
 `test_glyph_font.py`, `test_glyph_index.py`, `test_lz70.py`, `test_map2bin.py`, `test_table.py`, `test_tilemap_bank.py`,
 `test_raw_assets.py`,
 `test_readme_stats.py`,
-`test_sprite2gba.py`, `test_stream_audit.py`, `test_tile4bpp.py`.
+`test_sprite2gba.py`, `test_stream_audit.py`, `test_stream_bank.py`, `test_tile4bpp.py`.
 `check_docs.py` menolak skrip `tools/**/*.py` yang belum disebut di berkas ini
 (folder vendored dikecualikan), jadi tes baru tanpa entri menggagalkan gate.
 

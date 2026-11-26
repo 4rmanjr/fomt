@@ -36,19 +36,23 @@ gUnk_08527094:
 
 	.global gUnk_08527238
 gUnk_08527238:
-	.incbin "baserom.gba", 0x527238, 0x110
+	@ rom: 0x527238 0x110 — source assets/gfx/streams/gunk_08527238.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_08527238.bin"
 
 	.global gUnk_08527348
 gUnk_08527348:
-	.incbin "baserom.gba", 0x527348, 0x1D8
+	@ rom: 0x527348 0x1D8 — source assets/gfx/streams/gunk_08527348.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_08527348.bin"
 
 	.global gUnk_08527520
 gUnk_08527520:
-	.incbin "baserom.gba", 0x527520, 0xB0
+	@ rom: 0x527520 0xB0 — source assets/gfx/streams/gunk_08527520.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_08527520.bin"
 
 	.global gUnk_085275D0
 gUnk_085275D0:
-	.incbin "baserom.gba", 0x5275D0, 0x21C4
+	@ rom: 0x5275D0 0x21C4 — source assets/gfx/streams/gunk_085275d0.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_085275D0.bin"
 
 	.global gUnk_08529794
 gUnk_08529794:
@@ -76,19 +80,23 @@ gUnk_08529DA4:
 
 .global gUnk_0852A6D8
 gUnk_0852A6D8:
-	.incbin "baserom.gba", 0x52A6D8, 0x114
+	@ rom: 0x52A6D8 0x114 — source assets/gfx/streams/gunk_0852a6d8.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0852A6D8.bin"
 
 	.global gUnk_0852A7EC
 gUnk_0852A7EC:
-	.incbin "baserom.gba", 0x52A7EC, 0x1D0
+	@ rom: 0x52A7EC 0x1D0 — source assets/gfx/streams/gunk_0852a7ec.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0852A7EC.bin"
 
 	.global gUnk_0852A9BC
 gUnk_0852A9BC:
-	.incbin "baserom.gba", 0x52A9BC, 0xB0
+	@ rom: 0x52A9BC 0xB0 — source assets/gfx/streams/gunk_0852a9bc.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0852A9BC.bin"
 
 	.global gUnk_0852AA6C
 gUnk_0852AA6C:
-	.incbin "baserom.gba", 0x52AA6C, 0x1FD4
+	@ rom: 0x52AA6C 0x1FD4 — source assets/gfx/streams/gunk_0852aa6c.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0852AA6C.bin"
 
 	.global gUnk_0852CA40
 gUnk_0852CA40:
@@ -383,35 +391,43 @@ gUnk_086FAA80:
 
 	.global gUnk_086FB004
 gUnk_086FB004:
-	.incbin "baserom.gba", 0x6FB004, 0x2198
+	@ rom: 0x6FB004 0x2198 — source assets/gfx/streams/gunk_086fb004.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_086FB004.bin"
 
 	.global gUnk_086FD19C
 gUnk_086FD19C:
-	.incbin "baserom.gba", 0x6FD19C, 0xA4
+	@ rom: 0x6FD19C 0xA4 — source assets/gfx/streams/gunk_086fd19c.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_086FD19C.bin"
 
 	.global gUnk_086FD240
 gUnk_086FD240:
-	.incbin "baserom.gba", 0x6FD240, 0x177F0
+	@ rom: 0x6FD240 0x177F0 — source assets/gfx/streams/gunk_086fd240.json; 50 stream 0x70
+	.incbin "build/assets/gUnk_086FD240.bin"
 
 	.global gUnk_08714A30
 gUnk_08714A30:
-	.incbin "baserom.gba", 0x714A30, 0x130
+	@ rom: 0x714A30 0x130 — source assets/gfx/streams/gunk_08714a30.json; 2 stream 0x70
+	.incbin "build/assets/gUnk_08714A30.bin"
 
 	.global gUnk_08714B60
 gUnk_08714B60:
-	.incbin "baserom.gba", 0x714B60, 0x8C
+	@ rom: 0x714B60 0x8C — source assets/gfx/streams/gunk_08714b60.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_08714B60.bin"
 
 	.global gUnk_08714BEC
 gUnk_08714BEC:
-	.incbin "baserom.gba", 0x714BEC, 0x2398
+	@ rom: 0x714BEC 0x2398 — source assets/gfx/streams/gunk_08714bec.json; 6 stream 0x70
+	.incbin "build/assets/gUnk_08714BEC.bin"
 
 	.global gUnk_08716F84
 gUnk_08716F84:
-	.incbin "baserom.gba", 0x716F84, 0x134
+	@ rom: 0x716F84 0x134 — source assets/gfx/streams/gunk_08716f84.json; 2 stream 0x70
+	.incbin "build/assets/gUnk_08716F84.bin"
 
 	.global gUnk_087170B8
 gUnk_087170B8:
-	.incbin "baserom.gba", 0x7170B8, 0x6464
+	@ rom: 0x7170B8 0x6464 — source assets/gfx/streams/gunk_087170b8.json; 25 stream 0x70
+	.incbin "build/assets/gUnk_087170B8.bin"
 
 	.global gUnk_0871D51C
 gUnk_0871D51C:
@@ -499,15 +515,18 @@ gUnk_0872BE64:
 
 	.global gUnk_0872C5D0
 gUnk_0872C5D0:
-	.incbin "baserom.gba", 0x72C5D0, 0x16C
+	@ rom: 0x72C5D0 0x16C — source assets/gfx/streams/gunk_0872c5d0.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872C5D0.bin"
 
 	.global gUnk_0872C73C
 gUnk_0872C73C:
-	.incbin "baserom.gba", 0x72C73C, 0x110
+	@ rom: 0x72C73C 0x110 — source assets/gfx/streams/gunk_0872c73c.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872C73C.bin"
 
 	.global gUnk_0872C84C
 gUnk_0872C84C:
-	.incbin "baserom.gba", 0x72C84C, 0xD60
+	@ rom: 0x72C84C 0xD60 — source assets/gfx/streams/gunk_0872c84c.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872C84C.bin"
 
 	.global gUnk_0872D5AC
 gUnk_0872D5AC:
@@ -517,15 +536,18 @@ gUnk_0872D5AC:
 
 	.global gUnk_0872D5CC
 gUnk_0872D5CC:
-	.incbin "baserom.gba", 0x72D5CC, 0x64
+	@ rom: 0x72D5CC 0x64 — source assets/gfx/streams/gunk_0872d5cc.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872D5CC.bin"
 
 	.global gUnk_0872D630
 gUnk_0872D630:
-	.incbin "baserom.gba", 0x72D630, 0xA8
+	@ rom: 0x72D630 0xA8 — source assets/gfx/streams/gunk_0872d630.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872D630.bin"
 
 	.global gUnk_0872D6D8
 gUnk_0872D6D8:
-	.incbin "baserom.gba", 0x72D6D8, 0x70C
+	@ rom: 0x72D6D8 0x70C — source assets/gfx/streams/gunk_0872d6d8.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872D6D8.bin"
 
 	.global gUnk_0872DDE4
 gUnk_0872DDE4:
@@ -547,19 +569,23 @@ gUnk_0872EE78:
 
 	.global gUnk_0872F11C
 gUnk_0872F11C:
-	.incbin "baserom.gba", 0x72F11C, 0xA0
+	@ rom: 0x72F11C 0xA0 — source assets/gfx/streams/gunk_0872f11c.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872F11C.bin"
 
 	.global gUnk_0872F1BC
 gUnk_0872F1BC:
-	.incbin "baserom.gba", 0x72F1BC, 0x30
+	@ rom: 0x72F1BC 0x30 — source assets/gfx/streams/gunk_0872f1bc.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872F1BC.bin"
 
 	.global gUnk_0872F1EC
 gUnk_0872F1EC:
-	.incbin "baserom.gba", 0x72F1EC, 0x30
+	@ rom: 0x72F1EC 0x30 — source assets/gfx/streams/gunk_0872f1ec.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872F1EC.bin"
 
 	.global gUnk_0872F21C
 gUnk_0872F21C:
-	.incbin "baserom.gba", 0x72F21C, 0x880
+	@ rom: 0x72F21C 0x880 — source assets/gfx/streams/gunk_0872f21c.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872F21C.bin"
 
 	.global gUnk_0872FA9C
 gUnk_0872FA9C:
@@ -569,19 +595,23 @@ gUnk_0872FA9C:
 
 	.global gUnk_0872FBFC
 gUnk_0872FBFC:
-	.incbin "baserom.gba", 0x72FBFC, 0x38
+	@ rom: 0x72FBFC 0x38 — source assets/gfx/streams/gunk_0872fbfc.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872FBFC.bin"
 
 	.global gUnk_0872FC34
 gUnk_0872FC34:
-	.incbin "baserom.gba", 0x72FC34, 0x238
+	@ rom: 0x72FC34 0x238 — source assets/gfx/streams/gunk_0872fc34.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872FC34.bin"
 
 	.global gUnk_0872FE6C
 gUnk_0872FE6C:
-	.incbin "baserom.gba", 0x72FE6C, 0x8C
+	@ rom: 0x72FE6C 0x8C — source assets/gfx/streams/gunk_0872fe6c.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872FE6C.bin"
 
 	.global gUnk_0872FEF8
 gUnk_0872FEF8:
-	.incbin "baserom.gba", 0x72FEF8, 0x1A48
+	@ rom: 0x72FEF8 0x1A48 — source assets/gfx/streams/gunk_0872fef8.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0872FEF8.bin"
 
 	.global gUnk_08731940
 gUnk_08731940:
@@ -603,19 +633,23 @@ gUnk_08738144:
 
 	.global gUnk_08738AD8
 gUnk_08738AD8:
-	.incbin "baserom.gba", 0x738AD8, 0x1F0
+	@ rom: 0x738AD8 0x1F0 — source assets/gfx/streams/gunk_08738ad8.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_08738AD8.bin"
 
 	.global gUnk_08738CC8
 gUnk_08738CC8:
-	.incbin "baserom.gba", 0x738CC8, 0x28
+	@ rom: 0x738CC8 0x28 — source assets/gfx/streams/gunk_08738cc8.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_08738CC8.bin"
 
 	.global gUnk_08738CF0
 gUnk_08738CF0:
-	.incbin "baserom.gba", 0x738CF0, 0x2C
+	@ rom: 0x738CF0 0x2C — source assets/gfx/streams/gunk_08738cf0.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_08738CF0.bin"
 
 	.global gUnk_08738D1C
 gUnk_08738D1C:
-	.incbin "baserom.gba", 0x738D1C, 0xCA8
+	@ rom: 0x738D1C 0xCA8 — source assets/gfx/streams/gunk_08738d1c.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_08738D1C.bin"
 
 	.global gUnk_087399C4
 gUnk_087399C4:
@@ -625,7 +659,8 @@ gUnk_087399C4:
 
 	.global gUnk_08739A64
 gUnk_08739A64:
-	.incbin "baserom.gba", 0x739A64, 0xC84
+	@ rom: 0x739A64 0xC84 — source assets/gfx/streams/gunk_08739a64.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_08739A64.bin"
 
 	.global gUnk_0873A6E8
 gUnk_0873A6E8:
@@ -647,15 +682,18 @@ gUnk_0873AFC8:
 
 	.global gUnk_0873BE24
 gUnk_0873BE24:
-	.incbin "baserom.gba", 0x73BE24, 0x124
+	@ rom: 0x73BE24 0x124 — source assets/gfx/streams/gunk_0873be24.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0873BE24.bin"
 
 	.global gUnk_0873BF48
 gUnk_0873BF48:
-	.incbin "baserom.gba", 0x73BF48, 0xA8
+	@ rom: 0x73BF48 0xA8 — source assets/gfx/streams/gunk_0873bf48.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0873BF48.bin"
 
 	.global gUnk_0873BFF0
 gUnk_0873BFF0:
-	.incbin "baserom.gba", 0x73BFF0, 0xC04
+	@ rom: 0x73BFF0 0xC04 — source assets/gfx/streams/gunk_0873bff0.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0873BFF0.bin"
 
 	.global gUnk_0873CBF4
 gUnk_0873CBF4:
@@ -719,15 +757,18 @@ gUnk_0873ED1C:
 
 	.global gUnk_0873F3C8
 gUnk_0873F3C8:
-	.incbin "baserom.gba", 0x73F3C8, 0x20C
+	@ rom: 0x73F3C8 0x20C — source assets/gfx/streams/gunk_0873f3c8.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0873F3C8.bin"
 
 	.global gUnk_0873F5D4
 gUnk_0873F5D4:
-	.incbin "baserom.gba", 0x73F5D4, 0xD8
+	@ rom: 0x73F5D4 0xD8 — source assets/gfx/streams/gunk_0873f5d4.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0873F5D4.bin"
 
 	.global gUnk_0873F6AC
 gUnk_0873F6AC:
-	.incbin "baserom.gba", 0x73F6AC, 0xA38
+	@ rom: 0x73F6AC 0xA38 — source assets/gfx/streams/gunk_0873f6ac.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0873F6AC.bin"
 
 	.global gUnk_087400E4
 gUnk_087400E4:
@@ -767,7 +808,8 @@ gUnk_087409E4:
 
 	.global gUnk_08743058
 gUnk_08743058:
-	.incbin "baserom.gba", 0x743058, 0x49BC
+	@ rom: 0x743058 0x49BC — source assets/gfx/streams/gunk_08743058.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_08743058.bin"
 
 	.global gUnk_08747A14
 gUnk_08747A14:
@@ -777,11 +819,13 @@ gUnk_08747A14:
 
 	.global gUnk_08747A74
 gUnk_08747A74:
-	.incbin "baserom.gba", 0x747A74, 0x2F4C
+	@ rom: 0x747A74 0x2F4C — source assets/gfx/streams/gunk_08747a74.json; 5 stream 0x70
+	.incbin "build/assets/gUnk_08747A74.bin"
 
 	.global gUnk_0874A9C0
 gUnk_0874A9C0:
-	.incbin "baserom.gba", 0x74A9C0, 0x3970
+	@ rom: 0x74A9C0 0x3970 — source assets/gfx/streams/gunk_0874a9c0.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0874A9C0.bin"
 
 	.global gUnk_0874E330
 gUnk_0874E330:
@@ -797,7 +841,8 @@ gUnk_0874E530:
 
 	.global gUnk_0874E648
 gUnk_0874E648:
-	.incbin "baserom.gba", 0x74E648, 0x4F8
+	@ rom: 0x74E648 0x4F8 — source assets/gfx/streams/gunk_0874e648.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0874E648.bin"
 
 	.global gUnk_0874EB40
 gUnk_0874EB40:
@@ -807,11 +852,13 @@ gUnk_0874EB40:
 
 	.global gUnk_0874EB60
 gUnk_0874EB60:
-	.incbin "baserom.gba", 0x74EB60, 0x16C
+	@ rom: 0x74EB60 0x16C — source assets/gfx/streams/gunk_0874eb60.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0874EB60.bin"
 
 	.global gUnk_0874ECCC
 gUnk_0874ECCC:
-	.incbin "baserom.gba", 0x74ECCC, 0x16C
+	@ rom: 0x74ECCC 0x16C — source assets/gfx/streams/gunk_0874eccc.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0874ECCC.bin"
 
 	.global gUnk_0874EE38
 gUnk_0874EE38:
@@ -821,19 +868,23 @@ gUnk_0874EE38:
 
 	.global gUnk_0874EF14
 gUnk_0874EF14:
-	.incbin "baserom.gba", 0x74EF14, 0x28
+	@ rom: 0x74EF14 0x28 — source assets/gfx/streams/gunk_0874ef14.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0874EF14.bin"
 
 	.global gUnk_0874EF3C
 gUnk_0874EF3C:
-	.incbin "baserom.gba", 0x74EF3C, 0xB0
+	@ rom: 0x74EF3C 0xB0 — source assets/gfx/streams/gunk_0874ef3c.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0874EF3C.bin"
 
 	.global gUnk_0874EFEC
 gUnk_0874EFEC:
-	.incbin "baserom.gba", 0x74EFEC, 0x64
+	@ rom: 0x74EFEC 0x64 — source assets/gfx/streams/gunk_0874efec.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0874EFEC.bin"
 
 	.global gUnk_0874F050
 gUnk_0874F050:
-	.incbin "baserom.gba", 0x74F050, 0x29C
+	@ rom: 0x74F050 0x29C — source assets/gfx/streams/gunk_0874f050.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0874F050.bin"
 
 	.global gUnk_0874F2EC
 gUnk_0874F2EC:
@@ -1591,7 +1642,8 @@ gUnk_0875553C:
 
 	.global gUnk_08755848
 gUnk_08755848:
-	.incbin "baserom.gba", 0x755848, 0x2298
+	@ rom: 0x755848 0x2298 — source assets/gfx/streams/gunk_08755848.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_08755848.bin"
 
 	.global gUnk_08757AE0
 gUnk_08757AE0:
@@ -1653,7 +1705,8 @@ gUnk_08757F20:
 
 	.global gUnk_0875822C
 gUnk_0875822C:
-	.incbin "baserom.gba", 0x75822C, 0x212C
+	@ rom: 0x75822C 0x212C — source assets/gfx/streams/gunk_0875822c.json; 1 stream 0x70
+	.incbin "build/assets/gUnk_0875822C.bin"
 
 	.global gUnk_0875A358
 gUnk_0875A358:

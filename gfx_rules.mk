@@ -233,7 +233,60 @@ ASSET_BINS := \
   $(BUILD_DIR)/assets/gUnk_0852CE54.bin \
   $(BUILD_DIR)/assets/gUnk_0852D050.bin \
   $(BUILD_DIR)/assets/gUnk_08698B00.bin \
-  $(BUILD_DIR)/assets/gUnk_08699FF4.bin
+  $(BUILD_DIR)/assets/gUnk_08699FF4.bin \
+  $(BUILD_DIR)/assets/gUnk_08527238.bin \
+  $(BUILD_DIR)/assets/gUnk_08527348.bin \
+  $(BUILD_DIR)/assets/gUnk_08527520.bin \
+  $(BUILD_DIR)/assets/gUnk_085275D0.bin \
+  $(BUILD_DIR)/assets/gUnk_0852A6D8.bin \
+  $(BUILD_DIR)/assets/gUnk_0852A7EC.bin \
+  $(BUILD_DIR)/assets/gUnk_0852A9BC.bin \
+  $(BUILD_DIR)/assets/gUnk_0852AA6C.bin \
+  $(BUILD_DIR)/assets/gUnk_086FB004.bin \
+  $(BUILD_DIR)/assets/gUnk_086FD19C.bin \
+  $(BUILD_DIR)/assets/gUnk_086FD240.bin \
+  $(BUILD_DIR)/assets/gUnk_08714A30.bin \
+  $(BUILD_DIR)/assets/gUnk_08714B60.bin \
+  $(BUILD_DIR)/assets/gUnk_08714BEC.bin \
+  $(BUILD_DIR)/assets/gUnk_08716F84.bin \
+  $(BUILD_DIR)/assets/gUnk_087170B8.bin \
+  $(BUILD_DIR)/assets/gUnk_0872C5D0.bin \
+  $(BUILD_DIR)/assets/gUnk_0872C73C.bin \
+  $(BUILD_DIR)/assets/gUnk_0872C84C.bin \
+  $(BUILD_DIR)/assets/gUnk_0872D5CC.bin \
+  $(BUILD_DIR)/assets/gUnk_0872D630.bin \
+  $(BUILD_DIR)/assets/gUnk_0872D6D8.bin \
+  $(BUILD_DIR)/assets/gUnk_0872F11C.bin \
+  $(BUILD_DIR)/assets/gUnk_0872F1BC.bin \
+  $(BUILD_DIR)/assets/gUnk_0872F1EC.bin \
+  $(BUILD_DIR)/assets/gUnk_0872F21C.bin \
+  $(BUILD_DIR)/assets/gUnk_0872FBFC.bin \
+  $(BUILD_DIR)/assets/gUnk_0872FC34.bin \
+  $(BUILD_DIR)/assets/gUnk_0872FE6C.bin \
+  $(BUILD_DIR)/assets/gUnk_0872FEF8.bin \
+  $(BUILD_DIR)/assets/gUnk_08738AD8.bin \
+  $(BUILD_DIR)/assets/gUnk_08738CC8.bin \
+  $(BUILD_DIR)/assets/gUnk_08738CF0.bin \
+  $(BUILD_DIR)/assets/gUnk_08738D1C.bin \
+  $(BUILD_DIR)/assets/gUnk_08739A64.bin \
+  $(BUILD_DIR)/assets/gUnk_0873BE24.bin \
+  $(BUILD_DIR)/assets/gUnk_0873BF48.bin \
+  $(BUILD_DIR)/assets/gUnk_0873BFF0.bin \
+  $(BUILD_DIR)/assets/gUnk_0873F3C8.bin \
+  $(BUILD_DIR)/assets/gUnk_0873F5D4.bin \
+  $(BUILD_DIR)/assets/gUnk_0873F6AC.bin \
+  $(BUILD_DIR)/assets/gUnk_08743058.bin \
+  $(BUILD_DIR)/assets/gUnk_08747A74.bin \
+  $(BUILD_DIR)/assets/gUnk_0874A9C0.bin \
+  $(BUILD_DIR)/assets/gUnk_0874E648.bin \
+  $(BUILD_DIR)/assets/gUnk_0874EB60.bin \
+  $(BUILD_DIR)/assets/gUnk_0874ECCC.bin \
+  $(BUILD_DIR)/assets/gUnk_0874EF14.bin \
+  $(BUILD_DIR)/assets/gUnk_0874EF3C.bin \
+  $(BUILD_DIR)/assets/gUnk_0874EFEC.bin \
+  $(BUILD_DIR)/assets/gUnk_0874F050.bin \
+  $(BUILD_DIR)/assets/gUnk_08755848.bin \
+  $(BUILD_DIR)/assets/gUnk_0875822C.bin
 
 $(BUILD_DIR)/assets/gUnk_0875A440.bin: \
     assets/gfx/fonts/clock.json \
@@ -1920,3 +1973,509 @@ $(BUILD_DIR)/assets/gUnk_08699FF4.bin: \
     tools/assets/table.py
 	@echo "ASSET $@"
 	@python3 tools/assets/table.py encode --json assets/gfx/tables/gUnk_08699FF4.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08527238.bin: \
+    assets/gfx/streams/gunk_08527238.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08527238_00_peta_indeks_64.png \
+    assets/0x70/bin/gUnk_08527238_00_5632_0x130.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08527238.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08527348.bin: \
+    assets/gfx/streams/gunk_08527348.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08527348_00_peta_indeks_64.png \
+    assets/0x70/bin/gUnk_08527348_00_5632_0x130.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08527348.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08527520.bin: \
+    assets/gfx/streams/gunk_08527520.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08527520_00_peta_indeks_64.png \
+    assets/0x70/bin/gUnk_08527520_00_5632_0x130.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08527520.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_085275D0.bin: \
+    assets/gfx/streams/gunk_085275d0.json \
+    assets/gfx/streams/../../0x70/png/gUnk_085275D0_00_tile.png \
+    assets/0x70/bin/gUnk_085275D0_00_18432_0x230.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_085275d0.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0852A6D8.bin: \
+    assets/gfx/streams/gunk_0852a6d8.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0852A6D8_00_peta_indeks_64.png \
+    assets/0x70/bin/gUnk_0852A6D8_00_5632_0x130.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0852a6d8.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0852A7EC.bin: \
+    assets/gfx/streams/gunk_0852a7ec.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0852A7EC_00_peta_indeks_64.png \
+    assets/0x70/bin/gUnk_0852A7EC_00_5632_0x130.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0852a7ec.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0852A9BC.bin: \
+    assets/gfx/streams/gunk_0852a9bc.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0852A9BC_00_peta_indeks_64.png \
+    assets/0x70/bin/gUnk_0852A9BC_00_5632_0x130.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0852a9bc.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0852AA6C.bin: \
+    assets/gfx/streams/gunk_0852aa6c.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0852AA6C_00_tile.png \
+    assets/0x70/bin/gUnk_0852AA6C_00_18432_0x220.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0852aa6c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086FB004.bin: \
+    assets/gfx/streams/gunk_086fb004.json \
+    assets/gfx/streams/../../0x70/png/gUnk_086FB004_00_tile.png \
+    assets/0x70/bin/gUnk_086FB004_00_32768_0x230.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_086fb004.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086FD19C.bin: \
+    assets/gfx/streams/gunk_086fd19c.json \
+    assets/gfx/streams/../../0x70/png/gUnk_086FD19C_00_palet.png \
+    assets/0x70/bin/gUnk_086FD19C_00_480_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_086fd19c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_086FD240.bin: \
+    assets/gfx/streams/gunk_086fd240.json \
+    assets/gfx/streams/../../0x70/png/gUnk_086FD240_00_peta_60x56.png \
+    assets/0x70/bin/gUnk_086FD240_00_6720_0x134.bin \
+    assets/0x70/bin/gUnk_086FD240_01_6720_0x130.bin \
+    assets/0x70/bin/gUnk_086FD240_02_6720_0x030.bin \
+    assets/0x70/bin/gUnk_086FD240_03_480_0x030.bin \
+    assets/0x70/bin/gUnk_086FD240_04_32768_0x230.bin \
+    assets/0x70/bin/gUnk_086FD240_05_480_0x030.bin \
+    assets/0x70/bin/gUnk_086FD240_06_6720_0x133.bin \
+    assets/0x70/bin/gUnk_086FD240_07_6720_0x130.bin \
+    assets/0x70/bin/gUnk_086FD240_08_6720_0x130.bin \
+    assets/0x70/bin/gUnk_086FD240_09_480_0x030.bin \
+    assets/0x70/bin/gUnk_086FD240_10_1680_0x124.bin \
+    assets/0x70/bin/gUnk_086FD240_11_1680_0x023.bin \
+    assets/0x70/bin/gUnk_086FD240_12_1680_0x130.bin \
+    assets/0x70/bin/gUnk_086FD240_13_1680_0x024.bin \
+    assets/0x70/bin/gUnk_086FD240_14_1680_0x023.bin \
+    assets/0x70/bin/gUnk_086FD240_15_1680_0x023.bin \
+    assets/0x70/bin/gUnk_086FD240_16_1680_0x130.bin \
+    assets/0x70/bin/gUnk_086FD240_17_1680_0x023.bin \
+    assets/0x70/bin/gUnk_086FD240_18_1680_0x023.bin \
+    assets/0x70/bin/gUnk_086FD240_19_32768_0x231.bin \
+    assets/0x70/bin/gUnk_086FD240_20_480_0x133.bin \
+    assets/0x70/bin/gUnk_086FD240_21_1680_0x134.bin \
+    assets/0x70/bin/gUnk_086FD240_22_1680_0x023.bin \
+    assets/0x70/bin/gUnk_086FD240_23_1680_0x024.bin \
+    assets/0x70/bin/gUnk_086FD240_24_5472_0x230.bin \
+    assets/0x70/bin/gUnk_086FD240_25_5472_0x130.bin \
+    assets/0x70/bin/gUnk_086FD240_26_5472_0x130.bin \
+    assets/0x70/bin/gUnk_086FD240_27_3312_0x230.bin \
+    assets/0x70/bin/gUnk_086FD240_28_3312_0x030.bin \
+    assets/0x70/bin/gUnk_086FD240_29_3312_0x130.bin \
+    assets/0x70/bin/gUnk_086FD240_30_1680_0x123.bin \
+    assets/0x70/bin/gUnk_086FD240_31_1680_0x023.bin \
+    assets/0x70/bin/gUnk_086FD240_32_1680_0x023.bin \
+    assets/0x70/bin/gUnk_086FD240_33_32768_0x231.bin \
+    assets/0x70/bin/gUnk_086FD240_34_480_0x030.bin \
+    assets/0x70/bin/gUnk_086FD240_35_22144_0x230.bin \
+    assets/0x70/bin/gUnk_086FD240_36_22144_0x134.bin \
+    assets/0x70/bin/gUnk_086FD240_37_22144_0x033.bin \
+    assets/0x70/bin/gUnk_086FD240_38_480_0x130.bin \
+    assets/0x70/bin/gUnk_086FD240_39_32768_0x231.bin \
+    assets/0x70/bin/gUnk_086FD240_40_480_0x030.bin \
+    assets/0x70/bin/gUnk_086FD240_41_22144_0x130.bin \
+    assets/0x70/bin/gUnk_086FD240_42_22144_0x133.bin \
+    assets/0x70/bin/gUnk_086FD240_43_22144_0x134.bin \
+    assets/0x70/bin/gUnk_086FD240_44_480_0x130.bin \
+    assets/0x70/bin/gUnk_086FD240_45_32768_0x231.bin \
+    assets/0x70/bin/gUnk_086FD240_46_480_0x000.bin \
+    assets/0x70/bin/gUnk_086FD240_47_7200_0x033.bin \
+    assets/0x70/bin/gUnk_086FD240_48_7200_0x133.bin \
+    assets/0x70/bin/gUnk_086FD240_49_7200_0x133.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_086fd240.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08714A30.bin: \
+    assets/gfx/streams/gunk_08714a30.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08714A30_00_palet.png \
+    assets/0x70/bin/gUnk_08714A30_00_480_0x030.bin \
+    assets/0x70/bin/gUnk_08714A30_01_480_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08714a30.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08714B60.bin: \
+    assets/gfx/streams/gunk_08714b60.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08714B60_00_palet.png \
+    assets/0x70/bin/gUnk_08714B60_00_480_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08714b60.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08714BEC.bin: \
+    assets/gfx/streams/gunk_08714bec.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08714BEC_00_palet.png \
+    assets/0x70/bin/gUnk_08714BEC_00_480_0x030.bin \
+    assets/0x70/bin/gUnk_08714BEC_01_32768_0x231.bin \
+    assets/0x70/bin/gUnk_08714BEC_02_480_0x000.bin \
+    assets/0x70/bin/gUnk_08714BEC_03_7200_0x133.bin \
+    assets/0x70/bin/gUnk_08714BEC_04_7200_0x133.bin \
+    assets/0x70/bin/gUnk_08714BEC_05_7200_0x023.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08714bec.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08716F84.bin: \
+    assets/gfx/streams/gunk_08716f84.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08716F84_00_palet.png \
+    assets/0x70/bin/gUnk_08716F84_00_480_0x030.bin \
+    assets/0x70/bin/gUnk_08716F84_01_480_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08716f84.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_087170B8.bin: \
+    assets/gfx/streams/gunk_087170b8.json \
+    assets/gfx/streams/../../0x70/png/gUnk_087170B8_00_palet.png \
+    assets/0x70/bin/gUnk_087170B8_00_480_0x030.bin \
+    assets/0x70/bin/gUnk_087170B8_01_1680_0x130.bin \
+    assets/0x70/bin/gUnk_087170B8_02_1680_0x024.bin \
+    assets/0x70/bin/gUnk_087170B8_03_1680_0x023.bin \
+    assets/0x70/bin/gUnk_087170B8_04_1200_0x130.bin \
+    assets/0x70/bin/gUnk_087170B8_05_1200_0x030.bin \
+    assets/0x70/bin/gUnk_087170B8_06_1200_0x230.bin \
+    assets/0x70/bin/gUnk_087170B8_07_1200_0x024.bin \
+    assets/0x70/bin/gUnk_087170B8_08_1200_0x130.bin \
+    assets/0x70/bin/gUnk_087170B8_09_1200_0x130.bin \
+    assets/0x70/bin/gUnk_087170B8_10_1200_0x130.bin \
+    assets/0x70/bin/gUnk_087170B8_11_1200_0x130.bin \
+    assets/0x70/bin/gUnk_087170B8_12_1680_0x130.bin \
+    assets/0x70/bin/gUnk_087170B8_13_1680_0x023.bin \
+    assets/0x70/bin/gUnk_087170B8_14_1680_0x024.bin \
+    assets/0x70/bin/gUnk_087170B8_15_32768_0x231.bin \
+    assets/0x70/bin/gUnk_087170B8_16_480_0x133.bin \
+    assets/0x70/bin/gUnk_087170B8_17_1680_0x130.bin \
+    assets/0x70/bin/gUnk_087170B8_18_1680_0x023.bin \
+    assets/0x70/bin/gUnk_087170B8_19_1680_0x133.bin \
+    assets/0x70/bin/gUnk_087170B8_20_1680_0x130.bin \
+    assets/0x70/bin/gUnk_087170B8_21_1680_0x023.bin \
+    assets/0x70/bin/gUnk_087170B8_22_1680_0x033.bin \
+    assets/0x70/bin/gUnk_087170B8_23_32768_0x231.bin \
+    assets/0x70/bin/gUnk_087170B8_24_480_0x133.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_087170b8.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872C5D0.bin: \
+    assets/gfx/streams/gunk_0872c5d0.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872C5D0_00_layar_32x32.png \
+    assets/0x70/bin/gUnk_0872C5D0_00_2048_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872c5d0.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872C73C.bin: \
+    assets/gfx/streams/gunk_0872c73c.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872C73C_00_layar_32x32.png \
+    assets/0x70/bin/gUnk_0872C73C_00_2048_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872c73c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872C84C.bin: \
+    assets/gfx/streams/gunk_0872c84c.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872C84C_00_tile.png \
+    assets/0x70/bin/gUnk_0872C84C_00_4480_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872c84c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872D5CC.bin: \
+    assets/gfx/streams/gunk_0872d5cc.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872D5CC_00_layar_32x32.png \
+    assets/0x70/bin/gUnk_0872D5CC_00_2048_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872d5cc.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872D630.bin: \
+    assets/gfx/streams/gunk_0872d630.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872D630_00_layar_32x32.png \
+    assets/0x70/bin/gUnk_0872D630_00_2048_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872d630.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872D6D8.bin: \
+    assets/gfx/streams/gunk_0872d6d8.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872D6D8_00_tile.png \
+    assets/0x70/bin/gUnk_0872D6D8_00_3776_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872d6d8.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872F11C.bin: \
+    assets/gfx/streams/gunk_0872f11c.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872F11C_00_peta_indeks_16.png \
+    assets/0x70/bin/gUnk_0872F11C_00_384_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872f11c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872F1BC.bin: \
+    assets/gfx/streams/gunk_0872f1bc.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872F1BC_00_peta_indeks_16.png \
+    assets/0x70/bin/gUnk_0872F1BC_00_384_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872f1bc.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872F1EC.bin: \
+    assets/gfx/streams/gunk_0872f1ec.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872F1EC_00_peta_indeks_16.png \
+    assets/0x70/bin/gUnk_0872F1EC_00_384_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872f1ec.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872F21C.bin: \
+    assets/gfx/streams/gunk_0872f21c.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872F21C_00_tile.png \
+    assets/0x70/bin/gUnk_0872F21C_00_11456_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872f21c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872FBFC.bin: \
+    assets/gfx/streams/gunk_0872fbfc.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872FBFC_00_peta_indeks_16.png \
+    assets/0x70/bin/gUnk_0872FBFC_00_384_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872fbfc.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872FC34.bin: \
+    assets/gfx/streams/gunk_0872fc34.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872FC34_00_layar_32x32.png \
+    assets/0x70/bin/gUnk_0872FC34_00_2048_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872fc34.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872FE6C.bin: \
+    assets/gfx/streams/gunk_0872fe6c.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872FE6C_00_layar_32x32.png \
+    assets/0x70/bin/gUnk_0872FE6C_00_2048_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872fe6c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0872FEF8.bin: \
+    assets/gfx/streams/gunk_0872fef8.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0872FEF8_00_tile.png \
+    assets/0x70/bin/gUnk_0872FEF8_00_29696_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0872fef8.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08738AD8.bin: \
+    assets/gfx/streams/gunk_08738ad8.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08738AD8_00_peta_indeks_32.png \
+    assets/0x70/bin/gUnk_08738AD8_00_1280_0x000.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08738ad8.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08738CC8.bin: \
+    assets/gfx/streams/gunk_08738cc8.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08738CC8_00_peta_indeks_32.png \
+    assets/0x70/bin/gUnk_08738CC8_00_1280_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08738cc8.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08738CF0.bin: \
+    assets/gfx/streams/gunk_08738cf0.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08738CF0_00_peta_indeks_20.png \
+    assets/0x70/bin/gUnk_08738CF0_00_320_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08738cf0.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08738D1C.bin: \
+    assets/gfx/streams/gunk_08738d1c.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08738D1C_00_tile.png \
+    assets/0x70/bin/gUnk_08738D1C_00_10496_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08738d1c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08739A64.bin: \
+    assets/gfx/streams/gunk_08739a64.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08739A64_00_tile.png \
+    assets/0x70/bin/gUnk_08739A64_00_6144_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08739a64.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0873BE24.bin: \
+    assets/gfx/streams/gunk_0873be24.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0873BE24_00_peta_32x32.png \
+    assets/0x70/bin/gUnk_0873BE24_00_2048_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0873be24.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0873BF48.bin: \
+    assets/gfx/streams/gunk_0873bf48.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0873BF48_00_peta_32x32.png \
+    assets/0x70/bin/gUnk_0873BF48_00_2048_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0873bf48.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0873BFF0.bin: \
+    assets/gfx/streams/gunk_0873bff0.json \
+    assets/0x70/bin/gUnk_0873BFF0_00_31714_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0873bff0.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0873F3C8.bin: \
+    assets/gfx/streams/gunk_0873f3c8.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0873F3C8_00_peta_32x32.png \
+    assets/0x70/bin/gUnk_0873F3C8_00_2048_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0873f3c8.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0873F5D4.bin: \
+    assets/gfx/streams/gunk_0873f5d4.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0873F5D4_00_peta_32x32.png \
+    assets/0x70/bin/gUnk_0873F5D4_00_2048_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0873f5d4.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0873F6AC.bin: \
+    assets/gfx/streams/gunk_0873f6ac.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0873F6AC_00_tile.png \
+    assets/0x70/bin/gUnk_0873F6AC_00_3712_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0873f6ac.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08743058.bin: \
+    assets/gfx/streams/gunk_08743058.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08743058_00_tile.png \
+    assets/0x70/bin/gUnk_08743058_00_28160_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08743058.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08747A74.bin: \
+    assets/gfx/streams/gunk_08747a74.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08747A74_01_peta_indeks_64.png \
+    assets/0x70/bin/gUnk_08747A74_00_19468_0x220.bin \
+    assets/0x70/bin/gUnk_08747A74_01_4096_0x130.bin \
+    assets/0x70/bin/gUnk_08747A74_02_4096_0x130.bin \
+    assets/0x70/bin/gUnk_08747A74_03_4096_0x130.bin \
+    assets/0x70/bin/gUnk_08747A74_04_4096_0x130.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08747a74.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0874A9C0.bin: \
+    assets/gfx/streams/gunk_0874a9c0.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0874A9C0_00_tile.png \
+    assets/0x70/bin/gUnk_0874A9C0_00_32768_0x230.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0874a9c0.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0874E648.bin: \
+    assets/gfx/streams/gunk_0874e648.json \
+    assets/0x70/bin/gUnk_0874E648_00_11234_0x230.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0874e648.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0874EB60.bin: \
+    assets/gfx/streams/gunk_0874eb60.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0874EB60_00_layar_32x20.png \
+    assets/0x70/bin/gUnk_0874EB60_00_1280_0x100.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0874eb60.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0874ECCC.bin: \
+    assets/gfx/streams/gunk_0874eccc.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0874ECCC_00_layar_32x64.png \
+    assets/0x70/bin/gUnk_0874ECCC_00_4096_0x130.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0874eccc.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0874EF14.bin: \
+    assets/gfx/streams/gunk_0874ef14.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0874EF14_00_layar_32x20.png \
+    assets/0x70/bin/gUnk_0874EF14_00_1280_0x030.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0874ef14.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0874EF3C.bin: \
+    assets/gfx/streams/gunk_0874ef3c.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0874EF3C_00_layar_32x20.png \
+    assets/0x70/bin/gUnk_0874EF3C_00_1280_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0874ef3c.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0874EFEC.bin: \
+    assets/gfx/streams/gunk_0874efec.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0874EFEC_00_layar_32x20.png \
+    assets/0x70/bin/gUnk_0874EFEC_00_1280_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0874efec.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0874F050.bin: \
+    assets/gfx/streams/gunk_0874f050.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0874F050_00_tile.png \
+    assets/0x70/bin/gUnk_0874F050_00_5120_0x020.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0874f050.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_08755848.bin: \
+    assets/gfx/streams/gunk_08755848.json \
+    assets/gfx/streams/../../0x70/png/gUnk_08755848_00_tile.png \
+    assets/0x70/bin/gUnk_08755848_00_32768_0x220.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_08755848.json --out $@
+
+$(BUILD_DIR)/assets/gUnk_0875822C.bin: \
+    assets/gfx/streams/gunk_0875822c.json \
+    assets/gfx/streams/../../0x70/png/gUnk_0875822C_00_tile.png \
+    assets/0x70/bin/gUnk_0875822C_00_32768_0x230.bin \
+    tools/assets/stream_bank.py
+	@echo "ASSET $@"
+	@python3 tools/assets/stream_bank.py encode --json assets/gfx/streams/gunk_0875822c.json --out $@

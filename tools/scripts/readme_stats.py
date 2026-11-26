@@ -33,6 +33,7 @@ README = REPO / "README.md"
 PLAN_STATS = TOOLS / "plan_stats.py"
 ASSET_MANIFEST = REPO / "assets" / "manifest.json"
 RAW_MANIFEST = REPO / "assets" / "raw" / "manifest.json"
+STREAM_MANIFEST = REPO / "assets" / "0x70" / "manifest.json"
 
 BEGIN = "<!-- README-STATS:BEGIN -->"
 END = "<!-- README-STATS:END -->"
@@ -48,16 +49,18 @@ KIND_LABEL = {
     "glyph_font": "Glyph 8x12",
     "glyph_index": "Indeks glyph",
     "compressed_bank": "Container terkompresi",
+    "stream_bank": "Stream 0x70",
     "table": "Tabel",
 }
 KIND_ORDER = ["sprite", "palette", "tiles4bpp", "tilemap", "tilemap_bank", "font_container",
-              "glyph_font", "glyph_index", "compressed_bank", "table"]
+              "glyph_font", "glyph_index", "compressed_bank", "stream_bank", "table"]
 GROUP_LABEL = {
     "sprite/OBJ": "Sprite/OBJ",
     "palet": "Palet",
     "tabel": "Tabel",
     "tilemap": "Tilemap",
     "gambar terkompresi": "Gambar terkompresi",
+    "0x70": "Kontainer 0x70",
 }
 
 
@@ -86,9 +89,19 @@ def func_totals():
 
 
 def _raw_blobs():
-    """-> {symbol: group} untuk blob `.incbin` yang terinventaris."""
+    """-> {symbol: group} untuk blob `.incbin` yang terinventaris.
+
+    Blob `0x70` utuh tidak masuk inventaris mentah (seluruh isinya stream),
+    jadi simbolnya dipetakan ke grup `0x70` dari manifest stream. Tanpa itu
+    aset `stream_bank` hilang dari penyebut dan cakupan terlihat 100% lebih
+    awal daripada kenyataan.
+    """
     raw = json.loads(RAW_MANIFEST.read_text())["blobs"]
-    return {b["symbol"]: b.get("group") for b in raw}
+    blobs = {b["symbol"]: b.get("group") for b in raw}
+    if STREAM_MANIFEST.exists():
+        streams = json.loads(STREAM_MANIFEST.read_text())["streams"]
+        blobs.update({b["blob"]: "0x70" for b in streams})
+    return blobs
 
 
 def asset_totals():
@@ -137,7 +150,7 @@ def asset_totals():
     exact = {a["symbol"] for a in assets if a.get("status") == "rom-exact"}
     group_rows = []
     for group in ("sprite/OBJ", "palet", "tabel", "tilemap",
-                  "gambar terkompresi"):
+                  "gambar terkompresi", "0x70"):
         syms = {s for s, g in blobs.items() if g == group}
         group_rows.append({"group": group, "done": len(syms & exact),
                            "denominator": len(syms)})

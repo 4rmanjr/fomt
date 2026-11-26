@@ -58,6 +58,9 @@ def collect(asset_dirs=None):
                 ref = meta["source"].get(key)
                 if ref:
                     deps.append(source_dir / ref)
+            for stream in meta.get("streams") or ():
+                if stream.get("bin"):
+                    deps.append(REPO / stream["bin"])
             deps.append(TOOLS / encoder)
             rows.append({
                 "symbol": meta["symbol"],

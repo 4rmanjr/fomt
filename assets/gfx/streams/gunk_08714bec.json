@@ -1,0 +1,396 @@
+{
+ "id": "gfx/streams/gunk_08714bec",
+ "symbol": "gUnk_08714BEC",
+ "kind": "stream_bank",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x714BEC",
+  "size": 9112,
+  "sha256": "c5ecc33bf35ac4354caa991363eae40642066e298282951b16ef5330b9b33622"
+ },
+ "source": {
+  "json": "assets/gfx/streams/gunk_08714bec.json",
+  "png": "../../0x70/png/gUnk_08714BEC_00_palet.png"
+ },
+ "encoder": {
+  "tool": "stream_bank.py",
+  "version": 1
+ },
+ "streams": [
+  {
+   "format": "030",
+   "packed": 152,
+   "unpacked": 480,
+   "bin": "assets/0x70/bin/gUnk_08714BEC_00_480_0x030.bin",
+   "bin_sha256": "d5fd0b168d5d1d94f0f8418069e562e8729749e9cbb528993a116ffd54aadd39",
+   "ladder": [
+    4,
+    5,
+    6
+   ],
+   "note": "15 bank x 16 warna (0x1E0)"
+  },
+  {
+   "format": "231",
+   "packed": 7860,
+   "unpacked": 32768,
+   "bin": "assets/0x70/bin/gUnk_08714BEC_01_32768_0x231.bin",
+   "bin_sha256": "668ad4a8b2f21cbea0d30c951b28f8c078e077f0d520ee3090498456c978a037",
+   "huffman": {
+    "spec": 51,
+    "atom": 2,
+    "counts": [
+     0,
+     0,
+     2,
+     5,
+     3,
+     10,
+     10,
+     10,
+     18,
+     16,
+     24,
+     17,
+     30,
+     0,
+     0,
+     0
+    ],
+    "leaves": [
+     [],
+     [],
+     [
+      0,
+      16
+     ],
+     [
+      240,
+      31,
+      241,
+      224,
+      32
+     ],
+     [
+      1,
+      15,
+      225
+     ],
+     [
+      48,
+      47,
+      208,
+      46,
+      226,
+      192,
+      255,
+      17,
+      64,
+      209
+     ],
+     [
+      63,
+      176,
+      30,
+      2,
+      242,
+      80,
+      239,
+      33,
+      14,
+      210
+     ],
+     [
+      61,
+      211,
+      96,
+      79,
+      106,
+      76,
+      160,
+      95,
+      62,
+      227
+     ],
+     [
+      193,
+      254,
+      18,
+      45,
+      112,
+      144,
+      181,
+      128,
+      195,
+      78,
+      243,
+      223,
+      194,
+      81,
+      10,
+      91,
+      36,
+      166
+     ],
+     [
+      197,
+      94,
+      49,
+      13,
+      65,
+      29,
+      34,
+      165,
+      212,
+      222,
+      4,
+      196,
+      121,
+      27,
+      213,
+      207
+     ],
+     [
+      228,
+      127,
+      77,
+      3,
+      145,
+      21,
+      244,
+      252,
+      6,
+      122,
+      138,
+      142,
+      107,
+      111,
+      151,
+      93,
+      162,
+      74,
+      5,
+      42,
+      177,
+      179,
+      12,
+      129
+     ],
+     [
+      178,
+      66,
+      230,
+      236,
+      238,
+      97,
+      161,
+      60,
+      163,
+      11,
+      50,
+      250,
+      251,
+      147,
+      253,
+      206,
+      150
+     ],
+     [
+      118,
+      119,
+      214,
+      218,
+      120,
+      22,
+      89,
+      90,
+      41,
+      28,
+      182,
+      183,
+      191,
+      237,
+      43,
+      72,
+      51,
+      52,
+      146,
+      58,
+      199,
+      247,
+      248,
+      249,
+      44,
+      108,
+      159,
+      23,
+      25,
+      113
+     ],
+     [],
+     [],
+     []
+    ],
+    "widths": [
+     9,
+     11,
+     13
+    ]
+   },
+   "note": "1024 tile 4bpp"
+  },
+  {
+   "format": "000",
+   "packed": 136,
+   "unpacked": 480,
+   "bin": "assets/0x70/bin/gUnk_08714BEC_02_480_0x000.bin",
+   "bin_sha256": "631b392d569e25daa4e117bf516bf36ab8ecb3768b4f24e7ea71dc81adccbfd3",
+   "ladder": [
+    5,
+    6
+   ],
+   "note": "15 bank x 16 warna (0x1E0)"
+  },
+  {
+   "format": "133",
+   "packed": 356,
+   "unpacked": 7200,
+   "bin": "assets/0x70/bin/gUnk_08714BEC_03_7200_0x133.bin",
+   "bin_sha256": "d7cf4f32f7d499ef4671a00c0e796c97a7a85d679ccba14d76612239e2e62ece",
+   "huffman": {
+    "spec": 107,
+    "atom": 1,
+    "counts": [
+     0,
+     1,
+     3,
+     2,
+     6,
+     4,
+     0,
+     0
+    ],
+    "leaves": [
+     [],
+     [
+      0
+     ],
+     [
+      15,
+      1,
+      2
+     ],
+     [
+      13,
+      12
+     ],
+     [
+      3,
+      7,
+      4,
+      10,
+      11,
+      6
+     ],
+     [
+      9,
+      14,
+      5,
+      8
+     ],
+     [],
+     []
+    ],
+    "widths": [
+     6,
+     8,
+     11
+    ]
+   },
+   "note": "3600 entri 16-bit; entri terbanyak 0x21ED (29%)"
+  },
+  {
+   "format": "133",
+   "packed": 424,
+   "unpacked": 7200,
+   "bin": "assets/0x70/bin/gUnk_08714BEC_04_7200_0x133.bin",
+   "bin_sha256": "37a4024504b1ef5936506aec178fffbb1ca89eea4b174774cb8c0a6d2ef6a40b",
+   "huffman": {
+    "spec": 107,
+    "atom": 1,
+    "counts": [
+     0,
+     2,
+     0,
+     3,
+     9,
+     2,
+     0,
+     0
+    ],
+    "leaves": [
+     [],
+     [
+      0,
+      15
+     ],
+     [],
+     [
+      1,
+      3,
+      11
+     ],
+     [
+      12,
+      8,
+      4,
+      6,
+      14,
+      2,
+      13,
+      7,
+      10
+     ],
+     [
+      5,
+      9
+     ],
+     [],
+     []
+    ],
+    "widths": [
+     1,
+     6,
+     10
+    ]
+   },
+   "note": "3600 entri 16-bit; entri terbanyak 0x03FF (68%)"
+  },
+  {
+   "format": "023",
+   "packed": 184,
+   "unpacked": 7200,
+   "bin": "assets/0x70/bin/gUnk_08714BEC_05_7200_0x023.bin",
+   "bin_sha256": "f7e82d45e1e0a19954a0931ec4c01f5d378b94cf0fc10155a825c0da176bbccf",
+   "ladder": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "note": "3600 entri 16-bit; entri terbanyak 0x03FF (91%)"
+  }
+ ],
+ "note": "6 stream 0x70 bersambung tanpa celah; payload per stream dari assets/0x70/bin, header kompresi asli dari stream ROM.",
+ "evidence": "assets/0x70/manifest.json entri gUnk_08714BEC: 6 stream, 9112 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok).",
+ "coverage": {
+  "total_bytes": 9112,
+  "proven_bytes": 9112,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
+}

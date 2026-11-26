@@ -45,7 +45,8 @@ Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.093 B (7,1%)** — persent
 | Palet | 64 | 64 | `████████████████████` 100% | 62 Palet, 2 Tilemap |
 | Tabel | 63 | 63 | `████████████████████` 100% | 34 Container font, 13 Tilemap, 8 Tabel, 6 Bank layer peta, 2 Indeks glyph |
 | Tilemap | 15 | 15 | `████████████████████` 100% | 10 Tilemap, 3 Bank layer peta, 2 Tabel |
-| **Total (semua grup)** | 231 | 231 | `████████████████████` 100% | |
+| Kontainer 0x70 | 53 | 53 | `████████████████████` 100% | 53 Stream 0x70 |
+| **Total (semua grup)** | 284 | 284 | `████████████████████` 100% | |
 <!-- README-STATS:END -->
 
 Definisi selesainya sengaja ketat di kedua jalur:

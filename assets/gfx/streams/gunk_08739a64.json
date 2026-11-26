@@ -1,0 +1,47 @@
+{
+ "id": "gfx/streams/gunk_08739a64",
+ "symbol": "gUnk_08739A64",
+ "kind": "stream_bank",
+ "semantics": "unidentified",
+ "status": "rom-exact",
+ "rom": {
+  "offset": "0x739A64",
+  "size": 3204,
+  "sha256": "9733403deda667c205be8ea11546d2ab5cedae90edcdaea941b4d5d9f264fda5"
+ },
+ "source": {
+  "json": "assets/gfx/streams/gunk_08739a64.json",
+  "png": "../../0x70/png/gUnk_08739A64_00_tile.png"
+ },
+ "encoder": {
+  "tool": "stream_bank.py",
+  "version": 1
+ },
+ "streams": [
+  {
+   "format": "020",
+   "packed": 3204,
+   "unpacked": 6144,
+   "bin": "assets/0x70/bin/gUnk_08739A64_00_6144_0x020.bin",
+   "bin_sha256": "93df782832d26fef1111a685f2f42e9b04e6e2b40fc4e1cbf7c848b38450d115",
+   "ladder": [
+    3,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+   ],
+   "note": "192 tile 4bpp"
+  }
+ ],
+ "note": "1 stream 0x70 bersambung tanpa celah; payload per stream dari assets/0x70/bin, header kompresi asli dari stream ROM.",
+ "evidence": "assets/0x70/manifest.json entri gUnk_08739A64: 1 stream, 3204 B; stream_audit.py membuktikan encoder lz70 byte-identik untuk semua stream (reencode ok).",
+ "coverage": {
+  "total_bytes": 3204,
+  "proven_bytes": 3204,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
+}
