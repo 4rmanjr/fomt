@@ -113,11 +113,10 @@ class VerifyGate(unittest.TestCase):
 
     @unittest.skipUnless(ROM.exists(), "butuh baserom.gba")
     def test_incbin_note_for_unswitched_blob(self):
-        # Catatan `.incbin baserom` diuji pada blob yang memang belum dialihkan
-        # (bukan pada aset rom-exact, yang sekarang semuanya ber-.incbin bin).
+        # Uji unit: pemetaan `.incbin baserom` sintetis harus menghasilkan
+        # catatan, terlepas dari apakah semua aset nyata sudah dialihkan.
         rom = ROM.read_bytes()
-        incbins = verify.incbin_offsets()
-        self.assertIn(0x6D6458, incbins, "gUnk_086D6458 harus masih baserom")
+        incbins = {0x6D6458: [("synthetic.s", 1, 192)]}
         asset = minimal_asset(
             id="gfx/palettes/x", semantics="proven", symbol="gUnk_086D6458",
             rom={"offset": "0x6D6458", "size": 192,

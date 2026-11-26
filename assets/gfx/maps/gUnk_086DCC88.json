@@ -2,7 +2,7 @@
  "id": "gfx/maps/gunk_086dcc88",
  "symbol": "gUnk_086DCC88",
  "kind": "tilemap_bank",
- "status": "decoded-exact",
+ "status": "rom-exact",
  "semantics": "unidentified",
  "rom": {
   "offset": "0x6DCC88",
@@ -48,7 +48,7 @@
   }
  ],
  "evidence": "func_080AA9C8 memilih gUnk_086DCC88 untuk id 0xe (baris 24513); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini.",
- "note": "Layer pertama dibaca loop func_080AA9C8; byte sisa belum punya pembaca, disimpan raw agar round-trip tetap byte-identik. Metrik: 2536/2568 B (98.8%) masih raw, jadi aset tidak dihitung selesai sampai byte itu punya pembaca.",
+ "note": "Layer pertama dibaca loop func_080AA9C8; byte sisa belum punya pembaca, disimpan raw agar round-trip tetap byte-identik. Metrik: 2536/2568 B (98.8%) masih raw, source exact; byte sisa disimpan raw dan tidak diklaim decoded.",
  "coverage": {
   "total_bytes": 2568,
   "proven_bytes": 32,

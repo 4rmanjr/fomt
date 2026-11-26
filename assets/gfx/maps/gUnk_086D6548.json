@@ -1,0 +1,28 @@
+{
+ "id": "gfx/maps/gunk_086d6548",
+ "symbol": "gUnk_086D6548",
+ "kind": "tilemap_bank",
+ "status": "rom-exact",
+ "semantics": "unidentified",
+ "rom": {
+  "offset": "0x6D6548",
+  "size": 192,
+  "sha256": "e23d830dc5af42c80aa5038f3fd3f0a6eec8bc7cc3a4d6991346edbee9bfd795"
+ },
+ "source": {
+  "json": "gUnk_086D6548.json"
+ },
+ "encoder": {
+  "tool": "tilemap_bank.py",
+  "version": 1
+ },
+ "layers": [],
+ "raw": [
+  {
+   "offset": 0,
+   "hex": "e10700000000000000006600a904cb08ec0c4f159019d01d322ef125d01d8f15e0032104630ce71c6b2dee395142b55664002c05b50292093402953e0000924ee10700002000e2002201c20103028208e30c4509e70d49028a060d0ed011331aff93ff9319a31aa31da31ea3ffa3ffa319a31aa31da31ea3ff93ff9312a313a315a316a3ffa3ffa312a313a315a316a3ff93ff931ba31ca31fa320a3ffa3ffa31ba31ca31fa320a3ff93ff9314a3ff9317a318a3ffa3ffa314a3ffa317a318a3"
+  }
+ ],
+ "note": "Raw penuh; belum ada layer/grid yang terbukti. Source exact, byte tidak diklaim decoded.",
+ "evidence": "func_080A97F4 (code_809E804.s:22142) menyalin 0x60 B pertama ke lapis +0x100; 0x60 B sisa belum punya pembaca."
+}

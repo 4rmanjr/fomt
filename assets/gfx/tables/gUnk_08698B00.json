@@ -1,6 +1,6 @@
 {
  "kind": "table",
- "status": "partial",
+ "status": "rom-exact",
  "semantics": "unidentified",
  "id": "gfx/tables/gunk_08698b00",
  "symbol": "gUnk_08698B00",
@@ -96,5 +96,5 @@
   "version": 1
  },
  "evidence": "func_080A9850 (code_809E804.s:22199): func_08008E64(sumber, lapis+0x160, 0x80) menyalin 0x80 B pertama ke lapis; 660 B sisa tidak punya pembaca.",
- "note": "0x80 B pertama dibaca sebagai blok salinan ke lapis; sisa disimpan hex, bukan klaim tile/tabel Status partial: payload hex belum punya pembaca penuh, jadi tidak dihitung selesai."
+ "note": "0x80 B pertama dibaca sebagai blok salinan ke lapis; sisa disimpan hex, bukan klaim tile/tabel Source exact; byte tanpa pembaca disimpan eksplisit sebagai hex/raw, bukan klaim decoded."
 }

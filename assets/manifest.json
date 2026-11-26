@@ -22,6 +22,27 @@
    "evidence": "memcpy (code_0803A8A4.s:3782) menyalin 0x20 B dari +0x3A0, dan tapak 4583 menyalin satu tile 0x20 B per indeks; slice 4100 B belum terbukti tersalin penuh."
   },
   {
+   "id": "gfx/fonts/gunk_0875b444",
+   "symbol": "gUnk_0875B444",
+   "kind": "font_container",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x75B444",
+    "size": 1460,
+    "sha256": "1b3a3dd164c511bad3dc69b202a46ce526a5cc91d5c4ee1591e5098d44ee58a3"
+   },
+   "source": {
+    "json": "assets/gfx/fonts/gUnk_0875B444.json",
+    "png": "assets/gfx/fonts/gUnk_0875B444.png"
+   },
+   "encoder": {
+    "tool": "font_container.py",
+    "version": 1
+   },
+   "evidence": "func_0803C5B0 (code_0803A8A4.s:3610): func_0805E6CC(obj, gUnk_0875B444); container A=6/B=6/C=1/D=24/E=1/F=0/T=6 berakhir di +0x3D4. Tail +0x3D4..+0x4F4 (0x120 B) dan +0x4F4..+0x514 (0x20 B) dibaca lewat gUnk_080F9F70/74; +0x514..+0x5B4 (0xA0 B) tanpa pembaca."
+  },
+  {
    "id": "gfx/fonts/gunk_084f90cc",
    "symbol": "gUnk_084F90CC",
    "kind": "glyph_font",
@@ -1149,6 +1170,46 @@
    "evidence": "Prefix 308 B = palet 128 B (disalin 0x80 B oleh func_080A95A4) + 15 struct Unk_Something 12 B; 4 di antaranya ditunjuk gUnk_080E93F8 (0x0869B304/31C/358/394). 119 stream 0x70 ditunjuk 168 entri pointer gUnk_08105EDC (119 unik, tepat semua awal stream) dan rantai berakhir di ujung blob 0x3A284. Semua stream direencode byte-identik dengan header aslinya."
   },
   {
+   "id": "gfx/maps/gunk_086d6368",
+   "symbol": "gUnk_086D6368",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6D6368",
+    "size": 240,
+    "sha256": "89b77e60375cccb07ab74c19c6a8e3de2e104054b429b88fa1cc6f87fc48b69d"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086D6368.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "func_080A97CC (code_809E804.s:22126) dan func_080CFB5C (100741) menyalin 0x60 B pertama ke lapis +0x100; 0x90 B sisa belum punya pembaca."
+  },
+  {
+   "id": "gfx/maps/gunk_086d6458",
+   "symbol": "gUnk_086D6458",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6D6458",
+    "size": 192,
+    "sha256": "269c453c35c2785df70c526286f48857e49abbb519a8684fb743759ee9e48268"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086D6458.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "method_0800AF5C (src/field.cc) mengembalikan pointer ini untuk GetUnk8()==0; tidak ada field yang terbukti dibaca."
+  },
+  {
    "id": "gfx/maps/gunk_086d6518",
    "symbol": "gUnk_086D6518",
    "kind": "tilemap",
@@ -1187,6 +1248,66 @@
     "version": 1
    },
    "evidence": "method_0800AF20 mengembalikan gUnk_086D6520 untuk field 1 (literal 0xAF48); func_080AA6D0 menyalin src+0 dan src+4 masing-masing 4 B ke dua baris peta (2x2). Seluruh 8 B terbaca."
+  },
+  {
+   "id": "gfx/maps/gunk_086d6528",
+   "symbol": "gUnk_086D6528",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6D6528",
+    "size": 32,
+    "sha256": "3d8a3c5076a6d905639ce4ea2cddc5c6afe98e51e3c8c3b092dd2a634492383d"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086D6528.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "method_0800AF20 mengembalikan gUnk_086D6528 untuk field 2 (literal 0xAF50); func_080AA6D0 hanya menyalin src+0 dan src+4 (2x2 = 8 B). Sisa 24 B belum punya pembaca dan disimpan raw."
+  },
+  {
+   "id": "gfx/maps/gunk_086d6548",
+   "symbol": "gUnk_086D6548",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6D6548",
+    "size": 192,
+    "sha256": "e23d830dc5af42c80aa5038f3fd3f0a6eec8bc7cc3a4d6991346edbee9bfd795"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086D6548.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "func_080A97F4 (code_809E804.s:22142) menyalin 0x60 B pertama ke lapis +0x100; 0x60 B sisa belum punya pembaca."
+  },
+  {
+   "id": "gfx/maps/gunk_086d6608",
+   "symbol": "gUnk_086D6608",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6D6608",
+    "size": 144,
+    "sha256": "9474279d2caa3f604bc6c0720e4e7589b614c53e197e9659c034098675cdabcf"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086D6608.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "method_0800AF5C (src/field.cc) mengembalikan pointer ini untuk GetUnk8()==1; tidak ada field yang terbukti dibaca."
   },
   {
    "id": "gfx/maps/gunk_086d74f8",
@@ -1329,6 +1450,46 @@
    "evidence": "asm/code_809E804.s baris 24613 (.L080AAB54) memilih gUnk_086DC54C untuk id 0xe (baris 24622); sl=6 (baris 24631) dan 4 baris (baris 24633) membuat loop 24672/24686 membaca tepat 24 entri u16 berurutan lewat ldrh [r4] (baris 24701), lalu strh ke lapis peta [r6,#0x14] (baris 24699/24702) di (x0+kolom, y0+baris). 24 entri = 48 B = seluruh slice; label di asm memang 0x30 dan simbol berikutnya (gUnk_086DC57C) tepat di +0x30, jadi batas simbol benar dan grid 6x4 urut baris round-trip terbukti."
   },
   {
+   "id": "gfx/maps/gunk_086dc57c",
+   "symbol": "gUnk_086DC57C",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DC57C",
+    "size": 1804,
+    "sha256": "fe1cd4eb5ce77356d4c3fe11af4401943d78d238b6f9246982c2f20fed73d2b2"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DC57C.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "func_080AA9C8 id 0xc membaca stamp 2x2 8 B; descriptor gUnk_08106D4C (0x106D4C) menunjuk tiga layer 17x15 di 0x8/0x208/0x408 (1530 B) lewat func_080A5BD8. gUnk_081071A4 menunjuk 0x608: header u16 2/3 + 6 tile 4bpp = 196 B, dibaca func_080A5AB0; codec tilemap_bank belum mengenal blok ini. 4x4 di 0x6cc/0x6ec berasal dari record 0x107064/0x10707C yang belum terbukti dibaca untuk blob ini. Total terbukti 1538/1804 B; 266 B raw."
+  },
+  {
+   "id": "gfx/maps/gunk_086dcc88",
+   "symbol": "gUnk_086DCC88",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DCC88",
+    "size": 2568,
+    "sha256": "aae671e7684258961ea7077941457dd6382b09aa7bbeaea11650880a73099ff9"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DCC88.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "func_080AA9C8 memilih gUnk_086DCC88 untuk id 0xe (baris 24513); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini."
+  },
+  {
    "id": "gfx/maps/gunk_086dd690",
    "symbol": "gUnk_086DD690",
    "kind": "tilemap",
@@ -1367,6 +1528,66 @@
     "version": 1
    },
    "evidence": "asm/code_809E804.s baris 24613 (.L080AAB54) memilih gUnk_086DD6B0 untuk id 0xf (baris 24628); sl=6 (baris 24631) dan 4 baris (baris 24633) membuat loop 24672/24686 membaca tepat 24 entri u16 berurutan lewat ldrh [r4] (baris 24701), lalu strh ke lapis peta [r6,#0x14] (baris 24699/24702) di (x0+kolom, y0+baris). 24 entri = 48 B = seluruh slice; label di asm memang 0x30 dan simbol berikutnya (gUnk_086DD6E0) tepat di +0x30, jadi batas simbol benar dan grid 6x4 urut baris round-trip terbukti."
+  },
+  {
+   "id": "gfx/maps/gunk_086dd6e0",
+   "symbol": "gUnk_086DD6E0",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DD6E0",
+    "size": 1804,
+    "sha256": "a2e4747c73c3fcbfd1e5d2bdb06dff22f9ffda200dad279846a53457703717cb"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DD6E0.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "func_080AA9C8 id 0xf membaca stamp 2x2 8 B; descriptor gUnk_08106D64 (0x106D64) menunjuk tiga layer 17x15 di 0x8/0x208/0x408 (1530 B) lewat func_080A5BD8. gUnk_081071C8 menunjuk 0x608: header u16 2/3 + 6 tile 4bpp = 196 B, dibaca func_080A5AB0; codec tilemap_bank belum mengenal blok ini. 4x4 di 0x6cc/0x6ec berasal dari record 0x107094/0x1070AC yang belum terbukti dibaca untuk blob ini. Total terbukti 1538/1804 B; 266 B raw."
+  },
+  {
+   "id": "gfx/maps/gunk_086dddec",
+   "symbol": "gUnk_086DDDEC",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DDDEC",
+    "size": 2568,
+    "sha256": "55d5b978e65cbb7497042e53cb64658a8eefd66cd8d84105b9c1473a4f43f7e3"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DDDEC.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "func_080AA9C8 memilih gUnk_086DDDEC untuk id 0xf (baris 24518); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini."
+  },
+  {
+   "id": "gfx/maps/gunk_086de7f4",
+   "symbol": "gUnk_086DE7F4",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6DE7F4",
+    "size": 50408,
+    "sha256": "e512d2c0dfc1fbbf9d7623519c7991ae72adef95e8316b6b2185f7c17dd95ec9"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086DE7F4.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "asm/code_809E804.s baris 14381 (func_080A5BD8) membaca descriptor 0x18 B: u8 lebar (14397), u8 tinggi (14398), tiga pointer layer u16 di +4/+8/+0xc (14401), lalu memcpy lebar x tinggi entri per layer (14436) ke lapis peta. Tabel descriptor 0x10692C-0x1070DC (82 record) menunjuk layer di blob ini; source mencatat offset/lebar/tinggi tiap layer, dan raw menutup byte yang tidak dirujuk supaya round-trip byte-identik tanpa mengarang format."
   },
   {
    "id": "gfx/maps/gunk_086eacdc",
@@ -1425,6 +1646,26 @@
     "tool": "map2bin.py",
     "version": 1
    }
+  },
+  {
+   "id": "gfx/maps/gunk_086ead8c",
+   "symbol": "gUnk_086EAD8C",
+   "kind": "tilemap_bank",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x6EAD8C",
+    "size": 33312,
+    "sha256": "6be5082486e5cedceb426faaed59e352778254e6204154347a5cb37b0802e29e"
+   },
+   "source": {
+    "json": "assets/gfx/maps/gUnk_086EAD8C.json"
+   },
+   "encoder": {
+    "tool": "tilemap_bank.py",
+    "version": 1
+   },
+   "evidence": "asm/code_809E804.s baris 14381 (func_080A5BD8) membaca descriptor 0x18 B: u8 lebar (14397), u8 tinggi (14398), tiga pointer layer u16 di +4/+8/+0xc (14401), lalu memcpy lebar x tinggi entri per layer (14436) ke lapis peta. Tabel descriptor 0x10692C-0x1070DC (82 record) menunjuk layer di blob ini; source mencatat offset/lebar/tinggi tiap layer, dan raw menutup byte yang tidak dirujuk supaya round-trip byte-identik tanpa mengarang format."
   },
   {
    "id": "gfx/maps/gunk_08755230",
@@ -4458,6 +4699,166 @@
     "version": 1
    },
    "evidence": "func_08008E64 (code_0803EE94.s:173395): salinan 0x1C0 B (448 B = 14 tile) dari gUnk_08750C8C ke 0x06010000 + slot*0x20; tapak 0x1A0 di 78389 hanya subset."
+  },
+  {
+   "id": "gfx/tables/gunk_08529994",
+   "symbol": "gUnk_08529994",
+   "kind": "table",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x529994",
+    "size": 532,
+    "sha256": "8e015db289bd3899329c4735ad75e520e8240c3bc645d7a1a05dc97144bbe864"
+   },
+   "source": {
+    "json": "assets/gfx/tables/gUnk_08529994.json"
+   },
+   "encoder": {
+    "tool": "table.py",
+    "version": 1
+   },
+   "evidence": "func_0806EC94 (code_0803EE94.s:94187): func_08008E64(sumber, VRAM, 0x80) menyalin satu blok gaya doghouse; header u16=4 = tile per blok, blok 0x80 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x190 B sisa tidak diklaim."
+  },
+  {
+   "id": "gfx/tables/gunk_08529ba8",
+   "symbol": "gUnk_08529BA8",
+   "kind": "table",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x529BA8",
+    "size": 508,
+    "sha256": "eed2583a619fc16b2a2334c4a8e965af25601a7964d964216456a528644b7a02"
+   },
+   "source": {
+    "json": "assets/gfx/tables/gUnk_08529BA8.json"
+   },
+   "encoder": {
+    "tool": "table.py",
+    "version": 1
+   },
+   "evidence": "func_0806EC94 (code_0803EE94.s:94219): func_08008E64(sumber, VRAM, 0x40) menyalin satu blok gaya mailbox; header u16=2 = tile per blok, blok 0x40 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x1B8 B sisa tidak diklaim."
+  },
+  {
+   "id": "gfx/tables/gunk_08529da4",
+   "symbol": "gUnk_08529DA4",
+   "kind": "table",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x529DA4",
+    "size": 2356,
+    "sha256": "376e3bbc6c3305a61b199c3c46dc2ee938ff987225bd85bc08ba697ac5afc0e2"
+   },
+   "source": {
+    "json": "assets/gfx/tables/gUnk_08529DA4.json"
+   },
+   "encoder": {
+    "tool": "table.py",
+    "version": 1
+   },
+   "evidence": "func_0806EC94 (code_0803EE94.s:94255): func_08008E64(sumber, VRAM, 0x2C0) menyalin satu blok gaya window; header u16=22 = tile per blok, blok 0x2C0 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x670 B sisa tidak diklaim."
+  },
+  {
+   "id": "gfx/tables/gunk_0852cc40",
+   "symbol": "gUnk_0852CC40",
+   "kind": "table",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x52CC40",
+    "size": 532,
+    "sha256": "2e7a8ac9c8015d7e40830ea3c4b69c49ae5bea1817ffd31b7f4986851b35db09"
+   },
+   "source": {
+    "json": "assets/gfx/tables/gUnk_0852CC40.json"
+   },
+   "encoder": {
+    "tool": "table.py",
+    "version": 1
+   },
+   "evidence": "func_0806EC94 (code_0803EE94.s:94187): func_08008E64(sumber, VRAM, 0x80) menyalin satu blok gaya doghouse varian malam; header u16=4 = tile per blok, blok 0x80 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x190 B sisa tidak diklaim."
+  },
+  {
+   "id": "gfx/tables/gunk_0852ce54",
+   "symbol": "gUnk_0852CE54",
+   "kind": "table",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x52CE54",
+    "size": 508,
+    "sha256": "73cf1b29e3163cab715aa87ef37b0314de91378915e4b2b254e3fdb2ace54d21"
+   },
+   "source": {
+    "json": "assets/gfx/tables/gUnk_0852CE54.json"
+   },
+   "encoder": {
+    "tool": "table.py",
+    "version": 1
+   },
+   "evidence": "func_0806EC94 (code_0803EE94.s:94219): func_08008E64(sumber, VRAM, 0x40) menyalin satu blok gaya mailbox varian malam; header u16=2 = tile per blok, blok 0x40 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x1B8 B sisa tidak diklaim."
+  },
+  {
+   "id": "gfx/tables/gunk_0852d050",
+   "symbol": "gUnk_0852D050",
+   "kind": "table",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x52D050",
+    "size": 2356,
+    "sha256": "ff91f71f38c9cb3e3b2c094ac5486bb85d941ee3949c08ae43e1c57768d62358"
+   },
+   "source": {
+    "json": "assets/gfx/tables/gUnk_0852D050.json"
+   },
+   "encoder": {
+    "tool": "table.py",
+    "version": 1
+   },
+   "evidence": "func_0806EC94 (code_0803EE94.s:94255): func_08008E64(sumber, VRAM, 0x2C0) menyalin satu blok gaya window varian malam; header u16=22 = tile per blok, blok 0x2C0 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x670 B sisa tidak diklaim."
+  },
+  {
+   "id": "gfx/tables/gunk_08698b00",
+   "symbol": "gUnk_08698B00",
+   "kind": "table",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x698B00",
+    "size": 788,
+    "sha256": "8b321addec44dab8a8b2999ef0e72a060023dc282215942a2327a969a9bd652b"
+   },
+   "source": {
+    "json": "assets/gfx/tables/gUnk_08698B00.json"
+   },
+   "encoder": {
+    "tool": "table.py",
+    "version": 1
+   },
+   "evidence": "func_080A9850 (code_809E804.s:22199): func_08008E64(sumber, lapis+0x160, 0x80) menyalin 0x80 B pertama ke lapis; 660 B sisa tidak punya pembaca."
+  },
+  {
+   "id": "gfx/tables/gunk_08699ff4",
+   "symbol": "gUnk_08699FF4",
+   "kind": "table",
+   "semantics": "unidentified",
+   "status": "rom-exact",
+   "rom": {
+    "offset": "0x699FF4",
+    "size": 176,
+    "sha256": "11ee36d6e0e8dcbfcea75a7be26d8b9bf3ae8674e809acf8579873643f6777a9"
+   },
+   "source": {
+    "json": "assets/gfx/tables/gUnk_08699FF4.json"
+   },
+   "encoder": {
+    "tool": "table.py",
+    "version": 1
+   },
+   "evidence": "func_080A9826 (code_809E804.s:22187): func_08008E64(sumber, lapis+0x160, 0x80) menyalin 0x80 B pertama ke lapis; 48 B sisa tidak punya pembaca."
   }
  ]
 }

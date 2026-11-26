@@ -1,6 +1,6 @@
 # Backlog blocker rantai ekor (modul tail-only)
 
-Snapshot **2026-11-25** — **dihasilkan otomatis**, jangan disunting tangan: `python3 tools/scripts/ekor_snapshot.py` (tabel + angka) lalu commit. Angka berubah setiap ada MATCH/migrasi; yang dijaga hanya strukturnya.
+Snapshot **2026-11-26** — **dihasilkan otomatis**, jangan disunting tangan: `python3 tools/scripts/ekor_snapshot.py` (tabel + angka) lalu commit. Angka berubah setiap ada MATCH/migrasi; yang dijaga hanya strukturnya.
 
 Modul tail-only = modul yang tidak dipecah per-section oleh splitter (`is_split_module() == false`), sehingga satu-satunya cara memindahkan sebuah fungsi ke `src/` adalah mencabut **seluruh ekor** dari fungsi itu sampai ujung berkas. Karena itu urutan kerja selalu dari **ujung** berkas ke atas, dan satu fungsi gagal di ujung memblokir semua `promoted` di atasnya.
 

@@ -1,0 +1,28 @@
+{
+ "id": "gfx/maps/gunk_086d6608",
+ "symbol": "gUnk_086D6608",
+ "kind": "tilemap_bank",
+ "status": "rom-exact",
+ "semantics": "unidentified",
+ "rom": {
+  "offset": "0x6D6608",
+  "size": 144,
+  "sha256": "9474279d2caa3f604bc6c0720e4e7589b614c53e197e9659c034098675cdabcf"
+ },
+ "source": {
+  "json": "gUnk_086D6608.json"
+ },
+ "encoder": {
+  "tool": "tilemap_bank.py",
+  "version": 1
+ },
+ "layers": [],
+ "raw": [
+  {
+   "offset": 0,
+   "hex": "ff93ff935193529353935493ff93ff9321a322a323a324a3ffa3ffa321a322a323a324a3ff93ff933da33ea341a342a3ffa3ffa33da33ea341a342a3ff93ff9335a336a339a33aa3ffa3ffa335a336a339a33aa3ff93ff933fa340a343a344a3ffa3ffa33fa340a343a344a3ff93ff9337a338a33ba33ca3ffa3ffa337a338a33ba33ca3ff93ff9345b346b347b348b3"
+  }
+ ],
+ "note": "Raw penuh; belum ada layer/grid yang terbukti. Source exact, byte tidak diklaim decoded.",
+ "evidence": "method_0800AF5C (src/field.cc) mengembalikan pointer ini untuk GetUnk8()==1; tidak ada field yang terbukti dibaca."
+}

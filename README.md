@@ -43,9 +43,9 @@ Byte ROM yang sudah dihasilkan dari C: **63.232 / 892.093 B (7,1%)** — persent
 |---|---:|---:|---|---|
 | Sprite/OBJ | 86 | 86 | `████████████████████` 100% | 56 Sprite/OBJ, 18 Container font, 10 Tiles 4bpp, 2 Glyph 8x12 |
 | Palet | 64 | 64 | `████████████████████` 100% | 62 Palet, 2 Tilemap |
-| Tabel | 48 | 63 | `███████████████░░░░░` 76,2% | 33 Container font, 13 Tilemap, 2 Indeks glyph; 15 belum |
-| Tilemap | 10 | 15 | `█████████████░░░░░░░` 66,7% | 10 Tilemap; 5 belum |
-| **Total (semua grup)** | 211 | 231 | `██████████████████░░` 91,3% | |
+| Tabel | 63 | 63 | `████████████████████` 100% | 34 Container font, 13 Tilemap, 8 Tabel, 6 Bank layer peta, 2 Indeks glyph |
+| Tilemap | 15 | 15 | `████████████████████` 100% | 10 Tilemap, 5 Bank layer peta |
+| **Total (semua grup)** | 231 | 231 | `████████████████████` 100% | |
 <!-- README-STATS:END -->
 
 Definisi selesainya sengaja ketat di kedua jalur:
@@ -56,14 +56,15 @@ Definisi selesainya sengaja ketat di kedua jalur:
   kebanyakan fungsi kecil.
 - **Aset.** Selesai berarti PNG terindeks + palet JASC + metadata JSON di
   `assets/gfx/`, di-encode tool repo, dan `sha256(encoded) == sha256(slice ROM)`
-  sehingga `.incbin` tidak lagi menunjuk `baserom.gba`. Aset yang mayoritas
-  byte-nya masih `raw` (proven < 50%) diparkir `decoded-exact` dan tidak
-  dihitung, walaupun encode-nya byte-identik. Seluruh blob grup `sprite/OBJ`
-  dan `palet` di `assets/raw` sudah punya source rom-exact; semua stream di
-  container terkompresi `0x70` (284/284) sudah bisa direencode byte-identik.
-  Ketiga container `0x70` (`gUnk_086DC3F4`, `gUnk_0869B284`, `gUnk_086D74F8`)
-  sudah rom-exact lewat `compressed_bank.py`; sisa 20 blob adalah tilemap dan
-  tabel yang menunggu bukti pembaca penuh.
+  sehingga `.incbin` tidak lagi menunjuk `baserom.gba`. Status `rom-exact`
+  membuktikan byte source, bukan bahwa setiap field sudah decoded: byte yang
+  belum punya pembaca disimpan eksplisit sebagai `raw`/`hex` dan ditandai
+  `semantics: unidentified`. Seluruh 231 blob di `assets/raw` sudah punya
+  source rom-exact; semua stream di container terkompresi `0x70` (284/284)
+  sudah bisa direencode byte-identik. Ketiga container `0x70`
+  (`gUnk_086DC3F4`, `gUnk_0869B284`, `gUnk_086D74F8`) sudah rom-exact lewat
+  `compressed_bank.py`; 20 blob tilemap/tabel terakhir memakai segmen
+  eksplisit/raw untuk byte yang belum terbukti.
 - **Penyebut cakupan.** Populasi dihitung dari blob `.incbin` yang benar-benar
   terinventaris di `assets/raw` (satu blob = satu entri `.incbin`; satu blob
   bisa memuat beberapa sprite). Tabel per kelas memakai penyebut grup, jadi

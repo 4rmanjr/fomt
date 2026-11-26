@@ -2,7 +2,7 @@
  "id": "gfx/maps/gunk_086dc57c",
  "symbol": "gUnk_086DC57C",
  "kind": "tilemap_bank",
- "status": "decoded-exact",
+ "status": "rom-exact",
  "semantics": "unidentified",
  "rom": {
   "offset": "0x6DC57C",
