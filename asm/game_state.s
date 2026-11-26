@@ -13639,7 +13639,7 @@ func_08016D34: @ 0x08016D34
     ldr r0, [r0]
     ldr r2, [r0]
     ldr r2, [r2, #0x3c]
-    bl func_080D379C+0x178
+    bl _call_via_r2
     pop {r0}
     bx r0
 

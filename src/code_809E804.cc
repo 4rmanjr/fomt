@@ -3422,6 +3422,33 @@ void func_080CABEC(i32 arg0, i32 arg1) {
     func_08050DC8(temp_r4, arg1, 0, 0);
 }
 }
+// DECOMP-MATCHED func_080CAC3C (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080CAC3C")))
+i32 func_080CAC3C(u8 *arg0) {
+    return arg0[0x6A3];
+}
+}
+// DECOMP-MATCHED func_080CAC48 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080CAC48")))
+i32 func_080CAC48(u8 *arg0) {
+    return arg0[0x6A1];
+}
+}
+// DECOMP-MATCHED func_080CAC54 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080CAC54")))
+void func_080CAC54(i32 arg0, i32 arg1) {
+    volatile u16 *r2;
+
+    arg1 = arg1 << 0x10;
+    r2 = (volatile u16 *)0x04000004;
+    *r2 = *r2 & 0xFF;
+    *r2 = ((u32)arg1 >> 8) | *r2;
+}
+}
+
 
 // DECOMP-MATCHED func_080CBA60 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {

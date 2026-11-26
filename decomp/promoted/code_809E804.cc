@@ -3665,3 +3665,23 @@ void func_080CFB5C(u8 *arg0, s32 arg1, u32 arg2) {
         func_08008E64((s32) &gUnk_08699FF4, *p + 0x160, 0x80);
     }
 }
+
+// DECOMP-MATCHED func_080CAC3C (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080CAC3C(u8 *arg0) {
+    return arg0[0x6A3];
+}
+
+// DECOMP-MATCHED func_080CAC48 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080CAC48(u8 *arg0) {
+    return arg0[0x6A1];
+}
+
+// DECOMP-MATCHED func_080CAC54 (dari code_809E804.s; cek manusia sebelum ke src/)
+void func_080CAC54(s32 arg0, s32 arg1) {
+    volatile u16 *r2;
+
+    arg1 = arg1 << 0x10;
+    r2 = (volatile u16 *)0x04000004;
+    *r2 = *r2 & 0xFF;
+    *r2 = ((u32)arg1 >> 8) | *r2;
+}

@@ -2429,3 +2429,21 @@ void func_08037098(GenObj *arg0, s32 arg1) {
     arg0->unk18 = var_r4;
     arg0->unk1C = var_r5;
 }
+
+// DECOMP-MATCHED func_08037250 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+typedef struct Pair_08037250 {
+    u32 a;
+    u32 b;
+} Pair_08037250;
+
+void func_08037250(u8 *arg0) {
+    u32 v[2];
+    u16 *h;
+
+    h = (u16 *)v;
+    h[0] = 0;
+    h[1] = 0;
+    h[2] = 0;
+    h[3] = 0;
+    *(Pair_08037250 *)(arg0 + 0x34) = *(Pair_08037250 *)v;
+}

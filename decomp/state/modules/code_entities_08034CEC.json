@@ -1117,10 +1117,14 @@
  },
  "func_080370D8": {
   "addr": 134443224,
+  "draft_src": "manual",
+  "judged_mtime": 1795692500.0544932,
   "module": "code_entities_08034CEC.s",
+  "note": "parkir: byte-match ROM gagal hanya karena agbcc menaruh pointer (p+0x30) di r1, ref di r2 (nilai sebaliknya) \u2014 8-10 residual regalloc, panjang 62 B sama; 4 bentuk sumber diukur, lihat POLA-DIFF \u00a783",
   "ref_len": 64,
+  "sanitize_v": 4,
   "size": 662,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08037118": {
@@ -1148,10 +1152,15 @@
  },
  "func_08037250": {
   "addr": 134443600,
+  "draft_src": "manual",
+  "judged_mtime": 1795692403.6811705,
   "module": "code_entities_08034CEC.s",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 28,
+  "sanitize_v": 4,
   "size": 319,
-  "status": "pending",
+  "status": "promoted",
   "thumb": true
  },
  "func_0803726C": {

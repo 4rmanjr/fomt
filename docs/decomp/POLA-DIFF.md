@@ -2854,3 +2854,45 @@ Kesimpulan: kelas §72 **tidak** sepenuhnya mati (satu MATCH baru), tetapi
 tidak ada satu pun sisa kandidat yang bisa (a) byte-identik dan (b) pindah ke
 `src/`. Dindingnya sekarang seragam: pemilihan register/salinan temp agbcc
 dan penjadwalan literal pool, bukan logika yang salah tulis.
+
+### 82. `bl <simbol>+<offset>` tidak bisa lolos judge; pakai simbol thunk asli
+
+**Gejala:** C sudah byte-identik terhadap ROM, tetapi judge tetap `DIFF` di
+halfword `bl` (`byte +0xe: 0xf8 vs ref 0xb8`) dengan anotasi
+`@i and r0, r0, #<func_...>` yang membingungkan.
+
+**Mekanisme:** judge membandingkan **byte objek**, bukan hasil link. Ref asm
+`bl func_080D379C+0x178` menunjuk simbol yang ada di TU ref, jadi
+displacement-nya terisi (0xF0BC 0xFDE8). Dari C kita hanya bisa memanggil
+simbol eksternal, sehingga instruksinya jadi relokasi `0xF7FF 0xFFFE` —
+selamanya beda byte. Tidak ada bentuk C yang menghasilkan displacement
+terisi ke tengah fungsi lain.
+
+**Perbaikan:** ganti baris ref asm ke simbol thunk yang sebenarnya. Di sini
+target 0x080D3914 adalah `_call_via_r2` (`bx r2`, simbol global hasil link),
+jadi `bl func_080D379C+0x178` → `bl _call_via_r2`. `make compare` tetap HIJAU
+(link menghasilkan target yang sama) dan judge kini membandingkan relokasi
+yang sama. Pembukti: `func_08016D34` (game_state, 20 B) — MATCH.
+
+### 83. Dinding regalloc `r1`↔`r2` pada `func_080370D8` (parkir terukur)
+
+Sisa satu-satunya dari enam fungsi ekor. Semua perintah dan layout cabang
+sudah sama; yang berbeda hanya peran dua register:
+
+```
+ref : adds r2, r0, #0 | adds r2, #0x30 | movs r1, #0 | ldrsh r1, [r2, r0]
+ours: adds r1, r0, #0 | adds r1, #0x30 | movs r2, #0 | ldrsh r2, [r1, r0]
+```
+
+Pointer (`p + 0x30`) di ref hidup di `r2` sampai `bl func_0805E894`, nilai di
+`r1`; agbcc menukar keduanya. Empat bentuk sumber dicoba dan semuanya menukar
+peran: (1) early-return, (2) `res` + if/else terbalik (layout cabang jadi
+persis ref, `beq` ke blok else di ujung), (3) deklarasi nilai-sebelum-pointer,
+(4) akses field struct (`m->unk30.unkE`). Hasil (2)/(3): panjang sama 62 B,
+hanya 8–10 residual regalloc; (4) justru melebar ke 64 B. Pin
+`register ... __asm__` tidak dipakai karena catatan §2.2 menunjukkan pin tidak
+memindahkan residual ini.
+
+Kesimpulan: `func_080370D8` diparkir **bukan** karena alasan struktural,
+tetapi karena agbcc memilih `r1` untuk pointer; tiga jalur lain (nilai lewat
+parameter, ekspresi ulang, struct) sudah diukur dan tidak mengubah pilihan itu.
