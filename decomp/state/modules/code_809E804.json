@@ -1215,9 +1215,9 @@
  },
  "func_080A47B4": {
   "addr": 134891444,
-  "judged_mtime": 1793582714.1843934,
+  "judged_mtime": 1795696558.5065088,
   "module": "code_809E804.s",
-  "note": "o/gitproject/fomt/decomp/logs/judge_func_080A47B4/opencode/func.c:27: request for member `unk4C' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080A47B4/opencode/func.c:33: warning: passing arg 2 of `func_08007C28' makes integer from pointer without a cast\n",
+  "note": "a36b4523aa/decomp/logs/judge_func_080A47B4/buffy/func.c:27: request for member `unk4C' in something not a structure or union\n/workspace/chats/19fd550f73b6fba36b4523aa/decomp/logs/judge_func_080A47B4/buffy/func.c:33: warning: passing arg 2 of `func_08007C28' makes integer from pointer without a cast\n",
   "ref_len": 88,
   "sanitize_v": 4,
   "size": 774,
@@ -5086,13 +5086,14 @@
  },
  "func_080CD950": {
   "addr": 135059792,
-  "judged_mtime": 1793582714.2193878,
+  "judged_mtime": 1795696915.7140884,
   "module": "code_809E804.s",
-  "note": "byte +0x14: 0x58 vs ref 0x5a [2missing,2extra,6operand,3regalloc,4different @r adds r2, r3, r1 | adds r0, r3, r1]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 96,
   "sanitize_v": 4,
   "size": 830,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080CD9B0": {

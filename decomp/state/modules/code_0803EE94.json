@@ -2248,9 +2248,9 @@
  },
  "func_0806D8C8": {
   "addr": 134666440,
-  "judged_mtime": 1795435561.012676,
+  "judged_mtime": 1795696978.7567074,
   "module": "code_0803EE94.s",
-  "note": "byte +0x10: 0x20 vs ref 0x21 [1missing,2extra,2regalloc @r ldr r1, [r4] | ldr r0, [r4]]",
+  "note": "parkir: urutan spill `old`. ref `ldr r1,[r4]; movs r0,#0; str r0,[r4]; str r1,[sp]`, agbcc `ldr r0,[r4]; str r0,[sp]; mov r0,#0; str r0,[r4]` (byte +0x10: 0x20 vs 0x21). 8 bentuk dicoba (skalar, array tmp[1], void*, pointer lokal, urutan deklarasi, temp zero, mem temp); mekanisme sama dengan pewarisan register pseudo-mati di POLA-DIFF \u00a787.2",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 697,
@@ -2618,7 +2618,7 @@
  },
  "func_08070C24": {
   "addr": 134679588,
-  "judged_mtime": 1795695799.6843846,
+  "judged_mtime": 1795696564.5457165,
   "module": "code_0803EE94.s",
   "note": "/workspace/chats/19fd550f73b6fba36b4523aa/decomp/logs/judge_func_08070C24/buffy/func.c: In function `func_08070C24':\n/workspace/chats/19fd550f73b6fba36b4523aa/decomp/logs/judge_func_08070C24/buffy/func.c:24: invalid operands to binary |\n",
   "ref_len": 100,

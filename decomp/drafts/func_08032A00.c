@@ -1,4 +1,8 @@
-s32 func_080324BC(void *, s32, s32, s32, s32, s32, s32, u8); /* extern */
+typedef struct Zed {
+    u8 b;
+} Zed;
+
+s32 func_080324BC(void *, s32, s32, s32, s32, s32, s32, Zed); /* extern */
 extern s32 vtable_unk_080E6864;
 
 typedef struct GenObj {
@@ -7,8 +11,11 @@ typedef struct GenObj {
 } GenObj;
 
 void *func_08032A00(GenObj *arg0, s32 arg1) {
-    s8 z = 0;
+    Zed z;
+    u8 *pz;
 
+    pz = &z.b;
+    *pz = 0;
     func_080324BC(arg0, arg1, 6, 0x20, 1, 0, 0, z);
     arg0->unk4 = &vtable_unk_080E6864;
     return arg0;

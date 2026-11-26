@@ -1485,9 +1485,9 @@
  "func_08037B48": {
   "addr": 134445896,
   "draft_src": "manual",
-  "judged_mtime": 1795695298.468101,
+  "judged_mtime": 1795696778.243067,
   "module": "code_entities_08034CEC.s",
-  "note": "parkir: literal 0x379 diangkat sebelum store arg ke-5 (ref memuatnya tepat sebelum bl); 1 instruksi beda posisi \u2014 POLA-DIFF \u00a788.1",
+  "note": "byte +0x10: 0x7 vs ref 0xc [1missing,4extra @>  | ldr r3, [pc, #0x1c]]",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 592,
@@ -1816,9 +1816,9 @@
  },
  "func_0803853C": {
   "addr": 134448444,
-  "judged_mtime": 1795695885.2973368,
+  "judged_mtime": 1795696531.8305912,
   "module": "code_entities_08034CEC.s",
-  "note": "parkir: arg byte ke-7 di slot stack; addr-diambil memunculkan strb + duplikat word store (66 vs 62 B) \u2014 POLA-DIFF \u00a788.1",
+  "note": "len 72 vs ref 62 [2missing,7extra,2operand,7regalloc,1different @r adds r6, r0, #0 | adds r5, r0, #0]",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 687,
@@ -1851,7 +1851,7 @@
  },
  "func_08038740": {
   "addr": 134448960,
-  "judged_mtime": 1795695791.343097,
+  "judged_mtime": 1795696561.7516205,
   "module": "code_entities_08034CEC.s",
   "note": "/chats/19fd550f73b6fba36b4523aa/decomp/logs/judge_func_08038740/buffy/func.c:22: request for member `unk4' in something not a structure or union\n/workspace/chats/19fd550f73b6fba36b4523aa/decomp/logs/judge_func_08038740/buffy/func.c:22: request for member `unk4' in something not a structure or union\n",
   "ref_len": 96,

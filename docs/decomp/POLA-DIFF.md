@@ -3076,3 +3076,41 @@ Tiga fungsi berhenti persis di sini (bukan regalloc acak):
 
 Ketiganya wall instruksi-seleksi/penjadwalan: bentuk C yang menghasilkan
 byte ref tidak ditemukan setelah 3–10 iterasi masing-masing.
+
+### 89. Aritmetika alamat: `base` lokal + addend berkurung (KELAS MENANG)
+
+`func_080CD950` (code_809E804, 96 B) MATCH + migrasi hanya dengan bentuk
+aritmetika yang tepat. Tiga bentuk yang menghasilkan byte BERBEDA:
+
+```
+A) end = (u8*)arg0 + 0x218 + n*12      -> movs r1,#0x86;lsls;add r0,r0,r1 ; add r2,r3,r0
+B) end = (u8*)&arg0->unk214 + 4 + n*12 -> sama, 0x214+4 dilipat jadi 0x218
+C) base = &arg0->unk214;
+   end = (u8*)base + (n*12 + 4)        -> adds r2,r3,r1 ; ldr r1,[r2] ; ...
+                                          adds r0,#4 ; adds r2,r2,r0   (ref) MATCH
+```
+
+Aturannya: agbcc **melipat konstanta basis** (`unk214 + 4`) menjadi satu
+offset baru; kalau alamat field disimpan di variabel lokal lebih dulu,
+pelipatan itu terhalang dan penambahan `+4` terjadi pada addend — persis
+pola ref. `+ 4 + n*12` (asosiatif kiri) juga dilipat; `(n*12 + 4)` dalam
+kurung tidak. Pola ini yang dipakai ref untuk pointer walk `Elem*` 12 byte
+(`p = p + 1` -> `adds r0,#0xc`).
+
+### 90. Residu promote-only TIDAK punya fungsi yang bisa dimigrasi (terukur)
+
+`migrate.py --dry-run` per fungsi untuk 56 kandidat promote-only di modul
+yang bisa di-split (di luar linkonce/hardware/actor) menghasilkan:
+
+- 38 `sudah ada di src/...` (sudah pindah; penanda `DECOMP-MATCHED` ada di
+  `src/*.c` juga, bukan hanya `*.cc` — hitungan manual yang hanya memindai
+  `*.cc` melebihkan residu),
+- 14 `grup gabungan/tak-split`,
+- 4 `blok DECOMP-MATCHED tidak ditemukan`.
+
+14 grup itu berbagi literal pool dengan tetangganya, mis.
+`func_0809EEA4 + data + func_0809EED0` dan `Unpack + func_080D10F0 +
+func_080D116A/116E/117E/1186` — memisahkannya berarti menulis ulang pool
+per fungsi (bukan kerja beberapa baris), jadi ditutup. Dengan 204 sisanya
+di modul tail-only (168 linkonce + 26 actor + 10 hardware), residu 218
+**seluruhnya** terblokir by-design: tidak ada kemenangan src/ "gratis".
