@@ -426,7 +426,7 @@
   "tool": "table.py",
   "version": 1
  },
- "evidence": "func_080A9850 (code_809E804.s:22199): func_08008E64(sumber, lapis+0x160, 0x80) menyalin 0x80 B pertama ke lapis; 660 B sisa tidak punya pembaca.",
+ "evidence": "func_080A9850 (code_809E804.s:22223): func_08008E64(sumber, lapis+0x160, 0x80) menyalin 0x80 B pertama ke lapis; 660 B sisa tidak punya pembaca.",
  "note": "0x80 B pertama u16 (consumer), sisa u16 opaque tanpa consumer",
  "padding": [
   {

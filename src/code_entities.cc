@@ -316,6 +316,31 @@ typedef struct V4_25248 {
 } V4_25248;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Arg2 {
+    u8 _pad0[0x20];
+    i32 unk20;
+} Arg2;
+typedef struct GenObj__func_08020310 {
+    u8 _pad0[4];
+    u16 unk4;
+    u16 _pad6;
+    i32 unk8;
+    i32 unkC;
+    u8 _pad10[4];
+    void *unk14;
+    u8 _pad18[8];
+    u8 unk20;
+    u8 _pad21[1];
+    u16 unk22;
+    u8 _pad24[0x10];
+    i32 unk34;
+    i32 unk38;
+    u8 _pad3C[4];
+    u8 unk40;
+} GenObj__func_08020310;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08020060 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -406,11 +431,54 @@ void func_080202C4(void) {
 
 }
 }
+// DECOMP-MATCHED func_080202C8 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202C8")))
+void func_080202C8(void) {
+
+}
+}
 
 // DECOMP-MATCHED gData_code_entities_080215FC.data.080215FC
 extern "C" {
 // data tak-dirujuk di 0x080215FC (label di-strip; tak dirujuk modul) — byte-identik dgn asm
 extern const u8 gData_code_entities_080215FC[32] __attribute__((section(".text.code_entities.080215FC"))) = {0x10, 0xB5, 0x0A, 0x23, 0xCA, 0x5E, 0x0E, 0x24, 0x0B, 0x5F, 0xD1, 0x1F, 0x01, 0x80, 0x19, 0x1F, 0x41, 0x80, 0x07, 0x32, 0x82, 0x80, 0x05, 0x33, 0xC3, 0x80, 0x10, 0xBC, 0x04, 0xBC, 0x10, 0x47};
+}
+
+// DECOMP-MATCHED func_08020310 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __5ActorRC5Actor(i32 *, void *);                    /* extern */
+i32 func_08020038(void *, void **, i32 *, i32);         /* extern */
+i32 func_08020410(void *, i32);                       /* extern */
+i32 func_080211E4(void *, i32, u8);                   /* extern */
+i32 func_08021264(void *);                          /* extern */
+i32 func_08038374(void *, i32, i32, u16, i32);        /* extern */
+extern i32 vtable_unk_080E64C8;
+
+__attribute__((section(".text.code_entities.08020310")))
+void *func_08020310(GenObj__func_08020310 *arg0, void **arg1, Arg2 *arg2, i32 arg3) {
+    i32 sp4[2];
+    GenObj__func_08020310 *temp_r0;
+
+    __5ActorRC5Actor((i32 *)(sp4), arg2);
+    func_08020038(arg0, arg1, (i32 *)(sp4), 0x340);
+    arg0->unk14 = &vtable_unk_080E64C8;
+    arg0->unk34 = (i32) arg2;
+    arg0->unk38 = arg3;
+    arg0->unk40 = 0;
+    if (arg2->unk20 == 5) {
+        temp_r0 = (GenObj__func_08020310 *) ((void *(*)(void **, i32)) ((Vt40 *) *arg1)->fn40)(arg1, 0x4B);
+        if (temp_r0 != 0) {
+            if (temp_r0->unk4 == arg0->unk4) {
+                func_08038374(temp_r0, (i32)(arg0->unk8), (i32)(arg0->unkC), (u16)(arg0->unk22), (i32) arg0->unk20);
+            } else {
+                func_08020410(arg0, 0);
+            }
+        }
+    }
+    func_080211E4(arg0, func_08021264(arg0), (u8)(arg0->unk20));
+    return arg0;
+}
 }
 
 // DECOMP-MATCHED func_08020460 (dari code_entities.s; cek manusia sebelum ke src/)
@@ -470,7 +538,7 @@ i32 func_08021620(i32 arg0) {
 }
 // DECOMP-MATCHED func_080216BC (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 __5ActorRC5Actor(i32 *, i32);                       /* extern */
+i32 __5ActorRC5Actor(i32 *, void *);                    /* extern */
 i32 func_08020038(void *, void **, i32 *, i32);         /* extern */
 i32 func_08022048(void *, i32, u8);                   /* extern */
 i32 func_080220D4(void *);                          /* extern */
@@ -482,7 +550,7 @@ void *func_080216BC(GenObj__func_080216BC *arg0, void **arg1, i32 arg2) {
     u32 var_r0;
     GenObj__func_080216BC *temp_r0;
 
-    __5ActorRC5Actor((i32 *)(sp0), arg2);
+    __5ActorRC5Actor((i32 *)(sp0), (void *) arg2);
     func_08020038(arg0, arg1, (i32 *)(sp0), 0x782);
     arg0->unk14 = &vtable_unk_080E6428;
     arg0->unk34 = arg2;
@@ -638,6 +706,16 @@ u16 func_08022980(GenObj__func_08022980 *arg0, i32 arg1) {
     return *(u16 *)(base + (v * 5 + arg1) * 2);
 }
 }
+// DECOMP-MATCHED func_080229A4 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080229A4")))
+i32 func_080229A4(i32 arg0, i32 arg1) {
+    if (arg1 == 1) {
+        return 0x8000;
+    }
+    return 0;
+}
+}
 
 // DECOMP-MATCHED func_08022B58 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -660,6 +738,17 @@ i32 func_08022B5C(i32 arg0) {
 }
 }
 
+// DECOMP-MATCHED func_08023400 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.08023400")))
+i32 func_08023400(i32 arg0, i32 arg1) {
+    if (arg1 == 1) {
+        return 0x8000;
+    }
+    return 0;
+}
+}
+
 // DECOMP-MATCHED func_080237F0 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_entities.080237F0")))
@@ -678,6 +767,17 @@ ret2:
 }
 
 /* ATTEMPT-NOTE opencode: goto-chain agar bls/beq + urutan movs. */
+}
+
+// DECOMP-MATCHED func_080240BC (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080240BC")))
+i32 func_080240BC(i32 arg0, i32 arg1) {
+    if (arg1 == 1) {
+        return 0x8000;
+    }
+    return 0;
+}
 }
 
 // DECOMP-MATCHED func_080244C4 (dari code_entities.s; cek manusia sebelum ke src/)
@@ -1098,12 +1198,12 @@ void func_0802A7D8(GenObj__func_0802A7D8 *arg0) {
 
 // DECOMP-MATCHED func_0802B8EC (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
-i32 __builtin_new(i32);                             /* extern */
+void *__builtin_new(i32);                           /* extern */
 i32 func_08024974(i32, i32, i32);                     /* extern */
 
 __attribute__((section(".text.code_entities.0802B8EC")))
 i32 func_0802B8EC(i32 arg0, i32 arg1) {
-    return func_08024974(__builtin_new(0xC8), arg0, arg1);
+    return func_08024974((i32) __builtin_new(0xC8), arg0, arg1);
 }
 }
 // DECOMP-MATCHED func_0802B908 (dari code_entities.s; cek manusia sebelum ke src/)
@@ -1319,6 +1419,16 @@ block_7:
             *var_r1_2 = var_r0;
         }
     }
+}
+}
+
+// DECOMP-MATCHED func_0802C210 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                            /* extern */
+void* func_0802B9C0(GenObj__func_0802B9C0 *arg0, i32 arg1);                             /* extern */
+__attribute__((section(".text.code_entities.0802C210")))
+i32 func_0802C210(i32 arg0) {
+    return (i32) func_0802B9C0((GenObj__func_0802B9C0 *) __builtin_new(0x5C), arg0);
 }
 }
 

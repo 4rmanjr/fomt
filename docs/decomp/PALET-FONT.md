@@ -37,16 +37,16 @@ Dua alasan struktural yang membuat pasangan tidak otomatis ada:
 
 ### `gUnk_084F90CC` (belum terbukti)
 
-- `func_080D0D28` — asm/code_809E804.s:103017
+- `func_080D0D28` — asm/code_809E804.s:103041
 
 ### `gUnk_084FA9A0` (belum terbukti)
 
-- `func_080D0D28` — asm/code_809E804.s:103017
+- `func_080D0D28` — asm/code_809E804.s:103041
 
 ### `gUnk_0852D984` (belum terbukti)
 
-- `func_080ADCA4` — asm/code_809E804.s:31059
-- `func_080ADD20` — asm/code_809E804.s:31121
+- `func_080ADCA4` — asm/code_809E804.s:31083
+- `func_080ADD20` — asm/code_809E804.s:31145
 
 ### `gUnk_0858BA28` (belum terbukti)
 
@@ -58,25 +58,25 @@ Dua alasan struktural yang membuat pasangan tidak otomatis ada:
 - `func_0808C664` — asm/code_0803EE94.s:151302
 - `func_08091094` — asm/code_0803EE94.s:159781
 - `func_08092754` — asm/code_0803EE94.s:162483
-- `func_080AC674` — asm/code_809E804.s:28357
-- `func_080ADF6C` — asm/code_809E804.s:31433
-- `func_080B3CC8` — asm/code_809E804.s:43342
-- `func_080BC938` — asm/code_809E804.s:61429
-- `func_080C0DCC` — asm/code_809E804.s:70207
+- `func_080AC674` — asm/code_809E804.s:28381
+- `func_080ADF6C` — asm/code_809E804.s:31457
+- `func_080B3CC8` — asm/code_809E804.s:43366
+- `func_080BC938` — asm/code_809E804.s:61453
+- `func_080C0DCC` — asm/code_809E804.s:70231
 - `func_08000914` — asm/intro_scene.s:4
 
 ### `gUnk_086F2FAC` (belum terbukti)
 
-- `func_080AC674` — asm/code_809E804.s:28357
+- `func_080AC674` — asm/code_809E804.s:28381
 
 ### `gUnk_0871D51C` (belum terbukti)
 
 - `func_080522F8` — asm/code_0803EE94.s:35378
-- `func_080AC674` — asm/code_809E804.s:28357
-- `func_080ADF6C` — asm/code_809E804.s:31433
-- `func_080B3CC8` — asm/code_809E804.s:43342
-- `func_080BC938` — asm/code_809E804.s:61429
-- `func_080C0DCC` — asm/code_809E804.s:70207
+- `func_080AC674` — asm/code_809E804.s:28381
+- `func_080ADF6C` — asm/code_809E804.s:31457
+- `func_080B3CC8` — asm/code_809E804.s:43366
+- `func_080BC938` — asm/code_809E804.s:61453
+- `func_080C0DCC` — asm/code_809E804.s:70231
 
 ### `gUnk_08728320` (belum terbukti)
 
@@ -84,7 +84,7 @@ Dua alasan struktural yang membuat pasangan tidak otomatis ada:
 
 ### `gUnk_08729460` (belum terbukti)
 
-- `func_080B3CC8` — asm/code_809E804.s:43342
+- `func_080B3CC8` — asm/code_809E804.s:43366
 
 ### `gUnk_0872DE44` (belum terbukti)
 
@@ -92,11 +92,11 @@ Dua alasan struktural yang membuat pasangan tidak otomatis ada:
 
 ### `gUnk_08731B40` (belum terbukti)
 
-- `func_080B3CC8` — asm/code_809E804.s:43342
+- `func_080B3CC8` — asm/code_809E804.s:43366
 
 ### `gUnk_087409E4` (belum terbukti)
 
-- `func_080B3CC8` — asm/code_809E804.s:43342
+- `func_080B3CC8` — asm/code_809E804.s:43366
 
 ### `gUnk_0874F34C` (belum terbukti)
 
@@ -116,8 +116,8 @@ Dua alasan struktural yang membuat pasangan tidak otomatis ada:
 
 Blob tepat sebelum simbol di `data_0813B288.s` yang isinya palet. Letak berdekatan hanya kandidat: tidak ada call site yang memuat palet itu bersama fontnya, jadi pasangan ini **tidak** dinaikkan menjadi `terbukti`.
 
-- `gUnk_0871D51C` ← kandidat `gUnk_087170B8`: blob sebelumnya berformat 0x70, stream 0: palet 480 B; pemuat: `func_080A95A4` (asm/code_809E804.s:21883)
-- `gUnk_0872DE44` ← kandidat `gUnk_0872DDE4`: blob sebelumnya 0x72DDE4 (96 B), klasifikasi isi: palet; pemuat: `func_080B7164` (asm/code_809E804.s:49944)
-- `gUnk_08731B40` ← kandidat `gUnk_08731940`: blob sebelumnya 0x731940 (512 B), klasifikasi isi: palet; pemuat: `func_080AE7D0` (asm/code_809E804.s:32403)
+- `gUnk_0871D51C` ← kandidat `gUnk_087170B8`: blob sebelumnya berformat 0x70, stream 0: palet 480 B; pemuat: `func_080A95A4` (asm/code_809E804.s:21907)
+- `gUnk_0872DE44` ← kandidat `gUnk_0872DDE4`: blob sebelumnya 0x72DDE4 (96 B), klasifikasi isi: palet; pemuat: `func_080B7164` (asm/code_809E804.s:49968)
+- `gUnk_08731B40` ← kandidat `gUnk_08731940`: blob sebelumnya 0x731940 (512 B), klasifikasi isi: palet; pemuat: `func_080AE7D0` (asm/code_809E804.s:32427)
 - `gUnk_0874F34C` ← kandidat `gUnk_0874F2EC`: blob sebelumnya 0x74F2EC (96 B), klasifikasi isi: palet; pemuat: `func_080A2BA4` (asm/code_809E804.s:8371)
 

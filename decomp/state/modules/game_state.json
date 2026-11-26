@@ -2209,10 +2209,13 @@
  },
  "func_08016D34": {
   "addr": 134311220,
+  "judged_mtime": 0,
   "module": "game_state.s",
+  "note": "m2c gagal; tulis manual",
   "ref_len": 20,
+  "sanitize_v": 0,
   "size": 225,
-  "status": "pending",
+  "status": "failed",
   "thumb": true
  },
  "func_08016D48": {

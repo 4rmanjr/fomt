@@ -6,7 +6,7 @@
    "call_sites": [
     {
      "file": "asm/code_809E804.s",
-     "line": 103017,
+     "line": 103041,
      "function": "func_080D0D28"
     }
    ],
@@ -20,7 +20,7 @@
    "call_sites": [
     {
      "file": "asm/code_809E804.s",
-     "line": 103017,
+     "line": 103041,
      "function": "func_080D0D28"
     }
    ],
@@ -34,12 +34,12 @@
    "call_sites": [
     {
      "file": "asm/code_809E804.s",
-     "line": 31059,
+     "line": 31083,
      "function": "func_080ADCA4"
     },
     {
      "file": "asm/code_809E804.s",
-     "line": 31121,
+     "line": 31145,
      "function": "func_080ADD20"
     }
    ],
@@ -93,27 +93,27 @@
     },
     {
      "file": "asm/code_809E804.s",
-     "line": 28357,
+     "line": 28381,
      "function": "func_080AC674"
     },
     {
      "file": "asm/code_809E804.s",
-     "line": 31433,
+     "line": 31457,
      "function": "func_080ADF6C"
     },
     {
      "file": "asm/code_809E804.s",
-     "line": 43342,
+     "line": 43366,
      "function": "func_080B3CC8"
     },
     {
      "file": "asm/code_809E804.s",
-     "line": 61429,
+     "line": 61453,
      "function": "func_080BC938"
     },
     {
      "file": "asm/code_809E804.s",
-     "line": 70207,
+     "line": 70231,
      "function": "func_080C0DCC"
     },
     {
@@ -132,7 +132,7 @@
    "call_sites": [
     {
      "file": "asm/code_809E804.s",
-     "line": 28357,
+     "line": 28381,
      "function": "func_080AC674"
     }
    ],
@@ -151,27 +151,27 @@
     },
     {
      "file": "asm/code_809E804.s",
-     "line": 28357,
+     "line": 28381,
      "function": "func_080AC674"
     },
     {
      "file": "asm/code_809E804.s",
-     "line": 31433,
+     "line": 31457,
      "function": "func_080ADF6C"
     },
     {
      "file": "asm/code_809E804.s",
-     "line": 43342,
+     "line": 43366,
      "function": "func_080B3CC8"
     },
     {
      "file": "asm/code_809E804.s",
-     "line": 61429,
+     "line": 61453,
      "function": "func_080BC938"
     },
     {
      "file": "asm/code_809E804.s",
-     "line": 70207,
+     "line": 70231,
      "function": "func_080C0DCC"
     }
    ],
@@ -184,7 +184,7 @@
      "loaders": [
       {
        "file": "asm/code_809E804.s",
-       "line": 21883,
+       "line": 21907,
        "function": "func_080A95A4"
       }
      ]
@@ -211,7 +211,7 @@
    "call_sites": [
     {
      "file": "asm/code_809E804.s",
-     "line": 43342,
+     "line": 43366,
      "function": "func_080B3CC8"
     }
    ],
@@ -238,7 +238,7 @@
      "loaders": [
       {
        "file": "asm/code_809E804.s",
-       "line": 49944,
+       "line": 49968,
        "function": "func_080B7164"
       }
      ]
@@ -251,7 +251,7 @@
    "call_sites": [
     {
      "file": "asm/code_809E804.s",
-     "line": 43342,
+     "line": 43366,
      "function": "func_080B3CC8"
     }
    ],
@@ -264,7 +264,7 @@
      "loaders": [
       {
        "file": "asm/code_809E804.s",
-       "line": 32403,
+       "line": 32427,
        "function": "func_080AE7D0"
       }
      ]
@@ -277,7 +277,7 @@
    "call_sites": [
     {
      "file": "asm/code_809E804.s",
-     "line": 43342,
+     "line": 43366,
      "function": "func_080B3CC8"
     }
    ],

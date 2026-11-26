@@ -1639,10 +1639,18 @@
   "module": "code_809E804.s",
   "note": "",
   "promoted_to": "decomp/promoted/code_809E804.cc",
-  "ref_len": 84,
+  "ref_len": 28,
   "sanitize_v": 4,
-  "size": 602,
+  "size": 224,
   "status": "promoted",
+  "thumb": true
+ },
+ "func_080A643C": {
+  "addr": 134898748,
+  "module": "code_809E804.s",
+  "ref_len": 56,
+  "size": 595,
+  "status": "pending",
   "thumb": true
  },
  "func_080A6474": {

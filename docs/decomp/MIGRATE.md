@@ -1604,3 +1604,36 @@ Dua jebakan yang memakan iterasi:
   `bl func_<simbol>+<addend>`, dan addend dihitung dari **PC instruksi `bl`
   (alamat bl + 4)**, bukan dari awal fungsi. Salah 12 byte di addend hanya
   menggeser displacement — `make compare` merah, `od` menunjukkan beda 1 halfword.
+
+### 49. Buka ekor multi-fungsi tanpa transkripsi manual: `.byte` → `.inst.n`
+
+Sisa 8 fungsi `data asing ... ekor` semuanya berekor `.byte` murni (tanpa
+`.4byte` di dalamnya) — 56 B s.d. 1.012 B, isinya beberapa fungsi + literal pool.
+Resep §41 tetap benar, tetapi transkripsi manual 2.400 B instruksi boros dan rawan.
+
+Jalan pintas yang terbukti (ROM **byte-identik**, `make compare` HIJAU):
+
+1. ubah tiap pasangan byte ekor menjadi satu direktif `.inst.n 0x<hhll>`.
+   `.inst.n` (bukan `.inst`) wajib di mode Thumb: assembler menolak `.inst`
+   dengan `cannot determine Thumb instruction size`.
+   Karena `.inst.n` menulis halfword apa adanya, `bl`/`ldr` PC-relative dan
+   literal pool **tidak perlu** dihitung ulang — byte tetap sama.
+2. beri satu `thumb_func_start func_<alamat>` + label `func_<alamat>: @ 0x...`
+   di awal ekor. Splitter melihatnya sebagai kode (bukan data), chunk induk
+   putus di situ, dan section baru tetap terurut alamat karena lds memakai
+   `SORT_BY_NAME`.
+3. `make compare` HIJAU → rescan → `ref_len` induk turun → migrasi induk normal.
+
+Hasil putaran ini: 8/8 induk pindah ke `src/` (masing-masing tetap satu chunk
+ekor multi-fungsi berisi `.inst.n` yang belum dipecah; itu pekerjaan match
+terpisah, bukan penghalang migrasi).
+
+Tiga penyatuan tanda tangan yang muncul saat migrasi (semuanya nol byte):
+
+- `__builtin_new`: blok mendeklarasikan `s32`, `src/` menyimpan `void *` →
+  pakai `void *__builtin_new(s32)` + `(s32)` di argumen pemanggil.
+- `__5ActorRC5Actor(i32 *, i32)` vs `(i32 *, void *)` → samakan deklarasi di
+  fungsi `src/` yang lebih dulu pindah, beri `(void *) arg2` di call-site.
+- pemanggil `func_080390D0()` tanpa argumen padahal r0 sudah berisi field →
+  deklarasikan `u32 func_080390D0(void *)` dan teruskan `arg0->unk10`; CSE
+  membuat compiler memakai r0 yang sama, byte tidak berubah.

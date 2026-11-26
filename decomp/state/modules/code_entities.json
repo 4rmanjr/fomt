@@ -87,10 +87,18 @@
   "module": "code_entities.s",
   "note": "SKIP-migrasi permanen: data asing 68B di ekor (gate).",
   "promoted_to": "decomp/promoted/code_entities.cc",
-  "ref_len": 72,
+  "ref_len": 4,
   "sanitize_v": 4,
-  "size": 555,
+  "size": 90,
   "status": "promoted",
+  "thumb": true
+ },
+ "func_080202CC": {
+  "addr": 134349516,
+  "module": "code_entities.s",
+  "ref_len": 68,
+  "size": 709,
+  "status": "pending",
   "thumb": true
  },
  "func_08020310": {
@@ -99,10 +107,18 @@
   "module": "code_entities.s",
   "note": "",
   "promoted_to": "decomp/promoted/code_entities.cc",
-  "ref_len": 256,
+  "ref_len": 148,
   "sanitize_v": 4,
-  "size": 2174,
+  "size": 1451,
   "status": "promoted",
+  "thumb": true
+ },
+ "func_080203A4": {
+  "addr": 134349732,
+  "module": "code_entities.s",
+  "ref_len": 108,
+  "size": 1089,
+  "status": "pending",
   "thumb": true
  },
  "func_08020410": {
@@ -432,10 +448,18 @@
   "module": "code_entities.s",
   "note": " | [KELUARGA pop {r2} - kembaran tertelan blok] Blok 436B ini memuat kembaran 0x08022B38 (epilog pop {r2}; bx r2). Karena blok ini sudah promoted, byte kembaran itu sudah direproduksi sebagai bagiannya - tak perlu entri/migrasi sendiri.",
   "promoted_to": "decomp/promoted/code_entities.cc",
-  "ref_len": 436,
+  "ref_len": 20,
   "sanitize_v": 4,
-  "size": 2998,
+  "size": 247,
   "status": "promoted",
+  "thumb": true
+ },
+ "func_080229B8": {
+  "addr": 134359480,
+  "module": "code_entities.s",
+  "ref_len": 416,
+  "size": 4015,
+  "status": "pending",
   "thumb": true
  },
  "func_08022B58": {
@@ -512,10 +536,18 @@
   "module": "code_entities.s",
   "note": "",
   "promoted_to": "decomp/promoted/code_entities.cc",
-  "ref_len": 1008,
+  "ref_len": 20,
   "sanitize_v": 4,
-  "size": 6745,
+  "size": 247,
   "status": "promoted",
+  "thumb": true
+ },
+ "func_08023414": {
+  "addr": 134362132,
+  "module": "code_entities.s",
+  "ref_len": 988,
+  "size": 9449,
+  "status": "pending",
   "thumb": true
  },
  "func_080237F0": {
@@ -592,10 +624,18 @@
   "module": "code_entities.s",
   "note": "",
   "promoted_to": "decomp/promoted/code_entities.cc",
-  "ref_len": 1032,
+  "ref_len": 20,
   "sanitize_v": 4,
-  "size": 6907,
+  "size": 247,
   "status": "promoted",
+  "thumb": true
+ },
+ "func_080240D0": {
+  "addr": 134365392,
+  "module": "code_entities.s",
+  "ref_len": 1012,
+  "size": 9677,
+  "status": "pending",
   "thumb": true
  },
  "func_080244C4": {
@@ -1464,10 +1504,18 @@
   "module": "code_entities.s",
   "note": "",
   "promoted_to": "decomp/promoted/code_entities.cc",
-  "ref_len": 204,
+  "ref_len": 24,
   "sanitize_v": 4,
-  "size": 1435,
+  "size": 235,
   "status": "promoted",
+  "thumb": true
+ },
+ "func_0802C228": {
+  "addr": 134398504,
+  "module": "code_entities.s",
+  "ref_len": 180,
+  "size": 1773,
+  "status": "pending",
   "thumb": true
  },
  "func_0802C2DC": {

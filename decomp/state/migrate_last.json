@@ -60,9 +60,9 @@
     "when": "2026-11-23T11:39:03"
   },
   "code_809E804.s:func_080A6420": {
-    "detail": "func_080A6420 data asing 56B menempel ekor (ref 84B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:10:24"
   },
   "code_809E804.s:func_080A6474": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75424: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
@@ -290,29 +290,29 @@
     "when": "2026-11-26T10:57:18"
   },
   "code_entities.s:func_080202C8": {
-    "detail": "func_080202C8 data asing 68B menempel ekor (ref 72B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:19"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:10:29"
   },
   "code_entities.s:func_08020310": {
-    "detail": "func_08020310 data asing 108B menempel ekor (ref 256B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:19"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:12:52"
   },
   "code_entities.s:func_080229A4": {
-    "detail": "func_080229A4 data asing 416B menempel ekor (ref 436B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:19"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:12:10"
   },
   "code_entities.s:func_08023400": {
-    "detail": "func_08023400 data asing 988B menempel ekor (ref 1008B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:19"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:12:14"
   },
   "code_entities.s:func_080240BC": {
-    "detail": "func_080240BC data asing 1012B menempel ekor (ref 1032B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:19"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:12:18"
   },
   "code_entities.s:func_08025018": {
     "detail": "func_08025018 sudah ada di /workspace/chats/8e431e267938c019828ff924/src/code_entities.cc (dilewati)",
@@ -325,9 +325,9 @@
     "when": "2026-11-23T11:39:08"
   },
   "code_entities.s:func_0802C210": {
-    "detail": "func_0802C210 data asing 180B menempel ekor (ref 204B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:19"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:13:29"
   },
   "code_entities.s:sub_08031E0A": {
     "detail": "sub_08031E0A grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
@@ -355,9 +355,9 @@
     "when": "2026-11-26T10:04:16"
   },
   "code_entities_08034CEC.s:func_080390D0": {
-    "detail": "func_080390D0 data asing 88B menempel ekor (ref 100B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:19"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:13:01"
   },
   "code_entities_08034CEC.s:func_0803A350": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75459: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",

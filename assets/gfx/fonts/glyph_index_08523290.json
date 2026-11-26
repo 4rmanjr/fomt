@@ -7959,5 +7959,5 @@
  "note": "7938 entri s16; kode 2-byte, indeks linear dari func_080D0CD4",
  "status": "rom-exact",
  "semantics": "unidentified",
- "evidence": "code_809E804.s:103137 (func_080D0D28): ldrsh dari gUnk_08523290 + indeks*2; indeks dari func_080D0CD4 (baris 103130) = 189*lead + (trail-0x40), lead 0x81-0x9F/0xE0-0xEA; nilai < 0 -> tanpa glyph."
+ "evidence": "code_809E804.s:103161 (func_080D0D28): ldrsh dari gUnk_08523290 + indeks*2; indeks dari func_080D0CD4 (baris 103130) = 189*lead + (trail-0x40), lead 0x81-0x9F/0xE0-0xEA; nilai < 0 -> tanpa glyph."
 }

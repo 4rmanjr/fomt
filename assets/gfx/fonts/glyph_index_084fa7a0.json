@@ -277,5 +277,5 @@
  "note": "256 entri s16; kode 0x00-0xFF, indeks = kode*2",
  "status": "rom-exact",
  "semantics": "unidentified",
- "evidence": "code_809E804.s:103120 (func_080D0D28): ldrsh dari gUnk_084FA7A0 + kode*2; nilai < 0 -> sel glyph dikosongkan (memset 0x80)."
+ "evidence": "code_809E804.s:103144 (func_080D0D28): ldrsh dari gUnk_084FA7A0 + kode*2; nilai < 0 -> sel glyph dikosongkan (memset 0x80)."
 }

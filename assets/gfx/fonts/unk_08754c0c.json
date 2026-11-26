@@ -154,7 +154,7 @@
   "sha256": "2908231dba2fb5105723476b17f7fd4ab3d4fe597144df7a0dc06ef065ffca6b"
  },
  "note": "container func_0805E6CC: A2/B4/C2/D36/E2/F0/T5; 36+2 tile 4bpp di D+E, sisa tabel",
- "evidence": "container func_0805E6CC A2/B4/C2/D36/E2/F0/T5 (1352 B habis tepat); asm/code_0803EE94.s:166585 (func_08094AC0), asm/code_809E804.s:95889 (func_080CD578), dan asm/code_809E804.s:98781 (func_080CEC00) memanggil func_0805E6CC dengan gUnk_08754C0C",
+ "evidence": "container func_0805E6CC A2/B4/C2/D36/E2/F0/T5 (1352 B habis tepat); asm/code_0803EE94.s:166585 (func_08094AC0), asm/code_809E804.s:95913 (func_080CD578), dan asm/code_809E804.s:98805 (func_080CEC00) memanggil func_0805E6CC dengan gUnk_08754C0C",
  "status": "rom-exact",
  "coverage": {
   "total_bytes": 1352,

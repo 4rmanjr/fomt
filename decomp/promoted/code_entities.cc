@@ -669,11 +669,11 @@ s32 func_08020130(GenObj *arg0) {
 }
 
 // DECOMP-MATCHED func_0802C210 (dari code_entities.s; cek manusia sebelum ke src/)
-s32 __builtin_new(s32);                             /* extern */
-s32 func_0802B9C0(s32, s32);                          /* extern */
+void *__builtin_new(s32);                            /* extern */
+void *func_0802B9C0(GenObj__func_0802B9C0 *, s32);    /* extern */
 
 s32 func_0802C210(s32 arg0) {
-    return func_0802B9C0(__builtin_new(0x5C), arg0);
+    return (s32) func_0802B9C0((GenObj__func_0802B9C0 *) __builtin_new(0x5C), arg0);
 }
 
 // DECOMP-MATCHED func_08020460 (dari code_entities.s; cek manusia sebelum ke src/)
