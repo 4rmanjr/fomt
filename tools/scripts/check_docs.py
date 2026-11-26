@@ -77,9 +77,9 @@ Yang diperiksa:
     `.incbin "baserom.gba"` atau masih diparkir; kalimat dari sesi lama
     menyesatkan agent berikutnya setelah migrasi. Bentuk penyangkalan
     ("tidak lagi parkir") tetap lolos. Klaim tingkat kelas ("palet",
-    "sprite", "tilemap", "font") juga ditolak bila menyebut kelas itu
-    masih mentah/opaque/parkir padahal seluruh aset kelas itu di manifest
-    sudah `rom-exact`.
+    "sprite", "tilemap", "font", "kontainer 0x70") juga ditolak bila
+    menyebut kelas itu masih mentah/opaque/parkir padahal seluruh aset
+    kelas itu di manifest sudah `rom-exact`.
 
 Read-only; exit 1 bila ada masalah (`--json` untuk agent, `--strict` sama
 dengan default).
@@ -257,12 +257,14 @@ ASSET_CLASS_KINDS = {
     "sprite": {"sprite"},
     "tilemap": {"tilemap", "tilemap_bank"},
     "font": {"font_container", "glyph_font", "glyph_index"},
+    "0x70": {"stream_bank"},
 }
 ASSET_CLASS_WORDS = {
     "palet": r"\b(?:palet|palette)s?\b",
     "sprite": r"\b(?:sprite|sprites)\b",
     "tilemap": r"\btilemaps?\b",
     "font": r"\b(?:font|fonts|glyph|glyphs)\b",
+    "0x70": r"\b(?:kontainer|container)\s+0x70\b",
 }
 KELAS_BASI = re.compile(
     r"\b(?:masih|tetap)\s+(?:mentah|raw|opaque|parkir\w*)"

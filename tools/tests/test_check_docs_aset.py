@@ -23,6 +23,8 @@ class AssetClaim(unittest.TestCase):
              "status": "rom-exact"},
             {"symbol": "gUnk_00000002", "kind": "sprite",
              "status": "opaque"},
+            {"symbol": "gUnk_00000003", "kind": "stream_bank",
+             "status": "rom-exact"},
         ]}
         (root / "assets" / "manifest.json").write_text(json.dumps(manifest))
         self.doc = root / "DOC.md"
@@ -52,7 +54,7 @@ class AssetClaim(unittest.TestCase):
             '`.incbin "build/assets/gUnk_00000001.bin"`.\n'
             "`gUnk_00000002` masih diparkir.\n")
         self.assertIsNone(prob)
-        self.assertIn("1 rom-exact", note)
+        self.assertIn("2 rom-exact", note)  # font + stream_bank 0x70 di manifest tes
 
     def test_class_claim_stale_when_all_members_rom_exact(self):
         # Klaim kelas boleh terlipat antar-baris; paragraf digabung dulu.
@@ -67,6 +69,16 @@ class AssetClaim(unittest.TestCase):
 
     def test_class_negation_passes(self):
         prob, _ = self.gate("Palet tidak lagi parkir.\n")
+        self.assertIsNone(prob)
+
+    def test_container_0x70_claim_stale(self):
+        prob, _ = self.gate("Kontainer 0x70 masih opaque.\n")
+        self.assertIsNotNone(prob)
+        self.assertIn("klaim kelas basi: 0x70", prob[1])
+
+    def test_generic_stream_0x70_wording_passes(self):
+        # Kalimat kebijakan "stream tetap opaque" bukan klaim kelas kontainer.
+        prob, _ = self.gate("Stream 0x70 yang gagal tetap opaque.\n")
         self.assertIsNone(prob)
 
 
