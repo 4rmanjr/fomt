@@ -154,10 +154,11 @@
  },
  "note": "0x60 B pertama u16 (consumer), sisa u16 opaque tanpa consumer Semua range opaque menyebut descriptor/offset yang diperiksa.",
  "evidence": "func_080A97CC/080A97F4 menyalin 0x60 B pertama ke lapis +0x100; 0x60 B sisa tidak punya pembaca.",
- "opaque": [
+ "padding": [
   {
    "offset": 96,
    "size": 144,
+   "kind": "table_tail",
    "reason": "Tail setelah prefix 0x60 B yang disalin func_080A97CC/F4; tidak ada consumer lain.",
    "evidence": "func_080A97CC (code_0803EE94.s:22126) / func_080A97F4 (22142) memanggil func_08008E64 dengan panjang 0x60 dari offset 0; hanya prefix 0x60 B yang disalin. Tail +0x60..+0xF0 (144 B) tidak dirujuk literal @=gUnk_086D6368 atau pointer tengah; tidak ada routine lain yang memakai offset ini.",
    "tried": [
@@ -167,5 +168,6 @@
     "cek descriptor table"
    ]
   }
- ]
+ ],
+ "tile_animations": []
 }

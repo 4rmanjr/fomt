@@ -106,10 +106,11 @@
  },
  "evidence": "func_0806EC94 menyalin satu blok mailbox malam: header u16=2 tile, blok 64 B, offset +4+gaya*64. Blob berisi 7 blok; tail 56 B di 0x1C4 tidak dibaca.",
  "note": "7 blok tile 4bpp + header; tail 0x1C4..0x1FC u16 tanpa consumer",
- "opaque": [
+ "padding": [
   {
    "offset": 452,
    "size": 56,
+   "kind": "table_tail",
    "reason": "Tail bukan bagian blok tile: func_0806EC94 hanya menyalin header+tilecount*32 B; tail tidak pernah disalin.",
    "evidence": "func_0806EC94 (code_0803EE94.s:94173/94205/94236) menghitung offset = +4 + gaya*header*32 dan panjang = header*32. Blob mailbox malam berukuran 508 B; 7 blok x 64 B berakhir di +0x1C4, sehingga tail 0x1C4..0x1FC (56 B) tidak tersentuh. Tidak ada xref lain ke simbol atau offset tengah.",
    "tried": [
@@ -119,5 +120,6 @@
     "cek semua cabang func_0806EC94"
    ]
   }
- ]
+ ],
+ "tile_animations": []
 }

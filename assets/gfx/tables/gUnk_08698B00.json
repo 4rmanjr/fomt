@@ -428,10 +428,11 @@
  },
  "evidence": "func_080A9850 (code_809E804.s:22199): func_08008E64(sumber, lapis+0x160, 0x80) menyalin 0x80 B pertama ke lapis; 660 B sisa tidak punya pembaca.",
  "note": "0x80 B pertama u16 (consumer), sisa u16 opaque tanpa consumer",
- "opaque": [
+ "padding": [
   {
    "offset": 128,
    "size": 660,
+   "kind": "table_tail",
    "reason": "Tail setelah 0x80 B yang disalin func_080A9850/080A9826; tidak ada consumer lain.",
    "evidence": "func_080A9850 (22199) / func_080A9826 (22187) hanya memanggil func_08008E64 dengan panjang 0x80 dari offset 0; tidak ada referensi lain ke simbol atau offset tengah.",
    "tried": [
@@ -440,5 +441,6 @@
     "cek fungsi penyalin"
    ]
   }
- ]
+ ],
+ "tile_animations": []
 }

@@ -898,10 +898,24 @@
   "raw_bytes": 266,
   "proven_ratio": 0.8525
  },
- "opaque": [
+ "tile_animations": [
+  {
+   "offset": 1544,
+   "header": [
+    2,
+    3
+   ],
+   "tiles_per_frame": 2,
+   "frames": 3,
+   "tiles_hex": "555555556556556656556656656556655566665665666655565556655655665555555555666565555656655565566556665555565566555566555656555556555556565655565556555555555655666655665656655665656666566666665555555665665566555555555555656555655665555656655665555556556655556566566655665555665665665566555555555555556555655665555655655665655556556655556566565656555655565555555555556666656656565656656556",
+   "note": "header u16 2 tile/frame + u16 3 frame; 6 tile 4bpp (192 B); dibaca func_080A5AB0 lewat gUnk_081071A4/C8."
+  }
+ ],
+ "padding": [
   {
    "offset": 518,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x8 17x15 (descriptor 0x106D4C slot 0) berakhir di +0x206; layer +0x208 17x15 (descriptor 0x106D4C slot 1) mulai di +0x208. Range +0x206..+0x208 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -914,6 +928,7 @@
   {
    "offset": 1030,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x208 17x15 (descriptor 0x106D4C slot 1) berakhir di +0x406; layer +0x408 17x15 (descriptor 0x106D4C slot 2) mulai di +0x408. Range +0x406..+0x408 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -926,6 +941,7 @@
   {
    "offset": 1542,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x408 17x15 (descriptor 0x106D4C slot 2) berakhir di +0x606; layer +0x6CC 4x4 (descriptor 0x107064 slot 1) mulai di +0x6CC. Range +0x606..+0x608 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -934,19 +950,6 @@
     "scan literal simbol",
     "scan pointer tengah"
    ]
-  }
- ],
- "tile_animations": [
-  {
-   "offset": 1544,
-   "header": [
-    2,
-    3
-   ],
-   "tiles_per_frame": 2,
-   "frames": 3,
-   "tiles_hex": "555555556556556656556656656556655566665665666655565556655655665555555555666565555656655565566556665555565566555566555656555556555556565655565556555555555655666655665656655665656666566666665555555665665566555555555555656555655665555656655665555556556655556566566655665555665665665566555555555555556555655665555655655665655556556655556566565656555655565555555555556666656656565656656556",
-   "note": "header u16 2 tile/frame + u16 3 frame; 6 tile 4bpp (192 B); dibaca func_080A5AB0 lewat gUnk_081071A4/C8."
   }
  ]
 }

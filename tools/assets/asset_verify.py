@@ -395,8 +395,8 @@ def check_asset(asset, rom, incbins, repo=None, force_encode=False):
     return problems, notes
 
 
-def opaque_problems(asset, rom):
-    """Setiap raw/tail wajib punya range opaque dengan alasan + bukti."""
+def padding_problems(asset, rom):
+    """Setiap raw/tail wajib punya range padding dengan kind + alasan + bukti."""
     problems = []
     source = asset.get("source", {}).get("json")
     meta = {}
@@ -405,35 +405,48 @@ def opaque_problems(asset, rom):
             meta = json.loads((REPO / source).read_text())
         except (OSError, ValueError) as exc:
             return [f"metadata {source}: {exc}"]
-    ranges = asset.get("opaque") or meta.get("opaque") or []
+    if asset.get("opaque") or meta.get("opaque"):
+        problems.append("field 'opaque' tidak boleh ada; ubah ke 'padding'")
+    ranges = asset.get("padding") or meta.get("padding") or []
     raw = meta.get("raw") or []
     tail = len(meta.get("source", {}).get("tail_hex", "")) // 2
     if (raw or tail) and not ranges:
-        problems.append("raw/tail tanpa opaque: tambahkan range+reason+evidence")
+        problems.append("raw/tail tanpa padding: tambahkan kind+reason+evidence")
     spans = []
     for i, item in enumerate(ranges):
         if not isinstance(item, dict):
-            problems.append(f"opaque[{i}] bukan objek")
+            problems.append(f"padding[{i}] bukan objek")
             continue
-        for key in ("offset", "size", "reason", "evidence"):
+        for key in ("offset", "size", "kind", "reason", "evidence"):
             if not item.get(key):
-                problems.append(f"opaque[{i}] wajib {key}")
+                problems.append(f"padding[{i}] wajib {key}")
         off, size = item.get("offset"), item.get("size")
         if not isinstance(off, int) or not isinstance(size, int) or size < 1:
-            problems.append(f"opaque[{i}] offset/size tidak valid")
+            problems.append(f"padding[{i}] offset/size tidak valid")
             continue
         if off < 0 or off + size > len(rom):
-            problems.append(f"opaque[{i}] {off:#x}..{off+size:#x} di luar ROM")
+            problems.append(f"padding[{i}] {off:#x}..{off+size:#x} di luar ROM")
         spans.append((off, off + size, i))
     spans.sort()
     for (a0, a1, ai), (b0, b1, bi) in zip(spans, spans[1:]):
         if b0 < a1:
-            problems.append(f"opaque[{ai}] dan opaque[{bi}] tumpang tindih")
+            problems.append(f"padding[{ai}] dan padding[{bi}] tumpang tindih")
     for j, item in enumerate(raw):
         off = int(str(item.get("offset", 0)), 0)
         size = len(item.get("hex", "")) // 2
         if size and not any(a <= off and off + size <= b for a, b, _ in spans):
-            problems.append(f"raw[{j}] {off:#x}..{off+size:#x} tidak punya opaque")
+            problems.append(f"raw[{j}] {off:#x}..{off+size:#x} tidak punya padding")
+    if meta.get("kind") == "tilemap_bank":
+        named = []
+        for layer in meta.get("layers", []):
+            start = int(str(layer["offset"]), 0)
+            named.append((start, start + layer["width"] * layer["height"] * 2))
+        for anim in meta.get("tile_animations", []):
+            start = int(str(anim["offset"]), 0)
+            named.append((start, start + 4 + len(anim.get("tiles_hex", "")) // 2))
+        for a, b, i in spans:
+            if any(x < b and a < y for x, y in named):
+                problems.append(f"padding[{i}] tumpang tindih dengan layer/animasi")
     return problems
 
 
@@ -476,7 +489,7 @@ def verify(manifest_path=MANIFEST, schema_path=SCHEMA, rom_path=ROM,
         seen_offset[off] = key
         found, asset_notes = check_asset(asset, rom, incbins,
                                          force_encode=force_encode)
-        found += opaque_problems(asset, rom)
+        found += padding_problems(asset, rom)
         if require_switched:
             found += [n for n in asset_notes if n.startswith("masih .incbin")]
         problems += [f"{key}: {p}" for p in found]

@@ -2107,10 +2107,6 @@
    "hex": "0000"
   },
   {
-   "offset": 2604,
-   "hex": "04000300747777fd747777ed757777dc757777d774777777757777777577777775777777df777777de777777cd7777777c7777777477777774777777747777777577777774777777757777777477777774777777756767766467666774766767646767667477777775777777747777776467676774767666736666766466666673666666747777ed747777c5757777d5757777ee747777ad757777d57577775575777757cd7777775c777777cd777777ca757777de7c7777ad5c7777eade7777feef75777477775775777757747777f7747777ff7567f7ff6467e7ef7476573364677766feff5e77ffff5e77ffef5577ff5e6567ee557666536566765366666674666666747777ed747777c5757777d5757777ee747777aa757777dd757777aa757777ffcd7777775c777777cd777777aa767777de7c7777ad6a7777ea5d7777ffde66777477feff75e7ffff74e7ffff74e7efff75d7eeff6457edfe7466d5ed64675655efee6577efed6d77ffde5d77ffef5d67ffde5d66efdd6576de55666653666666"
-  },
-  {
    "offset": 3322,
    "hex": "0000"
   },
@@ -2127,10 +2123,11 @@
   "raw_bytes": 30426,
   "proven_ratio": 0.0866
  },
- "opaque": [
+ "padding": [
   {
    "offset": 74,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x2C 3x5 (descriptor 0x107034 slot 1) berakhir di +0x4A; layer +0x4C 3x5 (descriptor 0x10704C slot 1) mulai di +0x4C. Range +0x4A..+0x4C (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2143,6 +2140,7 @@
   {
    "offset": 106,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x4C 3x5 (descriptor 0x10704C slot 1) berakhir di +0x6A; layer +0x6C 2x3 (descriptor 0x106DAC slot 1) mulai di +0x6C. Range +0x6A..+0x6C (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2155,6 +2153,7 @@
   {
    "offset": 222,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x84 9x5 (descriptor 0x106DF4 slot 1) berakhir di +0xDE; layer +0xE0 9x5 (descriptor 0x106DC4 slot 1) mulai di +0xE0. Range +0xDE..+0xE0 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2167,6 +2166,7 @@
   {
    "offset": 314,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0xE0 9x5 (descriptor 0x106DC4 slot 1) berakhir di +0x13A; layer +0x13C 9x5 (descriptor 0x106DDC slot 1) mulai di +0x13C. Range +0x13A..+0x13C (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2179,6 +2179,7 @@
   {
    "offset": 406,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x13C 9x5 (descriptor 0x106DDC slot 1) berakhir di +0x196; layer +0x198 2x2 (descriptor 0x1070C4 slot 1) mulai di +0x198. Range +0x196..+0x198 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2191,6 +2192,7 @@
   {
    "offset": 454,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x1A8 3x5 (descriptor 0x106C2C slot 0) berakhir di +0x1C6; layer +0x1C8 3x5 (descriptor 0x106C2C slot 1) mulai di +0x1C8. Range +0x1C6..+0x1C8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2203,6 +2205,7 @@
   {
    "offset": 486,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x1C8 3x5 (descriptor 0x106C2C slot 1) berakhir di +0x1E6; layer +0x1E8 3x5 (descriptor 0x106F74 slot 1) mulai di +0x1E8. Range +0x1E6..+0x1E8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2215,6 +2218,7 @@
   {
    "offset": 518,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x1E8 3x5 (descriptor 0x106F74 slot 1) berakhir di +0x206; layer +0x208 3x5 (descriptor 0x106F8C slot 1) mulai di +0x208. Range +0x206..+0x208 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2227,6 +2231,7 @@
   {
    "offset": 550,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x208 3x5 (descriptor 0x106F8C slot 1) berakhir di +0x226; layer +0x228 3x5 (descriptor 0x106F44 slot 1) mulai di +0x228. Range +0x226..+0x228 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2239,6 +2244,7 @@
   {
    "offset": 582,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x228 3x5 (descriptor 0x106F44 slot 1) berakhir di +0x246; layer +0x248 3x5 (descriptor 0x106F5C slot 1) mulai di +0x248. Range +0x246..+0x248 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2251,6 +2257,7 @@
   {
    "offset": 614,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x248 3x5 (descriptor 0x106F5C slot 1) berakhir di +0x266; layer +0x268 3x5 (descriptor 0x106E54 slot 1) mulai di +0x268. Range +0x266..+0x268 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2263,6 +2270,7 @@
   {
    "offset": 646,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x268 3x5 (descriptor 0x106E54 slot 1) berakhir di +0x286; layer +0x288 3x5 (descriptor 0x106E6C slot 1) mulai di +0x288. Range +0x286..+0x288 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2275,6 +2283,7 @@
   {
    "offset": 678,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x288 3x5 (descriptor 0x106E6C slot 1) berakhir di +0x2A6; layer +0x2A8 3x5 (descriptor 0x106EB4 slot 1) mulai di +0x2A8. Range +0x2A6..+0x2A8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2287,6 +2296,7 @@
   {
    "offset": 710,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x2A8 3x5 (descriptor 0x106EB4 slot 1) berakhir di +0x2C6; layer +0x2C8 3x5 (descriptor 0x106ECC slot 1) mulai di +0x2C8. Range +0x2C6..+0x2C8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2299,6 +2309,7 @@
   {
    "offset": 742,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x2C8 3x5 (descriptor 0x106ECC slot 1) berakhir di +0x2E6; layer +0x2E8 3x5 (descriptor 0x106E84 slot 1) mulai di +0x2E8. Range +0x2E6..+0x2E8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2311,6 +2322,7 @@
   {
    "offset": 774,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x2E8 3x5 (descriptor 0x106E84 slot 1) berakhir di +0x306; layer +0x308 3x5 (descriptor 0x106E9C slot 1) mulai di +0x308. Range +0x306..+0x308 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2323,6 +2335,7 @@
   {
    "offset": 806,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x308 3x5 (descriptor 0x106E9C slot 1) berakhir di +0x326; layer +0x328 3x4 (descriptor 0x106E0C slot 0) mulai di +0x328. Range +0x326..+0x328 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2335,6 +2348,7 @@
   {
    "offset": 886,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x358 3x5 (descriptor 0x106F14 slot 1) berakhir di +0x376; layer +0x378 3x5 (descriptor 0x106F2C slot 1) mulai di +0x378. Range +0x376..+0x378 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2347,6 +2361,7 @@
   {
    "offset": 918,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x378 3x5 (descriptor 0x106F2C slot 1) berakhir di +0x396; layer +0x398 3x5 (descriptor 0x106EE4 slot 1) mulai di +0x398. Range +0x396..+0x398 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2359,6 +2374,7 @@
   {
    "offset": 950,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x398 3x5 (descriptor 0x106EE4 slot 1) berakhir di +0x3B6; layer +0x3B8 3x5 (descriptor 0x106EFC slot 1) mulai di +0x3B8. Range +0x3B6..+0x3B8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2371,6 +2387,7 @@
   {
    "offset": 982,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x3B8 3x5 (descriptor 0x106EFC slot 1) berakhir di +0x3D6; layer +0x3D8 3x5 (descriptor 0x106C14 slot 1) mulai di +0x3D8. Range +0x3D6..+0x3D8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2383,6 +2400,7 @@
   {
    "offset": 1014,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x3D8 3x5 (descriptor 0x106C14 slot 1) berakhir di +0x3F6; layer +0x3F8 3x5 (descriptor 0x106BFC slot 1) mulai di +0x3F8. Range +0x3F6..+0x3F8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2395,6 +2413,7 @@
   {
    "offset": 1046,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x3F8 3x5 (descriptor 0x106BFC slot 1) berakhir di +0x416; layer +0x418 6x8 (descriptor 0x106B84 slot 1) mulai di +0x418. Range +0x416..+0x418 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2405,20 +2424,9 @@
    ]
   },
   {
-   "offset": 2604,
-   "size": 388,
-   "reason": "Tidak ada pointer layer di 82 descriptor 0x18 untuk range +0xA2C..+0xBB0; tidak ada xref.",
-   "evidence": "82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa: 0 pointer layer yang menunjuk/menimpa +0xA2C..+0xBB0. Tidak ada literal @=gUnk_... atau pointer tengah ke range ini; tidak ada routine lain yang memakai offset ini.",
-   "tried": [
-    "parse 82 descriptor 0x18 B",
-    "cek overlap pointer layer",
-    "scan literal simbol",
-    "scan pointer tengah"
-   ]
-  },
-  {
    "offset": 3322,
    "size": 2,
+   "kind": "alignment",
    "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0xCDC 3x5 (descriptor 0x106E24 slot 1) berakhir di +0xCFA; layer +0xCFC 3x5 (descriptor 0x106E3C slot 1) mulai di +0xCFC. Range +0xCFA..+0xCFC (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
@@ -2431,14 +2439,27 @@
   {
    "offset": 3354,
    "size": 29958,
-   "reason": "Tidak ada pointer layer di 82 descriptor 0x18 untuk range +0xD1A..+0x8220; tidak ada xref.",
-   "evidence": "82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa: 0 pointer layer yang menunjuk/menimpa +0xD1A..+0x8220. Tidak ada literal @=gUnk_... atau pointer tengah ke range ini; tidak ada routine lain yang memakai offset ini.",
+   "kind": "map_payload",
+   "reason": "Payload peta 29.958 B; bukan padding, tetapi tidak punya decoder penuh.",
+   "evidence": "Pointer 0x1071FC menunjuk +0xD1C (blok 32x4), lalu 0x107208/0x10720C/0x10721C/0x107224/0x107234/0x107238/0x107248/0x107250/0x107254/0x107260/0x107264/0x107274/0x10727C/0x107280/0x10728C/0x107290/0x1072A0/0x1072A8/0x1072B8/0x1072BC/0x1072CC/0x1072D4/0x1072E4/0x1072E8/0x1072F8/0x107300/0x107304/0x107310/0x107314/0x107324/0x10732C/0x10733C/0x107348 menunjuk subregion di dalam range. Tidak ada satu descriptor 0x18 yang mencakup seluruh range; isinya blok-blok yang perlu parser terpisah.",
    "tried": [
-    "parse 82 descriptor 0x18 B",
-    "cek overlap pointer layer",
-    "scan literal simbol",
-    "scan pointer tengah"
+    "scan semua pointer 32-bit ke range",
+    "cek tabel 0x1071FC..",
+    "cek descriptor 0x18"
    ]
+  }
+ ],
+ "tile_animations": [
+  {
+   "offset": 2604,
+   "header": [
+    4,
+    3
+   ],
+   "tiles_per_frame": 4,
+   "frames": 3,
+   "tiles_hex": "747777fd747777ed757777dc757777d774777777757777777577777775777777df777777de777777cd7777777c7777777477777774777777747777777577777774777777757777777477777774777777756767766467666774766767646767667477777775777777747777776467676774767666736666766466666673666666747777ed747777c5757777d5757777ee747777ad757777d57577775575777757cd7777775c777777cd777777ca757777de7c7777ad5c7777eade7777feef75777477775775777757747777f7747777ff7567f7ff6467e7ef7476573364677766feff5e77ffff5e77ffef5577ff5e6567ee557666536566765366666674666666747777ed747777c5757777d5757777ee747777aa757777dd757777aa757777ffcd7777775c777777cd777777aa767777de7c7777ad6a7777ea5d7777ffde66777477feff75e7ffff74e7ffff74e7efff75d7eeff6457edfe7466d5ed64675655efee6577efed6d77ffde5d77ffef5d67ffde5d66efdd6576de55666653666666",
+   "note": "blok animasi 4 tile/frame x 3 frame; header u16 + tile 4bpp."
   }
  ]
 }

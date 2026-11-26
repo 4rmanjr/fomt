@@ -174,10 +174,11 @@
  },
  "evidence": "func_0806EC94 menyalin satu blok window malam: header u16=22 tile, blok 704 B, offset +4+gaya*704. Blob berisi 3 blok; tail 240 B di 0x844 tidak dibaca.",
  "note": "3 blok tile 4bpp + header; tail 0x844..0x934 u16 tanpa consumer",
- "opaque": [
+ "padding": [
   {
    "offset": 2116,
    "size": 240,
+   "kind": "table_tail",
    "reason": "Tail bukan bagian blok tile: func_0806EC94 hanya menyalin header+tilecount*32 B; tail tidak pernah disalin.",
    "evidence": "func_0806EC94 (code_0803EE94.s:94173/94205/94236) menghitung offset = +4 + gaya*header*32 dan panjang = header*32. Blob window malam berukuran 2356 B; 3 blok x 704 B berakhir di +0x844, sehingga tail 0x844..0x934 (240 B) tidak tersentuh. Tidak ada xref lain ke simbol atau offset tengah.",
    "tried": [
@@ -187,5 +188,6 @@
     "cek semua cabang func_0806EC94"
    ]
   }
- ]
+ ],
+ "tile_animations": []
 }
