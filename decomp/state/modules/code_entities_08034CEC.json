@@ -1105,13 +1105,14 @@
  },
  "func_08037098": {
   "addr": 134443160,
-  "judged_mtime": 1793582714.0924082,
+  "judged_mtime": 1795689031.2675455,
   "module": "code_entities_08034CEC.s",
-  "note": "len 64 vs ref 126 [31missing,1extra,10operand,2different @| adds r0, #0x20 | ldr r0, [r3, #0x20]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 128,
   "sanitize_v": 4,
   "size": 1147,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08037118": {
@@ -1459,9 +1460,9 @@
  "func_08037B48": {
   "addr": 134445896,
   "draft_src": "manual",
-  "judged_mtime": 1795431720.047372,
+  "judged_mtime": 1795689452.52413,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x12: 0x7 vs ref 0x0 [1missing,4extra @>  | ldr r3, [pc, #0x1c]]",
+  "note": "byte +0x10: 0x7 vs ref 0xc [1missing,4extra @>  | ldr r3, [pc, #0x1c]]",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 592,
@@ -1790,9 +1791,9 @@
  },
  "func_0803853C": {
   "addr": 134448444,
-  "judged_mtime": 1795434252.1211586,
+  "judged_mtime": 1795689429.8683457,
   "module": "code_entities_08034CEC.s",
-  "note": "byte +0x0: 0x30 vs ref 0x70 [3missing,6extra,4operand,5regalloc,1different @i push {r4, r5, r6, lr} | push {r4, r5, lr}]",
+  "note": "workspace/chats/19fd550f73b6fba36b4523aa/decomp/logs/judge_func_0803853C/buffy/func.c:17: invalid type argument of `unary *'\n/workspace/chats/19fd550f73b6fba36b4523aa/decomp/logs/judge_func_0803853C/buffy/func.c:19: warning: passing arg 4 of `func_080A4A00' makes pointer from integer without a cast\n",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 687,

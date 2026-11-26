@@ -2770,3 +2770,87 @@ kelas ini jatuh ke pemilihan register agbcc (r2 vs r4, r1 vs r2) atau
 strength-reduction `mul`/mask. Fungsi yang menang (mis. `func_08038028`, §72)
 adalah yang badannya cuma panggilan + simpan field, tanpa loop dan tanpa
 aritmetika konstanta.
+
+## 74. Sapuan penuh kelas §72 (24 survivor): satu MATCH, sisanya dinding bentuk kode
+
+Putaran ini menyapu **seluruh** kelas yang lolos penyaring ketat (bukan enam
+kandidat): 24 fungsi dari semua modul `failed`, sudah dibuang yang punya
+`_call_via`, `mul/muls`, mask `ands/orrs/bics/eors`, `lsls/lsrs/asrs`, akses
+`sp`, `adr`, `ldr [pc]`, pool `ldr rX,.L`, `ldm/stm`, atau cabang mundur.
+Daftar lengkap ada di `/tmp/clean.log` (dicetak ulang di ringkasan commit).
+
+### 74.1 MATCH baru: `func_08037098` (128 B, `code_entities_08034CEC`)
+
+Badan: satu `switch` pada field `u8` di +0x20, empat kasus mengisi dua field
+`+0x18`/`+0x1C`, tanpa panggilan. Draf m2c hanya salah **tipe**: `unk20`
+dideklarasikan `s32` sehingga agbcc memakai `ldr` + `lsls/lsrs` untuk
+memask; setelah diubah menjadi `u8` (dan `unk22`/`arg1` tetap `s32`), hasilnya
+byte-identik (`push {r4,r5,lr}` … `adds r0,r0,#0x20; ldrb r0,[r0]`).
+
+Migrasi ke `src/` **ditolak by-design**: `migrate.py` melaporkan
+`data asing 64B menempel ekor (ref 128B, kode saja MATCH)`. 64 B itu adalah
+potongan kode tanpa simbol yang ikut di section fungsi ini (bukan data chunk
+milik grup berikutnya), jadi masuk kategori SKIP-PERMANEN `MIGRATE.md`.
+Fungsi tetap tercatat sebagai promoted (0 dari hitungan `src`):
+total `berhasil` naik 1358 → **1359**.
+
+### 74.2 Keluarga `adds r1,r0` (compiler-shape wall)
+
+Enam fungsi kembar memakai pola yang sama setelah panggilan pembanding:
+
+```
+bl   func_0802xxxx
+adds r1, r0, #0      ; <-- salinan hasil panggilan ke r1
+ldrh r0, [r4, #0x22] ;     field dibaca ke r0
+cmp  r0, r1
+```
+
+Kandidat: `func_08023308`, `func_08023FB0`, `func_080211E4`, `func_08022048`,
+`func_08034180`, `func_0802AB98`. agbcc **selalu** menghasilkan bentuk tanpa
+salinan (`ldrh r1,[r4,#0x22]; cmp r0,r1` atau `cmp r1,r0`). Sudah dicoba:
+
+- panggilan inline di kedua urutan operand, dan hasil panggilan disimpan ke
+  variabel `s32`/`u16`/`u32` sebelum dibandingkan;
+- field dibaca lewat variabel `s16/u16/s32`, lewat pointer lokal, dan lewat
+  `*pv` yang alamatnya diambil sebelum/sesudah panggilan;
+- penugasan di dalam ekspresi (`if (x != (cur = f()))`), `register` hint,
+  initializer deklarasi, dan urutan deklarasi dibalik;
+- kompilasi ulang dengan **agbcc dan old_agbcc**, pada `-O1/-O2/-O3/-Os`,
+  dengan dan tanpa `-mthumb-interwork`: keenam varian sumber menghasilkan
+  keluaran biner yang sama.
+
+Jadi salinan `adds r1,r0` bukan bentuk sumber yang bisa ditulis di C; itu
+artefak versi compiler asli. Sisa diff terbaik: `func_08023308`
+`2missing,8operand,1regalloc`.
+
+### 74.3 Dinding lain yang diukur ulang
+
+- **`func_08032A00`** (44 B). Sisa **satu** perbedaan: ref menyimpan argumen
+  ke-8 (u8) sebagai `add r2,sp,#0xc; strb r0,[r2]`, agbcc selalu
+  `str r0,[sp,#0xc]` (Thumb `strb` memang tak bisa berbasis `sp`). Lima
+  bentuk dicoba: delapan argumen skalar (literal, variabel `u8`, anggota
+  `u8` struct), struct by-value lokal, dan compound literal
+  (`memset` + copy). Semua menyempit ke perbedaan store itu.
+- **`func_08037B48`** (56 B). Badan identik kecuali `ldr r3,=0x379`
+  diangkat satu instruksi lebih awal (`1missing,4extra`); urutan pengaturan
+  argumen 5 (stack) vs 4 (literal pool) tidak bisa dipaksa dari C.
+- **`func_08023378` / `func_08024020`** (60 B, kembar). Polaritas cabang
+  (`bne` vs `beq` + `b`), urutan blok, dan rumah variabel balik (`r1` vs
+  `r2`); 58 B vs 60 B.
+- **`func_080CDD7C`** (88 B). Struktur asm identik, hanya peran r2/r3
+  tertukar (konstanta 0xA vs base). Sudah dicoba: tukar deklarasi, urutan
+  penugasan dibalik, initializer, tipe `u32`, varian `val` lebih dulu.
+  agbcc selalu memberi variabel pertama r2.
+- Modul `code_linkonce.s` dan `code_actor_0809BFE8.s` tetap SKIP-PERMANEN
+  (tail-only), jadi `func_080E43B8`, `func_080D7880`, `func_080E1FAC`,
+  `func_080E52A0`, `func_0809C304`, `func_0809C4E4`, `func_0809D470`,
+  `func_0809D7D8` tidak disapu ulang.
+- Sisa kandidat (`free`, `func_080ADC00`, `func_080220D4`, `func_08023804`)
+  semuanya ber-ekor `.byte` → migrasi SKIP-PERMANEN; `func_080AB7A4`
+  (switch bersarang 67 instruksi) dan `func_080ABA90` (272 B) sudah parkir
+  di §71/§73.
+
+Kesimpulan: kelas §72 **tidak** sepenuhnya mati (satu MATCH baru), tetapi
+tidak ada satu pun sisa kandidat yang bisa (a) byte-identik dan (b) pindah ke
+`src/`. Dindingnya sekarang seragam: pemilihan register/salinan temp agbcc
+dan penjadwalan literal pool, bukan logika yang salah tulis.

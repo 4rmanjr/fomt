@@ -1,32 +1,31 @@
-typedef struct GenObj {
-    void *unk0;
-    s32 unk4;
-    s32 unk8;
-    u8 _padC[108];
+typedef struct Inner {
+    u8 _pad0[0x78];
     s32 unk78;
     s32 unk7C;
-} GenObj;
-s32 func_080CDD7C(GenObj *arg0) {
-    s32 temp_r0;
-    s32 temp_r2;
-    s32 var_r0;
-    s32 var_r3;
+} Inner;
 
-    var_r3 = 0xA;
-    temp_r2 = arg0->unk4;
-    if (temp_r2 <= 8) {
-        var_r0 = arg0->unk0->unk7C;
+typedef struct GenObj {
+    Inner *unk0;
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+
+s32 func_080CDD7C(GenObj *arg0) {
+    s32 flag = 0xA;
+    s32 base = arg0->unk4;
+    s32 val;
+    if (base <= 8) {
+        val = arg0->unk0->unk7C;
     } else {
-        var_r0 = arg0->unk0->unk78;
-        var_r3 = 1;
+        val = arg0->unk0->unk78;
+        flag = 1;
     }
-    if (var_r0 == 0) {
-        var_r3 = temp_r2;
+    if (val == 0) {
+        flag = base;
     }
-    temp_r0 = arg0->unk4;
-    if (var_r3 != temp_r0) {
-        arg0->unk8 = temp_r0;
-        arg0->unk4 = var_r3;
+    if (flag != arg0->unk4) {
+        arg0->unk8 = arg0->unk4;
+        arg0->unk4 = flag;
     }
-    return var_r3;
+    return flag;
 }

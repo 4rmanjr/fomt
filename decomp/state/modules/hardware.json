@@ -378,9 +378,9 @@
   "judged_mtime": 1793582714.0244193,
   "module": "hardware.s",
   "note": "2026-11-23: draf v6 (Node 16B x3 + Cont 28B, basis dipaksa r8/r6/r4) = 240B vs ROM 240B, 89 instruksi beda; judge 8missing/9extra/21operand/6regalloc/4different (v3: 71 diffs). Sisa: load vtBE8 di awal hilang (store mati dibuang gcc) + urutan prolog.",
-  "ref_len": 240,
+  "ref_len": 239,
   "sanitize_v": 4,
-  "size": 2357,
+  "size": 2358,
   "status": "failed",
   "thumb": true
  },
