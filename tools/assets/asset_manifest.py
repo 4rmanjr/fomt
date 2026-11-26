@@ -207,6 +207,8 @@ def build_entry(meta_path, rom):
         entry["padding"] = meta["padding"]
     if meta.get("tile_animations"):
         entry["tile_animations"] = meta["tile_animations"]
+    if meta.get("payload_segments"):
+        entry["payload_segments"] = meta["payload_segments"]
     return entry
 
 

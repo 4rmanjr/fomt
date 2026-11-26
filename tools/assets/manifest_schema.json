@@ -132,6 +132,20 @@
       "description": "Blok tile beranimasi: header u16 + byte tile 4bpp.",
       "items": {"type": "object"}
      },
+     "payload_segments": {
+      "type": "array",
+      "description": "Segmen payload yang dimulai oleh pointer table; tiap entri mencatat pointer_sources.",
+      "items": {
+       "type": "object",
+       "required": ["offset", "size", "hex", "pointer_sources"],
+       "properties": {
+        "offset": {"type": "integer", "minimum": 0},
+        "size": {"type": "integer", "minimum": 1},
+        "hex": {"type": "string", "minLength": 2},
+        "pointer_sources": {"type": "array", "items": {"type": "string"}}
+       }
+      }
+     },
      "padding": {
       "type": "array",
       "description": "Byte non-semantik yang sudah diproven: alignment, container tail, tabel tail, atau region tanpa reader.",

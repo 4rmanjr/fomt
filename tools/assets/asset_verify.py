@@ -436,8 +436,32 @@ def padding_problems(asset, rom):
         size = len(item.get("hex", "")) // 2
         if size and not any(a <= off and off + size <= b for a, b, _ in spans):
             problems.append(f"raw[{j}] {off:#x}..{off+size:#x} tidak punya padding")
+    payload = []
+    for i, seg in enumerate(meta.get("payload_segments", [])):
+        if not isinstance(seg, dict):
+            problems.append(f"payload[{i}] bukan objek")
+            continue
+        for key in ("offset", "size", "hex", "pointer_sources"):
+            if not seg.get(key):
+                problems.append(f"payload[{i}] wajib {key}")
+        off, size = seg.get("offset"), seg.get("size")
+        if not isinstance(off, int) or not isinstance(size, int) or size < 1:
+            problems.append(f"payload[{i}] offset/size tidak valid")
+            continue
+        if len(seg.get("hex", "")) // 2 != size:
+            problems.append(f"payload[{i}] hex != size")
+        if off < 0 or off + size > len(rom):
+            problems.append(f"payload[{i}] {off:#x}..{off+size:#x} di luar ROM")
+        payload.append((off, off + size, i))
+    payload.sort()
+    for (a0, a1, ai), (b0, b1, bi) in zip(payload, payload[1:]):
+        if b0 < a1:
+            problems.append(f"payload[{ai}] dan payload[{bi}] tumpang tindih")
+    for a, b, i in payload:
+        if any(x < b and a < y for x, y, _ in spans):
+            problems.append(f"payload[{i}] tumpang tindih dengan padding")
     if meta.get("kind") == "tilemap_bank":
-        named = []
+        named = [(a, b) for a, b, _ in payload]
         for layer in meta.get("layers", []):
             start = int(str(layer["offset"]), 0)
             named.append((start, start + layer["width"] * layer["height"] * 2))
@@ -446,7 +470,7 @@ def padding_problems(asset, rom):
             named.append((start, start + 4 + len(anim.get("tiles_hex", "")) // 2))
         for a, b, i in spans:
             if any(x < b and a < y for x, y in named):
-                problems.append(f"padding[{i}] tumpang tindih dengan layer/animasi")
+                problems.append(f"padding[{i}] tumpang tindih dengan layer/animasi/payload")
     return problems
 
 

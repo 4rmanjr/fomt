@@ -2,6 +2,7 @@
 """Regresi indeks aset: sinkron, memarkir non-rom-exact, menolak status asing."""
 import importlib.util
 import json
+from PIL import Image
 import shutil
 import tempfile
 import unittest
@@ -103,6 +104,50 @@ class AssetManifest(unittest.TestCase):
             self.assertNotIn("opaque", asset, asset["symbol"])
             for item in asset.get("padding", []):
                 self.assertTrue(item.get("kind"), asset["symbol"])
+                self.assertNotEqual(item["kind"], "map_payload", asset["symbol"])
+
+    def test_payload_segments_are_pointer_backed(self):
+        path = REPO / "assets" / "gfx" / "maps" / "gUnk_086EAD8C.json"
+        meta = json.loads(path.read_text())
+        segs = meta.get("payload_segments") or []
+        self.assertTrue(segs)
+        self.assertFalse(any(o.get("kind") == "map_payload"
+                             for o in meta.get("padding", [])))
+        end = 0x1D20
+        for seg in segs:
+            self.assertGreaterEqual(seg["offset"], end)
+            self.assertEqual(len(seg["hex"]) // 2, seg["size"])
+            self.assertTrue(seg["pointer_sources"])
+            end = seg["offset"] + seg["size"]
+        self.assertEqual(end, 0x1D20 + 25856)
+        self.assertEqual(segs[0]["offset"], 0x1D20)
+
+    def test_source_files_are_not_degenerate(self):
+        assets = json.loads(asset_manifest.MANIFEST.read_text())["assets"]
+        for asset in assets:
+            source = asset["source"]
+            if source.get("png"):
+                # Pillow menangani truecolor maupun indexed; aset sumber
+                # memang campuran keduanya.
+                with Image.open(REPO / source["png"]) as image:
+                    width, height = image.size
+                    image.load()
+                    colors = image.convert("RGB").getcolors(1 << 20) or []
+                self.assertGreater(width, 1, source["png"])
+                self.assertGreater(height, 1, source["png"])
+                self.assertGreater(len(colors), 1, source["png"])
+            if source.get("pal"):
+                lines = (REPO / source["pal"]).read_text().splitlines()
+                self.assertEqual(lines[0].strip(), "JASC-PAL", source["pal"])
+                colors = [ln for ln in lines[3:] if ln.strip()]
+                self.assertGreater(len(colors), 1, source["pal"])
+            meta = json.loads((REPO / source["json"]).read_text())
+            if meta.get("kind") == "table":
+                self.assertTrue(meta.get("source", {}).get("segments"),
+                                source["json"])
+            if meta.get("kind") == "tilemap_bank":
+                self.assertTrue(meta.get("layers") or meta.get("tile_animations")
+                                or meta.get("payload_segments"), source["json"])
 
     def test_rejects_status_below_rom_exact(self):
         with tempfile.TemporaryDirectory() as td:

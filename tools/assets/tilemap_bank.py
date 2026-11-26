@@ -92,6 +92,17 @@ def _segments(meta, size):
             raise ValueError(f"tile_animation {offset:#x}: {exc}")
         label = f"tile_animation {offset:#x}"
         segments.append((offset, data, label))
+    for seg in meta.get("payload_segments", []):
+        offset = int(str(seg["offset"]), 0)
+        try:
+            data = bytes.fromhex(seg["hex"])
+        except (KeyError, ValueError) as exc:
+            raise ValueError(f"payload {offset:#x}: hex tidak valid: {exc}")
+        if len(data) != seg.get("size"):
+            raise ValueError(
+                f"payload {offset:#x}: {len(data)} B != size "
+                f"{seg.get('size')}")
+        segments.append((offset, data, f"payload {offset:#x}"))
     for chunk in meta.get("raw", []):
         offset = int(str(chunk["offset"]), 0)
         try:
