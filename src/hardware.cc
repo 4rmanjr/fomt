@@ -272,6 +272,39 @@ void func_08007844(i32 *arg0, i32 arg1, u32 arg2) {
 }
 }
 
+// DECOMP-MATCHED gData_hardware_080079D0.data.080079D0
+extern "C" {
+// data tak-dirujuk di 0x080079D0 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+extern const u8 gData_hardware_080079D0[24] __attribute__((section(".text.hardware.080079D0"))) = {0x03, 0x49, 0x0A, 0x68, 0x03, 0x49, 0x52, 0x18, 0x11, 0x68, 0x01, 0x31, 0x11, 0x60, 0x70, 0x47, 0x08, 0x04, 0x00, 0x03, 0x24, 0x09, 0x00, 0x00};
+}
+
+// DECOMP-MATCHED func_080079E8 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+void __builtin_delete(void *);                             /* extern */
+extern u32 gUnk_03000408;
+
+__attribute__((section(".text.hardware.080079E8")))
+void func_080079E8(void *arg0, i32 arg1) {
+    u32 p;
+    i32 *cnt;
+    i32 v;
+
+    p = gUnk_03000408;
+    cnt = (i32 *) (p + 0x924);
+    v = *cnt - 1;
+    *cnt = v;
+    if (v == 0) {
+        if (p != 0) {
+            __builtin_delete((void *) p);
+        }
+        gUnk_03000408 = 0;
+    }
+    if (arg1 & 1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
 // DECOMP-MATCHED func_08007EA8 (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080D6EEC(i32);                               /* extern */

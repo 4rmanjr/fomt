@@ -230,7 +230,14 @@ def _has_name_wildcard(stem: str) -> bool:
     except OSError:
         return False
     pat = f"*(SORT_BY_NAME(.text.{stem}.*))"
-    return any(ln.strip().replace(" ", "") == pat for ln in lines)
+    pref = f"*(SORT_BY_NAME(.text.{stem}.b"
+    for ln in lines:
+        t = ln.strip().replace(" ", "")
+        if t == pat:
+            return True
+        if t.startswith(pref) and t.endswith(".*))"):
+            return True
+    return False
 
 
 def _src_before_asm(stem: str) -> bool:
@@ -453,15 +460,34 @@ def analyze(text: str, stem: str, migrated=None):
     chunk = dict(kind,name,secname,lines,migrated,labels).
     Chunk yang terhubung rujukan PC-relative digabung dalam satu group
     (satu section). Group migratable bila hanya berisi satu chunk fungsi.
+
+    File yang SUDAH berisi `.section` sendiri (mis. `code_linkonce.s`, 4 blok
+    yang di lds diselingi `*(.gnu.linkonce.t.*)` template C++) diproses
+    per blok: tiap blok dianalisis terpisah dan secname-nya diberi prefiks
+    `b<k>.` sehingga lds bisa menaruh satu wildcard SORT_BY_NAME per blok
+    tepat di posisi blok semula (urutan antar-blok + template tetap).
     """
-    lines = text.splitlines(keepends=True)
-    starts = [i for i, ln in enumerate(lines) if START_RE.match(ln)]
-    if not starts:
-        return text, []
-    if any(SECTION_RE.match(ln) for ln in lines):
-        return text, []
     if migrated is None:
         migrated = src_section_names()
+    lines = text.splitlines(keepends=True)
+    secidx = [i for i, ln in enumerate(lines) if SECTION_RE.match(ln)]
+    if not secidx:
+        return _analyze_body(lines, stem, migrated)
+    preamble = "".join(lines[: secidx[0]])
+    groups = []
+    for k, si in enumerate(secidx):
+        end = secidx[k + 1] if k + 1 < len(secidx) else len(lines)
+        _pre, g = _analyze_body(lines[si + 1: end], stem, migrated,
+                                prefix=f"b{k}.")
+        groups.extend(g)
+    return preamble, groups
+
+
+def _analyze_body(lines, stem: str, migrated, prefix: str = ""):
+    """Bagian analyze() utk SATU blok section (tanpa baris `.section`)."""
+    starts = [i for i, ln in enumerate(lines) if START_RE.match(ln)]
+    if not starts:
+        return "", []
     refs = _refs(lines)
     preamble = "".join(lines[: starts[0]])
     chunks = []
@@ -471,9 +497,9 @@ def analyze(text: str, stem: str, migrated=None):
         body = lines[i:end]
         addr = _func_addr(body)
         if addr is not None:
-            secname = f".text.{stem}.{addr:08X}"
+            secname = f".text.{stem}.{prefix}{addr:08X}"
         else:
-            secname = f".text.{stem}.func_{name}"
+            secname = f".text.{stem}.{prefix}func_{name}"
         ds = _trailing_data_start(body, refs)
         func_body = body if ds is None else body[:ds]
         chunks.append({
@@ -486,7 +512,7 @@ def analyze(text: str, stem: str, migrated=None):
             data = body[ds:]
             daddr = _data_suffix_addr(data)
             if daddr is not None:
-                dsec = f".text.{stem}.{daddr:08X}"
+                dsec = f".text.{stem}.{prefix}{daddr:08X}"
             else:
                 dsec = f"{secname}.zz"
             chunks.append({

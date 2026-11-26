@@ -270,14 +270,14 @@
     "when": "2026-11-26T13:09:44"
   },
   "code_actor_0809BFE8.s:func_0809CDCC": {
-    "detail": "build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated stdin: In function `i32 func_0809CDCC(int)': stdin:376: assignment to `i32 *' from `i",
-    "status": "GAGAL",
-    "when": "2026-11-26T13:10:15"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:39:59"
   },
   "code_actor_0809BFE8.s:func_0809CDEC": {
-    "detail": "build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated stdin: In function `u32 func_0809CDEC(int)': stdin:378: assignment to `i32 *' from `i",
-    "status": "GAGAL",
-    "when": "2026-11-26T13:10:19"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:40:04"
   },
   "code_actor_0809BFE8.s:func_0809CE1C": {
     "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
@@ -550,114 +550,114 @@
     "when": "2026-11-26T10:57:19"
   },
   "code_linkonce.s:func_080D3C60": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (424 penerus belum pindah, dilewati)",
+    "detail": "func_080D3C60 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_linkonce.cc (dilewati)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "when": "2026-11-26T13:22:49"
   },
   "code_linkonce.s:func_080D3C6C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (423 penerus belum pindah, dilewati)",
+    "detail": "func_080D3C6C sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_linkonce.cc (dilewati)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "when": "2026-11-26T13:22:49"
   },
   "code_linkonce.s:func_080D3ED4": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (421 penerus belum pindah, dilewati)",
+    "detail": "extern __builtin_delete beda tanda tangan (['i32 (i32 **)', 'void (void *)'] vs ['i32 (i32 **)']), butuh penyatuan manual, dilewati (SKIP-PERMANEN: callee tak-MATCH; butuh tulis manual callee)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "when": "2026-11-26T13:22:04"
   },
   "code_linkonce.s:func_080D4040": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (418 penerus belum pindah, dilewati)",
+    "detail": "func_080D4040 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_linkonce.cc (dilewati)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "when": "2026-11-26T13:22:49"
   },
   "code_linkonce.s:func_080D404C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (417 penerus belum pindah, dilewati)",
+    "detail": "extern func_0800080C beda tanda tangan (['i32 ()', 'i32 (void *, i32)'] vs ['i32 (void *, i32)']), butuh penyatuan manual, dilewati (SKIP-PERMANEN: callee tak-MATCH; butuh tulis manual callee)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "when": "2026-11-26T13:22:50"
   },
   "code_linkonce.s:func_080D6D8C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (399 penerus belum pindah, dilewati)",
+    "detail": "func_080D6D8C sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_linkonce.cc (dilewati)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "when": "2026-11-26T13:22:50"
   },
   "code_linkonce.s:func_080D6D98": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (398 penerus belum pindah, dilewati)",
+    "detail": "func_080D6D98 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_linkonce.cc (dilewati)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "when": "2026-11-26T13:22:50"
   },
   "code_linkonce.s:func_080D6E98": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (396 penerus belum pindah, dilewati)",
+    "detail": "func_080D6E98 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_linkonce.cc (dilewati)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "when": "2026-11-26T13:22:50"
   },
   "code_linkonce.s:func_080D6EAC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (395 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "build/asm/code_809E804.split.s:75307: use of r13 is deprecated stdin: In function `void func_080D6EAC(struct GenObj__func_080D6EAC *)': stdin:157: passing `i32' to argument 1 of `func_080D6E98(GenObj_",
+    "status": "GAGAL",
+    "when": "2026-11-26T13:22:55"
   },
   "code_linkonce.s:func_080D6ECC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (394 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:23:00"
   },
   "code_linkonce.s:func_080D6EEC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (393 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "build/asm/code_809E804.split.s:75307: use of r13 is deprecated stdin: In function `void func_080D6EEC(struct GenObj__func_080D6EEC *)': stdin:168: passing `u8 *' as argument 1 of `func_080D6ECC(GenObj",
+    "status": "GAGAL",
+    "when": "2026-11-26T13:23:05"
   },
   "code_linkonce.s:func_080D6F0C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (392 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:23:10"
   },
   "code_linkonce.s:func_080D6F1C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (391 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "build/asm/code_809E804.split.s:75307: use of r13 is deprecated stdin: In function `void func_080D6F1C(struct GenObj__func_080D6F1C *)': stdin:185: passing `int' to argument 1 of `func_080D6F0C(GenObj_",
+    "status": "GAGAL",
+    "when": "2026-11-26T13:23:14"
   },
   "code_linkonce.s:func_080D6F3C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (390 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:23:18"
   },
   "code_linkonce.s:func_080D6F5C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (389 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:23:23"
   },
   "code_linkonce.s:func_080D7568": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (377 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:23:27"
   },
   "code_linkonce.s:func_080D770C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (372 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:23:31"
   },
   "code_linkonce.s:func_080D780C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (370 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:23:36"
   },
   "code_linkonce.s:func_080D781C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (369 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:23:41"
   },
   "code_linkonce.s:func_080D782C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (368 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:23:46"
   },
   "code_linkonce.s:func_080D7868": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (367 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:23:52"
   },
   "code_linkonce.s:func_080D7874": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (366 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:23:58"
   },
   "code_linkonce.s:func_080D7AAC": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (360 penerus belum pindah, dilewati)",
@@ -670,244 +670,244 @@
     "when": "2026-11-26T13:14:15"
   },
   "code_linkonce.s:func_080D7B2C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (357 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:24:04"
   },
   "code_linkonce.s:func_080D7B38": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (356 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:24:09"
   },
   "code_linkonce.s:func_080D7B44": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (355 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:24:15"
   },
   "code_linkonce.s:func_080D7F60": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (350 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:24:20"
   },
   "code_linkonce.s:func_080D7F74": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (349 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:10"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:24:27"
   },
   "code_linkonce.s:func_080D7F88": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (348 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:24:36"
   },
   "code_linkonce.s:func_080DB314": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (340 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:24:46"
   },
   "code_linkonce.s:func_080DB714": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (331 penerus belum pindah, dilewati)",
+    "detail": "extern func_0800080C beda tanda tangan (['i32 ()', 'i32 (void *, i32)'] vs ['i32 (void *, i32)']), butuh penyatuan manual, dilewati (SKIP-PERMANEN: callee tak-MATCH; butuh tulis manual callee)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "when": "2026-11-26T13:24:47"
   },
   "code_linkonce.s:func_080DC1C8": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (282 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:24:57"
   },
   "code_linkonce.s:func_080DC288": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (278 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:25:08"
   },
   "code_linkonce.s:func_080DC294": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (277 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:25:17"
   },
   "code_linkonce.s:func_080DC9C0": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (260 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:25:26"
   },
   "code_linkonce.s:func_080DC9CC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (259 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:25:37"
   },
   "code_linkonce.s:func_080DC9D8": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (258 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:25:42"
   },
   "code_linkonce.s:func_080DC9E4": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (257 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:25:56"
   },
   "code_linkonce.s:func_080DC9F0": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (256 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:26:01"
   },
   "code_linkonce.s:func_080DC9FC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (255 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:26:07"
   },
   "code_linkonce.s:func_080DCA08": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (254 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:26:14"
   },
   "code_linkonce.s:func_080DCA14": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (253 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:26:19"
   },
   "code_linkonce.s:func_080DCA20": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (252 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:26:25"
   },
   "code_linkonce.s:func_080DCA2C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (251 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:26:30"
   },
   "code_linkonce.s:func_080DCA38": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (250 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:26:35"
   },
   "code_linkonce.s:func_080DCA44": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (249 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:26:43"
   },
   "code_linkonce.s:func_080DCA50": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (248 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:26:49"
   },
   "code_linkonce.s:func_080DCA5C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (247 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:26:54"
   },
   "code_linkonce.s:func_080DCA68": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (246 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:26:59"
   },
   "code_linkonce.s:func_080DCA74": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (245 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:27:04"
   },
   "code_linkonce.s:func_080DCA80": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (244 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:27:11"
   },
   "code_linkonce.s:func_080DCA8C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (243 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:27:16"
   },
   "code_linkonce.s:func_080DCA98": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (242 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:27:21"
   },
   "code_linkonce.s:func_080DCAA4": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (241 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:27:27"
   },
   "code_linkonce.s:func_080DCAB0": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (240 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:27:33"
   },
   "code_linkonce.s:func_080DCABC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (239 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:27:38"
   },
   "code_linkonce.s:func_080DCAC8": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (238 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:27:44"
   },
   "code_linkonce.s:func_080DCAD4": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (237 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:27:50"
   },
   "code_linkonce.s:func_080DCAE0": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (236 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:27:56"
   },
   "code_linkonce.s:func_080DCAEC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (235 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:28:02"
   },
   "code_linkonce.s:func_080DCAF8": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (234 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:28:09"
   },
   "code_linkonce.s:func_080DCB04": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (233 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:28:17"
   },
   "code_linkonce.s:func_080DCB10": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (232 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:28:22"
   },
   "code_linkonce.s:func_080DCB1C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (231 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:28:27"
   },
   "code_linkonce.s:func_080DCB28": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (230 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:28:33"
   },
   "code_linkonce.s:func_080DCB34": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (229 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:28:38"
   },
   "code_linkonce.s:func_080DCB40": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (228 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:28:44"
   },
   "code_linkonce.s:func_080DCB4C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (227 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:28:51"
   },
   "code_linkonce.s:func_080DCB58": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (226 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:28:57"
   },
   "code_linkonce.s:func_080DCB64": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (225 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:29:04"
   },
   "code_linkonce.s:func_080DCB70": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (224 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:29:09"
   },
   "code_linkonce.s:func_080DCE60": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (220 penerus belum pindah, dilewati)",
@@ -940,114 +940,134 @@
     "when": "2026-11-26T10:57:11"
   },
   "code_linkonce.s:func_080DCFCC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (214 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:29:14"
   },
   "code_linkonce.s:func_080DD404": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (210 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:29:20"
+  },
+  "code_linkonce.s:func_080DD410": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:39:08"
   },
   "code_linkonce.s:func_080DD4E4": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (206 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:29:26"
+  },
+  "code_linkonce.s:func_080DD4F0": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:39:15"
   },
   "code_linkonce.s:func_080DD588": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (202 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:29:32"
+  },
+  "code_linkonce.s:func_080DD594": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:39:20"
   },
   "code_linkonce.s:func_080DD788": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (198 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:29:39"
+  },
+  "code_linkonce.s:func_080DD794": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:39:25"
   },
   "code_linkonce.s:func_080DD860": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (194 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:29:44"
   },
   "code_linkonce.s:func_080DD938": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (190 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:29:54"
   },
   "code_linkonce.s:func_080DDC18": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (186 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:30:00"
   },
   "code_linkonce.s:func_080DDE68": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (182 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:30:05"
   },
   "code_linkonce.s:func_080DDF0C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (178 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:30:12"
   },
   "code_linkonce.s:func_080DDFB0": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (174 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:30:17"
   },
   "code_linkonce.s:func_080DE050": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (170 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:30:22"
   },
   "code_linkonce.s:func_080DE128": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (166 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:30:27"
   },
   "code_linkonce.s:func_080DE184": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (164 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:30:34"
   },
   "code_linkonce.s:func_080DE280": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (161 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:30:41"
   },
   "code_linkonce.s:func_080DE28C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (160 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:30:48"
   },
   "code_linkonce.s:func_080E09B0": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (155 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:30:54"
   },
   "code_linkonce.s:func_080E09E4": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (153 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:31:00"
   },
   "code_linkonce.s:func_080E0A7C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (151 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:31:05"
   },
   "code_linkonce.s:func_080E0A88": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (150 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:31:11"
   },
   "code_linkonce.s:func_080E0D50": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (147 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:31:16"
   },
   "code_linkonce.s:func_080E0D64": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (146 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:31:22"
   },
   "code_linkonce.s:func_080E0D70": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (145 penerus belum pindah, dilewati)",
@@ -1055,34 +1075,34 @@
     "when": "2026-11-26T10:57:11"
   },
   "code_linkonce.s:func_080E0EF0": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (143 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:31:28"
   },
   "code_linkonce.s:func_080E0EFC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (142 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated stdin: In function `void func_080E0EFC(unsigned int, int)': stdin:914: assignment to ",
+    "status": "GAGAL",
+    "when": "2026-11-26T13:31:37"
   },
   "code_linkonce.s:func_080E0F48": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (141 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "stdin: In function `i32 func_080E0F48(struct GenObj__func_080E0F48 *)': stdin:931: ANSI C++ forbids using pointer of type `void *' in arithmetic stdin:939: ANSI C++ forbids using pointer of type `void",
+    "status": "GAGAL",
+    "when": "2026-11-26T13:31:45"
   },
   "code_linkonce.s:func_080E1018": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (139 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:31:56"
   },
   "code_linkonce.s:func_080E1024": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (138 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:32:06"
   },
   "code_linkonce.s:func_080E1030": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (137 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:32:17"
   },
   "code_linkonce.s:func_080E103C": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (136 penerus belum pindah, dilewati)",
@@ -1090,14 +1110,14 @@
     "when": "2026-11-26T10:57:11"
   },
   "code_linkonce.s:func_080E10E0": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (134 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:32:27"
   },
   "code_linkonce.s:func_080E10EC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (133 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:32:35"
   },
   "code_linkonce.s:func_080E1128": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (131 penerus belum pindah, dilewati)",
@@ -1135,44 +1155,44 @@
     "when": "2026-11-26T10:57:11"
   },
   "code_linkonce.s:func_080E1A48": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (116 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:32:41"
   },
   "code_linkonce.s:func_080E1A54": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (115 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:32:48"
   },
   "code_linkonce.s:func_080E1D8C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (110 penerus belum pindah, dilewati)",
+    "detail": "extern func_08076E0C beda tanda tangan (['i32 ()', 'i32 (void *, i32)'] vs ['i32 ()']), butuh penyatuan manual, dilewati (SKIP-PERMANEN: callee tak-MATCH; butuh tulis manual callee)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "when": "2026-11-26T13:32:48"
   },
   "code_linkonce.s:func_080E1D98": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (109 penerus belum pindah, dilewati)",
+    "detail": "extern func_08076E0C beda tanda tangan (['i32 ()', 'i32 (void *, i32)'] vs ['i32 ()']), butuh penyatuan manual, dilewati (SKIP-PERMANEN: callee tak-MATCH; butuh tulis manual callee)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "when": "2026-11-26T13:32:49"
   },
   "code_linkonce.s:func_080E1DA4": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (108 penerus belum pindah, dilewati)",
+    "detail": "extern func_08076E0C beda tanda tangan (['i32 ()', 'i32 (void *, i32)'] vs ['i32 ()']), butuh penyatuan manual, dilewati (SKIP-PERMANEN: callee tak-MATCH; butuh tulis manual callee)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "when": "2026-11-26T13:32:49"
   },
   "code_linkonce.s:func_080E1DB0": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (107 penerus belum pindah, dilewati)",
+    "detail": "extern func_08076E0C beda tanda tangan (['i32 ()', 'i32 (void *, i32)'] vs ['i32 ()']), butuh penyatuan manual, dilewati (SKIP-PERMANEN: callee tak-MATCH; butuh tulis manual callee)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "when": "2026-11-26T13:32:50"
   },
   "code_linkonce.s:func_080E1DBC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (106 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:32:55"
   },
   "code_linkonce.s:func_080E1DC8": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (105 penerus belum pindah, dilewati)",
+    "detail": "extern func_08076E0C beda tanda tangan (['i32 ()', 'i32 (void *, i32)'] vs ['i32 ()']), butuh penyatuan manual, dilewati (SKIP-PERMANEN: callee tak-MATCH; butuh tulis manual callee)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "when": "2026-11-26T13:32:55"
   },
   "code_linkonce.s:func_080E20C0": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (99 penerus belum pindah, dilewati)",
@@ -1180,19 +1200,19 @@
     "when": "2026-11-26T10:57:11"
   },
   "code_linkonce.s:func_080E20F8": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (98 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:33:00"
   },
   "code_linkonce.s:func_080E2104": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (97 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:33:06"
   },
   "code_linkonce.s:func_080E2110": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (96 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:33:11"
   },
   "code_linkonce.s:func_080E2B5C": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (82 penerus belum pindah, dilewati)",
@@ -1210,129 +1230,129 @@
     "when": "2026-11-26T10:57:11"
   },
   "code_linkonce.s:func_080E35DC": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (70 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:33:16"
   },
   "code_linkonce.s:func_080E35E8": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (69 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:33:22"
   },
   "code_linkonce.s:func_080E3610": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (68 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:33:28"
   },
   "code_linkonce.s:func_080E3628": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (67 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:33:36"
   },
   "code_linkonce.s:func_080E3650": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (66 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:33:44"
   },
   "code_linkonce.s:func_080E3678": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (65 penerus belum pindah, dilewati)",
+    "detail": "extern func_08050DC8 beda tanda tangan (['i32 (i32, i32 *, i32, i32)', 'i32 (void *, i32 *, i32, i32)'] vs ['i32 (void *, i32 *, i32, i32)']), butuh penyatuan manual, dilewati (SKIP-PERMANEN: callee t",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "when": "2026-11-26T13:33:49"
   },
   "code_linkonce.s:func_080E3730": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (63 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:33:54"
   },
   "code_linkonce.s:func_080E3734": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (62 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:34:00"
   },
   "code_linkonce.s:func_080E375C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (61 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:34:08"
   },
   "code_linkonce.s:func_080E3774": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (60 penerus belum pindah, dilewati)",
+    "detail": "extern func_08050E50 beda tanda tangan (['i32 (i32, i32)', 'void (u8 *, i32)'] vs ['void (u8 *, i32)']), butuh penyatuan manual, dilewati (SKIP-PERMANEN: callee tak-MATCH; butuh tulis manual callee)",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "when": "2026-11-26T13:34:09"
   },
   "code_linkonce.s:func_080E3858": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (57 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:34:16"
   },
   "code_linkonce.s:func_080E385C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (56 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:34:21"
   },
   "code_linkonce.s:func_080E3868": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (55 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:11"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:34:27"
   },
   "code_linkonce.s:func_080E38E0": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (52 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:34:33"
   },
   "code_linkonce.s:func_080E3910": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (51 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:34:38"
   },
   "code_linkonce.s:func_080E3914": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (50 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:34:45"
   },
   "code_linkonce.s:func_080E3920": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (49 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:34:53"
   },
   "code_linkonce.s:func_080E392C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (48 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:35:01"
   },
   "code_linkonce.s:func_080E3A44": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (44 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:35:08"
   },
   "code_linkonce.s:func_080E3A50": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (43 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:35:16"
   },
   "code_linkonce.s:func_080E3A5C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (42 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:35:25"
   },
   "code_linkonce.s:func_080E3A6C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (41 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T13:14:15"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:35:32"
   },
   "code_linkonce.s:func_080E3A80": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (40 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:35:39"
   },
   "code_linkonce.s:func_080E3A8C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (39 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:35:45"
   },
   "code_linkonce.s:func_080E3B60": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (37 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:35:52"
   },
   "code_linkonce.s:func_080E3D94": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (34 penerus belum pindah, dilewati)",
@@ -1340,14 +1360,14 @@
     "when": "2026-11-26T10:57:12"
   },
   "code_linkonce.s:func_080E3DB4": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (33 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:35:59"
   },
   "code_linkonce.s:func_080E3E28": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (32 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:36:08"
   },
   "code_linkonce.s:func_080E4190": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (28 penerus belum pindah, dilewati)",
@@ -1355,9 +1375,9 @@
     "when": "2026-11-26T10:57:12"
   },
   "code_linkonce.s:func_080E4238": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (24 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:36:22"
   },
   "code_linkonce.s:func_080E44B8": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (18 penerus belum pindah, dilewati)",
@@ -1365,9 +1385,9 @@
     "when": "2026-11-26T10:57:12"
   },
   "code_linkonce.s:func_080E44E4": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (17 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:36:32"
   },
   "code_linkonce.s:func_080E4510": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (16 penerus belum pindah, dilewati)",
@@ -1380,14 +1400,14 @@
     "when": "2026-11-26T10:57:12"
   },
   "code_linkonce.s:func_080E5418": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (6 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated stdin:1342: conflicting types for `i32 gUnk_03000414' stdin:1334: previous declaratio",
+    "status": "GAGAL",
+    "when": "2026-11-26T13:36:41"
   },
   "code_linkonce.s:func_080E542C": {
-    "detail": "bukan fungsi terakhir di code_linkonce.s (5 penerus belum pindah, dilewati)",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:12"
+    "detail": "build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated stdin:1370: conflicting types for `i32 gUnk_03000414' stdin:1346: previous declaratio",
+    "status": "GAGAL",
+    "when": "2026-11-26T13:36:49"
   },
   "code_linkonce.s:func_080E5478": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (4 penerus belum pindah, dilewati)",
@@ -1525,9 +1545,9 @@
     "when": "2026-11-26T13:11:34"
   },
   "hardware.s:func_080079E8": {
-    "detail": "build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated stdin: In function `void func_080079E8(void *, int)': stdin:281: ANSI C++ forbids imp",
-    "status": "GAGAL",
-    "when": "2026-11-26T13:15:46"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T13:40:24"
   },
   "hardware.s:func_08007EA8": {
     "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",

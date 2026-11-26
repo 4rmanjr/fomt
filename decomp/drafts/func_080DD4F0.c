@@ -1,16 +1,21 @@
-typedef struct GenObj {
-    s32 unk0;
-    s32 unk4;
-    s32 unk8;
-    s32 unkA;
-    u8 _padE[66];
+typedef struct Src_func_080DD4F0 {
+    u8 _pad0[0x50];
     s32 unk50;
-    s32 unk54;
-    s32 unk56;
-} GenObj;
-void func_080DD4F0(GenObj *arg0, GenObj *arg1) {
-    arg1->unk0 = (u8) ((-0x10 & arg1->unk0) | 0xA);
-    arg1->unk4 = (s32) arg0->unk50;
-    arg1->unk8 = (u16) arg0->unk54;
-    arg1->unkA = (u16) arg0->unk56;
+    u16 unk54;
+    u16 unk56;
+} Src_func_080DD4F0;
+
+typedef struct Dst_func_080DD4F0 {
+    u8 a : 4;
+    u8 b : 4;
+    s32 unk4;
+    u16 unk8;
+    u16 unkA;
+} Dst_func_080DD4F0;
+
+void func_080DD4F0(Src_func_080DD4F0 *arg0, Dst_func_080DD4F0 *arg1) {
+    arg1->a = 0xA;
+    arg1->unk4 = arg0->unk50;
+    arg1->unk8 = arg0->unk54;
+    arg1->unkA = arg0->unk56;
 }

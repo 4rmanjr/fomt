@@ -2481,13 +2481,14 @@
  "func_080DD410": {
   "addr": 135123984,
   "draft_src": "manual",
-  "judged_mtime": 1795697991.3639054,
+  "judged_mtime": 1795700305.0387208,
   "module": "code_linkonce.s",
-  "note": "len 32 vs ref 34 [1missing,1operand @i movs r2, #0x10 | movs r2, #0xef]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 343,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD434": {
@@ -2525,13 +2526,14 @@
  },
  "func_080DD4F0": {
   "addr": 135124208,
-  "judged_mtime": 1793018152.4049182,
+  "judged_mtime": 1795700324.9077337,
   "module": "code_linkonce.s",
-  "note": "len 40 vs ref 34",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 343,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD514": {
@@ -2569,13 +2571,14 @@
  },
  "func_080DD594": {
   "addr": 135124372,
-  "judged_mtime": 1793018153.126852,
+  "judged_mtime": 1795700324.9254074,
   "module": "code_linkonce.s",
-  "note": "len 40 vs ref 34",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 341,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD5B8": {
@@ -2613,13 +2616,14 @@
  },
  "func_080DD794": {
   "addr": 135124884,
-  "judged_mtime": 1793018153.9943287,
+  "judged_mtime": 1795700324.9417446,
   "module": "code_linkonce.s",
-  "note": "len 40 vs ref 34",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 341,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD7B8": {

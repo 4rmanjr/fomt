@@ -292,7 +292,7 @@ s32 func_0809CDCC(s32 arg0) {
 
     var_r3 = 1;
     var_r2 = 8;
-    var_r1 = arg0 + 0x40;
+    var_r1 = (s32 *) (arg0 + 0x40);
     do {
         if (*var_r1 == 0) {
             var_r3 = 0;
@@ -313,7 +313,7 @@ u32 func_0809CDEC(s32 arg0) {
     var_r2 = 0;
     var_r3 = 8;
     cap = 0x3B9AC9FFU;
-    var_r1 = arg0 + 0x40;
+    var_r1 = (s32 *) (arg0 + 0x40);
     do {
         var_r2 += *var_r1;
         if (var_r2 > cap) {

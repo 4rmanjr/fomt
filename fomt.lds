@@ -165,9 +165,9 @@ SECTIONS
         asm/code_libc_string.o(.text);
         src/code_libc_string.o(.text);
 
-        asm/code_linkonce.o(.text.code_080D3BC0);
+        *(SORT_BY_NAME(.text.code_linkonce.b0.*))
         *(.gnu.linkonce.t.__as__6AnimalRC6Animal);
-        asm/code_linkonce.o(.text.code_080D68C0);
+        *(SORT_BY_NAME(.text.code_linkonce.b1.*))
         *(.gnu.linkonce.t.__as__5SheepRC5Sheep);
         *(.gnu.linkonce.t.__as__3CowRC3Cow);
         *(.gnu.linkonce.t.__as__9LivestockRC9Livestock);
@@ -175,9 +175,9 @@ SECTIONS
         *(.gnu.linkonce.t.push_front__t8FixedVec2Z12RucksackItemUl8G12RucksackItem);
         *(.gnu.linkonce.t.push_back__t8FixedVec2Z9ToolStackUl8G9ToolStack);
         *(.gnu.linkonce.t.push_front__t8FixedVec2Z9ToolStackUl8G9ToolStack);
-        asm/code_linkonce.o(.text.code_080D7CFC);
+        *(SORT_BY_NAME(.text.code_linkonce.b2.*))
         *(.gnu.linkonce.t.__lower_bound__H4ZPC12JumpTableEntZiZ28ScriptJumpTableSearchCompareZl_X01T0RCX11X21PX31_X01);
-        asm/code_linkonce.o(.text.code_080E0EF0);
+        *(SORT_BY_NAME(.text.code_linkonce.b3.*))
         src/code_linkonce.o(.text);
 
         *(.gnu.linkonce.d.__vt_6AScene);

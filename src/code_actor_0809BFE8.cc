@@ -325,6 +325,52 @@ i32 func_0809CD98(i32 arg0, i32 arg1, u32 arg2) {
     return var_r6;
 }
 }
+// DECOMP-MATCHED func_0809CDCC (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_actor_0809BFE8.0809CDCC")))
+i32 func_0809CDCC(i32 arg0) {
+    i32 *var_r1;
+    i32 var_r3;
+    u32 var_r2;
+
+    var_r3 = 1;
+    var_r2 = 8;
+    var_r1 = (i32 *) (arg0 + 0x40);
+    do {
+        if (*var_r1 == 0) {
+            var_r3 = 0;
+        }
+        var_r1 += 2;
+        var_r2 += 1;
+    } while (var_r2 <= 0x3AU);
+    return var_r3;
+}
+}
+// DECOMP-MATCHED func_0809CDEC (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_actor_0809BFE8.0809CDEC")))
+u32 func_0809CDEC(i32 arg0) {
+    i32 *var_r1;
+    u32 var_r2;
+    u32 var_r3;
+    u32 cap;
+
+    var_r2 = 0;
+    var_r3 = 8;
+    cap = 0x3B9AC9FFU;
+    var_r1 = (i32 *) (arg0 + 0x40);
+    do {
+        var_r2 += *var_r1;
+        if (var_r2 > cap) {
+            var_r2 = 0x3B9ACA00;
+        }
+        var_r1 += 2;
+        var_r3 += 1;
+    } while (var_r3 <= 0x3AU);
+    return var_r2;
+}
+}
+
 
 // DECOMP-MATCHED func_0809CE1C (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -416,7 +462,6 @@ i32 func_0809D8B8(i32 *arg0) {
     return var_r1;
 }
 }
-
 
 // DECOMP-MATCHED func_0809D8D4 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
 extern "C" {

@@ -250,6 +250,24 @@ def migrate_gate(stem, func):
     return False, f"data asing {_td}B di ekor (SKIP-permanen)"
 
 
+def _lds_has_sorted(lds_text, stem):
+    """True bila lds menaruh section modul ini urut nama SORT_BY_NAME.
+
+    Menerima wildcard polos (`*(SORT_BY_NAME(.text.<stem>.*))`) maupun
+    per-blok (`...`.text.<stem>.b<k>.*))`, dipakai file multi-.section
+    seperti code_linkonce.s (lihat POLA-DIFF §93).
+    """
+    pat = f"*(SORT_BY_NAME(.text.{stem}.*))"
+    pref = f"*(SORT_BY_NAME(.text.{stem}.b"
+    for ln in lds_text.splitlines():
+        t = ln.strip().replace(" ", "")
+        if t == pat:
+            return True
+        if t.startswith(pref) and t.endswith(".*))"):
+            return True
+    return False
+
+
 def is_split_module(stem):
     """True bila build memecah asm modul per-section (section-replace berlaku).
 
@@ -266,8 +284,7 @@ def is_split_module(stem):
     # Layout "before" tetap split bila lds punya wildcard SORT_BY_NAME
     # (urutan ditentukan nama section, bukan posisi blok) — kelas
     # code_actor_0809BFE8 (2026-11-26).
-    return any(ln.strip().replace(" ", "")
-               == f"*(SORT_BY_NAME(.text.{stem}.*))" for ln in lds_text.splitlines())
+    return _lds_has_sorted(lds_text, stem)
 
 
 def load_state(stem):
@@ -2160,10 +2177,10 @@ def ensure_lds(lds_text, stem, src_stem=None, allow_src_before=False):
     # Modul MAP-split: blok SORT_BY_NAME(.text.<stem>.*) + entri src sudah
     # ada -> no-op (section src otomatis menempati posisi section asm yg
     # dicabut; lds tak berubah per fungsi).
-    if (any(f"*(SORT_BY_NAME(.text.{stem}.*))" in s.replace(" ", "")
-            for s in stripped)
-            and src_entry in stripped):
-        return lds_text, False
+    if any(_lds_has_sorted("\n".join([s]), stem) for s in stripped) \
+            or _lds_has_sorted(lds_text, stem):
+        if src_entry in stripped:
+            return lds_text, False
     asm_entry = f"asm/{stem}.o(.text);"
     lines = lds_text.splitlines(keepends=True)
     ai = next((i for i, ln in enumerate(lines) if ln.strip() == asm_entry),

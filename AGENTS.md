@@ -103,8 +103,8 @@ Gerbang lengkap di `MIGRATE.md`:
 - Hanya fungsi MATCH boleh masuk `src/` (TU `.cc` = C++: `i32`, `new`, tanpa
   keyword C++).
 - SKIP permanen jangan diulang: `data asing ... ekor`, grup gabungan/tak-split,
-  `bukan fungsi terakhir` (tail-only legacy: `code_linkonce.s`; hardware/actor
-  MAP-split via wildcard lds, POLA-DIFF §92), `butuh tulis manual callee`.
+  `bukan fungsi terakhir` (semua modul besar sudah MAP-split via wildcard
+  lds, POLA-DIFF §92-§93), `butuh tulis manual callee`.
   Modul split (`game_state`, `code_809E804`, `code_entities*`) boleh di tengah.
 - `promote()` tidak menimpa blok lama: hapus blok + baris `DECOMP-MATCHED`
   dulu, baru judge ulang (`MIGRATE.md` §17).

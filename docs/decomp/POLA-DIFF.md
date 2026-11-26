@@ -3286,3 +3286,71 @@ Keduanya dari kelas "destructor/thunk" yang belum pernah diformulasikan:
    pertama ada di `[sp,#4]` (bukan `[sp,#0]`) — draft 6 parameter menghasilkan
    `ldr r3,[sp,#8]` (DIFF 0x8 vs 0x4), dan tipe balik **harus `void`**: ref
    berakhir `pop {r0}; bx r0`, sedangkan `s32` menghasilkan `pop {r1}`.
+
+## §93. `code_linkonce.s`: file multi-`.section` kini di-split per blok (2026-11-26)
+
+Wall-nya: `analyze()` langsung `return text, []` bila file memuat `.section`
+apa pun, dan `code_linkonce.s` memang punya 4 blok buatan tangan
+(`.text.code_080D3BC0`, `.text.code_080D68C0`, `.text.code_080D7CFC`,
+`.text.code_080E0EF0`, total 428 `thumb_func_start`) yang di `fomt.lds`
+diselingi `*(.gnu.linkonce.t.*)` template C++, dan `src/code_linkonce.o(.text)`
+di ujung. Karena lds memakai entri per-section manual, tak ada wildcard.
+
+Perbaikan (tool + build saja):
+
+1. `split_asm_sections.analyze()`: file multi-`.section` diproses PER BLOK
+   (`_analyze_body()` baru, menerima `prefix=`). Secname tiap fungsi jadi
+   `.text.<stem>.b<k>.<addr>` sehingga urutan di dalam blok tetap urut alamat
+   dan blok tak saling bercampur.
+2. `fomt.lds`: empat entri `asm/code_linkonce.o(.text.code_XXXX);` diganti
+   `*(SORT_BY_NAME(.text.code_linkonce.b<k>.*))` tepat di posisi semula, jadi
+   template `.gnu.linkonce.t.*` di antaranya tetap di tempat.
+3. `_has_name_wildcard()` (splitter) dan `_lds_has_sorted()` (migrate) menerima
+   bentuk wildcard per-blok `...`text.<stem>.b<k>.*))`, bukan hanya polos.
+
+Bukti split byte-netral TANPA migrasi: 426 section di
+`build/asm/code_linkonce.split.s` dan `make compare` -> `fomt.gba: OK`.
+Sesudah itu jalur migrate biasa jalan; tiap fungsi satu `make compare` HIJAU.
+
+Hasil: **130 fungsi `code_linkonce.s` dipindah ke `src/code_linkonce.cc`**
+(termasuk 4 MATCH yang sebelumnya promote-only: `func_080D7B04`,
+`func_080E10F8`, `func_080DC724`, `func_080E3A6C`).
+
+Sisa yang menolak (alasan persis, semua di-revert otomatis):
+
+- `func_080D3ED4` — `extern __builtin_delete` beda tanda tangan
+  (`i32 (i32 **)` vs `void (void *)`).
+- `func_080D404C` — `extern func_0800080C` beda tanda tangan
+  (`i32 ()` vs `i32 (void *, i32)`).
+- `func_080E1D8C/1D98/1DA4/1DB0/1DC8`, `func_080E3678`, `func_080E3774` —
+  SKIP signature: extern lain di `src/` beda tanda tangan.
+- `func_080D6EAC`, `func_080D6EEC`, `func_080D6F1C` — GAGAL TU C++:
+  `passing i32 to argument 1 of func_...` / `passing u8 * as argument 1`
+  (tipe argumen blok promoted tak cocok dengan extern hasil-rename).
+- `func_080E0EFC` — GAGAL TU C++ (deklarasi bentrok pada TU gabungan).
+- `func_080E0F48` — GAGAL: `ANSI C++ forbids using pointer of type void * in
+  arithmetic` (blok memakai aritmetika `void *`).
+- `func_080E5418`, `func_080E542C` — GAGAL: `conflicting types for
+  i32 gUnk_03000414` (deklarasi global bentrok di TU gabungan).
+
+### §93.1 Kelas MATCH baru: bitfield 4-bit (mask -16 via `rsbs`)
+
+`func_080DD410`, `func_080DD4F0`, `func_080DD594`, `func_080DD794` (36 B,
+`code_linkonce.s`) semuanya byte-identik dengan bentuk:
+
+```c
+typedef struct { u8 a : 4; u8 b : 4; } Dst;   /* nibble rendah diganti */
+void f(Src *arg0, Dst *arg1) {
+    arg1->a = 0xB;                 /* 0xA / 9 / 8 di tiga fungsi lain */
+    arg1->unk4 = arg0->unk50;
+    arg1->unk8 = arg0->unk54;
+    arg1->unkA = arg0->unk56;
+}
+```
+
+Kuncinya: menulis bitfield 4-bit membuat agbcc menghitung mask sebagai
+`movs r2,#0x10; rsbs r2,r2,#0; ands` (mask `-16` runtime), BUKAN
+`mov r2,#0xef; and` seperti kalau sumbernya literal `x & ~0x10`. Bit 4
+(nibble atas) dipertahankan — cocok dengan ref yang hanya membersihkan
+`0xF`. Bentuk literal `(x & ~0x10) | 0xB` menghasilkan 32 B (1 instruksi
+kurang) dan selalu DIFF 2 byte; bentuk bitfield menghasilkan 34 B identik.

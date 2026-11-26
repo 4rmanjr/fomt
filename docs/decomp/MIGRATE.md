@@ -95,7 +95,7 @@ penempatan yang menghalangi.
 |---|---|
 | `data asing NB menempel ekor` | blok diakhiri `.byte`/pool dan `ref_len > ukuran kode`. **Bukan otomatis permanen**: modul tail-only menyalin ekor itu verbatim ke blok C (§28a, §34) dan modul split membawanya bila ada data-chunk pemiliknya (data-join). SKIP-permanen hanya bila tak ada yang mengklaim byte itu (grup solo tanpa data-chunk berikutnya). Contoh yang benar-benar tak terselamatkan: `func_0802C210` (180B), `func_080A6420` (56B), `func_080390D0` (88B), `func_080202C8` (68B) |
 | `grup gabungan/tak-split` | hasil splitter bukan grup 1-fungsi (`migratable` tak memuatnya) |
-| `bukan fungsi terakhir di <mod>.s (N penerus belum pindah)` | modul **tail-only legacy** yang lds-nya tanpa wildcard (`code_linkonce.s`) → wajib pindah dari ekor. `hardware.s` dan `code_actor_0809BFE8.s` sudah jadi MAP-split (wildcard `*(SORT_BY_NAME(.text.<stem>.*))`, POLA-DIFF §92) sehingga tak lagi kena SKIP ini |
+| `bukan fungsi terakhir di <mod>.s (N penerus belum pindah)` | modul **tail-only legacy** yang lds-nya tanpa wildcard. `hardware.s`, `code_actor_0809BFE8.s` (POLA-DIFF §92) dan `code_linkonce.s` (§93, wildcard per blok `*(SORT_BY_NAME(.text.<stem>.b<k>.*))`) sudah MAP-split sehingga tak lagi kena SKIP ini |
 | `butuh tulis manual callee` | callee belum MATCH & tanda tangan beda |
 
 Dinding asm-tangan (fungsi ujung yang terbukti tidak punya bentuk C): opsi
