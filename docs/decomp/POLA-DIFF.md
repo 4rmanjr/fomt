@@ -2651,3 +2651,31 @@ DULU —
 Hal yang sama berlaku untuk urutan muat: `m = *(s32 *) (map + 4);` ditulis
 sebagai pernyataan sebelum perhitungan `p`, kalau tidak gcc menaikkan
 perhitungan `p` ke atas muat itu.
+
+## 71. Tiga dinding dekat-MATCH: literal arg ke-4, regalloc pointer-switch, salinan base
+
+Tiga percobaan manual pada fungsi ber-ref 324/84/148 B (semua di tabel
+`pick_targets` "pola lolos") berhenti di sisa 3–5 baris diff. Bentuk yang
+dicoba dan sisanya:
+
+1. **`func_08037B80`** (324 B, `code_entities_08034CEC`): draf C benar
+   semantik, tetapi agbcc menaruh `ldr r3, =0x207` **sebelum** `str 0xA,[sp]`;
+   ref menaruhnya sesudah `adds r0..r2`. Dipindah ke TU C++
+   (`code_entities_08034CEC.cc`, jalur `make compare`) hasilnya sama —
+   jadi ini bukan beda frontend C/C++, melainkan urutan materialisasi arg
+   konstan di argumen ke-4 saat arg ke-5 ada di stack.
+2. **`func_080D75E0`** (84 B, `code_linkonce`): `1missing,1extra,2regalloc`;
+   pointer hasil `arg0+4`/`arg0+8` diminta di **r3** oleh ref, agbcc konsisten
+   memilih r1 (3 baris). Varian `+= 4`, dua assignment, ternary, `void *`,
+   `register`, dan urutan deklarasi tidak mengubah pilihan register.
+3. **`func_0802AB98`** (148 B, `code_entities`, keluarga `pop {r2}`): ref
+   menyimpan `adds r3,r0` (out) lalu **`adds r0,r1`** (base baca di r0),
+   sehingga r0-r3 semua terpakai dan offset 0xE turun ke r4
+   (`push {r4,lr}`); C menghasilkan base di r1, offset via r2/r0, 0x86 B vs
+   0x94 B. Locals `i32` (bukan `i16`) perlu supaya `ldrsh` muncul, tetapi
+   salinan base ke r0 tidak bisa dipaksa lewat C: `Src *in = arg1`, cast
+   `void *`, maupun urutan baca tidak menghasilkan `adds r0,r1`.
+
+Aturan kerja: ketiganya **parkir** (cap 5 judge), bukan wall permanen yang
+terbukti — kalau nanti ada bentuk C lain, uji ulang dengan pembanding byte
+objek (`tools/scripts/diff_mismatch.py`) sebelum menghabiskan judge.
