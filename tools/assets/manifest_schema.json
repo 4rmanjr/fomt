@@ -129,8 +129,25 @@
      },
      "tile_animations": {
       "type": "array",
-      "description": "Blok tile beranimasi: header u16 + byte tile 4bpp.",
-      "items": {"type": "object"}
+      "description": "Blok tile beranimasi: header u16 (tiles_per_frame, frames) + body tile dari PNG indeks.",
+      "items": {
+       "type": "object",
+       "required": ["offset", "header", "tiles_per_frame", "frames", "tiles_png", "tiles_wide"],
+       "properties": {
+        "offset": {"type": "integer", "minimum": 0},
+        "header": {
+         "type": "array",
+         "minItems": 2,
+         "maxItems": 2,
+         "items": {"type": "integer", "minimum": 0}
+        },
+        "tiles_per_frame": {"type": "integer", "minimum": 1},
+        "frames": {"type": "integer", "minimum": 1},
+        "tiles_png": {"type": "string", "minLength": 1},
+        "tiles_wide": {"type": "integer", "minimum": 1},
+        "note": {"type": "string"}
+       }
+      }
      },
      "payload_segments": {
       "type": "array",
@@ -179,7 +196,16 @@
         },
         "tiles_per_frame": {"type": "integer", "minimum": 1},
         "frames": {"type": "integer", "minimum": 1},
-        "tiles_hex": {"type": "string"},
+        "tiles_png": {
+         "type": "string",
+         "minLength": 1,
+         "description": "frames4bpp: PNG indeks 0..15 (R=G=B=idx*17) berisi tile urut baris; path relatif repo."
+        },
+        "tiles_wide": {
+         "type": "integer",
+         "minimum": 1,
+         "description": "frames4bpp: jumlah tile per baris PNG."
+        },
         "codec": {"type": "string", "enum": ["unpack"]},
         "unpack_size": {"type": "integer", "minimum": 1},
         "unpack_flags": {"type": "integer", "minimum": 0},

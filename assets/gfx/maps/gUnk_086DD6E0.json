@@ -894,9 +894,9 @@
  "evidence": "Descriptor 0x106D4C/0x106D64 menunjuk layer 17x15 di +8/+208/+408; descriptor 0x107064/0x10707C (DC57C) atau 0x107094/0x1070AC (DD6E0) menunjuk layer 4x4 di +6CC/+6EC; func_080A5AB0 membaca blok animasi +608 lewat gUnk_081071A4/C8.",
  "coverage": {
   "total_bytes": 1804,
-  "proven_bytes": 1538,
-  "raw_bytes": 266,
-  "proven_ratio": 0.8525
+  "proven_bytes": 1798,
+  "raw_bytes": 6,
+  "proven_ratio": 0.9967
  },
  "tile_animations": [
   {
@@ -907,8 +907,9 @@
    ],
    "tiles_per_frame": 2,
    "frames": 3,
-   "tiles_hex": "555555556556556656556656656556655566665665666655565556655655665555555555666565555656655565566556665555565566555566555656555556555556565655565556555555555655666655665656655665656666566666665555555665665566555555555555656555655665555656655665555556556655556566566655665555665665665566555555555555556555655665555655655665655556556655556566565656555655565555555555556666656656565656656556",
-   "note": "header u16 2 tile/frame + u16 3 frame; 6 tile 4bpp (192 B); dibaca func_080A5AB0 lewat gUnk_081071A4/C8."
+   "note": "header u16 2 tile/frame + u16 3 frame; tile disimpan sebagai PNG indeks 0..15 (assets/gfx/maps/gUnk_086DD6E0/anim_0x0608.png)",
+   "tiles_png": "assets/gfx/maps/gUnk_086DD6E0/anim_0x0608.png",
+   "tiles_wide": 6
   }
  ],
  "padding": [

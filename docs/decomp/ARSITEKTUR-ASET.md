@@ -1186,10 +1186,12 @@ layer dan asetnya berstatus `decoded-exact` sampai coverage cukup.
 
 Alasan parkir stamp lain, semuanya dari loop yang sama:
 
-- `gUnk_086DCC88`/`gUnk_086DDDEC` (2568 B) hanya 32 B pertamanya dibaca
-  (layer 4x4), `gUnk_086DC57C`/`gUnk_086DD6E0` (1804 B) hanya 8 B (layer 2x2).
-  Keempatnya berstatus `decoded-exact`, **bukan** aset selesai: layer dari
-  offset 0 hanya 8/1804 B atau 32/2568 B (0,4–1,2% proven), sisanya `raw`.
+- `gUnk_086DCC88`/`gUnk_086DDDEC` (layer 4x4 di offset 0) dan
+  `gUnk_086DC57C`/`gUnk_086DD6E0` (layer 2x2) tidak lagi parkir karena
+  coverage: sisanya adalah blok `tile_animations` yang kini bersumber PNG
+  indeks 0..15 (`tiles_png`), dan byte yang tidak terbaca hanya padding yang
+  tercatat. Angka proven tiap aset ada di blok `coverage` masing-masing JSON
+  dan dihitung ulang `asset_verify`; jangan menyalinnya ke dokumen.
   Dua stamp 2x2 yang seluruh slice-nya habis dibaca (`gUnk_086EACDC`,
   `gUnk_086EAD84`) tetap dihitung sebagai tilemap di §`func_08077E64`.
 

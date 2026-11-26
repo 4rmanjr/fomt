@@ -192,11 +192,16 @@ class AssetManifest(unittest.TestCase):
                                 base + seg["offset"] + seg["size"]],
                             bytes(pad))
                 elif seg["kind"] == "frames4bpp":
+                    # Tile 4bpp ditulis dari PNG indeks, bukan hex.
+                    self.assertNotIn("tiles_hex", seg)
                     self.assertEqual(seg["header"],
                                      [seg["tiles_per_frame"], seg["frames"]])
                     self.assertEqual(
                         4 + seg["tiles_per_frame"] * seg["frames"] * 32,
                         seg["size"])
+                    self.assertTrue((REPO / seg["tiles_png"]).is_file(),
+                                    seg["tiles_png"])
+                    self.assertGreaterEqual(seg["tiles_wide"], 1)
                 elif seg["kind"] == "packed":
                     # Byte terkompresi ditulis dari token, bukan disimpan.
                     self.assertNotIn("hex", seg)
@@ -268,10 +273,50 @@ class AssetManifest(unittest.TestCase):
                 self.assertNotIn("hex", seg)
                 self.assertTrue(seg["tokens"])
                 proven += seg["size"]
+            elif seg["kind"] == "frames4bpp":
+                self.assertNotIn("tiles_hex", seg)
+                proven += seg["size"]
+        for anim in meta.get("tile_animations") or []:
+            self.assertNotIn("tiles_hex", anim)
+            proven += 4 + anim["tiles_per_frame"] * anim["frames"] * 32
         self.assertEqual(coverage["total_bytes"], meta["rom"]["size"])
         self.assertEqual(coverage["proven_bytes"], proven)
         self.assertEqual(coverage["raw_bytes"],
                          meta["rom"]["size"] - proven)
+
+    def test_frames4bpp_dan_animasi_dari_png(self):
+        """Tile 4bpp bersumber PNG: hex ditolak, PNG yang diubah = byte beda."""
+        path = REPO / "assets" / "gfx" / "maps" / "gUnk_086EAD8C.json"
+        meta = json.loads(path.read_text())
+        seg = next(dict(s) for s in meta["payload_segments"]
+                   if s["kind"] == "frames4bpp")
+        good = tilemap_bank.payload_bytes(seg)
+        self.assertEqual(len(good), seg["size"])
+        hexed = dict(seg)
+        hexed["tiles_hex"] = good.hex()
+        with self.assertRaises(ValueError) as ctx:
+            tilemap_bank.payload_bytes(hexed)
+        self.assertIn("tiles_hex", str(ctx.exception))
+        anim = next(dict(a) for a in meta["tile_animations"])
+        hexed = dict(anim)
+        hexed["tiles_hex"] = "00" * 32
+        with self.assertRaises(ValueError) as ctx:
+            tilemap_bank._anim_bytes(hexed)
+        self.assertIn("tiles_hex", str(ctx.exception))
+        # PNG adalah sumber byte: ubah satu piksel -> byte ikut berubah.
+        tool = tilemap_bank.tile4bpp()
+        width, height, rgb = tool.read_png(REPO / seg["tiles_png"])
+        rgb[0:3] = bytes(tool.INDICES[(tool.RGB_TO_INDEX[tuple(rgb[0:3])]
+                                       + 1) % 16])
+        out = REPO / "build" / "test_tiles4bpp.png"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        tool.write_png(out, width, height, rgb)
+        try:
+            changed = dict(seg)
+            changed["tiles_png"] = str(out.relative_to(REPO))
+            self.assertNotEqual(tilemap_bank.payload_bytes(changed), good)
+        finally:
+            out.unlink()
 
     def test_coverage_menolak_packed_berupa_hex(self):
         """Blob buram tidak boleh menaikkan proven_bytes."""

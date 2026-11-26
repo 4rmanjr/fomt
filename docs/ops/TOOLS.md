@@ -426,7 +426,9 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   u16; ekor setelah grid wajib `tail: {kind: alignment, size: n}` — hanya
   padding nol yang membuat pointer berikutnya 4-byte aligned, bukan `tail_hex`),
   `frames4bpp` (`header` `[tile/frame, frame]`, `tiles_per_frame`, `frames`,
-  `tiles_hex`), dan `packed` (`codec: unpack`, `format`, `ladder`,
+  `tiles_png` + `tiles_wide`: PNG indeks 0..15 dengan `R=G=B=indeks*17`,
+  path relatif repo, tile urut baris; `tiles_hex` ditolak; blok
+  `tile_animations` memakai field yang sama), dan `packed` (`codec: unpack`, `format`, `ladder`,
   `huffman` bila ada, `unpack_size`/`unpack_flags`, `tokens`,
   `unpacked_sha256`). Segmen `packed` **tidak** menyimpan byte terkompresi:
   token LZ-nya yang disimpan, lalu `tools/assets/popuri.py` menulis ulang byte
@@ -439,13 +441,13 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   dekompresi tidak cocok dengan `unpack_size`/`unpacked_sha256`.
   Setiap alamat di `pointer_sources` harus menunjuk tepat ke awal segmen, tanpa
   celah atau tumpang tindih. `coverage` dihitung `tilemap_bank.coverage()` dari
-  byte yang benar-benar direkonstruksi: entri layer + palet + entri tilemap +
-  segmen `packed` yang punya `tokens` (byte terkompresi ditulis dari token,
-  hasil dekompresinya dicek hash). Yang tetap `raw_bytes`: tile 4bpp/animasi
-  (`tiles_hex`), `frames4bpp`, padding, dan byte tanpa pemilik. Segmen `packed`
-  yang masih membawa `hex` ditolak `coverage()`, jadi blob buram tidak bisa
-  menaikkan angka proven. `asset_verify` menolak blok `coverage` yang tidak
-  sama dengan hitungan itu. `decode` memindai
+  byte yang benar-benar direkonstruksi: entri layer, palet, entri tilemap,
+  `frames4bpp`, blok `tile_animations`, dan segmen `packed` yang punya
+  `tokens` (byte terkompresi ditulis dari token, hasil dekompresinya dicek
+  hash). Yang tetap `raw_bytes`: padding alignment, tail tilemap, dan byte
+  tanpa pemilik. Segmen `packed` ber-`hex` dan tile 4bpp ber-`tiles_hex`
+  ditolak `coverage()`, jadi blob buram tidak bisa menaikkan angka proven.
+  `asset_verify` menolak blok `coverage` yang tidak sama dengan hitungan itu. `decode` memindai
   tabel descriptor (`--descriptor-start/--descriptor-end`, record `0x18`) dan
   menolak layer yang tumpang tindih; `encode` menolak celah, tumpang tindih,
   atau jumlah entri tidak sama dengan `width*height`; `verify` membandingkan

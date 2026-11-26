@@ -48,7 +48,8 @@ semantik kind itu (bukan dari hex mentah):
  "unpacked_sha256": "..."}
 {"offset": 17156, "size": 2308, "kind": "frames4bpp",
  "header": [18, 4], "tiles_per_frame": 18, "frames": 4,
- "tiles_hex": "12000400..."}
+ "tiles_png": "assets/gfx/maps/gUnk_086EAD8C/payload_0x4304.png",
+ "tiles_wide": 12}
 ```
 
 `coverage()` menghitung ulang `proven_bytes` dari field yang benar-benar
@@ -89,8 +90,10 @@ def bytes_from_entries(entries):
 
 
 PAYLOAD_KINDS = ("palette", "tilemap", "frames4bpp", "packed")
+REPO = Path(__file__).resolve().parents[2]
 
 _POPURI = None
+_TILE4BPP = None
 
 
 def popuri():
@@ -103,6 +106,60 @@ def popuri():
         spec.loader.exec_module(module)
         _POPURI = module
     return _POPURI
+
+
+def tile4bpp():
+    """Codec PNG indeks 16 warna di sebelah berkas ini (dimuat sekali)."""
+    global _TILE4BPP
+    if _TILE4BPP is None:
+        path = Path(__file__).with_name("tile4bpp.py")
+        spec = importlib.util.spec_from_file_location("tile4bpp", path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        _TILE4BPP = module
+    return _TILE4BPP
+
+
+def require_png(obj, label):
+    """Tile 4bpp wajib punya source PNG, bukan hex."""
+    if "tiles_hex" in obj:
+        raise ValueError(
+            f"{label}: tiles_hex sudah tidak dipakai; simpan tiles_png")
+    if not isinstance(obj.get("tiles_png"), str) or not obj["tiles_png"]:
+        raise ValueError(f"{label}: tiles_png wajib path PNG")
+    if not isinstance(obj.get("tiles_wide"), int) or obj["tiles_wide"] < 1:
+        raise ValueError(f"{label}: tiles_wide wajib >= 1")
+    if not (REPO / obj["tiles_png"]).is_file():
+        raise ValueError(f"{label}: tiles_png {obj['tiles_png']} tidak ada")
+
+
+def tiles_from_png(rel, count, tiles_wide, label):
+    """PNG indeks 0..15 (R=G=B=idx*17) -> body 4bpp GBA, nibble rendah dulu."""
+    tool = tile4bpp()
+    path = REPO / rel
+    width, height, rgb = tool.read_png(path)
+    rows = (count + tiles_wide - 1) // tiles_wide
+    if width != tiles_wide * 8 or height != rows * 8:
+        raise ValueError(
+            f"{label}: {path.name} {width}x{height}, harus "
+            f"{tiles_wide * 8}x{rows * 8} untuk {count} tile")
+    body = bytearray()
+    for tile in range(count):
+        tx = (tile % tiles_wide) * 8
+        ty = (tile // tiles_wide) * 8
+        for y in range(8):
+            for x in range(0, 8, 2):
+                pair = []
+                for xx in (x, x + 1):
+                    dst = ((ty + y) * width + tx + xx) * 3
+                    color = tuple(rgb[dst:dst + 3])
+                    if color not in tool.RGB_TO_INDEX:
+                        raise ValueError(
+                            f"{label}: warna {color} di tile {tile} bukan "
+                            "indeks 0..15")
+                    pair.append(tool.RGB_TO_INDEX[color])
+                body.append(pair[0] | (pair[1] << 4))
+    return bytes(body)
 
 
 def u16_list(values, label, limit=0xFFFF):
@@ -119,9 +176,9 @@ def u16_list(values, label, limit=0xFFFF):
 def payload_bytes(seg):
     """Satu segmen payload -> byte, ditulis dari field semantiknya.
 
-    `palette`/`tilemap`/`frames4bpp` tidak menyimpan hex byte: isinya warna
-    BGR555, entri u16, atau tile 4bpp. `packed` masih menyimpan byte
-    terkompresi karena format `Unpack` belum punya compressor pembalik.
+    Tidak ada kind yang menyimpan blob buram: `palette` = warna BGR555,
+    `tilemap` = entri u16, `frames4bpp`/`tile_animations` = PNG indeks 0..15
+    (`tiles_png`), dan `packed` = token LZ yang ditulis ulang `popuri`.
     """
     offset = seg.get("offset")
     label = f"payload {offset:#x}" if isinstance(offset, int) else "payload ?"
@@ -163,13 +220,9 @@ def payload_bytes(seg):
         if header != [tpf, frames]:
             raise ValueError(
                 f"{label}: header {header!r} != [{tpf}, {frames}]")
-        try:
-            tiles = bytes.fromhex(seg.get("tiles_hex") or "")
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"{label}: tiles_hex tidak valid: {exc}")
-        if len(tiles) != tpf * frames * 32:
-            raise ValueError(
-                f"{label}: {len(tiles)} B tile != {tpf}*{frames}*32")
+        require_png(seg, label)
+        tiles = tiles_from_png(seg["tiles_png"], tpf * frames,
+                               seg["tiles_wide"], label)
         data = struct.pack("<2H", tpf, frames) + tiles
     elif kind == "packed":
         if "hex" in seg:
@@ -186,15 +239,34 @@ def payload_bytes(seg):
     return data
 
 
+def _anim_bytes(anim):
+    """Blok `tile_animations` -> header 2 u16 + body dari PNG tile."""
+    offset = int(str(anim.get("offset", 0)), 0)
+    label = f"tile_animation {offset:#x}"
+    header = anim.get("header")
+    tpf, frames = anim.get("tiles_per_frame"), anim.get("frames")
+    if not isinstance(header, list) or len(header) != 2:
+        raise ValueError(f"{label}: header wajib 2 u16")
+    if (not isinstance(tpf, int) or not isinstance(frames, int)
+            or tpf < 1 or frames < 1):
+        raise ValueError(f"{label}: tiles_per_frame/frames wajib >= 1")
+    if header != [tpf, frames]:
+        raise ValueError(f"{label}: header {header!r} != [{tpf}, {frames}]")
+    require_png(anim, label)
+    body = tiles_from_png(anim["tiles_png"], tpf * frames,
+                          anim["tiles_wide"], label)
+    return struct.pack("<2H", *header) + body
+
+
 def coverage(meta):
     """-> coverage dari field yang direkonstruksi (bukan hex mentah).
 
     Yang dihitung hanya byte yang nilainya ditentukan field semantik: entri
-    layer (`layers`), segmen payload `palette`/`tilemap`, dan segmen `packed`
-    (byte terkompresi ditulis dari `tokens`, dan hasil dekompresinya dicek
-    `unpacked_sha256`). Segmen `packed` yang masih membawa `hex` ditolak,
-    bukan dihitung. Tile 4bpp dan animasi (`tiles_hex`), `frames4bpp`, padding,
-    dan byte `raw` tetap masuk `raw_bytes`.
+    layer (`layers`), segmen payload `palette`/`tilemap`/`frames4bpp`,
+    `tile_animations`, dan segmen `packed` (byte terkompresi ditulis dari
+    `tokens`, hasil dekompresinya dicek `unpacked_sha256`). Yang masih membawa
+    hex (`hex` pada packed, `tiles_hex` pada tile 4bpp) atau tanpa source PNG
+    ditolak, bukan dihitung. Padding dan byte `raw` tetap `raw_bytes`.
     """
     total = int(meta["rom"]["size"])
     proven = 0
@@ -211,6 +283,19 @@ def coverage(meta):
                     f"packed +{seg.get('offset')}: butuh tokens tanpa hex "
                     "sebelum boleh dihitung proven")
             proven += seg["size"]
+        elif seg.get("kind") == "frames4bpp":
+            require_png(seg, f"payload +{seg.get('offset')}")
+            proven += seg["size"]
+    for anim in meta.get("tile_animations", []):
+        label = f"tile_animation {int(str(anim.get('offset', 0)), 0):#x}"
+        header = anim.get("header")
+        tpf, frames = anim.get("tiles_per_frame"), anim.get("frames")
+        if (not isinstance(header, list) or header != [tpf, frames]
+                or not isinstance(tpf, int) or tpf < 1
+                or not isinstance(frames, int) or frames < 1):
+            raise ValueError(f"{label}: header/tiles_per_frame/frames rusak")
+        require_png(anim, label)
+        proven += 4 + tpf * frames * 32
     return {
         "total_bytes": total,
         "proven_bytes": proven,
@@ -236,16 +321,8 @@ def _segments(meta, size):
         segments.append((offset, bytes_from_entries(entries), label))
     for anim in meta.get("tile_animations", []):
         offset = int(str(anim["offset"]), 0)
-        header = anim.get("header")
-        tiles = anim.get("tiles_hex", "")
-        if not isinstance(header, list) or len(header) != 2:
-            raise ValueError(f"tile_animation {offset:#x}: header wajib 2 u16")
-        try:
-            data = struct.pack("<2H", *header) + bytes.fromhex(tiles)
-        except (struct.error, ValueError) as exc:
-            raise ValueError(f"tile_animation {offset:#x}: {exc}")
         label = f"tile_animation {offset:#x}"
-        segments.append((offset, data, label))
+        segments.append((offset, _anim_bytes(anim), label))
     for seg in meta.get("payload_segments", []):
         offset = int(str(seg["offset"]), 0)
         data = payload_bytes(seg)
