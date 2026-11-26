@@ -19,5 +19,11 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "code_809E804.s:22343 ldr r0,=gUnk_086EACE4; 22357 bl func_08008E64. Salin 0x20 B ke [base+0x1c+idx*4]+0xC0 (palette RAM) saat r6=0/r3!=3."
+ "evidence": "code_809E804.s:22343 ldr r0,=gUnk_086EACE4; 22357 bl func_08008E64. Salin 0x20 B ke [base+0x1c+idx*4]+0xC0 (palette RAM) saat r6=0/r3!=3.",
+ "coverage": {
+  "total_bytes": 32,
+  "proven_bytes": 32,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

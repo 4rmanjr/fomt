@@ -258,7 +258,7 @@ def _anim_bytes(anim):
     return struct.pack("<2H", *header) + body
 
 
-def coverage(meta):
+def coverage(meta, meta_path=None):
     """-> coverage dari field yang direkonstruksi (bukan hex mentah).
 
     Yang dihitung hanya byte yang nilainya ditentukan field semantik: entri

@@ -724,6 +724,13 @@ sebagai utang teknis yang tercatat, tetapi tidak dihitung sebagai aset selesai.
 Ambang 0.5 mencegah bank yang 90%+ isinya `raw` menaikkan cakupan seolah-olah
 byte itu sudah diterjemahkan.
 
+Blok `coverage` selalu dihitung codec aset, bukan ditulis tangan: `palette`
+memakai `pal2gba.coverage()` (total dari jumlah warna `.pal`), codec lain
+menghitung dari field tersumber. Warna ekor yang tidak disalin call-site
+dinyatakan sebagai range `padding` bernama beserta buktinya dan dihitung raw;
+byte itu tetap ditulis dari `.pal`, bukan hex buram. `asset_verify` menolak
+blok `coverage` yang tidak sama dengan hitungan codec.
+
 ## 18. Pola pret/pokeemerald-expansion yang diadopsi
 
 Repo upstream (`pret/pokeemerald`, `rh-hideout/pokeemerald-expansion`) membangun

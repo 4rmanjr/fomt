@@ -19,5 +19,11 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "func_080645F0 (code_0803EE94.s:73896): func_08008F0C(antrean, gUnk_0875298C, 0x05000040, 0x20), tujuan 0x05000040 di palette RAM; simbol dimuat di baris 73892."
+ "evidence": "func_080645F0 (code_0803EE94.s:73896): func_08008F0C(antrean, gUnk_0875298C, 0x05000040, 0x20), tujuan 0x05000040 di palette RAM; simbol dimuat di baris 73892.",
+ "coverage": {
+  "total_bytes": 32,
+  "proven_bytes": 32,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

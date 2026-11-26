@@ -19,5 +19,11 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "code_0803EE94.s:75016 memuat gUnk_08751F8C ke struct stack +0xc (sp+0x14); list obj+0x594 dibangun di baris 75043; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20."
+ "evidence": "code_0803EE94.s:75016 memuat gUnk_08751F8C ke struct stack +0xc (sp+0x14); list obj+0x594 dibangun di baris 75043; func_08076EA8 code_0803EE94.s:111004 menyalin [entry+0xc] 0x20 B ke 0x05000200 + slot*0x20.",
+ "coverage": {
+  "total_bytes": 32,
+  "proven_bytes": 32,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

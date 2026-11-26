@@ -288,7 +288,7 @@ def _sections_size(meta):
     return total
 
 
-def coverage(meta):
+def coverage(meta, meta_path=None):
     """Coverage container: semua byte dari field (tabel/tile/ekor eksplisit).
 
     `padding` di JSON tetap dokumentasi "tanpa pembaca", bukan angka raw:

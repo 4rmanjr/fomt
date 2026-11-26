@@ -19,5 +19,11 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "code_809E804.s:8447 ldr r0,=gUnk_0874F2EC; 8450-8451 set r1=0x05000000,r2=0x200; 8452 bl func_08008E64. Seluruh 96 B tersalin."
+ "evidence": "code_809E804.s:8447 ldr r0,=gUnk_0874F2EC; 8450-8451 set r1=0x05000000,r2=0x200; 8452 bl func_08008E64. Seluruh 96 B tersalin.",
+ "coverage": {
+  "total_bytes": 96,
+  "proven_bytes": 96,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

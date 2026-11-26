@@ -19,5 +19,11 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "func_08077EC0 (code_0803EE94.s:112761): func_08008E64(gUnk_0875A358, 0x05000020, 0xC0) \u2014 192 B ke palette RAM; simbol dimuat di baris 112757, dipilih saat r5!=0 (cabang lain memakai gUnk_08757AE0)."
+ "evidence": "func_08077EC0 (code_0803EE94.s:112761): func_08008E64(gUnk_0875A358, 0x05000020, 0xC0) — 192 B ke palette RAM; simbol dimuat di baris 112757, dipilih saat r5!=0 (cabang lain memakai gUnk_08757AE0).",
+ "coverage": {
+  "total_bytes": 192,
+  "proven_bytes": 192,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

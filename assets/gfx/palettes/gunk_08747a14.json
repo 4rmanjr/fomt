@@ -19,5 +19,20 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "code_0803EE94.s:62074 ldr r0,=gUnk_08747A14; 62075-62078 set r1=0x05000000,r2=0x40; 62079 bl func_08008E64. Hanya 64 B pertama (32 warna) tersalin ke palet RAM; 32 B ekor belum punya pembaca, jadi bukan bukti penuh (tidak ada coverage yang bisa dihitung codec `.pal`)."
+ "evidence": "code_0803EE94.s:62074 ldr r0,=gUnk_08747A14; 62075-62078 set r1=0x05000000,r2=0x40; 62079 bl func_08008E64. Hanya 64 B pertama (32 warna) tersalin ke palet RAM; 32 B sisanya (16 warna) tanpa pembaca, dinyatakan padding `palette_tail` dan dihitung raw oleh coverage.",
+ "padding": [
+  {
+   "offset": 64,
+   "size": 32,
+   "kind": "palette_tail",
+   "reason": "16 warna setelah 32 warna yang disalin call-site tidak punya pembaca; byte tetap ditulis dari .pal, jadi tidak ada hex buram",
+   "evidence": "code_0803EE94.s:62074-62079 ldr r0,=gUnk_08747A14; r1=0x05000000, r2=0x40; bl func_08008E64 (hanya 64 B pertama masuk palet RAM)"
+  }
+ ],
+ "coverage": {
+  "total_bytes": 96,
+  "proven_bytes": 64,
+  "raw_bytes": 32,
+  "proven_ratio": 0.6667
+ }
 }

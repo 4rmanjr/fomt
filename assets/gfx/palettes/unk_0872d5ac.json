@@ -19,5 +19,11 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "func_080B55D0 (code_809E804.s:46450): func_08008E64(gUnk_0872D5AC, 0x050000E0, 0x20), tujuan 0x050000E0 di palette RAM; simbol dimuat di baris 46446."
+ "evidence": "func_080B55D0 (code_809E804.s:46450): func_08008E64(gUnk_0872D5AC, 0x050000E0, 0x20), tujuan 0x050000E0 di palette RAM; simbol dimuat di baris 46446.",
+ "coverage": {
+  "total_bytes": 32,
+  "proven_bytes": 32,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

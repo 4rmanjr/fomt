@@ -19,5 +19,11 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "func_080AE7D0 (code_809E804.s:32445): func_08008E64(gUnk_08731940, 0x05000000, 0x200) menyalin 512 B ke palette RAM; tidak ada palet lain yang dimuat scene ini."
+ "evidence": "func_080AE7D0 (code_809E804.s:32445): func_08008E64(gUnk_08731940, 0x05000000, 0x200) menyalin 512 B ke palette RAM; tidak ada palet lain yang dimuat scene ini.",
+ "coverage": {
+  "total_bytes": 512,
+  "proven_bytes": 512,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

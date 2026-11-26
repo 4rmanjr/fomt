@@ -121,7 +121,7 @@ def _tiles_bytes(path, count, tiles_wide, offset):
     return bytes(out)
 
 
-def coverage(meta):
+def coverage(meta, meta_path=None):
     """Coverage tabel: semua byte dari field (u8/u16/u32/png), tanpa hex."""
     for offset, segment in enumerate(
             meta.get("source", {}).get("segments", [])):

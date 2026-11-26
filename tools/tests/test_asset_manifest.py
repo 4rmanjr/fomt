@@ -150,9 +150,24 @@ class AssetManifest(unittest.TestCase):
                 tool.removesuffix(".py"), REPO / "tools" / "assets" / tool)
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
-            self.assertEqual(module.coverage(meta), declared, str(path))
+            self.assertEqual(module.coverage(meta, path), declared, str(path))
             self.assertEqual(declared["proven_bytes"] + declared["raw_bytes"],
                              declared["total_bytes"], str(path))
+
+    def test_palette_coverage_dari_pal_dan_padding(self):
+        """Palet juga dihitung codec: total dari .pal, ekor tanpa pembaca raw."""
+        path = (REPO / "assets" / "gfx" / "palettes" /
+                "gunk_08747a14.json")
+        meta = json.loads(path.read_text())
+        declared = meta["coverage"]
+        self.assertEqual(pal2gba.coverage(meta, path), declared)
+        self.assertEqual(declared["proven_bytes"] + declared["raw_bytes"],
+                         declared["total_bytes"])
+        self.assertEqual(declared["raw_bytes"],
+                         sum(p["size"] for p in meta["padding"]))
+        self.assertLess(declared["proven_ratio"], 1.0)
+        with self.assertRaises(ValueError):
+            pal2gba.coverage(meta)  # butuh path .pal, bukan angka JSON
 
     def test_map_raw_hex_ditolak(self):
         """Segmen `raw` peta harus u16 eksplisit, bukan hex."""

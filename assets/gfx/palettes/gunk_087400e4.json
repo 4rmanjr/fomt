@@ -19,5 +19,11 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "code_809E804.s:71185 ldr r0,=gUnk_087400E4; 71186 ldr r1,=0x05000020; 71187 r2=0x200; 71189 bl func_08008E64. Seluruh 192 B tersalin ke palet RAM +0x20."
+ "evidence": "code_809E804.s:71185 ldr r0,=gUnk_087400E4; 71186 ldr r1,=0x05000020; 71187 r2=0x200; 71189 bl func_08008E64. Seluruh 192 B tersalin ke palet RAM +0x20.",
+ "coverage": {
+  "total_bytes": 192,
+  "proven_bytes": 192,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

@@ -86,6 +86,39 @@ def write_pal(path, colors):
     Path(path).write_text(body)
 
 
+def coverage(meta, meta_path=None):
+    """Coverage dari field: seluruh slice ditulis dari warna `.pal`.
+
+    Jumlah byte dihitung dari jumlah warna di `.pal` (bukan angka di JSON),
+    dan range `padding` yang dijustifikasi (warna setelah jumlah yang disalin
+    call-site) dihitung raw. Butuh path metadata untuk menemukan `.pal`.
+    """
+    size = int(meta["rom"]["size"])
+    if meta_path is None:
+        raise ValueError("coverage palet butuh path metadata untuk .pal")
+    ref = meta["source"].get("pal")
+    if not ref:
+        raise ValueError("source.pal tidak ada")
+    pal = Path(meta_path).parent / ref
+    if not pal.exists():
+        raise ValueError(f"{pal}: berkas .pal tidak ada")
+    encoded = encode_bytes(read_pal(pal))
+    if len(encoded) != size:
+        raise ValueError(f".pal = {len(encoded)} B != rom.size {size} B")
+    pad = 0
+    for item in meta.get("padding") or []:
+        offset, length = int(item["offset"]), int(item["size"])
+        if offset < 0 or length < 1 or offset + length > size:
+            raise ValueError(f"padding {item['offset']}+{length} di luar ROM")
+        pad += length
+    return {
+        "total_bytes": size,
+        "proven_bytes": size - pad,
+        "raw_bytes": pad,
+        "proven_ratio": round((size - pad) / size, 4),
+    }
+
+
 def encode_source(meta_path):
     """Byte ROM dari source `.pal` yang dirujuk metadata per-aset."""
     meta_path = Path(meta_path)

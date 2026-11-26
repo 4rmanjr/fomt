@@ -399,7 +399,7 @@ def check_asset(asset, rom, incbins, repo=None, force_encode=False):
                     problems.append("coverage wajib ada untuk aset ini")
                 else:
                     try:
-                        expected = tool_module.coverage(meta)
+                        expected = tool_module.coverage(meta, meta_path)
                     except (SystemExit, ValueError) as exc:
                         problems.append(f"coverage: {exc}")
                     else:

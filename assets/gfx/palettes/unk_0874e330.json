@@ -19,5 +19,11 @@
  },
  "deps": [],
  "codec": null,
- "evidence": "func_080019D8 (intro_scene.s:1959): func_08008E64(gUnk_0874E330, 0x05000000, 0x200), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 1954."
+ "evidence": "func_080019D8 (intro_scene.s:1959): func_08008E64(gUnk_0874E330, 0x05000000, 0x200), tujuan 0x05000000 di palette RAM; simbol dimuat di baris 1954.",
+ "coverage": {
+  "total_bytes": 512,
+  "proven_bytes": 512,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

@@ -326,6 +326,10 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   kanonik) ⇄ u16 GBA BGR555 little endian. `decode` menulis `.pal` (+PNG
   swatch dari `render_palette`), `encode --json <metadata> --out <bin>`
   dipakai `asset_manifest.py`, `--check` menguji round-trip 5 bit eksak.
+  `coverage()` menghitung total dari jumlah warna `.pal` (butuh path JSON)
+  dan hanya range `padding` terdokumentasi (mis. warna setelah jumlah yang
+  disalin call-site) yang dihitung raw; `asset_verify` menolak blok
+  `coverage` yang tidak sama dengan hitungan itu.
 - `tools/assets/asset_verify.py` — gate per-aset Fase 0: validasi
   `assets/manifest.json` terhadap `tools/assets/manifest_schema.json`, cek
   sha256 slice ROM, jalankan encoder dari source (byte + hash harus sama),

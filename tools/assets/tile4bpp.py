@@ -227,7 +227,7 @@ def _field_bytes(source, name):
     return bytes(out)
 
 
-def coverage(meta):
+def coverage(meta, meta_path=None):
     """Coverage: semua byte dari field (tile PNG, header/tail eksplisit).
 
     `padding` di JSON tetap dokumentasi "tanpa pembaca", bukan angka raw:
