@@ -2,8 +2,9 @@
 """Regresi indeks aset: sinkron, memarkir non-rom-exact, menolak status asing."""
 import importlib.util
 import json
-from PIL import Image
 import shutil
+import struct
+import zlib
 import tempfile
 import unittest
 from pathlib import Path
@@ -13,6 +14,11 @@ spec = importlib.util.spec_from_file_location(
     "asset_manifest", REPO / "tools" / "assets" / "asset_manifest.py")
 asset_manifest = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(asset_manifest)
+
+spec = importlib.util.spec_from_file_location(
+    "tile4bpp", REPO / "tools" / "assets" / "tile4bpp.py")
+tile4bpp = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(tile4bpp)
 
 
 class AssetManifest(unittest.TestCase):
@@ -127,14 +133,52 @@ class AssetManifest(unittest.TestCase):
         for asset in assets:
             source = asset["source"]
             if source.get("png"):
-                # Pillow menangani truecolor maupun indexed; aset sumber
-                # memang campuran keduanya.
-                with Image.open(REPO / source["png"]) as image:
-                    width, height = image.size
-                    image.load()
-                    colors = image.convert("RGB").getcolors(1 << 20) or []
+                png_path = REPO / source["png"]
+                raw = png_path.read_bytes()
+                self.assertTrue(raw.startswith(b"\x89PNG\r\n\x1a\n"),
+                                source["png"])
+                pos = 8
+                width = height = colortype = None
+                palette = b""
+                idat = bytearray()
+                saw_iend = False
+                while pos + 8 <= len(raw):
+                    length = struct.unpack(">I", raw[pos:pos + 4])[0]
+                    tag = raw[pos + 4:pos + 8]
+                    data = raw[pos + 8:pos + 8 + length]
+                    pos += 12 + length
+                    if tag == b"IHDR":
+                        (width, height, depth, colortype,
+                         _comp, _filt, interlace) = struct.unpack(
+                             ">IIBBBBB", data)
+                        self.assertEqual((depth, interlace), (8, 0),
+                                         source["png"])
+                    elif tag == b"PLTE":
+                        palette = data
+                    elif tag == b"IDAT":
+                        idat += data
+                    elif tag == b"IEND":
+                        saw_iend = True
+                        break
+                self.assertTrue(saw_iend, source["png"])
                 self.assertGreater(width, 1, source["png"])
                 self.assertGreater(height, 1, source["png"])
+                if colortype == 2:
+                    _w, _h, rgb = tile4bpp.read_png(png_path)
+                    colors = {bytes(rgb[i:i + 3])
+                              for i in range(0, len(rgb), 3)}
+                elif colortype == 3:
+                    self.assertGreaterEqual(len(palette) // 3, 2,
+                                            source["png"])
+                    stream = zlib.decompress(bytes(idat))
+                    stride = width + 1
+                    self.assertGreaterEqual(len(stream), height * stride,
+                                            source["png"])
+                    colors = {bytes(stream[row * stride + 1:
+                                           (row + 1) * stride])
+                              for row in range(height)}
+                else:
+                    self.fail(f"{source['png']}: colortype {colortype}")
                 self.assertGreater(len(colors), 1, source["png"])
             if source.get("pal"):
                 lines = (REPO / source["pal"]).read_text().splitlines()
