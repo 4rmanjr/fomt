@@ -2119,9 +2119,9 @@
  "evidence": "asm/code_809E804.s baris 14381 (func_080A5BD8) membaca descriptor 0x18 B: u8 lebar (14397), u8 tinggi (14398), tiga pointer layer u16 di +4/+8/+0xc (14401), lalu memcpy lebar x tinggi entri per layer (14436) ke lapis peta. Tabel descriptor 0x10692C-0x1070DC (82 record) menunjuk layer di blob ini; source mencatat offset/lebar/tinggi tiap layer, dan raw menutup byte yang tidak dirujuk supaya round-trip byte-identik tanpa mengarang format. Payload 0x1D20..0x8220 dimulai pointer table 0x107204..0x107338 (record 0x2C B) dan 0x107338/0x107344: +4/+8 layer u16, +0x18 graphics Unpack, +0x20/+0x24 palet, +0x1C tujuan VRAM; func_080A5AB0 (14215) memuat tile frames4bpp.",
  "coverage": {
   "total_bytes": 33312,
-  "proven_bytes": 8590,
-  "raw_bytes": 24722,
-  "proven_ratio": 0.2579
+  "proven_bytes": 25686,
+  "raw_bytes": 7626,
+  "proven_ratio": 0.7711
  },
  "padding": [
   {

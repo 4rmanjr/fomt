@@ -263,10 +263,28 @@ class AssetManifest(unittest.TestCase):
                 proven += seg["size"]
             elif seg["kind"] == "tilemap":
                 proven += seg["width"] * seg["height"] * 2
+            elif seg["kind"] == "packed":
+                # Byte terkompresi ditulis dari token, bukan hex mentah.
+                self.assertNotIn("hex", seg)
+                self.assertTrue(seg["tokens"])
+                proven += seg["size"]
         self.assertEqual(coverage["total_bytes"], meta["rom"]["size"])
         self.assertEqual(coverage["proven_bytes"], proven)
         self.assertEqual(coverage["raw_bytes"],
                          meta["rom"]["size"] - proven)
+
+    def test_coverage_menolak_packed_berupa_hex(self):
+        """Blob buram tidak boleh menaikkan proven_bytes."""
+        path = REPO / "assets" / "gfx" / "maps" / "gUnk_086EAD8C.json"
+        meta = json.loads(path.read_text())
+        seg = next(dict(s) for s in meta["payload_segments"]
+                   if s["kind"] == "packed")
+        seg["hex"] = bytes(seg["size"]).hex()
+        seg.pop("tokens")
+        with self.assertRaises(ValueError) as ctx:
+            tilemap_bank.coverage({"rom": meta["rom"],
+                                   "payload_segments": [seg]})
+        self.assertIn("proven", str(ctx.exception))
 
     def test_source_files_are_not_degenerate(self):
         assets = json.loads(asset_manifest.MANIFEST.read_text())["assets"]

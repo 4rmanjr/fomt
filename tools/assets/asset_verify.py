@@ -565,11 +565,15 @@ def padding_problems(asset, rom):
                     f"bukan {want:#x}")
         payload.append((off, off + size, i))
     if tool is not None:
-        expected = tool.coverage(meta)
+        try:
+            expected = tool.coverage(meta)
+        except (SystemExit, ValueError) as exc:
+            problems.append(f"coverage: {exc}")
+            expected = None
         declared = meta.get("coverage")
         if not isinstance(declared, dict):
             problems.append("coverage wajib ada bila ada payload_segments")
-        else:
+        elif expected is not None:
             for key, value in expected.items():
                 if declared.get(key) != value:
                     problems.append(f"coverage.{key} {declared.get(key)!r} != "

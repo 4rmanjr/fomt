@@ -439,9 +439,13 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   dekompresi tidak cocok dengan `unpack_size`/`unpacked_sha256`.
   Setiap alamat di `pointer_sources` harus menunjuk tepat ke awal segmen, tanpa
   celah atau tumpang tindih. `coverage` dihitung `tilemap_bank.coverage()` dari
-  byte yang benar-benar direkonstruksi (entri layer + palet + entri tilemap);
-  tile 4bpp, animasi, dan `packed` tetap `raw_bytes`. `asset_verify` menolak
-  blok `coverage` yang tidak sama dengan hitungan itu. `decode` memindai
+  byte yang benar-benar direkonstruksi: entri layer + palet + entri tilemap +
+  segmen `packed` yang punya `tokens` (byte terkompresi ditulis dari token,
+  hasil dekompresinya dicek hash). Yang tetap `raw_bytes`: tile 4bpp/animasi
+  (`tiles_hex`), `frames4bpp`, padding, dan byte tanpa pemilik. Segmen `packed`
+  yang masih membawa `hex` ditolak `coverage()`, jadi blob buram tidak bisa
+  menaikkan angka proven. `asset_verify` menolak blok `coverage` yang tidak
+  sama dengan hitungan itu. `decode` memindai
   tabel descriptor (`--descriptor-start/--descriptor-end`, record `0x18`) dan
   menolak layer yang tumpang tindih; `encode` menolak celah, tumpang tindih,
   atau jumlah entri tidak sama dengan `width*height`; `verify` membandingkan

@@ -190,9 +190,11 @@ def coverage(meta):
     """-> coverage dari field yang direkonstruksi (bukan hex mentah).
 
     Yang dihitung hanya byte yang nilainya ditentukan field semantik: entri
-    layer (`layers`) dan segmen payload `palette`/`tilemap`. Tile 4bpp,
-    animasi (`tiles_hex`), dan `packed` masih byte mentah, jadi masuk
-    `raw_bytes`.
+    layer (`layers`), segmen payload `palette`/`tilemap`, dan segmen `packed`
+    (byte terkompresi ditulis dari `tokens`, dan hasil dekompresinya dicek
+    `unpacked_sha256`). Segmen `packed` yang masih membawa `hex` ditolak,
+    bukan dihitung. Tile 4bpp dan animasi (`tiles_hex`), `frames4bpp`, padding,
+    dan byte `raw` tetap masuk `raw_bytes`.
     """
     total = int(meta["rom"]["size"])
     proven = 0
@@ -203,6 +205,12 @@ def coverage(meta):
             proven += seg["size"]
         elif seg.get("kind") == "tilemap":
             proven += seg["width"] * seg["height"] * ENTRY
+        elif seg.get("kind") == "packed":
+            if "hex" in seg or not seg.get("tokens"):
+                raise ValueError(
+                    f"packed +{seg.get('offset')}: butuh tokens tanpa hex "
+                    "sebelum boleh dihitung proven")
+            proven += seg["size"]
     return {
         "total_bytes": total,
         "proven_bytes": proven,
