@@ -1,23 +1,23 @@
-/* note sesi: 2 varian. Ref: dst->r6, penunjuk->r3, src->r2; word-copy memakai
-   ldm r2!,{r0}/stm r3!,{r0} (load+store via pointer u32 post-increment), lalu
-   ldr word berikutnya untuk uji 0xFEFEFEFF. Draf 7extra/4operand/6regalloc. */
-char *strcpy(char *dst, const char *src) {
-    char *d = dst;
-    char *p = d;
-    const char *s = src;
-    u32 w;
+#define DETECTNULL(x) (((x) - 0x01010101) & ~(x) & 0x80808080)
 
-    if ((((u32) s | (u32) p) & 3) == 0) {
-        w = *(const u32 *) s;
-        if (((w + 0xFEFEFEFFU) & ~w & 0x80808080U) == 0) {
-            do {
-                *(u32 *) p++ = *(const u32 *) s++;
-                s += 4;
-                w = *(const u32 *) s;
-            } while (((w + 0xFEFEFEFFU) & ~w & 0x80808080U) == 0);
+char *strcpy(char *dst0, const char *src0) {
+    register char *sav __asm__("r6") = dst0;
+    char *dst;
+    const char *src;
+    u32 x;
+
+    dst = sav;
+    src = src0;
+    if (((((u32)src) | ((u32)dst)) & 3) == 0) {
+        x = *(const u32 *)src;
+        while (DETECTNULL(x) == 0) {
+            *(u32 *)dst = *(const u32 *)src;
+            src += 4;
+            dst += 4;
+            x = *(const u32 *)src;
         }
     }
-    while ((*p++ = *s++) != 0) {
+    while ((*dst++ = *src++) != 0) {
     }
-    return dst;
+    return sav;
 }

@@ -51,7 +51,7 @@
   "addr": 135083868,
   "judged_mtime": 1795429410.1053889,
   "module": "code_lib_syscall.s",
-  "note": "/workspace/chats/8e431e267938c019828ff924/decomp/logs/judge_SoftReset/eko-tail/func.c:2: redefinition of `u8'\n/workspace/chats/8e431e267938c019828ff924/decomp/logs/judge_SoftReset/eko-tail/common.h:2: `u8' previously declared here\n",
+  "note": "parkir hand-only: `mov sp, r1` + `svc #1`/`svc #0` tak bisa ditulis C \u2014 POLA-DIFF \u00a785",
   "ref_len": 24,
   "sanitize_v": 4,
   "size": 263,

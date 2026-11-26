@@ -65,9 +65,9 @@
  "strcpy": {
   "addr": 135084840,
   "draft_src": "manual",
-  "judged_mtime": 1795436649.0286186,
+  "judged_mtime": 1795693483.5861478,
   "module": "code_libc_string.s",
-  "note": "len 82 vs ref 78 [1missing,3extra,5operand,12regalloc @r adds r6, r0, #0 | adds r5, r0, #0]",
+  "note": "parkir: 1 operand `orrs` (agbcc pakai dst r3, ref dst0 r6) \u2014 4 bentuk ekspresi diukur, POLA-DIFF \u00a784",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 724,

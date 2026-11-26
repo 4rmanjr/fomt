@@ -18,11 +18,17 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
-_MARKER = re.compile(r"//\s*DECOMP-MATCHED\s+(func_[0-9A-Fa-f]+)\b")
+_MARKER = re.compile(r"//\s*DECOMP-MATCHED\s+([A-Za-z_][A-Za-z0-9_]*)\b")
 
 
 def migrated_names(src_dir: pathlib.Path | None = None) -> set[str]:
-    """Nama fungsi yang punya marker `DECOMP-MATCHED` di `src/` (semua varian)."""
+    """Nama yang punya marker `DECOMP-MATCHED` di `src/` (fungsi + data).
+
+    Pola nama sengaja tidak dibatasi `func_`/`sub_`: fungsi libc/syscall
+    (`memset`, `strlen`, `CpuSet`, `Sqrt`, ...) dan `AgbMain` juga dikelola
+    `migrate.py`. Pemanggil menyaringnya dengan irisan state, jadi marker data
+    (`gData_*`) tidak ikut dihitung sebagai fungsi.
+    """
     names: set[str] = set()
     base = src_dir or SRC
     if not base.is_dir():

@@ -6210,7 +6210,7 @@
   "addr": 135074540,
   "judged_mtime": 1793582714.2693799,
   "module": "code_809E804.s",
-  "note": "too few arguments to function `func_080D11A4'\n/home/lenovo/gitproject/fomt/decomp/logs/judge_sub_080D12EC/opencode/func.c:54: called object is not a function\n/home/lenovo/gitproject/fomt/decomp/logs/judge_sub_080D12EC/opencode/func.c:59: warning: assignment makes pointer from integer without a cast\n",
+  "note": "parkir hand-only: decompressor BIOS `mov lr, pc; bx sb` + tabel .byte di tengah fungsi \u2014 POLA-DIFF \u00a785",
   "ref_len": 176,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,

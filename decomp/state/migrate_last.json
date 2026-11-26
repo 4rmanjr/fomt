@@ -304,10 +304,115 @@
     "status": "SKIP",
     "when": "2026-11-26T10:57:18"
   },
+  "code_entities.s:func_08020060": {
+    "detail": "func_08020060 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_entities.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T11:49:31"
+  },
+  "code_entities.s:func_08020080": {
+    "detail": "func_08020080 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_entities.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T11:49:31"
+  },
+  "code_entities.s:func_08020130": {
+    "detail": "func_08020130 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_entities.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T11:49:31"
+  },
+  "code_entities.s:func_080202A0": {
+    "detail": "blok DECOMP-MATCHED tidak ditemukan di /workspace/chats/19fd550f73b6fba36b4523aa/decomp/promoted/code_entities.cc",
+    "status": "GAGAL",
+    "when": "2026-11-26T11:49:31"
+  },
   "code_entities.s:func_080202C8": {
     "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
     "status": "OK",
     "when": "2026-11-26T11:10:29"
+  },
+  "code_entities.s:func_080202CC": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:49:58"
+  },
+  "code_entities.s:func_080202D0": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:50:07"
+  },
+  "code_entities.s:func_080202D4": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:50:18"
+  },
+  "code_entities.s:func_080202D8": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:50:28"
+  },
+  "code_entities.s:func_080202DC": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:50:38"
+  },
+  "code_entities.s:func_080202E0": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:50:53"
+  },
+  "code_entities.s:func_080202E4": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:51:01"
+  },
+  "code_entities.s:func_080202E8": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:51:09"
+  },
+  "code_entities.s:func_080202EC": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:51:18"
+  },
+  "code_entities.s:func_080202F0": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:51:28"
+  },
+  "code_entities.s:func_080202F4": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:51:39"
+  },
+  "code_entities.s:func_080202F8": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:51:55"
+  },
+  "code_entities.s:func_080202FC": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:52:02"
+  },
+  "code_entities.s:func_08020300": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:52:12"
+  },
+  "code_entities.s:func_08020304": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:52:22"
+  },
+  "code_entities.s:func_08020308": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:52:32"
+  },
+  "code_entities.s:func_0802030C": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:52:40"
   },
   "code_entities.s:func_08020310": {
     "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",

@@ -2896,3 +2896,63 @@ memindahkan residual ini.
 Kesimpulan: `func_080370D8` diparkir **bukan** karena alasan struktural,
 tetapi karena agbcc memilih `r1` untuk pointer; tiga jalur lain (nilai lewat
 parameter, ekspresi ulang, struct) sudah diukur dan tidak mengubah pilihan itu.
+
+### 84. `orrs` operand: agbcc memilih `dst` (r3) walau ref memakai `dst0` (r6) — strcpy
+
+`strcpy` (code_libc_string, 78 B) sudah identik panjang, layout, dan urutan
+instruksi setelah tiga penyesuaian: (1) satu loop byte dipakai bersama —
+`while ((*dst++ = *src++) != 0) {}` bukan duplikat if/else; (2) mask word
+diperiksa dengan `x + 0xFEFEFEFF` (bukan `- 0x01010101`) supaya `ldr r5`
+konstanta muncul di tempat yang sama; (3) `register char *sav __asm__("r6")`
+agar `dst0` tersimpan di r6 seperti ref (tanpa pin agbcc memilih r5).
+
+Sisa satu operand, terukur:
+
+```
+ref : adds r6, r0, #0 | adds r3, r6, #0 | adds r2, r1, #0 | adds r0, r2, #0 | orrs r0, r6
+ours: adds r6, r0, #0 | adds r3, r6, #0 | adds r2, r1, #0 | adds r0, r2, #0 | orrs r0, r3
+```
+
+Setelah `dst = sav`, agbcc tahu `dst == dst0` dan memakai salinan yang lebih
+murah (r3) pada `src | dst`. Kalau ekspresinya ditulis dengan `dst0`/`sav`,
+agbcc memakai r0/r1 sebagai basis dan justru menambah 1 instruksi
+(`orr r1,r1,r6` / `orr r0,r0,r2`, 5–6 residual regalloc). Empat bentuk
+ekspresi diukur (langsung, temp `t`, operand dibalik, dst0 vs sav): yang
+paling dekat tetap 1 operand, tidak pernah 0. Wall-nya instruksi-seleksi
+operand `orrs` dua-register, bukan regalloc pointer.
+
+### 85. Kepala rantai yang hand-only (bukan wall agbcc)
+
+Tiga kepala rantai tidak bisa ditulis sebagai C agbcc karena memakai
+instruksi yang tidak punya padanan C:
+
+- `SoftReset` (code_lib_syscall, 24 B): `mov sp, r1` (pindah stack pointer ke
+  0x03007F00) lalu `svc #1` / `svc #0`. `mov sp` tidak bisa diekspresikan C;
+  `svc` hanya lewat inline asm yang tidak didukung agbcc untuk target ini.
+- `sub_080D12EC` (code_809E804, 176 B): decompressor BIOS — `mov lr, pc;
+  bx sb` (panggil SWI lewat register `sb`) dan tabel `.byte` di tengah
+  fungsi.
+- `sub_08031D74` (code_entities, 150 B): dispatcher `switch` 263 baris dengan
+  label `non_word_aligned_thumb_func_start sub_08031E0A` di tengah chunk;
+  splitter menolaknya sebagai "grup gabungan/tak-split", jadi migrasi
+  residue-nya (`sub_08031E0A`) juga terkunci di mekanisme yang sama.
+- `func_080087C8` (hardware, 239 B): 5 struct 0x10 B di stack (offset
+  0x00/0x10/0x20/0x30/0x40) + dua virtual call; transkripsi tangan ~90
+  instruksi, tidak diselesaikan di putaran ini.
+
+### 86. Ekor `func_080202CC` adalah 17 funclet 4 B — pecah dengan marker, jangan C
+
+Ekor 68 B di `code_entities.s` (dari promosi §49) ternyata deretan funclet
+4 byte: delapan `movs r0,#0; bx lr`, empat `bx lr` + padding, dua
+`movs r0,#5; bx lr`, tiga `bx lr` + padding. Satu chunk multi-fungsi tidak
+bisa ditulis sebagai satu fungsi C, jadi:
+
+1. pecah chunk di setiap batas 4 B: `thumb_func_start func_<alamat>` +
+   label + dua `.inst.n` (byte tetap, `make compare` HIJAU);
+2. tiap funclet jadi `pending`, lalu C-nya sepele — `s32 f(void) { return 0; }`
+   / `return 5;` / `void f(void) {}`;
+3. judge 17/17 MATCH, lalu `migrate.py --func <nama>` satu per satu
+   (`--limit` batch memilih fungsi lain dan gagal di blok yang tak ada).
+
+Hasil putaran ini: 17 MATCH baru + 17 migrasi ke `src/`
+(`code_entities.s`), src 1146 -> 1163.

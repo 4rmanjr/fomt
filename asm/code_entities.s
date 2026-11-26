@@ -340,36 +340,84 @@ func_080202C8: @ 0x080202C8
 func_080202CC: @ 0x080202CC
     .inst.n 0x2000
     .inst.n 0x4770
+
+    thumb_func_start func_080202D0
+func_080202D0: @ 0x080202D0
     .inst.n 0x2000
     .inst.n 0x4770
+
+    thumb_func_start func_080202D4
+func_080202D4: @ 0x080202D4
     .inst.n 0x2000
     .inst.n 0x4770
+
+    thumb_func_start func_080202D8
+func_080202D8: @ 0x080202D8
     .inst.n 0x2000
     .inst.n 0x4770
+
+    thumb_func_start func_080202DC
+func_080202DC: @ 0x080202DC
     .inst.n 0x2000
     .inst.n 0x4770
+
+    thumb_func_start func_080202E0
+func_080202E0: @ 0x080202E0
     .inst.n 0x2000
     .inst.n 0x4770
+
+    thumb_func_start func_080202E4
+func_080202E4: @ 0x080202E4
     .inst.n 0x2000
     .inst.n 0x4770
+
+    thumb_func_start func_080202E8
+func_080202E8: @ 0x080202E8
     .inst.n 0x2000
     .inst.n 0x4770
+
+    thumb_func_start func_080202EC
+func_080202EC: @ 0x080202EC
     .inst.n 0x4770
     .inst.n 0x0000
+
+    thumb_func_start func_080202F0
+func_080202F0: @ 0x080202F0
     .inst.n 0x4770
     .inst.n 0x0000
+
+    thumb_func_start func_080202F4
+func_080202F4: @ 0x080202F4
     .inst.n 0x4770
     .inst.n 0x0000
+
+    thumb_func_start func_080202F8
+func_080202F8: @ 0x080202F8
     .inst.n 0x4770
     .inst.n 0x0000
+
+    thumb_func_start func_080202FC
+func_080202FC: @ 0x080202FC
     .inst.n 0x2005
     .inst.n 0x4770
+
+    thumb_func_start func_08020300
+func_08020300: @ 0x08020300
     .inst.n 0x2005
     .inst.n 0x4770
+
+    thumb_func_start func_08020304
+func_08020304: @ 0x08020304
     .inst.n 0x4770
     .inst.n 0x0000
+
+    thumb_func_start func_08020308
+func_08020308: @ 0x08020308
     .inst.n 0x4770
     .inst.n 0x0000
+
+    thumb_func_start func_0802030C
+func_0802030C: @ 0x0802030C
     .inst.n 0x4770
     .inst.n 0x0000
 

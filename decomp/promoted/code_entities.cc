@@ -1569,3 +1569,81 @@ void func_08025018(u8 *arg0, s32 arg1) {
         func_0803242C(arg0, arg1);
     }
 }
+
+// DECOMP-MATCHED func_080202CC (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080202CC(void) {
+    return 0;
+}
+
+// DECOMP-MATCHED func_080202D0 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080202D0(void) {
+    return 0;
+}
+
+// DECOMP-MATCHED func_080202D4 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080202D4(void) {
+    return 0;
+}
+
+// DECOMP-MATCHED func_080202D8 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080202D8(void) {
+    return 0;
+}
+
+// DECOMP-MATCHED func_080202DC (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080202DC(void) {
+    return 0;
+}
+
+// DECOMP-MATCHED func_080202E0 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080202E0(void) {
+    return 0;
+}
+
+// DECOMP-MATCHED func_080202E4 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080202E4(void) {
+    return 0;
+}
+
+// DECOMP-MATCHED func_080202E8 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080202E8(void) {
+    return 0;
+}
+
+// DECOMP-MATCHED func_080202EC (dari code_entities.s; cek manusia sebelum ke src/)
+void func_080202EC(void) {
+}
+
+// DECOMP-MATCHED func_080202F0 (dari code_entities.s; cek manusia sebelum ke src/)
+void func_080202F0(void) {
+}
+
+// DECOMP-MATCHED func_080202F4 (dari code_entities.s; cek manusia sebelum ke src/)
+void func_080202F4(void) {
+}
+
+// DECOMP-MATCHED func_080202F8 (dari code_entities.s; cek manusia sebelum ke src/)
+void func_080202F8(void) {
+}
+
+// DECOMP-MATCHED func_080202FC (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_080202FC(void) {
+    return 5;
+}
+
+// DECOMP-MATCHED func_08020300 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 func_08020300(void) {
+    return 5;
+}
+
+// DECOMP-MATCHED func_08020304 (dari code_entities.s; cek manusia sebelum ke src/)
+void func_08020304(void) {
+}
+
+// DECOMP-MATCHED func_08020308 (dari code_entities.s; cek manusia sebelum ke src/)
+void func_08020308(void) {
+}
+
+// DECOMP-MATCHED func_0802030C (dari code_entities.s; cek manusia sebelum ke src/)
+void func_0802030C(void) {
+}

@@ -438,11 +438,124 @@ void func_080202C8(void) {
 
 }
 }
+// DECOMP-MATCHED func_080202CC (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202CC")))
+i32 func_080202CC(void) {
+    return 0;
+}
+}
+// DECOMP-MATCHED func_080202D0 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202D0")))
+i32 func_080202D0(void) {
+    return 0;
+}
+}
+// DECOMP-MATCHED func_080202D4 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202D4")))
+i32 func_080202D4(void) {
+    return 0;
+}
+}
+// DECOMP-MATCHED func_080202D8 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202D8")))
+i32 func_080202D8(void) {
+    return 0;
+}
+}
+// DECOMP-MATCHED func_080202DC (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202DC")))
+i32 func_080202DC(void) {
+    return 0;
+}
+}
+// DECOMP-MATCHED func_080202E0 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202E0")))
+i32 func_080202E0(void) {
+    return 0;
+}
+}
+// DECOMP-MATCHED func_080202E4 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202E4")))
+i32 func_080202E4(void) {
+    return 0;
+}
+}
+// DECOMP-MATCHED func_080202E8 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202E8")))
+i32 func_080202E8(void) {
+    return 0;
+}
+}
+// DECOMP-MATCHED func_080202EC (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202EC")))
+void func_080202EC(void) {
+}
+}
+// DECOMP-MATCHED func_080202F0 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202F0")))
+void func_080202F0(void) {
+}
+}
+// DECOMP-MATCHED func_080202F4 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202F4")))
+void func_080202F4(void) {
+}
+}
+// DECOMP-MATCHED func_080202F8 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202F8")))
+void func_080202F8(void) {
+}
+}
+// DECOMP-MATCHED func_080202FC (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.080202FC")))
+i32 func_080202FC(void) {
+    return 5;
+}
+}
+// DECOMP-MATCHED func_08020300 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.08020300")))
+i32 func_08020300(void) {
+    return 5;
+}
+}
+// DECOMP-MATCHED func_08020304 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.08020304")))
+void func_08020304(void) {
+}
+}
+// DECOMP-MATCHED func_08020308 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.08020308")))
+void func_08020308(void) {
+}
+}
 
 // DECOMP-MATCHED gData_code_entities_080215FC.data.080215FC
 extern "C" {
 // data tak-dirujuk di 0x080215FC (label di-strip; tak dirujuk modul) — byte-identik dgn asm
 extern const u8 gData_code_entities_080215FC[32] __attribute__((section(".text.code_entities.080215FC"))) = {0x10, 0xB5, 0x0A, 0x23, 0xCA, 0x5E, 0x0E, 0x24, 0x0B, 0x5F, 0xD1, 0x1F, 0x01, 0x80, 0x19, 0x1F, 0x41, 0x80, 0x07, 0x32, 0x82, 0x80, 0x05, 0x33, 0xC3, 0x80, 0x10, 0xBC, 0x04, 0xBC, 0x10, 0x47};
+}
+
+// DECOMP-MATCHED func_0802030C (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_entities.0802030C")))
+void func_0802030C(void) {
+}
 }
 
 // DECOMP-MATCHED func_08020310 (dari code_entities.s; cek manusia sebelum ke src/)
