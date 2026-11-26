@@ -3444,3 +3444,71 @@ Residu promote-only awal 64 → 20. Yang pindah lewat cara-cara di tabel
 pertama: 40 fungsi (23 `code_linkonce` termasuk 5 MATCH baru §94, 11 residu
 `code_linkonce`, 6 `code_809E804`/`code_0803EE94`); sisanya tetap di luar
 `src/` dengan error di atas.
+
+### §95.1 Putaran 2: sisi definisi (bukan cuma extern)
+
+Sisa §95 dikerjakan dari sisi lain — definisi, alamat, dan prototipe — tanpa
+menyentuh body. Satu baris alasan per fungsi yang akhirnya masuk `src/`:
+
+| fungsi | yang membuat bloknya kompilasi |
+|---|---|
+| `func_080E3774` | `s32 gUnk_081005D8;` di blok dijadikan `extern` (definisi nyata tetap di asm) → `multiple definition` hilang |
+| `func_080E10F8` | `extern s32 vtable_unk_080E78F0` disamakan ke bentuk blok lama `extern char ...` |
+| `func_080E5418` | `extern i32 func_080E5418;` di src jadi `void func_080E5418(void);` + `(void *) &func_080E5418` |
+| `func_080E0F48` | aritmetika `void *` diberi tipe: `(void *)((u8 *) p + n)`, `(s32)((u8 *) a - (u8 *) b)` |
+| `func_0809C474` | cast-call `((u8 (*)(s32, s32)) func_0809C3E0)(arg0, temp_r0)` (tipe cast kurang satu argumen) |
+| `func_080D6EAC` | typedef blok dijadikan `GenObj__func_080D6EAC`; extern usang di src disamakan; call-site di-cast |
+| `func_080D6EEC` | typedef `GenObj__func_080D6EEC`; panggilan `func_080D6ECC` diberi cast `GenObj__func_080D6ECC *` (definisi aslinya di src) |
+| `func_080D6F1C` | sama, untuk `func_080D6F0C` |
+| `func_08007714` | `temp_r5` dijadikan `GenObj *` (bukan `s32`), call-site `func_080073E0((s32 *) …)`; deklarasi `func_08007184` dihapus dan dipanggil lewat cast karena src memilikinya sebagai `ALIAS` satu-argumen |
+
+Pola umum: kalau callee sudah punya definisi/ALIAS di `src/`, **jangan**
+mendeklarasikan ulang di blok — panggil lewat cast-call
+`((ret (*)(args…)) f)(…)`, yang tetap menghasilkan `bl f`.
+
+Sisa promote-only setelah putaran ini (semua sudah ber-`note` di shard):
+
+| fungsi | error persis |
+|---|---|
+| `sub_080868BC` | `build/asm/code_0803EE94.split.s:136366: Error: invalid offset, value too big (0xFFFFFFFFFFFFFFFC)` |
+| `func_080D0EBC` | `` `__divsi3' referenced in section `.text.code_linkonce.b2.080DD9CC' … defined in discarded section `.text' of libgcc.a(_divsi3.o) `` |
+| `func_080D116A/116E/117E/1186` | `cannot represent THUMB_OFFSET relocation in this object file format` |
+| `func_080D14EC`, `sub_080D1204/139C/1498/14C6` | `cannot represent THUMB_OFFSET relocation` / `invalid offset, value too big (0xFFFFFFFFFFFFFFFC)` |
+| `sub_08031E0A` | `data asing 316B menempel ekor` (SKIP-PERMANEN by-design) |
+| `func_08007770` | ``previous declaration `struct Unk_hardware_H * func_08007128(struct Unk_hardware_H *)' here`` — src punya ALIAS satu-argumen, blok memanggil dua-argumen |
+| `func_08007EE8`, `func_08008020` | ``type `GenObj' is not a base type for type `GenObj__func_08007EE8'`` — blok membawa `typedef struct GenObj` lokal yang bentrok dengan typedef TU; rename struct belum cukup karena sanitizer migrate menamai ulang hanya sebagian |
+
+### §96 Varian §94: dua pasang nibble dalam satu fungsi
+
+`func_080DD944` (46 B, `code_linkonce.s`) memperluas template §94: selain
+nibble rendah 0x0 (konstanta 6) ada satu byte lagi di 0xC yang diisi dari dua
+sumber berbeda:
+
+```c
+typedef struct GenObj {
+    u8 a : 4; u8 b : 4;          /* 0x0 */
+    u8 _pad1[3];
+    s32 unk4; u16 unk8; u16 unkA; /* 0x4/0x8/0xA */
+    u8 c : 4; u8 d : 4;           /* 0xC: dua nibble dari sumber berbeda */
+    u8 _padD[0x43];
+    s32 unk50; u16 unk54; u16 unk56;
+    u8 _pad58[0x20];
+    u8 unk78; u8 unk79;
+} GenObj;
+void func_080DD944(GenObj *arg0, GenObj *arg1) {
+    arg1->a = 6;
+    arg1->unk4 = arg0->unk50;
+    arg1->unk8 = arg0->unk54;
+    arg1->unkA = arg0->unk56;
+    arg1->c = arg0->unk78 & 0xF;   /* low nibble  */
+    arg1->d = arg0->unk79;         /* high nibble */
+}
+```
+
+Ref menulis dua kali `ands`/`orrs` berurutan ke byte 0xC: pertama membersihkan
+nibble atas (`ands` dengan mask `-16` runtime, hasil §94) lalu OR dengan
+`(arg0->0x78 & 0xF)`, kedua membersihkan nibble bawah (`ands` dengan `0xF`)
+lalu OR dengan `(arg0->0x79 << 4)`. Menulis dua assignment bitfield berurutan
+menghasilkan urutan itu apa adanya; bentuk ekspresi gabungan
+(`(a & 0xF) | (b << 4)` dalam satu assignment) menghasilkan 2 instruksi lebih
+sedikit dan selalu DIFF.

@@ -174,6 +174,31 @@ u8 func_0809C444(i32 arg0) {
     return var_r5;
 }
 }
+// DECOMP-MATCHED func_0809C474 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0809C22C();                                /* extern */
+u8 func_0809C3E0(i32, i32);
+i32 func_0809C420(i32, i32);                          /* extern */
+
+__attribute__((section(".text.code_actor_0809BFE8.0809C474")))
+u8 func_0809C474(i32 arg0) {
+    i32 temp_r0;
+    u8 var_r6;
+
+    temp_r0 = func_0809C22C();
+    var_r6 = 0;
+    if (*((u8 *)arg0 + temp_r0) != 0) {
+        if ((temp_r0 == 1) || (temp_r0 == 4)) {
+            var_r6 = ((u8 (*)(i32, i32)) func_0809C3E0)(arg0, temp_r0);
+        }
+        if ((temp_r0 == 0) || (temp_r0 == 3)) {
+            func_0809C420(arg0, temp_r0);
+        }
+    }
+    return var_r6;
+}
+}
+
 
 // DECOMP-MATCHED func_0809C4B4 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -370,7 +395,6 @@ u32 func_0809CDEC(i32 arg0) {
     return var_r2;
 }
 }
-
 
 // DECOMP-MATCHED func_0809CE1C (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
 extern "C" {

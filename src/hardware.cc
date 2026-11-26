@@ -193,6 +193,13 @@ typedef struct GenObj {
 } GenObj;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08007714 {
+    i32 unk0;
+    struct GenObj__func_08007714 *unk4;
+} GenObj__func_08007714;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_hardware_08007564.data.08007564
 extern "C" {
 // data tak-dirujuk di 0x08007564 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -207,6 +214,42 @@ void func_0800770C(i32 *arg0) {
     *arg0 = 0;
 }
 }
+// DECOMP-MATCHED func_08007714 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+void * __builtin_delete(void *);
+i32 free();                                           /* extern */
+i32 func_080073E0(i32 *, i32);                          /* extern */
+
+__attribute__((section(".text.hardware.08007714")))
+void func_08007714(i32 *arg0, i32 arg1) {
+    GenObj__func_08007714 *temp_r0;
+    GenObj__func_08007714 *var_r4;
+    GenObj__func_08007714 *temp_r5;
+
+    if (*(GenObj__func_08007714 **)arg0 == 0) {
+        goto tail;
+    }
+    temp_r0 = *(GenObj__func_08007714 **)arg0;
+    temp_r5 = (GenObj__func_08007714 *) temp_r0->unk4;
+    var_r4 = (GenObj__func_08007714 *) temp_r0->unk0;
+    if (var_r4 != temp_r5) {
+        do {
+            func_080073E0((i32 *) var_r4, (i32) var_r4->unk4);
+            ((void (*)(void *, i32)) func_08007184)(var_r4, 2);
+            var_r4 += 1;
+        } while (var_r4 != temp_r5);
+    }
+    if (temp_r0->unk0 != 0) {
+        free();
+    }
+    __builtin_delete(temp_r0);
+tail:
+    if (1 & arg1) {
+        __builtin_delete(arg0);
+    }
+}
+}
+
 
 // DECOMP-MATCHED func_080077DC (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {

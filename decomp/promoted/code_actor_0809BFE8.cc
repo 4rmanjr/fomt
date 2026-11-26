@@ -118,7 +118,7 @@ u8 func_0809C474(s32 arg0) {
     var_r6 = 0;
     if (*((u8 *)arg0 + temp_r0) != 0) {
         if ((temp_r0 == 1) || (temp_r0 == 4)) {
-            var_r6 = ((u8 (*)(s32)) func_0809C3E0)(arg0, temp_r0);
+            var_r6 = ((u8 (*)(s32, s32)) func_0809C3E0)(arg0, temp_r0);
         }
         if ((temp_r0 == 0) || (temp_r0 == 3)) {
             func_0809C420(arg0, temp_r0);

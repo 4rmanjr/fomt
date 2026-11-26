@@ -62,12 +62,12 @@
   "draft_src": "manual",
   "judged_mtime": 1795355149.69407,
   "module": "code_entities.s",
-  "note": "blok DECOMP-MATCHED tidak ada di decomp/promoted/code_entities.cc; status dikembalikan ke failed",
+  "note": "",
   "promoted_to": "src/pop_r2.c",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 388,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080202C4": {
@@ -85,7 +85,7 @@
   "addr": 134349512,
   "judged_mtime": 1793003794.3784015,
   "module": "code_entities.s",
-  "note": "SKIP-migrasi permanen: data asing 68B di ekor (gate).",
+  "note": "",
   "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 4,
   "sanitize_v": 4,

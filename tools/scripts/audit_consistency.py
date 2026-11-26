@@ -180,10 +180,15 @@ def main(argv):
                 unmigrated.append((stem, n, st))
 
         # 2. state promoted tapi blok hilang dan tak ada di src
+        # Catatan: marker bisa hidup di berkas src bersama (mis. src/pop_r2.c
+        # utk jalur CC1=OLD_CC1), jadi `in_src` per-modul saja tidak cukup —
+        # fallback ke seluruh src/ lewat migrated_names().
+        global_src = {m for f in SRC.glob("*.c*")
+                      for m in MARK.findall(f.read_text(errors="ignore"))}
         for n, v in state.items():
             if not isinstance(v, dict) or v.get("status") != "promoted":
                 continue
-            if n not in names and n not in in_src:
+            if n not in names and n not in in_src and n not in global_src:
                 orphan_state.append((stem, n))
 
         # 4. sudah di src tapi state masih failed/drafted
