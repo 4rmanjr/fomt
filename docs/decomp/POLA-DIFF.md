@@ -3114,3 +3114,97 @@ func_080D116A/116E/117E/1186` — memisahkannya berarti menulis ulang pool
 per fungsi (bukan kerja beberapa baris), jadi ditutup. Dengan 204 sisanya
 di modul tail-only (168 linkonce + 26 actor + 10 hardware), residu 218
 **seluruhnya** terblokir by-design: tidak ada kemenangan src/ "gratis".
+
+## §91. Grup promote-only gabungan: 2 dari 14 BENAR-BENAR bisa dipisah (2026-11-26)
+
+Kesimpulan §90 ("14 grup terblokir by-design") **salah** dan sudah diuji
+ulang secara konkret. Aturan `2-mod-4` di `split_asm_sections.analyze()`
+menggabungkan grup yang panjangnya 2-mod-4 dengan grup berikutnya, sehingga
+grup `[func_0809EEA4, data(12B), func_0809EED0]` dianggap satu section dan
+`migrate.py` men-SKIP kedua fungsi. Padahal `split()` sudah punya jalur
+"grup dengan sebagian chunk migrated -> emit sisanya di section
+masing-masing"; yang kurang hanya dua hal di `decomp/migrate.py`:
+
+- `asm_section_of()` dulu hanya menerima grup berisi TEPAT satu chunk fungsi
+  dan mengembalikan `None` untuk anggota kedua dst. Sekarang mengembalikan
+  `secname` CHUNK fungsi itu (section src = section chunk, bukan section
+  grup). Tanpa ini, blok src akan bentrok dengan section gabungan asm.
+- `migratable_set()` dulu hanya mengisi fungsi dari grup solo. Sekarang
+  semua chunk fungsi.
+
+Hasil terukur (`python3 decomp/migrate.py --no-baseline`, tiap langkah
+`make compare`):
+
+| fungsi | hasil |
+|---|---|
+| `func_0809EEA4` (44 B, `code_809E804.s`) | **HIJAU** -> `src/code_809E804.cc` |
+| `func_0809EED0` (44 B, `code_809E804.s`) | **HIJAU** -> `src/code_809E804.cc` |
+
+12 anggota lain tetap ditolak, dan kali ini dengan error konkret (semua
+di-revert otomatis oleh migrate, tree tetap hijau):
+
+- `func_080D0EBC` — link: `` `__divsi3' referenced in section
+  `.text.code_080D7CFC' of asm/code_linkonce.o: defined in discarded section
+  `.text' of libgcc/libgcc.a(_divsi3.o) ``. Grupnya memuat simbol interposisi
+  libgcc (`__udivsi3`/`__umodsi3`) yang wajib satu section.
+- `func_080D116A`, `func_080D116E`, `func_080D117E`, `func_080D1186`,
+  `func_080D1498`, `func_080D14C6`, `sub_080D1204`, `sub_080D139C` —
+  `Error: cannot represent THUMB_OFFSET relocation in this object file
+  format`: `b`/`bl` PC-relatif yang targetnya kini di section lain.
+- `func_080D14EC`, `sub_080868BC` — `Error: invalid offset, value too big
+  (0xFFFFFFFFFFFFFFFC)`: displacement `b`/`bl` jadi negatif setelah split.
+- `sub_08031E0A` (code_entities) — SKIP-permanen: 316 B data asing menempel
+  di ekor (ref 593 B; kode saja MATCH), butuh pemilik data tsb.
+
+Aturan praktis: **grup gabungan boleh dipisah selama tidak ada referensi
+PC-relatif yang menyeberangi batas baru dan tidak ada simbol libgcc
+interposisi di dalamnya**. Pool literal biasa (`.4byte` yang dirujuk
+`ldr rX,[pc,#n]`) TIDAK masalah: tiap chunk tetap membawa bagiannya sendiri.
+
+### §91.1 Kelas baru yang menghasilkan MATCH: offset lokal lebih dulu
+
+`func_0809D8D4` (20 B, `code_actor_0809BFE8.s`) byte-identik dengan bentuk:
+
+```c
+typedef struct { u8 _pad0[4]; u8 f : 4; u8 g : 4; } Cell;   /* ekstrak 4 bit */
+u32 f(u8 *arg0, s32 arg1, s32 arg2) {
+    s32 off;
+    off = arg1 * 2 + arg2 * 0x38;      /* dihitung DULU, baru base ditambah */
+    return ((Cell *) (arg0 + off))->f;
+}
+```
+
+Dua mekanisme yang menentukan: (1) field `u8 f : 4` memaksa
+`lsls #0x1c; lsrs #0x1c` (bukan `and #0xf`), (2) menghitung offset ke
+variabel lokal sebelum menambah pointer dasar memaksa urutan ref
+`lsls r1,r1,#1` -> `lsls r3,r3,#3; subs; lsls #3` -> `adds r1,r1,r3` ->
+`adds r0,r0,r1`. Bentuk satu-baris `arg0 + arg1*2 + arg2*0x38` membuat
+agbcc memasukkan base lebih awal (`add r1,r1,r0`) sehingga 3 regalloc
+berbeda. Migrasi ditolak migrate (`bukan fungsi terakhir`, modul
+`code_actor_0809BFE8.s` tidak di-split sama sekali — 0 direktif `.section`),
+jadi MATCH dihitung tetapi src/ belum.
+
+### §91.2 Empat kelas parkir: bentuk baru dicoba, tetap DIFF
+
+Yang dicoba putaran ini (bentuk yang belum pernah dicatat) dan keluaran
+agbcc persisnya:
+
+- `func_08032A00` — parameter stack bertipe sempit: prototipe
+  `..., s32, u8)` + argumen literal `0` (tanpa variabel lokal). agbcc tetap
+  `str r0, [sp, #0xc]` (kata), ref `add r2,sp,#0xc; strb r0,[r2]`. Jadi
+  tipe parameter sempit TIDAK mempersempit store argumen stack; 42 vs 44 B.
+- `func_0803853C` — sama (param ke-7 `u8`): `str r0,[sp,#8]`, ref
+  `add r5,sp,#8; movs r4,#0; strb r4,[r5]`; 60 vs 62 B.
+- `func_08037B48` — literal `0xC` langsung (melepas assignment-in-argumen
+  `five = 0xC`): agbcc jadi `ldr r3,[pc]` (0x379) lalu `mov r0,#0xc;
+  str r0,[sp]`, ref sebaliknya (`str r0,[sp]` dulu, `ldr r3` sesudah).
+  Membuang assignment memperbaiki urutan store-vs-load tapi tidak
+  membaliknya.
+- `func_0806D8C8` — pola spill lewat comma-expression
+  `*hp = (old = *hp, 0);` agar `old` bertahan di register: agbcc tetap
+  `ldr r0,[r4]; str r0,[sp]; mov r0,#0; str r0,[r4]` (spill langsung),
+  ref `ldr r1,[r4]; movs r0,#0; str r0,[r4]; str r1,[sp]`.
+
+Kesimpulan kelas: agbcc 2.9 selalu menyimpan argumen stack sebagai kata
+penuh dan selalu men-spill nilai address-taken pada statement tempat ia
+dibaca; tidak ada bentuk C yang mengubah dua hal itu.

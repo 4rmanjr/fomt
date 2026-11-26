@@ -23,8 +23,7 @@ void *func_0806D8C8(GenObj_6D8C8 *arg0, s32 *arg1, s32 arg2, s32 arg3) {
 
     hp = arg1;
     arg0->unk0 = &vtable_unk_080E7AB4;
-    old = *hp;
-    *hp = 0;
+    *hp = (old = *hp, 0);
     arg0->unk4 = func_08069F14(__builtin_new(0x4178), &old, arg2, arg3);
     o = (Obj_6D8C8 *) *hp;
     if (o != 0) {

@@ -65,10 +65,16 @@ def asm_section_of(stem, func):
     (aturan data-join splitter) chs[0] adalah section DATA-ekor milik
     grup berikut — memakai itu sbg section src bikin simbol ganda
     (src + asm sama-sama menaruh section itu) -> multiple definition."""
+    # 2026-11-26 (TERBUKTI func_0809EEA4, compare HIJAU): grup gabungan
+    # BOLEH dipisah per chunk. split() sudah punya jalur "grup dgn sebagian
+    # chunk migrated -> emit sisanya di section masing-masing", jadi section
+    # src harus section CHUNK fungsi itu sendiri (secname), bukan section
+    # grup. Dulu fungsi ke-2 dst grup gabungan mengembalikan None -> SKIP
+    # permanen padahal split-nya sah.
     for chs in _analyze_stem(stem):
-        funcs = [c for c in chs if c["kind"] == "func"]
-        if len(funcs) == 1 and funcs[0]["name"] == func:
-            return funcs[0]["secname"]
+        for c in chs:
+            if c["kind"] == "func" and c["name"] == func:
+                return c["secname"]
     return None
 
 
@@ -177,9 +183,10 @@ def migratable_set(stem):
     bersama asm_section_of."""
     out = set()
     for chs in _analyze_stem(stem):
-        funcs = [c["name"] for c in chs if c["kind"] == "func"]
-        if len(funcs) == 1:
-            out.update(funcs)
+        # Semua chunk fungsi, termasuk anggota grup gabungan (lihat
+        # asm_section_of): split() memisahkan sisanya saat salah satu
+        # chunk sudah migrated. Terbukti byte-identik utk 0809EEA4.
+        out.update(c["name"] for c in chs if c["kind"] == "func")
     return out
 
 

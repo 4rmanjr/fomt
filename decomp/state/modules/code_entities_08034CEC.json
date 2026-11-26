@@ -1485,7 +1485,7 @@
  "func_08037B48": {
   "addr": 134445896,
   "draft_src": "manual",
-  "judged_mtime": 1795696778.243067,
+  "judged_mtime": 1795697857.1362717,
   "module": "code_entities_08034CEC.s",
   "note": "byte +0x10: 0x7 vs ref 0xc [1missing,4extra @>  | ldr r3, [pc, #0x1c]]",
   "ref_len": 56,
@@ -1816,9 +1816,9 @@
  },
  "func_0803853C": {
   "addr": 134448444,
-  "judged_mtime": 1795696531.8305912,
+  "judged_mtime": 1795697836.2975523,
   "module": "code_entities_08034CEC.s",
-  "note": "len 72 vs ref 62 [2missing,7extra,2operand,7regalloc,1different @r adds r6, r0, #0 | adds r5, r0, #0]",
+  "note": "len 60 vs ref 62 [2missing,3extra,4operand,7regalloc,1different @i push {r4, r5, r6, lr} | push {r4, r5, lr}]",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 687,

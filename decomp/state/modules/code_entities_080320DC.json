@@ -95,9 +95,9 @@
  "func_08032A00": {
   "addr": 134425088,
   "draft_src": "manual",
-  "judged_mtime": 1795696528.9174705,
+  "judged_mtime": 1795697821.3030345,
   "module": "code_entities_080320DC.s",
-  "note": "len 52 vs ref 44 [6extra,5operand,3different @i movs r0, #1 | movs r2, #0]",
+  "note": "len 42 vs ref 44 [1missing,3extra,1different @| add r2, sp, #0xc | str r0, [sp, #0xc]]",
   "ref_len": 44,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,

@@ -40,9 +40,9 @@
     "when": "2026-11-23T11:28:10"
   },
   "code_0803EE94.s:sub_080868BC": {
-    "detail": "sub_080868BC grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "build/asm/code_0803EE94.split.s:136366: Error: invalid offset, value too big (0xFFFFFFFFFFFFFFFC) build/asm/code_0803EE94.split.s:136391: Error: invalid offset, value too big (0xFFFFFFFFFFFFFFFC) buil",
+    "status": "GAGAL",
+    "when": "2026-11-26T12:56:15"
   },
   "code_809E804.s:GetMapData": {
     "detail": "GetMapData sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_809E804.cc (dilewati)",
@@ -55,9 +55,9 @@
     "when": "2026-11-26T10:57:18"
   },
   "code_809E804.s:func_0809EED0": {
-    "detail": "func_0809EED0 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75307: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T12:53:34"
   },
   "code_809E804.s:func_080A4650": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75334: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
@@ -135,54 +135,54 @@
     "when": "2026-11-23T12:06:30"
   },
   "code_809E804.s:func_080D0EBC": {
-    "detail": "func_080D0EBC grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "`__divsi3' referenced in section `.text.code_080D7CFC' of asm/code_linkonce.o: defined in discarded section `.text' of ../tools/agbcc/lib/libgcc.a(_divsi3.o) `__divsi3' referenced in section `.text.co",
+    "status": "GAGAL",
+    "when": "2026-11-26T12:53:56"
   },
   "code_809E804.s:func_080D116A": {
-    "detail": "func_080D116A grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "build/asm/code_809E804.split.s:98422: Error: cannot represent THUMB_OFFSET relocation in this object file format build/asm/code_809E804.split.s:98426: Error: cannot represent THUMB_OFFSET relocation i",
+    "status": "GAGAL",
+    "when": "2026-11-26T12:54:07"
   },
   "code_809E804.s:func_080D116E": {
-    "detail": "func_080D116E grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "build/asm/code_809E804.split.s:98422: Error: cannot represent THUMB_OFFSET relocation in this object file format build/asm/code_809E804.split.s:98426: Error: cannot represent THUMB_OFFSET relocation i",
+    "status": "GAGAL",
+    "when": "2026-11-26T12:54:21"
   },
   "code_809E804.s:func_080D117E": {
-    "detail": "func_080D117E grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "build/asm/code_809E804.split.s:98422: Error: cannot represent THUMB_OFFSET relocation in this object file format build/asm/code_809E804.split.s:98426: Error: cannot represent THUMB_OFFSET relocation i",
+    "status": "GAGAL",
+    "when": "2026-11-26T12:54:36"
   },
   "code_809E804.s:func_080D1186": {
-    "detail": "func_080D1186 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "build/asm/code_809E804.split.s:98422: Error: cannot represent THUMB_OFFSET relocation in this object file format build/asm/code_809E804.split.s:98426: Error: cannot represent THUMB_OFFSET relocation i",
+    "status": "GAGAL",
+    "when": "2026-11-26T12:55:01"
   },
   "code_809E804.s:func_080D14EC": {
-    "detail": "func_080D14EC grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "build/asm/code_809E804.split.s:98677: Error: invalid offset, value too big (0xFFFFFFFFFFFFFFFC) build/asm/code_809E804.split.s:98727: Warning: section does not have enough alignment to ensure safe PC-",
+    "status": "GAGAL",
+    "when": "2026-11-26T12:55:08"
   },
   "code_809E804.s:sub_080D1204": {
-    "detail": "sub_080D1204 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "build/asm/code_809E804.split.s:98719: Warning: section does not have enough alignment to ensure safe PC-relative loads build/asm/code_809E804.split.s:98669: Error: cannot represent THUMB_OFFSET reloca",
+    "status": "GAGAL",
+    "when": "2026-11-26T12:55:14"
   },
   "code_809E804.s:sub_080D139C": {
-    "detail": "sub_080D139C grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "build/asm/code_809E804.split.s:98727: Warning: section does not have enough alignment to ensure safe PC-relative loads build/asm/code_809E804.split.s:98677: Error: cannot represent THUMB_OFFSET reloca",
+    "status": "GAGAL",
+    "when": "2026-11-26T12:55:20"
   },
   "code_809E804.s:sub_080D1498": {
-    "detail": "sub_080D1498 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "build/asm/code_809E804.split.s:98727: Warning: section does not have enough alignment to ensure safe PC-relative loads build/asm/code_809E804.split.s:98677: Error: cannot represent THUMB_OFFSET reloca",
+    "status": "GAGAL",
+    "when": "2026-11-26T12:55:59"
   },
   "code_809E804.s:sub_080D14C6": {
-    "detail": "sub_080D14C6 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:57:18"
+    "detail": "build/asm/code_809E804.split.s:98727: Warning: section does not have enough alignment to ensure safe PC-relative loads build/asm/code_809E804.split.s:98677: Error: cannot represent THUMB_OFFSET reloca",
+    "status": "GAGAL",
+    "when": "2026-11-26T12:56:06"
   },
   "code_actor_0809BFE8.s:func_0809C0A0": {
     "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (50 penerus belum pindah, dilewati)",
@@ -313,6 +313,11 @@
     "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (4 penerus belum pindah, dilewati)",
     "status": "SKIP",
     "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809D8D4": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (3 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T13:02:10"
   },
   "code_entities.s:func_08020060": {
     "detail": "func_08020060 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_entities.cc (dilewati)",
@@ -460,9 +465,14 @@
     "when": "2026-11-26T11:13:29"
   },
   "code_entities.s:sub_08031E0A": {
-    "detail": "sub_08031E0A grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "detail": "sub_08031E0A data asing 316B menempel ekor (ref 593B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
     "status": "SKIP",
-    "when": "2026-11-26T10:57:19"
+    "when": "2026-11-26T12:56:06"
+  },
+  "code_entities_080320DC.s:func_08032A00": {
+    "detail": "tidak ada kandidat: status di shard bukan promoted (butuh MATCH dulu)",
+    "status": "TOLAK",
+    "when": "2026-11-26T12:58:11"
   },
   "code_entities_08034CEC.s:func_08036BF8": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75334: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
@@ -488,6 +498,11 @@
     "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75334: use of r13 is deprecated",
     "status": "OK",
     "when": "2026-11-26T10:04:16"
+  },
+  "code_entities_08034CEC.s:func_0803853C": {
+    "detail": "tidak ada kandidat: status di shard bukan promoted (butuh MATCH dulu)",
+    "status": "TOLAK",
+    "when": "2026-11-26T12:58:11"
   },
   "code_entities_08034CEC.s:func_080390D0": {
     "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75343: use of r13 is deprecated",

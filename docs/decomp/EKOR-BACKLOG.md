@@ -22,7 +22,7 @@ python3 tools/scripts/tail_chain.py --module <stem>.s [--json]
 | modul | tersisa di asm | promoted terkunci | blocker terakhir | status rantai |
 |---|---|---|---|---|
 | `code_linkonce.s` | 428 | 168 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
-| `code_actor_0809BFE8.s` | 51 | 26 | `func_0809DA00` (1323B, `failed`) | terbuka, ujung belum MATCH |
+| `code_actor_0809BFE8.s` | 51 | 27 | `func_0809DA00` (1323B, `failed`) | terbuka, ujung belum MATCH |
 | `hardware.s` | 34 | 10 | `func_080087C8` (239B, `failed`) | terbuka, ujung belum MATCH |
 
 Modul tail-only lain sudah kosong di `asm/` (tidak punya blocker ekor lagi): `code_iwram`, `game_scene`, `interrupt`, `main`, `more_items`, `scene`, `sram_proxy_1`, `vtables`.
@@ -313,7 +313,7 @@ Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungs
 
 ## `code_actor_0809BFE8.s`
 
-Sisa **51** fungsi (26 `promoted`, 25 `failed`). Tabel = 12 entri terakhir; 39 fungsi lain di bawahnya juga belum di `src/`.
+Sisa **51** fungsi (27 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 39 fungsi lain di bawahnya juga belum di `src/`.
 
 | idx | fungsi | ukuran | status | residual terakhir |
 |---|---|---|---|---|
@@ -325,7 +325,7 @@ Sisa **51** fungsi (26 `promoted`, 25 `failed`). Tabel = 12 entri terakhir; 39 f
 | 44 | `func_0809D8A0` | 4B | promoted | - |
 | 45 | `func_0809D8A4` | 20B | promoted | - |
 | 46 | `func_0809D8B8` | 28B | promoted | - |
-| 47 | `func_0809D8D4` | 20B | failed | In function `func_0809D8D4': invalid type argument of `->' |
+| 47 | `func_0809D8D4` | 20B | promoted | MATCH, menunggu giliran cabut |
 | 48 | `func_0809D8E8` | 204B | failed | kompilasi: dereferencing `void *' pointer |
 | 49 | `func_0809D9B4` | 76B | failed | byte +0x1a: 0xf vs ref 0x10 |
 | 50 | `func_0809DA00` | 1323B | failed | len 1310 vs ref 1322 [11missing,5extra,117operand,40regalloc,1s… (dari note, belum ada catatan migrate) |
@@ -336,8 +336,7 @@ Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungs
 |---|---|---|---|
 | 0 | `func_0809DA00` | 1323B | - |
 | 1 | `func_0809D9B4` | 76B | - |
-| 2 | `func_0809D8E8` | 204B | - |
-| 3 | `func_0809D8D4` | 20B | `func_0809D8B8`, `func_0809D8A4`, `func_0809D8A0` |
+| 2 | `func_0809D8E8` | 204B | `func_0809D8D4`, `func_0809D8B8`, `func_0809D8A4`, `func_0809D8A0` |
 | 7 | `func_0809D7D8` | 200B | - |
 | 8 | `func_0809D79C` | 60B | - |
 | 9 | `func_0809D500` | 664B | - |

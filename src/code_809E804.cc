@@ -810,6 +810,18 @@ typedef struct GenObj__func_080CD950 {
 } GenObj__func_080CD950;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_0809EEA4 {
+    u8 _pad0[0x14];
+    u16 unk14;
+    u8 unk16;
+} GenObj__func_0809EEA4;
+typedef struct GenObj__func_0809EED0 {
+    u8 _pad0[22];
+    u8 unk16;
+} GenObj__func_0809EED0;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E968 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080E3E9C(u8 *, u8 *, i32);
@@ -1274,6 +1286,27 @@ void *func_0809EE8C(GenObj__func_0809EE8C *arg0) {
 }
 
 /* ATTEMPT-NOTE opencode: unk14 u16 (strh), unk16 u8 (strb). */
+}
+
+// DECOMP-MATCHED func_0809EED0 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_809E804.0809EED0")))
+i32 func_0809EED0(GenObj__func_0809EED0 *arg0) {
+    u8 temp_r0;
+
+    u8 t = arg0->unk16;
+
+    if (t != 0xA) {
+        arg0->unk16 = t + 1;
+        return 1;
+    }
+    return 0;
+}
+
+/* ATTEMPT-NOTE opencode: unk16 u8; inc langsung di r0? */
+
+/* ATTEMPT-NOTE opencode: unk16 u8; cabang negatif dulu (bne + return0-depan). */
 }
 
 // DECOMP-MATCHED func_0809FE3C (dari code_809E804.s; cek manusia sebelum ke src/)
@@ -4519,3 +4552,20 @@ __attribute__((naked)) void func_080D1574(void) {
 }
 }
 
+// DECOMP-MATCHED func_0809EEA4 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_809E804.0809EEA4")))
+i32 func_0809EEA4(GenObj__func_0809EEA4 *arg0, u32 arg1) {
+    u32 m;
+
+    m = 1 << arg1;
+    if (arg1 >= arg0->unk16) {
+        return 0;
+    }
+    if ((arg0->unk14 & m) != 0) {
+        return 0;
+    }
+    return 1;
+}
+}

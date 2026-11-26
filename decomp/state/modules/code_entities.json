@@ -991,9 +991,10 @@
  },
  "func_08024CA0": {
   "addr": 134368416,
-  "judged_mtime": 1795430389.0829508,
+  "draft_src": "manual",
+  "judged_mtime": 1795697991.3639054,
   "module": "code_entities.s",
-  "note": "byte +0x1e: 0x23 vs ref 0x24 [1operand,1different @i cmp r0, #0x24 | cmp r0, #0x23]",
+  "note": "len 44 vs ref 46 [2missing,1extra,3operand,1different @i bne #0x26 | bne #0x24]",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 543,

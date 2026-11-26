@@ -538,14 +538,15 @@
  },
  "func_0809D8D4": {
   "addr": 134863060,
-  "judged_mtime": 1793003771.5407014,
+  "judged_mtime": 1795698120.0983493,
   "module": "code_actor_0809BFE8.s",
-  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809D8D4/Prodesk_347047/func.c: In function `func_0809D8D4':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809D8D4/Prodesk_347047/func.c:3: invalid type argument of `->'\n",
+  "note": "MATCH 2026-11-26 (bitfield u8:4 + offset lokal lebih dulu; POLA-DIFF 91.1). SKIP-migrasi: modul tidak di-split (0 direktif .section) + bukan fungsi terakhir.",
+  "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc",
   "ref_len": 20,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 262,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809D8E8": {

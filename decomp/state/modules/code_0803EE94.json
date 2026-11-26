@@ -2248,9 +2248,9 @@
  },
  "func_0806D8C8": {
   "addr": 134666440,
-  "judged_mtime": 1795696978.7567074,
+  "judged_mtime": 1795697880.3380725,
   "module": "code_0803EE94.s",
-  "note": "parkir: urutan spill `old`. ref `ldr r1,[r4]; movs r0,#0; str r0,[r4]; str r1,[sp]`, agbcc `ldr r0,[r4]; str r0,[sp]; mov r0,#0; str r0,[r4]` (byte +0x10: 0x20 vs 0x21). 8 bentuk dicoba (skalar, array tmp[1], void*, pointer lokal, urutan deklarasi, temp zero, mem temp); mekanisme sama dengan pewarisan register pseudo-mati di POLA-DIFF \u00a787.2",
+  "note": "DIFF: comma-expression `*hp = (old = *hp, 0)` tetap spill langsung (`ldr r0,[r4]; str r0,[sp]` vs ref `ldr r1,[r4]; str r1,[sp]`). POLA-DIFF 91.2.",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 697,
