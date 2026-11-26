@@ -101,7 +101,7 @@
   "size": 385188,
   "sha256": "34c23aced1a4f23ba80d1429a87f4c8a7ca11b0458c61a37a6eb48731440bbd2"
  },
- "note": "count 184 + tabel; func_0805E6CC (font/objek), bukan tile datar",
+ "note": "count 184 + tabel; func_0805E6CC (font/objek), bukan tile datar Tail opaque diberi alasan call-site.",
  "status": "rom-exact",
  "semantics": "unidentified",
  "opaque": [
@@ -109,11 +109,12 @@
    "offset": 385156,
    "size": 32,
    "reason": "Tail container tidak punya pembaca; disimpan eksplisit.",
-   "evidence": "Container func_0805E6CC berakhir sebelum +0x5E084; tail 0x5E084..0x5E0A4 (32 B) tidak dirujuk literal/pointer tengah.",
+   "evidence": "func_0805E6CC dipanggil dengan alamat awal gUnk_0852D984 di code_809E804.s:31067 dan :31125; dua literal itu hanya menunjuk offset 0, tidak ada varian pointer tengah. Container berakhir di +0x5E084, sehingga tail +0x5E084..+0x5E0A4 (32 B) tidak pernah disalin/dibaca. Tidak ada reference lain ke simbol atau offset tengah.",
    "tried": [
-    "scan xref simbol",
+    "cek call site func_0805E6CC",
+    "scan literal simbol",
     "scan pointer tengah",
-    "cek descriptor table"
+    "cek batas container"
    ]
   }
  ]

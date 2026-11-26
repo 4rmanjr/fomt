@@ -45,7 +45,8 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   `push {…, lr}` (blob `.byte` berisi beberapa fungsi) ditandai MULTI-FUNGSI:
   barisnya diberi catatan, dan kalau blok itu jatuh di ekor, output berhenti
   dengan `BUNTU` alih-alih merekomendasikan NEXT (satu fungsi C tak mungkin
-  menutup beberapa fungsi). Deteksi butuh `fomt.gba`; tanpa ROM, kolom prolog
+  menutup beberapa fungsi). Deteksi butuh `baserom.gba` (fallback `fomt.gba`;
+  referensi tracked supaya dokumen reproducible dari checkout bersih); tanpa ROM, kolom prolog
   kosong. Heuristik ini tidak menangkap blob yang fungsi keduanya leaf (tanpa
   `push {…, lr}`).
   Peta semua blocker ekor (fungsi failed, ukuran, residual terakhir) ada di

@@ -48,7 +48,7 @@
   }
  ],
  "evidence": "func_080AA9C8 memilih gUnk_086DCC88 untuk id 0xe (baris 24513); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini.",
- "note": "stamp 4x4 32 B decoded; tail 2536 B opaque tanpa consumer.",
+ "note": "stamp 4x4 32 B decoded; tail 2536 B opaque tanpa consumer. Semua range opaque menyebut descriptor/offset yang diperiksa.",
  "coverage": {
   "total_bytes": 2568,
   "proven_bytes": 32,
@@ -60,9 +60,10 @@
    "offset": 32,
    "size": 2536,
    "reason": "Tail 2536 B setelah stamp 4x4 tidak punya consumer.",
-   "evidence": "func_080AA9C8 hanya membaca 16 entri (32 B) dari offset 0 untuk id 0xe/0xf; tidak ada descriptor/pointer tengah ke 0x20..0xA08.",
+   "evidence": "func_080AA9C8 (code_809E804.s:24520) membaca 16 entri u16 = 32 B dari offset 0 untuk id 0xE/0xF; tail +0x20..+0xA08 (2536 B) tidak dirujuk literal @=gUnk_086DCC88 atau pointer tengah; tidak ada descriptor 0x18 B di 0x10692C..0x1070DC yang menunjuk range ini.",
    "tried": [
-    "scan xref simbol",
+    "cek fungsi penyalin/consumer",
+    "scan literal simbol",
     "scan pointer tengah",
     "cek descriptor table"
    ]

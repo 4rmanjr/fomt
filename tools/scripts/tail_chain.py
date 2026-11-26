@@ -27,8 +27,14 @@ ROM_BASE = 0x08000000
 
 
 def load_rom():
-    rom = REPO / "fomt.gba"
-    return rom.read_bytes() if rom.exists() else None
+    # Dokumen harus reproducible dari checkout bersih: `fomt.gba` adalah
+    # artefak build yang tidak di-track, sedangkan `baserom.gba` adalah
+    # referensi tracked yang byte-nya sama setelah gate build hijau.
+    for name in ("baserom.gba", "fomt.gba"):
+        rom = REPO / name
+        if rom.exists():
+            return rom.read_bytes()
+    return None
 
 
 def count_prologues(rom, addr, ref_len):

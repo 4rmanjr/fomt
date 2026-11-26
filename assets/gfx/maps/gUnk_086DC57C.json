@@ -824,6 +824,56 @@
     1023,
     1023
    ]
+  },
+  {
+   "offset": 1740,
+   "width": 4,
+   "height": 4,
+   "descriptor": "0x107064",
+   "slot": 1,
+   "entries": [
+    16384,
+    16385,
+    16386,
+    16387,
+    16388,
+    16389,
+    16390,
+    16391,
+    16392,
+    16393,
+    16394,
+    16395,
+    16396,
+    16397,
+    16398,
+    16399
+   ]
+  },
+  {
+   "offset": 1772,
+   "width": 4,
+   "height": 4,
+   "descriptor": "0x10707C",
+   "slot": 1,
+   "entries": [
+    17272,
+    17273,
+    17274,
+    17275,
+    17276,
+    17277,
+    17278,
+    17279,
+    17280,
+    17281,
+    17282,
+    17283,
+    17284,
+    17285,
+    17286,
+    17287
+   ]
   }
  ],
  "raw": [
@@ -838,14 +888,10 @@
   {
    "offset": 1542,
    "hex": "0000"
-  },
-  {
-   "offset": 1740,
-   "hex": "00400140024003400440054006400740084009400a400b400c400d400e400f40784379437a437b437c437d437e437f4380438143824383438443854386438743"
   }
  ],
- "note": "stamp 2x2 + 3 layer 17x15 = 1538 B decoded; 196 B blok tile punya reader, 64 B 4x4 belum terbukti, 6 B padding; source exact.",
- "evidence": "func_080AA9C8 id 0xc membaca stamp 2x2 8 B; descriptor gUnk_08106D4C (0x106D4C) menunjuk tiga layer 17x15 di 0x8/0x208/0x408 (1530 B) lewat func_080A5BD8. gUnk_081071A4 menunjuk 0x608: header u16 2/3 + 6 tile 4bpp = 196 B, dibaca func_080A5AB0; codec tilemap_bank belum mengenal blok ini. 4x4 di 0x6cc/0x6ec berasal dari record 0x107064/0x10707C yang belum terbukti dibaca untuk blob ini. Total terbukti 1538/1804 B; 266 B raw.",
+ "note": "stamp 2x2 + 3 layer 17x15 + 2 layer 4x4 + blok animasi 6 tile 4bpp; padding 6 B; source exact. Semua range opaque menyebut descriptor/offset yang diperiksa.",
+ "evidence": "Descriptor 0x106D4C/0x106D64 menunjuk layer 17x15 di +8/+208/+408; descriptor 0x107064/0x10707C (DC57C) atau 0x107094/0x1070AC (DD6E0) menunjuk layer 4x4 di +6CC/+6EC; func_080A5AB0 membaca blok animasi +608 lewat gUnk_081071A4/C8.",
  "coverage": {
   "total_bytes": 1804,
   "proven_bytes": 1538,
@@ -857,44 +903,36 @@
    "offset": 518,
    "size": 2,
    "reason": "Padding alignment 2 B antara layer.",
-   "evidence": "Layer berakhir di 0x206; layer berikutnya mulai 0x208. Tidak ada pointer/descriptor ke range ini.",
+   "evidence": "Layer +0x8 17x15 (descriptor 0x106D4C slot 0) berakhir di +0x206; layer +0x208 17x15 (descriptor 0x106D4C slot 1) mulai di +0x208. Range +0x206..+0x208 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
-    "scan xref simbol",
-    "scan pointer tengah",
-    "cek descriptor"
+    "parse 82 descriptor 0x18 B",
+    "cek pointer layer sebelum/sesudah",
+    "scan literal simbol",
+    "scan pointer tengah"
    ]
   },
   {
    "offset": 1030,
    "size": 2,
    "reason": "Padding alignment 2 B antara layer.",
-   "evidence": "Layer berakhir di 0x406; layer berikutnya mulai 0x408. Tidak ada pointer/descriptor ke range ini.",
+   "evidence": "Layer +0x208 17x15 (descriptor 0x106D4C slot 1) berakhir di +0x406; layer +0x408 17x15 (descriptor 0x106D4C slot 2) mulai di +0x408. Range +0x406..+0x408 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
-    "scan xref simbol",
-    "scan pointer tengah",
-    "cek descriptor"
+    "parse 82 descriptor 0x18 B",
+    "cek pointer layer sebelum/sesudah",
+    "scan literal simbol",
+    "scan pointer tengah"
    ]
   },
   {
    "offset": 1542,
    "size": 2,
    "reason": "Padding alignment 2 B antara layer.",
-   "evidence": "Layer berakhir di 0x606; layer berikutnya mulai 0x608. Tidak ada pointer/descriptor ke range ini.",
+   "evidence": "Layer +0x408 17x15 (descriptor 0x106D4C slot 2) berakhir di +0x606; layer +0x6CC 4x4 (descriptor 0x107064 slot 1) mulai di +0x6CC. Range +0x606..+0x608 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
-    "scan xref simbol",
-    "scan pointer tengah",
-    "cek descriptor"
-   ]
-  },
-  {
-   "offset": 1740,
-   "size": 64,
-   "reason": "64 B setelah blok animasi tidak punya descriptor layer yang cocok.",
-   "evidence": "Tidak ada descriptor 0x18 B di 0x10692C..0x1070DC yang menunjuk 0x6CC/0x6EC; 0x107064/0x10707C berisi dims 0. Tidak ada literal/pointer tengah.",
-   "tried": [
-    "trace func_0809C510",
-    "scan call func_080AA850",
-    "cek vtable"
+    "parse 82 descriptor 0x18 B",
+    "cek pointer layer sebelum/sesudah",
+    "scan literal simbol",
+    "scan pointer tengah"
    ]
   }
  ],
