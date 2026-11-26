@@ -134,7 +134,7 @@
   {
    "offset": 96,
    "size": 96,
-   "reason": "Tidak ada consumer: hanya 0x60 B pertama yang disalin; sisa tidak dirujuk literal maupun pointer tengah.",
+   "reason": "Tail setelah prefix 0x60 B yang disalin func_080A97CC/F4; tidak ada consumer lain.",
    "evidence": "func_080A97CC (code_0803EE94.s:22126) / func_080A97F4 (22142) memanggil func_08008E64 dengan panjang 0x60 dari offset 0; hanya prefix 0x60 B yang disalin. Tail +0x60..+0xC0 (96 B) tidak dirujuk literal @=gUnk_086D6548 atau pointer tengah; tidak ada routine lain yang memakai offset ini.",
    "tried": [
     "cek fungsi penyalin/consumer",

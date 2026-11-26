@@ -2131,7 +2131,7 @@
   {
    "offset": 74,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x2C 3x5 (descriptor 0x107034 slot 1) berakhir di +0x4A; layer +0x4C 3x5 (descriptor 0x10704C slot 1) mulai di +0x4C. Range +0x4A..+0x4C (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2143,7 +2143,7 @@
   {
    "offset": 106,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x4C 3x5 (descriptor 0x10704C slot 1) berakhir di +0x6A; layer +0x6C 2x3 (descriptor 0x106DAC slot 1) mulai di +0x6C. Range +0x6A..+0x6C (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2155,7 +2155,7 @@
   {
    "offset": 222,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x84 9x5 (descriptor 0x106DF4 slot 1) berakhir di +0xDE; layer +0xE0 9x5 (descriptor 0x106DC4 slot 1) mulai di +0xE0. Range +0xDE..+0xE0 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2167,7 +2167,7 @@
   {
    "offset": 314,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0xE0 9x5 (descriptor 0x106DC4 slot 1) berakhir di +0x13A; layer +0x13C 9x5 (descriptor 0x106DDC slot 1) mulai di +0x13C. Range +0x13A..+0x13C (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2179,7 +2179,7 @@
   {
    "offset": 406,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x13C 9x5 (descriptor 0x106DDC slot 1) berakhir di +0x196; layer +0x198 2x2 (descriptor 0x1070C4 slot 1) mulai di +0x198. Range +0x196..+0x198 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2191,7 +2191,7 @@
   {
    "offset": 454,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x1A8 3x5 (descriptor 0x106C2C slot 0) berakhir di +0x1C6; layer +0x1C8 3x5 (descriptor 0x106C2C slot 1) mulai di +0x1C8. Range +0x1C6..+0x1C8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2203,7 +2203,7 @@
   {
    "offset": 486,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x1C8 3x5 (descriptor 0x106C2C slot 1) berakhir di +0x1E6; layer +0x1E8 3x5 (descriptor 0x106F74 slot 1) mulai di +0x1E8. Range +0x1E6..+0x1E8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2215,7 +2215,7 @@
   {
    "offset": 518,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x1E8 3x5 (descriptor 0x106F74 slot 1) berakhir di +0x206; layer +0x208 3x5 (descriptor 0x106F8C slot 1) mulai di +0x208. Range +0x206..+0x208 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2227,7 +2227,7 @@
   {
    "offset": 550,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x208 3x5 (descriptor 0x106F8C slot 1) berakhir di +0x226; layer +0x228 3x5 (descriptor 0x106F44 slot 1) mulai di +0x228. Range +0x226..+0x228 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2239,7 +2239,7 @@
   {
    "offset": 582,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x228 3x5 (descriptor 0x106F44 slot 1) berakhir di +0x246; layer +0x248 3x5 (descriptor 0x106F5C slot 1) mulai di +0x248. Range +0x246..+0x248 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2251,7 +2251,7 @@
   {
    "offset": 614,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x248 3x5 (descriptor 0x106F5C slot 1) berakhir di +0x266; layer +0x268 3x5 (descriptor 0x106E54 slot 1) mulai di +0x268. Range +0x266..+0x268 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2263,7 +2263,7 @@
   {
    "offset": 646,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x268 3x5 (descriptor 0x106E54 slot 1) berakhir di +0x286; layer +0x288 3x5 (descriptor 0x106E6C slot 1) mulai di +0x288. Range +0x286..+0x288 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2275,7 +2275,7 @@
   {
    "offset": 678,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x288 3x5 (descriptor 0x106E6C slot 1) berakhir di +0x2A6; layer +0x2A8 3x5 (descriptor 0x106EB4 slot 1) mulai di +0x2A8. Range +0x2A6..+0x2A8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2287,7 +2287,7 @@
   {
    "offset": 710,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x2A8 3x5 (descriptor 0x106EB4 slot 1) berakhir di +0x2C6; layer +0x2C8 3x5 (descriptor 0x106ECC slot 1) mulai di +0x2C8. Range +0x2C6..+0x2C8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2299,7 +2299,7 @@
   {
    "offset": 742,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x2C8 3x5 (descriptor 0x106ECC slot 1) berakhir di +0x2E6; layer +0x2E8 3x5 (descriptor 0x106E84 slot 1) mulai di +0x2E8. Range +0x2E6..+0x2E8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2311,7 +2311,7 @@
   {
    "offset": 774,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x2E8 3x5 (descriptor 0x106E84 slot 1) berakhir di +0x306; layer +0x308 3x5 (descriptor 0x106E9C slot 1) mulai di +0x308. Range +0x306..+0x308 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2323,7 +2323,7 @@
   {
    "offset": 806,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x308 3x5 (descriptor 0x106E9C slot 1) berakhir di +0x326; layer +0x328 3x4 (descriptor 0x106E0C slot 0) mulai di +0x328. Range +0x326..+0x328 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2335,7 +2335,7 @@
   {
    "offset": 886,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x358 3x5 (descriptor 0x106F14 slot 1) berakhir di +0x376; layer +0x378 3x5 (descriptor 0x106F2C slot 1) mulai di +0x378. Range +0x376..+0x378 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2347,7 +2347,7 @@
   {
    "offset": 918,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x378 3x5 (descriptor 0x106F2C slot 1) berakhir di +0x396; layer +0x398 3x5 (descriptor 0x106EE4 slot 1) mulai di +0x398. Range +0x396..+0x398 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2359,7 +2359,7 @@
   {
    "offset": 950,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x398 3x5 (descriptor 0x106EE4 slot 1) berakhir di +0x3B6; layer +0x3B8 3x5 (descriptor 0x106EFC slot 1) mulai di +0x3B8. Range +0x3B6..+0x3B8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2371,7 +2371,7 @@
   {
    "offset": 982,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x3B8 3x5 (descriptor 0x106EFC slot 1) berakhir di +0x3D6; layer +0x3D8 3x5 (descriptor 0x106C14 slot 1) mulai di +0x3D8. Range +0x3D6..+0x3D8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2383,7 +2383,7 @@
   {
    "offset": 1014,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x3D8 3x5 (descriptor 0x106C14 slot 1) berakhir di +0x3F6; layer +0x3F8 3x5 (descriptor 0x106BFC slot 1) mulai di +0x3F8. Range +0x3F6..+0x3F8 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2395,7 +2395,7 @@
   {
    "offset": 1046,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0x3F8 3x5 (descriptor 0x106BFC slot 1) berakhir di +0x416; layer +0x418 6x8 (descriptor 0x106B84 slot 1) mulai di +0x418. Range +0x416..+0x418 (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2407,7 +2407,7 @@
   {
    "offset": 2604,
    "size": 388,
-   "reason": "Range 0xa2c..0xbb0 (388 B) tidak dirujuk descriptor/xref.",
+   "reason": "Tidak ada pointer layer di 82 descriptor 0x18 untuk range +0xA2C..+0xBB0; tidak ada xref.",
    "evidence": "82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa: 0 pointer layer yang menunjuk/menimpa +0xA2C..+0xBB0. Tidak ada literal @=gUnk_... atau pointer tengah ke range ini; tidak ada routine lain yang memakai offset ini.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2419,7 +2419,7 @@
   {
    "offset": 3322,
    "size": 2,
-   "reason": "Padding/alignment 2 B tanpa consumer.",
+   "reason": "Padding alignment 2 B; 82 descriptor 0x18 di 0x10692C..0x1070DC tidak menunjuk range ini.",
    "evidence": "Layer +0xCDC 3x5 (descriptor 0x106E24 slot 1) berakhir di +0xCFA; layer +0xCFC 3x5 (descriptor 0x106E3C slot 1) mulai di +0xCFC. Range +0xCFA..+0xCFC (2 B) tepat di antaranya; 82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa dan tidak ada yang menunjuk range ini; tidak ada literal @=gUnk_.../pointer tengah.",
    "tried": [
     "parse 82 descriptor 0x18 B",
@@ -2431,7 +2431,7 @@
   {
    "offset": 3354,
    "size": 29958,
-   "reason": "Range 0xd1a..0x8220 (29958 B) tidak dirujuk descriptor/xref.",
+   "reason": "Tidak ada pointer layer di 82 descriptor 0x18 untuk range +0xD1A..+0x8220; tidak ada xref.",
    "evidence": "82 descriptor 0x18 B di 0x10692C..0x1070DC diperiksa: 0 pointer layer yang menunjuk/menimpa +0xD1A..+0x8220. Tidak ada literal @=gUnk_... atau pointer tengah ke range ini; tidak ada routine lain yang memakai offset ini.",
    "tried": [
     "parse 82 descriptor 0x18 B",

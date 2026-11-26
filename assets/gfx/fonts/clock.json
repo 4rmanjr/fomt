@@ -30,7 +30,7 @@
   {
    "offset": 4096,
    "size": 4,
-   "reason": "Tail container tidak punya pembaca; disimpan eksplisit.",
+   "reason": "Tail 4 B setelah tapak memcpy/per-tile code_0803A8A4.s; tidak ada literal/pointer tengah.",
    "evidence": "memcpy di code_0803A8A4.s:3782 menyalin 0x20 B dari +0x3A0; tapak :4583 menyalin satu tile 0x20 B per indeks. Slice 4100 B berakhir di +0x1004; 4 B terakhir +0x1000..+0x1004 tidak disalin oleh kedua tapak itu dan tidak ada literal/pointer tengah ke range ini.",
    "tried": [
     "cek tapak memcpy",

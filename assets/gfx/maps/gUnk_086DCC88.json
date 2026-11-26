@@ -59,7 +59,7 @@
   {
    "offset": 32,
    "size": 2536,
-   "reason": "Tail 2536 B setelah stamp 4x4 tidak punya consumer.",
+   "reason": "Tail setelah 32 B yang dibaca func_080AA9C8; tidak ada descriptor/xref.",
    "evidence": "func_080AA9C8 (code_809E804.s:24520) membaca 16 entri u16 = 32 B dari offset 0 untuk id 0xE/0xF; tail +0x20..+0xA08 (2536 B) tidak dirujuk literal @=gUnk_086DCC88 atau pointer tengah; tidak ada descriptor 0x18 B di 0x10692C..0x1070DC yang menunjuk range ini.",
    "tried": [
     "cek fungsi penyalin/consumer",

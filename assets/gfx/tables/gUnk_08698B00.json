@@ -432,7 +432,7 @@
   {
    "offset": 128,
    "size": 660,
-   "reason": "Tidak ada consumer: fungsi penyalin hanya membaca 0x80 B pertama.",
+   "reason": "Tail setelah 0x80 B yang disalin func_080A9850/080A9826; tidak ada consumer lain.",
    "evidence": "func_080A9850 (22199) / func_080A9826 (22187) hanya memanggil func_08008E64 dengan panjang 0x80 dari offset 0; tidak ada referensi lain ke simbol atau offset tengah.",
    "tried": [
     "scan xref simbol",
