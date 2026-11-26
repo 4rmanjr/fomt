@@ -31,34 +31,38 @@ sudah ada, serta [`TOOLS.md`](../ops/TOOLS.md) untuk perintah tool.
 
 ## 2. Kondisi saat ini
 
-`asm/data/data_0813B288.s` memuat blob sebagai:
+`asm/data/data_0813B288.s` tidak lagi mengambil blob aset dari ROM. Setiap
+simbol aset memakai binary hasil encoder (§8):
 
 ```asm
-.global gUnk_0872DE44
-gUnk_0872DE44:
-    .incbin "baserom.gba", 0x72DE44, 0x1034
+.global gUnk_0869A0A4
+gUnk_0869A0A4:
+    @ rom: 0x69A0A4 0x11E0 — source assets/gfx/tiles/gUnk_0869A0A4.{png,json}; tiles 4bpp
+    .incbin "build/assets/gUnk_0869A0A4.bin"
 ```
 
-Sebagian simbol sudah dialihkan ke binary hasil encoder (§8): font jam
-(`gUnk_0875A440`, kelas `tiles4bpp`) dan satu sprite OBJ 16x16
-(`gUnk_087518CC`, kelas `sprite`, palet pasangannya `gUnk_0875194C` ikut
-digerbang di metadata). Sisanya masih `.incbin "baserom.gba"`.
+Seluruh blob aset yang terinventaris sudah `rom-exact`: byte source sama dengan
+slice ROM, `.incbin` menunjuk `build/assets/`, dan `asset_verify.py` tidak
+menemukan `.incbin "baserom.gba"` di antara mereka. Status itu membuktikan byte
+source, bukan bahwa setiap field decoded — byte tanpa pembaca tetap disimpan
+eksplisit sebagai `raw`/`hex` dengan `padding` berjustifikasi (§4.3) dan
+semantiknya `unidentified`. Populasi serta cakupan per grup diambil dari
+`assets/manifest.json` dan `tools/scripts/asset_inventory.py --json`, bukan
+ditulis di sini.
+
+`.incbin "baserom.gba"` yang masih ada di berkas itu adalah data non-grafis di
+luar populasi aset, dan `make compare` tetap memakai `baserom.gba` sebagai
+pembanding.
 
 Daftar aturan build graphics tidak lagi ditulis tangan: `gfx_rules.mk`
 dihasilkan `tools/assets/gfx_rules.py` dari metadata `assets/gfx/**/*.json`
 (pola `graphics_file_rules.mk` pret) dan di-include Makefile.
 
-Konsekuensinya:
-
-- asset tidak bisa diedit sebagai source;
-- build bergantung pada ROM referensi;
-- perubahan tidak bisa direview sebagai diff yang bermakna;
-- format, header/ekor, dan kompresi tidak terlihat di dependency build.
-
-`assets/raw/` dan `assets/0x70/` yang ada sekarang adalah **inventaris,
-provenance, dan preview**, bukan source build resmi. Manifest-nya sudah berguna:
-hash, kelas, pasangan palet/tileset, status bukti, dan `map_loader`. Pekerjaan
-berikutnya adalah menambahkan jalur source → encoder → binary di atasnya.
+Konsekuensi lama yang sudah hilang: aset bisa diedit sebagai source, perubahan
+tampil sebagai diff PNG/JSON yang bermakna, dan dependency build memuat format
+serta `padding` tiap segmen. `assets/raw/` dan `assets/0x70/` sekarang berperan
+sebagai **inventaris, provenance, dan preview** di samping source kanonik
+`assets/gfx/**` yang menjadi input build.
 
 ## 3. Pola yang diadopsi
 
@@ -1022,11 +1026,12 @@ encode ulang byte identik, dan rujukan kode dekat `func_0805E6CC` |
 `font_container.py` | selesai — lihat catatan di bawah |
 | 2 | palet 32 B/512 B | semua u16 < 0x8000 dan `pal2gba.py` encode ulang byte
 identik; hanya yang tapak salinannya menuju palette RAM yang dimigrasikan |
-`pal2gba.py` | palet sprite 0x75194C–0x75346C selesai lewat list obj+0x594; sisanya
-parkir karena panjang salinan tidak sama dengan slice / tujuan field +0xc0 |
+`pal2gba.py` | selesai — termasuk blok `+0xc0` yang tujuannya terbukti
+palette RAM; lihat catatan di bawah |
 | 3 | tile 4bpp kelipatan 32 B (`gUnk_0872FA9C`, …) | `tile4bpp.py` round-trip
-byte identik, tetapi bentuk byte saja tidak cukup | `tile4bpp.py` | sebagian
-selesai — sisanya diparkir, lihat catatan di bawah |
+byte identik, tetapi bentuk byte saja tidak cukup | `tile4bpp.py` | selesai —
+kandidat non-tile dimodelkan sebagai tilemap/tabel atau disimpan `raw`
+berjustifikasi; lihat catatan di bawah |
 | 4 | stream `0x70` (lihat `ASET-0X70-PETA-BERKAS.md`) | dekoder ada
 (`decompress.py`); encoder byte-identik untuk `000` dan atom0/lzss2 sudah
 terbukti | `lz70.py` | sebagian — status naik per stream lewat
@@ -1050,7 +1055,8 @@ membawa komentar `@…`: `gUnk_08738144` ditulis `@gCalendarFont?` dan lolos
 parse penuh, tetapi pola yang menuntut `.global <simbol>` bersih melewatkannya
 sehingga kelasnya tampak kurang satu.
 
-Kelas 2 baru sebagian, dan batasnya adalah bukti pemuat, bukan bentuk byte.
+Kelas 2 tuntas untuk blok yang tapak salinannya terbukti, dan batasnya adalah
+bukti pemuat, bukan bentuk byte.
 Bukti yang diterima: tapak salinan yang tujuannya konstanta palette RAM
 (`0x05000000`–`0x050003FF`), lewat `func_08008E64` (`r0` sumber, `r1` tujuan,
 `r2` panjang), `func_08008F0C` (`r0` antrean, `r1` sumber, **`r2` tujuan**,
@@ -1098,19 +1104,19 @@ dari tapak salinannya:
   yang seluruh slice-nya habis dibaca (`gUnk_086EAD64`, `gUnk_086DD690`) dan
   cluster BG map di §`func_08077E64` sudah dimigrasikan sebagai tilemap;
   `gUnk_08757BAC`/`gUnk_08757BD8` termasuk cluster itu.
-- `gUnk_086D6548` dan empat blok `func_080A95A4` (`gUnk_086EACE4`,
-  `gUnk_086EAD04`, `gUnk_086EAD24`, `gUnk_086EAD44`) disalin ke
-  `[field objek + 0xc0]`; tujuannya tidak terbaca dari fungsi itu.
-- Sisa palet yang belum boleh dialihkan, dengan alasan dari asm:
+- `gUnk_086D6548` disalin dari dalam buffer objek (bukan dari awal simbol),
+  jadi slice simbol bukan blok utuh yang disalin (§cluster BG map).
+- Sisa palet yang tetap parkir, dengan alasan dari asm:
   `gUnk_0872DDE4` dan `gUnk_0874F2EC` disalin `0x200` B ke `0x05000000`
   padahal slice-nya hanya 96 B (`code_809E804.s:8450`/`49978`), jadi slice
   bukan blok utuh yang disalin. `gUnk_0872FA9C`, `gUnk_087399C4`,
   `gUnk_0873CBF4`, `gUnk_087400E4`, `gUnk_08747A14` juga menuju palette RAM
   dengan panjang salinan 0x200/0x40 yang tidak sama dengan ukuran slice.
-  `gUnk_086EACE4`–`gUnk_086EAD44` disalin 0x20 B ke `[field objek + 0xc0]`
-  (`code_809E804.s:22351`), tujuan field yang pemiliknya belum terbukti
-  sebagai palette RAM.
-  `gUnk_08757BAC`/`gUnk_08757BD8` ditulis `func_08077E64` lewat `ldrh`/`strh`
+- Blok `+0xc0` tidak lagi parkir: `gUnk_086EACE4`–`gUnk_086EAD44` disalin
+  0x20 B ke `[base+0x1c+idx*4]+0xC0`; evidence tiap aset mencatat baris `ldr`
+  (`code_809E804.s:22343` dan seterusnya) plus `bl func_08008E64` (`:22357`),
+  jadi tujuannya palette RAM dan keempatnya sudah dimigrasikan sebagai palet.
+- `gUnk_08757BAC`/`gUnk_08757BD8` ditulis `func_08077E64` lewat `ldrh`/`strh`
   sebagai entri BG map, bukan palet; keduanya sudah dimigrasikan sebagai
   tilemap di §`func_08077E64`.
 
@@ -1219,9 +1225,12 @@ padding/urutan eksplisit dan tetap menolak jumlah entri yang tidak cocok.
 Dua pola pointer literal melengkapi cluster ini. `method_0800AF20`
 mengembalikan `gUnk_086D6518`/`gUnk_086D6520` untuk field 0/1, lalu
 `func_080AA6D0` menyalin `src+0` dan `src+4` ke dua baris peta: 2x2, seluruh
-8 B. Untuk field 2 (`gUnk_086D6528`) hanya 8 B pertama yang disalin, jadi
-24 B sisanya `raw`; aset itu diparkir `decoded-exact` (25% proven) dan tidak
-dihitung selesai. `func_0809E0AC`
+8 B. Untuk field 2 (`gUnk_086D6528`) call site hanya menyalin 8 B pertama,
+tetapi slice 32 B habis dibagi 8 sehingga source kanoniknya dimodelkan
+`tilemap_bank` berisi empat record 2x2 — record 0 yang ber-call-site
+langsung, tiga sisanya tanpa pembaca. Byte-nya `rom-exact` karena source
+menutup seluruh slice; semantik record 1–3 tetap `unidentified` dan tidak
+diklaim decoded. `func_0809E0AC`
 mengembalikan `gUnk_086DC3C4`–`gUnk_086DC3E8` untuk field 0–3, dan
 `func_080AA540` menyalin `src+0/+4/+8` masing-masing 4 B ke tiga baris:
 2x3, seluruh 12 B. Field 4 adalah blob terkompresi `gUnk_086DC3F4`, bukan
