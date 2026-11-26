@@ -1533,3 +1533,74 @@ Sebagian callee lama dideklarasikan K&R di `src/` (`i32 func_08034F00();`,
 daftar parameter kosong). Draf yang menulis `void func_08034F00(u8 *, s32);`
 kena `[SKIP] extern ... beda tanda tangan` walau byte sudah MATCH. Samakan
 bentuknya (`s32 func_08034F00();`), judge ulang, lalu promote/migrate.
+
+## 48. Sapuan backlog promote-only: dua gate palsu + ekor `.byte` yang bisa dipromosikan
+
+Backlog promote-only disapu lewat `migrate_one()` per fungsi (verdict tersimpan di
+`decomp/state/migrate_last.json`, bukan cuma di layar). Perintah sapunya:
+
+```python
+import run, migrate
+for mod, fn in daftar:           # daftar = state status promoted, belum ada di src/
+    migrate.migrate_one(mod, fn, dry_run=False)
+```
+
+Kategori hasil dan cara memisahkan yang bisa difix dari yang by-design:
+
+| Gejala | Sifat | Tindakan |
+|---|---|---|
+| `bukan fungsi terakhir di <mod>.s (N penerus belum pindah)` | rantai ekor | cek `asm/<mod>.s`: kalau fungsi TERAKHIR di berkas masih `failed`, rantai tak bisa mulai (bukan gate yang bisa difix) |
+| `grup gabungan/tak-split` | by-design | splitter tidak memecah grup itu |
+| `data asing NB menempel ekor` | **bisa difix** kalau ekornya kode | resep §41 di bawah |
+| `sudah ada di <src>` | state basi | bukan backlog |
+
+Dua gate **palsu** yang muncul di sapuan ini dan obatnya (keduanya nol byte codegen):
+
+1. **Label diikuti panggilan dibaca sebagai deklarasi extern.** `extern_decls()`
+   memakai pola nama yang mengizinkan `:` (namespace C++), jadi blok berisi
+
+   ```c
+   goto selesai;
+   ulang:
+       func_080087C8(a);
+   selesai:
+       ...
+   ```
+
+   terbaca punya deklarasi `ulang: (a)` → `[SKIP] extern func_080087C8 beda tanda
+   tangan (['i32 (i32)', 'ulang: (a)'] vs ['i32 (i32)'])`. Obat: sisipkan
+   statement kosong setelah label (`ulang: ;`), atau ganti label sehingga baris
+   berikutnya bukan panggilan.
+2. **Dua varian deklarasi satu callee.** Kalau blok lain di `promoted/` sudah
+   memakai tanda tangan final src (`void f(GenObj__func_080098AC *, void *)`),
+   blok yang dimigrasi harus menulis tanda tangan **persis** itu (termasuk nama
+   tipe parameter), bukan padanan `void *`. Setelah disamakan, gate lolos.
+
+**Pasca-migrasi (compile C++):** `_void_ptr_arith_fix` mengubah temp `void *`
+yang dipakai aritmetika menjadi `u8 *`, tetapi cast di sisi assignment tetap
+`(void *)` → `ANSI C++ forbids implicit conversion from 'void *' in assignment`.
+Ganti cast itu menjadi `(u8 *)` (nol byte). Gejalanya muncul sebagai
+`make: *** build/src/<stem>.o Error 1` di dalam `migrate.py`, bukan sebagai SKIP.
+
+### 48a. Promosi ekor `.byte` (§41) — bukti ulang + dua jebakan baru
+
+Empat fungsi yang tadinya `data asing ... ekor` berhasil dipindah setelah ekornya
+dipromosikan menjadi fungsi asli (bukan sekadar label):
+
+1. ganti `\t.L<alamat>:` + `.byte ...` menjadi `thumb_func_start func_<alamat>` +
+   instruksi asli; literal pool ditulis `.align 2, 0` + `.L<alamat>: .4byte nilai`;
+2. `make compare` **harus HIJAU** sebelum lanjut (ini yang membuktikan transkripsi
+   byte-nya benar);
+3. rescan modul (`run.scan(['<mod>.s'])`): `ref_len` fungsi induk turun, fungsi
+   baru masuk `pending`;
+4. `migrate.py --module <mod>.s --func <induk>` sekarang `pindah: 1`.
+
+Dua jebakan yang memakan iterasi:
+
+- Disassembler tidak tersedia; transkripsi manual harus dicek dengan `od -An -tx1
+  -j $((0x<alamat>)) -N <n> fomt.gba`. Epilog sering `pop {r1}; bx r1` (bukan
+  `pop {r0}`), dan `negs r0, r1` ditulis `negs` (bukan `rsbs`).
+- `bl` yang menargetkan **tengah fungsi lain** (target tanpa simbol) ditulis
+  `bl func_<simbol>+<addend>`, dan addend dihitung dari **PC instruksi `bl`
+  (alamat bl + 4)**, bukan dari awal fungsi. Salah 12 byte di addend hanya
+  menggeser displacement — `make compare` merah, `od` menunjukkan beda 1 halfword.

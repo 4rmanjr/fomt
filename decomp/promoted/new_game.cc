@@ -712,11 +712,11 @@ s32 *func_080050F8(s32 *arg0, GenObj *arg1) {
 }
 
 // DECOMP-MATCHED func_08003B40 (dari new_game.s; cek manusia sebelum ke src/)
-void *func_08008918();                               /* extern */
+s32 func_08008918(s32);                              /* extern */
 s32 func_08008940(s32);                              /* extern */
-s32 func_08009300(s32 *, void *);                    /* extern */
-s32 func_0800934C(s32 *, s32, s32, s32);             /* extern */
-s32 func_080094B8(void *, s32);                      /* extern */
+s32 func_08009300(void *, ...);                      /* extern */
+s32 func_0800934C(void *, s32, s32, s32);            /* extern */
+void func_080094B8(GenObj__func_080098AC *, void *); /* extern */
 s32 func_080087C8(s32);                              /* extern */
 extern s32 vtable_unk_080E5B80;
 
@@ -751,10 +751,10 @@ void func_08003B40(s32 arg0) {
     s32 c;
 
     a = arg0;
-    t1 = func_08008918(a);
+    t1 = (void *) func_08008918(a);
     sp4.f0 = 0x3F;
     *(u16 *) ((u8 *) t1 + 0x50) = 0x3F;
-    t2 = func_08008918(a);
+    t2 = (void *) func_08008918(a);
     p4 = &sp4.unk0;
     z = 0;
     sp4.unk0 = z;
@@ -769,14 +769,14 @@ void func_08003B40(s32 arg0) {
     func_0800934C(tp, c, 1, 1);
     o = (Obj *) func_08008940(a);
     o->unk8->unk10((void *) o, p4);
-    goto check;
-loop:
+    goto chk_done;
+loop_body: ;
     func_080087C8(a);
-check:
+chk_done: ;
     if (((s32) ((0 - sp4.unk0) | sp4.unk0)) < 0) {
-        goto loop;
+        goto loop_body;
     }
-    func_080094B8(p4, 2);
+    func_080094B8((GenObj__func_080098AC *) p4, (void *) 2);
 }
 
 // DECOMP-MATCHED func_08003DF0 (dari new_game.s; cek manusia sebelum ke src/)

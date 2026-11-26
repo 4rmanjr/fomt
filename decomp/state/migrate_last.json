@@ -34,15 +34,35 @@
     "status": "OK",
     "when": "2026-11-23T11:28:10"
   },
+  "code_0803EE94.s:sub_080868BC": {
+    "detail": "sub_080868BC grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_809E804.s:GetMapData": {
+    "detail": "GetMapData sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_809E804.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_809E804.s:func_0809EEA4": {
+    "detail": "func_0809EEA4 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
   "code_809E804.s:func_0809EED0": {
     "detail": "func_0809EED0 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
     "status": "SKIP",
-    "when": "2026-11-23T10:18:52"
+    "when": "2026-11-26T10:57:18"
   },
   "code_809E804.s:func_080A4650": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75334: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
     "status": "OK",
     "when": "2026-11-23T11:39:03"
+  },
+  "code_809E804.s:func_080A6420": {
+    "detail": "func_080A6420 data asing 56B menempel ekor (ref 84B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
   },
   "code_809E804.s:func_080A6474": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75424: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
@@ -69,6 +89,11 @@
     "status": "OK",
     "when": "2026-11-23T11:37:27"
   },
+  "code_809E804.s:func_080CABEC": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75334: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:03:52"
+  },
   "code_809E804.s:func_080CEC84": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75424: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
     "status": "OK",
@@ -84,30 +109,210 @@
     "status": "OK",
     "when": "2026-11-23T12:06:30"
   },
+  "code_809E804.s:func_080D0EBC": {
+    "detail": "func_080D0EBC grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
   "code_809E804.s:func_080D116A": {
     "detail": "func_080D116A grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
     "status": "SKIP",
-    "when": "2026-11-23T10:18:45"
+    "when": "2026-11-26T10:57:18"
   },
   "code_809E804.s:func_080D116E": {
     "detail": "func_080D116E grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
     "status": "SKIP",
-    "when": "2026-11-23T10:18:49"
+    "when": "2026-11-26T10:57:18"
   },
   "code_809E804.s:func_080D117E": {
     "detail": "func_080D117E grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
     "status": "SKIP",
-    "when": "2026-11-23T10:18:47"
+    "when": "2026-11-26T10:57:18"
   },
   "code_809E804.s:func_080D1186": {
     "detail": "func_080D1186 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
     "status": "SKIP",
-    "when": "2026-11-23T10:18:51"
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_809E804.s:func_080D14EC": {
+    "detail": "func_080D14EC grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
   },
   "code_809E804.s:sub_080D1204": {
     "detail": "sub_080D1204 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
     "status": "SKIP",
-    "when": "2026-11-23T10:18:54"
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_809E804.s:sub_080D139C": {
+    "detail": "sub_080D139C grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_809E804.s:sub_080D1498": {
+    "detail": "sub_080D1498 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_809E804.s:sub_080D14C6": {
+    "detail": "sub_080D14C6 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C0A0": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (50 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C0AC": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (49 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C0BC": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (48 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C0C8": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (47 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C38C": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (41 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C444": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (37 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C474": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (36 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C4B4": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (35 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C5B4": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (32 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C5D0": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (31 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C5EC": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (30 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C5F4": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (29 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C644": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (27 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C694": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (26 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C6AC": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (25 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809C6B0": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (24 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809CD98": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (21 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809CDCC": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (20 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809CDEC": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (19 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809CE1C": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (18 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809CE24": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (17 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809CE30": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (16 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809CE7C": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (15 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809D8A0": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (6 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809D8A4": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (5 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_actor_0809BFE8.s:func_0809D8B8": {
+    "detail": "bukan fungsi terakhir di code_actor_0809BFE8.s (4 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:18"
+  },
+  "code_entities.s:func_080202C8": {
+    "detail": "func_080202C8 data asing 68B menempel ekor (ref 72B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "code_entities.s:func_08020310": {
+    "detail": "func_08020310 data asing 108B menempel ekor (ref 256B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "code_entities.s:func_080229A4": {
+    "detail": "func_080229A4 data asing 416B menempel ekor (ref 436B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "code_entities.s:func_08023400": {
+    "detail": "func_08023400 data asing 988B menempel ekor (ref 1008B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "code_entities.s:func_080240BC": {
+    "detail": "func_080240BC data asing 1012B menempel ekor (ref 1032B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
   },
   "code_entities.s:func_08025018": {
     "detail": "func_08025018 sudah ada di /workspace/chats/8e431e267938c019828ff924/src/code_entities.cc (dilewati)",
@@ -119,20 +324,40 @@
     "status": "OK",
     "when": "2026-11-23T11:39:08"
   },
+  "code_entities.s:func_0802C210": {
+    "detail": "func_0802C210 data asing 180B menempel ekor (ref 204B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "code_entities.s:sub_08031E0A": {
+    "detail": "sub_08031E0A grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
   "code_entities_08034CEC.s:func_08036BF8": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75334: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
     "status": "OK",
     "when": "2026-11-23T12:06:47"
   },
   "code_entities_08034CEC.s:func_08037098": {
-    "detail": "func_08037098 data asing 64B menempel ekor (ref 128B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
-    "status": "SKIP",
-    "when": "2026-11-26T10:30:50"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75334: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:02:46"
+  },
+  "code_entities_08034CEC.s:func_08037244": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75334: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:00:03"
   },
   "code_entities_08034CEC.s:func_08038028": {
     "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75334: use of r13 is deprecated",
     "status": "OK",
     "when": "2026-11-26T10:04:16"
+  },
+  "code_entities_08034CEC.s:func_080390D0": {
+    "detail": "func_080390D0 data asing 88B menempel ekor (ref 100B, kode saja MATCH); pindah butuh pemilik data tsb (SKIP-PERMANEN by-design), dilewati",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
   },
   "code_entities_08034CEC.s:func_0803A350": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75459: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
@@ -140,44 +365,879 @@
     "when": "2026-11-23T11:09:48"
   },
   "code_lib_syscall.s:ArcTan2": {
-    "detail": "`CpuSet' referenced in section `.text' of src/m4a.o: defined in discarded section `.text.code_lib_syscall.080D3750' of asm/code_lib_syscall.o `CpuSet' referenced in section `.text' of src/m4a.o: defin",
-    "status": "GAGAL",
-    "when": "2026-11-23T10:05:00"
+    "detail": "ArcTan2 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_lib_syscall.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
   },
   "code_lib_syscall.s:CpuFastSet": {
-    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75556: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
-    "status": "OK",
-    "when": "2026-11-23T10:09:36"
+    "detail": "CpuFastSet sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_lib_syscall.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
   },
   "code_lib_syscall.s:CpuSet": {
-    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75556: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
-    "status": "OK",
-    "when": "2026-11-23T10:09:40"
+    "detail": "CpuSet sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_lib_syscall.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
   },
   "code_lib_syscall.s:IntrWait": {
-    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75556: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
-    "status": "OK",
-    "when": "2026-11-23T10:09:48"
+    "detail": "IntrWait sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_lib_syscall.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
   },
   "code_lib_syscall.s:Sqrt": {
-    "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75556: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
-    "status": "OK",
-    "when": "2026-11-23T10:09:44"
+    "detail": "Sqrt sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_lib_syscall.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "code_libc_string.s:memset": {
+    "detail": "memset sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_libc_string.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "code_libc_string.s:strlen": {
+    "detail": "strlen sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_libc_string.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "code_linkonce.s:func_080D3C60": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (424 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D3C6C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (423 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D3ED4": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (421 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D4040": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (418 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D404C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (417 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D6D8C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (399 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D6D98": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (398 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D6E98": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (396 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D6EAC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (395 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D6ECC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (394 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D6EEC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (393 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D6F0C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (392 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D6F1C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (391 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
   },
   "code_linkonce.s:func_080D6F3C": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (390 penerus belum pindah, dilewati)",
     "status": "SKIP",
-    "when": "2026-11-23T12:21:50"
+    "when": "2026-11-26T10:57:10"
   },
   "code_linkonce.s:func_080D6F5C": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (389 penerus belum pindah, dilewati)",
     "status": "SKIP",
-    "when": "2026-11-23T12:21:50"
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D7568": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (377 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D770C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (372 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D780C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (370 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D781C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (369 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D782C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (368 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D7868": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (367 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D7874": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (366 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D7AAC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (360 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D7B2C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (357 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D7B38": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (356 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D7B44": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (355 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D7F60": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (350 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D7F74": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (349 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:10"
+  },
+  "code_linkonce.s:func_080D7F88": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (348 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DB314": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (340 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DB714": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (331 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DC1C8": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (282 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DC288": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (278 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DC294": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (277 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DC9C0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (260 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DC9CC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (259 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DC9D8": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (258 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DC9E4": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (257 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DC9F0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (256 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DC9FC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (255 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA08": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (254 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA14": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (253 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA20": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (252 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA2C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (251 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA38": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (250 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA44": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (249 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA50": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (248 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA5C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (247 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA68": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (246 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA74": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (245 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA80": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (244 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA8C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (243 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCA98": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (242 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCAA4": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (241 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCAB0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (240 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCABC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (239 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCAC8": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (238 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCAD4": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (237 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCAE0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (236 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCAEC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (235 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCAF8": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (234 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCB04": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (233 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCB10": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (232 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCB1C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (231 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCB28": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (230 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCB34": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (229 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCB40": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (228 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCB4C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (227 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCB58": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (226 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCB64": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (225 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCB70": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (224 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCE60": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (220 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCE94": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (219 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCEC0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (218 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCEEC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (217 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCF20": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (216 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCF4C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (215 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DCFCC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (214 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DD404": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (210 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DD4E4": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (206 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DD588": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (202 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DD788": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (198 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DD860": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (194 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DD938": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (190 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DDC18": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (186 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DDE68": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (182 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DDF0C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (178 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DDFB0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (174 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DE050": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (170 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DE128": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (166 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DE184": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (164 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DE280": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (161 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080DE28C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (160 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E09B0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (155 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E09E4": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (153 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E0A7C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (151 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E0A88": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (150 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E0D50": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (147 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E0D64": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (146 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E0D70": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (145 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E0EF0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (143 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E0EFC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (142 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E0F48": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (141 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1018": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (139 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1024": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (138 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1030": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (137 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E103C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (136 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E10E0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (134 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E10EC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (133 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1128": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (131 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1498": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (127 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1824": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (124 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1964": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (121 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1984": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (120 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E19F8": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (118 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1A28": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (117 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1A48": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (116 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1A54": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (115 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1D8C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (110 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1D98": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (109 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1DA4": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (108 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1DB0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (107 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1DBC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (106 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E1DC8": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (105 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E20C0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (99 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E20F8": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (98 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E2104": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (97 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E2110": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (96 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E2B5C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (82 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E2B88": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (81 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E2E78": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (78 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E35DC": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (70 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E35E8": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (69 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E3610": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (68 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E3628": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (67 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E3650": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (66 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E3678": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (65 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E3730": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (63 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E3734": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (62 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E375C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (61 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
   },
   "code_linkonce.s:func_080E3774": {
     "detail": "bukan fungsi terakhir di code_linkonce.s (60 penerus belum pindah, dilewati)",
     "status": "SKIP",
-    "when": "2026-11-23T12:21:50"
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E3858": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (57 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E385C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (56 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E3868": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (55 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:11"
+  },
+  "code_linkonce.s:func_080E38E0": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (52 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3910": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (51 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3914": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (50 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3920": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (49 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E392C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (48 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3A44": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (44 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3A50": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (43 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3A5C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (42 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3A80": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (40 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3A8C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (39 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3B60": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (37 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3D94": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (34 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3DB4": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (33 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E3E28": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (32 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E4190": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (28 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E4238": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (24 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E44B8": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (18 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E44E4": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (17 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E4510": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (16 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E4544": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (15 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E5418": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (6 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E542C": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (5 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E5478": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (4 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
+  },
+  "code_linkonce.s:func_080E54C4": {
+    "detail": "bukan fungsi terakhir di code_linkonce.s (3 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:12"
   },
   "game_state.s:func_08010348": {
     "detail": "func_08010348 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/game_state.cc (dilewati)",
@@ -259,6 +1319,11 @@
     "status": "OK",
     "when": "2026-11-23T10:23:00"
   },
+  "game_state.s:func_08016CEC": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75334: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T11:01:46"
+  },
   "game_state.s:func_08016EC4": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75459: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
     "status": "OK",
@@ -269,9 +1334,69 @@
     "status": "OK",
     "when": "2026-11-23T11:11:38"
   },
+  "hardware.s:func_0800770C": {
+    "detail": "bukan fungsi terakhir di hardware.s (28 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "hardware.s:func_08007714": {
+    "detail": "bukan fungsi terakhir di hardware.s (27 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "hardware.s:func_08007770": {
+    "detail": "bukan fungsi terakhir di hardware.s (26 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "hardware.s:func_080077DC": {
+    "detail": "bukan fungsi terakhir di hardware.s (25 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "hardware.s:func_08007844": {
+    "detail": "bukan fungsi terakhir di hardware.s (24 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "hardware.s:func_08007EA8": {
+    "detail": "bukan fungsi terakhir di hardware.s (14 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "hardware.s:func_08007EC8": {
+    "detail": "bukan fungsi terakhir di hardware.s (13 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "hardware.s:func_08007EE8": {
+    "detail": "bukan fungsi terakhir di hardware.s (12 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "hardware.s:func_08008020": {
+    "detail": "bukan fungsi terakhir di hardware.s (10 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "hardware.s:func_0800835C": {
+    "detail": "bukan fungsi terakhir di hardware.s (8 penerus belum pindah, dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
   "hardware.s:func_080087C8": {
     "detail": "tidak ada kandidat: status di shard bukan promoted (butuh MATCH dulu)",
     "status": "TOLAK",
     "when": "2026-11-23T09:30:59"
+  },
+  "main.s:AgbMain": {
+    "detail": "AgbMain sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/main.cc (dilewati)",
+    "status": "SKIP",
+    "when": "2026-11-26T10:57:19"
+  },
+  "new_game.s:func_08003B40": {
+    "detail": "skip-compare (inspect mode)",
+    "status": "OK",
+    "when": "2026-11-26T10:55:58"
   }
 }

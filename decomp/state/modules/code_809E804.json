@@ -4538,10 +4538,34 @@
   "module": "code_809E804.s",
   "note": "",
   "promoted_to": "decomp/promoted/code_809E804.cc",
-  "ref_len": 132,
+  "ref_len": 80,
   "sanitize_v": 4,
-  "size": 928,
+  "size": 580,
   "status": "promoted",
+  "thumb": true
+ },
+ "func_080CAC3C": {
+  "addr": 135048252,
+  "module": "code_809E804.s",
+  "ref_len": 12,
+  "size": 180,
+  "status": "pending",
+  "thumb": true
+ },
+ "func_080CAC48": {
+  "addr": 135048264,
+  "module": "code_809E804.s",
+  "ref_len": 12,
+  "size": 181,
+  "status": "pending",
+  "thumb": true
+ },
+ "func_080CAC54": {
+  "addr": 135048276,
+  "module": "code_809E804.s",
+  "ref_len": 28,
+  "size": 309,
+  "status": "pending",
   "thumb": true
  },
  "func_080CAC70": {

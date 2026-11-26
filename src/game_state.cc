@@ -1673,6 +1673,21 @@ typedef struct G08016EC4 {
 typedef struct GenObj__func_0801140C GenObj__func_0801140C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08016CEC {
+    void *unk0;
+    struct GenObj__func_08016CEC *unk4;
+    u8 _pad8[0x30];
+    void *unk38;
+    u8 _pad3C[4];
+    void *unk40;
+    u8 _pad44[0x58];
+    i32 unk9C;
+    u8 _padA0[8];
+    struct GenObj__func_08016CEC *unkA8;
+} GenObj__func_08016CEC;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08010348 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 rand();                                         /* extern */
@@ -3493,6 +3508,26 @@ void func_08016CCC(GenObj__func_08016CCC *arg0) {
     ((void (*)(GenObj__func_08016CCC *))(x->unk14->unkAC))(x);
 }
 }
+// DECOMP-MATCHED func_08016CEC (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+
+
+__attribute__((section(".text.game_state.08016CEC")))
+void func_08016CEC(GenObj__func_08016CEC *arg0, i32 arg1) {
+    GenObj__func_08016CEC **slot;
+    GenObj__func_08016CEC *x;
+
+    slot = (GenObj__func_08016CEC **) ((u8 *) arg0->unk4 + 0xA8);
+    ((i32 (*)(GenObj__func_08016CEC *, i32)) (((GenObj__func_08016CEC *) *(void **) *slot)->unk38))(*slot, arg1);
+    x = ((GenObj__func_08016CEC *(*)(GenObj__func_08016CEC *, i32)) (((GenObj__func_08016CEC *) *(void **) *slot)->unk40))(*slot, arg1);
+    if (x != 0) {
+        if (((u8) ((i32 (*)(GenObj__func_08016CEC *)) *(void **) (*(i32 *) ((u8 *) x + 0x14) + 0x28))(x)) == 0) {
+            ((i32 (*)(GenObj__func_08016CEC *)) *(void **) (*(i32 *) ((u8 *) x + 0x14) + 0x20))(x);
+        }
+    }
+}
+}
+
 
 // DECOMP-MATCHED func_08016D48 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -3885,7 +3920,6 @@ void func_0801DCA8(GenObj__func_0801DCA8 *arg0) {
 // DECOMP-MATCHED func_0801DCD4 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 i32 GetValueShipped__C11ShippingBin(i32);             /* extern */
 u32 func_0801140C(GenObj__func_0801140C *arg0);                             /* extern */
 __attribute__((section(".text.game_state.0801DCD4")))
@@ -3902,7 +3936,6 @@ void func_0801DCD4(void **arg0) {
     ((void (*)(void **, i32 *, i32)) *slot)(arg0, args, 1);
 }
 }
-
 
 // DECOMP-MATCHED func_0801DD18 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {

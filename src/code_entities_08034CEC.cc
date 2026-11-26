@@ -758,6 +758,25 @@ typedef struct Obj {
 } Obj;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08037244 {
+    i32 unk0;
+    i32 unk4;
+    u8 _pad8[44];
+    i32 unk34;
+    i32 unk38;
+} GenObj__func_08037244;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08037098 {
+    u8 _pad0[24];
+    i32 unk18;
+    i32 unk1C;
+    u8 unk20;
+} GenObj__func_08037098;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035908 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 SetAnim__12AActorEntityUi(void *, i32);           /* extern */
@@ -2065,6 +2084,52 @@ void *func_08037008(GenObj__func_08037008 *arg0, i32 arg1, i32 arg2, i32 arg3, i
     p += 6;
     *(u8 *) p = 1;
     return arg0;
+}
+}
+
+// DECOMP-MATCHED func_08037098 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_entities_08034CEC.08037098")))
+void func_08037098(GenObj__func_08037098 *arg0, i32 arg1) {
+    i32 var_r4;
+    i32 var_r5;
+    u8 temp_r0;
+
+    var_r4 = 0;
+    var_r5 = 0;
+    temp_r0 = arg0->unk20;
+    switch (temp_r0) {                              /* irregular */
+    case 0:
+        var_r5 = arg1;
+        break;
+    case 1:
+        var_r5 = 0 - arg1;
+        break;
+    case 2:
+        var_r4 = 0 - arg1;
+        break;
+    case 3:
+        var_r4 = arg1;
+        break;
+    }
+    arg0->unk18 = var_r4;
+    arg0->unk1C = var_r5;
+}
+}
+
+// DECOMP-MATCHED func_08037244 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+
+__attribute__((section(".text.code_entities_08034CEC.08037244")))
+void func_08037244(GenObj__func_08037244 *arg0, GenObj__func_08037244 *arg1) {
+    i32 b;
+    i32 a;
+
+    b = arg1->unk4;
+    a = arg1->unk0;
+    arg0->unk34 = a;
+    arg0->unk38 = b;
 }
 }
 

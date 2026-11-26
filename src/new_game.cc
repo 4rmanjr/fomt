@@ -202,6 +202,77 @@ typedef struct GenObj__func_08003DF0 {
 } GenObj__func_08003DF0;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Inner {
+    u8 _pad0[0x10];
+    void (*unk10)(void *, void *);
+} Inner;
+typedef struct Obj__func_08003B40 {
+    u8 _pad0[8];
+    Inner *unk8;
+} Obj__func_08003B40;
+typedef struct Sp4 {
+    u16 f0;
+    u8 _pad2[2];
+    i32 unk0;
+    i32 unk4;
+    i32 *unk8;
+    i32 tail;
+} Sp4;
+// === END MIGRATED TYPES ===
+
+// DECOMP-MATCHED func_08003B40 (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08008918(i32);                              /* extern */
+i32 func_08008940(i32);                              /* extern */
+i32 func_08009300(void *, ...);                      /* extern */
+i32 func_0800934C(void *, i32, i32, i32);            /* extern */
+void func_080094B8(GenObj__func_080098AC *, void *); /* extern */
+i32 func_080087C8(i32);                              /* extern */
+extern i32 vtable_unk_080E5B80;
+
+__attribute__((section(".text.new_game.08003B40")))
+void func_08003B40(i32 arg0) {
+    register i32 a __asm__("r5");
+    register i32 z __asm__("r0");
+    register i32 *p4 __asm__("r4");
+    Sp4 sp4;
+    u8 *t1;
+    void *t2;
+    Obj__func_08003B40 *o;
+    i32 *tp;
+    i32 c;
+
+    a = arg0;
+    t1 = (u8 *) func_08008918(a);
+    sp4.f0 = 0x3F;
+    *(u16 *) ((u8 *) t1 + 0x50) = 0x3F;
+    t2 = (void *) func_08008918(a);
+    p4 = &sp4.unk0;
+    z = 0;
+    sp4.unk0 = z;
+    p4[1] = z;
+    sp4.unk8 = &vtable_unk_080E5B80;
+    tp = &sp4.tail;
+    __asm__ volatile("" : "+r"(tp) : : "memory");
+    func_08009300(tp, t2);
+    c = 0x889;
+    tp = &sp4.tail;
+    __asm__ volatile("" : "+r"(tp) : : "memory");
+    func_0800934C(tp, c, 1, 1);
+    o = (Obj__func_08003B40 *) func_08008940(a);
+    o->unk8->unk10((void *) o, p4);
+    goto chk_done;
+loop_body: ;
+    func_080087C8(a);
+chk_done: ;
+    if (((i32) ((0 - sp4.unk0) | sp4.unk0)) < 0) {
+        goto loop_body;
+    }
+    func_080094B8((GenObj__func_080098AC *) p4, (void *) 2);
+}
+}
+
 // DECOMP-MATCHED func_08003BB4 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080087C8(i32);                             /* extern */

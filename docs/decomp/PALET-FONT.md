@@ -37,11 +37,11 @@ Dua alasan struktural yang membuat pasangan tidak otomatis ada:
 
 ### `gUnk_084F90CC` (belum terbukti)
 
-- `func_080D0D28` — asm/code_809E804.s:102989
+- `func_080D0D28` — asm/code_809E804.s:103017
 
 ### `gUnk_084FA9A0` (belum terbukti)
 
-- `func_080D0D28` — asm/code_809E804.s:102989
+- `func_080D0D28` — asm/code_809E804.s:103017
 
 ### `gUnk_0852D984` (belum terbukti)
 

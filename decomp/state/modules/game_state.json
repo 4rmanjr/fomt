@@ -2201,10 +2201,18 @@
   "module": "game_state.s",
   "note": "",
   "promoted_to": "decomp/promoted/game_state.cc",
-  "ref_len": 92,
+  "ref_len": 72,
   "sanitize_v": 4,
-  "size": 847,
+  "size": 697,
   "status": "promoted",
+  "thumb": true
+ },
+ "func_08016D34": {
+  "addr": 134311220,
+  "module": "game_state.s",
+  "ref_len": 20,
+  "size": 225,
+  "status": "pending",
   "thumb": true
  },
  "func_08016D48": {

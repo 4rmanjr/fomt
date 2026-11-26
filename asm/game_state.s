@@ -13631,9 +13631,17 @@ func_08016CEC: @ 0x08016CEC
     pop {r0}
     bx r0
     .align 2, 0
-.L08016D34:
-    .byte 0x00, 0xB5, 0x40, 0x68, 0xA8, 0x30, 0x00, 0x68, 0x02, 0x68, 0xD2, 0x6B
-    .byte 0xBC, 0xF0, 0xE8, 0xFD, 0x01, 0xBC, 0x00, 0x47
+    thumb_func_start func_08016D34
+func_08016D34: @ 0x08016D34
+    push {lr}
+    ldr r0, [r0, #4]
+    adds r0, #0xa8
+    ldr r0, [r0]
+    ldr r2, [r0]
+    ldr r2, [r2, #0x3c]
+    bl func_080D379C+0x178
+    pop {r0}
+    bx r0
 
     thumb_func_start func_08016D48
 func_08016D48: @ 0x08016D48

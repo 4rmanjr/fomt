@@ -3393,6 +3393,26 @@ void func_080C8550(GenObj__func_080C8550 *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_080CABEC (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08050DC8(i32, i32, i32, i32);                /* extern */
+i32 func_08050E98(i32, i32);                          /* extern */
+
+__attribute__((section(".text.code_809E804.080CABEC")))
+void func_080CABEC(i32 arg0, i32 arg1) {
+    i32 temp_r4;
+
+    temp_r4 = arg0 + 0x348;
+    func_08050E98(temp_r4, 4);
+    func_08050E98(temp_r4, 8);
+    func_08050E98(temp_r4, 1);
+    func_08050E98(temp_r4, 2);
+    func_08050E98(temp_r4, 0x10);
+    func_08050E98(temp_r4, 0x20);
+    func_08050DC8(temp_r4, arg1, 0, 0);
+}
+}
+
 // DECOMP-MATCHED func_080CBA60 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 struct GenObj__func_080CADA8;
@@ -3603,7 +3623,6 @@ void func_080CFB5C(u8 *arg0, i32 arg1, u32 arg2) {
     }
 }
 }
-
 
 // DECOMP-MATCHED func_080D06D0 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
