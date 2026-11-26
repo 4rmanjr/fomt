@@ -16,13 +16,188 @@
   "tool": "tilemap_bank.py",
   "version": 1
  },
- "layers": [],
- "raw": [
+ "note": "12 record 2x3 (144/12)",
+ "evidence": "method_0800AF5C mengembalikan base + indeks record; func_080AA6D0 menyalin 4 B dari +0, +4, dan +8 ke tiga baris 2 u16. Unk_Something berukuran 0x0C, jadi setiap record tepat 2x3.",
+ "layers": [
   {
    "offset": 0,
-   "hex": "ff93ff935193529353935493ff93ff9321a322a323a324a3ffa3ffa321a322a323a324a3ff93ff933da33ea341a342a3ffa3ffa33da33ea341a342a3ff93ff9335a336a339a33aa3ffa3ffa335a336a339a33aa3ff93ff933fa340a343a344a3ffa3ffa33fa340a343a344a3ff93ff9337a338a33ba33ca3ffa3ffa337a338a33ba33ca3ff93ff9345b346b347b348b3"
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    37713,
+    37714,
+    37715,
+    37716
+   ]
+  },
+  {
+   "offset": 12,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    41761,
+    41762,
+    41763,
+    41764
+   ]
+  },
+  {
+   "offset": 24,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    41983,
+    41983,
+    41761,
+    41762,
+    41763,
+    41764
+   ]
+  },
+  {
+   "offset": 36,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    41789,
+    41790,
+    41793,
+    41794
+   ]
+  },
+  {
+   "offset": 48,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    41983,
+    41983,
+    41789,
+    41790,
+    41793,
+    41794
+   ]
+  },
+  {
+   "offset": 60,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    41781,
+    41782,
+    41785,
+    41786
+   ]
+  },
+  {
+   "offset": 72,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    41983,
+    41983,
+    41781,
+    41782,
+    41785,
+    41786
+   ]
+  },
+  {
+   "offset": 84,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    41791,
+    41792,
+    41795,
+    41796
+   ]
+  },
+  {
+   "offset": 96,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    41983,
+    41983,
+    41791,
+    41792,
+    41795,
+    41796
+   ]
+  },
+  {
+   "offset": 108,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    41783,
+    41784,
+    41787,
+    41788
+   ]
+  },
+  {
+   "offset": 120,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    41983,
+    41983,
+    41783,
+    41784,
+    41787,
+    41788
+   ]
+  },
+  {
+   "offset": 132,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45893,
+    45894,
+    45895,
+    45896
+   ]
   }
- ],
- "note": "Raw penuh; belum ada layer/grid yang terbukti. Source exact, byte tidak diklaim decoded.",
- "evidence": "method_0800AF5C (src/field.cc) mengembalikan pointer ini untuk GetUnk8()==1; tidak ada field yang terbukti dibaca."
+ ]
 }

@@ -19,7 +19,20 @@
     "tool": "tile4bpp.py",
     "version": 1
    },
-   "evidence": "memcpy (code_0803A8A4.s:3782) menyalin 0x20 B dari +0x3A0, dan tapak 4583 menyalin satu tile 0x20 B per indeks; slice 4100 B belum terbukti tersalin penuh."
+   "evidence": "memcpy (code_0803A8A4.s:3782) menyalin 0x20 B dari +0x3A0, dan tapak 4583 menyalin satu tile 0x20 B per indeks; slice 4100 B belum terbukti tersalin penuh.",
+   "opaque": [
+    {
+     "offset": 4096,
+     "size": 4,
+     "reason": "Tail container tidak punya pembaca; disimpan eksplisit.",
+     "evidence": "Container func_0805E6CC berakhir sebelum +0x1000; tail 0x1000..0x1004 (4 B) tidak dirujuk literal/pointer tengah.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/fonts/gunk_0875b444",
@@ -40,7 +53,20 @@
     "tool": "font_container.py",
     "version": 1
    },
-   "evidence": "func_0803C5B0 (code_0803A8A4.s:3610): func_0805E6CC(obj, gUnk_0875B444); container A=6/B=6/C=1/D=24/E=1/F=0/T=6 berakhir di +0x3D4. Tail +0x3D4..+0x4F4 (0x120 B) dan +0x4F4..+0x514 (0x20 B) dibaca lewat gUnk_080F9F70/74; +0x514..+0x5B4 (0xA0 B) tanpa pembaca."
+   "evidence": "func_0803C5B0 (code_0803A8A4.s:3610): func_0805E6CC(obj, gUnk_0875B444); container A=6/B=6/C=1/D=24/E=1/F=0/T=6 berakhir di +0x3D4. Tail +0x3D4..+0x4F4 (0x120 B) dan +0x4F4..+0x514 (0x20 B) dibaca lewat gUnk_080F9F70/74; +0x514..+0x5B4 (0xA0 B) tanpa pembaca.",
+   "opaque": [
+    {
+     "offset": 1300,
+     "size": 160,
+     "reason": "0xA0 B terakhir tidak punya consumer: dua tail sebelumnya dibaca lewat gUnk_080F9F70/74, sisanya tidak.",
+     "evidence": "func_0803C5B0 (code_0803A8A4.s:3610) memanggil func_0805E6CC; tail +0x3D4..+0x4F4 (0x120 B) dan +0x4F4..+0x514 (0x20 B) dibaca lewat gUnk_080F9F70/74. +0x514..+0x5B4 (0xA0 B) tidak dirujuk literal/pointer tengah.",
+     "tried": [
+      "scan pointer gUnk_080F9F70/74",
+      "cek batas container",
+      "scan xref simbol"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/fonts/gunk_084f90cc",
@@ -160,7 +186,20 @@
    "encoder": {
     "tool": "font_container.py",
     "version": 1
-   }
+   },
+   "opaque": [
+    {
+     "offset": 385156,
+     "size": 32,
+     "reason": "Tail container tidak punya pembaca; disimpan eksplisit.",
+     "evidence": "Container func_0805E6CC berakhir sebelum +0x5E084; tail 0x5E084..0x5E0A4 (32 B) tidak dirujuk literal/pointer tengah.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/fonts/gunk_0858ba28",
@@ -200,7 +239,20 @@
    "encoder": {
     "tool": "font_container.py",
     "version": 1
-   }
+   },
+   "opaque": [
+    {
+     "offset": 12796,
+     "size": 18648,
+     "reason": "Tail container tidak punya pembaca; disimpan eksplisit.",
+     "evidence": "Container func_0805E6CC berakhir sebelum +0x31FC; tail 0x31FC..0x7AD4 (18648 B) tidak dirujuk literal/pointer tengah.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/fonts/gunk_086faa80",
@@ -920,7 +972,20 @@
    "encoder": {
     "tool": "font_container.py",
     "version": 1
-   }
+   },
+   "opaque": [
+    {
+     "offset": 4112,
+     "size": 5732,
+     "reason": "Tail container tidak punya pembaca; disimpan eksplisit.",
+     "evidence": "Container func_0805E6CC berakhir sebelum +0x1010; tail 0x1010..0x2674 (5732 B) tidak dirujuk literal/pointer tengah.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/fonts/gunk_0874e530",
@@ -1172,7 +1237,7 @@
   {
    "id": "gfx/maps/gunk_086d6368",
    "symbol": "gUnk_086D6368",
-   "kind": "tilemap_bank",
+   "kind": "table",
    "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
@@ -1184,10 +1249,23 @@
     "json": "assets/gfx/maps/gUnk_086D6368.json"
    },
    "encoder": {
-    "tool": "tilemap_bank.py",
+    "tool": "table.py",
     "version": 1
    },
-   "evidence": "func_080A97CC (code_809E804.s:22126) dan func_080CFB5C (100741) menyalin 0x60 B pertama ke lapis +0x100; 0x90 B sisa belum punya pembaca."
+   "evidence": "func_080A97CC/080A97F4 menyalin 0x60 B pertama ke lapis +0x100; 0x60 B sisa tidak punya pembaca.",
+   "opaque": [
+    {
+     "offset": 96,
+     "size": 144,
+     "reason": "Tidak ada consumer: hanya 0x60 B pertama yang disalin; sisa tidak dirujuk literal maupun pointer tengah.",
+     "evidence": "func_080A97CC (22126) / func_080A97F4 (22142) hanya memanggil func_08008E64 dengan panjang 0x60 dari offset 0. Tidak ada referensi lain ke simbol atau offset tengah.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek fungsi penyalin"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/maps/gunk_086d6458",
@@ -1207,7 +1285,7 @@
     "tool": "tilemap_bank.py",
     "version": 1
    },
-   "evidence": "method_0800AF5C (src/field.cc) mengembalikan pointer ini untuk GetUnk8()==0; tidak ada field yang terbukti dibaca."
+   "evidence": "method_0800AF5C mengembalikan base + indeks record; func_080AA6D0 menyalin 4 B dari +0, +4, dan +8 ke tiga baris 2 u16. Unk_Something berukuran 0x0C, jadi setiap record tepat 2x3."
   },
   {
    "id": "gfx/maps/gunk_086d6518",
@@ -1267,12 +1345,12 @@
     "tool": "tilemap_bank.py",
     "version": 1
    },
-   "evidence": "method_0800AF20 mengembalikan gUnk_086D6528 untuk field 2 (literal 0xAF50); func_080AA6D0 hanya menyalin src+0 dan src+4 (2x2 = 8 B). Sisa 24 B belum punya pembaca dan disimpan raw."
+   "evidence": "method_0800AF20 mengembalikan gUnk_086D6528 untuk field 2; func_080AA6D0 menyalin 4 B dari +0 dan +4 (2 baris x 2 u16). Ukuran 32 B habis dibagi 8, sehingga empat record 2x2; hanya record 0 yang punya call site langsung."
   },
   {
    "id": "gfx/maps/gunk_086d6548",
    "symbol": "gUnk_086D6548",
-   "kind": "tilemap_bank",
+   "kind": "table",
    "semantics": "unidentified",
    "status": "rom-exact",
    "rom": {
@@ -1284,10 +1362,23 @@
     "json": "assets/gfx/maps/gUnk_086D6548.json"
    },
    "encoder": {
-    "tool": "tilemap_bank.py",
+    "tool": "table.py",
     "version": 1
    },
-   "evidence": "func_080A97F4 (code_809E804.s:22142) menyalin 0x60 B pertama ke lapis +0x100; 0x60 B sisa belum punya pembaca."
+   "evidence": "func_080A97CC/080A97F4 menyalin 0x60 B pertama ke lapis +0x100; 0x60 B sisa tidak punya pembaca.",
+   "opaque": [
+    {
+     "offset": 96,
+     "size": 96,
+     "reason": "Tidak ada consumer: hanya 0x60 B pertama yang disalin; sisa tidak dirujuk literal maupun pointer tengah.",
+     "evidence": "func_080A97CC (22126) / func_080A97F4 (22142) hanya memanggil func_08008E64 dengan panjang 0x60 dari offset 0. Tidak ada referensi lain ke simbol atau offset tengah.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek fungsi penyalin"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/maps/gunk_086d6608",
@@ -1307,7 +1398,7 @@
     "tool": "tilemap_bank.py",
     "version": 1
    },
-   "evidence": "method_0800AF5C (src/field.cc) mengembalikan pointer ini untuk GetUnk8()==1; tidak ada field yang terbukti dibaca."
+   "evidence": "method_0800AF5C mengembalikan base + indeks record; func_080AA6D0 menyalin 4 B dari +0, +4, dan +8 ke tiga baris 2 u16. Unk_Something berukuran 0x0C, jadi setiap record tepat 2x3."
   },
   {
    "id": "gfx/maps/gunk_086d74f8",
@@ -1467,7 +1558,66 @@
     "tool": "tilemap_bank.py",
     "version": 1
    },
-   "evidence": "func_080AA9C8 id 0xc membaca stamp 2x2 8 B; descriptor gUnk_08106D4C (0x106D4C) menunjuk tiga layer 17x15 di 0x8/0x208/0x408 (1530 B) lewat func_080A5BD8. gUnk_081071A4 menunjuk 0x608: header u16 2/3 + 6 tile 4bpp = 196 B, dibaca func_080A5AB0; codec tilemap_bank belum mengenal blok ini. 4x4 di 0x6cc/0x6ec berasal dari record 0x107064/0x10707C yang belum terbukti dibaca untuk blob ini. Total terbukti 1538/1804 B; 266 B raw."
+   "evidence": "func_080AA9C8 id 0xc membaca stamp 2x2 8 B; descriptor gUnk_08106D4C (0x106D4C) menunjuk tiga layer 17x15 di 0x8/0x208/0x408 (1530 B) lewat func_080A5BD8. gUnk_081071A4 menunjuk 0x608: header u16 2/3 + 6 tile 4bpp = 196 B, dibaca func_080A5AB0; codec tilemap_bank belum mengenal blok ini. 4x4 di 0x6cc/0x6ec berasal dari record 0x107064/0x10707C yang belum terbukti dibaca untuk blob ini. Total terbukti 1538/1804 B; 266 B raw.",
+   "opaque": [
+    {
+     "offset": 518,
+     "size": 2,
+     "reason": "Padding alignment 2 B antara layer.",
+     "evidence": "Layer berakhir di 0x206; layer berikutnya mulai 0x208. Tidak ada pointer/descriptor ke range ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor"
+     ]
+    },
+    {
+     "offset": 1030,
+     "size": 2,
+     "reason": "Padding alignment 2 B antara layer.",
+     "evidence": "Layer berakhir di 0x406; layer berikutnya mulai 0x408. Tidak ada pointer/descriptor ke range ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor"
+     ]
+    },
+    {
+     "offset": 1542,
+     "size": 2,
+     "reason": "Padding alignment 2 B antara layer.",
+     "evidence": "Layer berakhir di 0x606; layer berikutnya mulai 0x608. Tidak ada pointer/descriptor ke range ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor"
+     ]
+    },
+    {
+     "offset": 1740,
+     "size": 64,
+     "reason": "64 B setelah blok animasi tidak punya descriptor layer yang cocok.",
+     "evidence": "Tidak ada descriptor 0x18 B di 0x10692C..0x1070DC yang menunjuk 0x6CC/0x6EC; 0x107064/0x10707C berisi dims 0. Tidak ada literal/pointer tengah.",
+     "tried": [
+      "trace func_0809C510",
+      "scan call func_080AA850",
+      "cek vtable"
+     ]
+    }
+   ],
+   "tile_animations": [
+    {
+     "offset": 1544,
+     "header": [
+      2,
+      3
+     ],
+     "tiles_per_frame": 2,
+     "frames": 3,
+     "tiles_hex": "555555556556556656556656656556655566665665666655565556655655665555555555666565555656655565566556665555565566555566555656555556555556565655565556555555555655666655665656655665656666566666665555555665665566555555555555656555655665555656655665555556556655556566566655665555665665665566555555555555556555655665555655655665655556556655556566565656555655565555555555556666656656565656656556",
+     "note": "header u16 2 tile/frame + u16 3 frame; 6 tile 4bpp (192 B); dibaca func_080A5AB0 lewat gUnk_081071A4/C8."
+    }
+   ]
   },
   {
    "id": "gfx/maps/gunk_086dcc88",
@@ -1487,7 +1637,20 @@
     "tool": "tilemap_bank.py",
     "version": 1
    },
-   "evidence": "func_080AA9C8 memilih gUnk_086DCC88 untuk id 0xe (baris 24513); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini."
+   "evidence": "func_080AA9C8 memilih gUnk_086DCC88 untuk id 0xe (baris 24513); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini.",
+   "opaque": [
+    {
+     "offset": 32,
+     "size": 2536,
+     "reason": "Tail 2536 B setelah stamp 4x4 tidak punya consumer.",
+     "evidence": "func_080AA9C8 hanya membaca 16 entri (32 B) dari offset 0 untuk id 0xe/0xf; tidak ada descriptor/pointer tengah ke 0x20..0xA08.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/maps/gunk_086dd690",
@@ -1547,7 +1710,66 @@
     "tool": "tilemap_bank.py",
     "version": 1
    },
-   "evidence": "func_080AA9C8 id 0xf membaca stamp 2x2 8 B; descriptor gUnk_08106D64 (0x106D64) menunjuk tiga layer 17x15 di 0x8/0x208/0x408 (1530 B) lewat func_080A5BD8. gUnk_081071C8 menunjuk 0x608: header u16 2/3 + 6 tile 4bpp = 196 B, dibaca func_080A5AB0; codec tilemap_bank belum mengenal blok ini. 4x4 di 0x6cc/0x6ec berasal dari record 0x107094/0x1070AC yang belum terbukti dibaca untuk blob ini. Total terbukti 1538/1804 B; 266 B raw."
+   "evidence": "func_080AA9C8 id 0xf membaca stamp 2x2 8 B; descriptor gUnk_08106D64 (0x106D64) menunjuk tiga layer 17x15 di 0x8/0x208/0x408 (1530 B) lewat func_080A5BD8. gUnk_081071C8 menunjuk 0x608: header u16 2/3 + 6 tile 4bpp = 196 B, dibaca func_080A5AB0; codec tilemap_bank belum mengenal blok ini. 4x4 di 0x6cc/0x6ec berasal dari record 0x107094/0x1070AC yang belum terbukti dibaca untuk blob ini. Total terbukti 1538/1804 B; 266 B raw.",
+   "opaque": [
+    {
+     "offset": 518,
+     "size": 2,
+     "reason": "Padding alignment 2 B antara layer.",
+     "evidence": "Layer berakhir di 0x206; layer berikutnya mulai 0x208. Tidak ada pointer/descriptor ke range ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor"
+     ]
+    },
+    {
+     "offset": 1030,
+     "size": 2,
+     "reason": "Padding alignment 2 B antara layer.",
+     "evidence": "Layer berakhir di 0x406; layer berikutnya mulai 0x408. Tidak ada pointer/descriptor ke range ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor"
+     ]
+    },
+    {
+     "offset": 1542,
+     "size": 2,
+     "reason": "Padding alignment 2 B antara layer.",
+     "evidence": "Layer berakhir di 0x606; layer berikutnya mulai 0x608. Tidak ada pointer/descriptor ke range ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor"
+     ]
+    },
+    {
+     "offset": 1740,
+     "size": 64,
+     "reason": "64 B setelah blok animasi tidak punya descriptor layer yang cocok.",
+     "evidence": "Tidak ada descriptor 0x18 B di 0x10692C..0x1070DC yang menunjuk 0x6CC/0x6EC; 0x107064/0x10707C berisi dims 0. Tidak ada literal/pointer tengah.",
+     "tried": [
+      "trace func_0809C510",
+      "scan call func_080AA850",
+      "cek vtable"
+     ]
+    }
+   ],
+   "tile_animations": [
+    {
+     "offset": 1544,
+     "header": [
+      2,
+      3
+     ],
+     "tiles_per_frame": 2,
+     "frames": 3,
+     "tiles_hex": "555555556556556656556656656556655566665665666655565556655655665555555555666565555656655565566556665555565566555566555656555556555556565655565556555555555655666655665656655665656666566666665555555665665566555555555555656555655665555656655665555556556655556566566655665555665665665566555555555555556555655665555655655665655556556655556566565656555655565555555555556666656656565656656556",
+     "note": "header u16 2 tile/frame + u16 3 frame; 6 tile 4bpp (192 B); dibaca func_080A5AB0 lewat gUnk_081071A4/C8."
+    }
+   ]
   },
   {
    "id": "gfx/maps/gunk_086dddec",
@@ -1567,7 +1789,20 @@
     "tool": "tilemap_bank.py",
     "version": 1
    },
-   "evidence": "func_080AA9C8 memilih gUnk_086DDDEC untuk id 0xf (baris 24518); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini."
+   "evidence": "func_080AA9C8 memilih gUnk_086DDDEC untuk id 0xf (baris 24518); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini.",
+   "opaque": [
+    {
+     "offset": 32,
+     "size": 2536,
+     "reason": "Tail 2536 B setelah stamp 4x4 tidak punya consumer.",
+     "evidence": "func_080AA9C8 hanya membaca 16 entri (32 B) dari offset 0 untuk id 0xe/0xf; tidak ada descriptor/pointer tengah ke 0x20..0xA08.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/maps/gunk_086de7f4",
@@ -1587,7 +1822,185 @@
     "tool": "tilemap_bank.py",
     "version": 1
    },
-   "evidence": "asm/code_809E804.s baris 14381 (func_080A5BD8) membaca descriptor 0x18 B: u8 lebar (14397), u8 tinggi (14398), tiga pointer layer u16 di +4/+8/+0xc (14401), lalu memcpy lebar x tinggi entri per layer (14436) ke lapis peta. Tabel descriptor 0x10692C-0x1070DC (82 record) menunjuk layer di blob ini; source mencatat offset/lebar/tinggi tiap layer, dan raw menutup byte yang tidak dirujuk supaya round-trip byte-identik tanpa mengarang format."
+   "evidence": "asm/code_809E804.s baris 14381 (func_080A5BD8) membaca descriptor 0x18 B: u8 lebar (14397), u8 tinggi (14398), tiga pointer layer u16 di +4/+8/+0xc (14401), lalu memcpy lebar x tinggi entri per layer (14436) ke lapis peta. Tabel descriptor 0x10692C-0x1070DC (82 record) menunjuk layer di blob ini; source mencatat offset/lebar/tinggi tiap layer, dan raw menutup byte yang tidak dirujuk supaya round-trip byte-identik tanpa mengarang format.",
+   "opaque": [
+    {
+     "offset": 6240,
+     "size": 4996,
+     "reason": "Range 0x1860..0x2be4 (4996 B) tidak dirujuk descriptor/xref.",
+     "evidence": "Tidak ada descriptor di 0x10692C..0x1070DC yang menunjuk range ini; tidak ada referensi literal/pointer tengah ke simbol atau offset ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 12596,
+     "size": 5836,
+     "reason": "Range 0x3134..0x4800 (5836 B) tidak dirujuk descriptor/xref.",
+     "evidence": "Tidak ada descriptor di 0x10692C..0x1070DC yang menunjuk range ini; tidak ada referensi literal/pointer tengah ke simbol atau offset ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 18462,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 18494,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 18526,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 18558,
+     "size": 1158,
+     "reason": "Range 0x487e..0x4d04 (1158 B) tidak dirujuk descriptor/xref.",
+     "evidence": "Tidak ada descriptor di 0x10692C..0x1070DC yang menunjuk range ini; tidak ada referensi literal/pointer tengah ke simbol atau offset ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 24396,
+     "size": 4168,
+     "reason": "Range 0x5f4c..0x6f94 (4168 B) tidak dirujuk descriptor/xref.",
+     "evidence": "Tidak ada descriptor di 0x10692C..0x1070DC yang menunjuk range ini; tidak ada referensi literal/pointer tengah ke simbol atau offset ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 30468,
+     "size": 5360,
+     "reason": "Range 0x7704..0x8bf4 (5360 B) tidak dirujuk descriptor/xref.",
+     "evidence": "Tidak ada descriptor di 0x10692C..0x1070DC yang menunjuk range ini; tidak ada referensi literal/pointer tengah ke simbol atau offset ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 36270,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 36714,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 37158,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 37394,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 37630,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 37866,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 40268,
+     "size": 4168,
+     "reason": "Range 0x9d4c..0xad94 (4168 B) tidak dirujuk descriptor/xref.",
+     "evidence": "Tidak ada descriptor di 0x10692C..0x1070DC yang menunjuk range ini; tidak ada referensi literal/pointer tengah ke simbol atau offset ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 46204,
+     "size": 4204,
+     "reason": "Range 0xb47c..0xc4e8 (4204 B) tidak dirujuk descriptor/xref.",
+     "evidence": "Tidak ada descriptor di 0x10692C..0x1070DC yang menunjuk range ini; tidak ada referensi literal/pointer tengah ke simbol atau offset ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/maps/gunk_086eacdc",
@@ -1665,7 +2078,295 @@
     "tool": "tilemap_bank.py",
     "version": 1
    },
-   "evidence": "asm/code_809E804.s baris 14381 (func_080A5BD8) membaca descriptor 0x18 B: u8 lebar (14397), u8 tinggi (14398), tiga pointer layer u16 di +4/+8/+0xc (14401), lalu memcpy lebar x tinggi entri per layer (14436) ke lapis peta. Tabel descriptor 0x10692C-0x1070DC (82 record) menunjuk layer di blob ini; source mencatat offset/lebar/tinggi tiap layer, dan raw menutup byte yang tidak dirujuk supaya round-trip byte-identik tanpa mengarang format."
+   "evidence": "asm/code_809E804.s baris 14381 (func_080A5BD8) membaca descriptor 0x18 B: u8 lebar (14397), u8 tinggi (14398), tiga pointer layer u16 di +4/+8/+0xc (14401), lalu memcpy lebar x tinggi entri per layer (14436) ke lapis peta. Tabel descriptor 0x10692C-0x1070DC (82 record) menunjuk layer di blob ini; source mencatat offset/lebar/tinggi tiap layer, dan raw menutup byte yang tidak dirujuk supaya round-trip byte-identik tanpa mengarang format.",
+   "opaque": [
+    {
+     "offset": 74,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 106,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 222,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 314,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 406,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 454,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 486,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 518,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 550,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 582,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 614,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 646,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 678,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 710,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 742,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 774,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 806,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 886,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 918,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 950,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 982,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 1014,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 1046,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 2604,
+     "size": 388,
+     "reason": "Range 0xa2c..0xbb0 (388 B) tidak dirujuk descriptor/xref.",
+     "evidence": "Tidak ada descriptor di 0x10692C..0x1070DC yang menunjuk range ini; tidak ada referensi literal/pointer tengah ke simbol atau offset ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 3322,
+     "size": 2,
+     "reason": "Padding/alignment 2 B tanpa consumer.",
+     "evidence": "Range berada di antara layer dan tidak ditunjuk descriptor.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    },
+    {
+     "offset": 3354,
+     "size": 29958,
+     "reason": "Range 0xd1a..0x8220 (29958 B) tidak dirujuk descriptor/xref.",
+     "evidence": "Tidak ada descriptor di 0x10692C..0x1070DC yang menunjuk range ini; tidak ada referensi literal/pointer tengah ke simbol atau offset ini.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek descriptor table"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/maps/gunk_08755230",
@@ -4718,7 +5419,21 @@
     "tool": "table.py",
     "version": 1
    },
-   "evidence": "func_0806EC94 (code_0803EE94.s:94187): func_08008E64(sumber, VRAM, 0x80) menyalin satu blok gaya doghouse; header u16=4 = tile per blok, blok 0x80 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x190 B sisa tidak diklaim."
+   "evidence": "func_0806EC94 menyalin satu blok doghouse: header u16=4 tile, blok 128 B, offset +4+gaya*128. Blob berisi 4 blok; tail 16 B di 0x204 tidak dibaca.",
+   "opaque": [
+    {
+     "offset": 516,
+     "size": 16,
+     "reason": "Tail bukan bagian blok tile: func_0806EC94 hanya menyalin header+tilecount*32 B; tail tidak pernah disalin.",
+     "evidence": "func_0806EC94 (code_0803EE94.s:94173/94205/94236) menghitung offset = +4 + gaya*header*32 dan panjang = header*32. Blob doghouse berukuran 532 B; 4 blok x 128 B berakhir di +0x204, sehingga tail 0x204..0x214 (16 B) tidak tersentuh. Tidak ada xref lain ke simbol atau offset tengah.",
+     "tried": [
+      "hitung aritmetika blok dari call site",
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek semua cabang func_0806EC94"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/tables/gunk_08529ba8",
@@ -4738,7 +5453,21 @@
     "tool": "table.py",
     "version": 1
    },
-   "evidence": "func_0806EC94 (code_0803EE94.s:94219): func_08008E64(sumber, VRAM, 0x40) menyalin satu blok gaya mailbox; header u16=2 = tile per blok, blok 0x40 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x1B8 B sisa tidak diklaim."
+   "evidence": "func_0806EC94 menyalin satu blok mailbox: header u16=2 tile, blok 64 B, offset +4+gaya*64. Blob berisi 7 blok; tail 56 B di 0x1C4 tidak dibaca.",
+   "opaque": [
+    {
+     "offset": 452,
+     "size": 56,
+     "reason": "Tail bukan bagian blok tile: func_0806EC94 hanya menyalin header+tilecount*32 B; tail tidak pernah disalin.",
+     "evidence": "func_0806EC94 (code_0803EE94.s:94173/94205/94236) menghitung offset = +4 + gaya*header*32 dan panjang = header*32. Blob mailbox berukuran 508 B; 7 blok x 64 B berakhir di +0x1C4, sehingga tail 0x1C4..0x1FC (56 B) tidak tersentuh. Tidak ada xref lain ke simbol atau offset tengah.",
+     "tried": [
+      "hitung aritmetika blok dari call site",
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek semua cabang func_0806EC94"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/tables/gunk_08529da4",
@@ -4758,7 +5487,21 @@
     "tool": "table.py",
     "version": 1
    },
-   "evidence": "func_0806EC94 (code_0803EE94.s:94255): func_08008E64(sumber, VRAM, 0x2C0) menyalin satu blok gaya window; header u16=22 = tile per blok, blok 0x2C0 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x670 B sisa tidak diklaim."
+   "evidence": "func_0806EC94 menyalin satu blok window: header u16=22 tile, blok 704 B, offset +4+gaya*704. Blob berisi 3 blok; tail 240 B di 0x844 tidak dibaca.",
+   "opaque": [
+    {
+     "offset": 2116,
+     "size": 240,
+     "reason": "Tail bukan bagian blok tile: func_0806EC94 hanya menyalin header+tilecount*32 B; tail tidak pernah disalin.",
+     "evidence": "func_0806EC94 (code_0803EE94.s:94173/94205/94236) menghitung offset = +4 + gaya*header*32 dan panjang = header*32. Blob window berukuran 2356 B; 3 blok x 704 B berakhir di +0x844, sehingga tail 0x844..0x934 (240 B) tidak tersentuh. Tidak ada xref lain ke simbol atau offset tengah.",
+     "tried": [
+      "hitung aritmetika blok dari call site",
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek semua cabang func_0806EC94"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/tables/gunk_0852cc40",
@@ -4778,7 +5521,21 @@
     "tool": "table.py",
     "version": 1
    },
-   "evidence": "func_0806EC94 (code_0803EE94.s:94187): func_08008E64(sumber, VRAM, 0x80) menyalin satu blok gaya doghouse varian malam; header u16=4 = tile per blok, blok 0x80 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x190 B sisa tidak diklaim."
+   "evidence": "func_0806EC94 menyalin satu blok doghouse malam: header u16=4 tile, blok 128 B, offset +4+gaya*128. Blob berisi 4 blok; tail 16 B di 0x204 tidak dibaca.",
+   "opaque": [
+    {
+     "offset": 516,
+     "size": 16,
+     "reason": "Tail bukan bagian blok tile: func_0806EC94 hanya menyalin header+tilecount*32 B; tail tidak pernah disalin.",
+     "evidence": "func_0806EC94 (code_0803EE94.s:94173/94205/94236) menghitung offset = +4 + gaya*header*32 dan panjang = header*32. Blob doghouse malam berukuran 532 B; 4 blok x 128 B berakhir di +0x204, sehingga tail 0x204..0x214 (16 B) tidak tersentuh. Tidak ada xref lain ke simbol atau offset tengah.",
+     "tried": [
+      "hitung aritmetika blok dari call site",
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek semua cabang func_0806EC94"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/tables/gunk_0852ce54",
@@ -4798,7 +5555,21 @@
     "tool": "table.py",
     "version": 1
    },
-   "evidence": "func_0806EC94 (code_0803EE94.s:94219): func_08008E64(sumber, VRAM, 0x40) menyalin satu blok gaya mailbox varian malam; header u16=2 = tile per blok, blok 0x40 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x1B8 B sisa tidak diklaim."
+   "evidence": "func_0806EC94 menyalin satu blok mailbox malam: header u16=2 tile, blok 64 B, offset +4+gaya*64. Blob berisi 7 blok; tail 56 B di 0x1C4 tidak dibaca.",
+   "opaque": [
+    {
+     "offset": 452,
+     "size": 56,
+     "reason": "Tail bukan bagian blok tile: func_0806EC94 hanya menyalin header+tilecount*32 B; tail tidak pernah disalin.",
+     "evidence": "func_0806EC94 (code_0803EE94.s:94173/94205/94236) menghitung offset = +4 + gaya*header*32 dan panjang = header*32. Blob mailbox malam berukuran 508 B; 7 blok x 64 B berakhir di +0x1C4, sehingga tail 0x1C4..0x1FC (56 B) tidak tersentuh. Tidak ada xref lain ke simbol atau offset tengah.",
+     "tried": [
+      "hitung aritmetika blok dari call site",
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek semua cabang func_0806EC94"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/tables/gunk_0852d050",
@@ -4818,7 +5589,21 @@
     "tool": "table.py",
     "version": 1
    },
-   "evidence": "func_0806EC94 (code_0803EE94.s:94255): func_08008E64(sumber, VRAM, 0x2C0) menyalin satu blok gaya window varian malam; header u16=22 = tile per blok, blok 0x2C0 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x670 B sisa tidak diklaim."
+   "evidence": "func_0806EC94 menyalin satu blok window malam: header u16=22 tile, blok 704 B, offset +4+gaya*704. Blob berisi 3 blok; tail 240 B di 0x844 tidak dibaca.",
+   "opaque": [
+    {
+     "offset": 2116,
+     "size": 240,
+     "reason": "Tail bukan bagian blok tile: func_0806EC94 hanya menyalin header+tilecount*32 B; tail tidak pernah disalin.",
+     "evidence": "func_0806EC94 (code_0803EE94.s:94173/94205/94236) menghitung offset = +4 + gaya*header*32 dan panjang = header*32. Blob window malam berukuran 2356 B; 3 blok x 704 B berakhir di +0x844, sehingga tail 0x844..0x934 (240 B) tidak tersentuh. Tidak ada xref lain ke simbol atau offset tengah.",
+     "tried": [
+      "hitung aritmetika blok dari call site",
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek semua cabang func_0806EC94"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/tables/gunk_08698b00",
@@ -4838,7 +5623,20 @@
     "tool": "table.py",
     "version": 1
    },
-   "evidence": "func_080A9850 (code_809E804.s:22199): func_08008E64(sumber, lapis+0x160, 0x80) menyalin 0x80 B pertama ke lapis; 660 B sisa tidak punya pembaca."
+   "evidence": "func_080A9850 (code_809E804.s:22199): func_08008E64(sumber, lapis+0x160, 0x80) menyalin 0x80 B pertama ke lapis; 660 B sisa tidak punya pembaca.",
+   "opaque": [
+    {
+     "offset": 128,
+     "size": 660,
+     "reason": "Tidak ada consumer: fungsi penyalin hanya membaca 0x80 B pertama.",
+     "evidence": "func_080A9850 (22199) / func_080A9826 (22187) hanya memanggil func_08008E64 dengan panjang 0x80 dari offset 0; tidak ada referensi lain ke simbol atau offset tengah.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek fungsi penyalin"
+     ]
+    }
+   ]
   },
   {
    "id": "gfx/tables/gunk_08699ff4",
@@ -4858,7 +5656,20 @@
     "tool": "table.py",
     "version": 1
    },
-   "evidence": "func_080A9826 (code_809E804.s:22187): func_08008E64(sumber, lapis+0x160, 0x80) menyalin 0x80 B pertama ke lapis; 48 B sisa tidak punya pembaca."
+   "evidence": "func_080A9826 (code_809E804.s:22187): func_08008E64(sumber, lapis+0x160, 0x80) menyalin 0x80 B pertama ke lapis; 48 B sisa tidak punya pembaca.",
+   "opaque": [
+    {
+     "offset": 128,
+     "size": 48,
+     "reason": "Tidak ada consumer: fungsi penyalin hanya membaca 0x80 B pertama.",
+     "evidence": "func_080A9850 (22199) / func_080A9826 (22187) hanya memanggil func_08008E64 dengan panjang 0x80 dari offset 0; tidak ada referensi lain ke simbol atau offset tengah.",
+     "tried": [
+      "scan xref simbol",
+      "scan pointer tengah",
+      "cek fungsi penyalin"
+     ]
+    }
+   ]
   }
  ]
 }

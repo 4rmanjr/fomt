@@ -57,6 +57,46 @@ class AssetManifest(unittest.TestCase):
                                 or entry["source"].get("pal"))
             self.assertRegex(entry["rom"]["sha256"], r"^[0-9a-f]{64}$")
 
+    def test_raw_dan_tail_wajib_punya_opaque_berbukti(self):
+        # Ambang ketat: raw/tail tanpa range+reason+evidence ditolak, dan
+        # setiap raw harus tercakup tepat oleh range opaque.
+        for path in sorted(p for d in asset_manifest.ASSET_DIRS
+                           for p in Path(d).glob("*.json")):
+            meta = json.loads(path.read_text())
+            raw = meta.get("raw") or []
+            tail = len(meta.get("source", {}).get("tail_hex", "")) // 2
+            if not (raw or tail):
+                continue
+            with self.subTest(path=str(path)):
+                spans = meta.get("opaque") or []
+                self.assertTrue(spans, "raw/tail tanpa opaque")
+                for i, item in enumerate(spans):
+                    for key in ("offset", "size", "reason", "evidence"):
+                        self.assertTrue(item.get(key), f"opaque[{i}] {key}")
+                    self.assertGreaterEqual(item["offset"], 0)
+                    self.assertLessEqual(item["offset"] + item["size"],
+                                         meta["rom"]["size"])
+                ordered = sorted((o["offset"], o["offset"] + o["size"])
+                                 for o in spans)
+                for (_, end), (start, _) in zip(ordered, ordered[1:]):
+                    self.assertLessEqual(end, start, "range opaque tumpang tindih")
+                for j, item in enumerate(raw):
+                    start = int(str(item["offset"]), 0)
+                    end = start + len(item["hex"]) // 2
+                    self.assertTrue(
+                        any(a <= start and end <= b for a, b in ordered),
+                        f"raw[{j}] {start:#x}..{end:#x} tanpa opaque")
+
+    def test_manifest_carries_opaque_ranges(self):
+        assets = json.loads(asset_manifest.MANIFEST.read_text())["assets"]
+        by_symbol = {a["symbol"]: a for a in assets}
+        for path in sorted(p for d in asset_manifest.ASSET_DIRS
+                           for p in Path(d).glob("*.json")):
+            meta = json.loads(path.read_text())
+            if meta.get("opaque"):
+                self.assertEqual(by_symbol[meta["symbol"]]["opaque"],
+                                 meta["opaque"])
+
     def test_rejects_status_below_rom_exact(self):
         with tempfile.TemporaryDirectory() as td:
             td = Path(td)

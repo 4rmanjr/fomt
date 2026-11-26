@@ -199,6 +199,10 @@ def build_entry(meta_path, rom):
     }
     if meta.get("evidence"):
         entry["evidence"] = meta["evidence"]
+    if meta.get("opaque"):
+        entry["opaque"] = meta["opaque"]
+    if meta.get("tile_animations"):
+        entry["tile_animations"] = meta["tile_animations"]
     return entry
 
 

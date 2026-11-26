@@ -112,6 +112,17 @@ class VerifyGate(unittest.TestCase):
         self.assertLess(summary["ok"], summary["assets"])
 
     @unittest.skipUnless(ROM.exists(), "butuh baserom.gba")
+    def test_no_manifest_asset_uses_baserom_incbin(self):
+        # Semua aset yang sudah punya source tidak boleh masih memakai
+        # `.incbin "baserom.gba"`; catatan sintetis di bawah hanya menguji
+        # mekanisme pelaporan, bukan menggantikan pemeriksaan nyata ini.
+        incbins = verify.incbin_offsets()
+        assets = json.loads(MANIFEST.read_text())["assets"]
+        left = [a["symbol"] for a in assets
+                if int(str(a["rom"]["offset"]), 0) in incbins]
+        self.assertEqual(left, [])
+
+    @unittest.skipUnless(ROM.exists(), "butuh baserom.gba")
     def test_incbin_note_for_unswitched_blob(self):
         # Uji unit: pemetaan `.incbin baserom` sintetis harus menghasilkan
         # catatan, terlepas dari apakah semua aset nyata sudah dialihkan.

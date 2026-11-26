@@ -80,6 +80,18 @@ def _segments(meta, size):
         offset = int(str(layer["offset"]), 0)
         label = f"layer {offset:#x} {width}x{height}"
         segments.append((offset, bytes_from_entries(entries), label))
+    for anim in meta.get("tile_animations", []):
+        offset = int(str(anim["offset"]), 0)
+        header = anim.get("header")
+        tiles = anim.get("tiles_hex", "")
+        if not isinstance(header, list) or len(header) != 2:
+            raise ValueError(f"tile_animation {offset:#x}: header wajib 2 u16")
+        try:
+            data = struct.pack("<2H", *header) + bytes.fromhex(tiles)
+        except (struct.error, ValueError) as exc:
+            raise ValueError(f"tile_animation {offset:#x}: {exc}")
+        label = f"tile_animation {offset:#x}"
+        segments.append((offset, data, label))
     for chunk in meta.get("raw", []):
         offset = int(str(chunk["offset"]), 0)
         try:

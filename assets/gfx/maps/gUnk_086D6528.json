@@ -16,31 +16,60 @@
   "tool": "tilemap_bank.py",
   "version": 1
  },
- "evidence": "method_0800AF20 mengembalikan gUnk_086D6528 untuk field 2 (literal 0xAF50); func_080AA6D0 hanya menyalin src+0 dan src+4 (2x2 = 8 B). Sisa 24 B belum punya pembaca dan disimpan raw.",
+ "note": "4 record 2x2 (32/8); record 0 dipakai jalur method_0800AF20.",
+ "evidence": "method_0800AF20 mengembalikan gUnk_086D6528 untuk field 2; func_080AA6D0 menyalin 4 B dari +0 dan +4 (2 baris x 2 u16). Ukuran 32 B habis dibagi 8, sehingga empat record 2x2; hanya record 0 yang punya call site langsung.",
  "layers": [
   {
    "offset": 0,
    "width": 2,
    "height": 2,
+   "descriptor": "field_plot_record",
+   "slot": 0,
    "entries": [
     37709,
     37710,
     37711,
     37712
    ]
-  }
- ],
- "raw": [
+  },
   {
    "offset": 8,
-   "hex": "ff93ff9325a326a327a328a3ffa3ffa325a326a327a328a3"
+   "width": 2,
+   "height": 2,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    41765,
+    41766
+   ]
+  },
+  {
+   "offset": 16,
+   "width": 2,
+   "height": 2,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    41767,
+    41768,
+    41983,
+    41983
+   ]
+  },
+  {
+   "offset": 24,
+   "width": 2,
+   "height": 2,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    41765,
+    41766,
+    41767,
+    41768
+   ]
   }
- ],
- "note": "Layer 2x2 dari offset 0; 24 B sisa raw. Metrik: 24/32 B (75.0%) masih raw, source exact; byte sisa disimpan raw dan tidak diklaim decoded.",
- "coverage": {
-  "total_bytes": 32,
-  "proven_bytes": 8,
-  "raw_bytes": 24,
-  "proven_ratio": 0.25
- }
+ ]
 }

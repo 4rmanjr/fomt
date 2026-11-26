@@ -48,11 +48,24 @@
   }
  ],
  "evidence": "func_080AA9C8 memilih gUnk_086DCC88 untuk id 0xe (baris 24513); sl=4 dan 4 baris (baris 24515-24518), lalu loop membaca 16 entri dari offset 0. Sisa byte tidak dibaca loop ini.",
- "note": "Layer pertama dibaca loop func_080AA9C8; byte sisa belum punya pembaca, disimpan raw agar round-trip tetap byte-identik. Metrik: 2536/2568 B (98.8%) masih raw, source exact; byte sisa disimpan raw dan tidak diklaim decoded.",
+ "note": "stamp 4x4 32 B decoded; tail 2536 B opaque tanpa consumer.",
  "coverage": {
   "total_bytes": 2568,
   "proven_bytes": 32,
   "raw_bytes": 2536,
   "proven_ratio": 0.0125
- }
+ },
+ "opaque": [
+  {
+   "offset": 32,
+   "size": 2536,
+   "reason": "Tail 2536 B setelah stamp 4x4 tidak punya consumer.",
+   "evidence": "func_080AA9C8 hanya membaca 16 entri (32 B) dari offset 0 untuk id 0xe/0xf; tidak ada descriptor/pointer tengah ke 0x20..0xA08.",
+   "tried": [
+    "scan xref simbol",
+    "scan pointer tengah",
+    "cek descriptor table"
+   ]
+  }
+ ]
 }

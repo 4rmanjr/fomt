@@ -104,5 +104,18 @@
  "note": "container func_0805E6CC: A=6/B=6/C=1/D=24/E=1/F=0/T=6; ekor 480 B: 0x120 B di +0x3D4 dan 0x20 B di +0x4F4 dibaca lewat pointer gUnk_080F9F70/74, sisa 0xA0 B belum punya pembaca; PNG hanya 25 tile D+E Source exact; 0xA0 B ekor disimpan eksplisit, bukan klaim decoded.",
  "status": "rom-exact",
  "semantics": "unidentified",
- "evidence": "func_0803C5B0 (code_0803A8A4.s:3610): func_0805E6CC(obj, gUnk_0875B444); container A=6/B=6/C=1/D=24/E=1/F=0/T=6 berakhir di +0x3D4. Tail +0x3D4..+0x4F4 (0x120 B) dan +0x4F4..+0x514 (0x20 B) dibaca lewat gUnk_080F9F70/74; +0x514..+0x5B4 (0xA0 B) tanpa pembaca."
+ "evidence": "func_0803C5B0 (code_0803A8A4.s:3610): func_0805E6CC(obj, gUnk_0875B444); container A=6/B=6/C=1/D=24/E=1/F=0/T=6 berakhir di +0x3D4. Tail +0x3D4..+0x4F4 (0x120 B) dan +0x4F4..+0x514 (0x20 B) dibaca lewat gUnk_080F9F70/74; +0x514..+0x5B4 (0xA0 B) tanpa pembaca.",
+ "opaque": [
+  {
+   "offset": 1300,
+   "size": 160,
+   "reason": "0xA0 B terakhir tidak punya consumer: dua tail sebelumnya dibaca lewat gUnk_080F9F70/74, sisanya tidak.",
+   "evidence": "func_0803C5B0 (code_0803A8A4.s:3610) memanggil func_0805E6CC; tail +0x3D4..+0x4F4 (0x120 B) dan +0x4F4..+0x514 (0x20 B) dibaca lewat gUnk_080F9F70/74. +0x514..+0x5B4 (0xA0 B) tidak dirujuk literal/pointer tengah.",
+   "tried": [
+    "scan pointer gUnk_080F9F70/74",
+    "cek batas container",
+    "scan xref simbol"
+   ]
+  }
+ ]
 }

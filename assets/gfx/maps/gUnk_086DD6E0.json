@@ -837,15 +837,78 @@
   },
   {
    "offset": 1542,
-   "hex": "00000200030055555555655655665655665665655665556666566566665556555665565566555555555566656555565665556556655666555556556655556655565655555655555656565556555655555555565566665566565665566565666656666666555555566566556655555555555565655565566555565665566555555655665555656656665566555566566566556655555555555555655565566555565565566565555655665555656656565655565556555555555555666665665656565665655600400140024003400440054006400740084009400a400b400c400d400e400f409443954396439743984399439a439b439c439d439e439f43a043a143a243a343"
+   "hex": "0000"
+  },
+  {
+   "offset": 1740,
+   "hex": "00400140024003400440054006400740084009400a400b400c400d400e400f409443954396439743984399439a439b439c439d439e439f43a043a143a243a343"
   }
  ],
- "note": "Stamp 2x2 + tiga layer 17x15 = 1538/1804 B terbukti. Blok tile 0x608-0x6cc (196 B) punya pembaca tetapi belum didukung codec; 64 B 4x4 di 0x6cc dan 6 B padding belum terbukti.",
+ "note": "stamp 2x2 + 3 layer 17x15 = 1538 B decoded; 196 B blok tile punya reader, 64 B 4x4 belum terbukti, 6 B padding; source exact.",
  "evidence": "func_080AA9C8 id 0xf membaca stamp 2x2 8 B; descriptor gUnk_08106D64 (0x106D64) menunjuk tiga layer 17x15 di 0x8/0x208/0x408 (1530 B) lewat func_080A5BD8. gUnk_081071C8 menunjuk 0x608: header u16 2/3 + 6 tile 4bpp = 196 B, dibaca func_080A5AB0; codec tilemap_bank belum mengenal blok ini. 4x4 di 0x6cc/0x6ec berasal dari record 0x107094/0x1070AC yang belum terbukti dibaca untuk blob ini. Total terbukti 1538/1804 B; 266 B raw.",
  "coverage": {
   "total_bytes": 1804,
   "proven_bytes": 1538,
   "raw_bytes": 266,
   "proven_ratio": 0.8525
- }
+ },
+ "opaque": [
+  {
+   "offset": 518,
+   "size": 2,
+   "reason": "Padding alignment 2 B antara layer.",
+   "evidence": "Layer berakhir di 0x206; layer berikutnya mulai 0x208. Tidak ada pointer/descriptor ke range ini.",
+   "tried": [
+    "scan xref simbol",
+    "scan pointer tengah",
+    "cek descriptor"
+   ]
+  },
+  {
+   "offset": 1030,
+   "size": 2,
+   "reason": "Padding alignment 2 B antara layer.",
+   "evidence": "Layer berakhir di 0x406; layer berikutnya mulai 0x408. Tidak ada pointer/descriptor ke range ini.",
+   "tried": [
+    "scan xref simbol",
+    "scan pointer tengah",
+    "cek descriptor"
+   ]
+  },
+  {
+   "offset": 1542,
+   "size": 2,
+   "reason": "Padding alignment 2 B antara layer.",
+   "evidence": "Layer berakhir di 0x606; layer berikutnya mulai 0x608. Tidak ada pointer/descriptor ke range ini.",
+   "tried": [
+    "scan xref simbol",
+    "scan pointer tengah",
+    "cek descriptor"
+   ]
+  },
+  {
+   "offset": 1740,
+   "size": 64,
+   "reason": "64 B setelah blok animasi tidak punya descriptor layer yang cocok.",
+   "evidence": "Tidak ada descriptor 0x18 B di 0x10692C..0x1070DC yang menunjuk 0x6CC/0x6EC; 0x107064/0x10707C berisi dims 0. Tidak ada literal/pointer tengah.",
+   "tried": [
+    "trace func_0809C510",
+    "scan call func_080AA850",
+    "cek vtable"
+   ]
+  }
+ ],
+ "tile_animations": [
+  {
+   "offset": 1544,
+   "header": [
+    2,
+    3
+   ],
+   "tiles_per_frame": 2,
+   "frames": 3,
+   "tiles_hex": "555555556556556656556656656556655566665665666655565556655655665555555555666565555656655565566556665555565566555566555656555556555556565655565556555555555655666655665656655665656666566666665555555665665566555555555555656555655665555656655665555556556655556566566655665555665665665566555555555555556555655665555655655665655556556655556566565656555655565555555555556666656656565656656556",
+   "note": "header u16 2 tile/frame + u16 3 frame; 6 tile 4bpp (192 B); dibaca func_080A5AB0 lewat gUnk_081071A4/C8."
+  }
+ ]
 }

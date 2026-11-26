@@ -127,6 +127,26 @@
      "evidence": {
       "type": "string"
      },
+     "tile_animations": {
+      "type": "array",
+      "description": "Blok tile beranimasi: header u16 + byte tile 4bpp.",
+      "items": {"type": "object"}
+     },
+     "opaque": {
+      "type": "array",
+      "description": "Range byte yang belum terdecode; wajib punya offset, size, reason, dan evidence.",
+      "items": {
+       "type": "object",
+       "required": ["offset", "size", "reason", "evidence"],
+       "properties": {
+        "offset": {"type": "integer", "minimum": 0},
+        "size": {"type": "integer", "minimum": 1},
+        "reason": {"type": "string", "minLength": 1},
+        "evidence": {"type": "string", "minLength": 1},
+        "tried": {"type": "array", "items": {"type": "string"}}
+       }
+      }
+     },
      "note": {
       "type": "string"
      },

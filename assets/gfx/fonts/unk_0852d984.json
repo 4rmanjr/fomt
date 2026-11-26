@@ -103,5 +103,18 @@
  },
  "note": "count 184 + tabel; func_0805E6CC (font/objek), bukan tile datar",
  "status": "rom-exact",
- "semantics": "unidentified"
+ "semantics": "unidentified",
+ "opaque": [
+  {
+   "offset": 385156,
+   "size": 32,
+   "reason": "Tail container tidak punya pembaca; disimpan eksplisit.",
+   "evidence": "Container func_0805E6CC berakhir sebelum +0x5E084; tail 0x5E084..0x5E0A4 (32 B) tidak dirujuk literal/pointer tengah.",
+   "tried": [
+    "scan xref simbol",
+    "scan pointer tengah",
+    "cek descriptor table"
+   ]
+  }
+ ]
 }

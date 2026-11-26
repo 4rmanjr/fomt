@@ -16,13 +16,248 @@
   "tool": "tilemap_bank.py",
   "version": 1
  },
- "layers": [],
- "raw": [
+ "note": "16 record 2x3 (192/12)",
+ "evidence": "method_0800AF5C mengembalikan base + indeks record; func_080AA6D0 menyalin 4 B dari +0, +4, dan +8 ke tiga baris 2 u16. Unk_Something berukuran 0x0C, jadi setiap record tepat 2x3.",
+ "layers": [
   {
    "offset": 0,
-   "hex": "ff93ff93ff93ff93ff93ff93ff93ff932da32ea32fa330a3ffa3ffa32da32ea32fa330a3ff93ff9365b366b36bb36cb3ff93ff9367b368b36bb36cb3ff93ff9365b366b369b36ab3ff93ff9367b368b369b36ab3ff93ff935db35eb363b364b3ff93ff935fb360b363b364b3ff93ff935db35eb361b362b3ff93ff935fb360b361b362b3ff93ff9355b356b35bb35cb3ff93ff9357b358b35bb35cb3ff93ff9355b356b359b35ab3ff93ff9357b358b359b35ab3ff93ff936db36eb36fb370b3"
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    37887,
+    37887,
+    37887,
+    37887
+   ]
+  },
+  {
+   "offset": 12,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    41773,
+    41774,
+    41775,
+    41776
+   ]
+  },
+  {
+   "offset": 24,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    41983,
+    41983,
+    41773,
+    41774,
+    41775,
+    41776
+   ]
+  },
+  {
+   "offset": 36,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45925,
+    45926,
+    45931,
+    45932
+   ]
+  },
+  {
+   "offset": 48,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45927,
+    45928,
+    45931,
+    45932
+   ]
+  },
+  {
+   "offset": 60,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45925,
+    45926,
+    45929,
+    45930
+   ]
+  },
+  {
+   "offset": 72,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45927,
+    45928,
+    45929,
+    45930
+   ]
+  },
+  {
+   "offset": 84,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45917,
+    45918,
+    45923,
+    45924
+   ]
+  },
+  {
+   "offset": 96,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45919,
+    45920,
+    45923,
+    45924
+   ]
+  },
+  {
+   "offset": 108,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45917,
+    45918,
+    45921,
+    45922
+   ]
+  },
+  {
+   "offset": 120,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45919,
+    45920,
+    45921,
+    45922
+   ]
+  },
+  {
+   "offset": 132,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45909,
+    45910,
+    45915,
+    45916
+   ]
+  },
+  {
+   "offset": 144,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45911,
+    45912,
+    45915,
+    45916
+   ]
+  },
+  {
+   "offset": 156,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45909,
+    45910,
+    45913,
+    45914
+   ]
+  },
+  {
+   "offset": 168,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45911,
+    45912,
+    45913,
+    45914
+   ]
+  },
+  {
+   "offset": 180,
+   "width": 2,
+   "height": 3,
+   "descriptor": "field_plot_record",
+   "slot": 0,
+   "entries": [
+    37887,
+    37887,
+    45933,
+    45934,
+    45935,
+    45936
+   ]
   }
- ],
- "note": "Raw penuh; belum ada layer/grid yang terbukti. Source exact, byte tidak diklaim decoded.",
- "evidence": "method_0800AF5C (src/field.cc) mengembalikan pointer ini untuk GetUnk8()==0; tidak ada field yang terbukti dibaca."
+ ]
 }

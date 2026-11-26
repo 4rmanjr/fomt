@@ -1,7 +1,7 @@
 {
  "id": "gfx/maps/gunk_086d6548",
  "symbol": "gUnk_086D6548",
- "kind": "tilemap_bank",
+ "kind": "table",
  "status": "rom-exact",
  "semantics": "unidentified",
  "rom": {
@@ -10,19 +10,137 @@
   "sha256": "e23d830dc5af42c80aa5038f3fd3f0a6eec8bc7cc3a4d6991346edbee9bfd795"
  },
  "source": {
-  "json": "gUnk_086D6548.json"
+  "json": "gUnk_086D6548.json",
+  "segments": [
+   {
+    "offset": 0,
+    "format": "u16le",
+    "values": [
+     2017,
+     0,
+     0,
+     0,
+     0,
+     102,
+     1193,
+     2251,
+     3308,
+     5455,
+     6544,
+     7632,
+     11826,
+     9713,
+     7632,
+     5519,
+     992,
+     1057,
+     3171,
+     7399,
+     11627,
+     14830,
+     16977,
+     22197,
+     100,
+     1324,
+     693,
+     2450,
+     564,
+     16021,
+     0,
+     20114,
+     2017,
+     0,
+     32,
+     226,
+     290,
+     450,
+     515,
+     2178,
+     3299,
+     2373,
+     3559,
+     585,
+     1674,
+     3597,
+     4560,
+     6707
+    ],
+    "note": "48 u16; func_080A97CC/080A97F4 menyalin 0x60 B ke lapis +0x100"
+   },
+   {
+    "offset": 96,
+    "format": "u16le",
+    "values": [
+     37887,
+     37887,
+     41753,
+     41754,
+     41757,
+     41758,
+     41983,
+     41983,
+     41753,
+     41754,
+     41757,
+     41758,
+     37887,
+     37887,
+     41746,
+     41747,
+     41749,
+     41750,
+     41983,
+     41983,
+     41746,
+     41747,
+     41749,
+     41750,
+     37887,
+     37887,
+     41755,
+     41756,
+     41759,
+     41760,
+     41983,
+     41983,
+     41755,
+     41756,
+     41759,
+     41760,
+     37887,
+     37887,
+     41748,
+     37887,
+     41751,
+     41752,
+     41983,
+     41983,
+     41748,
+     41983,
+     41751,
+     41752
+    ],
+    "note": "sisa u16; tidak ada referensi/consumer"
+   }
+  ]
  },
  "encoder": {
-  "tool": "tilemap_bank.py",
+  "tool": "table.py",
   "version": 1
  },
- "layers": [],
- "raw": [
+ "note": "0x60 B pertama u16 (consumer), sisa u16 opaque tanpa consumer",
+ "evidence": "func_080A97CC/080A97F4 menyalin 0x60 B pertama ke lapis +0x100; 0x60 B sisa tidak punya pembaca.",
+ "opaque": [
   {
-   "offset": 0,
-   "hex": "e10700000000000000006600a904cb08ec0c4f159019d01d322ef125d01d8f15e0032104630ce71c6b2dee395142b55664002c05b50292093402953e0000924ee10700002000e2002201c20103028208e30c4509e70d49028a060d0ed011331aff93ff9319a31aa31da31ea3ffa3ffa319a31aa31da31ea3ff93ff9312a313a315a316a3ffa3ffa312a313a315a316a3ff93ff931ba31ca31fa320a3ffa3ffa31ba31ca31fa320a3ff93ff9314a3ff9317a318a3ffa3ffa314a3ffa317a318a3"
+   "offset": 96,
+   "size": 96,
+   "reason": "Tidak ada consumer: hanya 0x60 B pertama yang disalin; sisa tidak dirujuk literal maupun pointer tengah.",
+   "evidence": "func_080A97CC (22126) / func_080A97F4 (22142) hanya memanggil func_08008E64 dengan panjang 0x60 dari offset 0. Tidak ada referensi lain ke simbol atau offset tengah.",
+   "tried": [
+    "scan xref simbol",
+    "scan pointer tengah",
+    "cek fungsi penyalin"
+   ]
   }
- ],
- "note": "Raw penuh; belum ada layer/grid yang terbukti. Source exact, byte tidak diklaim decoded.",
- "evidence": "func_080A97F4 (code_809E804.s:22142) menyalin 0x60 B pertama ke lapis +0x100; 0x60 B sisa belum punya pembaca."
+ ]
 }

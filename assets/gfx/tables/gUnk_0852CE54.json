@@ -19,13 +19,84 @@
      2,
      3
     ],
-    "note": "header 4 B: jumlah tile per blok gaya + field kedua"
+    "note": "header: 2 tile per blok + field kedua"
    },
    {
     "offset": 4,
     "format": "hex",
-    "hex": "50340000543502005545020055450200554502007d770d006666060076770600f7ff070066660600d5d60d0055d60500505500000000000000000000000000000030000000740200404725007444520247dd2d05d377d701e077e700d0eede0000ef0d0030ef3d0030f436000033030000000000000000000000000000000000004044000065660400556604005576040049440900baab0a006a440aa08b899ab8ccbc8a90ccbc4a00b4aa0400474704000000000000000000000000000000001c501d501e501f501c501d5046504750485049501e501f504a504b5022503450205021504c50215022504d50225023504e504f5026503750245025505050515052505350365054505550565057505850595029505a505b505c505d502a502b50005001500250035004500550065005500750085009500a500b500c500d500e500f501050115010501250135014501550ff03ff03ff033f19ff03ff03ff03ff03ff03ff03ff03ff031c501d5032503250325032501e501f5020502150335033503350335022503450245025503550355035503550365037502850295038503950385038502a502b5000503a503b503a503c5008503d503e503f5040504150425043501350445045501c501d501e501f5020502150225023502450255026502750285029502a502b502c5008502d502e502f50135030503150",
-    "note": "blok gaya 0x40 B; satu blok dibaca per panggilan"
+    "hex": "50340000543502005545020055450200554502007d770d006666060076770600f7ff070066660600d5d60d0055d6050050550000000000000000000000000000",
+    "note": "blok gaya 0 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+   },
+   {
+    "offset": 68,
+    "format": "hex",
+    "hex": "0030000000740200404725007444520247dd2d05d377d701e077e700d0eede0000ef0d0030ef3d0030f436000033030000000000000000000000000000000000",
+    "note": "blok gaya 1 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+   },
+   {
+    "offset": 132,
+    "format": "hex",
+    "hex": "004044000065660400556604005576040049440900baab0a006a440aa08b899ab8ccbc8a90ccbc4a00b4aa040047470400000000000000000000000000000000",
+    "note": "blok gaya 2 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+   },
+   {
+    "offset": 196,
+    "format": "hex",
+    "hex": "1c501d501e501f501c501d5046504750485049501e501f504a504b5022503450205021504c50215022504d50225023504e504f50265037502450255050505150",
+    "note": "blok gaya 3 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+   },
+   {
+    "offset": 260,
+    "format": "hex",
+    "hex": "52505350365054505550565057505850595029505a505b505c505d502a502b50005001500250035004500550065005500750085009500a500b500c500d500e50",
+    "note": "blok gaya 4 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+   },
+   {
+    "offset": 324,
+    "format": "hex",
+    "hex": "0f501050115010501250135014501550ff03ff03ff033f19ff03ff03ff03ff03ff03ff03ff03ff031c501d5032503250325032501e501f502050215033503350",
+    "note": "blok gaya 5 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+   },
+   {
+    "offset": 388,
+    "format": "hex",
+    "hex": "3350335022503450245025503550355035503550365037502850295038503950385038502a502b5000503a503b503a503c5008503d503e503f50405041504250",
+    "note": "blok gaya 6 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+   },
+   {
+    "offset": 452,
+    "format": "u16le",
+    "values": [
+     20547,
+     20499,
+     20548,
+     20549,
+     20508,
+     20509,
+     20510,
+     20511,
+     20512,
+     20513,
+     20514,
+     20515,
+     20516,
+     20517,
+     20518,
+     20519,
+     20520,
+     20521,
+     20522,
+     20523,
+     20524,
+     20488,
+     20525,
+     20526,
+     20527,
+     20499,
+     20528,
+     20529
+    ],
+    "note": "tail u16 (indeks tile); tidak ada consumer"
    }
   ]
  },
@@ -33,6 +104,20 @@
   "tool": "table.py",
   "version": 1
  },
- "evidence": "func_0806EC94 (code_0803EE94.s:94219): func_08008E64(sumber, VRAM, 0x40) menyalin satu blok gaya mailbox varian malam; header u16=2 = tile per blok, blok 0x40 B. Hanya blok untuk gaya terpilih yang dibaca call site; batas semua gaya dan 0x1B8 B sisa tidak diklaim.",
- "note": "header u16 (tile per blok) + payload blok gaya 0x40 B; source exact, arti/ batas seluruh gaya belum terbukti Source exact; byte tanpa pembaca disimpan eksplisit sebagai hex/raw, bukan klaim decoded."
+ "evidence": "func_0806EC94 menyalin satu blok mailbox malam: header u16=2 tile, blok 64 B, offset +4+gaya*64. Blob berisi 7 blok; tail 56 B di 0x1C4 tidak dibaca.",
+ "note": "7 blok tile 4bpp + header; tail 0x1C4..0x1FC u16 tanpa consumer",
+ "opaque": [
+  {
+   "offset": 452,
+   "size": 56,
+   "reason": "Tail bukan bagian blok tile: func_0806EC94 hanya menyalin header+tilecount*32 B; tail tidak pernah disalin.",
+   "evidence": "func_0806EC94 (code_0803EE94.s:94173/94205/94236) menghitung offset = +4 + gaya*header*32 dan panjang = header*32. Blob mailbox malam berukuran 508 B; 7 blok x 64 B berakhir di +0x1C4, sehingga tail 0x1C4..0x1FC (56 B) tidak tersentuh. Tidak ada xref lain ke simbol atau offset tengah.",
+   "tried": [
+    "hitung aritmetika blok dari call site",
+    "scan xref simbol",
+    "scan pointer tengah",
+    "cek semua cabang func_0806EC94"
+   ]
+  }
+ ]
 }

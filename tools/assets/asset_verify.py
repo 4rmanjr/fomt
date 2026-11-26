@@ -395,6 +395,48 @@ def check_asset(asset, rom, incbins, repo=None, force_encode=False):
     return problems, notes
 
 
+def opaque_problems(asset, rom):
+    """Setiap raw/tail wajib punya range opaque dengan alasan + bukti."""
+    problems = []
+    source = asset.get("source", {}).get("json")
+    meta = {}
+    if source and (REPO / source).exists():
+        try:
+            meta = json.loads((REPO / source).read_text())
+        except (OSError, ValueError) as exc:
+            return [f"metadata {source}: {exc}"]
+    ranges = asset.get("opaque") or meta.get("opaque") or []
+    raw = meta.get("raw") or []
+    tail = len(meta.get("source", {}).get("tail_hex", "")) // 2
+    if (raw or tail) and not ranges:
+        problems.append("raw/tail tanpa opaque: tambahkan range+reason+evidence")
+    spans = []
+    for i, item in enumerate(ranges):
+        if not isinstance(item, dict):
+            problems.append(f"opaque[{i}] bukan objek")
+            continue
+        for key in ("offset", "size", "reason", "evidence"):
+            if not item.get(key):
+                problems.append(f"opaque[{i}] wajib {key}")
+        off, size = item.get("offset"), item.get("size")
+        if not isinstance(off, int) or not isinstance(size, int) or size < 1:
+            problems.append(f"opaque[{i}] offset/size tidak valid")
+            continue
+        if off < 0 or off + size > len(rom):
+            problems.append(f"opaque[{i}] {off:#x}..{off+size:#x} di luar ROM")
+        spans.append((off, off + size, i))
+    spans.sort()
+    for (a0, a1, ai), (b0, b1, bi) in zip(spans, spans[1:]):
+        if b0 < a1:
+            problems.append(f"opaque[{ai}] dan opaque[{bi}] tumpang tindih")
+    for j, item in enumerate(raw):
+        off = int(str(item.get("offset", 0)), 0)
+        size = len(item.get("hex", "")) // 2
+        if size and not any(a <= off and off + size <= b for a, b, _ in spans):
+            problems.append(f"raw[{j}] {off:#x}..{off+size:#x} tidak punya opaque")
+    return problems
+
+
 def verify(manifest_path=MANIFEST, schema_path=SCHEMA, rom_path=ROM,
            symbol=None, require_switched=False, force_encode=False):
     """-> (masalah, catatan, ringkasan). Tidak mencetak apa pun."""
@@ -434,6 +476,7 @@ def verify(manifest_path=MANIFEST, schema_path=SCHEMA, rom_path=ROM,
         seen_offset[off] = key
         found, asset_notes = check_asset(asset, rom, incbins,
                                          force_encode=force_encode)
+        found += opaque_problems(asset, rom)
         if require_switched:
             found += [n for n in asset_notes if n.startswith("masih .incbin")]
         problems += [f"{key}: {p}" for p in found]

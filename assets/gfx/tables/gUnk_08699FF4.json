@@ -81,13 +81,38 @@
      0,
      0
     ],
-    "note": "0x80 B disalin ke lapis +0x160"
+    "note": "0x80 B pertama; disalin func_080A9850/080A9826"
    },
    {
     "offset": 128,
-    "format": "hex",
-    "hex": "ffe3ffe392e393e394e395e3ffe3ffe396e397e398e399e3ffe3ffe39ae39be39ce39de3fff3fff37ff380f381f382f3",
-    "note": "sisa tanpa pembaca"
+    "format": "u16le",
+    "values": [
+     58367,
+     58367,
+     58258,
+     58259,
+     58260,
+     58261,
+     58367,
+     58367,
+     58262,
+     58263,
+     58264,
+     58265,
+     58367,
+     58367,
+     58266,
+     58267,
+     58268,
+     58269,
+     62463,
+     62463,
+     62335,
+     62336,
+     62337,
+     62338
+    ],
+    "note": "sisa u16; tidak ada consumer"
    }
   ]
  },
@@ -96,5 +121,18 @@
   "version": 1
  },
  "evidence": "func_080A9826 (code_809E804.s:22187): func_08008E64(sumber, lapis+0x160, 0x80) menyalin 0x80 B pertama ke lapis; 48 B sisa tidak punya pembaca.",
- "note": "0x80 B pertama dibaca sebagai blok salinan ke lapis; sisa disimpan hex, bukan klaim tile/tabel Source exact; byte tanpa pembaca disimpan eksplisit sebagai hex/raw, bukan klaim decoded."
+ "note": "0x80 B pertama u16 (consumer), sisa u16 opaque tanpa consumer",
+ "opaque": [
+  {
+   "offset": 128,
+   "size": 48,
+   "reason": "Tidak ada consumer: fungsi penyalin hanya membaca 0x80 B pertama.",
+   "evidence": "func_080A9850 (22199) / func_080A9826 (22187) hanya memanggil func_08008E64 dengan panjang 0x80 dari offset 0; tidak ada referensi lain ke simbol atau offset tengah.",
+   "tried": [
+    "scan xref simbol",
+    "scan pointer tengah",
+    "cek fungsi penyalin"
+   ]
+  }
+ ]
 }

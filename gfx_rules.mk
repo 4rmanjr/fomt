@@ -640,9 +640,9 @@ $(BUILD_DIR)/assets/gUnk_0869B284.bin: \
 
 $(BUILD_DIR)/assets/gUnk_086D6368.bin: \
     assets/gfx/maps/gUnk_086D6368.json \
-    tools/assets/tilemap_bank.py
+    tools/assets/table.py
 	@echo "ASSET $@"
-	@python3 tools/assets/tilemap_bank.py encode --json assets/gfx/maps/gUnk_086D6368.json --out $@
+	@python3 tools/assets/table.py encode --json assets/gfx/maps/gUnk_086D6368.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_086D6458.bin: \
     assets/gfx/maps/gUnk_086D6458.json \
@@ -670,9 +670,9 @@ $(BUILD_DIR)/assets/gUnk_086D6528.bin: \
 
 $(BUILD_DIR)/assets/gUnk_086D6548.bin: \
     assets/gfx/maps/gUnk_086D6548.json \
-    tools/assets/tilemap_bank.py
+    tools/assets/table.py
 	@echo "ASSET $@"
-	@python3 tools/assets/tilemap_bank.py encode --json assets/gfx/maps/gUnk_086D6548.json --out $@
+	@python3 tools/assets/table.py encode --json assets/gfx/maps/gUnk_086D6548.json --out $@
 
 $(BUILD_DIR)/assets/gUnk_086D6608.bin: \
     assets/gfx/maps/gUnk_086D6608.json \
