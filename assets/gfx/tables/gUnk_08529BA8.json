@@ -23,45 +23,59 @@
    },
    {
     "offset": 4,
-    "format": "hex",
-    "hex": "5034000064350200764502007645020076450200555502003433040054550400f4ff040022220200565205005643050050550000000000000000000000000000",
-    "note": "blok gaya 0 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+    "format": "tiles4bpp",
+    "note": "blok gaya 0 (64 B); disalin func_0806EC94 untuk gaya terpilih",
+    "tiles": 2,
+    "tiles_wide": 2,
+    "png": "assets/gfx/tables/gUnk_08529BA8/block_0x0004.png"
    },
    {
     "offset": 68,
-    "format": "hex",
-    "hex": "0030000000e40200404e2b00e344a2024c11210853ff1f0120ff3f00103313000056010030653300305436000033030000000000000000000000000000000000",
-    "note": "blok gaya 1 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+    "format": "tiles4bpp",
+    "note": "blok gaya 1 (64 B); disalin func_0806EC94 untuk gaya terpilih",
+    "tiles": 2,
+    "tiles_wide": 2,
+    "png": "assets/gfx/tables/gUnk_08529BA8/block_0x0044.png"
    },
    {
     "offset": 132,
-    "format": "hex",
-    "hex": "00403300008766040088660400887804004544050086780600f6ee065038344685a98986b09989b7008767040037bb0700000000000000000000000000000000",
-    "note": "blok gaya 2 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+    "format": "tiles4bpp",
+    "note": "blok gaya 2 (64 B); disalin func_0806EC94 untuk gaya terpilih",
+    "tiles": 2,
+    "tiles_wide": 2,
+    "png": "assets/gfx/tables/gUnk_08529BA8/block_0x0084.png"
    },
    {
     "offset": 196,
-    "format": "hex",
-    "hex": "1c501d501e501f501c501d5046504750485049501e501f504a504b5022503450205021504c50215022504d50225023504e504f50265037502450255050505150",
-    "note": "blok gaya 3 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+    "format": "tiles4bpp",
+    "note": "blok gaya 3 (64 B); disalin func_0806EC94 untuk gaya terpilih",
+    "tiles": 2,
+    "tiles_wide": 2,
+    "png": "assets/gfx/tables/gUnk_08529BA8/block_0x00c4.png"
    },
    {
     "offset": 260,
-    "format": "hex",
-    "hex": "52505350365054505550565057505850595029505a505b505c505d502a502b50005001500250035004500550065005500750085009500a500b500c500d500e50",
-    "note": "blok gaya 4 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+    "format": "tiles4bpp",
+    "note": "blok gaya 4 (64 B); disalin func_0806EC94 untuk gaya terpilih",
+    "tiles": 2,
+    "tiles_wide": 2,
+    "png": "assets/gfx/tables/gUnk_08529BA8/block_0x0104.png"
    },
    {
     "offset": 324,
-    "format": "hex",
-    "hex": "0f501050115010501250135014501550ff03ff03ff033f19ff03ff03ff03ff03ff03ff03ff03ff031c501d5032503250325032501e501f502050215033503350",
-    "note": "blok gaya 5 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+    "format": "tiles4bpp",
+    "note": "blok gaya 5 (64 B); disalin func_0806EC94 untuk gaya terpilih",
+    "tiles": 2,
+    "tiles_wide": 2,
+    "png": "assets/gfx/tables/gUnk_08529BA8/block_0x0144.png"
    },
    {
     "offset": 388,
-    "format": "hex",
-    "hex": "3350335022503450245025503550355035503550365037502850295038503950385038502a502b5000503a503b503a503c5008503d503e503f50405041504250",
-    "note": "blok gaya 6 (64 B); disalin func_0806EC94 untuk gaya terpilih"
+    "format": "tiles4bpp",
+    "note": "blok gaya 6 (64 B); disalin func_0806EC94 untuk gaya terpilih",
+    "tiles": 2,
+    "tiles_wide": 2,
+    "png": "assets/gfx/tables/gUnk_08529BA8/block_0x0184.png"
    },
    {
     "offset": 452,
@@ -121,5 +135,11 @@
    ]
   }
  ],
- "tile_animations": []
+ "tile_animations": [],
+ "coverage": {
+  "total_bytes": 508,
+  "proven_bytes": 508,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

@@ -2016,103 +2016,153 @@
  "raw": [
   {
    "offset": 74,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 106,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 222,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 314,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 406,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 454,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 486,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 518,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 550,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 582,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 614,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 646,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 678,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 710,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 742,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 774,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 806,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 886,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 918,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 950,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 982,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 1014,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 1046,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 3322,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 3354,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   }
  ],
  "note": "Payload 0x1D20..0x8220 dipisah pointer table dan tiap segmen punya kind konkret: tilemap (entri u16, lebar/tinggi dari descriptor 0x107204..0x107338), palette (BGR555), frames4bpp (header u16 + tile), dan packed (graphics terkompresi Unpack; byte disimpan apa adanya). Encoder menulis tiap segmen dari field semantiknya dan asset_verify merekonstruksi ulang untuk dibandingkan dengan ROM; coverage dihitung dari field yang direkonstruksi.",

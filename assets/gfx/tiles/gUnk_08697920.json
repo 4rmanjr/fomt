@@ -1,29 +1,33 @@
 {
-  "kind": "tiles4bpp",
-  "source": {
-    "png": "gUnk_08697920.png",
-    "tiles_wide": 32,
-    "tile_count": 143,
-    "header_hex": "",
-    "tail_hex": "",
-    "tile_offset": 0,
-    "tile_trim": 0
-  },
-  "encoder": {
-    "tool": "tile4bpp.py",
-    "version": 1,
-    "tile_order": "row-major",
-    "nibble_order": "low-first"
-  },
-  "id": "gfx/tiles/gunk_08697920",
-  "symbol": "gUnk_08697920",
-  "status": "rom-exact",
-  "semantics": "unidentified",
-  "rom": {
-    "offset": "0x697920",
-    "size": 4576,
-    "sha256": "c96ae146f633dd5f3bf42dfb802ff294bdca0f5f4758150ac4896a543914be44"
-  },
-  "note": "143 tile 4bpp",
-  "evidence": "func_08008F0C (code_809E804.s:19486): salinan 0x11E0 B dari gUnk_08697920 ke 0x06006E20 — 143 tile 4bpp, panjang salinan = ukuran slice."
+ "kind": "tiles4bpp",
+ "source": {
+  "png": "gUnk_08697920.png",
+  "tiles_wide": 32,
+  "tile_count": 143,
+  "tile_offset": 0,
+  "tile_trim": 0
+ },
+ "encoder": {
+  "tool": "tile4bpp.py",
+  "version": 1,
+  "tile_order": "row-major",
+  "nibble_order": "low-first"
+ },
+ "id": "gfx/tiles/gunk_08697920",
+ "symbol": "gUnk_08697920",
+ "status": "rom-exact",
+ "semantics": "unidentified",
+ "rom": {
+  "offset": "0x697920",
+  "size": 4576,
+  "sha256": "c96ae146f633dd5f3bf42dfb802ff294bdca0f5f4758150ac4896a543914be44"
+ },
+ "note": "143 tile 4bpp",
+ "evidence": "func_08008F0C (code_809E804.s:19486): salinan 0x11E0 B dari gUnk_08697920 ke 0x06006E20 — 143 tile 4bpp, panjang salinan = ukuran slice.",
+ "coverage": {
+  "total_bytes": 4576,
+  "proven_bytes": 4576,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

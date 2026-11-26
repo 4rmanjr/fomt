@@ -879,15 +879,21 @@
  "raw": [
   {
    "offset": 518,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 1030,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 1542,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   }
  ],
  "note": "stamp 2x2 + 3 layer 17x15 + 2 layer 4x4 + blok animasi 6 tile 4bpp; padding 6 B; source exact. Semua range opaque menyebut descriptor/offset yang diperiksa.",

@@ -10690,43 +10690,63 @@
  "raw": [
   {
    "offset": 18462,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 18494,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 18526,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 18558,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 36270,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 36714,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 37158,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 37394,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 37630,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   },
   {
    "offset": 37866,
-   "hex": "0000"
+   "u16": [
+    0
+   ]
   }
  ],
  "note": "4x4 pertama decoded (kasus 21); layer lain dari descriptor; sisa range opaque tanpa consumer. Semua range opaque menyebut descriptor/offset yang diperiksa.",

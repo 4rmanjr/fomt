@@ -3,8 +3,7 @@
  "source": {
   "png": "unk_0871ecac.png",
   "tiles_wide": 16,
-  "tile_count": 5,
-  "tail_hex": ""
+  "tile_count": 5
  },
  "encoder": {
   "tool": "font_container.py",
@@ -49,49 +48,97 @@
   {
    "name": "A",
    "entry_size": 4,
-   "count": 1,
-   "prefix_hex": "01000000",
-   "data_hex": "04000000"
+   "values": [
+    [
+     4
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "B",
    "entry_size": 16,
-   "count": 5,
-   "prefix_hex": "05000000",
-   "data_hex": "0100000001000000010000000000000001000000010001000100000000000000010000000100020001000000000000000100000001000300010000000000000000000000000000000000000000000000"
+   "values": [
+    [
+     1,
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     65537,
+     1,
+     0
+    ],
+    [
+     1,
+     131073,
+     1,
+     0
+    ],
+    [
+     1,
+     196609,
+     1,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "C",
    "entry_size": 8,
-   "count": 1,
-   "prefix_hex": "01000000",
-   "data_hex": "fc00fc0100000000"
+   "values": [
+    [
+     33292540,
+     0
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "D",
    "entry_size": 32,
-   "prefix_hex": "04000000",
-   "tiles": 4
+   "tiles": 4,
+   "pad": 0
   },
   {
    "name": "E",
    "entry_size": 32,
-   "prefix_hex": "01000000",
-   "tiles": 1
+   "tiles": 1,
+   "pad": 0
   },
   {
    "name": "F",
    "entry_size": 8,
-   "count": 0,
-   "prefix_hex": "00000000",
-   "data_hex": ""
+   "values": [],
+   "pad": 0
   },
   {
    "name": "T",
    "entry_size": 4,
-   "count": 4,
-   "prefix_hex": "04000000",
-   "data_hex": "00000600010006000200060003000800"
+   "values": [
+    [
+     393216
+    ],
+    [
+     393217
+    ],
+    [
+     393218
+    ],
+    [
+     524291
+    ]
+   ],
+   "pad": 0
   }
  ],
  "id": "gfx/fonts/gunk_0871ecac",
@@ -103,5 +150,11 @@
  },
  "note": "count 1 + tabel; func_0805E6CC, bukan tile datar",
  "status": "rom-exact",
- "semantics": "unidentified"
+ "semantics": "unidentified",
+ "coverage": {
+  "total_bytes": 296,
+  "proven_bytes": 296,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

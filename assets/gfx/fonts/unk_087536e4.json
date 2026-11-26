@@ -49,49 +49,102 @@
   {
    "name": "A",
    "entry_size": 4,
-   "count": 2,
-   "prefix_hex": "02000000",
-   "data_hex": "0200000002000200"
+   "values": [
+    [
+     2
+    ],
+    [
+     131074
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "B",
    "entry_size": 16,
-   "count": 4,
-   "prefix_hex": "04000000",
-   "data_hex": "01000000010000000100000000000000010001000100000001000000000000000100020001000100010000000000000001000100010001000100000000000000"
+   "values": [
+    [
+     1,
+     1,
+     1,
+     0
+    ],
+    [
+     65537,
+     1,
+     1,
+     0
+    ],
+    [
+     131073,
+     65537,
+     1,
+     0
+    ],
+    [
+     65537,
+     65537,
+     1,
+     0
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "C",
    "entry_size": 8,
-   "count": 3,
-   "prefix_hex": "03000000",
-   "data_hex": "01000000000000000000000000000000ff00000000000000"
+   "values": [
+    [
+     1,
+     0
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     255,
+     0
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "D",
    "entry_size": 32,
-   "prefix_hex": "02000000",
-   "tiles": 2
+   "tiles": 2,
+   "pad": 0
   },
   {
    "name": "E",
    "entry_size": 32,
-   "prefix_hex": "01000000",
-   "tiles": 1
+   "tiles": 1,
+   "pad": 0
   },
   {
    "name": "F",
    "entry_size": 8,
-   "count": 0,
-   "prefix_hex": "00000000",
-   "data_hex": ""
+   "values": [],
+   "pad": 0
   },
   {
    "name": "T",
    "entry_size": 4,
-   "count": 4,
-   "prefix_hex": "04000000",
-   "data_hex": "0000100001000c000200100003000c00"
+   "values": [
+    [
+     1048576
+    ],
+    [
+     786433
+    ],
+    [
+     1048578
+    ],
+    [
+     786435
+    ]
+   ],
+   "pad": 0
   }
  ],
  "id": "gfx/fonts/gunk_087536e4",
@@ -103,5 +156,11 @@
  },
  "note": "container func_0805E6CC: A2/B4/C3/D2/E1/F0/T4; 2 tile 4bpp di D + 1 tile di E, sisa tabel",
  "evidence": "container func_0805E6CC A2/B4/C3/D2/E1/F0/T4 (236 B habis tepat); asm/code_809E804.s:84854 memanggil func_0805E6CC dengan gUnk_087536E4",
- "status": "rom-exact"
+ "status": "rom-exact",
+ "coverage": {
+  "total_bytes": 236,
+  "proven_bytes": 236,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

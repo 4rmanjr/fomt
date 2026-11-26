@@ -7257,7 +7257,7 @@
     "tool": "pal2gba.py",
     "version": 1
    },
-   "evidence": "code_0803EE94.s:62074 ldr r0,=gUnk_08747A14; 62075-62078 set r1=0x05000000,r2=0x40; 62079 bl func_08008E64. Hanya 64 B pertama (32 warna) tersalin ke palet RAM; 32 B ekor belum punya pembaca, dicatat sebagai coverage 0,667 dan bukan bukti penuh."
+   "evidence": "code_0803EE94.s:62074 ldr r0,=gUnk_08747A14; 62075-62078 set r1=0x05000000,r2=0x40; 62079 bl func_08008E64. Hanya 64 B pertama (32 warna) tersalin ke palet RAM; 32 B ekor belum punya pembaca, jadi bukan bukti penuh (tidak ada coverage yang bisa dihitung codec `.pal`)."
   },
   {
    "id": "gfx/palettes/gunk_0874f2ec",

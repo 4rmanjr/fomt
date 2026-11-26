@@ -54,10 +54,13 @@ class FontContainerCodec(unittest.TestCase):
 
     def test_roundtrip_with_tail(self):
         # Container diikuti ekor mentah (mis. palet 32 B): ekor disimpan
-        # tail_hex dan encode harus mengembalikan byte yang sama.
+        # sebagai tail_words eksplisit dan encode harus mengembalikan byte sama.
         blob = synthetic() + bytes(range(0x20))
         rgb, meta = font_container.decode_blob(blob, tiles_wide=2)
-        self.assertEqual(meta["source"]["tail_hex"], bytes(range(0x20)).hex())
+        expected = [int.from_bytes(bytes(range(0x20))[i:i + 4], "little")
+                    for i in range(0, 0x20, 4)]
+        self.assertEqual(meta["source"]["tail_words"], expected)
+        self.assertNotIn("tail_hex", meta["source"])
         with tempfile.TemporaryDirectory() as td:
             td = Path(td)
             tile4bpp.write_png(td / "tiles.png", 16, 16, rgb)
@@ -66,6 +69,22 @@ class FontContainerCodec(unittest.TestCase):
                            "sha256": font_container.sha256(blob)}
             (td / "tiles.json").write_text(json.dumps(meta))
             self.assertEqual(font_container.encode_source(td / "tiles.json"), blob)
+
+    def test_tail_hex_ditolak(self):
+        """Ekor container tidak boleh disimpan sebagai hex lagi."""
+        blob = synthetic()
+        _rgb, meta = font_container.decode_blob(blob, tiles_wide=2)
+        meta["rom"] = {"offset": "0x0", "size": len(blob),
+                       "sha256": font_container.sha256(blob)}
+        meta["source"]["tail_hex"] = "00"
+        with tempfile.TemporaryDirectory() as td:
+            td = Path(td)
+            tile4bpp.write_png(td / "tiles.png", 16, 16, _rgb)
+            meta["source"]["png"] = "tiles.png"
+            (td / "tiles.json").write_text(json.dumps(meta))
+            with self.assertRaises(ValueError) as ctx:
+                font_container.encode_source(td / "tiles.json")
+            self.assertIn("tail_hex", str(ctx.exception))
 
     def test_rejects_flat_tile_framing(self):
         # Framing lama (header 20 B + tile datar) bukan container: panjang
@@ -81,8 +100,8 @@ class FontContainerCodec(unittest.TestCase):
         meta_path = REPO / "assets" / "gfx" / "fonts" / "unk_0872de44.json"
         meta = json.loads(meta_path.read_text())
         self.assertEqual(meta["kind"], "font_container")
-        counts = {s["name"]: s["tiles"] if "tiles" in s else s["count"]
-                  for s in meta["sections"]}
+        counts = {s["name"]: s["tiles"] if "tiles" in s
+                  else len(s["values"]) for s in meta["sections"]}
         self.assertEqual(counts, {"A": 27, "B": 27, "C": 6, "D": 106,
                                   "E": 1, "F": 0, "T": 27})
         encoded = font_container.encode_source(meta_path)

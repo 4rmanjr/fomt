@@ -260,5 +260,11 @@
    ]
   }
  ],
- "raw": []
+ "raw": [],
+ "coverage": {
+  "total_bytes": 192,
+  "proven_bytes": 192,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

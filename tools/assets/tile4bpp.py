@@ -8,8 +8,9 @@ Format source:
   jumlah tile, dan lebar tile.
 
 Nibble GBA: piksel x genap = nibble rendah, x ganjil = nibble tinggi.
-Header/ekor disimpan sebagai hex dan disalin apa adanya, sehingga codec ini
-tidak mengubah byte di luar body.  `.incbin` tidak pernah disentuh tool ini.
+Header/ekor disimpan sebagai `header_words`/`tail_words` (u32) atau
+`*_bytes` (u8) eksplisit dan ditulis dari nilai itu, bukan dari hex, sehingga
+codec ini tidak mengubah byte di luar body.  `.incbin` tidak pernah disentuh tool ini.
 
   python3 tools/assets/tile4bpp.py decode --rom baserom.gba \
       --offset 0x75A440 --size 4100 --header 0 --tail 4 \
@@ -173,17 +174,25 @@ def decode_blob(blob, header_len=0, tail_len=0, tiles_wide=16):
                 color = INDICES[idx]
                 dst = ((ty + y) * width + tx + x) * 3
                 rgb[dst:dst + 3] = bytes(color)
+    source = {
+        "png": None,
+        "tiles_wide": tiles_wide,
+        "tile_count": count,
+        "tile_offset": header_len,
+        "tile_trim": tail_len,
+    }
+    for name, blob in (("header", header), ("tail", tail)):
+        if not blob:
+            continue
+        if len(blob) % 4:
+            source[f"{name}_bytes"] = list(blob)
+        else:
+            source[f"{name}_words"] = [
+                int.from_bytes(blob[i:i + 4], "little")
+                for i in range(0, len(blob), 4)]
     meta = {
         "kind": "tiles4bpp",
-        "source": {
-            "png": None,
-            "tiles_wide": tiles_wide,
-            "tile_count": count,
-            "header_hex": header.hex(),
-            "tail_hex": tail.hex(),
-            "tile_offset": header_len,
-            "tile_trim": tail_len,
-        },
+        "source": source,
         "encoder": {
             "tool": "tile4bpp.py",
             "version": 1,
@@ -192,6 +201,52 @@ def decode_blob(blob, header_len=0, tail_len=0, tiles_wide=16):
         },
     }
     return rgb, meta
+
+
+def _field_bytes(source, name):
+    """Field header/tail -> byte; hex buram ditolak, nilainya harus eksplisit."""
+    if f"{name}_hex" in source:
+        raise ValueError(
+            f"source.{name}_hex sudah tidak dipakai; pakai {name}_words/"
+            f"{name}_bytes")
+    words = source.get(f"{name}_words") or []
+    raw = source.get(f"{name}_bytes") or []
+    if words and raw:
+        raise ValueError(f"source: {name}_words dan {name}_bytes dua-duanya ada")
+    out = bytearray()
+    for value in words:
+        if isinstance(value, bool) or not isinstance(value, int) \
+                or not 0 <= value <= 0xFFFFFFFF:
+            raise ValueError(f"source.{name}_words: {value!r} bukan u32")
+        out += value.to_bytes(4, "little")
+    for value in raw:
+        if isinstance(value, bool) or not isinstance(value, int) \
+                or not 0 <= value <= 0xFF:
+            raise ValueError(f"source.{name}_bytes: {value!r} bukan u8")
+        out.append(value)
+    return bytes(out)
+
+
+def coverage(meta):
+    """Coverage: semua byte dari field (tile PNG, header/tail eksplisit).
+
+    `padding` di JSON tetap dokumentasi "tanpa pembaca", bukan angka raw:
+    bytenya ditulis dari `*_words`/`*_bytes`, jadi nilainya tetap ditentukan
+    field (bukan blob buram).
+    """
+    size = int(meta["rom"]["size"])
+    pad = (len(_field_bytes(meta["source"], "header"))
+           + len(_field_bytes(meta["source"], "tail")))
+    proven = TILE_BYTES * int(meta["source"]["tile_count"]) + pad
+    if proven > size:
+        raise ValueError(
+            f"tile_count + header/tail = {proven} B > rom.size {size} B")
+    return {
+        "total_bytes": size,
+        "proven_bytes": proven,
+        "raw_bytes": size - proven,
+        "proven_ratio": round(proven / size, 4),
+    }
 
 
 def encode_source(meta_path):
@@ -223,9 +278,8 @@ def encode_source(meta_path):
                             f"{png_path}: warna {color} bukan indeks 0..15")
                     idx.append(RGB_TO_INDEX[color])
                 body.append(idx[0] | (idx[1] << 4))
-    header = bytes.fromhex(source.get("header_hex", ""))
-    tail = bytes.fromhex(source.get("tail_hex", ""))
-    return header + body + tail
+    return (_field_bytes(source, "header") + body
+            + _field_bytes(source, "tail"))
 
 
 def verify(meta_path, rom_path=None, out_path=None):

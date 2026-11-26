@@ -87,7 +87,10 @@ class AssetManifest(unittest.TestCase):
                            for p in Path(d).glob("*.json")):
             meta = json.loads(path.read_text())
             raw = meta.get("raw") or []
-            tail = len(meta.get("source", {}).get("tail_hex", "")) // 2
+            source_meta = meta.get("source", {})
+            self.assertNotIn("tail_hex", source_meta)
+            tail = (4 * len(source_meta.get("tail_words") or [])
+                    + len(source_meta.get("tail_bytes") or []))
             if not (raw or tail):
                 continue
             with self.subTest(path=str(path)):
@@ -105,10 +108,68 @@ class AssetManifest(unittest.TestCase):
                     self.assertLessEqual(end, start, "range padding tumpang tindih")
                 for j, item in enumerate(raw):
                     start = int(str(item["offset"]), 0)
-                    end = start + len(item["hex"]) // 2
+                    self.assertNotIn("hex", item, f"raw[{j}] masih hex")
+                    self.assertTrue(item.get("u16"), f"raw[{j}] u16 kosong")
+                    end = start + 2 * len(item["u16"])
                     self.assertTrue(
                         any(a <= start and end <= b for a, b in ordered),
                         f"raw[{j}] {start:#x}..{end:#x} tanpa padding")
+
+    def test_tidak_ada_hex_buram_tersisa(self):
+        """Blob buram tidak boleh kembali: gunakan field bernilai/PNG."""
+        banned = ("tiles_hex", "tail_hex", "header_hex", "prefix_hex",
+                  "data_hex")
+        for path in sorted(p for d in asset_manifest.ASSET_DIRS
+                           for p in Path(d).glob("*.json")):
+            meta = json.loads(path.read_text())
+
+            def walk(node):
+                if isinstance(node, dict):
+                    for key, value in node.items():
+                        self.assertNotIn(key, banned, f"{path}: {key}")
+                        if key == "format":
+                            self.assertNotEqual(value, "hex", str(path))
+                        walk(value)
+                elif isinstance(node, list):
+                    for value in node:
+                        walk(value)
+
+            with self.subTest(path=str(path)):
+                walk(meta)
+
+    def test_coverage_dihitung_ulang_oleh_encoder(self):
+        """Blok coverage wajib sama dengan hitungan codec-nya sendiri."""
+        for path in sorted(p for d in asset_manifest.ASSET_DIRS
+                           for p in Path(d).glob("*.json")):
+            meta = json.loads(path.read_text())
+            declared = meta.get("coverage")
+            if not isinstance(declared, dict):
+                continue
+            tool = meta["encoder"]["tool"]
+            spec = importlib.util.spec_from_file_location(
+                tool.removesuffix(".py"), REPO / "tools" / "assets" / tool)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            self.assertEqual(module.coverage(meta), declared, str(path))
+            self.assertEqual(declared["proven_bytes"] + declared["raw_bytes"],
+                             declared["total_bytes"], str(path))
+
+    def test_map_raw_hex_ditolak(self):
+        """Segmen `raw` peta harus u16 eksplisit, bukan hex."""
+        path = REPO / "assets" / "gfx" / "maps" / "gUnk_086EAD8C.json"
+        meta = json.loads(path.read_text())
+        raw = [dict(item) for item in meta["raw"]]
+        raw[0]["hex"] = "0000"
+        raw[0].pop("u16", None)
+        out = REPO / "build" / "test_raw_hex.json"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps({**meta, "raw": raw}))
+        try:
+            with self.assertRaises(ValueError) as ctx:
+                tilemap_bank.encode_source(out)
+        finally:
+            out.unlink()
+        self.assertIn("hex", str(ctx.exception))
 
     def test_manifest_carries_padding_ranges(self):
         assets = json.loads(asset_manifest.MANIFEST.read_text())["assets"]

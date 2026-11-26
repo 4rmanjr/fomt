@@ -3,8 +3,7 @@
  "source": {
   "png": "unk_08738144.png",
   "tiles_wide": 16,
-  "tile_count": 73,
-  "tail_hex": ""
+  "tile_count": 73
  },
  "encoder": {
   "tool": "font_container.py",
@@ -49,49 +48,92 @@
   {
    "name": "A",
    "entry_size": 4,
-   "count": 3,
-   "prefix_hex": "03000000",
-   "data_hex": "010000000100010001000200"
+   "values": [
+    [
+     1
+    ],
+    [
+     65537
+    ],
+    [
+     131073
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "B",
    "entry_size": 16,
-   "count": 3,
-   "prefix_hex": "03000000",
-   "data_hex": "020000001800000001000000000000000200000018001800010000000000000002000000180030000100000000000000"
+   "values": [
+    [
+     2,
+     24,
+     1,
+     0
+    ],
+    [
+     2,
+     1572888,
+     1,
+     0
+    ],
+    [
+     2,
+     3145752,
+     1,
+     0
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "C",
    "entry_size": 8,
-   "count": 2,
-   "prefix_hex": "02000000",
-   "data_hex": "00000080000000000080208010000000"
+   "values": [
+    [
+     2147483648,
+     0
+    ],
+    [
+     2149613568,
+     16
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "D",
    "entry_size": 32,
-   "prefix_hex": "48000000",
-   "tiles": 72
+   "tiles": 72,
+   "pad": 0
   },
   {
    "name": "E",
    "entry_size": 32,
-   "prefix_hex": "01000000",
-   "tiles": 1
+   "tiles": 1,
+   "pad": 0
   },
   {
    "name": "F",
    "entry_size": 8,
-   "count": 0,
-   "prefix_hex": "00000000",
-   "data_hex": ""
+   "values": [],
+   "pad": 0
   },
   {
    "name": "T",
    "entry_size": 4,
-   "count": 3,
-   "prefix_hex": "03000000",
-   "data_hex": "000000000100000002000000"
+   "values": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "pad": 0
   }
  ],
  "id": "gfx/fonts/gunk_08738144",
@@ -103,5 +145,11 @@
  },
  "note": "count 3 + tabel; @gCalendarFont?; func_0805E6CC, bukan tile datar",
  "status": "rom-exact",
- "semantics": "unidentified"
+ "semantics": "unidentified",
+ "coverage": {
+  "total_bytes": 2452,
+  "proven_bytes": 2452,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

@@ -386,6 +386,30 @@ def check_asset(asset, rom, incbins, repo=None, force_encode=False):
             if len(slice_) == size and encoded != slice_:
                 problems.append("byte encoder != byte ROM walau hash sama")
 
+    if meta_path.exists() and asset["status"] == "rom-exact":
+        tool_module = load_module(tool) if (TOOLS / tool).exists() else None
+        if tool_module is not None and hasattr(tool_module, "coverage"):
+            try:
+                meta = json.loads(meta_path.read_text())
+            except (OSError, ValueError) as exc:
+                problems.append(f"source.json tidak valid: {exc}")
+            else:
+                declared_cov = meta.get("coverage")
+                if not isinstance(declared_cov, dict):
+                    problems.append("coverage wajib ada untuk aset ini")
+                else:
+                    try:
+                        expected = tool_module.coverage(meta)
+                    except (SystemExit, ValueError) as exc:
+                        problems.append(f"coverage: {exc}")
+                    else:
+                        for key, value in expected.items():
+                            if declared_cov.get(key) != value:
+                                problems.append(
+                                    f"coverage.{key} "
+                                    f"{declared_cov.get(key)!r} != hitung "
+                                    f"verifier {value!r}")
+
     problems += palette_evidence_problems(asset, repo)
     problems += tiles4bpp_evidence_problems(asset, repo)
 
@@ -410,7 +434,12 @@ def padding_problems(asset, rom):
         problems.append("field 'opaque' tidak boleh ada; ubah ke 'padding'")
     ranges = asset.get("padding") or meta.get("padding") or []
     raw = meta.get("raw") or []
-    tail = len(meta.get("source", {}).get("tail_hex", "")) // 2
+    source_meta = meta.get("source", {})
+    if "tail_hex" in source_meta:
+        problems.append("source.tail_hex sudah tidak dipakai; pakai "
+                        "tail_words/tail_bytes")
+    tail = (4 * len(source_meta.get("tail_words") or [])
+            + len(source_meta.get("tail_bytes") or []))
     if (raw or tail) and not ranges:
         problems.append("raw/tail tanpa padding: tambahkan kind+reason+evidence")
     spans = []
@@ -434,8 +463,12 @@ def padding_problems(asset, rom):
             problems.append(f"padding[{ai}] dan padding[{bi}] tumpang tindih")
     for j, item in enumerate(raw):
         off = int(str(item.get("offset", 0)), 0)
-        size = len(item.get("hex", "")) // 2
-        if size and not any(a <= off and off + size <= b for a, b, _ in spans):
+        if "hex" in item:
+            problems.append(f"raw[{j}]: hex sudah tidak dipakai; pakai u16")
+        size = 2 * len(item.get("u16") or [])
+        if not size:
+            problems.append(f"raw[{j}]: u16 wajib daftar")
+        elif not any(a <= off and off + size <= b for a, b, _ in spans):
             problems.append(f"raw[{j}] {off:#x}..{off+size:#x} tidak punya padding")
     payload = []
     base = int(str(meta.get("rom", {}).get("offset", 0)), 0)

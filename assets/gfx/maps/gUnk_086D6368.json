@@ -169,5 +169,11 @@
    ]
   }
  ],
- "tile_animations": []
+ "tile_animations": [],
+ "coverage": {
+  "total_bytes": 240,
+  "proven_bytes": 240,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

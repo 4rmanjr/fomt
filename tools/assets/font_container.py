@@ -23,7 +23,8 @@ Setiap `count` diawali 4 B (u16 count + 2 B pad); `func_0805E6CC` memakai
 punya kelipatan ukuran di fungsi; panjangnya dihitung `count * 4`.
 
 Tool ini **tidak** menganggap body sebagai tile datar: hanya tabel dengan
-entri 32 B yang dirender ke PNG, sisanya disimpan sebagai hex. Encode
+entri 32 B yang dirender ke PNG; tabel lain disimpan `values` (baris u32)
+dan `pad` u16 eksplisit, bukan hex. Encode
 menggabungkan ulang semua prefix + data + tile dan `verify` menuntut SHA-256
 dan byte hasil encode sama dengan slice ROM. `.incbin` tidak pernah disentuh.
 
@@ -71,8 +72,8 @@ def parse(blob):
             "name": name,
             "entry_size": entry_size,
             "count": count,
-            "prefix_hex": blob[pos:pos + 4].hex(),
-            "data_hex": blob[pos + 4:end].hex(),
+            "pad": struct.unpack_from("<H", blob, pos + 2)[0],
+            "data": blob[pos + 4:end],
         })
         pos = end
     name, entry_size = TRAILER
@@ -88,8 +89,8 @@ def parse(blob):
         "name": name,
         "entry_size": entry_size,
         "count": count,
-        "prefix_hex": blob[pos:pos + 4].hex(),
-        "data_hex": blob[pos + 4:end].hex(),
+        "pad": struct.unpack_from("<H", blob, pos + 2)[0],
+        "data": blob[pos + 4:end],
     })
     return out
 
@@ -98,7 +99,7 @@ def parse_prefix(blob):
     """Slice container -> (sections, consumed) tanpa menuntut akhir slice.
 
     Dipakai untuk blob yang container-nya diikuti ekor mentah (mis. palet 32 B
-    atau payload yang dibaca pemanggil lain); ekornya disimpan `tail_hex`.
+    atau payload yang dibaca pemanggil lain); ekornya disimpan `tail_words`.
     """
     blob = bytes(blob)
     pos = 0
@@ -117,19 +118,43 @@ def tile_sections(sections):
     return [s for s in sections if s["entry_size"] == tile4bpp.TILE_BYTES]
 
 
+def _section_fields(section):
+    """Section parse -> bentuk JSON: `tiles` untuk 32 B, `values` u32 lainnya."""
+    data = bytes(section.pop("data"))
+    section.pop("count")
+    if section["entry_size"] == tile4bpp.TILE_BYTES:
+        section["tiles"] = len(data) // tile4bpp.TILE_BYTES
+        return data
+    words = section["entry_size"] // 4
+    section["values"] = [
+        [int.from_bytes(data[i + 4 * w:i + 4 * w + 4], "little")
+         for w in range(words)]
+        for i in range(0, len(data), section["entry_size"])]
+    return b""
+
+
 def decode_blob(blob, tiles_wide=16):
     """Slice container -> (rgb, metadata)."""
     sections, consumed = parse_prefix(blob)
     tail = bytes(blob[consumed:])
-    tiles = b"".join(bytes.fromhex(s["data_hex"]) for s in tile_sections(sections))
+    parts = []
+    for section in sections:
+        data = _section_fields(section)
+        if section["entry_size"] == tile4bpp.TILE_BYTES:
+            parts.append(data)
+    tiles = b"".join(parts)
     count = len(tiles) // tile4bpp.TILE_BYTES
     if count * tile4bpp.TILE_BYTES != len(tiles):
         raise ValueError("tabel tile tidak kelipatan 32 B")
     rgb, meta = tile4bpp.decode_blob(tiles, 0, 0, tiles_wide)
-    for section in sections:
-        if section["entry_size"] == tile4bpp.TILE_BYTES:
-            section["tiles"] = section.pop("count")
-            section.pop("data_hex")
+    meta["source"].pop("tile_offset", None)
+    meta["source"].pop("tile_trim", None)
+    words = [(int.from_bytes(tail[i:i + 4], "little"))
+             for i in range(0, len(tail) - len(tail) % 4, 4)]
+    if words:
+        meta["source"]["tail_words"] = words
+    if len(tail) % 4:
+        meta["source"]["tail_bytes"] = list(tail[len(words) * 4:])
     meta.update({
         "kind": "font_container",
         "format": "func_0805E6CC",
@@ -139,10 +164,10 @@ def decode_blob(blob, tiles_wide=16):
         },
         "sections": sections,
         "source": {
+            **meta["source"],
             "png": None,
             "tiles_wide": tiles_wide,
             "tile_count": count,
-            "tail_hex": tail.hex(),
         },
     })
     return rgb, meta
@@ -180,28 +205,105 @@ def encode_source(meta_path):
                             f"{png_path}: warna {color} bukan indeks 0..15")
                     idx.append(tile4bpp.RGB_TO_INDEX[color])
                 body.append(idx[0] | (idx[1] << 4))
+    order = list(SECTIONS) + [TRAILER]
+    sections = meta["sections"]
+    if not isinstance(sections, list) or len(sections) != len(order):
+        raise ValueError(
+            f"sections wajib {len(order)} tabel ({[n for n, _ in order]})")
     primed = 0
     out = bytearray()
-    for section in meta["sections"]:
-        out += bytes.fromhex(section["prefix_hex"])
-        if "tiles" in section:
-            n = int(section["tiles"])
-            size = section["entry_size"]
-            if size != tile4bpp.TILE_BYTES:
-                raise ValueError(
-                    f"tabel {section['name']}: entri tile bukan 32 B")
-            out += body[primed * size:(primed + n) * size]
+    for index, (name, entry_size) in enumerate(order):
+        section = sections[index]
+        if (section.get("name") != name
+                or section.get("entry_size") != entry_size):
+            raise ValueError(
+                f"section {index} harus {name}/{entry_size} B, bukan "
+                f"{section.get('name')}/{section.get('entry_size')}")
+        if entry_size == tile4bpp.TILE_BYTES:
+            if "values" in section:
+                raise ValueError(f"tabel {name}: section tile tidak punya values")
+            n = int(section.get("tiles") or 0)
+            data = body[primed * entry_size:(primed + n) * entry_size]
+            if len(data) != n * entry_size:
+                raise ValueError(f"tabel {name}: {n} tile melewati PNG")
             primed += n
+            count = n
         else:
-            data = bytes.fromhex(section["data_hex"])
-            if len(data) != section["count"] * section["entry_size"]:
-                raise ValueError(
-                    f"tabel {section['name']}: data {len(data)} B != "
-                    f"{section['count']} x {section['entry_size']} B")
-            out += data
+            rows = section.get("values")
+            words = entry_size // 4
+            if not isinstance(rows, list):
+                raise ValueError(f"tabel {name}: values wajib daftar")
+            data = bytearray()
+            for row in rows:
+                if not isinstance(row, list) or len(row) != words:
+                    raise ValueError(
+                        f"tabel {name}: entri {row!r} bukan {words} u32")
+                for value in row:
+                    if isinstance(value, bool) or not isinstance(value, int) \
+                            or not 0 <= value <= 0xFFFFFFFF:
+                        raise ValueError(
+                            f"tabel {name}: {value!r} bukan u32")
+                    data += value.to_bytes(4, "little")
+            count = len(rows)
+        pad = section.get("pad", 0)
+        if isinstance(pad, bool) or not isinstance(pad, int) \
+                or not 0 <= pad <= 0xFFFF:
+            raise ValueError(f"tabel {name}: pad {pad!r} bukan u16")
+        out += struct.pack("<HH", count, pad) + data
     if primed != total:
         raise ValueError(f"tile terpakai {primed}, JSON bilang {total}")
-    return bytes(out) + bytes.fromhex(source.get("tail_hex", ""))
+    return bytes(out) + _tail_bytes(source)
+
+
+def _tail_bytes(source):
+    """Ekor container -> byte; hanya kata/byte eksplisit, hex ditolak."""
+    if "tail_hex" in source:
+        raise ValueError(
+            "source.tail_hex sudah tidak dipakai; pakai tail_words/tail_bytes")
+    out = bytearray()
+    for value in source.get("tail_words") or []:
+        if isinstance(value, bool) or not isinstance(value, int) \
+                or not 0 <= value <= 0xFFFFFFFF:
+            raise ValueError(f"source.tail_words: {value!r} bukan u32")
+        out += value.to_bytes(4, "little")
+    for value in source.get("tail_bytes") or []:
+        if isinstance(value, bool) or not isinstance(value, int) \
+                or not 0 <= value <= 0xFF:
+            raise ValueError(f"source.tail_bytes: {value!r} bukan u8")
+        out.append(value)
+    return bytes(out)
+
+
+def _sections_size(meta):
+    """Ukuran section dari field saja (tanpa membaca PNG / ekor)."""
+    total = 0
+    for section in meta.get("sections") or []:
+        if "tiles" in section:
+            total += 4 + tile4bpp.TILE_BYTES * int(section["tiles"])
+        else:
+            rows = section.get("values")
+            if not isinstance(rows, list):
+                raise ValueError(f"tabel {section.get('name')}: values wajib")
+            total += 4 + 4 * sum(len(row) for row in rows)
+    return total
+
+
+def coverage(meta):
+    """Coverage container: semua byte dari field (tabel/tile/ekor eksplisit).
+
+    `padding` di JSON tetap dokumentasi "tanpa pembaca", bukan angka raw:
+    ekornya ditulis dari `tail_words`/`tail_bytes`, bukan hex buram.
+    """
+    size = int(meta["rom"]["size"])
+    enc = _sections_size(meta) + len(_tail_bytes(meta["source"]))
+    if enc != size:
+        raise ValueError(f"sections + ekor = {enc} B != rom.size {size} B")
+    return {
+        "total_bytes": size,
+        "proven_bytes": size,
+        "raw_bytes": 0,
+        "proven_ratio": 1.0,
+    }
 
 
 def verify(meta_path, rom_path=None, out_path=None):

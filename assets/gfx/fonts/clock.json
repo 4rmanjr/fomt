@@ -5,10 +5,11 @@
   "png": "clock.png",
   "tiles_wide": 16,
   "tile_count": 128,
-  "header_hex": "",
-  "tail_hex": "b0000000",
   "tile_offset": 0,
-  "tile_trim": 4
+  "tile_trim": 4,
+  "tail_words": [
+   176
+  ]
  },
  "encoder": {
   "tool": "tile4bpp.py",
@@ -40,5 +41,11 @@
    ]
   }
  ],
- "tile_animations": []
+ "tile_animations": [],
+ "coverage": {
+  "total_bytes": 4100,
+  "proven_bytes": 4100,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

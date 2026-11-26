@@ -3,8 +3,7 @@
  "source": {
   "png": "unk_0872937c.png",
   "tiles_wide": 16,
-  "tile_count": 4,
-  "tail_hex": ""
+  "tile_count": 4
  },
  "encoder": {
   "tool": "font_container.py",
@@ -49,49 +48,82 @@
   {
    "name": "A",
    "entry_size": 4,
-   "count": 1,
-   "prefix_hex": "01000000",
-   "data_hex": "03000000"
+   "values": [
+    [
+     3
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "B",
    "entry_size": 16,
-   "count": 3,
-   "prefix_hex": "03000000",
-   "data_hex": "010000000100000001000000000000000100000001000100010000000000000001000000010002000100000000000000"
+   "values": [
+    [
+     1,
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     65537,
+     1,
+     0
+    ],
+    [
+     1,
+     131073,
+     1,
+     0
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "C",
    "entry_size": 8,
-   "count": 1,
-   "prefix_hex": "01000000",
-   "data_hex": "f800fd0100000000"
+   "values": [
+    [
+     33358072,
+     0
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "D",
    "entry_size": 32,
-   "prefix_hex": "03000000",
-   "tiles": 3
+   "tiles": 3,
+   "pad": 0
   },
   {
    "name": "E",
    "entry_size": 32,
-   "prefix_hex": "01000000",
-   "tiles": 1
+   "tiles": 1,
+   "pad": 0
   },
   {
    "name": "F",
    "entry_size": 8,
-   "count": 0,
-   "prefix_hex": "00000000",
-   "data_hex": ""
+   "values": [],
+   "pad": 0
   },
   {
    "name": "T",
    "entry_size": 4,
-   "count": 3,
-   "prefix_hex": "03000000",
-   "data_hex": "000008000100080002000800"
+   "values": [
+    [
+     524288
+    ],
+    [
+     524289
+    ],
+    [
+     524290
+    ]
+   ],
+   "pad": 0
   }
  ],
  "id": "gfx/fonts/gunk_0872937c",
@@ -103,5 +135,11 @@
  },
  "note": "count 1 + tabel; func_0805E6CC, bukan tile datar",
  "status": "rom-exact",
- "semantics": "unidentified"
+ "semantics": "unidentified",
+ "coverage": {
+  "total_bytes": 228,
+  "proven_bytes": 228,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

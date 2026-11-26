@@ -49,49 +49,64 @@
   {
    "name": "A",
    "entry_size": 4,
-   "count": 1,
-   "prefix_hex": "01000000",
-   "data_hex": "01000000"
+   "values": [
+    [
+     1
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "B",
    "entry_size": 16,
-   "count": 1,
-   "prefix_hex": "01000000",
-   "data_hex": "01000000040000000100000000000000"
+   "values": [
+    [
+     1,
+     4,
+     1,
+     0
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "C",
    "entry_size": 8,
-   "count": 1,
-   "prefix_hex": "01000000",
-   "data_hex": "0000004000000000"
+   "values": [
+    [
+     1073741824,
+     0
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "D",
    "entry_size": 32,
-   "prefix_hex": "04000000",
-   "tiles": 4
+   "tiles": 4,
+   "pad": 0
   },
   {
    "name": "E",
    "entry_size": 32,
-   "prefix_hex": "01000000",
-   "tiles": 1
+   "tiles": 1,
+   "pad": 0
   },
   {
    "name": "F",
    "entry_size": 8,
-   "count": 0,
-   "prefix_hex": "00000000",
-   "data_hex": ""
+   "values": [],
+   "pad": 0
   },
   {
    "name": "T",
    "entry_size": 4,
-   "count": 1,
-   "prefix_hex": "01000000",
-   "data_hex": "00000000"
+   "values": [
+    [
+     0
+    ]
+   ],
+   "pad": 0
   }
  ],
  "id": "gfx/fonts/gunk_0875352c",
@@ -103,5 +118,11 @@
  },
  "note": "container func_0805E6CC: A1/B1/C1/D4/E1/F0/T1; 4 tile 4bpp di D + 1 tile di E, sisa tabel",
  "evidence": "container func_0805E6CC A1/B1/C1/D4/E1/F0/T1 (220 B habis tepat); asm/code_0803EE94.s:133363 memuat gUnk_0875352C lalu func_08082264 (0x08082264) di baris 132394 meneruskannya sebagai argumen ke-4 ke func_0805E6CC",
- "status": "rom-exact"
+ "status": "rom-exact",
+ "coverage": {
+  "total_bytes": 220,
+  "proven_bytes": 220,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

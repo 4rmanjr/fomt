@@ -49,6 +49,33 @@ class Tile4bppCodec(unittest.TestCase):
             self.assertEqual(meta["status"], "rom-exact")
             self.assertEqual(meta["semantics"], "unidentified")
 
+    def test_tail_disimpan_sebagai_kata_bukan_hex(self):
+        blob = synthetic()
+        rgb, meta = tile4bpp.decode_blob(blob, 4, 4, 2)
+        self.assertEqual(meta["source"]["tail_words"], [0xDDCCBBAA])
+        self.assertNotIn("tail_hex", meta["source"])
+        self.assertEqual(tile4bpp.coverage({
+            "rom": {"size": len(blob)},
+            "source": meta["source"],
+        })["proven_bytes"], len(blob))
+        self.assertEqual(tile4bpp.coverage({
+            "rom": {"size": len(blob)},
+            "source": meta["source"],
+            "padding": [{"offset": 0, "size": 4, "kind": "tile_tail",
+                         "reason": "uji", "evidence": "uji"}],
+        })["proven_ratio"], 1.0)
+        meta["rom"] = {"offset": "0x0", "size": len(blob),
+                       "sha256": tile4bpp.sha256(blob)}
+        meta["source"]["tail_hex"] = "aabbccdd"
+        with tempfile.TemporaryDirectory() as td:
+            td = Path(td)
+            tile4bpp.write_png(td / "tiles.png", 16, 8, rgb)
+            meta["source"]["png"] = "tiles.png"
+            (td / "tiles.json").write_text(json.dumps(meta))
+            with self.assertRaises(ValueError) as ctx:
+                tile4bpp.encode_source(td / "tiles.json")
+            self.assertIn("tail_hex", str(ctx.exception))
+
     def test_rejects_colour_outside_index_palette(self):
         blob = synthetic()
         rgb, meta = tile4bpp.decode_blob(blob, 4, 4, 2)

@@ -329,11 +329,14 @@ def _segments(meta, size):
         segments.append((offset, data, f"payload {offset:#x} ({seg['kind']})"))
     for chunk in meta.get("raw", []):
         offset = int(str(chunk["offset"]), 0)
-        try:
-            data = bytes.fromhex(chunk["hex"])
-        except ValueError as exc:
-            raise ValueError(f"raw {offset:#x}: hex tidak valid: {exc}")
-        segments.append((offset, data, f"raw {offset:#x}"))
+        if "hex" in chunk:
+            raise ValueError(
+                f"raw {offset:#x}: hex sudah tidak dipakai; pakai u16")
+        label = f"raw {offset:#x}"
+        values = chunk.get("u16")
+        if not isinstance(values, list) or not values:
+            raise ValueError(f"{label}: u16 wajib daftar")
+        segments.append((offset, u16_list(values, label), label))
     segments.sort()
     covered = bytearray(size)
     for offset, data, label in segments:

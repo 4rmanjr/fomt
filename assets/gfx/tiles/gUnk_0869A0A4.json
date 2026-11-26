@@ -4,8 +4,6 @@
   "png": "gUnk_0869A0A4.png",
   "tiles_wide": 32,
   "tile_count": 143,
-  "header_hex": "",
-  "tail_hex": "",
   "tile_offset": 0,
   "tile_trim": 0
  },
@@ -25,5 +23,11 @@
   "sha256": "69f5649e9bcb3da8816bab1a5155e7aecbd7a6757596e32bcdc07ecd199bda45"
  },
  "note": "143 tile 4bpp; func_080A748C menyalin 4576 B ke VRAM 0x06006E20",
- "evidence": "func_080A748C (code_809E804.s:19344): func_08008F0C(antrean, gUnk_0869A0A4, 0x06006E20, 0x11E0) \u2014 salinan 143 tile (4576 B) ke VRAM, panjang salinan sama dengan ukuran slice; simbol dimuat di baris 19339."
+ "evidence": "func_080A748C (code_809E804.s:19344): func_08008F0C(antrean, gUnk_0869A0A4, 0x06006E20, 0x11E0) — salinan 143 tile (4576 B) ke VRAM, panjang salinan sama dengan ukuran slice; simbol dimuat di baris 19339.",
+ "coverage": {
+  "total_bytes": 4576,
+  "proven_bytes": 4576,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

@@ -391,9 +391,13 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   slice ROM. Dipakai `gUnk_086DC3F4` (stempel 3x2 + stream 134/030/023).
 - `tools/assets/tile4bpp.py` — codec minimal tile/font 4bpp untuk pilot aset.
   `decode` mengubah slice ROM menjadi PNG truecolor 8-bit (16 warna indeks
-  grayscale) + JSON berisi `tile_offset`/`tile_trim`, hex header/ekor, symbol,
-  offset/ukuran, dan SHA-256 ROM. `encode` membalik PNG indeks dan menyalin
-  header/ekor apa adanya; nibble rendah untuk piksel x genap. `verify`
+  grayscale) + JSON berisi `tile_offset`/`tile_trim`, header/ekor sebagai
+  `header_words`/`tail_words` (u32) atau `*_bytes` (u8), symbol, offset/ukuran,
+  dan SHA-256 ROM. `encode` membalik PNG indeks dan menulis header/ekor dari
+  field itu; `header_hex`/`tail_hex` ditolak. `padding` di manifest tetap
+  dokumentasi "tanpa pembaca", sedangkan `coverage()` menghitung tile PNG +
+  header/tail eksplisit sebagai proven (rasio 1.0); nibble rendah untuk piksel
+  x genap. `verify`
   membandingkan byte dan SHA-256 hasil encode dengan slice ROM dan exit 1 bila
   beda. Tool ini **tidak** menyunting `asm/data/*.s`; penggantian `.incbin`
   hanya boleh dilakukan setelah gate ini HIJAU (dan `make compare` HIJAU).
@@ -466,24 +470,28 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   panjang yang sama.
 - `tools/assets/table.py` — codec `kind: table` untuk tabel/struct yang belum
   punya codec domain. Source JSON berisi `segments` dengan `format` `u8`,
-  `u16le`, `u32le`, atau `hex`; `encode` menolak celah, tumpang tindih, nilai
-  di luar rentang, atau source yang tidak menutup seluruh `rom.size`.
-  Gunakan `hex` hanya untuk byte yang belum punya arti per-field, dan tulis
-  `evidence`/`note` tentang bagian yang terbukti dari call site. Selama payload
-  hex belum punya pembaca penuh, asetnya berstatus `partial` dan tidak masuk
-  manifest/`gfx_rules.mk`. Contoh: `assets/gfx/tables/gUnk_08529994.json`
-  (header u16 + blok gaya) dan `gUnk_08698B00.json` (0x80 B pertama disalin ke
-  lapis).
+  `u16le`, `u32le`, atau `tiles4bpp` (`png` + `tiles_wide` + `tiles`, PNG
+  indeks 0..15 dengan aturan warna yang sama seperti tile peta); `format:
+  hex` ditolak. `encode` menolak celah, tumpang tindih, nilai di luar
+  rentang, atau source yang tidak menutup seluruh `rom.size`. Tulis
+  `evidence`/`note` tentang bagian yang terbukti dari call site; arti tabel
+  tetap `unidentified` sampai call site membuktikannya. `coverage()`
+  menghitung semua byte dari field (u8/u16/u32/PNG), jadi rasio 1.0 selama
+  tidak ada `hex`. Contoh: `assets/gfx/tables/gUnk_08529994.json` (header u16
+  + blok gaya PNG) dan `gUnk_08698B00.json` (0x80 B pertama disalin ke lapis).
 - `tools/assets/font_container.py` — codec container font/objek
   `func_0805E6CC` (bukan tile datar). `decode` mengikuti pembacaan fungsi:
   enam tabel berhitung — A 4 B, B 16 B, C 8 B, D 32 B, E 32 B, F 8 B — lalu
   ekor T (u16 count + count×u32); tiap tabel diawali 4 B (u16 count + 2 B pad).
   Kalau slice punya byte sesudah ekor T (mis. palet 32 B atau payload yang
-  dibaca pemanggil lain), sisa itu disimpan `source.tail_hex` dan disalin
-  apa adanya saat `encode`; framing “header + tile datar” tetap ditolak
-  karena tabel T tidak berakhir di dalam prefix container. Hanya tabel
-  berentri 32 B yang dirender ke PNG; tabel lain disimpan sebagai hex di JSON
-  dan disalin apa adanya saat `encode`. `verify` menuntut byte dan SHA-256
+  dibaca pemanggil lain), sisa itu disimpan `source.tail_words` (u32) atau
+  `tail_bytes` (u8), bukan hex; framing “header + tile datar” tetap ditolak
+  karena tabel T tidak berakhir di dalam prefix container. Tabel berentri
+  32 B dirender ke PNG; tabel lain menyimpan `values` (baris u32 sesuai
+  `entry_size`) dan `pad` u16 eksplisit, bukan hex. `coverage()` menghitung
+  tabel/tile dan `tail_words` sebagai proven (rasio 1.0) karena semuanya
+  ditulis dari field. `verify`
+  menuntut byte dan SHA-256
   hasil encode sama dengan slice ROM. Tool ini **tidak** menyunting
   `asm/data/*.s`. Contoh: `python3 tools/assets/font_container.py verify
   --json assets/gfx/fonts/unk_0872de44.json`. Container 0x75352C, 0x753608,

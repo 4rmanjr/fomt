@@ -17,6 +17,7 @@ def load(name, rel):
 
 
 table = load("table", "tools/assets/table.py")
+tile4bpp = load("tile4bpp", "tools/assets/tile4bpp.py")
 
 
 def meta(segments, size):
@@ -34,13 +35,40 @@ class TableCodec(unittest.TestCase):
             path.write_text(json.dumps(meta(segments, size)))
             return table.encode_source(path)
 
-    def test_values_and_hex_roundtrip(self):
+    def test_values_roundtrip(self):
         data = self.encode([
             {"offset": 0, "format": "u16le", "values": [0x1234]},
-            {"offset": 2, "format": "hex", "hex": "aabb"},
+            {"offset": 2, "format": "u8", "values": [0xAA, 0xBB]},
             {"offset": 4, "format": "u8", "values": [7]},
         ], 5)
         self.assertEqual(data, b"\x34\x12\xaa\xbb\x07")
+
+    def test_hex_ditolak(self):
+        """Blob buram tidak boleh kembali lewat `format: hex`."""
+        with self.assertRaises(SystemExit) as ctx:
+            self.encode([{"offset": 0, "format": "hex", "hex": "aabb"}], 2)
+        self.assertIn("hex sudah tidak dipakai", str(ctx.exception))
+
+    def test_tiles4bpp_dari_png(self):
+        png = REPO / "build" / "test_table_tiles.png"
+        png.parent.mkdir(parents=True, exist_ok=True)
+        rgb = bytearray(8 * 8 * 3)
+        for i in range(0, len(rgb), 3):
+            rgb[i:i + 3] = bytes(tile4bpp.INDICES[(i // 3) % 16])
+        tile4bpp.write_png(png, 8, 8, rgb)
+        try:
+            data = self.encode([{
+                "offset": 0, "format": "tiles4bpp", "tiles": 1,
+                "tiles_wide": 1,
+                "png": str(png.relative_to(REPO))}], 32)
+        finally:
+            png.unlink()
+        body = bytearray()
+        for y in range(8):
+            for x in range(0, 8, 2):
+                body.append(((y * 8 + x) % 16)
+                            | (((y * 8 + x + 1) % 16) << 4))
+        self.assertEqual(data, bytes(body))
 
     def test_gap_is_rejected(self):
         with self.assertRaises(SystemExit) as ctx:
@@ -54,7 +82,7 @@ class TableCodec(unittest.TestCase):
         with self.assertRaises(SystemExit) as ctx:
             self.encode([
                 {"offset": 0, "format": "u16le", "values": [1]},
-                {"offset": 1, "format": "hex", "hex": "00"},
+                {"offset": 1, "format": "u8", "values": [0]},
             ], 2)
         self.assertIn("tumpang tindih", str(ctx.exception))
 

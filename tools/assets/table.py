@@ -10,13 +10,15 @@ container `func_0805E6CC`). Codec ini menyimpan byte sebagai segmen eksplisit:
  "source": {"segments": [
    {"offset": 0, "format": "u16le", "values": [4],
     "note": "header: jumlah tile per blok gaya"},
-   {"offset": 4, "format": "hex", "hex": "00000000...",
+   {"offset": 4, "format": "tiles4bpp", "tiles": 4, "tiles_wide": 4,
+    "png": "assets/gfx/tables/gUnk_08529994/block_0x0004.png",
     "note": "blok gaya; hanya satu blok per panggilan yang dibaca"}
  ]}}
 ```
 
-Format yang didukung: `u8`, `u16le`, `u32le`, dan `hex`. `values` dipakai
-untuk array bilangan; `hex` untuk byte yang belum punya arti per-field. Segmen
+Format yang didukung: `u8`, `u16le`, `u32le`, dan `tiles4bpp` (PNG indeks
+0..15, aturan warna sama dengan tile peta). Segmen `format: hex` ditolak —
+byte yang belum punya arti tetap dipecah per nilai. Segmen
 wajib menutup **seluruh** `rom.size` tanpa celah/tumpang tindih—dengan begitu
 round-trip byte-identik tanpa mengarang field yang belum terbukti. Arti tabel
 tetap `semantics: unidentified` sampai call site membuktikannya.
@@ -30,6 +32,10 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import tile4bpp  # noqa: E402
+
+REPO = Path(__file__).resolve().parents[2]
 FORMATS = {"u8": 1, "u16le": 2, "u32le": 4}
 MAX_VALUE = {"u8": 0xFF, "u16le": 0xFFFF, "u32le": 0xFFFFFFFF}
 
@@ -71,11 +77,70 @@ def _segment_bytes(segment):
             out += value.to_bytes(width, "little")
         return offset, bytes(out)
     if fmt == "hex":
-        try:
-            return offset, bytes.fromhex(segment["hex"])
-        except (KeyError, ValueError) as exc:
-            raise ValueError(f"segmen {offset:#x}: hex tidak valid: {exc}")
+        raise ValueError(
+            f"segmen {offset:#x}: format hex sudah tidak dipakai; pakai "
+            "u8/u16le/u32le atau tiles4bpp (PNG)")
+    if fmt == "tiles4bpp":
+        count = segment.get("tiles")
+        wide = segment.get("tiles_wide")
+        png = segment.get("png")
+        if not isinstance(count, int) or count < 1:
+            raise ValueError(f"segmen {offset:#x}: tiles wajib >= 1")
+        if not isinstance(wide, int) or wide < 1:
+            raise ValueError(f"segmen {offset:#x}: tiles_wide wajib >= 1")
+        if not isinstance(png, str) or not png:
+            raise ValueError(f"segmen {offset:#x}: png wajib path PNG")
+        return offset, _tiles_bytes(REPO / png, count, wide, offset)
     raise ValueError(f"segmen {offset:#x}: format {fmt!r} tidak dikenal")
+
+
+def _tiles_bytes(path, count, tiles_wide, offset):
+    """PNG indeks 0..15 -> body tile 4bpp (nibble rendah dulu)."""
+    width, height, rgb = tile4bpp.read_png(path)
+    rows = (count + tiles_wide - 1) // tiles_wide
+    if width != tiles_wide * 8 or height != rows * 8:
+        raise ValueError(
+            f"segmen {offset:#x}: {path.name} {width}x{height}, harus "
+            f"{tiles_wide * 8}x{rows * 8} untuk {count} tile")
+    out = bytearray()
+    for tile in range(count):
+        tx = (tile % tiles_wide) * 8
+        ty = (tile // tiles_wide) * 8
+        for y in range(8):
+            for x in range(0, 8, 2):
+                pair = []
+                for xx in (x, x + 1):
+                    dst = ((ty + y) * width + tx + xx) * 3
+                    color = tuple(rgb[dst:dst + 3])
+                    if color not in tile4bpp.RGB_TO_INDEX:
+                        raise ValueError(
+                            f"segmen {offset:#x}: warna {color} di tile "
+                            f"{tile} bukan indeks 0..15")
+                    pair.append(tile4bpp.RGB_TO_INDEX[color])
+                out.append(pair[0] | (pair[1] << 4))
+    return bytes(out)
+
+
+def coverage(meta):
+    """Coverage tabel: semua byte dari field (u8/u16/u32/png), tanpa hex."""
+    for offset, segment in enumerate(
+            meta.get("source", {}).get("segments", [])):
+        if segment.get("format") == "hex":
+            raise ValueError(
+                f"segmen[{offset}]: format hex tidak bisa dihitung proven")
+    size = int(meta["rom"]["size"])
+    written = sum(len(_segment_bytes(s)[1])
+                  for s in meta.get("source", {}).get("segments", []))
+    if written != size:
+        raise ValueError(f"segmen menutup {written} B != rom.size {size} B")
+    # `padding` tetap dokumentasi "tanpa pembaca"; nilainya ditulis dari
+    # field, jadi tidak ada byte buram yang perlu dihitung raw.
+    return {
+        "total_bytes": size,
+        "proven_bytes": size,
+        "raw_bytes": 0,
+        "proven_ratio": 1.0,
+    }
 
 
 def _layout(meta):

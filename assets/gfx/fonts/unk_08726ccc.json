@@ -3,8 +3,7 @@
  "source": {
   "png": "unk_08726ccc.png",
   "tiles_wide": 16,
-  "tile_count": 49,
-  "tail_hex": ""
+  "tile_count": 49
  },
  "encoder": {
   "tool": "font_container.py",
@@ -49,49 +48,96 @@
   {
    "name": "A",
    "entry_size": 4,
-   "count": 1,
-   "prefix_hex": "01000000",
-   "data_hex": "01000000"
+   "values": [
+    [
+     1
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "B",
    "entry_size": 16,
-   "count": 1,
-   "prefix_hex": "01000000",
-   "data_hex": "09000000300000000100000000000000"
+   "values": [
+    [
+     9,
+     48,
+     1,
+     0
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "C",
    "entry_size": 8,
-   "count": 9,
-   "prefix_hex": "09000000",
-   "data_hex": "e400e48100000000e480048010000000e4801440180000000440e4811c000000040004402400000004801400280000001440e4412a000000144004002e0000001400140000000000"
+   "values": [
+    [
+     2179203300,
+     0
+    ],
+    [
+     2147778788,
+     16
+    ],
+    [
+     1075085540,
+     24
+    ],
+    [
+     2179219460,
+     28
+    ],
+    [
+     1074003972,
+     36
+    ],
+    [
+     1343492,
+     40
+    ],
+    [
+     1105477652,
+     42
+    ],
+    [
+     278548,
+     46
+    ],
+    [
+     1310740,
+     0
+    ]
+   ],
+   "pad": 0
   },
   {
    "name": "D",
    "entry_size": 32,
-   "prefix_hex": "30000000",
-   "tiles": 48
+   "tiles": 48,
+   "pad": 0
   },
   {
    "name": "E",
    "entry_size": 32,
-   "prefix_hex": "01000000",
-   "tiles": 1
+   "tiles": 1,
+   "pad": 0
   },
   {
    "name": "F",
    "entry_size": 8,
-   "count": 0,
-   "prefix_hex": "00000000",
-   "data_hex": ""
+   "values": [],
+   "pad": 0
   },
   {
    "name": "T",
    "entry_size": 4,
-   "count": 1,
-   "prefix_hex": "01000000",
-   "data_hex": "00000000"
+   "values": [
+    [
+     0
+    ]
+   ],
+   "pad": 0
   }
  ],
  "id": "gfx/fonts/gunk_08726ccc",
@@ -103,5 +149,11 @@
  },
  "note": "count 1 + tabel; func_0805E6CC, bukan tile datar",
  "status": "rom-exact",
- "semantics": "unidentified"
+ "semantics": "unidentified",
+ "coverage": {
+  "total_bytes": 1692,
+  "proven_bytes": 1692,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

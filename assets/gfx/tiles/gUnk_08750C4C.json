@@ -1,25 +1,29 @@
 {
-  "id": "gfx/tiles/gunk_08750c4c",
-  "symbol": "gUnk_08750C4C",
-  "kind": "tiles4bpp",
-  "semantics": "unidentified",
-  "source": {
-    "png": "gUnk_08750C4C.png",
-    "tiles_wide": 1,
-    "tile_count": 1,
-    "header_hex": "",
-    "tail_hex": ""
-  },
-  "encoder": {
-    "tool": "tile4bpp.py",
-    "version": 1
-  },
-  "note": "1 tile 4bpp (bukan palet: 100% word satu-nibble)",
-  "rom": {
-    "offset": "0x750C4C",
-    "size": 32,
-    "sha256": "e98672a456687f9c428628c321ff964b8507028878310d4e3eaebd3cfbe37e49"
-  },
-  "status": "rom-exact",
-  "evidence": "func_08008F0C (code_0803EE94.s:74636): salinan 0x20 B dari gUnk_08750C4C ke 0x060100A0 — 1 tile 4bpp; tapak BG-map memakai tile yang sama."
+ "id": "gfx/tiles/gunk_08750c4c",
+ "symbol": "gUnk_08750C4C",
+ "kind": "tiles4bpp",
+ "semantics": "unidentified",
+ "source": {
+  "png": "gUnk_08750C4C.png",
+  "tiles_wide": 1,
+  "tile_count": 1
+ },
+ "encoder": {
+  "tool": "tile4bpp.py",
+  "version": 1
+ },
+ "note": "1 tile 4bpp (bukan palet: 100% word satu-nibble)",
+ "rom": {
+  "offset": "0x750C4C",
+  "size": 32,
+  "sha256": "e98672a456687f9c428628c321ff964b8507028878310d4e3eaebd3cfbe37e49"
+ },
+ "status": "rom-exact",
+ "evidence": "func_08008F0C (code_0803EE94.s:74636): salinan 0x20 B dari gUnk_08750C4C ke 0x060100A0 — 1 tile 4bpp; tapak BG-map memakai tile yang sama.",
+ "coverage": {
+  "total_bytes": 32,
+  "proven_bytes": 32,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }

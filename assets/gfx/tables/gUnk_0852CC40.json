@@ -23,27 +23,35 @@
    },
    {
     "offset": 4,
-    "format": "hex",
-    "hex": "00000000000055450050545400455454504354545453545454525254545535350000000000000000040000002400000024020000242400002424000024240000535588885385ffff5398cccc849a9bb9999b6886909b7667909b7667909a7667282400008a2400009a280000cb890000aa990000c9080000c9080000a9080000",
-    "note": "blok gaya 0 (128 B); disalin func_0806EC94 untuk gaya terpilih"
+    "format": "tiles4bpp",
+    "note": "blok gaya 0 (128 B); disalin func_0806EC94 untuk gaya terpilih",
+    "tiles": 4,
+    "tiles_wide": 4,
+    "png": "assets/gfx/tables/gUnk_0852CC40/block_0x0004.png"
    },
    {
     "offset": 132,
-    "format": "hex",
-    "hex": "0000000000000032000032330032453332343534423444333233433343334533120000002212000022120000341200004443000022430000222200002412000044344554423454a54254a5dc5285dcdda5ac7cb7a0ad8778a0ad8778a0ac877845140000cd4a0000ed0a0000ed0a0000dc0a0000ec0a0000ec0a0000cb0a0000",
-    "note": "blok gaya 1 (128 B); disalin func_0806EC94 untuk gaya terpilih"
+    "format": "tiles4bpp",
+    "note": "blok gaya 1 (128 B); disalin func_0806EC94 untuk gaya terpilih",
+    "tiles": 4,
+    "tiles_wide": 4,
+    "png": "assets/gfx/tables/gUnk_0852CC40/block_0x0084.png"
    },
    {
     "offset": 260,
-    "format": "hex",
-    "hex": "0000000020232122502445245234452452244524522345244223452422122122000000003202000053130000531300005312000053120000531200001212000055c5bbbbb56caabaaacc899abaaaacb8b8fa6a96b8a66666a96b766790997667ac150000a61a0000bc9b00009cab0000cba90000a9a600006a9a000089090000",
-    "note": "blok gaya 2 (128 B); disalin func_0806EC94 untuk gaya terpilih"
+    "format": "tiles4bpp",
+    "note": "blok gaya 2 (128 B); disalin func_0806EC94 untuk gaya terpilih",
+    "tiles": 4,
+    "tiles_wide": 4,
+    "png": "assets/gfx/tables/gUnk_0852CC40/block_0x0104.png"
    },
    {
     "offset": 388,
-    "format": "hex",
-    "hex": "ff035e805f80ff03ff035e805f80ff0360806180628063806080618062806380648065806680678064806580668067806880698075807680688069806a806b806c806d806e807780788079807a806f807080718072807b807c807d807e807380ff035e805f80ff0360806180628063806480658066806780688069806a806b80",
-    "note": "blok gaya 3 (128 B); disalin func_0806EC94 untuk gaya terpilih"
+    "format": "tiles4bpp",
+    "note": "blok gaya 3 (128 B); disalin func_0806EC94 untuk gaya terpilih",
+    "tiles": 4,
+    "tiles_wide": 4,
+    "png": "assets/gfx/tables/gUnk_0852CC40/block_0x0184.png"
    },
    {
     "offset": 516,
@@ -83,5 +91,11 @@
    ]
   }
  ],
- "tile_animations": []
+ "tile_animations": [],
+ "coverage": {
+  "total_bytes": 532,
+  "proven_bytes": 532,
+  "raw_bytes": 0,
+  "proven_ratio": 1.0
+ }
 }
