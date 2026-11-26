@@ -782,13 +782,14 @@
  },
  "func_080D7B04": {
   "addr": 135101188,
-  "judged_mtime": 1793018117.8713732,
+  "judged_mtime": 1795698841.8972147,
   "module": "code_linkonce.s",
-  "note": "reloc [(24, 10, '__builtin_delete'), (32, 2, 'vtable_unk_080E5B54'), (36, 2, 'gUnk_03000410')] vs ref [(24, 10, '__builtin_delete'), (32, 2, 'vtable_unk_080E5B54')]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 32,
   "sanitize_v": 4,
   "size": 421,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D7B2C": {
@@ -1800,13 +1801,14 @@
  },
  "func_080DC724": {
   "addr": 135120676,
-  "judged_mtime": 1793018139.2053013,
+  "judged_mtime": 1795698925.9791112,
   "module": "code_linkonce.s",
-  "note": "len 64 vs ref 58",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 534,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC764": {
@@ -3323,13 +3325,14 @@
  },
  "func_080E10F8": {
   "addr": 135139576,
-  "judged_mtime": 1793018165.6781557,
+  "judged_mtime": 1795698893.6729982,
   "module": "code_linkonce.s",
-  "note": "len 26 vs ref 46",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 439,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E1128": {
@@ -4352,13 +4355,14 @@
  },
  "func_080E3A6C": {
   "addr": 135150188,
-  "judged_mtime": 1793015357.6763709,
+  "judged_mtime": 1795698841.8972147,
   "module": "code_linkonce.s",
-  "note": "len 10 vs ref 18",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 189,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E3A80": {

@@ -218,6 +218,21 @@ def src_section_names() -> set:
     return names
 
 
+def _has_name_wildcard(stem: str) -> bool:
+    """True bila lds memuat `*(SORT_BY_NAME(.text.<stem>.*))`.
+
+    Wildcard itu menempatkan section bernama URUT NAMA, bukan urut blok
+    lds — jadi posisi entri src terhadap asm tak lagi menentukan, dan
+    modul boleh di-split walau src tulisan-tangan berada di depan asm.
+    """
+    try:
+        lines = (REPO / "fomt.lds").read_text(errors="replace").splitlines()
+    except OSError:
+        return False
+    pat = f"*(SORT_BY_NAME(.text.{stem}.*))"
+    return any(ln.strip().replace(" ", "") == pat for ln in lines)
+
+
 def _src_before_asm(stem: str) -> bool:
     """True bila lds menaruh src/<stem>.o(.text) SEBELUM asm/<stem>.o(.text)."""
     try:
@@ -536,7 +551,10 @@ def analyze(text: str, stem: str, migrated=None):
 def split(text: str, stem: str, migrated=None) -> str:
     if not (REPO / "src" / f"{stem}.cc").exists():
         return text
-    if _src_before_asm(stem):
+    # src-sebelum-asm hanya memblokir BILA urutan ditentukan blok lds;
+    # dengan wildcard SORT_BY_NAME urutan ditentukan nama section, jadi
+    # section-replace tetap sah (kelas: code_actor_0809BFE8).
+    if _src_before_asm(stem) and not _has_name_wildcard(stem):
         return text
     preamble, groups = analyze(text, stem, migrated)
     if not groups:

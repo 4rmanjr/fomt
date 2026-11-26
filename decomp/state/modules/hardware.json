@@ -127,14 +127,15 @@
  },
  "func_080079E8": {
   "addr": 134248936,
-  "judged_mtime": 1793582714.0214198,
+  "judged_mtime": 1795698893.6729982,
   "module": "hardware.s",
-  "note": "omething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080079E8/opencode/func.c:9: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080079E8/opencode/func.c:9: request for member `unk924' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 64,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 704,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08007A28": {

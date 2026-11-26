@@ -2225,3 +2225,58 @@ void func_080E3774(u8 *arg0) {
     func_08050D8C(p, &gUnk_081005D8);
     func_08050E50(p, 0x38);
 }
+
+// DECOMP-MATCHED func_080E3A6C (dari code_linkonce.s; cek manusia sebelum ke src/)
+void func_080D0558(s32, s32, s32, s32);                /* extern */
+
+void func_080E3A6C(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    func_080D0558(arg1, arg2, arg3, arg4);
+}
+
+// DECOMP-MATCHED func_080D7B04 (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_delete(void *);                        /* extern */
+extern s32 vtable_unk_080E5B54;
+extern void *gUnk_03000410;
+
+typedef struct Obj_D7B04 {
+    void *unk0;
+    void *unk4;
+} Obj_D7B04;
+
+void func_080D7B04(Obj_D7B04 *arg0, s32 arg1) {
+    arg0->unk4 = &vtable_unk_080E5B54;
+    gUnk_03000410 = arg0->unk0;
+    if (arg1 & 1) {
+        __builtin_delete(arg0);
+    }
+}
+
+// DECOMP-MATCHED func_080E10F8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_delete(void *);                        /* extern */
+extern s32 vtable_unk_080E78F0;
+
+typedef struct Obj_E10F8 {
+    void *unk0;
+} Obj_E10F8;
+
+void func_080E10F8(Obj_E10F8 *arg0, s32 arg1) {
+    arg0->unk0 = &vtable_unk_080E78F0;
+    if (arg1 & 1) {
+        __builtin_delete(arg0);
+    }
+}
+
+// DECOMP-MATCHED func_080DC724 (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_delete(void *);                        /* extern */
+void func_080A47B4(void *, s32);                       /* extern */
+extern s32 vtable_unk_080E65E0;
+
+void func_080DC724(u8 *arg0, s32 arg1) {
+    func_080A47B4(arg0 + 0x8C, 2);
+    func_080A47B4(arg0 + 0x48, 2);
+    func_080A47B4(arg0 + 8, 2);
+    *(s32 *) (arg0 + 4) = (s32) &vtable_unk_080E65E0;
+    if (arg1 & 1) {
+        __builtin_delete(arg0);
+    }
+}

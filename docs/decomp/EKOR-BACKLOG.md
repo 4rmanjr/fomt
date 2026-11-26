@@ -21,15 +21,13 @@ python3 tools/scripts/tail_chain.py --module <stem>.s [--json]
 
 | modul | tersisa di asm | promoted terkunci | blocker terakhir | status rantai |
 |---|---|---|---|---|
-| `code_linkonce.s` | 428 | 168 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
-| `code_actor_0809BFE8.s` | 51 | 27 | `func_0809DA00` (1323B, `failed`) | terbuka, ujung belum MATCH |
-| `hardware.s` | 34 | 10 | `func_080087C8` (239B, `failed`) | terbuka, ujung belum MATCH |
+| `code_linkonce.s` | 428 | 172 | `func_080E5664` (439B, `failed`) | terbuka, ujung belum MATCH |
 
 Modul tail-only lain sudah kosong di `asm/` (tidak punya blocker ekor lagi): `code_iwram`, `game_scene`, `interrupt`, `main`, `more_items`, `scene`, `sram_proxy_1`, `vtables`.
 
 ## `code_linkonce.s`
 
-Sisa **428** fungsi (168 `promoted`, 260 `failed`). Tabel = 12 entri terakhir; 416 fungsi lain di bawahnya juga belum di `src/`.
+Sisa **428** fungsi (172 `promoted`, 256 `failed`). Tabel = 12 entri terakhir; 416 fungsi lain di bawahnya juga belum di `src/`.
 
 | idx | fungsi | ukuran | status | residual terakhir |
 |---|---|---|---|---|
@@ -74,8 +72,7 @@ Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungs
 | 31 | `func_080E3E9C` | 164B | `func_080E3E28`, `func_080E3DB4`, `func_080E3D94` |
 | 35 | `func_080E3C3C` | 336B | - |
 | 36 | `func_080E3B80` | 188B | `func_080E3B60` |
-| 38 | `func_080E3A9C` | 196B | `func_080E3A8C`, `func_080E3A80` |
-| 41 | `func_080E3A6C` | 20B | `func_080E3A5C`, `func_080E3A50`, `func_080E3A44` |
+| 38 | `func_080E3A9C` | 196B | `func_080E3A8C`, `func_080E3A80`, `func_080E3A6C`, `func_080E3A5C`, `func_080E3A50`, `func_080E3A44` |
 | 45 | `func_080E39EC` | 88B | - |
 | 46 | `func_080E3994` | 88B | - |
 | 47 | `func_080E3938` | 92B | `func_080E392C`, `func_080E3920`, `func_080E3914`, `func_080E3910`, `func_080E38E0` |
@@ -122,8 +119,7 @@ Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungs
 | 126 | `func_080E14B8` | 264B | `func_080E1498` |
 | 128 | `func_080E11EC` | 676B | - |
 | 129 | `func_080E118C` | 96B | - |
-| 130 | `func_080E1148` | 68B | `func_080E1128` |
-| 132 | `func_080E10F8` | 48B | `func_080E10EC`, `func_080E10E0` |
+| 130 | `func_080E1148` | 68B | `func_080E1128`, `func_080E10F8`, `func_080E10EC`, `func_080E10E0` |
 | 135 | `func_080E105C` | 128B | `func_080E103C`, `func_080E1030`, `func_080E1024`, `func_080E1018` |
 | 140 | `func_080E0F90` | 136B | `func_080E0F48`, `func_080E0EFC`, `func_080E0EF0` |
 | 144 | `func_080E0E80` | 51B | `func_080E0D70`, `func_080E0D64`, `func_080E0D50` |
@@ -179,8 +175,7 @@ Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungs
 | 223 | `func_080DCB7C` | 432B | `func_080DCB70`, `func_080DCB64`, `func_080DCB58`, `func_080DCB4C`, `func_080DCB40`, `func_080DCB34`, `func_080DCB28`, `func_080DCB1C`, `func_080DCB10`, `func_080DCB04`, `func_080DCAF8`, `func_080DCAEC`, `func_080DCAE0`, `func_080DCAD4`, `func_080DCAC8`, `func_080DCABC`, `func_080DCAB0`, `func_080DCAA4`, `func_080DCA98`, `func_080DCA8C`, `func_080DCA80`, `func_080DCA74`, `func_080DCA68`, `func_080DCA5C`, `func_080DCA50`, `func_080DCA44`, `func_080DCA38`, `func_080DCA2C`, `func_080DCA20`, `func_080DCA14`, `func_080DCA08`, `func_080DC9FC`, `func_080DC9F0`, `func_080DC9E4`, `func_080DC9D8`, `func_080DC9CC`, `func_080DC9C0` |
 | 261 | `func_080DC96C` | 84B | - |
 | 262 | `func_080DC840` | 300B | - |
-| 263 | `func_080DC764` | 220B | - |
-| 264 | `func_080DC724` | 64B | - |
+| 263 | `func_080DC764` | 220B | `func_080DC724` |
 | 265 | `func_080DC67C` | 168B | - |
 | 266 | `func_080DC57C` | 256B | - |
 | 267 | `func_080DC554` | 40B | - |
@@ -262,8 +257,7 @@ Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungs
 | 351 | `func_080D7F3C` | 36B | - |
 | 352 | `func_080D7F08` | 52B | - |
 | 353 | `func_080D7ECC` | 60B | - |
-| 354 | `func_080D7E64` | 104B | `func_080D7B44`, `func_080D7B38`, `func_080D7B2C` |
-| 358 | `func_080D7B04` | 32B | - |
+| 354 | `func_080D7E64` | 104B | `func_080D7B44`, `func_080D7B38`, `func_080D7B2C`, `func_080D7B04` |
 | 359 | `func_080D7AD4` | 40B | `func_080D7AAC` |
 | 361 | `func_080D79CC` | 224B | - |
 | 362 | `func_080D7944` | 136B | - |
@@ -311,109 +305,13 @@ Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungs
 | 426 | `func_080D3BE8` | 60B | - |
 | 427 | `func_080D3BC0` | 40B | - |
 
-## `code_actor_0809BFE8.s`
-
-Sisa **51** fungsi (27 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 39 fungsi lain di bawahnya juga belum di `src/`.
-
-| idx | fungsi | ukuran | status | residual terakhir |
-|---|---|---|---|---|
-| 39 | `func_0809D418` | 88B | failed | len 100 vs ref 88 |
-| 40 | `func_0809D470` | 144B | failed | len 144 vs ref 142 |
-| 41 | `func_0809D500` | 664B | failed | kompilasi: dereferencing `void *' pointer |
-| 42 | `func_0809D79C` | 60B | failed | byte +0x2: 0x1 vs ref 0x8 |
-| 43 | `func_0809D7D8` | 200B | failed | case label not within a switch statement |
-| 44 | `func_0809D8A0` | 4B | promoted | - |
-| 45 | `func_0809D8A4` | 20B | promoted | - |
-| 46 | `func_0809D8B8` | 28B | promoted | - |
-| 47 | `func_0809D8D4` | 20B | promoted | MATCH, menunggu giliran cabut |
-| 48 | `func_0809D8E8` | 204B | failed | kompilasi: dereferencing `void *' pointer |
-| 49 | `func_0809D9B4` | 76B | failed | byte +0x1a: 0xf vs ref 0x10 |
-| 50 | `func_0809DA00` | 1323B | failed | len 1310 vs ref 1322 [11missing,5extra,117operand,40regalloc,1s… (dari note, belum ada catatan migrate) |
-
-Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungsi non-`promoted` dan `promoted` yang baru bisa dicabut setelah fungsi itu MATCH + dicabut.
-
-| dari ujung | fungsi gerbang | ukuran | membuka |
-|---|---|---|---|
-| 0 | `func_0809DA00` | 1323B | - |
-| 1 | `func_0809D9B4` | 76B | - |
-| 2 | `func_0809D8E8` | 204B | `func_0809D8D4`, `func_0809D8B8`, `func_0809D8A4`, `func_0809D8A0` |
-| 7 | `func_0809D7D8` | 200B | - |
-| 8 | `func_0809D79C` | 60B | - |
-| 9 | `func_0809D500` | 664B | - |
-| 10 | `func_0809D470` | 144B | - |
-| 11 | `func_0809D418` | 88B | - |
-| 12 | `func_0809D168` | 684B | - |
-| 13 | `func_0809CF34` | 564B | - |
-| 14 | `func_0809CE8C` | 168B | `func_0809CE7C`, `func_0809CE30`, `func_0809CE24`, `func_0809CE1C`, `func_0809CDEC`, `func_0809CDCC`, `func_0809CD98` |
-| 22 | `func_0809CD78` | 32B | - |
-| 23 | `func_0809C6BC` | 1724B | `func_0809C6B0`, `func_0809C6AC`, `func_0809C694`, `func_0809C644` |
-| 28 | `func_0809C600` | 68B | `func_0809C5F4`, `func_0809C5EC`, `func_0809C5D0`, `func_0809C5B4` |
-| 33 | `func_0809C510` | 160B | - |
-| 34 | `func_0809C4E4` | 44B | `func_0809C4B4`, `func_0809C474`, `func_0809C444` |
-| 38 | `func_0809C420` | 36B | - |
-| 39 | `func_0809C3E0` | 64B | - |
-| 40 | `func_0809C3BC` | 36B | `func_0809C38C` |
-| 42 | `func_0809C32C` | 96B | - |
-| 43 | `func_0809C304` | 40B | - |
-| 44 | `func_0809C22C` | 216B | - |
-| 45 | `func_0809C144` | 232B | - |
-| 46 | `func_0809C0D4` | 112B | `func_0809C0C8`, `func_0809C0BC`, `func_0809C0AC`, `func_0809C0A0` |
-
-## `hardware.s`
-
-Sisa **34** fungsi (10 `promoted`, 24 `failed`). Tabel = 12 entri terakhir; 22 fungsi lain di bawahnya juga belum di `src/`.
-
-| idx | fungsi | ukuran | status | residual terakhir |
-|---|---|---|---|---|
-| 22 | `func_08007F84` | 156B | failed | kompilasi: assignment makes pointer from integer without a cast |
-| 23 | `func_08008020` | 128B | promoted | - |
-| 24 | `func_080080A0` | 700B | failed (byte ekor) (MULTI-FUNGSI 3 prolog) | kompilasi: assignment makes pointer from integer without a cast |
-| 25 | `func_0800835C` | 8B | promoted | - |
-| 26 | `func_08008364` | 108B | failed | kompilasi: dereferencing `void *' pointer |
-| 27 | `func_080083D0` | 116B | failed | kompilasi: passing arg 2 of `func_08007CD8' makes integer from… |
-| 28 | `func_08008444` | 152B | failed | byte +0x2: 0x6 vs ref 0x81 |
-| 29 | `func_080084DC` | 152B | failed | len 160 vs ref 152 |
-| 30 | `func_08008574` | 328B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x6: 0x6 vs ref 0x81 |
-| 31 | `func_080086BC` | 104B | failed | byte +0x6: 0x14 vs ref 0x16 |
-| 32 | `func_08008724` | 164B | failed (byte ekor) (MULTI-FUNGSI 2 prolog) | byte +0x2: 0x81 vs ref 0x84 |
-| 33 | `func_080087C8` | 239B | failed | migrate TOLAK: tidak ada kandidat: status di shard bukan promoted (butuh MATCH… |
-
-Peta gerbang: urutan kerja wajib dari ujung, jadi tiap baris menyebut satu fungsi non-`promoted` dan `promoted` yang baru bisa dicabut setelah fungsi itu MATCH + dicabut.
-
-| dari ujung | fungsi gerbang | ukuran | membuka |
-|---|---|---|---|
-| 0 | `func_080087C8` | 239B | - |
-| 1 | `func_08008724` | 164B | - |
-| 2 | `func_080086BC` | 104B | - |
-| 3 | `func_08008574` | 328B | - |
-| 4 | `func_080084DC` | 152B | - |
-| 5 | `func_08008444` | 152B | - |
-| 6 | `func_080083D0` | 116B | - |
-| 7 | `func_08008364` | 108B | `func_0800835C` |
-| 9 | `func_080080A0` | 700B | `func_08008020` |
-| 11 | `func_08007F84` | 156B | `func_08007EE8`, `func_08007EC8`, `func_08007EA8` |
-| 15 | `func_08007E24` | 132B | - |
-| 16 | `func_08007DB8` | 108B | - |
-| 17 | `func_08007D4C` | 108B | - |
-| 18 | `func_08007CD8` | 116B | - |
-| 19 | `func_08007C28` | 176B | - |
-| 20 | `func_08007B54` | 212B | - |
-| 21 | `func_08007A28` | 300B | - |
-| 22 | `func_080079E8` | 64B | - |
-| 23 | `func_08007874` | 372B | `func_08007844`, `func_080077DC`, `func_08007770`, `func_08007714`, `func_0800770C` |
-| 29 | `func_08007510` | 508B | - |
-| 30 | `func_080074C0` | 80B | - |
-| 31 | `func_0800745C` | 100B | - |
-| 32 | `func_080073E0` | 124B | - |
-| 33 | `func_0800736C` | 116B | - |
-
 ## Penjadwalan
 
-| kelas | ukuran | arti | sisa / linkonce / actor_0809BFE8 / hardware |
+| kelas | ukuran | arti | sisa / linkonce |
 |---|---|---|---|
-| S | ≤100B | satu judge biasanya cukup; residual umumnya regalloc kecil | 316 / 38 / 9 |
-| M | 101–300B | perlu 2–3 varian; perhatikan tekanan register | 77 / 8 / 21 |
-| L | >300B | **pekerjaan tersendiri**, bukan sela-sela | 35 / 5 / 4 |
+| S | ≤100B | satu judge biasanya cukup; residual umumnya regalloc kecil | 316 |
+| M | 101–300B | perlu 2–3 varian; perhatikan tekanan register | 77 |
+| L | >300B | **pekerjaan tersendiri**, bukan sela-sela | 35 |
 
 Angka kelas dihitung dari fungsi yang masih punya label di `asm/` dan punya `ref_len` di shard (label tanpa entri state tidak ikut kelas, tetapi tetap dihitung di kolom "tersisa di asm").
 

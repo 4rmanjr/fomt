@@ -261,7 +261,13 @@ def is_split_module(stem):
         lds_text = (REPO / "fomt.lds").read_text(errors="replace")
     except OSError:
         return False
-    return _lds_layout(lds_text, stem) != "before"
+    if _lds_layout(lds_text, stem) != "before":
+        return True
+    # Layout "before" tetap split bila lds punya wildcard SORT_BY_NAME
+    # (urutan ditentukan nama section, bukan posisi blok) — kelas
+    # code_actor_0809BFE8 (2026-11-26).
+    return any(ln.strip().replace(" ", "")
+               == f"*(SORT_BY_NAME(.text.{stem}.*))" for ln in lds_text.splitlines())
 
 
 def load_state(stem):

@@ -1,18 +1,22 @@
-s32 __builtin_delete(void *);                         /* extern */
+void *__builtin_delete(void *);                        /* extern */
 extern void *gUnk_03000408;
 
 void func_080079E8(void *arg0, s32 arg1) {
-    void *temp_r4;
+    void *p;
+    s32 *cnt;
+    s32 v;
 
-    temp_r4 = gUnk_03000408->unk924 - 1;
-    gUnk_03000408->unk924 = temp_r4;
-    if (temp_r4 == 0) {
-        if (gUnk_03000408 != 0) {
-            __builtin_delete(gUnk_03000408);
+    p = gUnk_03000408;
+    cnt = (s32 *) ((u8 *) p + 0x924);
+    v = *cnt - 1;
+    *cnt = v;
+    if (v == 0) {
+        if (p != 0) {
+            __builtin_delete(p);
         }
-        gUnk_03000408 = temp_r4;
+        gUnk_03000408 = (void *) 0;
     }
-    if (1 & arg1) {
+    if (arg1 & 1) {
         __builtin_delete(arg0);
     }
 }

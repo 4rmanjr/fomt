@@ -77,6 +77,7 @@ SECTIONS
         *(SORT_BY_NAME(.text.new_game.*))
         src/new_game.o(.text);
         src/hardware.o(.text);
+        *(SORT_BY_NAME(.text.hardware.*))
         asm/hardware.o(.text);
         src/hardware_migrated.o(.text);
         src/farm.o(.text);
@@ -133,6 +134,7 @@ SECTIONS
         src/cow.o(.text);
         src/sheep.o(.text);
         src/code_actor_0809BFE8.o(.text);
+        *(SORT_BY_NAME(.text.code_actor_0809BFE8.*))
         asm/code_actor_0809BFE8.o(.text);
         src/code_actor_0809BFE8_migrated.o(.text);
         src/npc.o(.text);

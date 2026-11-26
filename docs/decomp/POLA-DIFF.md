@@ -3208,3 +3208,81 @@ agbcc persisnya:
 Kesimpulan kelas: agbcc 2.9 selalu menyimpan argumen stack sebagai kata
 penuh dan selalu men-spill nilai address-taken pada statement tempat ia
 dibaca; tidak ada bentuk C yang mengubah dua hal itu.
+
+## §92. Modul "tak-pernah-split" jadi MAP-split lewat wildcard lds (2026-11-26)
+
+Kelas yang ditutup bulan lalu sebagai "tail-only by design" ternyata hanya
+kurang satu baris linker. `split()` menolak modul bila `_src_before_asm()`
+benar (src tulisan-tangan ada SEBELUM asm di `fomt.lds`), karena urutan
+section saat itu ditentukan posisi blok lds. Begitu lds memuat
+`*(SORT_BY_NAME(.text.<stem>.*))`, urutan ditentukan NAMA section — dan
+section hasil split (` .text.<stem>.<addr>`) plus section blok C di `src/`
+otomatis bersebelahan sesuai alamat.
+
+Perubahan (3 tempat, semuanya tool/build — tanpa asm tulis tangan):
+
+1. `fomt.lds`: `*(SORT_BY_NAME(.text.code_actor_0809BFE8.*))` sisip setelah
+   `src/code_actor_0809BFE8.o(.text);`, dan `*(SORT_BY_NAME(.text.hardware.*))`
+   setelah `src/hardware.o(.text);`.
+2. `tools/scripts/split_asm_sections.py`: `_has_name_wildcard(stem)` baru;
+   guard `_src_before_asm()` hanya berlaku bila wildcard TIDAK ada.
+3. `decomp/migrate.py`: `is_split_module()` mengembalikan True untuk layout
+   `before` bila lds punya wildcard tsb (jalur section-replace).
+
+Bukti tanpa migrasi apa pun: 51 section di `code_actor_0809BFE8.split.s`, 34
+di `hardware.split.s`, dan `make compare` tetap `fomt.gba: OK`. Sesudah itu
+migrasi biasa berjalan (tiap fungsi satu `make compare`):
+
+- `code_actor_0809BFE8.s`: 24 fungsi HIJAU (mis. `func_0809D8D4`,
+  `func_0809C0A0`, `func_0809C38C`, `func_0809CE1C`, `func_0809D8A0`,
+  `func_0809D8B8`).
+- `hardware.s`: 6 fungsi HIJAU (`func_0800770C`, `func_080077DC`,
+  `func_08007844`, `func_08007EA8`, `func_08007EC8`, `func_0800835C`).
+
+Sisa yang tetap ditolak (dicatat, bukan diparkir senyap):
+
+- `func_0809C474` — SKIP signature: extern `func_0809C3E0` di `src/` beda
+  tanda tangan (`u8 (i32)` vs `u8 (i32, i32)`).
+- `func_0809CDCC`, `func_0809CDEC` — GAGAL compile TU C++:
+  `assignment to i32 * from int lacks a cast` pada blok promoted.
+- `func_08007714`, `func_08007770`, `func_08007EE8`, `func_08008020` —
+  GAGAL compile TU C++: `ANSI C++ forbids comparison between pointer and
+  integer` / `conflicting declaration func_08007128` / `type GenObj is not a
+  base type for type GenObj__func_08007EE8`.
+- `func_080079E8` — GAGAL: `ANSI C++ forbids implicit conversion from void *
+  in assignment` (blok memakai `gUnk_03000408` bertipe pointer; perbaikan
+  butuh perubahan tipe di blok promoted).
+- `code_linkonce.s` tetap tak bisa di-split: lds-nya memakai entri manual
+  `asm/code_linkonce.o(.text.code_080D3BC0)` dst, dan `analyze()` menghasilkan
+  0 grup. MATCH baru di modul ini tetap promote-only (lihat §92.1).
+
+### §92.1 Dua kelas MATCH baru dari residu
+
+Keduanya dari kelas "destructor/thunk" yang belum pernah diformulasikan:
+
+1. **Destructor** — `vtable store` + `if (arg1 & 1) __builtin_delete(this)`:
+
+   ```c
+   void func_080E10F8(Obj *arg0, s32 arg1) {
+       arg0->unk0 = &vtable_unk_080E78F0;
+       if (arg1 & 1) __builtin_delete(arg0);
+   }
+   ```
+
+   MATCH: `func_080E10F8` (48 B), `func_080D7B04` (32 B; vtable di offset 4,
+   sebelum itu `gUnk_03000410 = arg0->unk0;`), dan versi berantai
+   `func_080DC724` (64 B; tiga `func_080A47B4(this+delta, 2)` untuk delta
+   0x8C/0x48/8, lalu vtable). Deklarasi `extern void *gUnk_...;` + argumen
+   `u8 *` dengan cast `(s32)&vtable` menghasilkan urutan persis ref.
+2. **Thunk argumen bergeser** — target menerima argumen stack ke-5:
+
+   ```c
+   void func_080E3A6C(void *arg0, s32 a, s32 b, s32 c, s32 d) {
+       func_080D0558(a, b, c, d);
+   }
+   ```
+
+   MATCH: `func_080E3A6C` (18 B). Kunci: setelah `push {lr}` argumen stack
+   pertama ada di `[sp,#4]` (bukan `[sp,#0]`) — draft 6 parameter menghasilkan
+   `ldr r3,[sp,#8]` (DIFF 0x8 vs 0x4), dan tipe balik **harus `void`**: ref
+   berakhir `pop {r0}; bx r0`, sedangkan `s32` menghasilkan `pop {r1}`.
