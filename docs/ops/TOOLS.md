@@ -423,13 +423,20 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   dirujuk); semuanya harus bersama-sama menutup `rom.size`. Tiap segmen
   payload wajib punya `kind` konkret dan byte-nya ditulis dari field kind itu:
   `palette` (`colors` BGR555 < 0x8000), `tilemap` (`width`/`height`/`entries`
-  u16, plus `tail_hex` bila sisa byte tidak dibaca grid), `frames4bpp`
-  (`header` `[tile/frame, frame]`, `tiles_per_frame`, `frames`, `tiles_hex`),
-  dan `packed` (`codec: unpack`, `unpack_size`/`unpack_flags` dari dword
-  pertama; byte terkompresi disimpan apa adanya karena belum ada compressor
-  pembalik). `encode` menulis tiap segmen pada offset-nya, sedangkan
+  u16; ekor setelah grid wajib `tail: {kind: alignment, size: n}` — hanya
+  padding nol yang membuat pointer berikutnya 4-byte aligned, bukan `tail_hex`),
+  `frames4bpp` (`header` `[tile/frame, frame]`, `tiles_per_frame`, `frames`,
+  `tiles_hex`), dan `packed` (`codec: unpack`, `format`, `ladder`,
+  `huffman` bila ada, `unpack_size`/`unpack_flags`, `tokens`,
+  `unpacked_sha256`). Segmen `packed` **tidak** menyimpan byte terkompresi:
+  token LZ-nya yang disimpan, lalu `tools/assets/popuri.py` menulis ulang byte
+  terkompresi dari token itu (`l:<hex>` literal, `m:`/`M:` match) dan decoder
+  `decompress.py` dijalankan untuk memeriksa panjang + SHA-256 hasil
+  dekompresi. `encode` menulis tiap segmen pada offset-nya, sedangkan
   `asset_verify` merekonstruksi tiap segmen dari field semantiknya dan menolak
-  bila byte hasilnya != ROM, kind asing, atau header `packed` tidak cocok.
+  bila byte hasilnya != ROM, kind asing, header `packed` tidak cocok, `hex`
+  mentah muncul lagi, ekor tilemap bukan padding alignment, atau hasil
+  dekompresi tidak cocok dengan `unpack_size`/`unpacked_sha256`.
   Setiap alamat di `pointer_sources` harus menunjuk tepat ke awal segmen, tanpa
   celah atau tumpang tindih. `coverage` dihitung `tilemap_bank.coverage()` dari
   byte yang benar-benar direkonstruksi (entri layer + palet + entri tilemap);
@@ -440,6 +447,17 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   atau jumlah entri tidak sama dengan `width*height`; `verify` membandingkan
   byte + SHA-256 dengan slice ROM. Contoh: `gUnk_086EAD8C` (58 layer) dan
   `gUnk_086DE7F4` (45 layer) di `assets/gfx/maps/`.
+- `tools/assets/popuri.py` — codec **Unpack** (`format popuri`) dua arah:
+  `parse_bytes()` membaca stream terkompresi menjadi `format`, `ladder`,
+  tabel `huffman`, dan `tokens`; `assemble()` menulis byte terkompresi dari
+  field itu (byte-identik dengan ROM); `decode()` memanggil decoder
+  `tools/scripts/decompress.py` yang sudah ada. Dipakai segmen payload
+  `packed` di `tilemap_bank.py`. CLI: `python3 tools/assets/popuri.py verify
+  --rom baserom.gba --offset 0x6EAD20` (parse + assemble + dekompresi),
+  `parse` untuk melihat ringkasan. Format token: `l:<hex>` literal run,
+  `m:<idx>,<dist>,<len>` match pendek, `M:...` match panjang; `idx` adalah
+  cabang ladder dan ikut disimpan karena decoder menerima dua bentuk untuk
+  panjang yang sama.
 - `tools/assets/table.py` — codec `kind: table` untuk tabel/struct yang belum
   punya codec domain. Source JSON berisi `segments` dengan `format` `u8`,
   `u16le`, `u32le`, atau `hex`; `encode` menolak celah, tumpang tindih, nilai

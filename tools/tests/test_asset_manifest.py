@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Regresi indeks aset: sinkron, memarkir non-rom-exact, menolak status asing."""
+import hashlib
 import importlib.util
 import json
 import shutil
@@ -175,11 +176,21 @@ class AssetManifest(unittest.TestCase):
                         self.assertLess(color, 0x8000)
                 elif seg["kind"] == "tilemap":
                     self.assertNotIn("hex", seg)
+                    self.assertNotIn("tail_hex", seg)
                     self.assertEqual(len(seg["entries"]),
                                      seg["width"] * seg["height"])
-                    tail = len(bytes.fromhex(seg.get("tail_hex") or ""))
-                    self.assertEqual(
-                        seg["width"] * seg["height"] * 2 + tail, seg["size"])
+                    grid = seg["width"] * seg["height"] * 2
+                    tail = seg.get("tail")
+                    pad = seg["size"] - grid
+                    self.assertEqual((tail or {}).get("size", 0), pad)
+                    if pad:
+                        self.assertEqual(tail["kind"], "alignment")
+                        self.assertEqual(pad, (-grid) % 4)
+                        self.assertEqual((seg["offset"] + seg["size"]) % 4, 0)
+                        self.assertEqual(
+                            rom[base + seg["offset"] + grid:
+                                base + seg["offset"] + seg["size"]],
+                            bytes(pad))
                 elif seg["kind"] == "frames4bpp":
                     self.assertEqual(seg["header"],
                                      [seg["tiles_per_frame"], seg["frames"]])
@@ -187,12 +198,57 @@ class AssetManifest(unittest.TestCase):
                         4 + seg["tiles_per_frame"] * seg["frames"] * 32,
                         seg["size"])
                 elif seg["kind"] == "packed":
+                    # Byte terkompresi ditulis dari token, bukan disimpan.
+                    self.assertNotIn("hex", seg)
                     self.assertEqual(seg["codec"], "unpack")
                     header = struct.unpack_from(
                         "<I", rom, base + seg["offset"])[0]
                     self.assertEqual(seg["unpack_size"], header >> 8)
                     self.assertEqual(seg["unpack_flags"], header & 0xFF)
                     self.assertEqual(seg["unpack_size"] % 32, 0)
+                    self.assertTrue(seg["tokens"])
+                    self.assertIn(":", seg["tokens"])
+                    lz = seg["format"] & 7
+                    self.assertEqual(len(seg["ladder"]),
+                                     {2: 7, 3: 3}[lz])
+                    data = tilemap_bank.popuri().decode(data)[0]
+                    self.assertEqual(len(data), seg["unpack_size"])
+                    self.assertEqual(hashlib.sha256(data).hexdigest(),
+                                     seg["unpacked_sha256"])
+
+    def test_packed_bytes_ditulis_dari_token(self):
+        """Token adalah sumber byte terkompresi: diubah -> byte ikut berubah."""
+        path = REPO / "assets" / "gfx" / "maps" / "gUnk_086EAD8C.json"
+        meta = json.loads(path.read_text())
+        rom = asset_manifest.ROM.read_bytes()
+        base = int(meta["rom"]["offset"], 0)
+        packed = [s for s in meta["payload_segments"] if s["kind"] == "packed"]
+        self.assertTrue(packed)
+        for source in packed:
+            with self.subTest(offset=hex(source["offset"])):
+                self.assertNotIn("hex", source)
+                seg = json.loads(json.dumps(source))
+                good = tilemap_bank.payload_bytes(seg)
+                self.assertEqual(
+                    good, rom[base + seg["offset"]:
+                             base + seg["offset"] + seg["size"]])
+                seg["hex"] = good.hex()
+                with self.assertRaises(ValueError):
+                    tilemap_bank.payload_bytes(seg)
+                del seg["hex"]
+                head, _, rest = seg["tokens"].partition(";")
+                self.assertTrue(head.startswith("l:"), head)
+                raw = bytes.fromhex(head[2:])
+                if len(set(raw)) > 1:
+                    # Tukar dua simbol literal: isi berubah, token tetap sah.
+                    bad = bytes([raw[1], raw[0]]) + raw[2:]
+                    seg["tokens"] = "l:" + bad.hex()
+                    if rest:
+                        seg["tokens"] += ";" + rest
+                    self.assertNotEqual(tilemap_bank.payload_bytes(seg), good)
+                seg["tokens"] = seg["tokens"].replace("l:", "q:", 1)
+                with self.assertRaises(ValueError):
+                    tilemap_bank.payload_bytes(seg)
 
     def test_payload_coverage_counts_only_checked_bytes(self):
         path = REPO / "assets" / "gfx" / "maps" / "gUnk_086EAD8C.json"
@@ -411,11 +467,22 @@ class DegeneratePayload(unittest.TestCase):
                     "entries": []}),
             (base, {"kind": "tilemap", "width": 2, "height": 1,
                     "entries": [1, 2], "tail_hex": "zz"}),
+            (base, {"kind": "tilemap", "width": 2, "height": 1,
+                    "entries": [1, 2], "tail": {"kind": "opaque", "size": 2}}),
+            (base, {"kind": "tilemap", "width": 2, "height": 1,
+                    "entries": [1, 2], "tail": {"kind": "alignment",
+                                              "size": 0}}),
             (base, {"kind": "frames4bpp", "header": [1, 1],
                     "tiles_per_frame": 2, "frames": 1, "tiles_hex": ""}),
             (base, {"kind": "frames4bpp", "header": [1, 1],
                     "tiles_per_frame": 1, "frames": 1, "tiles_hex": "00"}),
             (base, {"kind": "packed", "codec": "unpack", "hex": "00"}),
+            (base, {"kind": "packed", "codec": "unpack",
+                    "format": 19, "ladder": [1, 4, 8], "tokens": "l:00"}),
+            (base, {"kind": "packed", "codec": "unpack", "format": 19,
+                    "ladder": [1, 4, 8], "tokens": "x:00"}),
+            (base, {"kind": "packed", "codec": "unpack", "format": 19,
+                    "ladder": [1, 4], "tokens": "l:0000"}),
             (base, {"kind": "opaque", "hex": "00000000"}),
             (base, {"kind": "palette", "hex": "00000000"}),
         ]

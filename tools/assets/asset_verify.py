@@ -494,6 +494,60 @@ def padding_problems(asset, rom):
                 problems.append(
                     f"payload[{i}] unpack_size {unpack} bukan kelipatan 32 "
                     "(tile 4bpp)")
+            if "hex" in seg:
+                problems.append(
+                    f"payload[{i}] packed: hex mentah tidak dipakai lagi; "
+                    "simpan format/ladder/huffman/tokens")
+            for key in ("format", "ladder", "tokens", "unpacked_sha256"):
+                if key not in seg:
+                    problems.append(f"payload[{i}] packed wajib {key}")
+            if encoded is not None:
+                # Dekompresi wajib benar-benar dijalankan dan hasilnya cocok.
+                try:
+                    unpacked, _, _ = load_module("popuri.py").decode(encoded)
+                except Exception as exc:  # noqa: BLE001 - laporkan apa adanya
+                    problems.append(
+                        f"payload[{i}] dekompresi gagal: "
+                        f"{type(exc).__name__}: {exc}")
+                else:
+                    if len(unpacked) != unpack:
+                        problems.append(
+                            f"payload[{i}] hasil dekompresi {len(unpacked)} B "
+                            f"!= unpack_size {unpack}")
+                    got = hashlib.sha256(unpacked).hexdigest()
+                    if seg.get("unpacked_sha256") != got:
+                        problems.append(
+                            f"payload[{i}] unpacked_sha256 "
+                            f"{seg.get('unpacked_sha256')!r} != {got}")
+        if kind == "tilemap":
+            width, height = seg.get("width"), seg.get("height")
+            if isinstance(width, int) and isinstance(height, int):
+                grid = width * height * 2
+                tail = seg.get("tail")
+                pad = size - grid
+                if pad < 0:
+                    problems.append(
+                        f"payload[{i}] grid {width}x{height} > size {size}")
+                elif tail is not None:
+                    if not isinstance(tail, dict) or \
+                            tail.get("kind") != "alignment":
+                        problems.append(
+                            f"payload[{i}] tail wajib kind 'alignment'")
+                    if tail.get("size") != pad:
+                        problems.append(
+                            f"payload[{i}] tail.size {tail.get('size')!r} "
+                            f"!= size-grid {pad}")
+                    if pad != (-grid) % 4 or (off + size) % 4:
+                        problems.append(
+                            f"payload[{i}] tail {pad} B bukan padding 4-byte "
+                            f"(grid {grid} B di +{off:#x})")
+                    span = rom[base + off + grid:base + off + size]
+                    if any(span):
+                        problems.append(
+                            f"payload[{i}] tail {pad} B ada byte bukan nol")
+                elif pad:
+                    problems.append(
+                        f"payload[{i}] {pad} B ekor tilemap tidak dicatat")
         for source in seg.get("pointer_sources") or []:
             try:
                 address = int(str(source), 0)

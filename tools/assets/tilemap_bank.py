@@ -41,9 +41,11 @@ semantik kind itu (bukan dari hex mentah):
 {"offset": 8420, "size": 32, "kind": "palette",
  "pointer_sources": ["0x107224"], "colors": [31775, ...]}
 {"offset": 8452, "size": 48, "kind": "tilemap", "width": 6, "height": 4,
- "pointer_sources": ["0x107208"], "entries": [37329, ...], "tail_hex": ""}
+ "pointer_sources": ["0x107208"], "entries": [37329, ...]}
 {"offset": 7456, "size": 964, "kind": "packed", "codec": "unpack",
- "unpack_size": 2048, "unpack_flags": 112, "hex": "70000800..."}
+ "format": 19, "ladder": [1, 4, 8], "unpack_size": 2048,
+ "unpack_flags": 112, "tokens": "l:343333;m:1,32,8;...",
+ "unpacked_sha256": "..."}
 {"offset": 17156, "size": 2308, "kind": "frames4bpp",
  "header": [18, 4], "tiles_per_frame": 18, "frames": 4,
  "tiles_hex": "12000400..."}
@@ -63,6 +65,7 @@ membandingkannya dengan blok `coverage` di JSON.
 """
 import argparse
 import hashlib
+import importlib.util
 import json
 import struct
 import sys
@@ -86,6 +89,20 @@ def bytes_from_entries(entries):
 
 
 PAYLOAD_KINDS = ("palette", "tilemap", "frames4bpp", "packed")
+
+_POPURI = None
+
+
+def popuri():
+    """Modul codec `Unpack` di sebelah berkas ini (dimuat sekali)."""
+    global _POPURI
+    if _POPURI is None:
+        path = Path(__file__).with_name("popuri.py")
+        spec = importlib.util.spec_from_file_location("popuri", path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        _POPURI = module
+    return _POPURI
 
 
 def u16_list(values, label, limit=0xFFFF):
@@ -123,11 +140,20 @@ def payload_bytes(seg):
         if not isinstance(entries, list) or len(entries) != width * height:
             raise ValueError(
                 f"{label}: {len(entries or [])} entri != {width}x{height}")
-        try:
-            tail = bytes.fromhex(seg.get("tail_hex") or "")
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"{label}: tail_hex tidak valid: {exc}")
-        data = u16_list(entries, label) + tail
+        if "tail_hex" in seg:
+            raise ValueError(
+                f"{label}: tail_hex sudah tidak dipakai; pakai tail "
+                "{kind: alignment, size: n}")
+        tail = seg.get("tail")
+        if tail:
+            if (not isinstance(tail, dict) or tail.get("kind") != "alignment"
+                    or not isinstance(tail.get("size"), int)
+                    or tail["size"] < 1):
+                raise ValueError(
+                    f"{label}: tail wajib objek kind 'alignment' + size >= 1")
+            data = u16_list(entries, label) + bytes(tail["size"])
+        else:
+            data = u16_list(entries, label)
     elif kind == "frames4bpp":
         header = seg.get("header")
         tpf, frames = seg.get("tiles_per_frame"), seg.get("frames")
@@ -146,10 +172,11 @@ def payload_bytes(seg):
                 f"{label}: {len(tiles)} B tile != {tpf}*{frames}*32")
         data = struct.pack("<2H", tpf, frames) + tiles
     elif kind == "packed":
-        try:
-            data = bytes.fromhex(seg.get("hex") or "")
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"{label}: hex tidak valid: {exc}")
+        if "hex" in seg:
+            raise ValueError(
+                f"{label}: hex sudah tidak dipakai; simpan format/ladder/"
+                "huffman/tokens dan biarkan popuri.assemble menulis byte-nya")
+        data = popuri().assemble(seg)
     else:
         raise ValueError(
             f"{label}: kind {kind!r} tidak dikenal (pilih salah satu "

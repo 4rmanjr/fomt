@@ -164,9 +164,14 @@
          "description": "tilemap: entri u16 urut baris, panjang width*height.",
          "items": {"type": "integer", "minimum": 0}
         },
-        "tail_hex": {
-         "type": "string",
-         "description": "tilemap: byte sisa sesudah width*height entri."
+        "tail": {
+         "type": "object",
+         "description": "tilemap: ekor sesudah width*height entri, wajib padding alignment 4-byte (byte nol).",
+         "required": ["kind", "size"],
+         "properties": {
+          "kind": {"type": "string", "enum": ["alignment"]},
+          "size": {"type": "integer", "minimum": 1}
+         }
         },
         "header": {
          "type": "array",
@@ -178,10 +183,36 @@
         "codec": {"type": "string", "enum": ["unpack"]},
         "unpack_size": {"type": "integer", "minimum": 1},
         "unpack_flags": {"type": "integer", "minimum": 0},
-        "hex": {
+        "format": {
+         "type": "integer",
+         "minimum": 0,
+         "maximum": 255,
+         "description": "packed: flag stream (lzss bit 0..2, atom 3..4, diff 5..7)."
+        },
+        "ladder": {
+         "type": "array",
+         "description": "packed: bit jarak tiap cabang ladder (7 entri lzss 2, 3 entri lzss 3).",
+         "minItems": 1,
+         "items": {"type": "integer", "minimum": 1, "maximum": 16}
+        },
+        "huffman": {
+         "type": "object",
+         "description": "packed: tabel Huffman bila atom != 0; levels[d] = [count, nilai...] urut path.",
+         "required": ["bits", "levels"],
+         "properties": {
+          "bits": {"type": "integer", "enum": [4, 8]},
+          "levels": {"type": "array", "items": {"type": "array"}}
+         }
+        },
+        "tokens": {
          "type": "string",
-         "description": "packed: byte terkompresi apa adanya (format Unpack belum punya compressor pembalik).",
-         "minLength": 2
+         "minLength": 1,
+         "description": "packed: token LZ terpisah ';' (l:<hex> literal, m:<idx>,<dist>,<len> pendek, M:... panjang); popuri.assemble menulis byte terkompresi dari sini."
+        },
+        "unpacked_sha256": {
+         "type": "string",
+         "pattern": "^[0-9a-f]{64}$",
+         "description": "packed: sha256 hasil dekompresi (diverifikasi dengan menjalankan decoder)."
         }
        }
       }
