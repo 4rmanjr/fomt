@@ -181,13 +181,14 @@ gUnk_086D5508:
 
 	.global gUnk_086D6368
 gUnk_086D6368:
-	@ PARKIR: func_080A97CC/080CFB5C menyalin 0x60 B dari 0xF0 B (40%); sisa 0x90 B tanpa pembaca.
+	@ PARKIR: func_080A97CC/080CFB5C menyalin 0x60/0xF0 B (96/240, 40%);
+	@ sisa 0x90 B (144 B) tanpa pembaca; belum ada source JSON.
 	.incbin "baserom.gba", 0x6D6368, 0xF0
 
 	.global gUnk_086D6458
 gUnk_086D6458:
-	@ PARKIR: hanya dikembalikan method_0800AF5C (GetUnk8()==0);
-	@ 0/0xC0 B punya pembaca field yang terbukti.
+	@ PARKIR: method_0800AF5C (GetUnk8()==0) mengembalikan pointer, tetapi belum ada field yang terbaca;
+	@ 0/0xC0 B terbukti; belum ada source JSON.
 	.incbin "baserom.gba", 0x6D6458, 0xC0
 
 	.global gUnk_086D6518
@@ -204,19 +205,20 @@ gUnk_086D6520:
 
 	.global gUnk_086D6528
 gUnk_086D6528:
-	@ PARKIR (decoded-exact): layer 2x2 offset 0 sudah terbukti, 24/32 B raw;
-	@ source assets/gfx/maps/gUnk_086D6528.json, belum dihitung selesai.
+	@ PARKIR (decoded-exact): layer 2x2 offset 0 = 8/32 B terbukti;
+	@ 24 B raw; source assets/gfx/maps/gUnk_086D6528.json, belum selesai.
 	.incbin "baserom.gba", 0x6D6528, 0x20
 
 	.global gUnk_086D6548
 gUnk_086D6548:
-	@ PARKIR: func_080A97F4/080CFB5C menyalin 0x60 B dari 0xC0 B (50%); sisa 0x60 B tanpa pembaca.
+	@ PARKIR: func_080A97F4/080CFB5C menyalin 0x60/0xC0 B (96/192, 50%);
+	@ sisa 0x60 B (96 B) tanpa pembaca; belum ada source JSON.
 	.incbin "baserom.gba", 0x6D6548, 0xC0
 
 	.global gUnk_086D6608
 gUnk_086D6608:
-	@ PARKIR: hanya dikembalikan method_0800AF5C (GetUnk8()==1);
-	@ 0/0x90 B punya pembaca field yang terbukti.
+	@ PARKIR: method_0800AF5C (GetUnk8()==1) mengembalikan pointer, tetapi belum ada field yang terbaca;
+	@ 0/0x90 B terbukti; belum ada source JSON.
 	.incbin "baserom.gba", 0x6D6608, 0x90
 
 	.global gUnk_086D6698
@@ -273,8 +275,8 @@ gUnk_086DC54C:
 
 	.global gUnk_086DC57C
 gUnk_086DC57C:
-	@ PARKIR (decoded-exact): layer 2x2 offset 0 terbukti, 1796/1804 B raw;
-	@ source assets/gfx/maps/gUnk_086DC57C.json, belum dihitung selesai.
+	@ PARKIR (decoded-exact): stamp 2x2 + 3 layer 17x15 = 1538/1804 B; 266 B raw; blok tile 196 B di 0x608 punya pembaca tetapi belum ada codec.
+	@ 64 B 4x4 di 0x6cc + 6 B padding belum terbukti; source gUnk_086DC57C.json, belum selesai.
 	.incbin "baserom.gba", 0x6DC57C, 0x70C
 
 	.global gUnk_086DCC88
@@ -300,8 +302,8 @@ gUnk_086DD6B0:
 
 	.global gUnk_086DD6E0
 gUnk_086DD6E0:
-	@ PARKIR (decoded-exact): layer 2x2 offset 0 terbukti, 1796/1804 B raw;
-	@ source assets/gfx/maps/gUnk_086DD6E0.json, belum dihitung selesai.
+	@ PARKIR (decoded-exact): stamp 2x2 + 3 layer 17x15 = 1538/1804 B; 266 B raw; blok tile 196 B di 0x608 punya pembaca tetapi belum ada codec.
+	@ 64 B 4x4 di 0x6cc + 6 B padding belum terbukti; source gUnk_086DD6E0.json, belum selesai.
 	.incbin "baserom.gba", 0x6DD6E0, 0x70C
 
 	.global gUnk_086DDDEC
