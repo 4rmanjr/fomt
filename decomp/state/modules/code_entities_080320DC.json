@@ -95,9 +95,9 @@
  "func_08032A00": {
   "addr": 134425088,
   "draft_src": "manual",
-  "judged_mtime": 1795689704.8278654,
+  "judged_mtime": 1795695343.1943402,
   "module": "code_entities_080320DC.s",
-  "note": "len 42 vs ref 44 [1missing,3extra,1different @| add r2, sp, #0xc | str r0, [sp, #0xc]]",
+  "note": "parkir: arg byte ke-8 di slot stack; ref `add r2,sp,#0xc; strb`, agbcc selalu `str` word (42 vs 44 B); 10 bentuk dicoba \u2014 POLA-DIFF \u00a788.1",
   "ref_len": 44,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,

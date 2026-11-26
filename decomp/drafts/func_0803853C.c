@@ -1,20 +1,37 @@
-s32 func_080A4A00(void *, s32, u16, void **, s32, s32); /* extern */
+typedef struct Vt_3853C {
+    u8 _pad0[0x64];
+    s32 (*unk64)();
+} Vt_3853C;
+
+typedef struct O1_3853C {
+    Vt_3853C *unk0;
+} O1_3853C;
+
+typedef struct Obj_3853C {
+    O1_3853C *unk0;
+    u8 _pad4[0x24];
+    u16 unk28;
+    u8 _pad2A[2];
+} Obj_3853C;
+
+typedef struct GenObj_3853C {
+    void *unk0;
+    void *unk4;
+} GenObj_3853C;
+
+s32 func_080A4A00(void *, s32, u16, s32, s32, s32, u8); /* extern */
 extern s32 vtable_unk_080E73E8;
 
-typedef struct GenObj {
-    s32 unk0;
-    void *unk4;
-    u8 _pad8[32];
-    s32 unk28;
-} GenObj;
-void *func_0803853C(GenObj *arg0, GenObj *arg1) {
-    s8 sp8;
+void *func_0803853C(GenObj_3853C *arg0, Obj_3853C *arg1) {
+    u8 sp8;
+    u8 *p8;
     s32 temp_r1;
 
     arg0->unk0 = arg1;
     arg0->unk4 = &vtable_unk_080E73E8;
-    temp_r1 = (*arg1->unk0)->unk64();
-    sp8 = 0;
-    func_080A4A00(arg0 + 8, temp_r1, arg1->unk28, arg1->unk0, 2, 7);
+    temp_r1 = arg1->unk0->unk0->unk64();
+    p8 = &sp8;
+    *p8 = 0;
+    func_080A4A00((u8 *)arg0 + 8, temp_r1, arg1->unk28, (s32) arg1->unk0, 2, 7, sp8);
     return arg0;
 }

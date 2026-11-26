@@ -3010,3 +3010,69 @@ fungsi, jadi konstanta 0x2210 tidak boleh memakai r2 lagi (ref memakainya
 karena `p` sudah mati). Tanpa pin, `p` jatuh ke r1 dan dua instruksi pertama
 sudah beda. Kombinasi "p di r2 saat hidup, r2 bebas saat mati" tidak bisa
 dipaksakan lewat C/pin di agbcc 2.9 — inilah wall-nya, bukan struktur kode.
+
+### 87.2 Mekanisme pasti `func_08012720/760`: register pewaris pseudo yang mati
+
+16 bentuk sumber diuji terhadap agbcc nyata (draf di
+`decomp/drafts/func_08012720.c`, semua DIFF hanya di `ldr r1` vs `ldr r2`):
+
+| bentuk | hasil |
+|---|---|
+| `u8 *p` polos / `u32 p` / `s32 p` / `u32 v` | `ldr r1, [r0, #4]` |
+| deklarasi `v` sebelum `p` | `ldr r1` |
+| `p = (u8 *)*(u32 *)(arg0 + 4)` (arg0 `u32`) | `ldr r1` |
+| parameter ke-2 tak terpakai (`s32 arg1`, dengan/tanpa `(void)arg1`) | `ldr r1` |
+| `slot = (void **)(p + 0xAC)` (pin tidak ada) | `ldr r1` |
+| pin `p`→r2, `v`→r3 | `ldr r1` untuk **konstanta**, `ldr r2` untuk p |
+
+Aturan yang terbukti: agbcc menaruh pseudo baru pada register pertama yang
+bebas (`r1`), dan **konstanta 0x2210 mewarisi register pseudo yang mati tepat
+sebelumnya** (`r2` di ref karena `p` ada di r2). Jadi byte ref menuntut `p`
+di r2, dan `p` hanya dapat r2 bila r1 hidup saat `p` didefinisikan — di ref
+tidak ada instruksi yang menyentuh r1 sama sekali, sehingga tidak ada nilai C
+yang bisa menempati r1 tanpa menambah instruksi. Dengan pin, `p` memang di r2
+tapi pin hanya mengikat selama hidup → konstanta jatuh ke r1. Kedua arah
+saling mengunci: **bentuk C yang menghasilkan byte ref tidak ada** untuk
+agbcc versi ini. Sisa 1 halfword (+0x13), bukan struktur kode.
+
+### 88. Lebar field struct salah (s32 vs u8) = satu-satunya sebab DIFF — kelas menang
+
+`func_0807D194` (code_0803EE94, 72 B) MATCH + migrasi hanya dengan
+membetulkan lebar field di struct draf m2c:
+
+```
+ref : adds r0, r4, r1 ; movs r1, #0 ; strb r1, [r0]   @ 0x6A4 (byte)
+draf: ...                             str  r1, [r0]   @ s32 unk6A4
+```
+
+m2c menebak `s32` dari `adds r0, r4, r1` tanpa melihat `strb`; begitu
+`unk6A4`/`unk70C` jadi `u8` (dan padding dihitung ulang: `_pad6A5[99]`),
+byte objek identik. Karena itu: **bila satu-satunya selisih adalah
+`strb` vs `str` (atau `ldrb` vs `ldr`), periksa lebar field struct draf
+dulu sebelum menyalahkan regalloc.**
+
+Catatan migrasi kelas ini: `migrate.py` menolak blok yang mendefinisikan
+fungsi yang di src masih punya extern usang beda tanda tangan
+(`definisi ... di body vs extern usang di src`). Jalan keluarnya: pakai
+tanda tangan `s32 (s32, s32)` (bukan `i32`/pointer struct — harness judge
+tidak mengenal `i32`, dan rename struct membuat tanda tangan tak pernah
+cocok), lalu buang blok promoted lama + set state `failed`/`judged_mtime=0`
+sebelum judge ulang (MIGRATE §6).
+
+### 88.1 Argumen byte pada slot stack: `add rX, sp, #off ; strb` tak bisa dipaksa ganda
+
+Tiga fungsi berhenti persis di sini (bukan regalloc acak):
+
+- `func_08032A00` (44 B): ref `add r2, sp, #0xc ; strb r0, [r2]` untuk arg
+  ke-8; agbcc 42 B dengan `str r0, [sp, #0xc]` (word). 10 bentuk dicoba
+  (`u8 z` / `char` / `(u8)0` / alamat-diambil / struct 1-bait / 7-arg +
+  lokal) — word store selalu kembali.
+- `func_0803853C` (62 B): sama untuk arg ke-7; versi `p8 = &sp8; *p8 = 0`
+  memunculkan `add r2, sp, #0xc ; strb` **plus** duplikat `str r4, [sp, #8]`
+  (frame 0x10 vs 0xc, 66 vs 62 B).
+- `func_08037B48` (56 B): bukan strb, melainkan penjadwalan literal —
+  ref `... adds r2, r6 ; ldr r3, =0x379 ; bl`, agbcc mengangkat `ldr r3`
+  ke sebelum `str` argumen ke-5 (posisi +0x10 beda 1 instruksi).
+
+Ketiganya wall instruksi-seleksi/penjadwalan: bentuk C yang menghasilkan
+byte ref tidak ditemukan setelah 3–10 iterasi masing-masing.

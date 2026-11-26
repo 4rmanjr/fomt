@@ -1249,9 +1249,9 @@
  },
  "func_080A49A0": {
   "addr": 134891936,
-  "judged_mtime": 1793582714.1843934,
+  "judged_mtime": 1795695795.5404713,
   "module": "code_809E804.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080A49A0/opencode/func.c: In function `func_080A49A0':\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080A49A0/opencode/func.c:22: structure has no member named `unk1'\n",
+  "note": "/workspace/chats/19fd550f73b6fba36b4523aa/decomp/logs/judge_func_080A49A0/buffy/func.c: In function `func_080A49A0':\n/workspace/chats/19fd550f73b6fba36b4523aa/decomp/logs/judge_func_080A49A0/buffy/func.c:22: structure has no member named `unk1'\n",
   "ref_len": 96,
   "sanitize_v": 4,
   "size": 835,
@@ -3298,7 +3298,7 @@
  },
  "func_080B8DAC": {
   "addr": 134974892,
-  "judged_mtime": 1795434412.3230617,
+  "judged_mtime": 1795695404.664763,
   "module": "code_809E804.s",
   "note": "len 58 vs ref 62 [3missing,6extra,3operand,5regalloc @i push {r4, lr} | push {lr}]",
   "ref_len": 72,
