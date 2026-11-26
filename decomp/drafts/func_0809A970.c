@@ -1,26 +1,28 @@
-typedef struct GenObj {
-    s32 unk0;
-    u8 _pad4[14];
-    s32 unk12;
-    s32 unk13;
-} GenObj;
-void func_0809A970(s32 arg0, GenObj *arg1, s32 arg2) {
-    s32 var_r3;
-    u16 *var_r1;
-    u16 *var_r2;
-    void *temp_r0;
+void func_0809A970(s32 arg0, u8 *arg1, s32 arg2) {
+    u8 *src;
+    u16 v12;
+    u32 d12;
+    u8 v13;
+    u32 d13;
+    u16 *sp;
+    u16 *dp;
+    s32 i;
 
-    temp_r0 = arg0 + (arg2 * 0x14);
-    arg1->unk0 = (u16) temp_r0->unk0;
-    arg1->unk12 = (u16) ((0xFFFFF000 & arg1->unk12) | ((u32) (temp_r0->unk12 << 0x14) >> 0x14));
-    arg1->unk13 = (u8) ((-0x11 & arg1->unk13) | (0x10 & temp_r0->unk13));
-    var_r2 = temp_r0 + 2;
-    var_r1 = arg1 + 2;
-    var_r3 = 7;
+    src = (u8 *)arg0 + arg2 * 0x14;
+    *(u16 *)arg1 = *(u16 *)src;
+    v12 = *(u16 *)(src + 0x12);
+    d12 = *(u16 *)(arg1 + 0x12);
+    *(u16 *)(arg1 + 0x12) = (u16)(((v12 << 0x14) >> 0x14) | (d12 & 0xFFFFF000u));
+    v13 = src[0x13];
+    d13 = arg1[0x13];
+    arg1[0x13] = (u8)((v13 & 0x10) | (d13 & ~0x10u));
+    sp = (u16 *)(src + 2);
+    dp = (u16 *)(arg1 + 2);
+    i = 7;
     do {
-        *var_r1 = *var_r2;
-        var_r2 += 2;
-        var_r1 += 2;
-        var_r3 -= 1;
-    } while (var_r3 >= 0);
+        *dp = *sp;
+        sp++;
+        dp++;
+        i--;
+    } while (i >= 0);
 }

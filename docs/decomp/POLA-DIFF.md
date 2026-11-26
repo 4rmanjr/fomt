@@ -2679,3 +2679,50 @@ dicoba dan sisanya:
 Aturan kerja: ketiganya **parkir** (cap 5 judge), bukan wall permanen yang
 terbukti — kalau nanti ada bentuk C lain, uji ulang dengan pembanding byte
 objek (`tools/scripts/diff_mismatch.py`) sebelum menghabiskan judge.
+
+## 72. Sapuan kelas "type/semantik murni": satu MATCH, lima parkir
+
+Sasaran: fungsi `failed` yang draf m2c-nya gagal **kompilasi** karena tipe
+(petunjuk: `request for member`, `incompatible pointer type`, `undeclared`,
+`invalid use of void`). Enam kandidat dibaca asm-nya, ditulis ulang manual,
+lalu dijudge.
+
+**MATCH:** `func_08038028` (112 B, `code_entities_08034CEC`) — galat m2c
+`(arg0 + 0x25)->unk1` dan `temp_r0->unk4` hilang setelah struct diberi lebar
+benar (`u16 unk4`, `u8 unk25`, `u8 unk26`, `u16 unk28`, `u8 unk20`,
+`u16 unk22`), vtable `s32 (*unk40)(void *, s32)` di 0x40, dan pemanggilan
+`__7AEntityP10GameObjectRC8Location(arg0, (s32)arg1, arg2)` memakai tanda
+tangan 3-arg yang sudah ada di `src/`. Setelah dipromosikan, migrasi butuh
+cast eksplisit ke `struct GenObj__func_08038374 *` (parameter di `src/`),
+lalu `migrate.py` hijau. Match: 1357 -> 1358.
+
+Parkir (cap judge habis / diff tinggal pola codegen, bukan salah tipe):
+
+1. **`func_08015790`** (268 B, `game_state`): draf `void**` diganti vtable
+   `unk3C` + `Actor *unkA8`; hasil `16missing,16extra,24regalloc`. Ref
+   memakai `r5 = &sub->unk8C` + konstanta 0x410 dimaterialisasi **di dalam**
+   loop, agbcc mengangkat konstanta ke r7 dan memilih r6 untuk alamat.
+2. **`func_08037A5C`** (116 B, `code_entities_08034CEC`): `Rect` lokal
+   dipecah agbcc jadi dua word ber-mask (bukan empat `strh`), dan arg ke-4
+   konstanta `0x71C` dimaterialisasi sebelum `str` arg stack — keluarga
+   dinding §71 butir 1.
+3. **`func_080A64B8`** (108 B, `code_809E804`): `Inner.unk21A0` (`ldrb`
+   + `lsls/lsrs`) dan `Slot.unk1/unk2` sudah benar; sisa beda: ref menulis
+   `strb` nilai mentah lalu meng-mask register, C kita memuat ulang `ldrb`
+   (2 instr) dan r5/r6 konstan 0/0xff berbeda peran.
+4. **`func_080123CC`** (136 B, `game_state`): switch + 6 setter; ref
+   memuat `0xFFFF` dari pool **per panggilan**, agbcc meng-CSE ke r4
+   sehingga menambah `push {r4,r5,r6,lr}` (ref 3 reg) — dinding scheduling.
+5. **`func_0809A970`** (80 B, `code_0803EE94`): bitfield 12-bit + bit 0x10
+   via `ldrh/ldrb`; ref memakai `(v<<20)>>20` dan mask `0xFFFFF000` penuh,
+   agbcc melipat mask jadi 0xF000 dan memakai `asr` karena `v12` u16.
+6. **`func_080B3948`** (72 B, `code_809E804`): loop 5x; ref `cmp #2/bgt`
+   lalu `cmp #1/blt`, agbcc menormalkan `t >= 1` menjadi `cmp #0/ble`;
+   konstan 0 dan 1 diangkat ke r5/r6 (ref hanya 1 di r5, 0 dimuat di
+   dalam blok), menambah satu push.
+
+Kesimpulan: pada kelas ini yang menang adalah fungsi dengan **petunjuk tipe
+murni** dan tanpa materialisasi konstanta/mask yang bisa dilipat agbcc.
+Kandidat berikutnya sebaiknya disaring dulu: tidak ada `0xFFFF`/mask lebar,
+tidak ada literal arg ke-4/ke-5, dan tidak ada struct lokal yang alamatnya
+diambil.

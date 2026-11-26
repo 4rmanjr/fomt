@@ -1433,9 +1433,9 @@
  },
  "func_08037A5C": {
   "addr": 134445660,
-  "judged_mtime": 1793582714.093408,
+  "judged_mtime": 1795686852.2261503,
   "module": "code_entities_08034CEC.s",
-  "note": " or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08037A5C/opencode/func.c:27: request for member `unk4' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08037A5C/opencode/func.c:28: request for member `unk6' in something not a structure or union\n",
+  "note": "len 142 vs ref 110 [10missing,27extra,3operand,4regalloc,2different @>  | ldr r3, [pc, #0x68]]",
   "ref_len": 116,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -1633,13 +1633,14 @@
  },
  "func_08038028": {
   "addr": 134447144,
-  "judged_mtime": 1793582714.094408,
+  "judged_mtime": 1795687440.7630541,
   "module": "code_entities_08034CEC.s",
-  "note": "mething not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08038028/opencode/func.c:33: warning: dereferencing `void *' pointer\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08038028/opencode/func.c:33: request for member `unk20' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities_08034CEC.cc",
   "ref_len": 112,
   "sanitize_v": 4,
   "size": 1136,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08038098": {

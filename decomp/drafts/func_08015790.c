@@ -1,64 +1,69 @@
-s32 GetBarnAnimal__4BarnUi(s32, u32);               /* extern */
-u32 GetCapacity__C4Barn(s32);                       /* extern */
-u32 GetCapacity__C4Coop(s32);                       /* extern */
-s32 GetChicken__4CoopUi(s32, u32);                  /* extern */
-s32 RemoveAndRememberUnk__4BarnUi(s32, u32);          /* extern */
-s32 RemoveAndRememberUnk__4CoopUi(s32, u32);          /* extern */
-s32 func_0800F190(s32);                             /* extern */
-s32 func_0800F204(s32);                             /* extern */
-u32 func_0800F344(s32);                             /* extern */
-s32 func_0800F390(s32);                               /* extern */
-s32 method_0809B514__C9Livestock();                 /* extern */
+s32 GetBarnAnimal__4BarnUi(s32, u32);
+u32 GetCapacity__C4Barn(s32);
+u32 GetCapacity__C4Coop(s32);
+s32 GetChicken__4CoopUi(s32, u32);
+s32 RemoveAndRememberUnk__4BarnUi(s32, u32);
+s32 RemoveAndRememberUnk__4CoopUi(s32, u32);
+s32 func_0800F190(s32);
+s32 func_0800F204(s32);
+u32 func_0800F344(s32);
+s32 func_0800F390(s32);
+s32 method_0809B514__C9Livestock();
 
-typedef struct GenObj {
+typedef struct Vt {
+    u8 _pad0[0x3C];
+    void (*unk3C)(void *, s32);
+} Vt;
+
+typedef struct Actor {
+    Vt *vt;
+} Actor;
+
+typedef struct Sub {
+    u8 _pad0[0x8C];
+    s32 unk8C;
+    u8 _pad90[0x18];
+    Actor *unkA8;
+} Sub;
+
+typedef struct Top {
     u8 _pad0[4];
-    s32 unk4;
-    u8 _pad8[132];
-    struct GenObj *unk8C;
-    u8 _pad90[24];
-    struct GenObj *unkA8;
-} GenObj;
-void func_08015790(GenObj *arg0) {
-    s32 temp_r4;
-    s32 temp_r5;
-    u32 temp_r0_2;
-    u32 temp_r0_4;
-    u32 var_r4;
-    u32 var_r4_2;
-    void **temp_r0_3;
-    void **temp_r0_5;
-    GenObj *temp_r0;
+    Sub *unk4;
+} Top;
 
-    temp_r0 = arg0->unk4;
-    temp_r0_2 = GetCapacity__C4Coop(temp_r0->unk8C + 0x410);
-    var_r4 = 0;
-    if (temp_r0_2 > 0U) {
-        do {
-            if ((GetChicken__4CoopUi(temp_r0->unk8C + 0x410, var_r4) != 0) && (method_0809B514__C9Livestock() == 1)) {
-                temp_r0_3 = temp_r0->unkA8;
-                (*temp_r0_3)->unk3C(temp_r0_3, var_r4 + 0x2E);
-                RemoveAndRememberUnk__4CoopUi(temp_r0->unk8C + 0x410, var_r4);
+void func_08015790(Top *arg0) {
+    Sub *sub;
+    s32 *pc;
+    u32 cap;
+    u32 i;
+    s32 x;
+
+    sub = arg0->unk4;
+    pc = &sub->unk8C;
+    cap = GetCapacity__C4Coop(*pc + 0x410);
+    for (i = 0; i < cap; i++) {
+        if (GetChicken__4CoopUi(*pc + 0x410, i) != 0) {
+            if (method_0809B514__C9Livestock() == 1) {
+                sub->unkA8->vt->unk3C(sub->unkA8, i + 0x2E);
+                RemoveAndRememberUnk__4CoopUi(*pc + 0x410, i);
             }
-            var_r4 += 1;
-        } while (var_r4 < temp_r0_2);
-    }
-    temp_r5 = temp_r0->unk8C + 0x1C2C;
-    if (((func_0800F190(temp_r5) << 0x18) == 0) && (func_0800F204(temp_r5) == 3)) {
-        temp_r4 = temp_r0->unk8C + 0x410;
-        if (GetChicken__4CoopUi(temp_r4, func_0800F344(temp_r5)) == 0) {
-            func_0800F390(temp_r0->unk8C + 0x1C2C);
         }
     }
-    temp_r0_4 = GetCapacity__C4Barn(temp_r0->unk8C + 0x5F0);
-    var_r4_2 = 0;
-    if (temp_r0_4 > 0U) {
-        do {
-            if ((GetBarnAnimal__4BarnUi(temp_r0->unk8C + 0x5F0, var_r4_2) != 0) && (method_0809B514__C9Livestock() == 1)) {
-                temp_r0_5 = temp_r0->unkA8;
-                (*temp_r0_5)->unk3C(temp_r0_5, var_r4_2 + 0x36);
-                RemoveAndRememberUnk__4BarnUi(temp_r0->unk8C + 0x5F0, var_r4_2);
+    x = *pc + 0x1C2C;
+    if ((func_0800F190(x) << 0x18) == 0) {
+        if (func_0800F204(x) == 3) {
+            if (GetChicken__4CoopUi(*pc + 0x410, func_0800F344(x)) == 0) {
+                func_0800F390(x);
             }
-            var_r4_2 += 1;
-        } while (var_r4_2 < temp_r0_4);
+        }
+    }
+    cap = GetCapacity__C4Barn(*pc + 0x5F0);
+    for (i = 0; i < cap; i++) {
+        if (GetBarnAnimal__4BarnUi(*pc + 0x5F0, i) != 0) {
+            if (method_0809B514__C9Livestock() == 1) {
+                sub->unkA8->vt->unk3C(sub->unkA8, i + 0x36);
+                RemoveAndRememberUnk__4BarnUi(*pc + 0x5F0, i);
+            }
+        }
     }
 }

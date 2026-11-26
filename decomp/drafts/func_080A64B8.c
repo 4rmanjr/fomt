@@ -1,40 +1,55 @@
-s32 func_080A4BEC();                                  /* extern */
-extern s32 gUnk_08107338;
-extern s32 gUnk_08107344;
+s32 func_080A4BEC();
 
-typedef struct GenObj {
+typedef struct Inner {
+    u8 _pad0[0x21A0];
+    u8 unk21A0;
+} Inner;
+
+typedef struct G {
+    u8 _pad0[8];
+    u16 unk8;
+} G;
+
+extern G gUnk_08107338;
+extern G gUnk_08107344;
+
+typedef struct Slot {
+    u8 _pad0[1];
+    u8 unk1;
+    u8 unk2;
+} Slot;
+
+typedef struct Obj {
     s32 unk0;
-    struct GenObj *unk1;
-    struct GenObj *unk2;
-    u8 _pad6[142];
-    void *unk94;
-    u8 _pad98[8456];
-    s32 unk21A0;
-} GenObj;
-void func_080A64B8(GenObj *arg0) {
-    u32 temp_r3;
-    u8 temp_r0;
-    u8 temp_r0_2;
-    GenObj *temp_r2;
-    GenObj *temp_r2_2;
+    u8 _pad4[0x90];
+    Inner *unk94;
+    u8 _pad98[0x1C];
+    Slot unkB4;
+    Slot unkB8;
+} Obj;
+
+void func_080A64B8(Obj *arg0) {
+    Inner *p;
+    Slot *a;
+    Slot *b;
+    u32 t;
 
     func_080A4BEC();
+    p = arg0->unk94;
     if (arg0->unk0 == 6) {
-        temp_r3 = (u32) (arg0->unk94->unk21A0 << 0x1E) >> 0x1E;
-        if (temp_r3 == 1) {
-            temp_r2 = (GenObj *)((u8 *)arg0 + 0xB4);
-            temp_r0 = temp_r2->unk2 + 1;
-            temp_r2->unk2 = temp_r0;
-            if ((u32) temp_r0 >= (u32) gUnk_08107338.unk8) {
-                temp_r2->unk2 = 0U;
-                temp_r2->unk1 = (s8) temp_r3;
+        t = ((u32)p->unk21A0 << 0x1E) >> 0x1E;
+        if (t == 1) {
+            a = &arg0->unkB4;
+            a->unk2++;
+            if ((u32)a->unk2 >= (u32)gUnk_08107338.unk8) {
+                a->unk2 = 0;
+                a->unk1 = t;
             }
-            temp_r2_2 = (GenObj *)((u8 *)arg0 + 0xB8);
-            temp_r0_2 = temp_r2_2->unk2 + 1;
-            temp_r2_2->unk2 = temp_r0_2;
-            if ((u32) temp_r0_2 >= (u32) gUnk_08107344.unk8) {
-                temp_r2_2->unk2 = 0U;
-                temp_r2_2->unk1 = (s8) temp_r3;
+            b = &arg0->unkB8;
+            b->unk2++;
+            if ((u32)b->unk2 >= (u32)gUnk_08107344.unk8) {
+                b->unk2 = 0;
+                b->unk1 = t;
             }
         }
     }

@@ -124,6 +124,11 @@
     "status": "OK",
     "when": "2026-11-23T12:06:47"
   },
+  "code_entities_08034CEC.s:func_08038028": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75334: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-26T10:04:16"
+  },
   "code_entities_08034CEC.s:func_0803A350": {
     "detail": "sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75459: use of r13 is deprecated arm-none-eabi-ld: warning: ../fomt.elf has a LOAD s",
     "status": "OK",

@@ -728,6 +728,36 @@ typedef struct Vt0803A350 {
 } Vt0803A350;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Actor {
+    u8 _pad0[0x40];
+    i32 (*unk40)(void *, i32);
+} Actor;
+typedef struct Src {
+    u8 _pad0[4];
+    u16 unk4;
+    i32 unk8;
+    i32 unkC;
+    u8 _pad10[0x10];
+    u8 unk20;
+    u8 _pad21[1];
+    u16 unk22;
+} Src;
+typedef struct Obj {
+    u8 _pad0[4];
+    u16 unk4;
+    u8 _pad6[0xE];
+    void *unk14;
+    i32 unk18;
+    i32 unk1C;
+    u8 _pad20[5];
+    u8 unk25;
+    u8 unk26;
+    u8 _pad27[1];
+    u16 unk28;
+} Obj;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08035908 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 SetAnim__12AActorEntityUi(void *, i32);           /* extern */
@@ -2345,6 +2375,37 @@ void func_08037F60(GenObj__func_08037F60 *arg0) {
     if (temp_r0 != 0) {
         arg0->unk54 = (u8) (temp_r0 - 1);
     }
+}
+}
+
+// DECOMP-MATCHED func_08038028 (dari code_entities_08034CEC.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __7AEntityP10GameObjectRC8Location(void *, i32, i32 *);
+i32 func_08020460(void *);
+struct GenObj__func_08038374;
+void func_08038374(GenObj__func_08038374 *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4);                             /* extern */
+extern i32 vtable_unk_080E73B4;
+
+__attribute__((section(".text.code_entities_08034CEC.08038028")))
+void *func_08038028(Obj *arg0, void *arg1, i32 *arg2) {
+    Src *o;
+
+    __7AEntityP10GameObjectRC8Location(arg0, (i32)arg1, arg2);
+    arg0->unk14 = &vtable_unk_080E73B4;
+    arg0->unk18 = (i32)arg2;
+    arg0->unk1C = 0;
+    arg0->unk25 = 0;
+    arg0->unk26 = 0;
+    arg0->unk28 = 0x31;
+    o = (Src *)(*(Actor **)arg1)->unk40(arg1, 0x2B);
+    if (o != 0) {
+        if (o->unk4 == arg0->unk4) {
+            if ((func_08020460(o) << 0x18) != 0) {
+                func_08038374((struct GenObj__func_08038374 *)arg0, (i32)(o->unk8), (i32)(o->unkC), (i32)(o->unk22), (i32)(o->unk20));
+            }
+        }
+    }
+    return arg0;
 }
 }
 

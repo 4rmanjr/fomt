@@ -1,31 +1,27 @@
-typedef struct GenObj {
-    s32 unk0;
-    u8 _pad4[21];
-    s32 unk19;
-} GenObj;
-void func_080B3948(s32 arg0) {
-    s32 *var_r2;
-    s32 temp_r0;
-    s32 var_r4;
-    u8 temp_r0_2;
-    void *var_r1;
+void func_080B3948(u8 *arg0) {
+    s32 *p;
+    u8 *q;
+    s32 i;
+    s32 t;
 
-    var_r2 = arg0 + 0x85C;
-    var_r1 = arg0 + 0x906;
-    var_r4 = 4;
+    p = (s32 *)(arg0 + 0x85C);
+    q = arg0 + 0x906;
+    i = 4;
     do {
-        temp_r0 = *var_r2;
-        if ((temp_r0 <= 2) && (temp_r0 >= 1)) {
-            temp_r0_2 = var_r1->unk0 + 1;
-            var_r1->unk0 = temp_r0_2;
-            if (temp_r0_2 == 0x3C) {
-                var_r1->unk0 = 0U;
-                *var_r2 = 0;
-                var_r1->unk19 = 1;
+        t = *p;
+        if (t <= 2) {
+            if (t < 1) {
+            } else {
+                q[0]++;
+                if (q[0] == 0x3C) {
+                    q[0] = 0;
+                    *p = 0;
+                    q[0x19] = 1;
+                }
             }
         }
-        var_r2 += 4;
-        var_r1 += 1;
-        var_r4 -= 1;
-    } while (var_r4 >= 0);
+        p++;
+        q++;
+        i--;
+    } while (i >= 0);
 }

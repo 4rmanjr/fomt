@@ -1659,9 +1659,10 @@
  },
  "func_080A64B8": {
   "addr": 134898872,
-  "judged_mtime": 1793582714.187393,
+  "draft_src": "manual",
+  "judged_mtime": 1795686930.5508606,
   "module": "code_809E804.s",
-  "note": "hout a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080A64B8/opencode/func.c:36: request for member `unk8' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080A64B8/opencode/func.c:38: warning: assignment makes pointer from integer without a cast\n",
+  "note": "len 94 vs ref 98 [3missing,6extra,7operand,3regalloc,3different @i push {r4, r5, r6, lr} | push {r4, r5, lr}]",
   "ref_len": 108,
   "sanitize_v": 4,
   "size": 1004,
@@ -2947,7 +2948,7 @@
  },
  "func_080B3948": {
   "addr": 134953288,
-  "judged_mtime": 1795433543.5552342,
+  "judged_mtime": 1795687196.7100706,
   "module": "code_809E804.s",
   "note": "byte +0x0: 0x70 vs ref 0x30 [2missing,3extra,9operand,5regalloc,1different @i push {r4, r5, lr} | push {r4, r5, r6, lr}]",
   "ref_len": 72,
