@@ -19,8 +19,10 @@ class AssetClaim(unittest.TestCase):
         root = Path(self.tmp.name)
         (root / "assets").mkdir()
         manifest = {"assets": [
-            {"symbol": "gUnk_00000001", "status": "rom-exact"},
-            {"symbol": "gUnk_00000002", "status": "opaque"},
+            {"symbol": "gUnk_00000001", "kind": "palette",
+             "status": "rom-exact"},
+            {"symbol": "gUnk_00000002", "kind": "sprite",
+             "status": "opaque"},
         ]}
         (root / "assets" / "manifest.json").write_text(json.dumps(manifest))
         self.doc = root / "DOC.md"
@@ -51,6 +53,21 @@ class AssetClaim(unittest.TestCase):
             "`gUnk_00000002` masih diparkir.\n")
         self.assertIsNone(prob)
         self.assertIn("1 rom-exact", note)
+
+    def test_class_claim_stale_when_all_members_rom_exact(self):
+        # Klaim kelas boleh terlipat antar-baris; paragraf digabung dulu.
+        prob, _ = self.gate("Blok palet\nmasih mentah.\n")
+        self.assertIsNotNone(prob)
+        self.assertIn("klaim kelas basi: palet", prob[1])
+
+    def test_class_with_opaque_member_passes(self):
+        # Kelas sprite belum selesai (ada anggota `opaque`), jadi klaimnya sah.
+        prob, _ = self.gate("Sprite masih diparkir.\n")
+        self.assertIsNone(prob)
+
+    def test_class_negation_passes(self):
+        prob, _ = self.gate("Palet tidak lagi parkir.\n")
+        self.assertIsNone(prob)
 
 
 if __name__ == "__main__":

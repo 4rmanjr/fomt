@@ -78,7 +78,9 @@ ingin hemat konteks lalu baca `tail -5` (R7); durasinya sekitar satu menit.
    memeriksa klaim status aset di dokumen hidup: simbol yang sudah
    `rom-exact` tidak boleh disebut masih `.incbin "baserom.gba"` atau masih
    diparkir (bentuk penyangkalan seperti "tidak lagi parkir" tetap lolos),
-   jadi kalimat basi setelah migrasi menggagalkan tutup sesi.
+   termasuk klaim tingkat kelas: "palet/sprite/tilemap/font masih
+   mentah/opaque/parkir" ditolak bila seluruh aset kelas itu di manifest
+   sudah `rom-exact`. Kalimat basi setelah migrasi menggagalkan tutup sesi.
 3. `python3 tools/scripts/ekor_snapshot.py` → tulis ulang
    `docs/decomp/EKOR-BACKLOG.md` **bila sesi ini mengubah ujung rantai**: fungsi
    terakhir sebuah modul tail-only pindah/promosi, ekor dipromosikan jadi fungsi,

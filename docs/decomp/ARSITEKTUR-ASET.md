@@ -1108,7 +1108,7 @@ dari tapak salinannya:
   `gUnk_08757BAC`/`gUnk_08757BD8` termasuk cluster itu.
 - `gUnk_086D6548` disalin dari dalam buffer objek (bukan dari awal simbol),
   jadi slice simbol bukan blok utuh yang disalin (§cluster BG map).
-- Sisa palet yang tetap parkir, dengan alasan dari asm:
+- Sisa blob di luar manifest tetap parkir, dengan alasan dari asm:
   `gUnk_0872DDE4` dan `gUnk_0874F2EC` disalin `0x200` B ke `0x05000000`
   padahal slice-nya hanya 96 B (`code_809E804.s:8450`/`49978`), jadi slice
   bukan blok utuh yang disalin. `gUnk_0872FA9C`, `gUnk_087399C4`,

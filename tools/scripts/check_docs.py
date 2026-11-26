@@ -76,7 +76,10 @@ Yang diperiksa:
     boleh lagi menyebut simbol `rom-exact` masih dibuka dari
     `.incbin "baserom.gba"` atau masih diparkir; kalimat dari sesi lama
     menyesatkan agent berikutnya setelah migrasi. Bentuk penyangkalan
-    ("tidak lagi parkir") tetap lolos.
+    ("tidak lagi parkir") tetap lolos. Klaim tingkat kelas ("palet",
+    "sprite", "tilemap", "font") juga ditolak bila menyebut kelas itu
+    masih mentah/opaque/parkir padahal seluruh aset kelas itu di manifest
+    sudah `rom-exact`.
 
 Read-only; exit 1 bila ada masalah (`--json` untuk agent, `--strict` sama
 dengan default).
@@ -246,6 +249,64 @@ ROM_INCBIN = re.compile(r'\.incbin\s+"?baserom\.gba')
 PARKIR_CLAIM = re.compile(r"\b(?:di|ter)?parkir\w*\b", re.I)
 NEGASI = re.compile(r"\b(?:tidak|bukan|sudah|kini|sekarang)\b", re.I)
 
+# Kelas aset = kumpulan `kind` manifest yang dibaca sebagai satu kelas.
+# Klaim "kelas X masih mentah/opaque/parkir" baru basi bila SEMUA aset
+# kelas itu di manifest sudah `rom-exact`.
+ASSET_CLASS_KINDS = {
+    "palet": {"palette"},
+    "sprite": {"sprite"},
+    "tilemap": {"tilemap", "tilemap_bank"},
+    "font": {"font_container", "glyph_font", "glyph_index"},
+}
+ASSET_CLASS_WORDS = {
+    "palet": r"\b(?:palet|palette)s?\b",
+    "sprite": r"\b(?:sprite|sprites)\b",
+    "tilemap": r"\btilemaps?\b",
+    "font": r"\b(?:font|fonts|glyph|glyphs)\b",
+}
+KELAS_BASI = re.compile(
+    r"\b(?:masih|tetap)\s+(?:mentah|raw|opaque|parkir\w*)"
+    r"|\bbelum\s+(?:di|ter)migrasi\w*", re.I)
+BUKAN_KLAIM = re.compile(r"\b(?:tidak ada|bukan|tidak lagi)\b", re.I)
+
+
+def kelas_selesai(assets):
+    """-> {kelas: jumlah aset} untuk kelas yang seluruh asetnya rom-exact."""
+    total, done = {}, {}
+    for a in assets:
+        for kelas, kinds in ASSET_CLASS_KINDS.items():
+            if a.get("kind") not in kinds:
+                continue
+            total[kelas] = total.get(kelas, 0) + 1
+            if a.get("status") == "rom-exact":
+                done[kelas] = done.get(kelas, 0) + 1
+    return {k: total[k] for k in total
+            if total[k] and done.get(k) == total[k]}
+
+
+def paragraf(teks):
+    """-> (baris_awal, teks_gabung) per paragraf/bulir markdown.
+
+    Klaim kelas bisa terlipat antar-baris, jadi pemeriksaan dilakukan per
+    paragraf, bukan per baris; nomor baris awalnya tetap dilaporkan.
+    """
+    buf, awal = [], 1
+    for i, line in enumerate(teks.splitlines(), 1):
+        strip = line.strip()
+        if not strip:
+            if buf:
+                yield awal, " ".join(buf)
+                buf = []
+            continue
+        if buf and strip.startswith(("- ", "* ", "|", "#")):
+            yield awal, " ".join(buf)
+            buf = []
+        if not buf:
+            awal = i
+        buf.append(strip)
+    if buf:
+        yield awal, " ".join(buf)
+
 
 def klaim_parkir(line):
     """True bila `line` menyatakan parkir tanpa penyangkalan di klausanya."""
@@ -314,12 +375,14 @@ def aset_klaim():
             None
     rom_exact = sorted(a["symbol"] for a in assets
                        if a.get("status") == "rom-exact" and a.get("symbol"))
+    selesai = kelas_selesai(assets)
     found = []
     for rel in ASSET_CLAIM_DOCS:
         doc = REPO / rel
         if not doc.exists():
             continue
-        for i, line in enumerate(doc.read_text().splitlines(), 1):
+        teks = doc.read_text()
+        for i, line in enumerate(teks.splitlines(), 1):
             hits = [s for s in rom_exact if s in line]
             if not hits:
                 continue
@@ -332,13 +395,27 @@ def aset_klaim():
                 found.append((f"{rel}:{i}",
                               f"klaim basi `{hits[0]}` masih diparkir "
                               f"padahal manifest `rom-exact`"))
+        for awal, blok in paragraf(teks):
+            for clause in re.split(r"(?<=[.;])\s+", blok):
+                for kelas, kata in ASSET_CLASS_WORDS.items():
+                    if kelas not in selesai or not re.search(kata, clause, re.I):
+                        continue
+                    m = KELAS_BASI.search(clause)
+                    if not m or BUKAN_KLAIM.search(clause):
+                        continue
+                    found.append((f"{rel}:{awal}",
+                                  f"klaim kelas basi: {kelas} disebut "
+                                  f"\"{m.group(0)}\" padahal semua aset kelas "
+                                  f"itu `rom-exact`"))
+                    break
     if found:
         where, why = found[0]
         more = f" (+{len(found) - 1} lain)" if len(found) > 1 else ""
         return (where, why + more + " — perbarui dokumen, jangan biarkan "
                 "klaim lama"), None
     return None, (f"klaim status aset sinkron ({len(rom_exact)} rom-exact "
-                  f"di {len(ASSET_CLAIM_DOCS)} dokumen)")
+                  f"di {len(ASSET_CLAIM_DOCS)} dokumen, kelas selesai: "
+                  f"{', '.join(sorted(selesai)) or '-'})")
 
 
 GFX_RULES = "gfx_rules.mk"
