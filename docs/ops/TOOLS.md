@@ -419,12 +419,22 @@ source asset, encoder, profil `match`/`mod`, dan gate byte ada di
   layer di `+4/+8/+0xc`, blockmap `+0x10`, blocktable `+0x14`). Source kanonik
   tetap satu JSON per simbol, tetapi memuat `layers` (`offset`, `width`,
   `height`, `descriptor`, `slot`, `entries` urut baris), `payload_segments`
-  (rentang yang dimulai pointer table: `offset`, `size`, `hex`, dan
-  `pointer_sources`), dan `raw` (hex byte yang tidak dirujuk); semuanya harus
-  bersama-sama menutup `rom.size`. `encode` menulis tiap segmen payload pada
-  offset-nya, sedangkan `asset_verify` memeriksa bahwa setiap alamat di
-  `pointer_sources` menunjuk tepat ke awal segmen dan tidak ada celah atau
-  tumpang tindih. `decode` memindai
+  (rentang yang dimulai pointer table), dan `raw` (hex byte yang tidak
+  dirujuk); semuanya harus bersama-sama menutup `rom.size`. Tiap segmen
+  payload wajib punya `kind` konkret dan byte-nya ditulis dari field kind itu:
+  `palette` (`colors` BGR555 < 0x8000), `tilemap` (`width`/`height`/`entries`
+  u16, plus `tail_hex` bila sisa byte tidak dibaca grid), `frames4bpp`
+  (`header` `[tile/frame, frame]`, `tiles_per_frame`, `frames`, `tiles_hex`),
+  dan `packed` (`codec: unpack`, `unpack_size`/`unpack_flags` dari dword
+  pertama; byte terkompresi disimpan apa adanya karena belum ada compressor
+  pembalik). `encode` menulis tiap segmen pada offset-nya, sedangkan
+  `asset_verify` merekonstruksi tiap segmen dari field semantiknya dan menolak
+  bila byte hasilnya != ROM, kind asing, atau header `packed` tidak cocok.
+  Setiap alamat di `pointer_sources` harus menunjuk tepat ke awal segmen, tanpa
+  celah atau tumpang tindih. `coverage` dihitung `tilemap_bank.coverage()` dari
+  byte yang benar-benar direkonstruksi (entri layer + palet + entri tilemap);
+  tile 4bpp, animasi, dan `packed` tetap `raw_bytes`. `asset_verify` menolak
+  blok `coverage` yang tidak sama dengan hitungan itu. `decode` memindai
   tabel descriptor (`--descriptor-start/--descriptor-end`, record `0x18`) dan
   menolak layer yang tumpang tindih; `encode` menolak celah, tumpang tindih,
   atau jumlah entri tidak sama dengan `width*height`; `verify` membandingkan

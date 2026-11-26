@@ -137,7 +137,6 @@ class AssetManifest(unittest.TestCase):
         end = 0x1D20
         for seg in segs:
             self.assertGreaterEqual(seg["offset"], end)
-            self.assertEqual(len(seg["hex"]) // 2, seg["size"])
             self.assertTrue(seg["pointer_sources"])
             end = seg["offset"] + seg["size"]
         self.assertEqual(end, 0x1D20 + 25856)
@@ -150,6 +149,68 @@ class AssetManifest(unittest.TestCase):
                 self.assertEqual(
                     struct.unpack_from("<I", rom, address)[0],
                     0x08000000 + base + seg["offset"], source)
+
+    def test_payload_segments_reconstruct_rom_bytes(self):
+        """Tiap segmen bertipe: byte ditulis dari field semantik = byte ROM."""
+        path = REPO / "assets" / "gfx" / "maps" / "gUnk_086EAD8C.json"
+        meta = json.loads(path.read_text())
+        segs = meta["payload_segments"]
+        self.assertEqual({seg["kind"] for seg in segs},
+                         {"tilemap", "palette", "frames4bpp", "packed"})
+        rom = asset_manifest.ROM.read_bytes()
+        base = int(meta["rom"]["offset"], 0)
+        for seg in segs:
+            with self.subTest(offset=hex(seg["offset"])):
+                self.assertIn(seg["kind"], tilemap_bank.PAYLOAD_KINDS)
+                self.assertTrue(seg.get("evidence"))
+                data = tilemap_bank.payload_bytes(seg)
+                self.assertEqual(len(data), seg["size"])
+                self.assertEqual(
+                    data, rom[base + seg["offset"]:
+                              base + seg["offset"] + seg["size"]])
+                if seg["kind"] == "palette":
+                    self.assertNotIn("hex", seg)
+                    self.assertEqual(len(seg["colors"]), seg["size"] // 2)
+                    for color in seg["colors"]:
+                        self.assertLess(color, 0x8000)
+                elif seg["kind"] == "tilemap":
+                    self.assertNotIn("hex", seg)
+                    self.assertEqual(len(seg["entries"]),
+                                     seg["width"] * seg["height"])
+                    tail = len(bytes.fromhex(seg.get("tail_hex") or ""))
+                    self.assertEqual(
+                        seg["width"] * seg["height"] * 2 + tail, seg["size"])
+                elif seg["kind"] == "frames4bpp":
+                    self.assertEqual(seg["header"],
+                                     [seg["tiles_per_frame"], seg["frames"]])
+                    self.assertEqual(
+                        4 + seg["tiles_per_frame"] * seg["frames"] * 32,
+                        seg["size"])
+                elif seg["kind"] == "packed":
+                    self.assertEqual(seg["codec"], "unpack")
+                    header = struct.unpack_from(
+                        "<I", rom, base + seg["offset"])[0]
+                    self.assertEqual(seg["unpack_size"], header >> 8)
+                    self.assertEqual(seg["unpack_flags"], header & 0xFF)
+                    self.assertEqual(seg["unpack_size"] % 32, 0)
+
+    def test_payload_coverage_counts_only_checked_bytes(self):
+        path = REPO / "assets" / "gfx" / "maps" / "gUnk_086EAD8C.json"
+        meta = json.loads(path.read_text())
+        coverage = meta["coverage"]
+        self.assertEqual(coverage, tilemap_bank.coverage(meta))
+        proven = 0
+        for layer in meta["layers"]:
+            proven += layer["width"] * layer["height"] * 2
+        for seg in meta["payload_segments"]:
+            if seg["kind"] == "palette":
+                proven += seg["size"]
+            elif seg["kind"] == "tilemap":
+                proven += seg["width"] * seg["height"] * 2
+        self.assertEqual(coverage["total_bytes"], meta["rom"]["size"])
+        self.assertEqual(coverage["proven_bytes"], proven)
+        self.assertEqual(coverage["raw_bytes"],
+                         meta["rom"]["size"] - proven)
 
     def test_source_files_are_not_degenerate(self):
         assets = json.loads(asset_manifest.MANIFEST.read_text())["assets"]
@@ -258,6 +319,7 @@ class DegenerateSources(unittest.TestCase):
             cases = {
                 "empty": b"",
                 "signature": b"\x89PNG\r\n\x1a\n",
+                "bad-signature": b"\x00\x01\x02\x03\x04\x05\x06\x07",
                 "truncated": b"\x89PNG\r\n\x1a\n" + b"\x00" * 12,
             }
             for name, raw in cases.items():
@@ -293,8 +355,10 @@ class DegenerateSources(unittest.TestCase):
             cases = {
                 "empty": "",
                 "header-only": "JASC-PAL\n0100\n",
+                "no-count": "JASC-PAL\n",
                 "one-color": "JASC-PAL\n0100\n1\n255 0 0\n",
                 "count-mismatch": "JASC-PAL\n0100\n2\n255 0 0\n",
+                "truncated-channels": "JASC-PAL\n0100\n2\n255 0\n2 2 2\n",
                 "not-jasc": "RIFF-PAL\n0100\n2\n0 0 0\n255 255 255\n",
                 "bad-channel": "JASC-PAL\n0100\n2\n0 0 999\n255 255 255\n",
                 "bad-count": "JASC-PAL\n0100\nx\n0 0 0\n",
@@ -316,6 +380,9 @@ class DegenerateSources(unittest.TestCase):
                 "string": '"table"',
                 "null": "null",
                 "object": "{}",
+                "malformed": '{"rom": ',
+                "trailing-comma": '{"rom": {"size": 1,},}',
+                "open-string": '{"rom": "',
             }
             for name, text in cases.items():
                 path = td / f"{name}.json"
@@ -325,6 +392,38 @@ class DegenerateSources(unittest.TestCase):
                     with self.assertRaises(SystemExit) as ctx:
                         loader(path)
                     self.assertIn(str(path), str(ctx.exception))
+
+
+class DegeneratePayload(unittest.TestCase):
+    """Field payload kosong/rusak ditolak dengan pesan, bukan byte karangan."""
+
+    def test_payload_field_rusak_ditolak(self):
+        base = {"offset": 0x1D20, "size": 4}
+        zero = {"offset": 0x1D20, "size": 0}
+        cases = [
+            (base, {"kind": "palette", "colors": []}),
+            (base, {"kind": "palette", "colors": [1]}),
+            (base, {"kind": "palette", "colors": [0x8000, 0]}),
+            (zero, {"kind": "palette", "colors": []}),
+            (base, {"kind": "tilemap", "width": 2, "height": 2,
+                    "entries": [1, 2]}),
+            (base, {"kind": "tilemap", "width": 0, "height": 1,
+                    "entries": []}),
+            (base, {"kind": "tilemap", "width": 2, "height": 1,
+                    "entries": [1, 2], "tail_hex": "zz"}),
+            (base, {"kind": "frames4bpp", "header": [1, 1],
+                    "tiles_per_frame": 2, "frames": 1, "tiles_hex": ""}),
+            (base, {"kind": "frames4bpp", "header": [1, 1],
+                    "tiles_per_frame": 1, "frames": 1, "tiles_hex": "00"}),
+            (base, {"kind": "packed", "codec": "unpack", "hex": "00"}),
+            (base, {"kind": "opaque", "hex": "00000000"}),
+            (base, {"kind": "palette", "hex": "00000000"}),
+        ]
+        for extra, fields in cases:
+            with self.subTest(fields=fields):
+                with self.assertRaises(ValueError) as ctx:
+                    tilemap_bank.payload_bytes({**extra, **fields})
+                self.assertIn("payload", str(ctx.exception))
 
 
 class SemanticsRule(unittest.TestCase):

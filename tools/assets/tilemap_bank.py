@@ -27,11 +27,31 @@ eksplisit:
 ```
 
 `layers` mencatat offset/lebar/tinggi tiap layer yang dirujuk descriptor;
-`raw` menutup byte yang tidak dirujuk (padding, data lain). Encoder menolak
-source yang tidak menutup seluruh `rom.size`, tumpang tindih, atau jumlah
-entri tidak sama dengan `width*height`, lalu menulis byte little endian.
-Dengan begitu round-trip bisa byte-identik tanpa mengarang format untuk byte
-yang belum terbukti.
+`payload_segments` mencatat rentang yang dimulai pointer table, dan `raw`
+menutup byte yang tidak dirujuk (padding, data lain). Encoder menolak source
+yang tidak menutup seluruh `rom.size`, tumpang tindih, atau jumlah entri tidak
+sama dengan `width*height`, lalu menulis byte little endian. Dengan begitu
+round-trip bisa byte-identik tanpa mengarang format untuk byte yang belum
+terbukti.
+
+Tiap `payload_segments` wajib punya `kind`, dan byte-nya ditulis dari field
+semantik kind itu (bukan dari hex mentah):
+
+```json
+{"offset": 8420, "size": 32, "kind": "palette",
+ "pointer_sources": ["0x107224"], "colors": [31775, ...]}
+{"offset": 8452, "size": 48, "kind": "tilemap", "width": 6, "height": 4,
+ "pointer_sources": ["0x107208"], "entries": [37329, ...], "tail_hex": ""}
+{"offset": 7456, "size": 964, "kind": "packed", "codec": "unpack",
+ "unpack_size": 2048, "unpack_flags": 112, "hex": "70000800..."}
+{"offset": 17156, "size": 2308, "kind": "frames4bpp",
+ "header": [18, 4], "tiles_per_frame": 18, "frames": 4,
+ "tiles_hex": "12000400..."}
+```
+
+`coverage()` menghitung ulang `proven_bytes` dari field yang benar-benar
+direkonstruksi (layer + palet + entri tilemap payload), dan `asset_verify`
+membandingkannya dengan blok `coverage` di JSON.
 
   python3 tools/assets/tilemap_bank.py decode --rom baserom.gba \\
       --offset 0x6EAD8C --size 33312 \\
@@ -65,6 +85,105 @@ def bytes_from_entries(entries):
     return bytes(out)
 
 
+PAYLOAD_KINDS = ("palette", "tilemap", "frames4bpp", "packed")
+
+
+def u16_list(values, label, limit=0xFFFF):
+    """-> little-endian u16; `limit` mempersempit (palet BGR555: 0x7FFF)."""
+    out = bytearray()
+    for value in values:
+        if (not isinstance(value, int) or isinstance(value, bool)
+                or not 0 <= value <= limit):
+            raise ValueError(f"{label}: {value!r} di luar 0..{limit:#x}")
+        out += value.to_bytes(ENTRY, "little")
+    return bytes(out)
+
+
+def payload_bytes(seg):
+    """Satu segmen payload -> byte, ditulis dari field semantiknya.
+
+    `palette`/`tilemap`/`frames4bpp` tidak menyimpan hex byte: isinya warna
+    BGR555, entri u16, atau tile 4bpp. `packed` masih menyimpan byte
+    terkompresi karena format `Unpack` belum punya compressor pembalik.
+    """
+    offset = seg.get("offset")
+    label = f"payload {offset:#x}" if isinstance(offset, int) else "payload ?"
+    kind = seg.get("kind")
+    if kind == "palette":
+        colors = seg.get("colors")
+        if not isinstance(colors, list) or not colors:
+            raise ValueError(f"{label}: palette wajib daftar colors")
+        data = u16_list(colors, label, 0x7FFF)
+    elif kind == "tilemap":
+        width, height = seg.get("width"), seg.get("height")
+        entries = seg.get("entries")
+        if not isinstance(width, int) or not isinstance(height, int) \
+                or width < 1 or height < 1:
+            raise ValueError(f"{label}: tilemap wajib width/height >= 1")
+        if not isinstance(entries, list) or len(entries) != width * height:
+            raise ValueError(
+                f"{label}: {len(entries or [])} entri != {width}x{height}")
+        try:
+            tail = bytes.fromhex(seg.get("tail_hex") or "")
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"{label}: tail_hex tidak valid: {exc}")
+        data = u16_list(entries, label) + tail
+    elif kind == "frames4bpp":
+        header = seg.get("header")
+        tpf, frames = seg.get("tiles_per_frame"), seg.get("frames")
+        if (not isinstance(tpf, int) or not isinstance(frames, int)
+                or tpf < 1 or frames < 1):
+            raise ValueError(f"{label}: tiles_per_frame/frames wajib >= 1")
+        if header != [tpf, frames]:
+            raise ValueError(
+                f"{label}: header {header!r} != [{tpf}, {frames}]")
+        try:
+            tiles = bytes.fromhex(seg.get("tiles_hex") or "")
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"{label}: tiles_hex tidak valid: {exc}")
+        if len(tiles) != tpf * frames * 32:
+            raise ValueError(
+                f"{label}: {len(tiles)} B tile != {tpf}*{frames}*32")
+        data = struct.pack("<2H", tpf, frames) + tiles
+    elif kind == "packed":
+        try:
+            data = bytes.fromhex(seg.get("hex") or "")
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"{label}: hex tidak valid: {exc}")
+    else:
+        raise ValueError(
+            f"{label}: kind {kind!r} tidak dikenal (pilih salah satu "
+            f"{PAYLOAD_KINDS})")
+    if len(data) != seg.get("size"):
+        raise ValueError(f"{label}: {len(data)} B != size {seg.get('size')}")
+    return data
+
+
+def coverage(meta):
+    """-> coverage dari field yang direkonstruksi (bukan hex mentah).
+
+    Yang dihitung hanya byte yang nilainya ditentukan field semantik: entri
+    layer (`layers`) dan segmen payload `palette`/`tilemap`. Tile 4bpp,
+    animasi (`tiles_hex`), dan `packed` masih byte mentah, jadi masuk
+    `raw_bytes`.
+    """
+    total = int(meta["rom"]["size"])
+    proven = 0
+    for layer in meta.get("layers", []):
+        proven += layer["width"] * layer["height"] * ENTRY
+    for seg in meta.get("payload_segments", []):
+        if seg.get("kind") == "palette":
+            proven += seg["size"]
+        elif seg.get("kind") == "tilemap":
+            proven += seg["width"] * seg["height"] * ENTRY
+    return {
+        "total_bytes": total,
+        "proven_bytes": proven,
+        "raw_bytes": total - proven,
+        "proven_ratio": round(proven / total, 4),
+    }
+
+
 def _segments(meta, size):
     """-> daftar (offset, bytes, label); menolak tumpang tindih dan celah."""
     segments = []
@@ -94,15 +213,8 @@ def _segments(meta, size):
         segments.append((offset, data, label))
     for seg in meta.get("payload_segments", []):
         offset = int(str(seg["offset"]), 0)
-        try:
-            data = bytes.fromhex(seg["hex"])
-        except (KeyError, ValueError) as exc:
-            raise ValueError(f"payload {offset:#x}: hex tidak valid: {exc}")
-        if len(data) != seg.get("size"):
-            raise ValueError(
-                f"payload {offset:#x}: {len(data)} B != size "
-                f"{seg.get('size')}")
-        segments.append((offset, data, f"payload {offset:#x}"))
+        data = payload_bytes(seg)
+        segments.append((offset, data, f"payload {offset:#x} ({seg['kind']})"))
     for chunk in meta.get("raw", []):
         offset = int(str(chunk["offset"]), 0)
         try:

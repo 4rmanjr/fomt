@@ -439,21 +439,61 @@ def padding_problems(asset, rom):
             problems.append(f"raw[{j}] {off:#x}..{off+size:#x} tidak punya padding")
     payload = []
     base = int(str(meta.get("rom", {}).get("offset", 0)), 0)
+    tool = load_module("tilemap_bank.py") if meta.get("payload_segments") \
+        else None
     for i, seg in enumerate(meta.get("payload_segments", [])):
         if not isinstance(seg, dict):
             problems.append(f"payload[{i}] bukan objek")
             continue
-        for key in ("offset", "size", "hex", "pointer_sources"):
+        for key in ("offset", "size", "kind", "pointer_sources",
+                    "evidence"):
             if not seg.get(key):
                 problems.append(f"payload[{i}] wajib {key}")
         off, size = seg.get("offset"), seg.get("size")
         if not isinstance(off, int) or not isinstance(size, int) or size < 1:
             problems.append(f"payload[{i}] offset/size tidak valid")
             continue
-        if len(seg.get("hex", "")) // 2 != size:
-            problems.append(f"payload[{i}] hex != size")
-        if off < 0 or off + size > len(rom):
-            problems.append(f"payload[{i}] {off:#x}..{off+size:#x} di luar ROM")
+        kind = seg.get("kind")
+        if kind not in tool.PAYLOAD_KINDS:
+            problems.append(f"payload[{i}] kind {kind!r} tidak dikenal; pakai "
+                            f"salah satu {tool.PAYLOAD_KINDS}")
+        if off < 0 or base + off + size > len(rom):
+            problems.append(f"payload[{i}] +{off:#x}..+{off+size:#x} di luar ROM")
+        # Byte hasil rekonstruksi dari field semantik wajib sama dengan ROM.
+        encoded = None
+        try:
+            encoded = tool.payload_bytes(seg)
+        except (SystemExit, ValueError) as exc:
+            problems.append(f"payload[{i}] {exc}")
+        except Exception as exc:  # noqa: BLE001 - laporkan semua kegagalan
+            problems.append(f"payload[{i}] kind {kind}: {type(exc).__name__}: "
+                            f"{exc}")
+        if encoded is not None:
+            if base + off + size > len(rom):
+                pass  # sudah dilaporkan di atas
+            elif encoded != rom[base + off:base + off + size]:
+                diff = next(k for k in range(size)
+                            if encoded[k] != rom[base + off + k])
+                problems.append(
+                    f"payload[{i}] {kind}: byte rekonstruksi != ROM "
+                    f"(beda di +{off + diff:#x})")
+        if kind == "packed" and base + off + 4 <= len(rom):
+            header = struct.unpack_from("<I", rom, base + off)[0]
+            unpack, flags = header >> 8, header & 0xFF
+            if seg.get("codec") != "unpack":
+                problems.append(f"payload[{i}] packed wajib codec='unpack'")
+            if seg.get("unpack_size") != unpack:
+                problems.append(
+                    f"payload[{i}] unpack_size {seg.get('unpack_size')} != "
+                    f"{unpack} (dword>>8)")
+            if seg.get("unpack_flags") != flags:
+                problems.append(
+                    f"payload[{i}] unpack_flags {seg.get('unpack_flags')!r} "
+                    f"!= {flags:#04x} (byte rendah header)")
+            if unpack % 32:
+                problems.append(
+                    f"payload[{i}] unpack_size {unpack} bukan kelipatan 32 "
+                    "(tile 4bpp)")
         for source in seg.get("pointer_sources") or []:
             try:
                 address = int(str(source), 0)
@@ -470,6 +510,16 @@ def padding_problems(asset, rom):
                     f"payload[{i}] pointer {source} = {value:#x}, "
                     f"bukan {want:#x}")
         payload.append((off, off + size, i))
+    if tool is not None:
+        expected = tool.coverage(meta)
+        declared = meta.get("coverage")
+        if not isinstance(declared, dict):
+            problems.append("coverage wajib ada bila ada payload_segments")
+        else:
+            for key, value in expected.items():
+                if declared.get(key) != value:
+                    problems.append(f"coverage.{key} {declared.get(key)!r} != "
+                                    f"hitung verifier {value!r}")
     payload.sort()
     for (a0, a1, ai), (b0, b1, bi) in zip(payload, payload[1:]):
         if b0 < a1:
