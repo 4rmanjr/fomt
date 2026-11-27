@@ -1,11 +1,15 @@
-void func_0809CD78(u32 *arg0) {
-    u32 *p = arg0;
-    s32 i = 0x3A;
+void func_0809CD78(s32 *arg0) {
+    s32 n;
+    s32 zero;
+    s32 end;
 
+    n = 0x3A;
+    zero = 0;
+    end = -1;
     do {
-        *p = 0;
-        *(p + 1) = 0;
-        p += 2;
-        i--;
-    } while (i != -1);
+        arg0[0] = zero;
+        arg0[1] = zero;
+        arg0 += 2;
+        n -= 1;
+    } while (n != end);
 }

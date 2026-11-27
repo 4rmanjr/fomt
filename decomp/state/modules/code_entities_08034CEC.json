@@ -1818,7 +1818,7 @@
   "addr": 134448444,
   "judged_mtime": 1795697836.2975523,
   "module": "code_entities_08034CEC.s",
-  "note": "PARKIR \u00a7115: prolog butuh r6 (push {r4,r5,r6,lr} vs {r4,r5,lr}); badan 22-29 insn campur ldrh/strb. Judge terakhir: len 60 vs ref 62 [2missing,3extra,4operand,7regalloc,1different @i push {r4, r5, r6, lr} | push {r4, r5, lr}]",
+  "note": "PARKIR \u00a7116: `[2missing,3extra,4operand,7regalloc,1different @i push {r4,r5,r6,lr} | push {r4,r5,lr}]` (62 vs 60 B) \u2014 ROM menyimpan satu nilai tambahan di r6; agbcc hanya memakai r4/r5.",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 687,

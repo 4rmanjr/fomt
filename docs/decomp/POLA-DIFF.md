@@ -4942,3 +4942,87 @@ Sub-kelas baru yang tercatat dari pass ini:
 - **I — cast di titik panggil untuk callee berdeklarasi 0-arg** (tiga fungsi
   `func_080007EC`).
 
+### §116 Antrean parkir ditulis tangan dari `.s`: 16 fungsi, penyebab per instruksi
+
+Pass ini meninggalkan draf m2c dan menulis C langsung dari disassembly, berulang
+kali sampai batas 5 judge per fungsi. Tidak ada yang menjadi MATCH, dan
+alasannya seragam: **selisihnya bukan semantik C, melainkan bentuk codegen
+agbcc** (alokasi register, tata letak lander cabang, jumlah register prolog).
+Yang penting untuk sesi berikutnya: setiap fungsi di bawah punya instruksi
+pembeda yang persis, bukan "badan salah".
+
+**Klaster B (8) — satu instruksi hilang: `adds r1, r0, #0`.**
+
+ROM (semua anggota, mis. `func_08012028`):
+
+```
+ldr r2, [sp]        ; tmp  -> r2
+mov r0, sp
+str r0, [sp, #4]    ; sp[1] = sp
+str r2, [sp, #8]    ; sp[2] = tmp
+adds r1, r0, #0     ; <-- satu-satunya instruksi yang tidak bisa dipaksa
+movs r0, #0
+str r0, [r1]
+```
+
+Tiga bentuk sumber dicoba dan semuanya **dilipat** oleh agbcc (56 vs 58 B,
+`[1missing,1operand,1regalloc]`):
+
+```c
+void **base = (void **) sp;  base[0] = 0;          /* -> str r0,[sp]   */
+*(void **)((u8 *) sp + 0) = 0;                     /* +0 dilipat       */
+void *p = (void *) sp; sp[1] = p; *(void **) p = 0;/* -> str r0,[sp]   */
+```
+
+`adds r1, r0, #0` adalah penyalinan alamat ke register kedua **karena r0
+dipakai untuk nilai 0**; agbcc memilih menulis langsung ke `[sp]` (alamat
+basis lokal diketahui), jadi salinan itu tidak pernah muncul. Instruksi kedua
+yang berbeda: ROM menyimpan `tmp` di **r2**, agbcc di **r1**
+(`@r ldr r2, [sp] | ldr r1, [sp]`).
+
+**Klaster C (3)** — bentuk sama dengan tambahan `__builtin_new`; `func_080D3BE8`
+`[1missing,1extra,6regalloc]`, ROM memuat slot stack ke **r1** lalu memakai r1
+sebagai argumen vcall, agbcc memakai r0.
+
+**`func_08024CA0`** (5 judge) — ROM memusatkan tiga jalur `return 0` ke SATU
+lander (`bne #0x26; bgt #0x26; blt #0x26; movs r0,#1; b .L; .L: movs r0,#0`),
+agbcc menduplikasi jalur dan menambah r5 (46 vs 52 B, `push {r4,lr}` vs
+`push {r4,r5,lr}`). Empat bentuk C dicoba (`return 0` berulang, `res` tunggal,
+`&&`, `s8 v` bersama) — semuanya 50–52 B.
+
+**`func_080E3874`** (5 judge) — ROM tidak menyimpan apa pun di register
+callee-saved (`push {lr}`), versi C mana pun membuat agbcc memakai **r4**
+(`push {r4,lr}`, +2 B). Petunjuk kuat: `movs r1,#0xdc; lsls r1,#1; adds r0,r2,r1`
+lalu `adds r1,#3` berarti sumber aslinya memakai **offset yang bisa berubah**
+(`off = 0x1B8; off += 3;`), bukan dua field struct; bentuk itu sudah dicoba dan
+tetap menghasilkan r4.
+
+**`func_080DC360`** — 6 argumen, sebagian lewat stack (`ldr r5,[sp,#0x20]`),
+memakai r8/sb; badan m2c gagal kompilasi (`arg3 undeclared`). Jalur vcall-nya
+slot vtable 5 dari `*(arg0+0xA8)` lalu `func_080D7F9C(arg0, arg1, hasil, arg2, ...)`.
+
+**Status akhir 16 antrean** (semua punya `note` di shard state):
+
+| fungsi | status | pembeda |
+|---|---|---|
+| `func_08012028` | parkir | `adds r1, r0, #0` hilang |
+| `func_0806EA30` | parkir | idem + `ldr r2,[sp]` vs `ldr r1,[sp]` |
+| `func_08092604` | parkir | idem, 7 regalloc |
+| `func_080B3C3C` | parkir | `ldr r2,[sp]` hilang (3 missing) |
+| `func_080BC8FC` | parkir | draf m2c gagal kompilasi (deref `void *`) |
+| `func_080C0D90` | parkir | idem |
+| `func_080D3BE8` | parkir | `ldr r1,[sp]` vs r0 (6 regalloc) |
+| `func_080D3C24` | parkir | draf gagal kompilasi, bentuk C |
+| `func_080D4004` | parkir | idem |
+| `func_080DBC0C` | parkir | bentuk B + `__builtin_new(0xC)` |
+| `func_08024CA0` | parkir | lander cabang, `push {r4,r5,lr}` vs `{r4,lr}` |
+| `func_0803853C` | parkir | prolog `{r4,r5,r6,lr}` vs `{r4,r5,lr}` |
+| `func_080DC360` | parkir | 6 argumen + r8/sb, `ldr r5,[sp,#0x20]` |
+| `func_080E3874` | parkir | `push {lr}` vs `push {r4,lr}` (+2 B) |
+
+**Kesimpulan teknis:** untuk kelas ini selisihnya adalah keputusan alokasi
+register agbcc yang tidak dapat dipaksa dari C biasa (tidak ada `register`
+keyword di agbcc, dan penyusunan ulang pernyataan selalu dilipat kembali).
+Jalan yang tersisa bukan translasi, melainkan mengubah kondisi kompilasi
+(flag/varian agbcc) atau menerima promote-only. Ini kelas yang sama dengan §103.
+

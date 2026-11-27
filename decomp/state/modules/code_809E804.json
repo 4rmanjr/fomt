@@ -1648,11 +1648,11 @@
  "func_080A643C": {
   "addr": 134898748,
   "module": "code_809E804.s",
+  "note": "blok tanpa label (28 halfword, 5 bx): region .inst.n memuat beberapa fungsi tanpa simbol; badan C tak bisa dipetakan per fungsi",
   "ref_len": 56,
   "size": 595,
   "status": "pending",
-  "thumb": true,
-  "note": "blok tanpa label (28 halfword, 5 bx): region .inst.n memuat beberapa fungsi tanpa simbol; badan C tak bisa dipetakan per fungsi"
+  "thumb": true
  },
  "func_080A6474": {
   "addr": 134898804,
@@ -3079,7 +3079,7 @@
   "draft_src": "manual",
   "judged_mtime": 0,
   "module": "code_809E804.s",
-  "note": "parkir 5/5: sisa rematerialisasi `mov r0,sp` vs `adds r1,r0` sebelum store nol. Draf diregenerasi m2c.",
+  "note": "PARKIR \u00a7116: klaster B, `[3missing,1extra,1different @< ldr r2, [sp] | ]` (54 vs 58 B) \u2014 tiga instruksi hilang sejak penyimpanan awal; butuh `tmp` di r2.",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
@@ -3756,7 +3756,7 @@
   "addr": 134990076,
   "judged_mtime": 1795434686.9895835,
   "module": "code_809E804.s",
-  "note": "len 56 vs ref 58 [1missing,2operand,4regalloc @i and r0, r0, #<func_080B44EC> | and r0, r0, #<func_func_080B44EC>]",
+  "note": "PARKIR \u00a7116: draf m2c gagal kompilasi (warning `dereferencing void *` berujung error C++) \u2014 bentuk vtable-palsu; perlu ditulis ulang penuh dari asm.",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
@@ -4061,7 +4061,7 @@
   "addr": 135007632,
   "judged_mtime": 1795434686.9935834,
   "module": "code_809E804.s",
-  "note": "len 56 vs ref 58 [1missing,2operand,4regalloc @i and r0, r0, #<func_080BCCE0> | and r0, r0, #<func_func_080BCCE0>]",
+  "note": "PARKIR \u00a7116: draf m2c gagal kompilasi (deref `void *`), sama seperti func_080BC8FC.",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,

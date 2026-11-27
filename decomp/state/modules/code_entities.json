@@ -999,7 +999,7 @@
   "draft_src": "manual",
   "judged_mtime": 1795697991.3639054,
   "module": "code_entities.s",
-  "note": "len 44 vs ref 46 [2missing,1extra,3operand,1different @i bne #0x26 | bne #0x24]",
+  "note": "PARKIR \u00a7116: `[3missing,6extra,4operand,1regalloc,2different @i push {r4,lr} | push {r4,r5,lr}]` (46 vs 52 B) \u2014 tiga jalur `return 0` di ROM menyatu ke satu lander (`bne #0x26`), agbcc menduplikasi jalur (`bne #0x2a`) dan menambah r5.",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 543,
