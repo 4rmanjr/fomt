@@ -3685,3 +3685,139 @@ Diagnosis klaster sisa (tidak dibuka):
   tidak bisa diturunkan dari sumber asm tanpa membongkar tiap word lebih
   dulu — tidak disentuh putaran ini.
 
+### §99 Ekstraksi badan salah batas: klaster "besar" yang tersisa bukan klaster fungsi
+
+Penyapuan putaran ini menemukan bug di skrip pemindai sendiri: badan fungsi
+dipotong pada label pertama yang berakhiran `@ alamat` — termasuk label lokal
+`.L08023816: @ ...`. Akibatnya banyak fungsi terukur jauh lebih pendek dari
+aslinya (mis. `func_08023804` terbaca 11 instruksi, padahal ref judge 162) dan
+beberapa "klaster" sebenarnya artefak.
+
+Setelah batas badan diperbaiki (potong pada `thumb_func_start` berikutnya),
+klaster ≥2 anggota yang tersisa **semuanya** jatuh ke kelas tertutup:
+
+| anggota | bentuk | status |
+|---|---|---|
+| 35 | `ldr r0,[r4,#4]; cmp; ldr r0,[r1]; ldr r2,[r0,#8]; movs r1,#3; bl _call_via_r2; … bl func_0800080C` | dinding §71/§72/§74 |
+| 7 | `push {r4,lr}; sub sp,#0xc; … mov r0,sp; bl; ldr r1,[sp]; cmp; ldr r2,[r0,#8]; movs r1,#3; bl _call_via_r2` | dinding yang sama + `__builtin_new` |
+| 3 | `ldr r1,[r4,#8]; cmp; bl _call_via_r2; … bl func_0800080C` | dinding yang sama |
+| 2 | `movs r0,#8; bl __builtin_new; bl func_08004B58|func_080036F8; … bl _call_via_r2` | dinding yang sama |
+| 2 | `ldr r0,[r3,#8]; ldr r2,[r0,#0xc]; movs r1,#3; bl _call_via_r2` | **fragmen epilog**, bukan fungsi: memakai `r3` tanpa mendefinisikannya, dicapai lewat fallthrough |
+| 5 | `func_08053634` dkk: `mov r7, sb; … bl func_080050D3C; cmp r0,#6; lsls; ldr; mov pc, r0` | `switch` 7-kasus berjump-table, badan ~0x328 B |
+
+### §99.1 Himpunan `.inst.n` 7 anggota: blok tanpa label, bukan klaster
+
+Ketujuh "anggota" itu tidak pernah satu klaster — pengelompok signature lama
+membuang baris `.inst.n` sehingga semua badan menjadi kosong dan tampak sama.
+Isi sebenarnya (hasil decode `arm-none-eabi-as` + `objdump`):
+
+| fungsi | modul | halfword | jumlah `bx` (≈ jumlah fungsi di blok) |
+|---|---|---|---|
+| `func_080203A4` | code_entities | 54 | 1 |
+| `func_080229B8` | code_entities | 208 | 7 |
+| `func_08023414` | code_entities | 494 | 15 |
+| `func_080240D0` | code_entities | 506 | 15 |
+| `func_0802C228` | code_entities | 90 | 4 |
+| `func_080390DC` | code_entities_08034CEC | 44 | 4 |
+| `func_080A643C` | code_809E804 | 28 | 5 |
+
+Semua halfword-nya bisa dipulihkan ke mnemonic (assembler menerima `.inst.n`
+apa adanya, dan decode menghasilkan instruksi Thumb standar), tetapi region ini
+berisi **beberapa fungsi tanpa simbol** yang disatukan tanpa `thumb_func_start`
+per fungsi, mis. `func_080A643C`: 28 halfword → satu fungsi 15 instruksi
+(`push {r4,r5,r6,lr}; … muls; adds; lsls #2; ldr [r6,#0x2c]; …; pop; bx r1`)
+diikuti empat fungsi kecil lain (`ldr r0,[r0,#4]; bx lr`, `ldr r0,[r0]; bx lr`,
+`movs r1,#14; ldrsh; bx lr`, `movs r1,#10; ldrsh; bx lr`). Peta simbol tidak
+memberi batas per fungsi, jadi judge tidak bisa membuktikan satu badan
+terhadap region ini; migrasi `src/` juga menuntut satu TU per modul dengan
+tanda tangan yang sama string. Status resmi: **refused by-design** dengan
+hitungan halfword/`bx` di atas dicatat di `note` shard, bukan dibiarkan
+tanpa penjelasan.
+
+### §99.2 MATCH baru dari sapuan singleton: `func_08024C74`
+
+```asm
+adds r2, r0, #0
+adds r0, #0x3c
+movs r1, #0
+strb r1, [r0]
+adds r0, #2
+strb r1, [r0]
+adds r0, #0x68
+strh r1, [r0]
+bx lr
+```
+
+```c
+void func_08024C74(GenObj *arg0) {
+    arg0->unk3C = 0;
+    arg0->unk3E = 0;
+    arg0->unkA6 = 0;
+}
+```
+
+Detail penentu: `strb` ⇒ dua field `u8` di 0x3C dan 0x3E, `strh` ⇒ satu field
+`u16` di 0xA6 — dan salinan `adds r2, r0, #0` di awal dihasilkan agbcc sendiri
+untuk badan ini (bukan tanda ada pointer lokal), jadi badan tiga assignment
+polos sudah byte-identik. Judge `(True, '')`, migrate HIJAU.
+
+### §99.3 Kandidat singleton yang judge-nya DIFF (dicatat, tidak dipaksa)
+
+| fungsi | delta judge | sebab |
+|---|---|---|
+| `func_0809C144` | `len 24 vs ref 230 [102missing,2operand,7regalloc,2different @r movs r3, #0 | movs r2, #0]` | badan asli jauh lebih panjang dari loop 6-iterasi yang terbaca; urutan `movs r3/r2` juga tertukar |
+| `func_08023804` | `len 32 vs ref 162 [… @| beq #0x12 | bne #0xa]` | rangkaian `cmp/beq cmp/blo cmp/beq` bukan bentuk if-berturut biasa; bentuk `switch` yang dipakai compiler belum ketemu |
+| `func_080946C4` | lihat §99.4 — **berhasil** setelah bentuk `switch` |
+
+Ketiganya tetap `failed` dengan catatan di atas; tidak ada `.byte`/`.short`,
+stub, atau badan karangan yang dipakai.
+
+### §99.4 `switch` mengalahkan `if/else if`: `func_080946C4`
+
+```asm
+push {lr}
+adds r2, r0, #0
+cmp r1, #2
+beq .L080946D2
+cmp r1, #3
+beq .L080946DC
+b .L080946E4
+.L080946D2: ldr r0, =gUnk_081008EC
+            b .L080946E2
+.L080946DC: movs r0, #1
+            str r0, [r2, #0x10]
+.L080946E2: ldr r0, =gUnk_081009DC
+            str r0, [r2, #8]
+.L080946E4: pop {r0}
+            bx r0
+```
+
+Bentuk `if (arg1 == 2) … else if (arg1 == 3) …` **DIFF**: agbcc membalik
+predikat (`byte +0x6: 0x3 vs ref 0x2`, `@| beq #0xe | bne #0x10`) dan
+menggandakan tes. Menuliskannya sebagai `switch` dengan dua `case` (2 dan 3)
+menghasilkan urutan `cmp/beq` apa adanya, byte-identik:
+
+```c
+void func_080946C4(GenObj_080946C4 *arg0, s32 arg1) {
+    switch (arg1) {
+    case 2:
+        arg0->unk8 = &gUnk_081008EC;
+        break;
+    case 3:
+        arg0->unk10 = 1;
+        arg0->unk8 = &gUnk_081009DC;
+        break;
+    }
+}
+```
+
+Dua jebakan proses saat migrasinya (bukan soal codegen):
+
+1. Draft judge dikompilasi sebagai **C** — `i32` tidak dikenal di sana
+   (`syntax error before …`), pakai `s32`; migrate yang memetakan `s32`→`i32`
+   otomatis sehingga cocok dengan `extern i32 gUnk_081008EC;` di src.
+2. `promote()` tidak menambah blok kembali setelah blok lama dihapus untuk
+   memperbaiki deklarasi; blok harus ditulis ulang manual dengan penanda
+   `// DECOMP-MATCHED <fn> (dari <modul>.s; cek manusia sebelum ke src/)`
+   sebelum `migrate.py` mau jalan (error: `blok DECOMP-MATCHED tidak ditemukan`).
+

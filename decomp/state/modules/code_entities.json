@@ -295,6 +295,7 @@
  "func_080203A4": {
   "addr": 134349732,
   "module": "code_entities.s",
+  "note": "blok tanpa label (54 halfword, 1 bx): region .inst.n memuat beberapa fungsi tanpa simbol; badan C tak bisa dipetakan per fungsi",
   "ref_len": 108,
   "size": 1089,
   "status": "pending",
@@ -636,6 +637,7 @@
  "func_080229B8": {
   "addr": 134359480,
   "module": "code_entities.s",
+  "note": "blok tanpa label (208 halfword, 7 bx): region .inst.n memuat beberapa fungsi tanpa simbol; badan C tak bisa dipetakan per fungsi",
   "ref_len": 416,
   "size": 4015,
   "status": "pending",
@@ -724,6 +726,7 @@
  "func_08023414": {
   "addr": 134362132,
   "module": "code_entities.s",
+  "note": "blok tanpa label (494 halfword, 15 bx): region .inst.n memuat beberapa fungsi tanpa simbol; badan C tak bisa dipetakan per fungsi",
   "ref_len": 988,
   "size": 9449,
   "status": "pending",
@@ -812,6 +815,7 @@
  "func_080240D0": {
   "addr": 134365392,
   "module": "code_entities.s",
+  "note": "blok tanpa label (506 halfword, 15 bx): region .inst.n memuat beberapa fungsi tanpa simbol; badan C tak bisa dipetakan per fungsi",
   "ref_len": 1012,
   "size": 9677,
   "status": "pending",
@@ -956,13 +960,14 @@
  },
  "func_08024C74": {
   "addr": 134368372,
-  "judged_mtime": 1795698781.7661433,
+  "judged_mtime": 1795739035.0524518,
   "module": "code_entities.s",
-  "note": "len 22 vs ref 18 [2extra,8regalloc @>  | adds r2, r0, #0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 20,
   "sanitize_v": 4,
   "size": 234,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08024C88": {
@@ -1693,6 +1698,7 @@
  "func_0802C228": {
   "addr": 134398504,
   "module": "code_entities.s",
+  "note": "blok tanpa label (90 halfword, 4 bx): region .inst.n memuat beberapa fungsi tanpa simbol; badan C tak bisa dipetakan per fungsi",
   "ref_len": 180,
   "size": 1773,
   "status": "pending",

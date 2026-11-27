@@ -1651,7 +1651,8 @@
   "ref_len": 56,
   "size": 595,
   "status": "pending",
-  "thumb": true
+  "thumb": true,
+  "note": "blok tanpa label (28 halfword, 5 bx): region .inst.n memuat beberapa fungsi tanpa simbol; badan C tak bisa dipetakan per fungsi"
  },
  "func_080A6474": {
   "addr": 134898804,

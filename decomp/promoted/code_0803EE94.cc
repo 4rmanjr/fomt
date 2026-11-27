@@ -4391,3 +4391,26 @@ s32 func_0807D194(s32 arg0, s32 arg1) {
     ((GenObj_0807D194 *)arg0)->unk70C = 0;
     return arg0;
 }
+
+// DECOMP-MATCHED func_080946C4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern s32 gUnk_081008EC;
+extern s32 gUnk_081009DC;
+
+typedef struct GenObj_080946C4 {
+    u8 _pad0[8];
+    s32 *unk8;
+    u8 _padC[4];
+    s32 unk10;
+} GenObj_080946C4;
+
+void func_080946C4(GenObj_080946C4 *arg0, s32 arg1) {
+    switch (arg1) {
+    case 2:
+        arg0->unk8 = &gUnk_081008EC;
+        break;
+    case 3:
+        arg0->unk10 = 1;
+        arg0->unk8 = &gUnk_081009DC;
+        break;
+    }
+}

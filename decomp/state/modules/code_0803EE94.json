@@ -6030,13 +6030,14 @@
  },
  "func_080946C4": {
   "addr": 134825668,
-  "judged_mtime": 1793582714.1613972,
+  "judged_mtime": 1795739131.693197,
   "module": "code_0803EE94.s",
-  "note": "byte +0xc: 0xa vs ref 0x8 [3missing,3extra,3operand,1different @i b #0x20 | b #0x24]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 248,
   "sanitize_v": 4,
   "size": 1800,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080947BC": {

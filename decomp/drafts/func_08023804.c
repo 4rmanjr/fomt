@@ -1,13 +1,11 @@
-s32 func_08023804(u32 arg0) {
-    if (arg0 == 1) {
+s32 func_08023804(s32 arg0) {
+    switch (arg0) {
+    case 0:
+        return 0;
+    case 1:
         return 0xB;
-    }
-    if (arg0 != 0) {
-        if (arg0 != 2) {
-            goto def;
-        }
+    case 2:
         return 0xC;
     }
-def:
     return 9;
 }

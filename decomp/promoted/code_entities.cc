@@ -1647,3 +1647,19 @@ void func_08020308(void) {
 // DECOMP-MATCHED func_0802030C (dari code_entities.s; cek manusia sebelum ke src/)
 void func_0802030C(void) {
 }
+
+// DECOMP-MATCHED func_08024C74 (dari code_entities.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x3C];
+    u8 unk3C;
+    u8 _pad3D[1];
+    u8 unk3E;
+    u8 _pad3F[0x67];
+    u16 unkA6;
+} GenObj;
+
+void func_08024C74(GenObj *arg0) {
+    arg0->unk3C = 0;
+    arg0->unk3E = 0;
+    arg0->unkA6 = 0;
+}
