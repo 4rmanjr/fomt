@@ -2696,7 +2696,7 @@
   "addr": 135125180,
   "judged_mtime": 1793018155.2569005,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DD8BC/opencode/func.c:44: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DD8BC/opencode/func.c:44: request for member `unk1' in something not a structure or union\n",
+  "note": "124 B, keluarga func_080DD540 (\u00a7111) + cabang tambahan pada flag ldrsb +0x62. Tidak dicoba (menghindari dinding register/kerangka yang sama). \u00a7112.",
   "ref_len": 124,
   "sanitize_v": 4,
   "size": 1090,

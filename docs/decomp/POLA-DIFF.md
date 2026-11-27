@@ -4653,3 +4653,60 @@ len 74                                 len 66
 `byte +0x12: 0x12 vs ref 0x14 [3missing,4extra,6operand,2regalloc,1stack]`.
 Satu varian, diparkir berdua.
 
+### §112 Penolakan batch kembar (literal pool & tata letak cabang)
+
+Putaran ini menyerang tiga pasangan kembar yang disebut §110/§111 sebagai
+kandidat hasil-tinggi. **Ketiganya berhenti pada hal di luar bentuk badan**
+(literal pool, penyempitan offset, tata letak cabang), jadi sesuai aturan
+parkir: dicatat lalu pindah.
+
+`func_0807EF14` / `func_08081B40` (code_0803EE94, 124 B, kembar; hanya beda
+`gUnk_080FE2D8` vs `gUnk_080FEB60`) — dua varian. Yang pertama membiarkan
+agbcc melipat alamat global menjadi satu literal relokasi, yang kedua memakai
+variabel `base` supaya jadi `ldr r5, =base`:
+
+```
+ref                                    kita (v2)
+ldr r5, [pc, #0x48]   (base)           ldr r5, [pc, #0x34]
+adds r1, r5, #0                        (tidak ada; base dipakai langsung)
+adds r1, #0xc
+adds r0, #4                            (offset +4 dilipat ke ldr)
+adds r0, r2, r0
+ldr  r1, [r0]
+```
+
+`len 112 vs ref 124 [17missing,11extra,6operand,2regalloc,4different]`. Penyebab
+utama: `p + ((idx << 2) + 4)` tetap dilipat menjadi `ldr r1, [r0, #0x4]`
+sehingga `adds r0, #4` hilang, dan agbcc memakai satu literal gabungan untuk
+`base + 0xC`. Ekor fungsi (jalur `__4FoodUi` + `GetDesc__C4Food`)
+`28missing,24extra` pada varian pertama. Diparkir 2 varian per fungsi.
+
+`func_08023308` / `func_08023FB0` (code_entities, 112 B, kembar). Badan sudah
+**identik instruksi-per-instruksi** dengan ref setelah tiga varian (kondisi
+dibalik ke `if (t >= 0) { func_08032384(arg0, t, 1); } else { func_080323C8(arg0); }`
+supaya blok non-negatif jadi fall-through seperti ref):
+
+```
+ref                                    kita
+beq  #0x68                             beq  #0x66
+byte +0x46: 0xf vs ref 0xe [1operand @i beq #0x66 | beq #0x68]
+```
+
+Sisa satu-satunya beda adalah displacement cabang 1 halfword; daftar instruksi
+(kandidat 48 instruksi) sama persis, termasuk `movs r1,#1; rsbs r1,r1,#0` vs
+`mov r1,#1; neg r1,r1` yang byte-nya identik. Ini bukan lagi soal bentuk C →
+diparkir (3 varian).
+
+`func_080DD8BC` / `func_080DE0AC` (code_linkonce, 124 B) — diperiksa dari asm
+saja dan **tidak dicoba**: bentuknya keluarga `func_080DD540` (§111) yang sudah
+menolak pada `byte +0x12: 0x12 vs ref 0x14 [3missing,4extra,6operand,2regalloc,1stack]`,
+ditambah satu cabang tambahan pada flag `ldrsb` di `+0x62`. Menghindari
+pengulangan dinding yang sama.
+
+**Catatan untuk putaran berikutnya:** kolam kandidat "kecil, tanpa cabang,
+tanpa vcall" di modul migratable **sudah habis** (scan ulang menghasilkan 0
+kandidat yang belum punya draf, dan 0 kembaran-modulo-konstanta dari 1411
+fungsi yang sudah matched). Kandidat berikutnya semuanya butuh rekonstruksi
+struktural (literal pool yang tidak boleh dilipat, penyempitan offset 32→16
+bit, atau pohon keputusan switch), bukan penyesuaian bentuk badan.
+

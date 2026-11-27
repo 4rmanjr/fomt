@@ -1,38 +1,34 @@
-s32 SetAnimFacing__12AActorEntityUi(void *, s32);     /* extern */
-s32 SetAnim__12AActorEntityUi(void *);                /* extern */
-s32 func_08020080(void *, s32);                       /* extern */
-s32 func_0802405C();                                /* extern */
-s32 func_080240BC(void *, u8);                      /* extern */
-s32 func_08032384(void *, s32, s32);                  /* extern */
-s32 func_080323C8(void *);                            /* extern */
+s32 func_0802405C(u8 *);
+void SetAnim__12AActorEntityUi(u8 *, s32);
+void SetAnimFacing__12AActorEntityUi(u8 *, s32);
+s32 func_080240BC(u8 *, s32);
+void func_08020080(u8 *, s32);
+void func_08032384(u8 *, s32, s32);
+void func_080323C8(u8 *);
 
-typedef struct GenObj {
-    u8 _pad0[32];
-    s32 unk20;
-    s32 unk22;
-    u8 _pad26[18];
-    s32 unk38;
-} GenObj;
-void func_08023FB0(GenObj *arg0, u8 arg1, s32 arg2) {
-    s32 var_r1;
+void func_08023FB0(u8 *arg0, s32 arg1, s32 arg2) {
+    s32 v;
+    s32 t;
 
-    if (arg0->unk22 != func_0802405C()) {
-        SetAnim__12AActorEntityUi(arg0);
+    v = func_0802405C(arg0);
+    if (*(u16 *)(arg0 + 0x22) != v) {
+        SetAnim__12AActorEntityUi(arg0, v);
     }
-    if (arg0->unk20 != arg2) {
+    if (*(u8 *)(arg0 + 0x20) != arg2) {
         SetAnimFacing__12AActorEntityUi(arg0, arg2);
     }
-    func_08020080(arg0, func_080240BC(arg0, arg1));
-    if (arg1 != arg0->unk38) {
-        var_r1 = -1;
+    v = func_080240BC(arg0, arg1);
+    func_08020080(arg0, v);
+    if (arg1 != *(u8 *)(arg0 + 0x38)) {
+        t = -1;
         if (arg1 == 4) {
-            var_r1 = 8;
+            t = 8;
         }
-        if (var_r1 >= 0) {
-            func_08032384(arg0, var_r1, 1);
+        if (t >= 0) {
+            func_08032384(arg0, t, 1);
         } else {
             func_080323C8(arg0);
         }
+        *(u8 *)(arg0 + 0x38) = (u8)arg1;
     }
-    arg0->unk38 = arg1;
 }
