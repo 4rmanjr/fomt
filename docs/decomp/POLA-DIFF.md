@@ -5068,3 +5068,38 @@ Sub-kelas baru yang layak diangkat: **J — prototipe salah di TU** (deklarasi
 `i32 (i32,i32)` untuk fungsi `void (u8*,i32)`): perbaiki deklarasi + cast di
 pemanggil, jangan ubah badan yang sudah match.
 
+### §118 Batch kedua kandidat kecil: 1 MATCH, enam dinding register
+
+Delapan kandidat <=32 instruksi dikerjakan serentak (C tulis tangan dari `.s`).
+
+**MATCH + migrate:** `func_080E38B0` (code_linkonce) — dua jalur:
+
+```c
+s32 func_080E38B0(u8 *arg0) {
+    u8 *p;
+
+    if (arg0[0x1B8] != 0) return arg0[0x1BA];
+    p = *(u8 **)(arg0 + 0x14);
+    if (*(u32 *)(p + 4) == 0) return 0;
+    if (*(u32 *)(p + 4) == *(u32 *)(arg0 + 0x18)) return 0;
+    return 1;
+}
+```
+
+Yang gagal, dengan pembeda:
+
+| fungsi | beda | ROM meminta |
+|---|---|---|
+| `func_080A0A1C` | 34 vs 54 B | idiom pilih-alamat: `n` di `[sp]`, `0x3F` di `[sp+4]`, `cmp; bls; adds r1, r0, #0` lalu `ldr r1,[r1]` |
+| `func_080A0A54` | 6 missing/7 extra | idem untuk clamp `0x7F` lalu `lsls #6` |
+| `func_080E0E80` | push 5 reg vs 4 | key di r7, batas di r3 (binary search) |
+| `func_0809C3E0` | 60 vs 64 B | tiga callee-saved (r4 cur, r5 res, r6 arg0+arg1) |
+| `func_080E43FC` | 50 vs 58 B | muat ulang `[r4,#4]` dua kali untuk self-ref + satu register lebih |
+| `func_08004C0C`, `func_080C7F1C` | — | bentuk klaster B (§116): `adds r1, r0, #0` sebelum store offset-0 |
+
+Sub-kelas baru yang dicatat: **K — pilih-alamat untuk clamp** (`func_080A0A1C`,
+`func_080A0A54`): nilai dan batas disimpan ke dua slot stack, lalu pointer
+dipilih dengan `cmp/bls` + `adds rX, rY, #0` sebelum `ldr`. Ini satu-satunya
+kelas yang belum berhasil ditiru; bentuk C yang menghasilkan percabangan
+langsung selalu lebih pendek 10-20 byte.
+

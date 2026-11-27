@@ -129,7 +129,7 @@
   "addr": 134857696,
   "judged_mtime": 1793017754.1124897,
   "module": "code_actor_0809BFE8.s",
-  "note": "nt makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809C3E0/opencode/func.c:13: warning: assignment makes pointer from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_0809C3E0/opencode/func.c:15: invalid operands to binary +\n",
+  "note": "PARKIR \u00a7118: 60 vs 64 B \u2014 ROM memakai 3 register callee-saved (r4=cur, r5=res, r6=arg0+arg1); versi C dengan `res` tunggal + else hanya butuh r4 (`push {r4,lr}`). 2 bentuk dicoba.",
   "ref_len": 64,
   "sanitize_v": 4,
   "size": 686,

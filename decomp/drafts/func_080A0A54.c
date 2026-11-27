@@ -1,13 +1,10 @@
-typedef struct GenObj {
-    u16 a : 6;
-    u16 b : 7;
-    u16 c : 3;
-} GenObj;
+void func_080A0A54(u16 *arg0, s32 arg1) {
+    u32 v;
+    u32 n;
+    u32 x;
 
-void func_080A0A54(GenObj *arg0, s32 arg1) {
-    u32 tmp[2];
-
-    tmp[0] = arg0->b + arg1;
-    tmp[1] = 0x7F;
-    arg0->b = tmp[tmp[0] > 0x7F];
+    v = *arg0;
+    n = ((v << 19) >> 25) + arg1;
+    x = (n > 0x7F) ? 0x7F : n;
+    *arg0 = (v & 0xE03F) | ((x & 0x7F) << 6);
 }
