@@ -1,30 +1,13 @@
-s32 __builtin_new(s32);                             /* extern */
-void **func_08004B94(s32, s32, s32 *);              /* extern */
+s32 _call_via_r2(void *, s32);
 
-typedef struct GenObj {
-    u8 _pad0[4];
-    s32 unk4;
-    s32 unk8;
-} GenObj;
-void ***func_080DC1D4(void ***arg0, GenObj *arg1) {
-    void **sp0;
-    s32 sp4;
-    void ***sp8;
-    void **spC;
-    s32 temp_r0;
-    void **temp_r0_2;
+void func_080DC1D4(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
 
-    temp_r0 = arg1->unk8;
-    arg1->unk8 = 0;
-    sp4 = temp_r0;
-    temp_r0_2 = func_08004B94(__builtin_new(8), arg1->unk4, &sp4);
-    sp0 = temp_r0_2;
-    sp8 = &sp0;
-    spC = temp_r0_2;
-    sp0 = 0;
-    *arg0 = temp_r0_2;
-    if (sp0 != 0) {
-        (*sp0)->unk8(sp0, 3);
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
     }
-    return arg0;
+    _call_via_r2(arg0, arg1);
 }

@@ -5103,3 +5103,61 @@ dipilih dengan `cmp/bls` + `adds rX, rY, #0` sebelum `ldr`. Ini satu-satunya
 kelas yang belum berhasil ditiru; bentuk C yang menghasilkan percabangan
 langsung selalu lebih pendek 10-20 byte.
 
+### §119 Pool kandidat kecil dihabiskan: 42 fungsi, nol match baru
+
+Seluruh 42 sisa kandidat <=32 instruksi di-judge (`ProcessPoolExecutor`, 6 worker)
+dan bentuk ulangnya dicoba untuk enam yang paling dekat. Hasil: **tidak ada yang
+byte-identik**, jadi tidak ada kenaikan MATCH dan tidak ada yang dipromosikan.
+Setiap fungsi diberi catatan satu kalimat di shard state berisi pembeda terukur.
+
+**Klaster temp smart-pointer (20 fungsi)** — `func_080DB394`, `func_080DB6CC`,
+`func_080DB73C`, `func_080DB7AC`, `func_080DB81C`, `func_080DB88C`,
+`func_080DB8FC`, `func_080DB9DC`, `func_080DBB9C`, `func_080DBC78`,
+`func_080DBDC8`, `func_080DBE38`, `func_080DBEA8`, `func_080DBF18`,
+`func_080DBF88`, `func_080DBFF8`, `func_080DC158`, `func_080DC1D4`,
+`func_080DC42C`, `func_080DC49C`.
+
+Semuanya berpola sama:
+
+```
+ldr r0, [r4, #4]      ; temp = arg1->unk4
+str r5, [r4, #4]      ; arg1->unk4 = 0
+str r0, [sp, #4]
+bl  __builtin_new
+bl  func_XXXXXXXX     ; factory
+str r0, [sp]          ; p
+str r1, [sp, #8]      ; &p
+str r0, [sp, #0xC]    ; p
+str r5, [r1]          ; *(&p) = 0  <-- store mati lewat &p
+ldr r1, [sp]          ; guard selalu 0
+cmp r1, #0
+beq .end              ; vcall di bawah tidak pernah jalan
+ldr r0, [r1]
+ldr r2, [r0, #8]
+bl  _call_via_r2
+```
+
+`str r5, [r1]` menulis 0 tepat di slot yang dibaca guard, jadi vcall-nya dead
+code. C tidak bisa menghasilkan store-mati itu tanpa alias yang juga
+menghapus guard; draf m2c menyusut ke 38 B (vs 70 B) karena seluruh blok vcall
+dibuang. Ini dinding kelas baru: **L — temp smart-pointer tiga slot**.
+
+**Potongan fungsi (4):** `sub_08048FEC`, `sub_08080440`, `sub_080854D8`,
+`sub_080868A8` memakai `r8`/`sl`/`r7` dari prolog induk tanpa prolog sendiri —
+tidak ada C yang bisa mengompilasi fragmen ini sebagai unit.
+
+**Enam yang dicoba ulang, semuanya tetap DIFF:**
+
+| fungsi | percobaan | pembeda terakhir |
+|---|---|---|
+| `func_0806D8C8` | 2 | `adds r4, r1, #0` vs `adds r6, r1, #0` — ROM menyimpan arg1 di r6 dan memakai r4 untuk guard |
+| `func_0809D79C` | 2 | `adds r0, r1, #0` / `cmp r0, #9` — ROM menyalin arg0 ke r0 dulu |
+| `func_080B3948` | 2 | `push {r4,r5,lr}` vs 4 register; flag `1` di `strb r5,[r1,#0x19]` menuntut register terpisah |
+| `func_0809CD78` | 3 | `movs r4,#1; rsbs r4,r4,#0` — ROM menyiapkan -1 di r4 untuk `cmp` akhir |
+| `func_080A0A1C`, `func_080A0A54` | 3 | sub-kelas K (§118): pilih-alamat di stack untuk clamp |
+| `func_0809C3E0`, `func_080E43FC`, `func_080E0E80` | 2 | jumlah callee-saved (`push` 3 vs 2) |
+
+**Kesimpulan pool kecil:** 50 kandidat <=32 instruksi yang terdaftar tanpa catatan
+kini semuanya punya alasan tertulis (8 dari putaran sebelumnya + 42 putaran ini).
+Tidak ada lagi kandidat kecil yang belum disentuh.
+
