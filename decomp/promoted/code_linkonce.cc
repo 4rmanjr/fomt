@@ -2610,3 +2610,71 @@ void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
 void func_080DE080(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
     func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 0, 2);
 }
+
+// DECOMP-MATCHED func_080DDF3C (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+    u8 _pad58[0x10];
+    s32 unk68;
+    u8 _pad6C[0x18];
+    s8 unk84;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DDF3C(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 8, 2);
+}
+
+// DECOMP-MATCHED func_080DDFE0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+    u8 _pad58[0x10];
+    s32 unk68;
+    u8 _pad6C[0x18];
+    s8 unk84;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DDFE0(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 8, 2);
+}
+
+// DECOMP-MATCHED func_080DDC48 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+    u8 _pad58[0x10];
+    s32 unk68;
+    u8 _pad6C[0x18];
+    s8 unk84;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DDC48(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, arg0->unk68 >> 16, 2);
+}
+
+// DECOMP-MATCHED func_080DD994 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+    u8 _pad58[0x10];
+    s32 unk68;
+    u8 _pad6C[0x18];
+    s8 unk84;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DD994(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, arg0->unk84, 1);
+}

@@ -3653,3 +3653,35 @@ Catatan: klaster 35-fungsi dengan bentuk `ldr r0,[r4,#4]; cmp r0,#0; …
 bl _call_via_r2; … bl func_0800080C` sengaja **tidak** dibuka — itu kelas
 virtual-call + tail-call yang sudah dinyatakan dinding di §71/§72/§74.
 
+### §98.1 Sisa keluarga yang sama: varian konstanta dan lebar field
+
+Setelah delapan kembar §98 masuk `src/`, seluruh fungsi unmatched yang
+memanggil `func_08039F90` dipindai ulang. Ternyata masih ada empat anggota
+satu keluarga (21–26 instruksi) yang berbeda hanya pada **argumen ke-7**:
+
+| fungsi | bentuk arg ke-7 | badan |
+|---|---|---|
+| `func_080DDF3C`, `func_080DDFE0` | konstanta `8` (bukan `0`) | `func_08039F90(arg0,arg1,arg2,arg3, arg0->unk54, arg0->unk56, 8, 2);` |
+| `func_080DDC48` | `arg0->unk68 >> 16` | `ldr r4,[r0,#0x68]; asrs r4,r4,#0x10` ⇒ field `s32` lalu geser kanan 16 |
+| `func_080DD994` | `arg0->unk84` (arg ke-8 = `1`, bukan `2`) | `ldrb` + `lsls #0x18` + `asrs #0x18` ⇒ field `s8` (sign-extend) |
+
+Keempatnya lolos judge byte-identik pada percobaan pertama dan migrate
+HIJAU, jadi keluarga `func_08039F90` **habis seluruhnya** (12 anggota:
+8 di §98 + 4 di sini), semuanya di `src/code_linkonce.cc`.
+
+Catatan bentuk untuk `func_080DD994`: badan blok ini memakai `ip` (bukan
+`r4`) untuk menyimpan `arg0`, jadi tipe argumennya tetap
+`GenObj *arg0, void *arg1, void *arg2, void *arg3` — `push {r4, lr}` yang
+lebih pendek berasal dari jumlah nilai hidup, bukan dari signature berbeda.
+
+Diagnosis klaster sisa (tidak dibuka):
+
+- 35 + 3 + 2 anggota: bentuk `ldr r1,[r4,#4|#8]; cmp r1,#0; … bl _call_via_r2;
+  … bl func_0800080C` — kelas virtual-call + tail-call yang sudah dinding di
+  §71/§72/§74; tidak ada bentuk baru yang terbukti.
+- 7 anggota `func_080203A4`, `func_080229B8`, `func_08023414`, `func_080240D0`,
+  `func_0802C228`, `func_080390DC`, `func_080A643C`: assembler menyimpannya
+  sebagai `.inst.n 0xXXXX` (encoding mentah tanpa mnemonic), jadi badan C
+  tidak bisa diturunkan dari sumber asm tanpa membongkar tiap word lebih
+  dulu — tidak disentuh putaran ini.
+
