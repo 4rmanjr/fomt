@@ -1259,6 +1259,24 @@ void func_080DB314(void) {
 }
 }
 
+// DECOMP-MATCHED func_080DB6A4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800080C(void *, i32);
+
+__attribute__((section(".text.code_linkonce.b2.080DB6A4")))
+void func_080DB6A4(u8 *arg0, i32 arg1) {
+    void **p;
+    void (*fn)(void *, i32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, i32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+}
+
 // DECOMP-MATCHED func_080DB714 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0800080C(void *, i32);
@@ -1270,6 +1288,78 @@ void func_080DB714(UnkStruct__func_080DB714 *arg0, i32 arg1) {
     temp_r1 = (Obj__func_080DB714 *)(arg0->unk4);
     if (temp_r1 != 0) {
         temp_r1->vtbl->unk8(temp_r1, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+}
+
+// DECOMP-MATCHED func_080DB784 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800080C(void *, i32);
+
+__attribute__((section(".text.code_linkonce.b2.080DB784")))
+void func_080DB784(u8 *arg0, i32 arg1) {
+    void **p;
+    void (*fn)(void *, i32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, i32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+}
+
+// DECOMP-MATCHED func_080DB7F4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800080C(void *, i32);
+
+__attribute__((section(".text.code_linkonce.b2.080DB7F4")))
+void func_080DB7F4(u8 *arg0, i32 arg1) {
+    void **p;
+    void (*fn)(void *, i32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, i32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+}
+
+// DECOMP-MATCHED func_080DB864 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800080C(void *, i32);
+
+__attribute__((section(".text.code_linkonce.b2.080DB864")))
+void func_080DB864(u8 *arg0, i32 arg1) {
+    void **p;
+    void (*fn)(void *, i32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, i32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+}
+
+// DECOMP-MATCHED func_080DB8D4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800080C(void *, i32);
+
+__attribute__((section(".text.code_linkonce.b2.080DB8D4")))
+void func_080DB8D4(u8 *arg0, i32 arg1) {
+    void **p;
+    void (*fn)(void *, i32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, i32))((void **)*p)[2];
+        fn(p, 3);
     }
     func_0800080C(arg0, arg1);
 }
@@ -2835,7 +2925,6 @@ void func_080E21A8(u8 *arg0, u8 **arg1) {
     *(u8 **)(arg0 + 4) = n;
 }
 }
-
 
 // DECOMP-MATCHED func_080E2B5C (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {

@@ -4710,3 +4710,80 @@ fungsi yang sudah matched). Kandidat berikutnya semuanya butuh rekonstruksi
 struktural (literal pool yang tidak boleh dilipat, penyempitan offset 32→16
 bit, atau pohon keputusan switch), bukan penyesuaian bentuk badan.
 
+### §113 Panggilan virtual: ganti sintaks vtable-palsu m2c dengan pointer-fungsi C biasa
+
+Ini pembuka batch terbesar sejauh ini: **8 fungsi HIJAU, 5 di antaranya masuk
+`src/`**, semuanya dari satu perbaikan bentuk. Keluarga `func_080DB2EC` dst
+(code_linkonce, 40 B, 17 instruksi) punya asm:
+
+```
+push {r4, r5, lr}
+adds r4, r0, #0
+adds r5, r1, #0
+ldr  r1, [r4, #4]        ; p = *(void **)(arg0 + 4)
+cmp  r1, #0
+beq  .L
+ldr  r0, [r1]            ; vt = *p
+ldr  r2, [r0, #8]        ; fn = vt[2]
+adds r0, r1, #0
+movs r1, #3
+bl   _call_via_r2
+.L:
+adds r0, r4, #0
+adds r1, r5, #0
+bl   func_0800080C
+```
+
+Draf m2c-nya **gagal** karena memakai vtable-palsu:
+
+```c
+    temp_r1 = arg0->unk4;
+    if (temp_r1 != 0) {
+        (*temp_r1)->unk8(temp_r1, 3);   /* warning: dereferencing `void *' */
+    }
+```
+
+Yang HIJAU adalah pointer-fungsi C biasa:
+
+```c
+s32 func_0800080C(void *, s32);
+
+void func_080DB6A4(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+```
+
+Poin penting:
+
+- `((void **)*p)[2]` — indeks 2 = `*(vt + 8)`; **wajib ada cast eksplisit**
+  `(void **)`, karena TU `src/` adalah **C++** dan `void *` tidak bisa
+  di-assign/di-indeks implisit (`ANSI C++ forbids implicit conversion from
+  'void *'`). Draf `.c` boleh tanpa cast, blok promoted tidak.
+- Panggilan lewat variabel pointer-fungsi membuat agbcc mengeluarkan
+  `bl _call_via_r2` — persis yang ada di ROM. Jadi `_call_via_*` **bukan
+  dinding** kalau bentuk C-nya benar; yang salah adalah sintaks vtable m2c.
+- Offset field (`[r4,#4]` vs `[r4,#8]`) adalah satu-satunya pembeda antar
+  anggota keluarga; badan bisa dipakai ulang dengan mengganti angka itu.
+
+Konversi: `func_080DB2EC` (+8), `func_080DB36C`, `func_080DB630`,
+`func_080DB6A4`, `func_080DB784`, `func_080DB7F4`, `func_080DB864`,
+`func_080DB8D4` (semua +4 kecuali yang pertama). Lima yang blok promoted-nya
+terbentuk dimigrasikan HIJAU ke `src/code_linkonce.cc`; tiga sisanya
+(`func_080DB2EC`/`func_080DB36C`/`func_080DB630`) berstatus promote-only —
+blok mereka sempat ditulis lalu terhapus saat memperbaiki cast C++ di atas
+(`MIGRATE` §17: setelah blok dihapus, `promote()` tidak menulis ulang untuk
+status yang sudah `promoted`), jadi hitungannya ada di promote-only.
+
+**Untuk putaran berikutnya:** 515 fungsi `failed` mengandung `_call_via_*`;
+55 di antaranya <=28 instruksi. Semuanya kandidat kelas ini — periksa apakah
+draf m2c-nya memakai `(*temp)->unk(...)` dan ganti dengan pointer-fungsi
+ber-cast. Itu jalur paling murah yang tersisa.
+

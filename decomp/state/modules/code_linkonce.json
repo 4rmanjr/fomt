@@ -956,13 +956,14 @@
  },
  "func_080DB2EC": {
   "addr": 135115500,
-  "judged_mtime": 1793018121.2658558,
+  "judged_mtime": 1795745283.5711036,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB2EC/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB2EC/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "MATCH (promote-only): panggilan virtual via `((void **)*p)[2]` + `fn(p, 3)` bukan `(*p)->unk8(...)`. Offset field +8. Blok promoted terhapus saat perbaikan cast C++ (MIGRATE \u00a717) \u2192 promote-only. POLA-DIFF \u00a7113.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DB314": {
@@ -989,13 +990,14 @@
  },
  "func_080DB36C": {
   "addr": 135115628,
-  "judged_mtime": 1793018121.7309172,
+  "judged_mtime": 1795745284.508161,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB36C/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB36C/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "MATCH (promote-only), kembaran func_080DB630 (+4). Pointer-fungsi ber-cast; blok promoted terhapus \u2192 promote-only. \u00a7113.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DB394": {
@@ -1022,13 +1024,14 @@
  },
  "func_080DB630": {
   "addr": 135116336,
-  "judged_mtime": 1793018122.4290624,
+  "judged_mtime": 1795745285.1705596,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB630/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB630/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "MATCH (promote-only), kembaran func_080DB36C (+4). \u00a7113.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DB658": {
@@ -1044,13 +1047,14 @@
  },
  "func_080DB6A4": {
   "addr": 135116452,
-  "judged_mtime": 1793018122.8988163,
+  "judged_mtime": 1795745498.7292073,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB6A4/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB6A4/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "MATCH + migrate HIJAU ke src/code_linkonce.cc. Keluarga panggilan virtual: `fn = (void (*)(void *, s32))((void **)*p)[2]; fn(p, 3);` \u2192 agbcc keluarkan `bl _call_via_r2` seperti ref. Offset +4. POLA-DIFF \u00a7113.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DB6CC": {
@@ -1088,13 +1092,14 @@
  },
  "func_080DB784": {
   "addr": 135116676,
-  "judged_mtime": 1793018123.628128,
+  "judged_mtime": 1795745499.521084,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB784/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB784/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "MATCH + migrate HIJAU ke src/code_linkonce.cc (\u00a7113). Offset +4.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DB7AC": {
@@ -1110,13 +1115,14 @@
  },
  "func_080DB7F4": {
   "addr": 135116788,
-  "judged_mtime": 1793018124.106349,
+  "judged_mtime": 1795745500.122211,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB7F4/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB7F4/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "MATCH + migrate HIJAU ke src/code_linkonce.cc (\u00a7113). Offset +4.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DB81C": {
@@ -1132,13 +1138,14 @@
  },
  "func_080DB864": {
   "addr": 135116900,
-  "judged_mtime": 1793018124.5961878,
+  "judged_mtime": 1795745500.7796822,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB864/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB864/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "MATCH + migrate HIJAU ke src/code_linkonce.cc (\u00a7113). Offset +4.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DB88C": {
@@ -1154,13 +1161,14 @@
  },
  "func_080DB8D4": {
   "addr": 135117012,
-  "judged_mtime": 1793018125.0645661,
+  "judged_mtime": 1795745501.404899,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB8D4/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB8D4/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "MATCH + migrate HIJAU ke src/code_linkonce.cc (\u00a7113). Offset +4.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DB8FC": {
