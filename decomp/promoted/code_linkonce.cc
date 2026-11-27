@@ -2506,3 +2506,107 @@ void func_080DE05C(GenObj *arg0, GenObj *arg1) {
     arg1->unk8 = arg0->unk54;
     arg1->unkA = arg0->unk56;
 }
+
+// DECOMP-MATCHED func_080DD3A8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DD3A8(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 0, 2);
+}
+
+// DECOMP-MATCHED func_080DD434 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DD434(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 0, 2);
+}
+
+// DECOMP-MATCHED func_080DD514 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DD514(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 0, 2);
+}
+
+// DECOMP-MATCHED func_080DD5B8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DD5B8(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 0, 2);
+}
+
+// DECOMP-MATCHED func_080DD7B8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DD7B8(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 0, 2);
+}
+
+// DECOMP-MATCHED func_080DD890 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DD890(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 0, 2);
+}
+
+// DECOMP-MATCHED func_080DDE98 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DDE98(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 0, 2);
+}
+
+// DECOMP-MATCHED func_080DE080 (dari code_linkonce.s; cek manusia sebelum ke src/)
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DE080(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 0, 2);
+}

@@ -3581,3 +3581,75 @@ Dua detail yang menentukan byte-match:
    ulang `arg0` sebagai basis (`adds r2, r0, #0` / `adds r2, #0x54`) lalu
    `adds r0, #0x56` untuk field terakhir. Urutan terbalik menghasilkan
    `add` terpisah dan DIFF.
+
+### §98 Kelas thunk 8-kembar `func_08039F90` (klaster terbesar yang utuh)
+
+Penyapuan klaster (bukan per fungsi) pada `code_linkonce.s` menemukan **8
+fungsi dengan body byte-identik** — bukan sekadar signature sama:
+
+`func_080DD3A8`, `func_080DD434`, `func_080DD514`, `func_080DD5B8`,
+`func_080DD7B8`, `func_080DD890`, `func_080DDE98`, `func_080DE080`
+(21 instruksi, 44 B masing-masing).
+
+```asm
+push {r4, r5, lr}
+sub sp, #0x10
+adds r4, r0, #0
+adds r4, #0x54
+movs r5, #0
+ldrsh r4, [r4, r5]
+str r4, [sp]          @ arg ke-5
+adds r4, r0, #0
+adds r4, #0x56
+movs r5, #0
+ldrsh r4, [r4, r5]
+str r4, [sp, #4]      @ arg ke-6
+movs r4, #0
+str r4, [sp, #8]      @ arg ke-7
+movs r4, #2
+str r4, [sp, #0xc]    @ arg ke-8
+bl func_08039F90
+add sp, #0x10
+pop {r4, r5}
+pop {r0}
+bx r0
+```
+
+Badan yang menang:
+
+```c
+typedef struct GenObj {
+    u8 _pad0[0x54];
+    s16 unk54;
+    s16 unk56;
+} GenObj;
+
+void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
+
+void func_080DD3A8(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
+    func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, 0, 2);
+}
+```
+
+Detail yang menentukan byte (dua jebakan, keduanya bikin DIFF 30 vs 44
+instruksi kalau salah):
+
+1. **R0–R3 bukan konstanta.** `sub sp, #0x10` = empat slot argumen stack,
+   jadi callee menerima 8 argumen: 4 di register + 4 di stack. Empat yang di
+   register adalah **argumen milik pemanggil yang diteruskan apa adanya**
+   (`arg0`…`arg3`, R0–R3 tidak pernah ditulis sebelum `bl`). Tafsir "4
+   argumen" (`func_08039F90(a, b, 0, 2)`) menghasilkan 30 instruksi dan
+   judge DIFF `len 30 vs ref 44 … @i push {r4, r5, lr} | push {lr}`.
+2. **`s16` dan urutan field.** `ldrsh` ⇒ field bertipe `s16`; yang masuk
+   slot stack adalah `+0x54` lalu `+0x56` (arg ke-5 dan ke-6), sedangkan 0
+   dan 2 adalah arg ke-7 dan ke-8. Membalik urutan keduanya menghasilkan
+   `str` ke offset yang tertukar.
+
+Kedelapan fungsi lolos judge byte-identik dengan badan yang sama dan
+migrate HIJAU satu per satu (batch 4 + 4), sehingga klaster ini habis:
+MATCH 1400 → 1408, `src/` 1388 → 1396.
+
+Catatan: klaster 35-fungsi dengan bentuk `ldr r0,[r4,#4]; cmp r0,#0; …
+bl _call_via_r2; … bl func_0800080C` sengaja **tidak** dibuka — itu kelas
+virtual-call + tail-call yang sudah dinyatakan dinding di §71/§72/§74.
+

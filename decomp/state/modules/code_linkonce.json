@@ -2447,13 +2447,14 @@
  },
  "func_080DD3A8": {
   "addr": 135123880,
-  "judged_mtime": 1793018151.093857,
+  "judged_mtime": 1795738296.2336507,
   "module": "code_linkonce.s",
-  "note": "len 20 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 387,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD3D4": {
@@ -2493,13 +2494,14 @@
  },
  "func_080DD434": {
   "addr": 135124020,
-  "judged_mtime": 1793018151.8418064,
+  "judged_mtime": 1795738296.5446038,
   "module": "code_linkonce.s",
-  "note": "len 20 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 387,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD460": {
@@ -2538,13 +2540,14 @@
  },
  "func_080DD514": {
   "addr": 135124244,
-  "judged_mtime": 1793018152.653626,
+  "judged_mtime": 1795738296.7974386,
   "module": "code_linkonce.s",
-  "note": "len 20 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 387,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD540": {
@@ -2583,13 +2586,14 @@
  },
  "func_080DD5B8": {
   "addr": 135124408,
-  "judged_mtime": 1793018153.3630288,
+  "judged_mtime": 1795738297.020288,
   "module": "code_linkonce.s",
-  "note": "len 20 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 387,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD5E4": {
@@ -2628,13 +2632,14 @@
  },
  "func_080DD7B8": {
   "addr": 135124920,
-  "judged_mtime": 1793018154.2600985,
+  "judged_mtime": 1795738297.24723,
   "module": "code_linkonce.s",
-  "note": "len 20 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 387,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD7E4": {
@@ -2673,13 +2678,14 @@
  },
  "func_080DD890": {
   "addr": 135125136,
-  "judged_mtime": 1793018154.9878972,
+  "judged_mtime": 1795738297.5118554,
   "module": "code_linkonce.s",
-  "note": "len 20 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 387,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD8BC": {
@@ -2808,13 +2814,14 @@
  },
  "func_080DDE98": {
   "addr": 135126680,
-  "judged_mtime": 1793018157.5080104,
+  "judged_mtime": 1795738297.7524483,
   "module": "code_linkonce.s",
-  "note": "len 20 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 387,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DDEC4": {
@@ -2943,13 +2950,14 @@
  },
  "func_080DE080": {
   "addr": 135127168,
-  "judged_mtime": 1793018159.426231,
+  "judged_mtime": 1795738297.9911633,
   "module": "code_linkonce.s",
-  "note": "len 20 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 387,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DE0AC": {
