@@ -1,35 +1,17 @@
-/* Warning: missing "bx $lr" in last block of sub_080D1224 (0). */
-
-? 0();                                     /* extern */
-s32 func_080D11A4();                                  /* extern */
-s32 func_080D14EC();                                  /* extern */
-
-typedef struct GenObj {
-    u8 _pad0[1];
-    s32 unk1;
-} GenObj;
-void sub_080D1224(void) {
-    u8 temp_r4;
-    GenObj *temp_r1;
-
-    func_080D14EC();
-    func_080D11A4();
-    if (2U >= 2U) {
-        if (2 != 2) {
-            func_080D11A4();
-            temp_r1 = SECOND_REG(func_080D11A4());
-            if ((s32) (((GenObj *)((u8 *)temp_r1 + 1)) << 0x1F) >= 0) {
-                temp_r1->unk1 = (s16) (saved_reg_r10 + 0x800);
-            }
-            0();
-            return;
-        }
-        func_080D11A4();
-        saved_reg_r9();
-        return;
-    }
-    temp_r4 = (saved_reg_r7 + 8)->unk6;
-    func_080D11A4();
-    func_080D11A4();
-    0();
+// fragmen byte-faithful dari code_809E804.s (blok naked; belum C)
+// `.byte` = instruksi apa adanya; `bl`/`b` ke simbol fungsi tetap
+// simbolik karena ref judge merelokasi simbol (bukan alamat ROM).
+__attribute__((naked)) void sub_080D1224(void) {
+    __asm__ volatile (
+        ".syntax unified\n"
+        ".byte 0x00, 0xB5, 0x02, 0x25\n"
+        "bl func_080D14EC\n"
+        ".byte 0xB7, 0x4C, 0xA4, 0x46, 0x02, 0x24, 0xFF, 0xF7, 0xB7, 0xFF, 0x02, 0x2C, 0x10, 0xD3, 0x1B, 0xD0\n"
+        ".byte 0x06, 0x24, 0xFF, 0xF7, 0xB1, 0xFF, 0x66, 0x1C, 0x08, 0x24, 0xFF, 0xF7, 0xAD, 0xFF, 0x01, 0x31\n"
+        ".byte 0xCD, 0x07, 0x02, 0xD4, 0x24, 0x02, 0x54, 0x44, 0x0C, 0x80, 0xA2, 0x46, 0x01, 0x25, 0xFF, 0xE0\n"
+        ".byte 0xA5, 0x00, 0xED, 0x19, 0xAC, 0x79, 0xFF, 0xF7, 0x9F, 0xFF, 0xAD, 0x88, 0x2D, 0x19, 0x06, 0x24\n"
+        ".byte 0xFF, 0xF7, 0x9A, 0xFF, 0xE6, 0x1C, 0xF3, 0xE0, 0x06, 0x24, 0xFF, 0xF7, 0x95, 0xFF, 0x66, 0x1C\n"
+        ".byte 0xFE, 0x46, 0x48, 0x47\n"
+        ".syntax divided\n"
+        : : : "memory");
 }

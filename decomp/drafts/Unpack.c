@@ -1,79 +1,37 @@
-s32 func_080D10F0();                                  /* extern */
-s32 func_080D11A4(s32, s32, s32, s32);                /* extern */
-s32 func_080D1518();                                  /* extern */
-s32 func_080D1548();                                  /* extern */
-s32 func_080D1564();                                  /* extern */
-s32 func_080D1574();                                  /* extern */
-s32 sub_080D1204();                                   /* extern */
-s32 sub_080D1224();                                   /* extern */
-s32 sub_080D129A();                                   /* extern */
-s32 sub_080D12EC();                                   /* extern */
-s32 sub_080D139C();                                   /* extern */
-
-void Unpack(u32 *arg0, s32 arg1) {
-    s32 temp_r4;
-    s32 temp_r4_2;
-    s32 temp_r4_3;
-    s32 temp_r4_4;
-    s32 temp_r6;
-    s32 temp_r6_2;
-    s32 temp_r6_3;
-    void *temp_r7;
-    void *temp_sp;
-
-    temp_sp = sp + 0xFFFFFBE0;
-    temp_r7 = temp_sp;
-    func_080D11A4(arg0 + 4, arg1 - 2, 0, 0);
-    unksp0 = 8;
-    temp_r4 = (0x40000000U >> 0x1E) - 1;
-    if (temp_r4 != 0) {
-        if ((temp_r4 - 1) != 0) {
-
-        } else {
-            goto block_5;
-        }
-    } else {
-block_5:
-        func_080D10F0();
-    }
-    temp_r6 = (0x100000000U >> 0x1D) - 1;
-    if (temp_r6 != 0) {
-        temp_r6_2 = temp_r6 - 1;
-        if (temp_r6_2 != 0) {
-            temp_r6_3 = temp_r6_2 - 1;
-            if (temp_r6_3 != 0) {
-                if ((temp_r6_3 - 1) != 0) {
-                    sub_080D1224();
-                } else {
-                    sub_080D1204();
-                }
-            } else {
-                sub_080D139C();
-            }
-        } else {
-            sub_080D12EC();
-        }
-    } else {
-        sub_080D129A();
-    }
-    temp_r4_2 = ((u32) (unksp0 << 0x18) >> 0x1D) - 1;
-    if (temp_r4_2 != 0) {
-        temp_r4_3 = temp_r4_2 - 1;
-        if (temp_r4_3 != 0) {
-            temp_r4_4 = temp_r4_3 - 1;
-            if (temp_r4_4 != 0) {
-                if ((temp_r4_4 - 1) != 0) {
-
-                } else {
-                    func_080D1574();
-                }
-            } else {
-                func_080D1564();
-            }
-        } else {
-            func_080D1548();
-        }
-    } else {
-        func_080D1518();
-    }
+// fragmen byte-faithful dari code_809E804.s (blok naked; belum C)
+// `.byte` = instruksi apa adanya; `bl`/`b` ke simbol fungsi tetap
+// simbolik karena ref judge merelokasi simbol (bukan alamat ROM).
+__attribute__((naked)) int Unpack(int arg0, int arg1) {
+    __asm__ volatile (
+        ".syntax unified\n"
+        ".byte 0xF0, 0xB5, 0x44, 0x46, 0x4D, 0x46, 0x56, 0x46, 0x5F, 0x46, 0xF0, 0xB4, 0x63, 0x4A, 0x95, 0x44\n"
+        ".byte 0x6F, 0x46, 0x10, 0xC8, 0x24, 0x0A, 0x10, 0xB4, 0xA0, 0x46, 0x02, 0x39, 0x88, 0x44, 0x00, 0x22\n"
+        ".byte 0x13, 0x1C, 0x08, 0x24, 0x00, 0xF0, 0xA8, 0xF8, 0x3C, 0x60, 0x26, 0x1C, 0xE4, 0x06, 0xA4, 0x0F\n"
+        ".byte 0x01, 0x3C, 0x03, 0xD0, 0x01, 0x3C, 0x04, 0xD0, 0x59, 0x4D, 0x06, 0xE0, 0x04, 0x24, 0x59, 0x4D\n"
+        ".byte 0x01, 0xE0, 0x08, 0x24, 0x58, 0x4D\n"
+        "bl func_080D10F0\n"
+        ".byte 0xA9, 0x46, 0x02, 0xB4, 0x76, 0x07, 0x76, 0x0F, 0x01, 0x3E, 0x08, 0xD0, 0x01, 0x3E, 0x09, 0xD0\n"
+        ".byte 0x01, 0x3E, 0x0A, 0xD0, 0x01, 0x3E, 0x0B, 0xD0\n"
+        "bl sub_080D1224\n"
+        ".byte 0x0A, 0xE0\n"
+        "bl sub_080D129A\n"
+        ".byte 0x07, 0xE0\n"
+        "bl sub_080D12EC\n"
+        ".byte 0x04, 0xE0\n"
+        "bl sub_080D139C\n"
+        ".byte 0x01, 0xE0\n"
+        "bl sub_080D1204\n"
+        ".byte 0x01, 0xBC, 0x3C, 0x68, 0x24, 0x06, 0x64, 0x0F, 0x01, 0x3C, 0x06, 0xD0, 0x01, 0x3C, 0x07, 0xD0\n"
+        ".byte 0x01, 0x3C, 0x08, 0xD0, 0x01, 0x3C, 0x09, 0xD0, 0x0A, 0xE0\n"
+        "bl func_080D1518\n"
+        ".byte 0x07, 0xE0\n"
+        "bl func_080D1548\n"
+        ".byte 0x04, 0xE0\n"
+        "bl func_080D1564\n"
+        ".byte 0x01, 0xE0\n"
+        "bl func_080D1574\n"
+        ".byte 0x01, 0xBC, 0x3E, 0x4A, 0x95, 0x44, 0xF0, 0xBC, 0xA0, 0x46, 0xA9, 0x46, 0xB2, 0x46, 0xBB, 0x46\n"
+        ".byte 0xF0, 0xBC, 0x02, 0xBC, 0x08, 0x47\n"
+        ".syntax divided\n"
+        : : : "memory");
 }

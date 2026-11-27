@@ -1,27 +1,16 @@
-? 0();                                     /* extern */
-s32 func_080D11A4();                                  /* extern */
-s32 func_080D14EC();                                  /* extern */
-
-void sub_080D129A(void) {
-    u8 temp_r4;
-
-    /* Flowgraph is not reducible, falling back to gotos-only mode. */
-    func_080D14EC();
-    if ((s32) (M2C_ERROR(/* Read from unset register $r3 */) - 1) < 0) {
-        goto block_4;
-    }
-block_1:
-    if (!M2C_CARRY(M2C_ERROR(/* Read from unset register $lsl_fictive_ on line 14 */))) {
-        goto block_3;
-    }
-    func_080D11A4();
-    temp_r4 = (saved_reg_r7 + 8)->unk6;
-    func_080D11A4();
-    func_080D11A4();
-    0();
-    return;
-block_3:
-    saved_reg_r9();
-block_4:
-    goto block_1;
+// fragmen byte-faithful dari code_809E804.s (blok naked; belum C)
+// `.byte` = instruksi apa adanya; `bl`/`b` ke simbol fungsi tetap
+// simbolik karena ref judge merelokasi simbol (bukan alamat ROM).
+__attribute__((naked)) void sub_080D129A(void) {
+    __asm__ volatile (
+        ".syntax unified\n"
+        ".byte 0x00, 0xB5, 0x04, 0x25\n"
+        "bl func_080D14EC\n"
+        ".byte 0x9B, 0x4C, 0xA4, 0x46, 0x01, 0x3B, 0x1D, 0xD4, 0x52, 0x00, 0x0E, 0xD3, 0x02, 0x24, 0xFF, 0xF7\n"
+        ".byte 0x78, 0xFF, 0xA5, 0x00, 0xED, 0x19, 0xAC, 0x79, 0xFF, 0xF7, 0x73, 0xFF, 0xAD, 0x88, 0x2D, 0x19\n"
+        ".byte 0x04, 0x24, 0xFF, 0xF7, 0x6E, 0xFF, 0xE6, 0x1C, 0xC7, 0xE0, 0xFE, 0x46, 0x48, 0x47, 0x01, 0x31\n"
+        ".byte 0xCE, 0x07, 0x02, 0xD4, 0x24, 0x02, 0x54, 0x44, 0x0C, 0x80, 0xA2, 0x46, 0x41, 0x45, 0xE1, 0xD3\n"
+        ".byte 0x10, 0xBC, 0x20, 0x47, 0x04, 0xC8, 0x20, 0x33, 0xDE, 0xE7\n"
+        ".syntax divided\n"
+        : : : "memory");
 }

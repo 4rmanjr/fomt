@@ -49,6 +49,11 @@
     "status": "SKIP",
     "when": "2026-11-26T10:57:18"
   },
+  "code_809E804.s:Unpack": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T09:02:07"
+  },
   "code_809E804.s:func_0809EEA4": {
     "detail": "func_0809EEA4 grup gabungan/tak-split (lihat split_asm_sections.py --migratable), dilewati",
     "status": "SKIP",
@@ -155,14 +160,24 @@
     "when": "2026-11-26T12:54:36"
   },
   "code_809E804.s:func_080D1186": {
-    "detail": "build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated arm-none-eabi-ld: asm/code_809E804.o: in function `sub_080D119E': (.text.code_809E804",
+    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
     "status": "GAGAL",
-    "when": "2026-11-27T07:20:09"
+    "when": "2026-11-27T09:03:00"
   },
   "code_809E804.s:func_080D14EC": {
     "detail": "build/asm/code_809E804.split.s:98677: Error: invalid offset, value too big (0xFFFFFFFFFFFFFFFC) build/asm/code_809E804.split.s:98727: Warning: section does not have enough alignment to ensure safe PC-",
     "status": "GAGAL",
     "when": "2026-11-26T12:55:08"
+  },
+  "code_809E804.s:sub_080D119E": {
+    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
+    "status": "GAGAL",
+    "when": "2026-11-27T09:03:00"
+  },
+  "code_809E804.s:sub_080D11B8": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T09:02:07"
   },
   "code_809E804.s:sub_080D1204": {
     "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",

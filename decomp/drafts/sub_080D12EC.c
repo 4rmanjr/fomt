@@ -1,67 +1,22 @@
-? 0();                                     /* extern */
-s32 *func_080D11A4(s32 *, s32, s32, s32);           /* extern */
-s32 *func_080D14EC();                               /* extern */
-
-void sub_080D12EC(void) {
-    s32 *temp_r0;
-    s32 *temp_ret;
-    s32 *temp_ret_2;
-    s32 *var_r0;
-    s32 var_r1;
-    s32 var_r3;
-    u8 temp_r4;
-    u8 temp_r4_2;
-
-    /* Flowgraph is not reducible, falling back to gotos-only mode. */
-    temp_ret = func_080D14EC();
-    var_r0 = temp_ret;
-    var_r1 = SECOND_REG(temp_ret);
-    var_r3 = M2C_ERROR(/* Read from unset register $r3 */) - 1;
-    if (var_r3 < 0) {
-        goto block_11;
-    }
-block_1:
-    if (!M2C_CARRY(M2C_ERROR(/* Read from unset register $lsl_fictive_ on line 14 */))) {
-        goto block_10;
-    }
-    func_080D11A4(var_r0, var_r1, M2C_ERROR(/* Read from unset register $r2 */) * 2, var_r3);
-    if (3 == 7) {
-        goto block_4;
-    }
-    temp_r4 = (saved_reg_r7 + 0xC)->unk6;
-    func_080D11A4();
-    func_080D11A4();
-    0();
-    return;
-block_4:
-loop_5:
-    temp_r0 = func_080D11A4();
-    if (M2C_CARRY(M2C_ERROR(/* Read from unset register $lsr_fictive_ on line 37 */))) {
-        goto loop_5;
-    }
-    if ((s32) (M2C_ERROR(/* Read from unset register $r3 */) - 1) < 0) {
-        goto block_12;
-    }
-block_7:
-    if (!M2C_CARRY(M2C_ERROR(/* Read from unset register $lsl_fictive_ on line 42 */))) {
-        goto block_9;
-    }
-    func_080D11A4();
-    temp_r4_2 = (saved_reg_r7 + 0xC)->unk6;
-    func_080D11A4();
-    func_080D11A4();
-    0();
-    return;
-block_9:
-    saved_reg_r9();
-block_10:
-    temp_ret_2 = saved_reg_r9();
-    var_r0 = temp_ret_2;
-    var_r1 = SECOND_REG(temp_ret_2);
-block_11:
-    var_r0 += 4;
-    var_r3 = M2C_ERROR(/* Read from unset register $r3 */) + 0x20;
-    goto block_1;
-block_12:
-    goto block_7;
+// fragmen byte-faithful dari code_809E804.s (blok naked; belum C)
+// `.byte` = instruksi apa adanya; `bl`/`b` ke simbol fungsi tetap
+// simbolik karena ref judge merelokasi simbol (bukan alamat ROM).
+__attribute__((naked)) void sub_080D12EC(void) {
+    __asm__ volatile (
+        ".syntax unified\n"
+        ".byte 0x00, 0xB5, 0x07, 0x25\n"
+        "bl func_080D14EC\n"
+        ".byte 0x87, 0x4C, 0xA4, 0x46, 0x01, 0x3B, 0x49, 0xD4, 0x52, 0x00, 0x3A, 0xD3, 0x03, 0x24, 0xFF, 0xF7\n"
+        ".byte 0x4F, 0xFF, 0x07, 0x2C, 0x0B, 0xD0, 0xA5, 0x00, 0xED, 0x19, 0xAC, 0x79, 0xFF, 0xF7, 0x48, 0xFF\n"
+        ".byte 0xAD, 0x88, 0x2D, 0x19, 0x04, 0x24, 0xFF, 0xF7, 0x43, 0xFF, 0xE6, 0x1C, 0x9C, 0xE0, 0x00, 0x26\n"
+        ".byte 0x04, 0x24, 0xFF, 0xF7, 0x3D, 0xFF, 0x36, 0x01, 0x36, 0x19, 0x76, 0x08, 0xF8, 0xD2, 0x01, 0x3B\n"
+        ".byte 0x2F, 0xD4, 0x52, 0x00, 0x10, 0xD3, 0x03, 0x24, 0xFF, 0xF7, 0x32, 0xFF, 0xA5, 0x00, 0xED, 0x19\n"
+        ".byte 0xAC, 0x79, 0xFF, 0xF7, 0x2D, 0xFF, 0xAD, 0x88, 0x2D, 0x19, 0x04, 0x24, 0xFF, 0xF7, 0x28, 0xFF\n"
+        ".byte 0x36, 0x01, 0x36, 0x19, 0x03, 0x36, 0x7F, 0xE0, 0x01, 0x36, 0xFE, 0x46, 0x48, 0x47, 0x01, 0x31\n"
+        ".byte 0xCD, 0x07, 0x02, 0xD4, 0x24, 0x02, 0x54, 0x44, 0x0C, 0x80, 0xA2, 0x46, 0x01, 0x3E, 0xF4, 0xD1\n"
+        ".byte 0x08, 0xE0, 0xFE, 0x46, 0x48, 0x47, 0x01, 0x31, 0xCD, 0x07, 0x02, 0xD4, 0x24, 0x02, 0x54, 0x44\n"
+        ".byte 0x0C, 0x80, 0xA2, 0x46, 0x41, 0x45, 0xB5, 0xD3, 0x10, 0xBC, 0x20, 0x47, 0x04, 0xC8, 0x20, 0x33\n"
+        ".byte 0xB2, 0xE7, 0x04, 0xC8, 0x20, 0x33, 0xCC, 0xE7\n"
+        ".syntax divided\n"
+        : : : "memory");
 }

@@ -1,57 +1,17 @@
-s32 func_080D11A4();                                  /* extern */
-
-typedef struct GenObj {
-    s32 unk0;
-    s32 unk4;
-} GenObj;
-void func_080D10F0(void) {
-    s16 var_fp;
-    s16 var_r1_2;
-    s16 var_r4;
-    s32 temp_r4;
-    s32 var_r6;
-    s32 var_r6_2;
-    s32 var_r6_3;
-    u32 var_r5;
-    void *var_r1;
-
-    var_r6 = 1 << saved_reg_r4;
-    var_r1 = saved_reg_r7 + 0x20;
-    do {
-        var_r1->unk0 = -1;
-        var_r1->unk4 = -1;
-        var_r1 += 8;
-        var_r6 -= 2;
-    } while ((s64) var_r6 > 0);
-    var_fp = 0x20;
-    var_r5 = 0;
-    var_r6_2 = saved_reg_r4 * 2;
-    do {
-        var_r5 *= 2;
-        var_r4 = saved_reg_r4;
-        func_080D11A4();
-        if (saved_reg_r4 & saved_reg_r4) {
-            do {
-                var_r1_2 = 0x20;
-                var_r6_3 = M2C_ERROR(/* Read from unset register $r12 */);
-                if (var_r6_3 & var_r6_3) {
-                    do {
-                        temp_r4 = ((u32) ((var_r5 >> var_r6_3) << 0x1F) >> 0x1E) + var_r1_2;
-                        var_r1_2 = *((u8 *)saved_reg_r7 + temp_r4);
-                        if (var_r1_2 & var_r1_2 & 0x80000000) {
-                            var_r1_2 = var_fp + 4;
-                            var_fp = var_r1_2;
-                            *((u8 *)saved_reg_r7 + temp_r4) = var_r1_2;
-                        }
-                        var_r6_3 -= 1;
-                    } while (var_r6_3 != 0);
-                }
-                func_080D11A4();
-                *(saved_reg_r7 + (((u32) (var_r5 << 0x1F) >> 0x1E) + var_r1_2)) = ~saved_reg_r4;
-                var_r5 += 1;
-                var_r4 -= 1;
-            } while (var_r4 != 0);
-        }
-        var_r6_2 -= 1;
-    } while (var_r6_2 != 0);
+// fragmen byte-faithful dari code_809E804.s (blok naked; belum C)
+// `.byte` = instruksi apa adanya; `bl`/`b` ke simbol fungsi tetap
+// simbolik karena ref judge merelokasi simbol (bukan alamat ROM).
+__attribute__((naked)) void func_080D10F0(void) {
+    __asm__ volatile (
+        ".syntax unified\n"
+        ".byte 0x62, 0xB5, 0xA2, 0x46, 0x01, 0x26, 0xB5, 0x1E, 0xA6, 0x40, 0x2C, 0x1C, 0x39, 0x1C, 0x20, 0x31\n"
+        ".byte 0x30, 0xC1, 0x02, 0x3E, 0xFC, 0xDC, 0x20, 0x24, 0xA3, 0x46, 0x00, 0x25, 0xAC, 0x46, 0x56, 0x46\n"
+        ".byte 0x76, 0x00, 0x6D, 0x00, 0x54, 0x46, 0x00, 0xF0, 0x45, 0xF8, 0x24, 0x42, 0x20, 0xD0, 0x40, 0xB4\n"
+        ".byte 0xA1, 0x46, 0x20, 0x21, 0x66, 0x46, 0x36, 0x42, 0x0D, 0xD0, 0x2C, 0x1C, 0xF4, 0x40, 0xE4, 0x07\n"
+        ".byte 0xA4, 0x0F, 0x64, 0x18, 0x39, 0x5F, 0x09, 0x42, 0x03, 0xD5, 0x59, 0x46, 0x04, 0x31, 0x8B, 0x46\n"
+        ".byte 0x39, 0x53, 0x01, 0x3E, 0xF1, 0xD1, 0xEE, 0x07, 0xB6, 0x0F, 0x76, 0x18, 0x54, 0x46, 0x00, 0xF0\n"
+        ".byte 0x29, 0xF8, 0xE4, 0x43, 0xBC, 0x53, 0x01, 0x35, 0x4C, 0x46, 0x01, 0x3C, 0xE0, 0xD1, 0x40, 0xBC\n"
+        ".byte 0x01, 0x21, 0x8C, 0x44, 0x01, 0x3E, 0xD4, 0xD1, 0x62, 0xBD\n"
+        ".syntax divided\n"
+        : : : "memory");
 }

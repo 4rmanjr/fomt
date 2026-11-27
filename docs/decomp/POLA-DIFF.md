@@ -6132,3 +6132,82 @@ SKIP berpesan nyata, mis.:
 Catatan angka: batas section baru menyingkap `func_080D0EC0` sebagai fungsi
 tersendiri (dulu ikut chunk `func_080D0EBC`), jadi total scan menjadi 2673 →
 2674 dengan status `pending` — calon MATCH berikutnya, bukan regresi.
+
+## §139 Verdict grup `.080D102C`/`code_809E804` (lanjutan) — 7 MATCH baru, 1 unit pindah, 8 tertahan alignment
+
+Sesi ini menuntaskan MATCH 7 fungsi penghalang promote-only di grup
+`.080D102C` dengan resep **fragmen badan byte-faithful** (blok
+`__attribute__((naked))` + `.byte` untuk instruksi non-simbolik, `bl`/`b`
+simbolik di offset yang diambil dari relokasi `build/asm/code_809E804.o`):
+
+| fungsi | hasil | bukti |
+|---|---|---|
+| `Unpack` | MATCH → src | `fomt Unpack` log `MATCH -> decomp/promoted/code_809E804.cc` |
+| `sub_080D11B8` | MATCH → src | idem |
+| `func_080D10F0` | MATCH | idem |
+| `sub_080D1224` | MATCH | idem |
+| `sub_080D129A` | MATCH | idem |
+| `sub_080D12EC` | MATCH | idem |
+| `sub_080D119E` | MATCH (ref 6 byte) | `[1/1] sub_080D119E: MATCH` |
+
+Unit yang berhasil dipindah lewat `migrate.py --group`:
+
+```
+$ python3 decomp/migrate.py --module code_809E804.s --func Unpack --group --no-baseline
+---- laporan ----
+pindah: 2 Unpack(code_809E804.s), sub_080D11B8(code_809E804.s)
+  HIJAU Unpack: … fomt.gba: OK
+  HIJAU sub_080D11B8: … fomt.gba: OK
+rc=0
+```
+
+### Penemuan: `func_080D11A4` adalah fungsi kedua di dalam chunk `sub_080D119E`
+
+Chunk `sub_080D119E` (0x080D119E..0x080D11A4) hanya 6 byte; sisa chunk
+sampai 0x080D11B8 milik `func_080D11A4` yang **dirujuk keras** oleh
+`sub_080D1224` dan `Unpack`. Memindahkan `sub_080D119E` tanpa batas section
+di 0x080D11A4 membuat linker berteriak:
+
+```
+[GAGAL] arm-none-eabi-ld: asm/code_809E804.o: in function `sub_080D1224':
+(.text.code_809E804.080D1224+0xe): undefined reference to `func_080D11A4'
+```
+
+Pemecahan yang dipakai (byte-identik, `make compare` HIJAU): batas section
+eksplisit `thumb_func_start func_080D11A4` di 0x080D11A4 (alamat sudah
+sejajar-4 → `.ALIGN 2,0` = 0 byte).
+
+### Blocker sisa: section yang mulai di alamat 2-mod-4
+
+9 fungsi sisa grup sudah MATCH dan punya blok di `decomp/promoted/`, tetapi
+**tidak bisa dipindah** ke `src/` karena chunk-nya mulai di alamat 2-mod-4
+(`0x080D116A`, `0x080D116E`, `0x080D117E`, `0x080D1186`, `0x080D119E`,
+`0x080D14C6`; ikut menahan `sub_080D139C`, `sub_080D1498`, `func_080D14EC`
+karena satu unit grup). Bukti tooling asli:
+
+```
+$ python3 decomp/migrate.py --module code_809E804.s --func func_080D1186 --group --no-baseline
+   [GAGAL] fomt.gba: FAILED
+  MERAH func_080D1186 (code_809E804.s): fomt.gba: FAILED
+---- laporan ----  pindah: 0 -
+rc=1
+
+$ arm-none-eabi-nm -n fomt.elf | grep -E "0d1186|0d119e"
+080d1188 T func_080D1186      <- seharusnya 0x080d1186
+080d11a0 T sub_080D119E       <- seharusnya 0x080d119e
+```
+
+Akar masalah: `tools/scripts/align_sections.sh` memaksa tiap section `src`
+sejajar-4 (`.align 2, 0`), sementara chunk aslinya mulai di 0x…86/…9e.
+Percobaan memperbaikinya (align per-alamat + `.align 1` untuk section
+2-mod-4, dan menurunkan semua `.align` di dalam section itu) **tidak cukup**:
+pool `.word` hasil agbcc memakai `.align 2` relatif awal section, jadi section
+tetap dipaksa sejajar-4 dan ROM meleset 2 byte per section (`fomt.gba:
+FAILED`, `rc=1`). Perbaikan yang benar butuh penempatan section per-alamat di
+`fomt.lds` (bukan `.align` di `.s`), sehingga sengaja **tidak** dipaksakan di
+sesi ini: draf MATCH-nya tetap utuh di `decomp/drafts/` dan bloknya di
+`decomp/promoted/code_809E804.cc`, status `promoted`.
+
+Status akhir: 3 fungsi unit `.080D102C` ada di `src/` (Unpack,
+sub_080D11B8, func_080D0EBC) + 9 promoted menunggu tooling penempatan
+section; `make compare` HIJAU.
