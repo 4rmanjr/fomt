@@ -125,6 +125,26 @@ def _promoted_blocks(text):
     return out
 
 
+def orphan_entries(state, own_names, all_promoted, in_src, global_src):
+    """Nama state `promoted` yang bloknya TIDAK ada di promoted/*.cc mana pun
+    dan fungsinya juga tidak ada di src mana pun.
+
+    `own_names` = marker di promoted/<stem shard>.cc; `all_promoted` = gabungan
+    SEMUA promoted/*.cc. Shard agregat (mis. code_linkonce.json yang memuat
+    entri semua modul) tidak boleh dinilai hanya terhadap berkas promoted
+    miliknya sendiri — blok fungsi code_809E804 ada di
+    promoted/code_809E804.cc, bukan di promoted/code_linkonce.cc.
+    """
+    out = []
+    for n, v in state.items():
+        if not isinstance(v, dict) or v.get("status") != "promoted":
+            continue
+        if (n not in own_names and n not in all_promoted
+                and n not in in_src and n not in global_src):
+            out.append(n)
+    return out
+
+
 def main(argv):
     mx = 5
     if "--max" in argv:
@@ -137,6 +157,10 @@ def main(argv):
     dup_report, orphan_state, unmigrated, stale = [], [], [], []
     broken_blocks, bad_status, i32_hits, drift = [], [], [], []
     stale_notes = []
+
+    all_promoted = set()
+    for _pf in PROMOTED.glob("*.cc"):
+        all_promoted |= set(MARK.findall(_pf.read_text(errors="ignore")))
 
     for pf in sorted(PROMOTED.glob("*.cc")):
         stem = pf.stem
@@ -185,11 +209,9 @@ def main(argv):
         # fallback ke seluruh src/ lewat migrated_names().
         global_src = {m for f in SRC.glob("*.c*")
                       for m in MARK.findall(f.read_text(errors="ignore"))}
-        for n, v in state.items():
-            if not isinstance(v, dict) or v.get("status") != "promoted":
-                continue
-            if n not in names and n not in in_src and n not in global_src:
-                orphan_state.append((stem, n))
+        for n in orphan_entries(state, set(names), all_promoted,
+                                in_src, global_src):
+            orphan_state.append((stem, n))
 
         # 4. sudah di src tapi state masih failed/drafted
         # 6. status di luar enum

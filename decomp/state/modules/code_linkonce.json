@@ -26168,12 +26168,12 @@
   "addr": 135102268,
   "judged_mtime": 1795746233.0384393,
   "module": "code_linkonce.s",
-  "note": "MATCH (promote-only). Slot vtable terhitung `+0x124`; badan cocok dengan parameter `u8 *`, tapi pemanggil func_080DC294 mengirim i32 dan versi `s32` menggeser regalloc (36 vs 34 B). Penghalang = cast di pemanggil. \u00a7114.",
+  "note": "POLA-DIFF regalloc (36 vs 34: ldr r1,[r0] vs ldr r0,[r0]); blok promoted hilang -> diparkir, lihat POLA-DIFF",
   "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 301,
-  "status": "promoted",
+  "status": "failed",
   "thumb": true
  },
  "func_080D7F60": {

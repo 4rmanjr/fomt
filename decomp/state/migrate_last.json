@@ -165,9 +165,9 @@
     "when": "2026-11-27T09:03:00"
   },
   "code_809E804.s:func_080D14EC": {
-    "detail": "build/asm/code_809E804.split.s:98677: Error: invalid offset, value too big (0xFFFFFFFFFFFFFFFC) build/asm/code_809E804.split.s:98727: Warning: section does not have enough alignment to ensure safe PC-",
+    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
     "status": "GAGAL",
-    "when": "2026-11-26T12:55:08"
+    "when": "2026-11-27T09:52:00"
   },
   "code_809E804.s:sub_080D119E": {
     "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
@@ -184,20 +184,35 @@
     "status": "OK",
     "when": "2026-11-27T07:37:22"
   },
-  "code_809E804.s:sub_080D139C": {
-    "detail": "build/asm/code_809E804.split.s:98727: Warning: section does not have enough alignment to ensure safe PC-relative loads build/asm/code_809E804.split.s:98677: Error: cannot represent THUMB_OFFSET reloca",
+  "code_809E804.s:sub_080D1224": {
+    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
     "status": "GAGAL",
-    "when": "2026-11-26T12:55:20"
+    "when": "2026-11-27T09:51:59"
+  },
+  "code_809E804.s:sub_080D129A": {
+    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
+    "status": "GAGAL",
+    "when": "2026-11-27T09:51:59"
+  },
+  "code_809E804.s:sub_080D12EC": {
+    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
+    "status": "GAGAL",
+    "when": "2026-11-27T09:51:59"
+  },
+  "code_809E804.s:sub_080D139C": {
+    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
+    "status": "GAGAL",
+    "when": "2026-11-27T09:52:00"
   },
   "code_809E804.s:sub_080D1498": {
-    "detail": "build/asm/code_809E804.split.s:75208: use of r13 is deprecated build/asm/code_809E804.split.s:98419: Error: cannot represent THUMB_OFFSET relocation in this object file format build/asm/code_809E804.s",
+    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
     "status": "GAGAL",
-    "when": "2026-11-27T07:39:20"
+    "when": "2026-11-27T09:52:00"
   },
   "code_809E804.s:sub_080D14C6": {
-    "detail": "^^^^^^^^^^^^^^^^^^^^^^ File \"/workspace/chats/19fd550f73b6fba36b4523aa/tools/scripts/split_asm_sections.py\", line 741, in _plan_sections raise SplitError( SplitError: chunk yang dicabut berada di TENG",
+    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
     "status": "GAGAL",
-    "when": "2026-11-27T07:38:06"
+    "when": "2026-11-27T09:52:00"
   },
   "code_actor_0809BFE8.s:func_0809C0A0": {
     "detail": "func_0809C0A0 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_actor_0809BFE8.cc (dilewati)",

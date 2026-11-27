@@ -716,7 +716,12 @@ build dan tidak menulis ROM. Berkas yang ada:
 `test_raw_assets.py`, `test_split_asm_sections.py` (pengelompokan section asm:
 pool/runa kontigu, `DECOMP-ABSORB`, rujukan label `.L*`),
 `test_readme_stats.py`,
-`test_sprite2gba.py`, `test_stream_audit.py`, `test_stream_bank.py`, `test_tile4bpp.py`.
+`test_sprite2gba.py`, `test_stream_audit.py`, `test_stream_bank.py`, `test_tile4bpp.py`,
+`test_align_sections.py` (alignment section per-alamat: `2**1` untuk chunk
+2-mod-4 dan padding ekor), `test_migrate_group_unit.py` (`extend_unit_by_blocks`:
+rujukan `b`/`bl` di dalam blok ikut menarik fungsi ke unit grup),
+`test_audit_consistency.py` (`orphan_entries`: blok di `promoted/*.cc` mana pun
+bukan state yatim, termasuk untuk shard agregat).
 `check_docs.py` menolak skrip `tools/**/*.py` yang belum disebut di berkas ini
 (folder vendored dikecualikan), jadi tes baru tanpa entri menggagalkan gate.
 

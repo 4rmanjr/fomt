@@ -6211,3 +6211,118 @@ sesi ini: draf MATCH-nya tetap utuh di `decomp/drafts/` dan bloknya di
 Status akhir: 3 fungsi unit `.080D102C` ada di `src/` (Unpack,
 sub_080D11B8, func_080D0EBC) + 9 promoted menunggu tooling penempatan
 section; `make compare` HIJAU.
+
+## §140 Penempatan section per-alamat SELESAI; blocker bergeser ke filler jembatan di src (2026-11-27)
+
+Lanjutan §139. Tiga temuan ditutup, satu blocker baru terbukti dengan output asli.
+
+### 1. Penempatan 2-mod-4: beres (bukan `.align` di `.s`)
+
+`tools/scripts/align_sections.sh` sekarang menurunkan alignment dari **alamat**
+di nama section (`.text.<modul>.<HEX8>`): `.align 1` untuk alamat 2-mod-4,
+`.align 2` untuk sisanya, dan padding ekor dihitung dari alamat section itu
+sendiri. Ini memperbaiki dua tempat sekaligus: `.align` yang ditulis agbcc
+tepat setelah `.section`, dan padding ekor yang ditambahkan skrip.
+
+Bukti:
+
+```
+$ arm-none-eabi-objdump -h build/src/code_809E804.o | grep 080D1186
+  .text.code_809E804.080D1186 00000024 ... 2**1     # sebelumnya 2**2
+$ rm -rf build && make compare -j4 ; echo rc=$?
+fomt.gba: OK
+rc=0
+```
+
+Regresi: `tools/tests/test_align_sections.py` (6 tes, termasuk assemble nyata
+yang memeriksa `2**1`). `make test-tools` 263 tes OK.
+
+### 2. Unit grup `--group` diperluas lewat rujukan di dalam blok
+
+`group_unit_funcs()` memanggil `extend_unit_by_blocks()`: rujukan keras
+`bl`/`b`/`b<cond>` **di dalam blok** ikut menarik fungsi lain ke unit, karena
+analisis section asm tidak melihatnya (mis. `beq sub_080D14C6` di blok 139C).
+Tanpa ini unit berhenti di 3 fungsi dan linker melaporkan
+`relocation truncated to fit: R_ARM_THM_JUMP8 against symbol 'sub_080D14C6'`.
+Unit sekarang: `sub_080D1224, sub_080D129A, sub_080D12EC, sub_080D139C,
+sub_080D1498, sub_080D14C6, func_080D14EC` (7 fungsi).
+Regresi: `tools/tests/test_migrate_group_unit.py` (4 tes).
+
+### 3. `audit_consistency.py`: false positive shard agregat
+
+`decomp/state/modules/code_linkonce.json` memuat entri **semua** modul (2673).
+Cek #2 membandingkan entri itu hanya dengan `promoted/code_linkonce.cc`,
+sehingga 11 fungsi yang bloknya ada di `promoted/code_809E804.cc` dilaporkan
+"state promoted tapi blok & src hilang". Cek sekarang memakai gabungan semua
+`promoted/*.cc` (sesuai maksud docstring) lewat helper `orphan_entries()`.
+Regresi: `tools/tests/test_audit_consistency.py` (5 tes).
+
+Setelah itu tersisa satu temuan nyata: `func_080D7F3C` (modul
+`code_linkonce.s`) berstatus `promoted` padahal bloknya tidak ada dan tidak di
+src → diparkir lewat tooling (`status=failed`, note POLA-DIFF regalloc).
+`audit_consistency.py` → `MASALAH struktural: 0` (rc=0). Dua state basi
+(`Unpack`, `sub_080D11B8` — sudah di src tapi masih `failed`) juga disinkronkan
+lewat `R.touch(promoted)`.
+
+### 4. Relokasi JUMP8 hilang: `bmi` di blob jembatan kini lokal
+
+`sub_080D139C.c` menyalin `func_080D11A4`/`sub_080D11B8` sebagai blob
+jembatan, tetapi instruksi `bmi` masih menunjuk **simbol global**
+`sub_080D11B8` (kini section-nya di `src/code_809E804.o`). Jarak 0x139C→0x11B8
+= -0x1E4 tidak muat di displacement 8-bit, jadi:
+
+```
+(.text.code_809E804.080D12EC+0xbc): relocation truncated to fit:
+R_ARM_THM_JUMP8 against symbol 'sub_080D11B8' defined in
+.text.code_809E804.080D11B8 section in src/code_809E804.o
+```
+
+Diperbaiki: `bmi sub_080D11B8` → `bmi .Lbridge_b8_139c` (label salinan lokal,
+offset tetap sama dengan ROM). Judge `sub_080D139C` = `(True, '')`; blok
+promoted ikut diperbarui. Relokasi JUMP8 **tidak muncul lagi** di percobaan
+migrasi berikutnya.
+
+### Blocker sisa: filler jembatan ikut masuk ke `src/` (bukan soal alignment)
+
+Migrasi grup sekarang lolos tahap link, tetapi ROM tidak identik:
+
+```
+$ python3 decomp/migrate.py --module code_809E804.s --func func_080D14EC --group --no-baseline
+   [GAGAL] fomt.gba: FAILED
+sha1sum: WARNING: 1 computed checksum did NOT match
+  MERAH sub_080D1224 (code_809E804.s): fomt.gba: FAILED -> direvert, berhenti.
+```
+
+Diagnosis dari build yang gagal (`baserom.gba` vs `fomt.gba`):
+
+```
+len 8388608 8389948 | differing bytes: 5978028
+first 0x164 | rom f8b97508 vs built 34bf7508    # selisih pointer 0x53C = 1340
+```
+
+1364/1340 byte ekstra itu berasal dari **filler blob jembatan** yang ditulis
+apa adanya ke `src/`. Ukuran section hasil migrasi (objdump `build/src/…o`):
+
+```
+.text.code_809E804.080D1224 0x5c   (pas: 0x1224..0x1280)
+.text.code_809E804.080D129A 0x54   (+2)
+.text.code_809E804.080D12EC 0x2a8  (0x12EC..0x1594 -> MENIMPA 139C/1498/14C6)
+.text.code_809E804.080D139C 0xfc   (pas: 0x139C..0x1498)
+.text.code_809E804.080D1498 0x30   (+2)
+.text.code_809E804.080D14C6 0x370  (0x14C6..0x1836 -> menimpa 14EC/1518)
+.text.code_809E804.080D14EC 0x20   (pas)
+```
+
+Filler (`.space 468` + salinan 11A4/11B8) memang **wajib** saat judge: tanpa
+itu judge melihat `bl #0xffffff80`/`0xff` placeholder dan fungsi lain
+(`sub_080D1224`, `sub_080D129A`, `sub_080D12EC`, `func_080D10F0`) kembali
+FAIL. Jadi filler harus dibuang **saat menulis `src/`**, bukan dari draf.
+Itu perubahan tooling baru (emit-stage strip + tes) yang belum ada di
+`migrate.py`, dan sengaja tidak dipaksakan setengah jadi di sesi ini:
+rombakan `--group` yang merah selalu direvert penuh, jadi tidak ada migrasi
+setengah jalan yang tertinggal.
+
+Status akhir sesi ini: 9 fungsi tetap `promoted` (blok + draf utuh, judge
+True), `make compare -j4` HIJAU, `audit_consistency.py` rc=0, `make test-tools`
+268 tes OK. Blocker berikutnya konkret: strip filler jembatan di tahap emit
+`src/` + padding ekor 2 byte per section 2-mod-4.

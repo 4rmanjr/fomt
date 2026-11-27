@@ -95,7 +95,85 @@ def group_unit_funcs(stem, func):
     unit = _split_closed_unit(text, stem, func)
     if not unit:
         return []
-    return [c["name"] for c in unit if c["kind"] == "func"]
+    names = [c["name"] for c in unit if c["kind"] == "func"]
+    return extend_unit_by_blocks(stem, names, text)
+
+
+# `bl/b/bmi NAME` di dalam blok draf = rujukan keras yg TIDAK terlihat oleh
+# analisis section asm (bloknya sudah C, bukan potongan asm). Kalau targetnya
+# tidak ikut pindah, percabangan pendek (R_ARM_THM_JUMP8) meluap: contoh
+# func_080D139C -> sub_080D14C6 (`relocation truncated to fit`).
+_BLOCK_REF_RE = None
+_ASM_FUNC_START_RE = re.compile(
+    r"(?m)^\s*(?:non_word_aligned_)?thumb_func_start\s+(\w+)")
+
+
+def _block_ref_names(body):
+    """Nama simbol yg jadi target `bl`/`b`/`b<cond>` di teks blok asm."""
+    global _BLOCK_REF_RE
+    if _BLOCK_REF_RE is None:
+        _BLOCK_REF_RE = re.compile(
+            r"\b(?:bl|b|b[a-z]{1,2})[ \t]+([A-Za-z_][A-Za-z0-9_]*)")
+    # Blok C menyimpan baris asm sbg "...\\nbl X\\n...": `\n` masih literal
+    # (backslash+n), jadi `\b` di depan mnemonic gagal. Ubah ke baris nyata.
+    body = body.replace("\\n", "\n").replace("\\t", "\t")
+    return set(_BLOCK_REF_RE.findall(body))
+
+
+def extend_unit_by_blocks(stem, names, asm_text=None, blocks=None):
+    """Tutup unit atas rujukan keras di dalam blok draf/promoted anggotanya.
+
+    `blocks` (opsional) memetakan nama -> teks blok; dipakai tes supaya
+    fungsi ini tidak perlu membaca repo.
+    """
+    if blocks is None:
+        blocks = {}
+        drafts = REPO / "decomp" / "drafts"
+        promoted = (REPO / "decomp" / "promoted" / f"{stem}.cc")
+        ptext = promoted.read_text(errors="replace") if promoted.exists() else ""
+        for n in names:
+            try:
+                blocks[n] = (drafts / f"{n}.c").read_text(errors="replace")
+                continue
+            except OSError:
+                pass
+            i = ptext.find(MARKER + n + " ")
+            if i >= 0:
+                j = ptext.find(MARKER, i + 10)
+                blocks[n] = ptext[i:j if j > 0 else len(ptext)]
+            else:
+                blocks[n] = ""
+    if asm_text is None:
+        try:
+            asm_text = (REPO / "asm" / f"{stem}.s").read_text(errors="replace")
+        except OSError:
+            asm_text = ""
+    order = [m.group(1) for m in _ASM_FUNC_START_RE.finditer(asm_text)]
+    rank = {n: i for i, n in enumerate(order)}
+    src_text = ""
+    for p in (REPO / "src" / f"{stem}.cc", REPO / "src" / f"{stem}_c.c"):
+        try:
+            src_text += p.read_text(errors="replace")
+        except OSError:
+            pass
+    out = [n for n in names if n in rank]
+    out += [n for n in names if n not in rank]
+    seen = set(out)
+    i = 0
+    while i < len(out):
+        refs = _block_ref_names(blocks.get(out[i], ""))
+        for r in sorted(refs, key=lambda x: rank.get(x, 10 ** 9)):
+            if r in seen or r not in rank:
+                continue
+            if r.startswith(".L"):
+                continue
+            # sudah ada di src/ = sudah dipindah; jangan dimasukkan lagi
+            if MARKER + r + " " in src_text:
+                continue
+            seen.add(r)
+            out.append(r)
+        i += 1
+    return sorted(out, key=lambda n: rank.get(n, 10 ** 9))
 
 
 def asm_section_of(stem, func):
