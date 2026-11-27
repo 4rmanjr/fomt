@@ -1,20 +1,30 @@
-void *func_08069F14(void *, s32 *, s32, s32);
-extern u32 vtable_unk_080E7AB4;
+s32 __builtin_new(s32);                             /* extern */
+void *func_08069F14(void *, void **, void *, void *); /* extern */
 
-u32 *func_0806D8C8(u32 *arg0, u32 *arg1, s32 arg2, s32 arg3) {
-    s32 t;
-    void **p;
-    void (*fn)(void *, s32);
+extern u32 vtable_unk_080E7AB4[];
 
-    *arg0 = (u32) &vtable_unk_080E7AB4;
-    t = *arg1;
+typedef struct Vt {
+    void *f0;       /* 0x0 */
+    void *f4;       /* 0x4 */
+    void (*f8)(void *, s32); /* 0x8 */
+} Vt;
+
+typedef struct GenObj {
+    Vt *vt;         /* 0x0 */
+    void *unk4;     /* 0x4 */
+} GenObj;
+
+void *func_0806D8C8(GenObj *arg0, void **arg1, void *arg2, void *arg3) {
+    s32 slot;
+    void *old;
+
+    arg0->vt = (Vt *) vtable_unk_080E7AB4;
+    old = *arg1;
     *arg1 = 0;
-    arg0[1] = (u32) func_08069F14((void *) __builtin_new(0x4178), &t, arg2, arg3);
-    arg1 = (u32 *) *arg1;
-    if (arg1 != 0) {
-        p = (void **) *arg1;
-        fn = (void (*)(void *, s32)) ((void **) *p)[2];
-        fn(arg1, 3);
+    slot = (s32) old;
+    arg0->unk4 = func_08069F14((void *) __builtin_new(0x4178), (void **) &slot, arg2, arg3);
+    if (*arg1 != 0) {
+        ((GenObj *) *arg1)->vt->f8(*arg1, 3);
     }
     return arg0;
 }

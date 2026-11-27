@@ -5572,3 +5572,83 @@ Bedanya regalloc: ROM menyimpan `arg1` di r4 lebih dulu, menghitung
 `r6 = arg0 + 8` untuk store, tetapi tetap memuat `ldr r1,[r0,#8]` dengan
 immediate; agbcc memakai `ldr r1,[r6,#8]`. Belum ditemukan bentuk C yang
 memaksa pemisahan itu; diparkir (bukan wall yang diklaim tuntas).
+
+## §125 `func_0806D8C8` (code_0803EE94.s) — ctor + holder-release + vtable call
+
+Fungsi 20 instruksi, keluarga §122.1 (`str` ke `[sp]` + `bl`), MATCH byte-exact
+pada varian ke-5 sesi ini. Bentuk final:
+
+```c
+s32 slot;
+old = *arg1;              /* ldr r1,[r4]        */
+*arg1 = 0;                /* movs r0,#0; str    */
+slot = (s32) old;         /* str r1,[sp]        */
+arg0->unk4 = func_08069F14(new(0x4178), (void **) &slot, arg2, arg3);
+if (*arg1 != 0) {
+    ((S_0806D8C8Obj *) *arg1)->vt->f8(*arg1, 3);
+}
+```
+
+### 125.1 Slot keluar harus skalar, bukan alamat variabel lain
+
+Tiga varian diukur:
+
+| varian | hasil |
+|---|---|
+| `func(..., &tmp, ...)` dengan `tmp = *arg1; *arg1 = 0;` | `ldr r0,[r4]; str r0,[sp]; mov r0,#0; str r0,[r4]` — spill **sebelum** nol-kan → DIFF |
+| `s32 slot[2]; slot[0] = (s32) old;` | urutan benar, tapi frame `add sp, sp, #-0x8` (ROM `#-0x4`) → DIFF |
+| `s32 slot; slot = (s32) old;` | `sub sp,#4`, urutan `ldr r1,[r4] / movs r0,#0 / str r0,[r4] / str r1,[sp]` → **MATCH** |
+
+Aturan: kalau ROM menyimpan argumen stack **setelah** menulis nol ke holder,
+jangan ambil alamat variabel C biasa (`&tmp`) — agbcc akan men-spill tmp saat
+dialokasikan. Pakai variabel skalar terpisah dan isi setelah store nol; ukuran
+frame mengikuti ukuran skalar itu (array 2 elemen = frame 8).
+
+### 125.2 Vcall lewat `vt->[+8]`, bukan `vt->[0]`
+
+ROM: `ldr r0,[r4]; ldr r2,[r0,#8]` → fungsi ada di **offset 8** dari vtable.
+Draft pertama saya memanggil `((GenObj *)old)->vt(old,3)` (slot 0) sehingga
+menghasilkan `ldr r2,[r0]`. Perlu typedef vtable eksplisit:
+
+```c
+typedef struct { void *f0; void *f4; void (*f8)(void *, s32); } S_0806D8C8Vt;
+```
+
+### 125.3 Muat-ulang `*arg1` memaksa reuse register arg1
+
+`old = *arg1; if (old != 0) ...` → `ldr r1,[r4]` lalu `add r0,r1,#0`
+(arg1 tetap di r4). Menulis `if (*arg1 != 0) { ...f8(*arg1, 3); }` membuat
+agbcc memuat ulang ke **r4** — `ldr r4,[r4]` — persis ROM, karena arg1 sudah
+mati setelah titik itu. Pola umum: bila ROM memakai ulang register parameter
+untuk nilai yang dimuat darinya, jangan simpan ke variabel lokal; ulangi
+dereference-nya.
+
+### 125.4 Blok promoted harus kompatibel dengan TU tujuan (bukan cuma dengan judge)
+
+Judge mengompilasi draf sendirian, jadi konflik hanya muncul saat `migrate.py`
+menggabungkan blok ke `src/code_0803EE94.cc`:
+
+- `extern u32 vtable_unk_080E7AB4[];` di blok vs `extern i32
+  vtable_unk_080E7AB4;` milik TU → `conflicting types for
+  'vtable_unk_080E7AB4'`. Solusi yang dipakai: **satu** deklarasi array
+  `extern u32 vtable_unk_080E7AB4[];` di blok *dan* di deklarasi TU lain yang
+  memakainya (dua tempat), lalu pakai `vtable_unk_080E7AB4` (decay), bukan
+  `&`. Alasan memilih array `u32[]` ketimbang `i32`/`s32`: audit menolak `i32`
+  di promoted, sedangkan harness judge tidak menyediakan `s32` di TU ini —
+  jadi `extern s32 ...` menghasilkan `syntax error before ';'` di berkas
+  gabungan.
+- Tanpa deklarasi di blok → `used prior to declaration`, karena extern milik TU
+  berada **setelah** titik sisip blok di berkas gabungan. Jadi deklarasi harus
+  ada di dalam blok meski TU juga punya.
+- `typedef struct GenObj` sudah dipakai TU (layout lain) → tabrakan typedef.
+  Ganti nama jadi `S_0806D8C8Obj`/`S_0806D8C8Vt`; penamaan tidak mengubah byte
+  (dibuktikan `make compare` → `fomt.gba: OK` setelah rename).
+
+Catatan alat: judge mencetak `DIFF ()` (kosong) ketika draf **berhasil**
+dikompilasi tetapi simbol eksternalnya menjadi `.comm` (tentative definition,
+akibat `extern i32 x;` tanpa definisi). Itu bukan kegagalan kompilasi — cek
+`decomp/logs/judge_<fn>/<agent>/func.s` untuk memastikan.
+
+Diagnostik "use of r13 is deprecated" dari `build/asm/code_809E804.split.s`
+adalah **warning** yang selalu muncul; jangan dibaca sebagai penyebab MERAH —
+baris error sebenarnya ada setelahnya.

@@ -1997,6 +1997,18 @@ typedef struct Vt08092604 {
 } Vt08092604;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct S_0806D8C8Vt {
+    void *f0;       /* 0x0 */
+    void *f4;       /* 0x4 */
+    void (*f8)(void *, i32); /* 0x8 */
+} S_0806D8C8Vt;
+typedef struct S_0806D8C8Obj {
+    S_0806D8C8Vt *vt; /* 0x0 */
+    void *unk4;     /* 0x4 */
+} S_0806D8C8Obj;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_code_0803EE94_08094208.data.08094208
 extern "C" {
 // data tak-dirujuk di 0x08094208 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -3490,16 +3502,40 @@ i32 *func_08069E98(i32 *arg0, GenObj__func_08069E98 *arg1) {
 }
 }
 
+// DECOMP-MATCHED func_0806D8C8 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 __builtin_new(i32);                             /* extern */
+void *func_08069F14(void *, void **, void *, void *); /* extern */
+
+extern u32 vtable_unk_080E7AB4[];
+
+__attribute__((section(".text.code_0803EE94.0806D8C8")))
+void *func_0806D8C8(S_0806D8C8Obj *arg0, void **arg1, void *arg2, void *arg3) {
+    i32 slot;
+    void *old;
+
+    arg0->vt = (S_0806D8C8Vt *) vtable_unk_080E7AB4;
+    old = *arg1;
+    *arg1 = 0;
+    slot = (i32) old;
+    arg0->unk4 = func_08069F14((void *) __builtin_new(0x4178), (void **) &slot, arg2, arg3);
+    if (*arg1 != 0) {
+        ((S_0806D8C8Obj *) *arg1)->vt->f8(*arg1, 3);
+    }
+    return arg0;
+}
+}
+
 // DECOMP-MATCHED func_0806D918 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080007EC(void *, i32);                       /* extern */
-extern i32 vtable_unk_080E7AB4;
+extern u32 vtable_unk_080E7AB4[];
 
 __attribute__((section(".text.code_0803EE94.0806D918")))
 void func_0806D918(GenObj__func_0806D918 *arg0, i32 arg1) {
     GenObj__func_0806D918 *temp_r1;
 
-    arg0->unk0 = &vtable_unk_080E7AB4;
+    arg0->unk0 = vtable_unk_080E7AB4;
     temp_r1 = (GenObj__func_0806D918 *)(arg0->unk4);
     if (temp_r1 != 0) {
         ((void (*)(void *,...))(temp_r1->unk4->unk8))(temp_r1, 3);

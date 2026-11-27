@@ -13979,13 +13979,14 @@
  },
  "func_0806D8C8": {
   "addr": 134666440,
-  "judged_mtime": 1795697880.3380725,
+  "judged_mtime": 1795755781.2887523,
   "module": "code_0803EE94.s",
-  "note": "PARKIR \u00a7119: v2 masih DIFF: `adds r4, r1, #0 | adds r6, r1, #0` \u2014 arg1 disimpan ke r6 oleh ROM, agbcc memakai r4 setelah guard ditulis ulang",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 697,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0806D918": {
