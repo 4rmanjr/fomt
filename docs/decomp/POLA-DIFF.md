@@ -3881,3 +3881,66 @@ Juga diperiksa: tidak ada satu pun fungsi `failed` yang bodynya identik
 (dinormalkan) dengan fungsi `matched` — jadi tidak ada badan "sudah terbukti"
 yang bisa disalin dengan mengganti konstanta.
 
+#### 100.5 Urutan instruksi yang memutuskan (ref vs keluaran agbcc -O2)
+
+`func_080ADF40` (44 B ref, 38 B kita; selisih 6 B):
+
+```
+ref (asm)                        kita (agbcc -O2)
+push {r4, r5, lr}                push {r4, lr}
+adds r2, r0, #0                  adds r3, r0, #0
+ldrh r0, [r2, #6]                ldrh r0, [r3, #6]
+adds r5, r0, #0                  adds r1, r0, #0
+ldrh r0, [r2, #4]                ldrh r0, [r3, #4]
+adds r1, r5, r0                  adds r2, r1, r0
+adds r4, r1, #0                  movs r4, #0
+movs r0, #0xff                   movs r0, #0xff
+ands r0, r1                      ands r0, r2
+movs r3, #0                      cmp r0, #0
+cmp r0, #0                       beq .L3
+beq .L…                          adds r4, r2, #0
+adds r3, r1, #0                  .L3:
+.L…: strh r3, [r2, #6]           strh r4, [r3, #6]
+adds r0, r4, #0                  asrs r0, r2, #8
+asrs r1, r0, #8                  lsrs r1, r1, #8      <-- beda: LSR bukan ASR
+adds r0, r5, #0                  subs r0, r0, r1
+asrs r0, r0, #8
+subs r0, r1, r0
+pop {r4, r5}; pop {r1}; bx r1    pop {r4}; pop {r1}; bx r1
+```
+
+Dua hal yang menentukan: (a) ref memberi **dua** register callee-saved (r5 =
+`unk6` lama, r4 = `sum`) sementara agbcc -O2 hanya memakai satu; (b) ref
+memakai `ASR` untuk `old >> 8` (nilai bertanda), jadi `old` di sumber bertipe
+`s32`/`int` — menggantinya ke `u32` menghasilkan `LSR` dan justru menambah
+perbedaan. Badan C yang sama sudah ditulis (5 varian, termasuk pointer ke
+field); yang tersisa murni alokasi register, bukan logika.
+
+`func_080DD3D4` (46 B ref, 48 B kita; selisih 2 B):
+
+```
+ref                                       kita
+push {r4, lr}                             push {r4, lr}
+adds r1, r4, #0; adds r1, #0x47           adds r1, r4, #0; adds r1, #0x47
+ldrb r0, [r1]                             ldrb r0, [r1]
+cmp r0, #0                                cmp r0, #0
+bne .L080DD3F8 (-> movs r0,#0)            bne .L… (-> movs r0,#0)
+adds r0, r4, #0; adds r0, #0x30           adds r0, r4, #0; adds r0, #0x30
+bl func_0805E8F0                          bl func_0805E8F0
+lsls r0, r0, #0x1e                        lsls r0, r0, #0x1e
+cmp r0, #0                                cmp r0, #0
+bge .L080DD3FC (tanpa store)              bge .L… (tanpa store)
+adds r1, r4, #0; adds r1, #0x44           adds r1, r4, #0; adds r1, #0x44
+movs r0, #1                               movs r0, #1
+b .L080DD3FA                              b .L…
+.L080DD3F8: movs r0, #0                   .L…: movs r0, #0
+.L080DD3FA: strb r0, [r1]                 .L…: strb r0, [r1]
+.L080DD3FC: pop {r4}; pop {r0}; bx r0     .L…: pop {r4}; pop {r0}; bx r0
+```
+
+Bentuk yang menghasilkan store bersama (`strb` tunggal di label yang sama)
+adalah `if (unk47 != 0) { unk47 = 0; } else if (func() & 2) { unk44 = 1; }`;
+agbcc -O2 memecahnya menjadi dua `strb` terpisah → +2 B. Varian ketiga
+(pointer `u8 *p` + `return` awal) menghasilkan store bersama tetapi menggeser
+`movs r2, #0` ke +0x8, jadi tidak identik.
+
