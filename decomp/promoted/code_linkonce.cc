@@ -2678,3 +2678,33 @@ void func_08039F90(void *, void *, void *, void *, s16, s16, s32, s32);
 void func_080DD994(GenObj *arg0, void *arg1, void *arg2, void *arg3) {
     func_08039F90(arg0, arg1, arg2, arg3, arg0->unk54, arg0->unk56, arg0->unk84, 1);
 }
+
+// DECOMP-MATCHED func_080DD3D4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0805E8F0(void *);
+
+typedef struct GenObj {
+    u8 _pad0[0x44];
+    u8 unk44;
+    u8 _pad45[2];
+    u8 unk47;
+} GenObj;
+
+void func_080DD3D4(GenObj *arg0) {
+    u8 *p = &arg0->unk47;
+    u8 *q = p;
+    u8 v;
+    s32 f;
+
+    if (*p == 0) {
+        f = func_0805E8F0((u8 *)arg0 + 0x30);
+        if ((f << 30) < 0) {
+            q = &arg0->unk44;
+            v = 1;
+        } else {
+            return;
+        }
+    } else {
+        v = 0;
+    }
+    *q = v;
+}

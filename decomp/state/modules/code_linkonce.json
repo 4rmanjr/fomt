@@ -2459,13 +2459,14 @@
  },
  "func_080DD3D4": {
   "addr": 135123924,
-  "judged_mtime": 1793018151.379535,
+  "judged_mtime": 1795740414.5698094,
   "module": "code_linkonce.s",
-  "note": "re-attempt: DIFF `len 48 vs ref 46 [1extra \u2026 bne #0x24 | bne #0x26]` \u2014 ref menggabungkan dua store lewat satu `strb` (store bersama), urutan tes `unk47 == 0` lalu bit1; 3 varian dicoba.",
+  "note": "MATCH: uji bit ditulis `(f << 30) < 0` (ref: `lsls #0x1e; cmp #0; bge`); `f & 2` memberi +2 B. Store bersama butuh satu variabel pointer `q`; `v` tanpa inisialisasi awal. Dimigrasi ke src/code_linkonce.cc.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 432,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DD404": {

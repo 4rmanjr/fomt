@@ -5,15 +5,15 @@ typedef struct GenObj {
 } GenObj;
 
 s32 func_080ADF40(GenObj *arg0) {
-    u16 *p = &arg0->unk6;
-    u16 old = *p;
+    s32 old = arg0->unk6;
     s32 sum = old + arg0->unk4;
-    s32 t = 0;
+    s32 t;
 
-    if ((sum & 0xFF) != 0) {
+    if (!(sum & 0xFF)) {
+        t = 0;
+    } else {
         t = sum;
     }
-    *p = t;
-
+    arg0->unk6 = t;
     return (sum >> 8) - (old >> 8);
 }

@@ -3944,3 +3944,150 @@ agbcc -O2 memecahnya menjadi dua `strb` terpisah → +2 B. Varian ketiga
 (pointer `u8 *p` + `return` awal) menghasilkan store bersama tetapi menggeser
 `movs r2, #0` ke +0x8, jadi tidak identik.
 
+### §101 Uji bit: `(v << N) < 0` vs `v & mask` — pembeda 2 B yang menentukan MATCH
+
+Ref ROM untuk uji satu bit memakai **geser-lalu-uji-tanda**, bukan `ands`:
+
+```
+ref (func_080DD3D4)            C kita bila ditulis `f & 2`
+lsls r0, r0, #0x1e             movs r1, #2
+cmp  r0, #0                    ands r1, r1, r0
+bge  .L…                       cmp  r1, #0
+                               beq  .L…
+```
+
+Karena itu, untuk bit ke-N tulis `(v << (31 - N)) < 0`:
+
+| bit | C | instruksi ref |
+|---|---|---|
+| 1 | `(v << 30) < 0` | `lsls #0x1e; cmp #0; bge` |
+| 2 | `(v << 29) < 0` | `lsls #0x1d; cmp #0; bge` |
+| 3 | `(v << 28) < 0` | `lsls #0x1c; cmp #0; bge` |
+
+**Pembukti HIJAU:** `func_080DD3D4` (code_linkonce) — dengan `func_0805E8F0(...) & 2`
+hasilnya `len 48 vs ref 46 [1extra … ]`; setelah diganti
+`((f << 30) < 0)` badan byte-identik dan sudah dimigrasi ke `src/code_linkonce.cc`.
+Bentuk C lengkapnya (yang dipakai):
+
+```c
+void func_080DD3D4(GenObj *arg0) {
+    u8 *p = &arg0->unk47;
+    u8 *q = p;
+    u8 v;
+    s32 f;
+
+    if (*p == 0) {
+        f = func_0805E8F0((u8 *)arg0 + 0x30);
+        if ((f << 30) < 0) {
+            q = &arg0->unk44;
+            v = 1;
+        } else {
+            return;
+        }
+    } else {
+        v = 0;
+    }
+    *q = v;
+}
+```
+
+Dua detail lain yang ikut menentukan di fungsi ini: (a) store bersama
+(`strb` tunggal) baru muncul kalau kedua cabang menulis lewat **satu variabel
+pointer** `q`, bukan dua `strb` ke field berbeda; (b) `v` tidak boleh
+diinisialisasi di awal (`u8 v = 0;`) — itu memunculkan `movs r2, #0` lebih awal
+dan menggeser seluruh badan (`byte +0x8: 0x0 vs ref 0x8`).
+
+#### 101.1 Sisa delapan: dinding "satu register lebih tinggi"
+
+Kedelapan fungsi lain sudah punya badan assembler yang benar; yang tersisa
+hanya **register yang dipilih agbcc berbeda satu** (dan salinan
+`adds rX, r0, #0` yang menyertainya). Ini bukan kesalahan badan.
+
+`func_08012720` / `func_08012760` (game_state) — 6 varian C (struct langsung,
+`void *`+cast, `&&`, `s32`+cast, early-return, `u8 *p` dimajukan), semuanya
+identik sampai satu byte:
+
+```
+ref                              kita
+push {lr}                        push {lr}
+ldr  r2, [r0, #4]      <- beda   ldr  r1, [r0, #4]
+add  r0, r2, #0                  add  r0, r1, #0
+add  r0, r0, #0xac               add  r0, r0, #0xac
+ldr  r3, [r0]          <- beda   ldr  r2, [r0]
+cmp  r3, #0                      cmp  r2, #0
+beq  .L…                         beq  .L…
+sub  r0, r0, #0x20               sub  r0, r0, #0x20
+ldr  r0, [r0]                    ldr  r0, [r0]
+ldr  r2, .L =0x2210              ldr  r1, .L =0x2210
+add  r0, r0, r2                  add  r0, r0, r1
+ldrb r0, [r0]                    ldrb r0, [r0]
+lsls r0, r0, #0x1c               lsls r0, r0, #0x1c
+cmp  r0, #0                      cmp  r0, #0
+bge  .L…                         bge  .L…
+add  r0, r3, #0                  add  r0, r2, #0
+bl   func_08050E68               bl   func_08050E68
+pop  {r0}; bx r0                 pop  {r0}; bx r0
+```
+
+DIFF persis: `byte +0x2: 0x41 vs ref 0x42 [1extra,7regalloc @r ldr r2, [r0, #4] | ldr r1, [r0, #4]]`.
+Artinya agbcc kita memakai r1 sebagai register bebas pertama, sedangkan ref
+memakai r2 (r1 "terpakai" sejak awal). Menambah parameter kedua yang tidak
+dipakai **tidak** menggeser (parameter mati dibuang sebelum alokasi, sudah
+diuji). `func_08012760` sama persis dengan `lsls #0x1d` (bit 2) dan
+`bl func_08050E50`.
+
+`func_080ADF40` (code_809E804) — ref butuh **dua** register callee-saved dan
+menyalin keduanya:
+
+```
+ref                                   kita
+push {r4, r5, lr}                     push {r4, lr}
+adds r2, r0, #0                       adds r3, r0, #0
+ldrh r0, [r2, #6]                     ldrh r0, [r3, #6]
+adds r5, r0, #0        <- lama ke r5  adds r1, r0, #0
+ldrh r0, [r2, #4]                     ldrh r0, [r3, #4]
+adds r1, r5, r0                       adds r2, r1, r0
+adds r4, r1, #0        <- sum ke r4    movs r4, #0
+movs r0, #0xff                        movs r0, #0xff
+ands r0, r1                           ands r0, r2
+movs r3, #0                           cmp r0, #0
+cmp r0, #0                            beq .L3
+beq .L…                               adds r4, r2, #0
+adds r3, r1, #0                       .L3: strh r4, [r3, #6]
+.L…: strh r3, [r2, #6]                asrs r0, r2, #8
+adds r0, r4, #0                       lsrs r1, r1, #8   <- LSR, bukan ASR
+asrs r1, r0, #8                       subs r0, r0, r1
+adds r0, r5, #0
+asrs r0, r0, #8
+subs r0, r1, r0
+pop {r4, r5}; pop {r1}; bx r1         pop {r4}; pop {r1}; bx r1
+```
+
+Dua hal: (a) agbcc kita hanya memberi satu callee-saved sehingga 4 instruksi
+salinan ref tidak muncul; (b) `old` harus **bertanda** (`asrs`), tapi
+memaksa `s32` justru menggeser alokasi tanpa menghilangkan selisih. 5 varian
+C dicoba (urutan deklarasi, `s32`/`u16`, pointer ke field, dua pernyataan,
+`if/else` penuh).
+
+`func_080A0A1C` / `func_080A0A54` (code_809E804) — bentuk yang benar untuk
+"batas + indeks array dua elemen" sudah ketemu (`u32 tmp[2]`,
+`tmp[0] = field + arg; tmp[1] = limit; field = tmp[tmp[0] > limit];`), dua
+`str` ke stack seperti ref, tetapi base dialokasikan r3 (kita) vs **r4** (ref):
+
+```
+DIFF 080A0A1C: len 56 vs ref 54 [2missing,3extra,12regalloc @r adds r4, r0, #0 | adds r3, r0, #0]
+DIFF 080A0A54: byte +0x4: 0x3 vs ref 0x4 [3missing,3extra,14regalloc]
+```
+
+Field: 6 bit di bit 0 untuk `…A1C` (`lsls #0x1a / lsrs #0x1a`, limit `0x3F`)
+dan 7 bit di bit 6 untuk `…A54` (`lsls #0x13 / lsrs #0x19`, limit `0x7F`).
+
+`func_0809C420`, `func_0809C3BC`, `func_0809CD78`, `func_0809D79C`
+(code_actor_0809BFE8) — lihat §100.2; tidak berubah pada putaran ini (badan
+sudah penuh, selisih tetap salinan base / callee-saved).
+
+**Kesimpulan kelas:** untuk fungsi tanpa loop, agbcc kita memilih register
+bebas mulai r1, sedangkan ROM mulai r2/r4 dan lebih suka callee-saved untuk
+nilai yang hidup melintasi blok. Sampai bentuk C yang menggeser alokasi itu
+ditemukan (belum ada di 8 fungsi ini), kelas ini tetap dinding.
+

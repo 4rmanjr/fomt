@@ -1,18 +1,29 @@
-u32 func_08050E50(u32);
+s32 func_08050E68(void *);
+s32 func_08050E50(void *);
 
-typedef struct GenObj {
+typedef struct Base {
+    u8 _pad0[0x8C];
+    u8 *unk8C;
+    u8 _pad90[0x1C];
+    void *unkAC;
+} Base;
+
+typedef struct Obj {
     u8 _pad0[4];
-    u8 *unk4;
-} GenObj;
+    Base *unk4;
+} Obj;
 
-void func_08012760(GenObj *arg0) {
-    u8 *p = arg0->unk4;
-    u32 v = *(u32 *)(p + 0xAC);
+void func_08012760(Obj *arg0, s32 arg1) {
+    Base *s = arg0->unk4;
+    void *v = s->unkAC;
+    u8 *p;
+    u8 b;
 
-    if (v == 0) {
-        return;
-    }
-    if (*(u8 *)(*(u32 *)(p + 0x8C) + 0x2210) & 4) {
-        func_08050E50(v);
+    if (v != 0) {
+        p = s->unk8C;
+        b = p[0x2210];
+        if ((b << 29) < 0) {
+            func_08050E50(v);
+        }
     }
 }

@@ -9,14 +9,20 @@ typedef struct GenObj {
 
 void func_080DD3D4(GenObj *arg0) {
     u8 *p = &arg0->unk47;
-    u8 v = 0;
+    u8 *q = p;
+    u8 v;
+    s32 f;
 
-    if (arg0->unk47 == 0) {
-        if (!(func_0805E8F0((u8 *)arg0 + 0x30) & 2)) {
+    if (*p == 0) {
+        f = func_0805E8F0((u8 *)arg0 + 0x30);
+        if ((f << 30) < 0) {
+            q = &arg0->unk44;
+            v = 1;
+        } else {
             return;
         }
-        p = &arg0->unk44;
-        v = 1;
+    } else {
+        v = 0;
     }
-    *p = v;
+    *q = v;
 }
