@@ -1,21 +1,27 @@
-s32 __builtin_new(s32);                               /* extern */
-void **func_08004C48();                             /* extern */
+void *__builtin_new(u32);
+void *func_08004C48(void *);
 
-void ***func_080D3BE8(void ***arg0) {
-    void **sp0;
-    void ***sp4;
-    void **sp8;
-    void **temp_r0;
+typedef struct Obj {
+    void (**vt)(void *, int);
+} Obj;
 
-    __builtin_new(4);
-    temp_r0 = func_08004C48();
-    sp0 = temp_r0;
-    sp4 = &sp0;
-    sp8 = temp_r0;
-    sp0 = 0;
-    *arg0 = temp_r0;
-    if (sp0 != 0) {
-        (*sp0)->unk8(sp0, 3);
+void **func_080D3BE8(void **arg0)
+{
+    void *volatile sp[3];
+    void *p;
+    void *q;
+    Obj *o;
+
+    sp[0] = func_08004C48(__builtin_new(4));
+    p = sp[0];
+    sp[1] = (void *) sp;
+    sp[2] = p;
+    sp[0] = 0;
+    *arg0 = p;
+    q = (void *) sp[0];
+    if (q != 0) {
+        o = (Obj *) q;
+        o->vt[2](o, 3);
     }
     return arg0;
 }

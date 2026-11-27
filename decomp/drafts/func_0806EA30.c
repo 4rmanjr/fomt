@@ -13,6 +13,8 @@ void **func_0806EA30(void **arg0, GenObj *arg1)
 {
     void *volatile sp[3];
     void *tmp;
+    void *q;
+    Obj *o;
 
     func_0806DB38((void *) sp, arg1->unk4);
     tmp = sp[0];
@@ -20,8 +22,9 @@ void **func_0806EA30(void **arg0, GenObj *arg1)
     sp[2] = tmp;
     sp[0] = 0;
     *arg0 = tmp;
-    if (sp[0] != 0) {
-        Obj *o = (Obj *) sp[0];
+    q = (void *) sp[0];
+    if (q != 0) {
+        o = (Obj *) q;
         o->vt[2](o, 3);
     }
     return arg0;

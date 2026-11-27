@@ -1,4 +1,4 @@
-s32 func_080007EC(void *, s32);
+s32 func_080007EC();
 
 void func_080E4210(u8 *arg0, s32 arg1) {
     void **p;
@@ -9,5 +9,5 @@ void func_080E4210(u8 *arg0, s32 arg1) {
         fn = (void (*)(void *, s32))((void **)*p)[2];
         fn(p, 3);
     }
-    func_080007EC(arg0, arg1);
+    ((s32 (*)(void *, s32))func_080007EC)(arg0, arg1);
 }

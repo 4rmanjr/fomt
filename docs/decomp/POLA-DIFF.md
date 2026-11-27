@@ -4796,13 +4796,13 @@ penanganan tiap klaster:
 | klaster | n | bentuk | hasil |
 |---|---|---|---|
 | A | 29 | `push adds adds ldr cmp beq ldr ldr adds movs bl adds adds bl pop pop bx` | **29/29 MATCH**, semuanya migrasi ke `src/code_linkonce.cc` |
-| B | 8 | `push sub adds ldr mov bl ... str str ... beq ldr ldr adds movs bl adds add pop pop bx` | belum dikerjakan (lihat catatan) |
-| C | 3 | varian B tanpa `ldr` awal (`func_080D3BE8`, `func_080D3C24`, `func_080D4004`) | belum dikerjakan |
+| B | 8 | `push sub adds ldr mov bl ... str str ... beq ldr ldr adds movs bl adds add pop pop bx` | diparkir — dinding regalloc, lihat §115 |
+| C | 3 | varian B tanpa `ldr` awal (`func_080D3BE8`, `func_080D3C24`, `func_080D4004`) | diparkir — dinding regalloc, lihat §115 |
 | D | 2 | `sub_08080440`, `sub_080854D8` — hanya ekor (`add sp,#0x44; pop {r3,r4,r5}; mov r8..`) | SKIP-permanen: potongan MAP-split, prolog ada di fungsi lain |
 | E | 1 | `func_080D78E0` — tiga deref bertingkat lalu `bl _call_via_r1` | **MATCH + migrate** |
 | F | 1 | `func_080D3BC0` — loop `*g` lalu `bl _call_via_r0`, `malloc`, `b .L` (loop kosong) | parkir: penjaga `for(;;)` tak-terjangkau + callback dari global |
 | G | 1 | `func_080D7F3C` — slot vtable terhitung (`+0x124`) | MATCH, tapi promote-only (lihat di bawah) |
-| sisanya | 7 | satu-satu, 22–30 instruksi, campuran `ldrb`/`cmp`/stack | belum dikerjakan |
+| sisanya | 7 | satu-satu, 22–30 instruksi, campuran `ldrb`/`cmp`/stack | 2 MATCH, 5 diparkir, lihat §115 |
 
 **Sub-kelas A adalah keluarga berparameter.** Ke-29 badan identik; yang berbeda
 hanya tiga angka yang dibaca langsung dari disassembly:
@@ -4877,4 +4877,68 @@ C++), status `promoted` yang tertinggal membuat `promote()` menolak menulis
 ulang. Reset lewat writer resmi (`R._write_shard` setelah set `status=failed`
 dan buang `promoted_to`) lalu judge+promote lagi — itu yang dipakai untuk
 `func_080DB2EC`/`DB36C`/`DB630` dan `func_080D78E0`.
+
+### §115 Penutupan antrean §114: resolusi `func_080007EC`, hasil klaster B/C, dan tujuh fungsi tunggal
+
+**1. Tiga fungsi promote-only `func_080007EC` sekarang di `src/`.**
+
+Penghalangnya bukan badan, melainkan deklarasi bersama. `func_080007EC`
+dideklarasikan `i32 func_080007EC();` di `src/code_linkonce.cc` karena ada
+pemanggil sah yang tidak menyiapkan argumen sama sekali:
+
+```c
+void func_080E09B0(void) { func_080007EC(); }     /* ROM: hanya `bl func_080007EC` */
+```
+
+Di C++ `()` berarti `(void)`, jadi tiga fungsi yang memanggilnya dengan
+`(arg0, arg1)` tidak bisa memakai deklarasi itu apa adanya. Penyelesaiannya
+**tidak menyentuh blok MATCH lain**: deklarasi dibiarkan `i32 func_080007EC();`
+dan pemanggilan memakai cast eksplisit di titik panggil:
+
+```c
+    ((s32 (*)(void *, s32))func_080007EC)(arg0, arg1);
+```
+
+agbcc tetap mengeluarkan `bl func_080007EC` (alamatnya diketahui), jadi
+byte-identik, dan gerbang signature melihat `i32 ()` yang sama. Ketiganya
+(`func_080DC404`, `func_080E41E8`, `func_080E4210`) HIJAU dan dipindah ke
+`src/code_linkonce.cc`. Pola umum: **cast di titik panggil lebih murah daripada
+menyatukan deklarasi**, selama callee dipanggil langsung.
+
+**2. Klaster B (8) dan C (3): dinding regalloc lintas-`bl`, diparkir.**
+
+Draf m2c sudah hampir benar (bentuk `sp[3]` + panggilan `vt[2]` dengan argumen `(o, 3)`); yang tersisa
+adalah alokasi register untuk nilai yang hidup melewati panggilan:
+
+- B: `func_0806EA30` 56 B vs ref 58 B, `[1missing,1operand,4regalloc]` setelah
+  varian kedua (varian pertama 7 regalloc). Ref menyimpan `tmp` di **r2** dan
+  menyalin `sp` ke r1 (`adds r1, r0, #0`) sebelum `str r0, [r1]`; agbcc memakai
+  r1 untuk `tmp` dan menulis `str r0, [sp]` langsung.
+- C: `func_080D3BE8` `[1missing,1extra,6regalloc]` dengan bentuk
+  `sp[0] = func_08004C48(__builtin_new(4));` dst — badan sama, dinding sama.
+
+Dua varian C sudah dicoba per fungsi; ini kelas §103 (regalloc), bukan bentuk
+badan, jadi diparkir sesuai aturan kampanye.
+
+**3. Tujuh fungsi tunggal.**
+
+| fungsi | hasil |
+|---|---|
+| `func_080E41B0` | **MATCH + src** — dua vcall berpenjaga: field `+8` (vtable `*p`) dan field `+4` (vtable `*(p+4)`), lalu ekor `func_080007EC(arg0, arg1)` via cast |
+| `func_080D7F08` | **MATCH + src** — loop `i=1..0x23`: `p = slot->vt[16]` dipanggil dengan `(slot, i)`, lalu `if (p) p->vt2[15]` dengan `(p, 3)`; `i` harus diinisialisasi **sebelum** pointer slot di-hoist, kalau tidak `movs r4,#1` bergeser |
+| `func_08024CA0` | parkir — tiga `return 0` di layout agbcc menyatu beda: `bne` displacement (`#0x26` vs `#0x2a`), 46 vs 50/52 B; bentuk C terbaik `s32 res; if (...) res = 1; return res;` masih 2 instruksi lebih |
+| `func_0803853C` | parkir — prolog ref butuh r6 (`push {r4,r5,r6,lr}` vs `{r4,r5,lr}`), 60 vs 62 B, 7 regalloc |
+| `func_080DC360` | parkir — draf m2c gagal kompilasi (`arg3 undeclared`) |
+| `func_080E3874` | parkir — draf m2c gagal kompilasi |
+| `func_080DBC0C` | parkir — bentuk stack hand-off + vcall sama dengan klaster B (dinding regalloc), ditambah `__builtin_new(0xC)` + `func_08077C40` |
+
+Sub-kelas baru yang tercatat dari pass ini:
+
+- **E2 — dua vcall berpenjaga + ekor** (`func_080E41B0`): vtable kedua diambil
+  dari `*(p + 4)`, bukan `*p`.
+- **H — loop enumerasi vtable** (`func_080D7F08`): pointer slot di-hoist ke
+  register, indeks diinisialisasi lebih dulu, slot vtable berupa **literal
+  indeks** (`[16]`, `[15]`) hasil bagi offset `0x40`/`0x3C` dengan 4.
+- **I — cast di titik panggil untuk callee berdeklarasi 0-arg** (tiga fungsi
+  `func_080007EC`).
 
