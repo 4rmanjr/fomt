@@ -1081,6 +1081,17 @@ typedef struct Vt080E3494 {
 } Vt080E3494;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct Vt {
+    void *f0;       /* 0x0 */
+    void *f4;       /* 0x4 */
+    void *f8;       /* 0x8 */
+    void *fC;       /* 0xC */
+    void *f10;      /* 0x10 */
+    i32 (*f14)(void *); /* 0x14 */
+} Vt;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_080D3C60 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0800080C(void *, i32);
@@ -3052,6 +3063,21 @@ __attribute__((section(".text.code_linkonce.b2.080DC294")))
 void func_080DC294(i32 arg0) {
     LoadById__12ScriptEngineii(gUnk_0300040C + 8);
     func_080D7F3C(arg0);
+}
+}
+
+// DECOMP-MATCHED func_080DC360 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080D7F9C(void *, i32, i32, i32, i32, i32); /* extern */
+
+__attribute__((section(".text.code_linkonce.b2.080DC360")))
+void func_080DC360(void *arg0, i32 arg1, i32 arg2, i32 arg3, i32 arg4) {
+    void *obj;
+    i32 temp;
+
+    obj = *(void **) ((u8 *) arg0 + 0xA8);
+    temp = ((Vt *) *(void **) obj)->f14(obj);
+    func_080D7F9C(arg0, arg1, temp, arg2, arg3, arg4);
 }
 }
 

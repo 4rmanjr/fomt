@@ -26647,9 +26647,9 @@
  },
  "func_080DBC0C": {
   "addr": 135117836,
-  "judged_mtime": 1793018128.7662559,
+  "judged_mtime": 1795758472.9056635,
   "module": "code_linkonce.s",
-  "note": "PARKIR \u00a7116: draf m2c gagal (deref `void *`) + bentuk stack hand-off klaster B (2 instruksi pembeda sama: `adds r1, r0, #0`), ditambah `__builtin_new(0xC)` + `func_08077C40`.",
+  "note": "len 46 vs ref 66 [10missing,1extra,2regalloc @>  | str r0, [sp, #4]]",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 547,
@@ -27036,14 +27036,15 @@
  },
  "func_080DC360": {
   "addr": 135119712,
-  "judged_mtime": 1793018136.4583771,
+  "judged_mtime": 1795758577.1471705,
   "module": "code_linkonce.s",
-  "note": "PARKIR \u00a7116: draf m2c gagal kompilasi (`arg3 undeclared`) \u2014 badan perlu ditulis dari asm.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 64,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 502,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC3A0": {

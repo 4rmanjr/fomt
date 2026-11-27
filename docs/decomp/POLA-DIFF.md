@@ -5804,3 +5804,50 @@ store pertama) dengan `r5=0xC`/`r6=2`. Bentuk yang dicoba: `union P`,
 `s16[2]` + cast, struct-init di deklarasi, struct-init block-scoped,
 `s16[2]` init block-scoped. Kelimanya berhenti di beda di atas; layout cabang
 dan penjadwalan konstanta belum bisa dipaksa dari C.
+
+## §129 `func_080DC360` (code_linkonce.s) — vcall lewat `*(arg0+0xA8)` lalu call langsung
+
+Fungsi 64 byte: ambil `obj = *(void **)((u8 *)arg0 + 0xA8)`, panggil
+`obj->vt->f14(obj)`, lalu teruskan hasilnya sebagai argumen ke-3
+`func_080D7F9C(arg0, arg1, hasil, arg2, arg3, arg4)`.
+
+MATCH pada percobaan pertama dengan dua hal sederhana:
+
+1. **Vtable bertingkat.** ROM `ldr r0,[r0,#0xA8]; ldr r1,[r0]; ldr r1,[r1,#0x14];
+   bl _call_via_r1` = `((Vt *) *(void **) obj)->f14(obj)`. `this` untuk vcall
+   adalah `obj` (bukan `*(void**)obj`), jadi ekspresi harus memakai `obj`
+   sebagai argumen meski vtable-nya diambil dari `*obj`.
+2. **Urutan argumen mengikuti register.** `r2` diisi hasil vcall sebelum
+   `r3` diisi `arg2`, jadi sumbernya menaruh `temp` di posisi ke-3 dan `arg2`
+   di ke-4: `func_080D7F9C(arg0, arg1, temp, arg2, arg3, arg4)` (6 parameter,
+   dua terakhir lewat stack `sp+0`,`sp+4`).
+
+Migrasi: `migrate.py` rc=0, `fomt.gba: OK`, `fomt.map`
+`.text.code_linkonce.b2.080DC360` `0x40` dari `src/code_linkonce.o`.
+
+## §130 Dua dinding baru yang terukur (jangan diulang tanpa ide baru)
+
+### 130.1 `func_0803AE58` — panggilan gaya long-call tidak bisa direproduksi
+
+Draf terbaik berhenti pada **satu** perbedaan posisi instruksi: ROM
+`adds r0,r1,#0 / adds r1,r2,#0 / adds r2,r3,#0 / movs r3,#0xaa /
+ldr r4,=0x030004DC / bl _call_via_r4`, sedangkan agbcc menaruh `ldr r4` di
+**awal** rangkaian argumen (sebelum empat instruksi itu). 9 bentuk dicoba:
+argumen inline vs lokal (`base`, `p88`, `c8000`, `a1..a3`), cast fungsi
+bertipe penuh, cast `void (*)()`, dan `__attribute__((long_call))` (atribut
+diabaikan agbcc → jadi `bl` langsung).
+
+Kesimpulan: `ldr + bl _call_via_rN` di posisi itu adalah **thunk long-call
+tingkat assembler/linker**, bukan hasil ekspresi C. `expand_call` agbcc selalu
+memuat alamat callee lebih dulu, jadi urutan ROM tidak bisa dicapai dari C di
+harness ini. Semua bentuk lain sudah identik (register, frame, urutan store).
+
+### 130.2 Keluarga "dead vcall" (`func_080DBC0C`, `func_080DB1E4`, `func_080DB658`, `func_080AD724`)
+
+Pola ROM: `str r0,[sp]` (simpan hasil) → `str r1,[sp,#8]` (`&slot`) →
+`str r0,[sp,#0xc]` → `str r4,[r1]` (slot = 0) → `ldr r1,[sp]` → `cmp r1,#0`
+→ vcall. Nilai yang diuji **pasti 0** (baru saja ditulis), jadi blok vcall-nya
+dead code yang tetap ada di ROM. agbcc di harness menghapusnya
+(`len 38/46 vs ref 66`), dan tidak ada bentuk C wajar yang mempertahankannya
+kecuali menulis store lewat pointer yang tak terlacak — yang mengubah byte
+lain. Keluarga ini praktis tidak bisa MATCH dengan agbcc modern ini.
