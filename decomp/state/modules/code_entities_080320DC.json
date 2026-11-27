@@ -97,7 +97,7 @@
   "draft_src": "manual",
   "judged_mtime": 1795697821.3030345,
   "module": "code_entities_080320DC.s",
-  "note": "len 42 vs ref 44 [1missing,3extra,1different @| add r2, sp, #0xc | str r0, [sp, #0xc]]",
+  "note": "44 B konstruktor 8-arg (4 stack). Ref: `add r2, sp, #0xc; strb r0, [r2]`; kita `str r0, [sp, #0xc]`. DIFF `len 42 vs ref 44 [1missing,3extra,1different @| add r2, sp, #0xc | str r0, [sp, #0xc]]`. u8/s8/char* semuanya str 32-bit. Juga callee sudah `i32 func_080324BC(void*,void*,i32,i32)` di src \u2192 migrate akan SKIP. \u00a7107.",
   "ref_len": 44,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,

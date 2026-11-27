@@ -4334,3 +4334,121 @@ store ber-offset konstanta + call biasa (§102, §104). Yang menolak selalu
 berakhir di satu register (epilog `pop {rN}`, register parameter, atau jumlah
 callee-saved) — bukan di logika badan.
 
+### §106 Bentuk yang paling cepat berbuah: klon konstruktor dari sibling yang sudah HIJAU
+
+`func_080D78F8` (code_linkonce, 76 B) HIJAU pada percobaan pertama **karena
+bentuknya sudah ada di `src/`**: `func_080E542C` di `src/code_linkonce.cc`
+memakai urutan yang sama persis. Yang dikerjakan: salin idiom itu, ganti
+offset/nilai/callee. Tidak ada eksperimen regalloc sama sekali.
+
+```c
+s32 func_0800050C(s32);
+s32 func_08000528(s32);
+s32 func_080D100C();
+void func_080D78E0(void);
+extern void *gUnk_03000410;
+extern s32 vtable_unk_080E5B3C;
+extern s32 vtable_unk_080E5B48;
+
+void *func_080D78F8(u8 *arg0, s32 *arg1) {
+    void *prev;
+    s32 m;
+
+    *(s32 **)(arg0 + 0x14) = &vtable_unk_080E5B3C;
+    *(s32 *)arg0 = *arg1;
+    m = 1;
+    m &= func_08000528(1);
+    *(u16 *)(arg0 + 4) = (u16)m;
+    prev = gUnk_03000410;
+    gUnk_03000410 = arg0;
+    *(s32 *)(arg0 + 8) = (s32)prev;
+    *(s32 **)(arg0 + 0xC) = &vtable_unk_080E5B48;
+    *(s32 *)(arg0 + 0x10) = func_080D100C(0, (void *)&func_080D78E0);
+    func_0800050C(1);
+    return arg0;
+}
+```
+
+Dimigrasi HIJAU ke `src/code_linkonce.cc` (`fomt.gba: OK`). Kunci bentuk:
+
+- konstanta yang di-AND ditulis sebagai **variabel dulu** (`m = 1; m &= call(1);`)
+  supaya agbcc menghasilkan `movs r4, #1` sebelum `bl`, bukan `movs` sesudahnya.
+- urutan `prev = g; g = arg0; *(u32*)(arg0+8) = prev;` memberi
+  `ldr r1,[r0]; str r5,[r0]; str r1,[r5,#8]` tanpa register tambahan.
+- pola daftar-taut (linked list) lewat global `gUnk_03000410` **dan** tiga
+  literal vtable/entry sekaligus — tetap 0 cabang, jadi masuk band aman.
+
+Contoh lain dari kelas yang sama yang sudah HIJAU lebih dulu:
+`func_080E379C` (§104) dan `func_080DD3D4` (putaran lalu). Aturan praktisnya:
+**cari sibling HIJAU di `src/` sebelum menulis badan baru.**
+
+### §107 Penolakan putaran ini (bentuk `<ref> | <kita>`)
+
+`func_08032A00` (code_entities_080320DC, 44 B) — konstruktor dengan 8 argumen,
+4 terakhir lewat stack. Ref menyimpan argumen ke-8 sebagai **byte** melalui
+alamat terhitung:
+
+```
+ref                                    kita
+add  r2, sp, #0xc      <- hilang      (tidak ada)
+strb r0, [r2]          <- beda        str  r0, [sp, #0xc]
+```
+
+`byte` DIFF: `len 42 vs ref 44 [1missing,3extra,1different @| add r2, sp, #0xc | str r0, [sp, #0xc]]`.
+Tiga deklarasi parameter terakhir dicoba (`u8`, `s8`, `char *`) — ketiganya
+memberi `str` 32-bit, bukan `strb` lewat `add r2, sp, #0xc`. Selain itu
+`src/` sudah punya `i32 func_080324BC(void *, void *, i32, i32)` (4 parameter)
+sehingga gerbang migrate akan menolak tanda tangan 8 parameter; fungsi ini
+tidak bisa menambah hitungan `src/`.
+
+`func_080E2094` (code_linkonce, 44 B) — sembilan store nol pada offset
+0x00,0x04,0x0C,0x10,0x14,0x1C,0x20,0x24,0x2C. Ref memakai **pejalan pointer**
+`r1` yang bertambah 8 tiap dua store, plus kerangka `sub sp, #0xc` yang tidak
+dipakai:
+
+```
+ref                                    kita
+sub  sp, #0xc          <- hilang      (tidak ada)
+adds r1, r2, #0                        (tidak ada)
+adds r1, #8                            (tidak ada)
+str  r0, [r1, #4]                      str  r0, [r2, #0xc]
+```
+
+`byte` DIFF versi store-lurus: `len 22 vs ref 42 [10missing,5operand,3regalloc,2different @< sub sp, #0xc | ]`.
+Bentuk C yang memaksa pejalan `r1` **dan** kerangka mati belum ditemukan;
+ini keluarga dinding yang sama dengan `func_080E43FC` (§105).
+
+`func_080E1148` (code_linkonce, 68 B) — dua pasang call pada sub-objek
+`+0xB0` lalu `+0xA8`, store vtable, call terakhir. Badan sudah benar; sisa
+register:
+
+```
+ref                                    kita
+adds r5, r0, #0                        adds r4, r0, #0
+```
+
+`byte +0x2: 0x4 vs ref 0x5 [3extra,14regalloc @r adds r5, r0, #0 | adds r4, r0, #0]`.
+Versi dengan variabel `u8 *p = arg0 + 0xB0; … p -= 8;` memperbaiki bentuk
+tetapi tidak nama register. Dua varian, lalu diparkir.
+
+`func_080882AC` / `func_0808C5F8` (code_0803EE94, 88 B, kembar: Fridge/Shelf)
+— konstruktor turunan: `func_080CE19C(arg0)`, vtable `+4`, byte nol `+0x98`,
+tiga pointer `base + 0x1C2C/0x1C38/0x1F4` dari `*(arg0+8)`, nol `+0x108`.
+Ref memakai tiga register callee-saved:
+
+```
+ref                                    kita
+push {r4, r5, r6, lr}                  push {r4, lr}
+adds r6, r0, #0                        (arg0 tidak dipertahankan)
+movs r5, #0                            (nol dibuat ulang)
+```
+
+`byte +0x0: 0x10 vs ref 0x70 [3missing,4extra,5operand,17regalloc,1stack @i push {r4, r5, r6, lr} | push {r4, lr}]`.
+Varian dengan `u32 z = 0;` yang dipakai dua kali naik ke
+`push {r4, r5, lr} | push {r4, lr}` tetapi tetap kurang satu register.
+Keduanya diparkir bersama (bentuk identik, hanya callee/vtable berbeda).
+
+`sub_08048FEC` dan `sub_080868A8` **tidak dicoba**: keduanya fragmen ekor
+(`movs r0,#0` + epilog; `mov r0, sl` / `mov r1, r8`) yang memakai register
+frame milik pemanggil — kelas teori badan terpotong yang dilarang.
+
