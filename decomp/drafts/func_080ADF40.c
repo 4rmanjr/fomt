@@ -1,19 +1,19 @@
-typedef struct Obj {
-    u8 _pad4[4];
+typedef struct GenObj {
+    u8 _pad0[4];
     u16 unk4;
     u16 unk6;
-} Obj;
+} GenObj;
 
-s32 func_080ADF40(Obj *arg0) {
-    s32 a;
-    s32 b;
-    s32 t;
-    s32 v;
+s32 func_080ADF40(GenObj *arg0) {
+    u16 *p = &arg0->unk6;
+    u16 old = *p;
+    s32 sum = old + arg0->unk4;
+    s32 t = 0;
 
-    a = arg0->unk6;
-    b = arg0->unk4;
-    t = a + b;
-    v = (t & 0xFF) ? t : 0;
-    arg0->unk6 = v;
-    return (t >> 8) - (a >> 8);
+    if ((sum & 0xFF) != 0) {
+        t = sum;
+    }
+    *p = t;
+
+    return (sum >> 8) - (old >> 8);
 }

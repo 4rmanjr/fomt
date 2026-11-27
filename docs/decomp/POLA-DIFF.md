@@ -3821,3 +3821,63 @@ Dua jebakan proses saat migrasinya (bukan soal codegen):
    `// DECOMP-MATCHED <fn> (dari <modul>.s; cek manusia sebelum ke src/)`
    sebelum `migrate.py` mau jalan (error: `blok DECOMP-MATCHED tidak ditemukan`).
 
+### §100 Re-attempt di bawah batas `thumb_func_start`: yang tetap menolak
+
+Semua kandidat ber-`len N vs ref M` dengan N jauh di bawah M dicoba ulang
+dengan badan penuh (batas `thumb_func_start`). Hasil: **tidak satu pun** bisa
+didorong byte-identik, tetapi penyebabnya terbagi dua dan keduanya terukur.
+
+#### 100.1 `len N vs ref M` struktural: ref memuat tetangga tanpa label
+
+| fungsi | ref | badan asli | sisa |
+|---|---|---|---|
+| `func_08023804` | 162 B | 24 B (12 instruksi) | 138 B tetangga mulai `.L08023820` (`push {r4,r5,r6,lr}; …`) |
+| `func_0809C144` | 230 B | 22 B (loop 6 iterasi) | 208 B tetangga mulai `.L0809C160` (jump-table `0x24C2xx`) |
+
+Jadi `len 40 vs ref 162` / `len 24 vs ref 230` **bukan** badan yang kurang
+ditulis: region yang dipakai judge memuat satu fungsi lain yang tidak punya
+simbol. Ini keluarga yang sama dengan `sub_08031E0A` (`data asing … menempel
+ekor`, SKIP-PERMANEN). Keduanya tetap `failed` dengan catatan ini.
+
+#### 100.2 Sembilan badan ditulis ulang; DIFF-nya kini regalloc/salinan
+
+| fungsi | DIFF terakhir | yang kurang |
+|---|---|---|
+| `func_0809C420` | `len 26 vs ref 34 [4missing … @< adds r2, r0, #0]` | ref menyalin `arg0` ke r2 dan memecah `adds` (#0xC lalu +arg1); 4 varian C (pointer lokal, `void *`, early-return, cast) semuanya menggabungkan pointer |
+| `func_0809C3BC` | `len 28 vs ref 36 [4missing … @< adds r3, r0, #0]` | ref menyimpan hasil `bl` di r3 lalu memakai base+indeks dua kali; 4 varian |
+| `func_0809CD78` | `len 26 vs ref 30 [2missing,11regalloc @i push {r4, lr} | push {lr}]` | ref menahan batas `-1` di r4 sebagai variabel; 3 varian loop (for/do-while/pointer lokal) |
+| `func_080ADF40` | `len 38 vs ref 44 [3missing,10regalloc @i push {r4, r5, lr} | push {r4, lr}]` | ref menahan `unk6` lama di r5 **dan** `sum` di r4; C kita hanya memakai satu callee-saved; 4 varian |
+| `func_0809D79C` | `len 62 vs ref 58 [1missing,3extra,2stack,3different]` | butuh signature dua argumen (nilai masuk di r1) dan loop membandingkan variabel `-1`; 4 varian |
+| `func_080DD3D4` | `len 48 vs ref 46 [1extra … bne #0x24 | bne #0x26]` | ref menggabungkan dua store lewat satu `strb` bersama; tes `unk47 == 0` lalu bit1; 3 varian |
+| `func_080A0A1C` | `len 56 vs ref 54 [2missing,3extra,12regalloc @r adds r4, r0, #0 | adds r3, r0, #0]` | bentuk `u32 tmp[2]; tmp[0]=field+arg; tmp[1]=0x3F; field=tmp[tmp[0]>0x3F];` sudah menghasilkan dua store stack seperti ref; base dialokasikan r3 bukan r4 |
+| `func_080A0A54` | `byte +0x4: 0x3 vs ref 0x4 [3missing,3extra,14regalloc]` | field 7-bit di bit 6 (`lsls #0x13 / lsrs #0x19`), limit 0x7F; bentuk array-tmp sama, regalloc base berbeda |
+| `func_080D4130` | belum dicoba ulang (74 B, rantai `ands/orrs` 6 field) | — |
+
+Kesimpulan yang bisa dipakai: kegagalan sekarang seragam di **pemilihan
+register dan salinan base** (`adds rX, r0, #0`), bukan logika badan. Itu kelas
+parkir regalloc (§71/§74) — tidak dibuka tanpa bentuk baru.
+
+#### 100.3 Arah keluaran judge (dipakai untuk membaca semua DIFF di atas)
+
+Format `@… <ref> | <ours>`: sisi **kiri** adalah referensi (asm), sisi
+**kanan** hasil kompilasi kita. Bukti: `func_080ADF40` asm-nya
+`push {r4, r5, lr}` sementara C kita hanya menghasilkan `push {r4, lr}`, dan
+DIFF tertulis `… @i push {r4, r5, lr} | push {r4, lr}`. Membaca arah ini
+terbalik membuat tiga percobaan sebelumnya mengejar register yang salah.
+
+#### 100.4 Re-rank ulang di bawah batas yang benar: tidak ada klaster terbuka
+
+Pengelompokan ulang (badan dipotong pada `thumb_func_start`, konstanta/offset/
+target `bl`/register dinormalkan) memberi 6 grup ≥2 anggota: 35, 7, 3, 2, 2, 2.
+Semuanya kelas tertutup atau bukan fungsi:
+
+- 35/7/3/2 → dinding virtual-call `ldr r2,[r0,#8]; movs r1,#3; bl _call_via_r2`
+  (± `__builtin_new`) = §71/§72/§74;
+- 2 (`sub_08080440`, `sub_080854D8`) → fragmen epilog (memakai r3 tanpa
+  mendefinisikannya, dicapai lewat fallthrough);
+- 5 (`func_08053634` dkk) → `switch` 7 kasus berjump-table (±0x328 B).
+
+Juga diperiksa: tidak ada satu pun fungsi `failed` yang bodynya identik
+(dinormalkan) dengan fungsi `matched` — jadi tidak ada badan "sudah terbukti"
+yang bisa disalin dengan mengganti konstanta.
+

@@ -1,12 +1,12 @@
-void func_080A0A1C(u8 *arg0, s32 arg1) {
-    u32 v;
-    u32 clamp;
-    u32 *p;
-    u8 b;
+typedef struct GenObj {
+    u8 a : 6;
+    u8 b : 2;
+} GenObj;
 
-    b = *arg0;
-    v = ((u32) (b << 0x1A) >> 0x1A) + arg1;
-    clamp = 0x3FU;
-    p = (v > 0x3FU) ? &clamp : &v;
-    *arg0 = (b & 0xC0) | (*p & 0x3F);
+void func_080A0A1C(GenObj *arg0, s32 arg1) {
+    u32 tmp[2];
+
+    tmp[0] = arg0->a + arg1;
+    tmp[1] = 0x3F;
+    arg0->a = tmp[tmp[0] > 0x3F];
 }

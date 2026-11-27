@@ -1,15 +1,18 @@
-void func_08012760(u8 *arg0) {
-    register u8 *p __asm__("r2");
-    register void *v __asm__("r3");
-    u8 *t;
+u32 func_08050E50(u32);
 
-    p = *(u8 **)(arg0 + 4);
-    t = p + 0xAC;
-    v = *(void **)t;
+typedef struct GenObj {
+    u8 _pad0[4];
+    u8 *unk4;
+} GenObj;
+
+void func_08012760(GenObj *arg0) {
+    u8 *p = arg0->unk4;
+    u32 v = *(u32 *)(p + 0xAC);
+
     if (v == 0) {
         return;
     }
-    if ((*(u8 *)(*(u32 *)(t - 0x20) + 0x2210) << 0x1D) < 0) {
-        ((void (*)(void *)) func_08050E50)(v);
+    if (*(u8 *)(*(u32 *)(p + 0x8C) + 0x2210) & 4) {
+        func_08050E50(v);
     }
 }

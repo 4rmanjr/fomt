@@ -1,17 +1,13 @@
-void func_080A0A54(u16 *arg0, s32 arg1) {
-    u32 sp0;
-    u32 sp4;
-    u16 temp_r3;
-    u32 *var_r0;
-    u32 temp_r2;
+typedef struct GenObj {
+    u16 a : 6;
+    u16 b : 7;
+    u16 c : 3;
+} GenObj;
 
-    temp_r3 = *arg0;
-    temp_r2 = ((u32) (temp_r3 << 0x13) >> 0x19) + arg1;
-    sp0 = temp_r2;
-    sp4 = 0x7F;
-    var_r0 = &sp0;
-    if (temp_r2 > 0x7FU) {
-        var_r0 = &sp4;
-    }
-    *arg0 = (0xFFFFE03F & temp_r3) | ((*var_r0 & 0x7F) << 6);
+void func_080A0A54(GenObj *arg0, s32 arg1) {
+    u32 tmp[2];
+
+    tmp[0] = arg0->b + arg1;
+    tmp[1] = 0x7F;
+    arg0->b = tmp[tmp[0] > 0x7F];
 }

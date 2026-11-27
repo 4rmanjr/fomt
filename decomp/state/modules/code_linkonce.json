@@ -2461,7 +2461,7 @@
   "addr": 135123924,
   "judged_mtime": 1793018151.379535,
   "module": "code_linkonce.s",
-  "note": "len 58 vs ref 46",
+  "note": "re-attempt: DIFF `len 48 vs ref 46 [1extra \u2026 bne #0x24 | bne #0x26]` \u2014 ref menggabungkan dua store lewat satu `strb` (store bersama), urutan tes `unk47 == 0` lalu bit1; 3 varian dicoba.",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 432,
