@@ -1,16 +1,16 @@
 s32 func_08007EA8(void *);
 u32 func_080D7568(u8 *, u32);
 
-typedef struct GenObj {
+typedef struct HwObj08020 {
     u8 unk0;
     u8 unk1;
     u8 _pad2[2];
     u8 unk4;
     u8 _pad5[0x7B];
     u8 unk80;
-} GenObj;
+} HwObj08020;
 
-s32 func_08008020(GenObj *arg0, u32 arg1)
+s32 func_08008020(HwObj08020 *arg0, u32 arg1)
 {
     register u8 b __asm__("r5");
     s32 i;
@@ -45,7 +45,7 @@ s32 func_08008020(GenObj *arg0, u32 arg1)
         } while (i <= 1);
     } else if (arg1 == 0xA) {
         if (arg0->unk1 != 0) {
-            func_08007EA8(arg0);
+            func_08007EA8((GenObj *) arg0);
             return 0;
         }
     }

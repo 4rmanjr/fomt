@@ -3429,6 +3429,9 @@ sudah dicatat di `note` shard masing-masing):
 | `func_0809C474` | `stdin:259: too many arguments to function` |
 | `func_080202A0`, `func_08037470`, `func_08037ED0`, `func_0803834C` | `blok DECOMP-MATCHED tidak ditemukan di decomp/promoted/<modul>.cc` (blok hilang dari berkas promoted) |
 | `sub_08031E0A` | `data asing 316B menempel ekor` (SKIP-PERMANEN by-design) |
+
+Ketiga fungsi terakhir tabel putaran lalu (`func_08007770`, `func_08007EE8`,
+`func_08008020`) sudah **masuk `src/`** — resepnya di §95.2.
 | `func_080D6EAC` | `definisi func_080D6EAC di body vs extern usang di src (['i32 (i32)'])` |
 | `func_080D6EEC`, `func_080D6F1C` | `call-site func_080D6ECC: argumen `(u8 *)arg0 + 4` (`u8 *`) tak konversi implisit ke parameter `GenObj__*`` |
 | `func_080E0F48` | ``ANSI C++ forbids using pointer of type `void *' in arithmetic`` |
@@ -3475,8 +3478,9 @@ Sisa promote-only setelah putaran ini (semua sudah ber-`note` di shard):
 | `func_080D116A/116E/117E/1186` | `cannot represent THUMB_OFFSET relocation in this object file format` |
 | `func_080D14EC`, `sub_080D1204/139C/1498/14C6` | `cannot represent THUMB_OFFSET relocation` / `invalid offset, value too big (0xFFFFFFFFFFFFFFFC)` |
 | `sub_08031E0A` | `data asing 316B menempel ekor` (SKIP-PERMANEN by-design) |
-| `func_08007770` | ``previous declaration `struct Unk_hardware_H * func_08007128(struct Unk_hardware_H *)' here`` — src punya ALIAS satu-argumen, blok memanggil dua-argumen |
-| `func_08007EE8`, `func_08008020` | ``type `GenObj' is not a base type for type `GenObj__func_08007EE8'`` — blok membawa `typedef struct GenObj` lokal yang bentrok dengan typedef TU; rename struct belum cukup karena sanitizer migrate menamai ulang hanya sebagian |
+
+Ketiga fungsi terakhir tabel putaran lalu (`func_08007770`, `func_08007EE8`,
+`func_08008020`) sudah **masuk `src/`** — resepnya di §95.2.
 
 ### §96 Varian §94: dua pasang nibble dalam satu fungsi
 
@@ -3512,3 +3516,68 @@ lalu OR dengan `(arg0->0x79 << 4)`. Menulis dua assignment bitfield berurutan
 menghasilkan urutan itu apa adanya; bentuk ekspresi gabungan
 (`(a & 0xF) | (b << 4)` dalam satu assignment) menghasilkan 2 instruksi lebih
 sedikit dan selalu DIFF.
+
+### §95.2 Putaran 3: tiga penolakan tipe/aritas di hardware.s
+
+Ketiganya bukan kelas permanen; error lamanya cuma gejala tipe di blok.
+
+| fungsi | error lama | yang mengubahnya |
+|---|---|---|
+| `func_08007770` | ``previous declaration `struct Unk_hardware_H * func_08007128(struct Unk_hardware_H *)' here`` | deklarasi `s32 func_08007128(void *)` di blok **dihapus** (src sudah mendefinisikannya) dan call-site jadi `(void) func_08007128((Unk_hardware_H *) arg0);` → tetap `bl func_08007128` |
+| `func_08007770` (lanjutan) | `stdin:273: ANSI C++ forbids comparison between pointer and integer` | setelah deklarasi hilang, `unk4` (pointer) dibandingkan dengan `s32`: `temp_r0` dijadikan `GenObj *`, `unk0`→pointer lewat `(GenObj *) var_r6->unk0`, argumen `s32` diberi `(s32) …->unk4`, dan `arg0->unk4 = (GenObj *) var_r0` |
+| `func_08007EE8` | ``type `GenObj' is not a base type for type `GenObj__func_08007EE8'`` | dua langkah: (1) typedef blok dinamai unik `HwObj07EE8` (bukan `GenObj`, bukan nama turunan fungsi) sehingga sanitizer migrate tidak menamai ulang sebagian; (2) akar error sebenarnya — blok memanggil `func_08007EA8(arg0)` sedangkan src mendefinisikannya `void func_08007EA8(GenObj *arg0)` → call-site diberi `(GenObj *) arg0` |
+| `func_08008020` | ``type `GenObj' is not a base type for type `GenObj__func_08008020'`` | sama; struct jadi `HwObj08020`, panggilan `func_08007EA8((GenObj *) arg0)` |
+
+Pelajaran: pesan "type A is not a base type for type B" di GCC 2.9 keluar dari
+**konversi implisit** `B *` → `A *` di call-site (prototipe src menang atas
+deklarasi blok), bukan dari typedef yang bentrok. Menamai ulang typedef hanya
+memindahkan nama di pesan; yang memperbaiki adalah cast di titik panggil.
+
+### §95.3 func_080D0EBC: bukan divisi di blok, tapi konflik link di asm
+
+Blok fungsinya cuma satu `stm` (inline asm, tanpa pembagian), tetapi migrate
+tetap MERAH:
+
+```
+`__divsi3' referenced in section `.text.code_linkonce.b2.080DD9CC' of
+asm/code_linkonce.o: defined in discarded section `.text' of
+../tools/agbcc/lib/libgcc.a(_divsi3.o)
+```
+
+Referensinya berasal dari **objek asm ROM** (`func_080DD9CC` di
+`code_linkonce.s`), bukan dari TU src yang ditambahkan; menambah
+`src/code_809E804.o` ke link membuat `ld` menarik `_divsi3.o` dan ldscript
+membuang`.text`-nya. Tidak bisa diperbaiki dari deklarasi/tipe blok, jadi
+tetap **refused** dengan error persis di atas.
+
+### §97 Varian §94 tanpa nibble kedua: `func_080DE05C`
+
+`func_080DE05C` (36 B) adalah anggota keluarga §94 yang paling kecil: satu
+assignment bitfield ke byte 0 lalu tiga salinan field dari `arg0` ke `arg1`,
+tanpa `push`/`pop` (tidak ada call) dan tanpa nibble kedua §96.
+
+```c
+typedef struct GenObj {
+    u8 a : 4; u8 b : 4;           /* 0x0 */
+    u8 _pad1[3];
+    s32 unk4; u16 unk8; u16 unkA; /* 0x4/0x8/0xA */
+    u8 _padC[0x44];
+    s32 unk50; u16 unk54; u16 unk56;
+} GenObj;
+void func_080DE05C(GenObj *arg0, GenObj *arg1) {
+    arg1->a = 1;
+    arg1->unk4 = arg0->unk50;
+    arg1->unk8 = arg0->unk54;
+    arg1->unkA = arg0->unk56;
+}
+```
+
+Dua detail yang menentukan byte-match:
+
+1. `arg1->a = 1;` menghasilkan `movs #0x10 / rsbs / ands / movs #1 / orrs`
+   (`a` = nibble rendah dari `u8 : 4`); hanya field `a` yang ditulis — jangan
+   menambah `b` seperti §96.
+2. Salinan tiga field ditulis berurutan `unk4 → unk8 → unkA`; agbcc memakai
+   ulang `arg0` sebagai basis (`adds r2, r0, #0` / `adds r2, #0x54`) lalu
+   `adds r0, #0x56` untuk field terakhir. Urutan terbalik menghasilkan
+   `add` terpisah dan DIFF.

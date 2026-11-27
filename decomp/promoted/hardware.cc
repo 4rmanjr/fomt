@@ -527,7 +527,6 @@ block_ret20:
 }
 
 // DECOMP-MATCHED func_08007770 (dari hardware.s; cek manusia sebelum ke src/)
-s32 func_08007128(void *);                            /* extern */
 s32 func_0800736C(void *);                          /* extern */
 s32 func_0800745C(void *, s32);                     /* extern */
 s32 func_08007510(void *, s32);                     /* extern */
@@ -539,7 +538,7 @@ typedef struct GenObj {
     s32 unk10;
 } GenObj;
 void *func_08007770(GenObj *arg0, void **arg1) {
-    s32 temp_r0;
+    GenObj *temp_r0;
     s32 var_r0;
     GenObj *temp_r1;
     GenObj *var_r6;
@@ -562,27 +561,27 @@ loop_3:
     temp_r5 = var_r4;
     var_r4 = (GenObj *)((u8 *)var_r4 + 8);
     if (var_r4 == temp_r0) {
-        var_r4 = var_r6->unk0;
+        var_r4 = (GenObj *) var_r6->unk0;
     }
-    if (func_08007510(temp_r5, temp_r5->unk4) == 1) {
+    if (func_08007510(temp_r5, (s32) temp_r5->unk4) == 1) {
         goto block_B8;
     }
     if (var_r4 != temp_sb) {
         goto loop_3;
     }
 block_A8:
-    func_08007128(arg0);
-    var_r0 = func_0800745C(arg0, var_r4->unk4);
+    (void) func_08007128((Unk_hardware_H *) arg0);
+    var_r0 = func_0800745C(arg0, (s32) var_r4->unk4);
     goto block_CA;
 block_B8:
     var_r6->unk10 = var_r4;
     var_r4 = temp_r5;
     goto block_A8;
 block_BE:
-    func_08007128(arg0);
+    (void) func_08007128((Unk_hardware_H *) arg0);
     var_r0 = func_0800736C(arg0);
 block_CA:
-    arg0->unk4 = var_r0;
+    arg0->unk4 = (GenObj *) var_r0;
     return arg0;
 }
 
@@ -748,15 +747,15 @@ void *func_080096B0(GenObj *arg0) {
 s32 func_08007EA8(void *);                            /* extern */
 s32 func_080D7118(void *, u32, u32);                  /* extern */
 
-typedef struct GenObj {
+typedef struct HwObj07EE8 {
     u8 unk0;
     u8 unk1;
     u8 _pad2[2];
     u8 unk4;
     u8 _pad5[123];
     u8 unk80;
-} GenObj;
-void func_08007EE8(GenObj *arg0, u32 arg1, u32 arg2) {
+} HwObj07EE8;
+void func_08007EE8(HwObj07EE8 *arg0, u32 arg1, u32 arg2) {
     u32 sp0;
     u32 sp4;
     u32 *var_r2;
@@ -781,7 +780,7 @@ void func_08007EE8(GenObj *arg0, u32 arg1, u32 arg2) {
         return;
     }
     if ((arg1 == 0) && (t > 0x3FFU)) {
-        func_08007EA8(arg0);
+        func_08007EA8((GenObj *) arg0);
         return;
     }
     if (arg1 <= 0x1FFU) {
@@ -1227,16 +1226,16 @@ void func_08008A68(s32 *arg0, s32 arg1) {
 s32 func_08007EA8(void *);
 u32 func_080D7568(u8 *, u32);
 
-typedef struct GenObj {
+typedef struct HwObj08020 {
     u8 unk0;
     u8 unk1;
     u8 _pad2[2];
     u8 unk4;
     u8 _pad5[0x7B];
     u8 unk80;
-} GenObj;
+} HwObj08020;
 
-s32 func_08008020(GenObj *arg0, u32 arg1)
+s32 func_08008020(HwObj08020 *arg0, u32 arg1)
 {
     register u8 b __asm__("r5");
     s32 i;
@@ -1271,7 +1270,7 @@ s32 func_08008020(GenObj *arg0, u32 arg1)
         } while (i <= 1);
     } else if (arg1 == 0xA) {
         if (arg0->unk1 != 0) {
-            func_08007EA8(arg0);
+            func_08007EA8((GenObj *) arg0);
             return 0;
         }
     }

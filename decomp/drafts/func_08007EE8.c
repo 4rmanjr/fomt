@@ -5,15 +5,15 @@
 s32 func_08007EA8(void *);                            /* extern */
 s32 func_080D7118(void *, u32, u32);                  /* extern */
 
-typedef struct GenObj {
+typedef struct HwObj07EE8 {
     u8 unk0;
     u8 unk1;
     u8 _pad2[2];
     u8 unk4;
     u8 _pad5[123];
     u8 unk80;
-} GenObj;
-void func_08007EE8(GenObj *arg0, u32 arg1, u32 arg2) {
+} HwObj07EE8;
+void func_08007EE8(HwObj07EE8 *arg0, u32 arg1, u32 arg2) {
     u32 sp0;
     u32 sp4;
     u32 *var_r2;
@@ -38,7 +38,7 @@ void func_08007EE8(GenObj *arg0, u32 arg1, u32 arg2) {
         return;
     }
     if ((arg1 == 0) && (t > 0x3FFU)) {
-        func_08007EA8(arg0);
+        func_08007EA8((GenObj *) arg0);
         return;
     }
     if (arg1 <= 0x1FFU) {

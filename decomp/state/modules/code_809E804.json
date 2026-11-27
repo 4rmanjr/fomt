@@ -5898,7 +5898,7 @@
   "addr": 135073468,
   "judged_mtime": 1792999780.5246127,
   "module": "code_809E804.s",
-  "note": "GAGAL ld: __divsi3 defined in discarded section libgcc.a(_divsi3.o)",
+  "note": "GAGAL ld: `__divsi3' referenced in section `.text.code_linkonce.b2.080DD9CC' of asm/code_linkonce.o: defined in discarded section `.text' of tools/agbcc/lib/libgcc.a(_divsi3.o)",
   "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 3,
   "size": 351,

@@ -200,6 +200,37 @@ typedef struct GenObj__func_08007714 {
 } GenObj__func_08007714;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct HwObj07EE8 {
+    u8 unk0;
+    u8 unk1;
+    u8 _pad2[2];
+    u8 unk4;
+    u8 _pad5[123];
+    u8 unk80;
+} HwObj07EE8;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct HwObj08020 {
+    u8 unk0;
+    u8 unk1;
+    u8 _pad2[2];
+    u8 unk4;
+    u8 _pad5[0x7B];
+    u8 unk80;
+} HwObj08020;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08007770 {
+    i32 unk0;
+    struct GenObj__func_08007770 *unk4;
+    u8 _pad8[8];
+    i32 unk10;
+} GenObj__func_08007770;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_hardware_08007564.data.08007564
 extern "C" {
 // data tak-dirujuk di 0x08007564 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -247,6 +278,61 @@ tail:
     if (1 & arg1) {
         __builtin_delete(arg0);
     }
+}
+}
+// DECOMP-MATCHED func_08007770 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_0800736C(void *);                          /* extern */
+i32 func_0800745C(void *, i32);                     /* extern */
+i32 func_08007510(void *, i32);                     /* extern */
+
+__attribute__((section(".text.hardware.08007770")))
+void *func_08007770(GenObj__func_08007770 *arg0, void **arg1) {
+    GenObj__func_08007770 *temp_r0;
+    i32 var_r0;
+    GenObj__func_08007770 *temp_r1;
+    GenObj__func_08007770 *var_r6;
+    GenObj__func_08007770 *temp_r5;
+    void *temp_sb;
+    GenObj__func_08007770 *var_r4;
+
+    temp_r1 = (GenObj__func_08007770 *)(*arg1);
+    if (temp_r1 == 0) {
+        goto block_BE;
+    }
+    var_r6 = temp_r1;
+    temp_r0 = (GenObj__func_08007770 *)(var_r6->unk4);
+    var_r4 = (GenObj__func_08007770 *)(var_r6->unk10);
+    if (var_r4 == temp_r0) {
+        goto block_A8;
+    }
+    temp_sb = var_r4;
+loop_3:
+    temp_r5 = var_r4;
+    var_r4 = (GenObj__func_08007770 *)((u8 *)var_r4 + 8);
+    if (var_r4 == temp_r0) {
+        var_r4 = (GenObj__func_08007770 *) var_r6->unk0;
+    }
+    if (func_08007510(temp_r5, (i32) temp_r5->unk4) == 1) {
+        goto block_B8;
+    }
+    if (var_r4 != temp_sb) {
+        goto loop_3;
+    }
+block_A8:
+    (void) func_08007128((Unk_hardware_H *) arg0);
+    var_r0 = func_0800745C(arg0, (i32) var_r4->unk4);
+    goto block_CA;
+block_B8:
+    var_r6->unk10 = (i32)(var_r4);
+    var_r4 = temp_r5;
+    goto block_A8;
+block_BE:
+    (void) func_08007128((Unk_hardware_H *) arg0);
+    var_r0 = func_0800736C(arg0);
+block_CA:
+    arg0->unk4 = (GenObj__func_08007770 *) var_r0;
+    return arg0;
 }
 }
 
@@ -373,6 +459,126 @@ void func_08007EC8(u8 *arg0) {
     func_080D6F5C(arg0 + 4);
     arg0[0] = 0;
     arg0[1] = 1;
+}
+}
+// DECOMP-MATCHED func_08007EE8 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+/* MATCHED worker-07ee: prolog=str r2 dulu (volatile store) + mov r0 via
+   empty-asm matching-constraint "0" (tahan PRE-hoist). Blok1: temp pin r0,
+   pb=&sp4 (hoist add r3), hoist v (ldr r2 dulu). L36: s0 pin r0, c3 pin r3,
+   lim2 (urutan ldr/mov), -= bertahap (subs,subs dulu). */
+void func_08007EA8(GenObj *arg0);                             /* extern */
+i32 func_080D7118(void *, u32, u32);                  /* extern */
+
+__attribute__((section(".text.hardware.08007EE8")))
+void func_08007EE8(HwObj07EE8 *arg0, u32 arg1, u32 arg2) {
+    u32 sp0;
+    u32 sp4;
+    u32 *var_r2;
+    u32 *pb;
+    u32 v;
+    register u32 temp_r0 asm("r0");
+    register u32 temp_r2 asm("r2");
+    register u32 var_r1 asm("r1");
+    register u32 s0 asm("r0");
+    register u32 c3 asm("r3");
+    u32 lim2;
+    u32 s;
+    u32 var_r1_2;
+    register u32 t asm("r0");
+
+    *(volatile u32 *)&sp0 = arg2;
+    if (arg1 > 0x3FFU) {
+        return;
+    }
+    __asm__ ("" : "=r" (t) : "0" (arg2));
+    if (t == 0) {
+        return;
+    }
+    if ((arg1 == 0) && (t > 0x3FFU)) {
+        func_08007EA8((GenObj *) arg0);
+        return;
+    }
+    if (arg1 <= 0x1FFU) {
+        temp_r0 = (0x1FF + 1) - arg1;
+        sp4 = temp_r0;
+        pb = &sp4;
+        s = sp0;
+        var_r2 = &sp0;
+        if (s > temp_r0) {
+            var_r2 = pb;
+        }
+        v = *var_r2;
+        func_080D7118((void *)((u8 *)arg0 + 4), arg1, v);
+    }
+    s0 = sp0;
+    temp_r2 = arg1 + s0;
+    c3 = 0x200U;
+    if (temp_r2 > c3) {
+        lim2 = 0x1FFU;
+        var_r1 = 0;
+        if (arg1 > lim2) {
+            var_r1 = arg1 + 0xFFFFFE00;
+        }
+        temp_r2 -= c3;
+        temp_r2 -= var_r1;
+        func_080D7118((void *)((u8 *)arg0 + 0x80), var_r1, temp_r2);
+    }
+    var_r1_2 = 0;
+    if (arg0->unk4 != 0) {
+        var_r1_2 = (u32) (0 - arg0->unk80) >> 0x1F;
+    }
+    arg0->unk0 = var_r1_2;
+    arg0->unk1 = 0;
+}
+}
+
+// DECOMP-MATCHED func_08008020 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+void func_08007EA8(GenObj *arg0);                             /* extern */
+u32 func_080D7568(u8 *, u32);
+
+__attribute__((section(".text.hardware.08008020")))
+i32 func_08008020(HwObj08020 *arg0, u32 arg1)
+{
+    register u8 b __asm__("r5");
+    i32 i;
+    u8 *p;
+    u32 r;
+    i32 flag;
+    u32 v;
+
+    if (arg1 <= 9U) {
+        i = 0;
+        p = (u8 *) arg0 + 4;
+        do {
+            b = *p;
+            if (b == 0) {
+                r = func_080D7568(p, arg1);
+                flag = 0;
+                if (r <= 0x1FFU) {
+                    flag = 1;
+                }
+                if (flag != 0) {
+                    arg0->unk1 = b;
+                    v = 0;
+                    if (arg0->unk4 != 0) {
+                        v = (u32) (0 - arg0->unk80) >> 0x1F;
+                    }
+                    arg0->unk0 = (u8) v;
+                    return (i << 9) | r;
+                }
+            }
+            p += 0x7C;
+            i += 1;
+        } while (i <= 1);
+    } else if (arg1 == 0xA) {
+        if (arg0->unk1 != 0) {
+            func_08007EA8((GenObj *) arg0);
+            return 0;
+        }
+    }
+    return 0x400;
 }
 }
 

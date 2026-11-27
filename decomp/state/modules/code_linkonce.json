@@ -2931,13 +2931,14 @@
  },
  "func_080DE05C": {
   "addr": 135127132,
-  "judged_mtime": 1793018159.2077422,
+  "judged_mtime": 1795737660.8034213,
   "module": "code_linkonce.s",
-  "note": "len 40 vs ref 34",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 341,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DE080": {
