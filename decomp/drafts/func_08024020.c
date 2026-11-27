@@ -1,35 +1,22 @@
-typedef struct GenObj {
-    u8 _pad0[40];
-    s32 unk28;
-    u8 _pad2C[2];
-    u8 unk2E;
-    u8 _pad2F[5];
-    struct GenObj *unk34;
-} GenObj;
+u32 func_08024020(u8 *arg0) {
+    u8 *o;
+    u32 v;
+    u32 b;
 
-s32 func_08024020(GenObj *arg0) {
-    s32 n;
-    register s32 v __asm__("r1");
-    GenObj *o;
-
-    o = arg0->unk34;
-    n = o->unk28;
-    if (n != 1) {
-        if (n <= 1) {
-            if (n == 0) {
-                return o->unk2E;
-            } else {
-                return 0;
-            }
+    o = *(u8 **)(arg0 + 0x34);
+    v = *(u32 *)(o + 0x28);
+    switch (v) {
+    case 0:
+        return *(u8 *)(o + 0x2E);
+    case 1:
+        b = *(u8 *)(o + 0x2E) & 0x7F;
+        if (b == 0) {
+            return 1;
         }
-        if (n > 3) {
-            return 0;
-        }
+        return 6;
+    case 2:
+    case 3:
         return 1;
     }
-    v = 1;
-    if (0x7F & o->unk2E) {
-        v = 6;
-    }
-    return v;
+    return 0;
 }

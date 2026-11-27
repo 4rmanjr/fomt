@@ -4535,3 +4535,121 @@ v2 tinggal `byte +0x20: 0x18 vs ref 0x1a [5regalloc @r adds r2, r3, r0 | adds r0
 — hasil penjumlahan ref mendarat di `r2` karena `r0` dipakai lagi untuk
 `arg0 + 4`. Sisa satu nama register; diparkir (2 varian).
 
+### §110 Unlink daftar bertaut ganda: kembaran dengan offset tertukar
+
+`func_080E2170` dan `func_080E21A8` (code_linkonce, 54 B, kembar) HIJAU pada
+percobaan kedua dan dimigrasikan. Bentuknya sama; yang berbeda hanya offset
+node yang dipakai sebagai "next" (`+0xC` vs `+8`), sehingga salah satu cabang
+menukar peran `+8`/`+0xC`.
+
+```c
+void func_080E2170(u8 *arg0, u8 **arg1) {
+    u8 *n;
+    u8 *p;
+
+    n = *(u8 **)(arg0 + 0xC);
+    *(u8 **)(arg0 + 0xC) = *(u8 **)(n + 8);
+    if (*(u8 **)(n + 8) != 0) {
+        *(u8 **)(*(u8 **)(n + 8) + 4) = arg0;
+    }
+    *(u8 **)(n + 4) = *(u8 **)(arg0 + 4);
+    if (arg0 == *arg1) {
+        *arg1 = n;
+    } else {
+        p = *(u8 **)(arg0 + 4);
+        if (arg0 == *(u8 **)(p + 8)) {
+            *(u8 **)(p + 8) = n;
+        } else {
+            *(u8 **)(p + 0xC) = n;
+        }
+    }
+    *(u8 **)(n + 8) = arg0;
+    *(u8 **)(arg0 + 4) = n;
+}
+```
+
+Dua detail yang menentukan (keduanya sempat lolos):
+
+1. `*(u8 **)(arg0 + 0xC) = *(u8 **)(n + 8);` lalu **membaca ulang**
+   `*(u8 **)(n + 8)` di `if` — jangan menyimpannya di variabel. Store pertama
+   bisa aliasing, jadi ref memuat ulang; itu juga yang membuat `if`-nya memakai
+   nilai baru, bukan salinan lama.
+2. `p` **dideklarasikan dan dipakai hanya di cabang `else`**. Kalau `p` dihitung
+   sebelum percabangan (varian pertama), agbcc memakai r4 dan menambah
+   `push {r4, lr}`, sedangkan ref cukup `push {lr}` karena `p` masuk `r1` yang
+   sudah mati setelah uji kepala daftar. Gejalanya:
+   `len 56 vs ref 54 [@i push {lr} | push {r4, lr}]`.
+
+`func_080E21A8` identik dengan `n = *(u8 **)(arg0 + 8)`, `*(u8 **)(n + 0xC)`,
+dan cabang yang menukar `+0xC`/`+8`. Kalau menemukan pasangan lain dari kelas
+ini, tulis badan dari yang pertama lalu tukar offset "next" untuk yang kedua.
+
+### §111 Penolakan putaran ini
+
+`func_0803A144` (code_entities_08034CEC, 60 B) — tabel `u16` dua kolom:
+`v = (s8)((s8)arg2 < 0 ? (u8)func_080AB788(3) : (u8)arg2)`, lalu
+`dest[2] = tabel[v*2]`, `dest[3] = tabel[v*2+1]`. Tiga varian (param `s8`,
+param `s32` dengan cast `(s8)`, dan `extern u16 tabel[]` ber-indeks). Semua
+berhenti di literal pool:
+
+```
+ref                                    kita
+ldr r2, [pc, #0x20]    <- hilang       (base tabel dimuat di posisi lain)
+```
+
+`byte +0x16: 0x1 vs ref 0x8 [1missing,4extra,11regalloc @< ldr r2, [pc, #0x20] | ]`.
+Perbedaan `lsls`/`lsrs` di prolog juga ikut bergeser tiap varian
+(`lsrs r0, r2, #0x18 | lsrs r3, r2, #0x18`). Diparkir 3 varian.
+
+`func_080370D8` (code_entities_08034CEC, 64 B) — `p = *(arg0+0x10)`, `p += 0x30`,
+uji `*(u16*)(p+0xE)` lalu `t = ((0 - *(s16*)(p+0x10)) | ...) >> 31`, satu call
+`func_0805E894(p)` dan `return 1` bila `p == 0`. Dua varian:
+
+```
+ref                                    kita (v1)             kita (v2: arg0 = *(...))
+ldr r0, [r0, #0x10]                    ldr r1, [r0, #0x10]   beq #0x36 | bne #0xc (terbalik)
+```
+
+v1 `len 60 vs ref 62 [2missing,1extra,4operand,10regalloc,3different]`; v2
+membalik percabangan sehingga lebih jauh. Diparkir.
+
+`func_08023378` / `func_08024020` (code_entities, 60 B, kembar) — switch pada
+`*(u32*)(*(u32*)(arg0+0x34) + 0x28)` dengan kasus 0/1/2/3. Ref memakai pohon
+keputusan biner (`cmp #1; beq; cmp #1; bgt; cmp #0; beq; … cmp #3; ble`), bukan
+tabel lompat. Dua bentuk dicoba (switch dan rantai-if yang meniru urutan
+tersebut):
+
+```
+ref                                    kita
+len 60                                 len 50 (switch) / len 54 (rantai-if)
+@i beq #0x22 | beq #0x1c
+```
+
+`len 50 vs ref 60 [5missing,...]` dan `len 54 vs ref 60 [12missing,9extra,...]`.
+Keduanya diparkir bersama (bentuk identik).
+
+`func_08037B48` (code_entities_08034CEC, 56 B) — konstruktor
+`__builtin_new(0x44)` + call 5-argumen (`0x379` di r3, `0xC` di stack) + store
+vtable `+0x14`:
+
+```
+ref                                    kita
+ldr r3, [pc, #0x1c]    <- hilang       (literal 0x379 dimaterialkan lain)
+```
+
+`byte +0x10: 0x7 vs ref 0xc [1missing,4extra]`. Satu varian, diparkir.
+
+`func_080DD540` / `func_080DDEC4` (code_linkonce, 72 B, kembar) — guard
+`func_0803A180(arg0, arg0+0x50, 0x10000 / 0x2000)`, bandingkan
+`*(u16*)(arg0+4)` dengan `*(u32*)(arg0+0x50) + 0x9A9 / 0x806`, lalu
+`func_0805E860(arg0+0x30, v)` dan tiga `strb` di `+0x44..+0x47`:
+
+```
+ref                                    kita
+len 74                                 len 66
+@i beq #0x3e | beq #0x3a
+```
+
+`byte +0x12: 0x12 vs ref 0x14 [3missing,4extra,6operand,2regalloc,1stack]`.
+Satu varian, diparkir berdua.
+
