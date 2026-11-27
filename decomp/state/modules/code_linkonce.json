@@ -15112,11 +15112,12 @@
   "addr": 134721524,
   "judged_mtime": 1795434528.578807,
   "module": "code_0803EE94.s",
-  "note": "len 72 vs ref 68 [1missing,3extra,3operand,2regalloc @r ldr r2, [r1] | ldr r3, [r1]]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 68,
   "sanitize_v": 4,
   "size": 560,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0807B038": {
@@ -24762,7 +24763,7 @@
   "addr": 135070804,
   "judged_mtime": 1793582714.2233872,
   "module": "code_809E804.s",
-  "note": "/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080D0454/opencode/func.c:20: request for member `unk1C' in something not a structure or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080D0454/opencode/func.c:21: warning: passing arg 1 of `func_080D0BA8' from incompatible pointer type\n",
+  "note": "",
   "ref_len": 260,
   "sanitize_v": 4,
   "size": 1787,

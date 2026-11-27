@@ -1,23 +1,23 @@
 u32 *func_080E3398(s32, s32, u32 *, s32, s32);      /* extern */
 
-typedef struct GenObj {
-    u8 _pad0[2112];
-    s32 unk840;
-    u8 _pad844[540];
-    s32 unkA60;
-} GenObj;
-s32 func_0807AFF4(GenObj *arg0) {
+s32 func_0807AFF4(u8 *arg0) {
+    s32 *pr;
+    s32 a;
+    s32 b;
     u32 sp4;
-    s32 temp_r4;
-    s32 var_r2;
-    u32 *temp_r0;
+    u32 *r;
+    s32 v;
 
-    temp_r4 = (arg0 + 0xA60)->unk4;
-    sp4 = (u16) arg0->unk840 >> 4;
-    temp_r0 = func_080E3398(arg0->unkA60, temp_r4, &sp4, 0, 0);
-    var_r2 = 0;
-    if ((temp_r0 != temp_r4) && (sp4 >= (u32) *temp_r0)) {
-        var_r2 = 1;
+    pr = (s32 *) (arg0 + 0xA60);
+    a = pr[0];
+    b = pr[1];
+    sp4 = (u32) (*(u16 *) (arg0 + 0x840)) >> 4;
+    r = func_080E3398(a, b, &sp4, 0, 0);
+    v = 0;
+    if (r != (u32 *) b) {
+        if (sp4 >= *r) {
+            v = 1;
+        }
     }
-    return var_r2;
+    return v;
 }

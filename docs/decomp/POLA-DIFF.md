@@ -5343,3 +5343,99 @@ Pembukti (8/8 MATCH + 8 migrasi): `func_08012028` (`game_state.cc`),
    str r2,[r0,#4]; bx lr`) sehingga simbol ROM 72 B. Badan C-nya identik
    dengan 8 saudara di atas, tapi 12 byte tak-terjangkau itu tidak bisa
    dihasilkan C mana pun → parkir (bukan wall bentuk C).
+
+## §122 Batch 2026-11-27 (lanjutan-2): argumen stack ke-5 dan command buffer di stack
+
+### 122.1 `bl` 5-argumen: argumen ke-5 hilang dari draf m2c — `func_0807AFF4`
+
+`func_0807AFF4` (code_0803EE94.s) memanggil `func_080E3398` dengan **lima**
+argumen; m2c hanya menghasilkan empat (`func_080E3398(a, b, &sp4, 0)`) sehingga
+`str r0, [sp]` (arg ke-5) hilang dan seluruh alokasi register bergeser
+(9 beda: `1missing,3extra,3operand,2regalloc`, len 72 vs 68).
+
+Bentuk yang MATCH:
+
+```c
+    pr = (s32 *) (arg0 + 0xA60);
+    a  = pr[0];
+    b  = pr[1];
+    sp4 = (u32) (*(u16 *) (arg0 + 0x840)) >> 4;
+    r  = func_080E3398(a, b, &sp4, 0, 0);
+    v = 0;
+    if (r != (u32 *) b) {
+        if (sp4 >= *r) {
+            v = 1;
+        }
+    }
+```
+
+Dua hal yang menentukan:
+
+1. **Skalar dibaca lewat satu pointer basis ke lokal biasa, sebelum ekspresi
+   alamat.** Kalau ditulis `func_080E3398(*(s32 *)(arg0+0xA60), *(s32*)(arg0+0xA64), ...)`
+   (atau `pr->a`/`pr->b` di call-site), agbcc memuat `0xA64` lewat literal pool
+   terpisah (`ldr r3, .L4`) dan menyimpan basis `pr` di `r4`, sehingga `b`
+   di-reload setelah `bl`. Dengan `a`/`b` sebagai lokal, urutannya jadi
+   `ldr r2,[r1]; ldr r4,[r1,#4]` dan **`b` bertahan di `r4` (callee-saved)
+   melewati `bl`** — persis ROM.
+2. **Argumen ke-5 harus literal `0`.** Dua literal `0` di posisi 4-5 membuat
+   agbcc menyiapkan slot stack lebih dulu (`movs r0,#0; str r0,[sp]`) lalu
+   mengisi r0-r3; memakai variabel `s32 z = 0` mengubah urutan itu.
+3. Perbandingan tak-tanda tetap `sp4 >= *r` → `bcc` (`blo`).
+
+### 122.2 Command buffer 0x20 byte di stack + kirim berulang — `func_080D0454`
+
+`func_080D0454` mengisi struct 0x20 byte di stack lalu memanggil
+`func_080D0BA8(&st)`; pola ini dipakai 4 fungsi (`func_080D02F0`,
+`func_080D0454`, `func_080D0558`, `func_080D05DC` di code_809E804.s —
+keluarga berikutnya).
+
+```c
+typedef struct Cmd20 {
+    s32 kind;   /* 0x0 */
+    s32 unk4;   /* 0x4 */
+    s32 unk8;   /* 0x8 */
+    s32 unkC;   /* 0xC */
+    void *p;    /* 0x10 */
+    s32 unk14;  /* 0x14 */
+    s32 n;      /* 0x18 */
+    u16 h;      /* 0x1C */
+} Cmd20;
+```
+
+Catatan penting:
+
+- `gUnk_03000420` adalah **global berisi pointer** (`ldr r4, =gUnk; ldr r1,[r4]`).
+  Tiap pemakaian harus men-dereference ulang global itu (`(u8*)gUnk_03000420 + 0x24`),
+  jangan simpan hasilnya di variabel: `bl` bisa mengubah global, dan ROM memang
+  memuat ulang (`ldr r0,[r4]` dua kali).
+- Field `u16 h` di offset 0x1C ditulis `strh` lewat alamat hasil hitung
+  (`mov r1, sp; strh r0,[r1,#0x1c]`) — bukan `strh r0,[sp,#0x1c]`. Ini muncul
+  otomatis dari field struct, tidak perlu trik.
+- **Jebakan migrasi:** `func_080D0BA8` sudah ada di `src/code_809E804.cc` dengan
+  parameter `GenObj__func_080D0BA8 *`. Draf yang mendeklarasikan tipenya sendiri
+  (`Cmd20`), atau cast `(void *)&st`, ditolak `migrate.py`
+  (`multi-pointer butuh cast/penyatuan manual` → SKIP) karena tipe argumen
+  hasil-generate menjadi `Cmd20__func_080D0454 *`. Akibatnya fungsi ini
+  **MATCH + promoted tapi belum masuk `src/`** (promote-only). Menyatukan tipe
+  call-site dengan tipe parameter src adalah pekerjaan manual berikutnya.
+
+### 122.3 Wall terukur pada batch ini (diparkir, bukan diklaim)
+
+- **Klaster 20 fungsi `game_state.s` (ctor salinan `ldm/stm`, 66 instruksi).**
+  Satu percobaan nyata pada `func_08012BBC`: `DIFF byte +0x2: 0x47 vs ref 0x87
+  (11missing,15extra,6operand,7regalloc,4stack,12different)`. Bentuknya butuh
+  *holder volatile* (dua slot stack bertumpuk: `sp[0xc]` holder, `sp[0x10]`
+  temp salinan 12 B) dengan guard pembersihan yang mati karena holdernya
+  dinolkan — pola §121.3/klaster L tapi dua tingkat. Belum ada bentuk C yang
+  terbukti; 19 saudaranya identik kecuali vtable, jadi satu bentuk akan
+  membuka 20 fungsi sekaligus.
+- **Kembar ctor 0x44 (`func_08037B48`/`func_08037B80`).** Sisa beda
+  `1missing,4extra` dengan `byte +0x10`: agbcc memuat literal argumen ke-4
+  (`ldr r3, .L`) **sebelum** menyiapkan slot stack, ROM memuatnya **sesudah**.
+  Tiga varian (variabel `k`, prototipe tanpa-argumen, cast) menghasilkan urutan
+  yang sama; belum ditemukan pemicu urutan ROM.
+- **`func_08032A00` (ctor 8-argumen, 4 stack).** Sisa satu beda: ROM menulis
+  argumen ke-8 (u8) dengan `add r2, sp, #0xc; strb r0, [r2]`, agbcc menulis
+  `str r0, [sp, #0xc]` (word) untuk `(u8)0`, `s8 z = 0`, maupun prototipe
+  `u8` — promosi integer membuat store word.

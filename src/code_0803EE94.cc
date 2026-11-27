@@ -3896,6 +3896,34 @@ i32 func_080782C4(i32 dummy, u32 arg1, u32 arg2, GenObj__func_080782C4 *arg3) {
 /* ATTEMPT-NOTE opencode: struct di r3 via i32 dummy (arg1=r1, arg2=r2); 4 member u8. */
 }
 
+// DECOMP-MATCHED func_0807AFF4 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+extern "C" {
+u32 *func_080E3398(i32, i32, u32 *, i32, i32);      /* extern */
+
+__attribute__((section(".text.code_0803EE94.0807AFF4")))
+i32 func_0807AFF4(u8 *arg0) {
+    i32 *pr;
+    i32 a;
+    i32 b;
+    u32 sp4;
+    u32 *r;
+    i32 v;
+
+    pr = (i32 *) (arg0 + 0xA60);
+    a = (i32)(pr[0]);
+    b = (i32)(pr[1]);
+    sp4 = (u32) (*(u16 *) (arg0 + 0x840)) >> 4;
+    r = func_080E3398(a, b, &sp4, 0, 0);
+    v = 0;
+    if (r != (u32 *) b) {
+        if (sp4 >= *r) {
+            v = 1;
+        }
+    }
+    return v;
+}
+}
+
 // DECOMP-MATCHED func_0807B038 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __builtin_new(i32);                             /* extern */
@@ -5717,7 +5745,6 @@ void **func_08092604(void ***arg0, GenObj__func_08092604 *arg1) {
     return (void **) arg0;
 }
 }
-
 
 // DECOMP-MATCHED func_08092690 (dari code_0803EE94.s; cek manusia sebelum ke src/)
 extern "C" {

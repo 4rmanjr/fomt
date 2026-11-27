@@ -1,16 +1,18 @@
-void *__builtin_new(s32);                           /* extern */
-s32 func_08037008(void *, s32, s32, s32, s32);        /* extern */
-extern s32 vtable_unk_080E7218;
+s32 __builtin_new(s32);                             /* extern */
+s32 func_08037008();                                /* extern */
 
-typedef struct GenObj {
-    u8 _pad0[20];
-    void *unk14;
-} GenObj;
-void *func_08037B80(s32 arg0, s32 arg1) {
-    GenObj *temp_r0;
+extern u32 vtable_unk_080E7218[];
 
-    temp_r0 = __builtin_new(0x44);
-    func_08037008(temp_r0, arg0, arg1, 0x207, 0xA);
-    temp_r0->unk14 = &vtable_unk_080E7218;
-    return temp_r0;
+typedef struct Obj44 {
+    u8 _pad0[0x14];
+    void *vt;       /* 0x14 */
+} Obj44;
+
+void *func_08037B80(void *arg0, void *arg1) {
+    Obj44 *o;
+
+    o = (Obj44 *) __builtin_new(0x44);
+    func_08037008(o, arg0, arg1, 0x207, 0xa);
+    o->vt = (void *) vtable_unk_080E7218;
+    return o;
 }

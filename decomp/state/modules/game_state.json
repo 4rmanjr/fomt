@@ -961,9 +961,9 @@
  },
  "func_08012BBC": {
   "addr": 134294460,
-  "judged_mtime": 1793582714.0424163,
+  "judged_mtime": 1795753034.5670652,
   "module": "game_state.s",
-  "note": "re or union\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08012BBC/opencode/func.c:54: warning: assignment makes pointer from integer without a cast\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_08012BBC/opencode/func.c:56: request for member `unk8' in something not a structure or union\n",
+  "note": "byte +0x2: 0x47 vs ref 0x87 [11missing,15extra,6operand,7regalloc,4stack,12different @>  | push {r4, r5, r6, r7, lr}]",
   "ref_len": 148,
   "sanitize_v": 4,
   "size": 1516,
