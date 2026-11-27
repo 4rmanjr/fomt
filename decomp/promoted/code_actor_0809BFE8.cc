@@ -91,14 +91,14 @@ void func_0809C0C8(GenObj *arg0, s32 *arg1) {
 }
 
 // DECOMP-MATCHED func_0809C444 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
-s32 func_0809C22C();                                /* extern */
+s32 func_0809C22C(s32, s32);                        /* extern */
 u8 func_0809C3E0(s32, s32);
-u8 func_0809C444(s32 arg0) {
+u8 func_0809C444(s32 arg0, s32 arg1) {
     s32 temp_r0;
     u8 var_r5;
 
     var_r5 = 0;
-    temp_r0 = func_0809C22C();
+    temp_r0 = func_0809C22C(arg0, arg1);
     if ((*((u8 *)arg0 + temp_r0) != 0) && ((temp_r0 == 0) || (temp_r0 == 3))) {
         var_r5 = ((u8 (*)(s32)) func_0809C3E0)(arg0);
     }
@@ -106,15 +106,15 @@ u8 func_0809C444(s32 arg0) {
 }
 
 // DECOMP-MATCHED func_0809C474 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
-s32 func_0809C22C();                                /* extern */
+s32 func_0809C22C(s32, s32);                        /* extern */
 u8 func_0809C3E0(s32, s32);
 s32 func_0809C420(s32, s32);                          /* extern */
 
-u8 func_0809C474(s32 arg0) {
+u8 func_0809C474(s32 arg0, s32 arg1) {
     s32 temp_r0;
     u8 var_r6;
 
-    temp_r0 = func_0809C22C();
+    temp_r0 = func_0809C22C(arg0, arg1);
     var_r6 = 0;
     if (*((u8 *)arg0 + temp_r0) != 0) {
         if ((temp_r0 == 1) || (temp_r0 == 4)) {
@@ -128,13 +128,13 @@ u8 func_0809C474(s32 arg0) {
 }
 
 // DECOMP-MATCHED func_0809C4B4 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
-s32 func_0809C22C();                                /* extern */
+s32 func_0809C22C(s32, s32);                        /* extern */
 u8 func_0809C3E0(s32, s32);
-u8 func_0809C4B4(s32 arg0) {
+u8 func_0809C4B4(s32 arg0, s32 arg1) {
     s32 temp_r0;
     u8 var_r2;
 
-    temp_r0 = func_0809C22C();
+    temp_r0 = func_0809C22C(arg0, arg1);
     var_r2 = 0;
     if ((*((u8 *)arg0 + temp_r0) != 0) && ((temp_r0 == 5) || (temp_r0 == 2))) {
         var_r2 = ((u8 (*)(s32)) func_0809C3E0)(arg0);

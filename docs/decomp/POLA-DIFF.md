@@ -5916,3 +5916,27 @@ dihitung runtime). agbcc selalu melipat `ent[4] & -0x10` / `& ~0xF` menjadi
 satu ekspresi, variabel `m`, `m = -0x10; m &= ent[4];`, dan urutan operand
 dibalik. Yang paling dekat (`m = -0x10 & ent[4]`) hanya bertukar register
 (nilai di r0 vs r1) tetapi byte tetap beda.
+
+## §133 Membuka blocker "tiga pemanggil ber-extern K&R": `func_0809C22C` masuk `src/`
+
+Blocker §131.2 dibuka tanpa mengubah satu byte pun kode yang sudah MATCH.
+
+Resepnya:
+
+1. Ketiga pemanggil (`func_0809C444`, `func_0809C474`, `func_0809C4B4`) diberi
+   **parameter kedua yang tak dipakai** — `f(i32 arg0, i32 arg1)` — dan
+   pemanggilannya menjadi `func_0809C22C(arg0, arg1)`.
+2. Karena `arg0`/`arg1` sudah berada di `r0`/`r1` sesuai ABI, agbcc tidak
+   mengeluarkan instruksi tambahan: `make compare` tetap `fomt.gba: OK`,
+   artinya byte ketiga blok itu identik sebelum dan sesudah perubahan.
+3. Extern di ketiga blok disamakan menjadi `i32 func_0809C22C(i32, i32);`
+   sehingga definisi 2-parameter tidak lagi memicu `too few arguments`.
+4. `migrate.py --module code_actor_0809BFE8.s --func func_0809C22C` →
+   rc=0, `fomt.gba: OK`, `fomt.map` `.text.code_actor_0809BFE8.0809C22C`
+   `0xd8` dari `src/code_actor_0809BFE8.o`, marker pindah ke `src/`.
+
+Kuncinya: parameter "hantu" di `r1` memang bagian dari kontrak fungsi di ROM
+(pemanggil tidak pernah mengisi `r1`, jadi nilainya diwarisi), sehingga
+menambahkannya ke tanda tangan **tidak** mengubah codegen — yang berubah hanya
+deklarasi. Ini jalur umum untuk semua kasus "callee 2-parameter, pemanggil
+1-parameter" yang selama ini diparkir sebagai SKIP.

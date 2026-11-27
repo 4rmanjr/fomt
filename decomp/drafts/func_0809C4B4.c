@@ -1,11 +1,11 @@
-s32 func_0809C22C();                                /* extern */
+s32 func_0809C22C(s32, s32);                                /* extern */
 u8 func_0809C3E0(s32);                              /* extern */
 
-u8 func_0809C4B4(s32 arg0) {
+u8 func_0809C4B4(s32 arg0, s32 arg1) {
     s32 temp_r0;
     u8 var_r2;
 
-    temp_r0 = func_0809C22C();
+    temp_r0 = func_0809C22C(arg0, arg1);
     var_r2 = 0;
     if ((*((u8 *)arg0 + temp_r0) != 0) && ((temp_r0 == 5) || (temp_r0 == 2))) {
         var_r2 = func_0809C3E0(arg0);

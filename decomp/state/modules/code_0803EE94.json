@@ -2989,9 +2989,9 @@
  },
  "func_08076B94": {
   "addr": 134704020,
-  "judged_mtime": 1795758091.8500628,
+  "judged_mtime": 1795695375.7407656,
   "module": "code_0803EE94.s",
-  "note": "8076B94':\n/workspace/chats/19fd550f73b6fba36b4523aa/decomp/logs/judge_func_08076B94/bufAE1/func.c:20: warning: dereferencing `void *' pointer\n/workspace/chats/19fd550f73b6fba36b4523aa/decomp/logs/judge_func_08076B94/bufAE1/func.c:20: request for member `unk5B4' in something not a structure or union\n",
+  "note": "byte +0x2: 0x6 vs ref 0xc [2missing,3extra,5operand,4regalloc @< adds r4, r1, #0 | ]",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 681,
