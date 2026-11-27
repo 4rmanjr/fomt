@@ -535,7 +535,7 @@
   "addr": 134357672,
   "judged_mtime": 1793925737.3438303,
   "module": "code_entities.s",
-  "note": "",
+  "note": "PARKIR: butuh store byte 0 via add+strb (sp+0xc) yg tak muncul dari bentuk wajar; 4 bentuk diukur (8-arg s8, volatile s8, struct 5B, array+ptr cast) semuanya DIFF; sisa beda: mov r0,#0/str [sp,#8] vs ROM mov r1,#0/str [sp,#8]+add r0,sp,#0xc/strb r1,[r0]",
   "ref_len": 120,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
@@ -703,13 +703,14 @@
  },
  "func_080233B4": {
   "addr": 134362036,
-  "judged_mtime": 1795435251.4348838,
+  "judged_mtime": 1795757426.0975342,
   "module": "code_entities.s",
-  "note": "PARKIR \u00a7119 (diukur judge): len 72 vs ref 76 [4missing,4extra,4operand,1regalloc @i push {r4, r5, r6, r7, lr} | push {r4, r5, r6, lr}]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 76,
   "sanitize_v": 4,
   "size": 839,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08023400": {

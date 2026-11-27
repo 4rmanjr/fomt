@@ -1691,3 +1691,36 @@ void func_08020410(S_08020410Obj *arg0, u32 arg1) {
     method_0809BB48__3DogPC15UnkBarnAnimal2C(arg0->unk34, &sp0);
     func_080211E4(arg0, 0, arg0->unk20);
 }
+
+// DECOMP-MATCHED func_080233B4 (dari code_entities.s; cek manusia sebelum ke src/)
+s32 GetDaysPregnant__C10BarnAnimal(s32);            /* extern */
+s32 GetGrowthStage__C3Cow(s32);                     /* extern */
+s32 IsPregnant__C10BarnAnimal(s32);                 /* extern */
+extern s32 gUnk_080F0C3C;
+
+typedef struct GenObj {
+    u8 _pad0[52];
+    s32 unk34;
+} GenObj;
+
+u16 func_080233B4(GenObj *arg0, s32 arg1) {
+    s32 temp_r0;
+    s32 temp_r5;
+    s32 var_r0;
+    u32 var_r6;
+    u8 *tbl;
+
+    var_r6 = 0;
+    if ((IsPregnant__C10BarnAnimal(arg0->unk34) << 0x18) != 0) {
+        temp_r0 = GetDaysPregnant__C10BarnAnimal(arg0->unk34);
+        var_r6 = (u32) ((0 - temp_r0) | temp_r0) >> 0x1F;
+    }
+    tbl = (u8 *) &gUnk_080F0C3C;
+    temp_r5 = arg1 * 2;
+    if (var_r6 != 0) {
+        var_r0 = temp_r5 + 0x2A;
+    } else {
+        var_r0 = temp_r5 + (GetGrowthStage__C3Cow(arg0->unk34) * 0xE);
+    }
+    return *(u16 *) (tbl + var_r0);
+}

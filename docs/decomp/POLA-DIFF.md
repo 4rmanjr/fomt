@@ -5704,3 +5704,48 @@ diganti `void *arg1` sisa beda terukur: `mov r0,#0 / str r0,[sp,#8]` vs ROM
 menulis byte nol di `sp+0xc` yang tidak muncul dari `s8 spC = 0;` (dioptimasi
 habis karena tak pernah dibaca). Butuh bentuk C lain (mis. slot yang
 alamatnya lolos ke callee) → diparkir.
+
+## §127 `func_080233B4` (code_entities.s) — tabel u16 dengan offset byte + parkir `func_080222A8`
+
+Fungsi 76 byte: cek `IsPregnant`, hitung `(0 - hari) | hari >> 31`, lalu pilih
+offset `arg1*2 + 0x2A` (hamil) atau `arg1*2 + tahap*0xE`, dan baca `ldrh` dari
+tabel `gUnk_080F0C3C`.
+
+### 127.1 Global jadi `u8 *` yang di-hoist, bukan indeks `s32 *`
+
+Dua kesalahan yang terukur:
+
+| bentuk | akibat |
+|---|---|
+| `*(&gUnk_080F0C3C + var_r0)` (global `s32`) | offset dikali 4 dan `ldr` tabel muncul **di akhir**, tanpa `push r7` → DIFF (`len 72 vs 76`, `4missing,4extra`) |
+| `u8 *tbl = (u8 *) &gUnk_080F0C3C;` sebelum cabang, lalu `*(u16 *)(tbl + var_r0)` | **MATCH**: `ldr r7,=gUnk` tepat setelah blok `if`, `push {..., r7}`, dan `adds r0,r7,r0; ldrh r0,[r0]` |
+
+Aturannya: kalau ROM memuat alamat global ke register callee-saved (`r7`) dan
+menambahkan offset **byte** mentah, sumbernya pointer `u8 *`/`void *` yang
+di-assign lebih awal, bukan indeks pada array bertipe lebar. `var_r0` sudah
+dalam satuan byte (`arg1*2`), jadi jangan biarkan C menskalakan lagi.
+
+### 127.2 Idiom `(0 - x) | x` >> 31
+
+`var = (u32)((0 - temp) | temp) >> 0x1F;` menghasilkan `rsbs r1,r0,#0 /
+orrs r1,r0 / lsrs r6,r1,#0x1F` persis ROM. Menyimpan `temp` dulu lalu memakai
+`>` 0 atau `!= 0` memberi cabang berbeda; bentuk bit-trick harus dipertahankan.
+
+### 127.3 Parkir `func_080222A8` (5 bentuk diukur)
+
+Sisa beda tetap satu blok: ROM `mov r1,#0 / str r1,[sp,#8]` lalu
+`add r0,sp,#0xc / strb r1,[r0]`, sedangkan C menghasilkan `mov r0,#0 /
+str r0,[sp,#8]` (tanpa store byte). Bentuk yang dicoba dan hasilnya:
+
+| # | bentuk | hasil |
+|---|---|---|
+| 1 | 7 arg + `s8 spC; spC = 0;` | DIFF: store byte hilang (dead store) |
+| 2 | 8 arg, arg ke-8 `s8` (`..., 0, 0`) | DIFF: `str r0,[sp,#0xc]` (word), bukan `strb` |
+| 3 | `volatile s8 spC` | store muncul tapi `add r1,sp,#12 / mov r0,#0 / strb r0,[r1]` + urutan sebelum arg lain |
+| 4 | struct `{s32; s8;}` lokal | DIFF: read-modify-write, frame `0x14` |
+| 5 | `s32 sp0[4]` + `((s8 *)sp0)[12] = 0` | DIFF: `strb r1,[r0,#0xc]` (addressing beda), frame `0x1c` |
+
+Kesimpulan: store byte di `sp+0xc` bukan parameter (parameter `s8` disimpan
+word) dan bukan local biasa (dihapus sebagai dead store), sehingga bentuk C
+yang menghasilkannya belum ditemukan. Diparkir dengan angka di atas; jangan
+diulang tanpa ide baru.

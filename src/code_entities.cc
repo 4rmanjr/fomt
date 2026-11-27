@@ -352,6 +352,20 @@ typedef struct GenObj__func_08024C74 {
 } GenObj__func_08024C74;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct S_08020410Sub { u8 _pad20[0x20]; i32 unk20; } S_08020410Sub;
+typedef struct S_08020410Obj {
+    u8 _pad0[0x20];
+    u8 unk20;
+    u8 _pad21[0x13];
+    S_08020410Sub *unk34;
+} S_08020410Obj;
+typedef struct GenObj__func_080233B4 {
+    u8 _pad0[52];
+    i32 unk34;
+} GenObj__func_080233B4;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08020060 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -568,15 +582,6 @@ __attribute__((section(".text.code_entities.0802030C")))
 void func_0802030C(void) {
 }
 }
-
-typedef struct S_08020410Sub { u8 _pad20[0x20]; i32 unk20; } S_08020410Sub;
-
-typedef struct S_08020410Obj {
-    u8 _pad0[0x20];
-    u8 unk20;
-    u8 _pad21[0x13];
-    S_08020410Sub *unk34;
-} S_08020410Obj;
 
 // DECOMP-MATCHED func_08020310 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -871,6 +876,37 @@ i32 func_08022B5C(i32 arg0) {
 }
 }
 
+// DECOMP-MATCHED func_080233B4 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 GetDaysPregnant__C10BarnAnimal(i32);            /* extern */
+i32 GetGrowthStage__C3Cow(i32);                     /* extern */
+i32 IsPregnant__C10BarnAnimal(i32);                 /* extern */
+extern i32 gUnk_080F0C3C;
+
+__attribute__((section(".text.code_entities.080233B4")))
+u16 func_080233B4(GenObj__func_080233B4 *arg0, i32 arg1) {
+    i32 temp_r0;
+    i32 temp_r5;
+    i32 var_r0;
+    u32 var_r6;
+    u8 *tbl;
+
+    var_r6 = 0;
+    if ((IsPregnant__C10BarnAnimal((i32)(arg0->unk34)) << 0x18) != 0) {
+        temp_r0 = GetDaysPregnant__C10BarnAnimal((i32)(arg0->unk34));
+        var_r6 = (u32) ((0 - temp_r0) | temp_r0) >> 0x1F;
+    }
+    tbl = (u8 *) &gUnk_080F0C3C;
+    temp_r5 = arg1 * 2;
+    if (var_r6 != 0) {
+        var_r0 = temp_r5 + 0x2A;
+    } else {
+        var_r0 = temp_r5 + (GetGrowthStage__C3Cow((i32)(arg0->unk34)) * 0xE);
+    }
+    return *(u16 *) (tbl + var_r0);
+}
+}
+
 // DECOMP-MATCHED func_08023400 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_entities.08023400")))
@@ -1089,7 +1125,6 @@ void func_08024C64(GenObj6 *arg0) {
 // DECOMP-MATCHED func_08024C74 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 
-
 __attribute__((section(".text.code_entities.08024C74")))
 void func_08024C74(GenObj__func_08024C74 *arg0) {
     arg0->unk3C = 0;
@@ -1097,7 +1132,6 @@ void func_08024C74(GenObj__func_08024C74 *arg0) {
     arg0->unkA6 = 0;
 }
 }
-
 
 // DECOMP-MATCHED func_08024C88 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
