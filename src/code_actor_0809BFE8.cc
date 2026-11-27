@@ -262,6 +262,14 @@ u8 func_0809C4B4(i32 arg0, i32 arg1) {
     return var_r2;
 }
 }
+// DECOMP-MATCHED func_0809C4E4 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_actor_0809BFE8.0809C4E4")))
+void func_0809C4E4(i32 *arg0) {
+    *arg0 = 0;
+}
+}
+
 
 // DECOMP-MATCHED func_0809C5B4 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
 extern "C" {

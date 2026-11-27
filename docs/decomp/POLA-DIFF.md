@@ -5940,3 +5940,40 @@ Kuncinya: parameter "hantu" di `r1` memang bagian dari kontrak fungsi di ROM
 menambahkannya ke tanda tangan **tidak** mengubah codegen — yang berubah hanya
 deklarasi. Ini jalur umum untuk semua kasus "callee 2-parameter, pemanggil
 1-parameter" yang selama ini diparkir sebagai SKIP.
+
+## §134 Memberi pemilik pada data asing di ekor: `func_0809C4E4` + `func_0801740C` masuk `src/`
+
+Dua fungsi yang sebelumnya SKIP-permanen ("data asing N B menempel ekor")
+sekarang tinggal di `src/` — bukan dengan melonggarkan SKIP, tapi dengan
+memberi ekornya pemilik sah.
+
+**Akar masalahnya bukan datanya, melainkan bentuk direktifnya.**
+`tools/scripts/split_asm_sections.py:_trailing_data_start` punya pengecualian
+untuk "satu `.align` + data yatim di ujung chunk", dengan syarat ketat:
+**maksimal 2 baris non-blank setelah `.align` terakhir** (label + satu baris
+direktif, atau dua baris direktif). Blob 36B `func_0809C4E4` ditulis sebagai
+label + **3** baris `.byte`; blob 92B `func_0801740C` sebagai label + **7**
+baris `.byte`. Karena `n > 2`, splitter menolak memotongnya → blob tetap
+milik chunk fungsi → migrate memblokir ("pindah butuh pemilik data tsb").
+
+**Resepnya** (tidak mengubah satu byte ROM):
+
+1. Gabungkan direktif `.byte` pada ekor itu menjadi **satu baris** — urutan
+   nilai sama persis, jadi hasil rakitan identik.
+2. Splitter kini memotong ekor menjadi chunk `data` dengan section beralamat:
+   `.text.code_actor_0809BFE8.0809C4EC` (0x24) dan
+   `.text.game_state.0801746C` (0x5C).
+3. Guard migrate (`_saved`) menemukan chunk data yang mencakup rentang
+   `(addr, addr+ref_len)` → SKIP dilewati, `migrate.py` jalan.
+4. Data tetap **di asm** sebagai section/simbol murni (bukan fungsi: tak ada
+   `thumb_func_start`, tak dirujuk siapa pun) — persis pola `gData_*` yang
+   sudah dipakai repo ini.
+
+Bukti:
+
+| Fungsi | Section src | Ukuran | Data ekor (asm) | `fomt.map` |
+|---|---|---|---|---|
+| `func_0809C4E4` | `.text.code_actor_0809BFE8.0809C4E4` | 0x8 | `.text...0809C4EC` 0x24 | `src/code_actor_0809BFE8.o` |
+| `func_0801740C` | `.text.game_state.0801740C` | 0x60 | `.text.game_state.0801746C` 0x5C | `src/game_state.o` |
+
+`make compare` `fomt.gba: OK` sesudah kedua migrasi.
