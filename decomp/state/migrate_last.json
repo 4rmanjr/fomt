@@ -160,19 +160,19 @@
     "when": "2026-11-26T12:54:36"
   },
   "code_809E804.s:func_080D1186": {
-    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
-    "status": "GAGAL",
-    "when": "2026-11-27T09:03:00"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:26:43"
   },
   "code_809E804.s:func_080D14EC": {
-    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
-    "status": "GAGAL",
-    "when": "2026-11-27T09:52:00"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:12:57"
   },
   "code_809E804.s:sub_080D119E": {
-    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
-    "status": "GAGAL",
-    "when": "2026-11-27T09:03:00"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:26:43"
   },
   "code_809E804.s:sub_080D11B8": {
     "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
@@ -185,34 +185,34 @@
     "when": "2026-11-27T07:37:22"
   },
   "code_809E804.s:sub_080D1224": {
-    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
-    "status": "GAGAL",
-    "when": "2026-11-27T09:51:59"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:12:57"
   },
   "code_809E804.s:sub_080D129A": {
-    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
-    "status": "GAGAL",
-    "when": "2026-11-27T09:51:59"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:12:57"
   },
   "code_809E804.s:sub_080D12EC": {
-    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
-    "status": "GAGAL",
-    "when": "2026-11-27T09:51:59"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:12:57"
   },
   "code_809E804.s:sub_080D139C": {
-    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
-    "status": "GAGAL",
-    "when": "2026-11-27T09:52:00"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:12:57"
   },
   "code_809E804.s:sub_080D1498": {
-    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
-    "status": "GAGAL",
-    "when": "2026-11-27T09:52:00"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:12:57"
   },
   "code_809E804.s:sub_080D14C6": {
-    "detail": "fomt.gba: FAILED build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated sha1sum: WARNING: 1 computed checksum did NOT match make: *** [Makef",
-    "status": "GAGAL",
-    "when": "2026-11-27T09:52:00"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:12:57"
   },
   "code_actor_0809BFE8.s:func_0809C0A0": {
     "detail": "func_0809C0A0 sudah ada di /workspace/chats/19fd550f73b6fba36b4523aa/src/code_actor_0809BFE8.cc (dilewati)",

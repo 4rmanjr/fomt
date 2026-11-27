@@ -8,6 +8,7 @@ seperti itu HARUS di-align 2 byte; kalau dipaksa 4 byte linker menyisipkan
 
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -99,6 +100,44 @@ class AlignSectionsTest(unittest.TestCase):
                      "\tmovs\tr4, #0x20",
                      "\tbx\tlr"):
             self.assertIn(keep, out)
+
+    def test_section_berakhir_2_mod_4_wajib_align_1(self):
+        """Section 4-aligned tapi BERAKHIR di 2-mod-4 harus align 1.
+
+        TERBUKTI: `.080D1498` (0x1498..0x14c6) isi 0x2e, tapi `.align 2`
+        membulatkannya jadi 0x30 -> ROM +2 byte; `.080D10F0` (chunk asm)
+        isi 0x96 -> 0x98 saat 0x1186 pindah ke src/ (func_080D1186 mendarat
+        di 0x080d1188).
+        """
+        sys.path.insert(0, str(REPO / "tools" / "scripts"))
+        from align_sections import align_for  # noqa: E402
+        addrs = [0x080D1186, 0x080D119E, 0x080D1224, 0x080D1498, 0x080D14C6]
+        self.assertEqual(align_for(".text.m.080D1498", addrs, src_present={0x080D14C6}), 1)
+        # section berikutnya masih di berkas yang sama -> biarkan asli (4)
+        self.assertEqual(align_for(".text.m.080D1498", addrs, present={0x080D14C6}), 2)
+        self.assertEqual(align_for(".text.m.080D1186", addrs), 1)
+        self.assertEqual(align_for(".text.m.080D1224", addrs), 2)
+
+    def test_align_ekor_section_2_mod_4_dibuang(self):
+        """`.align 2, 0` penutup fungsi tak boleh memaksa section 2-mod-4.
+
+        TERBUKTI: .text.code_809E804.080D129A berisi 0x52 byte tapi jadi
+        0x54 karena agbcc menutup fungsi dgn `.align 2, 0`; tiga section
+        seperti itu membuat ROM +8 byte dan fomt.gba FAILED.
+        """
+        src = ('\t.section .text.m.080D129A,"ax",%progbits\n'
+               "\t.align\t2, 0\n"
+               "f:\n"
+               "\t.byte 0x01, 0x02\n"
+               "\t.align 2, 0\n"
+               '\t.section .text.m.080D12EC,"ax",%progbits\n'
+               "\t.align\t2, 0\n"
+               "g:\n"
+               "\t.byte 0x03\n")
+        out = _run(src)
+        head = out.split(".text.m.080D12EC")[0]
+        self.assertIn("\t.align 1, 0", head)
+        self.assertNotIn("\t.align 2, 0", head)
 
     def test_ekor_text_dan_footer(self):
         out = _run('\t.section .text.m.080D1186,"ax",%progbits\n'

@@ -203,6 +203,7 @@ $(BUILD_DIR)/%.o: %.s tools/scripts/split_asm_sections.py $(CXX_SRCS) $(C_SRCS) 
 	@echo "AS $<"
 	@mkdir -p $(dir $(BUILD_DIR)/$*.split.s)
 	@python3 tools/scripts/split_asm_sections.py $< $(BUILD_DIR)/$*.split.s
+	@python3 tools/scripts/align_sections.py $(BUILD_DIR)/$*.split.s
 	@$(AS) $(ASFLAGS) $(BUILD_DIR)/$*.split.s -o $@ --MD $(BUILD_DIR)/$*.d
 
 $(BUILD_DIR)/asm/data/data_0813B288.o: $(ASSET_BINS)

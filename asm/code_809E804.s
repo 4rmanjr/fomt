@@ -103649,6 +103649,7 @@ func_080D10F0: @ 0x080D10F0
 	pop {r1, r5, r6, pc}
 
 	non_word_aligned_thumb_func_start func_080D116A
+	non_word_aligned_thumb_func_start func_080D116A
 func_080D116A: @ 0x080D116A
 	movs r4, #8
 	b func_080D11A4
@@ -103690,6 +103691,7 @@ sub_080D119E: @ 0x080D119E
 	ldm r0!, {r2}
 	adds r3, #0x20
 	b .L080D118C
+	thumb_func_start func_080D11A4
 func_080D11A4:
 	push {r5, r6, lr}
 	movs r5, #0x20

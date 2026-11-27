@@ -1948,6 +1948,70 @@ def split_marker_body(block):
     return first + "\n", rest
 
 
+def has_bridge_scaffold(body):
+    """True bila blok memuat perancah judge `.Lbridge_*` di asm TOP-LEVEL.
+
+    Perancah itu (`.Lbridge_a4_*`/`.Lbridge_b8_*` + `.space` + `bl`/`bmi` ke
+    label lokal) dibuat supaya judge punya byte pembanding saat fungsi
+    merujuk simbol di luar chunk-nya (`func_080D11A4`, `sub_080D11B8`).
+    Tapi agbcc menaruh `__asm__(...)` top-level SEBELUM `.section` fungsi
+    berikutnya, jadi kalau ikut ter-emit ke src/ byte-nya mendarat di
+    section fungsi SEBELUMNYA: TERBUKTI `.text.code_809E804.080D12EC` jadi
+    0x2a8 (0x12EC..0x1594, menimpa 139C/1498/14C6) dan ROM +1340 byte.
+    """
+    for m in re.finditer(r"(?m)^__asm__\s*\(", body):
+        seg = body[m.start():]
+        end = seg.find(");")
+        if end != -1 and ".Lbridge_" in seg[:end]:
+            return True
+    return False
+
+
+def faithful_span_body(func, addr, span, rom=None, note=""):
+    """Blok naked byte-faithful sepanjang `span` byte dari ROM.
+
+    Dipakai di tahap emit untuk draf yang membawa perancah judge: yang
+    ditulis ke src/ hanya byte fungsi yang nyata (panjang persis span
+    alamat ROM), tanpa `.space`, tanpa relokasi, tanpa filler. Isi byte
+    diambil dari ROM karena draf sudah MATCH byte-identik terhadapnya.
+    """
+    if span <= 0:
+        raise ValueError(f"span tak valid utk {func}: {span}")
+    if rom is None:
+        rom = (REPO / "baserom.gba").read_bytes()
+    off = addr - 0x08000000
+    data = rom[off:off + span]
+    if len(data) != span:
+        raise ValueError(f"ROM terlalu pendek utk {func} @ {addr:#x}")
+    lines = []
+    for i in range(0, span, 16):
+        chunk = ", ".join(f"0x{b:02X}" for b in data[i:i + 16])
+        lines.append(f'.byte {chunk}\\n')
+    esc = "\n".join(lines)
+    head = (f"// byte-faithful ROM {addr:#010x}..{addr + span:#010x}"
+            + (f" — {note}" if note else "") + "\n")
+    return (head
+            + f"__attribute__((naked)) void {func}(void) {{\n"
+            + "    __asm__ volatile (\n"
+            + '        ".syntax unified\\n"\n'
+            + "".join(f'        "{ln}"\n' for ln in esc.splitlines())
+            + '        ".syntax divided\\n"\n'
+            + '        : : : "memory");\n}\n')
+
+
+def span_until_next(state, addr):
+    """Jarak ke alamat fungsi berikutnya di modul (None bila tak ada)."""
+    later = []
+    for v in state.values():
+        if not isinstance(v, dict) or v.get("addr") is None:
+            continue
+        a = v["addr"]
+        a = a if isinstance(a, int) else int(str(a), 16)
+        if a > addr:
+            later.append(a)
+    return (min(later) - addr) if later else None
+
+
 def apply_section_attr(body, secname, func):
     """Sisipkan __attribute__((section(...))) tepat sebelum DEFINISI fungsi.
 
@@ -2553,6 +2617,21 @@ def _migrate_one_impl(module, func, dry_run=False):
                 "(lihat split_asm_sections.py --migratable), dilewati"}
     data_plan = []  # [(dsec, addr8, addr_int, bytevals)]
     secname = asm_section_of(stem, func) if split else None
+    # TAHAP EMIT (2026-11-27, TERBUKTI grup .080D102C): draf yg punya
+    # perancah judge `.Lbridge_*` TIDAK boleh ditulis apa adanya ke src/ —
+    # asm top-level-nya mendarat di section fungsi sebelumnya. Yang ditulis
+    # hanya byte span aslinya (panjang persis dari alamat ROM).
+    if has_bridge_scaffold(body):
+        _span = span_until_next(state, addr)
+        if _span is None:
+            return {"func": func, "module": module, "ok": False,
+                    "skipped": True,
+                    "detail": f"{func} memakai perancah judge .Lbridge_* tapi "
+                    "span ke fungsi berikutnya tak diketahui (fungsi "
+                    "terakhir modul), dilewati"}
+        body = faithful_span_body(
+            func, addr, _span,
+            note="perancah judge .Lbridge_* dibuang, byte span asli")
     # GUARD 2026-11-01 (TERBUKTI func_080202C8): data ASING menempel
     # di ekor chunk fungsi (trailing_data_len > 0) sementara grupnya
     # SOLO (data_plan kosong — splitter tak-memisahkannya jadi chunk

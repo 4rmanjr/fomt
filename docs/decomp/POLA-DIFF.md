@@ -6326,3 +6326,91 @@ Status akhir sesi ini: 9 fungsi tetap `promoted` (blok + draf utuh, judge
 True), `make compare -j4` HIJAU, `audit_consistency.py` rc=0, `make test-tools`
 268 tes OK. Blocker berikutnya konkret: strip filler jembatan di tahap emit
 `src/` + padding ekor 2 byte per section 2-mod-4.
+
+## §141 Emit `src/` membuang perancah judge; 6 dari 9 fungsi `.080D102C` PINDRAH (2026-11-27)
+
+Lanjutan §140. Blocker "filler jembatan" ternyata bukan soal `.space` saja:
+asm **top-level** (`__asm__ (...)`) pada draf bridge ditulis agbcc SEBELUM
+`.section` fungsi berikutnya, jadi byte-nya mendarat di section fungsi
+SEBELUMNYA. Bukti dari `build/src/code_809E804.s` (build merah):
+
+```
+    .section .text.code_809E804.080D12EC,"ax",%progbits
+sub_080D12EC:
+    ... kode 12EC ...
+    .size  sub_080D12EC,.Lfe176-sub_080D12EC
+    .syntax unified
+.Lbridge_a4_139c:            <-- milik draf 139C, tapi masih di section 12EC
+    ... 11A4 + 11B8 ...
+    .space 468
+    .section .text.code_809E804.080D139C,"ax",%progbits
+```
+
+Akibatnya `.080D12EC` = 0x2a8 (0x12EC..0x1594, menimpa 139C/1498/14C6) dan ROM
++1340 byte.
+
+### Perbaikan 1 — tahap emit (`decomp/migrate.py`)
+
+`has_bridge_scaffold()` mendeteksi `__asm__` top-level berisi `.Lbridge_*`;
+`faithful_span_body()` menulis blok src sebagai byte ROM span asli
+(`addr` .. alamat fungsi berikutnya dari state modul), tanpa `.space`, tanpa
+relokasi, tanpa filler. `make compare` per fungsi tetap otoritatif (MERAH ->
+revert penuh). Regresi: `tools/tests/test_migrate_group_unit.py`
+(`has_bridge_scaffold`: perancah top-level vs rujukan di dalam fungsi; byte
+span persis; span tak valid ditolak).
+
+### Perbaikan 2 — alignment per-alamat juga untuk berkas asm
+
+`tools/scripts/align_sections.py` (dipanggil `align_sections.sh` untuk src dan
+Makefile untuk `build/asm/*.split.s`) menurunkan alignment dari alamat ROM
+section, sekarang dengan DUA batas: alamat section itu sendiri DAN alamat
+section berikutnya. Section yang **berakhir** di 2-mod-4 juga wajib `.align 1`;
+`.align 2` membulatkan panjang section ke kelipatan 4 (TERBUKTI: `.080D1498`
+isi 0x2e -> 0x30; chunk asm `.080D10F0` isi 0x96 -> 0x98 begitu `.080D1186`
+pindah ke src/, `func_080D1186` mendarat di 0x080d1188). `thumb_func_start`
+di section align-1 diganti `non_word_aligned_thumb_func_start` (makro itulah
+yang menulis `.align 2`), dan `.align` penutup di akhir fungsi dibuang.
+Aturan "berakhir 2-mod-4" untuk berkas asm HANYA aktif bila alamat itu sudah
+punya blok di `src/<stem>.cc`; tanpa syarat itu modul `code_0803EE94` gagal
+assemble (`invalid offset, target not word aligned`) — jadi syaratnya
+dipertahankan. Regresi: `tools/tests/test_align_sections.py` (8 tes).
+
+### Batas section eksplisit, bukan `.align` di `.s`
+
+`func_080D11A4` (MATCH, dipakai `Unpack`/`10F0`/`1224`) hidup di tengah chunk
+`sub_080D119E`. Batasnya ditambahkan sebagai makro asm resmi
+(`thumb_func_start func_080D11A4`), bukan `.align`: `make compare` HIJAU
+sebelum dan sesudah, dan `.080D119E` bisa pindah tanpa kehilangan simbol.
+
+### Hasil nyata
+
+```
+$ python3 decomp/migrate.py --module code_809E804.s --func func_080D14EC --group --no-baseline
+  HIJAU func_080D14EC: ... fomt.gba: OK          (7 fungsi: 1224 129A 12EC 139C 1498 14C6 14EC)
+$ python3 decomp/migrate.py --module code_809E804.s --func sub_080D119E --group --no-baseline
+  pindah: 2 func_080D1186(code_809E804.s), sub_080D119E(code_809E804.s)
+  HIJAU ... fomt.gba: OK
+$ nm fomt.elf | grep -E " (func_080D1186|sub_080D119E|sub_080D139C|sub_080D14C6)$"
+080d1187 T func_080D1186    080d119f T sub_080D119E
+080d139d t sub_080D139C     080d14c7 t sub_080D14C6   (bit-0 = Thumb)
+```
+
+`__divsi3`/`__modsi3` tetap dari `asm/code_809E804.o` (`.text…080D0EC0`,
+0x080d0ec8/0x080d0ed0 — bukan `libgcc.a(_divsi3.o)`).
+
+### Masih tertahan: `func_080D116A/116E/117E` (SKIP, bukan MERAH)
+
+Ketiganya hidup di dalam chunk `.080D10F0`, dan chunk itu menutup rantai label
+lintas-section. SKIP asli:
+
+```
+[SKIP] unit tertutup func_080D117E = dirinya sendiri, tapi memotongnya
+memisahkan rantai grup: chunk yang dicabut memisahkan
+.text.code_809E804.080D102C dari .text.code_809E804.080D11B8 yang merujuk
+.L080D11CC; pindah ...
+```
+
+Ini penolakan yang benar (section tujuan label tidak boleh dicabut); yang
+dibutuhkan agar ketiganya bisa pindah adalah memindahkan pemilik chunk
+`func_080D10F0` **bersama** `sub_080D11B8`/label `.L080D11CC`, bukan memaksa
+split.

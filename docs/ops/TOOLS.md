@@ -650,6 +650,13 @@ python3 tools/scripts/decomp_engine.py learn | hint <func> | sectors
   di posisi fungsi asm yang dicabut. Dipanggil otomatis oleh Makefile untuk
   setiap `.o` asm; menjalankannya manual hanya untuk memeriksa hasil pecahan
   (OUT harus di luar `asm/`, mis. `build/`).
+- `align_sections.py` (`align_sections.sh` = pembungkus) — padankan alignment
+  section kode beralamat (`.text.<stem>.<HEX8>`) dengan alamat ROM-nya, untuk
+  berkas `src` maupun `build/asm/*.split.s`. Section yang MULAI atau BERAKHIR
+  di 2-mod-4 wajib `.align 1` (`.align 2` membulatkan panjang ke kelipatan 4
+  -> simbol bergeser 2 byte); `thumb_func_start` di section align-1 diganti
+  `non_word_aligned_thumb_func_start`, dan `.align` penutup fungsi dibuang.
+  Batas alignment diambil dari state modul + section di `src/<stem>.cc`.
 - `tools/migrate_proot.py` — jalur migrasi di proot/Termux saat `make compare`
   belum bisa hijau: gate-nya zero-diff old-vs-new (link tidak menggeser satu
   byte) + judge MATCH per fungsi, hanya untuk modul pre-m4a
