@@ -785,13 +785,14 @@
  "func_08012720": {
   "addr": 134293280,
   "draft_src": "manual",
-  "judged_mtime": 1795694941.3278224,
+  "judged_mtime": 1795743278.721791,
   "module": "game_state.s",
-  "note": "16 varian (struct, void*+cast, rantai arg0->unk4->unkAC inline, &&, s32+cast, early-return, p dimajukan, dead-store, flag temp, off lokal, do/while, deref bersarang, assignment dalam ekspresi). Tetap `byte +0x2: 0x41 vs ref 0x42`: ref r2/r3, kita r1/r2. Parameter kedua mati tidak menggeser alokasi.",
+  "note": "MATCH (2 varian awal gagal krn reg: `ldr r2,[r0,#4] | ldr r1,[r0,#4]`). Kunci: r1 TIDAK PERNAH ditulis di badan ref \u2192 argumen ke-2 passthrough; tambahkan `s32 arg1` dan teruskan ke func_08050E68(obj, arg1). Migrate HIJAU ke src/game_state.cc. POLA-DIFF \u00a7108.",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801274C": {
@@ -808,13 +809,14 @@
  },
  "func_08012760": {
   "addr": 134293344,
-  "judged_mtime": 1795694522.297303,
+  "judged_mtime": 1795743279.240984,
   "module": "game_state.s",
-  "note": "Sama dengan func_08012720 (16 varian); uji bit `(b << 29) < 0`. DIFF `byte +0x2: 0x41 vs ref 0x42`.",
+  "note": "MATCH + migrate ke src/game_state.cc, kembaran func_08012720 (func_08050E50, uji bit 2 via `<< 0x1D`). Sama-sama butuh argumen ke-2 passthrough. POLA-DIFF \u00a7108.",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0801278C": {

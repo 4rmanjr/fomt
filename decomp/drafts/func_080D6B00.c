@@ -1,31 +1,16 @@
-s32 __builtin_delete(void *);                         /* extern */
+void *__builtin_delete(void *);
 
-typedef struct GenObj {
-    s32 unk0;
-    u8 _pad4[32];
-    s32 unk24;
-} GenObj;
-void func_080D6B00(GenObj *arg0, s32 arg1) {
-    void *temp_r0;
-    void *temp_r2;
-    void *var_r0;
-    void *var_r2;
+void func_080D6B00(u8 *arg0, s32 arg1) {
+    u8 *end;
+    u8 *p;
 
-    temp_r0 = (arg0->unk24 * 2) + arg0 + 0x28;
-    var_r2 = arg0 + 0x28;
-    if (var_r2 != temp_r0) {
-        do {
-            var_r2 += 2;
-        } while (var_r2 != temp_r0);
+    end = (u8 *)((*(u32 *)(arg0 + 0x24) << 1) + (u32)arg0 + 0x28);
+    for (p = arg0 + 0x28; p != end; p += 2) {
     }
-    temp_r2 = arg0 + ((arg0->unk0 * 4) + 4);
-    var_r0 = arg0 + 4;
-    if (var_r0 != temp_r2) {
-        do {
-            var_r0 += 4;
-        } while (var_r0 != temp_r2);
+    end = arg0 + ((*(u32 *)arg0 << 2) + 4);
+    for (p = arg0 + 4; p != end; p += 4) {
     }
-    if (1 & arg1) {
+    if ((1 & arg1) != 0) {
         __builtin_delete(arg0);
     }
 }

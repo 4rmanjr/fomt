@@ -1,21 +1,14 @@
-s32 func_08050E68(void *);
+s32 func_08050E68(s32, s32);
 
-typedef struct Base {
-    u8 _pad0[0x8C];
-    u8 *unk8C;
-    u8 _pad90[0x1C];
-    void *unkAC;
-} Base;
+void func_08012720(u8 *arg0, s32 arg1) {
+    u8 *b;
+    u32 obj;
 
-typedef struct Obj {
-    u8 _pad0[4];
-    Base *unk4;
-} Obj;
-
-void func_08012720(Obj *arg0) {
-    void *v = arg0->unk4->unkAC;
-
-    if (v != 0 && (arg0->unk4->unk8C[0x2210] << 28) < 0) {
-        func_08050E68(v);
+    b = *(u8 **)(arg0 + 4);
+    obj = *(u32 *)(b + 0xAC);
+    if (obj != 0) {
+        if ((s32)(*(u8 *)(*(u32 *)(b + 0x8C) + 0x2210) << 28) < 0) {
+            func_08050E68(obj, arg1);
+        }
     }
 }

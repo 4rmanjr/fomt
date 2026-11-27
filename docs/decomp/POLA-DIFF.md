@@ -4452,3 +4452,86 @@ Keduanya diparkir bersama (bentuk identik, hanya callee/vtable berbeda).
 (`movs r0,#0` + epilog; `mov r0, sl` / `mov r1, r8`) yang memakai register
 frame milik pemanggil — kelas teori badan terpotong yang dilarang.
 
+### §108 Argumen ke-2 yang "hilang": register yang tak pernah ditulis = parameter passthrough
+
+Dua fungsi game_state HIJAU berkat satu pembacaan asm, bukan satu varian C baru:
+`func_08012720` dan `func_08012760` (44 B, kembar). Bentuk awal menghasilkan
+DIFF yang **hanya** berbeda nama register:
+
+```
+ref                                    kita
+ldr r2, [r0, #4]                       ldr r1, [r0, #4]
+```
+
+Perhatikan: di seluruh badan ref, **`r1` tidak pernah ditulis**. Ia dipakai
+sebagai argumen pada `bl`, jadi ia masih berisi argumen kedua pemanggil. Maka
+fungsinya punya dua parameter dan parameter kedua diteruskan apa adanya ke
+callee — persis triase AGENTS "ada argumen ke-2 yang dibuang m2c; teruskan".
+Setelah `arg1` ditambahkan ke tanda tangan dan diteruskan, keduanya HIJAU tanpa
+perubahan lain (dan migrate HIJAU ke `src/game_state.cc`).
+
+```c
+s32 func_08050E68(s32, s32);
+
+void func_08012720(u8 *arg0, s32 arg1) {
+    u8 *b;
+    u32 obj;
+
+    b = *(u8 **)(arg0 + 4);
+    obj = *(u32 *)(b + 0xAC);
+    if (obj != 0) {
+        if ((s32)(*(u8 *)(*(u32 *)(b + 0x8C) + 0x2210) << 0x1C) < 0) {
+            func_08050E68(obj, arg1);
+        }
+    }
+}
+```
+
+`func_08012760` identik kecuali `func_08050E50` dan `<< 0x1D` (uji bit 2 vs
+bit 3; lihat §95 untuk aturan `(v << (31-N)) < 0`). Cara mendeteksinya murah
+dan bisa diotomasi: **kalau sebuah register argumen tidak pernah menjadi
+destinasi di seluruh badan fungsi, itu argumen yang belum ditulis di C.** Scan
+`r1`/`r2`-tak-tertulis pada kandidat 0-cabang <=32 instruksi menyisakan satu
+kandidat lain (`func_080D6B00`), jadi teknik ini tidak boros.
+
+### §109 Penolakan putaran ini
+
+`func_0805DF68` (code_0803EE94, 92 B) — empat `strh` ke `arg0 + 0x14E..0x154 +
+(idx << 3)` dengan `idx = ldrsh [arg0+0x2CE]`, lalu `strh idx+1`. Ref memuat
+ulang `[r5]` **sebelum setiap store** (store bisa aliasing dengan field
+counter), jadi indeks sengaja ditulis inline di tiap statement:
+
+```c
+*(u16 *)(arg0 + 0x14E + (*(s16 *)(arg0 + 0x2CE) << 3)) = arg1;
+```
+
+DUA varian dicoba (inline dan indeks-variabel). Keduanya menolak di kerangka
+register, bukan di badan:
+
+```
+ref                                    kita
+push {r4, r5, r6, lr}                  push {r4, r5, r6, r7, lr}
+mov  ip, r0                            (arg0 di r7)
+```
+
+`byte +0x0: 0xf0 vs ref 0x70 [5missing,6extra,3operand,20regalloc,1stack,3different]`
+(inline) dan `[14missing,15extra,...,2different]` (indeks-variabel). Ref
+memakai `ip` (r12) yang tidak dipakai agbcc kita di sini. Diparkir.
+
+`func_080D6B00` (code_linkonce, 64 B) — destruktor: dua pejalan pointer
+(`+0x28` langkah 2, `+4` langkah 4) lalu `__builtin_delete` bila `arg1 & 1`.
+Dua varian:
+
+```
+ref                                    kita (v1)                kita (v2)
+lsls r0, r0, #1                        lsls r0, r0, #1          cocok
+adds r0, r0, r3                        adds r0, r3, r0          cocok
+adds r2, r3, r0                        adds r0, r3, r0          adds r0, r3, r0
+```
+
+v1 `byte +0x8: 0x18 vs ref 0xc0 [6regalloc @r adds r0, r0, r3 | adds r0, r3, r0]`;
+setelah bentuk `(n << 1) + (u32)arg0 + 0x28` dipakai (urutan operand benar),
+v2 tinggal `byte +0x20: 0x18 vs ref 0x1a [5regalloc @r adds r2, r3, r0 | adds r0, r3, r0]`
+— hasil penjumlahan ref mendarat di `r2` karena `r0` dipakai lagi untuk
+`arg0 + 4`. Sisa satu nama register; diparkir (2 varian).
+

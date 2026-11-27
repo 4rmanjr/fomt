@@ -2553,6 +2553,25 @@ void func_080126E4(GenObj__func_080126E4 *arg0) {
 }
 }
 
+// DECOMP-MATCHED func_08012720 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08050E68(i32, i32);
+
+__attribute__((section(".text.game_state.08012720")))
+void func_08012720(u8 *arg0, i32 arg1) {
+    u8 *b;
+    u32 obj;
+
+    b = *(u8 **)(arg0 + 4);
+    obj = *(u32 *)(b + 0xAC);
+    if (obj != 0) {
+        if ((i32)(*(u8 *)(*(u32 *)(b + 0x8C) + 0x2210) << 28) < 0) {
+            func_08050E68(obj, arg1);
+        }
+    }
+}
+}
+
 // DECOMP-MATCHED func_0801274C (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08050E74();                                  /* extern */
@@ -2564,6 +2583,25 @@ void func_0801274C(GenObj__func_0801274C *arg0) {
     }
 }
 }
+// DECOMP-MATCHED func_08012760 (dari game_state.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08050E50(i32, i32);
+
+__attribute__((section(".text.game_state.08012760")))
+void func_08012760(u8 *arg0, i32 arg1) {
+    u8 *b;
+    u32 obj;
+
+    b = *(u8 **)(arg0 + 4);
+    obj = *(u32 *)(b + 0xAC);
+    if (obj != 0) {
+        if ((i32)(*(u8 *)(*(u32 *)(b + 0x8C) + 0x2210) << 29) < 0) {
+            func_08050E50(obj, arg1);
+        }
+    }
+}
+}
+
 
 // DECOMP-MATCHED func_0801278C (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -3539,7 +3577,6 @@ void func_08016CEC(GenObj__func_08016CEC *arg0, i32 arg1) {
 
 // DECOMP-MATCHED func_08016D34 (dari game_state.s; cek manusia sebelum ke src/)
 extern "C" {
-
 
 __attribute__((section(".text.game_state.08016D34")))
 void func_08016D34(u8 *arg0, i32 arg1) {

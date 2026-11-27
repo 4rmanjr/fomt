@@ -2751,3 +2751,35 @@ void func_08016D34(u8 *arg0, s32 arg1) {
     o = *(Obj_08016D34 **)((u8 *)(*(void **)(arg0 + 4)) + 0xA8);
     o->vt->fn(o, arg1);
 }
+
+// DECOMP-MATCHED func_08012720 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_08050E68(s32, s32);
+
+void func_08012720(u8 *arg0, s32 arg1) {
+    u8 *b;
+    u32 obj;
+
+    b = *(u8 **)(arg0 + 4);
+    obj = *(u32 *)(b + 0xAC);
+    if (obj != 0) {
+        if ((s32)(*(u8 *)(*(u32 *)(b + 0x8C) + 0x2210) << 28) < 0) {
+            func_08050E68(obj, arg1);
+        }
+    }
+}
+
+// DECOMP-MATCHED func_08012760 (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_08050E50(s32, s32);
+
+void func_08012760(u8 *arg0, s32 arg1) {
+    u8 *b;
+    u32 obj;
+
+    b = *(u8 **)(arg0 + 4);
+    obj = *(u32 *)(b + 0xAC);
+    if (obj != 0) {
+        if ((s32)(*(u8 *)(*(u32 *)(b + 0x8C) + 0x2210) << 29) < 0) {
+            func_08050E50(obj, arg1);
+        }
+    }
+}
