@@ -569,11 +569,20 @@ void func_0802030C(void) {
 }
 }
 
+typedef struct S_08020410Sub { u8 _pad20[0x20]; i32 unk20; } S_08020410Sub;
+
+typedef struct S_08020410Obj {
+    u8 _pad0[0x20];
+    u8 unk20;
+    u8 _pad21[0x13];
+    S_08020410Sub *unk34;
+} S_08020410Obj;
+
 // DECOMP-MATCHED func_08020310 (dari code_entities.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 __5ActorRC5Actor(i32 *, void *);                    /* extern */
 i32 func_08020038(void *, void **, i32 *, i32);         /* extern */
-i32 func_08020410(void *, i32);                       /* extern */
+void func_08020410(S_08020410Obj *, u32);               /* extern */
 i32 func_080211E4(void *, i32, u8);                   /* extern */
 i32 func_08021264(void *);                          /* extern */
 i32 func_08038374(void *, i32, i32, u16, i32);        /* extern */
@@ -596,7 +605,7 @@ void *func_08020310(GenObj__func_08020310 *arg0, void **arg1, Arg2 *arg2, i32 ar
             if (temp_r0->unk4 == arg0->unk4) {
                 func_08038374(temp_r0, (i32)(arg0->unk8), (i32)(arg0->unkC), (u16)(arg0->unk22), (i32) arg0->unk20);
             } else {
-                func_08020410(arg0, 0);
+                func_08020410((S_08020410Obj *) arg0, 0);
             }
         }
     }
@@ -1891,5 +1900,26 @@ i32 func_08032090(void **arg0, i32 arg1) {
         } while (i < lim);
     }
     return sum;
+}
+}
+
+// DECOMP-MATCHED func_08020410 (dari code_entities.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080212C0(void *);                            /* extern */
+i32 method_0809BB48__3DogPC15UnkBarnAnimal2C(void *, i32 *); /* extern */
+
+__attribute__((section(".text.code_entities.08020410")))
+void func_08020410(S_08020410Obj *arg0, u32 arg1) {
+    i32 sp0;
+    u32 tmp;
+
+    if (arg0->unk34->unk20 == 5) {
+        func_080212C0(arg0);
+    }
+    tmp = (u16) arg1;
+    sp0 = (sp0 & 0xFFFF0000) | tmp;
+    sp0 &= 0xFF00FFFF;
+    method_0809BB48__3DogPC15UnkBarnAnimal2C(arg0->unk34, &sp0);
+    func_080211E4(arg0, 0, arg0->unk20);
 }
 }

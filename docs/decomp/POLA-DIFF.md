@@ -5652,3 +5652,55 @@ akibat `extern i32 x;` tanpa definisi). Itu bukan kegagalan kompilasi — cek
 Diagnostik "use of r13 is deprecated" dari `build/asm/code_809E804.split.s`
 adalah **warning** yang selalu muncul; jangan dibaca sebagai penyebab MERAH —
 baris error sebenarnya ada setelahnya.
+
+## §126 `func_08020410` (code_entities.s) — insert bitfield ke slot stack
+
+Pola: baca slot stack yang belum diinisialisasi, sisipkan `(u16)arg1` ke
+bagian bawahnya, lalu panggil callee dengan `&slot`; sesudahnya satu panggilan
+lagi yang memakai `ldrb` dari `arg0+0x20`.
+
+### 126.1 `orr` operand terbalik ⇒ hoist narrowing ke variabel
+
+Empat varian diukur judge; semuanya identik kecuali 4 instruksi di blok
+penyisipan:
+
+| # | bentuk | hasil |
+|---|---|---|
+| 1 | `((u16)arg1 \| (sp0 & 0xFFFF0000)) & 0xFF00FFFF` | DIFF: `orr r1,r1,r0` (akumulator r1) |
+| 2 | `((sp0 & 0xFFFF0000) \| (u16)arg1) & 0xFF00FFFF` | DIFF: `and r1,r1,r0` / `orr r1,r1,r0` (akumulator r1) |
+| 3 | dipisah dua statement `sp0 = (...)\| (u16)arg1; sp0 &= 0xFF00FFFF;` | DIFF: sama (akumulator r1) |
+| 4 | `u32 tmp = (u16)arg1;` lalu `sp0 = (sp0 & 0xFFFF0000) \| tmp; sp0 &= 0xFF00FFFF;` | **MATCH** |
+
+Yang menentukan: ROM menghitung `lsls/lsrs` (narrowing) **lebih dulu** ke
+register scratch (r1), baru jalur memori `ldr r2,mask; ldr r0,[sp]; ands r0,r2`
+dengan r0 sebagai akumulator. Kalau narrowing ditulis inline di ekspresi,
+agbcc memakai register hasil narrowing sebagai akumulator (r1) dan hasilnya
+DIFF di 4 instruksi. Hoist ke variabel `tmp` memaksa urutan itu.
+
+Catatan: `sp0` sengaja **tidak diinisialisasi** (`s32 sp0;`) — ROM memang
+membaca `[sp]` mentah sebelum `ands`, jadi memberi nilai awal akan menambah
+instruksi.
+
+### 126.2 Migrasi: SKIP karena tipe param beda, diselesaikan manual
+
+`migrate.py` menolak dengan `definisi func_08020410 di body vs extern usang di
+src (['void (void *, u32)'])` — badan memakai `GenObj *` sementara call-site
+lama mendeklarasikan `void *`. Penyatuan manual yang dipakai:
+
+1. typedef `S_08020410Sub`/`S_08020410Obj` diletakkan **sebelum** blok
+   `extern "C"` pemakai, bukan di dalam blok (supaya prototipe bisa memakainya).
+2. extern lama diubah ke `void func_08020410(S_08020410Obj *, u32);` dan
+   call-site diberi cast `(S_08020410Obj *) arg0` (cast pointer = tanpa byte).
+3. Blok `DECOMP-MATCHED` + `__attribute__((section(".text.code_entities.08020410")))`
+   ditambahkan di akhir TU dengan `s32`→`i32`.
+4. `make compare` → `fomt.gba: OK`; `fomt.map` menunjukkan section berasal dari
+   `src/code_entities.o`.
+
+### 126.3 Parkir: `func_080222A8`
+
+Draf m2c berisi placeholder `? arg1` (penyebab `arg1 undeclared`); setelah
+diganti `void *arg1` sisa beda terukur: `mov r0,#0 / str r0,[sp,#8]` vs ROM
+`mov r1,#0 / str r1,[sp,#8] / add r0,sp,#0xc / strb r1,[r0]` — ROM juga
+menulis byte nol di `sp+0xc` yang tidak muncul dari `s8 spC = 0;` (dioptimasi
+habis karena tak pernah dibaca). Butuh bentuk C lain (mis. slot yang
+alamatnya lolos ke callee) → diparkir.

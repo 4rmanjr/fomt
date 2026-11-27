@@ -13,11 +13,14 @@ typedef struct GenObj {
 
 void func_08020410(GenObj *arg0, u32 arg1) {
     s32 sp0;
+    u32 tmp;
 
     if (arg0->unk34->unk20 == 5) {
         func_080212C0(arg0);
     }
-    sp0 = ((u16) arg1 | (sp0 & 0xFFFF0000)) & 0xFF00FFFF;
+    tmp = (u16) arg1;
+    sp0 = (sp0 & 0xFFFF0000) | tmp;
+    sp0 &= 0xFF00FFFF;
     method_0809BB48__3DogPC15UnkBarnAnimal2C(arg0->unk34, &sp0);
     func_080211E4(arg0, 0, arg0->unk20);
 }

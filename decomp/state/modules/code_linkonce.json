@@ -6252,13 +6252,14 @@
  "func_08020410": {
   "addr": 134349840,
   "draft_src": "manual",
-  "judged_mtime": 1794384413.0005066,
+  "judged_mtime": 1795756744.6666884,
   "module": "code_entities.s",
-  "note": "PARKIR \u00a7119 (diukur judge): byte +0x20: 0x1 vs ref 0x8 [4regalloc @r orrs r0, r1 | orrs r1, r0]",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_entities.cc",
   "ref_len": 80,
   "sanitize_v": 4,
   "size": 810,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08020460": {
@@ -6482,7 +6483,7 @@
   "addr": 134357672,
   "judged_mtime": 1793925737.3438303,
   "module": "code_entities.s",
-  "note": "for each function it appears in.)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080222A8/lenovo_216379/func.c:17: `arg0' undeclared (first use in this function)\n/home/lenovo/gitproject/fomt/decomp/logs/judge_func_080222A8/lenovo_216379/func.c:17: `arg1' undeclared (first use in this function)\n",
+  "note": "",
   "ref_len": 120,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
