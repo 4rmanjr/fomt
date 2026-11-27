@@ -4092,3 +4092,144 @@ bebas mulai r1, sedangkan ROM mulai r2/r4 dan lebih suka callee-saved untuk
 nilai yang hidup melintasi blok. Sampai bentuk C yang menggeser alokasi itu
 ditemukan (belum ada di 8 fungsi ini), kelas ini tetap dinding.
 
+### §102 Konstruktor: simpan vtable + dua call (pembukti HIJAU `func_080D7AD4`)
+
+Bentuk paling mudah yang masih tersisa di modul migratable: badan lurus tanpa
+cabang, isinya dua simpan pointer vtable lalu dua pemanggilan.
+
+```c
+extern u32 vtable_unk_080E5B0C;
+extern u32 vtable_unk_080E5B18;
+s32 func_080D7944(void *, s32);
+s32 func_0800959C(void *, s32);
+
+void func_080D7AD4(u8 *arg0, s32 arg1) {
+    *(u32 **)(arg0 + 0x30) = &vtable_unk_080E5B0C;
+    *(u32 **)(arg0 + 8) = &vtable_unk_080E5B18;
+    func_080D7944(arg0 + 0x1C, 0);
+    func_0800959C(arg0, arg1);
+}
+```
+
+Judge HIJAU pada percobaan pertama, lalu dimigrasi ke `src/code_linkonce.cc`.
+Detail yang menentukan:
+
+- vtable **wajib** dideklarasikan `extern u32 …` dan diambil alamatnya
+  (`&vtable_unk_…`), bukan `extern void *…`; hanya bentuk ini yang memberi
+  `ldr r0, =vtable; str r0, [r4, #N]` (dua literal terpisah di `.L3` dan
+  `.L3+4`).
+- parameter kedua disimpan lebih dulu (`adds r5, r1, #0`) karena dipakai
+  setelah call pertama — itu bukan dinding regalloc, cukup `s32 arg1` biasa.
+- `arg0 + 0x1C` ditulis sebagai penjumlahan pointer (`arg0` bertipe `u8 *`),
+  menghasilkan `adds r0, r4, #0; adds r0, #0x1c` seperti ref.
+
+### §103 Dinding alokasi register: angka final per fungsi
+
+Arah DIFF selalu `<ref bytes> | <our bytes>` (kiri = asm ROM, kanan = agbcc
+kita). Tiga fungsi di bawah sudah punya badan assembler yang benar; yang
+tersisa **hanya** register yang dipilih, dan setiap varian C yang dicoba
+menghasilkan keluaran yang sama persis.
+
+`func_08012720` / `func_08012760` (game_state) — **16 varian**: struct
+langsung, `void *`+cast, rantai `arg0->unk4->unkAC` inline, `&&`, `s32`+cast,
+early-return, `u8 *p` dimajukan, dead-store `p = 0`, `p` dimuat sebelum `v`,
+flag temp, `off` lokal, `do { } while (0)`, deref bersarang, assignment di
+dalam ekspresi. Semua identik sampai satu byte:
+
+```
+ref                              kita
+push {lr}                        push {lr}
+ldr  r2, [r0, #4]      <- beda   ldr  r1, [r0, #4]
+add  r0, r2, #0                  add  r0, r1, #0
+add  r0, r0, #0xac               add  r0, r0, #0xac
+ldr  r3, [r0]          <- beda   ldr  r2, [r0]
+cmp  r3, #0                      cmp  r2, #0
+beq  .L…                         beq  .L…
+sub  r0, r0, #0x20               sub  r0, r0, #0x20
+ldr  r0, [r0]                    ldr  r0, [r0]
+ldr  r2, .L =0x2210              ldr  r1, .L =0x2210
+add  r0, r0, r2                  add  r0, r0, r1
+ldrb r0, [r0]                    ldrb r0, [r0]
+lsls r0, r0, #0x1c               lsls r0, r0, #0x1c
+cmp  r0, #0                      cmp  r0, #0
+bge  .L…                         bge  .L…
+add  r0, r3, #0                  add  r0, r2, #0
+bl   func_08050E68               bl   func_08050E68
+pop  {r0}; bx r0                 pop  {r0}; bx r0
+```
+
+`byte +0x2: 0x41 vs ref 0x42`. Ref memakai r2/r3 (r1 "terpakai" sejak awal),
+agbcc kita r1/r2. Menambah parameter kedua yang **tidak dipakai** tidak
+menggeser apa pun (parameter mati dibuang sebelum alokasi) — sudah diuji.
+
+`func_080A0A90` (code_809E804) — 8 varian (array-index, pointer-select,
+`&tmp[0]`/`&tmp[1]` dimuat sebelum vs sesudah store, ternary, `p++`, `v0`
+eksplisit). Varían terbaik hanya berbeda di dua register:
+
+```
+ref                                   kita
+push {r4, r5, lr}                     push {r4, r5, lr}
+sub  sp, #8                           sub  sp, #8
+adds r3, r0, #0                       add  r3, r0, #0
+ldrb r0, [r3, #2]                     ldrb r0, [r3, #2]
+lsls r0, r0, #0x1a                    lsls r0, r0, #0x1a
+cmp  r0, #0                           cmp  r0, #0
+blt  .L…                              blt  .L…
+ldr  r4, [r3]          <- beda         ldr  r2, [r3]
+lsls r0, r4, #0xb                     lsls r0, r2, #0xb
+lsrs r0, r0, #0x18                    lsrs r0, r0, #0x18
+adds r0, #1                           adds r1, r0, #1
+str  r0, [sp]                         str  r1, [sp]
+movs r5, #0xff                        movs r5, #0xff
+str  r5, [sp, #4]                     str  r5, [sp, #4]
+add  r2, sp, #4                       add  r0, sp, #4
+mov  r1, sp            <- beda         mov  r4, sp
+cmp  r0, #0xff                        cmp  r1, #0xff
+bls  .L…                              bls  .L…
+adds r1, r2, #0                       add  r4, r0, #0
+ldr  r1, [r1]                         ldr  r1, [r4]
+...(ands r1, r5; lsls; ldr =0xFFE01FFF; ands r0, r4; orrs; str r0,[r3])
+```
+
+`byte +0xe: 0x1a vs ref 0x1c … [2missing,2extra,11regalloc @r ldr r4,[r3] | ldr r2,[r3]]`.
+Ref memberi `unk0` register callee-saved (r4) dan pointer tmp ke r1/r2; kita
+kebalikannya (unk0 → r2, pointer → r4).
+
+`func_080ADF40` (code_809E804) — 7 varian (urutan deklarasi, `s32`/`u16`,
+pointer ke field, dua pernyataan, `if/else` penuh, `hi`/`lo` sebelum vs sesudah
+store). Varian `hi`/`lo` sebelum store berhasil memaksa **dua** callee-saved
+(`push {r4, r5, lr}`) tetapi ref tetap 44 B vs 36 B karena ref menyalin
+`sum`/`old` ke r4/r5 lebih dulu:
+
+```
+ref                                   kita (varian hi/lo)
+push {r4, r5, lr}                     push {r4, r5, lr}
+adds r2, r0, #0        <- beda         add  r3, r0, #0
+ldrh r0, [r2, #6]                     ldrh r1, [r3, #6]
+adds r5, r0, #0                       ldrh r0, [r3, #4]
+ldrh r0, [r2, #4]                     add  r2, r1, r0
+adds r1, r5, r0                       asr  r5, r2, #0x8
+adds r4, r1, #0                       asr  r4, r1, #0x8
+movs r0, #0xff                        mov  r0, #0xff
+ands r0, r1                           and  r0, r0, r2
+movs r3, #0                           mov  r1, #0x0
+cmp  r0, #0                           cmp  r0, #0
+beq  .L…                              beq  .L…
+adds r3, r1, #0                       add  r1, r2, #0
+.L…: strh r3, [r2, #6]                strh r1, [r3, #6]
+adds r0, r4, #0                       sub  r0, r5, r4
+asrs r1, r0, #8
+adds r0, r5, #0
+asrs r0, r0, #8
+subs r0, r1, r0
+pop {r4, r5}; pop {r1}; bx r1         pop {r4, r5}; pop {r1}; bx r1
+```
+
+**Kesimpulan yang bisa dipakai ulang:** untuk fungsi kecil tanpa loop, agbcc
+kita memilih register bebas mulai r1 dan memberi callee-saved ke nilai yang
+*paling akhir* dibuat; ROM memilih mulai r2 dan memberi callee-saved ke nilai
+yang *paling awal* hidup. 31 varian C di tiga fungsi ini tidak menggeser satu
+byte pun, jadi kelas ini dinding sampai bentuk C yang mengubah prioritas
+alokasi ditemukan. Yang **tidak** termasuk dinding: badan lurus seperti
+§102 — itu selalu layak ditulis penuh.
+

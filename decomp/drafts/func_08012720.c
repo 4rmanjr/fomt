@@ -13,13 +13,9 @@ typedef struct Obj {
 } Obj;
 
 void func_08012720(Obj *arg0) {
-    Base *s = arg0->unk4;
-    void *v = s->unkAC;
-    u8 *p = s->unk8C;
+    void *v = arg0->unk4->unkAC;
 
-    if (v != 0) {
-        if ((p[0x2210] << 28) < 0) {
-            func_08050E68(v);
-        }
+    if (v != 0 && (arg0->unk4->unk8C[0x2210] << 28) < 0) {
+        func_08050E68(v);
     }
 }

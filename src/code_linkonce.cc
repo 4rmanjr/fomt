@@ -1065,6 +1065,22 @@ void func_080D7AAC(GenObj__func_080D7AAC *arg0, i32 arg1) {
     }
 }
 }
+// DECOMP-MATCHED func_080D7AD4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+extern u32 vtable_unk_080E5B0C;
+extern u32 vtable_unk_080E5B18;
+i32 func_080D7944(void *, i32);
+i32 func_0800959C(void *, i32);
+
+__attribute__((section(".text.code_linkonce.b1.080D7AD4")))
+void func_080D7AD4(u8 *arg0, i32 arg1) {
+    *(u32 **)(arg0 + 0x30) = &vtable_unk_080E5B0C;
+    *(u32 **)(arg0 + 8) = &vtable_unk_080E5B18;
+    func_080D7944(arg0 + 0x1C, 0);
+    func_0800959C(arg0, arg1);
+}
+}
+
 
 // DECOMP-MATCHED func_080D7B04 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -1743,7 +1759,6 @@ void func_080DD3D4(GenObj__func_080DD3D4 *arg0) {
     *q = v;
 }
 }
-
 
 // DECOMP-MATCHED func_080DD404 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
