@@ -1,13 +1,47 @@
-s32 _call_via_r2(void *, s32);
+void *__builtin_new(s32);                           /* extern */
+void **func_08004B94(s32, s32, s32 *);              /* extern */
 
-void func_080DC1D4(u8 *arg0, s32 arg1) {
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+} GenObj;
+
+typedef struct Guard {
+    void *p;        /* 0x0 */
+    s32 old;        /* 0x4 */
+    void *self;     /* 0x8 */
+    void *v;        /* 0xC */
+} Guard;
+
+typedef struct Vt080DC1D4 {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt080DC1D4;
+
+void ***func_080DC1D4(void ***arg0, GenObj *arg1) {
+    volatile Guard h;
+    s32 t;
+    void **res;
     void **p;
-    void (*fn)(void *, s32);
+    register void **q __asm__("r1");
+    Vt080DC1D4 *vt;
 
-    p = *(void ***)(arg0 + 4);
+    t = arg1->unk8;
+    arg1->unk8 = 0;
+    h.old = t;
+    res = func_08004B94((s32) __builtin_new(8), arg1->unk4, (s32 *) &h.old);
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
     if (p != 0) {
-        fn = (void (*)(void *, s32))((void **)*p)[2];
-        fn(p, 3);
+        vt = (Vt080DC1D4 *) *p;
+        vt->fn8((void *) p, 3);
     }
-    _call_via_r2(arg0, arg1);
+    return arg0;
 }

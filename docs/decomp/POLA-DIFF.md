@@ -5161,3 +5161,87 @@ tidak ada C yang bisa mengompilasi fragmen ini sebagai unit.
 kini semuanya punya alasan tertulis (8 dari putaran sebelumnya + 42 putaran ini).
 Tidak ada lagi kandidat kecil yang belum disentuh.
 
+
+## §120. Klaster L (20 fungsi factory+guard): guard struct `volatile` + base ter-pin (2026-11-27)
+
+§119 memarkir 20 fungsi `func_080DB3xx`–`func_080DC4xx` (`code_linkonce.s`)
+karena ROM menyimpan temp ke `[sp]`/`[sp+8]`/`[sp+0xC]` lalu `str r5,[r1]`
+menulis 0 lewat `&temp`, sehingga guard `ldr r1,[sp]; cmp r1,#0; beq` selalu
+mati dan agbcc menghapus store + cabangnya (draf m2c 38 B vs ref 70 B).
+Itu **bukan** wall struktural: cabang mati bertahan bila nilai nol ditulis
+lewat pointer yang tidak bisa dilacak, dan seluruh struct lokal bersifat
+`volatile` — cermin §6.3.
+
+**Bentuk ref (semua 20 identik, hanya callee factory & offset argumen beda):**
+
+```asm
+ldr r0, [r4, #4]      @ t = arg1->unk4
+movs r5, #0
+str r5, [r4, #4]      @ arg1->unk4 = 0   (field di-NOL-kan, bukan cuma dibaca)
+str r0, [sp, #4]      @ h.old = t        (alamatnya dipakai: &h.old ke factory)
+movs r0, #0xc
+bl __builtin_new
+add r1, sp, #4
+ldr r2, [r4, #8]
+bl <factory>
+str r0, [sp]          @ h.p = res
+mov r1, sp
+str r1, [sp, #8]      @ h.self = &h.p
+str r0, [sp, #0xc]    @ h.v = res
+str r5, [r1]          @ *q = 0  (lewat base r1, BUKAN [sp])
+str r0, [r6]          @ *arg0 = res
+ldr r1, [sp]          @ reload h.p (volatile) -> guard hidup
+cmp r1, #0
+beq .Lend
+ldr r0, [r1]          @ vtable: ((Vt *) *p)->fn8, bukan p->fn8
+ldr r2, [r0, #8]
+adds r0, r1, #0
+movs r1, #3
+bl _call_via_r2
+```
+
+**Resep (MATCH pada percobaan ke-4, lalu 19 saudara sekaligus):**
+
+1. Satu struct guard 16 B di stack, **`volatile`**:
+   `typedef struct { void *p; s32 old; void *self; void *v; } Guard;`
+   `volatile Guard h;` — volatile-lah yang mempertahankan store mati
+   (`h.self`, `h.v`) dan reload `h.p` untuk guard.
+2. Temp field lama tetap variabel terpisah supaya urutan store ref tercapai:
+   `t = arg1->unk4; arg1->unk4 = 0; h.old = t;` (menulis
+   `h.old = arg1->unk4` lebih dulu memindahkan `str [sp,#4]` ke depan `movs r5`).
+3. Argumen factory diteruskan dengan cast `(s32)` untuk `__builtin_new`, karena
+   TU `src/` sudah mendeklarasikannya `void* __builtin_new(i32)`; deklarasi
+   `s32` membuat migrasi SKIP "extern __builtin_new beda tanda tangan".
+4. Zero store **wajib** lewat base yang di-pin + fence:
+   ```c
+   register void **q __asm__("r1");
+   ...
+   q = (void **) &h.p;
+   h.self = (void *) q;
+   h.v = res;
+   __asm__ volatile ("" : "+r" (q));   /* q tak lagi dikenal == sp */
+   *q = 0;
+   ```
+   Tanpa pin/fence agbcc memfold jadi `str r5,[sp]` (1 instruksi beda, 66 vs 70 B);
+   dengan `q` saja (tanpa `register`) tetap difold. Fence membuat alamat opaque.
+5. Guard memakai **double-deref vtable**: `vt = (Vt *) *p; vt->fn8(p, 3);`
+   — bukan `((Vt *) p)->fn8`. Bentuk pertama menghasilkan `ldr r0,[r1]` +
+   `adds r0,r1,#0`; bentuk kedua langsung `ldr r2,[r0,#8]` (2 instruksi hilang).
+6. `Vt` per-fungsi (`Vt080DB394`) agar tidak bentrok dengan konteks bersama.
+
+**Varian argumen (2 dari 20):** `func_080DC1D4`/`func_080DC42C` menukar peran
+field — yang di-nol-kan `arg1->unk8`, yang diteruskan `arg1->unk4`, `new(8)`,
+dan urutan argumen factory `(new, arg1->unk4, &h.old)` (pointer stack di posisi
+ketiga). Sisanya identik; dua-duanya MATCH dengan signature
+`factory(s32, s32, s32 *)`.
+
+**Pembukti:** `func_080DB394`, `func_080DB6CC`, `func_080DB73C`, `func_080DB7AC`,
+`func_080DB81C`, `func_080DB88C`, `func_080DB8FC`, `func_080DB9DC`,
+`func_080DBB9C`, `func_080DBC78`, `func_080DBDC8`, `func_080DBE38`,
+`func_080DBEA8`, `func_080DBF18`, `func_080DBF88`, `func_080DBFF8`,
+`func_080DC158`, `func_080DC1D4`, `func_080DC42C`, `func_080DC49C` — 20/20 MATCH,
+semuanya masuk `src/code_linkonce.cc` dengan `make compare` HIJAU.
+
+Pelajaran: klaster yang diparkir dengan alasan "cabang mati selalu dihapus"
+harus dicek ulang terhadap §6.3 (`volatile`) **dan** apakah store-nya lewat
+pointer yang di-pin; dua tuas itu yang menentukan, bukan bentuk logikanya.
