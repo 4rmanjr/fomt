@@ -2040,7 +2040,7 @@
   "addr": 134626820,
   "judged_mtime": 1794289163.486889,
   "module": "code_0803EE94.s",
-  "note": "len 126 vs ref 84 [7missing,28extra,2operand,5regalloc,2stack,7different @>  | push {r4, r5, r6, r7, lr}]",
+  "note": "PARKIR: len 82 vs ref 84 [9missing,8extra,5regalloc,1different] @| bls #0xe | bhi #0x48. 4 bentuk diukur (union P, s16[2]+cast, struct-init di deklarasi, struct-init block-scoped): sisa beda = layout cabang (ROM bls ke body, kita bhi ke return-0), urutan materialisasi 0x12E0 (ROM sesudah strh, kita sebelum), dan ROM punya adds r0,r1,#0 (ekstra) dgn r5=0xC/r6=2",
   "ref_len": 84,
   "sanitize_v": 4,
   "size": 726,

@@ -365,13 +365,14 @@
  },
  "func_08008724": {
   "addr": 134252324,
-  "judged_mtime": 1793582714.0244193,
+  "judged_mtime": 1795758027.5337405,
   "module": "hardware.s",
-  "note": "byte +0x2: 0x81 vs ref 0x84 [5missing,5extra,2operand,1stack,3different @s sub sp, #0x10 | sub sp, #4]",
+  "note": "",
+  "promoted_to": "decomp/promoted/hardware.cc",
   "ref_len": 164,
   "sanitize_v": 4,
   "size": 1337,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080087C8": {

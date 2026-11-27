@@ -231,6 +231,23 @@ typedef struct GenObj__func_08007770 {
 } GenObj__func_08007770;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08008724 {
+    u8 _pad0[8];
+    struct GenObj__func_08008724 *unk8;
+    u8 _padC[4];
+    i32 unk10;
+    u8 _pad14[32];
+    u16 unk34;
+} GenObj__func_08008724;
+typedef struct S_08008724Arg {
+    i32 unk0;   /* 0x0 */
+    i32 unk4;   /* 0x4 */
+    u8 *unk8;   /* 0x8 */
+    u8 *unkC;   /* 0xC */
+} S_08008724Arg;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED gData_hardware_08007564.data.08007564
 extern "C" {
 // data tak-dirujuk di 0x08007564 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
@@ -335,7 +352,6 @@ block_CA:
     return arg0;
 }
 }
-
 
 // DECOMP-MATCHED func_080077DC (dari hardware.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -587,6 +603,39 @@ extern "C" {
 __attribute__((section(".text.hardware.0800835C")))
 void func_0800835C(i32 *arg0) {
     *arg0 = 0;
+}
+}
+
+// DECOMP-MATCHED func_08008724 (dari hardware.s; cek manusia sebelum ke src/)
+extern "C" {
+void *func_08008AE0(void *);                        /* extern */
+i32 func_08008AF0(void *);                            /* extern */
+i32 func_080098AC(i32 *, i32);                        /* extern */
+extern i32 vtable_unk_080E5AF0;
+
+__attribute__((section(".text.hardware.08008724")))
+void func_08008724(void **arg0) {
+    S_08008724Arg buf;
+    GenObj__func_08008724 *temp_r4;
+    void *base;
+    u8 *p34;
+    i32 zero;
+    GenObj__func_08008724 *temp_r0;
+
+    temp_r4 = (GenObj__func_08008724 *)(*arg0);
+    p34 = (u8 *) temp_r4;
+    p34 += 0x34;
+    zero = 0;
+    *(u16 *) p34 |= 0x80;
+    buf.unk0 = zero;
+    buf.unk4 = zero;
+    buf.unk8 = (u8 *) &vtable_unk_080E5AF0;
+    buf.unkC = p34;
+    base = (u8 *) temp_r4 + 0x490;
+    temp_r0 = (GenObj__func_08008724 *)(func_08008AE0(base));
+    ((void (*)(void *, S_08008724Arg *)) temp_r0->unk8->unk10)(temp_r0, &buf);
+    func_08008AF0(base);
+    func_080098AC((i32 *) &buf, 2);
 }
 }
 

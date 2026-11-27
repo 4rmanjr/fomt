@@ -5749,3 +5749,58 @@ Kesimpulan: store byte di `sp+0xc` bukan parameter (parameter `s8` disimpan
 word) dan bukan local biasa (dihapus sebagai dead store), sehingga bentuk C
 yang menghasilkannya belum ditemukan. Diparkir dengan angka di atas; jangan
 diulang tanpa ide baru.
+
+## §128 `func_08008724` (hardware.s) — argumen struct 16 byte di stack
+
+Fungsi 80 byte: bangun argumen struct di stack (4 word), panggil `func_08008AE0`,
+lalu virtual-call `obj->unk8->unk10(obj, &buf)`, `func_08008AF0`, dan
+`func_080098AC(&buf, 2)`.
+
+### 128.1 Empat local terpisah ≠ satu struct
+
+Versi m2c (sp0/sp4/sp8/spC sebagai variabel terpisah) **kehilangan tiga store**:
+hanya `sp0` yang alamatnya lolos, jadi `sp4/sp8/spC` dieliminasi sebagai dead
+store → `len 23 vs 27 instruksi`. ROM menyimpan keempatnya.
+
+Perbaikan: satu tipe `S_08008724Arg {s32,s32,u8*,u8*}` sebagai **satu objek**
+yang alamatnya diambil (`&buf`), sehingga agbcc wajib menulis keempat field.
+Setelah itu frame `0x10` dan keempat `str` muncul.
+
+### 128.2 Konstanta nol harus hidup melewati blok OR
+
+Sisa beda terakhir murni regalloc: ROM `movs r2,#0` **sebelum** `ldrh/orrs`
+(konstanta nol hidup melewati blok OR, disimpan sesudahnya), sedangkan bentuk
+`buf.unk0 = 0; buf.unk4 = 0;` sesudah OR menaruh nol di r0. Bentuk yang MATCH:
+
+```c
+zero = 0;                 /* r2, hidup melewati OR */
+*(u16 *) p34 |= 0x80;     /* r0/r1 */
+buf.unk0 = zero;          /* str r2,[sp]   */
+buf.unk4 = zero;          /* str r2,[sp,#4] */
+buf.unk8 = &vtable;       /* r0 */
+buf.unkC = p34;           /* r3 */
+```
+
+### 128.3 Pointer field: `p = base; p += 0x34;`
+
+ROM mematerialisasi alamat field dengan **dua** `add` (`adds r3,r4,#0` lalu
+`adds r3,#0x34`), bukan satu `add r3,r4,#0x34`. Bentuk yang menghasilkannya:
+`u8 *p = (u8 *) temp; p += 0x34;` (dua statement), lalu `p` dipakai untuk OR
+dan disimpan ke field struct — bukan `(u8 *)temp + 0x34` inline, yang membuat
+agbcc menghitung ulang alamat dan memakai immediate `[r4,#0x34]`.
+
+### 128.4 Migrasi
+
+`migrate.py` jalan normal (`hardware.s` → `src/hardware.cc`), `fomt.gba: OK`,
+`fomt.map`: `.text.hardware.08008724` `0x50` dari `src/hardware.o`.
+
+### 128.5 Parkir `func_08063E04` (5 bentuk diukur)
+
+Sisa diff terakhir `len 82 vs ref 84 [9missing,8extra,5regalloc,1different]`.
+Tiga perbedaan konkret: ROM memakai `bls` ke body (kita `bhi` ke blok
+`return 0`), ROM mematerialisasi `0x12E0` **sesudah** blok `strh` (kita
+sebelum), dan ROM punya `adds r0,r1,#0` ekstra (alamat lokal disalin untuk
+store pertama) dengan `r5=0xC`/`r6=2`. Bentuk yang dicoba: `union P`,
+`s16[2]` + cast, struct-init di deklarasi, struct-init block-scoped,
+`s16[2]` init block-scoped. Kelimanya berhenti di beda di atas; layout cabang
+dan penjadwalan konstanta belum bisa dipaksa dari C.
