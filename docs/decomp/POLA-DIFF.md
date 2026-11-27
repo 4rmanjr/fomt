@@ -5977,3 +5977,43 @@ Bukti:
 | `func_0801740C` | `.text.game_state.0801740C` | 0x60 | `.text.game_state.0801746C` 0x5C | `src/game_state.o` |
 
 `make compare` `fomt.gba: OK` sesudah kedua migrasi.
+
+## §135 Peta blocker 13 restan promote-only (2026-11-27, sesudah §134)
+
+Sesudah `func_0809C4E4` dan `func_0801740C` pindah (§134), sisa
+promote-only = 13 fungsi. Semuanya sudah MATCH, jadi yang menghalangi
+bukan terjemahan melainkan **sectioning**: setiap kandidat dicoba
+`migrate.py --no-baseline` dan gagal di rakitan/link, bukan di gate.
+Tabel ini hasil percobaan langsung, bukan dugaan.
+
+| Fungsi | Modul | ref | td | Gagal di | Bukti |
+|---|---|---|---|---|---|
+| `func_080D0EBC` | code_809E804 | 3 | 0 | link | `` `__divsi3' referenced in `.text.code_linkonce.b2.080DD9CC' … defined in discarded section `.text' of tools/agbcc/lib/libgcc.a(_divsi3.o) `` — dua libgcc (agbcc ARM vs arm-gnu Thumb) berebut simbol |
+| `func_080D116A` | code_809E804 | 4 | 0 | as | `ldr r5, .L080D11CC @ =func_080D116A` → `cannot represent THUMB_OFFSET relocation` |
+| `func_080D116E` | code_809E804 | 16 | 0 | as | sama (thunk callback di pool) |
+| `func_080D117E` | code_809E804 | 8 | 0 | as | sama |
+| `func_080D1186` | code_809E804 | 24 | 0 | as | sama |
+| `func_080D14EC` | code_809E804 | 44 | 0 | as | `invalid offset, value too big (0xFFFFFFFFFFFFFFFC)` — label pool ikut section yang dicabut |
+| `sub_080D1204` | code_809E804 | 32 | 22 | as | `THUMB_OFFSET` di 3 titik pool |
+| `sub_080D139C` | code_809E804 | 252 | 0 | as | `THUMB_OFFSET` |
+| `sub_080D1498` | code_809E804 | 46 | 0 | as | `THUMB_OFFSET` |
+| `sub_080D14C6` | code_809E804 | 38 | 0 | as | `THUMB_OFFSET` |
+| `sub_080868BC` | code_0803EE94 | 40 | 0 | as | pool `.L080868CC` dipakai 5 fungsi sebelumnya; sesudah migrasi label itu jatuh di section yang dicabut → `invalid offset … 0x…FC` |
+| `sub_08031E0A` | code_entities | 593 | 316 | as | `non_word_aligned_thumb_func_start` (alamat ganjil 0x08031E0A) + `.section .text.code_entities.0802FBFC` tersisip sebelum pool `.L0802FC0C/.L0802FC10` → `THUMB_OFFSET` |
+| `func_080D7F3C` | code_linkonce | 36 | 0 | judge | blok promoted hilang; dinilai ulang setelah entri state dihapus: **DIFF 36 vs 34**, `ldr r1,[r0]` vs `ldr r0,[r0]` (regalloc, bukan sectioning) |
+
+**Aturan yang menyatukan 11 kegagalan rakitan**: `ldr rX, .Lpool` bersifat
+PC-relative, dan format objek (a.out) tak bisa menyatakan relokasi
+PC-relative antar-section untuk simbol Thumb (`THUMB_OFFSET`). Jadi
+section fungsi **tidak boleh** terpisah dari pool yang ia baca. Selama
+pool itu dipakai bersama fungsi lain (atau memuat `.4byte fungsi_thumb`),
+pool tak bisa ikut pindah ke src, dan section-nya tak boleh dicabut →
+fungsi bersangkutan terkunci. Yang bisa dibuka hanya fungsi yang ekornya
+data **yatim** (§134) atau tanpa pool sama sekali.
+
+Satu temuan tambahan untuk §134: pada modul yang ekornya berada di
+**ujung berkas**, chunk fungsi berakhir tanpa baris kosong sehingga syarat
+`j < len(chunk)-1` gagal dan splitter tak memotong. Menutup berkas dengan
+satu baris kosong memperbaikinya (terbukti: ekor 316B `sub_08031E0A`
+terpotong jadi chunk `.text.code_entities.08031F20`). Untuk
+`sub_08031E0A` sendiri hal itu belum cukup — lihat tabel di atas.
