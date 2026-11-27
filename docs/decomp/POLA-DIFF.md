@@ -4233,3 +4233,104 @@ byte pun, jadi kelas ini dinding sampai bentuk C yang mengubah prioritas
 alokasi ditemukan. Yang **tidak** termasuk dinding: badan lurus seperti
 §102 — itu selalu layak ditulis penuh.
 
+### §104 Inisialisasi: dua store nol + dua call + store konstanta (pembukti HIJAU `func_080E379C`)
+
+Bentuk yang berhasil pada percobaan pertama: offset besar ditulis sebagai
+penjumlahan pointer `u8 *`, bukan field struct bernama.
+
+```c
+extern u32 gUnk_081005EC;
+void func_08050D8C(u8 *, s32 *);
+s32 func_08050E50();
+
+void func_080E379C(u8 *arg0) {
+    *(u32 *)(arg0 + 0x3D8) = 0;
+    *(u32 *)(arg0 + 0x3DC) = 0;
+    func_08050D8C(arg0 + 0x1C8, (s32 *)&gUnk_081005EC);
+    func_08050E50(arg0 + 0x1C8, 0x3A);
+    *(u32 *)(arg0 + 0x1D4) = 4;
+}
+```
+
+Judge HIJAU, dimigrasi ke `src/code_linkonce.cc`. Detail yang menentukan:
+
+- offset `0x3D8`/`0x3DC`/`0x1C8`/`0x1D4` ditulis apa adanya; agbcc mensintesis
+  `movs #0xf6; lsls #2; adds` / `movs #0xe4; lsls #1; adds` sendiri.
+- objek `gUnk_081005EC` **`extern u32`** dan diambil alamatnya (pola sama
+  dengan §102 untuk vtable), dengan cast `(s32 *)` agar cocok dengan
+  deklarasi callee yang sudah ada di `src/`.
+- **Gerbang migrate butuh tanda tangan extern identik dengan yang sudah ada di
+  `src/`.** Blok pertama ditolak:
+  `[SKIP] extern func_08050D8C beda tanda tangan (['i32 (void *, void *)', 'void (u8 *, i32 *)'] vs ['i32 (void *, void *)'])`.
+  Setelah deklarasi disamakan (`void func_08050D8C(u8 *, s32 *)` dan
+  `s32 func_08050E50();`) judge tetap HIJAU dan migrate menjadi
+  `HIJAU func_080E379C`. Jadi: cek `grep` tanda tangan callee di `src/`
+  sebelum menulis blok promoted.
+
+### §105 Tiga penolakan baru (dinding, dengan bacaan `<ref> | <kita>`)
+
+`func_0805E760` (code_0803EE94) — 8 varian; bentuk badan sudah identik dan
+hanya **register epilog** berbeda:
+
+```
+ref                                    kita
+push {r4, lr}                          push {r4, lr}
+adds r4, r0, #0                        add  r4, r0, #0
+adds r3, r1, #0                        add  r3, r1, #0
+ldrh r0, [r3, #0x20]                   ldrh r0, [r3, #0x20]
+cmp  r2, r0                            cmp  r2, r0
+bhs  .L0805E782                        bcs  .L3
+lsls r1, r2, #2                        lsl  r1, r2, #2
+ldr  r0, [r3, #4]                      ldr  r0, [r3, #4]
+adds r0, r0, r1                        add  r0, r0, r1
+ldrh r1, [r0, #2]                      ldrh r1, [r0, #2]
+ldrh r2, [r0]                          ldrh r2, [r0]
+lsls r1, r1, #2                        lsl  r1, r1, #2
+ldr  r0, [r3, #0x1c]                   ldr  r0, [r3, #0x1c]
+adds r1, r1, r0                        add  r1, r1, r0
+str  r1, [r4]                          str  r1, [r4]
+strh r2, [r4, #4]                      strh r2, [r4, #4]
+b    .L0805E788                        b    .L4
+movs r0, #0                            mov  r0, #0
+str  r0, [r4]                          str  r0, [r4]
+strh r0, [r4, #4]                      strh r0, [r4, #4]
+adds r0, r4, #0                        add  r0, r4, #0
+pop  {r4}                              pop  {r4}
+pop  {r2}              <- beda         pop  {r1}
+bx   r2                                bx   r1
+```
+
+`byte +0x2c: 0x2 vs ref 0x4 [2regalloc @r pop {r2} | pop {r1}]`. Mengubah tipe
+kembalian (`Out *`, `void *`, `u32`, `s32`) **tidak** menggeser register
+epilog; begitu juga urutan operand `adds` (memberi
+`adds r1, r0, r1`, bukan `adds r1, r1, r0`). Sisa satu setengah instruksi.
+
+`func_080E43FC` (code_linkonce) — 52 B vs ref 58: ref punya kerangka
+`sub sp, #8` … `add sp, #8` yang tidak pernah dipakai (sisa dua lokal yang
+dioptimasi habis) dan memuat ulang `arg0->unk10` sebelum store kedua:
+
+```
+ref                                    kita
+push {r4, r5, r6, lr}                  push {r4, r5, r6, lr}
+sub  sp, #8            <- beda         (tidak ada)
+adds r6, r0, #0                        add  r6, r0, #0
+...
+ldr  r0, [r4, #4]                      ldr  r0, [r4, #4]
+str  r0, [r0, #8]                      str  r0, [r0, #8]
+ldr  r0, [r4, #4]      <- beda         (tidak ada; CSE)
+str  r0, [r0, #0xc]                    str  r0, [r0, #0xc]
+add  sp, #8            <- beda         (tidak ada)
+```
+
+`func_080D4130` (code_linkonce) — rantai `ands/orrs` enam field, 72 B.
+Ref memakai literal `0xFFFFFC00` (`ldr r3, .L`) dan `& -4`
+(`movs r1,#4; rsbs r1,r1,#0`); C kita dengan `u16 & 0xFFFFFC00` dan `u8 & ~3`
+justru menyempitkan konstanta ke `0xFC00` (`movs #0xfc; lsls #8`) dan
+`0xFC` — badan tidak identik. Bentuk C yang mempertahankan lebar 32-bit
+belum ditemukan.
+
+**Pola umum putaran ini:** yang **selalu** cocok adalah badan lurus dengan
+store ber-offset konstanta + call biasa (§102, §104). Yang menolak selalu
+berakhir di satu register (epilog `pop {rN}`, register parameter, atau jumlah
+callee-saved) — bukan di logika badan.
+

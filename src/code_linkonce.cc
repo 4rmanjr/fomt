@@ -1081,7 +1081,6 @@ void func_080D7AD4(u8 *arg0, i32 arg1) {
 }
 }
 
-
 // DECOMP-MATCHED func_080D7B04 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 void * __builtin_delete(void *);
@@ -2896,6 +2895,28 @@ void func_080E3774(u8 *arg0) {
     func_08050E50(p, 0x38);
 }
 }
+// DECOMP-MATCHED func_080E379C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+extern u32 gUnk_081005EC;
+void func_08050D8C(u8 *, i32 *);
+i32 func_08050E50();
+
+__attribute__((section(".text.code_linkonce.b3.080E379C")))
+void func_080E379C(u8 *arg0) {
+    *(u32 *)(arg0 + 0x3D8) = 0;
+    *(u32 *)(arg0 + 0x3DC) = 0;
+    func_08050D8C(arg0 + 0x1C8, (i32 *)&gUnk_081005EC);
+    func_08050E50(arg0 + 0x1C8, 0x3A);
+    *(u32 *)(arg0 + 0x1D4) = 4;
+}
+}
+
+// DECOMP-MATCHED gData_code_linkonce_080E3798.data.080E3798
+extern "C" {
+// data tak-dirujuk di 0x080E3798 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+extern const u8 gData_code_linkonce_080E3798[4] __attribute__((section(".text.code_linkonce.b3.080E3798"))) = {0x70, 0x47, 0x00, 0x00};
+}
+
 
 // DECOMP-MATCHED func_080E3858 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {

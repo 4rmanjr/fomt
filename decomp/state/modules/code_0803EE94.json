@@ -1822,7 +1822,7 @@
   "draft_src": "manual",
   "judged_mtime": 1795688490.0168164,
   "module": "code_0803EE94.s",
-  "note": "byte +0x2c: 0x2 vs ref 0x4 [2regalloc @r pop {r2} | pop {r1}]",
+  "note": "8 varian; badan identik, sisa epilog: ref `pop {r2}; bx r2`, kita `pop {r1}; bx r1` \u2014 DIFF `byte +0x2c: 0x2 vs ref 0x4 [2regalloc]`. Tipe kembalian (Out*/void*/u32/s32) dan urutan operand adds tidak menggeser.",
   "ref_len": 48,
   "sanitize_v": 4,
   "size": 462,

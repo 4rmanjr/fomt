@@ -1,32 +1,24 @@
-void *func_080D3BC0(s32);                           /* extern */
-void *malloc(s32);                                  /* extern */
+s32 malloc(s32);
+s32 func_080D3BC0(s32);
 
-typedef struct GenObj {
-    s32 unk0;
-    s32 unk4;
-    struct GenObj *unk8;
-    struct GenObj *unkC;
-} GenObj;
-s32 func_080E43FC(s32 arg0) {
-    GenObj *temp_r0;
-    GenObj *temp_r0_2;
-    void *temp_r4;
-    GenObj *var_r0;
+u8 *func_080E43FC(u8 *arg0) {
+    u8 *r4 = arg0 + 8;
+    u8 *p;
+    u8 *q;
 
-    temp_r4 = arg0 + 8;
-    temp_r4->unk4 = 0;
-    var_r0 = malloc(0x18);
-    if (var_r0 == 0) {
-        var_r0 = func_080D3BC0(0x18);
+    *(u32 *)(r4 + 4) = 0;
+    p = (u8 *)malloc(0x18);
+    if (p == 0) {
+        p = (u8 *)func_080D3BC0(0x18);
     }
-    temp_r4->unk4 = var_r0;
-    temp_r4->unk8 = 0;
-    temp_r4->unkC = 0;
-    var_r0->unk0 = 0;
-    var_r0->unk4 = 0;
-    temp_r0 = temp_r4->unk4;
-    temp_r0->unk8 = temp_r0;
-    temp_r0_2 = temp_r4->unk4;
-    temp_r0_2->unkC = temp_r0_2;
+    *(u32 *)(r4 + 4) = (u32)p;
+    *(u32 *)(r4 + 8) = 0;
+    *(u32 *)(r4 + 0xC) = 0;
+    *(u8 *)p = 0;
+    *(u32 *)(p + 4) = 0;
+    q = *(u8 **)(r4 + 4);
+    *(u32 *)(q + 8) = (u32)q;
+    q = *(u8 **)(r4 + 4);
+    *(u32 *)(q + 0xC) = (u32)q;
     return arg0;
 }
