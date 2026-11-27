@@ -3631,13 +3631,14 @@
  },
  "func_080E1D54": {
   "addr": 135142740,
-  "judged_mtime": 1793018171.2910342,
+  "judged_mtime": 1795747788.3821976,
   "module": "code_linkonce.s",
-  "note": "Loop pointer 0x10 dengan pre-check; DIFF `len 50 vs ref 54 [1missing,12regalloc @r adds r2, r0, #0 | adds r3, r0, #0]` \u2014 ref menaruh arg0 di r2, kita r3.",
+  "note": "MATCH + migrate HIJAU ke src/code_linkonce.cc. Ditulis tangan: jalan daftar `q = arg0+0x2168` sampai `end = (arg0+0x2164)+4+(*p<<4)` dengan langkah 0x10, lalu panggil func_08076E0C lewat cast `((s32 (*)(void *,void *))func_08076E0C)(arg0, arg1)` karena TI mendeklarasikannya 0-arg (\u00a7115/\u00a7117).",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 56,
   "sanitize_v": 4,
   "size": 521,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E1D8C": {

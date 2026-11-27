@@ -118,7 +118,7 @@
   "addr": 134857660,
   "judged_mtime": 1795436498.8765213,
   "module": "code_actor_0809BFE8.s",
-  "note": "re-attempt: DIFF `len 28 vs ref 36 [4missing \u2026 @< adds r3, r0, #0]` \u2014 ref menyimpan hasil bl di r3 lalu memakai base+idx dua kali; 4 varian C dicoba, semuanya menggabungkan pointer.",
+  "note": "PARKIR \u00a7117: 28 vs 36 B \u2014 ROM menyalin hasil `bl func_0809C22C` ke r3 (`adds r3, r0, #0`) lalu memakai ulang r2 (byte nol hasil `ldrb`) untuk store kedua; agbcc menghitung ulang alamat dan tidak menyalin. Tiga bentuk sumber dicoba (`i` langsung, pointer `p`, byte `z`).",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 373,
@@ -138,13 +138,14 @@
  },
  "func_0809C420": {
   "addr": 134857760,
-  "judged_mtime": 1795436498.8765213,
+  "judged_mtime": 1795747821.6839738,
   "module": "code_actor_0809BFE8.s",
-  "note": "re-attempt pasca-perbaikan batas: DIFF `len 26 vs ref 34 [4missing \u2026 @< adds r2, r0, #0]` \u2014 ref menyimpan arg0 di r2 dan memecah adds (#0xc lalu +arg1); bentuk C yang menghasilkan salinan itu belum ketemu (4 varian dicoba).",
+  "note": "MATCH + migrate HIJAU ke src/code_actor_0809BFE8.cc. Ditulis tangan dari asm: `if (arg0[arg1]==0) return; if (arg1!=0 && arg1!=3) return; p = arg0+0xC; p[arg1]=0;`. Penghalang migrasi hanya prototipe lama `i32 (i32,i32)` di TU; diubah jadi `void (u8*, i32)` + cast di pemanggil (codegen tak berubah). POLA-DIFF \u00a7117.",
+  "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 393,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809C444": {

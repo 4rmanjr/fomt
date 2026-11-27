@@ -5026,3 +5026,45 @@ keyword di agbcc, dan penyusunan ulang pernyataan selalu dilipat kembali).
 Jalan yang tersisa bukan translasi, melainkan mengubah kondisi kompilasi
 (flag/varian agbcc) atau menerima promote-only. Ini kelas yang sama dengan §103.
 
+### §117 Batch kandidat kecil tanpa note: 2 MATCH, sisanya satu instruksi beda
+
+Pool "failed tanpa `note` terdokumentasi" berisi 1041 fungsi; 20 di antaranya
+<=28 instruksi. Enam dikerjakan serentak dengan C tulis tangan dari `.s`.
+
+**MATCH + migrate (2):**
+
+- `func_0809C420` (code_actor_0809BFE8) — bentuk penjaga dua tingkat:
+
+  ```c
+  void func_0809C420(u8 *arg0, s32 arg1) {
+      u8 *p;
+      if (arg0[arg1] == 0) return;
+      if (arg1 != 0 && arg1 != 3) return;
+      p = arg0 + 0xC;
+      p[arg1] = 0;
+  }
+  ```
+
+  Migrasi sempat MERAH hanya karena prototipe lama di TU berbunyi
+  `i32 func_0809C420(i32, i32);`. Deklarasi itu diubah menjadi
+  `void func_0809C420(u8 *, i32);` (di `src/` **dan** blok promoted-nya supaya
+  tidak drift) dan pemanggilnya diberi cast `(u8 *)` — deklarasi tidak
+  menghasilkan kode, jadi byte tetap identik. Ini pola **J: prototipe salah di
+  TU, bukan badan**.
+- `func_080E1D54` (code_linkonce) — jalan daftar berlangkah 0x10 lalu ekor
+  panggilan; callee `func_08076E0C` dideklarasikan 0-arg di TU sehingga
+  dipanggil lewat cast (§115 pola I).
+
+**Gagal dengan pembeda satu instruksi:**
+
+| fungsi | beda | ROM meminta |
+|---|---|---|
+| `func_0809C3BC` | 28 vs 36 B | salinan hasil `bl` ke r3 (`adds r3, r0, #0`) + reuse r2 (byte nol) untuk store kedua |
+| `func_080ADF40` | 36 vs 44 B | dua register callee-saved (`push {r4,r5,lr}`, a di r5, sum di r4) |
+| `func_0805E760` | 42 vs 48 B | urutan `ldr r0,[r3,#0x1c]` setelah dua `ldrh`, bukan sebelumnya |
+| `sub_080D0FDC` | 2 missing/2 extra | idiom rotasi `mov r3, ip; rors r3, r4; tst r2, r3` (mask lewat r12) |
+
+Sub-kelas baru yang layak diangkat: **J — prototipe salah di TU** (deklarasi
+`i32 (i32,i32)` untuk fungsi `void (u8*,i32)`): perbaiki deklarasi + cast di
+pemanggil, jangan ubah badan yang sudah match.
+
