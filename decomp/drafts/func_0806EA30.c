@@ -1,26 +1,42 @@
-void func_0806DB38(void *, s32);
+s32 func_0806DB38(s32 *, s32);                     /* extern */
 
-typedef struct GenObj { u8 _pad0[4]; s32 unk4; } GenObj;
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
 
-void **func_0806EA30(void **arg0, GenObj *arg1)
-{
-    void *volatile sp[3];
-    void **base;
-    void *tmp;
-    void *p;
-    void (*fn)(void *, s32);
+typedef struct Guard12 {
+    void *p;        /* 0x0 */
+    void *self;     /* 0x4 */
+    void *v;        /* 0x8 */
+} Guard12;
 
-    func_0806DB38((void *) sp, arg1->unk4);
-    base = (void **) sp;
-    tmp = (void *) sp[0];
-    base[1] = (void *) base;
-    base[2] = tmp;
-    base[0] = 0;
-    *arg0 = tmp;
-    p = base[0];
+typedef struct Vt0806EA30 {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt0806EA30;
+
+void **func_0806EA30(void ***arg0, GenObj *arg1) {
+    volatile Guard12 h;
+    void **res;
+    register void **bp __asm__("r0");
+    void **p;
+    register void **q __asm__("r1");
+    Vt0806EA30 *vt;
+
+    func_0806DB38((s32 *) &h.p, arg1->unk4);
+    res = (void **) h.p;
+    bp = (void **) &h.p;
+    h.self = (void *) bp;
+    h.v = res;
+    q = bp;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
     if (p != 0) {
-        fn = (void (*)(void *, s32))((void **)*(u32 **)p)[2];
-        fn(p, 3);
+        vt = (Vt0806EA30 *) *p;
+        vt->fn8((void *) p, 3);
     }
-    return arg0;
+    return (void **) arg0;
 }

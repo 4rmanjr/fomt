@@ -3079,11 +3079,12 @@
   "draft_src": "manual",
   "judged_mtime": 0,
   "module": "code_809E804.s",
-  "note": "PARKIR \u00a7116: klaster B, `[3missing,1extra,1different @< ldr r2, [sp] | ]` (54 vs 58 B) \u2014 tiga instruksi hilang sejak penyimpanan awal; butuh `tmp` di r2.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080B3C78": {
@@ -3756,11 +3757,12 @@
   "addr": 134990076,
   "judged_mtime": 1795434686.9895835,
   "module": "code_809E804.s",
-  "note": "PARKIR \u00a7116: draf m2c gagal kompilasi (warning `dereferencing void *` berujung error C++) \u2014 bentuk vtable-palsu; perlu ditulis ulang penuh dari asm.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080BC938": {
@@ -4061,11 +4063,12 @@
   "addr": 135007632,
   "judged_mtime": 1795434686.9935834,
   "module": "code_809E804.s",
-  "note": "PARKIR \u00a7116: draf m2c gagal kompilasi (deref `void *`), sama seperti func_080BC8FC.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080C0DCC": {
@@ -4400,11 +4403,12 @@
   "addr": 135036700,
   "judged_mtime": 1795434686.9935834,
   "module": "code_809E804.s",
-  "note": "PARKIR \u00a7118: idem func_08004C0C (stack hand-off 3 slot + vcall, callee func_080C12C4). Kelas klaster B \u00a7116.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080C7F58": {

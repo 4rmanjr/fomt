@@ -178,11 +178,12 @@
   "addr": 134237196,
   "judged_mtime": 1795431869.1468248,
   "module": "new_game.s",
-  "note": "PARKIR \u00a7118: bentuk stack hand-off 3 slot + vcall yang identik dengan klaster B (\u00a7116) \u2014 beda yang sama: `adds r1, r0, #0` sebelum `str r0,[r1]`. Tidak diulang karena kelasnya sudah terbukti.",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 566,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08004C48": {

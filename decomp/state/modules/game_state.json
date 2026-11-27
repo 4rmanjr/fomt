@@ -417,11 +417,12 @@
   "draft_src": "manual",
   "judged_mtime": 1794379717.8644207,
   "module": "game_state.s",
-  "note": "PARKIR \u00a7116: beda 1 instruksi \u2014 ROM menyalin pointer sp ke r1 (`adds r1, r0, #0`) sebelum `movs r0,#0; str r0,[r1]`; agbcc menulis `str r0,[sp]` langsung (56 vs 58 B). Variasi: `base = sp; *base = 0`, `void *p = sp; sp[1] = p; *(void**)p = 0` \u2014 semuanya dilipat. Draf m2c: `[1missing,1operand,1regalloc @< adds r1, r0, #0]`.",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 565,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08012064": {

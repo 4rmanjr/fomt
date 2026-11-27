@@ -2273,7 +2273,7 @@
   "addr": 134666568,
   "judged_mtime": 1795432711.5268154,
   "module": "code_0803EE94.s",
-  "note": "len 38 vs ref 72 [16missing,4regalloc @r ldr r2, [sp] | ldr r1, [sp]]",
+  "note": "PARKIR: simbol ROM 72 B = badan 58 B + fragmen ekor 12 B (.L0806D984, .byte tak-terujuk); badan identik keluarga B (POLA-DIFF 121.2), 12 B ekor tak bisa dihasilkan C",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 569,
@@ -2441,11 +2441,12 @@
   "draft_src": "manual",
   "judged_mtime": 1794397603.0723715,
   "module": "code_0803EE94.s",
-  "note": "PARKIR \u00a7116: `[1missing,1operand,4regalloc @r ldr r2, [sp] | ldr r1, [sp]]` \u2014 56 vs 58 B; ROM menyimpan `tmp` di r2 dan menyalin sp ke r1 (`adds r1, r0, #0`), agbcc memakai r1 untuk `tmp`. Bentuk klaster B (stack hand-off 3 slot).",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0806EA6C": {
@@ -5347,11 +5348,12 @@
   "draft_src": "manual",
   "judged_mtime": 1794397629.467382,
   "module": "code_0803EE94.s",
-  "note": "PARKIR \u00a7116: klaster B, `[1missing,2operand,7regalloc,1different @r ldr r2, [sp] | ldr r1, [sp]]` (56 vs 58 B). Sama seperti func_0806EA30, beda callee.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08092640": {

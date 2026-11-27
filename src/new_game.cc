@@ -221,6 +221,22 @@ typedef struct Sp4 {
 } Sp4;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_08004C0C {
+    u8 _pad0[4];
+    i32 unk4;
+} GenObj__func_08004C0C;
+typedef struct Guard12 {
+    void *p;        /* 0x0 */
+    void *self;     /* 0x4 */
+    void *v;        /* 0x8 */
+} Guard12;
+typedef struct Vt08004C0C {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt08004C0C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_08003B40 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_08008918(i32);                              /* extern */
@@ -519,6 +535,37 @@ void func_08004BDC(GenObj__func_08004BDC *arg0, i32 arg1) {
     func_080007EC(arg0, arg1);
 }
 }
+// DECOMP-MATCHED func_08004C0C (dari new_game.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_08004570(i32 *, i32);                     /* extern */
+
+__attribute__((section(".text.new_game.08004C0C")))
+void **func_08004C0C(void ***arg0, GenObj__func_08004C0C *arg1) {
+    volatile Guard12 h;
+    void **res;
+    register void **bp __asm__("r0");
+    void **p;
+    register void **q __asm__("r1");
+    Vt08004C0C *vt;
+
+    func_08004570((i32 *) &h.p, (i32)(arg1->unk4));
+    res = (void **) h.p;
+    bp = (void **) &h.p;
+    h.self = (void *) bp;
+    h.v = res;
+    q = bp;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt08004C0C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return (void **) arg0;
+}
+}
+
 
 // DECOMP-MATCHED func_08004C48 (dari new_game.s; cek manusia sebelum ke src/)
 extern "C" {

@@ -964,6 +964,123 @@ typedef struct Vt080DC49C {
 } Vt080DC49C;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DB96C {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+    u8 unkC;
+} GenObj__func_080DB96C;
+typedef struct Vt080DB96C {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080DB96C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DBA4C {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+    u8 unkC;
+} GenObj__func_080DBA4C;
+typedef struct Vt080DBA4C {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080DBA4C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DBABC {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+    u8 unkC;
+} GenObj__func_080DBABC;
+typedef struct Vt080DBABC {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080DBABC;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DBB2C {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+    i32 unkC;
+} GenObj__func_080DBB2C;
+typedef struct Vt080DBB2C {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080DBB2C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DBCE8 {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+    i32 unkC;
+} GenObj__func_080DBCE8;
+typedef struct Vt080DBCE8 {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080DBCE8;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DBD58 {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+    i32 unkC;
+} GenObj__func_080DBD58;
+typedef struct Vt080DBD58 {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080DBD58;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DC0E8 {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+    i32 unkC;
+} GenObj__func_080DC0E8;
+typedef struct Vt080DC0E8 {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080DC0E8;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080DC50C {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+    u8 unkC;
+} GenObj__func_080DC50C;
+typedef struct Vt080DC50C {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080DC50C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080E3494 {
+    u8 _pad0[4];
+    i32 unk4;
+    i32 unk8;
+    u8 unkC;
+} GenObj__func_080E3494;
+typedef struct Vt080E3494 {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080E3494;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_080D3C60 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0800080C(void *, i32);
@@ -1951,6 +2068,39 @@ void func_080DB944(u8 *arg0, i32 arg1) {
     func_0800080C(arg0, arg1);
 }
 }
+// DECOMP-MATCHED func_080DB96C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                           /* extern */
+void **func_08057DD8(i32, i32 *, i32, u8);
+
+__attribute__((section(".text.code_linkonce.b2.080DB96C")))
+void ***func_080DB96C(void ***arg0, GenObj__func_080DB96C *arg1) {
+    volatile Guard h;
+    i32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DB96C *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_08057DD8((i32) __builtin_new(0xC), (i32 *) &h.old, (i32)(arg1->unk8), (u8)(arg1->unkC));
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DB96C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+}
 
 // DECOMP-MATCHED func_080DB9B4 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -2020,6 +2170,39 @@ void func_080DBA24(u8 *arg0, i32 arg1) {
     func_0800080C(arg0, arg1);
 }
 }
+// DECOMP-MATCHED func_080DBA4C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                           /* extern */
+void **func_0805CEB8(i32, i32 *, i32, u8);
+
+__attribute__((section(".text.code_linkonce.b2.080DBA4C")))
+void ***func_080DBA4C(void ***arg0, GenObj__func_080DBA4C *arg1) {
+    volatile Guard h;
+    i32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DBA4C *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_0805CEB8((i32) __builtin_new(0xC), (i32 *) &h.old, (i32)(arg1->unk8), (u8)(arg1->unkC));
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DBA4C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+}
 
 // DECOMP-MATCHED func_080DBA94 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -2038,6 +2221,39 @@ void func_080DBA94(u8 *arg0, i32 arg1) {
     func_0800080C(arg0, arg1);
 }
 }
+// DECOMP-MATCHED func_080DBABC (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                           /* extern */
+void **func_0809A4D4(i32, i32 *, i32, u8);
+
+__attribute__((section(".text.code_linkonce.b2.080DBABC")))
+void ***func_080DBABC(void ***arg0, GenObj__func_080DBABC *arg1) {
+    volatile Guard h;
+    i32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DBABC *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_0809A4D4((i32) __builtin_new(0xC), (i32 *) &h.old, (i32)(arg1->unk8), (u8)(arg1->unkC));
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DBABC *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+}
 
 // DECOMP-MATCHED func_080DBB04 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -2054,6 +2270,39 @@ void func_080DBB04(u8 *arg0, i32 arg1) {
         fn(p, 3);
     }
     func_0800080C(arg0, arg1);
+}
+}
+// DECOMP-MATCHED func_080DBB2C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                           /* extern */
+void **func_0807B038(i32, i32 *, i32, i32);
+
+__attribute__((section(".text.code_linkonce.b2.080DBB2C")))
+void ***func_080DBB2C(void ***arg0, GenObj__func_080DBB2C *arg1) {
+    volatile Guard h;
+    i32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DBB2C *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_0807B038((i32) __builtin_new(0xC), (i32 *) &h.old, (i32)(arg1->unk8), (i32)(arg1->unkC));
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DBB2C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
 }
 }
 
@@ -2194,6 +2443,39 @@ void func_080DBCC0(u8 *arg0, i32 arg1) {
     func_0800080C(arg0, arg1);
 }
 }
+// DECOMP-MATCHED func_080DBCE8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                           /* extern */
+void **func_08088168(i32, i32 *, i32, i32);
+
+__attribute__((section(".text.code_linkonce.b2.080DBCE8")))
+void ***func_080DBCE8(void ***arg0, GenObj__func_080DBCE8 *arg1) {
+    volatile Guard h;
+    i32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DBCE8 *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_08088168((i32) __builtin_new(0x14), (i32 *) &h.old, (i32)(arg1->unk8), (i32)(arg1->unkC));
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DBCE8 *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+}
 
 // DECOMP-MATCHED func_080DBD30 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -2210,6 +2492,39 @@ void func_080DBD30(u8 *arg0, i32 arg1) {
         fn(p, 3);
     }
     func_0800080C(arg0, arg1);
+}
+}
+// DECOMP-MATCHED func_080DBD58 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                           /* extern */
+void **func_0807D070(i32, i32 *, i32, i32);
+
+__attribute__((section(".text.code_linkonce.b2.080DBD58")))
+void ***func_080DBD58(void ***arg0, GenObj__func_080DBD58 *arg1) {
+    volatile Guard h;
+    i32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DBD58 *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_0807D070((i32) __builtin_new(0x14), (i32 *) &h.old, (i32)(arg1->unk8), (i32)(arg1->unkC));
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DBD58 *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
 }
 }
 
@@ -2554,6 +2869,39 @@ void func_080DC0C0(u8 *arg0, i32 arg1) {
     func_0800080C(arg0, arg1);
 }
 }
+// DECOMP-MATCHED func_080DC0E8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                           /* extern */
+void **func_0807E438(i32, i32 *, i32, i32);
+
+__attribute__((section(".text.code_linkonce.b2.080DC0E8")))
+void ***func_080DC0E8(void ***arg0, GenObj__func_080DC0E8 *arg1) {
+    volatile Guard h;
+    i32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DC0E8 *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_0807E438((i32) __builtin_new(0xC), (i32 *) &h.old, (i32)(arg1->unk8), (i32)(arg1->unkC));
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DC0E8 *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+}
 
 // DECOMP-MATCHED func_080DC130 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -2809,7 +3157,6 @@ void ***func_080DC49C(void ***arg0, GenObj__func_080DC49C *arg1) {
 }
 }
 
-
 // DECOMP-MATCHED func_080DC4E4 (dari code_linkonce.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_0800080C(void *, i32);
@@ -2825,6 +3172,39 @@ void func_080DC4E4(u8 *arg0, i32 arg1) {
         fn(p, 3);
     }
     func_0800080C(arg0, arg1);
+}
+}
+// DECOMP-MATCHED func_080DC50C (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                           /* extern */
+void **func_08069E14(i32, i32 *, i32, u8);
+
+__attribute__((section(".text.code_linkonce.b2.080DC50C")))
+void ***func_080DC50C(void ***arg0, GenObj__func_080DC50C *arg1) {
+    volatile Guard h;
+    i32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DC50C *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_08069E14((i32) __builtin_new(0xC), (i32 *) &h.old, (i32)(arg1->unk8), (u8)(arg1->unkC));
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DC50C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
 }
 }
 
@@ -4481,6 +4861,46 @@ void func_080E2E78(i32 arg0, void *arg1) {
             var_r4 = (GenObj__func_080E2E78 *)(temp_r5);
         } while (var_r4 != 0);
     }
+}
+}
+
+// DECOMP-MATCHED gData_code_linkonce_080E33D0.data.080E33D0
+extern "C" {
+// data tak-dirujuk di 0x080E33D0 (label di-strip; tak dirujuk modul) — byte-identik dgn asm
+extern const u8 gData_code_linkonce_080E33D0[196] __attribute__((section(".text.code_linkonce.b3.080E33D0"))) = {0x70, 0xB5, 0x05, 0x1C, 0x0E, 0x1C, 0xA6, 0x21, 0x09, 0x01, 0x68, 0x18, 0x00, 0x68, 0x00, 0x28, 0x01, 0xD0, 0xEC, 0xF7, 0x3D, 0xFF, 0x26, 0x4A, 0xAC, 0x18, 0x61, 0x68, 0x20, 0x1C, 0x23, 0xF7, 0xF7, 0xFF, 0x20, 0x1C, 0x02, 0x21, 0x23, 0xF7, 0xC5, 0xFE, 0x83, 0x20, 0x00, 0x01, 0x2C, 0x18, 0x61, 0x68, 0x20, 0x1C, 0x24, 0xF7, 0x10, 0xFC, 0x20, 0x1C, 0x02, 0x21, 0x24, 0xF7, 0xEC, 0xFA, 0x1C, 0x49, 0x6C, 0x18, 0x61, 0x68, 0x20, 0x1C, 0x23, 0xF7, 0xE2, 0xFF, 0x20, 0x1C, 0x02, 0x21, 0x23, 0xF7, 0xB0, 0xFE, 0x82, 0x22, 0x12, 0x01, 0xAC, 0x18, 0x61, 0x68, 0x20, 0x1C, 0x24, 0xF7, 0xFB, 0xFB, 0x20, 0x1C, 0x02, 0x21, 0x24, 0xF7, 0xD7, 0xFA, 0x13, 0x48, 0x2C, 0x18, 0x61, 0x68, 0x20, 0x1C, 0x23, 0xF7, 0xCD, 0xFF, 0x20, 0x1C, 0x02, 0x21, 0x23, 0xF7, 0x9B, 0xFE, 0x81, 0x21, 0x09, 0x01, 0x6C, 0x18, 0x61, 0x68, 0x20, 0x1C, 0x24, 0xF7, 0xE6, 0xFB, 0x20, 0x1C, 0x02, 0x21, 0x24, 0xF7, 0xC2, 0xFA, 0x09, 0x4A, 0xA8, 0x18, 0x09, 0x49, 0x01, 0x60, 0x30, 0x3A, 0xA8, 0x18, 0x01, 0x60, 0x28, 0x1C, 0x31, 0x1C, 0x25, 0xF7, 0x21, 0xF9, 0x70, 0xBC, 0x01, 0xBC, 0x00, 0x47, 0x38, 0x08, 0x00, 0x00, 0x28, 0x08, 0x00, 0x00, 0x18, 0x08, 0x00, 0x00, 0x44, 0x07, 0x00, 0x00, 0x28, 0x5A, 0x0E, 0x08};
+}
+
+// DECOMP-MATCHED func_080E3494 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern "C" {
+void *__builtin_new(i32);                           /* extern */
+void **func_08092570(i32, i32 *, i32, u8);
+
+__attribute__((section(".text.code_linkonce.b3.080E3494")))
+void ***func_080E3494(void ***arg0, GenObj__func_080E3494 *arg1) {
+    volatile Guard h;
+    i32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080E3494 *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_08092570((i32) __builtin_new(0xC), (i32 *) &h.old, (i32)(arg1->unk8), (u8)(arg1->unkC));
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080E3494 *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
 }
 }
 

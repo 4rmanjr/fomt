@@ -681,11 +681,12 @@
   "addr": 134237196,
   "judged_mtime": 1795431869.1468248,
   "module": "new_game.s",
-  "note": "PARKIR \u00a7118: bentuk stack hand-off 3 slot + vcall yang identik dengan klaster B (\u00a7116) \u2014 beda yang sama: `adds r1, r0, #0` sebelum `str r0,[r1]`. Tidak diulang karena kelasnya sudah terbukti.",
+  "note": "",
+  "promoted_to": "decomp/promoted/new_game.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 566,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08004C48": {
@@ -3250,11 +3251,12 @@
   "draft_src": "manual",
   "judged_mtime": 1794379717.8644207,
   "module": "game_state.s",
-  "note": "PARKIR \u00a7116: beda 1 instruksi \u2014 ROM menyalin pointer sp ke r1 (`adds r1, r0, #0`) sebelum `movs r0,#0; str r0,[r1]`; agbcc menulis `str r0,[sp]` langsung (56 vs 58 B). Variasi: `base = sp; *base = 0`, `void *p = sp; sp[1] = p; *(void**)p = 0` \u2014 semuanya dilipat. Draf m2c: `[1missing,1operand,1regalloc @< adds r1, r0, #0]`.",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 565,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08012064": {
@@ -14002,7 +14004,7 @@
   "addr": 134666568,
   "judged_mtime": 1795432711.5268154,
   "module": "code_0803EE94.s",
-  "note": "len 38 vs ref 72 [16missing,4regalloc @r ldr r2, [sp] | ldr r1, [sp]]",
+  "note": "PARKIR: simbol ROM 72 B = badan 58 B + fragmen ekor 12 B (.L0806D984, .byte tak-terujuk); badan identik keluarga B (POLA-DIFF 121.2), 12 B ekor tak bisa dihasilkan C",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 569,
@@ -14170,11 +14172,12 @@
   "draft_src": "manual",
   "judged_mtime": 1794397603.0723715,
   "module": "code_0803EE94.s",
-  "note": "PARKIR \u00a7116: `[1missing,1operand,4regalloc @r ldr r2, [sp] | ldr r1, [sp]]` \u2014 56 vs 58 B; ROM menyimpan `tmp` di r2 dan menyalin sp ke r1 (`adds r1, r0, #0`), agbcc memakai r1 untuk `tmp`. Bentuk klaster B (stack hand-off 3 slot).",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0806EA6C": {
@@ -17076,11 +17079,12 @@
   "draft_src": "manual",
   "judged_mtime": 1794397629.467382,
   "module": "code_0803EE94.s",
-  "note": "PARKIR \u00a7116: klaster B, `[1missing,2operand,7regalloc,1different @r ldr r2, [sp] | ldr r1, [sp]]` (56 vs 58 B). Sama seperti func_0806EA30, beda callee.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_0803EE94.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_08092640": {
@@ -22239,11 +22243,12 @@
   "draft_src": "manual",
   "judged_mtime": 0,
   "module": "code_809E804.s",
-  "note": "PARKIR \u00a7116: klaster B, `[3missing,1extra,1different @< ldr r2, [sp] | ]` (54 vs 58 B) \u2014 tiga instruksi hilang sejak penyimpanan awal; butuh `tmp` di r2.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080B3C78": {
@@ -22916,11 +22921,12 @@
   "addr": 134990076,
   "judged_mtime": 1795434686.9895835,
   "module": "code_809E804.s",
-  "note": "PARKIR \u00a7116: draf m2c gagal kompilasi (warning `dereferencing void *` berujung error C++) \u2014 bentuk vtable-palsu; perlu ditulis ulang penuh dari asm.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080BC938": {
@@ -23221,11 +23227,12 @@
   "addr": 135007632,
   "judged_mtime": 1795434686.9935834,
   "module": "code_809E804.s",
-  "note": "PARKIR \u00a7116: draf m2c gagal kompilasi (deref `void *`), sama seperti func_080BC8FC.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080C0DCC": {
@@ -23560,11 +23567,12 @@
   "addr": 135036700,
   "judged_mtime": 1795434686.9935834,
   "module": "code_809E804.s",
-  "note": "PARKIR \u00a7118: idem func_08004C0C (stack hand-off 3 slot + vcall, callee func_080C12C4). Kelas klaster B \u00a7116.",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_809E804.cc",
   "ref_len": 60,
   "sanitize_v": 4,
   "size": 479,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080C7F58": {
@@ -26490,11 +26498,12 @@
   "addr": 135117164,
   "judged_mtime": 1793018125.768811,
   "module": "code_linkonce.s",
-  "note": "c: In function `func_080DB96C':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB96C/opencode/func.c:29: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB96C/opencode/func.c:29: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 598,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DB9B4": {
@@ -26537,11 +26546,12 @@
   "addr": 135117388,
   "judged_mtime": 1793018126.737408,
   "module": "code_linkonce.s",
-  "note": "c: In function `func_080DBA4C':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBA4C/opencode/func.c:29: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBA4C/opencode/func.c:29: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 598,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBA94": {
@@ -26560,11 +26570,12 @@
   "addr": 135117500,
   "judged_mtime": 1793018127.2299492,
   "module": "code_linkonce.s",
-  "note": "c: In function `func_080DBABC':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBABC/opencode/func.c:29: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBABC/opencode/func.c:29: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 598,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBB04": {
@@ -26583,11 +26594,12 @@
   "addr": 135117612,
   "judged_mtime": 1793018127.7305226,
   "module": "code_linkonce.s",
-  "note": "c: In function `func_080DBB2C':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBB2C/opencode/func.c:29: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBB2C/opencode/func.c:29: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 597,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBB74": {
@@ -26677,11 +26689,12 @@
   "addr": 135118056,
   "judged_mtime": 1793018129.8790247,
   "module": "code_linkonce.s",
-  "note": "c: In function `func_080DBCE8':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBCE8/opencode/func.c:29: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBCE8/opencode/func.c:29: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 598,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBD30": {
@@ -26700,11 +26713,12 @@
   "addr": 135118168,
   "judged_mtime": 1793018130.5262454,
   "module": "code_linkonce.s",
-  "note": "c: In function `func_080DBD58':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBD58/opencode/func.c:29: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBD58/opencode/func.c:29: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 598,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBDA0": {
@@ -26890,11 +26904,12 @@
   "addr": 135119080,
   "judged_mtime": 1793018134.4328415,
   "module": "code_linkonce.s",
-  "note": "c: In function `func_080DC0E8':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC0E8/opencode/func.c:29: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC0E8/opencode/func.c:29: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 597,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC130": {
@@ -27099,11 +27114,12 @@
   "addr": 135120140,
   "judged_mtime": 1793018138.1917765,
   "module": "code_linkonce.s",
-  "note": "c: In function `func_080DC50C':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC50C/opencode/func.c:29: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC50C/opencode/func.c:29: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 598,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC554": {
@@ -29363,11 +29379,12 @@
   "addr": 135148692,
   "judged_mtime": 1793018180.347494,
   "module": "code_linkonce.s",
-  "note": "c: In function `func_080E3494':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E3494/opencode/func.c:29: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E3494/opencode/func.c:29: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 72,
   "sanitize_v": 4,
   "size": 598,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E34DC": {

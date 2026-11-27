@@ -4414,3 +4414,92 @@ void func_080946C4(GenObj_080946C4 *arg0, s32 arg1) {
         break;
     }
 }
+
+// DECOMP-MATCHED func_0806EA30 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_0806DB38(s32 *, s32);                     /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+
+typedef struct Guard12 {
+    void *p;        /* 0x0 */
+    void *self;     /* 0x4 */
+    void *v;        /* 0x8 */
+} Guard12;
+
+typedef struct Vt0806EA30 {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt0806EA30;
+
+void **func_0806EA30(void ***arg0, GenObj *arg1) {
+    volatile Guard12 h;
+    void **res;
+    register void **bp __asm__("r0");
+    void **p;
+    register void **q __asm__("r1");
+    Vt0806EA30 *vt;
+
+    func_0806DB38((s32 *) &h.p, arg1->unk4);
+    res = (void **) h.p;
+    bp = (void **) &h.p;
+    h.self = (void *) bp;
+    h.v = res;
+    q = bp;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt0806EA30 *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return (void **) arg0;
+}
+
+// DECOMP-MATCHED func_08092604 (dari code_0803EE94.s; cek manusia sebelum ke src/)
+s32 func_0809152C(s32 *, s32);                     /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+
+typedef struct Guard12 {
+    void *p;        /* 0x0 */
+    void *self;     /* 0x4 */
+    void *v;        /* 0x8 */
+} Guard12;
+
+typedef struct Vt08092604 {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt08092604;
+
+void **func_08092604(void ***arg0, GenObj *arg1) {
+    volatile Guard12 h;
+    void **res;
+    register void **bp __asm__("r0");
+    void **p;
+    register void **q __asm__("r1");
+    Vt08092604 *vt;
+
+    func_0809152C((s32 *) &h.p, arg1->unk4);
+    res = (void **) h.p;
+    bp = (void **) &h.p;
+    h.self = (void *) bp;
+    h.v = res;
+    q = bp;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt08092604 *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return (void **) arg0;
+}
+

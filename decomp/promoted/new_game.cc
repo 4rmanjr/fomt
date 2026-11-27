@@ -842,3 +842,50 @@ skip_set:
     *(s32 *)p = *(s32 *)sp2;
     *(u16 *)((u8 *)p + 4) = *(u16 *)(sp2 + 4);
 }
+
+
+
+// DECOMP-MATCHED func_08004C0C (dari new_game.s; cek manusia sebelum ke src/)
+s32 func_08004570(s32 *, s32);                     /* extern */
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+} GenObj;
+
+typedef struct Guard12 {
+    void *p;        /* 0x0 */
+    void *self;     /* 0x4 */
+    void *v;        /* 0x8 */
+} Guard12;
+
+typedef struct Vt08004C0C {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt08004C0C;
+
+void **func_08004C0C(void ***arg0, GenObj *arg1) {
+    volatile Guard12 h;
+    void **res;
+    register void **bp __asm__("r0");
+    void **p;
+    register void **q __asm__("r1");
+    Vt08004C0C *vt;
+
+    func_08004570((s32 *) &h.p, arg1->unk4);
+    res = (void **) h.p;
+    bp = (void **) &h.p;
+    h.self = (void *) bp;
+    h.v = res;
+    q = bp;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt08004C0C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return (void **) arg0;
+}
+

@@ -5245,3 +5245,101 @@ semuanya masuk `src/code_linkonce.cc` dengan `make compare` HIJAU.
 Pelajaran: klaster yang diparkir dengan alasan "cabang mati selalu dihapus"
 harus dicek ulang terhadap §6.3 (`volatile`) **dan** apakah store-nya lewat
 pointer yang di-pin; dua tuas itu yang menentukan, bukan bentuk logikanya.
+
+## §121. Turunan klaster guard: argumen ke-4, dan `bp` di-pin ke `r0` (2026-11-27)
+
+Lanjutan §120. Dua keluarga turunan ditemukan dengan menggolongkan fungsi
+`failed` menurut **urutan mnemonik** (operand dinormalkan), bukan teks penuh —
+pengelompokan teks penuh (§120) tidak menemukan apa pun karena offset dan
+callee selalu beda.
+
+### 121.1 Keluarga A — guard §120 + argumen ke-4 (9 fungsi, `code_linkonce.s`)
+
+Badan identik §120; bedanya cuma panggilan factory:
+
+```asm
+ldr r2, [r4, #8]        @ arg1->unk8
+ldrb r3, [r4, #0xc]     @ arg1->unkC  (u8!)   -- varian kedua: ldr r3 (s32)
+bl <factory>
+```
+
+Jadi signature factory `void **(s32, s32 *, s32, u8)` (atau `..., s32` untuk
+varian `ldr`), dan `arg1->unkC` **wajib** dideklarasikan selebar aksesnya:
+`u8 unkC` → `ldrb`, `s32 unkC` → `ldr`. Salah lebar = satu instruksi beda
+(`byte +0x1a: 0x23 vs 0xe3`) dan tidak ada diff lain. Ukuran `new` juga
+mengikuti ROM (`0xC` atau `0x14`).
+
+Pembukti (9/9 MATCH, semua di `src/code_linkonce.cc`): `func_080DB96C`,
+`func_080DBA4C`, `func_080DBABC`, `func_080DBB2C`, `func_080DBCE8`,
+`func_080DBD58`, `func_080DC0E8`, `func_080DC50C`, `func_080E3494`.
+
+### 121.2 Keluarga B — guard 12 B, factory mengisi slot hasil (8 fungsi)
+
+Bentuk ref (semua identik, hanya callee beda):
+
+```asm
+push {r4, lr}
+sub sp, #0xc
+adds r4, r0, #0
+ldr r1, [r1, #4]
+mov r0, sp            @ &h.p  -> factory menulis hasil ke slot ini
+bl <factory>
+ldr r2, [sp]          @ res = h.p
+mov r0, sp
+str r0, [sp, #4]      @ h.self = base
+str r2, [sp, #8]      @ h.v = res
+adds r1, r0, #0       @ <<< salinan base dari r0, BUKAN mov r1, sp
+movs r0, #0
+str r0, [r1]
+str r2, [r4]
+ldr r1, [sp]
+cmp r1, #0
+beq .Lend
+ldr r0, [r1]
+ldr r2, [r0, #8]
+adds r0, r1, #0
+movs r1, #3
+bl _call_via_r2
+```
+
+Resep: `volatile` struct 12 B (`p`, `self`, `v`), `q` di-pin `r1` + fence
+seperti §120, **dan `bp` di-pin `r0`**:
+
+```c
+register void **bp __asm__("r0");
+...
+factory((s32 *) &h.p, arg1->unk4);
+res = (void **) h.p;
+bp = (void **) &h.p;      /* mov r0, sp */
+h.self = (void *) bp;     /* str r0, [sp, #4] */
+h.v = res;
+q = bp;                   /* adds r1, r0, #0 */
+__asm__ volatile ("" : "+r" (q));
+*q = 0;
+```
+
+Tanpa pin `r0`, agbcc me-rematerialisasi `sp` menjadi `mov r1, sp` (1
+instruksi beda, byte +0x16). **Ini mengoreksi §6.5**: kasus rematerialisasi
+`mov r1, sp` vs `adds r1, r0, #0` BUKAN wall — mem-pin variabel base ke `r0`
+memaksa salinan dari register, bukan alamat stack. (Catatan §6.5 berlaku untuk
+bentuk C lain di `func_08012028`; bentuk guard ini menyelesaikannya.)
+
+Pembukti (8/8 MATCH + 8 migrasi): `func_08012028` (`game_state.cc`),
+`func_0806EA30`, `func_08092604` (`code_0803EE94.cc`), `func_080B3C3C`,
+`func_080BC8FC`, `func_080C0D90`, `func_080C7F1C` (`code_809E804.cc`),
+`func_08004C0C` (`new_game.cc`).
+
+### 121.3 Dua jebakan proses yang terukur
+
+1. **Tipe balik di blok promoted dinormalkan.** `promote()` menulis blok
+   dengan tipe balik `void **` walau draf menulis `void ***`; karena badan
+   `return arg0;` (arg0 `void ***`), TU C++ menolak saat migrasi:
+   `return to 'void **' from 'void ***'`. Solusi: deklarasikan
+   `void **f(void ***arg0, ...)` + `return (void **) arg0;` — cast no-op,
+   codegen identik, judge tetap MATCH.
+2. **Fragmen ekor di dalam rentang simbol = mustahil MATCH.** `func_0806D948`
+   punya 58 B kode + `.L0806D984` 12 B (`.byte`, tak-terujuk siapa pun,
+   `ldr r1,[r1,#4]; ldr r2,[r1,#0x18]; ldr r1,[r1,#0x14]; str r1,[r0];
+   str r2,[r0,#4]; bx lr`) sehingga simbol ROM 72 B. Badan C-nya identik
+   dengan 8 saudara di atas, tapi 12 byte tak-terjangkau itu tidak bisa
+   dihasilkan C mana pun → parkir (bukan wall bentuk C).

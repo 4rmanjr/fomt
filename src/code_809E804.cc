@@ -822,6 +822,55 @@ typedef struct GenObj__func_0809EED0 {
 } GenObj__func_0809EED0;
 // === END MIGRATED TYPES ===
 
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080B3C3C {
+    u8 _pad0[4];
+    i32 unk4;
+} GenObj__func_080B3C3C;
+typedef struct Guard12 {
+    void *p;        /* 0x0 */
+    void *self;     /* 0x4 */
+    void *v;        /* 0x8 */
+} Guard12;
+typedef struct Vt080B3C3C {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080B3C3C;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080BC8FC {
+    u8 _pad0[4];
+    i32 unk4;
+} GenObj__func_080BC8FC;
+typedef struct Vt080BC8FC {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080BC8FC;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080C0D90 {
+    u8 _pad0[4];
+    i32 unk4;
+} GenObj__func_080C0D90;
+typedef struct Vt080C0D90 {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080C0D90;
+// === END MIGRATED TYPES ===
+
+// === MIGRATED TYPES (auto-managed by migrate.py) ===
+typedef struct GenObj__func_080C7F1C {
+    u8 _pad0[4];
+    i32 unk4;
+} GenObj__func_080C7F1C;
+typedef struct Vt080C7F1C {
+    u8 _pad0[8];
+    i32 (*fn8)(void *, i32);
+} Vt080C7F1C;
+// === END MIGRATED TYPES ===
+
 // DECOMP-MATCHED func_0809E968 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 i32 func_080E3E9C(u8 *, u8 *, i32);
@@ -3168,6 +3217,36 @@ void func_080B3C0C(GenObj__func_080B3C0C *arg0, i32 arg1) {
     func_080007EC(arg0, arg1);
 }
 }
+// DECOMP-MATCHED func_080B3C3C (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080AE4E4(i32 *, i32);                     /* extern */
+
+__attribute__((section(".text.code_809E804.080B3C3C")))
+void **func_080B3C3C(void ***arg0, GenObj__func_080B3C3C *arg1) {
+    volatile Guard12 h;
+    void **res;
+    register void **bp __asm__("r0");
+    void **p;
+    register void **q __asm__("r1");
+    Vt080B3C3C *vt;
+
+    func_080AE4E4((i32 *) &h.p, (i32)(arg1->unk4));
+    res = (void **) h.p;
+    bp = (void **) &h.p;
+    h.self = (void *) bp;
+    h.v = res;
+    q = bp;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080B3C3C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return (void **) arg0;
+}
+}
 
 // DECOMP-MATCHED func_080B3C84 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -3321,6 +3400,37 @@ void func_080BC8C0(GenObj__func_080BC8C0 *arg0, i32 arg1) {
 }
 }
 
+// DECOMP-MATCHED func_080BC8FC (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080B44EC(i32 *, i32);                     /* extern */
+
+__attribute__((section(".text.code_809E804.080BC8FC")))
+void **func_080BC8FC(void ***arg0, GenObj__func_080BC8FC *arg1) {
+    volatile Guard12 h;
+    void **res;
+    register void **bp __asm__("r0");
+    void **p;
+    register void **q __asm__("r1");
+    Vt080BC8FC *vt;
+
+    func_080B44EC((i32 *) &h.p, (i32)(arg1->unk4));
+    res = (void **) h.p;
+    bp = (void **) &h.p;
+    h.self = (void *) bp;
+    h.v = res;
+    q = bp;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080BC8FC *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return (void **) arg0;
+}
+}
+
 // DECOMP-MATCHED func_080BCCD4 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 
@@ -3379,6 +3489,36 @@ i32 func_080C0D80(GenObj__func_080C0D80 *arg0) {
     return arg0->unk4->unk604;
 }
 }
+// DECOMP-MATCHED func_080C0D90 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080BCCE0(i32 *, i32);                     /* extern */
+
+__attribute__((section(".text.code_809E804.080C0D90")))
+void **func_080C0D90(void ***arg0, GenObj__func_080C0D90 *arg1) {
+    volatile Guard12 h;
+    void **res;
+    register void **bp __asm__("r0");
+    void **p;
+    register void **q __asm__("r1");
+    Vt080C0D90 *vt;
+
+    func_080BCCE0((i32 *) &h.p, (i32)(arg1->unk4));
+    res = (void **) h.p;
+    bp = (void **) &h.p;
+    h.self = (void *) bp;
+    h.v = res;
+    q = bp;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080C0D90 *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return (void **) arg0;
+}
+}
 
 // DECOMP-MATCHED func_080C7B38 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
@@ -3433,6 +3573,37 @@ i32 func_080C7F0C(GenObj__func_080C7F0C *arg0) {
     return arg0->unk4->unk974;
 }
 }
+// DECOMP-MATCHED func_080C7F1C (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+i32 func_080C12C4(i32 *, i32);                     /* extern */
+
+__attribute__((section(".text.code_809E804.080C7F1C")))
+void **func_080C7F1C(void ***arg0, GenObj__func_080C7F1C *arg1) {
+    volatile Guard12 h;
+    void **res;
+    register void **bp __asm__("r0");
+    void **p;
+    register void **q __asm__("r1");
+    Vt080C7F1C *vt;
+
+    func_080C12C4((i32 *) &h.p, (i32)(arg1->unk4));
+    res = (void **) h.p;
+    bp = (void **) &h.p;
+    h.self = (void *) bp;
+    h.v = res;
+    q = bp;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080C7F1C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return (void **) arg0;
+}
+}
+
 
 // DECOMP-MATCHED func_080C8550 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {

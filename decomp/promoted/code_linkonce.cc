@@ -4485,3 +4485,453 @@ void ***func_080DC42C(void ***arg0, GenObj *arg1) {
     }
     return arg0;
 }
+
+// DECOMP-MATCHED func_080DB96C (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_new(s32);                           /* extern */
+void **func_08057DD8(s32, s32 *, s32, u8);
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    u8 unkC;
+} GenObj;
+
+typedef struct Guard {
+    void *p;        /* 0x0 */
+    s32 old;        /* 0x4 */
+    void *self;     /* 0x8 */
+    void *v;        /* 0xC */
+} Guard;
+
+typedef struct Vt080DB96C {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt080DB96C;
+
+void ***func_080DB96C(void ***arg0, GenObj *arg1) {
+    volatile Guard h;
+    s32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DB96C *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_08057DD8((s32) __builtin_new(0xC), (s32 *) &h.old, arg1->unk8, arg1->unkC);
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DB96C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+
+// DECOMP-MATCHED func_080DBA4C (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_new(s32);                           /* extern */
+void **func_0805CEB8(s32, s32 *, s32, u8);
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    u8 unkC;
+} GenObj;
+
+typedef struct Guard {
+    void *p;        /* 0x0 */
+    s32 old;        /* 0x4 */
+    void *self;     /* 0x8 */
+    void *v;        /* 0xC */
+} Guard;
+
+typedef struct Vt080DBA4C {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt080DBA4C;
+
+void ***func_080DBA4C(void ***arg0, GenObj *arg1) {
+    volatile Guard h;
+    s32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DBA4C *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_0805CEB8((s32) __builtin_new(0xC), (s32 *) &h.old, arg1->unk8, arg1->unkC);
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DBA4C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+
+// DECOMP-MATCHED func_080DBABC (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_new(s32);                           /* extern */
+void **func_0809A4D4(s32, s32 *, s32, u8);
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    u8 unkC;
+} GenObj;
+
+typedef struct Guard {
+    void *p;        /* 0x0 */
+    s32 old;        /* 0x4 */
+    void *self;     /* 0x8 */
+    void *v;        /* 0xC */
+} Guard;
+
+typedef struct Vt080DBABC {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt080DBABC;
+
+void ***func_080DBABC(void ***arg0, GenObj *arg1) {
+    volatile Guard h;
+    s32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DBABC *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_0809A4D4((s32) __builtin_new(0xC), (s32 *) &h.old, arg1->unk8, arg1->unkC);
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DBABC *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+
+// DECOMP-MATCHED func_080DC50C (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_new(s32);                           /* extern */
+void **func_08069E14(s32, s32 *, s32, u8);
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    u8 unkC;
+} GenObj;
+
+typedef struct Guard {
+    void *p;        /* 0x0 */
+    s32 old;        /* 0x4 */
+    void *self;     /* 0x8 */
+    void *v;        /* 0xC */
+} Guard;
+
+typedef struct Vt080DC50C {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt080DC50C;
+
+void ***func_080DC50C(void ***arg0, GenObj *arg1) {
+    volatile Guard h;
+    s32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DC50C *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_08069E14((s32) __builtin_new(0xC), (s32 *) &h.old, arg1->unk8, arg1->unkC);
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DC50C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+
+// DECOMP-MATCHED func_080E3494 (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_new(s32);                           /* extern */
+void **func_08092570(s32, s32 *, s32, u8);
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    u8 unkC;
+} GenObj;
+
+typedef struct Guard {
+    void *p;        /* 0x0 */
+    s32 old;        /* 0x4 */
+    void *self;     /* 0x8 */
+    void *v;        /* 0xC */
+} Guard;
+
+typedef struct Vt080E3494 {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt080E3494;
+
+void ***func_080E3494(void ***arg0, GenObj *arg1) {
+    volatile Guard h;
+    s32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080E3494 *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_08092570((s32) __builtin_new(0xC), (s32 *) &h.old, arg1->unk8, arg1->unkC);
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080E3494 *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+
+// DECOMP-MATCHED func_080DBB2C (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_new(s32);                           /* extern */
+void **func_0807B038(s32, s32 *, s32, s32);
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+} GenObj;
+
+typedef struct Guard {
+    void *p;        /* 0x0 */
+    s32 old;        /* 0x4 */
+    void *self;     /* 0x8 */
+    void *v;        /* 0xC */
+} Guard;
+
+typedef struct Vt080DBB2C {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt080DBB2C;
+
+void ***func_080DBB2C(void ***arg0, GenObj *arg1) {
+    volatile Guard h;
+    s32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DBB2C *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_0807B038((s32) __builtin_new(0xC), (s32 *) &h.old, arg1->unk8, arg1->unkC);
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DBB2C *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+
+// DECOMP-MATCHED func_080DBCE8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_new(s32);                           /* extern */
+void **func_08088168(s32, s32 *, s32, s32);
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+} GenObj;
+
+typedef struct Guard {
+    void *p;        /* 0x0 */
+    s32 old;        /* 0x4 */
+    void *self;     /* 0x8 */
+    void *v;        /* 0xC */
+} Guard;
+
+typedef struct Vt080DBCE8 {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt080DBCE8;
+
+void ***func_080DBCE8(void ***arg0, GenObj *arg1) {
+    volatile Guard h;
+    s32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DBCE8 *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_08088168((s32) __builtin_new(0x14), (s32 *) &h.old, arg1->unk8, arg1->unkC);
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DBCE8 *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+
+// DECOMP-MATCHED func_080DBD58 (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_new(s32);                           /* extern */
+void **func_0807D070(s32, s32 *, s32, s32);
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+} GenObj;
+
+typedef struct Guard {
+    void *p;        /* 0x0 */
+    s32 old;        /* 0x4 */
+    void *self;     /* 0x8 */
+    void *v;        /* 0xC */
+} Guard;
+
+typedef struct Vt080DBD58 {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt080DBD58;
+
+void ***func_080DBD58(void ***arg0, GenObj *arg1) {
+    volatile Guard h;
+    s32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DBD58 *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_0807D070((s32) __builtin_new(0x14), (s32 *) &h.old, arg1->unk8, arg1->unkC);
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DBD58 *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
+
+// DECOMP-MATCHED func_080DC0E8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+void *__builtin_new(s32);                           /* extern */
+void **func_0807E438(s32, s32 *, s32, s32);
+
+typedef struct GenObj {
+    u8 _pad0[4];
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+} GenObj;
+
+typedef struct Guard {
+    void *p;        /* 0x0 */
+    s32 old;        /* 0x4 */
+    void *self;     /* 0x8 */
+    void *v;        /* 0xC */
+} Guard;
+
+typedef struct Vt080DC0E8 {
+    u8 _pad0[8];
+    s32 (*fn8)(void *, s32);
+} Vt080DC0E8;
+
+void ***func_080DC0E8(void ***arg0, GenObj *arg1) {
+    volatile Guard h;
+    s32 t;
+    void **res;
+    void **p;
+    register void **q __asm__("r1");
+    Vt080DC0E8 *vt;
+
+    t = arg1->unk4;
+    arg1->unk4 = 0;
+    h.old = t;
+    res = func_0807E438((s32) __builtin_new(0xC), (s32 *) &h.old, arg1->unk8, arg1->unkC);
+    h.p = res;
+    q = (void **) &h.p;
+    h.self = (void *) q;
+    h.v = res;
+    __asm__ volatile ("" : "+r" (q));
+    *q = 0;
+    *arg0 = res;
+    p = (void **) h.p;
+    if (p != 0) {
+        vt = (Vt080DC0E8 *) *p;
+        vt->fn8((void *) p, 3);
+    }
+    return arg0;
+}
