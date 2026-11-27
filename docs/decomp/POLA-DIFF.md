@@ -5524,3 +5524,51 @@ aslinya muncul di stderr, sedangkan `fomt` hanya mencetak `DIFF ()`.
 global), keduanya `make compare` HIJAU. Pola buffernya sama:
 `{ s32 v; u8 _pad[12]; void *ptr; u8 _pad[4]; s32 num; u16 tail; }` (0x20 B),
 `tail` selalu 0, `num` = jumlah/2 dibulatkan ke atas `((n+1)>>1)`.
+
+## §124 Batch 2026-11-27 (lanjutan-4): konsolidasi TU `_c.c` → `.cc` dan koreksi soal build
+
+### 124.1 Koreksi: `src/*.c` IKUT dikompilasi
+
+Catatan sebelumnya (pesan sesi lanjutan-3) menyebut `src/code_809E804_c.c`
+tidak pernah dikompilasi karena `Makefile` hanya menyebut `CXX_SRCS` (`*.cc`).
+Itu **salah**: `Makefile` juga punya
+
+```
+C_SRCS := $(wildcard $(SRC_DIR)/*.c $(SRC_DIR)/rt/*.c)
+```
+
+dan `fomt.lds` memuat `src/code_809E804_c.o(.text)`. Jadi blok
+`DECOMP-MATCHED` di `_c.c` memang live dan menyumbang byte ROM. Konsekuensinya
+`func_080D02F0` dan `func_080D05DC` **sudah** ter-compile dari C sebelum sesi
+ini (di TU `_c.c`), bukan masih asm. Sesi ini memindahkannya ke TU `.cc`
+(tempat keluarga §122/§123 tinggal) sehingga blok promoted, marka, dan `src/`
+konsisten satu berkas — bukan klaim fungsi baru.
+
+Jebakan proses: `migrate.py` menolak memindahkan fungsi yang markanya ada di
+**berkas src mana pun** (`[SKIP] func_080D05DC sudah ada di
+src/code_809E804_c.c (dilewati)`). Untuk konsolidasi TU, blok lama harus
+dihapus dari `_c.c` lebih dulu, baru migrate jalan.
+
+### 124.2 Dua bentuk akses global-pointer (lanjutan §123.2)
+
+- `func_080D05DC`: global dibaca sebelum **dan** sesudah panggilan
+  (`+0x14` tulis, `+0x30` baca, lalu `+0x24`/`+0x2C`/`+0x28` untuk `ptr`),
+  jadi pakai `s32 **gp = &gUnk_03000420;` dan `(*gp)[5]`, `(*gp)[12]`,
+  `(u8 *)*gp + 0x24`. Bentuk `*(s32 *)((u8 *)gUnk_03000420 + off)` memberi
+  regalloc berbeda (base di r1, konstanta di r0) → DIFF.
+- `func_080D02F0`: semua akses terjadi **tanpa** panggilan di antaranya,
+  jadi `s32 *base = gUnk_03000420;` lalu `base[i]` sudah cukup dan identik
+  (base di r1, dipakai ulang untuk 10 store).
+- Offset yang dipakai: 0x0, 0xC, 0x10, 0x14, 0x18, 0x1C, 0x20, 0x17C, 0x180,
+  0x184 (indeks `i32`: 0, 3, 4, 5, 6, 7, 8, 95, 96, 97).
+
+### 124.3 Parkir terukur: `func_08076B94` (pola release/assign)
+
+Bentuknya: `*arg1 = 0`, bandingkan dengan `arg0->unk8`, vcall
+`arg0->unk8->unk5B4->unk8(obj, 3)`, lalu `arg0->unk8 = temp` dan vcall kedua.
+Dua varian sudah diukur (field-access langsung, dan `slot = &arg0->unk8`):
+keduanya `byte +0x2: 0x6 vs ref 0xc [2missing,3extra,5operand,4regalloc]`.
+Bedanya regalloc: ROM menyimpan `arg1` di r4 lebih dulu, menghitung
+`r6 = arg0 + 8` untuk store, tetapi tetap memuat `ldr r1,[r0,#8]` dengan
+immediate; agbcc memakai `ldr r1,[r6,#8]`. Belum ditemukan bentuk C yang
+memaksa pemisahan itu; diparkir (bukan wall yang diklaim tuntas).

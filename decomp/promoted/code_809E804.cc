@@ -2688,40 +2688,6 @@ void func_080D0B88(void) {
     gUnk_03000420->unk3C = 0;
 }
 
-// DECOMP-MATCHED func_080D02F0 (dari code_809E804.s; cek manusia sebelum ke src/)
-s32 func_080D0ABC();                                  /* extern */
-s32 func_080D0B14(s32, s32);                          /* extern */
-s32 func_080D0BA8(s32 *);                             /* extern */
-typedef struct S_03000420F {
-    s32 unk0; s32 unk4; s32 unk8; s32 unkC; s32 unk10; s32 unk14; s32 unk18; s32 unk1C; s32 unk20;
-    u8 _pad24[16]; s32 unk34; s32 unk38; s32 unk3C; u8 _pad40[316]; s32 unk17C; s32 unk180; s32 unk184;
-} S_03000420F;
-extern S_03000420F *gUnk_03000420;
-
-void func_080D02F0(void) {
-    struct { s32 v; u8 _pad[28]; } sp0s;
-    s32 *sp0 = &sp0s.v;
-    s32 temp_r2;
-
-    temp_r2 = gUnk_03000420->unk0;
-    if (temp_r2 == 0) {
-        gUnk_03000420->unk0 = 1;
-        gUnk_03000420->unk14 = temp_r2;
-        gUnk_03000420->unk18 = temp_r2;
-        gUnk_03000420->unk1C = temp_r2;
-        gUnk_03000420->unk20 = 1;
-        gUnk_03000420->unk180 = temp_r2;
-        gUnk_03000420->unk184 = temp_r2;
-        gUnk_03000420->unk17C = temp_r2;
-        gUnk_03000420->unkC = temp_r2;
-        gUnk_03000420->unk10 = temp_r2;
-        *sp0 = temp_r2;
-        func_080D0BA8(sp0);
-        func_080D0B14(0, 0);
-        func_080D0ABC();
-    }
-}
-
 // DECOMP-MATCHED func_080D0644 (dari code_809E804.s; cek manusia sebelum ke src/)
 s32 func_080D05DC();                                  /* extern */
 typedef struct S_03000420G { u8 _pad0[40]; u8 unk28; u8 unk29; u8 unk2A; u8 unk2B; u8 _pad2C[4]; s32 unk30; } S_03000420G;
@@ -2796,36 +2762,6 @@ void func_080ADACC(s32 arg0, s32 arg1, s32 arg2, u8 arg3) {
     memcpy(temp_r4, arg1, 0x20);
     temp_r4->unk82 = 1;
     temp_r4->unk83 = arg3;
-}
-
-// DECOMP-MATCHED func_080D05DC (dari code_809E804.s; cek manusia sebelum ke src/)
-s32 func_080D0BA8(s32 *);                             /* extern */
-typedef struct S_D05DC { u8 _pad0[20]; s32 unk14; u8 _pad18[24]; s32 unk30; } S_D05DC;
-extern S_D05DC *gUnk_03000420;
-typedef struct SP_D05DC { s32 v; u8 _pad4[12]; void *ptr; u8 _pad14[4]; s32 num; u16 tail; u8 _pad1E[2]; } SP_D05DC;
-void func_080D05DC(void) {
-    SP_D05DC sp0;
-
-    gUnk_03000420->unk14 = 5;
-    if (gUnk_03000420->unk30 != 0) {
-        sp0.v = 1;
-        func_080D0BA8(&sp0.v);
-    }
-    sp0.v = 4;
-    sp0.ptr = (void *)((u8 *)gUnk_03000420 + 0x24);
-    sp0.num = 2;
-    sp0.tail = 0;
-    func_080D0BA8((s32 *)&sp0);
-    sp0.v = 3;
-    sp0.ptr = (void *)((u8 *)gUnk_03000420 + 0x2C);
-    sp0.num = 2;
-    sp0.tail = 0;
-    func_080D0BA8((s32 *)&sp0);
-    sp0.v = 2;
-    sp0.ptr = (void *)((u8 *)gUnk_03000420 + 0x28);
-    sp0.num = 2;
-    sp0.tail = 0;
-    func_080D0BA8((s32 *)&sp0);
 }
 
 // DECOMP-MATCHED func_080D0AE0 (dari code_809E804.s; cek manusia sebelum ke src/)
@@ -3965,4 +3901,78 @@ void func_080D0558(void *arg0, s32 arg1, void *arg2, s32 arg3) {
     (*gp)[7] = 0;
     (*gp)[8] = numA + numB;
     (*gp)[97] = 0;
+}
+
+// DECOMP-MATCHED func_080D05DC (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080D0BA8(s32 *);                          /* extern */
+
+extern s32 *gUnk_03000420;
+
+typedef struct SP_D05DC {
+    s32 v;          /* 0x0 */
+    u8 _pad4[12];   /* 0x4 */
+    void *ptr;      /* 0x10 */
+    u8 _pad14[4];   /* 0x14 */
+    s32 num;        /* 0x18 */
+    u16 tail;       /* 0x1C */
+    u8 _pad1E[2];
+} SP_D05DC;
+
+void func_080D05DC(void) {
+    SP_D05DC sp0;
+    s32 **gp;
+
+    gp = &gUnk_03000420;
+    (*gp)[5] = 5;
+    if ((*gp)[12] != 0) {
+        sp0.v = 1;
+        func_080D0BA8(&sp0.v);
+    }
+    sp0.v = 4;
+    sp0.ptr = (void *) ((u8 *) *gp + 0x24);
+    sp0.num = 2;
+    sp0.tail = 0;
+    func_080D0BA8((s32 *) &sp0);
+    sp0.v = 3;
+    sp0.ptr = (void *) ((u8 *) *gp + 0x2C);
+    sp0.num = 2;
+    sp0.tail = 0;
+    func_080D0BA8((s32 *) &sp0);
+    sp0.v = 2;
+    sp0.ptr = (void *) ((u8 *) *gp + 0x28);
+    sp0.num = 2;
+    sp0.tail = 0;
+    func_080D0BA8((s32 *) &sp0);
+}
+
+// DECOMP-MATCHED func_080D02F0 (dari code_809E804.s; cek manusia sebelum ke src/)
+s32 func_080D0ABC();                                /* extern */
+s32 func_080D0B14(s32, s32);                        /* extern */
+s32 func_080D0BA8(s32 *);                          /* extern */
+
+extern s32 *gUnk_03000420;
+
+void func_080D02F0(void) {
+    s32 buf[8];
+    s32 *base;
+    s32 temp;
+
+    base = gUnk_03000420;
+    temp = base[0];
+    if (temp == 0) {
+        base[0] = 1;
+        base[5] = temp;
+        base[6] = temp;
+        base[7] = temp;
+        base[8] = 1;
+        base[96] = temp;
+        base[97] = temp;
+        base[95] = temp;
+        base[3] = temp;
+        base[4] = temp;
+        buf[0] = temp;
+        func_080D0BA8(buf);
+        func_080D0B14(0, 0);
+        func_080D0ABC();
+    }
 }

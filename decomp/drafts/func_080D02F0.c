@@ -1,32 +1,29 @@
-// DECOMP-MATCHED func_080D02F0 (dari code_809E804.s; cek manusia sebelum ke src/)
-s32 func_080D0ABC();                                  /* extern */
-s32 func_080D0B14(s32, s32);                          /* extern */
-s32 func_080D0BA8(s32 *);                             /* extern */
-typedef struct S_03000420F {
-    s32 unk0; s32 unk4; s32 unk8; s32 unkC; s32 unk10; s32 unk14; s32 unk18; s32 unk1C; s32 unk20;
-    u8 _pad24[16]; s32 unk34; s32 unk38; s32 unk3C; u8 _pad40[316]; s32 unk17C; s32 unk180; s32 unk184;
-} S_03000420F;
-extern S_03000420F *gUnk_03000420;
+s32 func_080D0ABC();                                /* extern */
+s32 func_080D0B14(s32, s32);                        /* extern */
+s32 func_080D0BA8(s32 *);                          /* extern */
+
+extern s32 *gUnk_03000420;
 
 void func_080D02F0(void) {
-    struct { s32 v; u8 _pad[28]; } sp0s;
-    s32 *sp0 = &sp0s.v;
-    s32 temp_r2;
+    s32 buf[8];
+    s32 *base;
+    s32 temp;
 
-    temp_r2 = gUnk_03000420->unk0;
-    if (temp_r2 == 0) {
-        gUnk_03000420->unk0 = 1;
-        gUnk_03000420->unk14 = temp_r2;
-        gUnk_03000420->unk18 = temp_r2;
-        gUnk_03000420->unk1C = temp_r2;
-        gUnk_03000420->unk20 = 1;
-        gUnk_03000420->unk180 = temp_r2;
-        gUnk_03000420->unk184 = temp_r2;
-        gUnk_03000420->unk17C = temp_r2;
-        gUnk_03000420->unkC = temp_r2;
-        gUnk_03000420->unk10 = temp_r2;
-        *sp0 = temp_r2;
-        func_080D0BA8(sp0);
+    base = gUnk_03000420;
+    temp = base[0];
+    if (temp == 0) {
+        base[0] = 1;
+        base[5] = temp;
+        base[6] = temp;
+        base[7] = temp;
+        base[8] = 1;
+        base[96] = temp;
+        base[97] = temp;
+        base[95] = temp;
+        base[3] = temp;
+        base[4] = temp;
+        buf[0] = temp;
+        func_080D0BA8(buf);
         func_080D0B14(0, 0);
         func_080D0ABC();
     }
