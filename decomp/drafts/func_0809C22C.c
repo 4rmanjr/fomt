@@ -1,4 +1,4 @@
-s32 func_0809C22C(s32 arg1) {
+s32 func_0809C22C(s32 arg0, s32 arg1) {
     s32 var_r2;
     u32 temp_r0;
 

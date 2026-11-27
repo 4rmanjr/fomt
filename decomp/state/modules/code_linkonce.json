@@ -5226,13 +5226,14 @@
  },
  "func_0801740C": {
   "addr": 134312972,
-  "judged_mtime": 1793582714.0564141,
+  "judged_mtime": 1795760023.0540726,
   "module": "game_state.s",
-  "note": "len 90 vs ref 186 [48missing,7operand @i subs r0, #0x1b | subs r0, #0x1c]",
+  "note": "",
+  "promoted_to": "decomp/promoted/game_state.cc",
   "ref_len": 188,
   "sanitize_v": 4,
   "size": 1591,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080174C8": {
@@ -18614,13 +18615,14 @@
  },
  "func_0809C22C": {
   "addr": 134857260,
-  "judged_mtime": 1793003730.9502068,
+  "judged_mtime": 1795759873.3348253,
   "module": "code_actor_0809BFE8.s",
-  "note": "byte +0x4: 0x5 vs ref 0x48",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc",
   "ref_len": 216,
   "sanitize_v": 4,
   "size": 1941,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809C304": {
@@ -18731,11 +18733,12 @@
   "addr": 134857956,
   "judged_mtime": 1793003737.5436409,
   "module": "code_actor_0809BFE8.s",
-  "note": "len 6 vs ref 44",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_actor_0809BFE8.cc",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 378,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_0809C510": {
@@ -25876,9 +25879,9 @@
  },
  "func_080D75E0": {
   "addr": 135099872,
-  "judged_mtime": 1793150387.85943,
+  "judged_mtime": 1795759662.7438638,
   "module": "code_linkonce.s",
-  "note": "byte +0x8: 0x22 vs ref 0x20 [1missing,1extra,2regalloc @>  | adds r2, r4, #4]",
+  "note": "len 66 vs ref 82 [8missing,5operand,6regalloc @i bhi #0x42 | bhi #0x32]",
   "ref_len": 84,
   "sanitize_v": 4,
   "size": 705,
@@ -26001,9 +26004,9 @@
  },
  "func_080D7880": {
   "addr": 135100544,
-  "judged_mtime": 1793014444.1596186,
+  "judged_mtime": 1795759721.4367123,
   "module": "code_linkonce.s",
-  "note": "len 10 vs ref 96",
+  "note": "byte +0x6: 0x2 vs ref 0x1 [2regalloc @r pop {r0} | pop {r1}]",
   "ref_len": 96,
   "sanitize_v": 4,
   "size": 672,

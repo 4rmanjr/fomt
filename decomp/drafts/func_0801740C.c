@@ -4,6 +4,9 @@ s32 func_0801740C(s32 *arg0) {
     temp_r0 = ((u32) (*arg0 << 0x18) >> 0x1A) - 0x1B;
     switch (temp_r0) {
     default:
+    case 0:
+    case 4:
+    case 8:
         return 0;
     case 1:
     case 5:

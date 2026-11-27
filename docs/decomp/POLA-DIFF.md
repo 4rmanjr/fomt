@@ -5851,3 +5851,68 @@ dead code yang tetap ada di ROM. agbcc di harness menghapusnya
 (`len 38/46 vs ref 66`), dan tidak ada bentuk C wajar yang mempertahankannya
 kecuali menulis store lewat pointer yang tak terlacak — yang mengubah byte
 lain. Keluarga ini praktis tidak bisa MATCH dengan agbcc modern ini.
+
+## §131 Tiga MATCH promote-only (`code_actor_0809BFE8.s`, `game_state.s`) + alasan SKIP-nya
+
+Sesi ini tiga fungsi MATCH byte-identik lewat judge, tetapi **tidak satu pun
+bisa dipindah ke `src/`** karena aturan SKIP-permanen yang sudah ada. Angka per
+fungsi dicatat supaya tidak diulang tanpa ide baru.
+
+### 131.1 `func_0809C4E4` — `*arg0 = 0` (3 instruksi)
+
+```c
+void func_0809C4E4(s32 *arg0) { *arg0 = 0; }
+```
+MATCH percobaan pertama. SKIP: `data asing 36B menempel ekor (ref 44B, kode
+saja MATCH)` — blok ROM-nya langsung diikuti `.byte` fungsi yang belum
+di-split (`.L0809C4EC`).
+
+### 131.2 `func_0809C22C` — switch `arg1 - 5` → 0..5 (34 instruksi, jump table)
+
+```c
+s32 func_0809C22C(s32 arg0, s32 arg1) {   /* arg0 tak dipakai; hanya agar arg1 di r1 */
+    s32 var_r2 = 1;
+    switch (arg1 - 5) { case 0: ... case 40: ... }
+    return var_r2;
+}
+```
+Pembuktian pola: m2c menulis satu parameter (`arg1`) sehingga ROM `subs r0, r1,
+#5` menjadi `subs r0, r0, #5` (DIFF `byte +0x4: 0x5 vs ref 0x48`). Menambah
+parameter pertama yang tak dipakai memindahkan argumen ke `r1` dan langsung
+MATCH. **Blocker migrasi:** tiga blok `src/` yang sudah MATCH memanggilnya
+dengan extern K&R `i32 func_0809C22C();` (1 argumen). Mengganti definisi jadi
+2 parameter memicu `too few arguments` dan memperbaiki call-site akan mengubah
+byte blok yang sudah MATCH → butuh penyatuan manual tiga pemanggil sekaligus.
+
+### 131.3 `func_0801740C` — bitfield + switch 12 kasus (35 instruksi, jump table)
+
+```c
+temp_r0 = ((u32) (*arg0 << 0x18) >> 0x1A) - 0x1B;
+switch (temp_r0) { default: case 0: case 4: case 8: return 0; ... }
+```
+Dua kesalahan m2c yang terbukti: (a) `default` harus **bergabung** dengan
+`case 0/4/8` (ROM memakai label `.L08017458` yang sama untuk default dan case
+0), dan (b) `case` harus 0..11 — membuang case 0 membuat agbcc memakai basis
+`-0x1C` (`sub r0,#28` vs ref `#27`). SKIP: `data asing 92B menempel ekor`.
+
+## §132 Dua dinding tambahan (angka per bentuk)
+
+### 132.1 `func_080CD4D4` — 11 bentuk, sisa satu posisi `ldr`
+
+Rantai `g & 0xFFFFFF00 | (u8)(g+0xF)` lalu dua `ldrb` dari `&v` (pola §128.1).
+Bentuk terbaik (`g`, `low`, `masked`, `v` sebagai statement terpisah +
+`((u8*)&v)[1] << 6` / `[0] * 2`) membuat **seluruh paruh pertama identik**
+(termasuk `ands r1,r2` / `orrs r1,r0`). Sisa: agbcc memuat konstanta
+`0x0600F080` satu instruksi lebih awal (menimpa register pointer), sehingga
+`hi`/`lo` bertukar register. Varian yang dicoba: inline vs variabel `q`, urutan
+`hi`/`lo`, pengelompokan `(lo+C)+hi` vs `hi+(lo+C)`, `register asm` untuk
+`q`/`hi`, dan statement terpisah — semuanya berhenti pada 1–2 instruksi.
+
+### 132.2 `func_0809D9B4` — mask `-0x10` tidak bisa dipaksa jadi `movs/rsbs`
+
+ROM: `ldrb r1,[r4,#4]; movs r0,#0x10; rsbs r0,r0,#0; ands r0,r1` (mask -16
+dihitung runtime). agbcc selalu melipat `ent[4] & -0x10` / `& ~0xF` menjadi
+`movs r0,#0xF0` karena tahu hasilnya dipakai sebagai byte. Bentuk yang dicoba:
+satu ekspresi, variabel `m`, `m = -0x10; m &= ent[4];`, dan urutan operand
+dibalik. Yang paling dekat (`m = -0x10 & ent[4]`) hanya bertukar register
+(nilai di r0 vs r1) tetapi byte tetap beda.

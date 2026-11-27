@@ -542,3 +542,38 @@ void func_0809C420(u8 *arg0, s32 arg1) {
     p = arg0 + 0xC;
     p[arg1] = 0;
 }
+
+// DECOMP-MATCHED func_0809C4E4 (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+void func_0809C4E4(s32 *arg0) {
+    *arg0 = 0;
+}
+
+// DECOMP-MATCHED func_0809C22C (dari code_actor_0809BFE8.s; cek manusia sebelum ke src/)
+s32 func_0809C22C(s32 arg0, s32 arg1) {
+    s32 var_r2;
+    u32 temp_r0;
+
+    var_r2 = 1;
+    temp_r0 = arg1 - 5;
+    switch (temp_r0) {
+    case 0:
+        var_r2 = 0;
+        break;
+    case 8:
+        var_r2 = 1;
+        break;
+    case 16:
+        var_r2 = 2;
+        break;
+    case 24:
+        var_r2 = 3;
+        break;
+    case 32:
+        var_r2 = 4;
+        break;
+    case 40:
+        var_r2 = 5;
+        break;
+    }
+    return var_r2;
+}

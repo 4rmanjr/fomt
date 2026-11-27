@@ -2828,3 +2828,29 @@ void ***func_08012028(void ***arg0, GenObj *arg1) {
     }
     return arg0;
 }
+
+// DECOMP-MATCHED func_0801740C (dari game_state.s; cek manusia sebelum ke src/)
+s32 func_0801740C(s32 *arg0) {
+    u32 temp_r0;
+
+    temp_r0 = ((u32) (*arg0 << 0x18) >> 0x1A) - 0x1B;
+    switch (temp_r0) {
+    default:
+    case 0:
+    case 4:
+    case 8:
+        return 0;
+    case 1:
+    case 5:
+    case 9:
+        return 1;
+    case 2:
+    case 6:
+    case 10:
+        return 2;
+    case 3:
+    case 7:
+    case 11:
+        return 3;
+    }
+}
