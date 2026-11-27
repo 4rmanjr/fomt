@@ -5439,3 +5439,88 @@ Catatan penting:
   argumen ke-8 (u8) dengan `add r2, sp, #0xc; strb r0, [r2]`, agbcc menulis
   `str r0, [sp, #0xc]` (word) untuk `(u8)0`, `s8 z = 0`, maupun prototipe
   `u8` — promosi integer membuat store word.
+
+## §123 Batch 2026-11-27 (lanjutan-3): alamat global-pointer, penyatuan tipe callee, dan jebakan ctx judge
+
+### 123.1 Koreksi §122.2 — SKIP migrasi `func_080D0454` BUKAN permanen
+
+§122.2 mencatat `func_080D0454` mentok sebagai promote-only karena
+`migrate.py` menolak call-site `&st` (`Cmd20 *` vs `GenObj__func_080D0BA8 *`).
+Itu **bukan** batas tool: penyebabnya tipe parameter callee di `src` yang
+salah. `func_080D0BA8` menyalin 8 word (`*dst = *(CP8 *)arg0`) dan menolkan
+word 1–2, jadi parameter asm-nya adalah **pointer ke buffer 8 word**, bukan
+pointer ke struct 2-pointer. `src/code_809E804_c.c` (jalur C yang sudah lama
+MATCH) memang menulis `i32 func_080D0BA8(i32 *)`.
+
+Perbaikan: ubah deklarasi di `src/code_809E804.cc` menjadi
+`void func_080D0BA8(i32 *arg0)` (badan tetap, semua akses sudah lewat cast) dan
+tulis draf dengan `(s32 *)&sp0`. `_ptr_arg_ok()` di `migrate.py` hanya
+menerima pointer dengan **basis dan level sama** (`void *` satu level juga
+lolos), jadi menyeragamkan basis ke `i32`/`s32` membuat call-site lolos dan
+`func_080D0454` akhirnya masuk `src/`. Pola `SP_D0454` (v/ptr/num/tail pada
+0x0/0x10/0x18/0x1C, total 0x20) sudah benar sejak awal.
+
+### 123.2 `s32 **gp = &gUnk_XXX;` — alamat global-pointer disimpan di callee-saved
+
+`func_080D0558` memakai global berisi pointer tiga kali: satu tulis sebelum
+panggilan pertama (`+0x14`) dan tiga tulis sesudah panggilan terakhir
+(`+0x1C`, `+0x20`, `+0x184`). ROM menyimpan **alamat global**-nya di `sl`
+(`ldr r0, =gUnk; mov sl, r0; ldr r0, [r0]`) dan sesudah panggilan memuat ulang
+lewat `mov r1, sl; ldr r0, [r1]`.
+
+Dua bentuk C yang **gagal** (masing-masing sudah diukur lewat judge):
+
+```c
+    base = gUnk_03000420;      /* alamat global dimuat ulang tiap pakai */
+    base[5] = 4;               /* -> ldr r0,.L; ldr r1,[r0]; ... regalloc beda */
+    ...
+    base = gUnk_03000420;
+    base[7] = 0;
+```
+menghasilkan `ldr r0, .L3 / ldr r1, [r0]` dua kali (alamat global tidak
+bertahan), dan `gUnk_03000420->unk14` gagal total kalau global dideklarasikan
+`extern s32 *` (lihat 123.3).
+
+Bentuk yang MATCH:
+
+```c
+    s32 **gp;
+    gp = &gUnk_03000420;          /* alamat global, bukan isinya */
+    (*gp)[5] = 4;                 /* +0x14 */
+    sp0.ptr = (void *) ((u8 *) *gp + 0x24);
+    ...
+    (*gp)[7] = 0;                 /* +0x1C */
+    (*gp)[8] = numA + numB;       /* +0x20 */
+    (*gp)[97] = 0;                /* +0x184 */
+```
+
+`gp` adalah loop-invariant yang hidup melewati `bl`, jadi agbcc menaruhnya di
+`sl` dan menghasilkan `ldr r0,[sl]` persis ROM. Ini pasangan dari §122.1:
+di sana yang harus bertahan adalah **nilai field**, di sini **alamat global**.
+
+### 123.3 Jebakan ctx judge: `_shared_context()` hanya mengambil typedef anonim
+
+`_shared_context()` (decomp/run.py) memanen blok `typedef struct { ... } T;`
+saja — typedef dengan **tag** (`typedef struct S_03000420F { ... } S_03000420F;`)
+tidak ikut ke `common.h`. Konsekuensi praktis:
+
+- Menulis `extern S_03000420F *gUnk_03000420;` di draf gagal dengan
+  `syntax error before '*'` (tipe tak dikenal), dan judge melaporkan
+  **`DIFF ()` dengan detail kosong** — diagnostik kompilasi tidak diteruskan.
+- `gUnk_03000420->unkXX` pada global yang dideklarasikan `extern s32 *`
+  membuat agbcc menganggap identifier tak dikenal sebagai `int` implisit →
+  `invalid type argument of '->'`. Pesan ini bisa **tertinggal di `note` state**
+  dari percobaan sebelumnya; bersihkan `note` sebelum menyimpulkan.
+
+Cara memeriksa cepat tanpa menebak: rakit `common.h` + draf sendiri lalu
+jalankan `CPP`/`AGBCC` yang sama (`R.COMMON + R._shared_context()`); diagnostik
+aslinya muncul di stderr, sedangkan `fomt` hanya mencetak `DIFF ()`.
+
+### 123.4 Ringkasan keluarga §122/§123 di code_809E804.s
+
+`func_080D02F0` dan `func_080D05DC` sudah lama MATCH di jalur C
+(`src/code_809E804_c.c`). Batch ini menutup dua sisanya di jalur `.cc`:
+`func_080D0454` (dua kirim) dan `func_080D0558` (tiga kirim + tiga tulis
+global), keduanya `make compare` HIJAU. Pola buffernya sama:
+`{ s32 v; u8 _pad[12]; void *ptr; u8 _pad[4]; s32 num; u16 tail; }` (0x20 B),
+`tail` selalu 0, `num` = jumlah/2 dibulatkan ke atas `((n+1)>>1)`.

@@ -1,36 +1,41 @@
-s32 func_080D0BA8();                                  /* extern */
-extern void *gUnk_03000420;
+s32 func_080D0BA8(s32 *);                          /* extern */
 
-typedef struct GenObj {
-    u8 _pad0[28];
-    s32 unk1C;
-} GenObj;
+extern s32 *gUnk_03000420;
+
+typedef struct SP_D0558 {
+    s32 v;          /* 0x0 */
+    u8 _pad4[12];   /* 0x4 */
+    void *ptr;      /* 0x10 */
+    u8 _pad14[4];   /* 0x14 */
+    s32 num;        /* 0x18 */
+    u16 tail;       /* 0x1C */
+    u8 _pad1E[2];
+} SP_D0558;
+
 void func_080D0558(void *arg0, s32 arg1, void *arg2, s32 arg3) {
-    GenObj *sp0;
-    void *sp10;
-    u32 sp18;
-    u32 temp_r4;
-    u32 temp_r6;
+    SP_D0558 sp0;
+    s32 numA;
+    s32 numB;
+    s32 **gp;
 
-    gUnk_03000420->unk14 = 4;
-    sp0 = 4;
-    sp10 = gUnk_03000420 + 0x24;
-    sp18 = 2;
-    sp0.unk1C = 0;
-    func_080D0BA8();
-    sp0 = 3;
-    sp10 = arg2;
-    temp_r6 = (u32) (arg3 + 1) >> 1;
-    sp18 = temp_r6;
-    sp0.unk1C = 0;
-    func_080D0BA8();
-    sp0 = 2;
-    sp10 = arg0;
-    temp_r4 = (u32) (arg1 + 1) >> 1;
-    sp18 = temp_r4;
-    sp0.unk1C = 0;
-    func_080D0BA8();
-    gUnk_03000420->unk1C = 0;
-    gUnk_03000420->unk20 = (s32) (temp_r4 + temp_r6);
-    gUnk_03000420->unk184 = 0;
+    gp = &gUnk_03000420;
+    (*gp)[5] = 4;
+    sp0.v = 4;
+    sp0.ptr = (void *) ((u8 *) *gp + 0x24);
+    sp0.num = 2;
+    sp0.tail = 0;
+    func_080D0BA8((s32 *) &sp0);
+    sp0.v = 3;
+    sp0.ptr = arg2;
+    sp0.num = numB = ((u32) arg3 + 1) >> 1;
+    sp0.tail = 0;
+    func_080D0BA8((s32 *) &sp0);
+    sp0.v = 2;
+    sp0.ptr = arg0;
+    sp0.num = numA = ((u32) arg1 + 1) >> 1;
+    sp0.tail = 0;
+    func_080D0BA8((s32 *) &sp0);
+    (*gp)[7] = 0;
+    (*gp)[8] = numA + numB;
+    (*gp)[97] = 0;
 }
