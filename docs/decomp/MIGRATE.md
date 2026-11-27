@@ -1654,3 +1654,21 @@ bentrok dengan blok lain di TU yang sama. Aturan yang terbukti aman:
 - `EC ... ALIAS(...)` di `src/*.cc` adalah definisi simbol — jangan pernah
   ditulis ulang oleh pola deklarasi.
 - Sisa yang tetap menolak dicatat di `POLA-DIFF.md` §95 dan `note` shard.
+
+## Mode grup (`migrate.py --group`)
+
+`python3 decomp/migrate.py --module <m>.s --func <fn> --group [--dry-run]`
+
+Memigrasi **seluruh unit tertutup** `fn` (closure dua arah rujukan keras di
+dalam grup — `split_asm_sections.closed_unit`) dalam SATU build: semua blok
+ditulis dulu, lalu satu `make compare`. Hijau = semua pindah; merah =
+seluruh unit direvert (`FOMT_MIGRATE_KEEP=1` menahan file untuk diagnosis).
+
+Kapan wajib: bila `--func` tunggal ditolak `migration_blockers_map` karena
+pool/label-nya dipakai bersama tetangga grup (`THUMB_OFFSET` /
+`undefined reference to '.L…'`). Mode ini juga yang dipakai untuk mencabut
+grup utuh yang seluruh fungsinya sudah MATCH.
+
+SKIP keluar sebelum menulis apa pun bila ada anggota unit yang belum
+MATCH/promoted (pesannya menyebut nama anggotanya), atau bila unit = fungsi
+itu sendiri tetapi pemotongannya memisahkan rantai grup.

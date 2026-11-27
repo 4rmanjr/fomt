@@ -6076,3 +6076,59 @@ Verdict 12 sisa (dari `migration_blockers_map`, bukan dugaan):
 Alat bantu debug (opt-in, tidak mengubah alur normal):
 `FOMT_MIGRATE_KEEP=1` menahan file hasil migrasi MERAH untuk diagnosis
 `cmp`/`readelf`; `FOMT_NO_C_FALLBACK=1` mematikan fallback `.c/agbcc`.
+
+## §137 Mode migrasi per-grup + batas section eksplisit (2026-11-27)
+
+Lanjutan §136. Sisa 12 promote-only diuji ulang dengan **komponen rujukan**:
+chunk dihubungkan edge rujukan keras DUA ARAH (pool `.L…`, simbol di
+direktif data, cabang ke label `.L*`). Satu grup boleh dipotong hanya bila
+tiap komponen tetap utuh, dan sisa grup tetap run kontigu yang tak saling
+merujuk. Hasil pemetaan (bukti: `closed_unit`/`migration_blockers_map`):
+
+| Grup | Komponen (indeks chunk) | Status MATCH anggota |
+|---|---|---|
+| `.080D0EBC` | `[0]` func_080D0EBC (awal grup) | 1/1 → **pindah** |
+| `.080D102C` | `[0,7]`, `[1]`, `[2]`, `[3]`, `[4]`, `[5,6]` | 3/8 (sisanya failed / fragmen) |
+| `.080D1204` | `[0]` (sudah pindah), `[2,4,5,6,9]`, `[7]`, `[8]` | 5/8 |
+| `.08085F08` | `[0,1,2]` | 1/3 |
+| `.0802F0EC` | `[0..6]` | 1/7 |
+
+Konsekuensinya: `sub_080D139C/1498/14C6`, `func_080D14EC`, `func_080D1186`,
+`sub_080868BC`, `sub_08031E0A` **tidak bisa** dipotong sekarang — komponen
+mereka memuat fungsi yang belum MATCH (`sub_080D1224`, `sub_080D129A`,
+`sub_080D12EC`, `sub_080D119E`, `func_08085F08`, `sub_080868A8`, …).
+`sub_080D119E`/`sub_080868A8` parkir permanen: keduanya **fragmen badan
+fungsi** (`ldm r0!, {r2}; adds r3, #0x20; b .L080D118C` dan potongan yang
+memakai r8/sl/r7 prolog induk), bukan fungsi utuh.
+
+`func_080D0EBC` dulu mustahil karena chunk-nya memuat 3 simbol global
+(`func_080D0EC0`, `__divsi3`, `__modsi3`); memindahkannya menghapus definisi
+`__divsi3` sehingga linker jatuh ke `libgcc.a(_divsi3.o)` → `discarded
+section`. Pemecahan yang dipakai: **batas section eksplisit** di 0x080D0EC0
+(`thumb_func_start func_080D0EC0`, `.ALIGN 2,0` = 0 byte karena alamatnya
+sudah sejajar-4, byte-identik — `make compare` HIJAU sebelum migrasi).
+Sesudah itu `func_080D0EBC` (4B) pindah ke `src/code_809E804.cc`;
+`__divsi3` (0x080d0ec8) dan `__modsi3` (0x080d0ed0) tetap terdefinisi dari
+`asm/code_809E804.o` — terbukti di `fomt.map`, bukan dari libgcc.
+
+### Mode `--group`
+
+`migrate.py --group` memigrasi **seluruh unit tertutup** satu build:
+semua blok ditulis dulu (tanpa compare), lalu SATU `make compare`; hijau =
+semua tetap, merah = seluruh unit direvert. Ini satu-satunya bentuk sah untuk
+grup yang pool-nya dipakai bersama, karena compare per-fungsi akan melihat
+section sisa yang masih merujuk pool anggota lain. Penolakan keluar sebagai
+SKIP berpesan nyata, mis.:
+
+```
+[SKIP] unit grup 5 fungsi terikat rujukan keras; 3 belum MATCH/promoted
+       (sub_080D1224, sub_080D129A, sub_080D12EC) — pindahkan unit ini
+       setelah semuanya MATCH
+[SKIP] unit tertutup sub_080D1498 = dirinya sendiri, tapi memotongnya
+       memisahkan rantai grup: chunk yang dicabut memisahkan
+       .text.code_809E804.080D1224 dari .text.code_809E804.080D14EC …
+```
+
+Catatan angka: batas section baru menyingkap `func_080D0EC0` sebagai fungsi
+tersendiri (dulu ikut chunk `func_080D0EBC`), jadi total scan menjadi 2673 →
+2674 dengan status `pending` — calon MATCH berikutnya, bukan regresi.

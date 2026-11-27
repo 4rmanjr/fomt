@@ -135,9 +135,9 @@
     "when": "2026-11-23T12:06:30"
   },
   "code_809E804.s:func_080D0EBC": {
-    "detail": "`__divsi3' referenced in section `.text.code_linkonce.b2.080DD9CC' of asm/code_linkonce.o: defined in discarded section `.text' of ../tools/agbcc/lib/libgcc.a(_divsi3.o) `__divsi3' referenced in secti",
-    "status": "GAGAL",
-    "when": "2026-11-27T07:22:31"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T08:00:55"
   },
   "code_809E804.s:func_080D116A": {
     "detail": "build/asm/code_809E804.split.s:98422: Error: cannot represent THUMB_OFFSET relocation in this object file format build/asm/code_809E804.split.s:98426: Error: cannot represent THUMB_OFFSET relocation i",

@@ -103242,7 +103242,10 @@ func_080D0EBC: @ 0x080D0EBC
 	stm r3!, {r0, r1, r2}
 	bx lr
     
-    .global func_080D0EC0
+    @ DECOMP-CHUNK: batas section supaya func_080D0EBC bisa pindah
+    @ sendiri; macro .ALIGN 2,0 tak menambah byte (0x080D0EC0 sudah
+    @ sejajar-4) dan .global/.thumb_func hanya menandai simbol.
+    thumb_func_start func_080D0EC0
 func_080D0EC0:
 	push {lr}
 	movs r0, #0

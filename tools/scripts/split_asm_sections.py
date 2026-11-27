@@ -899,6 +899,47 @@ def migratable(text: str, stem: str) -> list:
     return out
 
 
+def closed_unit(text: str, stem: str, func: str):
+    """Chunk yang HARUS pindah bersama `func` (unit tertutup satu grup).
+
+    Rujukan keras (load pool `.L…`, simbol di direktif data, cabang ke label
+    `.L*`) tidak bisa direlokasi antar-section di format a.out. Jadi boundary
+    yang sah hanyalah yang tidak memotong edge rujukan keras mana pun:
+    unit = closure DUA ARAH atas edge rujukan keras di dalam grup.
+
+    -> list chunk (urut asli) atau None bila `func` tak ada sebagai chunk
+    fungsi. Bila hasilnya = seluruh chunk grup, grup itu bisa dicabut utuh
+    (satu build), sehingga tak ada section asm yang tertinggal merujuk pool
+    yang pindah.
+    """
+    _pre, groups = analyze(text, stem, migrated=set())
+    for chs in groups:
+        idx = next((i for i, c in enumerate(chs)
+                    if c["kind"] == "func" and c["name"] == func), None)
+        if idx is None:
+            continue
+        owner = {}
+        for j, c in enumerate(chs):
+            for lab in c["labels"]:
+                owner.setdefault(lab, j)
+        edges = {}
+        for j, c in enumerate(chs):
+            for ref in c.get("hard_refs") or ():
+                k = owner.get(ref)
+                if k is not None and k != j:
+                    edges.setdefault(j, set()).add(k)
+                    edges.setdefault(k, set()).add(j)  # dua arah
+        seen, stack = {idx}, [idx]
+        while stack:
+            j = stack.pop()
+            for k in edges.get(j, ()):
+                if k not in seen:
+                    seen.add(k)
+                    stack.append(k)
+        return [chs[j] for j in sorted(seen)]
+    return None
+
+
 def lds_entries(text: str, stem: str):
     """Baris linker script untuk modul (SORT_BY_NAME + ekor src)."""
     preamble, groups = analyze(text, stem, migrated=set())

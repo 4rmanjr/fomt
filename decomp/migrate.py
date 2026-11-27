@@ -41,6 +41,7 @@ _TOOLS_SCRIPTS = str(REPO / "tools" / "scripts")
 if _TOOLS_SCRIPTS not in sys.path:
     sys.path.insert(0, _TOOLS_SCRIPTS)
 from split_asm_sections import analyze as split_analyze
+from split_asm_sections import closed_unit as _split_closed_unit
 from split_asm_sections import migration_blockers_map as _split_blockers
 
 
@@ -57,6 +58,44 @@ def _analyze_stem(stem):
         return ()
     _pre, groups = split_analyze(text, stem, migrated=set())
     return groups
+
+
+# Mode grup: beberapa blok ditulis dulu, SATU compare di akhir. Dipakai
+# `migrate_group()` karena memisahkan sebagian grup gabungan menghasilkan
+# section sisa yang masih merujuk pool/label anggota lain (THUMB_OFFSET).
+_DEFER = {"active": False, "allowed": set(), "snap": {}, "files": []}
+
+
+def _defer_reset():
+    _DEFER["snap"] = {}
+    _DEFER["files"] = []
+
+
+def _defer_revert():
+    """Kembalikan semua file yang ditulis selama mode grup."""
+    for p, content in _DEFER["snap"].items():
+        if content is None:
+            if p.exists():
+                p.unlink()
+        else:
+            p.write_text(content)
+
+
+def group_unit_funcs(stem, func):
+    """Fungsi (urut alamat) dalam unit tertutup `func`, atau [].
+
+    Unit tertutup = closure dua arah atas rujukan keras di dalam grup
+    (lihat split_asm_sections.closed_unit). Semua fungsi di unit itu harus
+    MATCH/promoted sebelum bisa pindah bersama.
+    """
+    try:
+        text = (REPO / "asm" / f"{stem}.s").read_text(errors="replace")
+    except OSError:
+        return []
+    unit = _split_closed_unit(text, stem, func)
+    if not unit:
+        return []
+    return [c["name"] for c in unit if c["kind"] == "func"]
 
 
 def asm_section_of(stem, func):
@@ -2428,7 +2467,8 @@ def _migrate_one_impl(module, func, dry_run=False):
     need_string_h = need_memcpy or need_memcmp or need_libc
 
     split = is_split_module(stem)
-    if split and func not in migratable_set(stem):
+    if (split and func not in migratable_set(stem)
+            and func not in _DEFER["allowed"]):
         return {"func": func, "module": module, "ok": False,
                 "skipped": True,
                 "detail": f"{func} grup gabungan/tak-split "
@@ -3310,6 +3350,30 @@ def _migrate_one_impl(module, func, dry_run=False):
     }
     if not split:
         snap[asm_path] = asm_text
+    if _DEFER["active"]:
+        # MODE GRUP: tulis blok ini tanpa compare; driver menjalankan
+        # SATU compare utk seluruh unit (compare per-fungsi akan melihat
+        # section sisa yang masih merujuk pool anggota lain -> MERAH palsu).
+        for p, content in snap.items():
+            _DEFER["snap"].setdefault(p, content)
+        try:
+            src_path.write_text(new_src)
+            if not split:
+                asm_path.write_text(new_asm)
+            if lds_text != new_lds:
+                lds_path.write_text(new_lds)
+        except OSError as e:
+            return {"func": func, "module": module, "ok": False,
+                    "detail": f"gagal tulis: {e}"}
+        files = [str(src_path.relative_to(REPO))]
+        if not split:
+            files.append(str(asm_path.relative_to(REPO)))
+        if lds_changed:
+            files.append("fomt.lds")
+        _DEFER["files"].extend(files)
+        return {"func": func, "module": module, "ok": True,
+                "deferred": True, "files": files,
+                "detail": "ditulis, compare ditunda (mode grup)"}
     try:
         src_path.write_text(new_src)
         if not split:
@@ -3419,6 +3483,82 @@ def _migrate_one_impl(module, func, dry_run=False):
             p.write_text(content)
     return {"func": func, "module": module, "ok": False, "reverted": True,
             "detail": compare_tail, "files": files}
+
+
+def migrate_group(module, func, dry_run=False):
+    """Migrasi SELURUH unit tertutup `func` dalam satu build (mode grup).
+
+    Alasan: `ldr rX, .Lpool` PC-relative tak bisa direlokasi antar-section
+    di format a.out, jadi mencabut sebagian grup gabungan meninggalkan
+    section sisa yang masih merujuk pool/label anggota yang pindah
+    (`THUMB_OFFSET` / `undefined reference to '.L…'`). Mode ini menulis
+    semua blok anggota unit dulu, lalu SATU `make compare`: hijau = semua
+    tetap di src, merah = seluruh unit direvert.
+
+    -> list hasil per fungsi (urut alamat). `skipped` bila ada anggota yang
+    belum MATCH/promoted (bukan MERAH: memang belum bisa).
+    """
+    stem = module[: -len(".s")] if module.endswith(".s") else module
+    funcs = group_unit_funcs(stem, func)
+    if not funcs:
+        return [{"func": func, "module": module, "ok": False,
+                 "skipped": True,
+                 "detail": f"unit grup {func} tak ditemukan di asm/{stem}.s"}]
+    state = load_state(stem)
+    pending = [f for f in funcs
+               if state.get(f, {}).get("status") != "promoted"]
+    if pending:
+        return [{"func": func, "module": module, "ok": False,
+                 "skipped": True, "permanent": False,
+                 "detail": f"unit grup {len(funcs)} fungsi terikat rujukan "
+                 f"keras; {len(pending)} belum MATCH/promoted "
+                 f"({', '.join(pending[:4])}) — pindahkan unit ini setelah "
+                 "semuanya MATCH"}]
+    if len(funcs) == 1:
+        # Unit = fungsi itu sendiri, tapi grupnya masih berisi chunk lain:
+        # pemotongan di situ memisahkan rantai rujukan (pool/label), jadi
+        # tolak dgn alasan nyata dari peta blocker, bukan pesan samar.
+        why = _blockers_of(stem).get(func) or []
+        if why:
+            lab, sec, reason = why[0]
+            return [{"func": func, "module": module, "ok": False,
+                     "skipped": True,
+                     "detail": f"unit tertutup {func} = dirinya sendiri, "
+                     f"tapi memotongnya memisahkan rantai grup: {reason} "
+                     f"({lab or sec}) — butuh potongan lain/anggota MATCH "
+                     "lebih dulu"}]
+        return [migrate_one(module, func, dry_run=dry_run)]
+    _defer_reset()
+    _DEFER["allowed"] = set(funcs)
+    _DEFER["active"] = True
+    out = []
+    try:
+        for f in funcs:
+            _analyze_stem.cache_clear()
+            r = _migrate_one_impl(module, f, dry_run=dry_run)
+            r.setdefault("module", module)
+            r.setdefault("func", f)
+            out.append(r)
+            if not r.get("ok"):
+                if not dry_run:
+                    _defer_revert()
+                return out
+        if dry_run:
+            return out
+        green, tail = run_compare()
+        for r in out:
+            r["ok"] = green
+            r["detail"] = tail
+            if not green:
+                r["reverted"] = os.environ.get("FOMT_MIGRATE_KEEP") != "1"
+            record_verdict(module, r["func"], "OK" if green else "GAGAL",
+                           tail)
+        if not green and os.environ.get("FOMT_MIGRATE_KEEP") != "1":
+            _defer_revert()
+        return out
+    finally:
+        _DEFER["active"] = False
+        _DEFER["allowed"] = set()
 
 
 def autopush_migrate(moved):
@@ -3542,6 +3682,10 @@ def main():
                     help="cetak beda signature blok vs src/ lalu berhenti")
     ap.add_argument("--no-baseline", action="store_true",
                     help="lewati cek compare baseline")
+    ap.add_argument("--group", action="store_true",
+                    help="migrasi SELURUH unit tertutup (closure rujukan "
+                    "keras) dalam satu compare; wajib bila fungsi terikat "
+                    "pool/label dengan tetangga grupnya")
     args = ap.parse_args()
 
     modules = args.module or PILOT_MODULES
@@ -3585,20 +3729,27 @@ def main():
             _analyze_stem.cache_clear()
             last_stem = stem
         print(f"== migrasi {name} ({mod}) ...")
-        r = migrate_one(mod, name, dry_run=args.dry_run)
-        status = "OK" if r["ok"] else ("SKIP" if r.get("skipped") else "GAGAL")
-        print(f"   [{status}] {r['detail']}")
-        if r.get("dry"):
-            dry.append(r)
-            continue
-        if r["ok"]:
-            moved.append(r)
-        elif r.get("skipped"):
-            if r.get("permanent"):
-                perm_skips.append(r)
-            continue
+        if args.group:
+            results = migrate_group(mod, name, dry_run=args.dry_run)
         else:
-            failed = r
+            results = [migrate_one(mod, name, dry_run=args.dry_run)]
+        for r in results:
+            status = "OK" if r["ok"] else (
+                "SKIP" if r.get("skipped") else "GAGAL")
+            print(f"   [{status}] {r['detail']}")
+            if r.get("dry"):
+                dry.append(r)
+                continue
+            if r["ok"]:
+                moved.append(r)
+            elif r.get("skipped"):
+                if r.get("permanent"):
+                    perm_skips.append(r)
+                continue
+            else:
+                failed = r
+                break
+        if failed:
             break  # merah: revert sudah dilakukan, berhenti
 
     print("---- laporan ----")

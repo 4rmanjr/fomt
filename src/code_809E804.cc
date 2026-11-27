@@ -4247,6 +4247,14 @@ __attribute__((naked)) void sub_080D1204(void) {
 }
 }
 
+// DECOMP-MATCHED func_080D0EBC (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080D0EBC")))
+void func_080D0EBC(i32 arg0, i32 arg1, i32 arg2, i32 *arg3) {
+    __asm__ volatile ("stm %0!, {r0, r1, r2}" : "+l" (arg3) : : "memory");
+}
+}
+
 // DECOMP-MATCHED func_080D1548 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((naked)) void func_080D1548(void) {

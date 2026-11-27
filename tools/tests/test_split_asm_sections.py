@@ -192,6 +192,49 @@ class TestMiddleCut(unittest.TestCase):
         self.assertEqual(S._partial_group_runs(chs, {2}), [[0, 1]])
 
 
+class TestClosedUnit(unittest.TestCase):
+    """Unit tertutup = closure dua arah rujukan keras di dalam grup.
+
+    Pool/label tak bisa direlokasi antar-section, jadi batas section yang
+    sah hanya yang tak memotong edge rujukan keras: migrasi harus
+    membawa seluruh unit sekaligus (mode `--group`).
+    """
+
+    def test_pulls_cross_referenced_pool(self):
+        text = _mod(
+            ("func_0800B000", 0x0800B000,
+             ["\tldr r1, .L0800B010\n", "\tbx lr\n"]),
+            ("func_0800B010", 0x0800B010,
+             ["\t.align 2, 0\n", ".L0800B010: .4byte 0x00000007\n"]),
+        )
+        unit = S.closed_unit(text, "game_state", "func_0800B000")
+        self.assertIsNotNone(unit)
+        self.assertEqual([c["secname"] for c in unit],
+                         [".text.game_state.0800B000",
+                          ".text.game_state.0800B010"])
+
+    def test_two_way_edge(self):
+        # B memakai pool milik A (arah sebaliknya) -> tetap satu unit.
+        text = _mod(
+            ("func_0800C000", 0x0800C000,
+             ["\t.align 2, 0\n", ".L0800C008: .4byte 0x00000001\n"]),
+            ("func_0800C00C", 0x0800C00C,
+             ["\tldr r0, .L0800C008\n", "\tbx lr\n"]),
+        )
+        unit = S.closed_unit(text, "game_state", "func_0800C00C")
+        self.assertEqual(len(unit), 2)
+        self.assertEqual(unit[0]["secname"], ".text.game_state.0800C000")
+
+    def test_singleton_and_unknown(self):
+        text = _mod(
+            ("func_0800D000", 0x0800D000, ["\tmovs r0, #0\n", "\tbx lr\n"]),
+        )
+        unit = S.closed_unit(text, "game_state", "func_0800D000")
+        self.assertEqual([c["secname"] for c in unit],
+                         [".text.game_state.0800D000"])
+        self.assertIsNone(S.closed_unit(text, "game_state", "tidak_ada"))
+
+
 class TestAbsorb(unittest.TestCase):
     """Section data-ekor yg sudah ada di blok src harus DICABUT dari asm."""
 
