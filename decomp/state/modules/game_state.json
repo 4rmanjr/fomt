@@ -787,7 +787,7 @@
   "draft_src": "manual",
   "judged_mtime": 1795694941.3278224,
   "module": "game_state.s",
-  "note": "6 varian C; sisa 1 register: ref `ldr r2,[r0,#4]` / `ldr r3,[r0]`, kita `ldr r1` / `ldr r2` \u2014 DIFF `byte +0x2: 0x41 vs ref 0x42 [1extra,7regalloc]`. Uji bit benar: `(b << 28) < 0`. Menambah parameter kedua yang mati tidak menggeser alokasi.",
+  "note": "8 varian C (termasuk dead-store `p = 0` dan `p` sebelum `v`); sisa 1 register: ref `ldr r2,[r0,#4]` / `ldr r3,[r0]`, kita `ldr r1` / `ldr r2` \u2014 DIFF `byte +0x2: 0x41 vs ref 0x42 [1extra,7regalloc]`. Uji bit benar: `(b << 28) < 0`. Menambah parameter kedua yang mati tidak menggeser alokasi.",
   "ref_len": 44,
   "sanitize_v": 4,
   "size": 479,

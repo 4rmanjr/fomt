@@ -4003,8 +4003,9 @@ Kedelapan fungsi lain sudah punya badan assembler yang benar; yang tersisa
 hanya **register yang dipilih agbcc berbeda satu** (dan salinan
 `adds rX, r0, #0` yang menyertainya). Ini bukan kesalahan badan.
 
-`func_08012720` / `func_08012760` (game_state) — 6 varian C (struct langsung,
-`void *`+cast, `&&`, `s32`+cast, early-return, `u8 *p` dimajukan), semuanya
+`func_08012720` / `func_08012760` (game_state) — 8 varian C (struct langsung,
+`void *`+cast, `&&`, `s32`+cast, early-return, `u8 *p` dimajukan, dead-store
+`p = 0`, `p` dimuat sebelum `v`), semuanya
 identik sampai satu byte:
 
 ```
