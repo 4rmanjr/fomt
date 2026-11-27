@@ -2944,3 +2944,499 @@ void func_080DB8D4(u8 *arg0, s32 arg1) {
     }
     func_0800080C(arg0, arg1);
 }
+
+// DECOMP-MATCHED func_080DB944 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DB944(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DB9B4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DB9B4(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBA24 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBA24(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBA94 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBA94(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBB04 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBB04(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBB74 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBB74(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBBE4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBBE4(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBC50 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBC50(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBCC0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBCC0(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBD30 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBD30(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBDA0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBDA0(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBE10 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBE10(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBE80 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBE80(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBEF0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBEF0(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBF60 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBF60(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DBFD0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DBFD0(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DC040 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DC040(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DC0C0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DC0C0(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DC130 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DC130(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DC1A0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DC1A0(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DC21C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DC21C(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 8);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DC404 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080007EC(void *, s32);
+
+void func_080DC404(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_080007EC(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DC474 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DC474(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 8);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DC4E4 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DC4E4(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DC554 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DC554(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080E09BC (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080E09BC(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080E34DC (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080E34DC(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080E41E8 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080007EC(void *, s32);
+
+void func_080E41E8(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_080007EC(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080E4210 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_080007EC(void *, s32);
+
+void func_080E4210(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_080007EC(arg0, arg1);
+}
+
+
+// DECOMP-MATCHED func_080DB2EC (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DB2EC(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 8);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DB36C (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DB36C(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+// DECOMP-MATCHED func_080DB630 (dari code_linkonce.s; cek manusia sebelum ke src/)
+s32 func_0800080C(void *, s32);
+
+void func_080DB630(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+
+
+// DECOMP-MATCHED func_080D78E0 (dari code_linkonce.s; cek manusia sebelum ke src/)
+extern void *gUnk_03000410;
+
+void func_080D78E0(void) {
+    u8 *p;
+    u8 *q;
+    void (*fn)(void *);
+
+    p = (u8 *)*(void **)gUnk_03000410;
+    q = (u8 *)*(u32 *)(p + 8);
+    fn = (void (*)(void *))*(u32 *)(q + 8);
+    fn(p);
+}

@@ -715,14 +715,15 @@
  },
  "func_080D78E0": {
   "addr": 135100640,
-  "judged_mtime": 1795698120.0983493,
+  "judged_mtime": 1795746364.0165164,
   "module": "code_linkonce.s",
-  "note": "len 22 vs ref 20 [4extra,1operand @>  | ldr r0, [pc, #0x14]]",
+  "note": "MATCH + migrate HIJAU. Sub-kelas E \u00a7114: tiga deref (`gUnk_03000410` -> `+8` -> `+8`) lalu panggil pointer; cast `(u8 *)`/`(void **)` wajib untuk TU C++.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 24,
   "sanitize_checked_v": 4,
   "sanitize_v": 4,
   "size": 253,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D78F8": {
@@ -864,13 +865,14 @@
  },
  "func_080D7F3C": {
   "addr": 135102268,
-  "judged_mtime": 1793018119.1421983,
+  "judged_mtime": 1795746233.0384393,
   "module": "code_linkonce.s",
-  "note": "/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D7F3C/opencode/func.c: In function `func_080D7F3C':\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080D7F3C/opencode/func.c:9: invalid type argument of `unary *'\n",
+  "note": "MATCH (promote-only). Slot vtable terhitung `+0x124`; badan cocok dengan parameter `u8 *`, tapi pemanggil func_080DC294 mengirim i32 dan versi `s32` menggeser regalloc (36 vs 34 B). Penghalang = cast di pemanggil. \u00a7114.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 36,
   "sanitize_v": 4,
   "size": 301,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080D7F60": {
@@ -956,9 +958,9 @@
  },
  "func_080DB2EC": {
   "addr": 135115500,
-  "judged_mtime": 1795745283.5711036,
+  "judged_mtime": 1795746310.3674011,
   "module": "code_linkonce.s",
-  "note": "MATCH (promote-only): panggilan virtual via `((void **)*p)[2]` + `fn(p, 3)` bukan `(*p)->unk8(...)`. Offset field +8. Blok promoted terhapus saat perbaikan cast C++ (MIGRATE \u00a717) \u2192 promote-only. POLA-DIFF \u00a7113.",
+  "note": "MATCH + migrate HIJAU. Sub-kelas A \u00a7114 dengan offset objek +8 (kembaran +4). Status sempat stale (`promoted` tanpa blok) setelah perbaikan cast C++; di-reset via writer resmi lalu judge+promote+migrate.",
   "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
@@ -990,9 +992,9 @@
  },
  "func_080DB36C": {
   "addr": 135115628,
-  "judged_mtime": 1795745284.508161,
+  "judged_mtime": 1795746311.4249208,
   "module": "code_linkonce.s",
-  "note": "MATCH (promote-only), kembaran func_080DB630 (+4). Pointer-fungsi ber-cast; blok promoted terhapus \u2192 promote-only. \u00a7113.",
+  "note": "MATCH + migrate HIJAU. Sub-kelas A \u00a7114 offset +4 (kembar func_080DB630). Stale-state di-reset via writer resmi.",
   "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
@@ -1024,9 +1026,9 @@
  },
  "func_080DB630": {
   "addr": 135116336,
-  "judged_mtime": 1795745285.1705596,
+  "judged_mtime": 1795746312.270698,
   "module": "code_linkonce.s",
-  "note": "MATCH (promote-only), kembaran func_080DB36C (+4). \u00a7113.",
+  "note": "MATCH + migrate HIJAU. Sub-kelas A \u00a7114 offset +4 (kembar func_080DB36C).",
   "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
@@ -1184,13 +1186,14 @@
  },
  "func_080DB944": {
   "addr": 135117124,
-  "judged_mtime": 1793018125.526887,
+  "judged_mtime": 1795745942.9724472,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB944/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB944/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DB96C": {
@@ -1206,13 +1209,14 @@
  },
  "func_080DB9B4": {
   "addr": 135117236,
-  "judged_mtime": 1793018125.9957337,
+  "judged_mtime": 1795745943.7389581,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB9B4/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DB9B4/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DB9DC": {
@@ -1228,13 +1232,14 @@
  },
  "func_080DBA24": {
   "addr": 135117348,
-  "judged_mtime": 1793018126.4623327,
+  "judged_mtime": 1795745944.38973,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBA24/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBA24/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBA4C": {
@@ -1250,13 +1255,14 @@
  },
  "func_080DBA94": {
   "addr": 135117460,
-  "judged_mtime": 1793018126.981978,
+  "judged_mtime": 1795745945.2419074,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBA94/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBA94/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBABC": {
@@ -1272,13 +1278,14 @@
  },
  "func_080DBB04": {
   "addr": 135117572,
-  "judged_mtime": 1793018127.4774542,
+  "judged_mtime": 1795745945.96918,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBB04/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBB04/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBB2C": {
@@ -1294,13 +1301,14 @@
  },
  "func_080DBB74": {
   "addr": 135117684,
-  "judged_mtime": 1793018128.0300562,
+  "judged_mtime": 1795745946.8294697,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBB74/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBB74/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBB9C": {
@@ -1316,13 +1324,14 @@
  },
  "func_080DBBE4": {
   "addr": 135117796,
-  "judged_mtime": 1793018128.5282066,
+  "judged_mtime": 1795745947.5888445,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBBE4/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBBE4/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBC0C": {
@@ -1338,13 +1347,14 @@
  },
  "func_080DBC50": {
   "addr": 135117904,
-  "judged_mtime": 1793018129.0040011,
+  "judged_mtime": 1795745948.364573,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBC50/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBC50/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBC78": {
@@ -1360,13 +1370,14 @@
  },
  "func_080DBCC0": {
   "addr": 135118016,
-  "judged_mtime": 1793018129.530212,
+  "judged_mtime": 1795745949.2366278,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBCC0/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBCC0/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBCE8": {
@@ -1382,13 +1393,14 @@
  },
  "func_080DBD30": {
   "addr": 135118128,
-  "judged_mtime": 1793018130.1844778,
+  "judged_mtime": 1795745949.8455112,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBD30/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBD30/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBD58": {
@@ -1404,13 +1416,14 @@
  },
  "func_080DBDA0": {
   "addr": 135118240,
-  "judged_mtime": 1793018130.780352,
+  "judged_mtime": 1795746040.950056,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBDA0/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBDA0/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBDC8": {
@@ -1426,13 +1439,14 @@
  },
  "func_080DBE10": {
   "addr": 135118352,
-  "judged_mtime": 1793018131.263789,
+  "judged_mtime": 1795746041.7850618,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBE10/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBE10/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBE38": {
@@ -1448,13 +1462,14 @@
  },
  "func_080DBE80": {
   "addr": 135118464,
-  "judged_mtime": 1793018131.761889,
+  "judged_mtime": 1795746042.5456767,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBE80/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBE80/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBEA8": {
@@ -1470,13 +1485,14 @@
  },
  "func_080DBEF0": {
   "addr": 135118576,
-  "judged_mtime": 1793018132.2571244,
+  "judged_mtime": 1795746043.2710896,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBEF0/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBEF0/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBF18": {
@@ -1492,13 +1508,14 @@
  },
  "func_080DBF60": {
   "addr": 135118688,
-  "judged_mtime": 1793018132.7361608,
+  "judged_mtime": 1795746043.8870466,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBF60/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBF60/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBF88": {
@@ -1514,13 +1531,14 @@
  },
  "func_080DBFD0": {
   "addr": 135118800,
-  "judged_mtime": 1793018133.2177522,
+  "judged_mtime": 1795746044.4882116,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBFD0/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DBFD0/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DBFF8": {
@@ -1536,13 +1554,14 @@
  },
  "func_080DC040": {
   "addr": 135118912,
-  "judged_mtime": 1793018133.699605,
+  "judged_mtime": 1795746045.0646908,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC040/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC040/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC068": {
@@ -1558,13 +1577,14 @@
  },
  "func_080DC0C0": {
   "addr": 135119040,
-  "judged_mtime": 1793018134.1931765,
+  "judged_mtime": 1795746045.6775107,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC0C0/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC0C0/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC0E8": {
@@ -1580,13 +1600,14 @@
  },
  "func_080DC130": {
   "addr": 135119152,
-  "judged_mtime": 1793018134.6694288,
+  "judged_mtime": 1795746046.2879496,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC130/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC130/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC158": {
@@ -1602,13 +1623,14 @@
  },
  "func_080DC1A0": {
   "addr": 135119264,
-  "judged_mtime": 1793018135.1661901,
+  "judged_mtime": 1795746046.9641922,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC1A0/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC1A0/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC1C8": {
@@ -1635,13 +1657,14 @@
  },
  "func_080DC21C": {
   "addr": 135119388,
-  "judged_mtime": 1793018135.6928504,
+  "judged_mtime": 1795746047.695009,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC21C/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC21C/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC244": {
@@ -1713,13 +1736,14 @@
  },
  "func_080DC404": {
   "addr": 135119876,
-  "judged_mtime": 1793018136.964589,
+  "judged_mtime": 1795746048.376668,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC404/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC404/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "MATCH (promote-only). Sub-kelas A \u00a7114 (offset 4, vtable indeks 2, arg 3) tapi callee `func_080007EC`: TI sudah punya `i32 func_080007EC();` (0-arg) sehingga blok `(void *, i32)` ditolak gerbang signature; di C++ `()`=(void) -> penyatuan menyentuh blok MATCH lain. SKIP-permanen.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC42C": {
@@ -1735,13 +1759,14 @@
  },
  "func_080DC474": {
   "addr": 135119988,
-  "judged_mtime": 1793018137.4324028,
+  "judged_mtime": 1795746049.54118,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC474/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC474/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC49C": {
@@ -1757,13 +1782,14 @@
  },
  "func_080DC4E4": {
   "addr": 135120100,
-  "judged_mtime": 1793018137.9215121,
+  "judged_mtime": 1795746050.3536384,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC4E4/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC4E4/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC50C": {
@@ -1779,13 +1805,14 @@
  },
  "func_080DC554": {
   "addr": 135120212,
-  "judged_mtime": 1793018138.4222894,
+  "judged_mtime": 1795746051.2259834,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC554/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080DC554/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080DC57C": {
@@ -3111,13 +3138,14 @@
  },
  "func_080E09BC": {
   "addr": 135137724,
-  "judged_mtime": 1793018162.0464509,
+  "judged_mtime": 1795746051.9467967,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E09BC/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E09BC/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E09E4": {
@@ -4040,13 +4068,14 @@
  },
  "func_080E34DC": {
   "addr": 135148764,
-  "judged_mtime": 1793018180.583391,
+  "judged_mtime": 1795746052.7479901,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E34DC/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E34DC/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E3504": {
@@ -4565,24 +4594,26 @@
  },
  "func_080E41E8": {
   "addr": 135152104,
-  "judged_mtime": 1793018188.6737533,
+  "judged_mtime": 1795746053.8178558,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E41E8/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E41E8/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "MATCH (promote-only). Sub-kelas A \u00a7114 (offset 4, vtable indeks 2, arg 3) tapi callee `func_080007EC`: TI sudah punya `i32 func_080007EC();` (0-arg) sehingga blok `(void *, i32)` ditolak gerbang signature; di C++ `()`=(void) -> penyatuan menyentuh blok MATCH lain. SKIP-permanen.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E4210": {
   "addr": 135152144,
-  "judged_mtime": 1793018188.8603418,
+  "judged_mtime": 1795746054.7628684,
   "module": "code_linkonce.s",
-  "note": "ter from integer without a cast\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E4210/opencode/func.c:13: warning: dereferencing `void *' pointer\n/home/armanjr/gitproject/fomt/decomp/logs/judge_func_080E4210/opencode/func.c:13: request for member `unk8' in something not a structure or union\n",
+  "note": "MATCH (promote-only). Sub-kelas A \u00a7114 (offset 4, vtable indeks 2, arg 3) tapi callee `func_080007EC`: TI sudah punya `i32 func_080007EC();` (0-arg) sehingga blok `(void *, i32)` ditolak gerbang signature; di C++ `()`=(void) -> penyatuan menyentuh blok MATCH lain. SKIP-permanen.",
+  "promoted_to": "decomp/promoted/code_linkonce.cc",
   "ref_len": 40,
   "sanitize_v": 4,
   "size": 347,
-  "status": "failed",
+  "status": "promoted",
   "thumb": true
  },
  "func_080E4238": {

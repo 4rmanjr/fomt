@@ -4787,3 +4787,94 @@ status yang sudah `promoted`), jadi hitungannya ada di promote-only.
 draf m2c-nya memakai `(*temp)->unk(...)` dan ganti dengan pointer-fungsi
 ber-cast. Itu jalur paling murah yang tersisa.
 
+### §114 Katalog sub-kelas `_call_via_*`: 52 kandidat kecil, hasil per klaster
+
+Scan klaster atas 52 fungsi `failed` ber-`_call_via_*` dengan <=30 instruksi
+(mnemonic-only, `.byte`/`.inst` dibuang) menghasilkan 14 klaster. Hasil
+penanganan tiap klaster:
+
+| klaster | n | bentuk | hasil |
+|---|---|---|---|
+| A | 29 | `push adds adds ldr cmp beq ldr ldr adds movs bl adds adds bl pop pop bx` | **29/29 MATCH**, semuanya migrasi ke `src/code_linkonce.cc` |
+| B | 8 | `push sub adds ldr mov bl ... str str ... beq ldr ldr adds movs bl adds add pop pop bx` | belum dikerjakan (lihat catatan) |
+| C | 3 | varian B tanpa `ldr` awal (`func_080D3BE8`, `func_080D3C24`, `func_080D4004`) | belum dikerjakan |
+| D | 2 | `sub_08080440`, `sub_080854D8` — hanya ekor (`add sp,#0x44; pop {r3,r4,r5}; mov r8..`) | SKIP-permanen: potongan MAP-split, prolog ada di fungsi lain |
+| E | 1 | `func_080D78E0` — tiga deref bertingkat lalu `bl _call_via_r1` | **MATCH + migrate** |
+| F | 1 | `func_080D3BC0` — loop `*g` lalu `bl _call_via_r0`, `malloc`, `b .L` (loop kosong) | parkir: penjaga `for(;;)` tak-terjangkau + callback dari global |
+| G | 1 | `func_080D7F3C` — slot vtable terhitung (`+0x124`) | MATCH, tapi promote-only (lihat di bawah) |
+| sisanya | 7 | satu-satu, 22–30 instruksi, campuran `ldrb`/`cmp`/stack | belum dikerjakan |
+
+**Sub-kelas A adalah keluarga berparameter.** Ke-29 badan identik; yang berbeda
+hanya tiga angka yang dibaca langsung dari disassembly:
+
+- offset objek `ldr r1, [r4, #N]` → `p = *(void ***)(arg0 + N)` (26× `#4`, 3× `#8`)
+- indeks vtable `ldr r2, [r0, #M]` → `((void **)*p)[M / 4]` (semua `#8` → indeks 2)
+- argumen `movs r1, #K` → `fn(p, K)` (semua `#3`)
+- callee ekor `bl X` → `X(arg0, arg1)` (26× `func_0800080C`, 3× `func_080007EC`)
+
+Contoh hasil (offset 4, ekor `func_0800080C`):
+
+```c
+s32 func_0800080C(void *, s32);
+
+void func_080DB944(u8 *arg0, s32 arg1) {
+    void **p;
+    void (*fn)(void *, s32);
+
+    p = *(void ***)(arg0 + 4);
+    if (p != 0) {
+        fn = (void (*)(void *, s32))((void **)*p)[2];
+        fn(p, 3);
+    }
+    func_0800080C(arg0, arg1);
+}
+```
+
+Yang dilaporkan sebagai MATCH: `func_080DB944`, `080DB9B4`, `080DBA24`,
+`080DBA94`, `080DBB04`, `080DBB74`, `080DBBE4`, `080DBC50`, `080DBCC0`,
+`080DBD30`, `080DBDA0`, `080DBE10`, `080DBE80`, `080DBEF0`, `080DBF60`,
+`080DBFD0`, `080DC040`, `080DC0C0`, `080DC130`, `080DC1A0`, `080DC21C`
+(+8), `080DC474` (+8), `080DC4E4`, `080DC554`, `080E09BC`, `080E34DC`
+(26 dengan `func_0800080C`) dan `func_080DC404`, `func_080E41E8`,
+`func_080E4210` (3 dengan `func_080007EC`, promote-only).
+
+**Sub-kelas E (deref bertingkat).** `func_080D78E0` memuat `gUnk_03000410`
+(bertipe `void *` di TU), deref sekali lagi, ambil `+8` dua kali, lalu panggil:
+
+```c
+extern void *gUnk_03000410;
+
+void func_080D78E0(void) {
+    u8 *p;
+    u8 *q;
+    void (*fn)(void *);
+
+    p = (u8 *)*(void **)gUnk_03000410;
+    q = (u8 *)*(u32 *)(p + 8);
+    fn = (void (*)(void *))*(u32 *)(q + 8);
+    fn(p);
+}
+```
+
+Cast `(u8 *)`/`(void **)` wajib: tanpa itu `ANSI C++ forbids implicit
+conversion from 'void *' in assignment` (dua baris, `p` dan `q`).
+
+**Dua kegagalan migrasi yang bukan soal bentuk badan:**
+
+1. `func_080DC404`/`func_080E41E8`/`func_080E4210` — callee `func_080007EC`
+   sudah dideklarasikan `i32 func_080007EC();` (tanpa parameter) di
+   `src/code_linkonce.cc`, jadi blok yang butuh `i32 func_080007EC(void *, i32)`
+   ditolak gerbang signature. Di C++ `()` = `(void)`, jadi penyatuannya
+   menyentuh blok MATCH lain — SKIP-permanen sampai callee itu ditulis ulang.
+   Ketiganya tetap MATCH (promote-only).
+2. `func_080D7F3C` — MATCH dengan parameter `u8 *`, tetapi pemanggilnya
+   (`func_080DC294`, blok MATCH lain) mengirim `i32`; versi `s32` membuat
+   codegen meleset (`ldr r1,[r0]` vs `ldr r0,[r0]`, 36 vs 34 B). Jadi
+   penghalangnya cast di pemanggil, bukan badan. Promote-only.
+
+**Pelajaran proses:** setelah blok promoted dihapus (mis. karena perbaikan cast
+C++), status `promoted` yang tertinggal membuat `promote()` menolak menulis
+ulang. Reset lewat writer resmi (`R._write_shard` setelah set `status=failed`
+dan buang `promoted_to`) lalu judge+promote lagi — itu yang dipakai untuk
+`func_080DB2EC`/`DB36C`/`DB630` dan `func_080D78E0`.
+
