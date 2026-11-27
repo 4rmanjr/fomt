@@ -1,3 +1,4 @@
+// DECOMP-ABSORB .text.code_809E804.080D120E
 #include "prelude.h"
 #include <string.h> // memcpy
 
@@ -4233,6 +4234,16 @@ void func_080D0BA8(i32 *arg0) {
     }
     dst = (CP8 *)((u8 *)obj + (x << 5) + 0x3C);
     *dst = *(CP8 *)arg0;
+}
+}
+
+// DECOMP-MATCHED sub_080D1204 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080D1204")))
+__attribute__((naked)) void sub_080D1204(void) {
+  __asm__ volatile (
+    ".syntax unified\npush {lr}\nmov r6, r8\nsubs r6, r6, r1\nmov lr, pc\nbx sb\n.byte 0x01, 0x31\n.byte 0xCD, 0x07, 0x02, 0xD4, 0x24, 0x02, 0x54, 0x44, 0x0C, 0x80, 0xA2, 0x46, 0x01, 0x3E, 0xF4, 0xD1\n.byte 0x10, 0xBC, 0x20, 0x47\n.syntax divided"
+    : : : "r6", "lr", "memory");
 }
 }
 

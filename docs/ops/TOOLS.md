@@ -713,7 +713,8 @@ build dan tidak menulis ROM. Berkas yang ada:
 `run_parallel.py`, `test_cli.py`, `test_asset_manifest.py`, `test_asset_verify.py`,
 `test_check_docs_aset.py`, `test_compressed_bank.py`, `test_embedded_streams.py`, `test_font_container.py`, `test_font_palettes.py`,
 `test_glyph_font.py`, `test_glyph_index.py`, `test_lz70.py`, `test_map2bin.py`, `test_table.py`, `test_tilemap_bank.py`,
-`test_raw_assets.py`,
+`test_raw_assets.py`, `test_split_asm_sections.py` (pengelompokan section asm:
+pool/runa kontigu, `DECOMP-ABSORB`, rujukan label `.L*`),
 `test_readme_stats.py`,
 `test_sprite2gba.py`, `test_stream_audit.py`, `test_stream_bank.py`, `test_tile4bpp.py`.
 `check_docs.py` menolak skrip `tools/**/*.py` yang belum disebut di berkas ini

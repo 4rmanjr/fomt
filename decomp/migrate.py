@@ -41,6 +41,7 @@ _TOOLS_SCRIPTS = str(REPO / "tools" / "scripts")
 if _TOOLS_SCRIPTS not in sys.path:
     sys.path.insert(0, _TOOLS_SCRIPTS)
 from split_asm_sections import analyze as split_analyze
+from split_asm_sections import migration_blockers_map as _split_blockers
 
 
 @functools.lru_cache(maxsize=None)
@@ -175,18 +176,74 @@ def data_block_text(stem, dsec, addr8, bytevals):
     )
 
 
+@functools.lru_cache(maxsize=None)
+def _blockers_of(stem):
+    """Cache peta blocker per modul (parse asm 1x per proses)."""
+    try:
+        text = (REPO / "asm" / f"{stem}.s").read_text(errors="replace")
+    except OSError:
+        return {}
+    return _split_blockers(text, stem)
+
+
+def _block_has_bytes(body, bytevals):
+    """True bila teks blok promoted memuat deretan byte itu (mis. `.byte`).
+
+    Dipakai utk blok *naked*: blok seperti `sub_080D1204` menuliskan ekor
+    datanya sendiri sebagai `.byte`, jadi section data-ekor tak boleh
+    di-emit lagi oleh asm (kalau tidak, byte-nya dobel dan compare MERAH).
+    """
+    toks = [t.upper() for t in re.findall(r"0x([0-9A-Fa-f]{2})\b", body)]
+    want = [f"{b:02X}" for b in bytevals]
+    n = len(want)
+    if not n:
+        return False
+    return any(toks[i:i + n] == want for i in range(len(toks) - n + 1))
+
+
+def absorbed_data_chunks(stem, func, body):
+    """Data-chunk tepat setelah chunk fungsi yg byte-nya sudah ada di blok.
+
+    -> [(secname, addr8, addr_int, bytevals)]. Hanya chunk data PERTAMA yang
+    menempel di ekor chunk fungsi; data lain sesudahnya milik fungsi lain.
+    """
+    if not body:
+        return []
+    for chs in _analyze_stem(stem):
+        for i, c in enumerate(chs):
+            if c["kind"] != "func" or c["name"] != func:
+                continue
+            if i + 1 >= len(chs) or chs[i + 1]["kind"] != "data":
+                return []
+            nxt = chs[i + 1]
+            m = re.search(r"\.([0-9A-Fa-f]{8})(?:\.zz)?$", nxt["secname"])
+            if not m:
+                return []
+            bv = parse_data_bytes(nxt["lines"])
+            if not bv or not _block_has_bytes(body, bv):
+                return []
+            return [(nxt["secname"], m.group(1).upper(),
+                     int(m.group(1), 16), bv)]
+    return []
+
+
 def migratable_set(stem):
     """Nama fungsi yang boleh pindah sendirian.
 
-    Aturan identik dgn split_asm_sections.migratable (grup tepat 1 chunk
-    fungsi); dihitung dari cache _analyze_stem agar tak parse ganda
-    bersama asm_section_of."""
+    Aturannya sekarang dua arah (lihat split_asm_sections.migration_blockers_map):
+    fungsi tak boleh terpisah dari tujuan rujukan kerasnya (`ldr rX, .Lpool`,
+    `.4byte func_x`), dan section yang masih jadi tujuan rujukan keras chunk
+    lain tak boleh dicabut. Sebelumnya setiap fungsi dianggap migratable —
+    split() lalu memecah tiap chunk sisa jadi section sendiri sehingga pool
+    terpisah dari `ldr` pemakainya (THUMB_OFFSET).
+
+    Grup solo-fungsi dgn data-ekor tetap boleh: data itu ikut pindah via
+    data_plan (parse_data_bytes menolak yang simbolik -> SKIP)."""
+    bad = _blockers_of(stem)
     out = set()
     for chs in _analyze_stem(stem):
-        # Semua chunk fungsi, termasuk anggota grup gabungan (lihat
-        # asm_section_of): split() memisahkan sisanya saat salah satu
-        # chunk sudah migrated. Terbukti byte-identik utk 0809EEA4.
-        out.update(c["name"] for c in chs if c["kind"] == "func")
+        out.update(c["name"] for c in chs
+                   if c["kind"] == "func" and c["name"] not in bad)
     return out
 
 
@@ -3215,6 +3272,18 @@ def _migrate_one_impl(module, func, dry_run=False):
             new_src += data_block_text(stem, dsec, addr8, bytevals) + "\n"
         new_src += wrap_block(marker_line, body, secname, func) + "\n"
 
+    # Blok naked yg sudah memuat ekor data (mis. sub_080D1204: 10B kode +
+    # 22B `.byte` di dalam asm blok) -> section data-ekor itu harus DICABUT
+    # dari asm, kalau tidak byte-nya dobel. Penanda DECOMP-ABSORB dibaca
+    # split_asm_sections.src_section_names sebagai section yg sudah pindah.
+    if split and secname:
+        _planned = {d[0] for d in data_plan}
+        _abs = [a for a in absorbed_data_chunks(stem, func, body)
+                if a[0] not in _planned]
+        if _abs:
+            new_src = "".join(f"// DECOMP-ABSORB {dsec}\n"
+                              for dsec, _a8, _ai, _bv in _abs) + new_src
+
     if not split and asm_tail and asm_tail.strip():
         # Legacy tail-only: ekor tak-bermarker dibawa verbatim tepat
         # sesudah fungsi ini (basic asm scope file; tidak codegen).
@@ -3268,7 +3337,8 @@ def _migrate_one_impl(module, func, dry_run=False):
     # dari agbcc yg dipakai judge (kasus func_08050D0C: r4<->r5), sementara
     # agbcc C mereproduksi codegen judge persis. Hanya utk byte-diff
     # (checksum FAILED); error kompilasi tetap SKIP/BERHENTI sbg biasa.
-    if split and compare_failed_byte_diff(compare_tail):
+    if (split and compare_failed_byte_diff(compare_tail)
+            and os.environ.get("FOMT_NO_C_FALLBACK") != "1"):
         # Revert .cc dulu (hindari duplikat definisi dgn .c), siapkan lds.
         if snap[src_path] is None:
             if src_path.exists():
@@ -3336,7 +3406,11 @@ def _migrate_one_impl(module, func, dry_run=False):
                 src_path.unlink()
         else:
             src_path.write_text(snap[src_path])
-    # MERAH: revert fungsi ini
+    # MERAH: revert fungsi ini (debug: FOMT_MIGRATE_KEEP=1 biarkan file
+    # tetap ditulis supaya byte-diff bisa didiagnosis dengan cmp/readelf).
+    if os.environ.get("FOMT_MIGRATE_KEEP") == "1":
+        return {"func": func, "module": module, "ok": False, "kept": True,
+                "detail": compare_tail, "files": files}
     for p, content in snap.items():
         if content is None:
             if p.exists():

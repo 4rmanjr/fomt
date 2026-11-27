@@ -66,6 +66,10 @@ ADDR_LABEL_RE = re.compile(r"^\.L([0-9A-Fa-f]{8})$")
 ADDR_COMMENT_RE = re.compile(r"@\s*0x([0-9A-Fa-f]+)")
 FUNC_NAME_ADDR_RE = re.compile(r"func_([0-9A-Fa-f]{8})$")
 SRC_SECTION_RE = re.compile(r'section\s*\(\s*"([^"]+)"\s*\)')
+# Penanda di src bahwa byte sebuah section ASM sudah ikut di dalam blok fungsi
+# (mis. blok naked yg memuat ekor data 22B). Splitter harus meng-omit section
+# itu dari asm; kalau tidak, byte-nya dobel. Dipakai migrate._absorbed_data_chunks.
+SRC_ABSORB_RE = re.compile(r"DECOMP-ABSORB\s+(\.[\w.]+)")
 _SPACE_FILL_RE = re.compile(r"^\.(space|fill|skip)\b")
 _ALIGN2_RE = re.compile(r"^\.align\s+2,\s*0\s*$")
 _ALIGN_RE = re.compile(r"^\.align\b")
@@ -78,6 +82,16 @@ _DOTWORD_COLON_RE = re.compile(r"^[.\w]")
 _HIGH_REG_RE = re.compile(r"\b(r8|r9|r10|r11|r12|sl|sb|sp|pc|lr)\b")
 HIGH_REG_RE = _HIGH_REG_RE  # alias publik (dipakai calon optimasi caller)
 _THUMB32_RE = re.compile(r"^\s*(bl\s|b\.w\s|blx\s)\b")
+# Direktif data yang bisa memuat NAMA simbol (mis. `.4byte func_080D116A`).
+# Rujukan simbolik seperti ini SAMA bermasalahnya dgn rujukan PC-relative:
+# format objek a.out tak bisa menyatakan relokasi lintas-section untuk
+# simbol Thumb (`cannot represent THUMB_OFFSET relocation`), jadi chunk
+# pemilik nama itu tak boleh dicabut terpisah dari chunk yang merujuknya.
+_DATA_REF_RE = re.compile(
+    r"^\s*(?:[.\w][\w.]*:\s*)?\.(?:byte|2byte|short|hword|4byte|word|long)"
+    r"\b(.*)$"
+)
+_PURE_NUM_RE = re.compile(r"^[+-]?(?:0[xX][0-9a-fA-F]+|\d+)[uUlL]*$")
 
 
 def _instr_len(ln: str) -> int:
@@ -172,6 +186,72 @@ def _pc_refs(lines) -> set:
     return out
 
 
+def _sym_refs(lines) -> set:
+    """Nama simbol yang dirujuk dari DIREKTIF DATA (`.4byte func_x`, dst).
+
+    Angka murni (`0x080D116B`) bukan rujukan: nilainya sudah final dan
+    tak butuh relokasi, jadi boleh dipakai sebagai jalan keluar saat
+    pool harus tetap di section asal (lihat POLA-DIFF §136).
+    """
+    out = set()
+    for ln in lines:
+        s = ln.split("@")[0].strip()
+        m = _DATA_REF_RE.match(s)
+        if not m:
+            continue
+        for part in m.group(1).split(","):
+            p = part.strip()
+            if not p or _PURE_NUM_RE.match(p):
+                continue
+            out.update(_REF_WORD_RE.findall(p))
+    return out
+
+
+def _chunk_refs(lines) -> set:
+    """Semua nama yang dirujuk chunk: instruksi PC-relative + data simbolik."""
+    return _pc_refs(lines) | _sym_refs(lines)
+
+
+_GLOBAL_RE = re.compile(r"^\s*\.globl?\s+([A-Za-z_]\w*)")
+_LDR_LABEL_RE = re.compile(r"\bldr\s+r\d+\s*,\s*([.\w][\w.]*)")
+_ADD_PC_LABEL_RE = re.compile(r"\badd\s+r\d+\s*,\s*pc\s*,\s*([.\w][\w.]*)")
+
+
+def _pool_refs(lines) -> set:
+    """Label yang dibaca lewat LOAD PC-relative (`ldr rX, .Lpool`).
+
+    Ini rujukan yang benar-benar tak bisa lintas-section: assembler harus
+    menghitung offset literal-pool terhadap PC, dan format objek a.out tak
+    punya relokasi untuk itu (`cannot represent THUMB_OFFSET relocation`).
+    Cabang (`b`/`bl`) TIDAK termasuk: relokasi cabang didukung linker, jadi
+    boleh lintas-section.
+    """
+    out = set()
+    for ln in lines:
+        s = _DATA_LABEL_STRIP_RE.sub("", ln.split("@")[0])
+        for rx in (_LDR_LABEL_RE, _ADD_PC_LABEL_RE):
+            out.update(rx.findall(s))
+    return out
+
+
+def _hard_refs(lines) -> set:
+    """Rujukan yang MENGIKAT chunk ke section yang sama.
+
+    Isinya: (1) load literal-pool (`ldr rX, .Lpool`), (2) rujukan simbolik
+    di direktif data (`.4byte func_x`), dan (3) SEMUA rujukan ke label
+    lokal `.L*` — termasuk cabang `b .Lfoo`.
+
+    (3) penting dan sempat terlewat: label `.L*` bukan simbol ELF, jadi
+    linker tak bisa merelokasi cabang ke `.L` milik section lain
+    (`undefined reference to '.L080D118C'` saat func_080D1186 dicoba
+    pindah). Cabang ke simbol GLOBAL (`bl func_x`) tetap boleh lintas
+    section karena punya relokasi cabang.
+    """
+    hard = _pool_refs(lines) | _sym_refs(lines)
+    hard.update(r for r in _pc_refs(lines) if r.startswith(".L"))
+    return hard
+
+
 def _refs_and_pc(lines) -> tuple[set, set]:
     """Gabungan _refs + _pc_refs dalam 1 pass (hemat ~2x split/strip/regex).
 
@@ -211,9 +291,11 @@ def src_section_names() -> set:
     names = set()
     for p in files:
         try:
-            names.update(SRC_SECTION_RE.findall(p.read_text(errors="replace")))
+            text = p.read_text(errors="replace")
         except OSError:
-            pass
+            continue
+        names.update(SRC_SECTION_RE.findall(text))
+        names.update(SRC_ABSORB_RE.findall(text))
     _SRC_NAMES_CACHE = (newest, names)
     return names
 
@@ -507,6 +589,8 @@ def _analyze_body(lines, stem: str, migrated, prefix: str = ""):
             "lines": func_body,
             "migrated": secname in migrated,
             "labels": _defined_labels(func_body),
+            "refs": _chunk_refs(func_body),
+            "hard_refs": _hard_refs(func_body),
         })
         if ds is not None:
             data = body[ds:]
@@ -517,8 +601,10 @@ def _analyze_body(lines, stem: str, migrated, prefix: str = ""):
                 dsec = f"{secname}.zz"
             chunks.append({
                 "kind": "data", "name": "data", "secname": dsec,
-                "lines": data, "migrated": False,
+                "lines": data, "migrated": dsec in migrated,
                 "labels": _defined_labels(data),
+                "refs": _chunk_refs(data),
+                "hard_refs": _hard_refs(data),
             })
 
     label_chunk = {}
@@ -574,6 +660,144 @@ def _analyze_body(lines, stem: str, migrated, prefix: str = ""):
     return preamble, ordered
 
 
+class SplitError(RuntimeError):
+    """Section tak boleh dicabut: labelnya masih dirujuk section lain.
+
+    Rujukan PC-relative (`ldr rX, .Lpool`) dan rujukan simbolik di direktif
+    data (`.4byte func_x`) sama-sama tak bisa direlokasi lintas-section oleh
+    format objek a.out (`cannot represent THUMB_OFFSET relocation` /
+    `invalid offset, value too big`). Jadi bila sebuah chunk hilang dari
+    asm (pindah ke src) sementara chunk lain masih merujuk labelnya, build
+    akan MERAH dengan pesan assembler yang membingungkan. Lebih baik gagal
+    di sini dengan pesan yang menyebut label + pemiliknya.
+    """
+
+
+def _ref_components(chs, idxs):
+    """Komponen chunk (indeks chs) yang saling merujuk — satu section.
+
+    Dua chunk yang saling merujuk lewat PC-relative WAJIB berada di section
+    yang sama; memisahkannya membuat `ldr rX, .Lpool` jadi relokasi
+    lintas-section yang tak bisa dirakit. Indeks dikembalikan urut menaik,
+    komponen diurutkan menurut indeks pertamanya (= urutan alamat).
+    """
+    parent = {i: i for i in idxs}
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    def union(a, b):
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[max(ra, rb)] = min(ra, rb)
+
+    owners = {}
+    for ci in idxs:
+        for lab in chs[ci]["labels"]:
+            owners.setdefault(lab, ci)
+    for ci in idxs:
+        for ref in chs[ci].get("refs", ()):
+            cj = owners.get(ref)
+            if cj is not None and cj != ci:
+                union(ci, cj)
+    comps = {}
+    for ci in idxs:
+        comps.setdefault(find(ci), []).append(ci)
+    return [comps[r] for r in sorted(comps)]
+
+
+def _partial_group_runs(chs, dropped_idx):
+    """-> list list-indeks RUN chunk sisa; raise SplitError bila tak aman.
+
+    Aturan: chunk sisa harus tetap satu section per RUN kontigu (supaya
+    `.align` di perbatasan chunk dievaluasi dari offset yang sama), dan
+    dua run tak boleh saling merujuk (kalau merujuk, chunk yang dicabut
+    mengikat keduanya -> tak boleh dipisah).
+    """
+    keep = [i for i in range(len(chs))
+            if i not in dropped_idx
+            and not (chs[i]["kind"] == "data" and not chs[i]["lines"])]
+    if not keep:
+        return []
+    runs, cur = [], [keep[0]]
+    for i in keep[1:]:
+        if i == cur[-1] + 1:
+            cur.append(i)
+        else:
+            runs.append(cur)
+            cur = [i]
+    runs.append(cur)
+    if len(runs) > 1:
+        run_of = {ci: ri for ri, run in enumerate(runs) for ci in run}
+        owners = {}
+        for ci in keep:
+            for lab in chs[ci]["labels"]:
+                owners.setdefault(lab, ci)
+        for ri, run in enumerate(runs):
+            for ci in run:
+                for ref in chs[ci].get("hard_refs") or ():
+                    cj = owners.get(ref)
+                    if cj is not None and run_of.get(cj, ri) != ri:
+                        raise SplitError(
+                            f"chunk yang dicabut memisahkan "
+                            f"{chs[ci]['secname']} dari {chs[cj]['secname']} "
+                            f"yang merujuk {ref}; pindahkan sekaligus")
+    return runs
+
+
+def _plan_sections(groups):
+    """-> (plan, dropped) : plan=[(secname,[chunk])], dropped=[chunk]."""
+    plan, dropped = [], []
+    for chs in groups:
+        funcs = [c for c in chs if c["kind"] == "func"]
+        migratable = len(funcs) == 1
+        if migratable and funcs[0]["migrated"]:
+            # Seluruh grup disediakan src (fungsi + data-ekornya).
+            dropped.extend(chs)
+            continue
+        if not migratable and any(c.get("migrated") for c in chs):
+            # Grup gabungan yang sebagian pindah. Chunk sisa HARUS tetap
+            # satu section: dulu tiap chunk dapat section sendiri, sehingga
+            # (a) pool terpisah dari `ldr` pemakainya -> THUMB_OFFSET, dan
+            # (b) direktif `.align 2, 0` di perbatasan chunk dievaluasi ulang
+            # dari offset 0 section baru -> padding hilang/bergeser (ROM
+            # meleset beberapa byte). Satu section = byte-identik dgn ROM.
+            dropped.extend(c for c in chs if c.get("migrated"))
+            dropped_idx = {i for i, c in enumerate(chs) if c.get("migrated")}
+            for run in _partial_group_runs(chs, dropped_idx):
+                plan.append((chs[run[0]]["secname"],
+                             [chs[i] for i in run]))
+            continue
+        plan.append((chs[0]["secname"], chs))
+    return plan, dropped
+
+
+def _check_no_cut_reference(plan, dropped):
+    """Gagal keras bila chunk yang tetap di asm merujuk label yang dicabut."""
+    if not dropped:
+        return
+    owner = {}
+    for ch in dropped:
+        for lab in ch["labels"]:
+            owner.setdefault(lab, ch)
+    if not owner:
+        return
+    for secname, comp in plan:
+        for ch in comp:
+            hit = sorted((ch.get("hard_refs") or set()) & set(owner))
+            if not hit:
+                continue
+            raise SplitError(
+                f"section {secname} masih merujuk "
+                f"{', '.join(hit)} yang dicabut dari asm "
+                f"(pemilik: {owner[hit[0]]['secname']}); "
+                "pindahkan bersama atau pertahankan di section asal"
+            )
+
+
 def split(text: str, stem: str, migrated=None) -> str:
     if not (REPO / "src" / f"{stem}.cc").exists():
         return text
@@ -585,44 +809,93 @@ def split(text: str, stem: str, migrated=None) -> str:
     preamble, groups = analyze(text, stem, migrated)
     if not groups:
         return text
+    plan, dropped = _plan_sections(groups)
+    _check_no_cut_reference(plan, dropped)
     out = [preamble]
-    for gi, chs in enumerate(groups):
-        funcs = [c for c in chs if c["kind"] == "func"]
-        migratable = len(funcs) == 1
-        if migratable and funcs[0]["migrated"]:
-            continue
-        # Grup 2-fungsi yg SALAH SATU sudah migrated (terbentuk via
-        # merger 2-mod-4/padding atau paritas data — mis. [EEA4, EED0]
-        # setelah EED0 pindah duluan): emit ULANG chunk NON-migrated
-        # saja di section-nya sendiri; chunk migrated di-omit.
-        # (TERBUKTI 2026-11-01: tanpa ini, EED0 yg sudah di src ikut
-        # di-emit ulang dari asm -> multiple definition.)
-        if not migratable and any(c.get("migrated") for c in chs):
-            for ch in chs:
-                if ch.get("migrated"):
-                    continue
-                if ch["kind"] == "data" and not ch["lines"]:
-                    continue  # chunk data kosong (padding) -> omit
-                out.append(
-                    f'    .section "{ch["secname"]}", "ax",'
-                    f' %progbits\n')
-                out.extend(ch["lines"])
-            continue
-        out.append(f'    .section "{chs[0]["secname"]}", "ax", %progbits\n')
-        lines = []
-        for ch in chs:
-            lines.extend(ch["lines"])
-        out.extend(lines)
+    for secname, comp in plan:
+        out.append(f'    .section "{secname}", "ax", %progbits\n')
+        for ch in comp:
+            out.extend(ch["lines"])
     return "".join(out)
 
 
-def migratable(text: str, stem: str) -> list:
+def migration_blockers_map(text: str, stem: str) -> dict:
+    """-> {nama fungsi: [(label, pemilik, alasan), ...]}.
+
+    Kosong = fungsi boleh pindah sendirian. Aturannya: section fungsi tak
+    boleh terpisah dari section yang memuat tujuan rujukan kerasnya
+    (`ldr rX, .Lpool`, `.4byte func_x`), dan section yang masih menjadi
+    tujuan rujukan keras section LAIN tak boleh dicabut.
+
+    Padanan dua arah ini yang dulu hilang: splitter hanya menggabungkan
+    chunk lewat rujukan PC-relative, lalu saat salah satu chunk pindah ia
+    memecah tiap chunk sisa jadi section sendiri — pool jadi terpisah dari
+    `ldr` pemakainya, dan assembler gagal dgn `THUMB_OFFSET`.
+    """
     _pre, groups = analyze(text, stem, migrated=set())
-    out = []
-    for chs in groups:
+    owner = {}          # label -> (gi, chunk)
+    referrers = {}      # label -> [(gi, chunk, "pool"|"simbolik")]
+    for gi, chs in enumerate(groups):
+        for ch in chs:
+            for lab in ch["labels"]:
+                owner.setdefault(lab, (gi, ch))
+    for gi, chs in enumerate(groups):
+        for ch in chs:
+            for lab in _pool_refs(ch["lines"]):
+                referrers.setdefault(lab, []).append((gi, ch, "pool"))
+            for lab in _sym_refs(ch["lines"]):
+                referrers.setdefault(lab, []).append((gi, ch, "simbolik"))
+            for lab in _pc_refs(ch["lines"]):
+                if lab.startswith(".L"):
+                    referrers.setdefault(lab, []).append((gi, ch, "cabang .L"))
+    out = {}
+    for gi, chs in enumerate(groups):
         funcs = [c for c in chs if c["kind"] == "func"]
-        if len(funcs) == 1:
-            out.append(funcs[0]["name"])
+        data = [c for c in chs if c["kind"] == "data"]
+        for ch in funcs:
+            bad = []
+            if len(funcs) > 1:
+                # (0) dicabut sendirian dari grup gabungan: sisa harus tetap
+                # run kontigu yang tak saling merujuk (aturan _plan_sections).
+                try:
+                    _partial_group_runs(chs, {chs.index(ch)})
+                except SplitError as exc:
+                    bad.append(("", ch["secname"], str(exc)))
+            # (1) rujukan keras fungsi ke label di luar chunk-nya sendiri.
+            for lab in sorted(_hard_refs(ch["lines"]) - ch["labels"]):
+                who = owner.get(lab)
+                if who is None:
+                    continue  # simbol eksternal (bukan milik modul)
+                g2, c2 = who
+                if len(funcs) == 1 and c2["kind"] == "data":
+                    continue  # data-ekor ikut pindah via data_plan
+                bad.append((lab, c2["secname"], "dirujuk fungsi ini"))
+            # (2) chunk mengekspor simbol GLOBAL lain (`.global __divsi3`
+            # di tengah chunk func_080D0EBC): memindahkannya menghapus
+            # simbol itu dari link -> pemakai lintas-objek (mis.
+            # code_linkonce.o) jatuh ke libgcc lalu `discarded section`.
+            for sym in sorted(l for l in ch["labels"]
+                              if not l.startswith(".L") and l != ch["name"]):
+                bad.append((sym, ch["secname"], "diekspor chunk ini"))
+            # (3) rujukan keras chunk LAIN ke label fungsi ini: section-nya
+            # masih jadi tujuan, jadi tak boleh dicabut.
+            for lab in sorted(ch["labels"]):
+                for g2, c2, kind in referrers.get(lab, ()):
+                    if c2 is ch:
+                        continue
+                    bad.append((lab, c2["secname"], f"merujuk ({kind})"))
+            if bad:
+                out[ch["name"]] = bad
+    return out
+
+
+def migratable(text: str, stem: str) -> list:
+    blockers = migration_blockers_map(text, stem)
+    out = []
+    for chs in analyze(text, stem, migrated=set())[1]:
+        for ch in chs:
+            if ch["kind"] == "func" and ch["name"] not in blockers:
+                out.append(ch["name"])
     return out
 
 

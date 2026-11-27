@@ -6017,3 +6017,62 @@ Satu temuan tambahan untuk §134: pada modul yang ekornya berada di
 satu baris kosong memperbaikinya (terbukti: ekor 316B `sub_08031E0A`
 terpotong jadi chunk `.text.code_entities.08031F20`). Untuk
 `sub_08031E0A` sendiri hal itu belum cukup — lihat tabel di atas.
+
+## §136 Akar "pool terpisah section": pengelompokan rujukan di splitter (2026-11-27)
+
+§135 mencatat 13 promote-only terkunci `THUMB_OFFSET` / `invalid offset`.
+Akar masalahnya di `tools/scripts/split_asm_sections.py`, bukan di datanya:
+
+1. `analyze()` hanya menggabungkan chunk lewat rujukan **PC-relative**, lalu
+   `migratable_set()` menganggap SEMUA chunk fungsi boleh pindah. Begitu satu
+   chunk pindah, `split()` meng-emit tiap chunk sisa sebagai **section
+   sendiri**. Akibatnya literal pool (`ldr rX, .Lpool`) terpisah section dari
+   pemakainya → assembler: `cannot represent THUMB_OFFSET relocation`.
+2. Chunk data selalu ditandai `migrated=False` (hardcoded), jadi penanda src
+   untuk section data tak pernah dipakai saat grup gabungan.
+3. Rujukan ke label lokal `.L*` (`b .L080D118C`) juga tak terelokasi lintas
+   section — linker: `undefined reference to '.L080D118C'`.
+4. `.global` di tengah chunk (mis. `__divsi3` di chunk `func_080D0EBC`):
+   memindahkan chunk menghapus simbol global itu dari link.
+5. `data-ekor` yang sudah ikut ditulis di blok promoted (blok *naked*)
+   di-emit dua kali (asm + src) → ROM +20B.
+
+Perbaikan (semua di tool, dengan tes regresi di
+`tools/tests/test_split_asm_sections.py`):
+
+- `_pool_refs` / `_sym_refs` / `_hard_refs`: rujukan yang MENGIKAT section
+  (load pool, simbol di direktif data, dan semua label `.L*`).
+- `migration_blockers_map()`: blocker dua arah — fungsi tak boleh terpisah
+  dari tujuan rujukan kerasnya, dan section yang masih jadi tujuan rujukan
+  keras chunk lain tak boleh dicabut; plus chunk yang mengekspor `.global`
+  lain.
+- `_partial_group_runs()`: chunk sisa grup gabungan tetap **satu section per
+  run kontigu** (bukan per chunk), dan run-run tak boleh saling merujuk.
+  Ini yang mengembalikan byte-identik: `.align 2, 0` di perbatasan chunk
+  dievaluasi dari offset yang sama seperti ROM.
+- Chunk data kini `migrated = dsec in migrated`; `DECOMP-ABSORB <secname>`
+  (dibaca `src_section_names`) menandai section data-ekor yang byte-nya
+  sudah ada di blok naked, supaya dicabut dari asm.
+- Jalan keluar pool: `.4byte func_x` (simbol Thumb) → `.4byte 0x…|1`
+  (angka final, byte-identik). Diterapkan pada `.L080D11CC/D0/D4`.
+
+Hasil nyata: `sub_080D1204` pindah ke `src/code_809E804.cc`
+(`make compare` → `fomt.gba: OK`), state `src 1502 → 1503`,
+promote-only `13 → 12`.
+
+Verdict 12 sisa (dari `migration_blockers_map`, bukan dugaan):
+
+| Fungsi | Alasan masih di asm |
+|---|---|
+| `func_080D0EBC` | chunk mengekspor `func_080D0EC0` + `__divsi3` (3 simbol global dalam satu chunk; butuh `thumb_func_start` per simbol) |
+| `func_080D116A/116E/117E` | pemisah rantai grup: mencabutnya memisahkan `.text…080D102C` dari `.text…080D11B8` yang merujuk `.L080D11C8` |
+| `func_080D1186` | sama (dirujuk `sub_080D119E` via `b .L080D118C`) |
+| `func_080D14EC` | pool `.L080D150C/.L080D1510` dibaca chunk lain (`.text…080D1224`) |
+| `sub_080D139C/1498/14C6` | pemisah rantai grup `.text…080D1224` |
+| `sub_080868BC` | pool `.L080868CC` dibaca 5 fungsi sebelumnya (`.text…08085F08`, `.text…080868A8`) |
+| `sub_08031E0A` | label interiornya (`.L08031E10/.L08031E34`, alamat ganjil 0x08031E0A) jadi target jump table fungsi lain |
+| `func_080D7F3C` | bukan sectioning: blok promoted hilang, dinilai ulang = DIFF 36 vs 34 (regalloc `ldr r1,[r0]` vs `ldr r0,[r0]`) — perlu kerja draf, bukan tool |
+
+Alat bantu debug (opt-in, tidak mengubah alur normal):
+`FOMT_MIGRATE_KEEP=1` menahan file hasil migrasi MERAH untuk diagnosis
+`cmp`/`readelf`; `FOMT_NO_C_FALLBACK=1` mematikan fallback `.c/agbcc`.
