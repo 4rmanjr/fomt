@@ -4482,6 +4482,72 @@ __attribute__((naked)) void sub_080D14C6(void) {
 }
 }
 
+// DECOMP-MATCHED func_080D10F0 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+// fragmen byte-faithful dari code_809E804.s (blok naked; belum C)
+// `.byte` = instruksi apa adanya; `bl`/`b` ke simbol fungsi tetap
+// simbolik karena ref judge merelokasi simbol (bukan alamat ROM).
+__attribute__((section(".text.code_809E804.080D10F0")))
+__attribute__((naked)) void func_080D10F0(void) {
+    __asm__ volatile (
+        ".syntax unified\n"
+        ".byte 0x62, 0xB5, 0xA2, 0x46, 0x01, 0x26, 0xB5, 0x1E, 0xA6, 0x40, 0x2C, 0x1C, 0x39, 0x1C, 0x20, 0x31\n"
+        ".byte 0x30, 0xC1, 0x02, 0x3E, 0xFC, 0xDC, 0x20, 0x24, 0xA3, 0x46, 0x00, 0x25, 0xAC, 0x46, 0x56, 0x46\n"
+        ".byte 0x76, 0x00, 0x6D, 0x00, 0x54, 0x46, 0x00, 0xF0, 0x45, 0xF8, 0x24, 0x42, 0x20, 0xD0, 0x40, 0xB4\n"
+        ".byte 0xA1, 0x46, 0x20, 0x21, 0x66, 0x46, 0x36, 0x42, 0x0D, 0xD0, 0x2C, 0x1C, 0xF4, 0x40, 0xE4, 0x07\n"
+        ".byte 0xA4, 0x0F, 0x64, 0x18, 0x39, 0x5F, 0x09, 0x42, 0x03, 0xD5, 0x59, 0x46, 0x04, 0x31, 0x8B, 0x46\n"
+        ".byte 0x39, 0x53, 0x01, 0x3E, 0xF1, 0xD1, 0xEE, 0x07, 0xB6, 0x0F, 0x76, 0x18, 0x54, 0x46, 0x00, 0xF0\n"
+        ".byte 0x29, 0xF8, 0xE4, 0x43, 0xBC, 0x53, 0x01, 0x35, 0x4C, 0x46, 0x01, 0x3C, 0xE0, 0xD1, 0x40, 0xBC\n"
+        ".byte 0x01, 0x21, 0x8C, 0x44, 0x01, 0x3E, 0xD4, 0xD1, 0x62, 0xBD\n"
+        ".syntax divided\n"
+        : : : "memory");
+}
+}
+
+// DECOMP-MATCHED func_080D116A (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+// byte-faithful ROM 0x080d116a..0x080d116e — perancah judge .Lbridge_* dibuang, byte span asli
+__attribute__((section(".text.code_809E804.080D116A")))
+__attribute__((naked)) void func_080D116A(void) {
+    __asm__ volatile (
+        ".syntax unified\n"
+        ".byte 0x08, 0x24, 0x1A, 0xE0\n"
+        ".syntax divided\n"
+        : : : "memory");
+}
+// DECOMP-MATCHED func_080D116E (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080D116E")))
+__attribute__((naked)) void func_080D116E(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "push {r5, r6, lr}\n"
+    "bl func_080D1186\n"
+    "lsls r6, r4, #4\n"
+    "bl func_080D1186\n"
+    "orrs r4, r6\n"
+    "pop {r5, r6, pc}\n"
+    ".syntax divided"
+    : : : "r0","r1","r2","r3","r4","r5","r6","lr","memory");
+}
+}
+
+}
+
+// DECOMP-MATCHED func_080D117E (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+__attribute__((section(".text.code_809E804.080D117E")))
+__attribute__((naked)) void func_080D117E(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "push {r5, lr}\n"
+    "bl func_080D1186\n"
+    "pop {r5, pc}\n"
+    ".syntax divided"
+    : : : "r0","r1","r2","r3","r4","r5","r6","lr","memory");
+}
+}
+
 // DECOMP-MATCHED func_080D1186 (dari code_809E804.s; cek manusia sebelum ke src/)
 extern "C" {
 __attribute__((section(".text.code_809E804.080D1186")))
@@ -4519,6 +4585,27 @@ __attribute__((naked)) void sub_080D119E(void) {
 }
 }
 
+}
+
+// DECOMP-MATCHED func_080D11A4 (dari code_809E804.s; cek manusia sebelum ke src/)
+extern "C" {
+// fragmen lanjutan Unpack/sub_080D1224: memakai r4/r2/r3 dari pemanggil.
+__attribute__((section(".text.code_809E804.080D11A4")))
+__attribute__((naked)) void func_080D11A4(void) {
+  __asm__ volatile (
+    ".syntax unified\n"
+    "push {r5, r6, lr}\n"
+    "movs r5, #0x20\n"
+    "subs r5, r5, r4\n"
+    "adds r6, r2, #0\n"
+    "lsrs r6, r5\n"
+    "subs r3, r3, r4\n"
+    "bmi sub_080D11B8\n"
+    "lsls r2, r4\n"
+    "adds r4, r6, #0\n"
+    "pop {r5, r6, pc}\n"
+  );
+}
 }
 
 // DECOMP-MATCHED func_080D14EC (dari code_809E804.s; cek manusia sebelum ke src/)

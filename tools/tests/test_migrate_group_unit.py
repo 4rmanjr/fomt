@@ -18,7 +18,7 @@ if str(REPO) not in sys.path:
 
 from decomp.migrate import (  # noqa: E402
     extend_unit_by_blocks, faithful_span_body, has_bridge_scaffold,
-    span_until_next)
+    parse_unit_names, span_until_next)
 
 ASM = """
 \tthumb_func_start func_A
@@ -34,6 +34,18 @@ func_C: @ 0x08000020
 func_D: @ 0x08000030
 \tnop
 """
+
+
+class ParseUnitNamesTest(unittest.TestCase):
+    """`--unit-names` memaksa unit grup (chunk gabungan pindah sekaligus)."""
+
+    def test_daftar_dipisah_koma(self):
+        self.assertEqual(parse_unit_names("a,b , c"), ["a", "b", "c"])
+
+    def test_kosong_dan_duplikat(self):
+        self.assertEqual(parse_unit_names(""), [])
+        self.assertEqual(parse_unit_names(None), [])
+        self.assertEqual(parse_unit_names("a, a, b"), ["a", "b"])
 
 
 class BridgeScaffoldTest(unittest.TestCase):

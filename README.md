@@ -31,11 +31,11 @@ python3 tools/scripts/readme_stats.py    # tulis ulang blok statistik ini
 | Tahap | Selesai | Total | Progres |
 |---|---:|---:|---|
 | **MATCH** (byte-identik dengan ROM) | 2.756 | 4.914 | `███████████░░░░░░░░░` 56,1% |
-| **Dipindah ke `src/`** (bukti migrasi) | 2.744 | 4.914 | `███████████░░░░░░░░░` 55,8% |
-| Promote-only (MATCH, tertahan rantai ekor) | 12 | 4.914 | `░░░░░░░░░░░░░░░░░░░░` 0,2% |
+| **Dipindah ke `src/`** (bukti migrasi) | 2.752 | 4.914 | `███████████░░░░░░░░░` 56% |
+| Promote-only (MATCH, tertahan rantai ekor) | 4 | 4.914 | `░░░░░░░░░░░░░░░░░░░░` 0,1% |
 | Sisa (belum MATCH) | 2.143 | 4.914 | `█████████░░░░░░░░░░░` 43,6% |
 
-Byte ROM yang sudah dihasilkan dari C: **147.873 / 1.706.418 B (8,7%)** — persentase fungsi lebih tinggi karena fungsi yang sudah selesai kebanyakan kecil.
+Byte ROM yang sudah dihasilkan dari C: **148.071 / 1.706.418 B (8,7%)** — persentase fungsi lebih tinggi karena fungsi yang sudah selesai kebanyakan kecil.
 
 ### Translasi aset ROM -> source
 

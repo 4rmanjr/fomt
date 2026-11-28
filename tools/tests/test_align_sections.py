@@ -29,6 +29,15 @@ def _run(text):
         return p.read_text()
 
 
+def _align_line(lines):
+    """Baris `.align` pertama sesudah header section (label .Lalignfix_*
+    boleh berada di antaranya: dipakai `.fill` padding ekor)."""
+    for ln in lines[1:4]:
+        if ln.startswith("\t.align"):
+            return ln
+    return None
+
+
 def _section(text, name):
     """Baris-baris satu section (header + isi) sampai section berikutnya."""
     out, on = [], False
@@ -38,6 +47,25 @@ def _section(text, name):
         if on:
             out.append(ln)
     return out
+
+
+class LinkonceSectionTest(unittest.TestCase):
+    """`.gnu.linkonce.t.*` (instansiasi template C++) = section kode.
+
+    Kalau dilewat skrip, GAS membulatkan panjangnya ke alignment dengan filler
+    `nop` — 2 byte `c046` vs `0000` di ROM (TERBUKTI
+    `.gnu.linkonce.t.push_front__...ToolStack` @ 0x080d7e62).
+    """
+
+    def test_linkonce_dapat_tail_align_fill_0(self):
+        src = (
+            "\t.section .gnu.linkonce.t.foo,\"ax\",%progbits\n"
+            "\t.align\t2, 0\n"
+            "foo:\n"
+            "\tnop\n"
+        )
+        out = _run(src)
+        self.assertIn('\t.section ".gnu.linkonce.t.foo"\n\t.align 2, 0', out)
 
 
 class AlignSectionsTest(unittest.TestCase):
@@ -53,7 +81,7 @@ class AlignSectionsTest(unittest.TestCase):
         lines = _section(out, "080D1186")
         self.assertEqual(lines[0],
                          '\t.section .text.m.080D1186,"ax",%progbits')
-        self.assertEqual(lines[1], "\t.align 1, 0")
+        self.assertEqual(_align_line(lines), "\t.align 1, 0")
         # padding ekor untuk section yang sama juga 2 byte
         self.assertIn('\t.section ".text.m.080D1186"\n\t.align 1, 0', out)
 
@@ -66,7 +94,7 @@ class AlignSectionsTest(unittest.TestCase):
         )
         out = _run(src)
         lines = _section(out, "080D1188")
-        self.assertEqual(lines[1], "\t.align 2, 0")
+        self.assertEqual(_align_line(lines), "\t.align 2, 0")
         self.assertIn('\t.section ".text.m.080D1188"\n\t.align 2, 0', out)
 
     def test_nama_tanpa_alamat_tetap_4_byte(self):
@@ -78,7 +106,7 @@ class AlignSectionsTest(unittest.TestCase):
         )
         out = _run(src)
         lines = _section(out, ".text.foo")
-        self.assertEqual(lines[1], "\t.align 2, 0")
+        self.assertEqual(_align_line(lines), "\t.align 2, 0")
         self.assertIn('\t.section ".text.foo"\n\t.align 2, 0', out)
 
     def test_isi_section_tidak_berubah(self):

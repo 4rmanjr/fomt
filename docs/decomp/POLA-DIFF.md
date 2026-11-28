@@ -6414,3 +6414,50 @@ Ini penolakan yang benar (section tujuan label tidak boleh dicabut); yang
 dibutuhkan agar ketiganya bisa pindah adalah memindahkan pemilik chunk
 `func_080D10F0` **bersama** `sub_080D11B8`/label `.L080D11CC`, bukan memaksa
 split.
+
+## §142. `func_080D116A/116E/117E` HIJAU — unit paksa `--unit-names` + filler `nop` section linkonce
+
+**Verdict per fungsi (semua HIJAU, `src/code_809E804.cc`, marker DECOMP-MATCHED):**
+
+| fungsi | `nm fomt.elf` | catatan |
+|---|---|---|
+| `func_080D10F0` | `080d10f1 T` | pemilik chunk, pindah bersama |
+| `func_080D116A` | `080d116b T` | target; bit-0 = Thumb |
+| `func_080D116E` | `080d116f T` | target |
+| `func_080D117E` | `080d117f T` | target |
+| `func_080D1186` | `080d1187 T` | tujuan label `.L080D11CC`-pool |
+| `sub_080D119E` | `080d119f T` | |
+| `func_080D11A4` | `080d11a5 T` | batas chunk |
+| `sub_080D139C` | `080d139d T` | simbol grup lama, TIDAK bergeser |
+| `sub_080D1498` | `080d1499 T` | TIDAK bergeser |
+| `sub_080D14C6` | `080d14c7 T` | TIDAK bergeser |
+| `func_080D14EC` | `080d14ed T` | TIDAK bergeser |
+| `__divsi3` | `080d0ec8 T` | tetap dari `asm/code_809E804.o` |
+
+Bukti: `make compare -j4` rc=0, `fomt.gba: OK` setelah `rm -rf build`
+(murni dari nol), `baserom vs fomt.gba` = 0 byte beda.
+
+**Resep pembuka blocker (dipakai, generik):** `decomp/migrate.py --group
+--unit-names a,b,c`. `group_unit_funcs` (closure rujukan keras) hanya melihat
+`func_080D10F0` sebagai unit tertutup, padahal chunk-nya memuat 116A/116E/117E
+dan pool `.L080D11Cx` milik `sub_080D11B8`. `--unit-names` memaksa satu unit
+yang seluruh anggotanya sudah MATCH, jadi chunk pindah utuh (tanpa split
+paksa) dan grup tertutup terpenuhi.
+
+**Jebakan gate baru (WAJIB): filler `nop` di section `.gnu.linkonce.t.*`.**
+Build inkremental hijau, tetapi `rm -rf build` + `make compare` MERAH 4 byte:
+`c046` (nop) di 0x080d7e62 & 0x080e0eee, ROM `0000`. Penyebabnya instansiasi
+template C++ (`push_front__t8FixedVec2Z9ToolStackUl8G9ToolStack`) hidup di
+section `.gnu.linkonce.t.*` yang dilewat `tools/scripts/align_sections.py`
+(hanya `.text*` yang diurus), sehingga GAS membulatkan panjang section ke
+alignment dengan filler `nop`. Perbaikan: `is_code_section()` menerima
+`.text*` **dan** `.gnu.linkonce.t.*` → tail `.align 2, 0` menulis byte 0.
+Regresi: `tools/tests/test_align_sections.py::LinkonceSectionTest`.
+
+**Catatan alignment (jangan diubah):** `.align` ekor hanya disintesis bila
+section mulai 4-aligned DAN section berikutnya 4-aligned (`.align 2, 0`
+terverifikasi menulis `0000`); selain itu dibuang, karena `.align 2` pada
+section yang mulai 2-mod-4 membulatkan panjang ke kelipatan 4 (TERBUKTI
+`.080D1498` 0x2e→0x30, chunk `.080D10F0` 0x96→0x98 → `func_080D1186`
+mendarat di 0x080d1188). Skrip juga idempoten (`strip_stale`) karena
+`build/src/*.s` hasil agbcc di-align ulang tiap build.

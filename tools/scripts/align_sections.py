@@ -16,12 +16,17 @@ alamat fungsi berikutnya di modul (dari `decomp/state/modules/<stem>.json`):
     dan `func_080D1186` mendarat di 0x080d1188).
   * sisanya                       -> align 2 (4 byte)
 
+Padding ekor:
+  * `.align` penutup warisan asm DIBUANG (sumber padding +2 byte palsu:
+    `.080D129A` 0x52 -> 0x54, `.080D1498` 0x2e -> 0x30);
+  * padding yang MEMANG perlu (section mulai 4-aligned, section berikutnya
+    juga 4-aligned, panjang isi 2-mod-4) disintesis eksplisit
+    `.align 2, 0` supaya filler-nya 0, bukan `nop` (`c046` vs `0000` di
+    ROM — TERBUKTI asm/code_linkonce 0x080d7e62).
+
 Selain itu:
   * `thumb_func_start` di section align-1 diganti
-    `non_word_aligned_thumb_func_start` (makro itu yang menulis `.align 2`;
-    tanpa penggantian, alignment section tetap 4);
-  * `.align` penutup di akhir fungsi (tepat sebelum `.section` berikut)
-    DIBUANG — sumber padding +2 byte per section;
+    `non_word_aligned_thumb_func_start` (makro itu yang menulis `.align 2`);
   * di ekor berkas tiap section dibuka ulang + `.align` sesuai alamatnya.
 
 Pemakaian: align_sections.py <berkas.s> [--stem <nama>]
@@ -39,6 +44,18 @@ SEC_RE = re.compile(r'^\s*\.section\s+"?([A-Za-z0-9_.]+)"?,')
 ALIGN_RE = re.compile(r"^\t\.align[ \t]+[0-9]+(,[ \t]*[0-9]+)?$")
 START_RE = re.compile(r"^\tthumb_func_start\s+(\w+)\s*$")
 ADDR_RE = re.compile(r"\.([0-9A-Fa-f]{8})$")
+
+
+CODE_PREFIXES = (".text", ".gnu.linkonce.t")
+
+
+def is_code_section(name):
+    """`.text*` DAN `.gnu.linkonce.t.*`: instansiasi template C++ (`-ffunction-
+    sections` gaya kuno) juga section kode. Kalau dilewat, GAS membulatkan
+    panjangnya ke alignment dgn filler `nop` (`c046` vs `0000` di ROM —
+    TERBUKTI src/rucksack.o `.gnu.linkonce.t.push_front__...ToolStack`
+    0x080d7e62)."""
+    return bool(name) and name.startswith(CODE_PREFIXES)
 
 
 def addr_of(name):
@@ -95,8 +112,7 @@ def align_for(name, addrs, present=None, src_present=None):
     `present` = alamat section yang masih ada di berkas ini. Aturan "berakhir
     2-mod-4" hanya dipakai bila section berikutnya SUDAH TIDAK ADA di berkas
     (pindah ke src/): kalau masih ada, asm asli sudah benar dan memaksa
-    align-1 justru menggeser section lain (TERBUKTI: modul code_0803EE94
-    gagal assemble `target not word aligned`).
+    align-1 justru menggeser section lain.
     """
     a = addr_of(name)
     if a is None:
@@ -116,33 +132,71 @@ def align_for(name, addrs, present=None, src_present=None):
     return 1
 
 
+STALE_LABEL_RE = re.compile(r"^\.Lalignfix_\d+:$")
+STALE_FILL_RE = re.compile(
+    r"^\t\.fill \(4 - \(\(\. - \.Lalignfix_\d+\) % 4\)\) % 4, 1, 0$")
+
+
+def strip_stale(text):
+    """Buang sisa label/.fill dari pass sebelumnya (skrip dijalankan 2x:
+    `build/src/*.s` hasil agbcc di-align ulang tiap build; rujukan label
+    lama akan jadi non-absolut -> `Error: .fill specifies non-absolute
+    value`)."""
+    keep = []
+    for line in text.splitlines():
+        if STALE_LABEL_RE.match(line) or STALE_FILL_RE.match(line):
+            continue
+        keep.append(line)
+    return "\n".join(keep) + "\n"
+
+
 def rewrite(text, addrs, src_present=None):
+    text = strip_stale(text)
     present = {addr_of(m.group(1)) for m in SEC_RE.finditer(text)
-               if m.group(1).startswith(".text")}
+               if is_code_section(m.group(1))}
     out = []
     sec = None
     al = 2
     seen = 0
     held = None
+    cur_addr = None
+
+    def close_section(next_name):
+        """Padding 4->4 dengan fill 0 bila memang diperlukan.
+
+        `.align 2, 0` WAJIB eksplisit: tanpa directive ini GAS membulatkan
+        panjang section ke `sh_addralign`-nya dengan filler `nop`
+        (`c046` vs `0000` di ROM — TERBUKTI asm/code_linkonce 0x080d7e62 &
+        0x080e0eee; `.align 2, 0` sendiri terverifikasi menulis byte 0).
+        """
+        if cur_addr is None or cur_addr % 4 != 0:
+            return
+        nxt = addr_of(next_name) if next_name else None
+        if nxt is None or nxt % 4 != 0:
+            return
+        out.append("\t.align 2, 0")
+
     for line in text.splitlines():
-        is_sec = line.startswith("\t.section ") or line.startswith('    .section ')
-        if held is not None:
-            if not is_sec:
-                out.append(held)
+        m_sec = SEC_RE.match(line)
+        if m_sec:
+            # `.align` ekor warisan dibuang; padding perlu disintesis
+            # dgn fill 0 (lihat close_section).
             held = None
-        if is_sec:
-            m = SEC_RE.match(line)
-            sec = m.group(1) if m else None
-            # hanya section `.text*` yang diatur; section data/rodata
-            # dibiarkan apa adanya. Section kode tanpa alamat tetap align 2.
-            if not sec or not sec.startswith(".text"):
+            close_section(m_sec.group(1))
+            sec = m_sec.group(1) or ""
+            if not is_code_section(sec):
                 sec = None
                 al = 2
+                cur_addr = None
             else:
                 al = align_for(sec, addrs, present, src_present)
+                cur_addr = addr_of(sec)
             seen = 0
             out.append(line)
             continue
+        if held is not None:
+            out.append(held)
+            held = None
         if sec is None:
             out.append(line)
             continue
@@ -153,7 +207,7 @@ def rewrite(text, addrs, src_present=None):
             else:
                 held = line
             continue
-        if al == 1 and sec:
+        if al == 1:
             m = START_RE.match(line)
             if m:
                 out.append(f"\tnon_word_aligned_thumb_func_start {m.group(1)}")
@@ -169,7 +223,7 @@ def tail(text, addrs, present=None, src_present=None):
     names = []
     for line in text.splitlines():
         m = SEC_RE.match(line)
-        if (m and m.group(1).startswith(".text")
+        if (m and is_code_section(m.group(1))
                 and m.group(1) not in names):
             names.append(m.group(1))
     out = []
@@ -197,15 +251,13 @@ def main(argv):
     # Batas section di berkas asm = section yang masih ada + yang sudah
     # pindah ke src/. Alamat state TIDAK dipakai: fungsi tanpa batas section
     # (mis. 0x080D117E di dalam chunk 0x10F0) bukan batas chunk.
-    is_asm = Path(path).name.endswith(".split.s")
-    if is_asm:
+    if Path(path).name.endswith(".split.s"):
         present0 = {addr_of(m.group(1)) for m in SEC_RE.finditer(src)
-                    if m.group(1).startswith(".text")}
-        bounds = sorted(x for x in (present0 | srv) if x is not None)
-        addrs = bounds
+                    if is_code_section(m.group(1))}
+        addrs = sorted(x for x in (present0 | srv) if x is not None)
     new = rewrite(src, addrs, srv or None)
     present = {addr_of(m.group(1)) for m in SEC_RE.finditer(new)
-               if m.group(1).startswith(".text")}
+               if is_code_section(m.group(1))}
     new += tail(new, addrs, present, srv or None)
     p.write_text(new)
     return 0

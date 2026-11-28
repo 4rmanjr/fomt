@@ -3642,7 +3642,17 @@ def _migrate_one_impl(module, func, dry_run=False):
             "detail": compare_tail, "files": files}
 
 
-def migrate_group(module, func, dry_run=False):
+def parse_unit_names(text):
+    """"a, b ,c" -> ['a','b','c'] (urutan dipertahankan, duplikat dibuang)."""
+    out = []
+    for part in (text or "").split(","):
+        n = part.strip()
+        if n and n not in out:
+            out.append(n)
+    return out
+
+
+def migrate_group(module, func, dry_run=False, unit=None):
     """Migrasi SELURUH unit tertutup `func` dalam satu build (mode grup).
 
     Alasan: `ldr rX, .Lpool` PC-relative tak bisa direlokasi antar-section
@@ -3656,7 +3666,11 @@ def migrate_group(module, func, dry_run=False):
     belum MATCH/promoted (bukan MERAH: memang belum bisa).
     """
     stem = module[: -len(".s")] if module.endswith(".s") else module
-    funcs = group_unit_funcs(stem, func)
+    # `unit` = unit paksa (--unit-names): dipakai saat satu chunk grup
+    # gabungan harus pindah SEKALIGUS walau closure rujukan keras hanya
+    # melihat sebagian anggotanya (mis. chunk .080D10F0 yang berisi
+    # func_080D116A/116E/117E dan pool .L080D11Cx milik sub_080D11B8).
+    funcs = list(unit) if unit else group_unit_funcs(stem, func)
     if not funcs:
         return [{"func": func, "module": module, "ok": False,
                  "skipped": True,
@@ -3843,6 +3857,9 @@ def main():
                     help="migrasi SELURUH unit tertutup (closure rujukan "
                     "keras) dalam satu compare; wajib bila fungsi terikat "
                     "pool/label dengan tetangga grupnya")
+    ap.add_argument("--unit-names", default=None,
+                    help="daftar nama dipisah koma: paksa unit grup ini "
+                    "(mis. chunk gabungan yang semua anggotanya MATCH)")
     args = ap.parse_args()
 
     modules = args.module or PILOT_MODULES
@@ -3887,7 +3904,9 @@ def main():
             last_stem = stem
         print(f"== migrasi {name} ({mod}) ...")
         if args.group:
-            results = migrate_group(mod, name, dry_run=args.dry_run)
+            results = migrate_group(
+                mod, name, dry_run=args.dry_run,
+                unit=parse_unit_names(args.unit_names) or None)
         else:
             results = [migrate_one(mod, name, dry_run=args.dry_run)]
         for r in results:

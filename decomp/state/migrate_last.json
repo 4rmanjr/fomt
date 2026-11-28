@@ -144,25 +144,35 @@
     "status": "OK",
     "when": "2026-11-27T08:00:55"
   },
+  "code_809E804.s:func_080D10F0": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:39:52"
+  },
   "code_809E804.s:func_080D116A": {
-    "detail": "build/asm/code_809E804.split.s:98422: Error: cannot represent THUMB_OFFSET relocation in this object file format build/asm/code_809E804.split.s:98426: Error: cannot represent THUMB_OFFSET relocation i",
-    "status": "GAGAL",
-    "when": "2026-11-26T12:54:07"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:39:52"
   },
   "code_809E804.s:func_080D116E": {
-    "detail": "build/asm/code_809E804.split.s:98422: Error: cannot represent THUMB_OFFSET relocation in this object file format build/asm/code_809E804.split.s:98426: Error: cannot represent THUMB_OFFSET relocation i",
-    "status": "GAGAL",
-    "when": "2026-11-26T12:54:21"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:39:52"
   },
   "code_809E804.s:func_080D117E": {
-    "detail": "build/asm/code_809E804.split.s:98422: Error: cannot represent THUMB_OFFSET relocation in this object file format build/asm/code_809E804.split.s:98426: Error: cannot represent THUMB_OFFSET relocation i",
-    "status": "GAGAL",
-    "when": "2026-11-26T12:54:36"
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:39:52"
   },
   "code_809E804.s:func_080D1186": {
     "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
     "status": "OK",
     "when": "2026-11-27T10:26:43"
+  },
+  "code_809E804.s:func_080D11A4": {
+    "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
+    "status": "OK",
+    "when": "2026-11-27T10:39:52"
   },
   "code_809E804.s:func_080D14EC": {
     "detail": "arm-none-eabi-objcopy -O binary fomt.elf fomt.gba sha1sum -c fomt.sha1 fomt.gba: OK build/asm/code_809E804.split.s: Assembler messages: build/asm/code_809E804.split.s:75208: use of r13 is deprecated",
